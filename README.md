@@ -1,5 +1,7 @@
 ## Ett PageTypeBuilder för WordPress
 
+[Google Docs dokumentet](https://docs.google.com/document/d/1gSG24PBoba4R1jAeeohC1CVKuYmIZ_Ho6u7fK6lRln0/edit?usp=sharing)
+
 Idé till hur man skulle kunna bygga ett page type builder i WordPress ovanpå de de vanliga sidorna och egna custom post types.
 
 Genom att läga till en meta box på de vanliga sidorna där man kan välja sidmall så kan vi styra vilka fält som ska visas för redaktören.
