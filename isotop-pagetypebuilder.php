@@ -12,6 +12,8 @@
 // Exit if accessed directly.
 if (!defined('ABSPATH')) exit;
 
+/*
+
 if (!class_exists('Isotop_PageTypeBuilder')):
 
 class Isotop_PageTypeBuilder {
@@ -60,3 +62,12 @@ class Isotop_PageTypeBuilder {
 new Isotop_PageTypeBuilder;
 
 endif;
+*/
+
+// Useful global constants.
+define('ISOTOP_PAGETYPEBUILDER_VERSION', '0.1.0');
+define('ISOTOP_PAGETYPEBUILDER_URL', plugin_dir_url(__FILE__));
+define('ISOTOP_PAGETYPEBUILDER_PATH', dirname(__FILE__) . '/');
+
+// Require files.
+require_once(ISOTOP_PAGETYPEBUILDER_PATH . 'includes/class-ptb-core.php');
