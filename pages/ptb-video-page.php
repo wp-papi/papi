@@ -15,6 +15,7 @@ class PTB_Video_Page extends PTB_Base {
       'type' => self::PropertyString,
       'title' => 'Youtube video',
       // 'key' => 'youtube-vide',
+      'box' => 'Filmer',
       'priority' => 'default',
       'disable' => true,
       'require' => false

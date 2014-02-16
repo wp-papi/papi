@@ -9,12 +9,12 @@
  * @return int
  */
 
-function get_ptb_post_id ($post_id) {
+function get_ptb_post_id ($post_id = null) {
   if (is_object($post_id)) {
     return $post->ID;
   }
 
-  if (is_null($post)) {
+  if (is_null($post_id)) {
     $post_id = get_the_ID();
     if (is_null($post_id) && isset($_GET['post'])) {
       $post_id = $_GET['post'];
@@ -285,13 +285,65 @@ function ptb_get_all_page_types () {
   $files = glob(PTB_DIR . '*');
   $res = array();
   $page_type = 'page_type';
+
   foreach ($files as $file) {
-    $class_name = get_ptb_class_name($file);
-    require_once($file);
-    $res[] = (object)array(
-      'file_name' => ptb_remove_ptb(basename($file, '.php')),
-      'page_type' => (object)$class_name::$page_type
-    );
+    $res[] = ptb_get_page_type_from_file($file);
   }
+
   return $res;
+}
+
+/**
+ * Get page type object form file.
+ *
+ * @param string $page_type
+ * @since 1.0
+ *
+ * @return object
+ */
+
+function ptb_get_page_type_from_file ($file) {
+  $class_name = get_ptb_class_name($file);
+  require_once($file);
+  return (object)array(
+    'file_name' => ptb_remove_ptb(basename($file, '.php')),
+    'page_type' => (object)$class_name::$page_type
+  );
+}
+
+/**
+ * Get page type file from page type.
+ *
+ * @param string $page_type
+ * @since 1.0
+ *
+ * @return string
+ */
+
+function ptb_get_page_type_file ($page_type) {
+  return PTB_DIR . ptb_dashify(ptbify($page_type)) . '.php';
+}
+
+/**
+ * Load right page type page in "page.php".
+ *
+ * @since 1.0
+ */
+
+function ptb_load_page () {
+  $post_id = get_ptb_post_id();
+  $page_type = ptb_get_page_type($post_id);
+  $file = ptb_get_page_type_file($page_type);
+  $data = ptb_get_page_type_from_file($file);
+  $filename = $data->page_type->filename;
+
+  if ($filename[0] === '/') {
+    $path = $data->page_type->filename;
+  } else {
+    $path = TEMPLATEPATH . '/' . $data->page_type->filename;
+  }
+
+  if (file_exists($path)) {
+    require_once($path);
+  }
 }
