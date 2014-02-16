@@ -11,8 +11,9 @@ class PTB_Properties extends PTB_Properties_Base {
    *
    * @since 1.0
    */
-
-  const PropertyString = '<input type="text" {{attributes}} />';
+
+  const PropertyString = 'PropertyString';
+  const PropertyStringHtml = '<input type="text" {{attributes}} />';
 
   /**
    * Property boolean
@@ -20,7 +21,8 @@ class PTB_Properties extends PTB_Properties_Base {
    * @since 1.0
    */
 
-  const PropertyBoolean = '<input type="checkbox" {{attributes}} />';
+  const PropertyBoolean = 'PropertyBoolean';
+  const PropertyBooleanHtml = '<input type="checkbox" {{attributes}} />';
 
   /**
    * Property email.
@@ -28,7 +30,8 @@ class PTB_Properties extends PTB_Properties_Base {
    * @since 1.0
    */
 
-  const PropertyEmail = '<input type="email" {{attributes}} />';
+  const PropertyEmail = 'PropertyEmail';
+  const PropertyEmailHtml = '<input type="email" {{attributes}} />';
 
   /**
    * Property url.
@@ -36,7 +39,8 @@ class PTB_Properties extends PTB_Properties_Base {
    * @since 1.0
    */
 
-  const PropertyUrl = '<input type="url" {{attributes}} />';
+  const PropertyUrl = 'PropertyUrl';
+  const PropertyUrlHtml = '<input type="url" {{attributes}} />';
 
   /**
    * Propert number.
@@ -44,7 +48,8 @@ class PTB_Properties extends PTB_Properties_Base {
    * @since 1.0
    */
 
-  const PropertyNumber = '<input type="url" {{attributes}} />';
+  const PropertyNumber = 'PropertyNumber';
+  const PropertyNumberHtml = '<input type="url" {{attributes}} />';
 
   /**
    * Property date.
@@ -52,7 +57,8 @@ class PTB_Properties extends PTB_Properties_Base {
    * @since 1.0
    */
 
-  const PropertyDate = '<input type="date" {{attributes}} />';
+  const PropertyDate = 'PropertyDate';
+  const PropertyDateHtml = '<input type="date" {{attributes}} />';
 
   /**
    * Property datetime.
@@ -60,7 +66,8 @@ class PTB_Properties extends PTB_Properties_Base {
    * @since 1.0
    */
 
-  const PropertyDateTime = '<input type="datetime" {{attributes}} />';
+  const PropertyDateTime = 'PropertyDateTime';
+  const PropertyDateTimeHtml = '<input type="datetime" {{attributes}} />';
 
   /**
    * Property time.
@@ -68,7 +75,8 @@ class PTB_Properties extends PTB_Properties_Base {
    * @since 1.0
    */
 
-  const PropertyTime = '<input type="time" {{attributes}} />';
+  const PropertyTime = 'PropertyTime';
+  const PropertyTimeHtml = '<input type="time" {{attributes}} />';
 
   /**
    * Property color.
@@ -76,6 +84,36 @@ class PTB_Properties extends PTB_Properties_Base {
    * @since 1.0
    */
 
-  const PropertyColor = '<input type="color" {{attributes}} />';
+  const PropertyColor = 'PropertyColor';
+  const PropertyColorHtml = '<input type="color" {{attributes}} />';
+
+  /**
+   * Property divider.
+   *
+   * @since 1.0
+   */
+
+  const PropertyDivider = 'PropertyDivider';
+  const PropertyDividerHtml = '<h3 class="hndle"><span>{{title}}</span></h3>';
+
+  /**
+   * Get special properties html output.
+   *
+   * @param object $property
+   * @since 1.0
+   *
+   * @return string
+   */
+
+  public function special_properties ($property) {
+    switch ($property->type) {
+      case self::PropertyDivider:
+        $html = self::PropertyDividerHtml;
+        $html = str_replace('{{title}}', $property->title, $html);
+        return '</tbody></table>' . $html . '<table><tbody>';
+      default:
+        return null;
+    }
+  }
 
 }

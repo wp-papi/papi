@@ -7,6 +7,15 @@
 class PTB_Core {
 
   /**
+   * Nonce key.
+   *
+   * @var string
+   * @since 1.0
+   */
+
+  private $nonce_key = 'page_type_builder';
+
+  /**
    * Constructor. Add actions.
    *
    * @since 1.0
@@ -16,6 +25,7 @@ class PTB_Core {
     $this->view = new PTB_View;
     add_action('admin_menu', array($this, 'ptb_menu'));
     add_action('plugins_loaded', array($this, 'ptb_load'));
+    add_action('save_post', array($this, 'ptb_save_post'));
   }
 
   /**
@@ -57,12 +67,22 @@ class PTB_Core {
     $uri = $_SERVER['REQUEST_URI'];
 
     // Only load Page Types on a "page" post type page in admin.
-    if (strpos($uri, 'post-new.php?post_type=page') === false ||
-      isset($_GET['post']) && get_post_type($_GET['post']) == 'page') {
+    if (strpos($uri, 'post-new.php?post_type=page') === false && (
+      isset($_GET['post']) && get_post_type($_GET['post']) != 'page' ||
+      isset($_POST['post_type']) && $_POST['post_type'] != 'page')) {
+
+        // DEBUG CODE
+        var_dump(':(');
+
       return;
+    }
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['ptb_page_type']) {
+      $page_type = $_POST['ptb_page_type'];
+    } else {
+      $page_type = get_ptb_page_type();
     }
 
-    $page_type = get_ptb_page_type();
     $path = PTB_DIR . 'ptb-' . $page_type . '.php';
 
     // Can't proceed without a page type or if the file exists.
@@ -80,5 +100,62 @@ class PTB_Core {
     // Require and initialize the page type.
     require_once($path);
     new $class_name;
+  }
+
+  /**
+   * Save post.
+   *
+   * @param object $post
+   * @since 1.0
+   */
+
+  public function ptb_save_post ($post_id) {
+
+    // Check if our nonce is set.
+    if (!isset($_POST['page_type_builder_nonce'])) {
+      return $post_id;
+    }
+
+    $nonce = $_POST['page_type_builder_nonce'];
+
+    if (!wp_verify_nonce($nonce, 'page_type_builder')) {
+      return $post_id;
+    }
+
+    // If this is an autosave, our form has not been submitted, so we don't want to do anything.
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+      return $post_id;
+    }
+
+    // Check the user's permissions.
+    if ('page' == $_POST['post_type']) {
+      if (!current_user_can('edit_page', $post_id)) {
+        return $post_id;
+      }
+    }
+
+    // Get only Page Type Builder fields from the POST object.
+    $meta_value = get_post_meta($post_id, $this->nonce_key, true);
+    $pattern = '/^ptb\_.*/';
+    $keys = preg_grep($pattern, array_keys($_POST));
+
+    // Loop through all keys and set values in the data array.
+    foreach ($keys as $key) {
+      $_POST[$key] = str_replace('\"', '', $_POST[$key]);
+      if ($_POST[$key] == 'on') {
+        $data[$key] = true;
+      } else {
+        $data[$key] = $_POST[$key];
+      }
+    }
+
+    // Add, update or delete the meta values.
+    if (count($meta_value) == 0 || empty($meta_value)) {
+      add_post_meta ($post_id, $this->nonce_key, $data, true);
+    } else if (count($meta_value) > 0 && count($data) > 0) {
+      update_post_meta($post_id, $this->nonce_key, $data);
+    } else {
+      delete_post_meta($post_id, $this->nonce_key, $meta_value);
+    }
   }
 }

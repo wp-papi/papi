@@ -103,3 +103,29 @@ function ptb_slugify ($str) {
 function ptb_underscorify ($str) {
   return str_replace(' ', '_', str_replace('-', '_', $str));
 }
+
+/**
+ * Remove `ptb-` or `ptb_` from the given string.
+ *
+ * @param string $str
+ * @since 1.0
+ *
+ * @return string
+ */
+
+function ptb_remove_ptb ($str) {
+  return str_replace('ptb-', '', str_replace('ptb_', '', $str));
+}
+
+/**
+ * Get Html template for property type.
+ *
+ * @param string $type
+ * @since 1.0
+ *
+ * @return string
+ */
+
+function ptb_get_html_for_type ($type) {
+  return constant(PTB_Properties . '::' . $type . 'Html');
+}

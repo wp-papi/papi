@@ -7,73 +7,9 @@
 class PTB_Properties_Base {
 
   /**
-   * Data holder.
+   * Generate HTML from a property type with tr and td tags.
    *
-   * @var array
-   * @since 1.0
-   * @access private
-   */
-
-  private $data = array();
-
-  /**
-   * Get property from the data array.
-   *
-   * @param string $property
-   * @since 1.0
-   *
-   * @return mixed
-   */
-
-  public function __get ($property) {
-    if (array_key_exists($property, $this->data)) {
-      return $this->data[$property];
-    }
-
-    return null;
-  }
-
-  /**
-   * Set property in the data array with the value.
-   *
-   * @param string $property
-   * @since 1.0
-   */
-
-  public function __set ($property, $value) {
-    $this->data[$property] = $value;
-  }
-
-  /**
-   * Check if property is set or not.
-   *
-   * @param string $property
-   * @since 1.0
-   *
-   * @return bool
-   */
-
-  public function __isset ($property) {
-    return isset($this->data[$property]);
-  }
-
-  /**
-   * Unset property from the data array.
-   *
-   * @param string $property
-   * @since 1.0
-   *
-   * @return bool
-   */
-
-  public function __unset ($property) {
-    unset($this->data[$property]);
-  }
-
-  /**
-   * Generate html from a property type.
-   *
-   * @param string $type The property string
+   * @param object $property Property object
    * @param array $args Array of attributes
    * @param string $inner Inner html
    * @since 1.0
@@ -81,13 +17,24 @@ class PTB_Properties_Base {
    * @return string
    */
 
-  public function toHTML ($type, $args = array(), $inner = '') {
+  public function toHTML ($property, $args = array(), $inner = '') {
+    // Some properties has special html output.
+    $special_property = $this->special_properties($property);
+    if (!is_null($special_property) && !empty($special_property)) {
+      return $special_property;
+    }
+
+    // Procced with the normal html output.
     $attributes = '';
     foreach ($args as $key => $value) {
       $attributes .= ' ' . $key . '="' . $value . '" ';
     }
-    $type = str_replace('{{attributes}}', $attributes, $type);
-    return str_replace('{{inner}}', $inner, $type);
+    $html = ptb_get_html_for_type($property->type);
+    $html = str_replace('{{attributes}}', $attributes, $html);
+    $html = str_replace('{{inner}}', $inner, $html);
+    $html = PTB_Html::td($html);
+    $label = PTB_Html::td(PTB_Html::label($property->title, $property->key));
+    return PTB_Html::tr($label . $html);
   }
 
 }
