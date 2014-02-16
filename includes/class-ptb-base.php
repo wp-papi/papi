@@ -140,8 +140,8 @@ class PTB_Base extends PTB_Properties {
      }
 
      // If the disable option is true, don't add it to the page.
-     if (isset($options->disable) && !$options->disable) {
-      return;
+     if (isset($options->disable) && $options->disable) {
+       return;
      }
 
      // Set the key to the title slugify.
@@ -210,4 +210,33 @@ class PTB_Base extends PTB_Properties {
      }
    }
 
+   /**
+    * Remove post tpye support. This function will only work one time on page load.
+    *
+    * @param string|array $remove_post_type_support
+    * @since 1.0
+    */
+
+   public function remove ($remove_post_type_support = array(), $post_type = 'page') {
+     if (is_string($remove_meta_boxes)) {
+       $remove_post_type_support = array($remove_post_type_support);
+     }
+
+     if (!isset($this->remove_post_type_support)) {
+      $this->remove_post_type_support = array($remove_post_type_support, $post_type);
+      add_action('init', array($this, 'remove_post_type_support'), 10);
+     }
+   }
+
+   /**
+    * Admin menu, remove meta boxes.
+    *
+    * @since 1.0
+    */
+
+  public function remove_post_type_support () {
+    foreach ($this->remove_post_type_support[0] as $post_type_support) {
+      remove_post_type_support($this->remove_post_type_support[1], $post_type_support);
+    }
+  }
 }

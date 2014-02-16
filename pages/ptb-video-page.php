@@ -11,6 +11,12 @@ class PTB_Video_Page extends PTB_Base {
   public function __construct () {
     parent::__construct();
 
+    $this->remove(array(
+      'editor',
+      'comments',
+      'revisions'
+    ));
+
     $this->property(array(
       'type' => self::PropertyString,
       'title' => 'Youtube video',

@@ -2,6 +2,8 @@
 
 /**
  * Page Type Builder Properties class.
+ *
+ * @todo Move properties to own class that extends from a base class.
  */
 
 class PTB_Properties extends PTB_Properties_Base {
