@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Plugin Name: Isotop PageTypeBuilder
+ * Plugin Name: PageTypeBuilder
  * Description: PageTypeBuilder for WordPress
- * Author: Fredrik Forsmo
+ * Author: Fredrik Forsmo - Isotop AB
  * Author URI: http://forsmo.me/
  * Version: 1.0
- * Plugin URI:
+ * Plugin URI: http://opensource.isotop.se/wordpress/pagetypebuilder
  */
 
 // Exit if accessed directly.
@@ -97,6 +97,8 @@ class PTB_Loader {
     require_once($this->plugin_dir . 'includes/ptb-functions.php');
     require_once($this->plugin_dir . 'includes/class-ptb-core.php');
     require_once($this->plugin_dir . 'includes/class-ptb-view.php');
+    require_once($this->plugin_dir . 'includes/class-ptb-properties-base.php');
+    require_once($this->plugin_dir . 'includes/class-ptb-properties.php');
     require_once($this->plugin_dir . 'includes/class-ptb-base.php');
   }
 

@@ -49,6 +49,8 @@ class PTB_Core {
 
   /**
    * Load right Page Type Builder file if it exists.
+   *
+   * @since 1.0
    */
 
   public function ptb_load () {
@@ -68,13 +70,14 @@ class PTB_Core {
       return;
     }
 
-    $class_name = get_class_name($path);
+    $class_name = get_ptb_class_name($path);
 
     // No class found.
     if (is_null($class_name)) {
       return;
     }
 
+    // Require and initialize the page type.
     require_once($path);
     new $class_name;
   }

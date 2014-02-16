@@ -54,21 +54,52 @@ function get_ptb_page_type () {
  * @return string|null
  */
 
-function get_class_name ($file) {
+function get_ptb_class_name ($file) {
   header('Content-Type: text/plain');
-  $php_file = file_get_contents($file);
-  $tokens = token_get_all($php_file);
+  $content = file_get_contents($file);
+  $tokens = token_get_all($content);
   $class_token = false;
   $class_name = null;
+
   foreach ($tokens as $token) {
     if (is_array($token)) {
-      if ($token[0] == T_CLASS) {
-         $class_token = true;
-      } else if ($class_token && $token[0] == T_STRING) {
+      if ($token[0] === T_CLASS) {
+        $class_token = true;
+      } else if ($class_token && $token[0] === T_STRING) {
         $class_name = $token[1];
-         $class_token = false;
+        $class_token = false;
       }
     }
   }
+
   return $class_name;
+}
+
+/**
+ * Slugify the given string.
+ *
+ * @param string $str
+ *
+ * @return string
+ */
+
+function ptb_slugify ($str) {
+  $str = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+  $str = strtolower($str);
+  $str = preg_replace("/\W/", '-', $str);
+  $str = preg_replace("/-+/", '-', $str);
+  return trim($str, '-');
+}
+
+/**
+ * Underscorify the given string.
+ * Replacing whitespace and dash with a underscore.
+ *
+ * @param string $str
+ *
+ * @return string
+ */
+
+function ptb_underscorify ($str) {
+  return str_replace(' ', '_', str_replace('-', '_', $str));
 }
