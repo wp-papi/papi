@@ -3,18 +3,25 @@
 /**
  * Get post id from a object.
  *
- * @param object $post
+ * @param object $post_id
  * @since 1.0
  *
  * @return int
  */
 
-function get_ptb_post_id ($post) {
-  if (is_object($post)) {
+function get_ptb_post_id ($post_id) {
+  if (is_object($post_id)) {
     return $post->ID;
   }
 
-  return $post;
+  if (is_null($post)) {
+    $post_id = get_the_ID();
+    if (is_null($post_id) && isset($_GET['post'])) {
+      $post_id = $_GET['post'];
+    }
+  }
+
+  return $post_id;
 }
 
 /**
@@ -139,6 +146,19 @@ function ptb_underscorify ($str) {
 }
 
 /**
+ * Dashify the given string.
+ * Replacing whitespace and underscore with a dash.
+ *
+ * @param string $str
+ *
+ * @return string
+ */
+
+function ptb_dashify ($str) {
+  return str_replace(' ', '-', str_replace('_', '-', $str));
+}
+
+/**
  * Remove `ptb-` or `ptb_` from the given string.
  *
  * @param string $str
@@ -196,7 +216,7 @@ function ptb_get_page_type ($post_id) {
 
 function ptb_get_properties ($post_id) {
   if (!isset($post_id)) {
-    $post_id = get_the_ID();
+    $post_id = get_ptb_post_id();
   }
   $post_id = get_ptb_post_id($post_id);
   return get_post_meta($post_id, PTB_META_KEY, true);
@@ -216,14 +236,14 @@ function ptb_get_properties ($post_id) {
 function ptb_get_property_value ($post_id, $property, $default) {
   if (!isset($property)) {
     $property = $post_id;
-    $post_id = get_the_ID();
+    $post_id = get_ptb_post_id();
   }
-  
+
   $properties = ptb_get_properties($post_id);
   $property = ptb_underscorify(ptbify($property));
 
-  if (is_array($post_meta) && isset($post_meta[$property])) {
-    return $post_meta[$property];
+  if (is_array($properties) && isset($properties[$property])) {
+    return $properties[$property];
   }
 
   return $default;
@@ -239,14 +259,39 @@ function ptb_get_property_value ($post_id, $property, $default) {
  */
 
 function current_page ($array) {
-  $post_id = get_the_ID();
+  $post_id = get_ptb_post_id();
   $post = get_post($post_id, ARRAY_A);
   $post_meta = get_post_meta($post_id, PTB_META_KEY, true);
+
   if (is_array($post_meta)) {
     foreach ($post_meta as $key => $value) {
       $post[ptb_remove_ptb($key)] = $value;
     }
     return $array ? $post : (object)$post;
   }
+
   return null;
+}
+
+/**
+ * Get all page types that exists.
+ *
+ * @since 1.0
+ *
+ * @return array
+ */
+
+function ptb_get_all_page_types () {
+  $files = glob(PTB_DIR . '*');
+  $res = array();
+  $page_type = 'page_type';
+  foreach ($files as $file) {
+    $class_name = get_ptb_class_name($file);
+    require_once($file);
+    $res[] = (object)array(
+      'file_name' => ptb_remove_ptb(basename($file, '.php')),
+      'page_type' => (object)$class_name::$page_type
+    );
+  }
+  return $res;
 }

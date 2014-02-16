@@ -46,27 +46,12 @@ class PTB_View {
 
   public function render ($file) {
     if (!empty($file) && $this->exists($file)) {
-      return require_once($this->file($file));
+      require_once($this->file($file));
     }
 
     return null;
   }
-
-  /**
-   * Display file.
-   *
-   * @param string $file
-   * @since 1.0
-   */
-
-  public function display ($file) {
-    $html = $this->render($file);
-
-    if (!is_null($html)) {
-      echo $html;
-    }
-  }
-
+
   /**
    * Get full path to file with php exstention.
    *

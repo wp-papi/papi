@@ -27,6 +27,7 @@ class PTB_Core {
     add_action('plugins_loaded', array($this, 'ptb_load'));
     add_action('save_post', array($this, 'ptb_save_post'));
     add_action('admin_head', array($this, 'ptb_admin_head'));
+    add_action('admin_footer', array($this, 'ptb_admin_footer'));
   }
 
   /**
@@ -52,7 +53,7 @@ class PTB_Core {
     $page_view = get_ptb_page_view();
 
     if (!is_null($page_view)) {
-      $this->view->display($page_view);
+      $this->view->render($page_view);
     } else {
       echo '<h2>Page Type Builder - 404</h2>';
     }
@@ -89,10 +90,11 @@ class PTB_Core {
       }
     }
 
+    $page_type = ptb_dashify($page_type);
     $path = PTB_DIR . 'ptb-' . $page_type . '.php';
-
+
     // Can't proceed without a page type or if the file exists.
-    if (is_null($page_type) || !file_exists($path)) {
+    if (!file_exists($path)) {
       return;
     }
 
@@ -116,7 +118,6 @@ class PTB_Core {
    */
 
   public function ptb_save_post ($post_id) {
-
     // Check if our nonce is set.
     if (!isset($_POST['page_type_builder_nonce'])) {
       return $post_id;
@@ -172,7 +173,7 @@ class PTB_Core {
    */
 
   public function ptb_admin_head () {
-    echo '<link href="' . PTB_PLUGIN_URL . '/gui/css/ptb.css" type="text/css" rel="stylesheet" />';
+    echo '<link href="' . PTB_PLUGIN_URL . 'gui/css/ptb.css" type="text/css" rel="stylesheet" />';
   }
 
   /**
@@ -182,6 +183,6 @@ class PTB_Core {
    */
 
   public function ptb_admin_footer () {
-    echo '<link href="' . PTB_PLUGIN_URL . '/gui/js/ptb.js" type="text/css" rel="stylesheet" />';
+    echo '<script src="' . PTB_PLUGIN_URL . 'gui/js/ptb.js" type="text/javascript"></script>';
   }
 }

@@ -154,8 +154,8 @@ class PTB_Base extends PTB_Properties {
      }
 
      $options->callback_args->content = $this->toHTML($options, array(
-       'name' => 'ptb_' . ptb_underscorify($options->key)
-       // 'value' =>
+       'name' => 'ptb_' . ptb_underscorify($options->key),
+       'value' => ptb_get_property_value($options->key)
      ));
 
      if (!isset($this->boxes[$options->box])) {

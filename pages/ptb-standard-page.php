@@ -2,14 +2,14 @@
 
 class PTB_Standard_Page extends PTB_Base {
 
+  public static $page_type = array(
+    'name' => 'Standard sida',
+    'description' => 'En helt vanlig sida',
+    'filename' => 'page-standard-page.php',
+  );
+
   public function __construct () {
-    parent::__construct(array(
-      'name' => '',
-      'page_type' => '',
-      'description' => '',
-      'filename' => '',
-      'availablepagetypes' => ''
-    ));
+    parent::__construct();
 
     $this->property(array(
       'type' => self::PropertyString,

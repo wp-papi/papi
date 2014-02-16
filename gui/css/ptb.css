@@ -1,0 +1,33 @@
+.ptb-box-list {
+
+}
+
+.ptb-box-list a {
+  height: 90px;
+  width: 150px;
+  text-align: center;
+  background: white;
+  border: 1px #ddd solid;
+  padding-top: 60px;
+  display: list-item;
+  cursor: pointer;
+}
+
+.ptb-box-list li {
+  margin: 10px;
+  float: left;
+}
+
+.ptb-box-list li:first-child {
+  margin-left: 0px;
+}
+
+.ptb-box-list li:hover > a {
+  border: 1px #ccc solid;
+}
+
+.ptb-box-list li p {
+  margin-top: -65px;
+  width: 150px;
+  text-align: center;
+}
