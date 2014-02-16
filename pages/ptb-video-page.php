@@ -22,7 +22,7 @@ class PTB_Video_Page extends PTB_Base {
       'title' => 'Youtube video',
       // 'key' => 'youtube-vide',
       'box' => 'Filmer',
-      'box_sort_order' => 1,
+      'box_sort_order' => 0,
       'priority' => 'default',
       'disable' => false,
       'require' => false
@@ -45,10 +45,11 @@ class PTB_Video_Page extends PTB_Base {
       'title' => 'Youtube video',
       // 'key' => 'youtube-vide',
       'box' => 'Filmer2',
-      'box_sort_order' => 0,
+      'box_sort_order' => 1,
       'priority' => 'default',
       'disable' => false,
-      'require' => false
+      'require' => false,
+      'sort_order' => 0
     ));
 
 
