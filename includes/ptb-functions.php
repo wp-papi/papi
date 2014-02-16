@@ -233,7 +233,7 @@ function ptb_get_properties ($post_id = null) {
  * @return mixed
  */
 
-function ptb_get_property_value ($post_id, $property, $default = null) {
+function ptb_get_property_value ($post_id, $property = null, $default = null) {
   if (!isset($property)) {
     $property = $post_id;
     $post_id = get_ptb_post_id();

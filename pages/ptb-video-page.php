@@ -22,6 +22,7 @@ class PTB_Video_Page extends PTB_Base {
       'title' => 'Youtube video',
       // 'key' => 'youtube-vide',
       'box' => 'Filmer',
+      'box_sort_order' => 1,
       'priority' => 'default',
       'disable' => false,
       'require' => false
@@ -35,7 +36,29 @@ class PTB_Video_Page extends PTB_Base {
       'box' => 'Filmer',
       'priority' => 'default',
       'disable' => false,
-      'require' => false,
+      'sort_order' => 1
+    ));
+
+
+    $this->property(array(
+      'type' => self::PropertyString,
+      'title' => 'Youtube video',
+      // 'key' => 'youtube-vide',
+      'box' => 'Filmer2',
+      'box_sort_order' => 3,
+      'priority' => 'default',
+      'disable' => false,
+      'require' => false
+    ));
+
+
+    $this->property(array(
+      'type' => self::PropertyString,
+      'title' => 'Vimeo video',
+      // 'key' => 'youtube-vide',
+      'box' => 'Filmer2',
+      'priority' => 'default',
+      'disable' => false,
       'sort_order' => 1
     ));
 

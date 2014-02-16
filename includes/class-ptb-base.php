@@ -7,13 +7,22 @@
 class PTB_Base extends PTB_Properties {
 
   /**
-   * Sort order number. Starts a zero.
+   * Property sort order number. Starts a zero.
    *
    * @var int
    * @since 1.0
    */
 
-  private $sort_order = 0;
+  private $property_sort_order = 0;
+
+  /**
+   * Box sort order number. Starts a zero.
+   *
+   * @var int
+   * @since 1.0
+   */
+
+  private $box_sort_order = 0;
 
   /**
    * Default property options.
@@ -53,40 +62,9 @@ class PTB_Base extends PTB_Properties {
    * @since 1.0
    */
 
-  public function __construct (array $options = array()) {
-    $this->setup_options();
-    $this->page_type($options);
+  public function __construct () {
     $this->setup_actions();
-  }
-
-  /**
-   * Setup options keys.
-   *
-   * @since 1.0
-   */
-
-  private function setup_options () {
-    foreach ($options as $key => $value) {
-      if (isset($this->$key) && is_array($this->$key) && is_array($value)) {
-        $this->$key = array_merge($this->$key, $value);
-      } else {
-        $this->$key = $value;
-      }
-    }
-
     $this->page_type = ptb_remove_ptb(strtolower(get_class($this)));
-  }
-
-  /**
-   * Setup page type with options.
-   *
-   * @param array $options
-   * @since 1.0
-   * @access private
-   */
-
-  private function page_type (array $options = array()) {
-    $options = (object)$options;
   }
 
   /**
@@ -130,13 +108,14 @@ class PTB_Base extends PTB_Properties {
        $options->box = 'ptb_ ' . $options->title;
      }
 
+     // Property sort order.
      if (!isset($options->sort_order)) {
-       $this->sort_order++;
-       $options->sort_order = $this->sort_order;
-     } else if (intval($options->sort_order) > $this->sort_order) {
-       $this->sort_order = intval($options->sort_order);
+       $this->property_sort_order++;
+       $options->sort_order = $this->property_sort_order;
+     } else if (intval($options->sort_order) > $this->property_sort_order) {
+       $this->property_sort_order = intval($options->sort_order);
      } else {
-       $this->sort_order++;
+       $this->property_sort_order++;
      }
 
      $options->callback_args->content = $this->toHTML($options, array(
@@ -145,10 +124,24 @@ class PTB_Base extends PTB_Properties {
      ));
 
      if (!isset($this->boxes[$options->box])) {
-       $this->boxes[$options->box] = array();
+       $this->boxes[$options->box] = (object)array(
+         'name' => $options->box,
+         'properties' => array(),
+         'sort_order' => $this->box_sort_order
+       );
+
+       // Box sort order.
+       if (!$this->boxes[$options->box]->sort_order) {
+         $this->box_sort_order++;
+         $this->boxes[$options->box]->sort_order = $this->box_sort_order;
+       } else if (intval($this->boxes[$options->box]->sort_order) > $this->box_sort_order) {
+         $this->box_sort_order = intval($this->boxes[$options->box]->sort_order);
+       } else {
+         $this->box_sort_order++;
+       }
      }
 
-     $this->boxes[$options->box][] = $options;
+     $this->boxes[$options->box]->properties[] = $options;
    }
 
    /**
@@ -185,16 +178,20 @@ class PTB_Base extends PTB_Properties {
     */
 
    public function setup_page () {
-     foreach ($this->boxes as $key => $box) {
+     usort($this->boxes, function ($a, $b) {
+       return $a->sort_order - $b->sort_order;
+     });
+     foreach ($this->boxes as $box) {
        $args = array();
-       usort($box, function ($a, $b) {
+       usort($box->properties, function ($a, $b) {
          return $a->sort_order - $b->sort_order;
        });
-       foreach ($box as $property) {
+       foreach ($box->properties as $property) {
          $args[] = $property->callback_args;
        }
-       foreach ($box[0]->page_types as $page_type) {
-         add_meta_box(ptb_slugify($key), ptb_remove_ptb($key), array($this, 'box_callback'), $page_type, $box[0]->context, $box[0]->priority, $args);
+       $first_box = $box->properties[0];
+       foreach ($first_box->page_types as $page_type) {
+         add_meta_box(ptb_slugify($box->name), ptb_remove_ptb($box->name), array($this, 'box_callback'), $page_type, $first_box->context, $first_box->priority, $args);
        }
      }
    }
