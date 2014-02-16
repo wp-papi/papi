@@ -23,8 +23,20 @@ class PTB_Video_Page extends PTB_Base {
       // 'key' => 'youtube-vide',
       'box' => 'Filmer',
       'priority' => 'default',
-      'disable' => true,
+      'disable' => false,
       'require' => false
+    ));
+
+
+    $this->property(array(
+      'type' => self::PropertyString,
+      'title' => 'Vimeo video',
+      // 'key' => 'youtube-vide',
+      'box' => 'Filmer',
+      'priority' => 'default',
+      'disable' => false,
+      'require' => false,
+      'sort_order' => 1
     ));
 
   }

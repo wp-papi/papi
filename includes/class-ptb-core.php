@@ -75,10 +75,6 @@ class PTB_Core {
       $post_id !== 0 && get_post_type($post_id) != 'page' ||
       isset($_POST['post_type']) && $_POST['post_type'] != 'page' ||
       is_null($page_type))) {
-
-        // DEBUG CODE
-        var_dump(':(');
-
       return;
     }
     

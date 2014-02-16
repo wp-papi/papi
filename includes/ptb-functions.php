@@ -193,7 +193,7 @@ function ptb_get_html_for_type ($type) {
  * @return string|null
  */
 
-function ptb_get_page_type ($post_id) {
+function ptb_get_page_type ($post_id = null) {
   $post_id = get_ptb_post_id($post_id);
 
   $meta = get_post_meta($post_id, PTB_META_KEY, true);
@@ -214,7 +214,7 @@ function ptb_get_page_type ($post_id) {
  * @return array|null
  */
 
-function ptb_get_properties ($post_id) {
+function ptb_get_properties ($post_id = null) {
   if (!isset($post_id)) {
     $post_id = get_ptb_post_id();
   }
@@ -227,13 +227,13 @@ function ptb_get_properties ($post_id) {
  *
  * @param object|int $post_id
  * @param string $property
- * @param mixed $default
+ * @param mixed $default Default is null.
  * @since 1.0
  *
  * @return mixed
  */
 
-function ptb_get_property_value ($post_id, $property, $default) {
+function ptb_get_property_value ($post_id, $property, $default = null) {
   if (!isset($property)) {
     $property = $post_id;
     $post_id = get_ptb_post_id();
@@ -258,7 +258,7 @@ function ptb_get_property_value ($post_id, $property, $default) {
  * @return object|array
  */
 
-function current_page ($array) {
+function current_page ($array = false) {
   $post_id = get_ptb_post_id();
   $post = get_post($post_id, ARRAY_A);
   $post_meta = get_post_meta($post_id, PTB_META_KEY, true);

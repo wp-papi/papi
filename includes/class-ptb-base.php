@@ -7,6 +7,15 @@
 class PTB_Base extends PTB_Properties {
 
   /**
+   * Sort order number. Starts a zero.
+   *
+   * @var int
+   * @since 1.0
+   */
+
+  private $sort_order = 0;
+
+  /**
    * Default property options.
    *
    * @var array
@@ -92,43 +101,11 @@ class PTB_Base extends PTB_Properties {
   }
 
   /**
-   * Collect all public methods from the class.
+   * Add new property to the page.
    *
-   * @param object $klass
+   * @param array $options
    * @since 1.0
-   * @access private
-   *
-   * @return array
    */
-
-   private function collect_methods ($klass) {
-     $page_methods = get_class_methods($klass);
-     $parent_methods = get_class_methods(get_parent_class($klass));
-     return array_diff($page_methods, $parent_methods);
-   }
-
-   /**
-    * Collect all public vars from the class.
-    *
-    * @param object $klass
-    * @since 1.0
-    * @access private
-    *
-    * @return array
-    */
-
-   private function collect_vars ($klass) {
-     $page_vars = get_object_vars($klass);
-     $parent_vars = get_class_vars(get_parent_class($this));
-     return array_diff($page_vars, $parent_vars);
-   }
-
-   /**
-    * Add new property to the page.
-    *
-    * @param array $options
-    * @since 1.0
-    */
 
    public function property (array $options = array()) {
      $options = (object)array_merge($this->property_default, $options);
@@ -151,6 +128,15 @@ class PTB_Base extends PTB_Properties {
 
      if (!isset($options->box) || empty($options->box)) {
        $options->box = 'ptb_ ' . $options->title;
+     }
+
+     if (!isset($options->sort_order)) {
+       $this->sort_order++;
+       $options->sort_order = $this->sort_order;
+     } else if (intval($options->sort_order) > $this->sort_order) {
+       $this->sort_order = intval($options->sort_order);
+     } else {
+       $this->sort_order++;
      }
 
      $options->callback_args->content = $this->toHTML($options, array(
@@ -201,6 +187,9 @@ class PTB_Base extends PTB_Properties {
    public function setup_page () {
      foreach ($this->boxes as $key => $box) {
        $args = array();
+       usort($box, function ($a, $b) {
+         return $a->sort_order - $b->sort_order;
+       });
        foreach ($box as $property) {
          $args[] = $property->callback_args;
        }
