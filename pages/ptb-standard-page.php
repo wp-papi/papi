@@ -17,14 +17,24 @@ class PTB_Standard_Page extends PTB_Base {
 
   public function properties () {
 
-    // Name property.
     $this->property(array(
       'type' => self::PropertyString,
       'title' => 'Name of the person',
-      'key' => 'name-of-the-person', // can be empty, will take title and slugify it then
+      'key' => 'name-of-the-person',
       'priority' => 'default',
       'show_ui' => true,
-      'require' => false
+      'require' => false,
+      'box' => 'kalle'
+    ));
+
+    $this->property(array(
+      'type' => self::PropertyUrl,
+      'title' => 'Twitter',
+      'key' => 'twitter',
+      'priority' => 'default',
+      'show_ui' => true,
+      'require' => false,
+      'box' => 'kalle'
     ));
 
   }
