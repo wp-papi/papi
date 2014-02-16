@@ -84,6 +84,10 @@ class PTB_Loader {
     if (!defined('PTB_DIR')) {
       define('PTB_DIR', PTB_PLUGIN_DIR . 'pages/');
     }
+
+    if (!defined('PTB_META_KEY')) {
+      define('PTB_META_KEY', 'page_type_builder');
+    }
   }
 
   /**

@@ -26,6 +26,7 @@ class PTB_Core {
     add_action('admin_menu', array($this, 'ptb_menu'));
     add_action('plugins_loaded', array($this, 'ptb_load'));
     add_action('save_post', array($this, 'ptb_save_post'));
+    add_action('admin_head', array($this, 'ptb_admin_head'));
   }
 
   /**
@@ -65,11 +66,14 @@ class PTB_Core {
 
   public function ptb_load () {
     $uri = $_SERVER['REQUEST_URI'];
+    $post_id = isset($_GET['post']) ? $_GET['post'] : 0;
+    $page_type = ptb_get_page_type($post_id);
 
     // Only load Page Types on a "page" post type page in admin.
     if (strpos($uri, 'post-new.php?post_type=page') === false && (
-      isset($_GET['post']) && get_post_type($_GET['post']) != 'page' ||
-      isset($_POST['post_type']) && $_POST['post_type'] != 'page')) {
+      $post_id !== 0 && get_post_type($post_id) != 'page' ||
+      isset($_POST['post_type']) && $_POST['post_type'] != 'page' ||
+      is_null($page_type))) {
 
         // DEBUG CODE
         var_dump(':(');
@@ -77,10 +81,12 @@ class PTB_Core {
       return;
     }
     
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['ptb_page_type']) {
-      $page_type = $_POST['ptb_page_type'];
-    } else {
-      $page_type = get_ptb_page_type();
+    if (is_null($page_type)) {
+      if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['ptb_page_type']) {
+        $page_type = $_POST['ptb_page_type'];
+      } else {
+        $page_type = get_ptb_page_type();
+      }
     }
 
     $path = PTB_DIR . 'ptb-' . $page_type . '.php';
@@ -157,5 +163,25 @@ class PTB_Core {
     } else {
       delete_post_meta($post_id, $this->nonce_key, $meta_value);
     }
+  }
+
+  /**
+   * Add style to admin head.
+   *
+   * @since 1.0
+   */
+
+  public function ptb_admin_head () {
+    echo '<link href="' . PTB_PLUGIN_URL . '/gui/css/ptb.css" type="text/css" rel="stylesheet" />';
+  }
+
+  /**
+   * Add script to admin footer.
+   *
+   * @since 1.0
+   */
+
+  public function ptb_admin_footer () {
+    echo '<link href="' . PTB_PLUGIN_URL . '/gui/js/ptb.js" type="text/css" rel="stylesheet" />';
   }
 }
