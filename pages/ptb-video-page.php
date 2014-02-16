@@ -45,7 +45,7 @@ class PTB_Video_Page extends PTB_Base {
       'title' => 'Youtube video',
       // 'key' => 'youtube-vide',
       'box' => 'Filmer2',
-      'box_sort_order' => 3,
+      'box_sort_order' => 0,
       'priority' => 'default',
       'disable' => false,
       'require' => false

@@ -126,12 +126,11 @@ class PTB_Base extends PTB_Properties {
      if (!isset($this->boxes[$options->box])) {
        $this->boxes[$options->box] = (object)array(
          'name' => $options->box,
-         'properties' => array(),
-         'sort_order' => $this->box_sort_order
+         'properties' => array()
        );
 
        // Box sort order.
-       if (!$this->boxes[$options->box]->sort_order) {
+       if (!isset($this->boxes[$options->box]->sort_order)) {
          $this->box_sort_order++;
          $this->boxes[$options->box]->sort_order = $this->box_sort_order;
        } else if (intval($this->boxes[$options->box]->sort_order) > $this->box_sort_order) {
@@ -139,6 +138,7 @@ class PTB_Base extends PTB_Properties {
        } else {
          $this->box_sort_order++;
        }
+
      }
 
      $this->boxes[$options->box]->properties[] = $options;
