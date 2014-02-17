@@ -17,7 +17,7 @@ class PTB_Standard_Page extends PTB_Base {
 	public static $page_type = array(
 		'name' => 'Standard Page',
 		'description' => 'Description of standard page',
-		'template' => 'path-to-file-in-theme-dir.php'
+		'template' => 'page-standard-page.php'
 	);
 	
 	public function __construct () {
