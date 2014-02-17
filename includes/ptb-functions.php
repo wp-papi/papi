@@ -325,25 +325,22 @@ function ptb_get_page_type_file ($page_type) {
 }
 
 /**
- * Load right page type page in "page.php".
+ * Get template file from page type.
  *
+ * @param int|string $post_id Post id or page type
  * @since 1.0
+ *
+ * @return string
  */
 
-function ptb_load_page () {
-  $post_id = get_ptb_post_id();
-  $page_type = ptb_get_page_type($post_id);
-  $file = ptb_get_page_type_file($page_type);
+function ptb_get_template ($post_id) {
+  if (is_null($post_id) || is_numeric($post_id)) {
+    $post_id = get_ptb_post_id($post_id);
+    $page_type = ptb_get_page_type($post_id);
+  } else {
+    $page_type = $post_id;
+  }
+  $file = ptb_get_page_type_file($page_type);
   $data = ptb_get_page_type_from_file($file);
-  $filename = $data->page_type->filename;
-
-  if ($filename[0] === '/') {
-    $path = $data->page_type->filename;
-  } else {
-    $path = TEMPLATEPATH . '/' . $data->page_type->filename;
-  }
-
-  if (file_exists($path)) {
-    require_once($path);
-  }
+  return $data->page_type->template;
 }

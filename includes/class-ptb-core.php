@@ -152,13 +152,18 @@ class PTB_Core {
       }
     }
 
+    $page_type = isset($data['ptb_page_type']) ? $data['ptb_page_type'] : '';
+
     // Add, update or delete the meta values.
     if (count($meta_value) == 0 || empty($meta_value)) {
-      add_post_meta ($post_id, $this->nonce_key, $data, true);
+      add_post_meta($post_id, $this->nonce_key, $data, true);
+      add_post_meta($post_id, '_wp_page_template', ptb_get_template($page_type), true);
     } else if (count($meta_value) > 0 && count($data) > 0) {
       update_post_meta($post_id, $this->nonce_key, $data);
+      update_post_meta($post_id, '_wp_page_template', ptb_get_template($page_type));
     } else {
       delete_post_meta($post_id, $this->nonce_key, $meta_value);
+      delete_post_meta($post_id, '_wp_page_template', ptb_get_template($page_type));
     }
   }
 

@@ -17,7 +17,7 @@ class PTB_Standard_Page extends PTB_Base {
 	public static $page_type = array(
 		'name' => 'Standard Page',
 		'description' => 'Description of standard page',
-		'filename' => 'path-to-file-or-file-name-in-theme-dir.php'
+		'template' => 'path-to-file-in-theme-dir.php'
 	);
 	
 	public function __construct () {
@@ -34,6 +34,6 @@ class PTB_Standard_Page extends PTB_Base {
 
 ```
 
-On the `page.php` you need to run `ptb_load_page();` (not entirely clear how this will work) so it loads the right page. And then you can access `current_page()` function that returns the post object megered with the page type builder array for this page.
+The page will store the value of `template` in `_wp_page_template` so right `page-{x}.php` is loaded in your theme.git 
 
 So, `current_page()->heading` will return the value of the heading input field.

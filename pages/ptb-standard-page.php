@@ -5,7 +5,7 @@ class PTB_Standard_Page extends PTB_Base {
   public static $page_type = array(
     'name' => 'Standard sida',
     'description' => 'En helt vanlig sida',
-    'filename' => 'page-standard-page.php',
+    'template' => 'page-standard-page.php',
   );
 
   public function __construct () {
