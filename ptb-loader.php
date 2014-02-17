@@ -3,10 +3,10 @@
 /**
  * Plugin Name: PageTypeBuilder
  * Description: PageTypeBuilder for WordPress
- * Author: Fredrik Forsmo - Isotop AB
+ * Author: Fredrik Forsmo
  * Author URI: http://forsmo.me/
  * Version: 1.0
- * Plugin URI: http://opensource.isotop.se/wordpress/pagetypebuilder
+ * Plugin URI:
  */
 
 // Exit if accessed directly.
