@@ -34,6 +34,6 @@ class PTB_Standard_Page extends PTB_Base {
 
 ```
 
-On the `page.php` you need to run `ptb_load_page();` so it loads the right page. And then you can access `current_page()` function that returns the post object megered with the page type builder array for this page.
+On the `page.php` you need to run `ptb_load_page();` (not entirely clear how this will work) so it loads the right page. And then you can access `current_page()` function that returns the post object megered with the page type builder array for this page.
 
 So, `current_page()->heading` will return the value of the heading input field.
