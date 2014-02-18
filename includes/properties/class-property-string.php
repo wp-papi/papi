@@ -1,5 +1,8 @@
 <?php
 
+// Exit if accessed directly
+if (!defined('ABSPATH')) exit;
+
 /**
  * Page Type Builder - Property String
  */
@@ -16,8 +19,8 @@ class PropertyString extends PTB_Property {
 
   public function html () {
     return PTB_Html::input('text', array(
-      'name' => $this->property->name,
-      'value' => $this->property->value
+      'name' => $this->get_options()->name,
+      'value' => $this->get_options()->value
     ));
   }
 

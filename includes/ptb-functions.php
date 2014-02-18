@@ -172,19 +172,6 @@ function ptb_remove_ptb ($str) {
 }
 
 /**
- * Get Html template for property type.
- *
- * @param string $type
- * @since 1.0
- *
- * @return string
- */
-
-function ptb_get_html_for_type ($type) {
-  return constant(PTB_Properties . '::' . $type . 'Html');
-}
-
-/**
  * Get page type for post id or post object.
  *
  * @param object|int $post_id
