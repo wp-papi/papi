@@ -1,10 +1,13 @@
 <?php
 
+// Exit if accessed directly
+if (!defined('ABSPATH')) exit;
+
 /**
  * Page Type Builder Base class.
  */
 
-class PTB_Base extends PTB_Properties {
+class PTB_Base {
 
   /**
    * Property sort order number. Starts a zero.
@@ -58,7 +61,6 @@ class PTB_Base extends PTB_Properties {
   /**
    * Constructor.
    *
-   * @param array $options
    * @since 1.0
    */
 
@@ -90,7 +92,7 @@ class PTB_Base extends PTB_Properties {
      $options->callback_args = new stdClass;
 
      // Can't proceed without a type.
-     if (!isset($options->type)) {
+     if (!isset($options->type) && !PTB_Property::exists($options->type)) {
        return;
      }
 
@@ -100,12 +102,12 @@ class PTB_Base extends PTB_Properties {
      }
 
      // Set the key to the title slugify.
-     if (!isset($options->key) || empty($options->key)) {
-       $options->key = ptb_slugify($options->title);
+     if (!isset($options->name) || empty($options->name)) {
+       $options->name = ptb_slugify($options->title);
      }
 
      if (!isset($options->box) || empty($options->box)) {
-       $options->box = 'ptb_ ' . $options->title;
+       $options->box = ptbify($options->title);
      }
 
      // Property sort order.
@@ -118,10 +120,14 @@ class PTB_Base extends PTB_Properties {
        $this->property_sort_order++;
      }
 
-     $options->callback_args->content = $this->toHTML($options, array(
-       'name' => 'ptb_' . ptb_underscorify($options->key),
-       'value' => ptb_get_property_value($options->key)
-     ));
+     $options->name = ptb_underscorify(ptbify($options->name));
+     $options->value = ptb_get_property_value($options->name);
+
+     // Get the property
+     $property = PTB_Property::factory($options->type);
+     $property->set_options($options);
+
+     $options->callback_args->html = $property->render();
 
      if (!isset($this->boxes[$options->box])) {
        $this->boxes[$options->box] = (object)array(
@@ -132,7 +138,6 @@ class PTB_Base extends PTB_Properties {
 
        // Box sort order.
        if (!isset($this->boxes[$options->box]->sort_order)) {
-         var_dump(1);
          $this->box_sort_order++;
          $this->boxes[$options->box]->sort_order = $this->box_sort_order;
        } else if (intval($this->boxes[$options->box]->sort_order) > $this->box_sort_order) {
@@ -140,7 +145,6 @@ class PTB_Base extends PTB_Properties {
        } else {
          $this->box_sort_order++;
        }
-
      }
 
      $this->boxes[$options->box]->properties[] = $options;
@@ -168,7 +172,7 @@ class PTB_Base extends PTB_Properties {
       '<table>
         <tbody>';
       foreach ($args['args'] as $box) {
-        echo $box->content;
+        echo $box->html;
       }
       echo
         '</tbody>

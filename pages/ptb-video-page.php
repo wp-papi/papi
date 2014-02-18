@@ -18,7 +18,7 @@ class PTB_Video_Page extends PTB_Base {
     ));
 
     $this->property(array(
-      'type' => self::PropertyString,
+      'type' => PropertyString,
       'title' => 'Youtube video',
       // 'key' => 'youtube-vide',
       'box' => 'Filmer',
@@ -30,7 +30,7 @@ class PTB_Video_Page extends PTB_Base {
 
 
     $this->property(array(
-      'type' => self::PropertyString,
+      'type' => PropertyString,
       'title' => 'Vimeo video',
       // 'key' => 'youtube-vide',
       'box' => 'Filmer',
@@ -41,7 +41,7 @@ class PTB_Video_Page extends PTB_Base {
 
 
     $this->property(array(
-      'type' => self::PropertyString,
+      'type' => PropertyString,
       'title' => 'Youtube video',
       // 'key' => 'youtube-vide',
       'box' => 'Filmer2',
@@ -54,7 +54,7 @@ class PTB_Video_Page extends PTB_Base {
 
 
     $this->property(array(
-      'type' => self::PropertyString,
+      'type' => PropertyString,
       'title' => 'Vimeo video',
       // 'key' => 'youtube-vide',
       'box' => 'Filmer2',

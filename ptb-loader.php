@@ -21,9 +21,8 @@ class PTB_Loader {
   /**
    * The instance of Page Type Builder.
    *
-   * @since 1.0
-   *
    * @var object
+   * @since 1.0
    */
 
   private static $instance;
@@ -98,12 +97,18 @@ class PTB_Loader {
    */
 
   private function require_files () {
+    // Load Page Type Builder.
     require_once($this->plugin_dir . 'includes/ptb-functions.php');
+    require_once($this->plugin_dir . 'includes/ptb-actions.php');
     require_once($this->plugin_dir . 'includes/class-ptb-html.php');
     require_once($this->plugin_dir . 'includes/class-ptb-core.php');
     require_once($this->plugin_dir . 'includes/class-ptb-view.php');
-    require_once($this->plugin_dir . 'includes/class-ptb-properties-base.php');
-    require_once($this->plugin_dir . 'includes/class-ptb-properties.php');
+    require_once($this->plugin_dir . 'includes/class-ptb-property.php');
+
+    // Load properties
+    require_once($this->plugin_dir . 'includes/properties/class-property-string.php');
+
+    // Load Page Type Builder base file.
     require_once($this->plugin_dir . 'includes/class-ptb-base.php');
   }
 
