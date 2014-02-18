@@ -47,17 +47,21 @@ class PTB_Html {
   }
 
   /**
-   * Generate HTML input hidden tag.
+   * Generate HTML input tag.
    *
-   * @param string $name
-   * @param string $value
+   * @param string $type
+   * @param array $attributes
    * @since 1.0
    *
    * @return string
    */
 
-  public static function hidden ($name, $value) {
-    return '<input type="hidden" name="' . $name . '" value="' . $value . '" />';
+  public static function input ($type, $attributes) {
+    $html = '<input type="' . $type . '"';
+    foreach ($attributes as $key => $value) {
+      $html . ' ' . $key . '="' . $value . '" ';
+    }
+    return $html . '/>';
   }
 
 }
