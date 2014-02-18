@@ -158,7 +158,10 @@ class PTB_Base extends PTB_Properties {
      if (isset($args['args']) && is_array($args['args'])) {
       if (!$this->onetime_html) {
         wp_nonce_field('page_type_builder', 'page_type_builder_nonce');
-        echo PTB_Html::hidden('ptb_page_type', $this->page_type);
+        echo PTB_Html::input('hidden', array(
+          'name' => 'ptb_page_type',
+          'value' => $this->page_type
+        ));
         $this->onetime_html = true;
       }
       echo

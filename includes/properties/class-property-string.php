@@ -14,6 +14,11 @@ class PropertyString extends PTB_Property {
    * @return string
    */
 
-  public function html () {}
+  public function html () {
+    return PTB_Html::input('text', array(
+      'name' => $this->property->name,
+      'value' => $this->property->value
+    ));
+  }
 
 }
