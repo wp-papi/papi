@@ -90,7 +90,7 @@ class PTB_Core {
     }
 
     $page_type = ptb_dashify($page_type);
-    $path = PTB_DIR . 'ptb-' . $page_type . '.php';
+    $path = PTB_PAGES_DIR . 'ptb-' . $page_type . '.php';
 
     // Can't proceed without a page type or if the file exists.
     if (!file_exists($path)) {

@@ -80,12 +80,16 @@ class PTB_Loader {
       define('PTB_PLUGIN_URL', $plugin_url);
     }
 
-    if (!defined('PTB_DIR')) {
-      define('PTB_DIR', PTB_PLUGIN_DIR . 'pages/');
+    if (!defined('PTB_PAGES_DIR')) {
+      define('PTB_PAGES_DIR', PTB_PLUGIN_DIR . 'pages/');
     }
 
     if (!defined('PTB_META_KEY')) {
       define('PTB_META_KEY', 'page_type_builder');
+    }
+
+    if (!defined('PTB_CUSTOM_DIR')) {
+      define('PTB_CUSTOM_DIR', false);
     }
   }
 

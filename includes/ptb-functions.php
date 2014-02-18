@@ -269,7 +269,7 @@ function current_page ($array = false) {
  */
 
 function ptb_get_all_page_types () {
-  $files = glob(PTB_DIR . '*');
+  $files = glob(PTB_PAGES_DIR . '*');
   $res = array();
   $page_type = 'page_type';
 
@@ -283,7 +283,7 @@ function ptb_get_all_page_types () {
 /**
  * Get page type object form file.
  *
- * @param string $page_type
+ * @param string $file
  * @since 1.0
  *
  * @return object
@@ -308,7 +308,7 @@ function ptb_get_page_type_from_file ($file) {
  */
 
 function ptb_get_page_type_file ($page_type) {
-  return PTB_DIR . ptb_dashify(ptbify($page_type)) . '.php';
+  return PTB_PAGES_DIR . ptb_dashify(ptbify($page_type)) . '.php';
 }
 
 /**

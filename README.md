@@ -4,7 +4,7 @@
 
 ### Example
 
-The definition `PTB_DIR` is used to tell where the page type files lives in your WordPress installation.
+The definition `PTB_PAGES_DIR` is used to tell where the page type files lives in your WordPress installation.
 
 The page type class.
 
