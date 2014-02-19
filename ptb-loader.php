@@ -111,7 +111,15 @@ class PTB_Loader {
 
     // Load properties
     require_once($this->plugin_dir . 'includes/properties/class-property-string.php');
-
+    require_once($this->plugin_dir . 'includes/properties/class-property-boolean.php');
+    require_once($this->plugin_dir . 'includes/properties/class-property-email.php');
+    require_once($this->plugin_dir . 'includes/properties/class-property-date.php');
+    require_once($this->plugin_dir . 'includes/properties/class-property-datetime.php');
+    require_once($this->plugin_dir . 'includes/properties/class-property-number.php');
+    require_once($this->plugin_dir . 'includes/properties/class-property-url.php');
+    require_once($this->plugin_dir . 'includes/properties/class-property-divider.php');
+    require_once($this->plugin_dir . 'includes/properties/class-property-map.php');
+      
     // Load Page Type Builder base file.
     require_once($this->plugin_dir . 'includes/class-ptb-base.php');
   }

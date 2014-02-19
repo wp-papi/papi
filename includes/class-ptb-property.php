@@ -44,7 +44,7 @@ abstract class PTB_Property {
   private $options;
 
   /**
-   * Create a new instance of the given property.
+   * Create a new instance of the given property.
    *
    * @param string $property
    * @since 1.0
@@ -55,9 +55,10 @@ abstract class PTB_Property {
 
   public static function factory ($property) {
     self::filter_custom_properties();
-    // Load custom properties
     if (in_array($property, self::$properties) && class_exists($property)) {
-      return new $property();
+      $klass = new $property();
+      add_action('admin_head', array($klass, 'css'));
+      return $klass;
     } else {
       throw new Exception('Unsupported property');
     }
@@ -134,6 +135,14 @@ abstract class PTB_Property {
    */
 
   abstract public function html ();
+  
+  /**
+   * Output custom css for property
+   *
+   * @since 1.0
+   */
+  
+  public function css () {}
 
   /**
    * Get label for the property.
