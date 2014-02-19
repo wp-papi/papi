@@ -80,14 +80,19 @@ class PTB_Loader {
       define('PTB_PLUGIN_URL', $plugin_url);
     }
 
-    if (!defined('PTB_PAGES_DIR')) {
-      define('PTB_PAGES_DIR', PTB_PLUGIN_DIR . 'pages/');
-    }
-
+    // Our meta key that is used to save the data array on pages.
     if (!defined('PTB_META_KEY')) {
       define('PTB_META_KEY', 'page_type_builder');
     }
 
+    // Paths that the user can change in their theme
+
+    // Path to page types.
+    if (!defined('PTB_PAGES_DIR')) {
+      define('PTB_PAGES_DIR', PTB_PLUGIN_DIR . 'pages/');
+    }
+
+    // Path to custom properties.
     if (!defined('PTB_CUSTOM_DIR')) {
       define('PTB_CUSTOM_DIR', false);
     }
