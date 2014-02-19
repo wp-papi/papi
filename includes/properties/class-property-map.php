@@ -130,5 +130,4 @@ class PropertyMap extends PTB_Property {
     $html .= PTB_Html::tr($label);
     return $html;
   }
-
 }
