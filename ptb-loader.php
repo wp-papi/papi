@@ -94,7 +94,7 @@ class PTB_Loader {
   }
 
   /**
-   * Include files.
+   * Require files.
    *
    * @since 1.0
    * @access private
@@ -112,8 +112,27 @@ class PTB_Loader {
     // Load properties
     require_once($this->plugin_dir . 'includes/properties/class-property-string.php');
 
+    // Load custom properties
+    $this->require_custom_files();
+
     // Load Page Type Builder base file.
     require_once($this->plugin_dir . 'includes/class-ptb-base.php');
+  }
+
+  /**
+   * Require custom files.
+   *
+   * @since 1.0
+   * @access private
+   */
+
+  private function require_custom_files () {
+    if (defined('PTB_CUSTOM_DIR') && is_string(PTB_CUSTOM_DIR)) {
+      $files = glob(PTB_CUSTOM_DIR . '*');
+      foreach ($files as $file) {
+        require_once($file);
+      }
+    }
   }
 
   /**
