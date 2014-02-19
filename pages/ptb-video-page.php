@@ -13,7 +13,7 @@ class PTB_Video_Page extends PTB_Base {
 
     $this->remove(array(
       'editor',
-      'comments',
+      'comments',
       'revisions'
     ));
 
@@ -66,6 +66,15 @@ class PTB_Video_Page extends PTB_Base {
     $this->property(array(
         'type' => PropertyMap,
         'title' => 'Plats'
+    ));
+
+    $this->property(array(
+      'type' => PropertyMap,
+      'title' => 'Plats',
+      'label_text' => 'Koordinater',
+      'special' => array(
+        'api_key' => 
+      );
     ));
 
   }

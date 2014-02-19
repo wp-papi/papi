@@ -1,6 +1,22 @@
-.ptb-box-list {
+/* Table that exists in the meta box */
 
+.ptb-table {
+  width: 100%;
 }
+
+/* Widths */
+
+.ptb-fullwidth {
+  width: 100%;
+}
+
+.ptb-halfwidth {
+  width: 50%;
+}
+
+/* Boxes on the page where you select witch page to create */
+
+.ptb-box-list {}
 
 .ptb-box-list a {
   height: 90px;

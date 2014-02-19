@@ -10,6 +10,23 @@ if (!defined('ABSPATH')) exit;
 class PTB_Html {
 
   /**
+   * Append attributes to html string.
+   *
+   * @param array $attributes
+   * @since 1.0
+   *
+   * @return string
+   */
+  
+  private static function attributes ($attributes = array()) {
+    $html = '';
+    foreach ($attributes as $key => $value) {
+      $html .= ' ' . $key . '="' . $value . '" ';
+    }
+    return $html;
+  }
+  
+  /**
    * Generate HTML label tag.
    *
    * @param string $title
@@ -40,13 +57,16 @@ class PTB_Html {
    * Generate HTML td tag.
    *
    * @param string $inner
+   * @param array $attributes
    * @since 1.0
    *
    * @return string
    */
 
-  public static function td ($inner) {
-    return '<td>' . $inner . '</td>';
+  public static function td ($inner, $attributes = array()) {
+    $html = '<td';
+    $html .= self::attributes($attributes);
+    return $html . '>' . $inner . '</td>';
   }
 
   /**
@@ -59,11 +79,9 @@ class PTB_Html {
    * @return string
    */
 
-  public static function input ($type, $attributes) {
+  public static function input ($type, $attributes = array()) {
     $html = '<input type="' . $type . '"';
-    foreach ($attributes as $key => $value) {
-      $html . ' ' . $key . '="' . $value . '" ';
-    }
+    $html .= self::attributes($attributes);
     return $html . '/>';
   }
 

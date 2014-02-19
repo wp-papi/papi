@@ -58,6 +58,7 @@ abstract class PTB_Property {
     if (in_array($property, self::$properties) && class_exists($property)) {
       $klass = new $property();
       add_action('admin_head', array($klass, 'css'));
+      add_action('admin_head', array($klass, 'js'));
       return $klass;
     } else {
       throw new Exception('Unsupported property');
@@ -153,7 +154,11 @@ abstract class PTB_Property {
    */
 
   public function label () {
-    $title = apply_filters('ptb_property_label_title', $this->get_options()->title);
+    if (isset($this->options->label_text)) {
+      $title = $this->get_options()->label_text;
+    } else {
+      $title = $this->get_options()->title;
+    }
     $name = $this->get_options()->name;
     return PTB_Html::label($title, $name);
   }
