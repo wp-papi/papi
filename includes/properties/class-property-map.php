@@ -37,11 +37,18 @@ class PropertyMap extends PTB_Property {
    * Output custom JavaScript for the property.
    *
    * @since 1.0
+   *
+   * @throws Exception
    */
   
   public function js () {
+    if (isset($this->get_options()->special) && isset($this->get_options()->special->api_key)) {
+      $api_key = $this->get_options()->special;
+    } else {
+      throw new Exception('You need to provide a api key for PropertyMap since we are using Google Maps');
+    }
     ?>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYn-cYmKSOx290fSSvNDugi-U6qpJZe60&sensor=false"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo $api_key; ?>&sensor=false"></script>
     <script type="text/javascript">
       function updateLatitudeLangitude (position) {
         var el = document.querySelectorAll('input#<?php echo $this->get_options()->name; ?>');
