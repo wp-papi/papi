@@ -324,10 +324,23 @@ function ptb_get_template ($post_id) {
   if (is_null($post_id) || is_numeric($post_id)) {
     $post_id = get_ptb_post_id($post_id);
     $page_type = ptb_get_page_type($post_id);
-  } else {
+  } else {
     $page_type = $post_id;
   }
   $file = ptb_get_page_type_file($page_type);
   $data = ptb_get_page_type_from_file($file);
   return $data->page_type->template;
+}
+
+/**
+ * Get html name value from the given string.
+ *
+ * @param string $name
+ * @since 1.0
+ *
+ * @return string
+ */
+
+function ptb_get_html_name ($name) {
+  return ptb_underscorify(ptbify($name));
 }

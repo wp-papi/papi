@@ -18,8 +18,7 @@ class PropertyMap extends PTB_Property {
    */
 
   public function html () {
-    $html = '<div id="map-canvas"></div>';
-    return $html;
+    return '<div id="map-canvas"></div>';
   }
   
   /**
@@ -45,12 +44,24 @@ class PropertyMap extends PTB_Property {
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYn-cYmKSOx290fSSvNDugi-U6qpJZe60&sensor=false"></script>
     <script type="text/javascript">
       function updateLatitudeLangitude (position) {
-        var el = document.getElementById('ptb_map_cord');
-        el.value = [position.lat(), position.lng()].join(',');
+        var el = document.querySelectorAll('input#<?php echo $this->get_options()->name; ?>');
+        if (el.length) {
+          el[0].value = [position.lat(), position.lng()].join(', ');
+        }
       }
       
       function initialize() {
-        var ptbLatLng = new google.maps.LatLng(59.32893, 18.06491);
+        <?php 
+          if (is_null($this->get_options()->value) || empty($this->get_options()->value)) {
+            $lat = '59.32893';
+            $lng = '18.06491';
+          } else {
+            $value = explode(',', trim($this->get_options()->value));
+            $lat = $value[0];
+            $lng = $value[1];
+          }
+        ?>
+        var ptbLatLng = new google.maps.LatLng(<?php echo $lat; ?>, <?php echo $lng; ?>);
         
         var mapOptions = {
           center: ptbLatLng,
@@ -88,7 +99,12 @@ class PropertyMap extends PTB_Property {
    */
   
   public function input () {
-    return '<input type="text" name="ptb_map_cord" id="ptb_map_cord" class="ptb-halfwidth" />';
+    return PTB_Html::input('text', array(
+      'name' => $this->get_options()->name,
+      'id' => $this->get_options()->name,
+      'class' => 'ptb-halfwidth',
+      'value' => $this->get_options()->value
+    ));
   }
 
   /**
