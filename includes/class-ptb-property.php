@@ -58,6 +58,7 @@ abstract class PTB_Property {
     if (in_array($property, self::$properties) && class_exists($property)) {
       $klass = new $property();
       add_action('admin_head', array($klass, 'css'));
+      add_action('admin_head', array($klass, 'js'));
       return $klass;
     } else {
       throw new Exception('Unsupported property');

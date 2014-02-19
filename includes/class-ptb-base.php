@@ -169,7 +169,7 @@ class PTB_Base {
         $this->onetime_html = true;
       }
       echo
-      '<table>
+      '<table class="ptb-table">
         <tbody>';
       foreach ($args['args'] as $box) {
         echo $box->html;
