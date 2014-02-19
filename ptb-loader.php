@@ -80,21 +80,26 @@ class PTB_Loader {
       define('PTB_PLUGIN_URL', $plugin_url);
     }
 
-    if (!defined('PTB_PAGES_DIR')) {
-      define('PTB_PAGES_DIR', PTB_PLUGIN_DIR . 'pages/');
-    }
-
+    // Our meta key that is used to save the data array on pages.
     if (!defined('PTB_META_KEY')) {
       define('PTB_META_KEY', 'page_type_builder');
     }
 
+    // Paths that the user can change in their theme
+
+    // Path to page types.
+    if (!defined('PTB_PAGES_DIR')) {
+      define('PTB_PAGES_DIR', PTB_PLUGIN_DIR . 'pages/');
+    }
+
+    // Path to custom properties.
     if (!defined('PTB_CUSTOM_DIR')) {
       define('PTB_CUSTOM_DIR', false);
     }
   }
 
   /**
-   * Include files.
+   * Require files.
    *
    * @since 1.0
    * @access private
@@ -119,9 +124,28 @@ class PTB_Loader {
     require_once($this->plugin_dir . 'includes/properties/class-property-url.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-divider.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-map.php');
-      
+
+    // Load custom properties
+    $this->require_custom_files();
+
     // Load Page Type Builder base file.
     require_once($this->plugin_dir . 'includes/class-ptb-base.php');
+  }
+
+  /**
+   * Require custom files.
+   *
+   * @since 1.0
+   * @access private
+   */
+
+  private function require_custom_files () {
+    if (defined('PTB_CUSTOM_DIR') && is_string(PTB_CUSTOM_DIR)) {
+      $files = glob(PTB_CUSTOM_DIR . '*');
+      foreach ($files as $file) {
+        require_once($file);
+      }
+    }
   }
 
   /**
