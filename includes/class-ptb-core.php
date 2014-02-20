@@ -79,8 +79,8 @@ class PTB_Core {
       isset($_POST['post_type']) && $_POST['post_type'] != 'page' ||
       is_null($page_type))) {
       return;
-    }
-    
+    }
+    
     if (is_null($page_type)) {
       if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['ptb_page_type']) {
         $page_type = $_POST['ptb_page_type'];
@@ -91,7 +91,7 @@ class PTB_Core {
 
     $page_type = ptb_dashify($page_type);
     $path = PTB_PAGES_DIR . 'ptb-' . $page_type . '.php';
-
+
     // Can't proceed without a page type or if the file exists.
     if (!file_exists($path)) {
       return;
@@ -153,6 +153,25 @@ class PTB_Core {
       } else {
         $data[$key] = $_POST[$key];
       }
+    }
+    
+    // Since we are storing witch property it is in the $data array
+    // we need to remove that and set the property type to the property
+    // and make a array of the property type and the value.
+    
+    foreach ($data as $key => $value) {
+      if (strpos($key, '_property') === false) {
+        continue;
+      }
+      
+      $pkey = str_replace('_property', '', $key);
+      
+      $data[$pkey] = array(
+        'type' => ptb_property_type_format($value),
+        'value' => $data[$pkey]
+      );
+      
+      unset($data[$key]);
     }
 
     $page_type = isset($data['ptb_page_type']) ? $data['ptb_page_type'] : '';

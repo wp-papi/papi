@@ -20,8 +20,22 @@ class PropertyBoolean extends PTB_Property {
   public function html () {
     return PTB_Html::input('checkbox', array(
       'name' => $this->get_options()->name,
+      'id' => $this->get_options()->name,
       'selected' => empty($this->get_options()->value) ? '' : 'selected'
     ));
+  }
+  
+  /**
+   * Convert the value of the property before we output it to the application.
+   *
+   * @param mixed $value
+   * @since 1.0
+   *
+   * @return boolean
+   */
+  
+  public function convert ($value) {
+    return isset($value) && !empty($value);
   }
 
 }

@@ -144,6 +144,28 @@ abstract class PTB_Property {
    */
   
   public function css () {}
+  
+  /**
+   * Output custom js for property
+   *
+   * @since 1.0
+   */
+  
+  public function js () {}
+  
+  /**
+   * Output hidden input field that cointains which property is used.
+   *
+   * @since 1.0
+   *
+   * @return string
+   */
+  
+  public function hidden () {
+    return PTB_Html::input('hidden', array(
+      'name' => $this->get_options()->name . '_property';
+    ));
+  }
 
   /**
    * Get label for the property.
@@ -176,5 +198,17 @@ abstract class PTB_Property {
     $html .= PTB_HTMl::td($this->html());
     return PTB_HTml::tr($html);
   }
-
+  
+  /**
+   * Convert the value of the property before we output it to the application.
+   *
+   * @param mixed $value
+   * @since 1.0
+   *
+   * @return string
+   */
+  
+  public function convert ($value) {
+    return strval($value);
+  }
 }

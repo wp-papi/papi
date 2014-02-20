@@ -104,7 +104,7 @@ class PTB_Base {
      // Set the key to the title slugify.
      if (!isset($options->name) || empty($options->name)) {
        $options->name = ptb_slugify($options->title);
-     }
+     }
 
      if (!isset($options->box) || empty($options->box)) {
        $options->box = ptbify($options->title);
@@ -132,6 +132,7 @@ class PTB_Base {
      $property->set_options($options);
 
      $options->callback_args->html = $property->render();
+     $options->callback_args->html .= $property->hidden();
 
      if (!isset($this->boxes[$options->box])) {
        $this->boxes[$options->box] = (object)array(

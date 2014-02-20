@@ -205,7 +205,7 @@ function ptb_get_properties ($post_id = null) {
   if (!isset($post_id)) {
     $post_id = get_ptb_post_id();
   }
-  $post_id = get_ptb_post_id($post_id);
+  $post_id = get_ptb_post_id($post_id);
   return get_post_meta($post_id, PTB_META_KEY, true);
 }
 
@@ -221,7 +221,7 @@ function ptb_get_properties ($post_id = null) {
  */
 
 function ptb_get_property_value ($post_id, $property = null, $default = null) {
-  if (!isset($property)) {
+  if (!isset($property)) {
     $property = $post_id;
     $post_id = get_ptb_post_id();
   }
@@ -230,7 +230,16 @@ function ptb_get_property_value ($post_id, $property = null, $default = null) {
   $property = ptb_underscorify(ptbify($property));
 
   if (is_array($properties) && isset($properties[$property])) {
-    return $properties[$property];
+    $property = $properties[$property];
+    if (is_array($property) && isset($property['value']) && isset($property['type'])) {
+      $type = ptb_property_type_format($property['type']);
+      $property_type = PTB_Property::factory($type);
+      if (method_exists ($property_type, 'convert')) {
+        return $property_type->convert($property['value']);
+      }
+      return $property['value'];
+    }
+    return $property;
   }
 
   return $default;
@@ -343,4 +352,28 @@ function ptb_get_template ($post_id) {
 
 function ptb_get_html_name ($name) {
   return ptb_underscorify(ptbify($name));
+}
+
+/**
+ * Make sure we have the right format of the property type.
+ *
+ * Example:
+ *  'propertystring' => 'PropertyString'
+ *
+ * @param string $type
+ * @since 1.0
+ * @throws Exception
+ *
+ * @return string
+ */
+
+function ptb_property_type_format ($type) {
+  $type = strtolower($type);
+  $type = str_replace('property', '', $type);
+  $type = ucfirst($type);
+  $type = 'Property' . $type;
+  if (!preg_match('/Property\w+/', $type)) {
+      throw new Exception('Wrong format of the Page Type Builder property: ' . $type);
+  }
+  return $type;
 }

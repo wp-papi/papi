@@ -20,6 +20,7 @@ class PropertyColor extends PTB_Property {
   public function html () {
     return PTB_Html::input('color', array(
       'name' => $this->get_options()->name,
+      'id' => $this->get_options()->name,
       'value' => $this->get_options()->value
     ));
   }
