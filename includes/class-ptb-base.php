@@ -110,6 +110,10 @@ class PTB_Base {
        $options->box = ptbify($options->title);
      }
 
+     if (isset($options->custom)) {
+       $options->custom = (object)$options->custom;
+     }
+
      // Property sort order.
      if (!isset($options->sort_order)) {
        $this->property_sort_order++;

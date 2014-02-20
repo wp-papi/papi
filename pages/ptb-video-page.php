@@ -62,19 +62,14 @@ class PTB_Video_Page extends PTB_Base {
       'disable' => false,
       'sort_order' => 1
     ));
-      
-    $this->property(array(
-        'type' => PropertyMap,
-        'title' => 'Plats'
-    ));
 
     $this->property(array(
       'type' => PropertyMap,
       'title' => 'Plats',
       'label_text' => 'Koordinater',
-      'special' => array(
-        'api_key' => 
-      );
+      'custom' => array(
+        'api_key' => 'AIzaSyCYn-cYmKSOx290fSSvNDugi-U6qpJZe60'
+      )
     ));
 
   }

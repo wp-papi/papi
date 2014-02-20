@@ -20,19 +20,19 @@ class PropertyMap extends PTB_Property {
   public function html () {
     return '<div id="map-canvas"></div>';
   }
-  
+
   /**
    * Output custom css for the property.
    *
    * @since 1.0
    */
-  
+
   public function css () {
     echo '<style type="text/css">';
     echo '#map-canvas { width: 100%; height: 400px; }';
     echo '</style>';
   }
-  
+
   /**
    * Output custom JavaScript for the property.
    *
@@ -40,12 +40,12 @@ class PropertyMap extends PTB_Property {
    *
    * @throws Exception
    */
-  
+
   public function js () {
-    if (isset($this->get_options()->special) && isset($this->get_options()->special->api_key)) {
+    if (isset($this->get_options()->custom) && isset($this->get_options()->custom->api_key)) {
       $api_key = $this->get_options()->special;
     } else {
-      throw new Exception('You need to provide a api key for PropertyMap since we are using Google Maps');
+     throw new Exception('You need to provide a api key for PropertyMap since we are using Google Maps');
     }
     ?>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo $api_key; ?>&sensor=false"></script>
@@ -56,9 +56,9 @@ class PropertyMap extends PTB_Property {
           el[0].value = [position.lat(), position.lng()].join(', ');
         }
       }
-      
+
       function initialize() {
-        <?php 
+        <?php
           if (is_null($this->get_options()->value) || empty($this->get_options()->value)) {
             $lat = '59.32893';
             $lng = '18.06491';
@@ -69,25 +69,25 @@ class PropertyMap extends PTB_Property {
           }
         ?>
         var ptbLatLng = new google.maps.LatLng(<?php echo $lat; ?>, <?php echo $lng; ?>);
-        
+
         var mapOptions = {
           center: ptbLatLng,
           zoom: 14
         };
-        
+
         var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-        
+
         var marker = new google.maps.Marker({
           position: ptbLatLng,
           map: map,
           draggable: true,
           title: 'Select position'
         });
-        
+
         google.maps.event.addListener(marker, 'drag', function() {
           updateLatitudeLangitude(marker.getPosition());
         });
-        
+
         google.maps.event.addListener(marker, 'dragend', function() {
           updateLatitudeLangitude(marker.getPosition());
         });
@@ -96,7 +96,7 @@ class PropertyMap extends PTB_Property {
     </script>
     <?php
   }
-  
+
   /**
    * Get the input html for the "place" input.
    *
@@ -104,7 +104,7 @@ class PropertyMap extends PTB_Property {
    *
    * @return string
    */
-  
+
   public function input () {
     return PTB_Html::input('text', array(
       'name' => $this->get_options()->name,
