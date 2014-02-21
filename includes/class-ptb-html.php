@@ -85,4 +85,20 @@ class PTB_Html {
     return $html . '/>';
   }
 
+  /**
+   * Generate HTML textarea tag.
+   *
+   * @param string $inner
+   * @param array $attributes
+   * @since 1.0
+   *
+   * @return string
+   */
+
+  public static function textarea ($inner, $attributes = array()) {
+    $html = '<textarea';
+    $html .= self::attributes($attributes);
+    return $html . '>' . $inner . '</textarea>';
+  }
+
 }

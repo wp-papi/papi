@@ -4,7 +4,7 @@
   width: 100%;
 }
 
-/* Widths */
+/* Sizes */
 
 .ptb-fullwidth {
   width: 100%;
@@ -46,4 +46,11 @@
   margin-top: -65px;
   width: 150px;
   text-align: center;
+}
+
+/* Properties */
+
+.ptb-property-text {
+  width: 100%;
+  height: 250px;
 }
