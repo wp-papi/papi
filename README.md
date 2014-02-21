@@ -23,11 +23,16 @@ class PTB_Standard_Page extends PTB_Base {
 	public function __construct () {
 		parent::__construct();
 		
-		$this->property(array(
-			'type' => self::PropertyString,
-			'title' => 'Heading',
-			'box' => 'Intro'
-		));
+        $this->box('Content', array(
+          $this->property(array(
+            'type' => 'PropertyString',
+            'title' => 'Heading',
+          )),
+          $this->property(array(
+            'type' => 'PropertyText',
+            'title' => 'Text',
+          ))
+        ));
 	}
 
 }

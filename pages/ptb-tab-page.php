@@ -17,14 +17,29 @@ class PTB_Tab_Page extends PTB_Base {
       'revisions'
     ));
     
-    //$this->tab('Text', array($this, 'tab_text'));  
-  }
-  
-  public function tab_text () {
-    $this->property(array(
-      'type' => PropertyText,
-      'title' => 'Rubrik'
+    $this->box('Bilder', array(
+      $this->tab('Innehåll', array(
+        $this->property(array(
+          'type' => 'PropertyString',
+          'title' => 'Rubrik 1',
+          'tab' => true
+        ))
+      )),
+      $this->tab('Inställningar', array(
+        $this->property(array(
+          'type' => 'PropertyString',
+          'title' => 'Rubrik 2',
+          'tab' => true
+        ))
+      ))
+    ));
+    
+    $this->box('Annat', array(
+      $this->property(array(
+        'type' => 'PropertyString',
+        'title' => 'Rubrik annat',
+      ))
     ));
   }
-
+  
 }

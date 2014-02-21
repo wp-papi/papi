@@ -89,35 +89,14 @@ class PTB_Base {
 
    public function property (array $options = array()) {
      $options = (object)array_merge($this->property_default, $options);
-     $property = $this->setup_property($options);
+     $options = $this->setup_property($options);
      
      // Can't work with nullify properties.
-     if (is_null($property)) {
+     if (is_null($options)) {
       return;
      }
      
-     $options = $property->options;
-     $options->callback_args->html = $property->html;
-     
-     if (!isset($this->boxes[$options->box])) {
-       $this->boxes[$options->box] = (object)array(
-         'name' => $options->box,
-         'properties' => array(),
-         'sort_order' => $options->box_sort_order
-       );
-
-       // Box sort order.
-       if (!isset($this->boxes[$options->box]->sort_order)) {
-         $this->box_sort_order++;
-         $this->boxes[$options->box]->sort_order = $this->box_sort_order;
-       } else if (intval($this->boxes[$options->box]->sort_order) > $this->box_sort_order) {
-         $this->box_sort_order = intval($this->boxes[$options->box]->sort_order);
-       } else {
-         $this->box_sort_order++;
-       }
-     }
-
-     $this->boxes[$options->box]->properties[] = $options;
+     return $options;
    }
     
    /**
@@ -147,11 +126,19 @@ class PTB_Base {
      if (!isset($options->name) || empty($options->name)) {
        $options->name = ptb_slugify($options->title);
      }
-
-     if (!isset($options->box) || empty($options->box)) {
-       $options->box = ptbify($options->title);
+    
+     // Setup box options.
+     if (!isset($options->box) || !is_array($options->box)) {
+       $options->box = array(
+        'title' => $options->title
+       );
      }
-
+     
+     if (is_array($options->box)) {
+      $options->box = (object)$options->box;
+     }
+    
+     // Custom object for properties data.
      if (isset($options->custom)) {
        $options->custom = (object)$options->custom;
      }
@@ -172,23 +159,90 @@ class PTB_Base {
      // Get the property
      $property = PTB_Property::factory($options->type);
      $property->set_options($options);
+     
+     $options->callback_args->html = $property->render() . $property->hidden();
        
-     return (object)array(
-         'html' => $property->render() . $property->hidden(),
-         'options' => $options
-     );
-   }
+     return $options;
+  }
+  
+  /**
+   * Add new box.
+   *
+   * @param string $title
+   * @param array $options
+   * @param array $items
+   * @since 1.0
+   */
+  
+  public function box ($title, $options = array(), $properties = array()) {
+    if (empty($properties)) {
+      $properties = $options;
+      $options = array();
+    }
+    
+    if (empty($options)) {
+      $options = array(
+        'title' => $title
+      );
+    }
+    
+    $this->setup_box($options);
+    
+    if (isset($this->boxes[$title])) {
+      $this->boxes[$title]->properties = $properties;
+    }
+  }
+  
+  /**
+   * Setup box.
+   *
+   * @param object $options
+   * @since 1.0
+   */
+  
+  public function setup_box ($options) { 
+    $options = (object)$options;
+    
+    if (!isset($options->sort_order)) {
+      $options->sort_order = 0;
+    }
+    
+    if (!isset($options->page_types) || !is_array($options->page_types)) {
+      $options->page_types = array('page');
+    }
+    
+    if (!isset($this->boxes[$options->title])) {
+      $this->boxes[$options->title] = (object)array(
+        'title' => $options->title,
+        'properties' => array(),
+        'sort_order' => $options->sort_order,
+        'page_types' => $options->page_types,
+        'context'   => 'normal',
+        'priority'  => 'default'
+      );
 
-   /**
-    * Output the inner content of the meta box.
-    *
-    * @param object $post The WordPress post object
-    * @param array $args
-    * @since 1.0
-    */
+      // Box sort order.
+      if (!isset($this->boxes[$options->title]->sort_order)) {
+        $this->box_sort_order++;
+        $this->boxes[$options->title]->sort_order = $this->box_sort_order;
+      } else if (intval($this->boxes[$options->title]->sort_order) > $this->box_sort_order) {
+        $this->box_sort_order = intval($this->boxes[$options->title]->sort_order);
+      } else {
+        $this->box_sort_order++;
+      }
+    }
+  }
+
+  /**
+   * Output the inner content of the meta box.
+   *
+   * @param object $post The WordPress post object
+   * @param array $args
+   * @since 1.0
+   */
 
    public function box_callback ($post, $args) {
-     if (isset($args['args']) && is_array($args['args'])) {
+    if (isset($args['args']) && is_array($args['args'])) {
       if (!$this->onetime_html) {
         wp_nonce_field('page_type_builder', 'page_type_builder_nonce');
         echo PTB_Html::input('hidden', array(
@@ -197,70 +251,144 @@ class PTB_Base {
         ));
         $this->onetime_html = true;
       }
-      echo
-      '<table class="ptb-table">
-        <tbody>';
-      foreach ($args['args'] as $box) {
-        echo $box->html;
+      if (isset($args['args']['table']) && $args['args']['table']) { 
+        echo
+        '<table class="ptb-table">
+          <tbody>';
       }
-      echo
-        '</tbody>
-      </table>';
+      foreach ($args['args'] as $box) {
+        if (isset($box->html)) {
+          echo $box->html;
+        }
+      }
+      if (isset($args['args']['table']) && $args['args']['table']) {
+        echo
+          '</tbody>
+        </table>';
+      }
      }
-   }
+  }
+  
+  /**
+   * Render tabs html.
+   *
+   * @param object $box
+   * @since 1.0
+   *
+   * @return object
+   */
+  
+  public function render_tabs ($box) {
+    $html_tabs = '<ul class="ptb-tabs">';
+    $html_content = '<div class="ptb-tabs-content">';
+    $first_tab = $box->properties[0];
+    foreach ($box->properties as $tab) {
+      $html_tabs .= '<li ' . ($first_tab->title == $tab->title ? 'class="active"' : '') . '>';
+      $html_tabs .= '<a href="#" data-ptb-tab="' . ptb_slugify(ptbify($tab->title)) . '">'. $tab->title . '</a></li>';
+      $html_content .= '<div data-ptb-tab="' . ptb_slugify(ptbify($tab->title)) . '" ' . ($first_tab->title == $tab->title ? 'class="active"' : '') . '>
+        <table class="ptb-table">
+          <tbody>';
+      foreach ($tab->properties as $property) {
+        $html_content .= $property->callback_args->html;
+      }
+      $html_content .= '</tbody>
+        </table>
+      </div>';
+    }
+    $html_content .= '</div>';
+    $html_tabs .= '</ul>';
+    return (object)array(
+      'html' => $html_tabs . $html_content
+    );
+  }
 
-   /**
-    * Setup the page.
-    *
-    * @since 1.0
-    */
+  /**
+   * Setup the page.
+   *
+   * @since 1.0
+   */
 
    public function setup_page () {
+     $tabs = array();
      usort($this->boxes, function ($a, $b) {
        return $a->sort_order - $b->sort_order;
      });
      foreach ($this->boxes as $box) {
        $args = array();
-       usort($box->properties, function ($a, $b) {
-         return $a->sort_order - $b->sort_order;
-       });
-       foreach ($box->properties as $property) {
-         $args[] = $property->callback_args;
+       if (isset($box->properties[0]) && isset($box->properties[0]->tab) && $box->properties[0]->tab) {
+         $args[] = $this->render_tabs($box);
+       } else {
+         usort($box->properties, function ($a, $b) {
+          return $a->sort_order - $b->sort_order;
+         });
+         foreach ($box->properties as $property) {
+           $args[] = $property->callback_args;
+         }
+         $args['table'] = true;
        }
-       $first_box = $box->properties[0];
-       foreach ($first_box->page_types as $page_type) {
-         add_meta_box(ptb_slugify($box->name), ptb_remove_ptb($box->name), array($this, 'box_callback'), $page_type, $first_box->context, $first_box->priority, $args);
+       foreach ($box->page_types as $page_type) {
+         $this->add_meta_box($box, $page_type, $args);
        }
-     }
-   }
+    }
+  }
 
-   /**
-    * Remove post tpye support. This function will only work one time on page load.
-    *
-    * @param string|array $remove_post_type_support
-    * @since 1.0
-    */
+  /**
+   * Add meta box.
+   *
+   * @param object $box
+   * @param string $page_type
+   * @param array $args
+   * @since 1.0
+   */
+  public function add_meta_box ($box, $page_type, $args) {
+    add_meta_box(ptb_slugify($box->title), ptb_remove_ptb($box->title), array($this, 'box_callback'), $page_type, $box->context, $box->priority, $args);
+  }
 
-   public function remove ($remove_post_type_support = array(), $post_type = 'page') {
-     if (is_string($remove_post_type_support)) {
-       $remove_post_type_support = array($remove_post_type_support);
-     }
+  /**
+   * Remove post tpye support. This function will only work one time on page load.
+   *
+   * @param string|array $remove_post_type_support
+   * @since 1.0
+   */
 
-     if (!isset($this->remove_post_type_support)) {
+  public function remove ($remove_post_type_support = array(), $post_type = 'page') {
+    if (is_string($remove_post_type_support)) {
+      $remove_post_type_support = array($remove_post_type_support);
+    }
+
+    if (!isset($this->remove_post_type_support)) {
       $this->remove_post_type_support = array($remove_post_type_support, $post_type);
       add_action('init', array($this, 'remove_post_type_support'), 10);
-     }
-   }
+    }
+  }
 
-   /**
-    * Admin menu, remove meta boxes.
-    *
-    * @since 1.0
-    */
+  /**
+   * Admin menu, remove meta boxes.
+   *
+   * @since 1.0
+   */
 
   public function remove_post_type_support () {
     foreach ($this->remove_post_type_support[0] as $post_type_support) {
       remove_post_type_support($this->remove_post_type_support[1], $post_type_support);
     }
+  }
+  
+  /**
+   * Add a new tab.
+   *
+   * @param string $name
+   * @param array $properties
+   * @since 1.0
+   *
+   * @return object
+   */
+  
+  public function tab ($title, $properties = array()) {
+    return (object)array(
+      'title' => $title,
+      'tab' => true,
+      'properties' => $properties
+    );
   }
 }
