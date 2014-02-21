@@ -54,7 +54,7 @@ class PTB_View {
 
     return null;
   }
-
+
   /**
    * Get full path to file with php exstention.
    *
