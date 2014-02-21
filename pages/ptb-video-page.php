@@ -18,7 +18,7 @@ class PTB_Video_Page extends PTB_Base {
     ));
 
     $this->property(array(
-      'type' => PropertyString,
+      'type' => 'PropertyString',
       'title' => 'Youtube video',
       // 'key' => 'youtube-vide',
       'box' => 'Filmer',
@@ -30,7 +30,7 @@ class PTB_Video_Page extends PTB_Base {
 
 
     $this->property(array(
-      'type' => PropertyString,
+      'type' => 'PropertyString',
       'title' => 'Vimeo video',
       // 'key' => 'youtube-vide',
       'box' => 'Filmer',
@@ -41,7 +41,7 @@ class PTB_Video_Page extends PTB_Base {
 
 
     $this->property(array(
-      'type' => PropertyString,
+      'type' => 'PropertyString',
       'title' => 'Youtube video',
       // 'key' => 'youtube-vide',
       'box' => 'Filmer2',
@@ -54,22 +54,13 @@ class PTB_Video_Page extends PTB_Base {
 
 
     $this->property(array(
-      'type' => PropertyString,
+      'type' => 'PropertyString',
       'title' => 'Vimeo video',
       // 'key' => 'youtube-vide',
       'box' => 'Filmer2',
       'priority' => 'default',
       'disable' => false,
       'sort_order' => 1
-    ));
-
-    $this->property(array(
-      'type' => PropertyMap,
-      'title' => 'Plats',
-      'label_text' => 'Koordinater',
-      'custom' => array(
-        'api_key' => 'AIzaSyCYn-cYmKSOx290fSSvNDugi-U6qpJZe60'
-      )
     ));
 
   }

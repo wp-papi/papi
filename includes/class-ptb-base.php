@@ -89,16 +89,58 @@ class PTB_Base {
 
    public function property (array $options = array()) {
      $options = (object)array_merge($this->property_default, $options);
+     $property = $this->setup_property($options);
+     
+     // Can't work with nullify properties.
+     if (is_null($property)) {
+      return;
+     }
+     
+     $options = $property->options;
+     $options->callback_args->html = $property->html;
+     
+     if (!isset($this->boxes[$options->box])) {
+       $this->boxes[$options->box] = (object)array(
+         'name' => $options->box,
+         'properties' => array(),
+         'sort_order' => $options->box_sort_order
+       );
+
+       // Box sort order.
+       if (!isset($this->boxes[$options->box]->sort_order)) {
+         $this->box_sort_order++;
+         $this->boxes[$options->box]->sort_order = $this->box_sort_order;
+       } else if (intval($this->boxes[$options->box]->sort_order) > $this->box_sort_order) {
+         $this->box_sort_order = intval($this->boxes[$options->box]->sort_order);
+       } else {
+         $this->box_sort_order++;
+       }
+     }
+
+     $this->boxes[$options->box]->properties[] = $options;
+   }
+    
+   /**
+    * Setup the property.
+    *
+    * @param object $options
+    * @since 1.0
+    *
+    * @return null|object.
+    */
+    
+   public function setup_property ($options) {
+     $options = (object)$options;
      $options->callback_args = new stdClass;
 
      // Can't proceed without a type.
      if (!isset($options->type) && !PTB_Property::exists($options->type)) {
-       return;
+       return null;
      }
 
      // If the disable option is true, don't add it to the page.
      if (isset($options->disable) && $options->disable) {
-       return;
+       return null;
      }
 
      // Set the key to the title slugify.
@@ -130,29 +172,11 @@ class PTB_Base {
      // Get the property
      $property = PTB_Property::factory($options->type);
      $property->set_options($options);
-
-     $options->callback_args->html = $property->render();
-     $options->callback_args->html .= $property->hidden();
-
-     if (!isset($this->boxes[$options->box])) {
-       $this->boxes[$options->box] = (object)array(
-         'name' => $options->box,
-         'properties' => array(),
-         'sort_order' => $options->box_sort_order
-       );
-
-       // Box sort order.
-       if (!isset($this->boxes[$options->box]->sort_order)) {
-         $this->box_sort_order++;
-         $this->boxes[$options->box]->sort_order = $this->box_sort_order;
-       } else if (intval($this->boxes[$options->box]->sort_order) > $this->box_sort_order) {
-         $this->box_sort_order = intval($this->boxes[$options->box]->sort_order);
-       } else {
-         $this->box_sort_order++;
-       }
-     }
-
-     $this->boxes[$options->box]->properties[] = $options;
+       
+     return (object)array(
+         'html' => $property->render() . $property->hidden(),
+         'options' => $options
+     );
    }
 
    /**
@@ -204,7 +228,7 @@ class PTB_Base {
          $args[] = $property->callback_args;
        }
        $first_box = $box->properties[0];
-       foreach ($first_box->page_types as $page_type) {
+       foreach ($first_box->page_types as $page_type) {
          add_meta_box(ptb_slugify($box->name), ptb_remove_ptb($box->name), array($this, 'box_callback'), $page_type, $first_box->context, $first_box->priority, $args);
        }
      }
@@ -218,7 +242,7 @@ class PTB_Base {
     */
 
    public function remove ($remove_post_type_support = array(), $post_type = 'page') {
-     if (is_string($remove_meta_boxes)) {
+     if (is_string($remove_post_type_support)) {
        $remove_post_type_support = array($remove_post_type_support);
      }
 

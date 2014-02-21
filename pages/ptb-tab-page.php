@@ -17,7 +17,7 @@ class PTB_Tab_Page extends PTB_Base {
       'revisions'
     ));
     
-    $this->tab('Text', array($this, 'tab_text'));  
+    //$this->tab('Text', array($this, 'tab_text'));  
   }
   
   public function tab_text () {

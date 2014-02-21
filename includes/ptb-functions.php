@@ -10,18 +10,17 @@
  */
 
 function get_ptb_post_id ($post_id = null) {
-  if (is_object($post_id)) {
+  if (is_object($post_id)) {
     return $post->ID;
   }
 
-  if (is_null($post_id)) {
-    $post_id = get_the_ID();
-    if (is_null($post_id) && isset($_GET['post'])) {
-      $post_id = $_GET['post'];
-    }
+  if (is_null($post_id) && isset($GLOBALS['post'])) {
+    return get_the_ID();
   }
-
-  return $post_id;
+    
+  if (is_null($post_id) && isset($_GET['post'])) {
+    return $_GET['post'];
+  }
 }
 
 /**
@@ -79,7 +78,7 @@ function get_ptb_page_type () {
  */
 
 function get_ptb_class_name ($file) {
-  header('Content-Type: text/plain');
+  // header('Content-Type: text/plain');
   $content = file_get_contents($file);
   $tokens = token_get_all($content);
   $class_token = false;
@@ -293,7 +292,7 @@ function ptb_get_all_page_types () {
  * Get page type object form file.
  *
  * @param string $file
- * @since 1.0
+ * @since 1.0
  *
  * @return object
  */
