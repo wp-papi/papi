@@ -16,18 +16,15 @@ class PTB_Tab_Page extends PTB_Base {
       'comments',
       'revisions'
     ));
-
+    
+    $this->tab('Text', array($this, 'tab_text'));  
+  }
+  
+  public function tab_text () {
     $this->property(array(
       'type' => PropertyText,
-      'title' => 'Rubrik och text',
-      // 'key' => 'youtube-vide',
-      'box' => 'Filmer',
-      'box_sort_order' => 0,
-      'priority' => 'default',
-      'disable' => false,
-      'require' => false
+      'title' => 'Rubrik'
     ));
-    
   }
 
 }
