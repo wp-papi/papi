@@ -100,5 +100,64 @@ class PTB_Html {
     $html .= self::attributes($attributes);
     return $html . '>' . $inner . '</textarea>';
   }
+  
+  /**
+   * Generate dynamic html tag.
+   *
+   * @param string $tag
+   * @param string $inner
+   * @param array $attributes
+   * @param bool $end
+   * @since 1.0
+   *
+   * @return string
+   */
+  
+  public static function tag ($tag, $inner = '', $attributes = array(), $end = true) {
+    if (is_bool($inner)) {
+      $end = $inner;
+      $inner = '';
+      $attributes = array();
+    }
+    
+    if (is_bool($attributes)) {
+      $end = $attributes;
+    }
+    
+    if (is_array($inner)) {
+      $attributes = $inner;
+      $inner = '';
+    }
+    
+    $html = '<' . $tag;
+    $html .= self::attributes($attributes);
+    return $html . '>' . $inner . ($end ? '</' . $tag . '>' : '');
+  }
+  
+  /**
+   * Generate start tag.
+   *
+   * @param string $tag
+   * @since 1.0
+   *
+   * @return string
+   */
+  
+  public static function start ($tag) {
+    return self::tag($tag, false);
+  }
+  
+  /**
+   * Genrate stop tag.
+   *
+   * @param string $tag
+   * @since 1.0
+   *
+   * @return string
+   */
+  
+  public static function stop ($tag) {
+    return '</' . $tag . '>';
+  }
 
 }

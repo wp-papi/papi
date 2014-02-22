@@ -113,6 +113,7 @@ class PTB_Loader {
     require_once($this->plugin_dir . 'includes/class-ptb-core.php');
     require_once($this->plugin_dir . 'includes/class-ptb-view.php');
     require_once($this->plugin_dir . 'includes/class-ptb-property.php');
+    require_once($this->plugin_dir . 'includes/class-ptb-tab.php');
 
     // Load properties
     require_once($this->plugin_dir . 'includes/properties/class-property-string.php');

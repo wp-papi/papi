@@ -154,7 +154,7 @@ class PTB_Base {
      }
 
      $options->name = ptb_underscorify(ptbify($options->name));
-     $options->value = ptb_get_property_value($options->name);
+     $options->value = get_ptb_property_value($options->name);
 
      // Get the property
      $property = PTB_Property::factory($options->type);
@@ -251,55 +251,24 @@ class PTB_Base {
         ));
         $this->onetime_html = true;
       }
+      
       if (isset($args['args']['table']) && $args['args']['table']) { 
-        echo
-        '<table class="ptb-table">
-          <tbody>';
+        echo PTB_Html::tag('table', array(
+          'class' => 'ptb-table'), false)
+          . PTB_Html::start('tbody');
       }
+      
       foreach ($args['args'] as $box) {
         if (isset($box->html)) {
           echo $box->html;
         }
       }
+      
       if (isset($args['args']['table']) && $args['args']['table']) {
-        echo
-          '</tbody>
-        </table>';
+        echo PTB_Html::stop('tbody')
+          . PTB_Html::stop('table');
       }
      }
-  }
-  
-  /**
-   * Render tabs html.
-   *
-   * @param object $box
-   * @since 1.0
-   *
-   * @return object
-   */
-  
-  public function render_tabs ($box) {
-    $html_tabs = '<ul class="ptb-tabs">';
-    $html_content = '<div class="ptb-tabs-content">';
-    $first_tab = $box->properties[0];
-    foreach ($box->properties as $tab) {
-      $html_tabs .= '<li ' . ($first_tab->title == $tab->title ? 'class="active"' : '') . '>';
-      $html_tabs .= '<a href="#" data-ptb-tab="' . ptb_slugify(ptbify($tab->title)) . '">'. $tab->title . '</a></li>';
-      $html_content .= '<div data-ptb-tab="' . ptb_slugify(ptbify($tab->title)) . '" ' . ($first_tab->title == $tab->title ? 'class="active"' : '') . '>
-        <table class="ptb-table">
-          <tbody>';
-      foreach ($tab->properties as $property) {
-        $html_content .= $property->callback_args->html;
-      }
-      $html_content .= '</tbody>
-        </table>
-      </div>';
-    }
-    $html_content .= '</div>';
-    $html_tabs .= '</ul>';
-    return (object)array(
-      'html' => $html_tabs . $html_content
-    );
   }
 
   /**
@@ -316,7 +285,7 @@ class PTB_Base {
      foreach ($this->boxes as $box) {
        $args = array();
        if (isset($box->properties[0]) && isset($box->properties[0]->tab) && $box->properties[0]->tab) {
-         $args[] = $this->render_tabs($box);
+         $args[] = new PTB_Tab($box);
        } else {
          usort($box->properties, function ($a, $b) {
           return $a->sort_order - $b->sort_order;

@@ -77,7 +77,7 @@ function get_ptb_page_type ($post_id = null) {
   }
   
   if (!is_null($post_id)) {
-    $meta = get_post_meta($post_id, 'page_type_builder', true);
+    $meta = get_post_meta($post_id, PTB_META_KEY, true);
     if (isset($meta) && !empty($meta) && isset($meta['ptb_page_type'])) {
       return $meta['ptb_page_type'];
     }
@@ -189,27 +189,6 @@ function ptb_remove_ptb ($str) {
 }
 
 /**
- * Get page type for post id or post object.
- *
- * @param object|int $post_id
- * @since 1.0
- *
- * @return string|null
- */
-
-function ptb_get_page_type ($post_id = null) {
-  $post_id = get_ptb_post_id($post_id);
-
-  $meta = get_post_meta($post_id, PTB_META_KEY, true);
-
-  if (is_array($meta) && isset($meta['ptb_page_type'])) {
-    return $meta['ptb_page_type'];
-  }
-
-  return null;
-}
-
-/**
  * Get properties array for page.
  *
  * @param object|int $post_id
@@ -237,7 +216,7 @@ function get_ptb_properties ($post_id = null) {
  * @return mixed
  */
 
-function ptb_get_property_value ($post_id, $property = null, $default = null) {
+function get_ptb_property_value ($post_id, $property = null, $default = null) {
   if (!isset($property)) {
     $property = $post_id;
     $post_id = get_ptb_post_id();
