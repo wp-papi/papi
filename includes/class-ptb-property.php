@@ -164,7 +164,7 @@ abstract class PTB_Property {
     
     // Load css file.
     if (file_exists($path)) {
-      echo '<style type="text/css" rel="stylesheet" href="' . $url . '"></style>';
+      echo '<link type="text/css" rel="stylesheet" href="' . $url . '" />';
     }
     
     // Load custom css file.
@@ -173,7 +173,7 @@ abstract class PTB_Property {
       $url = PTB_CUSTOM_URL . $file;
       
       if (file_exists($path)) {
-        echo '<style type="text/css" rel="stylesheet" href="' . $url . '"></style>';
+        echo '<link type="text/css" rel="stylesheet" href="' . $url . '" />';
       }
     }
   }

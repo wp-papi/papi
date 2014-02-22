@@ -18,7 +18,7 @@ class PropertyDivider extends PTB_Property {
    */
 
   public function html () {
-    return '<h3 class="hndle"><span>' . $this->get_options()->title . '</span></h3>';
+    return '<h3 class="hndle ptb-divider-text"><span>' . $this->get_options()->title . '</span></h3>';
   }
 
   /**
@@ -30,7 +30,7 @@ class PropertyDivider extends PTB_Property {
    */
 
   public function render () {
-    $html = PTB_Html::td($this->html());
+    $html = PTB_Html::td($this->html(), array('colspan' => 2));
     return PTB_Html::tr($html);
   }
 
