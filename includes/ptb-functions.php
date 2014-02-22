@@ -26,7 +26,7 @@ function get_ptb_post_id ($post_id = null) {
     return $_GET['page_id'];
   }
   
-  return null;
+  return $post_id;
 }
 
 /**
@@ -206,29 +206,29 @@ function get_ptb_properties ($post_id = null) {
 }
 
 /**
- * Get property value for property on a post.
+ * Get property value for property on a post or page.
  *
  * @param object|int $post_id
- * @param string $property
+ * @param string $name
  * @param mixed $default Default is null.
  * @since 1.0
  *
  * @return mixed
  */
 
-function get_ptb_property_value ($post_id, $property = null, $default = null) {
+function ptb_value ($post_id, $name = null, $default = null) {
   if (!isset($property)) {
-    $property = $post_id;
+    $name = $post_id;
     $post_id = get_ptb_post_id();
   }
-
+  
   $properties = get_ptb_properties($post_id);
-  $property = ptb_underscorify(ptbify($property));
-
-  if (is_array($properties) && isset($properties[$property])) {
-    $property = $properties[$property];
-    if (is_array($property)) {
-      return ptb_convert_property_value($property);
+  $name = ptb_underscorify(ptbify($name));
+  
+  if (is_array($properties) && isset($properties[$name])) {
+    $value = $properties[$name];
+    if (is_array($value)) {
+      return ptb_convert_property_value($value);
     }
     return $property;
   }

@@ -39,9 +39,21 @@ class PTB_Standard_Page extends PTB_Base {
 
 ```
 
+#### Template
+
 The page will store the value of `template` in `_wp_page_template` so right `page-{x}.php` is loaded in your theme.
 
-So, `current_page()->heading` will return the value of the heading input field.
+#### Get value
+
+```php
+  
+  echo current_page()->heading;
+  
+  // or
+  
+  echo ptb_value('heading');
+  
+```
 
 ## Trello
 [https://trello.com/b/SphdReVr/page-type-builder-for-wordpress](https://trello.com/b/SphdReVr/page-type-builder-for-wordpress)

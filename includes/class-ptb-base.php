@@ -154,7 +154,7 @@ class PTB_Base {
      }
 
      $options->name = ptb_underscorify(ptbify($options->name));
-     $options->value = get_ptb_property_value($options->name);
+     $options->value = ptb_value($options->name);
 
      // Get the property
      $property = PTB_Property::factory($options->type);
@@ -310,7 +310,13 @@ class PTB_Base {
    * @since 1.0
    */
   public function add_meta_box ($box, $page_type, $args) {
-    add_meta_box(ptb_slugify($box->title), ptb_remove_ptb($box->title), array($this, 'box_callback'), $page_type, $box->context, $box->priority, $args);
+    add_meta_box(ptb_slugify($box->title), 
+                 ptb_remove_ptb($box->title), 
+                 array($this, 'box_callback'), 
+                 $page_type, 
+                 $box->context, 
+                 $box->priority, 
+                 $args);
   }
 
   /**
