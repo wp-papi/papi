@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Get post id from a object.
+ * Get post or page id from a object.
  *
  * @param object $post_id
  * @since 1.0
@@ -14,13 +14,19 @@ function get_ptb_post_id ($post_id = null) {
     return $post->ID;
   }
 
-  if (is_null($post_id) && isset($GLOBALS['post'])) {
+  if (is_null($post_id) && get_post()) {
     return get_the_ID();
   }
-    
+
   if (is_null($post_id) && isset($_GET['post'])) {
     return $_GET['post'];
   }
+
+  if (is_null($post_id) && isset($_GET['page_id'])) {
+    return $_GET['page_id'];
+  }
+  
+  return null;
 }
 
 /**
@@ -230,18 +236,30 @@ function ptb_get_property_value ($post_id, $property = null, $default = null) {
 
   if (is_array($properties) && isset($properties[$property])) {
     $property = $properties[$property];
-    if (is_array($property) && isset($property['value']) && isset($property['type'])) {
-      $type = ptb_property_type_format($property['type']);
-      $property_type = PTB_Property::factory($type);
-      if (method_exists ($property_type, 'convert')) {
-        return $property_type->convert($property['value']);
-      }
-      return $property['value'];
+    if (is_array($property)) {
+      return ptb_convert_property_value($property);
     }
     return $property;
   }
 
   return $default;
+}
+
+/**
+ * Convert the property value to the right value that the property should have.
+ *
+ * @param array $property
+ * @since 1.0
+ *
+ * @return mixed
+ */
+
+function ptb_convert_property_value (array $property = array()) {
+  if (isset($property['value']) && isset($property['type'])) {
+    $type = ptb_property_type_format($property['type']);
+    $property_type = PTB_Property::factory($type);
+    return $property_type->convert($property['value']);
+  }
 }
 
 /**
@@ -260,6 +278,9 @@ function current_page ($array = false) {
 
   if (is_array($post_meta)) {
     foreach ($post_meta as $key => $value) {
+      if (is_array($value)) {
+        $value = ptb_convert_property_value($value);
+      }
       $post[ptb_remove_ptb($key)] = $value;
     }
     return $array ? $post : (object)$post;
@@ -368,6 +389,7 @@ function ptb_get_html_name ($name) {
 
 function ptb_property_type_format ($type) {
   $type = strtolower($type);
+  var_dump($type);
   $type = str_replace('property', '', $type);
   $type = ucfirst($type);
   $type = 'Property' . $type;
