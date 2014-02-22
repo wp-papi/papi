@@ -46,11 +46,11 @@ The page will store the value of `template` in `_wp_page_template` so right `pag
 #### Get value
 
 ```php
-  
+<?php
+
   echo current_page()->heading;
   
   // or
-  
   echo ptb_value('heading');
   
 ```
