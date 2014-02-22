@@ -1,7 +1,7 @@
 <div id="wrap">
   <h2>Add new page</h2>
   <p>Select the type of page to create from the list.</p>
-  <?php $page_types = ptb_get_all_page_types(); ?>
+  <?php $page_types = get_ptb_all_page_types(); ?>
   <ul class="ptb-box-list">
     <?php foreach ($page_types as $key => $value): ?>
       <li>

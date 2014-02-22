@@ -70,8 +70,8 @@ class PTB_Core {
 
   public function ptb_load () {
     $uri = $_SERVER['REQUEST_URI'];
-    $post_id = isset($_GET['post']) ? $_GET['post'] : 0;
-    $page_type = ptb_get_page_type($post_id);
+    $post_id = get_ptb_post_id();
+    $page_type = get_ptb_page_type($post_id);
 
     // Only load Page Types on a "page" post type page in admin.
     if (strpos($uri, 'post-new.php?post_type=page') === false && (
@@ -179,13 +179,13 @@ class PTB_Core {
     // Add, update or delete the meta values.
     if (count($meta_value) == 0 || empty($meta_value)) {
       add_post_meta($post_id, $this->nonce_key, $data, true);
-      add_post_meta($post_id, '_wp_page_template', ptb_get_template($page_type), true);
+      add_post_meta($post_id, '_wp_page_template', get_ptb_template($page_type), true);
     } else if (count($meta_value) > 0 && count($data) > 0) {
       update_post_meta($post_id, $this->nonce_key, $data);
-      update_post_meta($post_id, '_wp_page_template', ptb_get_template($page_type));
+      update_post_meta($post_id, '_wp_page_template', get_ptb_template($page_type));
     } else {
       delete_post_meta($post_id, $this->nonce_key, $meta_value);
-      delete_post_meta($post_id, '_wp_page_template', ptb_get_template($page_type));
+      delete_post_meta($post_id, '_wp_page_template', get_ptb_template($page_type));
     }
   }
 

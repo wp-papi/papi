@@ -61,14 +61,26 @@ function get_ptb_page_view () {
 /**
  * Get page type from query string.
  *
+ * @param int $post_id
  * @since 1.0
  *
  * @return string|null
  */
 
-function get_ptb_page_type () {
+function get_ptb_page_type ($post_id = null) {
   if (isset($_GET['page_type']) && !empty($_GET['page_type'])) {
     return $_GET['page_type'];
+  }
+  
+  if (is_null($post_id)) {
+    $post_id = get_ptb_post_id();
+  }
+  
+  if (!is_null($post_id)) {
+    $meta = get_post_meta($post_id, 'page_type_builder', true);
+    if (isset($meta) && !empty($meta) && isset($meta['ptb_page_type'])) {
+      return $meta['ptb_page_type'];
+    }
   }
 
   return null;
@@ -206,7 +218,7 @@ function ptb_get_page_type ($post_id = null) {
  * @return array|null
  */
 
-function ptb_get_properties ($post_id = null) {
+function get_ptb_properties ($post_id = null) {
   if (!isset($post_id)) {
     $post_id = get_ptb_post_id();
   }
@@ -231,7 +243,7 @@ function ptb_get_property_value ($post_id, $property = null, $default = null) {
     $post_id = get_ptb_post_id();
   }
 
-  $properties = ptb_get_properties($post_id);
+  $properties = get_ptb_properties($post_id);
   $property = ptb_underscorify(ptbify($property));
 
   if (is_array($properties) && isset($properties[$property])) {
@@ -297,13 +309,13 @@ function current_page ($array = false) {
  * @return array
  */
 
-function ptb_get_all_page_types () {
+function get_ptb_all_page_types () {
   $files = glob(PTB_PAGES_DIR . '*');
   $res = array();
   $page_type = 'page_type';
 
   foreach ($files as $file) {
-    $res[] = ptb_get_page_type_from_file($file);
+    $res[] = get_ptb_page_type_from_file($file);
   }
 
   return $res;
@@ -318,7 +330,7 @@ function ptb_get_all_page_types () {
  * @return object
  */
 
-function ptb_get_page_type_from_file ($file) {
+function get_ptb_page_type_from_file ($file) {
   $class_name = get_ptb_class_name($file);
   require_once($file);
   return (object)array(
@@ -336,7 +348,7 @@ function ptb_get_page_type_from_file ($file) {
  * @return string
  */
 
-function ptb_get_page_type_file ($page_type) {
+function get_ptb_page_type_file ($page_type) {
   return PTB_PAGES_DIR . ptb_dashify(ptbify($page_type)) . '.php';
 }
 
@@ -349,15 +361,15 @@ function ptb_get_page_type_file ($page_type) {
  * @return string
  */
 
-function ptb_get_template ($post_id) {
+function get_ptb_template ($post_id) {
   if (is_null($post_id) || is_numeric($post_id)) {
     $post_id = get_ptb_post_id($post_id);
-    $page_type = ptb_get_page_type($post_id);
+    $page_type = get_ptb_page_type($post_id);
   } else {
     $page_type = $post_id;
   }
-  $file = ptb_get_page_type_file($page_type);
-  $data = ptb_get_page_type_from_file($file);
+  $file = get_ptb_page_type_file($page_type);
+  $data = get_ptb_page_type_from_file($file);
   return $data->page_type->template;
 }
 
@@ -370,7 +382,7 @@ function ptb_get_template ($post_id) {
  * @return string
  */
 
-function ptb_get_html_name ($name) {
+function get_ptb_html_name ($name) {
   return ptb_underscorify(ptbify($name));
 }
 
@@ -389,7 +401,6 @@ function ptb_get_html_name ($name) {
 
 function ptb_property_type_format ($type) {
   $type = strtolower($type);
-  var_dump($type);
   $type = str_replace('property', '', $type);
   $type = ucfirst($type);
   $type = 'Property' . $type;
