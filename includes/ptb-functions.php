@@ -142,7 +142,7 @@ function ptb_slugify ($str) {
  */
 
 function ptbify ($str) {
-  if (!preg_match('/^ptb\_/', $str)) {
+  if (!preg_match('/^ptb\_/', $str) && !ptb_is_random_title($str)) {
     return  'ptb_' . $str;
   }
 
@@ -227,10 +227,10 @@ function ptb_value ($post_id, $name = null, $default = null) {
   
   if (is_array($properties) && isset($properties[$name])) {
     $value = $properties[$name];
-    if (is_array($value)) {
+    if (is_array($value) && PTB_COLLECTION_KEY !== $name) {
       return ptb_convert_property_value($value);
     }
-    return $property;
+    return $value;
   }
 
   return $default;
@@ -363,4 +363,60 @@ function get_ptb_template ($post_id) {
 
 function get_ptb_html_name ($name) {
   return ptb_underscorify(ptbify($name));
+}
+
+/**
+ * Generate random title for property.
+ *
+ * @since 1.0
+ *
+ * @return string
+ */
+
+function ptb_random_title () {
+  return PTB_RANDOM_KEY . uniqid();
+}
+
+/**
+ * Check if it's a random ptb title string.
+ *
+ * @param string $str
+ * @since 1.0
+ *
+ * @return bool
+ */
+
+function ptb_is_random_title ($str = '') {
+  return preg_match('/^' . PTB_RANDOM_KEY . '/', $str);
+}
+
+/**
+ * Check if it's ends with '_property'.
+ *
+ * @param string $str
+ * @since 1.0
+ *
+ * @return bool
+ */
+
+function ptb_is_property_key ($str = '') {
+  return preg_match('/\_property$/', $str);
+}
+
+/**
+ * Returns only values in the array and removes `{x}_property` key and value.
+ *
+ * @param array $a
+ * @since 1.0
+ *
+ * @return array
+ */
+
+function ptb_get_only_values ($a = array()) {
+  foreach ($a as $key => $value) {
+    if (ptb_is_property_key($key)) {
+      unset($a[$key]);
+    }
+  }
+  return $a;
 }

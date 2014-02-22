@@ -155,10 +155,14 @@ class PTB_Core {
       }
     }
     
+    echo '<pre>';
+    print_r($_POST);
+    
+    die ();
+    
     // Since we are storing witch property it is in the $data array
     // we need to remove that and set the property type to the property
     // and make a array of the property type and the value.
-    
     foreach ($data as $key => $value) {
       if (strpos($key, '_property') === false) {
         continue;
@@ -173,7 +177,15 @@ class PTB_Core {
       
       unset($data[$key]);
     }
+    
+    // Don't wont to save random data that's only is used for getting a nicer ui.
+    foreach ($data as $key => $value) {
+      if (ptb_is_random_title($key)) {
+        unset($data[$key]);
+      }
+    }
 
+    // Get right page type.
     $page_type = isset($data['ptb_page_type']) ? $data['ptb_page_type'] : '';
 
     // Add, update or delete the meta values.

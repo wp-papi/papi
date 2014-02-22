@@ -84,6 +84,16 @@ class PTB_Loader {
     if (!defined('PTB_META_KEY')) {
       define('PTB_META_KEY', 'page_type_builder');
     }
+    
+    // Used for random titles etc.
+    if (!defined('PTB_RANDOM_KEY')) {
+      define('PTB_RANDOM_KEY', '_PTB_');
+    }
+    
+    // Collection key.
+    if (!defined('PTB_COLLECTION_KEY')) {
+      define('PTB_COLLECTION_KEY', 'ptb_collection');
+    }
 
     // Paths that the user can change in their theme
 
@@ -131,6 +141,7 @@ class PTB_Loader {
     require_once($this->plugin_dir . 'includes/class-ptb-view.php');
     require_once($this->plugin_dir . 'includes/class-ptb-property.php');
     require_once($this->plugin_dir . 'includes/class-ptb-tab.php');
+    require_once($this->plugin_dir . 'includes/class-ptb-collection.php');
 
     // Load properties
     require_once($this->plugin_dir . 'includes/properties/class-property-string.php');

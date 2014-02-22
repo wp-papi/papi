@@ -122,6 +122,7 @@ class PTB_Html {
     
     if (is_bool($attributes)) {
       $end = $attributes;
+      $attributes = array();
     }
     
     if (is_array($inner)) {

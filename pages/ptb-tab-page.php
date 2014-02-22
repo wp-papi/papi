@@ -41,8 +41,7 @@ class PTB_Tab_Page extends PTB_Base {
       )),
       
       $this->property(array(
-        'type' => 'PropertyDivider',
-        'title' => 'Rubrik annat',
+        'type' => 'PropertyDivider'
       )),
       
       $this->property(array(

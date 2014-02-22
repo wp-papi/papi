@@ -1,3 +1,8 @@
 .ptb-divider-text {}
 
-.ptb-divider-no-text {}
+.ptb-divider-no-text {
+  height: 1px;
+  background: #eaeaea solid;
+  width: 100%;
+  margin: 5px 0px;
+}

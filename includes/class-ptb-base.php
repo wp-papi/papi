@@ -61,12 +61,15 @@ class PTB_Base {
   /**
    * Constructor.
    *
+   * @param bool $do
    * @since 1.0
    */
 
-  public function __construct () {
-    $this->setup_actions();
-    $this->page_type = ptb_remove_ptb(strtolower(get_class($this)));
+  public function __construct ($do = true) {
+    if ($do) {
+      $this->setup_actions();
+      $this->page_type = ptb_remove_ptb(strtolower(get_class($this)));
+    }
   }
 
   /**
@@ -87,8 +90,13 @@ class PTB_Base {
    * @since 1.0
    */
 
-   public function property (array $options = array()) {
-     $options = (object)array_merge($this->property_default, $options);
+   public function property ($options = array()) {
+     if (is_array($options)) {
+       $options = (object)$options;
+     } else {
+      $options = $options;
+     }
+     
      $options = $this->setup_property($options);
      
      // Can't work with nullify properties.
@@ -115,6 +123,10 @@ class PTB_Base {
      // Can't proceed without a type.
      if (!isset($options->type) && !PTB_Property::exists($options->type)) {
        return null;
+     }
+     
+     if (!isset($options->title) || empty($options->title)) {
+       $options->title = ptb_random_title();
      }
 
      // If the disable option is true, don't add it to the page.
@@ -154,7 +166,19 @@ class PTB_Base {
      }
 
      $options->name = ptb_underscorify(ptbify($options->name));
-     $options->value = ptb_value($options->name);
+     
+     // Only set the vaue if we don't have value.
+     if (!isset($options->value)) {
+       $options->value = ptb_value($options->name);
+     }
+     
+     // If we have collection values, let's prepare for a collection.
+     $collection = ptb_value('collection');
+     if (isset($collection) && !is_null($collection) && !empty($collection)) {
+       $options->collection = true;
+     } else {
+       $options->collection = false;
+     }
 
      // Get the property
      $property = PTB_Property::factory($options->type);
@@ -284,8 +308,16 @@ class PTB_Base {
      });
      foreach ($this->boxes as $box) {
        $args = array();
-       if (isset($box->properties[0]) && isset($box->properties[0]->tab) && $box->properties[0]->tab) {
+       if (isset($box->properties[0]) && 
+           isset($box->properties[0]->tab) && 
+           $box->properties[0]->tab) {
+         // It's a tab.
          $args[] = new PTB_Tab($box);
+       } else if (isset($box->properties[0]) && 
+                  isset($box->properties[0]->collection) && 
+                  $box->properties[0]->collection) {
+         // It's a collection.
+         $args[] = new PTB_Collection($box);
        } else {
          usort($box->properties, function ($a, $b) {
           return $a->sort_order - $b->sort_order;
@@ -363,6 +395,24 @@ class PTB_Base {
     return (object)array(
       'title' => $title,
       'tab' => true,
+      'properties' => $properties
+    );
+  }
+  
+  /**
+   * Add a new collection.
+   *
+   * @param string $title
+   * @param array $properties
+   * @since 1.0
+   *
+   * @return object
+   */
+  
+  public function collection ($title, $properties = array()) {
+    return (object)array(
+      'title' => $title,
+      'collection' => true,
       'properties' => $properties
     );
   }

@@ -1,4 +1,18 @@
-/* Table that exists in the meta box */
+/* Utils */
+
+.ptb-pull-left {
+  float: left;
+}
+
+.ptb-pull-right {
+  float: right;
+}
+
+.ptb-hidden {
+  display: none;
+}
+
+/* Table */
 
 .ptb-table {
   width: 100%;
@@ -98,4 +112,40 @@
 
 .ptb-tabs-content > div.active {
   display: block;
+}
+
+/* Collection */
+
+.ptb-collection-list {
+
+}
+
+.ptb-collection-list > a {
+  margin-top: -27px;
+}
+
+.ptb-collection-list ul {
+  width: 100%;
+}
+
+.ptb-collection-list ul li {
+  width: 100%;
+  border-top: 1px #eaeaea solid;
+  padding-top: 10px;
+}
+
+.ptb-collection-list ul li:first-child {
+  border-top: 0;
+  padding-top: 0;
+  padding-bottom: 10px;
+}
+
+.ptb-collection-list a.ptb-pull-right.del {
+  margin-bottom: -25px;
+}
+
+/* Divider */
+
+h3.ptb-divider-text {
+  padding-left: 0 !important;
 }
