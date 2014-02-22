@@ -27,7 +27,7 @@ class PTB_Tab_Page extends PTB_Base {
       )),
       $this->tab('Inställningar', array(
         $this->property(array(
-          'type' => 'PropertyString',
+          'type' => 'PropertyDate',
           'title' => 'Rubrik 2',
           'tab' => true
         ))
@@ -36,7 +36,7 @@ class PTB_Tab_Page extends PTB_Base {
     
     $this->box('Annat', array(
       $this->property(array(
-        'type' => 'PropertyString',
+        'type' => 'PropertyNumber',
         'title' => 'Rubrik annat',
       ))
     ));

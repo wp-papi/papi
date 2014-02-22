@@ -17,4 +17,8 @@
     $('div[data-ptb-tab=' + tab + ']').addClass('active').show();
   });
   
+  /* Polyfills */
+  
+  
+  
 }(window.jQuery));

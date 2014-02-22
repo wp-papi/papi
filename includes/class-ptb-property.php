@@ -24,8 +24,6 @@ abstract class PTB_Property {
     'PropertyUrl',
     'PropertyNumber',
     'PropertyDate',
-    'PropertyDateTime',
-    'PropertyTime',
     'PropertyColor',
     'PropertyDivider',
     'PropertyMap',
@@ -60,10 +58,12 @@ abstract class PTB_Property {
     if (in_array($property, self::$properties) && class_exists($property)) {
       $klass = new $property();
       add_action('admin_head', array($klass, 'css'));
+      add_action('admin_head', array($klass, 'autocss'));
       add_action('admin_head', array($klass, 'js'));
+      add_action('admin_head', array($klass, 'autojs'));
       return $klass;
     } else {
-      throw new Exception('Unsupported property');
+      throw new Exception('PTB Error: Unsupported property - ' . $property);
     }
   }
 
@@ -148,12 +148,74 @@ abstract class PTB_Property {
   public function css () {}
  
   /**
+   * Output automatic js for property
+   *
+   * @since 1.0
+   */
+  
+  public function autocss () {
+    $name = get_class($this);
+    $name = strtolower($name);
+    $name = str_replace('property', 'property-', $name);
+    $name = ptb_dashify($name);
+    $file = 'gui/css/properties/' . $name . '.css';
+    $path = PTB_PLUGIN_DIR . $file;
+    $url = PTB_PLUGIN_URL . $file; 
+    
+    // Load css file.
+    if (file_exists($path)) {
+      echo '<style type="text/css" rel="stylesheet" href="' . $url . '"></style>';
+    }
+    
+    // Load custom css file.
+    if (PTB_CUSTOM_DIR !== false && PTB_CUSTOM_URL !== false) {
+      $path = PTB_CUSTOM_DIR . $file;
+      $url = PTB_CUSTOM_URL . $file;
+      
+      if (file_exists($path)) {
+        echo '<style type="text/css" rel="stylesheet" href="' . $url . '"></style>';
+      }
+    }
+  }
+ 
+  /**
    * Output custom js for property
    *
    * @since 1.0
    */
   
   public function js () {}
+ 
+  /**
+   * Output automatic js for property
+   *
+   * @since 1.0
+   */
+  
+  public function autojs () {
+    $name = get_class($this);
+    $name = strtolower($name);
+    $name = str_replace('property', 'property-', $name);
+    $name = ptb_dashify($name);
+    $file = 'gui/js/properties/' . $name . '.js';
+    $path = PTB_PLUGIN_DIR . $file;
+    $url = PTB_PLUGIN_URL . $file; 
+
+    // Load css file.
+    if (file_exists($path)) {
+      echo '<script type="text/javascript" src="' . $url . '"></script>';
+    }
+    
+    // Load custom css file.
+    if (PTB_CUSTOM_DIR !== false && PTB_CUSTOM_URL !== false) {
+      $path = PTB_CUSTOM_DIR . $file;
+      $url = PTB_CUSTOM_URL . $file;
+      
+      if (file_exists($path)) {
+        echo '<script type="text/javascript" src="' . $url . '"></style>';
+      }
+    }
+  }
    
   /**
    * Output hidden input field that cointains which property is used.

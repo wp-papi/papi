@@ -41,5 +41,4 @@ class PropertyNumber extends PTB_Property {
       return intval($value);
     }
   }
-
 }

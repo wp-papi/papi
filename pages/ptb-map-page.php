@@ -21,6 +21,9 @@ class PTB_Map_Page extends PTB_Base {
       $this->property(array(
         'type' => 'PropertyMap',
         'title' => 'Plats',
+        'custom' => array(
+          'api_key' => 'AIzaSyCYn-cYmKSOx290fSSvNDugi-U6qpJZe60'
+        )
       ))
     ));
   }

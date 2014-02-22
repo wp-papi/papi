@@ -167,7 +167,7 @@ class PTB_Core {
       $pkey = str_replace('_property', '', $key);
       
       $data[$pkey] = array(
-        'type' => ptb_property_type_format($value),
+        'type' => $value,
         'value' => $data[$pkey]
       );
       

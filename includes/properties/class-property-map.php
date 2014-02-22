@@ -43,9 +43,9 @@ class PropertyMap extends PTB_Property {
 
   public function js () {
     if (isset($this->get_options()->custom) && isset($this->get_options()->custom->api_key)) {
-      $api_key = $this->get_options()->special;
+      $api_key = $this->get_options()->custom->api_key;
     } else {
-     throw new Exception('You need to provide a api key for PropertyMap since we are using Google Maps');
+     throw new Exception('PTB Error: You need to provide a api key for PropertyMap since we are using Google Maps');
     }
     ?>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo $api_key; ?>&sensor=false"></script>

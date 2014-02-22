@@ -88,14 +88,31 @@ class PTB_Loader {
     // Paths that the user can change in their theme
 
     // Path to page types.
+    // Note: Only for development.
     if (!defined('PTB_PAGES_DIR')) {
       define('PTB_PAGES_DIR', PTB_PLUGIN_DIR . 'pages/');
     }
 
-    // Path to custom properties.
+    // Path to custom ptb directory.
     if (!defined('PTB_CUSTOM_DIR')) {
       define('PTB_CUSTOM_DIR', false);
     }
+
+    // Url to custom ptb directory.
+    if (!defined('PTB_CUSTOM_URL')) {
+      define('PTB_CUSTOM_URL', false);
+    }
+    
+    /*
+
+    - custom ptb dir
+      - gui
+        - js
+        - css
+      - properties
+    
+    */
+    
   }
 
   /**
@@ -120,7 +137,6 @@ class PTB_Loader {
     require_once($this->plugin_dir . 'includes/properties/class-property-boolean.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-email.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-date.php');
-    require_once($this->plugin_dir . 'includes/properties/class-property-datetime.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-number.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-url.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-divider.php');
@@ -143,7 +159,7 @@ class PTB_Loader {
 
   private function require_custom_files () {
     if (defined('PTB_CUSTOM_DIR') && is_string(PTB_CUSTOM_DIR)) {
-      $files = glob(PTB_CUSTOM_DIR . '*');
+      $files = glob(trailingslashit(PTB_CUSTOM_DIR . '/properties') . '*');
       foreach ($files as $file) {
         require_once($file);
       }

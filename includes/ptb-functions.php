@@ -247,7 +247,7 @@ function ptb_value ($post_id, $name = null, $default = null) {
 
 function ptb_convert_property_value (array $property = array()) {
   if (isset($property['value']) && isset($property['type'])) {
-    $type = ptb_property_type_format($property['type']);
+    $type = $property['type'];
     $property_type = PTB_Property::factory($type);
     return $property_type->convert($property['value']);
   }
@@ -363,28 +363,4 @@ function get_ptb_template ($post_id) {
 
 function get_ptb_html_name ($name) {
   return ptb_underscorify(ptbify($name));
-}
-
-/**
- * Make sure we have the right format of the property type.
- *
- * Example:
- *  'propertystring' => 'PropertyString'
- *
- * @param string $type
- * @since 1.0
- * @throws Exception
- *
- * @return string
- */
-
-function ptb_property_type_format ($type) {
-  $type = strtolower($type);
-  $type = str_replace('property', '', $type);
-  $type = ucfirst($type);
-  $type = 'Property' . $type;
-  if (!preg_match('/Property\w+/', $type)) {
-      throw new Exception('Wrong format of the Page Type Builder property: ' . $type);
-  }
-  return $type;
 }
