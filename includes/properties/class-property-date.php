@@ -58,12 +58,10 @@ class PropertyDate extends PTB_Property {
    */
   
   public function js () {
-    $file = 'moment.min.js';
-    wp_enqueue_script($file, $this->js_url . 'vendors/' . $file, array(), '1.0.0', true);
-    $file = 'pickaday.min.js';
-    wp_enqueue_script($file, $this->js_url . 'vendors/' . $file, array(), '1.0.0', true);
-    $file = 'pickaday.jquery.min.js';
-    wp_enqueue_script($file, $this->js_url . 'vendors/' . $file, array(), '1.0.0', true);
+    $files = array('moment.min.js', 'pikaday.min.js', 'pikaday.jquery.min.js');
+    foreach ($files as $file) {
+      wp_enqueue_script($file, $this->js_url . 'vendors/' . $file, array(), '1.0.0', true);
+    }
   }
 
 }
