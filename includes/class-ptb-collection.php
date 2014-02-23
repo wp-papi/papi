@@ -86,7 +86,7 @@ class PTB_Collection {
       // Paragraph and add new link.
       $html .= PTB_Html::tag('a', __('Add new', 'ptb'), array(
         'href' => '#',
-        'class' => 'ptb-pull-right',
+        'class' => 'ptb-pull-right add-new',
         'data-ptb-collection' => $collection->name
       ));
       
@@ -179,13 +179,27 @@ class PTB_Collection {
         $html .= PTB_Html::tag('li', array(
           'data-ptb-collection-i' => $this->i
         ), false);
-        if ($first != $k) {
-          $html .= PTB_Html::tag('a', __('Delete', 'ptb'), array(
-            'href' => '#',
-            'class' => 'ptb-pull-right del',
-            'data-ptb-collection' => $collection->name
-          ));
-        }
+        $html .= PTB_Html::tag('span', array(
+          'class' => 'ptb-pull-right ptb-collection-actions'
+        ), false);
+        $html .= PTB_Html::tag('a', __('Move up', 'ptb'), array(
+          'href' => '#',
+          'class' => 'up',
+          'data-ptb-collection' => $collection->name
+        ));
+        $html .= ' - ';
+        $html .= PTB_Html::tag('a', __('Move down', 'ptb'), array(
+          'href' => '#',
+          'class' => 'down',
+          'data-ptb-collection' => $collection->name
+        ));
+        $html .= ' - '; 
+        $html .= PTB_Html::tag('a', __('Delete', 'ptb'), array(
+          'href' => '#',
+          'class' => 'del',
+          'data-ptb-collection' => $collection->name
+        ));
+        $html .= PTB_Html::stop('span');
         $html .= PTB_Html::tag('table', array(
           'class' => 'ptb-table'
         ), false);

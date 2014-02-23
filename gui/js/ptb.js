@@ -19,7 +19,7 @@
   
   /* Collection */
   
-  $('a:not(.del)[data-ptb-collection]').on('click', function (e) {
+  $('a.add-new[data-ptb-collection]').on('click', function (e) {
     e.preventDefault();
     
     var $this = $(this)
@@ -44,17 +44,17 @@
     
   });
   
+  /* Collection - Delete */
+  
   $('ul[data-ptb-collection]').on('click', 'a.del[data-ptb-collection]', function (e) {
     e.preventDefault();
     
     var $this = $(this)
       , collection = $this.data('ptb-collection')
-      , $collection = $('ul[data-ptb-collection=' + collection + ']');
+      , $collection = $('ul[data-ptb-collection=' + collection + ']')
+      , i = 0;
     
     $this.closest('li').remove();
-    
-    var lis = $collection.find('li').size()
-      , i = 0;
 
     $collection.find('li').each(function () {
       var $li = $(this);
@@ -62,6 +62,50 @@
       $li.html(ptb_collection_update_i($li.html(), i));
       i++;
     });
+  });
+  
+  /* Collection - Move Down */
+  
+  $('ul[data-ptb-collection]').on('click', 'a.down[data-ptb-collection]', function (e) {
+    e.preventDefault();
+    
+    var $this = $(this)
+      , collection = $this.data('ptb-collection')
+      , $collection = $('ul[data-ptb-collection=' + collection + ']')
+      , $li = $this.closest('li')
+      , i = 0;
+    
+    $li.next().after($li);
+
+    $collection.find('li').each(function () {
+      var $li = $(this);
+      $li.attr('data-ptb-collection-i', i);
+      $li.html(ptb_collection_update_i($li.html(), i));
+      i++;
+    });
+    
+  });
+  
+  /* Collection - Move Up */
+  
+  $('ul[data-ptb-collection]').on('click', 'a.up[data-ptb-collection]', function (e) {
+    e.preventDefault();
+    
+    var $this = $(this)
+      , collection = $this.data('ptb-collection')
+      , $collection = $('ul[data-ptb-collection=' + collection + ']')
+      , $li = $this.closest('li')
+      , i = 0;
+    
+    $li.prev().before($li);
+
+    $collection.find('li').each(function () {
+      var $li = $(this);
+      $li.attr('data-ptb-collection-i', i);
+      $li.html(ptb_collection_update_i($li.html(), i));
+      i++;
+    });
+  
   });
   
   /**

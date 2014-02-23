@@ -158,7 +158,7 @@
   padding-bottom: 10px;
 }
 
-.ptb-collection-list a.ptb-pull-right.del {
+.ptb-collection-list span.ptb-pull-right.ptb-collection-actions {
   margin-bottom: -25px;
 }
 
