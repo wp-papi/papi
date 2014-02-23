@@ -155,11 +155,6 @@ class PTB_Core {
       }
     }
     
-    echo '<pre>';
-    print_r($_POST);
-    
-    die ();
-    
     // Since we are storing witch property it is in the $data array
     // we need to remove that and set the property type to the property
     // and make a array of the property type and the value.

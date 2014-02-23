@@ -165,7 +165,7 @@ class PTB_Base {
        $this->property_sort_order++;
      }
 
-     $options->name = ptb_underscorify(ptbify($options->name));
+     $options->name = ptb_name($options->name);
      
      // Only set the vaue if we don't have value.
      if (!isset($options->value)) {

@@ -32,7 +32,7 @@
     i++;
     
     template = template.replace(/name\=\"(\w+)\"/g, function (match, value) {
-      var generated = value.replace('ptb_', 'ptb_collection[' + i +'][') + ']';
+      var generated = value.replace('ptb_', 'ptb_collection[' + collection + '][' + i +'][') + ']';
       generated = generated.replace(']_property', '_property]');
       return match.replace(value, generated);
     });

@@ -120,16 +120,22 @@ function get_ptb_class_name ($file) {
  * Slugify the given string.
  *
  * @param string $str
+ * @param array $replace
+ * @param string $delimiter
  *
  * @return string
  */
 
-function ptb_slugify ($str) {
-  $str = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
-  $str = strtolower($str);
-  $str = preg_replace("/\W/", '-', $str);
-  $str = preg_replace("/-+/", '-', $str);
-  return trim($str, '-');
+function ptb_slugify ($str, $replace = array(), $delimiter = '-') {
+  setlocale(LC_ALL, 'en_US.UTF8');
+  if(!empty($replace)) {
+    $str = str_replace((array)$replace, ' ', $str);
+  }
+  $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+  $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+  $clean = strtolower(trim($clean, '-'));
+  $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+  return trim($clean);
 }
 
 /**
@@ -223,7 +229,7 @@ function ptb_value ($post_id, $name = null, $default = null) {
   }
   
   $properties = get_ptb_properties($post_id);
-  $name = ptb_underscorify(ptbify($name));
+  $name = ptb_remove_ptb(ptb_name($name));
   
   if (is_array($properties) && isset($properties[$name])) {
     $value = $properties[$name];
@@ -232,7 +238,12 @@ function ptb_value ($post_id, $name = null, $default = null) {
     }
     return $value;
   }
-
+  
+  $collection = get_ptb_collection_values();
+  if (!is_null($collection) && !empty($collection) && isset($collection[$name])) {
+    return $collection[$name];
+  }
+  
   return $default;
 }
 
@@ -272,6 +283,9 @@ function current_page ($array = false) {
       if (is_array($value)) {
         $value = ptb_convert_property_value($value);
       }
+      $post[ptb_remove_ptb($key)] = $value;
+    }
+    foreach (get_ptb_collection_values() as $key => $value) {
       $post[ptb_remove_ptb($key)] = $value;
     }
     return $array ? $post : (object)$post;
@@ -419,4 +433,47 @@ function ptb_get_only_values ($a = array()) {
     }
   }
   return $a;
+}
+
+/**
+ * Get a php friendly name.
+ *
+ * @param string $name
+ * @since 1.0
+ *
+ * @return string
+ */
+
+function ptb_name ($name) {
+  return ptb_underscorify(ptb_slugify(ptbify($name)));
+}
+
+/** 
+ * Get collection values for post or page.
+ *
+ * @param int $post_id
+ * @since 1.0
+ *
+ * @return null|array
+ */
+
+function get_ptb_collection_values ($post_id = null) {
+  if (!is_null($post_id)) {
+    $post_id = get_ptb_post_id();
+  }
+  
+  $properties = get_ptb_properties($post_id);
+  if (isset($properties[PTB_COLLECTION_KEY])) {
+    $values = $properties[PTB_COLLECTION_KEY];
+    $res = array();
+    foreach ($values as $key => $value) {
+      $key = ptb_remove_ptb($key);
+      $res[$key] = array_map(function ($v) {
+        return (object)$v;
+      }, $value);
+    }
+    return $res;
+  }
+  
+  return null;
 }
