@@ -31,6 +31,11 @@ class PTB_List_Page extends PTB_Base {
             'css_class' => 'ptb-halfwidth',
             'mediauploader' => true
           )
+        )),
+        $this->property(array(
+          'type' => 'PropertyDate',
+          'title' => 'Datum',
+          'collection' => true
         ))
       ))
     ));

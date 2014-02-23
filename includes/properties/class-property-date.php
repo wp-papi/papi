@@ -30,7 +30,8 @@ class PropertyDate extends PTB_Property {
       'name' => $this->get_options()->name,
       'id' => $this->get_options()->name,
       'value' => $value,
-      'class' => $css_class
+      'class' => $css_class,
+      'data-ptb-date' => true
     ));
   }
   
@@ -48,6 +49,21 @@ class PropertyDate extends PTB_Property {
       return new DateTime($value);
     }
     return $value;
+  }
+  
+  /**
+   * Output custom JavaScript for the property.
+   *
+   * @since 1.0
+   */
+  
+  public function js () {
+    $file = 'moment.min.js';
+    wp_enqueue_script($file, $this->js_url . 'vendors/' . $file, array(), '1.0.0', true);
+    $file = 'pickaday.min.js';
+    wp_enqueue_script($file, $this->js_url . 'vendors/' . $file, array(), '1.0.0', true);
+    $file = 'pickaday.jquery.min.js';
+    wp_enqueue_script($file, $this->js_url . 'vendors/' . $file, array(), '1.0.0', true);
   }
 
 }

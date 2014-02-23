@@ -53,6 +53,7 @@ abstract class PTB_Property {
     self::filter_custom_properties();
     if (in_array($property, self::$properties) && class_exists($property)) {
       $klass = new $property();
+      $klass->setup_globals();
       add_action('admin_head', array($klass, 'css'));
       add_action('admin_head', array($klass, 'autocss'));
       add_action('admin_head', array($klass, 'js'));
@@ -64,20 +65,24 @@ abstract class PTB_Property {
   }
 
   /**
-   * Add property to properties array.
+   * Setup globals.
    *
-   * @param $property
    * @since 1.0
+   * @access private
    */
 
-  public static function add_property ($property) {
-    self::$properties[] = $property;
+  private function setup_globals () {
+    $this->js_dir = PTB_PLUGIN_DIR . 'gui/js/';
+    $this->js_url = PTB_PLUGIN_URL . 'gui/js/';
+    $this->css_dir = PTB_PLUGIN_DIR . 'gui/css/';
+    $this->css_url = PTB_PLUGIN_URL . 'gui/css/';
   }
 
   /**
    * Find custom properties that isn't register in this plugin.
    *
    * @since 1.0
+   * @access private
    */
 
   private static function filter_custom_properties () {
@@ -154,9 +159,9 @@ abstract class PTB_Property {
     $name = strtolower($name);
     $name = str_replace('property', 'property-', $name);
     $name = ptb_dashify($name);
-    $file = 'gui/css/properties/' . $name . '.css';
-    $path = PTB_PLUGIN_DIR . $file;
-    $url = PTB_PLUGIN_URL . $file; 
+    $file = 'properties/' . $name . '.css';
+    $path = $this->css_dir . $file;
+    $url = $this->css_url . $file; 
     
     // Load css file.
     if (file_exists($path)) {
@@ -193,9 +198,9 @@ abstract class PTB_Property {
     $name = strtolower($name);
     $name = str_replace('property', 'property-', $name);
     $name = ptb_dashify($name);
-    $file = 'gui/js/properties/' . $name . '.js';
-    $path = PTB_PLUGIN_DIR . $file;
-    $url = PTB_PLUGIN_URL . $file; 
+    $file = 'properties/' . $name . '.js';
+    $path = $this->js_dir . $file;
+    $url = $this->js_url . $file; 
 
     // Load css file.
     if (file_exists($path)) {
