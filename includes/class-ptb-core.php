@@ -32,6 +32,7 @@ class PTB_Core {
     add_action('admin_head', array($this, 'ptb_admin_head'));
     add_action('admin_footer', array($this, 'ptb_admin_footer'));
     add_filter('admin_body_class', array($this, 'ptb_admin_body_class'));
+    add_action('admin_print_footer_scripts', array($this, 'ptb_add_new_link'));
   }
 
   /**
@@ -45,6 +46,22 @@ class PTB_Core {
     remove_submenu_page('edit.php?post_type=page', 'post-new.php?post_type=page');
     // Add our custom menu item.
     add_submenu_page('edit.php?post_type=page', __('Add new', 'ptb'), __('Add new', 'ptb'), 'manage_options', 'ptb-add-new-page', array($this, 'ptb_view'));
+  }
+  
+  /**
+   * Change the "Add new" link on "edit-page" or "page" screen.
+   *
+   * @since 1.0
+   */
+  
+  public function ptb_add_new_link () {
+    $screen = get_current_screen();
+    if ($screen->id == 'edit-page' || $screen->id == 'page') { ?>
+      <script type="text/javascript">
+        jQuery('.wrap h2 .add-new-h2').attr('href', 'edit.php?post_type=page&page=ptb-add-new-page');
+      </script>
+    <?php
+    }
   }
 
   /**
