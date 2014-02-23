@@ -111,18 +111,10 @@ class PTB_Collection {
       $html .= PTB_Html::tag('ul', array(
         'data-ptb-collection' => $collection->name
       ), false);
-      
-      if ($this->first_collection->properties[0]->collection) {
-        // Get collection fields.
-        $html .= $this->get_collection_fields($collection);
-      } else {
-        $html .= PTB_Html::tag('li', array(
-          'data-ptb-collection-i' => $this->i
-        ), false);
-        $html .= $this->properties($collection, true);
-        $html .= PTB_Html::stop('li');
-      }
-      
+
+      // Get collection fields.
+      $html .= $this->get_collection_fields($collection);
+    
       $html .= PTB_Html::stop('ul');
     }
   
@@ -172,6 +164,15 @@ class PTB_Collection {
   private function get_collection_fields ($collection) {
     $html = '';
     $values = ptb_value(PTB_COLLECTION_KEY);
+    
+    if (is_null($values)) {
+      $html .= PTB_Html::tag('li', array(
+        'data-ptb-collection-i' => $this->i
+      ), false);
+      $html .= $this->properties($collection, true);
+      return $html . PTB_Html::stop('li');
+    }
+    
     $first = key($values);
     foreach ($values as $key => $properties) {
       foreach ($properties as $k => $v) {
