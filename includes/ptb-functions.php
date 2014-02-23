@@ -471,6 +471,20 @@ function get_ptb_collection_values ($post_id = null) {
     foreach ($values as $key => $value) {
       $key = ptb_remove_ptb($key);
       $res[$key] = array_map(function ($v) {
+        foreach ($v as $k => $y) {
+          if (ptb_is_property_key($k)) {
+            continue;
+          }
+          $v[$k] = ptb_convert_property_value(array(
+            'value' => $y,
+            'type' => $v[$k . '_property']
+          ));
+        }
+        foreach ($v as $k => $y) {
+          if (ptb_is_property_key($k)) {
+            unset($v[$k]);
+          }
+        }
         return (object)$v;
       }, $value);
     }

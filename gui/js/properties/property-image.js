@@ -8,9 +8,11 @@
       var $this = $(this)
         , $target = $this.prev();
       
-      ptb.wp_media_editor($this, function (url) {
-        $this.attr('src', url);
-        $this.next().val(url);
+      ptb.wp_media_editor($this, function (attachment) {
+        if (ptb.is_image(attachment.url)) {
+          $this.attr('src', attachment.url);
+          $this.next().val(attachment.id);
+        }
       });
     });
   }

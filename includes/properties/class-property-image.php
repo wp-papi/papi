@@ -24,8 +24,14 @@ class PropertyImage extends PTB_Property {
       $css_class = '';
     }
     
+    if (isset($this->get_options()->value) && is_numeric($this->get_options()->value)) {
+      $value = wp_get_attachment_url($this->get_options()->value);
+    } else {
+      $value = '';
+    }
+    
     $html = PTB_Html::tag('img', array(
-      'src' => $this->get_options()->value,
+      'src' => $value,
       'class' => 'ptb-property-image ' . $css_class,
       'data-ptb-property' => 'image'
     ));
@@ -35,6 +41,32 @@ class PropertyImage extends PTB_Property {
       'name' => $this->get_options()->name,
       'id' => $this->get_options()->name
     ));
+  }
+  
+  /**
+   * Convert the value of the property before we output it to the application.
+   *
+   * @param mixed $value
+   * @since 1.0
+   *
+   * @return object|string
+   */
+  
+  public function convert ($value) {
+    if (is_numeric($value)) {
+      $meta = wp_get_attachment_metadata($value);
+      if (isset($meta) && !empty($meta)) {
+        $mine = array(
+          'is_image' => true,
+          'url' => wp_get_attachment_url($value)
+        );
+        return (object)array_merge($meta, $mine);
+      } else {
+        return $value;
+      }
+    } else {
+      return $value;
+    }
   }
 
 }
