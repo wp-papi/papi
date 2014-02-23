@@ -12,6 +12,21 @@
   display: none;
 }
 
+/* PTB Page */
+
+.ptb-page {
+  
+}
+
+/* Hide custom template dropdown */
+
+.ptb-page label[for="page_template"],
+.ptb-page select[name="page_template"],
+.ptb-page #pageparentdiv div.inside p:nth-of-type(2),
+.ptb-page #pageparentdiv div.inside p:first-child + p {
+  display: none;
+}
+
 /* Table */
 
 .ptb-table {
@@ -58,7 +73,7 @@
 
 .ptb-box-list li p {
   margin-top: -65px;
-  width: 150px;
+  width: 145px;
   text-align: center;
 }
 

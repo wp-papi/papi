@@ -171,7 +171,7 @@ class PTB_Collection {
   
   private function get_collection_fields ($collection) {
     $html = '';
-    $values = ptb_value('collection');
+    $values = ptb_value(PTB_COLLECTION_KEY);
     $first = key($values);
     foreach ($values as $key => $properties) {
       foreach ($properties as $k => $v) {

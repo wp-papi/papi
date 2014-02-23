@@ -31,6 +31,7 @@ class PTB_Core {
     add_action('save_post', array($this, 'ptb_save_post'));
     add_action('admin_head', array($this, 'ptb_admin_head'));
     add_action('admin_footer', array($this, 'ptb_admin_footer'));
+    add_filter('admin_body_class', array($this, 'ptb_admin_body_class'));
   }
 
   /**
@@ -214,5 +215,27 @@ class PTB_Core {
 
   public function ptb_admin_footer () {
     echo '<script src="' . PTB_PLUGIN_URL . 'gui/js/ptb.js" type="text/javascript"></script>';
+  }
+  
+  /**
+   * Add custom body class when it's a page type.
+   *
+   * @since 1.0
+   */
+  
+  public function ptb_admin_body_class ($classes) {
+    global $post;
+    $uri = $_SERVER['REQUEST_URI'];
+    $post_id = get_ptb_post_id();
+    $page_type = get_ptb_page_type($post_id);
+    
+    if (strpos($uri, 'post-new.php?post_type=page') === false && (
+      $post_id !== 0 && get_post_type($post_id) != 'page' ||
+      isset($_POST['post_type']) && $_POST['post_type'] != 'page' ||
+      is_null($page_type))) {
+      return $classes;
+    }
+    
+    return $classes .= 'ptb-page';
   }
 }

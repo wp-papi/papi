@@ -479,3 +479,16 @@ function get_ptb_collection_values ($post_id = null) {
   
   return null;
 }
+
+/**
+ * Check if we have a page type or not.
+ *
+ * @since 1.0
+ *
+ * @return bool
+ */
+
+function ptb_has_page_type () {
+  // todo write this function.
+  return false;
+}

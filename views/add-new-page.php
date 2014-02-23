@@ -9,6 +9,10 @@
         <p><?php echo $value->page_type->description; ?></p>
       </li>
     <?php endforeach; ?>
+    <li>
+      <a href="post-new.php?post_type=page"><?php echo __('Normal page', 'ptb'); ?></a>
+      <p><?php echo __('Just a normal WordPress Page', 'ptb'); ?></p>
+    </li>
   </ul>
 </div>
 
