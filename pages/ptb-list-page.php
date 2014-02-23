@@ -25,10 +25,11 @@ class PTB_List_Page extends PTB_Base {
           'collection' => true
         )),
         $this->property(array(
-        'type' => 'PropertyUrl',
-        'title' => 'Bild',
-        'custom' => array(
-          'css_class' => 'ptb-halfwidth'
+          'type' => 'PropertyUrl',
+          'title' => 'Bild',
+          'custom' => array(
+            'css_class' => 'ptb-halfwidth',
+            'mediauploader' => true
           )
         ))
       ))

@@ -24,13 +24,9 @@ abstract class PTB_Property {
     'PropertyUrl',
     'PropertyNumber',
     'PropertyDate',
-    'PropertyColor',
     'PropertyDivider',
     'PropertyMap',
-    'PropertyText',
-    'PropertyTab',
-    'PropertyLinkCollection',
-    'PropertyList'
+    'PropertyText'
   );
 
   /**
