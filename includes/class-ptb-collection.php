@@ -87,19 +87,19 @@ class PTB_Collection {
       $html .= PTB_Html::tag('a', __('Add new', 'ptb'), array(
         'href' => '#',
         'class' => 'ptb-pull-right',
-        'data-ptb-collection' => ptb_name($collection->title)
+        'data-ptb-collection' => $collection->name
       ));
       
       // Generate hidden template tag.
       $html .= PTB_Html::tag('div', array(
-        'data-ptb-collection' => ptb_name($collection->title),
+        'data-ptb-collection' => $collection->name,
         'class' => 'ptb-hidden'
       ), false);
       
       $html .= PTB_Html::tag('a', __('Delete', 'ptb'), array(
         'href' => '#',
         'class' => 'ptb-pull-right del',
-        'data-ptb-collection' => ptb_name($collection->title)
+        'data-ptb-collection' => $collection->name
       ));
       
       // Get properties table.
@@ -109,7 +109,7 @@ class PTB_Collection {
       
       // List of properties.
       $html .= PTB_Html::tag('ul', array(
-        'data-ptb-collection' => ptb_name($collection->title)
+        'data-ptb-collection' => $collection->name
       ), false);
       
       if ($this->first_collection->properties[0]->collection) {
@@ -146,10 +146,10 @@ class PTB_Collection {
     ), false);
     
     $html .= PTB_Html::start('tbody');
-      
+    
     foreach ($collection->properties as $property) {
       if ($prepare) {
-        $html .= $this->prepare_properties($property->callback_args->html, $collection->title);
+        $html .= $this->prepare_properties($property->callback_args->html, $collection->name);
       } else {
         $html .= $property->callback_args->html;
       }
@@ -172,18 +172,19 @@ class PTB_Collection {
   private function get_collection_fields ($collection) {
     $html = '';
     $values = ptb_value('collection');
+    $first = key($values);
     foreach ($values as $key => $properties) {
       foreach ($properties as $k => $v) {
         $html .= PTB_Html::tag('li', array(
           'data-ptb-collection-i' => $this->i
         ), false);
-        /*if ($key > 0) {
+        if ($first != $k) {
           $html .= PTB_Html::tag('a', __('Delete', 'ptb'), array(
             'href' => '#',
             'class' => 'ptb-pull-right del',
-            'data-ptb-collection' => ptb_slugify(ptbify($collection->title))
+            'data-ptb-collection' => $collection->name
           ));
-        }*/
+        }
         $html .= PTB_Html::tag('table', array(
           'class' => 'ptb-table'
         ), false);
@@ -200,7 +201,7 @@ class PTB_Collection {
           $property->value = $value;
           $property = $base->property($property);
           $phtml = $property->callback_args->html;
-          $html .= $this->prepare_properties($phtml, $collection->title);
+          $html .= $this->prepare_properties($phtml, $collection->name);
           $num++;
         }
         $html .= PTB_Html::stop('tbody')
@@ -218,16 +219,16 @@ class PTB_Collection {
    * Prepare properties html name attribute.
    *
    * @param string $html
-   * @param string $title
+   * @param string $name
    * @since 1.0
    *
    * @return string
    */
   
-  private function prepare_properties ($html, $title) {
+  private function prepare_properties ($html, $name) {
     preg_match_all('/name\=\"(\w+)\"/', $html, $matches);
     foreach ($matches[1] as $match) {
-      $html = str_replace($match, str_replace('ptb_', PTB_COLLECTION_KEY . '['. ptb_name($title) . ']'  . '[' . $this->i . '][', $match) . ']', $html);
+      $html = str_replace($match, str_replace('ptb_', PTB_COLLECTION_KEY . '['. $name . ']'  . '[' . $this->i . '][', $match) . ']', $html);
       $html = str_replace(']_property', '_property]', $html);
     }
     return $html;

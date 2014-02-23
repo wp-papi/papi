@@ -22,13 +22,20 @@ class PTB_List_Page extends PTB_Base {
         $this->property(array(
           'type' => 'PropertyString',
           'title' => 'Rubrik',
-          'tab' => true
+          'collection' => true
         )),
         $this->property(array(
           'type' => 'PropertyString',
           'title' => 'Bild',
-          'tab' => true
+          'collection' => true
         ))
+      ))
+    ));
+    
+    $this->box('Text', array(
+      $this->property(array(
+        'type' => 'PropertyText',
+        'title' => 'Text'
       ))
     ));
   }

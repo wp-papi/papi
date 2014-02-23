@@ -18,11 +18,19 @@ class PropertyText extends PTB_Property {
    */
 
   public function html () {
-    return PTB_Html::textarea($this->get_options()->value, array(
-      'name' => $this->get_options()->name,
-      'id' => $this->get_options()->name,
-      'class' => 'ptb-property-text'
-    ));
+    if (isset($this->get_options()->custom->wp_editor) && $this->get_options()->custom->wp_editor) {
+      return array(
+        'action' => 'wp_editor',
+        'name' => $this->get_options()->name,
+        'value' => $this->get_options()->value
+      );
+    } else {
+      return PTB_Html::textarea($this->get_options()->value, array(
+        'name' => $this->get_options()->name,
+        'id' => $this->get_options()->name,
+        'class' => 'ptb-property-text'
+      ));
+    }
   }
 
   /**

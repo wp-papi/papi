@@ -212,8 +212,8 @@ class PTB_Loader {
    */
 
   private function setup_actions () {
-    add_action('activate_' . $this->basename, 'ptb_activation');
-    add_action('deactivate_' . $this->basename, 'ptb_deactivation');
+    // add_action('activate_' . $this->basename, 'ptb_activation');
+    // add_action('deactivate_' . $this->basename, 'ptb_deactivation');
   }
 }
 

@@ -79,12 +79,12 @@ class PTB_Tab {
       ), false);
       $ul .= PTB_Html::tag('a', $tab->title, array(
         'href' => '#',
-        'data-ptb-tab' => ptb_slugify(ptbify($tab->title))
+        'data-ptb-tab' => $tab->name
       ));
       
       // Start div and table for tab.
       $div .= PTB_Html::tag('div', array(
-        'data-ptb-tab' => ptb_slugify(ptbify($tab->title)),
+        'data-ptb-tab' => $tab->name,
         'class' => ($this->first_tab == $tab ? 'active' : '')
       ), false);
       $div .= PTB_Html::tag('table', array(

@@ -21,15 +21,13 @@ class PTB_Tab_Page extends PTB_Base {
       $this->tab('Innehåll', array(
         $this->property(array(
           'type' => 'PropertyString',
-          'title' => 'Rubrik 1',
-          'tab' => true
+          'title' => 'Rubrik 1'
         ))
       )),
       $this->tab('Inställningar', array(
         $this->property(array(
           'type' => 'PropertyDate',
-          'title' => 'Rubrik 2',
-          'tab' => true
+          'title' => 'Rubrik 2'
         ))
       ))
     ));

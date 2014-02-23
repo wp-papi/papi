@@ -138,21 +138,12 @@ class PTB_Base {
      if (!isset($options->name) || empty($options->name)) {
        $options->name = ptb_slugify($options->title);
      }
-    
-     // Setup box options.
-     if (!isset($options->box) || !is_array($options->box)) {
-       $options->box = array(
-        'title' => $options->title
-       );
-     }
-     
-     if (is_array($options->box)) {
-      $options->box = (object)$options->box;
-     }
-    
+
      // Custom object for properties data.
      if (isset($options->custom)) {
        $options->custom = (object)$options->custom;
+     } else {
+       $options->custom = new stdClass;
      }
 
      // Property sort order.
@@ -172,11 +163,8 @@ class PTB_Base {
        $options->value = ptb_value($options->name);
      }
      
-     // If we have collection values, let's prepare for a collection.
-     $collection = ptb_value('collection');
-     if (isset($collection) && !is_null($collection) && !empty($collection)) {
-       $options->collection = true;
-     } else {
+     // Set default value for collection.
+     if (!isset($options->collection)) {
        $options->collection = false;
      }
 
@@ -184,7 +172,11 @@ class PTB_Base {
      $property = PTB_Property::factory($options->type);
      $property->set_options($options);
      
-     $options->callback_args->html = $property->render() . $property->hidden();
+     if (is_array($property->html())) {
+       $options->callback_args->html = $property->html();
+     } else {
+       $options->callback_args->html = $property->render() . $property->hidden();
+     }
        
      return $options;
   }
@@ -284,7 +276,19 @@ class PTB_Base {
       
       foreach ($args['args'] as $box) {
         if (isset($box->html)) {
-          echo $box->html;
+          if (is_array($box->html)) {
+            switch ($box->html['action']) {
+              case 'wp_editor':
+                wp_editor($box->html['value'], $box->html['name'], array(
+                  'textarea_name' => $box->html['name']
+                ));
+                break;
+              default:
+                break;
+            }
+          } else {
+            echo $box->html;
+          }
         }
       }
       
@@ -384,6 +388,7 @@ class PTB_Base {
   /**
    * Add a new tab.
    *
+   * @param string $title
    * @param string $name
    * @param array $properties
    * @since 1.0
@@ -391,9 +396,14 @@ class PTB_Base {
    * @return object
    */
   
-  public function tab ($title, $properties = array()) {
+  public function tab ($title, $name = '', $properties = array()) {
+    if (is_array($name)) {
+      $properties = $name;
+      $name = $title;
+    }
     return (object)array(
       'title' => $title,
+      'name' => ptb_name($name),
       'tab' => true,
       'properties' => $properties
     );
@@ -403,15 +413,21 @@ class PTB_Base {
    * Add a new collection.
    *
    * @param string $title
+   * @param string $name
    * @param array $properties
    * @since 1.0
    *
    * @return object
    */
   
-  public function collection ($title, $properties = array()) {
+  public function collection ($title, $name = '', $properties = array()) {
+    if (is_array($name)) {
+      $properties = $name;
+      $name = $title;
+    }
     return (object)array(
       'title' => $title,
+      'name' => ptb_name($name),
       'collection' => true,
       'properties' => $properties
     );

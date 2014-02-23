@@ -18,10 +18,11 @@ class PropertyDate extends PTB_Property {
    */
 
   public function html () {
-    return PTB_Html::input('date', array(
+    $value = !empty($this->get_options()->value) ? $this->get_options()->value->format('Y-m-d') : '';
+    return PTB_Html::input('text', array(
       'name' => $this->get_options()->name,
       'id' => $this->get_options()->name,
-      'value' => $this->get_options()->value
+      'value' => $value
     ));
   }
   
@@ -36,7 +37,7 @@ class PropertyDate extends PTB_Property {
   
   public function convert ($value) {
     if (preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $value)) {
-      return date_parse($value);
+      return new DateTime($value);
     }
     return $value;
   }

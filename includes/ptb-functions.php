@@ -229,7 +229,7 @@ function ptb_value ($post_id, $name = null, $default = null) {
   }
   
   $properties = get_ptb_properties($post_id);
-  $name = ptb_remove_ptb(ptb_name($name));
+  $name = ptb_name($name);
   
   if (is_array($properties) && isset($properties[$name])) {
     $value = $properties[$name];
@@ -238,6 +238,8 @@ function ptb_value ($post_id, $name = null, $default = null) {
     }
     return $value;
   }
+  
+  $name = ptb_remove_ptb($name);
   
   $collection = get_ptb_collection_values();
   if (!is_null($collection) && !empty($collection) && isset($collection[$name])) {
