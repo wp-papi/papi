@@ -2,6 +2,48 @@
   
   'use strict';
   
+  /* Page Type Builder object */
+  
+  window['ptb'] = {
+  
+    /**
+     * Update array number in html name.
+     *
+     * @param {String} html
+     * @param {Int} i
+     *
+     * @return {String}
+     */
+
+    collection_update_i: function (html, i) {
+      return html.replace(/name\=\"(\w+)\"/g, function (match, value) {
+        if (match.indexOf('ptb_') !== -1) {
+          var generated = value.replace(/\[\d+\]/, '[' + i + ']');
+          return match.replace(value, generated);
+        }
+        return match;
+      });
+    },
+  
+    /**
+     * Hook up the WordPress media editor.
+     *
+     * @param {Object} $button
+     * @param {Object|Function} $target
+     */
+
+    wp_media_editor: function ($button, $target) {
+      wp.media.editor.send.attachment = function (props, attachment) {
+        if (typeof $target === 'function') {
+          $target(attachment.url);
+        } else {
+          $target.val(attachment.url);
+        }
+      };
+      wp.media.editor.open($button);
+    }
+  };
+  
   /* Tabs */
   
   $('a[data-ptb-tab]').on('click', function (e) {
@@ -59,7 +101,7 @@
     $collection.find('li').each(function () {
       var $li = $(this);
       $li.attr('data-ptb-collection-i', i);
-      $li.html(ptb_collection_update_i($li.html(), i));
+      $li.html(ptb.collection_update_i($li.html(), i));
       i++;
     });
   });
@@ -80,7 +122,7 @@
     $collection.find('li').each(function () {
       var $li = $(this);
       $li.attr('data-ptb-collection-i', i);
-      $li.html(ptb_collection_update_i($li.html(), i));
+      $li.html(ptb.collection_update_i($li.html(), i));
       i++;
     });
     
@@ -102,30 +144,11 @@
     $collection.find('li').each(function () {
       var $li = $(this);
       $li.attr('data-ptb-collection-i', i);
-      $li.html(ptb_collection_update_i($li.html(), i));
+      $li.html(ptb.collection_update_i($li.html(), i));
       i++;
     });
   
   });
-  
-  /**
-   * Update array number in html name.
-   *
-   * @param {String} html
-   * @param {Int} i
-   *
-   * @return {String}
-   */
-  
-  function ptb_collection_update_i (html, i) {
-    return html.replace(/name\=\"(\w+)\"/g, function (match, value) {
-      if (match.indexOf('ptb_') !== -1) {
-        var generated = value.replace(/\[\d+\]/, '[' + i + ']');
-        return match.replace(value, generated);
-      }
-      return match;
-    });
-  }
   
   /* Add new page search */
   

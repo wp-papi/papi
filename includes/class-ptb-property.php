@@ -26,7 +26,8 @@ abstract class PTB_Property {
     'PropertyDate',
     'PropertyDivider',
     'PropertyMap',
-    'PropertyText'
+    'PropertyText',
+    'PropertyImage'
   );
 
   /**
@@ -56,8 +57,8 @@ abstract class PTB_Property {
       $klass->setup_globals();
       add_action('admin_head', array($klass, 'css'));
       add_action('admin_head', array($klass, 'autocss'));
-      add_action('admin_head', array($klass, 'js'));
-      add_action('admin_head', array($klass, 'autojs'));
+      add_action('admin_footer', array($klass, 'js'));
+      add_action('admin_footer', array($klass, 'autojs'));
       return $klass;
     } else {
       throw new Exception('PTB Error: Unsupported property - ' . $property);

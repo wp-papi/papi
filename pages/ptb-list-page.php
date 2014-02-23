@@ -26,7 +26,7 @@ class PTB_List_Page extends PTB_Base {
         )),
         $this->property(array(
           'type' => 'PropertyUrl',
-          'title' => 'Bild',
+          'title' => 'Bild2',
           'custom' => array(
             'css_class' => 'ptb-halfwidth',
             'mediauploader' => true
@@ -35,6 +35,11 @@ class PTB_List_Page extends PTB_Base {
         $this->property(array(
           'type' => 'PropertyDate',
           'title' => 'Datum',
+          'collection' => true
+        )),
+        $this->property(array(
+          'type' => 'PropertyImage',
+          'title' => 'Bild',
           'collection' => true
         ))
       ))

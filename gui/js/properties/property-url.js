@@ -5,15 +5,10 @@
     $('body').on('click', '[data-ptb-action="mediauploader"]', function (e) {
       e.preventDefault();
       
-      var attch = wp.media.editor.send.attachment
-        , $this = $(this)
+      var $this = $(this)
         , $target = $this.prev();
       
-      wp.media.editor.send.attachment = function (props, attachment) {
-        $target.val(attachment.url);
-      };
-      
-      wp.media.editor.open($this);
+      ptb.wp_media_editor($this, $target);
     });
   }
   

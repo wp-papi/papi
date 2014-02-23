@@ -31,7 +31,7 @@ class PropertyDate extends PTB_Property {
       'id' => $this->get_options()->name,
       'value' => $value,
       'class' => $css_class,
-      'data-ptb-date' => true
+      'data-ptb-property' => 'date'
     ));
   }
   
