@@ -164,7 +164,7 @@ abstract class PTB_Property {
     
     // Load css file.
     if (file_exists($path)) {
-      echo '<link type="text/css" rel="stylesheet" href="' . $url . '" />';
+      wp_enqueue_style($file, $url);
     }
     
     // Load custom css file.
@@ -173,7 +173,7 @@ abstract class PTB_Property {
       $url = PTB_CUSTOM_URL . $file;
       
       if (file_exists($path)) {
-        echo '<link type="text/css" rel="stylesheet" href="' . $url . '" />';
+        wp_enqueue_style($file, $url);
       }
     }
   }
@@ -203,7 +203,7 @@ abstract class PTB_Property {
 
     // Load css file.
     if (file_exists($path)) {
-      echo '<script type="text/javascript" src="' . $url . '"></script>';
+      wp_enqueue_script($file, $url, array(), '1.0.0', true);
     }
     
     // Load custom css file.
@@ -212,7 +212,7 @@ abstract class PTB_Property {
       $url = PTB_CUSTOM_URL . $file;
       
       if (file_exists($path)) {
-        echo '<script type="text/javascript" src="' . $url . '"></style>';
+        wp_enqueue_script($file, $url, array(), '1.0.0', true);
       }
     }
   }

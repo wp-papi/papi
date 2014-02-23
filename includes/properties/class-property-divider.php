@@ -18,14 +18,20 @@ class PropertyDivider extends PTB_Property {
    */
 
   public function html () {
+    if (isset($this->get_options()->custom->css_class)) {
+      $css_class = $this->get_options()->custom->css_class;
+    } else {
+      $css_class = '';
+    }
+    
     if (ptb_is_random_title($this->get_options()->title)) {
       return PTB_Html::tag('div', array(
-        'class' => 'ptb-divider-no-text'
+        'class' => 'ptb-divider-no-text ' . $css_class
       ));
     } else {
       $span = PTB_Html::tag('span', $this->get_options()->title);
       return PTB_Html::tag('h3', $span, array(
-        'class' => 'hndle ptb-divider-text'
+        'class' => 'hndle ptb-divider-text ' . $css_class
       ));
     }
   }

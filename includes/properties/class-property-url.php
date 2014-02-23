@@ -18,11 +18,30 @@ class PropertyUrl extends PTB_Property {
    */
 
   public function html () {
-    return PTB_Html::input('url', array(
+    
+    if (isset($this->get_options()->custom->css_class)) {
+      $css_class = $this->get_options()->custom->css_class;
+    } else {
+      $css_class = '';
+    }
+    
+    $html = PTB_Html::input('url', array(
       'name' => $this->get_options()->name,
       'id' => $this->get_options()->name,
-      'value' => $this->get_options()->value
+      'value' => $this->get_options()->value,
+      'class' => $css_class
     ));
+    
+    if (true) {
+      return $html .= '&nbsp;' . PTB_Html::input('submit', array(
+        'name' => $this->get_options()->name . '_button',
+        'data-ptb-action' => 'mediauploader',
+        'value' => __('Select file', 'ptb'),
+        'class' => 'button ptb-url-media-button'
+      ));
+    }
+    
+    return $html;
   }
 
 }
