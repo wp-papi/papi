@@ -83,5 +83,19 @@
     });
   }
   
+  /* Add new page search */
+  
+  $('input[name=add-new-page-search]').on('keyup', function (e) {
+    
+    var $this = $(this)
+      , $list = $('.ptb-box-list')
+      , val = $(this).val();
+    
+    $list.find('li').each(function () {
+      var $li = $(this);
+      $li[$li.text().indexOf(val) === -1 ? 'hide' : 'show']();
+    });
+    
+  });
   
 }(window.jQuery));

@@ -27,6 +27,11 @@
   display: none;
 }
 
+/* Add new page */
+.ptb-search {
+  border: 1px #eaeaea solid;
+}
+
 /* Table */
 
 .ptb-table {
@@ -45,7 +50,9 @@
 
 /* Boxes on the page where you select witch page to create */
 
-.ptb-box-list {}
+.ptb-box-list {
+  margin-left: -10px;
+}
 
 .ptb-box-list a {
   height: 90px;
@@ -61,10 +68,6 @@
 .ptb-box-list li {
   margin: 10px;
   float: left;
-}
-
-.ptb-box-list li:first-child {
-  margin-left: 0px;
 }
 
 .ptb-box-list li:hover > a {
