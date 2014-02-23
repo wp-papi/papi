@@ -348,24 +348,46 @@ function get_ptb_page_type_file ($page_type) {
 }
 
 /**
- * Get template file from page type.
+ * Get data from page type file.
  *
  * @param int|string $post_id Post id or page type
  * @since 1.0
  *
- * @return string
+ * @return null|object
  */
 
-function get_ptb_template ($post_id) {
+function get_ptb_file_data ($post_id) {
   if (is_null($post_id) || is_numeric($post_id)) {
     $post_id = get_ptb_post_id($post_id);
     $page_type = get_ptb_page_type($post_id);
   } else {
     $page_type = $post_id;
   }
-  $file = get_ptb_page_type_file($page_type);
-  $data = get_ptb_page_type_from_file($file);
-  return $data->page_type->template;
+  if (!is_null($page_type) && !empty($page_type)) {
+    $file = get_ptb_page_type_file($page_type);
+    $data = get_ptb_page_type_from_file($file);
+    return $data;
+  } else {
+    return null;
+  }
+}
+
+/**
+ * Get template file from page type.
+ *
+ * @param int|string $post_id Post id or page type
+ * @since 1.0
+ *
+ * @return null|string
+ */
+
+function get_ptb_template ($post_id) {
+  $data = get_ptb_file_data($post_id);
+  if (isset($data) && isset($data->page_type) && isset($data->page_type->template)) {
+    return $data->page_type->template;
+  } else {
+    return null;
+  }
 }
 
 /**

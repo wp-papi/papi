@@ -33,6 +33,8 @@ class PTB_Core {
     add_action('admin_footer', array($this, 'ptb_admin_footer'));
     add_filter('admin_body_class', array($this, 'ptb_admin_body_class'));
     add_action('admin_print_footer_scripts', array($this, 'ptb_add_new_link'));
+    add_filter('manage_page_posts_columns', array($this, 'ptb_manage_page_posts_columns'));
+    add_action('manage_page_posts_custom_column', array($this, 'ptb_manage_page_posts_custom_column'), 10, 2);
   }
 
   /**
@@ -259,5 +261,38 @@ class PTB_Core {
     }
     
     return $classes .= 'ptb-page';
+  }
+  
+  /**
+   * Add custom table header to pages.
+   *
+   * @param array $defaults
+   * @since 1.0
+   *
+   * @return array
+   */
+  
+  public function ptb_manage_page_posts_columns ($defaults) {
+    $defaults['page_type'] = __('Page Type', 'ptb');
+    return $defaults;
+  }
+  
+  /** 
+   * Add custom table column to pages.
+   *
+   * @param string $column_name
+   * @param int $post_id
+   * @since 1.0
+   */
+  
+  public function ptb_manage_page_posts_custom_column ($column_name, $post_id) {
+    if ($column_name === 'page_type') {
+      $page_type = get_ptb_file_data($post_id);
+      if (!is_null($page_type)) {
+        echo $page_type->page_type->name;
+      } else {
+        echo __('Missing page type data', 'ptb');
+      }
+    }
   }
 }
