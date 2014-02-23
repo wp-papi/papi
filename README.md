@@ -63,6 +63,10 @@ The page will store the value of `template` in `_wp_page_template` so right `pag
 
 ![](screenshots/property-date.png)
 
+##### Property Image
+
+![](screenshots/property-image.png)
+
 ##### Property Map
 
 ![](screenshots/property-map.png)

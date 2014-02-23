@@ -41,6 +41,11 @@ class PTB_List_Page extends PTB_Base {
           'type' => 'PropertyImage',
           'title' => 'Bild',
           'collection' => true
+        )),
+        $this->property(array(
+          'type' => 'PropertyImage',
+          'title' => 'Bild',
+          'collection' => true
         ))
       ))
     ));
