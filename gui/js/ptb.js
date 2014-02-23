@@ -52,7 +52,7 @@
      */
     
     is_image: function (url) {
-      return /\.(jpeg|jpg|gif|png)$/.test(url);
+      return /\.(jpeg|jpg|gif|png)$/.test(url.toLowerCase());
     }
     
   };
