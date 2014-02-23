@@ -53,5 +53,15 @@ The page will store the value of `template` in `_wp_page_template` so right `pag
   
 ```
 
+## Screenshots
+
+#### Collection with Property String and Property Url
+
+![](screenshots/collection.png)
+
+#### Property Map
+
+![](screenshots/property-map.png)
+
 ## Trello
 [https://trello.com/b/SphdReVr/page-type-builder-for-wordpress](https://trello.com/b/SphdReVr/page-type-builder-for-wordpress)
