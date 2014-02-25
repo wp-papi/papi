@@ -264,7 +264,11 @@ class PTB_Core {
       return $classes;
     }
     
-    return $classes .= 'ptb-page';
+    if (count(get_page_templates())) {
+      $classes .= 'ptb-hide-cpt';
+    }
+    
+    return $classes;
   }
   
   /**

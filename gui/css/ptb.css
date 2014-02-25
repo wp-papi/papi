@@ -20,10 +20,10 @@
 
 /* Hide custom template dropdown */
 
-.ptb-page label[for="page_template"],
-.ptb-page select[name="page_template"],
-.ptb-page #pageparentdiv div.inside p:nth-of-type(2),
-.ptb-page #pageparentdiv div.inside p:first-child + p {
+.ptb-hide-cpt label[for="page_template"],
+.ptb-hide-cpt select[name="page_template"],
+.ptb-hide-cpt #pageparentdiv div.inside p:nth-of-type(2),
+.ptb-hide-cpt #pageparentdiv div.inside p:first-child + p {
   display: none;
 }
 
