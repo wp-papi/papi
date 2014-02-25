@@ -26,8 +26,8 @@ class PTB_Core {
 
   public function __construct () {
     $this->view = new PTB_View;
+
     add_action('admin_menu', array($this, 'ptb_menu'));
-    add_action('plugins_loaded', array($this, 'ptb_load'));
     add_action('save_post', array($this, 'ptb_save_post'));
     add_action('admin_head', array($this, 'ptb_admin_head'));
     add_action('admin_footer', array($this, 'ptb_admin_footer'));
@@ -35,6 +35,9 @@ class PTB_Core {
     add_action('admin_print_footer_scripts', array($this, 'ptb_add_new_link'));
     add_filter('manage_page_posts_columns', array($this, 'ptb_manage_page_posts_columns'));
     add_action('manage_page_posts_custom_column', array($this, 'ptb_manage_page_posts_custom_column'), 10, 2);
+
+    // Load the page type.
+    $this->ptb_load();
   }
 
   /**
@@ -110,6 +113,7 @@ class PTB_Core {
     }
 
     $page_type = ptb_dashify($page_type);
+
     $path = PTB_PAGES_DIR . 'ptb-' . $page_type . '.php';
 
     // Can't proceed without a page type or if the file exists.

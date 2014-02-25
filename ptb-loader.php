@@ -232,5 +232,15 @@ function page_type_builder () {
   return PTB_Loader::instance();
 }
 
-// Let's make it global too!
-$_GLOBALS['ptb'] = &page_type_builder();
+/** 
+ * Since we would have custom data in our theme directory we need to hook us up to 'after_setup_theme' action.
+ *
+ * @since 1.0
+ */
+
+function ptb_after_theme_setup () {
+  // Let's make it global too!
+  $_GLOBALS['ptb'] = &page_type_builder();
+}
+
+add_action('after_setup_theme', 'ptb_after_theme_setup');
