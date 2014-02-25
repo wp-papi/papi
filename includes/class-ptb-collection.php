@@ -96,11 +96,27 @@ class PTB_Collection {
         'class' => 'ptb-hidden'
       ), false);
       
-      $html .= PTB_Html::tag('a', __('Delete', 'ptb'), array(
+      $html .= PTB_Html::tag('span', array(
+        'class' => 'ptb-pull-right ptb-collection-actions'
+      ), false);
+      $html .= PTB_Html::tag('a', __('Move up', 'ptb'), array(
         'href' => '#',
-        'class' => 'ptb-pull-right del',
+        'class' => 'up',
         'data-ptb-collection' => $collection->name
       ));
+      $html .= ' - ';
+      $html .= PTB_Html::tag('a', __('Move down', 'ptb'), array(
+        'href' => '#',
+        'class' => 'down',
+        'data-ptb-collection' => $collection->name
+      ));
+      $html .= ' - '; 
+      $html .= PTB_Html::tag('a', __('Delete', 'ptb'), array(
+        'href' => '#',
+        'class' => 'del',
+        'data-ptb-collection' => $collection->name
+      ));
+      $html .= PTB_Html::stop('span');
       
       // Get properties table.
       $html .= $this->properties($collection);
