@@ -95,31 +95,33 @@ class PTB_Loader {
       define('PTB_COLLECTION_KEY', 'ptb_collection');
     }
 
-    // Paths that the user can change in their theme
-
-    // Path to page types.
-    // Note: Only for development.
-    if (!defined('PTB_PAGES_DIR')) {
-      define('PTB_PAGES_DIR', PTB_PLUGIN_DIR . 'pages/');
-    }
-
-    // Path to custom ptb directory.
+    // Path to custom wp-ptb directory.
     if (!defined('PTB_CUSTOM_PATH')) {
       define('PTB_CUSTOM_PATH', false);
+    } else {
+      define('PTB_PAGES_DIR', trailingslashit(PTB_CUSTOM_PATH . '/page-types'));
     }
 
-    // Url to custom ptb directory.
+    // Url to custom wp-ptb directory.
     if (!defined('PTB_CUSTOM_URL')) {
       define('PTB_CUSTOM_URL', false);
     }
 
+    // Path to our page types that we use for test.
+    if (!defined('PTB_PAGES_DIR')) {
+      define('PTB_PAGES_DIR', PTB_PLUGIN_DIR . 'pages/');
+    }
+    
     /*
 
-    - custom ptb dir
-      - gui
-        - js
-        - css
-      - properties
+    Custom wp-ptb directory structure:
+
+      - custom wp-ptb dir
+        - gui
+          - js
+          - css
+        - properties
+        - page-types
 
     */
 
