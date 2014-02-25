@@ -106,11 +106,6 @@ class PTB_Loader {
     if (!defined('PTB_CUSTOM_URL')) {
       define('PTB_CUSTOM_URL', false);
     }
-
-    // Path to our page types that we use for test.
-    if (!defined('PTB_PAGES_DIR')) {
-      define('PTB_PAGES_DIR', PTB_PLUGIN_DIR . 'pages/');
-    }
     
     /*
 
