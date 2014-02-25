@@ -171,8 +171,8 @@ abstract class PTB_Property {
 
     // Load custom css file.
     if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
-      $path = PTB_CUSTOM_PATH . $file;
-      $url = PTB_CUSTOM_URL . $file;
+      $path = trailingslashit(PTB_CUSTOM_PATH) . $file;
+      $url = trailingslashit(PTB_CUSTOM_URL) . $file;
 
       if (file_exists($path)) {
         wp_enqueue_style($file, $url);
@@ -210,8 +210,8 @@ abstract class PTB_Property {
 
     // Load custom css file.
     if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
-      $path = PTB_CUSTOM_PATH . $file;
-      $url = PTB_CUSTOM_URL . $file;
+      $path = trailingslashit(PTB_CUSTOM_PATH) . $file;
+      $url = trailingslashit(PTB_CUSTOM_URL) . $file;
 
       if (file_exists($path)) {
         wp_enqueue_script($file, $url, array(), '1.0.0', true);
