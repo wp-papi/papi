@@ -140,21 +140,21 @@ abstract class PTB_Property {
    */
 
   abstract public function html ();
-  
+
   /**
    * Output custom css for property
    *
    * @since 1.0
    */
-  
+
   public function css () {}
- 
+
   /**
    * Output automatic js for property
    *
    * @since 1.0
    */
-  
+
   public function autocss () {
     $name = get_class($this);
     $name = strtolower($name);
@@ -162,38 +162,38 @@ abstract class PTB_Property {
     $name = ptb_dashify($name);
     $file = 'properties/' . $name . '.css';
     $path = $this->css_dir . $file;
-    $url = $this->css_url . $file; 
-    
+    $url = $this->css_url . $file;
+
     // Load css file.
     if (file_exists($path)) {
       wp_enqueue_style($file, $url);
     }
-    
+
     // Load custom css file.
-    if (PTB_CUSTOM_DIR !== false && PTB_CUSTOM_URL !== false) {
-      $path = PTB_CUSTOM_DIR . $file;
+    if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
+      $path = PTB_CUSTOM_PATH . $file;
       $url = PTB_CUSTOM_URL . $file;
-      
+
       if (file_exists($path)) {
         wp_enqueue_style($file, $url);
       }
     }
   }
- 
+
   /**
    * Output custom js for property
    *
    * @since 1.0
    */
-  
+
   public function js () {}
- 
+
   /**
    * Output automatic js for property
    *
    * @since 1.0
    */
-  
+
   public function autojs () {
     $name = get_class($this);
     $name = strtolower($name);
@@ -201,24 +201,24 @@ abstract class PTB_Property {
     $name = ptb_dashify($name);
     $file = 'properties/' . $name . '.js';
     $path = $this->js_dir . $file;
-    $url = $this->js_url . $file; 
+    $url = $this->js_url . $file;
 
     // Load css file.
     if (file_exists($path)) {
       wp_enqueue_script($file, $url, array(), '1.0.0', true);
     }
-    
+
     // Load custom css file.
-    if (PTB_CUSTOM_DIR !== false && PTB_CUSTOM_URL !== false) {
-      $path = PTB_CUSTOM_DIR . $file;
+    if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
+      $path = PTB_CUSTOM_PATH . $file;
       $url = PTB_CUSTOM_URL . $file;
-      
+
       if (file_exists($path)) {
         wp_enqueue_script($file, $url, array(), '1.0.0', true);
       }
     }
   }
-   
+
   /**
    * Output hidden input field that cointains which property is used.
    *
@@ -226,7 +226,7 @@ abstract class PTB_Property {
    *
    * @return string
    */
-   
+
   public function hidden () {
     return PTB_Html::input('hidden', array(
       'name' => $this->get_options()->name . '_property',
@@ -251,7 +251,7 @@ abstract class PTB_Property {
     $name = $this->get_options()->name;
     return PTB_Html::label($title, $name);
   }
-  
+
   /**
    * Render the final html that is displayed in the table.
    *
@@ -265,7 +265,7 @@ abstract class PTB_Property {
     $html .= PTB_HTMl::td($this->html());
     return PTB_HTml::tr($html);
   }
-  
+
   /**
    * Convert the value of the property before we output it to the application.
    *
@@ -274,7 +274,7 @@ abstract class PTB_Property {
    *
    * @return string
    */
-  
+
   public function convert ($value) {
     return strval($value);
   }

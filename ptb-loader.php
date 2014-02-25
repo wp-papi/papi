@@ -84,12 +84,12 @@ class PTB_Loader {
     if (!defined('PTB_META_KEY')) {
       define('PTB_META_KEY', 'page_type_builder');
     }
-    
+
     // Used for random titles etc.
     if (!defined('PTB_RANDOM_KEY')) {
       define('PTB_RANDOM_KEY', '_PTB_');
     }
-    
+
     // Collection key.
     if (!defined('PTB_COLLECTION_KEY')) {
       define('PTB_COLLECTION_KEY', 'ptb_collection');
@@ -104,15 +104,15 @@ class PTB_Loader {
     }
 
     // Path to custom ptb directory.
-    if (!defined('PTB_CUSTOM_DIR')) {
-      define('PTB_CUSTOM_DIR', false);
+    if (!defined('PTB_CUSTOM_PATH')) {
+      define('PTB_CUSTOM_PATH', false);
     }
 
     // Url to custom ptb directory.
     if (!defined('PTB_CUSTOM_URL')) {
       define('PTB_CUSTOM_URL', false);
     }
-    
+
     /*
 
     - custom ptb dir
@@ -120,9 +120,9 @@ class PTB_Loader {
         - js
         - css
       - properties
-    
+
     */
-    
+
   }
 
   /**
@@ -170,8 +170,8 @@ class PTB_Loader {
    */
 
   private function require_custom_files () {
-    if (defined('PTB_CUSTOM_DIR') && is_string(PTB_CUSTOM_DIR)) {
-      $files = glob(trailingslashit(PTB_CUSTOM_DIR . '/properties') . '*');
+    if (defined('PTB_CUSTOM_PATH') && is_string(PTB_CUSTOM_PATH)) {
+      $files = glob(trailingslashit(PTB_CUSTOM_PATH . '/properties') . '*');
       foreach ($files as $file) {
         require_once($file);
       }
