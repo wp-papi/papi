@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Plugin Name: PageTypeBuilder
- * Description: PageTypeBuilder for WordPress
+ * Plugin Name: Page Type Builder
+ * Description: Page Type Builder for WordPress
  * Author: Fredrik Forsmo
  * Author URI: http://forsmo.me/
  * Version: 1.0
