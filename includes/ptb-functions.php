@@ -528,3 +528,16 @@ function ptb_has_page_type () {
   // todo write this function.
   return false;
 }
+
+/**
+ * Check what the request method is.
+ *
+ * @param string $method
+ * @since 1.0
+ *
+ * @return bool
+ */
+
+function ptb_is_method ($method = '') {
+  return strtoupper($_SERVER ['REQUEST_METHOD']) == strtoupper($method);
+}

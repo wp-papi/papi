@@ -28,7 +28,6 @@ class PTB_Core {
     $this->view = new PTB_View;
 
     add_action('admin_menu', array($this, 'ptb_menu'));
-    add_action('save_post', array($this, 'ptb_save_post'));
     add_action('admin_head', array($this, 'ptb_admin_head'));
     add_action('admin_footer', array($this, 'ptb_admin_footer'));
     add_filter('admin_body_class', array($this, 'ptb_admin_body_class'));
@@ -38,6 +37,13 @@ class PTB_Core {
 
     // Load the page type.
     $this->ptb_load();
+    
+    // On post we need to save our custom data.
+    // The action 'save_post' didn't work after 
+    // we change how Page Type Builder is loaded.
+    if (ptb_is_method('post')) {
+      $this->ptb_save_post();
+    }
   }
 
   /**
@@ -105,7 +111,7 @@ class PTB_Core {
     }
     
     if (is_null($page_type)) {
-      if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['ptb_page_type']) {
+      if (ptb_is_method('post') && $_POST['ptb_page_type']) {
         $page_type = $_POST['ptb_page_type'];
       } else {
         $page_type = get_ptb_page_type();
@@ -136,11 +142,15 @@ class PTB_Core {
   /**
    * Save post.
    *
-   * @param object $post
    * @since 1.0
    */
 
-  public function ptb_save_post ($post_id) {
+  public function ptb_save_post () {
+    // Fetch the post id.
+    if (isset($_POST['post_ID'])) {
+      $post_id = $_POST['post_ID'];
+    }
+    
     // Check if our nonce is set.
     if (!isset($_POST['page_type_builder_nonce'])) {
       return $post_id;
@@ -165,9 +175,9 @@ class PTB_Core {
     }
     
     // Debug code
-    // echo'<pre>';
-    // print_r($_POST);
-    // die();
+    //echo'<pre>';
+    //print_r($_POST);
+    //die();
 
     // Get only Page Type Builder fields from the POST object.
     $meta_value = get_post_meta($post_id, $this->nonce_key, true);
