@@ -87,7 +87,7 @@ abstract class PTB_Property {
    */
 
   private static function filter_custom_properties () {
-    $result = apply_filters('ptb_custom_properties', self::$properties);
+    $result = apply_filters('ptb_properties', self::$properties);
     if (is_array($result)) {
       self::$properties = array_filter(array_unique(array_merge(self::$properties, $result)), function ($property) {
         return preg_match('/Property\w+/', $property);
