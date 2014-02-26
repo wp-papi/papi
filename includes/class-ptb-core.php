@@ -151,6 +151,10 @@ class PTB_Core {
       $post_id = $_POST['post_ID'];
     }
     
+    if (!isset($post_id)) {
+      return;
+    }
+
     // Check if our nonce is set.
     if (!isset($_POST['page_type_builder_nonce'])) {
       return $post_id;

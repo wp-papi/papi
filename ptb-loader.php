@@ -5,7 +5,7 @@
  * Description: Page Type Builder for WordPress
  * Author: Fredrik Forsmo
  * Author URI: http://forsmo.me/
- * Version: 1.0
+ * Version: 1.0.0
  * Plugin URI:
  */
 
