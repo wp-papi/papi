@@ -6,7 +6,7 @@
  * Author: Fredrik Forsmo
  * Author URI: http://forsmo.me/
  * Version: 1.0.0
- * Plugin URI:
+ * Plugin URI: http://wp-ptb.com/
  */
 
 // Exit if accessed directly.
