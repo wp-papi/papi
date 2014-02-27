@@ -260,7 +260,7 @@ class PTB_Base {
    public function box_callback ($post, $args) {
     if (isset($args['args']) && is_array($args['args'])) {
       if (!$this->onetime_html) {
-        wp_nonce_field('page_type_builder', 'page_type_builder_nonce');
+        wp_nonce_field(PTB_META_KEY, PTB_META_KEY . '_nonce');
         echo PTB_Html::input('hidden', array(
           'name' => 'ptb_page_type',
           'value' => $this->page_type

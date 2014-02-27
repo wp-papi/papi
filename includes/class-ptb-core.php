@@ -10,15 +10,6 @@ if (!defined('ABSPATH')) exit;
 class PTB_Core {
 
   /**
-   * Nonce key.
-   *
-   * @var string
-   * @since 1.0
-   */
-
-  private $nonce_key = 'page_type_builder';
-
-  /**
    * Constructor. Add actions.
    *
    * @since 1.0
@@ -156,13 +147,13 @@ class PTB_Core {
     }
 
     // Check if our nonce is set.
-    if (!isset($_POST['page_type_builder_nonce'])) {
+    if (!isset($_POST[PTB_META_KEY . '_nonce'])) {
       return $post_id;
     }
 
-    $nonce = $_POST['page_type_builder_nonce'];
+    $nonce = $_POST[PTB_META_KEY . '_nonce'];
 
-    if (!wp_verify_nonce($nonce, 'page_type_builder')) {
+    if (!wp_verify_nonce($nonce, PTB_META_KEY)) {
       return $post_id;
     }
 
@@ -228,13 +219,13 @@ class PTB_Core {
 
     // Add, update or delete the meta values.
     if (count($meta_value) == 0 || empty($meta_value)) {
-      add_post_meta($post_id, $this->nonce_key, $data, true);
+      add_post_meta($post_id, PTB_META_KEY, $data, true);
       add_post_meta($post_id, '_wp_page_template', get_ptb_template($page_type), true);
     } else if (count($meta_value) > 0 && count($data) > 0) {
-      update_post_meta($post_id, $this->nonce_key, $data);
+      update_post_meta($post_id, PTB_META_KEY, $data);
       update_post_meta($post_id, '_wp_page_template', get_ptb_template($page_type));
     } else {
-      delete_post_meta($post_id, $this->nonce_key, $meta_value);
+      delete_post_meta($post_id, PTB_META_KEY, $meta_value);
       delete_post_meta($post_id, '_wp_page_template', get_ptb_template($page_type));
     }
   }
