@@ -313,7 +313,7 @@ class PTB_Core {
       if (!is_null($page_type)) {
         echo $page_type->page_type->name;
       } else {
-        echo __('Missing page type data', 'ptb');
+        echo __('Normal page', 'ptb');
       }
     }
   }
