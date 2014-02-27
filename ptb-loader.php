@@ -82,7 +82,7 @@ class PTB_Loader {
 
     // Our meta key that is used to save the data array on pages.
     if (!defined('PTB_META_KEY')) {
-      define('PTB_META_KEY', 'page_type_builder');
+      define('PTB_META_KEY', '_ptb_meta');
     }
 
     // Used for random titles etc.
