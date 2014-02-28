@@ -10,7 +10,7 @@ The page type class.
 
 <?php
 
-class PTB_Standard_Page extends PTB_Base {
+final class PTB_Standard_Page extends PTB_Base {
 
 	public static $page_type = array(
 		'name' => 'Standard Page',
