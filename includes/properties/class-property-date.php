@@ -18,19 +18,13 @@ class PropertyDate extends PTB_Property {
    */
 
   public function html () {
-    if (isset($this->get_options()->custom->css_class)) {
-      $css_class = $this->get_options()->custom->css_class;
-    } else {
-      $css_class = '';
-    }
-    
     $value = !empty($this->get_options()->value) ? $this->get_options()->value->format('Y-m-d') : '';
     
     return PTB_Html::input('text', array(
       'name' => $this->get_options()->name,
       'id' => $this->get_options()->name,
       'value' => $value,
-      'class' => $css_class,
+      'class' => $this->css_classes(),
       'data-ptb-property' => 'date'
     ));
   }

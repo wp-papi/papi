@@ -27,7 +27,8 @@ abstract class PTB_Property {
     'PropertyDivider',
     'PropertyMap',
     'PropertyText',
-    'PropertyImage'
+    'PropertyImage',
+    'PropertyDropDownList'
   );
 
   /**
@@ -278,5 +279,21 @@ abstract class PTB_Property {
   public function convert ($value) {
     return strval($value);
   }
-
+  
+  /**
+   * Get css classes for the property.
+   *
+   * @param string $css_classes
+   * @since 1.0
+   *
+   * @return string
+   */
+  
+  public function css_classes ($css_classes = '') {
+    if (isset($this->get_options()->custom->css_class)) {
+      $css_class .= ' ' . $this->get_options()->custom->css_class;
+    }
+    
+    return $css_classes;
+  }
 }

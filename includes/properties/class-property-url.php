@@ -18,18 +18,11 @@ class PropertyUrl extends PTB_Property {
    */
 
   public function html () {
-    
-    if (isset($this->get_options()->custom->css_class)) {
-      $css_class = $this->get_options()->custom->css_class;
-    } else {
-      $css_class = '';
-    }
-    
     $html = PTB_Html::input('url', array(
       'name' => $this->get_options()->name,
       'id' => $this->get_options()->name,
       'value' => $this->get_options()->value,
-      'class' => $css_class
+      'class' => $this->css_classes()
     ));
     
     if (isset($this->get_options()->custom->mediauploader) && $this->get_options()->custom->mediauploader) {

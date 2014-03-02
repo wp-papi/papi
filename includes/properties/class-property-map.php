@@ -109,7 +109,7 @@ class PropertyMap extends PTB_Property {
     return PTB_Html::input('text', array(
       'name' => $this->get_options()->name,
       'id' => $this->get_options()->name,
-      'class' => 'ptb-halfwidth',
+      'class' => $this->css_classes('ptb-halfwidth'),
       'value' => $this->get_options()->value
     ));
   }

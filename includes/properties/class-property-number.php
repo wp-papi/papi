@@ -28,7 +28,7 @@ class PropertyNumber extends PTB_Property {
       'name' => $this->get_options()->name,
       'id' => $this->get_options()->name,
       'value' => $this->get_options()->value,
-      'class' => $css_class
+      'class' => $this->css_classes()
     ));
   }
   

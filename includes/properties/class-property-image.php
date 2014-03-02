@@ -18,12 +18,6 @@ class PropertyImage extends PTB_Property {
    */
 
   public function html () {
-    if (isset($this->get_options()->custom->css_class)) {
-      $css_class = $this->get_options()->custom->css_class;
-    } else {
-      $css_class = '';
-    }
-    
     if (isset($this->get_options()->value) && is_numeric($this->get_options()->value)) {
       $value = wp_get_attachment_url($this->get_options()->value);
     } else {
@@ -32,7 +26,7 @@ class PropertyImage extends PTB_Property {
     
     $html = PTB_Html::tag('img', array(
       'src' => $value,
-      'class' => 'ptb-property-image ' . $css_class,
+      'class' => $this->css_classes('ptb-property-image'),
       'data-ptb-property' => 'image'
     ));
     
