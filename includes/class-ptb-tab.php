@@ -49,7 +49,13 @@ class PTB_Tab {
       throw new Exception('PTB Error: No tabs in the box');
     }
     
+    // Generate unique names for all tabs.
+    for ($i = 0; $i < count($box->properties); $i++) {
+      $box->properties[$i]->name = $box->properties[$i]->name = ptb_name($box->properties[$i]->title) . '_' . $i;
+    }
+    
     $this->first_tab = $box->properties[0];
+    
     $this->box = $box;
     $this->html = $this->html();
   }

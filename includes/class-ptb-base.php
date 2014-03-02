@@ -389,21 +389,15 @@ class PTB_Base {
    * Add a new tab.
    *
    * @param string $title
-   * @param string $name
    * @param array $properties
    * @since 1.0
    *
    * @return object
    */
   
-  public function tab ($title, $name = '', $properties = array()) {
-    if (is_array($name)) {
-      $properties = $name;
-      $name = $title;
-    }
+  public function tab ($title, $properties = array()) {
     return (object)array(
       'title' => $title,
-      'name' => ptb_name($name),
       'tab' => true,
       'properties' => $properties
     );
