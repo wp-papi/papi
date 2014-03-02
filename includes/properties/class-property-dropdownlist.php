@@ -36,7 +36,7 @@ class PropertyDropDownList extends PTB_Property {
         'value' => $key
       );
       
-      if ($value == $selected) {
+      if ($key == $selected) {
         $attributes['selected'] = 'selected';
       }
       
