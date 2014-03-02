@@ -28,19 +28,6 @@ class PTB_Base {
   private $box_sort_order = 0;
 
   /**
-   * Default property options.
-   *
-   * @var array
-   * @since 1.0
-   */
-
-  private $property_default = array(
-    'context'   => 'normal',
-    'priority'  => 'default',
-    'page_types' => array('page')
-  );
-
-  /**
    * Array of box with proprties.
    *
    * @var array
@@ -81,6 +68,50 @@ class PTB_Base {
 
   private function setup_actions () {
     add_action('add_meta_boxes', array($this, 'setup_page'));
+    add_action('admin_head', array($this, 'autocss'));
+    add_action('admin_footer', array($this, 'autojs'));
+  }
+
+  /**
+   * Load custom css file for page type.
+   *
+   * @since 1.0
+   */
+  
+  public function autocss () {
+    if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
+      $name = get_class($this);
+      $name = strtolower($name);
+      $name = ptb_dashify($name);
+      $file = 'gui/css/page-types/' . $name . '.css';
+      $path = trailingslashit(PTB_CUSTOM_PATH) . $file;
+      $url = trailingslashit(PTB_CUSTOM_URL) . $file;
+
+      if (file_exists($path)) {
+        wp_enqueue_style($file, $url);
+      }
+    }
+  }
+
+  /**
+   * Load custom js file for page type.
+   *
+   * @since 1.0
+   */
+  
+  public function autojs () {
+    if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
+      $name = get_class($this);
+      $name = strtolower($name);
+      $name = ptb_dashify($name);
+      $file = 'gui/js/page-types/' . $name . '.js';
+      $path = trailingslashit(PTB_CUSTOM_PATH) . $file;
+      $url = trailingslashit(PTB_CUSTOM_URL) . $file;
+      
+      if (file_exists($path)) {
+        wp_enqueue_script($file, $url, array(), '1.0.0', true);
+      }
+    }
   }
 
   /**

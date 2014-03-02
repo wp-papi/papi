@@ -173,9 +173,9 @@ abstract class PTB_Property {
 
     // Load custom css file.
     if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
-      $path = trailingslashit(PTB_CUSTOM_PATH) . $file;
-      $url = trailingslashit(PTB_CUSTOM_URL) . $file;
-
+      $path = trailingslashit(PTB_CUSTOM_PATH) . 'gui/css/'. $file;
+      $url = trailingslashit(PTB_CUSTOM_URL) . 'gui/css/' . $file;
+      
       if (file_exists($path)) {
         wp_enqueue_style($file, $url);
       }
@@ -205,15 +205,15 @@ abstract class PTB_Property {
     $path = $this->js_dir . $file;
     $url = $this->js_url . $file;
 
-    // Load css file.
+    // Load js file.
     if (file_exists($path)) {
       wp_enqueue_script($file, $url, array(), '1.0.0', true);
     }
 
-    // Load custom css file.
+    // Load custom js file.
     if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
-      $path = trailingslashit(PTB_CUSTOM_PATH) . $file;
-      $url = trailingslashit(PTB_CUSTOM_URL) . $file;
+      $path = trailingslashit(PTB_CUSTOM_PATH) . 'gui/js/' . $file;
+      $url = trailingslashit(PTB_CUSTOM_URL) . 'gui/js/' . $file;
 
       if (file_exists($path)) {
         wp_enqueue_script($file, $url, array(), '1.0.0', true);

@@ -55,7 +55,6 @@ class PTB_Tab {
     }
     
     $this->first_tab = $box->properties[0];
-    
     $this->box = $box;
     $this->html = $this->html();
   }
