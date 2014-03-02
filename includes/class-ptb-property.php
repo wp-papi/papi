@@ -28,7 +28,7 @@ abstract class PTB_Property {
     'PropertyMap',
     'PropertyText',
     'PropertyImage',
-    'PropertyDropDownList',
+    'PropertyDropdownList',
     'PropertyCheckboxList'
   );
 

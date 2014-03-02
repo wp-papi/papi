@@ -4,10 +4,10 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property DropDownList
+ * Page Type Builder - Property DropdownList
  */
 
-class PropertyDropDownList extends PTB_Property {
+class PropertyDropdownList extends PTB_Property {
 
   /**
    * Get the html for output.
