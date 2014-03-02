@@ -60,8 +60,14 @@ class PropertyMap extends PTB_Property {
       function initialize() {
         <?php
           if (is_null($this->get_options()->value) || empty($this->get_options()->value)) {
-            $lat = '59.32893';
-            $lng = '18.06491';
+            if (isset($this->get_options()->custom->latlng) && !empty($this->get_options()->custom->latlng)) {
+              $value = explode(',', trim($this->get_options()->custom->latlng));
+              $lat = $value[0];
+              $lng = $value[1];
+            } else {
+              $lat = '59.32893';
+              $lng = '18.06491';
+            }
           } else {
             $value = explode(',', trim($this->get_options()->value));
             $lat = $value[0];
