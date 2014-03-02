@@ -24,14 +24,14 @@ class PropertyDropDownList extends PTB_Property {
       'class' => $this->css_classes()
     ), false);
     
-    $values = isset($this->get_options()->custom->values) ? $this->get_options()->custom->values : array();
+    $options = isset($this->get_options()->custom->options) ? $this->get_options()->custom->options : array();
     $selected = isset($this->get_options()->custom->selected) ? $this->get_options()->custom->selected : '';
     
     if (!is_null($this->get_options()->value) && !empty($this->get_options()->value)) {
       $selected = $this->get_options()->value;
     }
     
-    foreach ($values as $key => $value) {
+    foreach ($options as $key => $value) {
       $attributes = array(
         'value' => $key
       );
