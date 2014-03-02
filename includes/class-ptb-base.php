@@ -60,7 +60,7 @@ class PTB_Base {
   }
 
   /**
-   * Setup WordPress actions.
+   * Setup WordPress actions before we output any meta boxes.
    *
    * @since 1.0
    * @access private
@@ -68,6 +68,16 @@ class PTB_Base {
 
   private function setup_actions () {
     add_action('add_meta_boxes', array($this, 'setup_page'));
+  }
+
+  /**
+   * Setup WordPress actions after we output meta boxes.
+   *
+   * @since 1.0
+   * @access private
+   */
+  
+  private function setup_after_actions () {
     add_action('admin_head', array($this, 'autocss'));
     add_action('admin_footer', array($this, 'autojs'));
   }
@@ -365,7 +375,8 @@ class PTB_Base {
        foreach ($box->page_types as $page_type) {
          $this->add_meta_box($box, $page_type, $args);
        }
-    }
+     }
+     $this->setup_after_actions();
   }
 
   /**
