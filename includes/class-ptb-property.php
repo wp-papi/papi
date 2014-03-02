@@ -290,11 +290,11 @@ abstract class PTB_Property {
    * @return string
    */
   
-  public function css_classes ($css_classes = '') {
+  public function css_classes ($css_class = '') {
     if (isset($this->get_options()->custom->css_class)) {
       $css_class .= ' ' . $this->get_options()->custom->css_class;
     }
     
-    return $css_classes;
+    return $css_class;
   }
 }

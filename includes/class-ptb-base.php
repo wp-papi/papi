@@ -461,6 +461,11 @@ class PTB_Base {
       $properties = $name;
       $name = $title;
     }
+    for ($i = 0; $i < count($properties); $i++) {
+      $property = $properties[$i];
+      $property->collection = true;
+      $properties[$i] = $property;
+    }
     return (object)array(
       'title' => $title,
       'name' => ptb_name($name),
