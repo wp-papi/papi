@@ -212,6 +212,7 @@ class PTB_Collection {
     
     $first = key($values);
     foreach ($values as $key => $properties) {
+      $properties = $this->get_properties($properties);
       foreach ($properties as $k => $v) {
         $html .= PTB_Html::tag('li', array(
           'data-ptb-collection-i' => $this->i
@@ -281,9 +282,36 @@ class PTB_Collection {
     preg_match_all('/name\=\"(\w+)\"/', $html, $matches);
     foreach ($matches[1] as $match) {
       $html = str_replace($match, str_replace('ptb_', PTB_COLLECTION_KEY . '['. $name . ']'  . '[' . $this->i . '][', $match) . ']', $html);
-      $html = str_replace(']_property', '_property]', $html);
+      $html = str_replace(']' . PTB_PROPERTY_TYPE_KEY, PTB_PROPERTY_TYPE_KEY . ']', $html);
     }
     return $html;
   }
   
+  /**
+   * Get all properties that is used for the collection.
+   * If we add new we need to now about that, or removing.
+   *
+   * @param array $properties
+   *
+   * @return array
+   */
+
+  private function get_properties ($properties = array()) {
+    $new_properties = array();
+    foreach ($properties as $k => $p) {
+      $_p = $p;
+      $names = array_keys(ptb_get_only_values($p));
+      foreach ($this->first_collection->properties as $b) {
+        $name = ptb_remove_ptb($b->name);
+        if (!in_array($name, $names)) {
+          $p[$name] = '';
+          $pk = ptb_property_type_key($name);
+          $p[$pk] = $b->type;
+        }
+      }
+      $new_properties[] = $p;
+    }
+    return $new_properties;
+  }
+
 }

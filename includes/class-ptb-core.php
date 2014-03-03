@@ -175,7 +175,7 @@ class PTB_Core {
     //die();
 
     // Get only Page Type Builder fields from the POST object.
-    $meta_value = get_post_meta($post_id, $this->nonce_key, true);
+    $meta_value = get_post_meta($post_id, PTB_META_KEY, true);
     $pattern = '/^ptb\_.*/';
     $keys = preg_grep($pattern, array_keys($_POST));
 

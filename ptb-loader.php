@@ -95,6 +95,11 @@ class PTB_Loader {
       define('PTB_COLLECTION_KEY', 'ptb_collection');
     }
 
+    // Property type key.
+    if (!defined('PTB_PROPERTY_TYPE_KEY')) {
+      define('PTB_PROPERTY_TYPE_KEY', '_property');
+    }
+
     // Path to custom wp-ptb directory.
     if (!defined('PTB_CUSTOM_PATH')) {
       define('PTB_CUSTOM_PATH', false);

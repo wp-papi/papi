@@ -438,7 +438,24 @@ function ptb_is_random_title ($str = '') {
  */
 
 function ptb_is_property_key ($str = '') {
-  return preg_match('/\_property$/', $str);
+  $pattern = PTB_PROPERTY_TYPE_KEY;
+  $pattern = str_replace('_', '\_', $pattern);
+  $pattern = str_replace('-', '\-', $pattern);
+  $pattern = '/' . $pattern . '$/';
+  return preg_match($pattern, $str);
+}
+
+/**
+ * Get the right key for a property type.
+ *
+ * @param string $str
+ * @since 1.0
+ *
+ * @return string
+ */
+
+function ptb_property_type_key ($str = '') {
+  return $str . PTB_PROPERTY_TYPE_KEY;
 }
 
 /**
@@ -497,9 +514,10 @@ function get_ptb_collection_values ($post_id = null) {
           if (ptb_is_property_key($k)) {
             continue;
           }
+          $pk = ptb_property_type_key($k);
           $v[$k] = ptb_convert_property_value(array(
             'value' => $y,
-            'type' => $v[$k . '_property']
+            'type' => $v[$pk]
           ));
         }
         foreach ($v as $k => $y) {
