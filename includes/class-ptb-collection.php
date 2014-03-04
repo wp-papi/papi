@@ -299,7 +299,6 @@ class PTB_Collection {
   private function get_properties ($properties = array()) {
     $new_properties = array();
     foreach ($properties as $k => $p) {
-      $_p = $p;
       $names = array_keys(ptb_get_only_values($p));
       foreach ($this->first_collection->properties as $b) {
         $name = ptb_remove_ptb($b->name);
