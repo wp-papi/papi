@@ -1,6 +1,6 @@
 # Page Type Builder for WordPress
 
-**Not ready for production yet**
+**Note: This project and its documentation are still under active development, so use it in production on your own risk**
 
 ### Example
 
