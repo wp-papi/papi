@@ -8,6 +8,12 @@ if (!defined('ABSPATH')) exit;
  */
 
 class PTB_Core {
+  
+  /**
+   * All page types that WP PTB should be available on.
+   */
+  
+  public $page_types = array('page');
 
   /**
    * Constructor. Add actions.
@@ -17,14 +23,22 @@ class PTB_Core {
 
   public function __construct () {
     $this->view = new PTB_View;
+    $this->page_types = apply_filters('ptb_page_types', $this->page_types);
+
+    if (!is_array($this->page_types)) {
+      $this->page_types = array('page');
+    }
 
     add_action('admin_menu', array($this, 'ptb_menu'));
     add_action('admin_head', array($this, 'ptb_admin_head'));
     add_action('admin_footer', array($this, 'ptb_admin_footer'));
     add_filter('admin_body_class', array($this, 'ptb_admin_body_class'));
     add_action('admin_print_footer_scripts', array($this, 'ptb_add_new_link'));
-    add_filter('manage_page_posts_columns', array($this, 'ptb_manage_page_posts_columns'));
-    add_action('manage_page_posts_custom_column', array($this, 'ptb_manage_page_posts_custom_column'), 10, 2);
+    
+    foreach ($this->page_types as $page_type) {
+      add_filter('manage_' . $page_type . '_posts_columns', array($this, 'ptb_manage_page_type_posts_columns'));
+      add_action('manage_' . $page_type . '_posts_custom_column', array($this, 'ptb_manage_page_type_posts_custom_column'), 10, 2);
+    }
 
     // Load the page type.
     $this->ptb_load();
@@ -277,7 +291,7 @@ class PTB_Core {
   }
   
   /**
-   * Add custom table header to pages.
+   * Add custom table header to page type.
    *
    * @param array $defaults
    * @since 1.0
@@ -285,20 +299,20 @@ class PTB_Core {
    * @return array
    */
   
-  public function ptb_manage_page_posts_columns ($defaults) {
+  public function ptb_manage_page_type_posts_columns ($defaults) {
     $defaults['page_type'] = __('Page Type', 'ptb');
     return $defaults;
   }
   
   /** 
-   * Add custom table column to pages.
+   * Add custom table column to page type.
    *
    * @param string $column_name
    * @param int $post_id
    * @since 1.0
    */
   
-  public function ptb_manage_page_posts_custom_column ($column_name, $post_id) {
+  public function ptb_manage_page_type_posts_custom_column ($column_name, $post_id) {
     if ($column_name === 'page_type') {
       $page_type = get_ptb_file_data($post_id);
       if (!is_null($page_type)) {
