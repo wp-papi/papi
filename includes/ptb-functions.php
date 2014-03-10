@@ -307,7 +307,6 @@ function current_page ($array = false) {
 function get_ptb_all_page_types () {
   $files = glob(PTB_PAGES_DIR . '*');
   $res = array();
-  $page_type = 'page_type';
 
   foreach ($files as $file) {
     $res[] = get_ptb_page_type_from_file($file);
@@ -327,6 +326,7 @@ function get_ptb_all_page_types () {
 
 function get_ptb_page_type_from_file ($file) {
   $class_name = get_ptb_class_name($file);
+  $page_type = 'page_type';
   require_once($file);
   return (object)array(
     'file_name' => ptb_remove_ptb(basename($file, '.php')),
