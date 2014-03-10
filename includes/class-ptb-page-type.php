@@ -1,36 +1,61 @@
 <?php
 
+/**
+ * Page Type Builder Page Type class.
+ */
+
 class PTB_Page_Type {
-  
+
   /**
-   * Path to the page types.
+   * The name of the page type.
    *
    * @var string
    * @since 1.0
    */
   
-  private var $path;
+  public var $name = '';
+
+  /**
+   * The description of the page type.
+   *
+   * @var string
+   * @since 1.0
+   */
+  
+  public var $description = '';
+
+  /**
+   * The template of the page type.
+   *
+   * @var string
+   * @since 1.0
+   */
+  
+  public var $template = '';
   
   /**
-   * Static array that contains the page types.
+   * The post types to register the page type with.
    *
    * @var array
    * @since 1.0
-   */ 
-  
-  private static $page_types = array();
-  
-  /**
-   * Constructor.
    */
   
-  public function __construct () {
-    $this->path = PTB_PAGES_DIR;
-    $files = glob(PTB_PAGES_DIR . '*');
-  }
+  public var $post_types = array('page');
   
-  private function get_files () {
-    return glob($this->path . '*');
-  }
+  /**
+   * Load a page type by the file.
+   */
   
+  public function __construct ($file) {
+    if (file_exists($file)) {
+      $class_name = get_ptb_class_name($file);
+      $page_type = 'page_type';
+      $file_name = ptb_remove_ptb(basename($file, '.php'));
+      $fields = (object)$class_name::$page_type;
+      foreach ($fields as $key => $value) {
+        $this->$key = $value;
+      }
+    }
+  }
+
 }
