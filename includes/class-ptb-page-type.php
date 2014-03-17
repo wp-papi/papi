@@ -43,30 +43,118 @@ class PTB_Page_Type {
   public var $post_types = array('page');
   
   /**
-   * Load a page type by the file.
+   * The page type. It's the name of the class.
+   *
+   * @var string
+   * @since 1.0
    */
   
-  public function __construct ($file) {
-    if (!file_exists($file)) {
-      throw new PTB_Exception();
+  public var $page_type = '';
+
+  /**
+   * The file name of the page type file.
+   *
+   * @var string
+   * @since 1.0
+   */
+   
+  public var $file_name = '';
+
+  /**
+   * The file path of the page type file.
+   *
+   * @var string
+   * @since 1.0
+   */
+   
+  public var $file_path = '';
+  
+  /**
+   * Load a page type by the file.
+   *
+   * @param string $file
+   * @since 1.0
+   */
+  
+  public function __construct ($file_path) {
+    // Check so we have a file that exists.
+    if (!file_exists($file_path)) {
+      return null; // throw exception?
+    }
+
+    // The variable key each page type class should have.
+    $page_type = 'page_type';
+    
+    // Setup file and page type variables.
+    $this->file_path = $file_path;
+    $this->page_type = $this->get_class_name($file_path);
+    $this->file_name = _ptb_remove_ptb(basename($file_path, '.php'));
+    
+    // Try to load the page type class.
+    if (!class_exists($this->page_type)) {
+      require_once($this->file_path);
     }
     
-    $class_name = get_ptb_class_name($file);
-    $page_type = 'page_type';
-    $file_name = ptb_remove_ptb(basename($file, '.php'));
-    $fields = (object)$class_name::$page_type;
+    // Check so we have the page type meta array.
+    if (!isset($this->page_type::$page_type)) {
+      throw new PTB_Exception('page_type_meta is null');
+    }
+    
+    // Filter all fields.
+    $fields = $this->filter_page_type_fields($this->page_type::$page_type);
+    
+    // Add each field as a variable.
     foreach ($fields as $key => $value) {
       $this->$key = $value;
     }
   }
   
-  private function load_file ($file) {
-    if (!file_exists($file)) {
-      return null;
+  /**
+   * Create a new instance of the page type file.
+   *
+   * @since 1.0
+   *
+   * @return object
+   */
+  
+  public function new () {
+    if (!class_exists($this->page_type)) {
+      require_once($this->file_path);
     }
-    
-    $this->class_name = $this->get_class_name($file);
-    $this->file_name = ptb_remove_ptb(basename($file, '.php'));
+    return new $this->page_type;
+  }
+  
+  /**
+   * Check so we have a name on the page type.
+   *
+   * @since 1.0
+   *
+   * @return bool
+   */
+  
+  public function has_name () {
+    return isset($this->name) && !empty($this->name);
+  }
+  
+  /**
+   * Filter page type fields. Some keys aren't allowed to use.
+   *
+   * @param array $arr
+   * @since 1.0
+   *
+   * @return array
+   */
+  
+  private function filter_page_type_fields ($arr = array()) {
+    $res = array();
+    $not_allowed = array('file_name', 'page_type');
+    foreach ($arr as $key => $value) {
+      if (in_array(strtolower($key), $not_allowed)) {
+        continue;
+      }
+      $res[$key] = $value;
+    }
+    return $res;
   }
 
   /**

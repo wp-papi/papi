@@ -87,7 +87,7 @@ class PTB_Core {
    */
 
   public function ptb_view () {
-    $page_view = ptb_get_page_view();
+    $page_view = _ptb_get_page_view();
 
     if (!is_null($page_view)) {
       $this->view->render($page_view);
@@ -104,8 +104,8 @@ class PTB_Core {
 
   public function ptb_load () {
     $uri = $_SERVER['REQUEST_URI'];
-    $post_id = ptb_get_post_id();
-    $page_type = ptb_get_page_type($post_id);
+    $post_id = _ptb_get_post_id();
+    $page_type = _ptb_get_page_type($post_id);
 
     // Only load Page Types on a "page" post type page in admin.
     if (strpos($uri, 'post-new.php?post_type=page') === false && (
@@ -119,29 +119,22 @@ class PTB_Core {
       if (_ptb_is_method('post') && $_POST['ptb_page_type']) {
         $page_type = $_POST['ptb_page_type'];
       } else {
-        $page_type = ptb_get_page_type();
+        $page_type = _ptb_get_page_type();
       }
     }
 
-    $page_type = ptb_dashify($page_type);
-
+    // @TODO: move this to own internal function.
+    $page_type = _ptb_dashify($page_type);
     $path = PTB_PAGES_DIR . 'ptb-' . $page_type . '.php';
 
-    // Can't proceed without a page type or if the file exists.
-    if (!file_exists($path)) {
+    // Load the page type and create a new instance of it.
+    $page_type = new PTB_Page_Type($path);
+    
+    if (!$page_type->has_name()) {
       return;
     }
-
-    $class_name = ptb_get_class_name($path);
-
-    // No class found.
-    if (is_null($class_name)) {
-      return;
-    }
-
-    // Require and initialize the page type.
-    require_once($path);
-    new $class_name;
+    
+    return $page_type->new();
   }
 
   /**
@@ -223,7 +216,7 @@ class PTB_Core {
     
     // Don't wont to save random data that's only is used for getting a nicer ui.
     foreach ($data as $key => $value) {
-      if (ptb_is_random_title($key)) {
+      if (_ptb_is_random_title($key)) {
         unset($data[$key]);
       }
     }
@@ -234,13 +227,13 @@ class PTB_Core {
     // Add, update or delete the meta values.
     if (count($meta_value) == 0 || empty($meta_value)) {
       add_post_meta($post_id, PTB_META_KEY, $data, true);
-      add_post_meta($post_id, '_wp_page_template', ptb_get_template($page_type), true);
+      add_post_meta($post_id, '_wp_page_template', _ptb_get_template($page_type), true);
     } else if (count($meta_value) > 0 && count($data) > 0) {
       update_post_meta($post_id, PTB_META_KEY, $data);
-      update_post_meta($post_id, '_wp_page_template', ptb_get_template($page_type));
+      update_post_meta($post_id, '_wp_page_template', _ptb_get_template($page_type));
     } else {
       delete_post_meta($post_id, PTB_META_KEY, $meta_value);
-      delete_post_meta($post_id, '_wp_page_template', ptb_get_template($page_type));
+      delete_post_meta($post_id, '_wp_page_template', _ptb_get_template($page_type));
     }
   }
 
@@ -273,8 +266,8 @@ class PTB_Core {
   public function ptb_admin_body_class ($classes) {
     global $post;
     $uri = $_SERVER['REQUEST_URI'];
-    $post_id = ptb_get_post_id();
-    $page_type = ptb_get_page_type($post_id);
+    $post_id = _ptb_get_post_id();
+    $page_type = _ptb_get_page_type($post_id);
     
     if (strpos($uri, 'post-new.php?post_type=page') === false && (
       $post_id !== 0 && get_post_type($post_id) != 'page' ||
@@ -314,9 +307,9 @@ class PTB_Core {
   
   public function ptb_manage_page_type_posts_custom_column ($column_name, $post_id) {
     if ($column_name === 'page_type') {
-      $page_type = ptb_get_file_data($post_id);
+      $page_type = _ptb_get_file_data($post_id);
       if (!is_null($page_type)) {
-        echo $page_type->page_type->name;
+        echo $page_type->name;
       } else {
         echo __('Normal page', 'ptb');
       }

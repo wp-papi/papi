@@ -55,7 +55,7 @@ class PTB_Base {
   public function __construct ($do = true) {
     if ($do) {
       $this->setup_actions();
-      $this->page_type = ptb_remove_ptb(strtolower(get_class($this)));
+      $this->page_type = _ptb_remove_ptb(strtolower(get_class($this)));
     }
   }
 
@@ -92,7 +92,7 @@ class PTB_Base {
     if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
       $name = get_class($this);
       $name = strtolower($name);
-      $name = ptb_dashify($name);
+      $name = _ptb_dashify($name);
       $file = 'gui/css/page-types/' . $name . '.css';
       $path = trailingslashit(PTB_CUSTOM_PATH) . $file;
       $url = trailingslashit(PTB_CUSTOM_URL) . $file;
@@ -113,7 +113,7 @@ class PTB_Base {
     if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
       $name = get_class($this);
       $name = strtolower($name);
-      $name = ptb_dashify($name);
+      $name = _ptb_dashify($name);
       $file = 'gui/js/page-types/' . $name . '.js';
       $path = trailingslashit(PTB_CUSTOM_PATH) . $file;
       $url = trailingslashit(PTB_CUSTOM_URL) . $file;
@@ -167,7 +167,7 @@ class PTB_Base {
      }
      
      if (!isset($options->title) || empty($options->title)) {
-       $options->title = ptb_random_title();
+       $options->title = _ptb_random_title();
      }
 
      // If the disable option is true, don't add it to the page.
@@ -177,7 +177,7 @@ class PTB_Base {
 
      // Set the key to the title slugify.
      if (!isset($options->name) || empty($options->name)) {
-       $options->name = ptb_slugify($options->title);
+       $options->name = _ptb_slugify($options->title);
      }
 
      // Custom object for properties data.
@@ -197,7 +197,7 @@ class PTB_Base {
        $this->property_sort_order++;
      }
 
-     $options->name = ptb_name($options->name);
+     $options->name = _ptb_name($options->name);
      
      // Only set the vaue if we don't have value.
      if (!isset($options->value)) {
@@ -388,8 +388,8 @@ class PTB_Base {
    * @since 1.0
    */
   public function add_meta_box ($box, $page_type, $args) {
-    add_meta_box(ptb_slugify($box->title), 
-                 ptb_remove_ptb($box->title), 
+    add_meta_box(_ptb_slugify($box->title), 
+                 _ptb_remove_ptb($box->title), 
                  array($this, 'box_callback'), 
                  $page_type, 
                  $box->context, 
@@ -468,7 +468,7 @@ class PTB_Base {
     }
     return (object)array(
       'title' => $title,
-      'name' => ptb_name($name),
+      'name' => _ptb_name($name),
       'collection' => true,
       'properties' => $properties
     );

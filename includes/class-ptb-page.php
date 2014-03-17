@@ -54,13 +54,17 @@ class PTB_Page {
   
   private function setup_page () {
     $path = PTB_PAGES_DIR . $this->post->page_template;
-    $this->page_type = ptb_get_page_type_from_file($path);
+    $this->page_type = new PTB_Page_Type($path);
+    
+    if (!$this->page_type->has_name()) {
+      return;
+    }
     
     // The page type name. Example: "Standard Page".
-    $this->page_type_name = $this->page_type->page_type->name;
+    $this->page_type_name = $this->page_type->name;
     
     // The page type. Example: "PTB_Standard_Page".
-    $this->page_type = $this->page_type->class_name;
+    $this->page_type = $this->page_type->page_type;
   }
   
   /**
@@ -113,7 +117,7 @@ class PTB_Page {
       if (is_array($value) && $key !== PTB_COLLECTION_KEY) {
         $value = $this->convert($value);
       }
-      $key = ptb_remove_ptb($key);
+      $key = _ptb_remove_ptb($key);
       if (!isset($this->$key)) {
         $this->$key = $value;
       }
@@ -131,27 +135,27 @@ class PTB_Page {
    */
   
   private function get_collection_meta () {  
-    $properties = ptb_get_properties($this->id);
+    $properties = $this->meta;
     
     if (isset($properties[PTB_COLLECTION_KEY])) {
       $values = $properties[PTB_COLLECTION_KEY];
       $res = array();
       
       foreach ($values as $key => $value) {
-        $key = ptb_remove_ptb($key);
+        $key = _ptb_remove_ptb($key);
         $res[$key] = array_map(function ($v) {
           foreach ($v as $k => $y) {
-            if (ptb_is_property_key($k)) {
+            if (_ptb_is_property_key($k)) {
               continue;
             }
-            $pk = ptb_property_type_key($k);
+            $pk = _ptb_property_type_key($k);
             $v[$k] = $this->convert(array(
               'value' => $y,
               'type' => $v[$pk]
             ));
           }
           foreach ($v as $k => $y) {
-            if (ptb_is_property_key($k)) {
+            if (_ptb_is_property_key($k)) {
               unset($v[$k]);
             }
           }
@@ -249,38 +253,4 @@ class PTB_Page {
     return get_post_status($this->id);
   }
   
-}
-// code in ptb-functions.php
-
-function current_page () {
-  return new PTB_Current_Page;
-}
-
-
-// demo code
-
-current_page()->get_permalink();
-
-
-// old code
-
-function __current_page ($array = false) {
-  $post_id = ptb_get_post_id();
-  $post = get_post($post_id, ARRAY_A);
-  $post_meta = get_post_meta($post_id, PTB_META_KEY, true);
-
-  if (is_array($post_meta)) {
-    foreach ($post_meta as $key => $value) {
-      if (is_array($value)) {
-        $value = ptb_convert_property_value($value);
-      }
-      $post[ptb_remove_ptb($key)] = $value;
-    }
-    foreach (ptb_get_collection_values() as $key => $value) {
-      $post[ptb_remove_ptb($key)] = $value;
-    }
-    return $array ? $post : (object)$post;
-  }
-
-  return null;
 }

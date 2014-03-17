@@ -161,7 +161,7 @@ abstract class PTB_Property {
     $name = get_class($this);
     $name = strtolower($name);
     $name = str_replace('property', 'property-', $name);
-    $name = ptb_dashify($name);
+    $name = _ptb_dashify($name);
     $file = 'properties/' . $name . '.css';
     $path = $this->css_dir . $file;
     $url = $this->css_url . $file;
@@ -200,7 +200,7 @@ abstract class PTB_Property {
     $name = get_class($this);
     $name = strtolower($name);
     $name = str_replace('property', 'property-', $name);
-    $name = ptb_dashify($name);
+    $name = _ptb_dashify($name);
     $file = 'properties/' . $name . '.js';
     $path = $this->js_dir . $file;
     $url = $this->js_url . $file;
