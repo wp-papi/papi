@@ -138,6 +138,7 @@ class PTB_Loader {
     // Load Page Type Builder.
     require_once($this->plugin_dir . 'includes/ptb-functions.php');
     require_once($this->plugin_dir . 'includes/ptb-actions.php');
+    require_once($this->plugin_dir . 'includes/class-ptb-exception.php');
     require_once($this->plugin_dir . 'includes/class-ptb-html.php');
     require_once($this->plugin_dir . 'includes/class-ptb-core.php');
     require_once($this->plugin_dir . 'includes/class-ptb-view.php');

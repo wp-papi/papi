@@ -345,7 +345,6 @@ function current_page () {
 function ptb_get_all_page_types () {
   $files = glob(PTB_PAGES_DIR . '*');
   $res = array();
-  $page_type = 'page_type';
 
   foreach ($files as $file) {
     $res[] = ptb_get_page_type_from_file($file);
@@ -366,7 +365,8 @@ function ptb_get_all_page_types () {
  */
 
 function ptb_get_page_type_from_file ($file) {
-  $class_name = ptb_get_class_name($file);
+  $class_name = get_ptb_class_name($file);
+  $page_type = 'page_type';
   require_once($file);
   return (object)array(
     'class_name' => $class_name,
