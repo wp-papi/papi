@@ -105,7 +105,7 @@ class PTB_Core {
   public function ptb_load () {
     $uri = $_SERVER['REQUEST_URI'];
     $post_id = _ptb_get_post_id();
-    $page_type = _ptb_get_page_type($post_id);
+    $page_type = _ptb_get_page_page_type($post_id);
 
     // Only load Page Types on a "page" post type page in admin.
     if (strpos($uri, 'post-new.php?post_type=page') === false && (
@@ -119,7 +119,7 @@ class PTB_Core {
       if (_ptb_is_method('post') && $_POST['ptb_page_type']) {
         $page_type = $_POST['ptb_page_type'];
       } else {
-        $page_type = _ptb_get_page_type();
+        $page_type = _ptb_get_page_page_type();
       }
     }
 
@@ -134,7 +134,7 @@ class PTB_Core {
       return;
     }
     
-    return $page_type->new();
+    return $page_type->new_class();
   }
 
   /**
@@ -267,7 +267,7 @@ class PTB_Core {
     global $post;
     $uri = $_SERVER['REQUEST_URI'];
     $post_id = _ptb_get_post_id();
-    $page_type = _ptb_get_page_type($post_id);
+    $page_type = _ptb_get_page_page_type($post_id);
     
     if (strpos($uri, 'post-new.php?post_type=page') === false && (
       $post_id !== 0 && get_post_type($post_id) != 'page' ||

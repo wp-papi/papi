@@ -48,7 +48,7 @@ function _ptb_get_page_view () {
 }
 
 /**
- * Get page type from query string.
+ * Get page type from query string or the database.
  *
  * @param int $post_id
  * @since 1.0
@@ -57,7 +57,7 @@ function _ptb_get_page_view () {
  * @return string|null
  */
 
-function _ptb_get_page_type ($post_id = null) {
+function _ptb_get_page_page_type ($post_id = null) {
   if (isset($_GET['page_type']) && !empty($_GET['page_type'])) {
     return $_GET['page_type'];
   }
@@ -173,7 +173,7 @@ function _ptb_remove_ptb ($str) {
  */
 
 function ptb_value ($post_id = null, $name = null, $default = null) {
-  if (!is_numeric($post_id)) && is_string($post_id)) {
+  if (!is_numeric($post_id) && is_string($post_id)) {
     $name = $post_id;
     $post_id = null;
   }
@@ -245,12 +245,12 @@ function current_page () {
  * @return array
  */
 
-function ptb_get_all_page_types () {
+function _ptb_get_all_page_types () {
   $files = glob(PTB_PAGES_DIR . '*');
   $res = array();
 
   foreach ($files as $file) {
-    $res[] = _ptb_get_page_type_from_file($file);
+    $res[] = new PTB_Page_Type($file);
   }
 
   return $res;
@@ -303,13 +303,13 @@ function _ptb_get_page_type ($file_path) {
 function _ptb_get_file_data ($post_id) {
   if (is_null($post_id) || is_numeric($post_id)) {
     $post_id = _ptb_get_post_id($post_id);
-    $page_type = _ptb_get_page_type($post_id);
+    $page_type = _ptb_get_page_page_type($post_id);
   } else {
     $page_type = $post_id;
   }
   if (!is_null($page_type) && !empty($page_type)) {
     $file = _ptb_get_page_type_file($page_type);
-    return _ptb_get_page_type($page_type);
+    return _ptb_get_page_type($file);
   } else {
     return null;
   }
@@ -451,4 +451,17 @@ function ptb_has_page_type () {
 
 function _ptb_is_method ($method = '') {
   return strtoupper($_SERVER ['REQUEST_METHOD']) == strtoupper($method);
+}
+
+/**
+ * Get the url to 'post-new.php' with query string of the page type to load.
+ *
+ * @param string $page_type
+ * @since 1.0
+ *
+ * @return string
+ */
+
+function _ptb_get_page_new_url ($page_type) {
+  return get_admin_url() . 'post-new.php?post_type=page&page_type=' . $page_type;
 }

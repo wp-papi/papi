@@ -13,7 +13,7 @@ class PTB_Page_Type {
    * @since 1.0
    */
   
-  public var $name = '';
+  public $name = '';
 
   /**
    * The description of the page type.
@@ -22,7 +22,7 @@ class PTB_Page_Type {
    * @since 1.0
    */
   
-  public var $description = '';
+  public $description = '';
 
   /**
    * The template of the page type.
@@ -31,7 +31,7 @@ class PTB_Page_Type {
    * @since 1.0
    */
   
-  public var $template = '';
+  public $template = '';
   
   /**
    * The post types to register the page type with.
@@ -40,7 +40,7 @@ class PTB_Page_Type {
    * @since 1.0
    */
   
-  public var $post_types = array('page');
+  public $post_types = array('page');
   
   /**
    * The page type. It's the name of the class.
@@ -49,7 +49,7 @@ class PTB_Page_Type {
    * @since 1.0
    */
   
-  public var $page_type = '';
+  public $page_type = '';
 
   /**
    * The file name of the page type file.
@@ -58,7 +58,7 @@ class PTB_Page_Type {
    * @since 1.0
    */
    
-  public var $file_name = '';
+  public $file_name = '';
 
   /**
    * The file path of the page type file.
@@ -67,7 +67,7 @@ class PTB_Page_Type {
    * @since 1.0
    */
    
-  public var $file_path = '';
+  public $file_path = '';
   
   /**
    * Load a page type by the file.
@@ -96,12 +96,14 @@ class PTB_Page_Type {
     }
     
     // Check so we have the page type meta array.
-    if (!isset($this->page_type::$page_type)) {
+    $page_type_class = $this->page_type;
+
+    if (!isset($page_type_class::$page_type)) {
       throw new PTB_Exception('page_type_meta is null');
     }
     
     // Filter all fields.
-    $fields = $this->filter_page_type_fields($this->page_type::$page_type);
+    $fields = $this->filter_page_type_fields($page_type_class::$page_type);
     
     // Add each field as a variable.
     foreach ($fields as $key => $value) {
@@ -117,7 +119,7 @@ class PTB_Page_Type {
    * @return object
    */
   
-  public function new () {
+  public function new_class () {
     if (!class_exists($this->page_type)) {
       require_once($this->file_path);
     }

@@ -75,6 +75,10 @@ class PTB_Page {
   
   private function setup_post () {
     $this->post = get_post($this->id, ARRAY_A);
+
+    if (!isset($this->post)) {
+      return;
+    }
     // variables
     
     // create ptb_get_page_type_name function in ptb-functions.php
