@@ -106,15 +106,12 @@ class PTB_Core {
     $uri = $_SERVER['REQUEST_URI'];
     $post_id = _ptb_get_post_id();
     $page_type = _ptb_get_page_page_type($post_id);
-
-    // Only load Page Types on a "page" post type page in admin.
-    if (strpos($uri, 'post-new.php?post_type=page') === false && (
-      $post_id !== 0 && get_post_type($post_id) != 'page' ||
-      isset($_POST['post_type']) && $_POST['post_type'] != 'page' ||
-      is_null($page_type))) {
+    $post_type = _ptb_get_wp_post_type();
+    
+    if (!in_array($post_type, $this->page_types)) {
       return;
     }
-    
+
     if (is_null($page_type)) {
       if (_ptb_is_method('post') && $_POST['ptb_page_type']) {
         $page_type = $_POST['ptb_page_type'];
@@ -124,13 +121,12 @@ class PTB_Core {
     }
 
     // Can't proceed without this definition.
-    if (defined('PTB_PAGES_DIR')) {
+    if (!defined('PTB_PAGES_DIR')) {
       return;
     }
 
-    // @TODO: move this to own internal function.
-    $page_type = _ptb_dashify($page_type);
-    $path = PTB_PAGES_DIR . 'ptb-' . $page_type . '.php';
+    // Get the path to the page type file.
+    $path = _ptb_get_path_to_page_type($page_type);
 
     // Load the page type and create a new instance of it.
     $page_type = new PTB_Page_Type($path);

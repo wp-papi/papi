@@ -439,19 +439,6 @@ function _ptb_name ($name) {
 }
 
 /**
- * Check if we have a page type or not.
- *
- * @since 1.0
- *
- * @return bool
- */
-
-function ptb_has_page_type () {
-  // @TODO write this function.
-  return false;
-}
-
-/**
  * Check what the request method is.
  *
  * @param string $method
@@ -492,4 +479,49 @@ function _ptb_is_page_type_allowed ($page_type) {
     return strtolower($p);
   }, page_type_builder()->core->page_types);
   return in_array(strtolower($page_type), $page_types);
+}
+
+/**
+ * Get WordPress post type in various ways
+ *
+ * @since 1.0
+ *
+ * @return string
+ */
+
+function _ptb_get_wp_post_type () {
+  if (isset($_GET['post_type'])) {
+    return strtolower($_GET['post_type']);
+  }
+  
+  if (isset($_POST['post_type'])) {
+    return strtolower($_POST['post_type']);
+  }
+      
+  $post_id = _ptb_get_post_id();
+      
+  if ($post_id != 0) {
+    return strtolower(get_post_type($post_id));
+  }
+      
+  return null;
+}
+
+    
+/**
+ * Get path to page type file by given string.
+ *
+ * @param string $page_type
+ * @since 1.0
+ *
+ * @return string
+ */
+    
+function _ptb_get_path_to_page_type ($page_type) {
+  if (!defined('PTB_PAGES_DIR')) {
+    return;
+  }
+      
+  $page_type = _ptb_dashify($page_type);
+  return PTB_PAGES_DIR . 'ptb-' . $page_type . '.php';
 }
