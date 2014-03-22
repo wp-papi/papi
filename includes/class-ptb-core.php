@@ -123,6 +123,11 @@ class PTB_Core {
       }
     }
 
+    // Can't proceed without this definition.
+    if (defined('PTB_PAGES_DIR')) {
+      return;
+    }
+
     // @TODO: move this to own internal function.
     $page_type = _ptb_dashify($page_type);
     $path = PTB_PAGES_DIR . 'ptb-' . $page_type . '.php';
