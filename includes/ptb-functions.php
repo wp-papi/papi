@@ -477,3 +477,19 @@ function _ptb_is_method ($method = '') {
 function _ptb_get_page_new_url ($page_type) {
   return get_admin_url() . 'post-new.php?post_type=page&page_type=' . $page_type;
 }
+
+/**
+ * Check if page type is allowed to use.
+ *
+ * @param string $page_type
+ * @since 1.0
+ *
+ * @return bool
+ */
+
+function _ptb_is_page_type_allowed ($page_type) {
+  $page_types = array_map(function ($p) {
+    return strtolower($p);
+  }, page_type_builder()->core->page_types);
+  return in_array(strtolower($page_type), $page_types);
+}

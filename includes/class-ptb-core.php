@@ -130,10 +130,12 @@ class PTB_Core {
     // Load the page type and create a new instance of it.
     $page_type = new PTB_Page_Type($path);
     
+    // Check so we have any data.
     if (!$page_type->has_name()) {
       return;
     }
     
+    // Create a new class of the page type. 
     return $page_type->new_class();
   }
 

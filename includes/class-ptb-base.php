@@ -372,6 +372,9 @@ class PTB_Base {
          }
          $args['table'] = true;
        }
+       $box->page_types = array_filter($box->page_types, function ($p) {
+         return _ptb_is_page_type_allowed($p);
+       });
        foreach ($box->page_types as $page_type) {
          $this->add_meta_box($box, $page_type, $args);
        }
