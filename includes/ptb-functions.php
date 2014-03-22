@@ -180,22 +180,26 @@ function ptb_value ($post_id = null, $name = null, $default = null) {
   
   if (is_numeric($post_id)) {
     $post_id = intval($post_id);
+  } else {
+    $post_id = _ptb_get_post_id();
   }
   
   if (is_null($name)) {
     return $default;
   }
   
-  $page = ptb_get_page($post_id);
+  $name = _ptb_remove_ptb($name);
   
-  if (!$page->has_post()) {
+  $page = ptb_get_page($post_id);
+
+  if (is_null($page) || !$page->has_post()) {
     return null;
   }
   
   $meta = $page->get_meta();
   
-  if (isset($meta[$name])) {
-    $value = $meta[$name];
+  if (isset($page->$name)) {
+    $value = $page->$name;
     if (is_array($value) && isset($value[$name])) {
       return $value[$name];
     }
@@ -246,6 +250,10 @@ function current_page () {
  */
 
 function _ptb_get_all_page_types () {
+  if (!defined('PTB_PAGES_DIR')) {
+    return array();
+  }
+  
   $files = glob(PTB_PAGES_DIR . '*');
   $res = array();
 
@@ -263,10 +271,14 @@ function _ptb_get_all_page_types () {
  * @since 1.0
  * @access private
  *
- * @return string
+ * @return null|string
  */
 
 function _ptb_get_page_type_file ($page_type) {
+  if (!defined('PTB_PAGES_DIR')) {
+    return null;
+  }
+  
   return PTB_PAGES_DIR . _ptb_dashify(_ptbify($page_type)) . '.php';
 }
 
@@ -326,7 +338,7 @@ function _ptb_get_file_data ($post_id) {
  */
 
 function _ptb_get_template ($post_id) {
-  $data = ptb_get_file_data($post_id);
+  $data = _ptb_get_file_data($post_id);
   if (isset($data) && isset($data->template) && isset($data->template)) {
     return $data->template;
   } else {

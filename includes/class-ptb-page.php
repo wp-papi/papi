@@ -41,8 +41,8 @@ class PTB_Page {
 
   public function __construct ($post_id = 0) {
     $this->id = $post_id;
-    $this->setup_page();
     $this->setup_post();
+    $this->setup_page();
     $this->setup_meta();
   }
   
@@ -53,9 +53,23 @@ class PTB_Page {
    */
   
   private function setup_page () {
+    // Can't proceed if we haven't a post object.
+    if (!$this->has_post()) {
+      return;
+    }
+    
+    // Can't proceed without this definition.
+    if (!defined('PTB_PAGES_DIR')) {
+      return;
+    }
+  
+    // The path to the page type file.
     $path = PTB_PAGES_DIR . $this->post->page_template;
+    
+    // The page type object.
     $this->page_type = new PTB_Page_Type($path);
     
+    // Can't proceed without a page type.
     if (!$this->page_type->has_name()) {
       return;
     }
@@ -74,7 +88,7 @@ class PTB_Page {
    */
   
   private function setup_post () {
-    $this->post = get_post($this->id, ARRAY_A);
+    $this->post = get_post($this->id);
 
     if (!isset($this->post)) {
       return;
@@ -206,7 +220,7 @@ class PTB_Page {
    */
   
   public function has_post () {
-    return $thist->post != null;
+    return $this->post != null;
   }
   
   /**
@@ -229,8 +243,8 @@ class PTB_Page {
    * @return object
    */
   
-  public function get_meta () {
-    $meta = (object)$this->meta;
+  public function get_meta ($array = true) {
+    return $array ? $this->meta : (object)$this->meta;
   }
 
   /**
