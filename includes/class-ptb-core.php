@@ -278,12 +278,10 @@ class PTB_Core {
     $uri = $_SERVER['REQUEST_URI'];
     $post_id = _ptb_get_post_id();
     $page_type = _ptb_get_page_page_type($post_id);
-    
-    if (strpos($uri, 'post-new.php?post_type=page') === false && (
-      $post_id !== 0 && get_post_type($post_id) != 'page' ||
-      isset($_POST['post_type']) && $_POST['post_type'] != 'page' ||
-      is_null($page_type))) {
-      return $classes;
+    $post_type = _ptb_get_wp_post_type();
+
+    if (!in_array($post_type, $this->post_types)) {
+      return;
     }
     
     if (count(get_page_templates())) {
