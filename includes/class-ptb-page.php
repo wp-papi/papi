@@ -127,15 +127,31 @@ class PTB_Page {
     if (!is_array($this->meta)) {
       return;
     }
-    
+
     // Get all property collection.
     $this->meta = array_merge($this->meta, $this->get_collection_meta());
     
+    // Don't need this anymore.
+    if (isset($this->meta[PTB_COLLECTION_KEY])) {
+      unset($this->meta[PTB_COLLECTION_KEY]);
+    }
+    
     foreach ($this->meta as $key => $value) {
-      if (is_array($value) && $key !== PTB_COLLECTION_KEY) {
+      if ($key !== 'innehall') {
+        continue;
+      }
+      
+      if (is_array($value) && $key === 'innehall') {
         $value = $this->convert($value);
       }
+      
+      // No point of empty values.
+      // if (is_string($value) && strlen($value) === 0) {
+      //  continue;
+      // }
+      
       $key = _ptb_remove_ptb($key);
+
       if (!isset($this->$key)) {
         $this->$key = $value;
       }
@@ -161,7 +177,7 @@ class PTB_Page {
       
       foreach ($values as $key => $value) {
         $key = _ptb_remove_ptb($key);
-        $res[$key] = array_map(function ($v) {
+        foreach ($value as $x => $v) {
           foreach ($v as $k => $y) {
             if (_ptb_is_property_key($k)) {
               continue;
@@ -177,8 +193,8 @@ class PTB_Page {
               unset($v[$k]);
             }
           }
-          return (object)$v;
-        }, $value);
+        }
+        $res[$key] = $value;
       }
       
       return $res;
@@ -205,6 +221,19 @@ class PTB_Page {
       }
       if (isset($property['value'])) {
         return $property['value'];
+      }
+      if (is_array($property)) {
+        foreach ($property as $ck => $cv) {
+          $res = array();
+          foreach ($cv as $key => $prop) {
+            if (_ptb_is_property_key($key)) {
+              continue;
+            }
+            $res[$key] = $prop;
+          }
+          $property[$ck] = $res;
+        }
+        return $property;
       }
       return null;
     }
