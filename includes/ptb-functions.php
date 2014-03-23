@@ -41,7 +41,8 @@ function _ptb_get_post_id ($post_id = null) {
 
 function _ptb_get_page_view () {
   if (isset($_GET['page']) && strpos($_GET['page'], 'ptb') !== false) {
-    return str_replace('ptb-', '', $_GET['page']);
+    $page = str_replace('ptb-', '', $_GET['page']);
+    return preg_replace('/\,.*/', '', $page);
   }
 
   return null;
@@ -255,11 +256,22 @@ function _ptb_get_all_page_types () {
   }
   
   $files = glob(PTB_PAGES_DIR . '*');
+  $post_type = _ptb_get_wp_post_type();
   $res = array();
 
   foreach ($files as $file) {
-    $res[] = new PTB_Page_Type($file);
+    $p = new PTB_Page_Type($file);
+    
+    if (!isset($p->post_types) || !is_array($p->post_types)) {
+      $p->post_types = array('page');
+    }
+    
+    if (in_array($post_type, $p->post_types)) {
+      $res[] = $p;
+    }
   }
+  
+  
 
   return $res;
 }
@@ -468,17 +480,17 @@ function _ptb_get_page_new_url ($page_type) {
 /**
  * Check if page type is allowed to use.
  *
- * @param string $page_type
+ * @param string $post_type
  * @since 1.0
  *
  * @return bool
  */
 
-function _ptb_is_page_type_allowed ($page_type) {
-  $page_types = array_map(function ($p) {
+function _ptb_is_page_type_allowed ($post_type) {
+  $post_types = array_map(function ($p) {
     return strtolower($p);
-  }, page_type_builder()->core->page_types);
-  return in_array(strtolower($page_type), $page_types);
+  }, page_type_builder()->core->post_types);
+  return in_array(strtolower($post_type), $post_types);
 }
 
 /**

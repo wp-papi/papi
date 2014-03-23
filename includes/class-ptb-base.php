@@ -55,7 +55,9 @@ class PTB_Base {
   public function __construct ($do = true) {
     if ($do) {
       $this->setup_actions();
-      $this->page_type = _ptb_remove_ptb(strtolower(get_class($this)));
+      $this->page_type_class = get_class($this);
+      $this->page_type_vars = (object)get_class_vars ($this->page_type_class);
+      $this->page_type = _ptb_remove_ptb(strtolower($this->page_type_class));
     }
   }
 
@@ -348,9 +350,11 @@ class PTB_Base {
 
    public function setup_page () {
      $tabs = array();
+
      usort($this->boxes, function ($a, $b) {
        return $a->sort_order - $b->sort_order;
      });
+
      foreach ($this->boxes as $box) {
        $args = array();
        if (isset($box->properties[0]) && 
@@ -372,13 +376,21 @@ class PTB_Base {
          }
          $args['table'] = true;
        }
-       $box->page_types = array_filter($box->page_types, function ($p) {
+
+       // Fetch the post types we should register the meta boxes at.
+       $post_types = isset($this->page_type_vars->page_type['post_types']) ?
+         $this->page_type_vars->page_type['post_types'] : array('page');
+       
+       // Check so we are allowed to use the post type.
+       $post_types = array_filter($post_types, function ($p) {
          return _ptb_is_page_type_allowed($p);
        });
-       foreach ($box->page_types as $page_type) {
-         $this->add_meta_box($box, $page_type, $args);
+
+       foreach ($post_types as $post_type) {
+         $this->add_meta_box($box, $post_type, $args);
        }
      }
+
      $this->setup_after_actions();
   }
 
