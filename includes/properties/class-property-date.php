@@ -18,7 +18,14 @@ class PropertyDate extends PTB_Property {
    */
 
   public function html () {
-    $value = !empty($this->get_options()->value) ? $this->get_options()->value->format('Y-m-d') : '';
+    $value = !empty($this->get_options()->value) ? $this->get_options()->value : '';
+    
+    if (is_string($value)) {
+      $value = $this->convert($value);
+      if ($value instanceof DateTime) {
+        $value = $value->format('Y-m-d');
+      }
+    }
     
     return PTB_Html::input('text', array(
       'name' => $this->get_options()->name,

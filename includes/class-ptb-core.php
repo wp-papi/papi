@@ -13,7 +13,7 @@ class PTB_Core {
    * All page types that WP PTB should be available on.
    */
   
-  public $page_types = array('page');
+  public $post_types = array('page');
 
   /**
    * Constructor. Add actions.
@@ -23,10 +23,10 @@ class PTB_Core {
 
   public function __construct () {
     $this->view = new PTB_View;
-    $this->page_types = apply_filters('ptb_page_types', $this->page_types);
+    $this->post_types = apply_filters('ptb_post_types', $this->post_types);
 
-    if (!is_array($this->page_types)) {
-      $this->page_types = array('page');
+    if (!is_array($this->post_types)) {
+      $this->post_types = array('page');
     }
 
     add_action('admin_menu', array($this, 'ptb_menu'));
@@ -35,9 +35,9 @@ class PTB_Core {
     add_filter('admin_body_class', array($this, 'ptb_admin_body_class'));
     add_action('admin_print_footer_scripts', array($this, 'ptb_add_new_link'));
     
-    foreach ($this->page_types as $page_type) {
-      add_filter('manage_' . $page_type . '_posts_columns', array($this, 'ptb_manage_page_type_posts_columns'));
-      add_action('manage_' . $page_type . '_posts_custom_column', array($this, 'ptb_manage_page_type_posts_custom_column'), 10, 2);
+    foreach ($this->post_types as $post_type) {
+      add_filter('manage_' . $post_type . '_posts_columns', array($this, 'ptb_manage_page_type_posts_columns'));
+      add_action('manage_' . $post_type . '_posts_custom_column', array($this, 'ptb_manage_page_type_posts_custom_column'), 10, 2);
     }
 
     // Load the page type.
@@ -46,7 +46,7 @@ class PTB_Core {
     // On post we need to save our custom data.
     // The action 'save_post' didn't work after 
     // we change how Page Type Builder is loaded.
-    if (ptb_is_method('post')) {
+    if (_ptb_is_method('post')) {
       $this->ptb_save_post();
     }
   }
@@ -58,10 +58,17 @@ class PTB_Core {
    */
 
   public function ptb_menu () {
-    // Remove "Add new" menu item.
-    remove_submenu_page('edit.php?post_type=page', 'post-new.php?post_type=page');
-    // Add our custom menu item.
-    add_submenu_page('edit.php?post_type=page', __('Add new', 'ptb'), __('Add new', 'ptb'), 'manage_options', 'ptb-add-new-page', array($this, 'ptb_view'));
+    foreach ($this->post_types as $post_type) {
+      // Remove "Add new" menu item.
+      remove_submenu_page('edit.php?post_type=' . $post_type, 'post-new.php?post_type=' . $post_type);
+      // Add our custom menu item.
+      add_submenu_page('edit.php?post_type=' . $post_type, 
+                       __('Add new', 'ptb'), 
+                       __('Add new', 'ptb'), 
+                       'manage_options', 
+                       'ptb-add-new-page,' . $post_type, 
+                       array($this, 'ptb_view'));
+    }
   }
   
   /**
@@ -72,9 +79,10 @@ class PTB_Core {
   
   public function ptb_add_new_link () {
     $screen = get_current_screen();
-    if ($screen->id == 'edit-page' || $screen->id == 'page') { ?>
+    $post_type = str_replace('edit-', '', $screen->id);
+    if ($screen->id == 'edit-page' || in_array($post_type, $this->post_types)) { ?>
       <script type="text/javascript">
-        jQuery('.wrap h2 .add-new-h2').attr('href', 'edit.php?post_type=page&page=ptb-add-new-page');
+        jQuery('.wrap h2 .add-new-h2').attr('href', 'edit.php?post_type=<?php echo $post_type; ?>&page=ptb-add-new-page,' <?php echo $post_type; ?>);
       </script>
     <?php
     }
@@ -87,7 +95,7 @@ class PTB_Core {
    */
 
   public function ptb_view () {
-    $page_view = get_ptb_page_view();
+    $page_view = _ptb_get_page_view();
 
     if (!is_null($page_view)) {
       $this->view->render($page_view);
@@ -104,44 +112,39 @@ class PTB_Core {
 
   public function ptb_load () {
     $uri = $_SERVER['REQUEST_URI'];
-    $post_id = get_ptb_post_id();
-    $page_type = get_ptb_page_type($post_id);
+    $post_id = _ptb_get_post_id();
+    $page_type = _ptb_get_page_page_type($post_id);
+    $post_type = _ptb_get_wp_post_type();
 
-    // Only load Page Types on a "page" post type page in admin.
-    if (strpos($uri, 'post-new.php?post_type=page') === false && (
-      $post_id !== 0 && get_post_type($post_id) != 'page' ||
-      isset($_POST['post_type']) && $_POST['post_type'] != 'page' ||
-      is_null($page_type))) {
+    if (!in_array($post_type, $this->post_types)) {
       return;
     }
-    
+
     if (is_null($page_type)) {
-      if (ptb_is_method('post') && $_POST['ptb_page_type']) {
+      if (_ptb_is_method('post') && $_POST['ptb_page_type']) {
         $page_type = $_POST['ptb_page_type'];
       } else {
-        $page_type = get_ptb_page_type();
+        $page_type = _ptb_get_page_page_type();
       }
     }
 
-    $page_type = ptb_dashify($page_type);
-
-    $path = PTB_PAGES_DIR . 'ptb-' . $page_type . '.php';
-
-    // Can't proceed without a page type or if the file exists.
-    if (!file_exists($path)) {
+    // Can't proceed without this definition.
+    if (!defined('PTB_PAGES_DIR')) {
       return;
     }
+    // Get the path to the page type file.
+    $path = _ptb_get_path_to_page_type($page_type);
 
-    $class_name = get_ptb_class_name($path);
+    // Load the page type and create a new instance of it.
+    $page_type = new PTB_Page_Type($path);
 
-    // No class found.
-    if (is_null($class_name)) {
+    // Check so we have any data.
+    if (!$page_type->has_name()) {
       return;
     }
-
-    // Require and initialize the page type.
-    require_once($path);
-    new $class_name;
+    
+    // Create a new class of the page type. 
+    $page_type->new_class();
   }
 
   /**
@@ -223,7 +226,7 @@ class PTB_Core {
     
     // Don't wont to save random data that's only is used for getting a nicer ui.
     foreach ($data as $key => $value) {
-      if (ptb_is_random_title($key)) {
+      if (_ptb_is_random_title($key)) {
         unset($data[$key]);
       }
     }
@@ -234,13 +237,13 @@ class PTB_Core {
     // Add, update or delete the meta values.
     if (count($meta_value) == 0 || empty($meta_value)) {
       add_post_meta($post_id, PTB_META_KEY, $data, true);
-      add_post_meta($post_id, '_wp_page_template', get_ptb_template($page_type), true);
+      add_post_meta($post_id, '_wp_page_template', _ptb_get_template($page_type), true);
     } else if (count($meta_value) > 0 && count($data) > 0) {
       update_post_meta($post_id, PTB_META_KEY, $data);
-      update_post_meta($post_id, '_wp_page_template', get_ptb_template($page_type));
+      update_post_meta($post_id, '_wp_page_template', _ptb_get_template($page_type));
     } else {
       delete_post_meta($post_id, PTB_META_KEY, $meta_value);
-      delete_post_meta($post_id, '_wp_page_template', get_ptb_template($page_type));
+      delete_post_meta($post_id, '_wp_page_template', _ptb_get_template($page_type));
     }
   }
 
@@ -273,14 +276,12 @@ class PTB_Core {
   public function ptb_admin_body_class ($classes) {
     global $post;
     $uri = $_SERVER['REQUEST_URI'];
-    $post_id = get_ptb_post_id();
-    $page_type = get_ptb_page_type($post_id);
-    
-    if (strpos($uri, 'post-new.php?post_type=page') === false && (
-      $post_id !== 0 && get_post_type($post_id) != 'page' ||
-      isset($_POST['post_type']) && $_POST['post_type'] != 'page' ||
-      is_null($page_type))) {
-      return $classes;
+    $post_id = _ptb_get_post_id();
+    $page_type = _ptb_get_page_page_type($post_id);
+    $post_type = _ptb_get_wp_post_type();
+
+    if (!in_array($post_type, $this->post_types)) {
+      return;
     }
     
     if (count(get_page_templates())) {
@@ -314,9 +315,9 @@ class PTB_Core {
   
   public function ptb_manage_page_type_posts_custom_column ($column_name, $post_id) {
     if ($column_name === 'page_type') {
-      $page_type = get_ptb_file_data($post_id);
+      $page_type = _ptb_get_file_data($post_id);
       if (!is_null($page_type)) {
-        echo $page_type->page_type->name;
+        echo $page_type->name;
       } else {
         echo __('Normal page', 'ptb');
       }

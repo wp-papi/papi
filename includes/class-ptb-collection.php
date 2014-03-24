@@ -243,7 +243,7 @@ class PTB_Collection {
         ), false);
         $html .= PTB_Html::start('tbody');
         $num = 0;
-        foreach (ptb_get_only_values($v) as $name => $value) {
+        foreach (_ptb_get_only_values($v) as $name => $value) {
           $property = $collection->properties[$num];
 
           // This is a bit ugly to use PTB_Base again.
@@ -299,12 +299,12 @@ class PTB_Collection {
   private function get_properties ($properties = array()) {
     $new_properties = array();
     foreach ($properties as $k => $p) {
-      $names = array_keys(ptb_get_only_values($p));
+      $names = array_keys(_ptb_get_only_values($p));
       foreach ($this->first_collection->properties as $b) {
-        $name = ptb_remove_ptb($b->name);
+        $name = _ptb_remove_ptb($b->name);
         if (!in_array($name, $names)) {
           $p[$name] = '';
-          $pk = ptb_property_type_key($name);
+          $pk = _ptb_property_type_key($name);
           $p[$pk] = $b->type;
         }
       }

@@ -51,7 +51,7 @@ class PTB_Tab {
     
     // Generate unique names for all tabs.
     for ($i = 0; $i < count($box->properties); $i++) {
-      $box->properties[$i]->name = $box->properties[$i]->name = ptb_name($box->properties[$i]->title) . '_' . $i;
+      $box->properties[$i]->name = $box->properties[$i]->name = _ptb_name($box->properties[$i]->title) . '_' . $i;
     }
     
     $this->first_tab = $box->properties[0];

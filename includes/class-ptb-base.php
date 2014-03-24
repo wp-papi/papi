@@ -55,7 +55,9 @@ class PTB_Base {
   public function __construct ($do = true) {
     if ($do) {
       $this->setup_actions();
-      $this->page_type = ptb_remove_ptb(strtolower(get_class($this)));
+      $this->page_type_class = get_class($this);
+      $this->page_type_vars = (object)get_class_vars ($this->page_type_class);
+      $this->page_type = _ptb_remove_ptb(strtolower($this->page_type_class));
     }
   }
 
@@ -92,7 +94,7 @@ class PTB_Base {
     if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
       $name = get_class($this);
       $name = strtolower($name);
-      $name = ptb_dashify($name);
+      $name = _ptb_dashify($name);
       $file = 'gui/css/page-types/' . $name . '.css';
       $path = trailingslashit(PTB_CUSTOM_PATH) . $file;
       $url = trailingslashit(PTB_CUSTOM_URL) . $file;
@@ -113,7 +115,7 @@ class PTB_Base {
     if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
       $name = get_class($this);
       $name = strtolower($name);
-      $name = ptb_dashify($name);
+      $name = _ptb_dashify($name);
       $file = 'gui/js/page-types/' . $name . '.js';
       $path = trailingslashit(PTB_CUSTOM_PATH) . $file;
       $url = trailingslashit(PTB_CUSTOM_URL) . $file;
@@ -167,7 +169,7 @@ class PTB_Base {
      }
      
      if (!isset($options->title) || empty($options->title)) {
-       $options->title = ptb_random_title();
+       $options->title = _ptb_random_title();
      }
 
      // If the disable option is true, don't add it to the page.
@@ -177,7 +179,7 @@ class PTB_Base {
 
      // Set the key to the title slugify.
      if (!isset($options->name) || empty($options->name)) {
-       $options->name = ptb_slugify($options->title);
+       $options->name = _ptb_slugify($options->title);
      }
 
      // Custom object for properties data.
@@ -197,7 +199,7 @@ class PTB_Base {
        $this->property_sort_order++;
      }
 
-     $options->name = ptb_name($options->name);
+     $options->name = _ptb_name($options->name);
      
      // Only set the vaue if we don't have value.
      if (!isset($options->value)) {
@@ -348,9 +350,11 @@ class PTB_Base {
 
    public function setup_page () {
      $tabs = array();
+
      usort($this->boxes, function ($a, $b) {
        return $a->sort_order - $b->sort_order;
      });
+
      foreach ($this->boxes as $box) {
        $args = array();
        if (isset($box->properties[0]) && 
@@ -372,10 +376,21 @@ class PTB_Base {
          }
          $args['table'] = true;
        }
-       foreach ($box->page_types as $page_type) {
-         $this->add_meta_box($box, $page_type, $args);
+
+       // Fetch the post types we should register the meta boxes at.
+       $post_types = isset($this->page_type_vars->page_type['post_types']) ?
+         $this->page_type_vars->page_type['post_types'] : array('page');
+       
+       // Check so we are allowed to use the post type.
+       $post_types = array_filter($post_types, function ($p) {
+         return _ptb_is_page_type_allowed($p);
+       });
+
+       foreach ($post_types as $post_type) {
+         $this->add_meta_box($box, $post_type, $args);
        }
      }
+
      $this->setup_after_actions();
   }
 
@@ -388,8 +403,8 @@ class PTB_Base {
    * @since 1.0
    */
   public function add_meta_box ($box, $page_type, $args) {
-    add_meta_box(ptb_slugify($box->title), 
-                 ptb_remove_ptb($box->title), 
+    add_meta_box(_ptb_slugify($box->title), 
+                 _ptb_remove_ptb($box->title), 
                  array($this, 'box_callback'), 
                  $page_type, 
                  $box->context, 
@@ -468,7 +483,7 @@ class PTB_Base {
     }
     return (object)array(
       'title' => $title,
-      'name' => ptb_name($name),
+      'name' => _ptb_name($name),
       'collection' => true,
       'properties' => $properties
     );

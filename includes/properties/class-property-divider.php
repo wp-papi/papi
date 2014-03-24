@@ -18,7 +18,7 @@ class PropertyDivider extends PTB_Property {
    */
 
   public function html () {
-    if (ptb_is_random_title($this->get_options()->title)) {
+    if (_ptb_is_random_title($this->get_options()->title)) {
       return PTB_Html::tag('div', array(
         'class' => $this->css_classes('ptb-divider-no-text')
       ));

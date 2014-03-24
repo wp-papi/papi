@@ -173,7 +173,7 @@
     
     $list.find('li').each(function () {
       var $li = $(this);
-      $li[$li.text().indexOf(val) === -1 ? 'hide' : 'show']();
+      $li[$li.text().toLowerCase().indexOf(val) === -1 ? 'hide' : 'show']();
     });
     
   });
