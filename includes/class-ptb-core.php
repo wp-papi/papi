@@ -199,6 +199,7 @@ class PTB_Core {
     // Loop through all keys and set values in the data array.
     foreach ($keys as $key) {
       $_POST[$key] = str_replace('\"', '', $_POST[$key]);
+
       if ($_POST[$key] == 'on') {
         $data[$key] = true;
       } else {
@@ -221,8 +222,41 @@ class PTB_Core {
         'value' => $data[$pkey]
       );
       
+      // Remove null or empty values.
+      if (is_null($data[$pkey]['value']) || strlen($data[$pkey]['value']) === 0) {
+        unset($data[$pkey]);
+        unset($data[$key]);
+        continue;
+      }
+      
       unset($data[$key]);
     }
+    
+    /*
+    if (isset($data[PTB_COLLECTION_KEY]) && is_array($data[PTB_COLLECTION_KEY])) {
+      $collection = $data[PTB_COLLECTION_KEY];
+      foreach ($collection as $ck => $cv) {
+        foreach ($cv as $ik => $iv) {
+          foreach ($iv as $key => $value) {
+            if (_ptb_is_property_key($key)) {
+              continue;
+            }
+            var_dump($key);
+            if (is_null($value) || strlen($value) === 0) {
+              unset($iv[$key]);
+              unset($iv[$key . '_property']);
+            }
+          }
+        }
+      }
+      $data[PTB_COLLECTION_KEY] = $collection;
+    }
+    
+    echo'<pre>';
+    var_dump($data);
+    
+    die ();
+    */
     
     // Don't wont to save random data that's only is used for getting a nicer ui.
     foreach ($data as $key => $value) {
