@@ -14,7 +14,7 @@
   <ul class="ptb-box-list">
     <?php foreach ($page_types as $key => $value): ?>
       <li>
-        <a href="<?php echo _ptb_get_page_new_url ($value->file_name); ?>"><?php echo $value->name; ?></a>
+        <a href="<?php echo _ptb_get_page_new_url ($value->file_name, $post_type); ?>"><?php echo $value->name; ?></a>
         <p><?php echo $value->description; ?></p>
       </li>
     <?php endforeach; ?>

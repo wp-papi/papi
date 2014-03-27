@@ -471,8 +471,8 @@ function _ptb_is_method ($method = '') {
  * @return string
  */
 
-function _ptb_get_page_new_url ($page_type) {
-  return get_admin_url() . 'post-new.php?post_type=page&page_type=' . $page_type;
+function _ptb_get_page_new_url ($page_type, $post_type) {
+  return get_admin_url() . 'post-new.php?post_type=' . $post_type . '&page_type=' . $page_type;
 }
 
 /**
