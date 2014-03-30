@@ -5,34 +5,33 @@
  */
 
 class PTB_Page_Types {
-  
+
   /**
    * Path to the page types.
    *
    * @var string
    * @since 1.0
    */
-  
+
   private var $path;
-  
+
   /**
    * Static array that contains the page types.
    *
    * @var array
    * @since 1.0
-   */ 
-  
+   */
+
   private static $page_types = array();
-  
+
   /**
    * Constructor.
    */
-  
+
   public function __construct () {
-    $this->path = PTB_PAGES_DIR;
-    $files = glob(PTB_PAGES_DIR . '*');
+    $files = _ptb_get_files_in_directory('page-types');
   }
-  
+
   /**
    * Fetch all page types that exists in the page types folder.
    *
@@ -40,15 +39,15 @@ class PTB_Page_Types {
    *
    * @return array
    */
-  
+
   private function fetch_all () {
     $files = glob($this->path . '*');
     $res = array();
-    
+
     foreach ($files as $file) {
       $res[] = new PTB_Page_Type($file);
     }
-    
+
     return $res;
   }
 
@@ -60,7 +59,7 @@ class PTB_Page_Types {
    *
    * @return object
    */
-  
+
   private function get_page_type_meta ($file) {
     $class_name = get_ptb_class_name($file);
     $page_type = 'page_type';
@@ -70,5 +69,5 @@ class PTB_Page_Types {
       'meta' => (object)$class_name::$page_type
     );
   }
-  
+
 }

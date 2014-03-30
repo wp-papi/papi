@@ -8,43 +8,43 @@ if (!defined('ABSPATH')) exit;
  */
 
 class PTB_Collection {
-  
+
   /**
    * The box to render as list with properties.
    *
    * @var object
    * @since 1.0
    */
-  
+
   private $box;
-  
+
   /**
    * First collection.
    *
    * @var object
    * @since 1.0
    */
-  
+
   private $first_collection;
-  
+
   /**
    * The gernated html.
    *
    * @var string
    * @since 1.0
    */
-  
+
   public $html;
-  
+
   /**
    * Counter of items in collection.
    *
    * @var int
    * @since 1.0
    */
-  
+
   private $i = 0;
-  
+
   /**
    * Construct. Setup the collections.
    *
@@ -52,17 +52,17 @@ class PTB_Collection {
    * @since 1.0
    * @throws Exception
    */
- 
+
   public function __construct ($box) {
     if (!isset($box) || empty($box->properties)) {
       throw new Exception('PTB Error: No collections in the box');
     }
-    
+
     $this->first_collection = $box->properties[0];
     $this->box = $box;
     $this->html = $this->html();
   }
-  
+
   /**
    * Generate html for collection and properties.
    *
@@ -70,32 +70,32 @@ class PTB_Collection {
    *
    * @return string
    */
-  
+
   public function html () {
     $html = PTB_Html::tag('div', array(
       'class' => 'ptb-collection-list'
     ), false);
-    
+
     foreach ($this->box->properties as $collection) {
       // Heading
       $span = PTB_Html::tag('span', $collection->title);
       $html .= PTB_Html::tag('h3', $span, array(
         'class' => 'hndle ptb-divider-text'
       ));
-      
+
       // Paragraph and add new link.
       $html .= PTB_Html::tag('a', __('Add new', 'ptb'), array(
         'href' => '#',
         'class' => 'ptb-pull-right add-new',
         'data-ptb-collection' => $collection->name
       ));
-      
+
       // Generate hidden template tag.
       $html .= PTB_Html::tag('div', array(
         'data-ptb-collection' => $collection->name,
         'class' => 'ptb-hidden'
       ), false);
-      
+
       $html .= PTB_Html::tag('span', array(
         'class' => 'ptb-pull-right ptb-collection-actions'
       ), false);
@@ -110,19 +110,19 @@ class PTB_Collection {
         'class' => 'down',
         'data-ptb-collection' => $collection->name
       ));
-      $html .= ' - '; 
+      $html .= ' - ';
       $html .= PTB_Html::tag('a', __('Delete', 'ptb'), array(
         'href' => '#',
         'class' => 'del',
         'data-ptb-collection' => $collection->name
       ));
       $html .= PTB_Html::stop('span');
-      
+
       // Get properties table.
       $html .= $this->properties($collection);
-      
+
       $html .= PTB_Html::stop('div');
-      
+
       // List of properties.
       $html .= PTB_Html::tag('ul', array(
         'data-ptb-collection' => $collection->name
@@ -130,13 +130,13 @@ class PTB_Collection {
 
       // Get collection fields.
       $html .= $this->get_collection_fields($collection);
-    
+
       $html .= PTB_Html::stop('ul');
     }
-  
+
     return $html . PTB_Html::stop('div');
   }
-  
+
   /**
    * Generate properties table.
    *
@@ -147,14 +147,14 @@ class PTB_Collection {
    *
    * @return string
    */
-  
+
   private function properties ($collection, $prepare = false) {
     $html = PTB_Html::tag('table', array(
       'class' => 'ptb-table'
     ), false);
-    
+
     $html .= PTB_Html::start('tbody');
-    
+
     foreach ($collection->properties as $property) {
       if ($prepare) {
         $html .= $this->prepare_properties($property->callback_args->html, $collection->name);
@@ -162,12 +162,12 @@ class PTB_Collection {
         $html .= $property->callback_args->html;
       }
     }
-    
+
     return $html
       . PTB_Html::stop('tbody')
       . PTB_Html::stop('table');
   }
-  
+
   /**
    * Get collection fields as html.
    *
@@ -176,11 +176,10 @@ class PTB_Collection {
    *
    * @return string
    */
-  
+
   private function get_collection_fields ($collection) {
     $html = '';
-    $values = ptb_value(PTB_COLLECTION_KEY);
-    
+    $values = _ptb_meta_value(PTB_COLLECTION_KEY);
     if (is_null($values)) {
       $html .= PTB_Html::tag('li', array(
         'data-ptb-collection-i' => $this->i
@@ -199,7 +198,7 @@ class PTB_Collection {
         'class' => 'down',
         'data-ptb-collection' => $collection->name
       ));
-      $html .= ' - '; 
+      $html .= ' - ';
       $html .= PTB_Html::tag('a', __('Delete', 'ptb'), array(
         'href' => '#',
         'class' => 'del',
@@ -209,7 +208,7 @@ class PTB_Collection {
       $html .= $this->properties($collection, true);
       return $html . PTB_Html::stop('li');
     }
-    
+
     $first = key($values);
     foreach ($values as $key => $properties) {
       $properties = $this->get_properties($properties);
@@ -231,7 +230,7 @@ class PTB_Collection {
           'class' => 'down',
           'data-ptb-collection' => $collection->name
         ));
-        $html .= ' - '; 
+        $html .= ' - ';
         $html .= PTB_Html::tag('a', __('Delete', 'ptb'), array(
           'href' => '#',
           'class' => 'del',
@@ -260,14 +259,14 @@ class PTB_Collection {
         $html .= PTB_Html::stop('tbody')
           . PTB_Html::stop('table')
           . PTB_Html::stop('li');
-        
+
         $this->i++;
       }
     }
-    
+
     return $html;
   }
-  
+
   /**
    * Prepare properties html name attribute.
    *
@@ -277,7 +276,7 @@ class PTB_Collection {
    *
    * @return string
    */
-  
+
   private function prepare_properties ($html, $name) {
     preg_match_all('/name\=\"(\w+)\"/', $html, $matches);
     foreach ($matches[1] as $match) {
@@ -286,7 +285,7 @@ class PTB_Collection {
     }
     return $html;
   }
-  
+
   /**
    * Get all properties that is used for the collection.
    * If we add new we need to now about that, or removing.

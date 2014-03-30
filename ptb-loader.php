@@ -100,18 +100,6 @@ class PTB_Loader {
       define('PTB_PROPERTY_TYPE_KEY', '_property');
     }
 
-    // Path to custom wp-ptb directory.
-    if (!defined('PTB_CUSTOM_PATH')) {
-      define('PTB_CUSTOM_PATH', false);
-    } else {
-      define('PTB_PAGES_DIR', trailingslashit(PTB_CUSTOM_PATH . '/page-types'));
-    }
-
-    // Url to custom wp-ptb directory.
-    if (!defined('PTB_CUSTOM_URL')) {
-      define('PTB_CUSTOM_URL', false);
-    }
-    
     /*
 
     Custom wp-ptb directory structure:
@@ -162,27 +150,8 @@ class PTB_Loader {
     require_once($this->plugin_dir . 'includes/properties/class-property-dropdownlist.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-checkboxlist.php');
 
-    // Load custom properties
-    $this->require_custom_files();
-
     // Load Page Type Builder base file.
     require_once($this->plugin_dir . 'includes/class-ptb-base.php');
-  }
-
-  /**
-   * Require custom files.
-   *
-   * @since 1.0
-   * @access private
-   */
-
-  private function require_custom_files () {
-    if (defined('PTB_CUSTOM_PATH') && is_string(PTB_CUSTOM_PATH)) {
-      $files = glob(trailingslashit(PTB_CUSTOM_PATH . '/properties') . '*');
-      foreach ($files as $file) {
-        require_once($file);
-      }
-    }
   }
 
   /**
@@ -237,7 +206,7 @@ function page_type_builder () {
   return PTB_Loader::instance();
 }
 
-/** 
+/**
  * Since we would have custom data in our theme directory we need to hook us up to 'after_setup_theme' action.
  *
  * @since 1.0
@@ -249,3 +218,28 @@ function ptb_after_theme_setup () {
 }
 
 add_action('after_setup_theme', 'ptb_after_theme_setup');
+
+/**
+ * Register a directory that contains Page Type Builder files.
+ *
+ * @param string $directory Either the full filesystem path
+ * @since 1.0
+ *
+ * @return bool
+ */
+
+function register_ptb_directory ($directory) {
+  global $ptb_directories;
+
+  if (!is_array($ptb_directories)) {
+    $ptb_directories = array();
+  }
+
+  if (!file_exists($directory) || !is_dir($directory)) {
+    return false;
+  }
+
+  $ptb_directories[] = $directory;
+
+  return true;
+}

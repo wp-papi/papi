@@ -26,7 +26,7 @@ function _ptb_get_post_id ($post_id = null) {
   if (is_null($post_id) && isset($_GET['page_id'])) {
     return intval($_GET['page_id']);
   }
-  
+
   return $post_id;
 }
 
@@ -62,11 +62,11 @@ function _ptb_get_page_page_type ($post_id = null) {
   if (isset($_GET['page_type']) && !empty($_GET['page_type'])) {
     return $_GET['page_type'];
   }
-  
+
   if (is_null($post_id)) {
     $post_id = _ptb_get_post_id();
   }
-  
+
   if (!is_null($post_id)) {
     $meta = get_post_meta($post_id, PTB_META_KEY, true);
     if (isset($meta) && !empty($meta) && isset($meta['ptb_page_type'])) {
@@ -163,6 +163,42 @@ function _ptb_remove_ptb ($str) {
 }
 
 /**
+ * Get meta value direct from the database without any converting or so.
+ *
+ * @param int $post_id
+ * @param string $name
+ * @param mixed $default Default is null.
+ * @since 1.0
+ *
+ * @return mixed
+ */
+
+function _ptb_meta_value ($post_id = null, $name = null, $default = null) {
+  if (!is_numeric($post_id) && is_string($post_id)) {
+    $name = $post_id;
+    $post_id = null;
+  }
+
+  if (is_numeric($post_id)) {
+    $post_id = intval($post_id);
+  } else {
+    $post_id = _ptb_get_post_id();
+  }
+
+  if (is_null($name)) {
+    return $default;
+  }
+
+  $meta = get_post_meta($post_id, PTB_META_KEY, true);
+
+  if (isset($meta[$name])) {
+    return $meta[$name];
+  }
+
+  return $default;
+}
+
+/**
  * Get property value for property on a page.
  *
  * @param int $post_id
@@ -178,25 +214,25 @@ function ptb_value ($post_id = null, $name = null, $default = null) {
     $name = $post_id;
     $post_id = null;
   }
-  
+
   if (is_numeric($post_id)) {
     $post_id = intval($post_id);
   } else {
     $post_id = _ptb_get_post_id();
   }
-  
+
   if (is_null($name)) {
     return $default;
   }
-  
+
   $name = _ptb_remove_ptb($name);
-  
+
   $page = ptb_get_page($post_id);
 
   if (is_null($page) || !$page->has_post()) {
     return null;
   }
-  
+
   if (isset($page->$name)) {
     $value = $page->$name;
     if (is_array($value) && isset($value[$name])) {
@@ -218,11 +254,11 @@ function ptb_value ($post_id = null, $name = null, $default = null) {
 function ptb_get_page ($post_id = null) {
   $post_id = _ptb_get_post_id($post_id);
   $page = new PTB_Page($post_id);
-  
+
   if (!$page->has_post()) {
     return null;
   }
-  
+
   return $page;
 }
 
@@ -249,27 +285,21 @@ function current_page () {
  */
 
 function _ptb_get_all_page_types () {
-  if (!defined('PTB_PAGES_DIR')) {
-    return array();
-  }
-  
-  $files = glob(PTB_PAGES_DIR . '*');
+  $files = _ptb_get_files_in_directory('page-types');
   $post_type = _ptb_get_wp_post_type();
   $res = array();
 
   foreach ($files as $file) {
     $p = new PTB_Page_Type($file);
-    
+
     if (!isset($p->post_types) || !is_array($p->post_types)) {
       $p->post_types = array('page');
     }
-    
+
     if (in_array($post_type, $p->post_types)) {
       $res[] = $p;
     }
   }
-  
-  
 
   return $res;
 }
@@ -285,11 +315,7 @@ function _ptb_get_all_page_types () {
  */
 
 function _ptb_get_page_type_file ($page_type) {
-  if (!defined('PTB_PAGES_DIR')) {
-    return null;
-  }
-  
-  return PTB_PAGES_DIR . _ptb_dashify(_ptbify($page_type)) . '.php';
+  return _ptb_get_files_in_directory('page-types', _ptb_dashify(_ptbify($page_type)), true);
 }
 
 /**
@@ -308,7 +334,7 @@ function _ptb_get_page_type ($file_path) {
  if (!$page_type->has_name()) {
    return null;
  }
- 
+
  return $page_type;
 }
 
@@ -503,35 +529,115 @@ function _ptb_get_wp_post_type () {
   if (isset($_GET['post_type'])) {
     return strtolower($_GET['post_type']);
   }
-  
+
   if (isset($_POST['post_type'])) {
     return strtolower($_POST['post_type']);
   }
-      
+
   $post_id = _ptb_get_post_id();
-      
+
   if ($post_id != 0) {
     return strtolower(get_post_type($post_id));
   }
-      
+
   return null;
 }
 
-    
 /**
- * Get path to page type file by given string.
+ * Get all registered directories.
  *
- * @param string $page_type
- * @since 1.0
+ * @param string $find
  *
- * @return string
+ * @return array
  */
-    
-function _ptb_get_path_to_page_type ($page_type) {
-  if (!defined('PTB_PAGES_DIR')) {
-    return;
+
+function _ptb_get_ptb_directories ($find = '') {
+  global $ptb_directories;
+
+  if (empty($ptb_directories) || !is_array($ptb_directories)) {
+    return array();
   }
-      
-  $page_type = _ptb_dashify($page_type);
-  return PTB_PAGES_DIR . 'ptb-' . $page_type . '.php';
+
+  $result = array();
+
+  foreach ($ptb_directories as $directory) {
+    $dirs = @scandir($directory);
+    $dirs = array_diff($dirs, array('..', '.'));
+    foreach ($dirs as $dir) {
+      if ($dir == $find) {
+        $result[] = $directory . '/' . $dir;
+      }
+    }
+  }
+
+  return $result;
+}
+
+/**
+ * Get all files in the given directory.
+ * Looking down 3 levels.
+ *
+ * @param string $directory
+ * @param string $file
+ * @param bool $first
+ *
+ * @return array
+ */
+
+function _ptb_get_files_in_directory ($directory = '', $find_file = '', $first = false) {
+  // Can't proceed empty directory.
+  if (empty($directory)) {
+    return array();
+  }
+
+  // Get all directories that are registered.
+  $dirs = _ptb_get_ptb_directories($directory);
+  $result = array();
+
+  // Loop through all directories.
+  foreach ($dirs as $dir) {
+    $files = @scandir($dir);
+    $files = array_diff($files, array('..', '.'));
+    foreach ($files as $file) {
+      $path = $dir . '/' . $file;
+      if (is_dir($path)) {
+        $subfiles = @scandir($dir . '/' . $file);
+        $subfiles = array_diff($subfiles, array('..', '.'));
+        foreach ($subfiles as $subfile) {
+          $path = $dir . '/' . $file . '/' . $subfile;
+          if (is_dir($path)) {
+            $subsubfiles = @scandir($dir . '/' . $file . '/' . $subfile);
+            $subsubfiles = array_diff($subsubfiles, array('..', '.'));
+            foreach ($subsubfiles as $subsubfile) {
+              $result[] = $dir . '/' . $file . '/' . $subfile . '/' . $subsubfile;
+            }
+          } else {
+            $result[] = $dir . '/' . $file . '/' . $subfile;
+          }
+        }
+      } else {
+        $result[] = $path;
+      }
+    }
+  }
+
+  if (!empty($find_file)) {
+    if (pathinfo($find_file, PATHINFO_EXTENSION) == null) {
+      $find_file = $find_file . '.php';
+    }
+
+    $result = array_filter($result, function ($f) use ($find_file) {
+      return basename($f) == basename($find_file);
+    });
+
+    $result = array_values($result);
+
+    if ($first) {
+      return !empty($result) ? reset($result) : '';
+    } else {
+      return $result;
+    }
+  } else {
+    return $result;
+  }
 }

@@ -8,11 +8,11 @@ if (!defined('ABSPATH')) exit;
  */
 
 class PTB_Core {
-  
+
   /**
    * All page types that WP PTB should be available on.
    */
-  
+
   public $post_types = array('page');
 
   /**
@@ -34,7 +34,7 @@ class PTB_Core {
     add_action('admin_footer', array($this, 'ptb_admin_footer'));
     add_filter('admin_body_class', array($this, 'ptb_admin_body_class'));
     add_action('admin_print_footer_scripts', array($this, 'ptb_add_new_link'));
-    
+
     foreach ($this->post_types as $post_type) {
       add_filter('manage_' . $post_type . '_posts_columns', array($this, 'ptb_manage_page_type_posts_columns'));
       add_action('manage_' . $post_type . '_posts_custom_column', array($this, 'ptb_manage_page_type_posts_custom_column'), 10, 2);
@@ -42,9 +42,9 @@ class PTB_Core {
 
     // Load the page type.
     $this->ptb_load();
-    
+
     // On post we need to save our custom data.
-    // The action 'save_post' didn't work after 
+    // The action 'save_post' didn't work after
     // we change how Page Type Builder is loaded.
     if (_ptb_is_method('post')) {
       $this->ptb_save_post();
@@ -62,21 +62,21 @@ class PTB_Core {
       // Remove "Add new" menu item.
       remove_submenu_page('edit.php?post_type=' . $post_type, 'post-new.php?post_type=' . $post_type);
       // Add our custom menu item.
-      add_submenu_page('edit.php?post_type=' . $post_type, 
-                       __('Add new', 'ptb'), 
-                       __('Add new', 'ptb'), 
-                       'manage_options', 
-                       'ptb-add-new-page,' . $post_type, 
+      add_submenu_page('edit.php?post_type=' . $post_type,
+                       __('Add new', 'ptb'),
+                       __('Add new', 'ptb'),
+                       'manage_options',
+                       'ptb-add-new-page,' . $post_type,
                        array($this, 'ptb_view'));
     }
   }
-  
+
   /**
    * Change the "Add new" link on "edit-page" or "page" screen.
    *
    * @since 1.0
    */
-  
+
   public function ptb_add_new_link () {
     $screen = get_current_screen();
     $post_type = str_replace('edit-', '', $screen->id);
@@ -128,12 +128,8 @@ class PTB_Core {
       }
     }
 
-    // Can't proceed without this definition.
-    if (!defined('PTB_PAGES_DIR')) {
-      return;
-    }
     // Get the path to the page type file.
-    $path = _ptb_get_path_to_page_type($page_type);
+    $path = _ptb_get_page_type_file($page_type);
 
     // Load the page type and create a new instance of it.
     $page_type = new PTB_Page_Type($path);
@@ -142,8 +138,8 @@ class PTB_Core {
     if (!$page_type->has_name()) {
       return;
     }
-    
-    // Create a new class of the page type. 
+
+    // Create a new class of the page type.
     $page_type->new_class();
   }
 
@@ -158,7 +154,7 @@ class PTB_Core {
     if (isset($_POST['post_ID'])) {
       $post_id = $_POST['post_ID'];
     }
-    
+
     if (!isset($post_id)) {
       return;
     }
@@ -185,7 +181,7 @@ class PTB_Core {
         return $post_id;
       }
     }
-    
+
     // Debug code
     //echo'<pre>';
     //print_r($_POST);
@@ -206,7 +202,7 @@ class PTB_Core {
         $data[$key] = $_POST[$key];
       }
     }
-    
+
     // Since we are storing witch property it is in the $data array
     // we need to remove that and set the property type to the property
     // and make a array of the property type and the value.
@@ -214,24 +210,24 @@ class PTB_Core {
       if (strpos($key, '_property') === false) {
         continue;
       }
-      
+
       $pkey = str_replace('_property', '', $key);
-      
+
       $data[$pkey] = array(
         'type' => $value,
         'value' => $data[$pkey]
       );
-      
+
       // Remove null or empty values.
       if (is_null($data[$pkey]['value']) || strlen($data[$pkey]['value']) === 0) {
         unset($data[$pkey]);
         unset($data[$key]);
         continue;
       }
-      
+
       unset($data[$key]);
     }
-    
+
     /*
     if (isset($data[PTB_COLLECTION_KEY]) && is_array($data[PTB_COLLECTION_KEY])) {
       $collection = $data[PTB_COLLECTION_KEY];
@@ -251,13 +247,13 @@ class PTB_Core {
       }
       $data[PTB_COLLECTION_KEY] = $collection;
     }
-    
+
     echo'<pre>';
     var_dump($data);
-    
+
     die ();
     */
-    
+
     // Don't wont to save random data that's only is used for getting a nicer ui.
     foreach ($data as $key => $value) {
       if (_ptb_is_random_title($key)) {
@@ -300,13 +296,13 @@ class PTB_Core {
   public function ptb_admin_footer () {
     echo '<script src="' . PTB_PLUGIN_URL . 'gui/js/ptb.js" type="text/javascript"></script>';
   }
-  
+
   /**
    * Add custom body class when it's a page type.
    *
    * @since 1.0
    */
-  
+
   public function ptb_admin_body_class ($classes) {
     global $post;
     $uri = $_SERVER['REQUEST_URI'];
@@ -317,14 +313,14 @@ class PTB_Core {
     if (!in_array($post_type, $this->post_types)) {
       return;
     }
-    
+
     if (count(get_page_templates())) {
       $classes .= 'ptb-hide-cpt';
     }
-    
+
     return $classes;
   }
-  
+
   /**
    * Add custom table header to page type.
    *
@@ -333,20 +329,20 @@ class PTB_Core {
    *
    * @return array
    */
-  
+
   public function ptb_manage_page_type_posts_columns ($defaults) {
     $defaults['page_type'] = __('Page Type', 'ptb');
     return $defaults;
   }
-  
-  /** 
+
+  /**
    * Add custom table column to page type.
    *
    * @param string $column_name
    * @param int $post_id
    * @since 1.0
    */
-  
+
   public function ptb_manage_page_type_posts_custom_column ($column_name, $post_id) {
     if ($column_name === 'page_type') {
       $page_type = _ptb_get_file_data($post_id);

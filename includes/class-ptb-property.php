@@ -171,14 +171,15 @@ abstract class PTB_Property {
       wp_enqueue_style($file, $url);
     }
 
-    // Load custom css file.
-    if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
-      $path = trailingslashit(PTB_CUSTOM_PATH) . 'gui/css/'. $file;
-      $url = trailingslashit(PTB_CUSTOM_URL) . 'gui/css/' . $file;
-      
-      if (file_exists($path)) {
-        wp_enqueue_style($file, $url);
-      }
+    // Load custom css files.
+    $custom = _ptb_get_files_in_directory('gui', $file);
+    $start = basename(WP_CONTENT_URL);
+    $home_url = trailingslashit(home_url());
+
+    foreach ($custom as $path) {
+      $url = strstr($path, $start);
+      $url = $home_url . $url;
+      wp_enqueue_style($file, $url);
     }
   }
 
@@ -210,14 +211,15 @@ abstract class PTB_Property {
       wp_enqueue_script($file, $url, array(), '1.0.0', true);
     }
 
-    // Load custom js file.
-    if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
-      $path = trailingslashit(PTB_CUSTOM_PATH) . 'gui/js/' . $file;
-      $url = trailingslashit(PTB_CUSTOM_URL) . 'gui/js/' . $file;
+    // Load custom js files.
+    $custom = _ptb_get_files_in_directory('gui', $file);
+    $start = basename(WP_CONTENT_URL);
+    $home_url = trailingslashit(home_url());
 
-      if (file_exists($path)) {
-        wp_enqueue_script($file, $url, array(), '1.0.0', true);
-      }
+    foreach ($custom as $path) {
+      $url = strstr($path, $start);
+      $url = $home_url . $url;
+      wp_enqueue_script($file, $url, array(), '1.0.0', true);
     }
   }
 
@@ -280,7 +282,7 @@ abstract class PTB_Property {
   public function convert ($value) {
     return strval($value);
   }
-  
+
   /**
    * Get css classes for the property.
    *
@@ -289,12 +291,12 @@ abstract class PTB_Property {
    *
    * @return string
    */
-  
+
   public function css_classes ($css_class = '') {
     if (isset($this->get_options()->custom->css_class)) {
       $css_class .= ' ' . $this->get_options()->custom->css_class;
     }
-    
+
     return $css_class;
   }
 }

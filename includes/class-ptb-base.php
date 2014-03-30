@@ -78,7 +78,7 @@ class PTB_Base {
    * @since 1.0
    * @access private
    */
-  
+
   private function setup_after_actions () {
     add_action('admin_head', array($this, 'autocss'));
     add_action('admin_footer', array($this, 'autojs'));
@@ -89,19 +89,21 @@ class PTB_Base {
    *
    * @since 1.0
    */
-  
-  public function autocss () {
-    if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
-      $name = get_class($this);
-      $name = strtolower($name);
-      $name = _ptb_dashify($name);
-      $file = 'gui/css/page-types/' . $name . '.css';
-      $path = trailingslashit(PTB_CUSTOM_PATH) . $file;
-      $url = trailingslashit(PTB_CUSTOM_URL) . $file;
 
-      if (file_exists($path)) {
-        wp_enqueue_style($file, $url);
-      }
+  public function autocss () {
+    $name = get_class($this);
+    $name = strtolower($name);
+    $name = _ptb_dashify($name);
+    $file = $name . '.css';
+
+    $custom = _ptb_get_files_in_directory('gui', $file);
+    $start = basename(WP_CONTENT_URL);
+    $home_url = trailingslashit(home_url());
+
+    foreach ($custom as $path) {
+      $url = strstr($path, $start);
+      $url = $home_url . $url;
+      wp_enqueue_style($file, $url);
     }
   }
 
@@ -110,19 +112,21 @@ class PTB_Base {
    *
    * @since 1.0
    */
-  
+
   public function autojs () {
-    if (PTB_CUSTOM_PATH !== false && PTB_CUSTOM_URL !== false) {
-      $name = get_class($this);
-      $name = strtolower($name);
-      $name = _ptb_dashify($name);
-      $file = 'gui/js/page-types/' . $name . '.js';
-      $path = trailingslashit(PTB_CUSTOM_PATH) . $file;
-      $url = trailingslashit(PTB_CUSTOM_URL) . $file;
-      
-      if (file_exists($path)) {
-        wp_enqueue_script($file, $url, array(), '1.0.0', true);
-      }
+    $name = get_class($this);
+    $name = strtolower($name);
+    $name = _ptb_dashify($name);
+    $file = $name . '.js';
+
+    $custom = _ptb_get_files_in_directory('gui', $file);
+    $start = basename(WP_CONTENT_URL);
+    $home_url = trailingslashit(home_url());
+
+    foreach ($custom as $path) {
+      $url = strstr($path, $start);
+      $url = $home_url . $url;
+      wp_enqueue_script($file, $url, array(), '1.0.0', true);
     }
   }
 
@@ -139,17 +143,17 @@ class PTB_Base {
      } else {
       $options = $options;
      }
-     
+
      $options = $this->setup_property($options);
-     
+
      // Can't work with nullify properties.
      if (is_null($options)) {
       return;
      }
-     
+
      return $options;
    }
-    
+
    /**
     * Setup the property.
     *
@@ -158,7 +162,7 @@ class PTB_Base {
     *
     * @return null|object.
     */
-    
+
    public function setup_property ($options) {
      $options = (object)$options;
      $options->callback_args = new stdClass;
@@ -167,7 +171,7 @@ class PTB_Base {
      if (!isset($options->type) && !PTB_Property::exists($options->type)) {
        return null;
      }
-     
+
      if (!isset($options->title) || empty($options->title)) {
        $options->title = _ptb_random_title();
      }
@@ -200,12 +204,12 @@ class PTB_Base {
      }
 
      $options->name = _ptb_name($options->name);
-     
+
      // Only set the vaue if we don't have value.
      if (!isset($options->value)) {
        $options->value = ptb_value($options->name);
      }
-     
+
      // Set default value for collection.
      if (!isset($options->collection)) {
        $options->collection = false;
@@ -214,16 +218,16 @@ class PTB_Base {
      // Get the property
      $property = PTB_Property::factory($options->type);
      $property->set_options($options);
-     
+
      if (is_array($property->html())) {
        $options->callback_args->html = $property->html();
      } else {
        $options->callback_args->html = $property->render() . $property->hidden();
      }
-       
+
      return $options;
   }
-  
+
   /**
    * Add new box.
    *
@@ -232,44 +236,44 @@ class PTB_Base {
    * @param array $items
    * @since 1.0
    */
-  
+
   public function box ($title, $options = array(), $properties = array()) {
     if (empty($properties)) {
       $properties = $options;
       $options = array();
     }
-    
+
     if (empty($options)) {
       $options = array(
         'title' => $title
       );
     }
-    
+
     $this->setup_box($options);
-    
+
     if (isset($this->boxes[$title])) {
       $this->boxes[$title]->properties = $properties;
     }
   }
-  
+
   /**
    * Setup box.
    *
    * @param object $options
    * @since 1.0
    */
-  
-  public function setup_box ($options) { 
+
+  public function setup_box ($options) {
     $options = (object)$options;
-    
+
     if (!isset($options->sort_order)) {
       $options->sort_order = 0;
     }
-    
+
     if (!isset($options->page_types) || !is_array($options->page_types)) {
       $options->page_types = array('page');
     }
-    
+
     if (!isset($this->boxes[$options->title])) {
       $this->boxes[$options->title] = (object)array(
         'title' => $options->title,
@@ -310,13 +314,13 @@ class PTB_Base {
         ));
         $this->onetime_html = true;
       }
-      
-      if (isset($args['args']['table']) && $args['args']['table']) { 
+
+      if (isset($args['args']['table']) && $args['args']['table']) {
         echo PTB_Html::tag('table', array(
           'class' => 'ptb-table'), false)
           . PTB_Html::start('tbody');
       }
-      
+
       foreach ($args['args'] as $box) {
         if (isset($box->html)) {
           if (is_array($box->html)) {
@@ -334,7 +338,7 @@ class PTB_Base {
           }
         }
       }
-      
+
       if (isset($args['args']['table']) && $args['args']['table']) {
         echo PTB_Html::stop('tbody')
           . PTB_Html::stop('table');
@@ -357,13 +361,13 @@ class PTB_Base {
 
      foreach ($this->boxes as $box) {
        $args = array();
-       if (isset($box->properties[0]) && 
-           isset($box->properties[0]->tab) && 
+       if (isset($box->properties[0]) &&
+           isset($box->properties[0]->tab) &&
            $box->properties[0]->tab) {
          // It's a tab.
          $args[] = new PTB_Tab($box);
-       } else if (isset($box->properties[0]) && 
-                  isset($box->properties[0]->collection) && 
+       } else if (isset($box->properties[0]) &&
+                  isset($box->properties[0]->collection) &&
                   $box->properties[0]->collection) {
          // It's a collection.
          $args[] = new PTB_Collection($box);
@@ -380,7 +384,7 @@ class PTB_Base {
        // Fetch the post types we should register the meta boxes at.
        $post_types = isset($this->page_type_vars->page_type['post_types']) ?
          $this->page_type_vars->page_type['post_types'] : array('page');
-       
+
        // Check so we are allowed to use the post type.
        $post_types = array_filter($post_types, function ($p) {
          return _ptb_is_page_type_allowed($p);
@@ -403,12 +407,12 @@ class PTB_Base {
    * @since 1.0
    */
   public function add_meta_box ($box, $page_type, $args) {
-    add_meta_box(_ptb_slugify($box->title), 
-                 _ptb_remove_ptb($box->title), 
-                 array($this, 'box_callback'), 
-                 $page_type, 
-                 $box->context, 
-                 $box->priority, 
+    add_meta_box(_ptb_slugify($box->title),
+                 _ptb_remove_ptb($box->title),
+                 array($this, 'box_callback'),
+                 $page_type,
+                 $box->context,
+                 $box->priority,
                  $args);
   }
 
@@ -441,7 +445,7 @@ class PTB_Base {
       remove_post_type_support($this->remove_post_type_support[1], $post_type_support);
     }
   }
-  
+
   /**
    * Add a new tab.
    *
@@ -451,7 +455,7 @@ class PTB_Base {
    *
    * @return object
    */
-  
+
   public function tab ($title, $properties = array()) {
     return (object)array(
       'title' => $title,
@@ -459,7 +463,7 @@ class PTB_Base {
       'properties' => $properties
     );
   }
-  
+
   /**
    * Add a new collection.
    *
@@ -470,7 +474,7 @@ class PTB_Base {
    *
    * @return object
    */
-  
+
   public function collection ($title, $name = '', $properties = array()) {
     if (is_array($name)) {
       $properties = $name;

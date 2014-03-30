@@ -18,7 +18,7 @@
         <p><?php echo $value->description; ?></p>
       </li>
     <?php endforeach; ?>
-    
+
     <li>
       <a href="post-new.php?post_type=page"><?php echo __($normal_title, 'ptb'); ?></a>
       <p><?php echo __($normal_desc, 'ptb'); ?></p>
