@@ -82,7 +82,7 @@ class PTB_Core {
     $post_type = str_replace('edit-', '', $screen->id);
     if ($screen->id == 'edit-page' || in_array($post_type, $this->post_types)) { ?>
       <script type="text/javascript">
-        jQuery('.wrap h2 .add-new-h2').attr('href', 'edit.php?post_type=<?php echo $post_type; ?>&page=ptb-add-new-page,' <?php echo $post_type; ?>);
+        jQuery('.wrap h2 .add-new-h2').attr('href', 'edit.php?post_type=<?php echo $post_type; ?>&page=ptb-add-new-page', '<?php echo $post_type; ?>');
       </script>
     <?php
     }
