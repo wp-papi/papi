@@ -243,10 +243,12 @@ class PTB_Base {
       $options = array();
     }
 
-    if (empty($options)) {
-      $options = array(
-        'title' => $title
-      );
+    if (!is_array($options)) {
+      $options = array();
+    }
+
+    if (!isset($options['title'])) {
+      $options['title'] = $title;
     }
 
     $this->setup_box($options);
@@ -274,14 +276,22 @@ class PTB_Base {
       $options->page_types = array('page');
     }
 
+    if (!isset($options->context)) {
+      $options->context = 'normal';
+    }
+
+    if (!isset($options->priority)) {
+      $options->priority = 'default';
+    }
+
     if (!isset($this->boxes[$options->title])) {
       $this->boxes[$options->title] = (object)array(
         'title' => $options->title,
         'properties' => array(),
         'sort_order' => $options->sort_order,
         'page_types' => $options->page_types,
-        'context'   => 'normal',
-        'priority'  => 'default'
+        'context'   => $options->context,
+        'priority'  => $options->priority
       );
 
       // Box sort order.
