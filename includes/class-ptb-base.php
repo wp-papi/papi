@@ -272,10 +272,6 @@ class PTB_Base {
       $options->sort_order = 0;
     }
 
-    if (!isset($options->page_types) || !is_array($options->page_types)) {
-      $options->page_types = array('page');
-    }
-
     if (!isset($options->context)) {
       $options->context = 'normal';
     }
@@ -289,7 +285,6 @@ class PTB_Base {
         'title' => $options->title,
         'properties' => array(),
         'sort_order' => $options->sort_order,
-        'page_types' => $options->page_types,
         'context'   => $options->context,
         'priority'  => $options->priority
       );
