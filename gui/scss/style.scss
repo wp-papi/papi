@@ -1,0 +1,153 @@
+/* Utils */
+
+.ptb-pull-left {
+  float: left;
+}
+
+.ptb-pull-right {
+  float: right;
+}
+
+.ptb-hidden {
+  display: none;
+}
+
+/* PTB Page */
+
+.ptb-page {}
+
+/* Hide custom template dropdown */
+
+.ptb-hide-cpt {
+  label[for="page_template"], select[name="page_template"] {
+    display: none;
+  }
+  #pageparentdiv div.inside p {
+    &:nth-of-type(2), &:first-child + p {
+      display: none;
+    }
+  }
+}
+
+/* Add new page */
+
+.ptb-search {
+  border: 1px #eaeaea solid;
+}
+
+/* Table */
+
+.ptb-table, .ptb-fullwidth {
+  width: 100%;
+}
+
+/* Sizes */
+
+.ptb-halfwidth {
+  width: 50%;
+}
+
+/* Boxes on the page where you select witch page to create */
+
+.ptb-box-list {
+  margin-left: -10px;
+  a {
+    height: 90px;
+    width: 150px;
+    text-align: center;
+    background: white;
+    border: 1px #ddd solid;
+    padding-top: 60px;
+    display: list-item;
+    cursor: pointer;
+  }
+  li {
+    margin: 10px;
+    float: left;
+    &:hover > a {
+      border: 1px #ccc solid;
+    }
+    p {
+      margin-top: -65px;
+      margin-left: 5px;
+      width: 145px;
+      text-align: center;
+    }
+  }
+}
+
+/* Properties */
+
+.ptb-property-text {
+  width: 100%;
+  height: 250px;
+}
+
+/* Tabs */
+
+.ptb-tabs {
+  display: table;
+  margin-bottom: -6px;
+  li {
+    color: #555;
+    background: #F7F7F7;
+    -webkit-box-shadow: inset 0 1px 0 white, 0 1px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 1px 0 white, 0 1px 0 rgba(0, 0, 0, 0.08);
+    float: left;
+    padding: 10px;
+    border-bottom: 0;
+    border-top: 1px #eaeaea solid;
+    border-right: 1px #eaeaea solid;
+    &:first-child {
+      border-left: 1px #eaeaea solid;
+    }
+    &.active {
+      background: white;
+    }
+    a {
+      color: #555;
+      text-decoration: none;
+    }
+  }
+}
+
+.ptb-tabs-content {
+  border: 1px #eaeaea solid;
+  padding: 5px;
+  > div {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+}
+
+/* Collection */
+
+.ptb-collection-list {
+  > a {
+    margin-top: -27px;
+  }
+  ul {
+    width: 100%;
+    li {
+      width: 100%;
+      border-top: 1px #eaeaea solid;
+      padding-top: 10px;
+      &:first-child {
+        border-top: 0;
+        padding-top: 0;
+        padding-bottom: 10px;
+      }
+    }
+  }
+  span.ptb-pull-right.ptb-collection-actions {
+    margin-bottom: -25px;
+  }
+}
+
+/* Divider */
+
+h3.ptb-divider-text {
+  padding-left: 0 !important;
+}

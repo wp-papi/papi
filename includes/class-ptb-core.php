@@ -284,7 +284,7 @@ class PTB_Core {
    */
 
   public function ptb_admin_head () {
-    echo '<link href="' . PTB_PLUGIN_URL . 'gui/css/ptb.css" type="text/css" rel="stylesheet" />';
+    echo '<link href="' . PTB_PLUGIN_URL . 'gui/css/style.css" type="text/css" rel="stylesheet" />';
   }
 
   /**
@@ -294,7 +294,7 @@ class PTB_Core {
    */
 
   public function ptb_admin_footer () {
-    echo '<script src="' . PTB_PLUGIN_URL . 'gui/js/ptb.js" type="text/javascript"></script>';
+    echo '<script src="' . PTB_PLUGIN_URL . 'gui/js/main.js" type="text/javascript"></script>';
   }
 
   /**
