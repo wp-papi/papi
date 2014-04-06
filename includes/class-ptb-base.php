@@ -455,16 +455,27 @@ class PTB_Base {
    * Add a new tab.
    *
    * @param string $title
+   * @param array $options
    * @param array $properties
    * @since 1.0
    *
    * @return object
    */
 
-  public function tab ($title, $properties = array()) {
+  public function tab ($title, $options = array(), $properties = array()) {
+    if (empty($properties)) {
+      $properties = $options;
+      $options = array();
+    }
+
+    if (!is_array($options)) {
+      $options = array();
+    }
+
     return (object)array(
-      'title' => $title,
-      'tab' => true,
+      'title'      => $title,
+      'tab'        => true,
+      'options'    => (object)$options,
       'properties' => $properties
     );
   }
@@ -485,14 +496,16 @@ class PTB_Base {
       $properties = $name;
       $name = $title;
     }
+
     for ($i = 0; $i < count($properties); $i++) {
       $property = $properties[$i];
       $property->collection = true;
       $properties[$i] = $property;
     }
+
     return (object)array(
-      'title' => $title,
-      'name' => _ptb_name($name),
+      'title'      => $title,
+      'name'       => _ptb_name($name),
       'collection' => true,
       'properties' => $properties
     );

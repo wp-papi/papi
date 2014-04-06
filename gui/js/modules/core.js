@@ -28,6 +28,6 @@
   };
 
   // Add the Core object to the ptb object.
-  window.ptb.Core = Core;
+  window.Ptb.Core = Core;
 
 }(window, window.jQuery);

@@ -1,9 +1,8 @@
 !function () {
 
   // Init our modules
-  Ptb.Utils.Init();
-  Ptb.Core.Init();
-  Ptb.Collection.Init();
-  Ptb.Tabs.Init();
+  Ptb.Core.init();
+  Ptb.Collection.init();
+  Ptb.Tabs.init();
 
 }();

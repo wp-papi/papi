@@ -1,16 +1,5 @@
-/* Utils */
-
-.ptb-pull-left {
-  float: left;
-}
-
-.ptb-pull-right {
-  float: right;
-}
-
-.ptb-hidden {
-  display: none;
-}
+@import "modules/utils";
+@import "modules/tabs";
 
 /* PTB Page */
 
@@ -85,7 +74,7 @@
 
 /* Tabs */
 
-.ptb-tabs {
+.ptb2-tabs {
   display: table;
   margin-bottom: -6px;
   li {
@@ -111,7 +100,7 @@
   }
 }
 
-.ptb-tabs-content {
+.ptb2-tabs-content {
   border: 1px #eaeaea solid;
   padding: 5px;
   > div {
