@@ -68,7 +68,11 @@ class PTB_Tab {
    */
 
   public function html () {
-    $ul = PTB_Html::tag('ul', array(
+    $ul = PTB_Html::tag('div', array(
+      'class' => 'ptb-tabs-back'
+    ));
+    
+    $ul .= PTB_Html::tag('ul', array(
       'class' => 'ptb-tabs'
     ), false);
 

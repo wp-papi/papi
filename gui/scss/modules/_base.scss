@@ -1,0 +1,88 @@
+// Hide custom template dropdown
+.ptb-hide-cpt {
+  label[for="page_template"],
+  select[name="page_template"] {
+    display: none;
+  }
+
+  #pageparentdiv div.inside p {
+    &:nth-of-type(2),
+    &:first-child + p {
+      display: none;
+    }
+  }
+}
+
+
+// Add new page
+.ptb-search {
+  border: 1px #eaeaea solid;
+}
+
+// Table + Sizes
+.ptb-table {
+  tr {
+    display: table;
+    margin-bottom: 5px;
+
+    &.help-text {
+      margin-top: -5px;
+      margin-bottom: 10px;
+    }
+
+    td:first-child {
+      width: 150px;
+    }
+  }
+}
+
+.ptb-table,
+.ptb-fullwidth {
+  width: 100%;
+}
+
+.ptb-halfwidth {
+  width: 50%;
+}
+
+// Boxes that exists on the add new page
+.ptb-box-list {
+  margin-left: -10px;
+
+  a {
+    height: 90px;
+    width: 150px;
+    text-align: center;
+    background: #fff;
+    border: 1px #ddd solid;
+    padding-top: 60px;
+    display: list-item;
+    cursor: pointer;
+  }
+
+  li {
+    margin: 10px;
+    float: left;
+
+    &:hover > a {
+      border: 1px #ccc solid;
+    }
+
+    p {
+      margin-top: -65px;
+      margin-left: 5px;
+      width: 145px;
+      text-align: center;
+    }
+  }
+}
+
+// Properties
+.ptb-property-text {
+  width: 100%;
+  height: 250px;
+}
+
+h3.ptb-divider-text {
+  padding-left: 0 !important;
+}

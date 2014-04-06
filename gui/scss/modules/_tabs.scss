@@ -3,51 +3,66 @@
   float: left;
   width: 100%;
 
+  .ptb-tabs-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: #f5f5f5;
+    width: 145px;
+    border-right: 1px solid #dfdfdf;
+  }
+
   .ptb-tabs {
-    background: #F5F5F5;
+    background: #f5f5f5;
     line-height: 22px;
     float: left;
     width: 145px;
     margin: 0;
     position: relative;
-    padding: 0 0 10px 0;
+    padding: 0 0 10px;
     margin: -6px 0 -12px -12px;
-    border-right: 1px solid #EAEAEA;
+    border-right: 1px solid #eaeaea;
+
     li {
       &:first-child {
         &.active {
           a {
-            border-top: 1px solid white;
+            border-top: 1px solid #fff;
           }
         }
       }
+
       display: block;
       margin: 0;
       padding: 0;
+
       a {
         padding: 10px;
         line-height: 18px;
         margin: 0;
         display: block;
-        background: #F5F5F5;
+        background: #f5f5f5;
         text-decoration: none;
-        border-bottom: 1px solid #F5F5F5;
-        border-top: 1px solid #EAEAEA;
+        border-bottom: 1px solid #f5f5f5;
+        border-top: 1px solid #eaeaea;
+
         img {
           float: left;
-          padding: 0px 5px 0px 0px;
+          padding: 0 5px;
           width: 13px;
           height: 13px;
           margin-top: 2px;
         }
       }
+
       &.active {
         a {
-          border-color: #DFDFDF;
+          border-color: #dfdfdf;
           position: relative;
-          background-color: #FFF;
+          background-color: #fff;
           color: #555;
-          margin: 0 -1px 0 0;
+          margin: 0 -1px;
         }
       }
     }
@@ -56,12 +71,15 @@
   .ptb-tabs-content {
     float: left;
     padding-left: 10px;
+
     > div {
       display: none;
+
       &.active {
         display: block;
       }
     }
+
   }
 
 }

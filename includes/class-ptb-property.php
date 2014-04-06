@@ -248,12 +248,37 @@ abstract class PTB_Property {
 
   public function label () {
     if (isset($this->options->label_text)) {
-      $title = $this->get_options()->label_text;
+      $title = $this->options->label_text;
     } else {
-      $title = $this->get_options()->title;
+      $title = $this->options->title;
     }
-    $name = $this->get_options()->name;
+    $name = $this->options->name;
     return PTB_Html::label($title, $name);
+  }
+
+  /**
+   * Get help text for property.
+   *
+   * @since 1.0
+   *
+   * @return string
+   */
+
+  public function helptext () {
+    if (isset($this->options->help_text)) {
+      $help_text = $this->options->help_text;
+      $help_text = strip_tags($help_text);
+      $html = PTB_Html::tag('span', $help_text, array(
+        'class' => 'description'
+      ));
+      $html = PTB_Html::td($html);
+      $html = PTB_Html::td('&nbsp;') . $html;
+      $html = PTB_Html::tr($html, array(
+        'class' => 'help-text'
+      ));
+      return $html;
+    }
+    return '';
   }
 
   /**
@@ -267,7 +292,9 @@ abstract class PTB_Property {
   public function render () {
     $html = PTB_Html::td($this->label());
     $html .= PTB_HTMl::td($this->html());
-    return PTB_HTml::tr($html);
+    $html = PTB_Html::tr($html);
+    $html .= $this->helptext();
+    return $html;
   }
 
   /**

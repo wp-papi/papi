@@ -17,7 +17,7 @@ class PTB_Html {
    *
    * @return string
    */
-  
+
   private static function attributes ($attributes = array()) {
     $html = '';
     foreach ($attributes as $key => $value) {
@@ -25,7 +25,7 @@ class PTB_Html {
     }
     return $html;
   }
-  
+
   /**
    * Generate HTML label tag.
    *
@@ -44,13 +44,16 @@ class PTB_Html {
    * Generate HTML tr tag.
    *
    * @param string $inner
+   * @param array $attributes
    * @since 1.0
    *
    * @return string
    */
 
-  public static function tr ($inner) {
-    return '<tr>' . $inner . '</tr>';
+  public static function tr ($inner, $attributes = array()) {
+    $html = '<tr';
+    $html .= self::attributes($attributes);
+    return $html . '>' . $inner . '</tr>';
   }
 
   /**
@@ -100,7 +103,7 @@ class PTB_Html {
     $html .= self::attributes($attributes);
     return $html . '>' . $inner . '</textarea>';
   }
-  
+
   /**
    * Generate dynamic html tag.
    *
@@ -112,29 +115,29 @@ class PTB_Html {
    *
    * @return string
    */
-  
+
   public static function tag ($tag, $inner = '', $attributes = array(), $end = true) {
     if (is_bool($inner)) {
       $end = $inner;
       $inner = '';
       $attributes = array();
     }
-    
+
     if (is_bool($attributes)) {
       $end = $attributes;
       $attributes = array();
     }
-    
+
     if (is_array($inner)) {
       $attributes = $inner;
       $inner = '';
     }
-    
+
     $html = '<' . $tag;
     $html .= self::attributes($attributes);
     return $html . '>' . $inner . ($end ? '</' . $tag . '>' : '');
   }
-  
+
   /**
    * Generate start tag.
    *
@@ -143,11 +146,11 @@ class PTB_Html {
    *
    * @return string
    */
-  
+
   public static function start ($tag) {
     return self::tag($tag, false);
   }
-  
+
   /**
    * Genrate stop tag.
    *
@@ -156,7 +159,7 @@ class PTB_Html {
    *
    * @return string
    */
-  
+
   public static function stop ($tag) {
     return '</' . $tag . '>';
   }

@@ -1,0 +1,25 @@
+.ptb-collection-list {
+  > a {
+    margin-top: -27px;
+  }
+
+  ul {
+    width: 100%;
+
+    li {
+      width: 100%;
+      border-top: 1px #eaeaea solid;
+      padding-top: 10px;
+
+      &:first-child {
+        border-top: 0;
+        padding-top: 0;
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  span.ptb-pull-right.ptb-collection-actions {
+    margin-bottom: -25px;
+  }
+}
