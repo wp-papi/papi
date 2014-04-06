@@ -71,7 +71,7 @@ class PTB_Tab {
     $ul = PTB_Html::tag('div', array(
       'class' => 'ptb-tabs-back'
     ));
-    
+
     $ul .= PTB_Html::tag('ul', array(
       'class' => 'ptb-tabs'
     ), false);
@@ -111,7 +111,7 @@ class PTB_Tab {
         'class' => ($this->first_tab == $tab ? 'active' : '')
       ), false);
       $div .= PTB_Html::tag('table', array(
-        'class' => 'ptb-table'
+        'class' => 'ptb-table tab-table'
       ), false);
       $div .= PTB_Html::start('tbody');
 

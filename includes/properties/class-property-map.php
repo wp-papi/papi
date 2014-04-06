@@ -134,6 +134,7 @@ class PropertyMap extends PTB_Property {
     $label = PTB_Html::td($this->label());
     $label .= PTB_Html::td($this->input());
     $html .= PTB_Html::tr($label);
+    $html .= $this->helptext();
     return $html;
   }
 }

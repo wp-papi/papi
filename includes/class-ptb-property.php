@@ -259,12 +259,14 @@ abstract class PTB_Property {
   /**
    * Get help text for property.
    *
+   * @param bool $empty_left
+   *
    * @since 1.0
    *
    * @return string
    */
 
-  public function helptext () {
+  public function helptext ($empty_left = true) {
     if (isset($this->options->help_text)) {
       $help_text = $this->options->help_text;
       $help_text = strip_tags($help_text);
@@ -272,7 +274,11 @@ abstract class PTB_Property {
         'class' => 'description'
       ));
       $html = PTB_Html::td($html);
-      $html = PTB_Html::td('&nbsp;') . $html;
+
+      if ($empty_left) {
+        $html = PTB_Html::td('&nbsp;') . $html;
+      }
+
       $html = PTB_Html::tr($html, array(
         'class' => 'help-text'
       ));

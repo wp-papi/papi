@@ -47,6 +47,7 @@ class PropertyText extends PTB_Property {
     $label = PTB_Html::tr($label);
     $html = PTB_Html::td($this->html(), array('colspan' => 2));
     $html = PTB_Html::tr($html);
+    $html .= $this->helptext(false);
     return $label . $html;
   }
 
