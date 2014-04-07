@@ -641,3 +641,32 @@ function _ptb_get_files_in_directory ($directory = '', $find_file = '', $first =
     return $result;
   }
 }
+
+/**
+ * Get class name from page type file.
+ *
+ * @param string $file
+ * @since 1.0
+ *
+ * @return string|null
+ */
+
+function _ptb_get_class_name ($file) {
+  $content = file_get_contents($file);
+  $tokens = token_get_all($content);
+  $class_token = false;
+  $class_name = null;
+
+  foreach ($tokens as $token) {
+    if (is_array($token)) {
+      if ($token[0] === T_CLASS) {
+        $class_token = true;
+      } else if ($class_token && $token[0] === T_STRING) {
+        $class_name = $token[1];
+        $class_token = false;
+      }
+    }
+  }
+
+  return $class_name;
+}

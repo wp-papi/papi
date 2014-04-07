@@ -34,6 +34,10 @@
     td:first-child {
       width: 150px;
     }
+    
+    td[colspan] {
+      width: auto;
+    }
   }
 }
 

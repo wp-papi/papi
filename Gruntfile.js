@@ -58,4 +58,13 @@ module.exports = function(grunt) {
 
   });
 
+  grunt.registerTask('build', [
+    'sass',
+    'autoprefixer',
+    'cssmin',
+    'uglify'
+  ]);
+
+  grunt.registerTask('default', 'watch');
+
 };

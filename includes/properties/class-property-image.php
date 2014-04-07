@@ -62,5 +62,22 @@ class PropertyImage extends PTB_Property {
       return $value;
     }
   }
+  
+  /**
+   * Render the final html that is displayed in the table.
+   *
+   * @since 1.0
+   *
+   * @return string
+   */
+
+  public function render () {
+    $label = PTB_Html::td($this->label(), array('colspan' => 2));
+    $label = PTB_Html::tr($label);
+    $html = PTB_Html::td($this->html(), array('colspan' => 2));
+    $html = PTB_Html::tr($html);
+    $html .= $this->helptext(false);
+    return $label . $html;
+  }
 
 }

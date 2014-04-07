@@ -142,13 +142,14 @@ class PTB_Html {
    * Generate start tag.
    *
    * @param string $tag
+   * @param array $attributes
    * @since 1.0
    *
    * @return string
    */
 
-  public static function start ($tag) {
-    return self::tag($tag, false);
+  public static function start ($tag, $attributes = array()) {
+    return self::tag($tag, $attributes, false);
   }
 
   /**

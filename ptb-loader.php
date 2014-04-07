@@ -149,9 +149,45 @@ class PTB_Loader {
     require_once($this->plugin_dir . 'includes/properties/class-property-image.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-dropdownlist.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-checkboxlist.php');
+    
+    // Load custom properties.
+    $this->require_custom_properties();
 
     // Load Page Type Builder base file.
     require_once($this->plugin_dir . 'includes/class-ptb-base.php');
+  }
+  
+  /**
+   * Load custom properties.
+   *
+   * @since 1.0
+   * @access private
+   */
+   
+  private function require_custom_properties () {
+    $files = _ptb_get_files_in_directory('properties');
+    $this->properties = array();
+    foreach ($files as $file) {
+      $class_name = _ptb_get_class_name($file);
+      if (!class_exists($class_name)) {
+        require_once($file);
+        $this->properties[] = $class_name;
+      }
+    }
+    add_filter('ptb_properties', array($this, 'add_custom_properties'));
+  }
+  
+  /**
+   * Add custom properties.
+   *
+   * @param array $properties
+   * @since 1.0
+   *
+   * @return array
+   */
+  
+  public function add_custom_properties ($properties) {
+    return array_merge($properties, $this->properties);
   }
 
   /**

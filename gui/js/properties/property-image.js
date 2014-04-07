@@ -7,9 +7,12 @@
       
       var $this = $(this)
         , $target = $this.prev();
+
+			// Todo: when removing image, remove style attribute
       
-      ptb.wp_media_editor($this, function (attachment) {
-        if (ptb.is_image(attachment.url)) {
+      Ptb.Utils.wp_media_editor($this, function (attachment) {
+        if (Ptb.Utils.is_image(attachment.url)) {
+					$this.attr('style', 'height:auto');
           $this.attr('src', attachment.url);
           $this.next().val(attachment.id);
         }
