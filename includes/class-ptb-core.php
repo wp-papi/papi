@@ -121,7 +121,7 @@ class PTB_Core {
     }
 
     if (is_null($page_type)) {
-      if (_ptb_is_method('post') && $_POST['ptb_page_type']) {
+      if (_ptb_is_method('post') && isset($_POST['ptb_page_type']) && $_POST['ptb_page_type']) {
         $page_type = $_POST['ptb_page_type'];
       } else {
         $page_type = _ptb_get_page_page_type();
