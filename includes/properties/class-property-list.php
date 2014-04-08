@@ -21,6 +21,7 @@ class PropertyList extends PTB_Property {
     $this->counter = 0;
     $this->name = $this->get_options()->name;
     $properties = $this->get_options()->properties;
+    $first_props = array($properties[0]);
 
     $html = <<< EOF
     <div class="ptb-property-list">
@@ -29,7 +30,20 @@ class PropertyList extends PTB_Property {
           {$this->label()}
           <a class="pr-add-new-item" href="#">Add new</a>
         </div>
-        <ul>
+        <ul class="pr-template hidden">
+          <li>
+            <a class="pr-remove-item" href="#">Remove</a>
+EOF;
+    foreach ($properties as $property) {
+      $property = $this->property($property);
+      $property = $this->template($property);
+      $html .= $property->callback_args->html;
+    }
+
+    $html .= <<< EOF
+          </li>
+        </ul>
+        <ul class="pr-items">
           <li>
             <a class="pr-remove-item" href="#">Remove</a>
 EOF;
@@ -78,7 +92,13 @@ EOF;
     $input_name = $this->name . '[' . $this->counter . ']' . '[' . $property->name . ']';
     $property->callback_args->html = str_replace('name="' . $property->name . '"', 'name="' . $input_name . '"', $property->callback_args->html);
 
-    // Return the new property.
+    return $property;
+  }
+
+  public function template ($property) {
+    // Change all name attributes to data-name.
+    $property->callback_args->html = str_replace('name=', 'data-name=', $property->callback_args->html);
+
     return $property;
   }
 
@@ -95,7 +115,17 @@ EOF;
 
         // Add new item
 
+        $('.pr-actions').on('click', '.pr-add-new-item', function (e) {
+          e.preventDefault();
 
+          var $template = $('ul.pr-template > li').clone()
+            , counter = $('ul.pr-items').children().length;
+
+          $template.html($template.html().replace(/data\-name\=/g, 'name='));
+          $template.html(Ptb.Utils.update_html_array_num($template.html(), counter));
+
+          $template.appendTo('ul.pr-items');
+        });
 
         // Remove item
 
@@ -113,6 +143,10 @@ EOF;
   public function css () {
     ?>
     <style type="text/css">
+      .hidden {
+        display: none;
+      }
+
       .ptb-property-list {
          background: #fafafa;
          border: 1px #eaeaea solid;
@@ -159,7 +193,7 @@ EOF;
         width: 16px;
         height: 16px;
         position: absolute;
-        text-indent: -9999px;
+        /* text-indent: -9999px; */
         right: 35px;
         text-decoration: none;
       }
@@ -168,7 +202,7 @@ EOF;
         width: 16px;
         height: 16px;
         position: absolute;
-        text-indent: -9999px;
+        /* text-indent: -9999px; */
         right: 35px;
         text-decoration: none;
       }
