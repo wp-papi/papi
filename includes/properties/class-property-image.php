@@ -23,20 +23,20 @@ class PropertyImage extends PTB_Property {
     } else {
       $value = '';
     }
-    
+
     $html = PTB_Html::tag('img', array(
       'src' => $value,
       'class' => $this->css_classes('ptb-property-image'),
       'data-ptb-property' => 'image'
     ));
-    
+
     return $html . PTB_Html::input('hidden', array(
       'value' => $this->get_options()->value,
       'name' => $this->get_options()->name,
       'id' => $this->get_options()->name
     ));
   }
-  
+
   /**
    * Convert the value of the property before we output it to the application.
    *
@@ -45,7 +45,7 @@ class PropertyImage extends PTB_Property {
    *
    * @return object|string
    */
-  
+
   public function convert ($value) {
     if (is_numeric($value)) {
       $meta = wp_get_attachment_metadata($value);
@@ -62,7 +62,7 @@ class PropertyImage extends PTB_Property {
       return $value;
     }
   }
-  
+
   /**
    * Render the final html that is displayed in the table.
    *
@@ -72,12 +72,15 @@ class PropertyImage extends PTB_Property {
    */
 
   public function render () {
-    $label = PTB_Html::td($this->label(), array('colspan' => 2));
-    $label = PTB_Html::tr($label);
-    $html = PTB_Html::td($this->html(), array('colspan' => 2));
-    $html = PTB_Html::tr($html);
-    $html .= $this->helptext(false);
-    return $label . $html;
+    if ($this->get_options()->table) {
+      $label = PTB_Html::td($this->label(), array('colspan' => 2));
+      $label = PTB_Html::tr($label);
+      $html = PTB_Html::td($this->html(), array('colspan' => 2));
+      $html = PTB_Html::tr($html);
+      $html .= $this->helptext(false);
+      return $label . $html;
+    }
+    return $this->label() . $this->html() . $this->helptext(false);
   }
 
 }

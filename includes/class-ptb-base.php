@@ -172,8 +172,14 @@ class PTB_Base {
        return null;
      }
 
+     // Generate random title.
      if (!isset($options->title) || empty($options->title)) {
        $options->title = _ptb_random_title();
+     }
+
+     // We should be able to remove the title.
+     if (isset($options->no_title) && $options->no_title) {
+       $options->title = '';
      }
 
      // If the disable option is true, don't add it to the page.
@@ -191,6 +197,11 @@ class PTB_Base {
        $options->custom = (object)$options->custom;
      } else {
        $options->custom = new stdClass;
+     }
+
+     // Yes, we should output as a table row.
+     if (!isset($options->table)) {
+       $options->table = true;
      }
 
      // Property sort order.
@@ -217,12 +228,12 @@ class PTB_Base {
 
      // Get the property
      $property_type = PTB_Property::factory($options->type);
-     
+
      // Can't access property since we don't know the property.
      if (is_null($property_type)) {
        return null;
      }
-     
+
      $property_type->set_options($options);
 
      if (is_array($property_type->html())) {
@@ -384,10 +395,16 @@ class PTB_Base {
          $args[] = new PTB_Collection($box);
        } else {
          usort($box->properties, function ($a, $b) {
-          return $a->sort_order - $b->sort_order;
+           if (isset($a->sort_order) && isset($b->sort_order)) {
+             return $a->sort_order - $b->sort_order;
+           } else {
+             return 0;
+           }
          });
          foreach ($box->properties as $property) {
-           $args[] = $property->callback_args;
+           if (isset($property) && isset($property->callback_args)) {
+             $args[] = $property->callback_args;
+           }
          }
          $args['table'] = true;
        }

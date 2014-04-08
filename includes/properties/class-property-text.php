@@ -43,12 +43,15 @@ class PropertyText extends PTB_Property {
    */
 
   public function render () {
-    $label = PTB_Html::td($this->label(), array('colspan' => 2));
-    $label = PTB_Html::tr($label);
-    $html = PTB_Html::td($this->html(), array('colspan' => 2));
-    $html = PTB_Html::tr($html);
-    $html .= $this->helptext(false);
-    return $label . $html;
+    if ($this->get_options()->table) {
+      $label = PTB_Html::td($this->label(), array('colspan' => 2));
+      $label = PTB_Html::tr($label);
+      $html = PTB_Html::td($this->html(), array('colspan' => 2));
+      $html = PTB_Html::tr($html);
+      $html .= $this->helptext(false);
+      return $label . $html;
+    }
+    return $this->label() . $this->html() . $this->helptext(false);
   }
 
 }

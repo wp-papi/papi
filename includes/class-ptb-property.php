@@ -29,16 +29,17 @@ abstract class PTB_Property {
     'PropertyText',
     'PropertyImage',
     'PropertyDropdownList',
-    'PropertyCheckboxList'
+    'PropertyCheckboxList',
+    'PropertyList'
   );
-  
+
   /**
    * Check if assets has been outputted or not.
    *
    * @var array
    * @since 1.0
    */
-  
+
   private static $assets_up = array();
 
   /**
@@ -308,11 +309,14 @@ abstract class PTB_Property {
    */
 
   public function render () {
-    $html = PTB_Html::td($this->label());
-    $html .= PTB_HTMl::td($this->html());
-    $html = PTB_Html::tr($html);
-    $html .= $this->helptext();
-    return $html;
+    if ($this->get_options()->table) {
+      $html = PTB_Html::td($this->label());
+      $html .= PTB_HTMl::td($this->html());
+      $html = PTB_Html::tr($html);
+      $html .= $this->helptext();
+      return $html;
+    }
+    return $this->label() . $this->html() . $this->helptext();
   }
 
   /**
