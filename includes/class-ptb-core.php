@@ -219,7 +219,7 @@ class PTB_Core {
       );
 
       // Remove null or empty values.
-      if (is_null($data[$pkey]['value']) || strlen($data[$pkey]['value']) === 0) {
+      if (is_null($data[$pkey]['value'])) {
         unset($data[$pkey]);
         unset($data[$key]);
         continue;

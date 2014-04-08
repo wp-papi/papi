@@ -31,6 +31,15 @@ abstract class PTB_Property {
     'PropertyDropdownList',
     'PropertyCheckboxList'
   );
+  
+  /**
+   * Check if assets has been outputted or not.
+   *
+   * @var array
+   * @since 1.0
+   */
+  
+  private static $assets_up = array();
 
   /**
    * Current property options object that is used to generate a property.
@@ -57,10 +66,13 @@ abstract class PTB_Property {
     if (in_array($property, self::$properties) && class_exists($property)) {
       $klass = new $property();
       $klass->setup_globals();
-      add_action('admin_head', array($klass, 'css'));
-      add_action('admin_head', array($klass, 'autocss'));
-      add_action('admin_footer', array($klass, 'js'));
-      add_action('admin_footer', array($klass, 'autojs'));
+      if (!isset(self::$assets_up[$property])) {
+        add_action('admin_head', array($klass, 'css'));
+        add_action('admin_head', array($klass, 'autocss'));
+        add_action('admin_footer', array($klass, 'js'));
+        add_action('admin_footer', array($klass, 'autojs'));
+        self::$assets_up[$property] = true;
+      }
       return $klass;
     } else {
       throw new Exception('PTB Error: Unsupported property - ' . $property);
