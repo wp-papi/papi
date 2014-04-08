@@ -216,13 +216,19 @@ class PTB_Base {
      }
 
      // Get the property
-     $property = PTB_Property::factory($options->type);
-     $property->set_options($options);
+     $property_type = PTB_Property::factory($options->type);
+     
+     // Can't access property since we don't know the property.
+     if (is_null($property_type)) {
+       return null;
+     }
+     
+     $property_type->set_options($options);
 
-     if (is_array($property->html())) {
-       $options->callback_args->html = $property->html();
+     if (is_array($property_type->html())) {
+       $options->callback_args->html = $property_type->html();
      } else {
-       $options->callback_args->html = $property->render() . $property->hidden();
+       $options->callback_args->html = $property_type->render() . $property_type->hidden();
      }
 
      return $options;

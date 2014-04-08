@@ -75,7 +75,7 @@ abstract class PTB_Property {
       }
       return $klass;
     } else {
-      throw new Exception('PTB Error: Unsupported property - ' . $property);
+      return null;
     }
   }
 

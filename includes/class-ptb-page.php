@@ -203,6 +203,12 @@ class PTB_Page {
       if (isset($property['value']) && isset($property['type'])) {
         $type = $property['type'];
         $property_type = PTB_Property::factory($type);
+        
+        // Can't convert since we don't know the property.
+        if (is_null($property_type)) {
+          return $property['value'];
+        }
+        
         return $property_type->convert($property['value']);
       }
       if (isset($property['value'])) {
