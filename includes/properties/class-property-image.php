@@ -24,9 +24,15 @@ class PropertyImage extends PTB_Property {
       $value = '';
     }
 
+    $css_classes = $this->css_classes('ptb-property-image');
+
+    if (isset($value) && !empty($value)) {
+      $css_classes .= ' height-auto ';
+    }
+
     $html = PTB_Html::tag('img', array(
       'src' => $value,
-      'class' => $this->css_classes('ptb-property-image'),
+      'class' => $css_classes,
       'data-ptb-property' => 'image'
     ));
 

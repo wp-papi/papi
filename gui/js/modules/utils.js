@@ -33,25 +33,6 @@
     return /\.(jpeg|jpg|gif|png)$/.test(url.toLowerCase());
   };
 
-  /**
-   * Update array number in html name.
-   *
-   * @param {String} html
-   * @param {Int} i
-   *
-   * @return {String}
-   */
-
-  Utils.update_html_array_num = function (html, i) {
-    return html.replace(/name\=\"(\w+)\"/g, function (match, value) {
-      if (match.indexOf('ptb_') !== -1) {
-        var generated = value.replace(/\[\d+\]/, '[' + i + ']');
-        return match.replace(value, generated);
-      }
-      return match;
-    });
-  };
-
   // Add the Utils object to the Ptb object.
   window.Ptb.Utils = Utils;
 

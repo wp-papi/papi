@@ -21,7 +21,13 @@ class PropertyList extends PTB_Property {
     $this->counter = 0;
     $this->name = $this->get_options()->name;
     $properties = $this->get_options()->properties;
-    $first_props = array($properties[0]);
+    $values = $this->get_options()->value;
+
+    if (!is_array($values)) {
+      $values = array(array());
+    }
+
+    $names = array();
 
     $html = <<< EOF
     <div class="ptb-property-list">
@@ -35,6 +41,18 @@ class PropertyList extends PTB_Property {
             <a class="pr-remove-item" href="#">Remove</a>
 EOF;
     foreach ($properties as $property) {
+      $name =  _ptbify(strtolower($property->type));
+
+      if (isset($names[$name])) {
+        $name .= strval($names[$name]);
+        $names[$name]++;
+      } else {
+        $name .= '1';
+        $names[$name] = 1;
+      }
+
+      $property->name = $name;
+      $property->value = '';
       $property = $this->property($property);
       $property = $this->template($property);
       $html .= $property->callback_args->html;
@@ -44,18 +62,38 @@ EOF;
           </li>
         </ul>
         <ul class="pr-items">
+EOF;
+
+      foreach ($values as $value) {
+        $html .= <<< EOF
           <li>
             <a class="pr-remove-item" href="#">Remove</a>
 EOF;
 
-      foreach ($properties as $property) {
-        $property = $this->property($property);
-        $html .= $property->callback_args->html;
-        $this->counter++;
+          foreach ($properties as $property) {
+            $name =  _ptbify(strtolower($property->type));
+
+            if (isset($names[$name])) {
+              $name .= strval($names[$name]);
+              $names[$name]++;
+            } else {
+              $name .= '1';
+              $names[$name] = 1;
+            }
+
+            if (isset($value[$property->name])) {
+              $property->value = $value[$property->name];
+            }
+
+            $property = $this->property($property);
+            $html .= $property->callback_args->html;
+          }
+          $this->counter++;
+
+        $html .= '</li>';
       }
 
       $html .= <<< EOF
-        </li>
         </ul>
       </div>
     </div>
@@ -63,6 +101,15 @@ EOF;
 
     return $html;
   }
+
+  /**
+   * Regenerate the property with modified values.
+   *
+   * @param object $property
+   * @since 1.0
+   *
+   * @return object
+   */
 
   public function property ($property) {
     // Remove old html.
@@ -85,18 +132,26 @@ EOF;
     $property = $base->property($property);
 
     // Property name.
-    $property_name = $this->name . '[' . $this->counter . ']' . '[' . $property->name . '_property]';
+    $property_name = $this->name . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->name) . '_property]';
     $property->callback_args->html = str_replace('name="' . $property->name . '_property' . '"', 'name="' . $property_name . '"', $property->callback_args->html);
 
     // Input name.
-    $input_name = $this->name . '[' . $this->counter . ']' . '[' . $property->name . ']';
+    $input_name = $this->name . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->name) . ']';
     $property->callback_args->html = str_replace('name="' . $property->name . '"', 'name="' . $input_name . '"', $property->callback_args->html);
 
     return $property;
   }
 
+  /**
+   * Change all name attributes to data-name.
+   *
+   * @param object $property
+   * @since 1.0
+   *
+   * @return object
+   */
+
   public function template ($property) {
-    // Change all name attributes to data-name.
     $property->callback_args->html = str_replace('name=', 'data-name=', $property->callback_args->html);
 
     return $property;
@@ -113,21 +168,46 @@ EOF;
     <script type="text/javascript">
       (function ($) {
 
-        // Add new item
+        /**
+         * Update array number in html name.
+         *
+         * @param {String} html
+         * @param {Int} num
+         *
+         * @return {String}
+         */
 
-        $('.pr-actions').on('click', '.pr-add-new-item', function (e) {
+        function update_html_array_num (html, num) {
+          var pattern = /name\=\"\ptb_\w+(\[\d+\]).+?\"/g
+            , generated = '[' + num + ']';
+          return html.replace(pattern, function (match, value) {
+            return match.replace(value, generated);
+          });
+        }
+
+        // Add new item and update the array index in html name.
+
+        $('.ptb-property-list').on('click', '.pr-add-new-item', function (e) {
           e.preventDefault();
 
           var $template = $('ul.pr-template > li').clone()
-            , counter = $('ul.pr-items').children().length;
+            , counter = $('ul.pr-items').children().length
+            , html = $template.html()
+            , pattern = /data\-name\=/g;
 
-          $template.html($template.html().replace(/data\-name\=/g, 'name='));
-          $template.html(Ptb.Utils.update_html_array_num($template.html(), counter));
+          html = html.replace(pattern, 'name=');
+          html = update_html_array_num(html, counter);
 
-          $template.appendTo('ul.pr-items');
+          $template.html(html).appendTo('ul.pr-items');
         });
 
         // Remove item
+
+        $('.ptb-property-list').on('click', '.pr-remove-item', function (e) {
+          e.preventDefault();
+
+          $(this).closest('li').remove();
+        });
 
       })(window.jQuery);
     </script>
@@ -167,7 +247,8 @@ EOF;
       }
 
       .ptb-property-list .pr-inner .pr-actions label {
-        padding-top: 2px;
+        float: left;
+        margin-top: -1px;
       }
 
 
@@ -228,8 +309,17 @@ EOF;
     return '&nbsp;' . $this->html() . $this->helptext(false);
   }
 
+  /**
+   * Convert the value of the property before we output it to the application.
+   *
+   * @param mixed $value
+   * @since 1.0
+   *
+   * @return array
+   */
+
   public function convert ($value) {
-    return $value;
+    return array_values($value);
   }
 
 }
