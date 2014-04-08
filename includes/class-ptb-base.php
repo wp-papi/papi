@@ -221,11 +221,6 @@ class PTB_Base {
        $options->value = ptb_value($options->name);
      }
 
-     // Set default value for collection.
-     if (!isset($options->collection)) {
-       $options->collection = false;
-     }
-
      // Get the property
      $property_type = PTB_Property::factory($options->type);
 
@@ -388,11 +383,6 @@ class PTB_Base {
            $box->properties[0]->tab) {
          // It's a tab.
          $args[] = new PTB_Tab($box);
-       } else if (isset($box->properties[0]) &&
-                  isset($box->properties[0]->collection) &&
-                  $box->properties[0]->collection) {
-         // It's a collection.
-         $args[] = new PTB_Collection($box);
        } else {
          usort($box->properties, function ($a, $b) {
            if (isset($a->sort_order) && isset($b->sort_order)) {
@@ -499,37 +489,6 @@ class PTB_Base {
       'title'      => $title,
       'tab'        => true,
       'options'    => (object)$options,
-      'properties' => $properties
-    );
-  }
-
-  /**
-   * Add a new collection.
-   *
-   * @param string $title
-   * @param string $name
-   * @param array $properties
-   * @since 1.0
-   *
-   * @return object
-   */
-
-  public function collection ($title, $name = '', $properties = array()) {
-    if (is_array($name)) {
-      $properties = $name;
-      $name = $title;
-    }
-
-    for ($i = 0; $i < count($properties); $i++) {
-      $property = $properties[$i];
-      $property->collection = true;
-      $properties[$i] = $property;
-    }
-
-    return (object)array(
-      'title'      => $title,
-      'name'       => _ptb_name($name),
-      'collection' => true,
       'properties' => $properties
     );
   }

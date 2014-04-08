@@ -123,14 +123,6 @@ class PTB_Page {
       return;
     }
 
-    // Get all property collection.
-    $this->meta = array_merge($this->meta, $this->get_collection_meta());
-
-    // Don't need this anymore.
-    if (isset($this->meta[PTB_COLLECTION_KEY])) {
-      unset($this->meta[PTB_COLLECTION_KEY]);
-    }
-
     foreach ($this->meta as $key => $value) {
       if (is_array($value)) {
        $value = $this->convert($value);
@@ -142,51 +134,6 @@ class PTB_Page {
         $this->$key = $value;
       }
     }
-  }
-
-  /**
-   * Get meta data from collection.
-   *
-   * @since 1.0
-   *
-   * @todo rewrite this
-   *
-   * @return array
-   */
-
-  private function get_collection_meta () {
-    $properties = $this->meta;
-
-    if (isset($properties[PTB_COLLECTION_KEY])) {
-      $values = $properties[PTB_COLLECTION_KEY];
-      $res = array();
-
-      foreach ($values as $key => $value) {
-        $key = _ptb_remove_ptb($key);
-        foreach ($value as $x => $v) {
-          foreach ($v as $k => $y) {
-            if (_ptb_is_property_key($k)) {
-              continue;
-            }
-            $pk = _ptb_property_type_key($k);
-            $v[$k] = $this->convert(array(
-              'value' => $y,
-              'type' => $v[$pk]
-            ));
-          }
-          foreach ($v as $k => $y) {
-            if (_ptb_is_property_key($k)) {
-              unset($v[$k]);
-            }
-          }
-        }
-        $res[$key] = $value;
-      }
-
-      return $res;
-    }
-
-    return array();
   }
 
   /**
@@ -203,12 +150,12 @@ class PTB_Page {
       if (isset($property['value']) && isset($property['type'])) {
         $type = $property['type'];
         $property_type = PTB_Property::factory($type);
-        
+
         // Can't convert since we don't know the property.
         if (is_null($property_type)) {
           return $property['value'];
         }
-        
+
         return $property_type->convert($property['value']);
       }
       if (isset($property['value'])) {

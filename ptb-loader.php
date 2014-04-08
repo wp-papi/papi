@@ -90,11 +90,6 @@ class PTB_Loader {
       define('PTB_RANDOM_KEY', '_PTB_');
     }
 
-    // Collection key.
-    if (!defined('PTB_COLLECTION_KEY')) {
-      define('PTB_COLLECTION_KEY', 'ptb_collection');
-    }
-
     // Property type key.
     if (!defined('PTB_PROPERTY_TYPE_KEY')) {
       define('PTB_PROPERTY_TYPE_KEY', '_property');
@@ -134,7 +129,6 @@ class PTB_Loader {
     require_once($this->plugin_dir . 'includes/class-ptb-page.php');
     require_once($this->plugin_dir . 'includes/class-ptb-property.php');
     require_once($this->plugin_dir . 'includes/class-ptb-tab.php');
-    require_once($this->plugin_dir . 'includes/class-ptb-collection.php');
 
     // Load properties
     require_once($this->plugin_dir . 'includes/properties/class-property-string.php');
@@ -150,21 +144,21 @@ class PTB_Loader {
     require_once($this->plugin_dir . 'includes/properties/class-property-dropdownlist.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-checkboxlist.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-list.php');
-    
+
     // Load custom properties.
     $this->require_custom_properties();
 
     // Load Page Type Builder base file.
     require_once($this->plugin_dir . 'includes/class-ptb-base.php');
   }
-  
+
   /**
    * Load custom properties.
    *
    * @since 1.0
    * @access private
    */
-   
+
   private function require_custom_properties () {
     $files = _ptb_get_files_in_directory('properties');
     $this->properties = array();
@@ -177,7 +171,7 @@ class PTB_Loader {
     }
     add_filter('ptb_properties', array($this, 'add_custom_properties'));
   }
-  
+
   /**
    * Add custom properties.
    *
@@ -186,7 +180,7 @@ class PTB_Loader {
    *
    * @return array
    */
-  
+
   public function add_custom_properties ($properties) {
     return array_merge($properties, $this->properties);
   }

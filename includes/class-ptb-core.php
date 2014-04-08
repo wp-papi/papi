@@ -228,32 +228,6 @@ class PTB_Core {
       unset($data[$key]);
     }
 
-    /*
-    if (isset($data[PTB_COLLECTION_KEY]) && is_array($data[PTB_COLLECTION_KEY])) {
-      $collection = $data[PTB_COLLECTION_KEY];
-      foreach ($collection as $ck => $cv) {
-        foreach ($cv as $ik => $iv) {
-          foreach ($iv as $key => $value) {
-            if (_ptb_is_property_key($key)) {
-              continue;
-            }
-            var_dump($key);
-            if (is_null($value) || strlen($value) === 0) {
-              unset($iv[$key]);
-              unset($iv[$key . '_property']);
-            }
-          }
-        }
-      }
-      $data[PTB_COLLECTION_KEY] = $collection;
-    }
-
-    echo'<pre>';
-    var_dump($data);
-
-    die ();
-    */
-
     // Don't wont to save random data that's only is used for getting a nicer ui.
     foreach ($data as $key => $value) {
       if (_ptb_is_random_title($key)) {
