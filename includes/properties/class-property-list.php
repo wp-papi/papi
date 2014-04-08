@@ -40,6 +40,7 @@ class PropertyList extends PTB_Property {
           <li>
             <a class="pr-remove-item" href="#">Remove</a>
 EOF;
+
     foreach ($properties as $property) {
       $name =  _ptbify(strtolower($property->type));
 
@@ -51,11 +52,18 @@ EOF;
         $names[$name] = 1;
       }
 
+      $html .= '<table>
+        <tbody>';
+
       $property->name = $name;
       $property->value = '';
+
       $property = $this->property($property);
       $property = $this->template($property);
-      $html .= $property->callback_args->html;
+
+      $html .= $property->callback_args->html .
+          '</tbody>
+        </table>';
     }
 
     $html .= <<< EOF
@@ -68,6 +76,8 @@ EOF;
         $html .= <<< EOF
           <li>
             <a class="pr-remove-item" href="#">Remove</a>
+            <table>
+              <tbody>
 EOF;
 
           foreach ($properties as $property) {
@@ -90,7 +100,7 @@ EOF;
           }
           $this->counter++;
 
-        $html .= '</li>';
+        $html .= '</tbody></table></li>';
       }
 
       $html .= <<< EOF
@@ -121,7 +131,7 @@ EOF;
     $base = new PTB_Base(false);
 
     // Don't make this a table row.
-    $property->table = false;
+    // $property->table = false;
 
     // Don't show the random title if we don't have a title.
     if (!isset($property->title) || empty($property->title) || strpos($property->title, '_PTB') === 0) {
@@ -168,23 +178,6 @@ EOF;
     <script type="text/javascript">
       (function ($) {
 
-        /**
-         * Update array number in html name.
-         *
-         * @param {String} html
-         * @param {Int} num
-         *
-         * @return {String}
-         */
-
-        function update_html_array_num (html, num) {
-          var pattern = /name\=\"\ptb_\w+(\[\d+\]).+?\"/g
-            , generated = '[' + num + ']';
-          return html.replace(pattern, function (match, value) {
-            return match.replace(value, generated);
-          });
-        }
-
         // Add new item and update the array index in html name.
 
         $('.ptb-property-list').on('click', '.pr-add-new-item', function (e) {
@@ -193,10 +186,22 @@ EOF;
           var $template = $('ul.pr-template > li').clone()
             , counter = $('ul.pr-items').children().length
             , html = $template.html()
-            , pattern = /data\-name\=/g;
+            , dataNameRegex = /data\-name\=/g
+            , attrNameRegex = /name\=\"\ptb_\w+(\[\d+\])\[(\w+)\]\"/g
+            , attrNameValue = '[' + counter + ']';
 
-          html = html.replace(pattern, 'name=');
-          html = update_html_array_num(html, counter);
+          html = html.replace(dataNameRegex, 'name=');
+
+          // Update array number in html name and name if ends with a number.
+          html = html.replace(attrNameRegex, function (match, num, name) {
+            var splitted = name.split('_');
+
+            if (typeof (parseFloat(splitted[1][splitted[1].length - 1])) === 'number') {
+              splitted[1] = splitted[1].substring(0, splitted[1].length - 1) + (counter + 1);
+            }
+
+            return match.replace(num, attrNameValue).replace(name, splitted.join('_'));
+          });
 
           $template.html(html).appendTo('ul.pr-items');
         });
