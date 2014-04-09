@@ -125,12 +125,15 @@ EOF;
       }
 
     return $html .= <<< EOF
+        <li class="pr-add-new">
+          <img class="{$css_classes}" data-ptb-property="image" />
+          <span />
+        </li>
         </ul>
       </div>
     </div>
 EOF;
   }
-
 
   /**
    * Output custom JavaScript for the property.
@@ -143,9 +146,28 @@ EOF;
     <script type="text/javascript">
       (function ($) {
 
-        $('.pr-images').on('click', '.pr-add-new', function (e) {
+        $('.pr-images').on('click', '[data-ptb-property="image"], li.pr-add-new > span', function (e) {
           e.preventDefault();
-          $('.pr-template > li:first').clone().appendTo('.pr-image-items');
+
+          var $this = $(this)
+            , $target = $this
+            , $li = $this.closest('li');
+
+          if ($li.hasClass('pr-add-new')) {
+            $target = $('.pr-template > li:first').clone();
+            $target.insertBefore($li);
+            $target = $target.find('img');
+          }
+
+          // Todo: when removing image, remove style attribute
+
+          Ptb.Utils.wp_media_editor($target, function (attachment) {
+            if (Ptb.Utils.is_image(attachment.url)) {
+              $target.attr('style', 'height:auto');
+              $target.attr('src', attachment.url);
+              $target.next().val(attachment.id);
+            }
+          });
         });
 
       })(window.jQuery);

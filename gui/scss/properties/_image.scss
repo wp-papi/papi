@@ -13,6 +13,17 @@
     li {
       float: left;
       padding: 0 5px;
+      &.pr-add-new {
+        span {
+          background: url(../img/plus-minus.png) no-repeat top left;
+          width: 16px;
+          height: 16px;
+          position: absolute;
+          text-indent: -9999px;
+          margin-top: -80px;
+          margin-left: 59px;
+        }
+      }
     }
   }
 }
