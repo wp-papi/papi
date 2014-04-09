@@ -349,4 +349,23 @@ abstract class PTB_Property {
 
     return $css_class;
   }
+
+  /**
+   * Get custom options object.
+   *
+   * @param array $defaults
+   * @since 1.0
+   *
+   * @return object
+   */
+
+  public function custom_options ($defaults = array()) {
+    if (isset($this->options->custom)) {
+      $custom = $this->options->custom;
+    } else {
+      $custom = array();
+    }
+
+    return (object)array_merge($defaults, (array)$custom);
+  }
 }

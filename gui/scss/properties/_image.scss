@@ -1,10 +1,18 @@
 .ptb-property-image {
-  width: 120px;
-  height: 120px;
-  padding: 5px;
-  border: 2px #EAEAEA dashed;
-  margin: 5px 0px 5px 2px;
-  &.height-auto {
-    height: auto !important;
+  .pr-image-item {
+    width: 120px;
+    height: 120px;
+    padding: 5px;
+    border: 2px #EAEAEA dashed;
+    margin: 5px 0px 5px 2px;
+    &.height-auto {
+      height: auto !important;
+    }
+  }
+  .pr-image-items {
+    li {
+      float: left;
+      padding: 0 5px;
+    }
   }
 }

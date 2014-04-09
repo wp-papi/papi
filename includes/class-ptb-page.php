@@ -143,12 +143,13 @@ class PTB_Page {
                 unset($value[$ki][$k]);
               }
             }
-          } else {
-            if (_ptb_is_property_key($k)) {
+          } else if (is_string($ki)) {
+            if (_ptb_is_property_key($ki)) {
               unset($value[$k]);
             } else {
-              $k = _ptb_remove_ptb($k);
-              $value[$k] = $v;
+              $kin = _ptb_remove_ptb($ki);
+              $value[$kin] = $vi;
+              unset($value[$ki]);
             }
           }
         }
