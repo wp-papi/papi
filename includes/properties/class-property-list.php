@@ -25,6 +25,7 @@ class PropertyList extends PTB_Property {
 
     if (!is_array($values)) {
       $values = array(array());
+    } else {
     }
 
     $html = <<< EOF
@@ -61,7 +62,6 @@ EOF;
         </ul>
         <ul class="pr-items">
 EOF;
-
       foreach ($values as $value) {
         $html .= <<< EOF
           <li>
@@ -72,9 +72,10 @@ EOF;
 
           foreach ($properties as $property) {
             $property->name = $this->generate_name($property);
+            $value_name = _ptb_remove_ptb($property->name);
 
-            if (isset($value[$property->name])) {
-              $property->value = $value[$property->name];
+            if (isset($value[$value_name])) {
+              $property->value = $value[$value_name];
             }
 
             $property = $this->property($property);
