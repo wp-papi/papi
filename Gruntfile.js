@@ -65,6 +65,6 @@ module.exports = function(grunt) {
     'uglify'
   ]);
 
-  grunt.registerTask('default', 'watch');
+  grunt.registerTask('default', 'build');
 
 };
