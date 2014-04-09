@@ -183,9 +183,9 @@ class PTB_Core {
     }
 
     // Debug code
-    //echo'<pre>';
-    //print_r($_POST);
-    //die();
+    // echo'<pre>';
+    // print_r($_POST);
+    // die();
 
     // Get only Page Type Builder fields from the POST object.
     $meta_value = get_post_meta($post_id, PTB_META_KEY, true);
