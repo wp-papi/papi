@@ -1,0 +1,51 @@
+.hidden {
+  display: none;
+}
+
+.ptb-property-list {
+  background: #fafafa;
+  border: 1px #eaeaea solid;
+  padding: 5px;
+  .pr-inner {
+    padding: 5px;
+    background: #fff;
+    border: 1px #eaeaea solid;
+    .pr-actions {
+      height: 20px;
+      /* background: #fafafa; */
+      border-bottom: 1px #eaeaea solid;
+      padding: 5px;
+      label {
+        float: left;
+        margin-top: -1px;
+      }
+    }
+    .pr-right {
+      margin-right: 15px;
+    }
+  }
+  ul li {
+    padding: 5px;
+    border-bottom: 1px #eaeaea solid;
+  }
+  .pr-inner {
+    .pr-actions a.pr-add-new-item {
+      background: url(../img/plus-minus.png) no-repeat top left;
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      text-indent: -9999px;
+      right: 35px;
+      text-decoration: none;
+    }
+    a.pr-remove-item {
+      background: url(../img/plus-minus.png) no-repeat top right;
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      text-indent: -9999px;
+      right: 35px;
+      text-decoration: none;
+    }
+  }
+}
