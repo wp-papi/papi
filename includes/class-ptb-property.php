@@ -30,7 +30,8 @@ abstract class PTB_Property {
     'PropertyImage',
     'PropertyDropdownList',
     'PropertyCheckboxList',
-    'PropertyList'
+    'PropertyList',
+    'PropertyPageReferenceList'
   );
 
   /**

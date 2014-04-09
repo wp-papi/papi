@@ -117,7 +117,9 @@ class PTB_Tab {
 
       // Append all html from the properties.
       foreach ($tab->properties as $property) {
-        $div .= $property->callback_args->html;
+        if (isset($property) && isset($property->callback_args)) {
+          $div .= $property->callback_args->html;
+        }
       }
 
       // End div and table for tab.
