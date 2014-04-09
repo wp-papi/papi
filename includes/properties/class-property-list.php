@@ -25,7 +25,6 @@ class PropertyList extends PTB_Property {
 
     if (!is_array($values)) {
       $values = array(array());
-    } else {
     }
 
     $html = <<< EOF
