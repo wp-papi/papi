@@ -212,14 +212,14 @@ class PTB_Core {
       }
 
       $pkey = str_replace('_property', '', $key);
-      
+
       // Check if value exists.
       if (isset($data[$pkey])) {
         $data[$pkey] = array(
           'type' => $value,
           'value' => $data[$pkey]
         );
-        
+
         // Remove null or empty values.
         if (is_null($data[$pkey]['value'])) {
           unset($data[$pkey]);
@@ -239,17 +239,24 @@ class PTB_Core {
 
     // Get right page type.
     $page_type = isset($data['ptb_page_type']) ? $data['ptb_page_type'] : '';
+    $page_template = _ptb_get_template($page_type)
 
     // Add, update or delete the meta values.
     if (count($meta_value) == 0 || empty($meta_value)) {
       add_post_meta($post_id, PTB_META_KEY, $data, true);
-      add_post_meta($post_id, '_wp_page_template', _ptb_get_template($page_type), true);
+      if (!is_null($page_template)) {
+        add_post_meta($post_id, '_wp_page_template', $page_template, true);
+      }
     } else if (count($meta_value) > 0 && count($data) > 0) {
       update_post_meta($post_id, PTB_META_KEY, $data);
-      update_post_meta($post_id, '_wp_page_template', _ptb_get_template($page_type));
+      if (!is_null($page_template)) {
+        update_post_meta($post_id, '_wp_page_template', $page_template);
+      }
     } else {
       delete_post_meta($post_id, PTB_META_KEY, $meta_value);
-      delete_post_meta($post_id, '_wp_page_template', _ptb_get_template($page_type));
+      if (!is_null($page_template)) {
+        delete_post_meta($post_id, '_wp_page_template', $page_template);
+      }
     }
   }
 
