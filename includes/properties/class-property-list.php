@@ -27,8 +27,6 @@ class PropertyList extends PTB_Property {
       $values = array(array());
     }
 
-    $names = array();
-
     $html = <<< EOF
     <div class="ptb-property-list">
       <div class="pr-inner">
@@ -167,12 +165,6 @@ EOF;
       $name = $property->name;
     }
 
-    if (isset($names[$name])) {
-      $names[$name]++;
-    } else {
-      $names[$name] = 1;
-    }
-
     return $name;
   }
 
@@ -203,13 +195,7 @@ EOF;
 
           // Update array number in html name and name if ends with a number.
           html = html.replace(attrNameRegex, function (match, num, name) {
-            var splitted = name.split('_');
-
-            if (typeof (parseFloat(splitted[1][splitted[1].length - 1])) === 'number') {
-              splitted[1] = splitted[1].substring(0, splitted[1].length - 1) + (counter + 1);
-            }
-
-            return match.replace(num, attrNameValue).replace(name, splitted.join('_'));
+            return match.replace(num, attrNameValue);
           });
 
           $template.html(html).appendTo('ul.pr-items');
