@@ -7,6 +7,7 @@
  * Author URI: http://forsmo.me/
  * Version: 1.0.0
  * Plugin URI: http://wp-ptb.com/
+ * Textdomain: ptb
  */
 
 // Exit if accessed directly.
@@ -118,6 +119,9 @@ class PTB_Loader {
    */
 
   private function require_files () {
+    // Load languages.
+    load_plugin_textdomain('ptb', false, basename(dirname(__FILE__)) . '/languages');
+    
     // Load Page Type Builder.
     require_once($this->plugin_dir . 'includes/ptb-functions.php');
     require_once($this->plugin_dir . 'includes/ptb-actions.php');

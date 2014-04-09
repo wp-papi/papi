@@ -63,8 +63,8 @@ class PTB_Core {
       remove_submenu_page('edit.php?post_type=' . $post_type, 'post-new.php?post_type=' . $post_type);
       // Add our custom menu item.
       add_submenu_page('edit.php?post_type=' . $post_type,
-                       __('Add new', 'ptb'),
-                       __('Add new', 'ptb'),
+                       __('Add New', 'ptb'),
+                       __('Add New', 'ptb'),
                        'manage_options',
                        'ptb-add-new-page,' . $post_type,
                        array($this, 'ptb_view'));
@@ -323,7 +323,7 @@ class PTB_Core {
       if (!is_null($page_type)) {
         echo $page_type->name;
       } else {
-        echo __('Normal page', 'ptb');
+        echo __('Standard page', 'ptb');
       }
     }
   }
