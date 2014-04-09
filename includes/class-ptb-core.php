@@ -239,7 +239,7 @@ class PTB_Core {
 
     // Get right page type.
     $page_type = isset($data['ptb_page_type']) ? $data['ptb_page_type'] : '';
-    $page_template = _ptb_get_template($page_type)
+    $page_template = _ptb_get_template($page_type);
 
     // Add, update or delete the meta values.
     if (count($meta_value) == 0 || empty($meta_value)) {
