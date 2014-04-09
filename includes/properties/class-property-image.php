@@ -18,10 +18,12 @@ class PropertyImage extends PTB_Property {
    */
 
   public function html () {
-    if (isset($this->get_options()->value) && is_numeric($this->get_options()->value)) {
-      $value = wp_get_attachment_url($this->get_options()->value);
+    if (isset($this->get_options()->value) && is_object($this->get_options()->value)) {
+      $value = $this->get_options()->value->url;
+      $id = $this->get_options()->value->id;
     } else {
       $value = '';
+      $id = 0;
     }
 
     $css_classes = $this->css_classes('ptb-property-image');
@@ -37,7 +39,7 @@ class PropertyImage extends PTB_Property {
     ));
 
     return $html . PTB_Html::input('hidden', array(
-      'value' => $this->get_options()->value,
+      'value' => $id,
       'name' => $this->get_options()->name,
       'id' => $this->get_options()->name
     ));
@@ -58,7 +60,8 @@ class PropertyImage extends PTB_Property {
       if (isset($meta) && !empty($meta)) {
         $mine = array(
           'is_image' => true,
-          'url' => wp_get_attachment_url($value)
+          'url'      => wp_get_attachment_url($value),
+          'id'       => intval($value)
         );
         return (object)array_merge($meta, $mine);
       } else {

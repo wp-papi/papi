@@ -124,12 +124,40 @@ class PTB_Page {
     }
 
     foreach ($this->meta as $key => $value) {
+      // Convert value for output.
       if (is_array($value)) {
-       $value = $this->convert($value);
+        $value = $this->convert($value);
       }
 
+      // Property List has array with properties.
+      // Remove `ptb_` key and property key.
+      if (is_array($value)) {
+        foreach ($value as $ki => $vi) {
+          if (is_array($value[$ki])) {
+            foreach ($value[$ki] as $k => $v) {
+              if (_ptb_is_property_key($k)) {
+                unset($value[$ki][$k]);
+              } else {
+                $kn = _ptb_remove_ptb($k);
+                $value[$ki][$kn] = $v;
+                unset($value[$ki][$k]);
+              }
+            }
+          } else {
+            if (_ptb_is_property_key($k)) {
+              unset($value[$k]);
+            } else {
+              $k = _ptb_remove_ptb($k);
+              $value[$k] = $v;
+            }
+          }
+        }
+      }
+
+      // Remove `_ptb` key
       $key = _ptb_remove_ptb($key);
 
+      // Add it to page object.
       if (!isset($this->$key)) {
         $this->$key = $value;
       }

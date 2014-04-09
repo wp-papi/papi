@@ -212,17 +212,19 @@ class PTB_Core {
       }
 
       $pkey = str_replace('_property', '', $key);
-
-      $data[$pkey] = array(
-        'type' => $value,
-        'value' => $data[$pkey]
-      );
-
-      // Remove null or empty values.
-      if (is_null($data[$pkey]['value'])) {
-        unset($data[$pkey]);
-        unset($data[$key]);
-        continue;
+      
+      // Check if value exists.
+      if (isset($data[$pkey])) {
+        $data[$pkey] = array(
+          'type' => $value,
+          'value' => $data[$pkey]
+        );
+        
+        // Remove null or empty values.
+        if (is_null($data[$pkey]['value'])) {
+          unset($data[$pkey]);
+          continue;
+        }
       }
 
       unset($data[$key]);

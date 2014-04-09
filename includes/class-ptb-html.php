@@ -21,7 +21,9 @@ class PTB_Html {
   private static function attributes ($attributes = array()) {
     $html = '';
     foreach ($attributes as $key => $value) {
-      $html .= ' ' . $key . '="' . $value . '" ';
+      if (!is_object($value) && !is_array($value)) {
+        $html .= ' ' . $key . '="' . $value . '" ';
+      }
     }
     return $html;
   }

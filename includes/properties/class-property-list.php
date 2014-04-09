@@ -42,26 +42,18 @@ class PropertyList extends PTB_Property {
 EOF;
 
     foreach ($properties as $property) {
-      $name =  _ptbify(strtolower($property->type));
-
-      if (isset($names[$name])) {
-        $name .= strval($names[$name]);
-        $names[$name]++;
-      } else {
-        $name .= '1';
-        $names[$name] = 1;
-      }
+      $template_property = clone $property;
 
       $html .= '<table>
         <tbody>';
 
-      $property->name = $name;
-      $property->value = '';
+      $template_property->name = $this->generate_name($template_property);
+      $template_property->value = '';
 
-      $property = $this->property($property);
-      $property = $this->template($property);
+      $template_property = $this->property($template_property);
+      $template_property = $this->template($template_property);
 
-      $html .= $property->callback_args->html .
+      $html .= $template_property->callback_args->html .
           '</tbody>
         </table>';
     }
@@ -81,15 +73,7 @@ EOF;
 EOF;
 
           foreach ($properties as $property) {
-            $name =  _ptbify(strtolower($property->type));
-
-            if (isset($names[$name])) {
-              $name .= strval($names[$name]);
-              $names[$name]++;
-            } else {
-              $name .= '1';
-              $names[$name] = 1;
-            }
+            $property->name = $this->generate_name($property);
 
             if (isset($value[$property->name])) {
               $property->value = $value[$property->name];
@@ -165,6 +149,31 @@ EOF;
     $property->callback_args->html = str_replace('name=', 'data-name=', $property->callback_args->html);
 
     return $property;
+  }
+
+  /**
+   * Generate property name.
+   *
+   * @param object $property
+   * @since 1.0
+   *
+   * @return object
+   */
+
+  public function generate_name ($property) {
+    if (!isset($property->name) || empty($property->name)) {
+      $name = _ptbify(strtolower($property->type));
+    } else {
+      $name = $property->name;
+    }
+
+    if (isset($names[$name])) {
+      $names[$name]++;
+    } else {
+      $names[$name] = 1;
+    }
+
+    return $name;
   }
 
   /**
