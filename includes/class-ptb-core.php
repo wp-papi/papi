@@ -323,7 +323,7 @@ class PTB_Core {
       if (!is_null($page_type)) {
         echo $page_type->name;
       } else {
-        echo __('Standard page', 'ptb');
+        echo __('Standard Page', 'ptb');
       }
     }
   }

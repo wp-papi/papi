@@ -3,8 +3,6 @@
   $post_type = _ptb_get_wp_post_type();
   $post_type_obj = get_post_type_object($post_type);
   $name = $post_type_obj->labels->singular_name;
-  $normal_title = 'Standard ' . $name;
-  $normal_desc = 'The standard ' . $name . ' page';
 ?>
 
 <div id="wrap">
@@ -20,8 +18,8 @@
     <?php endforeach; ?>
 
     <li>
-      <a href="post-new.php?post_type=page"><?php echo __($normal_title, 'ptb'); ?></a>
-      <p><?php echo __($normal_desc, 'ptb'); ?></p>
+      <a href="post-new.php?post_type=page"><?php _e('Standard Page', 'ptb'); ?></a>
+      <p><?php _e('Just the normal WordPress page', 'ptb'); ?></p>
     </li>
   </ul>
 </div>
