@@ -13,6 +13,7 @@
     li {
       float: left;
       padding: 0 5px;
+      min-height: 135px;
       &.pr-add-new {
         span {
           background: url(../img/plus-minus.png) no-repeat top left;
