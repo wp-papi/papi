@@ -14,6 +14,21 @@
       float: left;
       padding: 0 5px;
       min-height: 135px;
+      span {
+        background: url(../img/plus-minus.png) no-repeat top right;
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        text-indent: -9999px;
+        top: 62px;
+        margin-left: 112px;
+        display: none;
+      }
+      &:hover {
+        span {
+          display: block;
+        }
+      }
       &.pr-add-new {
         span {
           background: url(../img/plus-minus.png) no-repeat top left;

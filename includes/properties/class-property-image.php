@@ -99,12 +99,9 @@ class PropertyImage extends PTB_Property {
       $images[] = $image;
     }
 
-    $add_new = __('Add New', 'ptb');
-
     $html = <<< EOF
       <div class="ptb-property-image">
         <div class="pr-images">
-          <a href="#" class="pr-add-new">{$add_new}</a>
           <ul class="pr-template hidden">
             <li>
               <img class="{$css_classes}" data-ptb-property="image" />
@@ -120,6 +117,7 @@ EOF;
           <li>
             <img src="{$image->value}" class="{$css}" data-ptb-property="image" />
             <input type="hidden" value="{$image->id}" name="{$image->name}" id="{$image->name}" />
+            <span />
           </li>
 EOF;
       }
@@ -151,7 +149,8 @@ EOF;
 
           var $this = $(this)
             , $target = $this
-            , $li = $this.closest('li');
+            , $li = $this.closest('li')
+            , $img = $this.find('img');
 
           if ($li.hasClass('pr-add-new')) {
             $target = $('.pr-template > li:first').clone();
@@ -159,15 +158,17 @@ EOF;
             $target = $target.find('img');
           }
 
-          // Todo: when removing image, remove style attribute
-
-          Ptb.Utils.wp_media_editor($target, function (attachment) {
-            if (Ptb.Utils.is_image(attachment.url)) {
-              $target.attr('style', 'height:auto');
-              $target.attr('src', attachment.url);
-              $target.next().val(attachment.id);
-            }
-          });
+          if ($img.attr('src') !== undefined) {
+            $target.closest('li').remove();
+          } else {
+            Ptb.Utils.wp_media_editor($target, function (attachment) {
+              if (Ptb.Utils.is_image(attachment.url)) {
+                $target.attr('style', 'height:auto');
+                $target.attr('src', attachment.url);
+                $target.next().val(attachment.id);
+              }
+            });
+          }
         });
 
       })(window.jQuery);
