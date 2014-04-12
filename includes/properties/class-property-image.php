@@ -127,7 +127,6 @@ EOF;
             </p>
             <img src="{$image->value}" />
             <input type="hidden" value="{$image->id}" name="{$image->name}" id="{$image->name}" />
-            <div class="clear"></div>
           </li>
 EOF;
       }
