@@ -1,43 +1,55 @@
 .ptb-property-image {
-  .pr-image-item {
-    width: 120px;
-    height: 120px;
-    padding: 5px;
-    border: 2px #EAEAEA dashed;
-    margin: 5px 0px 5px 2px;
-    &.height-auto {
-      height: auto !important;
-    }
+  .clear {
+    clear: both;
   }
   .pr-image-items {
     li {
       float: left;
-      padding: 0 5px;
-      min-height: 135px;
-      span {
-        background: url(../img/plus-minus.png) no-repeat top right;
-        width: 16px;
-        height: 16px;
-        position: absolute;
-        text-indent: -9999px;
-        top: 62px;
-        margin-left: 112px;
-        display: none;
-      }
-      &:hover {
-        span {
-          display: block;
+      width: 122px;
+      height: 122px;
+      padding: 5px;
+      border: 2px #EAEAEA dashed;
+      margin: 5px 10px 5px 0;
+      &.pr-image-item {
+        height: auto !important;
+        border: 2px transparent solid;
+        img {
+          height: auto !important;
+          border: 2px #EAEAEA dashed;
+          padding: 5px;
+          width: 120px;
+          height: 120px;
+          position: absolute;
+          margin: -7px 0 0 -5px;
+        }
+        p {
+          text-align: right;
+          vertical-align: middle;
+          line-height: 100px;
+          position: absolute;
+          width: 105px;
+          margin-top: -40px;
+          display: none;
+          a {
+            color: #f00;
+            z-index: 1000;
+            position: absolute;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+          }
+        }
+        &:hover {
+          p {
+            display: block;
+          }
         }
       }
       &.pr-add-new {
-        span {
-          background: url(../img/plus-minus.png) no-repeat top left;
-          width: 16px;
-          height: 16px;
-          position: absolute;
-          text-indent: -9999px;
-          margin-top: -80px;
-          margin-left: 59px;
+        p {
+          text-align: center;
+          vertical-align: middle;
+          line-height: 100px;
         }
       }
     }

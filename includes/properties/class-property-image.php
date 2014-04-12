@@ -19,7 +19,7 @@ class PropertyImage extends PTB_Property {
 
   public function html () {
     $images = array();
-    $css_classes = $this->css_classes('pr-image-item');
+    $css_classes = $this->css_classes();
 
     $options = $this->get_options();
     $custom = $this->custom_options(array(
@@ -59,7 +59,7 @@ class PropertyImage extends PTB_Property {
         if (is_object($value) && isset($value->url)) {
           $image->value = $value->url;
           $image->id = $value->id;
-          $image->css_class = ' height-auto ';
+          $image->css_class = ' pr-image-item ';
           $images[] = $image;
         }
       }
@@ -93,19 +93,26 @@ class PropertyImage extends PTB_Property {
       if (isset($options->value) && is_object($options->value)) {
         $image->value = $options->value->url;
         $image->id = $options->value->id;
-        $image->css_class = ' height-auto ';
+        $image->css_class = ' pr-image-item ';
       }
 
       $images[] = $image;
     }
 
+    $images = array_filter($images, function ($image) {
+      return !!$image->id;
+    });
+
     $html = <<< EOF
       <div class="ptb-property-image">
         <div class="pr-images">
           <ul class="pr-template hidden">
-            <li>
-              <img class="{$css_classes}" data-ptb-property="image" />
+            <li class="{$css_classes}">
+              <img />
               <input type="hidden" name="{$options->name}[]" id="{$options->name}[]" />
+              <p class="pr-remove-image">
+                <a href="#">&times;</a>
+              </p>
             </li>
           </ul>
           <ul class="pr-image-items">
@@ -114,18 +121,22 @@ EOF;
       foreach ($images as $image) {
         $css = $css_classes . $image->css_class;
         $html .= <<< EOF
-          <li>
-            <img src="{$image->value}" class="{$css}" data-ptb-property="image" />
+          <li class="{$css}">
+            <p class="pr-remove-image">
+              <a href="#">&times;</a>
+            </p>
+            <img src="{$image->value}" />
             <input type="hidden" value="{$image->id}" name="{$image->name}" id="{$image->name}" />
-            <span />
+            <div class="clear"></div>
           </li>
 EOF;
       }
 
     return $html .= <<< EOF
-        <li class="pr-add-new">
-          <img class="{$css_classes}" data-ptb-property="image" />
-          <span />
+        <li class="pr-add-new {$css_classes}">
+          <p>
+            <a href="#">Set image</a>
+          </p>
         </li>
         </ul>
       </div>
@@ -144,13 +155,13 @@ EOF;
     <script type="text/javascript">
       (function ($) {
 
-        $('.pr-images').on('click', '[data-ptb-property="image"], li.pr-add-new > span', function (e) {
+        $('.pr-images').on('click', 'li, li > img', function (e) {
           e.preventDefault();
 
           var $this = $(this)
             , $target = $this
             , $li = $this.closest('li')
-            , $img = $this.find('img');
+            , $img = $li.find('img');
 
           if ($li.hasClass('pr-add-new')) {
             $target = $('.pr-template > li:first').clone();
@@ -166,6 +177,7 @@ EOF;
                 $target.attr('style', 'height:auto');
                 $target.attr('src', attachment.url);
                 $target.next().val(attachment.id);
+                $target.closest('li').addClass('pr-image-item');
               }
             });
           }
