@@ -56,7 +56,7 @@ class PropertyRadioButtons extends PTB_Property {
    * @param mixed $values
    * @since 1.0
    *
-   * @return boolean
+   * @return mixed
    */
 
   public function convert ($values) {
@@ -64,7 +64,7 @@ class PropertyRadioButtons extends PTB_Property {
       return reset($values);
     }
 
-    return false;
+    return null;
   }
 
 }
