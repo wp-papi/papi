@@ -22,7 +22,7 @@ class PropertyImage extends PTB_Property {
     $css_classes = $this->css_classes();
 
     $options = $this->get_options();
-    $custom = $this->custom_options(array(
+    $custom = $this->get_custom_options(array(
       'gallery' => false
     ));
 
