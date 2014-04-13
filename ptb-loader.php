@@ -121,7 +121,7 @@ class PTB_Loader {
   private function require_files () {
     // Load languages.
     load_plugin_textdomain('ptb', false, basename(dirname(__FILE__)) . '/languages');
-    
+
     // Load Page Type Builder.
     require_once($this->plugin_dir . 'includes/ptb-functions.php');
     require_once($this->plugin_dir . 'includes/ptb-actions.php');
@@ -149,6 +149,7 @@ class PTB_Loader {
     require_once($this->plugin_dir . 'includes/properties/class-property-checkboxlist.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-list.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-pagereferencelist.php');
+    require_once($this->plugin_dir . 'includes/properties/class-property-radiobuttons.php');
 
     // Load custom properties.
     $this->require_custom_properties();

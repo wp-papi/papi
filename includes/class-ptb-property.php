@@ -31,7 +31,8 @@ abstract class PTB_Property {
     'PropertyDropdownList',
     'PropertyCheckboxList',
     'PropertyList',
-    'PropertyPageReferenceList'
+    'PropertyPageReferenceList',
+    'PropertyRadioButtons'
   );
 
   /**
@@ -359,13 +360,13 @@ abstract class PTB_Property {
    * @return object
    */
 
-  public function custom_options ($defaults = array()) {
+  public function get_custom_options ($defaults = array()) {
     if (isset($this->options->custom)) {
       $custom = $this->options->custom;
     } else {
       $custom = array();
     }
 
-    return (object)array_merge($defaults, (array)$custom);
+    return (object)wp_parse_args((array)$custom, $defaults);
   }
 }
