@@ -25,9 +25,10 @@ class PropertyImage extends PTB_Property {
     $custom = $this->get_custom_options(array(
       'gallery' => false
     ));
+    $is_gallery = $custom->gallery;
 
     // If it's a gallery, we need to load all images.
-    if ($custom->gallery) {
+    if ($is_gallery) {
       $values = array();
       $name = '';
 
@@ -98,10 +99,12 @@ class PropertyImage extends PTB_Property {
 
       $images[] = $image;
     }
-
-    $images = array_filter($images, function ($image) {
-      return !!$image->id;
-    });
+    
+    if ($is_gallery) {
+      $images = array_filter($images, function ($image) {
+        return !!$image->id;
+      });
+    }
 
     $html = <<< EOF
       <div class="ptb-property-image">
@@ -120,23 +123,32 @@ EOF;
 
       foreach ($images as $image) {
         $css = $css_classes . $image->css_class;
-        $html .= <<< EOF
-          <li class="{$css}">
-            <p class="pr-remove-image">
-              <a href="#">&times;</a>
-            </p>
-            <img src="{$image->value}" />
-            <input type="hidden" value="{$image->id}" name="{$image->name}" id="{$image->name}" />
+        $html .= "<li class=\"$css\">";
+        if ($is_gallery) {
+          $html .= '<p class="pr-remove-image">
+            <a href="#">&times;</a>
+          </p>';
+        }
+        $html .= "
+            <img src=\"$image->value\" />
+            <input type=\"hidden\" value=\"$image->id\" name=\"$image->name\" id=\"$image->name\" />
           </li>
-EOF;
-      }
+          ";
+        }
 
-    return $html .= <<< EOF
+    if ($is_gallery) {
+      $html .= <<< EOF
         <li class="pr-add-new {$css_classes}">
           <p>
             <a href="#">Set image</a>
           </p>
         </li>
+EOF;
+    } else {
+      $html .= '<li style="visibility:hidden"></li>';
+    }
+    
+    return $html .= <<< EOF
         </ul>
       </div>
     </div>
@@ -154,21 +166,24 @@ EOF;
     <script type="text/javascript">
       (function ($) {
 
-        $('.pr-images').on('click', 'li, li > img', function (e) {
+        $('.ptb-property-image .pr-images').on('click', 'li', function (e) {
           e.preventDefault();
 
           var $this = $(this)
             , $target = $this
             , $li = $this.closest('li')
-            , $img = $li.find('img');
+            , $img = $li.find('img')
+            , remove = $img.attr('src') !== undefined && $li.find('p.pr-remove-image').length;
 
           if ($li.hasClass('pr-add-new')) {
-            $target = $('.pr-template > li:first').clone();
+            $target = $('.ptb-property-image .pr-template > li:first').clone(); 
             $target.insertBefore($li);
             $target = $target.find('img');
+          } else if (!remove) {
+            $target = $img;
           }
 
-          if ($img.attr('src') !== undefined) {
+          if (remove) {
             $target.closest('li').remove();
           } else {
             Ptb.Utils.wp_media_editor($target, function (attachment) {

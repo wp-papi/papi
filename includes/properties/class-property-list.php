@@ -32,11 +32,11 @@ class PropertyList extends PTB_Property {
       <div class="pr-inner">
         <div class="pr-actions">
           {$this->label()}
-          <a class="pr-add-new-item" href="#">Add new</a>
+          <a class="pr-list-add-new-item" href="#">Add new</a>
         </div>
-        <ul class="pr-template hidden">
+        <ul class="pr-list-template hidden">
           <li>
-            <a class="pr-remove-item" href="#">Remove</a>
+            <a class="pr-list-remove-item" href="#">Remove</a>
 EOF;
 
     foreach ($properties as $property) {
@@ -59,12 +59,12 @@ EOF;
     $html .= <<< EOF
           </li>
         </ul>
-        <ul class="pr-items">
+        <ul class="pr-list-items">
 EOF;
       foreach ($values as $value) {
         $html .= <<< EOF
           <li>
-            <a class="pr-remove-item" href="#">Remove</a>
+            <a class="pr-list-remove-item" href="#">Remove</a>
             <table>
               <tbody>
 EOF;
@@ -181,11 +181,11 @@ EOF;
 
         // Add new item and update the array index in html name.
 
-        $('.ptb-property-list').on('click', '.pr-add-new-item', function (e) {
+        $('.ptb-property-list').on('click', '.pr-list-add-new-item', function (e) {
           e.preventDefault();
 
-          var $template = $('ul.pr-template > li').clone()
-            , counter = $('ul.pr-items').children().length
+          var $template = $('ul.pr-list-template > li').clone()
+            , counter = $('ul.pr-list-items').children().length
             , html = $template.html()
             , dataNameRegex = /data\-name\=/g
             , attrNameRegex = /name\=\"\ptb_\w+(\[\d+\])\[(\w+)\]\"/g
@@ -198,12 +198,12 @@ EOF;
             return match.replace(num, attrNameValue);
           });
 
-          $template.html(html).appendTo('ul.pr-items');
+          $template.html(html).appendTo('ul.pr-list-items');
         });
 
         // Remove item
 
-        $('.ptb-property-list').on('click', '.pr-remove-item', function (e) {
+        $('.ptb-property-list').on('click', '.pr-list-remove-item', function (e) {
           e.preventDefault();
 
           $(this).closest('li').remove();

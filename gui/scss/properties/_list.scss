@@ -29,7 +29,7 @@
     border-bottom: 1px #eaeaea solid;
   }
   .pr-inner {
-    .pr-actions a.pr-add-new-item {
+    .pr-actions a.pr-list-add-new-item {
       background: url(../img/plus-minus.png) no-repeat top left;
       width: 16px;
       height: 16px;
@@ -38,7 +38,7 @@
       right: 35px;
       text-decoration: none;
     }
-    a.pr-remove-item {
+    a.pr-list-remove-item {
       background: url(../img/plus-minus.png) no-repeat top right;
       width: 16px;
       height: 16px;
