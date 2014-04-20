@@ -492,13 +492,16 @@ function _ptb_is_method ($method = '') {
  * Get the url to 'post-new.php' with query string of the page type to load.
  *
  * @param string $page_type
+ * @param string $post_type
+ * @param bool $append_admin_url Default true
  * @since 1.0
  *
  * @return string
  */
 
-function _ptb_get_page_new_url ($page_type, $post_type) {
-  return get_admin_url() . 'post-new.php?post_type=' . $post_type . '&page_type=' . $page_type;
+function _ptb_get_page_new_url ($page_type, $post_type, $append_admin_url = true) {
+  $admin_url = $append_admin_url ? get_admin_url () : '';
+  return $admin_url . 'post-new.php?post_type=' . $post_type . '&page_type=' . $page_type;
 }
 
 /**
@@ -669,4 +672,16 @@ function _ptb_get_class_name ($file) {
   }
 
   return $class_name;
+}
+
+/**
+ * Get Page Type Builder settings.
+ *
+ * @since 1.0
+ *
+ * @return array
+ */
+
+function _ptb_get_settings () {
+  return page_type_builder()->core->get_settings();
 }

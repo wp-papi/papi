@@ -3,6 +3,14 @@
   $post_type = _ptb_get_wp_post_type();
   $post_type_obj = get_post_type_object($post_type);
   $name = $post_type_obj->labels->singular_name;
+
+  $settings = _ptb_get_settings();
+
+  // Check if we should show standard page or not.
+  $show_standard_page = true;
+  if (isset($settings[$post_type]) && isset($settings[$post_type]['show_standard_page'])) {
+    $show_standard_page = $settings[$post_type]['show_standard_page'];
+  }
 ?>
 
 <div id="wrap">
@@ -17,10 +25,12 @@
       </li>
     <?php endforeach; ?>
 
+    <?php if ($show_standard_page): ?>
     <li>
       <a href="post-new.php?post_type=page"><?php _e('Standard Page', 'ptb'); ?></a>
       <p><?php _e('Just the normal WordPress page', 'ptb'); ?></p>
     </li>
+    <?php endif; ?>
   </ul>
 </div>
 

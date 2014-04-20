@@ -25,6 +25,15 @@
 
     });
 
+    // Fixing so "Add new page" get selected if it isn't.
+    var href = typeof window.location === 'string' ? window.location : window.location.href
+      , $adminmenu = $('#adminmenu');
+
+    if (!$adminmenu.find('li.current > a.current').length) {
+      href = href.substr(href.lastIndexOf('/') + 1);
+      $('a[href="' + href + '"]', $adminmenu).addClass('current').parent().addClass('current');
+    }
+
   };
 
   // Add the Core object to the ptb object.

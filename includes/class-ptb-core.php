@@ -7,7 +7,17 @@ if (!defined('ABSPATH')) exit;
  * Page Type Builder Core class.
  */
 
-class PTB_Core {
+final class PTB_Core {
+
+  /**
+   * The settings for Page Type Builder
+   * Can be overriden by the filter `ptb_settings`.
+   *
+   * @var array
+   * @since 1.0
+   */
+
+  private $settings = array();
 
   /**
    * All page types that WP PTB should be available on.
@@ -58,16 +68,28 @@ class PTB_Core {
    */
 
   public function ptb_menu () {
+    $settings = $this->get_settings();
     foreach ($this->post_types as $post_type) {
       // Remove "Add new" menu item.
       remove_submenu_page('edit.php?post_type=' . $post_type, 'post-new.php?post_type=' . $post_type);
-      // Add our custom menu item.
-      add_submenu_page('edit.php?post_type=' . $post_type,
-                       __('Add New', 'ptb'),
-                       __('Add New', 'ptb'),
-                       'manage_options',
-                       'ptb-add-new-page,' . $post_type,
-                       array($this, 'ptb_view'));
+
+      if (isset($settings[$post_type]) && isset($settings[$post_type]['only_page_type'])) {
+        $url = _ptb_get_page_new_url($settings[$post_type]['only_page_type'], $post_type, false);
+        // Add our custom menu item.
+        add_submenu_page('edit.php?post_type=' . $post_type,
+                         __('Add New', 'ptb'),
+                         __('Add New', 'ptb'),
+                         'manage_options',
+                         $url);
+      } else {
+        // Add our custom menu item.
+        add_submenu_page('edit.php?post_type=' . $post_type,
+                         __('Add New', 'ptb'),
+                         __('Add New', 'ptb'),
+                         'manage_options',
+                         'ptb-add-new-page,' . $post_type,
+                         array($this, 'ptb_view'));
+      }
     }
   }
 
@@ -79,10 +101,16 @@ class PTB_Core {
 
   public function ptb_add_new_link () {
     $screen = get_current_screen();
-    $post_type = str_replace('edit-', '', $screen->id);
+    $post_type = _ptb_get_wp_post_type();
+    $settings = $this->get_settings();
+    if (isset($settings[$post_type]) && isset($settings[$post_type]['only_page_type'])) {
+      $url = _ptb_get_page_new_url($settings[$post_type]['only_page_type'], $post_type, false);
+    } else {
+      $url = "edit.php?post_type=$post_type;&page=ptb-add-new-page,$post_type;";
+    }
     if ($screen->id == 'edit-page' || in_array($post_type, $this->post_types)) { ?>
       <script type="text/javascript">
-        jQuery('.wrap h2 .add-new-h2').attr('href', 'edit.php?post_type=<?php echo $post_type; ?>&page=ptb-add-new-page,<?php echo $post_type; ?>');
+        jQuery('.wrap h2 .add-new-h2').attr('href', '<?php echo $url; ?>');
       </script>
     <?php
     }
@@ -335,5 +363,17 @@ class PTB_Core {
         echo __('Standard Page', 'ptb');
       }
     }
+  }
+
+  /**
+   * Get Page Type Builder settings after we run apply filter on it.
+   *
+   * @since 1.0
+   *
+   * @return array
+   */
+
+  public function get_settings () {
+    return apply_filters('ptb_settings', $this->settings);
   }
 }
