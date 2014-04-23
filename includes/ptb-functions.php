@@ -230,7 +230,7 @@ function ptb_value ($post_id = null, $name = null, $default = null) {
   $page = ptb_get_page($post_id);
 
   if (is_null($page) || !$page->has_post()) {
-    return null;
+    return $default;
   }
 
   if (isset($page->$name)) {
