@@ -62,7 +62,7 @@ final class PTB_Core {
     // The action 'save_post' didn't work after
     // we change how Page Type Builder is loaded.
     if (_ptb_is_method('post')) {
-      $this->ptb_save_post();
+      $this->save_post();
     }
   }
 
@@ -163,7 +163,7 @@ final class PTB_Core {
    * @since 1.0
    */
 
-  public function ptb_save_post () {
+  public function save_post () {
     // Fetch the post id.
     if (isset($_POST['post_ID'])) {
       $post_id = $_POST['post_ID'];
