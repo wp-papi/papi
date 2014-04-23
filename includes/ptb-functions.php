@@ -236,9 +236,15 @@ function ptb_value ($post_id = null, $name = null, $default = null) {
   if (isset($page->$name)) {
     $value = $page->$name;
     if (is_array($value) && isset($value[$name])) {
-      return $value[$name];
+      $value = $value[$name];
     }
-    return $value;
+    if (is_null($value)) {
+      return $default;
+    } else {
+      return $value;
+    }
+  } else {
+    return $default;
   }
 }
 
