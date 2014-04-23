@@ -2,6 +2,8 @@
 
 Page Type Builder for WordPress allows you create page types using the existing page post type or using custom post types. No meta box, fields or so is saved in the database (this may change in the feature). The documentation this project isn't so good, but you can look at the example below and checkout the properties to get a picture of how it works. For those how have work with Page Type Builder in EPiServer you will recognize themselves. Page Type Builder for WordPress is heavily inspired by the Page Type Builder for EPiServer.
 
+Contribution are most welcome! We love it.
+
 **Note: This project and its documentation are still under active development, so use it in production on your own risk**
 
 ## Example
