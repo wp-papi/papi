@@ -224,6 +224,11 @@ EOF;
       } else {
         return $value;
       }
+    } else if (is_array($value)) {
+      foreach ($value as $k => $v) {
+         $value[$k] = $this->convert($v);
+      }
+      return $value;
     } else {
       return $value;
     }
