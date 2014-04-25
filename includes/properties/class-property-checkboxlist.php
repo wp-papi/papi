@@ -19,9 +19,14 @@ class PropertyCheckboxList extends PTB_Property {
 
   public function html () {
     $html = '';
+
+    $custom = $this->get_custom_options(array(
+      'checkboxes' => array(),
+      'selected'   => array()
+    ));
     
-    $checkboxes = isset($this->get_options()->custom->checkboxes) ? $this->get_options()->custom->checkboxes : array();
-    $selected = isset($this->get_options()->custom->selected) ? $this->get_options()->custom->selected : array();
+    $checkboxes = $custom->checkboxes;
+    $selected = $custom->selected;
     
     if (!is_null($this->get_options()->value) && !empty($this->get_options()->value)) {
       $selected = $this->get_options()->value;

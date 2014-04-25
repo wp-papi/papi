@@ -124,8 +124,9 @@ EOF;
     $property = $base->property($property);
 
     // Property name.
-    $property_name = $this->name . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->name) . '_property]';
-    $property->callback_args->html = str_replace('name="' . $property->name . '_property' . '"', 'name="' . $property_name . '"', $property->callback_args->html);
+    $property_key = _ptb_property_type_key();
+    $property_name = $this->name . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->name) . $property_key . ']';
+    $property->callback_args->html = str_replace('name="' . $property->name . $property_key . '"', 'name="' . $property_name . '"', $property->callback_args->html);
 
     // Input name.
     $input_name = $this->name . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->name) . ']';

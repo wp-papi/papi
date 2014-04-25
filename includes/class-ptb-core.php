@@ -222,11 +222,13 @@ final class PTB_Core {
     // we need to remove that and set the property type to the property
     // and make a array of the property type and the value.
     foreach ($data as $key => $value) {
-      if (strpos($key, '_property') === false) {
+      $property_key = _ptb_property_type_key();
+
+      if (strpos($key, $property_key) === false) {
         continue;
       }
 
-      $pkey = str_replace('_property', '', $key);
+      $pkey = str_replace($property_key, '', $key);
 
       // Check if value exists.
       if (isset($data[$pkey])) {

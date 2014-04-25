@@ -248,7 +248,7 @@ abstract class PTB_Property {
 
   public function hidden () {
     return PTB_Html::input('hidden', array(
-      'name' => $this->get_options()->name . '_property',
+      'name' => _ptb_property_type_key($this->get_options()->name),
       'value' => $this->get_options()->type
     ));
   }
