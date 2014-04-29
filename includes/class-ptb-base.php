@@ -340,18 +340,20 @@ class PTB_Base {
 
       foreach ($args['args'] as $box) {
         if (isset($box->html)) {
-          if (is_array($box->html)) {
-            switch ($box->html['action']) {
-              case 'wp_editor':
-                wp_editor($box->html['value'], $box->html['name'], array(
-                  'textarea_name' => $box->html['name']
-                ));
-                break;
-              default:
-                break;
-            }
-          } else {
-            echo $box->html;
+          // All properties don't support thew new array output way so let's package it the right way.
+          if (is_string($box->html)) {
+            $box->html = array(
+              array(
+                'action' => 'html',
+                'html' => $box->html
+                )
+              );
+          } else if (is_array($box->html) && isset($box->html['action'])) {
+            $box->html = array($box->html);
+          }
+
+          foreach ($box->html as $html) {
+            _ptb_render_property_html($html);
           }
         }
       }

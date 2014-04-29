@@ -691,3 +691,27 @@ function _ptb_get_class_name ($file) {
 function _ptb_get_settings () {
   return page_type_builder()->core->get_settings();
 }
+
+/**
+ * Render property html.
+ *
+ * @param array $args
+ * @since 1.0.0
+ */
+
+function _ptb_render_property_html ($args) {
+  if (!is_array($args)) {
+    return '';
+  }
+
+  switch ($args['action']) {
+    case 'html':
+      echo $args['html'];
+      break;
+    case 'wp_editor':
+      wp_editor($args['value'], $args['name'], array(
+        'textarea_name' => $args['name']
+      ));
+      break;
+  }
+}
