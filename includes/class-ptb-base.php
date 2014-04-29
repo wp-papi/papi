@@ -206,8 +206,8 @@ class PTB_Base {
 
      // Property sort order.
      if (!isset($options->sort_order)) {
-       $this->property_sort_order++;
        $options->sort_order = $this->property_sort_order;
+       $this->property_sort_order++;
      } else if (intval($options->sort_order) > $this->property_sort_order) {
        $this->property_sort_order = intval($options->sort_order);
      } else {
@@ -281,7 +281,7 @@ class PTB_Base {
     $options = (object)$options;
 
     if (!isset($options->sort_order)) {
-      $options->sort_order = 0;
+      $options->sort_order = null;
     }
 
     if (!isset($options->context)) {
@@ -303,8 +303,8 @@ class PTB_Base {
 
       // Box sort order.
       if (!isset($this->boxes[$options->title]->sort_order)) {
-        $this->box_sort_order++;
         $this->boxes[$options->title]->sort_order = $this->box_sort_order;
+        $this->box_sort_order++;
       } else if (intval($this->boxes[$options->title]->sort_order) > $this->box_sort_order) {
         $this->box_sort_order = intval($this->boxes[$options->title]->sort_order);
       } else {
