@@ -308,7 +308,7 @@ final class PTB_Core {
     if (isset($settings[$post_type]) && isset($settings[$post_type]['only_page_type'])) {
       $url = _ptb_get_page_new_url($settings[$post_type]['only_page_type'], $post_type, false);
     } else {
-      $url = "edit.php?post_type=$post_type;&page=ptb-add-new-page,$post_type;";
+      $url = "edit.php?post_type=$post_type;&page=ptb-add-new-page,$post_type";
     }
 
     // If we are in the edit-page or has the post type register we output the jQuery code that change the "Add new" link.
