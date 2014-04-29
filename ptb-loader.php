@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) exit;
  * Page Type Builder Loader class.
  */
 
-class PTB_Loader {
+final class PTB_Loader {
 
   /**
    * The instance of Page Type Builder.
