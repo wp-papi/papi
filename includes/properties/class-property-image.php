@@ -173,7 +173,7 @@ EOF;
             , $target = $this
             , $li = $this.closest('li')
             , $img = $li.find('img')
-            , remove = $img.attr('src') !== undefined && $li.find('p.pr-remove-image').length;
+            , remove = $img.attr('src') !== undefined && $li.find('p.pr-remove-image').length && e.target.tagName.toLowerCase() === 'a';
 
           if ($li.hasClass('pr-add-new')) {
             $target = $('.ptb-property-image .pr-template > li:first').clone(); 
