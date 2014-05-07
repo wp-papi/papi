@@ -170,7 +170,7 @@ final class PTB_Loader {
     $this->properties = array();
     foreach ($files as $file) {
       $class_name = _ptb_get_class_name($file);
-      if (!class_exists($class_name)) {
+      if (preg_match('/Property\w+/', $class_name) && !class_exists($class_name)) {
         require_once($file);
         $this->properties[] = $class_name;
       }

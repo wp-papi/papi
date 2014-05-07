@@ -572,9 +572,17 @@ function _ptb_get_ptb_directories ($find = '') {
   foreach ($ptb_directories as $directory) {
     $dirs = @scandir($directory);
     $dirs = array_diff($dirs, array('..', '.'));
-    foreach ($dirs as $dir) {
-      if ($dir == $find) {
-        $result[] = $directory . '/' . $dir;
+    $dirs = array_filter($dirs, function ($dir) use ($directory) {
+      return is_dir(rtrim($directory, '/') . '/' . $dir);
+    });
+
+    if (empty($dirs)) {
+      $result[] = $directory;
+    } else {
+      foreach ($dirs as $dir) {
+        if ($dir == $find) {
+          $result[] = $directory . '/' . $dir;
+        }
       }
     }
   }
