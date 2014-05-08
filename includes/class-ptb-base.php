@@ -414,14 +414,18 @@ class PTB_Base {
    */
 
   public function remove ($remove_post_type_support = array(), $post_type = 'page') {
+    // If we have a string we need an array instead.
     if (is_string($remove_post_type_support)) {
       $remove_post_type_support = array($remove_post_type_support);
     }
 
     if (!isset($this->remove_post_type_support)) {
-      $this->remove_post_type_support = array($remove_post_type_support, $post_type);
-      add_action('init', array($this, 'remove_post_type_support'), 10);
+      $this->remove_post_type_support = array();
     }
+
+    $this->remove_post_type_support = array_merge($this->remove_post_type_support, $remove_post_type_support);
+
+    add_action('init', array($this, 'remove_post_type_support'), 10);
   }
 
   /**
@@ -431,8 +435,11 @@ class PTB_Base {
    */
 
   public function remove_post_type_support () {
-    foreach ($this->remove_post_type_support[0] as $post_type_support) {
-      remove_post_type_support($this->remove_post_type_support[1], $post_type_support);
+    $post_types = $this->get_post_types();
+    foreach ($this->remove_post_type_support as $post_type_support) {
+      foreach ($post_types as $post_type) {
+        remove_post_type_support($post_type, $post_type_support);
+      }
     }
   }
 
@@ -463,5 +470,21 @@ class PTB_Base {
       'options'    => (object)$options,
       'properties' => $properties
     );
+  }
+
+  /**
+   * Get post type for the page type.
+   *
+   * @since 1.0
+   *
+   * @return array
+   */
+
+  private function get_post_types () {
+    if (isset(static::$page_type['post_types'])) {
+      return is_array(static::$page_type['post_types']) ? static::$page_type['post_types'] : array(static::$page_type['post_types']);
+    }
+
+    return array('page');
   }
 }
