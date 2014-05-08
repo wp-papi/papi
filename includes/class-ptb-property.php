@@ -185,17 +185,6 @@ abstract class PTB_Property {
     if (file_exists($path)) {
       wp_enqueue_style($file, $url);
     }
-
-    // Load custom css files.
-    $custom = _ptb_get_files_in_directory('gui', $file);
-    $start = basename(WP_CONTENT_URL);
-    $home_url = trailingslashit(home_url());
-
-    foreach ($custom as $path) {
-      $url = strstr($path, $start);
-      $url = $home_url . $url;
-      wp_enqueue_style($file, $url);
-    }
   }
 
   /**
@@ -223,17 +212,6 @@ abstract class PTB_Property {
 
     // Load js file.
     if (file_exists($path)) {
-      wp_enqueue_script($file, $url, array(), '1.0.0', true);
-    }
-
-    // Load custom js files.
-    $custom = _ptb_get_files_in_directory('gui', $file);
-    $start = basename(WP_CONTENT_URL);
-    $home_url = trailingslashit(home_url());
-
-    foreach ($custom as $path) {
-      $url = strstr($path, $start);
-      $url = $home_url . $url;
       wp_enqueue_script($file, $url, array(), '1.0.0', true);
     }
   }

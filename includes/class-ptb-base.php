@@ -80,55 +80,25 @@ class PTB_Base {
    */
 
   private function setup_after_actions () {
-    add_action('admin_head', array($this, 'autocss'));
-    add_action('admin_footer', array($this, 'autojs'));
+    add_action('admin_head', array($this, 'css'));
+    add_action('admin_footer', array($this, 'js'));
   }
 
   /**
-   * Load custom css file for page type.
+   * Output custom css for page type.
    *
    * @since 1.0
    */
 
-  public function autocss () {
-    $name = get_class($this);
-    $name = strtolower($name);
-    $name = _ptb_dashify($name);
-    $file = $name . '.css';
-
-    $custom = _ptb_get_files_in_directory('gui', $file);
-    $start = basename(WP_CONTENT_URL);
-    $home_url = trailingslashit(home_url());
-
-    foreach ($custom as $path) {
-      $url = strstr($path, $start);
-      $url = $home_url . $url;
-      wp_enqueue_style($file, $url);
-    }
-  }
+  public function css () {}
 
   /**
-   * Load custom js file for page type.
+   * Output custom js for page type.
    *
    * @since 1.0
    */
 
-  public function autojs () {
-    $name = get_class($this);
-    $name = strtolower($name);
-    $name = _ptb_dashify($name);
-    $file = $name . '.js';
-
-    $custom = _ptb_get_files_in_directory('gui', $file);
-    $start = basename(WP_CONTENT_URL);
-    $home_url = trailingslashit(home_url());
-
-    foreach ($custom as $path) {
-      $url = strstr($path, $start);
-      $url = $home_url . $url;
-      wp_enqueue_script($file, $url, array(), '1.0.0', true);
-    }
-  }
+  public function js () {}
 
   /**
    * Add new property to the page.
