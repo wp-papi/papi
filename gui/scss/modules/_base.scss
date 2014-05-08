@@ -55,14 +55,16 @@
   margin-left: -10px;
 
   a {
-    height: 90px;
+    height: auto;
     width: 150px;
     text-align: center;
     background: #fff;
     border: 1px #ddd solid;
     padding-top: 60px;
+    padding-bottom: 65px;
     display: list-item;
     cursor: pointer;
+    z-index: 10;
   }
 
   li {
@@ -74,10 +76,11 @@
     }
 
     p {
-      margin-top: -65px;
+      margin-top: -60px;
       margin-left: 5px;
       width: 145px;
       text-align: center;
+      cursor: pointer;
     }
   }
 }

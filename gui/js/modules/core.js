@@ -11,7 +11,12 @@
   // Core binds.
   Core.binds = function () {
 
-    // Add new page search field.
+    // Make p tag clickable.
+    $('.ptb-box-list > li > p').on('click', function () {
+      window.location = $(this).prev().attr('href');
+    });
+
+    // Add new page - search field.
     $('input[name=add-new-page-search]').on('keyup', function () {
 
       var $this = $(this)
@@ -26,14 +31,14 @@
     });
 
     // Fixing so "Add new page" get selected if it isn't.
-		(function () {
-    	var href = typeof window.location === 'string' ? window.location : window.location.href
-      	, $adminmenu = $('#adminmenu');
+    (function () {
+      var href = typeof window.location === 'string' ? window.location : window.location.href
+        , $adminmenu = $('#adminmenu');
 
-    	if (!$adminmenu.find('li.current > a.current').length) {
-      	href = href.substr(href.lastIndexOf('/') + 1);
-      	$('a[href="' + href + '"]', $adminmenu).addClass('current').parent().addClass('current');
-    	}
+      if (!$adminmenu.find('li.current > a.current').length) {
+        href = href.substr(href.lastIndexOf('/') + 1);
+        $('a[href="' + href + '"', $adminmenu).addClass('current').parent().addClass('current');
+      }
 		})();
 
   };
