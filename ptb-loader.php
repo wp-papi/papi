@@ -123,8 +123,10 @@ final class PTB_Loader {
     load_plugin_textdomain('ptb', false, basename(dirname(__FILE__)) . '/languages');
 
     // Load Page Type Builder.
+    require_once($this->plugin_dir . 'includes/ptb-utilities-functions.php');
+    require_once($this->plugin_dir . 'includes/ptb-core-functions.php');
+    // Remove this file after it's moved to smaller functions files.
     require_once($this->plugin_dir . 'includes/ptb-functions.php');
-    require_once($this->plugin_dir . 'includes/ptb-actions.php');
     require_once($this->plugin_dir . 'includes/class-ptb-exception.php');
     require_once($this->plugin_dir . 'includes/class-ptb-html.php');
     require_once($this->plugin_dir . 'includes/class-ptb-core.php');
