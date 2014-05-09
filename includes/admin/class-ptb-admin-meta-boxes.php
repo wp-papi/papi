@@ -137,7 +137,15 @@ class PTB_Admin_Meta_Boxes {
       if (method_exists($property, 'before_save')) {
         $data[$key]['value'] = $property->before_save($data[$key]['value']);
       }
+
+      // Apply a filter so this can be changed from the theme also.
+      $data[$key] = apply_filters('ptb_property_before_save', $data[$key]);
     }
+
+    // Check so all properties has a value and a type key and that the property is a array.
+    $data = array_filter($data, function ($property) {
+      return is_array($property) && isset($property['value']) && isset($property['type']);
+    });
 
     return $data;
   }
@@ -207,41 +215,48 @@ class PTB_Admin_Meta_Boxes {
       $property_type_key = _ptb_property_type_key($key); // has to remove '_' + key also.
       $property_type_value = $data['type'];
 
+      // Get the existing value if we have any.
       $meta_value = get_post_meta($post_id, $property_key, true);
 
       if (is_null($meta_value)) {
-        // Add the property data.
-        add_post_meta($post_id, $property_key, $property_value, true);
+        // Add the property data if we have any.
+        if (!is_null($property_value)) {
+          add_post_meta($post_id, $property_key, $property_value, true);
+        }
 
-        // Add the property data type.
-        add_post_meta($post_id, $property_type_key, $property_type_value, true);
+        // Add the property data type if we have any.
+        if (!is_null($property_type_value)) {
+          add_post_meta($post_id, $property_type_key, $property_type_value, true);
+        }
+
+        // Add page template if we have any.
+        if (!is_null($page_template)) {
+          add_post_meta($post_id, '_wp_page_template', $page_template, true);
+        }
       } else if (!is_null($meta_value) && !is_null($property_value)) {
+        // Update the property data.
         update_post_meta($post_id, $property_key, $property_value);
-        update_post_meta($post_id, $property_type_key, $property_type_value);
+
+        // Update the property type data if we have any.
+        if (!is_null($property_type_value)) {
+          update_post_meta($post_id, $property_type_key, $property_type_value);
+        }
+
+        // Update page template if we have any.
+        if (!is_null($page_template)) {
+          update_post_meta($post_id, '_wp_page_template', $page_template);
+        }
       } else {
-        delete_post_meta($post_id, $property_key, $property_value);
-        delete_post_meta($post_id, $property_type_key, $property_type_value);
+        // Delete property.
+        delete_post_meta($post_id, $property_key);
+
+        // Delete property type.
+        delete_post_meta($post_id, $property_type_key);
+
+        // Delete page template.
+        delete_post_meta($post_id, '_wp_page_template');
       }
-
-      // add '_wp_page_template' also.
     }
 
-    /*
-
-    array(
-      'x' => array(
-        'type'  => 'PropertyString',
-        'value' => 'En rubrik'
-      )
-    )
-
-    */
-
-  }
-
-  public function save_page_template ($action = 'add', $value = '') {
-    switch ($action) {
-      case 'add':
-    }
   }
 }
