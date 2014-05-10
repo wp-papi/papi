@@ -94,3 +94,20 @@ function _ptb_render_property_html ($args) {
       break;
   }
 }
+
+/**
+ * Get property class by the type.
+ *
+ * @param string $type
+ * @since 1.0.0
+ *
+ * @return object|null
+ */
+
+function _ptb_get_property ($type) {
+  if (is_null($type) || empty($type)) {
+    return null;
+  }
+
+  return PTB_Property::factory($type);
+}

@@ -61,9 +61,11 @@ class PTB_Page_Types {
    */
 
   private function get_page_type_meta ($file) {
-    $class_name = get_ptb_class_name($file);
+    $class_name = _ptb_get_class_name($file);
     $page_type = 'page_type';
+
     require_once($file);
+
     return (object)array(
       'file_name' => ptb_remove_ptb(basename($file, '.php')),
       'meta' => (object)$class_name::$page_type

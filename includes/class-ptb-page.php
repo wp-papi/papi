@@ -188,9 +188,11 @@ class PTB_Page {
 
         return $property_type->convert($property['value']);
       }
+
       if (isset($property['value'])) {
         return $property['value'];
       }
+
       return $property;
     }
     return $property;
