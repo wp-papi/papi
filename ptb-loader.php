@@ -125,11 +125,10 @@ final class PTB_Loader {
     // Load Page Type Builder.
     require_once($this->plugin_dir . 'includes/ptb-utilities-functions.php');
     require_once($this->plugin_dir . 'includes/ptb-core-functions.php');
-    // Remove this file after it's moved to smaller functions files.
-    require_once($this->plugin_dir . 'includes/ptb-functions.php');
-    require_once($this->plugin_dir . 'includes/class-ptb-exception.php');
-    require_once($this->plugin_dir . 'includes/class-ptb-html.php');
-    require_once($this->plugin_dir . 'includes/class-ptb-core.php');
+    require_once($this->plugin_dir . 'includes/ptb-page-functions.php');
+    require_once($this->plugin_dir . 'includes/ptb-property-functions.php');
+    require_once($this->plugin_dir . 'includes/ptb-io-functions.php');
+    require_once($this->plugin_dir . 'includes/class-ptb-core-new.php');
     require_once($this->plugin_dir . 'includes/class-ptb-view.php');
     require_once($this->plugin_dir . 'includes/class-ptb-page-type.php');
     require_once($this->plugin_dir . 'includes/class-ptb-page.php');
@@ -201,7 +200,7 @@ final class PTB_Loader {
    */
 
   private function setup_requried () {
-    $this->core = new PTB_Core;
+    $this->core = PTB_Core::instance();
   }
 
   /**
@@ -254,6 +253,7 @@ function page_type_builder () {
 function ptb_after_theme_setup () {
   // Let's make it global too!
   $_GLOBALS['ptb'] = &page_type_builder();
+
 }
 
 add_action('after_setup_theme', 'ptb_after_theme_setup');

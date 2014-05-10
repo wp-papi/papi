@@ -4,5 +4,4 @@
  * Page Type Builder Exception class.
  */
 
-class PTB_Exception extends Exception {
-}
+class PTB_Exception extends Exception {}

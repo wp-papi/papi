@@ -4,7 +4,7 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Meta Boxes.
+ * Page Type Builder Admin Meta Boxes.
  *
  * @package PageTypeBuilder
  * @version 1.0.0
@@ -41,6 +41,30 @@ class PTB_Admin_Meta_Boxes {
   }
 
   /**
+   * Sanitize data before saving it.
+   *
+   * @param mixed $value
+   * @since 1.0.0
+   *
+   * @return mixed
+   */
+
+  private function santize_data ($value) {
+    if (is_array($value)) {
+      foreach ($value as $k => $v) {
+        if (is_string($v)) {
+          $value[$k] = $this->santize_data($v);
+        }
+      }
+    } else if (is_string($value)) {
+      $value = sanitize_text_field($value);
+      $value = remove_trailing_quotes($value);
+    }
+
+    return $value;
+  }
+
+  /**
    * Get properties data from the post object.
    *
    * @since 1.0.0
@@ -63,13 +87,16 @@ class PTB_Admin_Meta_Boxes {
       if ($_POST[$key] === 'on') {
         $data[$key] = true;
       } else {
-        // Sanitize the text.
-        $data[$key] = sanitize_text_field($_POST[$key]);
-
-        // Remove trailing quotes.
-        $data[$key] = remove_trailing_quotes($data[$key]);
+        $data[$key] = $this->santize_data($_POST[$key]);
       }
     }
+
+    // Don't wont to save meta nonce field.
+    if (isset($data['ptb_meta_nonce'])) {
+      unset($data['ptb_meta_nonce']);
+    }
+
+    return $data;
   }
 
   /**
@@ -86,7 +113,7 @@ class PTB_Admin_Meta_Boxes {
     // we need to remove that and set the property type to the property
     // and make a array of the property type and the value.
     foreach ($data as $key => $value) {
-      $property_type_key = _ptb_property_type_key();
+      $property_type_key = _ptb_property_type_key();
 
       if (strpos($key, $property_type_key) === false) {
         continue;
@@ -112,7 +139,7 @@ class PTB_Admin_Meta_Boxes {
       }
     }
 
-    //
+    // Properties holder.
     $properties = array();
 
     // Run `before_save` on a property class if it exists.
@@ -165,16 +192,42 @@ class PTB_Admin_Meta_Boxes {
   }
 
   /**
+   * Get page type from the post data.
+   *
+   * @param array $data
+   * @since 1.0.0
+   *
+   * @return string
+   */
+
+  private function get_page_type (array $data = array()) {
+    return h($data['ptb_page_type'], '');
+  }
+
+  /**
    * Save meta boxes.
    *
-   * @param int $post_id
-   * @param object $post
    * @since 1.0.0
    */
 
-  public function save_meta_boxes ($post_id, $post) {
+  public function save_meta_boxes () {
+echo'<pre>';
+    var_dump($_POST);
+
+    // Fetch the post id.
+    if (isset($_POST['post_ID'])) {
+      $post_id = $_POST['post_ID'];
+    }
+
+    // Can't proceed without a post id.
+    if (!isset($post_id) || empty($post_id)) {
+      return;
+    } else {
+      $post = get_post($post_id);
+    }
+
     // Can't proceed without a post id or a post.
-    if (empty($post_id) || empty($post)) {
+    if (!isset($post) || empty($post)) {
       return;
     }
 
@@ -189,7 +242,7 @@ class PTB_Admin_Meta_Boxes {
     }
 
     // Check the post being saved has the same id as the post id. This will prevent other save post events.
-    if (empty($_POST['post_id']) || $_POST['post_id'] != $post_id) {
+    if (empty($_POST['post_ID']) || $_POST['post_ID'] != $post_id) {
       return;
     }
 
@@ -208,12 +261,19 @@ class PTB_Admin_Meta_Boxes {
     foreach ($data as $key => $property) {
 
       // Property data.
-      $property_key = _ptb_property_key($key); // a function that will return '_' + key
-      $property_value = $data['value'];
+      $property_key = _ptb_property_key($key);
+      $property_value = $property['value'];
 
       // Property type data.
-      $property_type_key = _ptb_property_type_key($key); // has to remove '_' + key also.
-      $property_type_value = $data['type'];
+      $property_type_key = _ptb_property_type_key(_f($key)); // has to remove '_' + key also.
+      $property_type_value = $property['type'];
+
+      // Get the page template.
+      $page_template = $this->get_page_template($_POST);
+
+      // Get the page type.
+      $page_type = $this->get_page_type($_POST);
+      $page_type_key = _ptb_get_page_type_meta_key();
 
       // Get the existing value if we have any.
       $meta_value = get_post_meta($post_id, $property_key, true);
@@ -233,6 +293,11 @@ class PTB_Admin_Meta_Boxes {
         if (!is_null($page_template)) {
           add_post_meta($post_id, '_wp_page_template', $page_template, true);
         }
+
+        // Add page type if we have any.
+        if (!is_null($page_type)) {
+          add_post_meta($post_id, $page_type_key, $page_type, true);
+        }
       } else if (!is_null($meta_value) && !is_null($property_value)) {
         // Update the property data.
         update_post_meta($post_id, $property_key, $property_value);
@@ -246,6 +311,11 @@ class PTB_Admin_Meta_Boxes {
         if (!is_null($page_template)) {
           update_post_meta($post_id, '_wp_page_template', $page_template);
         }
+
+        // Update page type if we have any.
+        if (!is_null($page_type)) {
+          update_post_meta($post_id, $page_type_key, $page_type);
+        }
       } else {
         // Delete property.
         delete_post_meta($post_id, $property_key);
@@ -255,6 +325,9 @@ class PTB_Admin_Meta_Boxes {
 
         // Delete page template.
         delete_post_meta($post_id, '_wp_page_template');
+
+        // Delete page type.
+        delete_post_meta($post_id, $page_type_key);
       }
     }
 

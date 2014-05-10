@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) exit;
  * Page Type Builder Core class.
  */
 
-final class PTB_Core {
+final class PTB_Core2 {
 
   /**
    * The settings for Page Type Builder

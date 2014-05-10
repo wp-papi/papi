@@ -109,6 +109,54 @@ class PTB_Page {
     // access
   }
 
+  public function get_value ($key) {
+    $property_key = _ptb_property_key($key);
+    $property_value = get_post_meta($this->id, $property_key, true);
+
+    if (is_null($property_value)) {
+      return null;
+    }
+
+    $property_type_key = _ptb_property_type_key($key);
+    $property_type_value = get_post_meta($this->id, $property_type_key, true);
+
+    if (is_null($property_type_value)) {
+      return null;
+    }
+
+    // The convert takes a array as argument so let's make one.
+    if (!is_array($property_value)) {
+      return $this->convert(array(
+        'type'  => $property_type_value,
+        'value' => $property_value
+      ));
+    }
+
+    foreach ($property_value as $ki => $vi) {
+      if (is_array($property_value[$ki])) {
+        foreach ($property_value[$ki] as $k => $v) {
+          if (_ptb_is_property_type_key($k)) {
+            unset($property_value[$ki][$k]);
+          } else {
+            $kn = _ptb_remove_ptb($k);
+            $property_value[$ki][$kn] = $v;
+            unset($property_value[$ki][$k]);
+          }
+        }
+      } else if (is_string($ki)) {
+        if (_ptb_is_property_type_key($ki)) {
+          unset($property_value[$k]);
+        } else {
+          $kin = _ptb_remove_ptb($ki);
+          $property_value[$kin] = $vi;
+          unset($property_value[$ki]);
+        }
+      }
+    }
+
+    return $property_value;
+  }
+
   /**
    * Setup meta variables.
    *
@@ -131,29 +179,7 @@ class PTB_Page {
 
       // Property List has array with properties.
       // Remove `ptb_` key and property key.
-      if (is_array($value)) {
-        foreach ($value as $ki => $vi) {
-          if (is_array($value[$ki])) {
-            foreach ($value[$ki] as $k => $v) {
-              if (_ptb_is_property_key($k)) {
-                unset($value[$ki][$k]);
-              } else {
-                $kn = _ptb_remove_ptb($k);
-                $value[$ki][$kn] = $v;
-                unset($value[$ki][$k]);
-              }
-            }
-          } else if (is_string($ki)) {
-            if (_ptb_is_property_key($ki)) {
-              unset($value[$k]);
-            } else {
-              $kin = _ptb_remove_ptb($ki);
-              $value[$kin] = $vi;
-              unset($value[$ki]);
-            }
-          }
-        }
-      }
+
 
       // Remove `_ptb` key
       $key = _ptb_remove_ptb($key);
