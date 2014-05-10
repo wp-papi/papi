@@ -128,7 +128,7 @@ final class PTB_Loader {
     require_once($this->plugin_dir . 'includes/ptb-page-functions.php');
     require_once($this->plugin_dir . 'includes/ptb-property-functions.php');
     require_once($this->plugin_dir . 'includes/ptb-io-functions.php');
-    require_once($this->plugin_dir . 'includes/class-ptb-core-new.php');
+    require_once($this->plugin_dir . 'includes/class-ptb-core.php');
     require_once($this->plugin_dir . 'includes/class-ptb-view.php');
     require_once($this->plugin_dir . 'includes/class-ptb-page-type.php');
     require_once($this->plugin_dir . 'includes/class-ptb-page.php');
