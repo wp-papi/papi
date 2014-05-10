@@ -132,23 +132,33 @@ class PTB_Page {
       ));
     }
 
+    // Property List has array with properties.
+    // Remove `ptb_` key and property key.
     foreach ($property_value as $ki => $vi) {
       if (is_array($property_value[$ki])) {
         foreach ($property_value[$ki] as $k => $v) {
           if (_ptb_is_property_type_key($k)) {
             unset($property_value[$ki][$k]);
           } else {
+            $ptk = _ptb_property_type_key($k);
             $kn = _ptb_remove_ptb($k);
-            $property_value[$ki][$kn] = $v;
+            $property_value[$ki][$kn] = $this->convert(array(
+              'type' => $property_value[$ki][$ptk],
+              'value' => $v
+            ));
             unset($property_value[$ki][$k]);
           }
         }
       } else if (is_string($ki)) {
         if (_ptb_is_property_type_key($ki)) {
-          unset($property_value[$k]);
+          unset($property_value[$ki]);
         } else {
+          $ptk = _ptb_property_type_key($ki);
           $kin = _ptb_remove_ptb($ki);
-          $property_value[$kin] = $vi;
+          $property_value[$kin] = $this->convert(array(
+            'type' => $property_value[$ki][$ptk],
+            'value' => $vi
+          ));
           unset($property_value[$ki]);
         }
       }

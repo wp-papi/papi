@@ -19,14 +19,15 @@ class PropertyDate extends PTB_Property {
 
   public function html () {
     $value = !empty($this->get_options()->value) ? $this->get_options()->value : '';
-    
+
     if (is_string($value)) {
       $value = $this->convert($value);
-      if ($value instanceof DateTime) {
-        $value = $value->format('Y-m-d');
-      }
     }
-    
+
+    if ($value instanceof DateTime) {
+      $value = $value->format('Y-m-d');
+    }
+
     return PTB_Html::input('text', array(
       'name' => $this->get_options()->name,
       'id' => $this->get_options()->name,
@@ -35,7 +36,7 @@ class PropertyDate extends PTB_Property {
       'data-ptb-property' => 'date'
     ));
   }
-  
+
   /**
    * Convert the value of the property before we output it to the application.
    *
@@ -44,20 +45,20 @@ class PropertyDate extends PTB_Property {
    *
    * @return array|string
    */
-  
+
   public function convert ($value) {
     if (preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $value)) {
       return new DateTime($value);
     }
     return $value;
   }
-  
+
   /**
    * Output custom JavaScript for the property.
    *
    * @since 1.0
    */
-  
+
   public function js () {
     $files = array('moment.min.js', 'pikaday.min.js', 'pikaday.jquery.min.js');
     foreach ($files as $file) {
