@@ -7,15 +7,6 @@
 class PTB_Page {
 
   /**
-   * All Page Type Builder meta that exists on the page.
-   *
-   * @var array
-   * @since 1.0
-   */
-
-  private $meta;
-
-  /**
    * The WordPress post.
    *
    * @var object
@@ -42,7 +33,6 @@ class PTB_Page {
   public function __construct ($post_id = 0) {
     $this->id = $post_id;
     $this->setup_post();
-    $this->setup_meta();
     $this->setup_page();
   }
 
@@ -54,12 +44,12 @@ class PTB_Page {
 
   private function setup_page () {
     // Can't proceed if we haven't a post object.
-    if (!$this->has_post() || !is_array($this->meta)) {
+    if (!$this->has_post()) {
       return;
     }
 
     // The path to the page type file.
-    $path = _ptb_get_page_type_file($this->meta['ptb_page_type']);
+    $path = _ptb_get_page_type_file(_ptb_get_page_type_meta_value($this->id));
 
     // The page type object.
     $this->page_type = new PTB_Page_Type($path);
@@ -108,6 +98,15 @@ class PTB_Page {
     // current page url
     // access
   }
+
+  /**
+   * Get Page Type Builder Property value.
+   *
+   * @param string $key
+   * @since 1.0.0
+   *
+   * @return mixed
+   */
 
   public function get_value ($key) {
     $property_key = _ptb_property_key($key);
@@ -168,40 +167,6 @@ class PTB_Page {
   }
 
   /**
-   * Setup meta variables.
-   *
-   * @since 1.0
-   */
-
-  private function setup_meta () {
-    $this->meta = get_post_meta($this->id, PTB_META_KEY, true);
-
-    // Meta should be an array.
-    if (!is_array($this->meta)) {
-      return;
-    }
-
-    foreach ($this->meta as $key => $value) {
-      // Convert value for output.
-      if (is_array($value)) {
-        $value = $this->convert($value);
-      }
-
-      // Property List has array with properties.
-      // Remove `ptb_` key and property key.
-
-
-      // Remove `_ptb` key
-      $key = _ptb_remove_ptb($key);
-
-      // Add it to page object.
-      if (!isset($this->$key)) {
-        $this->$key = $value;
-      }
-    }
-  }
-
-  /**
    * Convert property value with the property type converter.
    *
    * @param array $property
@@ -253,18 +218,6 @@ class PTB_Page {
 
   public function get_post () {
     return $this->post;
-  }
-
-  /**
-   * Get the Page Type Builder meta array as object.
-   *
-   * @since 1.0
-   *
-   * @return object
-   */
-
-  public function get_meta ($array = true) {
-    return $array ? $this->meta : (object)$this->meta;
   }
 
   /**
