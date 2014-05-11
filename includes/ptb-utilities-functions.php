@@ -128,7 +128,7 @@ function _ptb_dashify ($str) {
  */
 
 function _ptbify ($str) {
-  if (!preg_match('/^ptb\_/', $str) && !_ptb_is_random_title($str)) {
+  if (!preg_match('/^\_\_ptb|^\_ptb|^ptb\_/', $str) && !_ptb_is_random_title($str)) {
     return  'ptb_' . $str;
   }
 
@@ -158,7 +158,11 @@ function _ptb_remove_ptb ($str) {
  */
 
 function _ptb_name ($name) {
-  return _ptb_underscorify(_ptb_slugify(_ptbify($name)));
+  if (!preg_match('/^\_\_ptb|^\_ptb/', $name)) {
+    return _ptb_underscorify(_ptb_slugify(_ptbify($name)));
+  }
+
+  return $name;
 }
 
 /**

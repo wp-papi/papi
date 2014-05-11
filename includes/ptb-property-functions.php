@@ -80,7 +80,7 @@ function _ptb_get_only_property_values ($a = array()) {
 
 function _ptb_render_property_html ($args) {
   if (!is_array($args)) {
-    return '';
+    return;
   }
 
   switch ($args['action']) {

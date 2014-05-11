@@ -10,6 +10,15 @@ if (!defined('ABSPATH')) exit;
 class PTB_Base {
 
   /**
+   * Properties.
+   *
+   * @var array
+   * @since 1.0.0
+   */
+
+  private $properties = array();
+
+  /**
    * Property sort order number. Starts a zero.
    *
    * @var int
@@ -111,7 +120,7 @@ class PTB_Base {
      if (is_array($options)) {
        $options = (object)$options;
      } else {
-      $options = $options;
+       $options = $options;
      }
 
      $options = $this->setup_property($options);
@@ -189,6 +198,12 @@ class PTB_Base {
      // Only set the vaue if we don't have value.
      if (!isset($options->value)) {
        $options->value = ptb_value($options->name);
+     }
+
+     $property_key = _ptb_property_key($options->name);
+
+     if (!isset($this->properties[$property_key]) && !isset($options->is_list)) {
+       $this->properties[$property_key] = $options->type;
      }
 
      // Get the property
@@ -486,5 +501,17 @@ class PTB_Base {
     }
 
     return array('page');
+  }
+
+  /**
+   * Get properties array.
+   *
+   * @since 1.0.0
+   *
+   * @return array
+   */
+
+  public function get_properties () {
+    return $this->properties;
   }
 }

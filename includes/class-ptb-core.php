@@ -52,13 +52,7 @@ final class PTB_Core {
    * @since 1.0.0
    */
 
-  public function __construct () {
-    if (function_exists('__autoload')) {
-      spl_autoload_register('__autoload');
-    }
-
-    spl_autoload_register(array($this, 'autoload'));
-  }
+  public function __construct () {}
 
   /**
    * Setup globals.
@@ -100,28 +94,5 @@ final class PTB_Core {
 
   public function get_settings () {
     return $this->settings;
-  }
-
-  /**
-   * Auto load Page Type Builder classes on demand.
-   *
-   * @param mixed $class
-   */
-
-  public function autoload ($class) {
-    $path = null;
-    $class = strtolower($class);
-    $file = 'class-' . str_replace( '_', '-', $class ) . '.php';
-
-    if (strpos($class, 'ptb_admin') === 0) {
-      $path = PTB_PLUGIN_DIR . 'includes/admin/';
-    } else if (strpos($class, 'ptb') === 0) {
-      $path = PTB_PLUGIN_DIR . 'includes/';
-    }
-
-    if (!is_null($path) && is_readable($path . $file)) {
-      require_once($path . $file);
-      return;
-    }
   }
 }
