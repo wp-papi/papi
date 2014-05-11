@@ -88,23 +88,24 @@ function _ptb_is_page_type_allowed ($post_type) {
  */
 
 function _ptb_get_all_page_types () {
+  // Get all page types files.
   $files = _ptb_get_files_in_directory('page-types');
+
+  // Get the right WordPress post type.
   $post_type = _ptb_get_wp_post_type();
-  $res = array();
+
+  $page_types = array();
 
   foreach ($files as $file) {
     $p = new PTB_Page_Type($file);
 
-    if (!isset($p->post_types) || !is_array($p->post_types)) {
-      $p->post_types = array('page');
-    }
-
+    // Add the page type if the post types is allowed.
     if (in_array($post_type, $p->post_types)) {
-      $res[] = $p;
+      $page_types[] = $p;
     }
   }
 
-  return $res;
+  return $page_types;
 }
 
 /**
@@ -132,6 +133,7 @@ function _ptb_get_page_type_file ($page_type) {
 function _ptb_get_page_type ($file_path) {
  $page_type = new PTB_Page_Type($file_path);
 
+ // If the page type don't have a name we can't use it.
  if (!$page_type->has_name()) {
    return null;
  }
@@ -167,18 +169,17 @@ function _ptb_get_template ($post_id) {
  */
 
 function _ptb_get_file_data ($post_id) {
-  if (is_null($post_id) || is_numeric($post_id)) {
-    $post_id = _ptb_get_post_id($post_id);
-    $page_type = _ptb_get_page_type_meta_value($post_id);
-  } else {
-    $page_type = $post_id;
-  }
+  $post_id = _ptb_get_post_id($post_id);
+  $page_type = _ptb_get_page_type_meta_value($post_id);
+
+  // Check so the page type isn't null or empty before we
+  // trying to get the page type data.
   if (!is_null($page_type) && !empty($page_type)) {
     $file = _ptb_get_page_type_file($page_type);
     return _ptb_get_page_type($file);
-  } else {
-    return null;
   }
+
+  return null;
 }
 
 /**

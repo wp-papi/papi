@@ -14,35 +14,45 @@ if (!defined('ABSPATH')) exit;
  * Get post or page id from a object.
  *
  * @param object $post_id
- * @since 1.0
+ * @since 1.0.0
  *
  * @return int
  */
 
 function _ptb_get_post_id ($post_id = null) {
+  // If it's a post object we can return the id from it.
   if (is_object($post_id)) {
     return $post_id->ID;
   }
 
+  // If it's not null and it's a numeric string we can convert it to int and return it.
+  if (!is_null($post_id) && is_numeric($post_id) && is_string($post_id)) {
+    return intval($post_id);
+  }
+
+  // If `get_post` function is available and post id is null we can return the post id.
   if (is_null($post_id) && get_post()) {
     return get_the_ID();
   }
 
+  // If the post id is null and post query string is available we can return it as post id.
   if (is_null($post_id) && isset($_GET['post'])) {
     return intval($_GET['post']);
   }
 
+  // If the post id is null and page id query string is available we can return it as post id.
   if (is_null($post_id) && isset($_GET['page_id'])) {
     return intval($_GET['page_id']);
   }
 
+  // Or return null or the given value of post id.
   return $post_id;
 }
 
 /**
  * Generate random title for property.
  *
- * @since 1.0
+ * @since 1.0.0
  *
  * @return string
  */
@@ -55,7 +65,7 @@ function _ptb_random_title () {
  * Check if it's a random ptb title string.
  *
  * @param string $str
- * @since 1.0
+ * @since 1.0.0
  *
  * @return bool
  */
@@ -108,7 +118,7 @@ function _ptb_get_post_types () {
 /**
  * Get WordPress post type in various ways
  *
- * @since 1.0
+ * @since 1.0.0
  *
  * @return string
  */
