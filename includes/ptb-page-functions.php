@@ -79,39 +79,6 @@ function _ptb_is_page_type_allowed ($post_type) {
 }
 
 /**
- * Get the page.
- *
- * @param int $post_id The post id.
- * @since 1.0.0
- *
- * @return PTB_Page|null
- */
-
-function ptb_get_page ($post_id = null) {
-  $post_id = _ptb_get_post_id($post_id);
-  $page = new PTB_Page($post_id);
-
-  if (!$page->has_post()) {
-    return null;
-  }
-
-  return $page;
-}
-
-/**
- * Get the current page. Like in EPiServer.
- *
- * @param int $post_id The post id.
- * @since 1.0.0
- *
- * @return PTB_Page|null
- */
-
-function current_page () {
-  return ptb_get_page();
-}
-
-/**
  * Get all page types that exists.
  *
  * @since 1.0.0
@@ -226,38 +193,80 @@ function _ptb_get_file_data ($post_id) {
  */
 
 function ptb_value ($post_id = null, $name = null, $default = null) {
+  // Check if we have a post id or not.
   if (!is_numeric($post_id) && is_string($post_id)) {
+    $default = $name;
     $name = $post_id;
     $post_id = null;
   }
 
+  // If it's a numeric value, let's convert it to int.
   if (is_numeric($post_id)) {
     $post_id = intval($post_id);
   } else {
     $post_id = _ptb_get_post_id();
   }
 
+  // Return the default value if we don't have a name.
   if (is_null($name)) {
     return $default;
   }
 
-  $name = _ptb_remove_ptb($name);
-
+  // Get the page.
   $page = ptb_get_page($post_id);
 
+  // Return the default value if we don't have a WordPress post on the page object.
   if (is_null($page) || !$page->has_post()) {
     return $default;
   }
 
-  $value = $page->get_value($name);
+  // Remove any `ptb_` stuff if it exists.
+  $name = _ptb_remove_ptb($name);
 
-  if (is_null($value)) {
+  $value = $page->$name;
+
+  // Return default value we don't have a value.
+  if (!isset($value) || is_null($value)) {
     return $default;
   }
 
+  // Check if it's a array value.
   if (is_array($value) && isset($value[$name])) {
     return $value[$name];
   } else {
     return $value;
   }
+}
+
+/**
+ * Get the page.
+ *
+ * @param int $post_id The post id.
+ * @since 1.0.0
+ *
+ * @return PTB_Page|null
+ */
+
+function ptb_get_page ($post_id = null) {
+  $post_id = _ptb_get_post_id($post_id);
+  $page = new PTB_Page($post_id);
+
+  if (!$page->has_post()) {
+    return null;
+  }
+
+  return $page;
+}
+
+/**
+ * Get the current page. Like in EPiServer.
+ *
+ * @param int $post_id The post id.
+ * @since 1.0.0
+ *
+ * @return PTB_Page|null
+ */
+
+function current_page () {
+  return ptb_get_page();
 }

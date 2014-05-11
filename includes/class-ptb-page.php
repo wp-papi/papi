@@ -108,7 +108,7 @@ class PTB_Page {
    * @return mixed
    */
 
-  public function get_value ($key) {
+  private function get_value ($key) {
     $property_key = _ptb_property_key($key);
     $property_value = get_post_meta($this->id, $property_key, true);
 
@@ -244,6 +244,19 @@ class PTB_Page {
 
   public function get_status () {
     return get_post_status($this->id);
+  }
+
+  /**
+   * Get Page Type Builder Property value.
+   *
+   * @param string $key
+   * @since 1.0.0
+   *
+   * @return mixed
+   */
+
+  public function __get ($name) {
+    return $this->get_value($name);
   }
 
 }
