@@ -197,7 +197,7 @@ class PTB_Base {
 
      // Only set the vaue if we don't have value.
      if (!isset($options->value)) {
-       $options->value = ptb_value($options->name);
+       $options->value = ptb_field($options->name);
      }
 
      $property_key = _ptb_property_key($options->name);

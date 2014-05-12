@@ -53,7 +53,7 @@ The page will store the value of `template` in `_wp_page_template` so right `pag
   echo current_page()->heading;
   
   // or
-  echo ptb_value('heading');
+  echo ptb_field('heading');
   
 ```
 

@@ -193,7 +193,7 @@ function _ptb_get_file_data ($post_id) {
  * @return mixed
  */
 
-function ptb_value ($post_id = null, $name = null, $default = null) {
+function ptb_field ($post_id = null, $name = null, $default = null) {
   // Check if we have a post id or not.
   if (!is_numeric($post_id) && is_string($post_id)) {
     $default = $name;
@@ -237,6 +237,19 @@ function ptb_value ($post_id = null, $name = null, $default = null) {
   } else {
     return $value;
   }
+}
+
+/**
+ * Echo the property value for property on a page.
+ *
+ * @param int $post_id
+ * @param string $name
+ * @param mixed $default Default is null.
+ * @since 1.0.0
+ */
+
+function the_ptb_field ($post_id = null, $name = null, $default = null) {
+  echo ptb_field($post_id, $name, $default);
 }
 
 /**
