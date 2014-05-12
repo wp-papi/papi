@@ -20,9 +20,20 @@ class PropertyList extends PTB_Property {
   public function html () {
     $this->counter = 0;
     $this->name = $this->get_options()->name;
+
     $properties = $this->get_options()->properties;
     $values = $this->get_options()->value;
 
+    // Properties in property list should no longer be a object at start
+    // So let's generate a new property.
+    foreach ($properties as $key => $property) {
+      if (is_array($property)) {
+        $property = (object)$property;
+        $properties[$key] = $this->property($property);
+      }
+    }
+
+    // No values, no items in list.
     if (!is_array($values)) {
       $values = array();
     }
@@ -110,7 +121,7 @@ EOF;
     // This is a bit ugly to use PTB_Base again.
     // But all we need to create the property again is in there.
     // TODO: Make a new class that we can reuse here and in PTB_Base.
-    $base = new PTB_Base(false);
+    $base = new PTB_Base(false, false);
 
     // Don't make this a table row.
     // $property->table = false;

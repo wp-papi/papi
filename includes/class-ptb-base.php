@@ -5,6 +5,8 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder Base class.
+ *
+ * @todo Rewrite this class.
  */
 
 class PTB_Base {
@@ -58,10 +60,13 @@ class PTB_Base {
    * Constructor.
    *
    * @param bool $do
+   * @param bool $add_to_properties_list
    * @since 1.0
    */
 
-  public function __construct ($do = true) {
+  public function __construct ($do = true, $add_to_properties_list = true) {
+    $this->add_to_properties_list = $add_to_properties_list;
+
     if ($do) {
       $this->setup_actions();
       $this->page_type_class = get_class($this);
@@ -202,7 +207,7 @@ class PTB_Base {
 
      $property_key = _ptb_property_key($options->name);
 
-     if (!isset($this->properties[$property_key]) && !isset($options->is_list)) {
+     if (!isset($this->properties[$property_key]) && $this->add_to_properties_list) {
        $this->properties[$property_key] = $options->type;
      }
 
