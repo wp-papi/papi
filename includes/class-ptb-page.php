@@ -116,7 +116,7 @@ class PTB_Page {
       return null;
     }
 
-    $property_type_key = _ptb_property_type_key($key);
+    $property_type_key = _ptb_property_type_key($property_key);
     $property_type_value = get_post_meta($this->id, $property_type_key, true);
 
     if (is_null($property_type_value)) {

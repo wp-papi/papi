@@ -63,7 +63,6 @@ final class PTB_Core {
 
   private function setup_globals () {
     $this->admin = PTB_Admin::instance();
-    $this->settings = apply_filters('ptb_settings', $this->settings);
   }
 
   /**
@@ -93,6 +92,6 @@ final class PTB_Core {
    */
 
   public function get_settings () {
-    return $this->settings;
+    return apply_filters('ptb_settings', $this->settings);
   }
 }

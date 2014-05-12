@@ -211,9 +211,6 @@ class PTB_Admin_Meta_Boxes {
    */
 
   public function save_meta_boxes () {
-echo'<pre>';
-    var_dump($_POST);
-
     // Fetch the post id.
     if (isset($_POST['post_ID'])) {
       $post_id = $_POST['post_ID'];
@@ -246,9 +243,17 @@ echo'<pre>';
       return;
     }
 
+    // Convert post id to int if is a string.
+    if (is_string($post_id)) {
+      $post_id = intval($post_id);
+    }
+
     // Check the user's permissions.
-    if (!current_user_can('edit_post', $post_id)) {
-      return;
+    // Todo, check custom post types.
+    if (isset($_POST['post_type']) && in_array(strtolower($_POST['post_type']), array('page', 'post'))) {
+      if (!current_user_can('edit_' . strtolower($_POST['post_type']), $post_id)) {
+        return;
+      }
     }
 
     // Get properties data.
