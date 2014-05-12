@@ -98,12 +98,13 @@ final class PTB_Admin {
 
   public function admin_menu () {
     $post_types = _ptb_get_post_types();
+    $settings = _ptb_get_settings();
 
     foreach ($post_types as $post_type) {
 
       // Remove "Add new" menu item.
       remove_submenu_page('edit.php?post_type=' . $post_type, 'post-new.php?post_type=' . $post_type);
-
+      
       if (isset($settings[$post_type]) && isset($settings[$post_type]['only_page_type'])) {
         $url = _ptb_get_page_new_url($settings[$post_type]['only_page_type'], $post_type, false);
         // Add our custom menu item.
