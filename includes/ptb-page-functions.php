@@ -221,9 +221,16 @@ function ptb_field ($post_id = null, $name = null, $default = null) {
     return $default;
   }
 
-  // Remove any `ptb_` stuff if it exists.
-  $name = _ptb_remove_ptb($name);
+  // Check for "dot" notation.
+  $names = explode('.', $name);
 
+  // Remove any `ptb_` stuff if it exists.
+  $name = _ptb_remove_ptb($names[0]);
+
+  // Remove the first value of the array.
+  $names = array_slice($names, 1);
+
+  // Get the value from the page.
   $value = $page->$name;
 
   // Return default value we don't have a value.
@@ -231,12 +238,24 @@ function ptb_field ($post_id = null, $name = null, $default = null) {
     return $default;
   }
 
-  // Check if it's a array value.
-  if (is_array($value) && isset($value[$name])) {
-    return $value[$name];
-  } else {
+  // Check if it's a array value or object.
+  if (!empty($names) && (is_object($value) || is_array($value))) {
+
+    // Convert object to array.
+    if (is_object($value)) {
+      $value = (array)$value;
+    }
+
+    foreach ($names as $key) {
+      if (isset($value[$key])) {
+        $value = $value[$key];
+      }
+    }
+
     return $value;
   }
+
+  return $value;
 }
 
 /**
@@ -249,7 +268,13 @@ function ptb_field ($post_id = null, $name = null, $default = null) {
  */
 
 function the_ptb_field ($post_id = null, $name = null, $default = null) {
-  echo ptb_field($post_id, $name, $default);
+  $value = ptb_field($post_id, $name, $default);
+
+  if (is_array($value)) {
+    $value = @implode(',', $value);
+  }
+
+  echo $value;
 }
 
 /**

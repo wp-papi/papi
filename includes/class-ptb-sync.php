@@ -21,10 +21,6 @@ class PTB_Sync {
 
     // Setup page type.
     $this->setup_page_type($page_type);
-
-    $properties = $this->page_type->get_properties();
-    $meta = $this->get_all_meta_data($post_id);
-    var_dump($this->diff_properties($properties,$meta));
   }
 
   private function setup_page_type ($page_type) {
