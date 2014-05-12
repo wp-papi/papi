@@ -55,7 +55,13 @@ final class PTB_Loader {
    * @access private
    */
 
-  private function __construct () {}
+  private function __construct () {
+    if (function_exists('__autoload')) {
+      spl_autoload_register('__autoload');
+    }
+
+    spl_autoload_register(array($this, 'autoload'));
+  }
 
   /**
    * Bootstrap constants
@@ -125,16 +131,15 @@ final class PTB_Loader {
     // Load Page Type Builder.
     require_once($this->plugin_dir . 'includes/ptb-utilities-functions.php');
     require_once($this->plugin_dir . 'includes/ptb-core-functions.php');
-    // Remove this file after it's moved to smaller functions files.
-    require_once($this->plugin_dir . 'includes/ptb-functions.php');
-    require_once($this->plugin_dir . 'includes/class-ptb-exception.php');
-    require_once($this->plugin_dir . 'includes/class-ptb-html.php');
+    require_once($this->plugin_dir . 'includes/ptb-page-functions.php');
+    require_once($this->plugin_dir . 'includes/ptb-property-functions.php');
+    require_once($this->plugin_dir . 'includes/ptb-io-functions.php');
     require_once($this->plugin_dir . 'includes/class-ptb-core.php');
-    require_once($this->plugin_dir . 'includes/class-ptb-view.php');
     require_once($this->plugin_dir . 'includes/class-ptb-page-type.php');
     require_once($this->plugin_dir . 'includes/class-ptb-page.php');
     require_once($this->plugin_dir . 'includes/class-ptb-property.php');
     require_once($this->plugin_dir . 'includes/class-ptb-tab.php');
+    require_once($this->plugin_dir . 'includes/class-ptb-sync.php');
 
     // Load properties
     require_once($this->plugin_dir . 'includes/properties/class-property-string.php');
@@ -155,9 +160,6 @@ final class PTB_Loader {
 
     // Load custom properties.
     $this->require_custom_properties();
-
-    // Load Page Type Builder base file.
-    require_once($this->plugin_dir . 'includes/class-ptb-base.php');
   }
 
   /**
@@ -201,7 +203,7 @@ final class PTB_Loader {
    */
 
   private function setup_requried () {
-    $this->core = new PTB_Core;
+    $this->core = PTB_Core::instance();
   }
 
   /**
@@ -227,9 +229,31 @@ final class PTB_Loader {
    * @access private
    */
 
-  private function setup_actions () {
-    // add_action('activate_' . $this->basename, 'ptb_activation');
-    // add_action('deactivate_' . $this->basename, 'ptb_deactivation');
+  private function setup_actions () {}
+
+  /**
+   * Auto load Page Type Builder classes on demand.
+   *
+   * @param mixed $class
+   */
+
+  public function autoload ($class) {
+    $path = null;
+    $class = strtolower($class);
+    $file = 'class-' . str_replace( '_', '-', $class ) . '.php';
+
+    if (strpos($class, 'ptb_admin') === 0) {
+      $path = PTB_PLUGIN_DIR . 'includes/admin/';
+    } else if (strpos($class, 'property') === 0 && strpos($class, 'ptb') !== false) {
+      $path = PTB_PLUGIN_DIR . 'includes/properties/';
+    } else if (strpos($class, 'ptb') === 0) {
+      $path = PTB_PLUGIN_DIR . 'includes/';
+    }
+
+    if (!is_null($path) && is_readable($path . $file)) {
+      include_once($path . $file);
+      return;
+    }
   }
 }
 
@@ -254,6 +278,7 @@ function page_type_builder () {
 function ptb_after_theme_setup () {
   // Let's make it global too!
   $_GLOBALS['ptb'] = &page_type_builder();
+
 }
 
 add_action('after_setup_theme', 'ptb_after_theme_setup');

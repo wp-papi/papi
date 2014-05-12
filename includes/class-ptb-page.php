@@ -7,15 +7,6 @@
 class PTB_Page {
 
   /**
-   * All Page Type Builder meta that exists on the page.
-   *
-   * @var array
-   * @since 1.0
-   */
-
-  private $meta;
-
-  /**
    * The WordPress post.
    *
    * @var object
@@ -42,7 +33,6 @@ class PTB_Page {
   public function __construct ($post_id = 0) {
     $this->id = $post_id;
     $this->setup_post();
-    $this->setup_meta();
     $this->setup_page();
   }
 
@@ -54,12 +44,12 @@ class PTB_Page {
 
   private function setup_page () {
     // Can't proceed if we haven't a post object.
-    if (!$this->has_post() || !is_array($this->meta)) {
+    if (!$this->has_post()) {
       return;
     }
 
     // The path to the page type file.
-    $path = _ptb_get_page_type_file($this->meta['ptb_page_type']);
+    $path = _ptb_get_page_type_file(_ptb_get_page_type_meta_value($this->id));
 
     // The page type object.
     $this->page_type = new PTB_Page_Type($path);
@@ -110,59 +100,70 @@ class PTB_Page {
   }
 
   /**
-   * Setup meta variables.
+   * Get Page Type Builder Property value.
    *
-   * @since 1.0
+   * @param string $key
+   * @since 1.0.0
+   *
+   * @return mixed
    */
 
-  private function setup_meta () {
-    $this->meta = get_post_meta($this->id, PTB_META_KEY, true);
+  private function get_value ($key) {
+    $property_key = _ptb_property_key($key);
+    $property_value = get_post_meta($this->id, $property_key, true);
 
-    // Meta should be an array.
-    if (!is_array($this->meta)) {
-      return;
+    if (is_null($property_value)) {
+      return null;
     }
 
-    foreach ($this->meta as $key => $value) {
-      // Convert value for output.
-      if (is_array($value)) {
-        $value = $this->convert($value);
-      }
+    $property_type_key = _ptb_property_type_key($key);
+    $property_type_value = get_post_meta($this->id, $property_type_key, true);
 
-      // Property List has array with properties.
-      // Remove `ptb_` key and property key.
-      if (is_array($value)) {
-        foreach ($value as $ki => $vi) {
-          if (is_array($value[$ki])) {
-            foreach ($value[$ki] as $k => $v) {
-              if (_ptb_is_property_key($k)) {
-                unset($value[$ki][$k]);
-              } else {
-                $kn = _ptb_remove_ptb($k);
-                $value[$ki][$kn] = $v;
-                unset($value[$ki][$k]);
-              }
-            }
-          } else if (is_string($ki)) {
-            if (_ptb_is_property_key($ki)) {
-              unset($value[$k]);
-            } else {
-              $kin = _ptb_remove_ptb($ki);
-              $value[$kin] = $vi;
-              unset($value[$ki]);
-            }
+    if (is_null($property_type_value)) {
+      return null;
+    }
+
+    // The convert takes a array as argument so let's make one.
+    if (!is_array($property_value)) {
+      return $this->convert(array(
+        'type'  => $property_type_value,
+        'value' => $property_value
+      ));
+    }
+
+    // Property List has array with properties.
+    // Remove `ptb_` key and property key.
+    foreach ($property_value as $ki => $vi) {
+      if (is_array($property_value[$ki])) {
+        foreach ($property_value[$ki] as $k => $v) {
+          if (_ptb_is_property_type_key($k)) {
+            unset($property_value[$ki][$k]);
+          } else {
+            $ptk = _ptb_property_type_key($k);
+            $kn = _ptb_remove_ptb($k);
+            $property_value[$ki][$kn] = $this->convert(array(
+              'type' => $property_value[$ki][$ptk],
+              'value' => $v
+            ));
+            unset($property_value[$ki][$k]);
           }
         }
-      }
-
-      // Remove `_ptb` key
-      $key = _ptb_remove_ptb($key);
-
-      // Add it to page object.
-      if (!isset($this->$key)) {
-        $this->$key = $value;
+      } else if (is_string($ki)) {
+        if (_ptb_is_property_type_key($ki)) {
+          unset($property_value[$ki]);
+        } else {
+          $ptk = _ptb_property_type_key($ki);
+          $kin = _ptb_remove_ptb($ki);
+          $property_value[$kin] = $this->convert(array(
+            'type' => $property_value[$ki][$ptk],
+            'value' => $vi
+          ));
+          unset($property_value[$ki]);
+        }
       }
     }
+
+    return $property_value;
   }
 
   /**
@@ -187,9 +188,11 @@ class PTB_Page {
 
         return $property_type->convert($property['value']);
       }
+
       if (isset($property['value'])) {
         return $property['value'];
       }
+
       return $property;
     }
     return $property;
@@ -220,18 +223,6 @@ class PTB_Page {
   }
 
   /**
-   * Get the Page Type Builder meta array as object.
-   *
-   * @since 1.0
-   *
-   * @return object
-   */
-
-  public function get_meta ($array = true) {
-    return $array ? $this->meta : (object)$this->meta;
-  }
-
-  /**
    * Get the permalink for the page.
    *
    * @since 1.0
@@ -253,6 +244,19 @@ class PTB_Page {
 
   public function get_status () {
     return get_post_status($this->id);
+  }
+
+  /**
+   * Get Page Type Builder Property value.
+   *
+   * @param string $key
+   * @since 1.0.0
+   *
+   * @return mixed
+   */
+
+  public function __get ($name) {
+    return $this->get_value($name);
   }
 
 }

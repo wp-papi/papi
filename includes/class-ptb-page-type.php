@@ -109,6 +109,11 @@ class PTB_Page_Type {
     foreach ($fields as $key => $value) {
       $this->$key = $value;
     }
+
+    // Set a default value to post types array if we don't have a array or a empty array.
+    if (!is_array($this->post_types) || empty($this->post_types)) {
+      $this->post_types = array('page');
+    }
   }
 
   /**
