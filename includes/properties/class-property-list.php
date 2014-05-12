@@ -24,7 +24,7 @@ class PropertyList extends PTB_Property {
     $values = $this->get_options()->value;
 
     if (!is_array($values)) {
-      $values = array(array());
+      $values = array();
     }
 
     $html = <<< EOF
