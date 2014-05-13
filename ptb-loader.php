@@ -87,11 +87,6 @@ final class PTB_Loader {
       define('PTB_PLUGIN_URL', $plugin_url);
     }
 
-    // Our meta key that is used to save the data array on pages.
-    if (!defined('PTB_META_KEY')) {
-      define('PTB_META_KEY', '_ptb_meta');
-    }
-
     // Used for random titles etc.
     if (!defined('PTB_RANDOM_KEY')) {
       define('PTB_RANDOM_KEY', '_PTB_');
@@ -101,19 +96,6 @@ final class PTB_Loader {
     if (!defined('PTB_PROPERTY_TYPE_KEY')) {
       define('PTB_PROPERTY_TYPE_KEY', '_property');
     }
-
-    /*
-
-    Custom wp-ptb directory structure:
-
-      - custom wp-ptb dir
-        - gui
-          - js
-          - css
-        - properties
-        - page-types
-
-    */
 
   }
 
