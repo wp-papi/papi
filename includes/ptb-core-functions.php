@@ -96,9 +96,9 @@ function _ptb_core () {
 
 function _ptb_get_settings () {
   $defaults = array(
-    'post_types' => array('page')
+    'post_types' => get_post_types()
   );
-
+  
   return array_merge($defaults, _ptb_core()->get_settings());
 }
 
