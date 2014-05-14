@@ -183,101 +183,6 @@ function _ptb_get_file_data ($post_id) {
 }
 
 /**
- * Get property value for property on a page.
- *
- * @param int $post_id
- * @param string $name
- * @param mixed $default Default is null.
- * @since 1.0.0
- *
- * @return mixed
- */
-
-function ptb_field ($post_id = null, $name = null, $default = null) {
-  // Check if we have a post id or not.
-  if (!is_numeric($post_id) && is_string($post_id)) {
-    $default = $name;
-    $name = $post_id;
-    $post_id = null;
-  }
-
-  // If it's a numeric value, let's convert it to int.
-  if (is_numeric($post_id)) {
-    $post_id = intval($post_id);
-  } else {
-    $post_id = _ptb_get_post_id();
-  }
-
-  // Return the default value if we don't have a name.
-  if (is_null($name)) {
-    return $default;
-  }
-
-  // Get the page.
-  $page = ptb_get_page($post_id);
-
-  // Return the default value if we don't have a WordPress post on the page object.
-  if (is_null($page) || !$page->has_post()) {
-    return $default;
-  }
-
-  // Check for "dot" notation.
-  $names = explode('.', $name);
-
-  // Remove any `ptb_` stuff if it exists.
-  $name = _ptb_remove_ptb($names[0]);
-
-  // Remove the first value of the array.
-  $names = array_slice($names, 1);
-
-  // Get the value from the page.
-  $value = $page->$name;
-
-  // Return default value we don't have a value.
-  if (!isset($value) || is_null($value)) {
-    return $default;
-  }
-
-  // Check if it's a array value or object.
-  if (!empty($names) && (is_object($value) || is_array($value))) {
-
-    // Convert object to array.
-    if (is_object($value)) {
-      $value = (array)$value;
-    }
-
-    foreach ($names as $key) {
-      if (isset($value[$key])) {
-        $value = $value[$key];
-      }
-    }
-
-    return $value;
-  }
-
-  return $value;
-}
-
-/**
- * Echo the property value for property on a page.
- *
- * @param int $post_id
- * @param string $name
- * @param mixed $default Default is null.
- * @since 1.0.0
- */
-
-function the_ptb_field ($post_id = null, $name = null, $default = null) {
-  $value = ptb_field($post_id, $name, $default);
-
-  if (is_array($value)) {
-    $value = @implode(',', $value);
-  }
-
-  echo $value;
-}
-
-/**
  * Get the page.
  *
  * @param int $post_id The post id.
@@ -300,7 +205,6 @@ function ptb_get_page ($post_id = null) {
 /**
  * Get the current page. Like in EPiServer.
  *
- * @param int $post_id The post id.
  * @since 1.0.0
  *
  * @return PTB_Page|null

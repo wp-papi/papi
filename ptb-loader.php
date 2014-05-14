@@ -110,20 +110,22 @@ final class PTB_Loader {
     // Load languages.
     load_plugin_textdomain('ptb', false, basename(dirname(__FILE__)) . '/languages');
 
-    // Load Page Type Builder.
-    require_once($this->plugin_dir . 'includes/ptb-utilities-functions.php');
-    require_once($this->plugin_dir . 'includes/ptb-core-functions.php');
-    require_once($this->plugin_dir . 'includes/ptb-page-functions.php');
-    require_once($this->plugin_dir . 'includes/ptb-property-functions.php');
-    require_once($this->plugin_dir . 'includes/ptb-io-functions.php');
+    // Load Page Type Builder functions.
+    require_once($this->plugin_dir . 'includes/lib/utilities.php');
+    require_once($this->plugin_dir . 'includes/lib/core.php');
+    require_once($this->plugin_dir . 'includes/lib/page.php');
+    require_once($this->plugin_dir . 'includes/lib/property.php');
+    require_once($this->plugin_dir . 'includes/lib/io.php');
+    require_once($this->plugin_dir . 'includes/lib/field.php');
+
+    // Load Page Type Builder classes that should not be autoloaded.
     require_once($this->plugin_dir . 'includes/class-ptb-core.php');
     require_once($this->plugin_dir . 'includes/class-ptb-page-type.php');
     require_once($this->plugin_dir . 'includes/class-ptb-page.php');
     require_once($this->plugin_dir . 'includes/class-ptb-property.php');
     require_once($this->plugin_dir . 'includes/class-ptb-tab.php');
-    require_once($this->plugin_dir . 'includes/class-ptb-sync.php');
 
-    // Load properties
+    // Load Page Type Builder property classes.
     require_once($this->plugin_dir . 'includes/properties/class-property-string.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-boolean.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-email.php');
