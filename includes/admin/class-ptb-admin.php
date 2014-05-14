@@ -261,7 +261,7 @@ final class PTB_Admin {
     $post_type = _ptb_get_wp_post_type();
 
     // If the post type isn't in the post types array we can't proceed.
-    if (!in_array($post_type, _ptb_get_post_types())) {
+    if (in_array($post_type, array('revision', 'nav_menu_item'))) {
       return;
     }
 
