@@ -160,10 +160,15 @@ class PTB_Page {
           ));
           unset($property_value[$ki]);
         }
+      } else {
+        $property_value[$ki] = $this->convert(array(
+          'type'  => $property_type_value,
+          'value' => $property_value[$ki]
+        ));
       }
     }
 
-    return $property_value;
+    return array_filter($property_value);
   }
 
   /**
