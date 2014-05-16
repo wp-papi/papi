@@ -150,6 +150,7 @@ EOF;
     return $html .= <<< EOF
         </ul>
       </div>
+      <div class="clear"></div>
     </div>
 EOF;
   }
@@ -186,11 +187,13 @@ EOF;
             $target.closest('li').remove();
           } else {
             Ptb.Utils.wp_media_editor($target, function (attachment) {
-              if (Ptb.Utils.is_image(attachment.url)) {
+              if (attachment !== undefined && Ptb.Utils.is_image(attachment.url)) {
                 $target.attr('style', 'height:auto');
                 $target.attr('src', attachment.url);
                 $target.next().val(attachment.id);
                 $target.closest('li').addClass('pr-image-item');
+              } else {
+                $target.closest('li').remove();
               }
             });
           }

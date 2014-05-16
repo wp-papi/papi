@@ -11,14 +11,20 @@
    */
 
   Utils.wp_media_editor = function ($button, $target) {
-    wp.media.editor.send.attachment = function (props, attachment) {
-      if (typeof $target === 'function') {
-        $target(attachment);
-      } else {
-        $target.val(attachment.url);
-      }
-    };
-    wp.media.editor.open($button);
+		var uploader = wp.media({
+			multiple: false
+		}).on('select', function () {
+			var attachment = uploader.state().get('selection').first().toJSON();
+			if (typeof $target === 'function') {
+				$target(attachment);
+			} else {
+				$target.val(attachment.url);
+			}
+		}).on('escape', function () {
+			if (typeof $target === 'function') {
+				$target();
+			}
+		}).open();
   };
 
   /**
