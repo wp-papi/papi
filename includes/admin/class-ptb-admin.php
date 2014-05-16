@@ -163,7 +163,10 @@ final class PTB_Admin {
     // If we are in the edit-page or has the post type register we output the jQuery code that change the "Add new" link.
     if ($screen->id == 'edit-page' || in_array($post_type, $settings['post_types'])) { ?>
       <script type="text/javascript">
-        jQuery('.wrap h2 .add-new-h2').attr('href', '<?php echo $url; ?>');
+        var current = jQuery('#adminmenu').find('li > a[href="<?php echo $url; ?>"]').attr('href');
+        if (current === '<?php echo $url; ?>') {
+          jQuery('.wrap h2 .add-new-h2').attr('href', '<?php echo $url; ?>');
+        }
       </script>
     <?php
     }
