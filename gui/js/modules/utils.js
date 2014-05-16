@@ -13,18 +13,18 @@
   Utils.wp_media_editor = function ($button, $target) {
     var uploader = wp.media({
       multiple: false
-		}).on('select', function () {
-			var attachment = uploader.state().get('selection').first().toJSON();
-			if (typeof $target === 'function') {
-				$target(attachment);
-			} else {
-				$target.val(attachment.url);
-			}
-		}).on('escape', function () {
-			if (typeof $target === 'function') {
-				$target();
-			}
-		}).open();
+    }).on('select', function () {
+      var attachment = uploader.state().get('selection').first().toJSON();
+      if (typeof $target === 'function') {
+        $target(attachment);
+      } else {
+        $target.val(attachment.url);
+      }
+    }).on('escape', function () {
+      if (typeof $target === 'function') {
+        $target();
+      }
+    }).open();
   };
 
   /**
