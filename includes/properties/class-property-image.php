@@ -20,7 +20,6 @@ class PropertyImage extends PTB_Property {
   public function html () {
     $images = array();
     $css_classes = $this->css_classes();
-
     $options = $this->get_options();
     $custom = $this->get_custom_options(array(
       'gallery' => false
@@ -176,7 +175,7 @@ EOF;
             , remove = $img.attr('src') !== undefined && $li.find('p.pr-remove-image').length && e.target.tagName.toLowerCase() === 'a';
 
           if ($li.hasClass('pr-add-new')) {
-            $target = $('.ptb-property-image .pr-template > li:first').clone(); 
+            $target = $this.closest('.ptb-property-image').find('.pr-template > li:first').clone();
             $target.insertBefore($li);
             $target = $target.find('img');
           } else if (!remove) {

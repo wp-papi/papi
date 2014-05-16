@@ -37,7 +37,7 @@
 
       if (!$adminmenu.find('li.current > a.current').length) {
         href = href.substr(href.lastIndexOf('/') + 1);
-        $('a[href="' + href + '"', $adminmenu).addClass('current').parent().addClass('current');
+        $('a[href="' + href + '"]', $adminmenu).addClass('current').parent().addClass('current');
       }
 		})();
 

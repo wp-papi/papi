@@ -133,6 +133,7 @@ final class PTB_Admin {
 
   public function admin_head () {
     echo '<link href="' . PTB_PLUGIN_URL . 'gui/css/style.css" type="text/css" rel="stylesheet" />';
+    wp_enqueue_media();
   }
 
   /**
