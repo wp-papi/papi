@@ -11,8 +11,8 @@
    */
 
   Utils.wp_media_editor = function ($button, $target) {
-		var uploader = wp.media({
-			multiple: false
+    var uploader = wp.media({
+      multiple: false
 		}).on('select', function () {
 			var attachment = uploader.state().get('selection').first().toJSON();
 			if (typeof $target === 'function') {
