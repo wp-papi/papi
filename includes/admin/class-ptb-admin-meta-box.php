@@ -104,7 +104,7 @@ class PTB_Admin_Meta_Box {
    */
 
   public function render_meta_box ($post, $args) {
-    if (!is_array($args) && !isset($args['args'])) {
+    if (!is_array($args) || !isset($args['args'])) {
       return;
     }
 
@@ -139,21 +139,5 @@ class PTB_Admin_Meta_Box {
         echo '</tbody>';
       echo '</table>';
     }
-  }
-}
-
-// FUNCTIONS BELOW THIS COMMENT THAT SHOULD BE MOVED INTO FUNCTIONS FILES
-
-function _ptb_render_property($property) {
-  if (!is_object($property)) {
-    return;
-  }
-
-  // New way to output html for a property.
-  if (method_exists('html', $property)) {
-    $property->html();
-  } else {
-    // Old way to output html for a property.
-    echo $property->html;
   }
 }
