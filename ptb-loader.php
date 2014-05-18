@@ -124,6 +124,7 @@ final class PTB_Loader {
     require_once($this->plugin_dir . 'includes/class-ptb-page.php');
     require_once($this->plugin_dir . 'includes/class-ptb-property.php');
     require_once($this->plugin_dir . 'includes/class-ptb-tab.php');
+    require_once($this->plugin_dir . 'includes/class-ptb-page-data.php');
 
     // Load Page Type Builder property classes.
     require_once($this->plugin_dir . 'includes/properties/class-property-string.php');

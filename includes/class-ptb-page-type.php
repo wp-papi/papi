@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Page Type Builder Page Type class.
+ * Page Type Builder Page Type.
+ *
+ * @package PageTypeBuilder
  */
 
 class PTB_Page_Type {

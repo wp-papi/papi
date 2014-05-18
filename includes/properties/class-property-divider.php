@@ -19,12 +19,12 @@ class PropertyDivider extends PTB_Property {
 
   public function html () {
     if (_ptb_is_random_title($this->get_options()->title)) {
-      return PTB_Html::tag('div', array(
+      echo PTB_Html::tag('div', array(
         'class' => $this->css_classes('ptb-divider-no-text')
       ));
     } else {
       $span = PTB_Html::tag('span', $this->get_options()->title);
-      return PTB_Html::tag('h3', $span, array(
+      echo PTB_Html::tag('h3', $span, array(
         'class' => $this->css_classes('hndle ptb-divider-text')
       ));
     }

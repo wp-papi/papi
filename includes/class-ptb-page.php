@@ -52,10 +52,10 @@ class PTB_Page {
     $path = _ptb_get_page_type_file(_ptb_get_page_type_meta_value($this->id));
 
     // The page type object.
-    $this->page_type = new PTB_Page_Type($path);
+    $this->page_type = _ptb_get_page_type($path);
 
     // Can't proceed without a page type.
-    if (!$this->page_type->has_name()) {
+    if (is_null($this->page_type)) {
       return;
     }
 

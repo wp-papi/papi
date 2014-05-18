@@ -99,7 +99,7 @@ class PropertyImage extends PTB_Property {
 
       $images[] = $image;
     }
-    
+
     if ($is_gallery) {
       $images = array_filter($images, function ($image) {
         return !!$image->id;
@@ -147,8 +147,8 @@ EOF;
     } else {
       $html .= '<li style="visibility:hidden"></li>';
     }
-    
-    return $html .= <<< EOF
+
+    echo $html .= <<< EOF
         </ul>
       </div>
     </div>
@@ -176,7 +176,7 @@ EOF;
             , remove = $img.attr('src') !== undefined && $li.find('p.pr-remove-image').length && e.target.tagName.toLowerCase() === 'a';
 
           if ($li.hasClass('pr-add-new')) {
-            $target = $('.ptb-property-image .pr-template > li:first').clone(); 
+            $target = $('.ptb-property-image .pr-template > li:first').clone();
             $target.insertBefore($li);
             $target = $target.find('img');
           } else if (!remove) {

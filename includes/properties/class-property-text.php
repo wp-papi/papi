@@ -19,14 +19,14 @@ class PropertyText extends PTB_Property {
 
   public function html () {
     if (isset($this->get_options()->custom->wp_editor) && $this->get_options()->custom->wp_editor) {
-      return array(
+      /*return array(
         'action' => 'wp_editor',
         'name' => $this->get_options()->name,
         'value' => $this->get_options()->value,
         'class' => $this->css_classes()
-      );
+      );*/
     } else {
-      return PTB_Html::textarea($this->get_options()->value, array(
+      echo PTB_Html::textarea($this->get_options()->value, array(
         'name' => $this->get_options()->name,
         'id' => $this->get_options()->name,
         'class' => $this->css_classes('ptb-property-text')
@@ -42,7 +42,7 @@ class PropertyText extends PTB_Property {
    * @return string
    */
 
-  public function render () {
+  public function render2 () {
     if ($this->get_options()->table) {
       $label = PTB_Html::td($this->label(), array('colspan' => 2));
       $label = PTB_Html::tr($label);

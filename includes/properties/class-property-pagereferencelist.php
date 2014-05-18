@@ -95,7 +95,7 @@ EOF;
       </div>
 EOF;
 
-  return $html;
+    echo $html;
   }
 
   /**

@@ -24,34 +24,34 @@ class PropertyCheckboxList extends PTB_Property {
       'checkboxes' => array(),
       'selected'   => array()
     ));
-    
+
     $checkboxes = $custom->checkboxes;
     $selected = $custom->selected;
-    
+
     if (!is_null($this->get_options()->value) && !empty($this->get_options()->value)) {
       $selected = $this->get_options()->value;
     }
-    
+
     if (!is_array($selected)) {
       $selected = array($selected);
     }
-    
+
     foreach ($checkboxes as $key => $value) {
       $attributes = array(
         'value' => $key,
         'name' => $this->get_options()->name . '[]'
       );
-      
+
       if (in_array($key, $selected)) {
         $attributes['checked'] = 'checked';
       }
-      
+
       $html .= PTB_Html::input('checkbox', $attributes);
       $html .= $value;
       $html .= '<br />';
     }
-    
-    return $html;
+
+    echo $html;
   }
 
   /**
@@ -66,5 +66,5 @@ class PropertyCheckboxList extends PTB_Property {
   public function convert ($value) {
     return is_array($value) ? $value : array();
   }
-  
+
 }

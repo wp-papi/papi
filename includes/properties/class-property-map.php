@@ -18,7 +18,7 @@ class PropertyMap extends PTB_Property {
    */
 
   public function html () {
-    return '<div id="map-canvas"></div>';
+    echo '<div id="map-canvas"></div>';
   }
 
   /**
@@ -128,13 +128,21 @@ class PropertyMap extends PTB_Property {
    * @return string
    */
 
-  public function render () {
-    $html = PTB_Html::td($this->html(), array('colspan' => 2));
-    $html = PTB_Html::tr($html);
-    $label = PTB_Html::td($this->label());
-    $label .= PTB_Html::td($this->input());
-    $html .= PTB_Html::tr($label);
-    $html .= $this->helptext();
-    return $html;
+  public function render2 () {
+    ?>
+      <tr>
+        <td colspan="2">
+          <?php $this->html(); ?>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <?php $this->label(); ?>
+        </td>
+        <td>
+          <?php $this->input(); ?>
+        </td>
+      </tr>
+      <?php $this->helptext();
   }
 }

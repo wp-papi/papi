@@ -79,6 +79,26 @@ function _ptb_is_page_type_allowed ($post_type) {
 }
 
 /**
+ * Get a page type by file path.
+ *
+ * @param string $file_path
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _ptb_get_page_type ($file_path) {
+ $page_type = new PTB_Page_Type($file_path);
+
+ // If the page type don't have a name we can't use it.
+ if (!$page_type->has_name()) {
+   return null;
+ }
+
+ return $page_type;
+}
+
+/**
  * Get all page types that exists.
  *
  * @since 1.0.0
@@ -97,10 +117,10 @@ function _ptb_get_all_page_types () {
   $page_types = array();
 
   foreach ($files as $file) {
-    $p = new PTB_Page_Type($file);
+    $p = _ptb_get_page_type($file);
 
     // Add the page type if the post types is allowed.
-    if (in_array($post_type, $p->post_types)) {
+    if (!is_null($p) && in_array($post_type, $p->post_types)) {
       $page_types[] = $p;
     }
   }
@@ -119,26 +139,6 @@ function _ptb_get_all_page_types () {
 
 function _ptb_get_page_type_file ($page_type) {
   return _ptb_get_files_in_directory('page-types', _ptb_dashify(_ptbify($page_type)), true);
-}
-
-/**
- * Get a page type by file path.
- *
- * @param string $file_path
- * @since 1.0.0
- *
- * @return string
- */
-
-function _ptb_get_page_type ($file_path) {
- $page_type = new PTB_Page_Type($file_path);
-
- // If the page type don't have a name we can't use it.
- if (!$page_type->has_name()) {
-   return null;
- }
-
- return $page_type;
 }
 
 /**

@@ -4,7 +4,9 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Property class.
+ * Page Type Builder Property.
+ *
+ * @package PageTypeBuilder
  */
 
 abstract class PTB_Property {
@@ -13,7 +15,7 @@ abstract class PTB_Property {
    * Page Type Builder properties array.
    *
    * @var array
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
@@ -39,7 +41,7 @@ abstract class PTB_Property {
    * Check if assets has been outputted or not.
    *
    * @var array
-   * @since 1.0
+   * @since 1.0.0
    */
 
   private static $assets_up = array();
@@ -48,7 +50,7 @@ abstract class PTB_Property {
    * Current property options object that is used to generate a property.
    *
    * @var object
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
@@ -58,7 +60,7 @@ abstract class PTB_Property {
    * Create a new instance of the given property.
    *
    * @param string $property
-   * @since 1.0
+   * @since 1.0.0
    *
    * @throws Exception
    * @return PTB_Property
@@ -85,7 +87,7 @@ abstract class PTB_Property {
   /**
    * Setup globals.
    *
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
@@ -99,7 +101,7 @@ abstract class PTB_Property {
   /**
    * Find custom properties that isn't register in this plugin.
    *
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
@@ -116,7 +118,7 @@ abstract class PTB_Property {
    * Check if the property exists in the properties array.
    *
    * @param string $property
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return bool
    */
@@ -128,7 +130,7 @@ abstract class PTB_Property {
   /**
    * Get the current property options object.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return object|null
    */
@@ -141,7 +143,7 @@ abstract class PTB_Property {
    * Set the current property options object.
    *
    * @param object $options
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function set_options ($options) {
@@ -151,9 +153,7 @@ abstract class PTB_Property {
   /**
    * Get the html to display from the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   abstract public function html ();
@@ -161,7 +161,7 @@ abstract class PTB_Property {
   /**
    * Output custom css for property
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function css () {}
@@ -169,7 +169,7 @@ abstract class PTB_Property {
   /**
    * Output automatic js for property
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function autocss () {
@@ -190,7 +190,7 @@ abstract class PTB_Property {
   /**
    * Output custom js for property
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function js () {}
@@ -198,7 +198,7 @@ abstract class PTB_Property {
   /**
    * Output automatic js for property
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function autojs () {
@@ -219,24 +219,30 @@ abstract class PTB_Property {
   /**
    * Output hidden input field that cointains which property is used.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function hidden () {
-    return PTB_Html::input('hidden', array(
+    $html = PTB_Html::input('hidden', array(
       'name' => _ptb_property_type_key($this->get_options()->name),
       'value' => $this->get_options()->type
     ));
+    if ($this->get_options()->table): ?>
+      <tr>
+        <td>
+          <?php echo $html; ?>
+        </td>
+      </tr>
+    <?php
+    else:
+      echo $html;
+    endif;
   }
 
   /**
    * Get label for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function label () {
@@ -246,7 +252,7 @@ abstract class PTB_Property {
       $title = $this->options->title;
     }
     $name = $this->options->name;
-    return PTB_Html::label($title, $name);
+    echo PTB_Html::label($title, $name);
   }
 
   /**
@@ -254,9 +260,7 @@ abstract class PTB_Property {
    *
    * @param bool $empty_left
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function helptext ($empty_left = true) {
@@ -275,9 +279,8 @@ abstract class PTB_Property {
       $html = PTB_Html::tr($html, array(
         'class' => 'help-text'
       ));
-      return $html;
+      echo $html;
     }
-    return '';
   }
 
   /**
@@ -289,14 +292,18 @@ abstract class PTB_Property {
    */
 
   public function render () {
-    if ($this->get_options()->table) {
-      $html = PTB_Html::td($this->label());
-      $html .= PTB_HTMl::td($this->html());
-      $html = PTB_Html::tr($html);
-      $html .= $this->helptext();
-      return $html;
-    }
-    return $this->label() . $this->html() . $this->helptext();
+    if ($this->get_options()->table): ?>
+      <tr>
+        <td><?php $this->label(); ?></td>
+        <td><?php $this->html(); ?></td>
+      </tr>
+    <?php
+      $this->helptext();
+    else:
+      $this->label();
+      $this->html();
+      $this->helptext();
+    endif;
   }
 
   /**

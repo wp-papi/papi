@@ -47,7 +47,7 @@ class PropertyRadioButtons extends PTB_Property {
       $html .= '<br />';
     }
 
-    return $html;
+    echo $html;
   }
 
   /**

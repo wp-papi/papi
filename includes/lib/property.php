@@ -105,9 +105,51 @@ function _ptb_render_property_html ($args) {
  */
 
 function _ptb_get_property ($type) {
+  if (is_object($type) && isset($type->type) && is_string($type->type)) {
+    $type = $type->type;
+  }
   if (is_null($type) || empty($type)) {
     return null;
   }
 
   return PTB_Property::factory($type);
+}
+
+/**
+ * Get property options.
+ *
+ * @param array $options
+ * @since 1.0.0
+ *
+ * @return object|null
+ */
+
+function _ptb_get_property_options ($options) {
+  $defaults = array(
+    'title'      => _ptb_random_title(),
+    'no_title'   => false,
+    'disable'    => false,
+    'name'       => '',
+    'custom'     => new stdClass,
+    'table'      => true,
+    'sort_order' => 0,
+    'value'      => '',
+    'type'       => ''
+  );
+
+  $options = array_merge($defaults, $options);
+  $options = (object)$options;
+
+  if ($options->no_title) {
+    $options->title = '';
+  }
+
+  if (empty($options->name)) {
+    $options->name = _ptb_slugify($options->title);
+  }
+
+  // Generate a vaild Page Type Builder meta name.
+  $options->name = _ptb_name($options->name);
+
+  return $options;
 }

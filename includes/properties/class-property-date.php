@@ -28,7 +28,7 @@ class PropertyDate extends PTB_Property {
       $value = $value->format('Y-m-d');
     }
 
-    return PTB_Html::input('text', array(
+    echo PTB_Html::input('text', array(
       'name' => $this->get_options()->name,
       'id' => $this->get_options()->name,
       'value' => $value,

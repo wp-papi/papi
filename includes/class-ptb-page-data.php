@@ -19,20 +19,6 @@ abstract class PTB_Page_Data {
   private $properties = array();
 
   /**
-   * Box default options.
-   *
-   * @var array
-   * @since 1.0.0
-   */
-
-  private $box_default_options = array(
-    'context'    => 'normal',
-    'priority'   => 'default',
-    'sort_order' => null,
-    'properties' => array()
-  );
-
-  /**
    * Page Type Builder Page Data Constructor.
    *
    * @since 1.0.0
@@ -54,7 +40,7 @@ abstract class PTB_Page_Data {
 
   private function setup_globals () {
     // Maybe should be static?
-    $this->page_type = (object)$this->page_type;
+    $this->page_type = static::$page_type;
   }
 
   /**
@@ -63,9 +49,7 @@ abstract class PTB_Page_Data {
    * @since 1.0.0
    */
 
-  private function setup_actions () {
-    add_action('add_meta_boxes', array($this, 'setup_page'));
-  }
+  private function setup_actions () {}
 
   /**
    * Add new meta box with properties.
@@ -83,13 +67,25 @@ abstract class PTB_Page_Data {
       $options = array();
     }
 
-    // Options need to be an array if not.
-    if (!is_array($options)) {
-      $options = array();
+    // Move title into options.
+    if (!isset($options['title'])) {
+      $options['title'] = $title;
     }
 
-    // Merge with default options.
-    $options = array_merge($this->box_default_options, $options);
+    $this->box = new PTB_Admin_Meta_Box($options, $properties);
+  }
+
+  /**
+   * Add new property to the page.
+   *
+   * @param array $options
+   * @since 1.0.0
+   *
+   * @return array
+   */
+
+  protected function property ($options = array()) {
+    return _ptb_get_property_options($options);
   }
 
   /**
@@ -121,7 +117,4 @@ abstract class PTB_Page_Data {
       }
     }
   }
-
-
-
 }
