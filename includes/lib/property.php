@@ -72,30 +72,6 @@ function _ptb_get_only_property_values ($a = array()) {
 }
 
 /**
- * Render property html.
- *
- * @param array $args
- * @since 1.0.0
- */
-
-function _ptb_render_property_html ($args) {
-  if (!is_array($args)) {
-    return;
-  }
-
-  switch ($args['action']) {
-    case 'html':
-      echo $args['html'];
-      break;
-    case 'wp_editor':
-      wp_editor($args['value'], $args['name'], array(
-        'textarea_name' => $args['name']
-      ));
-      break;
-  }
-}
-
-/**
  * Get property class by the type.
  *
  * @param string $type
@@ -134,7 +110,8 @@ function _ptb_get_property_options ($options) {
     'table'      => true,
     'sort_order' => 0,
     'value'      => '',
-    'type'       => ''
+    'type'       => '',
+    'colspan'    => ''
   );
 
   $options = array_merge($defaults, $options);
@@ -142,14 +119,27 @@ function _ptb_get_property_options ($options) {
 
   if ($options->no_title) {
     $options->title = '';
+    $options->colspan = 2;
   }
 
   if (empty($options->name)) {
-    $options->name = _ptb_slugify($options->title);
+    // Generate a random title if no name is set and title is empty.
+    // This make wp_editor and other stuff that go by name/id attributes to work.
+    if (empty($options->title)) {
+      $title = _ptb_random_title();
+    } else {
+      $title = $options->title;
+    }
+
+    $options->name = _ptb_slugify($title);
   }
 
   // Generate a vaild Page Type Builder meta name.
   $options->name = _ptb_name($options->name);
+
+  if (!empty($options->colspan)) {
+    $options->colspan = _ptb_attribute('colspan', $options->colspan);
+  }
 
   return $options;
 }

@@ -206,3 +206,22 @@ function _ptb_get_class_name ($file) {
 
   return $class_name;
 }
+
+/**
+ * Get html attribute string.
+ *
+ * @param string $name
+ * @param string|array $value
+ * @since 1.0.0
+ *
+ *
+ * @return string
+ */
+
+function _ptb_attribute ($name, $value) {
+  if (!is_array($value)) {
+    $value = array($value);
+  }
+
+  return $name . '="' . implode(',', $value) . '"';
+}

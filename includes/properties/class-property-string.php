@@ -5,6 +5,8 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property String
+ *
+ * @package PageTypeBuilder
  */
 
 class PropertyString extends PTB_Property {
@@ -12,7 +14,7 @@ class PropertyString extends PTB_Property {
   /**
    * Get the html for output.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return string
    */

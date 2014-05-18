@@ -5,6 +5,8 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property Text
+ *
+ * @package PageTypeBuilder
  */
 
 class PropertyText extends PTB_Property {
@@ -12,23 +14,25 @@ class PropertyText extends PTB_Property {
   /**
    * Get the html for output.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return string
    */
 
   public function html () {
-    if (isset($this->get_options()->custom->wp_editor) && $this->get_options()->custom->wp_editor) {
-      /*return array(
-        'action' => 'wp_editor',
-        'name' => $this->get_options()->name,
-        'value' => $this->get_options()->value,
-        'class' => $this->css_classes()
-      );*/
+    $options = $this->get_options();
+    $custom = $this->get_custom_options(array(
+      'wp_editor' => false
+    ));
+
+    if ($custom->wp_editor) {
+      wp_editor($options->value, $options->name, array(
+        'textarea_name' => $options->name
+      ));
     } else {
-      echo PTB_Html::textarea($this->get_options()->value, array(
-        'name' => $this->get_options()->name,
-        'id' => $this->get_options()->name,
+      echo PTB_Html::textarea($options->value, array(
+        'name' => $options->name,
+        'id' => $options->name,
         'class' => $this->css_classes('ptb-property-text')
       ));
     }
@@ -37,21 +41,29 @@ class PropertyText extends PTB_Property {
   /**
    * Render the final html that is displayed in the table.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return string
    */
 
-  public function render2 () {
-    if ($this->get_options()->table) {
-      $label = PTB_Html::td($this->label(), array('colspan' => 2));
-      $label = PTB_Html::tr($label);
-      $html = PTB_Html::td($this->html(), array('colspan' => 2));
-      $html = PTB_Html::tr($html);
-      $html .= $this->helptext(false);
-      return $label . $html;
-    }
-    return $this->label() . $this->html() . $this->helptext(false);
+  public function render () {
+    $options = $this->get_options();
+    if ($options->table): ?>
+    <tr>
+      <td <?php echo $options->colspan; ?>>
+        <?php $this->label(); ?>
+      </td>
+      <td <?php echo $options->colspan; ?>>
+        <?php $this->html(); ?>
+      </td>
+    </tr>
+    <?php
+      $this->helptext(empty($options->colspan));
+    else:
+      $this->label();
+      $this->html();
+      $this->helptext(false);
+    endif;
   }
 
 }

@@ -286,23 +286,26 @@ abstract class PTB_Property {
   /**
    * Render the final html that is displayed in the table.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return string
    */
 
   public function render () {
-    if ($this->get_options()->table): ?>
+    $options = $this->get_options();
+    if ($options->table): ?>
       <tr>
-        <td><?php $this->label(); ?></td>
-        <td><?php $this->html(); ?></td>
+        <?php if (!$options->no_title): ?>
+        <td <?php echo $options->colspan; ?>><?php $this->label(); ?></td>
+        <?php endif; ?>
+        <td <?php echo $options->colspan; ?>><?php $this->html(); ?></td>
       </tr>
     <?php
-      $this->helptext();
+      $this->helptext(empty($options->colspan));
     else:
       $this->label();
       $this->html();
-      $this->helptext();
+      $this->helptext(false);
     endif;
   }
 
@@ -310,7 +313,7 @@ abstract class PTB_Property {
    * Convert the value of the property before we output it to the application.
    *
    * @param mixed $value
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return string
    */
@@ -323,14 +326,14 @@ abstract class PTB_Property {
    * Get css classes for the property.
    *
    * @param string $css_classes
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return string
    */
 
   public function css_classes ($css_class = '') {
-    if (isset($this->get_options()->custom->css_class)) {
-      $css_class .= ' ' . $this->get_options()->custom->css_class;
+    if (isset($this->get_custom_options()->css_class)) {
+      $css_class .= ' ' . $this->get_custom_options()->css_class;
     }
 
     return $css_class;
@@ -340,7 +343,7 @@ abstract class PTB_Property {
    * Get custom options object.
    *
    * @param array $defaults
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return object
    */
