@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) exit;
 /**
  * Page Type Builder Base class.
  *
- * @todo Rewrite this class.
+ * THIS FILE IS NOT USED ANYMORE.
  */
 
 class PTB_Base {
