@@ -53,12 +53,14 @@ class PropertyText extends PTB_Property {
       <td <?php echo $options->colspan; ?>>
         <?php $this->label(); ?>
       </td>
+    </tr>
+    <tr>
       <td <?php echo $options->colspan; ?>>
         <?php $this->html(); ?>
       </td>
     </tr>
     <?php
-      $this->helptext(empty($options->colspan));
+      $this->helptext(false);
     else:
       $this->label();
       $this->html();

@@ -81,7 +81,7 @@ class PTB_Admin_Meta_Box {
       $this->options->context,
       $this->options->priority,
       array(
-        'table' => !empty($this->properties) ? $this->properties[0]->table : false,
+        'table' => !empty($this->properties) && isset($this->properties[0]->table) ? $this->properties[0]->table : false,
         'properties' => $this->properties
       )
     );
@@ -109,6 +109,12 @@ class PTB_Admin_Meta_Box {
     $properties = $args['args']['properties'];
 
     foreach ($properties as $property) {
+      if (isset($property->tab) && $property->tab) {
+        $tab = new PTB_Tab($property);
+        var_dump($tab);
+        continue;
+      }
+
       if (empty($property->type)) {
         continue;
       }

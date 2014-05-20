@@ -107,14 +107,64 @@ abstract class PTB_Page_Data {
    */
 
   public function remove_post_type_support () {
-    // Get all post types.
-    $post_types = $this->get_post_types();
+    // Get post type.
+    $post_type = _ptb_get_wp_post_type();
 
-    // Loop through all post type support to remove and all post types.
-    foreach ($this->remove_post_type_support as $post_type_support) {
-      foreach ($post_types as $post_type) {
-        remove_post_type_support($post_type, $post_type_support);
-      }
+    // Can't proceed without a post type.
+    if (empty($post_type) || is_null($post_type)) {
+      return;
     }
+
+    // Loop through all post type support to remove.
+    foreach ($this->remove_post_type_support as $post_type_support) {
+      remove_post_type_support($post_type, $post_type_support);
+    }
+  }
+
+  /**
+   * Add a new tab.
+   *
+   * @param string $title
+   * @param array $options
+   * @param array $properties
+   * @since 1.0
+   *
+   * @return object
+   */
+
+  protected function tab ($title, $options = array(), $properties = array()) {
+    if (empty($properties)) {
+      $properties = $options;
+      $options = array();
+    }
+
+    if (!is_array($options)) {
+      $options = array();
+    }
+
+    return (object)array(
+      'title'      => $title,
+      'tab'        => true,
+      'options'    => (object)$options,
+      'properties' => $properties
+    );
+  }
+
+  /**
+   * Get post type for the page type.
+   *
+   * @since 1.0
+   *
+   * @return array
+   */
+
+  private function get_post_types () {
+    if (isset(static::$page_type['post_types'])) {
+      return is_array(static::$page_type['post_types']) ?
+        static::$page_type['post_types'] :
+        array(static::$page_type['post_types']);
+    }
+
+    return array('page');
   }
 }

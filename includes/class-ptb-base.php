@@ -502,7 +502,9 @@ class PTB_Base {
 
   private function get_post_types () {
     if (isset(static::$page_type['post_types'])) {
-      return is_array(static::$page_type['post_types']) ? static::$page_type['post_types'] : array(static::$page_type['post_types']);
+      return is_array(static::$page_type['post_types']) ?
+        static::$page_type['post_types'] :
+        array(static::$page_type['post_types']);
     }
 
     return array('page');
