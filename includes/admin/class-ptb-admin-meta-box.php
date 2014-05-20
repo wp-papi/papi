@@ -37,7 +37,7 @@ class PTB_Admin_Meta_Box {
   );
 
   /**
-   * Page Type Builder Admin Box Constructor.
+   * Page Type Builder Admin Meta Box Constructor.
    *
    * @param array $options
    * @param array $properties
@@ -110,8 +110,7 @@ class PTB_Admin_Meta_Box {
 
     foreach ($properties as $property) {
       if (isset($property->tab) && $property->tab) {
-        $tab = new PTB_Tab($property);
-        var_dump($tab);
+        new PTB_Admin_Meta_Box_Tabs($property);
         continue;
       }
 

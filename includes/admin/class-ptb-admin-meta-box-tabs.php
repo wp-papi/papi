@@ -13,37 +13,34 @@ if (!defined('ABSPATH')) exit;
 class PTB_Admin_Meta_Box_Tabs {
 
   /**
-   * Tabs default options.
+   * The tabs.
    *
    * @var array
    * @since 1.0.0
    */
 
-  private $default_options = array(
+  private $tabs = array(
+    /*
     array(
       'name'       => '',
       'icon'       => '',
       'properties' => array()
-    )
+    )*/
   );
 
   /**
-   * Page Type Builder Admin Box Constructor.
+   * Page Type Builder Admin Meta Box Tabs Constructor.
    *
-   * @param array $options
-   * @param array $properties
+   * @param array $tabs
    * @since 1.0.0
    */
 
-  public function __construct ($options = array()) {
-    if (!is_array($options)) {
-      $options = array();
-    }
-
-    $this->options = array_merge($this->default_options, $options);
-    $this->options = array_map(function ($tab) {
-      return (object)$tab;
-    }, $this->options);
+  public function __construct ($tabs = array()) {
+    $this->tabs = $tabs;
+    echo'<pre>';
+    var_dump($this->tabs);
+    die();
+    $this->html();
   }
 
   /**
@@ -57,12 +54,12 @@ class PTB_Admin_Meta_Box_Tabs {
     <div class="ptb-tabs-back"></div>
     <ul class="ptb-tabs">
     <?php
-    foreach ($this->options as $tab):
+    foreach ($this->tabs as $tab):
       ?>
         <li class="active">
-          <a href="#" data-ptb-tab="<?php echo $tab->name; ?>">
+          <a href="#" data-ptb-tab="<?php echo $tab->title; ?>">
             <?php if (isset($tab->icon) && !empty($tab->icon)): ?>
-              <img src="<?php echo $tab->icon; ?>" alt="<?php echo $tab->name; ?>" />
+              <img src="<?php echo $tab->icon; ?>" alt="<?php echo $tab->title; ?>" />
             <?php endif; ?>
           </a>
         </li>
@@ -72,21 +69,17 @@ class PTB_Admin_Meta_Box_Tabs {
   </ul>
   <div class="ptb-tabs-content">
     <?php
-    foreach ($this->options as $tab):
+    foreach ($this->tabs as $tab):
       ?>
-      <div class="active" data-ptb-tab="<?php echo $tab->name; ?>">
+      <div class="active" data-ptb-tab="<?php echo $tab->title; ?>">
         <?php
-        foreach ($tab->properties as $property):
-          ?>
 
-          <?php
-        endforeach;
         ?>
       </div>
       <?php
     endforeach;
     ?>
   </div>
+  <?php
   }
-
 }

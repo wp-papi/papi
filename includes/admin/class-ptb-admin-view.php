@@ -5,6 +5,9 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder Admin View.
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PTB_Admin_View {
@@ -22,7 +25,7 @@ class PTB_Admin_View {
    */
 
   public function __construct ($path = '') {
-    $this->path = !empty($path) ? $path : PTB_PLUGIN_DIR . 'views/';
+    $this->path = !empty($path) ? $path : PTB_PLUGIN_DIR . 'includes/admin/views/';
   }
 
   /**
