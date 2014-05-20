@@ -37,15 +37,6 @@ class PTB_Admin_Meta_Box {
   );
 
   /**
-   * Output html once.
-   *
-   * @var bool
-   * @since 1.0
-   */
-
-  private $output_once = false;
-
-  /**
    * Page Type Builder Admin Box Constructor.
    *
    * @param array $options
