@@ -78,7 +78,7 @@ class PTB_Admin_Meta_Box_Tabs {
         <?php
         foreach ($tab->properties as $property):
           ?>
-          
+
           <?php
         endforeach;
         ?>
