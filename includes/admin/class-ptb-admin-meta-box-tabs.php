@@ -35,7 +35,7 @@ class PTB_Admin_Meta_Box_Tabs {
    * @since 1.0.0
    */
 
-  public function __construct ($tabs = array()) {
+  private function __construct ($tabs = array()) {
     $this->tabs = $tabs;
     echo'<pre>';
     var_dump($this->tabs);
@@ -72,9 +72,7 @@ class PTB_Admin_Meta_Box_Tabs {
     foreach ($this->tabs as $tab):
       ?>
       <div class="active" data-ptb-tab="<?php echo $tab->title; ?>">
-        <?php
-
-        ?>
+        <?php _ptb_render_properties($tab->properties); ?>
       </div>
       <?php
     endforeach;

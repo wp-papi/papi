@@ -80,10 +80,7 @@ class PTB_Admin_Meta_Box {
       $this->options->post_type,
       $this->options->context,
       $this->options->priority,
-      array(
-        'table' => !empty($this->properties) && isset($this->properties[0]->table) ? $this->properties[0]->table : false,
-        'properties' => $this->properties
-      )
+      $this->properties
     );
   }
 
@@ -101,39 +98,7 @@ class PTB_Admin_Meta_Box {
 
     wp_nonce_field('ptb_save_data', 'ptb_meta_nonce');
 
-    if (isset($args['args']['table']) && $args['args']['table']) {
-      echo '<table class="ptb-table">';
-        echo '<tbody>';
-    }
-
-    $properties = $args['args']['properties'];
-
-    foreach ($properties as $property) {
-      if (isset($property->tab) && $property->tab) {
-        new PTB_Admin_Meta_Box_Tabs($property);
-        continue;
-      }
-
-      if (empty($property->type)) {
-        continue;
-      }
-
-      $property_type = _ptb_get_property($property->type);
-
-      if (is_null($property_type)) {
-        continue;
-      }
-
-      $property_type->set_options($property);
-
-      // Render the property.
-      $property_type->render();
-      $property_type->hidden();
-    }
-
-    if (isset($args['args']['table']) && $args['args']['table']) {
-        echo '</tbody>';
-      echo '</table>';
-    }
+    // Render the properties.
+    _ptb_render_properties($args['args']);
   }
 }

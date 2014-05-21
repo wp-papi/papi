@@ -72,7 +72,7 @@ function _ptb_get_only_property_values ($a = array()) {
 }
 
 /**
- * Get property class by the type.
+ * Get property type by the given type.
  *
  * @param string $type
  * @since 1.0.0
@@ -80,7 +80,7 @@ function _ptb_get_only_property_values ($a = array()) {
  * @return object|null
  */
 
-function _ptb_get_property ($type) {
+function _ptb_get_property_type ($type) {
   if (is_object($type) && isset($type->type) && is_string($type->type)) {
     $type = $type->type;
   }
@@ -142,4 +142,63 @@ function _ptb_get_property_options ($options) {
   }
 
   return $options;
+}
+
+/**
+ * Render a property the right way.
+ *
+ * @param object $property
+ * @since 1.0.0
+ */
+
+function _ptb_render_property ($property) {
+  if (empty($property->type)) {
+    return;
+  }
+
+  $property_type = _ptb_get_property_type($property->type);
+
+  if (is_null($property_type)) {
+    return;
+  }
+
+  $property_type->set_options($property);
+
+  // Render the property.
+  $property_type->render();
+  $property_type->hidden();
+}
+
+/**
+ * Render properties the right way.
+ *
+ * @param array $properties
+ * @since 1.0.0
+ */
+
+function _ptb_render_properties ($properties) {
+  // Don't proceed without any properties
+  if (!is_array($properties) || empty($properties)) {
+    return;
+  }
+
+  // If it's a tab the tabs class will
+  // handle the rendering of the properties.
+  if ($properties[0]->tab) {
+    new PTB_Admin_Meta_Box_Tabs($properties);
+  } else {
+    if ($properties[0]->table) {
+      echo '<table class="ptb-table">';
+        echo '<tbody>';
+    }
+
+    foreach ($properties as $property) {
+      _ptb_property_render($property);
+    }
+
+    if ($properties[0]->table) {
+        echo '</tbody>';
+      echo '</table>';
+    }
+  }
 }
