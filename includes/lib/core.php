@@ -71,7 +71,7 @@ function _ptb_random_title () {
  */
 
 function _ptb_is_random_title ($str = '') {
-  return preg_match('/^\_rand\_/', $str);
+  return !!preg_match('/^\_rand\_/', $str);
 }
 
 /**
