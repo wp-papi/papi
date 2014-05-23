@@ -148,22 +148,15 @@ class PTB_Page {
             unset($property_value[$ki][$k]);
           }
         }
-      } else if (is_string($ki)) {
-        if (_ptb_is_property_type_key($ki)) {
-          unset($property_value[$ki]);
-        } else {
-          $ptk = _ptb_property_type_key($ki);
-          $kin = _ptb_remove_ptb($ki);
-          $property_value[$kin] = $this->convert(array(
-            'type' => $property_value[$ki][$ptk],
-            'value' => $vi
-          ));
-          unset($property_value[$ki]);
-        }
+      } else {
+        $property_value[$ki] = $this->convert(array(
+          'type'  => $property_type_value,
+          'value' => $property_value[$ki]
+        ));
       }
     }
 
-    return $property_value;
+    return array_filter($property_value);
   }
 
   /**

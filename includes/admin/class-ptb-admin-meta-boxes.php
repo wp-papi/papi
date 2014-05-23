@@ -20,6 +20,9 @@ class PTB_Admin_Meta_Boxes {
     // Setup actions.
     $this->setup_actions();
 
+    // Setup filters.
+    $this->setup_filters();
+
     // On post we need to save our custom data.
     // The action 'save_post' didn't work after
     // we change how Page Type Builder is loaded.
@@ -41,6 +44,17 @@ class PTB_Admin_Meta_Boxes {
   }
 
   /**
+   * Setup filters.
+   *
+   * @since 1.0.0
+   * @access private
+   */
+
+  private function setup_filters () {
+    add_filter('wp_insert_post_data', array($this, 'wp_insert_post_data'));
+  }
+
+  /**
    * Sanitize data before saving it.
    *
    * @param mixed $value
@@ -57,7 +71,6 @@ class PTB_Admin_Meta_Boxes {
         }
       }
     } else if (is_string($value)) {
-      $value = sanitize_text_field($value);
       $value = remove_trailing_quotes($value);
     }
 
@@ -187,8 +200,8 @@ class PTB_Admin_Meta_Boxes {
    */
 
   private function get_page_template (array $data = array()) {
-    $page_type = h($data['ptb_page_type'], '');
-    return _ptb_get_template($page_type);
+    $post_id = isset($data['post_ID']) ? $data['post_ID'] : 0;
+    return _ptb_get_template($post_id);
   }
 
   /**
@@ -202,6 +215,71 @@ class PTB_Admin_Meta_Boxes {
 
   private function get_page_type (array $data = array()) {
     return h($data['ptb_page_type'], '');
+  }
+
+  /**
+   * Pre save page template and page type.
+   *
+   * @param int $post_id
+   * @since 1.0.0
+   */
+
+  private function pre_save ($post_id) {
+    // Can't proceed without a post id.
+    if (is_null($post_id)) {
+      return;
+    }
+
+    // Data to save.
+    $data = array(
+      '_wp_page_template' => $this->get_page_template($_POST)
+    );
+
+    // Get the page type.
+    $page_type = $this->get_page_type($_POST);
+    $page_type_key = _ptb_get_page_type_meta_key();
+    $data[$page_type_key] = $page_type;
+
+    foreach ($data as $key => $value) {
+      // Get the existing value if we have any.
+      $meta_value = get_post_meta($post_id, $key, true);
+
+      if (is_null($meta_value)) {
+        // Add post meta key and value.
+        add_post_meta($post_id, $key, $value, true);
+      } else if (!is_null($meta_value) && !is_null($value)) {
+        // Update post meta key and value.
+        update_post_meta($post_id, $key, $value);
+      } else {
+        // Delete post meta row.
+        delete_post_meta($post_id, $key);
+      }
+    }
+  }
+
+  /**
+   * Change the page template value in WordPress post data
+   * before it saving it. WordPress won't save page template
+   * because it don't exists as a page template in the theme.
+   *
+   * We only set the page template value to the our page template
+   * to prevent WordPress from saving it.
+   *
+   * @param array $data
+   * @since 1.0.0
+   *
+   * @return array
+   */
+
+  public function wp_insert_post_data ($data) {
+    $page_template = $this->get_page_template($_POST);
+
+    // Set the page template to our page template only to prevent WordPress from saving it.
+    if (!is_null($page_template) || !empty($page_template)) {
+      $data['page_template'] = $page_template;
+    }
+
+    return $data;
   }
 
   /**
@@ -262,6 +340,9 @@ class PTB_Admin_Meta_Boxes {
     // Prepare property data.
     $data = $this->prepare_properties_data($data);
 
+    // Pre save page template and page type.
+    $this->pre_save($post_id);
+
     // Save, update or delete all fields.
     foreach ($data as $key => $property) {
 
@@ -272,13 +353,6 @@ class PTB_Admin_Meta_Boxes {
       // Property type data.
       $property_type_key = _ptb_property_type_key(_f($key)); // has to remove '_' + key also.
       $property_type_value = $property['type'];
-
-      // Get the page template.
-      $page_template = $this->get_page_template($_POST);
-
-      // Get the page type.
-      $page_type = $this->get_page_type($_POST);
-      $page_type_key = _ptb_get_page_type_meta_key();
 
       // Get the existing value if we have any.
       $meta_value = get_post_meta($post_id, $property_key, true);
@@ -293,16 +367,6 @@ class PTB_Admin_Meta_Boxes {
         if (!is_null($property_type_value)) {
           add_post_meta($post_id, $property_type_key, $property_type_value, true);
         }
-
-        // Add page template if we have any.
-        if (!is_null($page_template)) {
-          add_post_meta($post_id, '_wp_page_template', $page_template, true);
-        }
-
-        // Add page type if we have any.
-        if (!is_null($page_type)) {
-          add_post_meta($post_id, $page_type_key, $page_type, true);
-        }
       } else if (!is_null($meta_value) && !is_null($property_value)) {
         // Update the property data.
         update_post_meta($post_id, $property_key, $property_value);
@@ -311,28 +375,12 @@ class PTB_Admin_Meta_Boxes {
         if (!is_null($property_type_value)) {
           update_post_meta($post_id, $property_type_key, $property_type_value);
         }
-
-        // Update page template if we have any.
-        if (!is_null($page_template)) {
-          update_post_meta($post_id, '_wp_page_template', $page_template);
-        }
-
-        // Update page type if we have any.
-        if (!is_null($page_type)) {
-          update_post_meta($post_id, $page_type_key, $page_type);
-        }
       } else {
         // Delete property.
         delete_post_meta($post_id, $property_key);
 
         // Delete property type.
         delete_post_meta($post_id, $property_type_key);
-
-        // Delete page template.
-        delete_post_meta($post_id, '_wp_page_template');
-
-        // Delete page type.
-        delete_post_meta($post_id, $page_type_key);
       }
     }
 

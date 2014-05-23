@@ -20,7 +20,6 @@ class PropertyImage extends PTB_Property {
   public function html () {
     $images = array();
     $css_classes = $this->css_classes();
-
     $options = $this->get_options();
     $custom = $this->get_custom_options(array(
       'gallery' => false
@@ -151,6 +150,7 @@ EOF;
     echo $html .= <<< EOF
         </ul>
       </div>
+      <div class="clear"></div>
     </div>
 EOF;
   }
@@ -176,7 +176,7 @@ EOF;
             , remove = $img.attr('src') !== undefined && $li.find('p.pr-remove-image').length && e.target.tagName.toLowerCase() === 'a';
 
           if ($li.hasClass('pr-add-new')) {
-            $target = $('.ptb-property-image .pr-template > li:first').clone();
+            $target = $this.closest('.ptb-property-image').find('.pr-template > li:first').clone();
             $target.insertBefore($li);
             $target = $target.find('img');
           } else if (!remove) {
@@ -187,11 +187,13 @@ EOF;
             $target.closest('li').remove();
           } else {
             Ptb.Utils.wp_media_editor($target, function (attachment) {
-              if (Ptb.Utils.is_image(attachment.url)) {
+              if (attachment !== undefined && Ptb.Utils.is_image(attachment.url)) {
                 $target.attr('style', 'height:auto');
                 $target.attr('src', attachment.url);
                 $target.next().val(attachment.id);
                 $target.closest('li').addClass('pr-image-item');
+              } else {
+                $target.closest('li').remove();
               }
             });
           }

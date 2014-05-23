@@ -1,9 +1,11 @@
 .ptb-property-image {
+  margin-bottom: 20px;
   .pr-image-items {
     li {
       float: left;
       width: 122px;
       height: 122px;
+      min-height: 140px;
       padding: 5px;
       border: 2px #EAEAEA dashed;
       margin: 5px 10px 5px 0;
@@ -12,6 +14,7 @@
         border: 2px transparent solid;
         img {
           height: auto !important;
+          max-height: 140px;
           border: 2px #EAEAEA dashed;
           padding: 5px;
           width: 120px;
@@ -43,6 +46,7 @@
         }
       }
       &.pr-add-new {
+        min-height: 0;
         p {
           text-align: center;
           vertical-align: middle;
