@@ -57,7 +57,6 @@ class PTB_Admin_Meta_Boxes {
         }
       }
     } else if (is_string($value)) {
-      $value = sanitize_text_field($value);
       $value = remove_trailing_quotes($value);
     }
 
