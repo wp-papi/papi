@@ -20,6 +20,9 @@ class PTB_Admin_Meta_Boxes {
     // Setup actions.
     $this->setup_actions();
 
+    // Setup filters.
+    $this->setup_filters();
+
     // On post we need to save our custom data.
     // The action 'save_post' didn't work after
     // we change how Page Type Builder is loaded.
@@ -38,6 +41,17 @@ class PTB_Admin_Meta_Boxes {
   private function setup_actions () {
     // Try to get this to work.
     // add_action('save_post', array($this, 'save_meta_boxes'), 1, 2);
+  }
+
+  /**
+   * Setup filters.
+   *
+   * @since 1.0.0
+   * @access private
+   */
+
+  private function setup_filters () {
+    add_filter('wp_insert_post_data', array($this, 'wp_insert_post_data'));
   }
 
   /**
@@ -186,8 +200,8 @@ class PTB_Admin_Meta_Boxes {
    */
 
   private function get_page_template (array $data = array()) {
-    $page_type = h($data['ptb_page_type'], '');
-    return _ptb_get_template($page_type);
+    $post_id = isset($data['post_ID']) ? $data['post_ID'] : 0;
+    return _ptb_get_template($post_id);
   }
 
   /**
@@ -218,7 +232,7 @@ class PTB_Admin_Meta_Boxes {
 
     // Data to save.
     $data = array(
-      '_wp_page_template' => $this->get_page_template($_POST),
+      '_wp_page_template' => $this->get_page_template($_POST)
     );
 
     // Get the page type.
@@ -228,7 +242,7 @@ class PTB_Admin_Meta_Boxes {
 
     foreach ($data as $key => $value) {
       // Get the existing value if we have any.
-      $meta_value = get_post_meta($post_id, $property_key, true);
+      $meta_value = get_post_meta($post_id, $key, true);
 
       if (is_null($meta_value)) {
         // Add post meta key and value.
@@ -241,6 +255,31 @@ class PTB_Admin_Meta_Boxes {
         delete_post_meta($post_id, $key);
       }
     }
+  }
+
+  /**
+   * Change the page template value in WordPress post data
+   * before it saving it. WordPress won't save page template
+   * because it don't exists as a page template in the theme.
+   *
+   * We only set the page template value to the our page template
+   * to prevent WordPress from saving it.
+   *
+   * @param array $data
+   * @since 1.0.0
+   *
+   * @return array
+   */
+
+  public function wp_insert_post_data ($data) {
+    $page_template = $this->get_page_template($_POST);
+
+    // Set the page template to our page template only to prevent WordPress from saving it.
+    if (!is_null($page_template) || !empty($page_template)) {
+      $data['page_template'] = $page_template;
+    }
+
+    return $data;
   }
 
   /**

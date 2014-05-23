@@ -142,9 +142,9 @@ function _ptb_get_page_type ($file_path) {
 }
 
 /**
- * Get template file from page type.
+ * Get template file from post id.
  *
- * @param int|string $post_id Post id or page type
+ * @param int|string $post_id
  * @since 1.0.0
  *
  * @return null|string
