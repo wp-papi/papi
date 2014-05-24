@@ -176,26 +176,31 @@ class PTB_Page {
    * @return mixed|null
    */
 
-  private function convert ($property = array()) {
-    if (is_array($property)) {
-      if (isset($property['value']) && isset($property['type'])) {
-        $type = $property['type'];
-        $property_type = PTB_Property::factory($type);
+  private function convert ($property) {
+    if (!is_array($property)) {
+      return $property;
+    }
 
-        // Can't convert since we don't know the property.
-        if (is_null($property_type)) {
-          return $property['value'];
-        }
+    // Try to convert the property value with a property type.
+    if (isset($property['value']) && isset($property['type'])) {
+      // Get the property type.
+      $type = strval($property['type']);
+      $property_type = PTB_Property::factory($type);
 
-        return $property_type->convert($property['value']);
-      }
-
-      if (isset($property['value'])) {
+      // If no property is found, just return the value.
+      if (is_null($property_type)) {
         return $property['value'];
       }
 
-      return $property;
+      // Convert the value and return.
+      return $property_type->convert($property['value']);
     }
+
+    // If we only have the value, let's return that.
+    if (isset($property['value'])) {
+      return $property['value'];
+    }
+
     return $property;
   }
 
