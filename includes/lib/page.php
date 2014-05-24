@@ -142,26 +142,6 @@ function _ptb_get_page_type_file ($page_type) {
 }
 
 /**
- * Get a page type by file path.
- *
- * @param string $file_path
- * @since 1.0.0
- *
- * @return string
- */
-
-function _ptb_get_page_type ($file_path) {
- $page_type = new PTB_Page_Type($file_path);
-
- // If the page type don't have a name we can't use it.
- if (!$page_type->has_name()) {
-   return null;
- }
-
- return $page_type;
-}
-
-/**
  * Get template file from post id.
  *
  * @param int|string $post_id
