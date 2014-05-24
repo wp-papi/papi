@@ -99,7 +99,7 @@ final class PTB_Admin {
   public function admin_menu () {
     $post_types = _ptb_get_post_types();
     $settings = _ptb_get_settings();
-    $page_types = _ptb_get_all_page_types();
+    $page_types = _ptb_get_all_page_types(true);
 
     // If we don't have any page types don't change any menu items.
     if (empty($page_types)) {

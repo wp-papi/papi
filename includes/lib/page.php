@@ -110,11 +110,12 @@ function _ptb_get_page_type ($file_path) {
  *
  * @since 1.0.0
  * @todo rewrite and use logic in class-ptb-page-types.php
+ * @param bool $all Default false
  *
  * @return array
  */
 
-function _ptb_get_all_page_types () {
+function _ptb_get_all_page_types ($all = false) {
   // Get all page types files.
   $files = _ptb_get_files_in_directory('page-types');
 
@@ -127,7 +128,7 @@ function _ptb_get_all_page_types () {
     $p = _ptb_get_page_type($file);
 
     // Add the page type if the post types is allowed.
-    if (!is_null($p) && in_array($post_type, $p->post_types)) {
+    if ($all || !is_null($p) && in_array($post_type, $p->post_types)) {
       $page_types[] = $p;
     }
   }

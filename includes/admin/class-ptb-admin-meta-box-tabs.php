@@ -22,7 +22,7 @@ class PTB_Admin_Meta_Box_Tabs {
   private $tabs = array(
     /*
     array(
-      'name'       => '',
+      'title'       => '',
       'icon'       => '',
       'properties' => array()
     )*/
@@ -35,49 +35,73 @@ class PTB_Admin_Meta_Box_Tabs {
    * @since 1.0.0
    */
 
-  private function __construct ($tabs = array()) {
-    $this->tabs = $tabs;
-    echo'<pre>';
-    var_dump($this->tabs);
-    die();
+  public function __construct ($tabs = array()) {
+    if (empty($tabs)) {
+      return;
+    }
+
+    $this->setup_tabs($tabs);
+
     $this->html();
+  }
+
+  /**
+   * Setup tabs array.
+   *
+   * @param array $tabs
+   * @since 1.0.0
+   * @access private
+   */
+
+  private function setup_tabs ($tabs) {
+    // Generate unique names for all tabs.
+    for ($i = 0; $i < count($tabs); $i++) {
+      $tabs[$i]->name = _ptb_name($tabs[$i]->title) . '_' . $i;
+    }
+
+    $this->tabs = $tabs;
   }
 
   /**
    * Generate html for tabs and properties.
    *
    * @since 1.0.0
+   * @access private
    */
 
   private function html () {
     ?>
-    <div class="ptb-tabs-back"></div>
-    <ul class="ptb-tabs">
-    <?php
-    foreach ($this->tabs as $tab):
-      ?>
-        <li class="active">
-          <a href="#" data-ptb-tab="<?php echo $tab->title; ?>">
-            <?php if (isset($tab->icon) && !empty($tab->icon)): ?>
-              <img src="<?php echo $tab->icon; ?>" alt="<?php echo $tab->title; ?>" />
-            <?php endif; ?>
-          </a>
-        </li>
+    <div class="ptb-tabs-wrapper">
+      <div class="ptb-tabs-back"></div>
+      <ul class="ptb-tabs">
       <?php
-    endforeach;
-    ?>
-  </ul>
-  <div class="ptb-tabs-content">
-    <?php
-    foreach ($this->tabs as $tab):
+      foreach ($this->tabs as $tab):
+        ?>
+          <li class="<?php echo $this->tabs[0] == $tab ? 'active': ''; ?>">
+            <a href="#" data-ptb-tab="<?php echo $tab->name; ?>">
+              <?php if (isset($tab->options->icon) && !empty($tab->options->icon)): ?>
+                <img src="<?php echo $tab->options->icon; ?>" alt="<?php echo $tab->title; ?>" />
+              <?php endif;
+              echo $tab->title; ?>
+            </a>
+          </li>
+        <?php
+      endforeach;
       ?>
-      <div class="active" data-ptb-tab="<?php echo $tab->title; ?>">
-        <?php _ptb_render_properties($tab->properties); ?>
-      </div>
+    </ul>
+    <div class="ptb-tabs-content">
       <?php
-    endforeach;
-    ?>
+      foreach ($this->tabs as $tab):
+        ?>
+        <div class="<?php echo $this->tabs[0] == $tab ? 'active': ''; ?>" data-ptb-tab="<?php echo $tab->name; ?>">
+          <?php _ptb_render_properties($tab->properties); ?>
+        </div>
+        <?php
+      endforeach;
+      ?>
+    </div>
   </div>
+  <div class="ptb-clear"></div>
   <?php
   }
 }
