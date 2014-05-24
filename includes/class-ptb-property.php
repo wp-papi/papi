@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
  * Page Type Builder Property.
  *
  * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 abstract class PTB_Property {
@@ -71,13 +72,6 @@ abstract class PTB_Property {
     if (in_array($property, self::$properties) && class_exists($property)) {
       $klass = new $property();
       $klass->setup_globals();
-      if (!isset(self::$assets_up[$property])) {
-        add_action('admin_head', array($klass, 'css'));
-        add_action('admin_head', array($klass, 'autocss'));
-        add_action('admin_footer', array($klass, 'js'));
-        add_action('admin_footer', array($klass, 'autojs'));
-        self::$assets_up[$property] = true;
-      }
       return $klass;
     } else {
       return null;
@@ -125,29 +119,6 @@ abstract class PTB_Property {
 
   public static function exists ($property) {
     return isset(self::$properties[$property]);
-  }
-
-  /**
-   * Get the current property options object.
-   *
-   * @since 1.0.0
-   *
-   * @return object|null
-   */
-
-  public function get_options () {
-    return $this->options;
-  }
-
-  /**
-   * Set the current property options object.
-   *
-   * @param object $options
-   * @since 1.0.0
-   */
-
-  public function set_options ($options) {
-    $this->options = $options;
   }
 
   /**
@@ -217,6 +188,19 @@ abstract class PTB_Property {
   }
 
   /**
+   * Register assets actions.
+   *
+   * @since 1.0.0
+   */
+
+  public function assets () {
+    add_action('admin_head', array($this, 'css'));
+    add_action('admin_head', array($this, 'autocss'));
+    add_action('admin_footer', array($this, 'js'));
+    add_action('admin_footer', array($this, 'autojs'));
+  }
+
+  /**
    * Output hidden input field that cointains which property is used.
    *
    * @since 1.0.0
@@ -224,10 +208,10 @@ abstract class PTB_Property {
 
   public function hidden () {
     $html = PTB_Html::input('hidden', array(
-      'name' => _ptb_property_type_key($this->get_options()->name),
-      'value' => $this->get_options()->type
+      'name' => _ptb_property_type_key($this->options->name),
+      'value' => $this->options->type
     ));
-    if ($this->get_options()->table): ?>
+    if ($this->options->table): ?>
       <tr>
         <td>
           <?php echo $html; ?>
@@ -323,6 +307,71 @@ abstract class PTB_Property {
   }
 
   /**
+   * Get the current property options object.
+   *
+   * @since 1.0.0
+   *
+   * @return object|null
+   */
+
+  public function get_options () {
+    return $this->options;
+  }
+
+  /**
+   * Set the current property options object.
+   *
+   * @param object $options
+   * @since 1.0.0
+   */
+
+  public function set_options ($options) {
+    $this->options = $options;
+  }
+
+  /**
+   * Get database value.
+   *
+   * @param null $default
+   * @since 1.0.0
+   *
+   * @return mixed
+   */
+
+  public function get_value ($default = null) {
+    $value = $this->options->value;
+
+    if (is_null($value)) {
+      return $default;
+    }
+
+    if (is_string($value) && strlen($value) === 0) {
+      return $default;
+    }
+
+    return $value;
+  }
+
+  /**
+   * Get custom property settings.
+   *
+   * @param array $defaults
+   * @since 1.0.0
+   *
+   * @return object
+   */
+
+  public function get_settings ($defaults = array()) {
+    if (isset($this->options->settings)) {
+      $custom = $this->options->settings;
+    } else {
+      $custom = array();
+    }
+
+    return (object)wp_parse_args((array)$custom, $defaults);
+  }
+
+  /**
    * Get css classes for the property.
    *
    * @param string $css_classes
@@ -332,29 +381,6 @@ abstract class PTB_Property {
    */
 
   public function css_classes ($css_class = '') {
-    if (isset($this->get_custom_options()->css_class)) {
-      $css_class .= ' ' . $this->get_custom_options()->css_class;
-    }
-
-    return $css_class;
-  }
-
-  /**
-   * Get custom options object.
-   *
-   * @param array $defaults
-   * @since 1.0.0
-   *
-   * @return object
-   */
-
-  public function get_custom_options ($defaults = array()) {
-    if (isset($this->options->custom)) {
-      $custom = $this->options->custom;
-    } else {
-      $custom = array();
-    }
-
-    return (object)wp_parse_args((array)$custom, $defaults);
+    return $css_class . ' ' . $this->get_settings(array('css_class' => ''))->css_class;
   }
 }

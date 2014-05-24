@@ -5,45 +5,50 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property DropdownList
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PropertyDropdownList extends PTB_Property {
 
   /**
-   * Get the html for output.
+   * Generate the HTML for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function html () {
-    $html = PTB_Html::tag('select', array(
-      'name' => $this->get_options()->name,
-      'id' => $this->get_options()->name,
-      'class' => $this->css_classes()
-    ), false);
+    // Property options.
+    $options = $this->get_options();
 
-    $options = isset($this->get_options()->custom->options) ? $this->get_options()->custom->options : array();
-    $selected = isset($this->get_options()->custom->selected) ? $this->get_options()->custom->selected : '';
+    // Database value. Can be null.
+    $value = $this->get_value();
 
-    if (!is_null($this->get_options()->value) && !empty($this->get_options()->value)) {
-      $selected = $this->get_options()->value;
+    // Property settings from the page type.
+    $settings = $this->get_settings(array(
+      'items'    => array(),
+      'selected' => ''
+    ));
+
+    // Override selected setting with
+    // database value if not null.
+    if (!is_null($value)) {
+      $settings->selected = $value;
     }
 
-    foreach ($options as $key => $value) {
-      $attributes = array(
-        'value' => $key
-      );
-
-      if ($key == $selected) {
-        $attributes['selected'] = 'selected';
-      }
-
-      $html .= PTB_Html::tag('option', $value, $attributes);
-    }
-
-    echo $html . PTB_Html::stop('select');
+    ?>
+    <select id="<?php echo $options->name; ?>" name="<?php echo $options->name; ?>" class="<?php echo $this->css_classes(); ?>">
+      <?php
+        foreach ($settings->items as $key => $value):
+          if (is_numeric($key)) {
+            $key = $value;
+          }
+      ?>
+        <option value="<?php echo $key; ?>" <?php echo $key == $settings->selected ? 'selected="selected"' : ''; ?>><?php echo $value; ?></option>
+      <?php endforeach; ?>
+    </select>
+    <?php
   }
 
 }

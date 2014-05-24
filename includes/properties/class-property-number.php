@@ -10,18 +10,22 @@ if (!defined('ABSPATH')) exit;
 class PropertyNumber extends PTB_Property {
 
   /**
-   * Get the html for output.
+   * Generate the HTML for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function html () {
+    // Property options.
+    $options = $this->get_options();
+
+    // Database value.
+    $value = $this->get_value('');
+
     echo PTB_Html::input('number', array(
-      'name' => $this->get_options()->name,
-      'id' => $this->get_options()->name,
-      'value' => $this->get_options()->value,
+      'name'  => $options->name,
+      'id'    => $options->name,
+      'value' => $value,
       'class' => $this->css_classes()
     ));
   }
@@ -30,7 +34,7 @@ class PropertyNumber extends PTB_Property {
    * Convert the value of the property before we output it to the application.
    *
    * @param mixed $value
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return int|float
    */

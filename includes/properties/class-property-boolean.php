@@ -5,16 +5,17 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property Boolean
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PropertyBoolean extends PTB_Property {
 
   /**
-   * Get the html for output.
+   * Generate the HTML for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function html () {
@@ -30,7 +31,7 @@ class PropertyBoolean extends PTB_Property {
    * Convert the value of the property before we output it to the application.
    *
    * @param mixed $value
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return boolean
    */

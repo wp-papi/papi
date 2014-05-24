@@ -259,11 +259,7 @@ class PTB_Admin_Meta_Boxes {
 
   /**
    * Change the page template value in WordPress post data
-   * before it saving it. WordPress won't save page template
-   * because it don't exists as a page template in the theme.
-   *
-   * We only set the page template value to the our page template
-   * to prevent WordPress from saving it.
+   * before it saving it.
    *
    * @param array $data
    * @since 1.0.0
@@ -272,15 +268,22 @@ class PTB_Admin_Meta_Boxes {
    */
 
   public function wp_insert_post_data ($data) {
-    if (!_ptb_is_method('post')) {
+    if (!_ptb_is_method('post') || !isset($_POST['post_ID'])) {
       return $data;
     }
 
-    $page_template = $this->get_page_template($_POST);
+    $post = get_post(intval($_POST['post_ID']));
+    $page_templates = wp_get_theme()->get_page_templates($post);
 
-    // Set the page template to our page template only to prevent WordPress from saving it.
-    if (!is_null($page_template) || !empty($page_template)) {
-      $data['page_template'] = $page_template;
+    // Only change page template if the WordPress theme have any page templates.
+    // And the post type is page.
+    if (!empty($page_templates) && 'page' === _ptb_get_wp_post_type()) {
+      $page_template = $this->get_page_template($_POST);
+
+      // Set the page template to our page template only to prevent WordPress from saving it.
+      if (!is_null($page_template) || !empty($page_template)) {
+        $data['page_template'] = basename($page_template);
+      }
     }
 
     return $data;

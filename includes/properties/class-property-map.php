@@ -5,49 +5,50 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property Google Map
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PropertyMap extends PTB_Property {
 
   /**
-   * Get the html for output.
+   * Generate the HTML for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function html () {
-    echo '<div id="map-canvas"></div>';
-  }
-
-  /**
-   * Output custom css for the property.
-   *
-   * @since 1.0
-   */
-
-  public function css () {
-    echo '<style type="text/css">';
-    echo '#map-canvas { width: 100%; height: 400px; }';
-    echo '</style>';
+    ?>
+    <style type="text/css">
+      #map-canvas {
+        width: 100%;
+        height: 400px;
+      }
+    </style>
+    <div id="map-canvas"></div>
+    <?php
   }
 
   /**
    * Output custom JavaScript for the property.
    *
-   * @since 1.0
-   *
-   * @throws Exception
+   * @since 1.0.0
+   * @throws PTB_Exception
    */
 
   public function js () {
-    if (isset($this->get_options()->custom) && isset($this->get_options()->custom->api_key)) {
-      $api_key = $this->get_options()->custom->api_key;
+    // Property settings.
+    $settings = $this->get_settings(array(
+      'api_key' => '',
+      'latlng'  => ''
+    ));
+
+    if (!empty($settings->api_key)) {
+      $api_key = $settings->api_key;
     } else {
-     throw new Exception('PTB Error: You need to provide a api key for PropertyMap since we are using Google Maps');
-    }
-    ?>
+      throw new PTB_Exception('Page Tyep Builder Error: You need to provide a api key for PropertyMap since we are using Google Maps');
+    } ?>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo $api_key; ?>&sensor=false"></script>
     <script type="text/javascript">
       function updateLatitudeLangitude (position) {
@@ -59,9 +60,15 @@ class PropertyMap extends PTB_Property {
 
       function initialize() {
         <?php
-          if (is_null($this->get_options()->value) || empty($this->get_options()->value)) {
-            if (isset($this->get_options()->custom->latlng) && !empty($this->get_options()->custom->latlng)) {
-              $value = explode(',', trim($this->get_options()->custom->latlng));
+          // Property options.
+          $options = $this->get_options();
+
+          // Database value.
+          $value = $this->get_value();
+
+          if (is_null($value) || empty($value)) {
+            if (!empty($settings->latlng)) {
+              $value = explode(',', trim($settings->latlng));
               $lat = $value[0];
               $lng = $value[1];
             } else {
@@ -69,7 +76,7 @@ class PropertyMap extends PTB_Property {
               $lng = '18.06491';
             }
           } else {
-            $value = explode(',', trim($this->get_options()->value));
+            $value = explode(',', trim($value));
             $lat = $value[0];
             $lng = $value[1];
           }
@@ -104,15 +111,13 @@ class PropertyMap extends PTB_Property {
   }
 
   /**
-   * Get the input html for the "place" input.
+   * Generate the html for the "place" input.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function input () {
-    return PTB_Html::input('text', array(
+    echo PTB_Html::input('text', array(
       'name' => $this->get_options()->name,
       'id' => $this->get_options()->name,
       'class' => $this->css_classes('ptb-halfwidth'),
@@ -123,13 +128,12 @@ class PropertyMap extends PTB_Property {
   /**
    * Render the final html that is displayed in the table.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
-  public function render2 () {
-    ?>
+  public function render () {
+    $options = $this->get_options();
+    if ($options->table): ?>
       <tr>
         <td colspan="2">
           <?php $this->html(); ?>
@@ -143,6 +147,13 @@ class PropertyMap extends PTB_Property {
           <?php $this->input(); ?>
         </td>
       </tr>
-      <?php $this->helptext();
+      <?php
+      $this->helptext();
+    else:
+      $this->html();
+      $this->label();
+      $this->input();
+      $this->helptext();
+    endif;
   }
 }

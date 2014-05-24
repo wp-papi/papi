@@ -5,26 +5,34 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property Image
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PropertyImage extends PTB_Property {
 
   /**
-   * Get the html for output.
+   * Generate the HTML for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function html () {
-    $images = array();
-    $css_classes = $this->css_classes();
+    // Property options.
     $options = $this->get_options();
-    $custom = $this->get_custom_options(array(
+
+    // CSS classes.
+    $css_classes = $this->css_classes();
+
+    // Property settings.
+    $settings = $this->get_settings(array(
       'gallery' => false
     ));
-    $is_gallery = $custom->gallery;
+
+    $is_gallery = $settings->gallery;
+
+    $images = array();
 
     // If it's a gallery, we need to load all images.
     if ($is_gallery) {
@@ -158,7 +166,7 @@ EOF;
   /**
    * Output custom JavaScript for the property.
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function js () {
@@ -208,7 +216,7 @@ EOF;
    * Convert the value of the property before we output it to the application.
    *
    * @param mixed $value
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return object|string
    */
@@ -239,21 +247,28 @@ EOF;
   /**
    * Render the final html that is displayed in the table.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return string
    */
 
   public function render () {
-    if ($this->get_options()->table) {
-      $label = PTB_Html::td($this->label(), array('colspan' => 2));
-      $label = PTB_Html::tr($label);
-      $html = PTB_Html::td($this->html(), array('colspan' => 2));
-      $html = PTB_Html::tr($html);
-      $html .= $this->helptext(false);
-      return $label . $html;
-    }
-    return $this->label() . $this->html() . $this->helptext(false);
+    if ($this->get_options()->table): ?>
+      <tr>
+        <td colspan="2">
+          <?php $this->label(); ?>
+        </td>
+        <td colspan="2">
+          <?php $this->html(); ?>
+        </td>
+      </tr>
+    <?php
+      $this->helptext(false);
+    else:
+      $this->label();
+      $this->html();
+      $this->helptext(false);
+    endif;
   }
 
 }

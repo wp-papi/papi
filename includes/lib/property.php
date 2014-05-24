@@ -141,6 +141,8 @@ function _ptb_get_property_options ($options) {
     $options->colspan = _ptb_attribute('colspan', $options->colspan);
   }
 
+  $options->value = ptb_field($options->name);
+
   return $options;
 }
 
@@ -165,6 +167,7 @@ function _ptb_render_property ($property) {
   $property_type->set_options($property);
 
   // Render the property.
+  $property_type->assets();
   $property_type->render();
   $property_type->hidden();
 }

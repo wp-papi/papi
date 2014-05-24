@@ -149,10 +149,7 @@ class PTB_Page {
           }
         }
       } else {
-        $property_value[$ki] = $this->convert(array(
-          'type'  => $property_type_value,
-          'value' => $property_value[$ki]
-        ));
+        continue;
       }
     }
 

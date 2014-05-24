@@ -5,45 +5,42 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property PageReferenceList
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PropertyPageReferenceList extends PTB_Property {
 
   /**
-   * Get the html for output.
+   * Generate the HTML for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function html () {
-    $name = $this->get_options()->name;
+    // Property options.
+    $options = $this->get_options();
 
-    // Default post type is page.
-    if (isset($this->get_options()->custom->post_types)) {
-      $post_types = $this->get_options()->custom->post_types;
-    } else {
-      $post_types = 'page';
-    }
+    // Property settings.
+    $settings = $this->get_settings(array(
+      'post_types' => array('page'),
+      'show_max'   => -1
+    ));
+
+    // Database value.
+    $references = $this->convert($this->get_value());
 
     // Fetch posts with the post types.
     $posts = query_posts(array(
-      'post_type' => $post_types
+      'post_type' => $settings->post_types
     ));
 
-    // Default show max value.
-
-    if (isset($this->get_options()->custom->show_max)) {
-      $show_max = $this->get_options()->custom->show_max;
-    } else {
-      $show_max = count($posts);
-    }
-
-    $posts = array_slice($posts, 0, $show_max);
-
-    // Get current references.
-    $references = $this->get_options()->value;
+    // Take as many posts we should show.
+    $posts = array_slice($posts, 0, (
+      $settings->show_max === -1 ?
+      count($posts) :
+      $settings->show_max));
 
     if (!is_array($references)) {
       $references = array();
@@ -66,7 +63,7 @@ EOF;
               foreach ($posts as $post) {
                 $html .= <<< EOF
                 <li>
-                  <input type="hidden" data-name="{$name}[]" value="{$post->ID}" />
+                  <input type="hidden" data-name="{$options->name}[]" value="{$post->ID}" />
                   <a href="#">{$post->post_title}</a>
                   <span class="icon plus"></span>
                 </li>
@@ -81,7 +78,7 @@ EOF;
             foreach ($references as $post) {
               $html .= <<< EOF
               <li>
-                <input type="hidden" name="{$name}[]" value="{$post->ID}" />
+                <input type="hidden" name="{$options->name}[]" value="{$post->ID}" />
                 <a href="#">{$post->post_title}</a>
                 <span class="icon minus"></span>
               </li>
@@ -101,7 +98,7 @@ EOF;
   /**
    * Output custom JavaScript for the property.
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function js () {
@@ -144,27 +141,38 @@ EOF;
   }
 
   /**
-   * Render the final html that is displayed in the table.
+   * Render the final html that is displayed in the table or without table.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function render () {
-    $label = PTB_Html::td($this->label(), array('colspan' => 2));
-    $label = PTB_Html::tr($label);
-    $html = PTB_Html::td($this->html(), array('colspan' => 2));
-    $html = PTB_Html::tr($html);
-    $html .= $this->helptext(false);
-    return $label . $html;
+    $options = $this->get_options();
+    if ($options->table): ?>
+      <tr>
+        <td colspan="2">
+          <?php $this->label(); ?>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <?php $this->html(); ?>
+        </td>
+      </tr>
+    <?php
+      $this->helptext(false);
+    else:
+      $this->label();
+      $this->html();
+      $this->helptext(false);
+    endif;
   }
 
   /**
    * Convert the value of the property before we output it to the application.
    *
    * @param mixed $value
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return array
    */

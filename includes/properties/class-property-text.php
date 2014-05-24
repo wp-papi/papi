@@ -7,25 +7,30 @@ if (!defined('ABSPATH')) exit;
  * Page Type Builder - Property Text
  *
  * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PropertyText extends PTB_Property {
 
-  /**
-   * Get the html for output.
-   *
-   * @since 1.0.0
-   *
-   * @return string
-   */
+ /**
+  * Generate the HTML for the property.
+  *
+  * @since 1.0.0
+  */
 
   public function html () {
+    // Property options.
     $options = $this->get_options();
-    $custom = $this->get_custom_options(array(
-      'wp_editor' => false
+
+    // Database value. Can be null.
+    $value = $this->get_value();
+
+    // Property settings from the page type.
+    $settings = $this->get_settings(array(
+      'editor' => true,
     ));
 
-    if ($custom->wp_editor) {
+    if ($settings->editor) {
       wp_editor($options->value, $options->name, array(
         'textarea_name' => $options->name
       ));
@@ -39,11 +44,10 @@ class PropertyText extends PTB_Property {
   }
 
   /**
-   * Render the final html that is displayed in the table.
+   * Render the final html that is displayed in the tabl
+   * or without a table.
    *
    * @since 1.0.0
-   *
-   * @return string
    */
 
   public function render () {
