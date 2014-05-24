@@ -98,6 +98,12 @@ class PTB_Admin_Meta_Box {
 
     wp_nonce_field('ptb_save_data', 'ptb_meta_nonce');
 
+    // Output hidden field with page type value.
+    echo PTB_Html::input('hidden', array(
+      'name' => 'ptb_page_type',
+      'value' => _ptb_get_page_type_meta_value()
+    ));
+
     // Render the properties.
     _ptb_render_properties($args['args']);
   }

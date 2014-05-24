@@ -36,11 +36,18 @@ function _ptb_get_page_type_meta_value ($post_id = null) {
     $post_id = _ptb_get_post_id();
   }
 
+  // Get page type value from database.
   $key = _ptb_get_page_type_meta_key();
   $page_type = h(get_post_meta($post_id, $key, true), '');
 
-  if (empty($page_type) && isset($_GET['page_type']) && !empty($_GET['page_type'])) {
+  // Get page type value from get object.
+  if (empty($page_type) && isset($_GET['page_type'])) {
     $page_type = $_GET['page_type'];
+  }
+
+  // Get page type value from post object.
+  if (empty($page_type) && isset($_POST['ptb_page_type'])) {
+    $page_type = $_POST['ptb_page_type'];
   }
 
   return $page_type;
@@ -152,6 +159,7 @@ function _ptb_get_page_type_file ($page_type) {
 
 function _ptb_get_template ($post_id) {
   $data = _ptb_get_file_data($post_id);
+  var_dump($data);
   if (isset($data) && isset($data->template) && isset($data->template)) {
     return $data->template;
   } else {
@@ -171,6 +179,8 @@ function _ptb_get_template ($post_id) {
 function _ptb_get_file_data ($post_id) {
   $post_id = _ptb_get_post_id($post_id);
   $page_type = _ptb_get_page_type_meta_value($post_id);
+
+  var_dump($page_type);
 
   // Check so the page type isn't null or empty before we
   // trying to get the page type data.

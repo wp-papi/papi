@@ -184,7 +184,7 @@ function _ptb_render_properties ($properties) {
 
   // If it's a tab the tabs class will
   // handle the rendering of the properties.
-  if ($properties[0]->tab) {
+  if (isset($properties[0]->tab) && $properties[0]->tab) {
     new PTB_Admin_Meta_Box_Tabs($properties);
   } else {
     if ($properties[0]->table) {
@@ -193,7 +193,7 @@ function _ptb_render_properties ($properties) {
     }
 
     foreach ($properties as $property) {
-      _ptb_property_render($property);
+      _ptb_render_property($property);
     }
 
     if ($properties[0]->table) {

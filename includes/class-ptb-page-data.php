@@ -14,6 +14,7 @@ abstract class PTB_Page_Data {
    *
    * @var array
    * @since 1.0.0
+   * @access protected
    */
 
   private $properties = array();
@@ -36,10 +37,10 @@ abstract class PTB_Page_Data {
    * Setup globals.
    *
    * @since 1.0.0
+   * @access private
    */
 
   private function setup_globals () {
-    // Maybe should be static?
     $this->page_type = static::$page_type;
   }
 
@@ -47,6 +48,7 @@ abstract class PTB_Page_Data {
    * Setup actions.
    *
    * @since 1.0.0
+   * @access private
    */
 
   private function setup_actions () {}
@@ -72,6 +74,7 @@ abstract class PTB_Page_Data {
       $options['title'] = $title;
     }
 
+    // Create a new box.
     $this->box = new PTB_Admin_Meta_Box($options, $properties);
   }
 

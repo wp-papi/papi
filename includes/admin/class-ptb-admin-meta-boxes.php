@@ -272,6 +272,10 @@ class PTB_Admin_Meta_Boxes {
    */
 
   public function wp_insert_post_data ($data) {
+    if (!_ptb_is_method('post')) {
+      return $data;
+    }
+
     $page_template = $this->get_page_template($_POST);
 
     // Set the page template to our page template only to prevent WordPress from saving it.
