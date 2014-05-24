@@ -29,7 +29,7 @@ class PropertyPageReferenceList extends PTB_Property {
     ));
 
     // Database value.
-    $references = $this->convert($this->get_value());
+    $references = $this->get_value();
 
     // Fetch posts with the post types.
     $posts = query_posts(array(
