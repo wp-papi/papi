@@ -19,14 +19,7 @@ class PTB_Admin_Meta_Box_Tabs {
    * @since 1.0.0
    */
 
-  private $tabs = array(
-    /*
-    array(
-      'title'       => '',
-      'icon'       => '',
-      'properties' => array()
-    )*/
-  );
+  private $tabs = array();
 
   /**
    * Page Type Builder Admin Meta Box Tabs Constructor.
