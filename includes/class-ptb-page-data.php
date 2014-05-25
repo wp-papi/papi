@@ -14,10 +14,20 @@ abstract class PTB_Page_Data {
    *
    * @var array
    * @since 1.0.0
-   * @access protected
+   * @access private
    */
 
   private $properties = array();
+
+  /**
+   * Remove post type support array.
+   *
+   * @var array
+   * @since 1.0.0
+   * @access private
+   */
+
+  private $remove_post_type_support = array();
 
   /**
    * Page Type Builder Page Data Constructor.
@@ -99,7 +109,12 @@ abstract class PTB_Page_Data {
    */
 
   protected function remove ($remove_post_type_support = array()) {
-    $this->remove_post_type_support = $remove_post_type_support;
+    if (is_string($remove_post_type_support)) {
+      $remove_post_type_support = array($remove_post_type_support);
+    }
+
+    $this->remove_post_type_support = array_merge($this->remove_post_type_support, $remove_post_type_support);
+
     add_action('init', array($this, 'remove_post_type_support'));
   }
 
