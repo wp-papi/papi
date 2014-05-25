@@ -22,14 +22,12 @@ class PropertyList extends PTB_Property {
     $this->counter = 0;
 
     // Property options.
-    $options = $this->get_options();
+    $this->options = $this->get_options();
 
     // Database value.
     $values = $this->get_value(array());
 
-    $this->name = $options->name;
-
-    $properties = $options->properties;
+    $properties = is_array($this->options->properties) ? $this->options->properties : array();
 
     ?>
     <tr>
@@ -106,7 +104,7 @@ class PropertyList extends PTB_Property {
       $name = $property->name;
     }
 
-    return $this->name . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->name) . ']';
+    return $this->options->name . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->name) . ']';
   }
 
   /**
@@ -149,7 +147,7 @@ class PropertyList extends PTB_Property {
           $template.html(html).appendTo('ul.pr-list-items');
 
         <?php if ($this->get_settings(array('scroll_to_last' => true))->scroll_to_last): ?>
-          // Scroll to the property.
+          // Scroll to the last item in list.
           $('html, body').animate({
             scrollTop: $('ul.pr-list-items > li:last').offset().top
           });
