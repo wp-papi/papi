@@ -40,7 +40,6 @@ class PropertyUrl extends PTB_Property {
     } else {
       echo PTB_Html::input('url', array(
         'name'  => $options->name,
-        'id'    => $options->name,
         'value' => $value,
         'class' => $this->css_classes()
       ));

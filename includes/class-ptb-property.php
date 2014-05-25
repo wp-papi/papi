@@ -207,20 +207,20 @@ abstract class PTB_Property {
    */
 
   public function hidden () {
-    $html = PTB_Html::input('hidden', array(
-      'name' => _ptb_property_type_key($this->options->name),
+    $name = $this->options->name;
+
+    if (substr($name, -1) === ']') {
+      $name = substr($name, 0, -1);
+      $name = _ptb_property_type_key($name);
+      $name .= ']';
+    } else {
+      $name = _ptb_property_type_key($name);
+    }
+
+    echo PTB_Html::input('hidden', array(
+      'name' => $name,
       'value' => $this->options->type
     ));
-    if ($this->options->table): ?>
-      <tr>
-        <td>
-          <?php echo $html; ?>
-        </td>
-      </tr>
-    <?php
-    else:
-      echo $html;
-    endif;
   }
 
   /**

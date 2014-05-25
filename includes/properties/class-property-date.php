@@ -35,7 +35,6 @@ class PropertyDate extends PTB_Property {
 
     echo PTB_Html::input('text', array(
       'name' => $options->name,
-      'id' => $options->name,
       'value' => $value,
       'class' => $this->css_classes(),
       'data-ptb-property' => 'date'

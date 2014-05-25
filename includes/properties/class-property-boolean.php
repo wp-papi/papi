@@ -21,7 +21,6 @@ class PropertyBoolean extends PTB_Property {
   public function html () {
     echo PTB_Html::input('checkbox', array(
       'name' => $this->get_options()->name,
-      'id' => $this->get_options()->name,
       'checked' => $this->get_options()->value ? 'checked' : '',
       'class' => $this->css_classes()
     ));
