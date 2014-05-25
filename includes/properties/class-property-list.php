@@ -43,17 +43,17 @@ class PropertyList extends PTB_Property {
             <ul class="pr-list-template hidden">
               <li>
                 <a class="pr-list-remove-item" href="#">Remove</a>
-                <?php foreach ($properties as $property): ?>
                   <table class="ptb-table">
                     <tbody>
                       <?php
-                        $template_property = clone $property;
-                        $template_property->name = $this->generate_name($template_property);
-                        _ptb_render_property($template_property);
+                        foreach ($properties as $property):
+                          $template_property = clone $property;
+                          $template_property->name = $this->generate_name($template_property);
+                          _ptb_render_property($template_property);
+                        endforeach;
                       ?>
                     </tbody>
                   </table>
-                <?php endforeach; ?>
               </li>
             </ul>
             <ul class="pr-list-items">
@@ -147,6 +147,13 @@ class PropertyList extends PTB_Property {
           });
 
           $template.html(html).appendTo('ul.pr-list-items');
+
+        <?php if ($this->get_settings(array('scroll_to_last' => true))->scroll_to_last): ?>
+          // Scroll to the property.
+          $('html, body').animate({
+            scrollTop: $('ul.pr-list-items > li:last').offset().top
+          });
+        <?php endif; ?>
         });
 
         // Remove item
