@@ -146,7 +146,7 @@ function _ptb_get_all_page_types ($all = false) {
  */
 
 function _ptb_get_page_type_file ($page_type) {
-  return _ptb_get_files_in_directory('page-types', _ptb_dashify(_ptbify($page_type)), true);
+  return _ptb_get_files_in_directory('page-types', _ptb_dashify($page_type), true);
 }
 
 /**

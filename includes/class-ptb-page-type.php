@@ -80,7 +80,7 @@ class PTB_Page_Type {
 
   public function __construct ($file_path) {
     // Check so we have a file that exists.
-    if (!file_exists($file_path) || !is_file($file_path)) {
+    if (!is_string($file_path) || !file_exists($file_path) || !is_file($file_path)) {
       return;
     }
 
@@ -90,7 +90,7 @@ class PTB_Page_Type {
     // Setup file and page type variables.
     $this->file_path = $file_path;
     $this->page_type = _ptb_get_class_name($this->file_path);
-    $this->file_name = _ptb_remove_ptb(basename($this->file_path, '.php'));
+    $this->file_name = basename($this->file_path, '.php');
 
     // Try to load the page type class.
     if (!class_exists($this->page_type)) {
