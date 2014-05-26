@@ -4,7 +4,10 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Property class.
+ * Page Type Builder Property.
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 abstract class PTB_Property {
@@ -13,7 +16,7 @@ abstract class PTB_Property {
    * Page Type Builder properties array.
    *
    * @var array
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
@@ -39,7 +42,7 @@ abstract class PTB_Property {
    * Check if assets has been outputted or not.
    *
    * @var array
-   * @since 1.0
+   * @since 1.0.0
    */
 
   private static $assets_up = array();
@@ -48,7 +51,7 @@ abstract class PTB_Property {
    * Current property options object that is used to generate a property.
    *
    * @var object
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
@@ -58,7 +61,7 @@ abstract class PTB_Property {
    * Create a new instance of the given property.
    *
    * @param string $property
-   * @since 1.0
+   * @since 1.0.0
    *
    * @throws Exception
    * @return PTB_Property
@@ -69,13 +72,6 @@ abstract class PTB_Property {
     if (in_array($property, self::$properties) && class_exists($property)) {
       $klass = new $property();
       $klass->setup_globals();
-      if (!isset(self::$assets_up[$property])) {
-        add_action('admin_head', array($klass, 'css'));
-        add_action('admin_head', array($klass, 'autocss'));
-        add_action('admin_footer', array($klass, 'js'));
-        add_action('admin_footer', array($klass, 'autojs'));
-        self::$assets_up[$property] = true;
-      }
       return $klass;
     } else {
       return null;
@@ -85,7 +81,7 @@ abstract class PTB_Property {
   /**
    * Setup globals.
    *
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
@@ -99,7 +95,7 @@ abstract class PTB_Property {
   /**
    * Find custom properties that isn't register in this plugin.
    *
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
@@ -116,7 +112,7 @@ abstract class PTB_Property {
    * Check if the property exists in the properties array.
    *
    * @param string $property
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return bool
    */
@@ -126,34 +122,9 @@ abstract class PTB_Property {
   }
 
   /**
-   * Get the current property options object.
-   *
-   * @since 1.0
-   *
-   * @return object|null
-   */
-
-  public function get_options () {
-    return $this->options;
-  }
-
-  /**
-   * Set the current property options object.
-   *
-   * @param object $options
-   * @since 1.0
-   */
-
-  public function set_options ($options) {
-    $this->options = $options;
-  }
-
-  /**
    * Get the html to display from the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   abstract public function html ();
@@ -161,7 +132,7 @@ abstract class PTB_Property {
   /**
    * Output custom css for property
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function css () {}
@@ -169,7 +140,7 @@ abstract class PTB_Property {
   /**
    * Output automatic js for property
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function autocss () {
@@ -190,7 +161,7 @@ abstract class PTB_Property {
   /**
    * Output custom js for property
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function js () {}
@@ -198,7 +169,7 @@ abstract class PTB_Property {
   /**
    * Output automatic js for property
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function autojs () {
@@ -217,26 +188,45 @@ abstract class PTB_Property {
   }
 
   /**
+   * Register assets actions.
+   *
+   * @since 1.0.0
+   */
+
+  public function assets () {
+    add_action('admin_head', array($this, 'css'));
+    add_action('admin_head', array($this, 'autocss'));
+    add_action('admin_footer', array($this, 'js'));
+    add_action('admin_footer', array($this, 'autojs'));
+  }
+
+  /**
    * Output hidden input field that cointains which property is used.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function hidden () {
-    return PTB_Html::input('hidden', array(
-      'name' => _ptb_property_type_key($this->get_options()->name),
-      'value' => $this->get_options()->type
+    $name = $this->options->name;
+
+    if (substr($name, -1) === ']') {
+      $name = substr($name, 0, -1);
+      $name = _ptb_property_type_key($name);
+      $name .= ']';
+    } else {
+      $name = _ptb_property_type_key($name);
+    }
+
+    echo PTB_Html::input('hidden', array(
+      'name' => $name,
+      'value' => $this->options->type
     ));
   }
 
   /**
    * Get label for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function label () {
@@ -246,7 +236,7 @@ abstract class PTB_Property {
       $title = $this->options->title;
     }
     $name = $this->options->name;
-    return PTB_Html::label($title, $name);
+    echo PTB_Html::label($title, $name);
   }
 
   /**
@@ -254,9 +244,7 @@ abstract class PTB_Property {
    *
    * @param bool $empty_left
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function helptext ($empty_left = true) {
@@ -275,35 +263,41 @@ abstract class PTB_Property {
       $html = PTB_Html::tr($html, array(
         'class' => 'help-text'
       ));
-      return $html;
+      echo $html;
     }
-    return '';
   }
 
   /**
    * Render the final html that is displayed in the table.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return string
    */
 
   public function render () {
-    if ($this->get_options()->table) {
-      $html = PTB_Html::td($this->label());
-      $html .= PTB_HTMl::td($this->html());
-      $html = PTB_Html::tr($html);
-      $html .= $this->helptext();
-      return $html;
-    }
-    return $this->label() . $this->html() . $this->helptext();
+    $options = $this->get_options();
+    if ($options->table): ?>
+      <tr>
+        <?php if (!$options->no_title): ?>
+        <td <?php echo $options->colspan; ?>><?php $this->label(); ?></td>
+        <?php endif; ?>
+        <td <?php echo $options->colspan; ?>><?php $this->html(); ?></td>
+      </tr>
+    <?php
+      $this->helptext(empty($options->colspan));
+    else:
+      $this->label();
+      $this->html();
+      $this->helptext(false);
+    endif;
   }
 
   /**
    * Convert the value of the property before we output it to the application.
    *
    * @param mixed $value
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return string
    */
@@ -313,38 +307,80 @@ abstract class PTB_Property {
   }
 
   /**
-   * Get css classes for the property.
+   * Get the current property options object.
    *
-   * @param string $css_classes
-   * @since 1.0
+   * @since 1.0.0
    *
-   * @return string
+   * @return object|null
    */
 
-  public function css_classes ($css_class = '') {
-    if (isset($this->get_options()->custom->css_class)) {
-      $css_class .= ' ' . $this->get_options()->custom->css_class;
-    }
-
-    return $css_class;
+  public function get_options () {
+    return $this->options;
   }
 
   /**
-   * Get custom options object.
+   * Set the current property options object.
+   *
+   * @param object $options
+   * @since 1.0.0
+   */
+
+  public function set_options ($options) {
+    $this->options = $options;
+  }
+
+  /**
+   * Get database value.
+   *
+   * @param null $default
+   * @since 1.0.0
+   *
+   * @return mixed
+   */
+
+  public function get_value ($default = null) {
+    $value = $this->options->value;
+
+    if (is_null($value)) {
+      return $default;
+    }
+
+    if (is_string($value) && strlen($value) === 0) {
+      return $default;
+    }
+
+    return $value;
+  }
+
+  /**
+   * Get custom property settings.
    *
    * @param array $defaults
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return object
    */
 
-  public function get_custom_options ($defaults = array()) {
-    if (isset($this->options->custom)) {
-      $custom = $this->options->custom;
+  public function get_settings ($defaults = array()) {
+    if (isset($this->options->settings)) {
+      $custom = $this->options->settings;
     } else {
       $custom = array();
     }
 
     return (object)wp_parse_args((array)$custom, $defaults);
+  }
+
+  /**
+   * Get css classes for the property.
+   *
+   * @param string $css_classes
+   * @since 1.0.0
+   *
+   * @return string
+   */
+
+  public function css_classes ($css_class = '') {
+    return $css_class . ' ' . $this->get_settings(array('css_class' => ''))->css_class;
   }
 }

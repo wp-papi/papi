@@ -5,66 +5,49 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property Radiolist
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PropertyRadioButtons extends PTB_Property {
 
   /**
-   * Get the html for output.
+   * Generate the HTML for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function html () {
+    // Property options.
     $options = $this->get_options();
-    $custom = $this->get_custom_options(array(
-      'radiobuttons' => array(),
-      'selected' => array()
+
+    // Database value. Can be null.
+    $value = $this->get_value();
+
+    // Property settings from the page type.
+    $settings = $this->get_settings(array(
+      'items'    => array(),
+      'selected' => ''
     ));
 
-    $value = '';
-
-    if (!is_null($options->value) && !empty($options->value)) {
-      $value = $options->value;
+    // Override selected setting with
+    // database value if not null.
+    if (!is_null($value)) {
+      $settings->selected = $value;
     }
 
-    $html = '';
+    foreach ($settings->items as $key => $value) {
 
-    foreach ($custom->radiobuttons as $key => $v) {
-      $attributes = array(
-        'value' => $v,
-        'name' => $this->get_options()->name . '[]'
-      );
-
-      if ($v == $value) {
-        $attributes['checked'] = 'checked';
+      if (is_numeric($key)) {
+        $key = $value;
       }
 
-      $html .= PTB_Html::input('radio', $attributes);
-      $html .= $key;
-      $html .= '<br />';
+      ?>
+      <input type="radio" value="<?php echo $key ?>" name="<?php echo $options->name; ?>" <?php echo $key == $settings->selected ? 'checked="checked"' : ''; ?> />
+      <?php
+      echo $value . '<br />';
     }
-
-    return $html;
-  }
-
-  /**
-   * Convert the value of the property before we output it to the application.
-   *
-   * @param mixed $values
-   * @since 1.0
-   *
-   * @return mixed
-   */
-
-  public function convert ($values) {
-    if (is_array($values)) {
-      return reset($values);
-    }
-
-    return null;
   }
 
 }

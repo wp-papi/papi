@@ -5,23 +5,29 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property String
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PropertyString extends PTB_Property {
 
   /**
-   * Get the html for output.
+   * Generate the HTML for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function html () {
-    return PTB_Html::input('text', array(
-      'name' => $this->get_options()->name,
-      'id' => $this->get_options()->name,
-      'value' => $this->get_options()->value,
+    // Property options.
+    $options = $this->get_options();
+
+    // Database value.
+    $value = $this->get_value('');
+
+    echo PTB_Html::input('text', array(
+      'name'  => $options->name,
+      'value' => $value,
       'class' => $this->css_classes()
     ));
   }

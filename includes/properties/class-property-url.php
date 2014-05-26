@@ -5,36 +5,45 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property Url
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PropertyUrl extends PTB_Property {
 
   /**
-   * Get the html for output.
+   * Generate the HTML for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function html () {
-    $html = PTB_Html::input('url', array(
-      'name' => $this->get_options()->name,
-      'id' => $this->get_options()->name,
-      'value' => $this->get_options()->value,
-      'class' => $this->css_classes()
+    // Property options.
+    $options = $this->get_options();
+
+    // Property settings.
+    $settings = $this->get_settings(array(
+      'mediauploader' => false
     ));
-    
-    if (isset($this->get_options()->custom->mediauploader) && $this->get_options()->custom->mediauploader) {
-      return $html .= '&nbsp;' . PTB_Html::input('submit', array(
-        'name' => $this->get_options()->name . '_button',
+
+    // Database value.
+    $value = $this->get_value('');
+
+    if ($settings->mediauploader) {
+      echo $html .= '&nbsp;' . PTB_Html::input('submit', array(
+        'name' => $options->name . '_button',
         'data-ptb-action' => 'mediauploader',
         'value' => __('Select file', 'ptb'),
         'class' => 'button ptb-url-media-button'
       ));
+    } else {
+      echo PTB_Html::input('url', array(
+        'name'  => $options->name,
+        'value' => $value,
+        'class' => $this->css_classes()
+      ));
     }
-    
-    return $html;
   }
 
 }

@@ -16,11 +16,21 @@
     }
 
     td:first-child {
-      width: 150px;
+      min-width: 150px;
     }
-    
+
     td[colspan] {
       width: auto;
+    }
+
+    td label {
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    &:first-child {
+
     }
   }
 }

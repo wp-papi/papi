@@ -5,20 +5,25 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property Date
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PropertyDate extends PTB_Property {
 
   /**
-   * Get the html for output.
+   * Generate the HTML for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function html () {
-    $value = !empty($this->get_options()->value) ? $this->get_options()->value : '';
+    // Property options.
+    $options = $this->get_options();
+
+    // Database value.
+    $value = $this->get_value('');
 
     if (is_string($value)) {
       $value = $this->convert($value);
@@ -28,9 +33,8 @@ class PropertyDate extends PTB_Property {
       $value = $value->format('Y-m-d');
     }
 
-    return PTB_Html::input('text', array(
-      'name' => $this->get_options()->name,
-      'id' => $this->get_options()->name,
+    echo PTB_Html::input('text', array(
+      'name' => $options->name,
       'value' => $value,
       'class' => $this->css_classes(),
       'data-ptb-property' => 'date'
@@ -41,7 +45,7 @@ class PropertyDate extends PTB_Property {
    * Convert the value of the property before we output it to the application.
    *
    * @param mixed $value
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return array|string
    */
@@ -50,6 +54,7 @@ class PropertyDate extends PTB_Property {
     if (preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $value)) {
       return new DateTime($value);
     }
+
     return $value;
   }
 

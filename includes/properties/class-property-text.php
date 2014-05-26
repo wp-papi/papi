@@ -5,53 +5,71 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property Text
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PropertyText extends PTB_Property {
 
-  /**
-   * Get the html for output.
-   *
-   * @since 1.0
-   *
-   * @return string
-   */
+ /**
+  * Generate the HTML for the property.
+  *
+  * @since 1.0.0
+  */
 
   public function html () {
-    if (isset($this->get_options()->custom->wp_editor) && $this->get_options()->custom->wp_editor) {
-      return array(
-        'action' => 'wp_editor',
-        'name' => $this->get_options()->name,
-        'value' => $this->get_options()->value,
-        'class' => $this->css_classes()
-      );
+    // Property options.
+    $options = $this->get_options();
+
+    // Database value. Can be null.
+    $value = $this->get_value();
+
+    // Property settings from the page type.
+    $settings = $this->get_settings(array(
+      'editor' => true,
+    ));
+
+    if ($settings->editor) {
+      $id = str_replace('[', '', str_replace(']', '', $options->name));
+      wp_editor($options->value, $id, array(
+        'textarea_name' => $options->name
+      ));
     } else {
-      return PTB_Html::textarea($this->get_options()->value, array(
-        'name' => $this->get_options()->name,
-        'id' => $this->get_options()->name,
+      echo PTB_Html::textarea($options->value, array(
+        'name' => $options->name,
         'class' => $this->css_classes('ptb-property-text')
       ));
     }
   }
 
   /**
-   * Render the final html that is displayed in the table.
+   * Render the final html that is displayed in the tabl
+   * or without a table.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function render () {
-    if ($this->get_options()->table) {
-      $label = PTB_Html::td($this->label(), array('colspan' => 2));
-      $label = PTB_Html::tr($label);
-      $html = PTB_Html::td($this->html(), array('colspan' => 2));
-      $html = PTB_Html::tr($html);
-      $html .= $this->helptext(false);
-      return $label . $html;
-    }
-    return $this->label() . $this->html() . $this->helptext(false);
+    $options = $this->get_options();
+    if ($options->table): ?>
+    <tr>
+      <td <?php echo $options->colspan; ?>>
+        <?php $this->label(); ?>
+      </td>
+    </tr>
+    <tr>
+      <td <?php echo $options->colspan; ?>>
+        <?php $this->html(); ?>
+      </td>
+    </tr>
+    <?php
+      $this->helptext(false);
+    else:
+      $this->label();
+      $this->html();
+      $this->helptext(false);
+    endif;
   }
 
 }

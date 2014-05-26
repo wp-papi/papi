@@ -99,12 +99,18 @@ final class PTB_Admin {
   public function admin_menu () {
     $post_types = _ptb_get_post_types();
     $settings = _ptb_get_settings();
+    $page_types = _ptb_get_all_page_types(true);
+
+    // If we don't have any page types don't change any menu items.
+    if (empty($page_types)) {
+      return;
+    }
 
     foreach ($post_types as $post_type) {
 
       // Remove "Add new" menu item.
       remove_submenu_page('edit.php?post_type=' . $post_type, 'post-new.php?post_type=' . $post_type);
-      
+
       if (isset($settings[$post_type]) && isset($settings[$post_type]['only_page_type'])) {
         $url = _ptb_get_page_new_url($settings[$post_type]['only_page_type'], $post_type, false);
         // Add our custom menu item.
@@ -282,10 +288,9 @@ final class PTB_Admin {
     $path = _ptb_get_page_type_file($page_type);
 
     // Load the page type and create a new instance of it.
-    $page_type = new PTB_Page_Type($path);
+    $page_type = _ptb_get_page_type($path);
 
-    // Check so we have any data.
-    if (!$page_type->has_name()) {
+    if (is_null($page_type)) {
       return;
     }
 

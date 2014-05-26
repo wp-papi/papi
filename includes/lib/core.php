@@ -58,7 +58,7 @@ function _ptb_get_post_id ($post_id = null) {
  */
 
 function _ptb_random_title () {
-  return PTB_RANDOM_KEY . uniqid();
+  return '_rand_' . uniqid();
 }
 
 /**
@@ -71,7 +71,7 @@ function _ptb_random_title () {
  */
 
 function _ptb_is_random_title ($str = '') {
-  return preg_match('/^' . PTB_RANDOM_KEY . '/', $str);
+  return !!preg_match('/^\_rand\_/', $str);
 }
 
 /**
@@ -98,7 +98,7 @@ function _ptb_get_settings () {
   $defaults = array(
     'post_types' => array_values(get_post_types())
   );
-  
+
   return array_merge($defaults, _ptb_core()->get_settings());
 }
 

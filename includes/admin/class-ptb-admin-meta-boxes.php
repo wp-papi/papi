@@ -260,11 +260,7 @@ class PTB_Admin_Meta_Boxes {
 
   /**
    * Change the page template value in WordPress post data
-   * before it saving it. WordPress won't save page template
-   * because it don't exists as a page template in the theme.
-   *
-   * We only set the page template value to the our page template
-   * to prevent WordPress from saving it.
+   * before it saving it.
    *
    * @param array $data
    * @since 1.0.0

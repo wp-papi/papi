@@ -36,11 +36,18 @@ function _ptb_get_page_type_meta_value ($post_id = null) {
     $post_id = _ptb_get_post_id();
   }
 
+  // Get page type value from database.
   $key = _ptb_get_page_type_meta_key();
   $page_type = h(get_post_meta($post_id, $key, true), '');
 
-  if (empty($page_type) && isset($_GET['page_type']) && !empty($_GET['page_type'])) {
+  // Get page type value from get object.
+  if (empty($page_type) && isset($_GET['page_type'])) {
     $page_type = $_GET['page_type'];
+  }
+
+  // Get page type value from post object.
+  if (empty($page_type) && isset($_POST['ptb_page_type'])) {
+    $page_type = $_POST['ptb_page_type'];
   }
 
   return $page_type;
@@ -79,49 +86,6 @@ function _ptb_is_page_type_allowed ($post_type) {
 }
 
 /**
- * Get all page types that exists.
- *
- * @since 1.0.0
- * @todo rewrite and use logic in class-ptb-page-types.php
- *
- * @return array
- */
-
-function _ptb_get_all_page_types () {
-  // Get all page types files.
-  $files = _ptb_get_files_in_directory('page-types');
-
-  // Get the right WordPress post type.
-  $post_type = _ptb_get_wp_post_type();
-
-  $page_types = array();
-
-  foreach ($files as $file) {
-    $p = new PTB_Page_Type($file);
-
-    // Add the page type if the post types is allowed.
-    if (in_array($post_type, $p->post_types)) {
-      $page_types[] = $p;
-    }
-  }
-
-  return $page_types;
-}
-
-/**
- * Get page type file from page type.
- *
- * @param string $page_type
- * @since 1.0.0
- *
- * @return null|string
- */
-
-function _ptb_get_page_type_file ($page_type) {
-  return _ptb_get_files_in_directory('page-types', _ptb_dashify(_ptbify($page_type)), true);
-}
-
-/**
  * Get a page type by file path.
  *
  * @param string $file_path
@@ -142,6 +106,50 @@ function _ptb_get_page_type ($file_path) {
 }
 
 /**
+ * Get all page types that exists.
+ *
+ * @since 1.0.0
+ * @todo rewrite and use logic in class-ptb-page-types.php
+ * @param bool $all Default false
+ *
+ * @return array
+ */
+
+function _ptb_get_all_page_types ($all = false) {
+  // Get all page types files.
+  $files = _ptb_get_files_in_directory('page-types');
+
+  // Get the right WordPress post type.
+  $post_type = _ptb_get_wp_post_type();
+
+  $page_types = array();
+
+  foreach ($files as $file) {
+    $p = _ptb_get_page_type($file);
+
+    // Add the page type if the post types is allowed.
+    if ($all || !is_null($p) && in_array($post_type, $p->post_types)) {
+      $page_types[] = $p;
+    }
+  }
+
+  return $page_types;
+}
+
+/**
+ * Get page type file from page type.
+ *
+ * @param string $page_type
+ * @since 1.0.0
+ *
+ * @return null|string
+ */
+
+function _ptb_get_page_type_file ($page_type) {
+  return _ptb_get_files_in_directory('page-types', _ptb_dashify($page_type), true);
+}
+
+/**
  * Get template file from post id.
  *
  * @param int|string $post_id
@@ -152,6 +160,7 @@ function _ptb_get_page_type ($file_path) {
 
 function _ptb_get_template ($post_id) {
   $data = _ptb_get_file_data($post_id);
+
   if (isset($data) && isset($data->template) && isset($data->template)) {
     return $data->template;
   } else {

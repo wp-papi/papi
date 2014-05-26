@@ -5,169 +5,96 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property List
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PropertyList extends PTB_Property {
 
   /**
-   * Get the html for output.
+   * Generate the HTML for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function html () {
     $this->counter = 0;
-    $this->name = $this->get_options()->name;
 
-    $properties = $this->get_options()->properties;
-    $values = $this->get_options()->value;
+    // Property options.
+    $this->options = $this->get_options();
 
-    // Properties in property list should no longer be a object at start
-    // So let's generate a new property.
-    foreach ($properties as $key => $property) {
-      if (is_array($property)) {
-        $property = (object)$property;
-        $properties[$key] = $this->property($property);
-      }
-    }
+    // Database value.
+    $values = $this->get_value(array());
 
-    // No values, no items in list.
-    if (!is_array($values)) {
-      $values = array();
-    }
+    $properties = is_array($this->options->properties) ? $this->options->properties : array();
 
-    $html = <<< EOF
-    <div class="ptb-property-list">
-      <div class="pr-inner">
-        <div class="pr-actions">
-          {$this->label()}
-          <a class="pr-list-add-new-item" href="#">Add new</a>
+    ?>
+    <tr>
+      <td colspan="2">
+        <div class="ptb-property-list">
+          <div class="pr-inner">
+            <div class="pr-actions">
+              <?php $this->label(); ?>
+              <a class="pr-list-add-new-item" href="#">Add new</a>
+            </div>
+            <ul class="pr-list-template hidden">
+              <li>
+                <a class="pr-list-remove-item" href="#">Remove</a>
+                  <table class="ptb-table">
+                    <tbody>
+                      <?php
+                        foreach ($properties as $property):
+                          $template_property = clone $property;
+                          $template_property->name = $this->generate_name($template_property);
+                          _ptb_render_property($template_property);
+                        endforeach;
+                      ?>
+                    </tbody>
+                  </table>
+              </li>
+            </ul>
+            <ul class="pr-list-items">
+              <?php foreach ($values as $value): ?>
+              <li>
+                <a class="pr-list-remove-item" href="#">Remove</a>
+                <table class="ptb-table">
+                  <tbody>
+                    <?php
+                      foreach ($properties as $property):
+                        $render_property = clone $property;
+                        $value_name = _ptb_remove_ptb($render_property->name);
+
+                        // Get property value.
+                        if (isset($value[$value_name])) {
+                          $render_property->value = $value[$value_name];
+                        }
+
+                        $render_property->name = $this->generate_name($render_property);
+                        _ptb_render_property($render_property);
+                      endforeach;
+                    ?>
+                  </tbody>
+                </table>
+              </li>
+              <?php
+                $this->counter++;
+              endforeach; ?>
+            </ul>
+          </div>
         </div>
-        <ul class="pr-list-template hidden">
-          <li>
-            <a class="pr-list-remove-item" href="#">Remove</a>
-EOF;
-
-    foreach ($properties as $property) {
-      $template_property = clone $property;
-
-      $html .= '<table>
-        <tbody>';
-
-      $template_property->name = $this->generate_name($template_property);
-      $template_property->value = '';
-
-      $template_property = $this->property($template_property);
-      $template_property = $this->template($template_property);
-
-      $html .= $template_property->callback_args->html .
-          '</tbody>
-        </table>';
-    }
-
-    $html .= <<< EOF
-          </li>
-        </ul>
-        <ul class="pr-list-items">
-EOF;
-      foreach ($values as $value) {
-        $html .= <<< EOF
-          <li>
-            <a class="pr-list-remove-item" href="#">Remove</a>
-            <table>
-              <tbody>
-EOF;
-
-          foreach ($properties as $property) {
-            $property->name = $this->generate_name($property);
-            $value_name = _ptb_remove_ptb($property->name);
-
-            if (isset($value[$value_name])) {
-              $property->value = $value[$value_name];
-            }
-
-            $property = $this->property($property);
-            $html .= $property->callback_args->html;
-          }
-          $this->counter++;
-
-        $html .= '</tbody></table></li>';
-      }
-
-      $html .= <<< EOF
-        </ul>
-      </div>
-    </div>
-EOF;
-
-    return $html;
-  }
-
-  /**
-   * Regenerate the property with modified values.
-   *
-   * @param object $property
-   * @since 1.0
-   *
-   * @return object
-   */
-
-  public function property ($property) {
-    // Remove old html.
-    unset($property->callback_args);
-
-    // This is a bit ugly to use PTB_Base again.
-    // But all we need to create the property again is in there.
-    // TODO: Make a new class that we can reuse here and in PTB_Base.
-    $base = new PTB_Base(false, false);
-
-    // Don't make this a table row.
-    // $property->table = false;
-
-    // Don't show the random title if we don't have a title.
-    if (!isset($property->title) || empty($property->title) || strpos($property->title, '_PTB') === 0) {
-      $property->no_title = true;
-    }
-
-    // Generate new property data.
-    $property = $base->property($property);
-
-    // Property name.
-    $property_key = _ptb_property_type_key();
-    $property_name = $this->name . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->name) . $property_key . ']';
-    $property->callback_args->html = str_replace('name="' . $property->name . $property_key . '"', 'name="' . $property_name . '"', $property->callback_args->html);
-
-    // Input name.
-    $input_name = $this->name . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->name) . ']';
-    $property->callback_args->html = str_replace('name="' . $property->name . '"', 'name="' . $input_name . '"', $property->callback_args->html);
-
-    return $property;
-  }
-
-  /**
-   * Change all name attributes to data-name.
-   *
-   * @param object $property
-   * @since 1.0
-   *
-   * @return object
-   */
-
-  public function template ($property) {
-    $property->callback_args->html = str_replace('name=', 'data-name=', $property->callback_args->html);
-
-    return $property;
+      </td>
+    </tr>
+  <?php
   }
 
   /**
    * Generate property name.
    *
    * @param object $property
-   * @since 1.0
+   * @since 1.0.0
    *
-   * @return object
+   * @return string
    */
 
   public function generate_name ($property) {
@@ -177,13 +104,13 @@ EOF;
       $name = $property->name;
     }
 
-    return $name;
+    return $this->options->name . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->name) . ']';
   }
 
   /**
    * Output custom JavaScript for the property.
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function js () {
@@ -191,8 +118,15 @@ EOF;
     <script type="text/javascript">
       (function ($) {
 
-        // Add new item and update the array index in html name.
+        // Replace all template name attributes with data-name attribute.
+        $('ul.pr-list-template > li').find('[name*=ptb_]').each(function () {
+          var $this = $(this);
 
+          $this.attr('data-name', $this.attr('name'));
+          $this.removeAttr('name');
+        });
+
+        // Add new item and update the array index in html name.
         $('.ptb-property-list').on('click', '.pr-list-add-new-item', function (e) {
           e.preventDefault();
 
@@ -211,10 +145,16 @@ EOF;
           });
 
           $template.html(html).appendTo('ul.pr-list-items');
+
+        <?php if ($this->get_settings(array('scroll_to_last' => true))->scroll_to_last): ?>
+          // Scroll to the last item in list.
+          $('html, body').animate({
+            scrollTop: $('ul.pr-list-items > li:last').offset().top
+          });
+        <?php endif; ?>
         });
 
         // Remove item
-
         $('.ptb-property-list').on('click', '.pr-list-remove-item', function (e) {
           e.preventDefault();
 
@@ -227,28 +167,32 @@ EOF;
   }
 
   /**
-   * Render the final html that is displayed in the table.
+   * Render the final html that is displayed in the table or without a table.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function render () {
-    if ($this->get_options()->table) {
-      $html = PTB_Html::td($this->html(), array('colspan' => 2));
-      $html = PTB_Html::tr($html);
-      $html .= $this->helptext(false);
-      return $html;
-    }
-    return '&nbsp;' . $this->html() . $this->helptext(false);
+    if ($this->get_options()->table): ?>
+      <tr>
+        <td colspan="2">
+          <?php $this->html(); ?>
+        </td>
+      </tr>
+    <?php
+      $this->helptext(false);
+    else:
+      echo '&nbsp;';
+      $this->html();
+      $this->helptext(false);
+    endif;
   }
 
   /**
    * Convert the value of the property before we output it to the application.
    *
    * @param mixed $value
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return array
    */

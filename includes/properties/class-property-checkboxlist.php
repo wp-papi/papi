@@ -5,53 +5,54 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder - Property CheckboxList
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PropertyCheckboxList extends PTB_Property {
 
   /**
-   * Get the html for output.
+   * Generate the HTML for the property.
    *
-   * @since 1.0
-   *
-   * @return string
+   * @since 1.0.0
    */
 
   public function html () {
-    $html = '';
+    // Property options.
+    $options = $this->get_options();
 
-    $custom = $this->get_custom_options(array(
-      'checkboxes' => array(),
-      'selected'   => array()
+    // Database value. Can be null.
+    $value = $this->get_value();
+
+    // Property settings from the page type.
+    $settings = $this->get_settings(array(
+      'items'    => array(),
+      'selected' => array()
     ));
-    
-    $checkboxes = $custom->checkboxes;
-    $selected = $custom->selected;
-    
-    if (!is_null($this->get_options()->value) && !empty($this->get_options()->value)) {
-      $selected = $this->get_options()->value;
+
+    // Override selected setting with
+    // database value if not null.
+    if (!is_null($value)) {
+      $settings->selected = $value;
     }
-    
-    if (!is_array($selected)) {
-      $selected = array($selected);
+
+    // Selected setting need to be an array.
+    if (!is_array($settings->selected)) {
+      $settings->selected = array($settings->selected);
     }
-    
-    foreach ($checkboxes as $key => $value) {
-      $attributes = array(
-        'value' => $key,
-        'name' => $this->get_options()->name . '[]'
-      );
-      
-      if (in_array($key, $selected)) {
-        $attributes['checked'] = 'checked';
+
+    foreach ($settings->items as $key => $value) {
+
+      if (is_numeric($key)) {
+        $key = $value;
       }
-      
-      $html .= PTB_Html::input('checkbox', $attributes);
-      $html .= $value;
-      $html .= '<br />';
+
+      ?>
+      <input type="checkbox" value="<?php echo $key; ?>" name="<?php echo $options->name; ?>[]" <?php echo in_array($key, $settings->selected) ? 'checked="checked"': ''; ?> />
+      <?php
+      echo $value . '<br />';
     }
-    
-    return $html;
   }
 
   /**
@@ -64,7 +65,15 @@ class PropertyCheckboxList extends PTB_Property {
    */
 
   public function convert ($value) {
-    return is_array($value) ? $value : array();
+    if (is_string($value)) {
+      return array($value);
+    }
+
+    if (is_array($value)) {
+      return $value;
+    }
+
+    return null;
   }
-  
+
 }

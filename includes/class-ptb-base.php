@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) exit;
 /**
  * Page Type Builder Base class.
  *
- * @todo Rewrite this class.
+ * THIS FILE IS NOT USED ANYMORE.
  */
 
 class PTB_Base {
@@ -502,7 +502,9 @@ class PTB_Base {
 
   private function get_post_types () {
     if (isset(static::$page_type['post_types'])) {
-      return is_array(static::$page_type['post_types']) ? static::$page_type['post_types'] : array(static::$page_type['post_types']);
+      return is_array(static::$page_type['post_types']) ?
+        static::$page_type['post_types'] :
+        array(static::$page_type['post_types']);
     }
 
     return array('page');
