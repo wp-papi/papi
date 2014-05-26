@@ -41,7 +41,7 @@ class PTB_Standard_Page extends PTB_Page_Data {
 
 ```
 
-#### Get value
+#### Output value
 
 ```php
 <?php
@@ -50,6 +50,9 @@ class PTB_Standard_Page extends PTB_Page_Data {
   
   // or
   echo ptb_field('heading');
+  
+  // or
+  the_ptb_field('heading');
   
 ```
 
