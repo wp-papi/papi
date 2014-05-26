@@ -41,10 +41,6 @@ class PTB_Standard_Page extends PTB_Page_Data {
 
 ```
 
-## Template
-
-The page will store the value of `template` in `_wp_page_template` so right `page-{x}.php` is loaded in your theme. This isn't nesseary for when you are using custom post types since they are using `single-{x}.php`.
-
 #### Get value
 
 ```php
