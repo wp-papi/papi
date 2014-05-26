@@ -233,7 +233,7 @@ class PTB_Admin_Meta_Boxes {
 
     // Data to save.
     $data = array(
-      '_wp_page_template' => $this->get_page_template($_POST)
+      '__ptb_page_template' => $this->get_page_template($_POST)
     );
 
     // Get the page type.
@@ -256,38 +256,6 @@ class PTB_Admin_Meta_Boxes {
         delete_post_meta($post_id, $key);
       }
     }
-  }
-
-  /**
-   * Change the page template value in WordPress post data
-   * before it saving it.
-   *
-   * @param array $data
-   * @since 1.0.0
-   *
-   * @return array
-   */
-
-  public function wp_insert_post_data ($data) {
-    if (!_ptb_is_method('post') || !isset($_POST['post_ID'])) {
-      return $data;
-    }
-
-    $post = get_post(intval($_POST['post_ID']));
-    $page_templates = wp_get_theme()->get_page_templates($post);
-
-    // Only change page template if the WordPress theme have any page templates.
-    // And the post type is page.
-    if (!empty($page_templates) && 'page' === _ptb_get_wp_post_type()) {
-      $page_template = $this->get_page_template($_POST);
-
-      // Set the page template to our page template only to prevent WordPress from saving it.
-      if (!is_null($page_template) || !empty($page_template)) {
-        $data['page_template'] = basename($page_template);
-      }
-    }
-
-    return $data;
   }
 
   /**

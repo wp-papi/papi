@@ -27,7 +27,7 @@ class PropertyText extends PTB_Property {
 
     // Property settings from the page type.
     $settings = $this->get_settings(array(
-      'editor' => true,
+      'editor' => false,
     ));
 
     if ($settings->editor) {
