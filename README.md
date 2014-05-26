@@ -14,7 +14,7 @@ The page type class.
 
 <?php
 
-class PTB_Standard_Page extends PTB_Base {
+class PTB_Standard_Page extends PTB_Page_Data {
 
 	public static $page_type = array(
 		'name' => 'Standard Page',
