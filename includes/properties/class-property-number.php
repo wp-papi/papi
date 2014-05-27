@@ -23,7 +23,7 @@ class PropertyNumber extends PTB_Property {
     $value = $this->get_value('');
 
     echo PTB_Html::input('number', array(
-      'name'  => $options->name,
+      'name'  => $options->slug,
       'value' => $value,
       'class' => $this->css_classes()
     ));

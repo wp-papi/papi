@@ -32,14 +32,14 @@ class PropertyUrl extends PTB_Property {
 
     if ($settings->mediauploader) {
       echo $html .= '&nbsp;' . PTB_Html::input('submit', array(
-        'name' => $options->name . '_button',
+        'name' => $options->slug . '_button',
         'data-ptb-action' => 'mediauploader',
         'value' => __('Select file', 'ptb'),
         'class' => 'button ptb-url-media-button'
       ));
     } else {
       echo PTB_Html::input('url', array(
-        'name'  => $options->name,
+        'name'  => $options->slug,
         'value' => $value,
         'class' => $this->css_classes()
       ));

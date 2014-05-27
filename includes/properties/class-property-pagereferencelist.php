@@ -63,7 +63,7 @@ EOF;
               foreach ($posts as $post) {
                 $html .= <<< EOF
                 <li>
-                  <input type="hidden" data-name="{$options->name}[]" value="{$post->ID}" />
+                  <input type="hidden" data-name="{$options->slug}[]" value="{$post->ID}" />
                   <a href="#">{$post->post_title}</a>
                   <span class="icon plus"></span>
                 </li>
@@ -78,7 +78,7 @@ EOF;
             foreach ($references as $post) {
               $html .= <<< EOF
               <li>
-                <input type="hidden" name="{$options->name}[]" value="{$post->ID}" />
+                <input type="hidden" name="{$options->slug}[]" value="{$post->ID}" />
                 <a href="#">{$post->post_title}</a>
                 <span class="icon minus"></span>
               </li>

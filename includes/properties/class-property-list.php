@@ -46,7 +46,7 @@ class PropertyList extends PTB_Property {
                       <?php
                         foreach ($properties as $property):
                           $template_property = clone $property;
-                          $template_property->name = $this->generate_name($template_property);
+                          $template_property->slug = $this->generate_slug($template_property);
                           _ptb_render_property($template_property);
                         endforeach;
                       ?>
@@ -63,14 +63,14 @@ class PropertyList extends PTB_Property {
                     <?php
                       foreach ($properties as $property):
                         $render_property = clone $property;
-                        $value_name = _ptb_remove_ptb($render_property->name);
+                        $value_slug = _ptb_remove_ptb($render_property->slug);
 
                         // Get property value.
-                        if (isset($value[$value_name])) {
-                          $render_property->value = $value[$value_name];
+                        if (isset($value[$value_slug])) {
+                          $render_property->value = $value[$value_slug];
                         }
 
-                        $render_property->name = $this->generate_name($render_property);
+                        $render_property->slug = $this->generate_slug($render_property);
                         _ptb_render_property($render_property);
                       endforeach;
                     ?>
@@ -89,7 +89,7 @@ class PropertyList extends PTB_Property {
   }
 
   /**
-   * Generate property name.
+   * Generate property slug.
    *
    * @param object $property
    * @since 1.0.0
@@ -97,14 +97,14 @@ class PropertyList extends PTB_Property {
    * @return string
    */
 
-  public function generate_name ($property) {
-    if (!isset($property->name) || empty($property->name)) {
-      $name = _ptbify(strtolower($property->type));
+  public function generate_slug ($property) {
+    if (!isset($property->slug) || empty($property->slug)) {
+      $slug = _ptbify(strtolower($property->type));
     } else {
-      $name = $property->name;
+      $slug = $property->slug;
     }
 
-    return $this->options->name . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->name) . ']';
+    return $this->options->slug . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->slug) . ']';
   }
 
   /**

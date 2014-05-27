@@ -37,7 +37,7 @@ class PropertyImage extends PTB_Property {
     // If it's a gallery, we need to load all images.
     if ($is_gallery) {
       $values = array();
-      $name = '';
+      $slug = '';
 
       if (isset($options->value)) {
         if (is_array($options->value)) {
@@ -48,8 +48,8 @@ class PropertyImage extends PTB_Property {
       }
 
       // We need a html array!
-      if (strpos($name, '[]') === false) {
-        $name .= $options->name . '[]';
+      if (strpos($slug, '[]') === false) {
+        $slug .= $options->slug . '[]';
       }
 
       foreach ($values as $value) {
@@ -57,7 +57,7 @@ class PropertyImage extends PTB_Property {
           'id'        => 0,
           'value'     => '',
           'css_class' => '',
-          'name'      => $name
+          'slug'      => $slug
         );
 
         if (is_numeric($value)) {
@@ -79,7 +79,7 @@ class PropertyImage extends PTB_Property {
             'id'        => 0,
             'value'     => '',
             'css_class' => '',
-            'name'      => $options->name
+            'slug'      => $options->slug
           )
         );
       }
@@ -89,7 +89,7 @@ class PropertyImage extends PTB_Property {
         'id'        => 0,
         'value'     => '',
         'css_class' => '',
-        'name'      => $options->name
+        'slug'      => $options->slug
       );
 
       // If it's not converted convert it.
@@ -119,7 +119,7 @@ class PropertyImage extends PTB_Property {
           <ul class="pr-template hidden">
             <li class="{$css_classes}">
               <img />
-              <input type="hidden" name="{$options->name}[]" id="{$options->name}[]" />
+              <input type="hidden" name="{$options->slug}[]" id="{$options->slug}[]" />
               <p class="pr-remove-image">
                 <a href="#">&times;</a>
               </p>
@@ -138,7 +138,7 @@ EOF;
         }
         $html .= "
             <img src=\"$image->value\" />
-            <input type=\"hidden\" value=\"$image->id\" name=\"$image->name\" id=\"$image->name\" />
+            <input type=\"hidden\" value=\"$image->id\" name=\"$image->slug\" id=\"$image->slug\" />
           </li>
           ";
         }
