@@ -102,14 +102,14 @@ class PTB_Page {
   /**
    * Get Page Type Builder Property value.
    *
-   * @param string $key
+   * @param string $slug
    * @since 1.0.0
    *
    * @return mixed
    */
 
-  private function get_value ($key) {
-    $property_key = _ptb_property_key($key);
+  private function get_value ($slug) {
+    $property_key = _ptb_property_key($slug);
     $property_value = get_post_meta($this->id, $property_key, true);
 
     if (is_null($property_value)) {
@@ -255,14 +255,14 @@ class PTB_Page {
   /**
    * Get Page Type Builder Property value.
    *
-   * @param string $key
+   * @param string $slug
    * @since 1.0.0
    *
    * @return mixed
    */
 
-  public function __get ($name) {
-    return $this->get_value($name);
+  public function __get ($slug) {
+    return $this->get_value($slug);
   }
 
 }
