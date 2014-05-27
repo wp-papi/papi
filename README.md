@@ -29,10 +29,12 @@ class PTB_Standard_Page extends PTB_Page_Data {
           $this->property(array(
             'type' => 'PropertyString',
             'title' => 'Heading',
+            'slug' => 'heading'
           )),
           $this->property(array(
             'type' => 'PropertyText',
             'title' => 'Text',
+            'slug' => 'content'
           ))
         ));
 	}
