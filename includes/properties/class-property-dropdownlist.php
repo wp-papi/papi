@@ -38,7 +38,7 @@ class PropertyDropdownList extends PTB_Property {
     }
 
     ?>
-    <select id="<?php echo $options->name; ?>" name="<?php echo $options->name; ?>" class="<?php echo $this->css_classes(); ?>">
+    <select id="<?php echo $options->slug; ?>" name="<?php echo $options->slug; ?>" class="<?php echo $this->css_classes(); ?>">
       <?php
         foreach ($settings->items as $key => $value):
           if (is_numeric($key)) {

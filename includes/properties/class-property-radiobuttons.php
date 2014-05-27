@@ -44,7 +44,7 @@ class PropertyRadioButtons extends PTB_Property {
       }
 
       ?>
-      <input type="radio" value="<?php echo $key ?>" name="<?php echo $options->name; ?>" <?php echo $key == $settings->selected ? 'checked="checked"' : ''; ?> />
+      <input type="radio" value="<?php echo $key ?>" name="<?php echo $options->slug; ?>" <?php echo $key == $settings->selected ? 'checked="checked"' : ''; ?> />
       <?php
       echo $value . '<br />';
     }

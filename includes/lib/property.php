@@ -105,7 +105,7 @@ function _ptb_get_property_options ($options) {
     'title'      => _ptb_random_title(),
     'no_title'   => false,
     'disable'    => false,
-    'name'       => '',
+    'slug'       => '',
     'custom'     => new stdClass,
     'table'      => true,
     'sort_order' => 0,
@@ -122,7 +122,7 @@ function _ptb_get_property_options ($options) {
     $options->colspan = 2;
   }
 
-  if (empty($options->name)) {
+  if (empty($options->slug)) {
     // Generate a random title if no name is set and title is empty.
     // This make wp_editor and other stuff that go by name/id attributes to work.
     if (empty($options->title)) {
@@ -131,17 +131,17 @@ function _ptb_get_property_options ($options) {
       $title = $options->title;
     }
 
-    $options->name = _ptb_slugify($title);
+    $options->slug = _ptb_slugify($title);
   }
 
   // Generate a vaild Page Type Builder meta name.
-  $options->name = _ptb_name($options->name);
+  $options->slug = _ptb_name($options->slug);
 
   if (!empty($options->colspan)) {
     $options->colspan = _ptb_attribute('colspan', $options->colspan);
   }
 
-  $options->value = ptb_field($options->name);
+  $options->value = ptb_field($options->slug);
 
   return $options;
 }

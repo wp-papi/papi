@@ -38,6 +38,9 @@ class PropertyMap extends PTB_Property {
    */
 
   public function js () {
+    // Property options.
+    $options = $this->get_options();
+
     // Property settings.
     $settings = $this->get_settings(array(
       'api_key' => '',
@@ -52,7 +55,7 @@ class PropertyMap extends PTB_Property {
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo $api_key; ?>&sensor=false"></script>
     <script type="text/javascript">
       function updateLatitudeLangitude (position) {
-        var el = document.querySelectorAll('input#<?php echo $this->get_options()->name; ?>');
+        var el = document.querySelectorAll('input[name="<?php echo $options->slug; ?>"]');
         if (el.length) {
           el[0].value = [position.lat(), position.lng()].join(', ');
         }
@@ -60,8 +63,6 @@ class PropertyMap extends PTB_Property {
 
       function initialize() {
         <?php
-          // Property options.
-          $options = $this->get_options();
 
           // Database value.
           $value = $this->get_value();
@@ -118,8 +119,8 @@ class PropertyMap extends PTB_Property {
 
   public function input () {
     echo PTB_Html::input('text', array(
-      'name' => $this->get_options()->name,
-      'id' => $this->get_options()->name,
+      'name' => $this->get_options()->slug,
+      'id' => $this->get_options()->slug,
       'class' => $this->css_classes('ptb-halfwidth'),
       'value' => $this->get_options()->value
     ));

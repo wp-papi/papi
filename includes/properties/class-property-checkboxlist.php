@@ -49,7 +49,7 @@ class PropertyCheckboxList extends PTB_Property {
       }
 
       ?>
-      <input type="checkbox" value="<?php echo $key; ?>" name="<?php echo $options->name; ?>[]" <?php echo in_array($key, $settings->selected) ? 'checked="checked"': ''; ?> />
+      <input type="checkbox" value="<?php echo $key; ?>" name="<?php echo $options->slug; ?>[]" <?php echo in_array($key, $settings->selected) ? 'checked="checked"': ''; ?> />
       <?php
       echo $value . '<br />';
     }

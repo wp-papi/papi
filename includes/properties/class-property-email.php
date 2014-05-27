@@ -26,7 +26,7 @@ class PropertyEmail extends PTB_Property {
     $value = $this->get_value('');
 
     echo PTB_Html::input('email', array(
-      'name'  => $options->name,
+      'name'  => $options->slug,
       'value' => $value,
       'class' => $this->css_classes()
     ));

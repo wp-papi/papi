@@ -31,13 +31,13 @@ class PropertyText extends PTB_Property {
     ));
 
     if ($settings->editor) {
-      $id = str_replace('[', '', str_replace(']', '', $options->name));
+      $id = str_replace('[', '', str_replace(']', '', $options->slug));
       wp_editor($options->value, $id, array(
-        'textarea_name' => $options->name
+        'textarea_name' => $options->slug
       ));
     } else {
       echo PTB_Html::textarea($options->value, array(
-        'name' => $options->name,
+        'name' => $options->slug,
         'class' => $this->css_classes('ptb-property-text')
       ));
     }

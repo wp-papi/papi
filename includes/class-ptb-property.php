@@ -207,18 +207,18 @@ abstract class PTB_Property {
    */
 
   public function hidden () {
-    $name = $this->options->name;
+    $slug = $this->options->slug;
 
-    if (substr($name, -1) === ']') {
-      $name = substr($name, 0, -1);
-      $name = _ptb_property_type_key($name);
-      $name .= ']';
+    if (substr($slug, -1) === ']') {
+      $slug = substr($slug, 0, -1);
+      $slug = _ptb_property_type_key($slug);
+      $slug .= ']';
     } else {
-      $name = _ptb_property_type_key($name);
+      $slug = _ptb_property_type_key($slug);
     }
 
     echo PTB_Html::input('hidden', array(
-      'name' => $name,
+      'name' => $slug,
       'value' => $this->options->type
     ));
   }
@@ -235,8 +235,8 @@ abstract class PTB_Property {
     } else {
       $title = $this->options->title;
     }
-    $name = $this->options->name;
-    echo PTB_Html::label($title, $name);
+
+    echo PTB_Html::label($title, $this->options->slug);
   }
 
   /**
