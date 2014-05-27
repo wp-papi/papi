@@ -51,6 +51,7 @@ class PTB_Admin_Meta_Box {
 
     $this->options = array_merge($this->default_options, $options);
     $this->options = (object)$this->options;
+    $this->options->slug = _ptb_slugify($this->options->title);
 
     $this->properties = array_merge($this->properties, $properties);
 
@@ -74,7 +75,7 @@ class PTB_Admin_Meta_Box {
 
   public function setup_meta_box () {
     add_meta_box(
-      _ptb_slugify($this->options->title),
+      $this->options->slug,
       _ptb_remove_ptb($this->options->title),
       array($this, 'render_meta_box'),
       $this->options->post_type,

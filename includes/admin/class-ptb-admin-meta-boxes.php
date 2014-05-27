@@ -20,9 +20,6 @@ class PTB_Admin_Meta_Boxes {
     // Setup actions.
     $this->setup_actions();
 
-    // Setup filters.
-    $this->setup_filters();
-
     // On post we need to save our custom data.
     // The action 'save_post' didn't work after
     // we change how Page Type Builder is loaded.
@@ -41,17 +38,6 @@ class PTB_Admin_Meta_Boxes {
   private function setup_actions () {
     // Try to get this to work.
     // add_action('save_post', array($this, 'save_meta_boxes'), 1, 2);
-  }
-
-  /**
-   * Setup filters.
-   *
-   * @since 1.0.0
-   * @access private
-   */
-
-  private function setup_filters () {
-    add_filter('wp_insert_post_data', array($this, 'wp_insert_post_data'));
   }
 
   /**

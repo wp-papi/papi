@@ -51,7 +51,7 @@ abstract class PTB_Page_Data {
    */
 
   private function setup_globals () {
-    $this->page_type = static::$page_type;
+    $this->page_type = (object)static::$page_type;
   }
 
   /**
@@ -82,6 +82,12 @@ abstract class PTB_Page_Data {
     // Move title into options.
     if (!isset($options['title'])) {
       $options['title'] = $title;
+    }
+
+    $post_type = _ptb_get_wp_post_type();
+
+    if ($this->has_post_type($post_type)) {
+      $options['post_type'] = $post_type;
     }
 
     // Create a new box.
@@ -176,13 +182,26 @@ abstract class PTB_Page_Data {
    * @return array
    */
 
-  private function get_post_types () {
-    if (isset(static::$page_type['post_types'])) {
-      return is_array(static::$page_type['post_types']) ?
-        static::$page_type['post_types'] :
-        array(static::$page_type['post_types']);
+  protected function get_post_types () {
+    if (isset($this->page_type->post_types)) {
+      return is_array($this->page_type->post_types) ?
+        $this->page_type->post_types :
+        array($this->page_type->post_type);
     }
 
     return array('page');
+  }
+
+  /**
+   * Check if the given post is allowed to use the page type.
+   *
+   * @param string $post_type
+   * @since 1.0.0
+   *
+   * @return bool
+   */
+
+  protected function has_post_type ($post_type) {
+    return in_array($post_type, $this->get_post_types());
   }
 }
