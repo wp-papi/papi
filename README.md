@@ -4,6 +4,8 @@ Page Type Builder for WordPress allows you create page types using the existing 
 
 **Note: This project and its documentation are still under active development, so use it in production on your own risk**
 
+![](http://public.forsmo.me/wp-ptb/add-new-page.png)
+
 ![](http://public.forsmo.me/wp-ptb/about-us-page-type.png)
 
 [Watch the demo video](https://dl.dropboxusercontent.com/u/4660032/Page%20Type%20Builder%20for%20WordPress/page-type-builder-for-wordpress-intro-1.m4v)
