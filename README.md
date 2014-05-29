@@ -2,9 +2,11 @@
 
 Page Type Builder for WordPress allows you create page types using the existing page post type or using custom post types. The documentation this project isn't so good, but you can look at the example below and checkout the properties to get a picture of how it works. For those how have work with Page Type Builder in EPiServer you will recognize themselves. Page Type Builder for WordPress is heavily inspired by the Page Type Builder for EPiServer.
 
-Contribution are most welcome! We love it.
-
 **Note: This project and its documentation are still under active development, so use it in production on your own risk**
+
+![](http://public.forsmo.me/wp-ptb/about-us-page-type.png)
+
+[Watch the demo video](https://dl.dropboxusercontent.com/u/4660032/Page%20Type%20Builder%20for%20WordPress/page-type-builder-for-wordpress-intro-1.m4v)
 
 ## Example
 
@@ -14,49 +16,70 @@ The page type class.
 
 <?php
 
-class PTB_Standard_Page extends PTB_Page_Data {
+class About_Us_Page_Type extends PTB_Page_Data {
 
-	public static $page_type = array(
-		'name' => 'Standard Page',
-		'description' => 'Description of standard page',
-		'template' => 'page-standard-page.php'
-	);
-	
-	public function __construct () {
-		parent::__construct();
-		
-        $this->box('Content', array(
-          $this->property(array(
-            'type' => 'PropertyString',
-            'title' => 'Heading',
-            'slug' => 'heading'
-          )),
-          $this->property(array(
-            'type' => 'PropertyText',
-            'title' => 'Text',
-            'slug' => 'content'
-          ))
-        ));
-	}
+  /**
+   * Define our Page Type meta data.
+   *
+   * @var array
+   */
 
+  public static $page_type = array(
+    'name' => 'About us',
+    'description' => 'About the company',
+    'template' => 'pages/about-us.php'
+  );
+
+  /**
+   * Register our properties.
+   */
+
+  public function __construct () {
+    parent::__construct();
+
+    // Remove comments meta box
+    $this->remove('comments');
+
+    // Add social media links meta box
+    $this->box('Social media links', array(
+      $this->property(array(
+        'type'  => 'PropertyUrl',
+        'title' => 'Twitter link',
+        'slug'  => 'twitter_link'
+      )),
+      $this->property(array(
+        'type'  => 'PropertyUrl',
+        'title' => 'Facebook link',
+        'slug'  => 'facebook_link'
+      ))
+    ));
+
+    // Add Google Maps meta box for our office position
+    $this->box('Our offfice position', array(
+      $this->property(array(
+        'type'     => 'PropertyMap',
+        'title'    => 'Position',
+        'slug'     => 'position',
+        'settings' => array(
+          'api_key' => 'Google Maps API key'
+        )
+      ))
+    ));
+  }
 }
+?>
 
 ```
 
-#### Output value
+#### Getting property values
 
-```php
-<?php
+There are three ways to get the property value. We can call on `current_page` object that is a object with all properties and the `WP_POST` properties.
 
-  echo current_page()->heading;
-  
-  // or
-  echo ptb_field('heading');
-  
-  // or
-  the_ptb_field('heading');
-  
-```
+Example: `echo current_page()->heading`
+
+Or we can use `echo ptb_field('heading');`
+
+Or we can use `the_ptb_field('heading');`
 
 ## Contribute
 
