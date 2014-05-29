@@ -75,11 +75,11 @@ class About_Us_Page_Type extends PTB_Page_Data {
 
 There are three ways to get the property value. We can call on `current_page` object that is a object with all properties and the `WP_POST` properties.
 
-Example: `echo current_page()->heading`
+Example: `echo current_page()->twitter_link`
 
-Or we can use `echo ptb_field('heading');`
+Or we can use `echo ptb_field('twitter_link');`
 
-Or we can use `the_ptb_field('heading');`
+Or we can use `the_ptb_field('twitter_link');`
 
 ## Contribute
 
