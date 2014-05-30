@@ -1,20 +1,3 @@
-<style type="text/css">
-  .ptb-options-logo {
-    background: url(https://avatars3.githubusercontent.com/u/6768662?s=140) no-repeat;
-    width: 50px;
-    height: 50px;
-    -webkit-border-radius: 5px;
-    background-size: cover;
-    float: left;
-    margin: 0 10px 10px 0;
-  }
-  .ptb-options-table {
-
-  }
-  .ptb-options-table tr:nth-child(2n) {
-    background: #FCFCFC;
-  }
-</style>
 <div class="wrap">
   <div class="ptb-options-logo"></div>
   <h2><?php echo page_type_builder()->name; ?></h2>
@@ -34,6 +17,9 @@
         </th>
         <th>
           <strong>Number of pages</strong>
+        </th>
+        <th>
+          <strong>Action</strong>
         </th>
       </tr>
     </thead>
@@ -62,6 +48,9 @@
             }
           ?></td>
           <td><?php echo _ptb_get_number_of_pages($page_type->file_name); ?></td>
+          <td>
+            <a href="<?php echo _ptb_get_options_view_path('options-sync', $page_type->page_type); ?>">Synchronise properties</a>
+          </td>
         </tr>
       <?php
         }
