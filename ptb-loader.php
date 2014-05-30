@@ -23,7 +23,7 @@ final class PTB_Loader {
    * The instance of Page Type Builder.
    *
    * @var object
-   * @since 1.0
+   * @since 1.0.0
    */
 
   private static $instance;
@@ -31,7 +31,7 @@ final class PTB_Loader {
   /**
    * Page Type Bulider instance.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return object
    */
@@ -49,9 +49,9 @@ final class PTB_Loader {
   }
 
   /**
-   * Construct. Nothing to see.
+   * Construct. Register autoloader.
    *
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
@@ -66,7 +66,7 @@ final class PTB_Loader {
   /**
    * Bootstrap constants
    *
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
@@ -97,13 +97,13 @@ final class PTB_Loader {
   /**
    * Require files.
    *
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
   private function require_files () {
     // Load languages.
-    load_plugin_textdomain('ptb', false, basename(dirname(__FILE__)) . '/languages');
+    load_plugin_textdomain('ptb', false, $this->lang_dir);
 
     // Load Page Type Builder functions.
     require_once($this->plugin_dir . 'includes/lib/utilities.php');
@@ -145,7 +145,7 @@ final class PTB_Loader {
   /**
    * Load custom properties.
    *
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
@@ -166,7 +166,7 @@ final class PTB_Loader {
    * Add custom properties.
    *
    * @param array $properties
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return array
    */
@@ -178,7 +178,7 @@ final class PTB_Loader {
   /**
    * Setup required files.
    *
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
@@ -189,23 +189,29 @@ final class PTB_Loader {
   /**
    * Setup globals.
    *
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
   private function setup_globals () {
+    // Information globals.
+    $this->name       = 'Page Type Builder';
+    $this->version    = '1.0.0';
+
+    // Page Type Builder root directory.
     $this->file       = __FILE__;
     $this->basename   = plugin_basename($this->file);
     $this->plugin_dir = PTB_PLUGIN_DIR;
     $this->plugin_url = PTB_PLUGIN_URL;
 
-    $this->name       = __('Page Type Builder', 'ptb');
+    // Languages.
+    $this->lang_dir = $this->plugin_dir . 'languages';
   }
 
   /**
    * Setup the default hooks and actions.
    *
-   * @since 1.0
+   * @since 1.0.0
    * @access private
    */
 
@@ -215,6 +221,7 @@ final class PTB_Loader {
    * Auto load Page Type Builder classes on demand.
    *
    * @param mixed $class
+   * @since 1.0.0
    */
 
   public function autoload ($class) {
@@ -240,7 +247,7 @@ final class PTB_Loader {
 /**
  * Return the instance of Page Type Builder to everyone.
  *
- * @since 1.0
+ * @since 1.0.0
  *
  * @return object
  */
@@ -256,7 +263,7 @@ add_action('after_setup_theme', 'page_type_builder');
  * Register a directory that contains Page Type Builder files.
  *
  * @param string $directory Either the full filesystem path
- * @since 1.0
+ * @since 1.0.0
  *
  * @return bool
  */
