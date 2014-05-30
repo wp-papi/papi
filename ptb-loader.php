@@ -256,9 +256,7 @@ function page_type_builder () {
  */
 
 function ptb_after_theme_setup () {
-  // Let's make it global too!
-  $_GLOBALS['ptb'] = &page_type_builder();
-
+  page_type_builder();
 }
 
 add_action('after_setup_theme', 'ptb_after_theme_setup');

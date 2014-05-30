@@ -51,7 +51,7 @@ abstract class PTB_Page_Data {
    */
 
   private function setup_globals () {
-    $this->page_type = (object)static::$page_type;
+    $this->page_type_meta = (object)static::$page_type;
   }
 
   /**
@@ -183,10 +183,10 @@ abstract class PTB_Page_Data {
    */
 
   protected function get_post_types () {
-    if (isset($this->page_type->post_types)) {
-      return is_array($this->page_type->post_types) ?
-        $this->page_type->post_types :
-        array($this->page_type->post_type);
+    if (isset($this->page_type_meta->post_types)) {
+      return is_array($this->page_type_meta->post_types) ?
+        $this->page_type_meta->post_types :
+        array($this->page_type_meta->post_type);
     }
 
     return array('page');

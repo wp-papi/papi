@@ -36,9 +36,15 @@ function _ptb_get_page_type_meta_value ($post_id = null) {
     $post_id = _ptb_get_post_id();
   }
 
+  $page_type = '';
+
   // Get page type value from database.
   $key = _ptb_get_page_type_meta_key();
-  $page_type = h(get_post_meta($post_id, $key, true), '');
+
+  if (!is_null($post_id)) {
+    $meta_value = get_post_meta($post_id, $key, true);
+    $page_type = h($meta_value, '');
+  }
 
   // Get page type value from get object.
   if (empty($page_type) && isset($_GET['page_type'])) {

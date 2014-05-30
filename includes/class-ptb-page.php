@@ -52,18 +52,18 @@ class PTB_Page {
     $path = _ptb_get_page_type_file(_ptb_get_page_type_meta_value($this->id));
 
     // The page type object.
-    $this->page_type = _ptb_get_page_type($path);
+    $this->page_type_meta = _ptb_get_page_type($path);
 
     // Can't proceed without a page type.
-    if (is_null($this->page_type)) {
+    if (is_null($this->page_type_meta)) {
       return;
     }
 
     // The page type name. Example: "Standard Page".
-    $this->page_type_name = $this->page_type->name;
+    $this->page_type_meta_name = $this->page_type_meta->name;
 
     // The page type. Example: "PTB_Standard_Page".
-    $this->page_type = $this->page_type->page_type;
+    $this->page_type_meta = $this->page_type_meta->page_type;
   }
 
   /**

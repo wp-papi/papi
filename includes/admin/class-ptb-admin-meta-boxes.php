@@ -144,6 +144,10 @@ class PTB_Admin_Meta_Boxes {
 
     // Run `before_save` on a property class if it exists.
     foreach ($data as $key => $value) {
+      if (!is_array($value)) {
+        continue;
+      }
+
       $property_type = $value['type'];
 
       // Get the property class if we don't have it.

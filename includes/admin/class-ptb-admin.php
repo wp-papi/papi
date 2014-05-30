@@ -56,6 +56,7 @@ final class PTB_Admin {
   private function setup_globals () {
     $this->view = new PTB_Admin_View;
     $this->meta_boxes = new PTB_Admin_Meta_Boxes;
+    $this->option_page = new PTB_Admin_Option_Page;
   }
 
   /**
@@ -286,6 +287,10 @@ final class PTB_Admin {
 
     // Get the path to the page type file.
     $path = _ptb_get_page_type_file($page_type);
+
+    if (is_null($page_type)) {
+      return;
+    }
 
     // Load the page type and create a new instance of it.
     $page_type = _ptb_get_page_type($path);
