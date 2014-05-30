@@ -249,17 +249,8 @@ function page_type_builder () {
   return PTB_Loader::instance();
 }
 
-/**
- * Since we would have custom data in our theme directory we need to hook us up to 'after_setup_theme' action.
- *
- * @since 1.0
- */
-
-function ptb_after_theme_setup () {
-  page_type_builder();
-}
-
-add_action('after_setup_theme', 'ptb_after_theme_setup');
+// Since we would have custom data in our theme directory we need to hook us up to 'after_setup_theme' action.
+add_action('after_setup_theme', 'page_type_builder');
 
 /**
  * Register a directory that contains Page Type Builder files.
