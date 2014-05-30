@@ -39,7 +39,6 @@
     </thead>
     <tbody>
       <?php
-      // http://isorock.dev/wp-admin/theme-editor.php?file=page-templates%2Ffull-width.php&theme=twentyfourteen
       $page_types = _ptb_get_all_page_types(true);
       foreach ($page_types as $key => $page_type) {
         ?>
