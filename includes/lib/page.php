@@ -134,7 +134,7 @@ function _ptb_get_all_page_types ($all = false) {
     $p = _ptb_get_page_type($file);
 
     // Add the page type if the post types is allowed.
-    if ($all || !is_null($p) && in_array($post_type, $p->post_types)) {
+    if (!is_null($p) && ($all || in_array($post_type, $p->post_types))) {
       $page_types[] = $p;
     }
   }
@@ -227,4 +227,24 @@ function ptb_get_page ($post_id = null) {
 
 function current_page () {
   return ptb_get_page();
+}
+
+/**
+ * Get number of how many pages uses the given page type.
+ *
+ * @since 1.0.0
+ *
+ * @return int
+ */
+
+function _ptb_get_number_of_pages ($page_type) {
+  global $wpdb;
+
+  if (is_null($page_type) || empty($page_type)) {
+    return 0;
+  }
+
+  $query = "SELECT COUNT(*) FROM wp_postmeta WHERE `meta_key` = '__ptb_page_type' AND `meta_value` = '$page_type'";
+
+  return intval($wpdb->get_var($query));
 }

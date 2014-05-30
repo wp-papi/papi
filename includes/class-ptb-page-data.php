@@ -51,7 +51,11 @@ abstract class PTB_Page_Data {
    */
 
   private function setup_globals () {
-    $this->page_type_meta = (object)static::$page_type;
+    // Setup page type meta.
+    if (method_exists($this, 'page_type')) {
+      $this->page_type_meta = static::page_type();
+      $this->page_type_meta = (object)$this->page_type_meta;
+    }
   }
 
   /**

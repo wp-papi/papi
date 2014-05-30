@@ -23,14 +23,16 @@ class About_Us_Page_Type extends PTB_Page_Data {
   /**
    * Define our Page Type meta data.
    *
-   * @var array
+   * @return array
    */
 
-  public static $page_type = array(
-    'name' => 'About us',
-    'description' => 'About the company',
-    'template' => 'pages/about-us.php'
-  );
+  public static function page_type () {
+    return array(
+      'name' => 'About us',
+      'description' => 'About the company',
+      'template' => 'pages/about-us.php'
+    );
+  }
 
   /**
    * Register our properties.

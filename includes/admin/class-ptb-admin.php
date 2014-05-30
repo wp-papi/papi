@@ -16,7 +16,7 @@ final class PTB_Admin {
    * The instance of Page Type Builder Core.
    *
    * @var object
-   * @since 1.0
+   * @since 1.0.0
    */
 
   private static $instance;
@@ -24,7 +24,7 @@ final class PTB_Admin {
   /**
    * Page Type Bulider Core instance.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return object
    */
@@ -56,7 +56,7 @@ final class PTB_Admin {
   private function setup_globals () {
     $this->view = new PTB_Admin_View;
     $this->meta_boxes = new PTB_Admin_Meta_Boxes;
-    $this->option_page = new PTB_Admin_Option_Page;
+    $this->options_pages = new PTB_Admin_Options_Pages;
   }
 
   /**
@@ -94,7 +94,7 @@ final class PTB_Admin {
   /**
    * Build up the sub menu for "Page".
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function admin_menu () {
@@ -135,7 +135,7 @@ final class PTB_Admin {
   /**
    * Add style to admin head.
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function admin_head () {
@@ -146,7 +146,7 @@ final class PTB_Admin {
   /**
    * Add script to admin footer.
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function admin_footer () {
@@ -183,7 +183,7 @@ final class PTB_Admin {
   /**
    * Add custom body class when it's a page type.
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function admin_body_class ($classes) {
@@ -209,7 +209,7 @@ final class PTB_Admin {
    * Add custom table header to page type.
    *
    * @param array $defaults
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return array
    */
@@ -224,7 +224,7 @@ final class PTB_Admin {
    *
    * @param string $column_name
    * @param int $post_id
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function manage_page_type_posts_custom_column ($column_name, $post_id) {
@@ -241,7 +241,7 @@ final class PTB_Admin {
   /**
    * Menu callback that loads right view depending on what the "page" query string says.
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function render_view () {
@@ -262,7 +262,7 @@ final class PTB_Admin {
   /**
    * Load right Page Type Builder file if it exists.
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function setup_ptb () {

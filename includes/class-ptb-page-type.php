@@ -97,15 +97,17 @@ class PTB_Page_Type {
       require_once($this->file_path);
     }
 
-    // Check so we have the page type meta array.
-    $page_type_class = $this->page_type;
-
-    if (!isset($page_type_class::$page_type)) {
-      throw new PTB_Exception('page_type_meta is null');
+    // Check so we have the page type meta array function.
+    if (!method_exists($this->page_type, 'page_type')) {
+      return;
     }
 
+    // Get page type meta data.
+    $this->page_type_meta = call_user_func($this->page_type . '::page_type');
+    $this->page_type_meta = (object)$this->page_type_meta;
+
     // Filter all fields.
-    $fields = $this->filter_page_type_fields($page_type_class::$page_type);
+    $fields = $this->filter_page_type_fields($this->page_type_meta);
 
     // Add each field as a variable.
     foreach ($fields as $key => $value) {
