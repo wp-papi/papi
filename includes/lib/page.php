@@ -139,6 +139,11 @@ function _ptb_get_all_page_types ($all = false) {
     }
   }
 
+  // Sort by name.
+  usort($page_types, function ($a, $b) {
+    return strcmp($a->name, $b->name);
+  });
+
   return $page_types;
 }
 

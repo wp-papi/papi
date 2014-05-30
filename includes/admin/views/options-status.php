@@ -44,16 +44,21 @@
         ?>
         <tr>
           <td><?php echo $page_type->name; ?></td>
-          <td><?php echo $page_type->page_type; ?></td>
+          <td><?php echo $page_type->file_name; ?></td>
           <td><?php
             if (!current_user_can('edit_themes') || defined('DISALLOW_FILE_EDIT') && DISALLOW_FILE_EDIT) {
               echo $page_type->template;
             } else {
-              $theme_name = basename(get_template_directory());
+              $theme_dir = get_template_directory();
+              $theme_name = basename($theme_dir);
               $url = site_url() . '/wp-admin/theme-editor.php?file=' . $page_type->template . '&theme=' . $theme_name;
-              ?>
-              <a href="<?php echo $url; ?>"><?php echo $page_type->template; ?></a>
-              <?php
+              if (file_exists($theme_dir . '/' . $page_type->template)):
+                ?>
+                <a href="<?php echo $url; ?>"><?php echo $page_type->template; ?></a>
+                <?php
+              else:
+                echo 'Missing';
+              endif;
             }
           ?></td>
           <td><?php echo _ptb_get_number_of_pages($page_type->file_name); ?></td>
