@@ -95,24 +95,7 @@ function _ptb_core () {
  */
 
 function _ptb_get_settings () {
-  $defaults = array(
-    'post_types' => array_values(get_post_types())
-  );
-
-  return array_merge($defaults, _ptb_core()->get_settings());
-}
-
-/**
- * Get all post types Page Type Builder should work with.
- *
- * @since 1.0.0
- *
- * @return array
- */
-
-function _ptb_get_post_types () {
-  $settings = _ptb_get_settings();
-  return $settings['post_types'];
+  return _ptb_core()->get_settings();
 }
 
 /**

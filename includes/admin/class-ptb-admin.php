@@ -125,7 +125,7 @@ final class PTB_Admin {
         add_submenu_page('edit.php?post_type=' . $post_type,
                          __('Add New', 'ptb'),
                          __('Add New', 'ptb'),
-                         'manage_options',
+                         'read',
                          'ptb-add-new-page,' . $post_type,
                          array($this, 'render_view'));
       }
@@ -159,6 +159,7 @@ final class PTB_Admin {
 
     // Get the core settings.
     $settings = _ptb_get_settings();
+    $post_types = _ptb_get_post_types();
 
     // Check if we should show one post type or not and create the right url for that.
     if (isset($settings[$post_type]) && isset($settings[$post_type]['only_page_type'])) {
@@ -168,7 +169,7 @@ final class PTB_Admin {
     }
 
     // If we are in the edit-page or has the post type register we output the jQuery code that change the "Add new" link.
-    if ($screen->id == 'edit-page' || in_array($post_type, $settings['post_types'])) { ?>
+    if ($screen->id == 'edit-page' || in_array($post_type, $post_types)) { ?>
       <script type="text/javascript">
         var current = jQuery('#adminmenu').find('li > a[href="<?php echo $url; ?>"]').attr('href');
         if (current === '<?php echo $url; ?>') {

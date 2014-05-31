@@ -253,3 +253,22 @@ function _ptb_get_number_of_pages ($page_type) {
 
   return intval($wpdb->get_var($query));
 }
+
+/**
+ * Get all post types Page Type Builder should work with.
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function _ptb_get_post_types () {
+  $page_types = _ptb_get_all_page_types(true);
+  $post_types = array();
+
+  foreach ($page_types as $page_type) {
+    $post_types = array_merge($post_types, $page_type->post_types);
+  }
+
+  return array_unique($post_types);
+}
