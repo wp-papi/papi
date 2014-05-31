@@ -22,7 +22,7 @@ class PTB_Admin_Meta_Box_Tabs {
   private $tabs = array();
 
   /**
-   * Page Type Builder Admin Meta Box Tabs Constructor.
+   * Constructor.
    *
    * @param array $tabs
    * @since 1.0.0

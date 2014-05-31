@@ -37,7 +37,7 @@ class PTB_Admin_Meta_Box {
   );
 
   /**
-   * Page Type Builder Admin Meta Box Constructor.
+   * Constructor.
    *
    * @param array $options
    * @param array $properties

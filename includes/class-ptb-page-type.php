@@ -1,9 +1,13 @@
 <?php
 
+// Exit if accessed directly
+if (!defined('ABSPATH')) exit;
+
 /**
  * Page Type Builder Page Type.
  *
  * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PTB_Page_Type {
@@ -12,7 +16,7 @@ class PTB_Page_Type {
    * The name of the page type.
    *
    * @var string
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public $name = '';
@@ -21,7 +25,7 @@ class PTB_Page_Type {
    * The description of the page type.
    *
    * @var string
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public $description = '';
@@ -30,7 +34,7 @@ class PTB_Page_Type {
    * The template of the page type.
    *
    * @var string
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public $template = '';
@@ -39,7 +43,7 @@ class PTB_Page_Type {
    * The post types to register the page type with.
    *
    * @var array
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public $post_types = array('page');
@@ -48,7 +52,7 @@ class PTB_Page_Type {
    * The page type. It's the name of the class.
    *
    * @var string
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public $page_type = '';
@@ -57,7 +61,7 @@ class PTB_Page_Type {
    * The file name of the page type file.
    *
    * @var string
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public $file_name = '';
@@ -66,16 +70,17 @@ class PTB_Page_Type {
    * The file path of the page type file.
    *
    * @var string
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public $file_path = '';
 
   /**
+   * Constructor.
    * Load a page type by the file.
    *
    * @param string $file
-   * @since 1.0
+   * @since 1.0.0
    */
 
   public function __construct ($file_path) {
@@ -123,7 +128,7 @@ class PTB_Page_Type {
   /**
    * Create a new instance of the page type file.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return object
    */
@@ -138,7 +143,7 @@ class PTB_Page_Type {
   /**
    * Check so we have a name on the page type.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return bool
    */
@@ -151,7 +156,7 @@ class PTB_Page_Type {
    * Filter page type fields. Some keys aren't allowed to use.
    *
    * @param array $arr
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return array
    */
@@ -159,12 +164,14 @@ class PTB_Page_Type {
   private function filter_page_type_fields ($arr = array()) {
     $res = array();
     $not_allowed = array('file_name', 'page_type');
+
     foreach ($arr as $key => $value) {
       if (in_array(strtolower($key), $not_allowed)) {
         continue;
       }
       $res[$key] = $value;
     }
+
     return $res;
   }
 

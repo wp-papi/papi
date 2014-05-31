@@ -41,7 +41,7 @@ final class PTB_Admin {
   }
 
   /**
-   * Page Type Builder Admin Constructor.
+   * Constructor.
    */
 
   public function __construct () {}
@@ -184,6 +184,8 @@ final class PTB_Admin {
    * Add custom body class when it's a page type.
    *
    * @since 1.0.0
+   *
+   * @return string
    */
 
   public function admin_body_class ($classes) {
@@ -233,7 +235,7 @@ final class PTB_Admin {
       if (!is_null($page_type)) {
         echo $page_type->name;
       } else {
-        echo __('Standard Page', 'ptb');
+        _e('Standard Page', 'ptb');
       }
     }
   }

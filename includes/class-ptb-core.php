@@ -47,7 +47,7 @@ final class PTB_Core {
   private $settings = array();
 
   /**
-   * Page Type Builder Core Constructor.
+   * Constructor.
    *
    * @since 1.0.0
    */

@@ -18,3 +18,24 @@
     background: #FCFCFC;
   }
 }
+
+p.ptb-options-description {
+  margin-top: -12px;
+}
+
+.ptb-options-postbox-outer {
+  position: static;
+  float: left;
+  margin-right: 10px;
+  width: 250px;
+}
+
+.ptb-options-postbox {
+  width: 250px;
+  label {
+    font-size: 1em;
+    margin: 1.33em 0;
+    display: block;
+    font-weight: 600;
+  }
+}

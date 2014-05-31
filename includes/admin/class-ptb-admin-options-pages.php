@@ -4,7 +4,7 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Admin Menus.
+ * Page Type Builder Admin Options Pages.
  *
  * @package PageTypeBuilder
  * @version 1.0.0
@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 class PTB_Admin_Options_Pages {
 
   /**
-   * Page Type Builder Admin Options Pages Constructor.
+   * Constructor.
    */
 
   public function __construct () {
@@ -67,7 +67,7 @@ class PTB_Admin_Options_Pages {
     if (isset($_GET['view'])) {
       $page_view = $_GET['view'];
     } else {
-      $page_view = 'options-status';
+      $page_view = 'options-start';
     }
 
     if (!is_null($page_view)) {

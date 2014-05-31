@@ -1,9 +1,13 @@
 <?php
 
+// Exit if accessed directly
+if (!defined('ABSPATH')) exit;
+
 /**
  * Page Type Builder Page Data.
  *
  * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 abstract class PTB_Page_Data {
@@ -30,7 +34,7 @@ abstract class PTB_Page_Data {
   private $remove_post_type_support = array();
 
   /**
-   * Page Type Builder Page Data Constructor.
+   * Constructor.
    *
    * @since 1.0.0
    */

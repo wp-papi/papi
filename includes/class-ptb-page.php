@@ -1,7 +1,13 @@
 <?php
 
+// Exit if accessed directly
+if (!defined('ABSPATH')) exit;
+
 /**
- * Page Type Builder Page class
+ * Page Type Builder Page.
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PTB_Page {
@@ -10,7 +16,7 @@ class PTB_Page {
    * The WordPress post.
    *
    * @var object
-   * @since 1.0
+   * @since 1.0.0
    */
 
   private $post;
@@ -19,7 +25,7 @@ class PTB_Page {
    * The Page type data.
    *
    * @var object.
-   * @since 1.0
+   * @since 1.0.0
    */
 
   private $page_type;
@@ -28,6 +34,7 @@ class PTB_Page {
    * Create a new instance of the class.
    *
    * @param int $post_id
+   * @since 1.0.0
    */
 
   public function __construct ($post_id = 0) {
@@ -39,7 +46,7 @@ class PTB_Page {
   /**
    * Setup page variables. This will not setup any variables from the WordPress post.
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   private function setup_page () {
@@ -69,7 +76,7 @@ class PTB_Page {
   /**
    * Setup post variables for the WordPress post.
    *
-   * @since 1.0
+   * @since 1.0.0
    */
 
   private function setup_post () {
@@ -171,7 +178,7 @@ class PTB_Page {
    * Convert property value with the property type converter.
    *
    * @param array $property
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return mixed|null
    */
@@ -207,7 +214,7 @@ class PTB_Page {
   /**
    * Check if the page has the post object and that it's not null
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return bool
    */
@@ -219,7 +226,7 @@ class PTB_Page {
   /**
    * Get the WordPress post object.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return object
    */
@@ -231,7 +238,7 @@ class PTB_Page {
   /**
    * Get the permalink for the page.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return string
    */
@@ -243,7 +250,7 @@ class PTB_Page {
   /**
    * Get the post status of a page.
    *
-   * @since 1.0
+   * @since 1.0.0
    *
    * @return string
    */

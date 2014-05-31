@@ -5,6 +5,10 @@ if (!defined('ABSPATH')) exit;
 
 /**
  * Page Type Builder Html class.
+ *
+ *
+ * @package PageTypeBuilder
+ * @version 1.0.0
  */
 
 class PTB_Html {

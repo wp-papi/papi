@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 class PTB_Admin_Meta_Boxes {
 
   /**
-   * Page Type Builder Admin Meta Boxes Constructor.
+   * Constructor.
    */
 
   public function __construct () {

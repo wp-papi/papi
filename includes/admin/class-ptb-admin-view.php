@@ -19,7 +19,7 @@ class PTB_Admin_View {
   private $path = '';
 
   /**
-   * Page Type Builder Admin View Constructor.
+   * Constructor.
    *
    * @since 1.0
    */

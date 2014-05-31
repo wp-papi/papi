@@ -1,7 +1,9 @@
 <div class="wrap">
   <div class="ptb-options-logo"></div>
   <h2><?php echo page_type_builder()->name; ?></h2>
+
   <br />
+
   <h3>Page types</h3>
   <table class="wp-list-table widefat ptb-options-table">
     <thead>
@@ -51,4 +53,7 @@
       ?>
     </tbody>
   </table>
+
+  <?php include 'partials/options-update-slug.php'; ?>
+
 </div>
