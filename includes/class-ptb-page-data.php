@@ -42,9 +42,6 @@ abstract class PTB_Page_Data {
   public function __construct () {
     // Setup globals.
     $this->setup_globals();
-
-    // Setup actions.
-    $this->setup_actions();
   }
 
   /**
@@ -56,20 +53,22 @@ abstract class PTB_Page_Data {
 
   private function setup_globals () {
     // Setup page type meta.
-    if (method_exists($this, 'page_type')) {
-      $this->page_type_meta = static::page_type();
-      $this->page_type_meta = (object)$this->page_type_meta;
-    }
+    $this->setup_page_type_meta();
   }
 
   /**
-   * Setup actions.
+   * Setup page type meta.
    *
    * @since 1.0.0
    * @access private
    */
 
-  private function setup_actions () {}
+  private function setup_page_type_meta () {
+    if (method_exists($this, 'page_type')) {
+      $this->page_type_meta = static::page_type();
+      $this->page_type_meta = (object)$this->page_type_meta;
+    }
+  }
 
   /**
    * Add new meta box with properties.
@@ -94,9 +93,12 @@ abstract class PTB_Page_Data {
 
     $post_type = _ptb_get_wp_post_type();
 
-    if ($this->has_post_type($post_type)) {
-      $options['post_type'] = $post_type;
+    if (!$this->has_post_type($post_type)) {
+      return;
     }
+
+    // Add post type to the options array.
+    $options['post_type'] = $post_type;
 
     // Create a new box.
     $this->box = new PTB_Admin_Meta_Box($options, $properties);
@@ -195,6 +197,10 @@ abstract class PTB_Page_Data {
    */
 
   protected function get_post_types () {
+    if (is_null($this->page_type_meta)) {
+      $this->setup_page_type_meta();
+    }
+
     if (isset($this->page_type_meta->post_types)) {
       return is_array($this->page_type_meta->post_types) ?
         $this->page_type_meta->post_types :

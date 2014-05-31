@@ -47,11 +47,13 @@ class PropertyMap extends PTB_Property {
       'latlng'  => ''
     ));
 
-    if (!empty($settings->api_key)) {
-      $api_key = $settings->api_key;
-    } else {
-      throw new PTB_Exception('Page Tyep Builder Error: You need to provide a api key for PropertyMap since we are using Google Maps');
-    } ?>
+    if (empty($settings->api_key)) {
+      return;
+    }
+
+    $api_key = $settings->api_key;
+
+    ?>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo $api_key; ?>&sensor=false"></script>
     <script type="text/javascript">
       function updateLatitudeLangitude (position) {
