@@ -108,7 +108,11 @@ abstract class PTB_Page_Data {
    */
 
   protected function property ($options = array()) {
-    return _ptb_get_property_options($options);
+    $options = _ptb_get_property_options($options);
+
+    $this->properties[] = $options;
+
+    return $options;
   }
 
   /**
@@ -207,5 +211,17 @@ abstract class PTB_Page_Data {
 
   protected function has_post_type ($post_type) {
     return in_array($post_type, $this->get_post_types());
+  }
+
+  /**
+   * Get all root properties.
+   *
+   * @since 1.0.0
+   *
+   * @return array
+   */
+
+  public function get_properties () {
+    return $this->properties;
   }
 }

@@ -18,9 +18,6 @@
         <th>
           <strong>Number of pages</strong>
         </th>
-        <th>
-          <strong>Action</strong>
-        </th>
       </tr>
     </thead>
     <tbody>
@@ -48,9 +45,6 @@
             }
           ?></td>
           <td><?php echo _ptb_get_number_of_pages($page_type->file_name); ?></td>
-          <td>
-            <a href="<?php echo _ptb_get_options_view_path('options-sync', $page_type->page_type); ?>">Synchronise properties</a>
-          </td>
         </tr>
       <?php
         }
