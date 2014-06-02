@@ -38,7 +38,7 @@
           var $li = $target.closest('li')
             , $img = $li.find('img');
 
-          if ($img.attr('src') === undefined || $img.attr('src') === '') {
+          if ($li.data('ptb-gallery') && ($img.attr('src') === undefined || $img.attr('src') === '')) {
             $li.remove();
           }
         }
