@@ -38,8 +38,14 @@
           var $li = $target.closest('li')
             , $img = $li.find('img');
 
-          if ($li.data('ptb-gallery') && ($img.attr('src') === undefined || $img.attr('src') === '')) {
-            $li.remove();
+          if ($img.attr('src') === undefined || $img.attr('src') === '') {
+            if ($li.data('ptb-gallery')) {
+              $li.remove();
+            } else {
+              $target = $this.closest('.ptb-property-image').find('.pr-template > li:first').clone();
+              $target.insertBefore($li);
+              $li.remove();
+            }
           }
         }
       });
