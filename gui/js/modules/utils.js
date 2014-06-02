@@ -10,7 +10,7 @@
    * @param {Object|Function} $target
    */
 
-  Utils.wp_media_editor = function ($button, $target) {
+  Utils.wp_media_editor = function ($target) {
     var uploader = wp.media({
       multiple: false
     }).on('select', function () {

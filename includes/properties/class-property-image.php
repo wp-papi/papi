@@ -113,14 +113,20 @@ class PropertyImage extends PTB_Property {
       });
     }
 
+    $template_slug = $options->slug;
+
+    if ($is_gallery) {
+      $template_slug .= '[]';
+    }
+
     $html = <<< EOF
       <div class="ptb-property-image">
         <div class="pr-images">
           <ul class="pr-template hidden">
             <li class="{$css_classes}">
               <img />
-              <input type="hidden" name="{$options->slug}[]" id="{$options->slug}[]" />
-              <p class="pr-remove-image">
+              <input type="hidden" name="{$template_slug}" id="{$template_slug}" />
+              <p class="pr-remove-image hidden">
                 <a href="#">&times;</a>
               </p>
             </li>
@@ -130,12 +136,11 @@ EOF;
 
       foreach ($images as $image) {
         $css = $css_classes . $image->css_class;
-        $html .= "<li class=\"$css\">";
-        if ($is_gallery) {
-          $html .= '<p class="pr-remove-image">
+        $is_gallery_attr = ($is_gallery ? 'true' : 'false');
+        $html .= "<li class=\"$css\" data-ptb-gallery=\"$is_gallery_attr\">";
+        $html .= '<p class="pr-remove-image hidden">
             <a href="#">&times;</a>
           </p>';
-        }
         $html .= "
             <img src=\"$image->value\" />
             <input type=\"hidden\" value=\"$image->id\" name=\"$image->slug\" id=\"$image->slug\" />
@@ -155,61 +160,14 @@ EOF;
       $html .= '<li style="visibility:hidden"></li>';
     }
 
-    echo $html .= <<< EOF
+    $html .= <<< EOF
         </ul>
       </div>
       <div class="clear"></div>
     </div>
 EOF;
-  }
 
-  /**
-   * Output custom JavaScript for the property.
-   *
-   * @since 1.0.0
-   */
-
-  public function js () {
-    ?>
-    <script type="text/javascript">
-      (function ($) {
-
-        $('.ptb-property-image .pr-images').on('click', 'li', function (e) {
-          e.preventDefault();
-
-          var $this = $(this)
-            , $target = $this
-            , $li = $this.closest('li')
-            , $img = $li.find('img')
-            , remove = $img.attr('src') !== undefined && $li.find('p.pr-remove-image').length && e.target.tagName.toLowerCase() === 'a';
-
-          if ($li.hasClass('pr-add-new')) {
-            $target = $this.closest('.ptb-property-image').find('.pr-template > li:first').clone();
-            $target.insertBefore($li);
-            $target = $target.find('img');
-          } else if (!remove) {
-            $target = $img;
-          }
-
-          if (remove) {
-            $target.closest('li').remove();
-          } else {
-            Ptb.Utils.wp_media_editor($target, function (attachment) {
-              if (attachment !== undefined && Ptb.Utils.is_image(attachment.url)) {
-                $target.attr('style', 'height:auto');
-                $target.attr('src', attachment.url);
-                $target.next().val(attachment.id);
-                $target.closest('li').addClass('pr-image-item');
-              } else {
-                $target.closest('li').remove();
-              }
-            });
-          }
-        });
-
-      })(window.jQuery);
-    </script>
-    <?php
+  echo $html;
   }
 
   /**
@@ -255,10 +213,8 @@ EOF;
   public function render () {
     if ($this->get_options()->table): ?>
       <tr>
-        <td colspan="2">
+        <td>
           <?php $this->label(); ?>
-        </td>
-        <td colspan="2">
           <?php $this->html(); ?>
         </td>
       </tr>
