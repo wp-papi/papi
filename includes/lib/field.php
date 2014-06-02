@@ -104,7 +104,7 @@ function ptb_field_shortcode ($atts, $content = null) {
     'name'    => null,
     'default' => null
   ), $atts));
-  
+
   // Try to fetch to post id.
   if (is_null($id)) {
     global $post;
@@ -112,17 +112,17 @@ function ptb_field_shortcode ($atts, $content = null) {
       $id = $post->ID;
     }
   }
-  
+
   // Fetch value.
   if (!is_null($id)) {
     $value = ptb_field($id, $name, $default);
   }
-  
+
   // Set default value if is null.
   if (is_null($default)) {
     $default = '';
   }
-  
+
   // Return empty string if null or the value.
   return !isset($value) || $value == null ? $default : $value;
 }

@@ -86,7 +86,7 @@ class PropertyImage extends PTB_Property {
     } else {
       // If it's not a gallery we load the single image.
       $image = (object)array(
-        'id'        => 0,
+        'id'        => '',
         'value'     => '',
         'css_class' => '',
         'slug'      => $options->slug
