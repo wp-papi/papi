@@ -37,7 +37,7 @@
         } else {
           var $li = $target.closest('li')
             , $img = $li.find('img');
-
+console.log($li.data('ptb-gallery'), $img, $img.attr('src'));
           if ($img.attr('src') === undefined || $img.attr('src') === '') {
             if ($li.data('ptb-gallery')) {
               $li.remove();

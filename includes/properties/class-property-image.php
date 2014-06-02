@@ -119,11 +119,13 @@ class PropertyImage extends PTB_Property {
       $template_slug .= '[]';
     }
 
+    $is_gallery_attr = ($is_gallery ? 'true' : 'false');
+
     $html = <<< EOF
       <div class="ptb-property-image">
         <div class="pr-images">
           <ul class="pr-template hidden">
-            <li class="{$css_classes}">
+            <li class="{$css_classes}" data-ptb-gallery="{$is_gallery_attr}">
               <img />
               <input type="hidden" name="{$template_slug}" id="{$template_slug}" />
               <p class="pr-remove-image hidden">
@@ -136,7 +138,6 @@ EOF;
 
       foreach ($images as $image) {
         $css = $css_classes . $image->css_class;
-        $is_gallery_attr = ($is_gallery ? 'true' : 'false');
         $html .= "<li class=\"$css\" data-ptb-gallery=\"$is_gallery_attr\">";
         $html .= '<p class="pr-remove-image hidden">
             <a href="#">&times;</a>
