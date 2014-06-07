@@ -272,3 +272,15 @@ function _ptb_get_post_types () {
 
   return array_unique($post_types);
 }
+
+/**
+ * Get default image of page type.
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _ptb_page_type_default_image () {
+  return PTB_PLUGIN_URL . '/gui/img/page-type-image.png';
+}

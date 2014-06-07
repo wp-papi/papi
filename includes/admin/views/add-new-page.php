@@ -32,10 +32,15 @@
       </li>
     <?php endforeach; ?>
 
-    <?php if (false && $show_standard_page): ?>
-    <li>
-      <a href="post-new.php?post_type=page"><?php _e('Standard Page', 'ptb'); ?></a>
-      <p><?php _e('Just the normal WordPress page', 'ptb'); ?></p>
+    <?php if ($show_standard_page): ?>
+    <li data-ptb-href="post-new.php?post_type=page">
+      <div class="ptb-pull-left">
+        <img src="<?php echo _ptb_page_type_default_image(); ?>" alt="<?php echo $value->name; ?>" />
+      </div>
+      <div class="ptb-pull-right">
+        <h4><?php _e('Standard Page', 'ptb'); ?></h4>
+        <p><?php _e('Just the normal WordPress page', 'ptb'); ?></p>
+      </div>
     </li>
     <?php endif; ?>
   </ul>

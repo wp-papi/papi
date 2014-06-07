@@ -171,7 +171,7 @@ class PTB_Page_Type {
 
   public function get_image () {
     if (empty($this->image)) {
-      return PTB_PLUGIN_URL . '/gui/img/page-type-image.png';
+      return _ptb_page_type_default_image();
     }
 
     return $this->image;
