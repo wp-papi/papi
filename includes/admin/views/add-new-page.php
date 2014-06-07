@@ -23,7 +23,7 @@
     <?php foreach ($page_types as $key => $value): ?>
       <li data-ptb-href="<?php echo _ptb_get_page_new_url ($value->file_name, $post_type); ?>">
         <div class="ptb-pull-left">
-          <img src="<?php echo $value->get_image(); ?>" alt="<?php echo $value->name; ?>" />
+          <img src="<?php echo $value->get_thumbnail(); ?>" alt="<?php echo $value->name; ?>" />
         </div>
         <div class="ptb-pull-right">
           <h4><?php echo $value->name; ?></h4>
@@ -35,7 +35,7 @@
     <?php if ($show_standard_page): ?>
     <li data-ptb-href="post-new.php?post_type=page">
       <div class="ptb-pull-left">
-        <img src="<?php echo _ptb_page_type_default_image(); ?>" alt="<?php echo $value->name; ?>" />
+        <img src="<?php echo _ptb_page_type_default_thumbnail(); ?>" alt="<?php echo $value->name; ?>" />
       </div>
       <div class="ptb-pull-right">
         <h4><?php _e('Standard Page', 'ptb'); ?></h4>

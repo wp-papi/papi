@@ -274,13 +274,13 @@ function _ptb_get_post_types () {
 }
 
 /**
- * Get default image of page type.
+ * The default page type thumbnail.
  *
  * @since 1.0.0
  *
  * @return string
  */
 
-function _ptb_page_type_default_image () {
+function _ptb_page_type_default_thumbnail () {
   return PTB_PLUGIN_URL . '/gui/img/page-type-image.png';
 }

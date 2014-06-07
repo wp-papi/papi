@@ -31,13 +31,13 @@ class PTB_Page_Type {
   public $description = '';
 
   /**
-   * The page type image.
+   * The page type thumbnail.
    *
    * @var string
    * @since 1.0.0
    */
 
-  public $image = '';
+  public $thumbnail = '';
 
   /**
    * The template of the page type.
@@ -169,12 +169,12 @@ class PTB_Page_Type {
    * @return string
    */
 
-  public function get_image () {
-    if (empty($this->image)) {
-      return _ptb_page_type_default_image();
+  public function get_thumbnail () {
+    if (empty($this->thumbnail)) {
+      return _ptb_page_type_default_thumbnail();
     }
 
-    return $this->image;
+    return $this->thumbnail;
   }
 
   /**
