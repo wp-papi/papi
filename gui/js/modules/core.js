@@ -39,7 +39,13 @@
         href = href.substr(href.lastIndexOf('/') + 1);
         $('a[href="' + href + '"]', $adminmenu).addClass('current').parent().addClass('current');
       }
-		})();
+    })();
+
+    // Simple href attribute on non links.
+    $('[data-ptb-href]').on('click touchstart', function (e) {
+      e.preventDefault();
+      window.location = $(this).data('ptb-href');
+    });
 
   };
 

@@ -31,6 +31,15 @@ class PTB_Page_Type {
   public $description = '';
 
   /**
+   * The page type image.
+   *
+   * @var string
+   * @since 1.0.0
+   */
+
+  public $image = '';
+
+  /**
    * The template of the page type.
    *
    * @var string
@@ -150,6 +159,22 @@ class PTB_Page_Type {
 
   public function has_name () {
     return isset($this->name) && !empty($this->name);
+  }
+
+  /**
+   * Get page type image thumbnail.
+   *
+   * @since 1.0.0
+   *
+   * @return string
+   */
+
+  public function get_image () {
+    if (empty($this->image)) {
+      return PTB_PLUGIN_URL . '/gui/img/page-type-image.png';
+    }
+
+    return $this->image;
   }
 
   /**

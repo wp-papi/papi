@@ -45,37 +45,56 @@
   width: 50%;
 }
 
+.ptb-pull-left {
+  float: left;
+}
+
+.ptb-pull-right {
+  float: right;
+}
+
+.ptb-panel {
+  background: #ffffff;
+  border: 1px #eaeaea solid;
+  padding: 10px;
+  margin: 10px 0 -5px -2px;
+  p {
+    margin: 0;
+  }
+}
+
 // Boxes that exists on the add new page
 .ptb-box-list {
-  margin-left: -10px;
-
-  a {
-    height: auto;
-    width: 150px;
-    text-align: center;
-    background: #fff;
-    border: 1px #ddd solid;
-    padding-top: 60px;
-    padding-bottom: 65px;
-    display: list-item;
-    cursor: pointer;
-    z-index: 10;
-  }
+  margin-left: -12px;
 
   li {
     margin: 10px;
     float: left;
+    background: #ffffff;
+    border: 1px #eaeaea solid;
+    padding: 10px 5px;
+    max-width: 300px;
+    cursor: pointer;
 
-    &:hover > a {
-      border: 1px #ccc solid;
+    .ptb-pull-left {
+      width: 75px;
+      margin: 0 10px 0 5px;
+      img {
+        border: 1px #eaeaea solid;
+        width: 75px;
+        height: 95px;
+      }
     }
 
-    p {
-      margin-top: -60px;
-      margin-left: 5px;
-      width: 145px;
-      text-align: center;
-      cursor: pointer;
+    .ptb-pull-right {
+      width: 200px;
+      h4 {
+        margin: 0;
+      }
+    }
+
+    &:hover {
+      border: 1px #cccccc solid;
     }
   }
 }

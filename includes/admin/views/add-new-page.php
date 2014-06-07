@@ -13,19 +13,26 @@
   }
 ?>
 
-<div id="wrap">
-  <h2><?php echo __('Add New', 'ptb') . ' ' . $name; ?></h2>
-  <p><?php echo __('Select the type of page to create from the list or search', 'ptb'); ?>: <input type="text" name="add-new-page-search" class="ptb-search" /></p>
+<div class="wrap">
+  <h2><?php echo __('Add new', 'ptb') . ' ' . $name; ?></h2>
+  <div class="ptb-panel">
+    <p><?php echo __('Select the page type to create from the list or search', 'ptb'); ?>: <input type="text" name="add-new-page-search" placeholder="Page type name" class="ptb-search" /></p>
+  </div>
   <?php $page_types = _ptb_get_all_page_types(); ?>
   <ul class="ptb-box-list">
     <?php foreach ($page_types as $key => $value): ?>
-      <li>
-        <a href="<?php echo _ptb_get_page_new_url ($value->file_name, $post_type); ?>"><?php echo $value->name; ?></a>
-        <p><?php echo $value->description; ?></p>
+      <li data-ptb-href="<?php echo _ptb_get_page_new_url ($value->file_name, $post_type); ?>">
+        <div class="ptb-pull-left">
+          <img src="<?php echo $value->get_image(); ?>" alt="<?php echo $value->name; ?>" />
+        </div>
+        <div class="ptb-pull-right">
+          <h4><?php echo $value->name; ?></h4>
+          <p><?php echo $value->description; ?></p>
+        </div>
       </li>
     <?php endforeach; ?>
 
-    <?php if ($show_standard_page): ?>
+    <?php if (false && $show_standard_page): ?>
     <li>
       <a href="post-new.php?post_type=page"><?php _e('Standard Page', 'ptb'); ?></a>
       <p><?php _e('Just the normal WordPress page', 'ptb'); ?></p>
