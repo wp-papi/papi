@@ -4,7 +4,7 @@ Page Type Builder for WordPress allows you create page types using the existing 
 
 **Note: This project and its documentation are still under active development, so use it in production on your own risk**
 
-![](http://public.forsmo.me/wp-ptb/add-new-page.png)
+![](http://public.forsmo.me/wp-ptb/add-new-page.png?v2)
 
 ![](http://public.forsmo.me/wp-ptb/about-us-page-type.png?v2)
 
@@ -28,9 +28,9 @@ class About_Us_Page_Type extends PTB_Page_Data {
 
   public static function page_type () {
     return array(
-      'name' => 'About us',
+      'name'        => 'About us',
       'description' => 'About the company',
-      'template' => 'pages/about-us.php'
+      'template'    => 'pages/about-us.php'
     );
   }
 
