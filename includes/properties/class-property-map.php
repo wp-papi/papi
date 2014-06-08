@@ -137,12 +137,12 @@ class PropertyMap extends PTB_Property {
   public function render () {
     $options = $this->get_options();
     if ($options->table): ?>
-      <tr>
+      <tr class="ptb-fullwidth">
         <td colspan="2">
           <?php $this->html(); ?>
         </td>
       </tr>
-      <tr>
+      <tr class="ptb-fullwidth">
         <td>
           <?php $this->label(); ?>
         </td>

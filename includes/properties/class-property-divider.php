@@ -44,11 +44,11 @@ class PropertyDivider extends PTB_Property {
   public function render () {
     $options = $this->get_options();
     if ($options->table): ?>
-    <tr>
-      <td colspan="2">
-        <?php $this->html(); ?>
-      </td>
-    </tr>
+      <tr class="ptb-fullwidth">
+        <td colspan="2">
+          <?php $this->html(); ?>
+        </td>
+      </tr>
     <?php
     else:
       $this->html();

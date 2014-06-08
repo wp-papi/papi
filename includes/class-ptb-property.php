@@ -31,21 +31,12 @@ abstract class PTB_Property {
     'PropertyMap',
     'PropertyText',
     'PropertyImage',
-    'PropertyDropdownList',
+    'PropertyDropdown',
     'PropertyCheckboxList',
     'PropertyList',
     'PropertyPageReferenceList',
     'PropertyRadioButtons'
   );
-
-  /**
-   * Check if assets has been outputted or not.
-   *
-   * @var array
-   * @since 1.0.0
-   */
-
-  private static $assets_up = array();
 
   /**
    * Current property options object that is used to generate a property.
@@ -70,26 +61,10 @@ abstract class PTB_Property {
   public static function factory ($property) {
     self::filter_custom_properties();
     if (in_array($property, self::$properties) && class_exists($property)) {
-      $klass = new $property();
-      $klass->setup_globals();
-      return $klass;
+      return new $property();
     } else {
       return null;
     }
-  }
-
-  /**
-   * Setup globals.
-   *
-   * @since 1.0.0
-   * @access private
-   */
-
-  private function setup_globals () {
-    $this->js_dir = PTB_PLUGIN_DIR . 'gui/js/';
-    $this->js_url = PTB_PLUGIN_URL . 'gui/js/';
-    $this->css_dir = PTB_PLUGIN_DIR . 'gui/css/';
-    $this->css_url = PTB_PLUGIN_URL . 'gui/css/';
   }
 
   /**
@@ -138,54 +113,12 @@ abstract class PTB_Property {
   public function css () {}
 
   /**
-   * Output automatic js for property
-   *
-   * @since 1.0.0
-   */
-
-  public function autocss () {
-    $name = get_class($this);
-    $name = strtolower($name);
-    $name = str_replace('property', 'property-', $name);
-    $name = _ptb_dashify($name);
-    $file = 'properties/' . $name . '.css';
-    $path = $this->css_dir . $file;
-    $url = $this->css_url . $file;
-
-    // Load css file.
-    if (file_exists($path)) {
-      wp_enqueue_style($file, $url);
-    }
-  }
-
-  /**
    * Output custom js for property
    *
    * @since 1.0.0
    */
 
   public function js () {}
-
-  /**
-   * Output automatic js for property
-   *
-   * @since 1.0.0
-   */
-
-  public function autojs () {
-    $name = get_class($this);
-    $name = strtolower($name);
-    $name = str_replace('property', 'property-', $name);
-    $name = _ptb_dashify($name);
-    $file = 'properties/' . $name . '.js';
-    $path = $this->js_dir . $file;
-    $url = $this->js_url . $file;
-
-    // Load js file.
-    if (file_exists($path)) {
-      wp_enqueue_script($file, $url, array(), '1.0.0', true);
-    }
-  }
 
   /**
    * Register assets actions.
@@ -195,9 +128,7 @@ abstract class PTB_Property {
 
   public function assets () {
     add_action('admin_head', array($this, 'css'));
-    add_action('admin_head', array($this, 'autocss'));
     add_action('admin_footer', array($this, 'js'));
-    add_action('admin_footer', array($this, 'autojs'));
   }
 
   /**

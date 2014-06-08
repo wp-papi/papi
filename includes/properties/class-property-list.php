@@ -27,64 +27,64 @@ class PropertyList extends PTB_Property {
     // Database value.
     $values = $this->get_value(array());
 
-    $properties = is_array($this->options->properties) ? $this->options->properties : array();
+    $properties = array();
+
+    if (isset($this->options->properties) && is_array($this->options->properties)) {
+      $properties = $this->options->properties;
+    }
 
     ?>
-    <tr>
-      <td colspan="2">
-        <div class="ptb-property-list">
-          <div class="pr-inner">
-            <div class="pr-actions">
-              <?php $this->label(); ?>
-              <a class="pr-list-add-new-item" href="#">Add new</a>
-            </div>
-            <ul class="pr-list-template hidden">
-              <li>
-                <a class="pr-list-remove-item" href="#">Remove</a>
-                  <table class="ptb-table">
-                    <tbody>
-                      <?php
-                        foreach ($properties as $property):
-                          $template_property = clone $property;
-                          $template_property->slug = $this->generate_slug($template_property);
-                          _ptb_render_property($template_property);
-                        endforeach;
-                      ?>
-                    </tbody>
-                  </table>
-              </li>
-            </ul>
-            <ul class="pr-list-items">
-              <?php foreach ($values as $value): ?>
-              <li>
-                <a class="pr-list-remove-item" href="#">Remove</a>
-                <table class="ptb-table">
-                  <tbody>
-                    <?php
-                      foreach ($properties as $property):
-                        $render_property = clone $property;
-                        $value_slug = _ptb_remove_ptb($render_property->slug);
-
-                        // Get property value.
-                        if (isset($value[$value_slug])) {
-                          $render_property->value = $value[$value_slug];
-                        }
-
-                        $render_property->slug = $this->generate_slug($render_property);
-                        _ptb_render_property($render_property);
-                      endforeach;
-                    ?>
-                  </tbody>
-                </table>
-              </li>
-              <?php
-                $this->counter++;
-              endforeach; ?>
-            </ul>
-          </div>
+    <div class="ptb-property-list">
+      <div class="pr-inner">
+        <div class="pr-actions">
+          <?php $this->label(); ?>
+          <a class="pr-list-add-new-item" href="#">Add new</a>
         </div>
-      </td>
-    </tr>
+        <ul class="pr-list-template hidden">
+          <li>
+            <a class="pr-list-remove-item" href="#">Remove</a>
+            <table class="ptb-table">
+              <tbody>
+                <?php
+                  foreach ($properties as $property):
+                    $template_property = clone $property;
+                    $template_property->slug = $this->generate_slug($template_property);
+                    _ptb_render_property($template_property);
+                  endforeach;
+                ?>
+                </tbody>
+              </table>
+            </li>
+          </ul>
+          <ul class="pr-list-items">
+            <?php foreach ($values as $value): ?>
+            <li>
+              <a class="pr-list-remove-item" href="#">Remove</a>
+              <table class="ptb-table">
+                <tbody>
+                  <?php
+                    foreach ($properties as $property):
+                      $render_property = clone $property;
+                      $value_slug = _ptb_remove_ptb($render_property->slug);
+
+                      // Get property value.
+                      if (isset($value[$value_slug])) {
+                        $render_property->value = $value[$value_slug];
+                      }
+
+                      $render_property->slug = $this->generate_slug($render_property);
+                      _ptb_render_property($render_property);
+                    endforeach;
+                  ?>
+                </tbody>
+              </table>
+            </li>
+          <?php
+            $this->counter++;
+          endforeach; ?>
+        </ul>
+      </div>
+    </div>
   <?php
   }
 
@@ -174,7 +174,7 @@ class PropertyList extends PTB_Property {
 
   public function render () {
     if ($this->get_options()->table): ?>
-      <tr>
+      <tr class="ptb-fullwidth">
         <td colspan="2">
           <?php $this->html(); ?>
         </td>

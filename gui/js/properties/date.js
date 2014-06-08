@@ -1,7 +1,7 @@
 !function ($) {
 
-  // Property Date with Pikaday date picker.
-  if ($('input[data-ptb-property="date"]').length) {
+  // Pikaday is used for PropertyDate
+  if ('pikaday' in $.fn) {
     $('input[data-ptb-property="date"]').pikaday({
       format: 'YYYY-MM-DD',
       setDefaultDate:true

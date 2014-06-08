@@ -149,12 +149,12 @@ EOF;
   public function render () {
     $options = $this->get_options();
     if ($options->table): ?>
-      <tr>
+      <tr class="ptb-fullwidth">
         <td colspan="2">
           <?php $this->label(); ?>
         </td>
       </tr>
-      <tr>
+      <tr class="ptb-fullwidth">
         <td colspan="2">
           <?php $this->html(); ?>
         </td>

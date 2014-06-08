@@ -38,8 +38,10 @@ module.exports = function(grunt) {
       main: {
         files: {
           'gui/js/main.js': [
+            'gui/js/vendors/*.js',
             'gui/js/base.js',
             'gui/js/modules/*.js',
+            'gui/js/properties/*.js',
             'gui/js/init.js'
           ]
         }

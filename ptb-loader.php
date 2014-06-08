@@ -133,7 +133,7 @@ final class PTB_Loader {
     require_once($this->plugin_dir . 'includes/properties/class-property-map.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-text.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-image.php');
-    require_once($this->plugin_dir . 'includes/properties/class-property-dropdownlist.php');
+    require_once($this->plugin_dir . 'includes/properties/class-property-dropdown.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-checkboxlist.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-list.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-pagereferencelist.php');
