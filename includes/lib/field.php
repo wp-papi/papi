@@ -15,15 +15,19 @@ if (!defined('ABSPATH')) exit;
  *
  * @param int $post_id
  * @param string $name
- * @param mixed $default Default is null.
+ * @param mixed $default
+ * @param string $lang
+ * @param string $old_name
  * @since 1.0.0
  *
  * @return mixed
  */
 
-function ptb_field ($post_id = null, $name = null, $default = null) {
+function ptb_field ($post_id = null, $name = null, $default = null, $lang = null, $old_name = null) {
   // Check if we have a post id or not.
   if (!is_numeric($post_id) && is_string($post_id)) {
+    // $old_name = $lang;
+    // $lang = $default;
     $default = $name;
     $name = $post_id;
     $post_id = null;
@@ -55,17 +59,17 @@ function ptb_field ($post_id = null, $name = null, $default = null) {
   // Remove any `ptb_` stuff if it exists.
   $name = _ptb_remove_ptb($names[0]);
 
-  // Add language code
-  $lang_name = _ptb_get_lang_field_slug($name);
+  // Add language code.
+  $name = _ptb_get_lang_field_slug($name, $lang);
 
   // Remove the first value of the array.
   $names = array_slice($names, 1);
 
   // Try to get the language code value.
-  if (isset($page->$lang_name)) {
-    $value = $page->$lang_name;
+  if (!empty($old_name)) {
+    $old_name = _ptb_remove_ptb($old_name);
+    $value = $page->$old_name;
   } else {
-    // Backward Compatible for sites with fields without language code.
     $value = $page->$name;
   }
 
@@ -142,12 +146,14 @@ add_shortcode('ptb_field', 'ptb_field_shortcode');
  *
  * @param int $post_id
  * @param string $name
- * @param mixed $default Default is null.
+ * @param mixed $default
+ * @param string $lang
+ * @param string $old_name
  * @since 1.0.0
  */
 
-function the_ptb_field ($post_id = null, $name = null, $default = null) {
-  $value = ptb_field($post_id, $name, $default);
+function the_ptb_field ($post_id = null, $name = null, $default = null, $lang = null, $old_name = null) {
+  $value = ptb_field($post_id, $name, $default, $lang, $old_name);
 
   if (is_array($value)) {
     $value = @implode(',', $value);

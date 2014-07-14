@@ -15,6 +15,8 @@ class PTB_Language {
   /**
    * ISO 639-1 codes
    *
+   * @link http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+   *
    * @var array
    * @access private
    */
@@ -73,7 +75,7 @@ class PTB_Language {
    */
 
   public function __construct ($lang = 'en') {
-    $this->lang = $lang;
+    $this->lang = strtolower($lang);
   }
 
   /**
@@ -82,7 +84,7 @@ class PTB_Language {
    * @return bool
    */
 
-  public function exists () {
+  public function exist () {
     return in_array($this->lang, $this->iso_6391);
   }
 

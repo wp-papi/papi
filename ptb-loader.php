@@ -92,6 +92,18 @@ final class PTB_Loader {
       define('PTB_PROPERTY_TYPE_KEY', '_property');
     }
 
+    // Set language code if we have a query string with a valid language code.
+    if (is_admin() && isset($_GET['ptb_lang'])) {
+      $lang = new PTB_Language($_GET['ptb_lang']);
+
+      // Check so we can accept this language code before creating the definition.
+      if ($lang->exist()) {
+        define('PTB_LANG_CODE', strtolower($_GET['ptb_lang']));
+      }
+    }
+
+    define('PTB_BACKWARD_COMPATIBLE_LANG', 'en');
+
   }
 
   /**
@@ -108,13 +120,13 @@ final class PTB_Loader {
     // Load Page Type Builder functions.
     require_once($this->plugin_dir . 'includes/lib/utilities.php');
     require_once($this->plugin_dir . 'includes/lib/core.php');
+    require_once($this->plugin_dir . 'includes/lib/language.php');
     require_once($this->plugin_dir . 'includes/lib/page.php');
     require_once($this->plugin_dir . 'includes/lib/property.php');
     require_once($this->plugin_dir . 'includes/lib/io.php');
     require_once($this->plugin_dir . 'includes/lib/field.php');
     require_once($this->plugin_dir . 'includes/lib/template.php');
     require_once($this->plugin_dir . 'includes/lib/admin.php');
-    require_once($this->plugin_dir . 'includes/lib/language.php');
 
     // Load Page Type Builder classes that should not be autoloaded.
     require_once($this->plugin_dir . 'includes/class-ptb-core.php');
