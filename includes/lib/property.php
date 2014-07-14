@@ -50,7 +50,7 @@ function _ptb_property_type_key ($str = '') {
  */
 
 function _ptb_property_key ($str) {
-  return _f(_ptbify(_ptb_get_lang_field_slug($str)));
+  return _f(_ptbify($str));
 }
 
 /**
@@ -111,7 +111,9 @@ function _ptb_get_property_options ($options) {
     'sort_order' => 0,
     'value'      => '',
     'type'       => '',
-    'colspan'    => ''
+    'colspan'    => '',
+    'lang'       => PTB_Language::$default,
+    'old_slug'   => ''
   );
 
   $options = array_merge($defaults, $options);
@@ -134,14 +136,23 @@ function _ptb_get_property_options ($options) {
     $options->slug = _ptb_slugify($title);
   }
 
+  // Add language code to the slug name.
+  $options->slug = _ptb_get_lang_field_slug($options->slug, $options->lang);
+
   // Generate a vaild Page Type Builder meta name.
   $options->slug = _ptb_name($options->slug);
 
+  if (!empty($options->old_slug)) {
+    $options->old_slug = _ptb_name($options->old_slug);
+  }
+
+  // Generate colspan attribute
   if (!empty($options->colspan)) {
     $options->colspan = _ptb_attribute('colspan', $options->colspan);
   }
 
-  $options->value = ptb_field($options->slug);
+  // Get meta value for the field
+  $options->value = ptb_field($options->slug, null, null, $options->lang, $options->old_slug);
 
   return $options;
 }
@@ -166,10 +177,20 @@ function _ptb_render_property ($property) {
 
   $property_type->set_options($property);
 
+
+  // Only render if it's the right language if the definition exist.
+  if (defined('PTB_LANG_CODE') && !empty($property->lang)) {
+    $render = _ptb_lang_exist(PTB_LANG_CODE) && $property->lang === PTB_LANG_CODE;
+  } else {
+    $render = true;
+  }
+
   // Render the property.
-  $property_type->assets();
-  $property_type->render();
-  $property_type->hidden();
+  if ($render) {
+    $property_type->assets();
+    $property_type->render();
+    $property_type->hidden();
+  }
 }
 
 /**
