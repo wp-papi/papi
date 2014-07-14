@@ -114,6 +114,7 @@ final class PTB_Loader {
     require_once($this->plugin_dir . 'includes/lib/field.php');
     require_once($this->plugin_dir . 'includes/lib/template.php');
     require_once($this->plugin_dir . 'includes/lib/admin.php');
+    require_once($this->plugin_dir . 'includes/lib/language.php');
 
     // Load Page Type Builder classes that should not be autoloaded.
     require_once($this->plugin_dir . 'includes/class-ptb-core.php');

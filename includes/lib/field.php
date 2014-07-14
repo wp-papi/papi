@@ -55,11 +55,19 @@ function ptb_field ($post_id = null, $name = null, $default = null) {
   // Remove any `ptb_` stuff if it exists.
   $name = _ptb_remove_ptb($names[0]);
 
+  // Add language code
+  $lang_name = _ptb_get_lang_field_slug($name);
+
   // Remove the first value of the array.
   $names = array_slice($names, 1);
 
-  // Get the value from the page.
-  $value = $page->$name;
+  // Try to get the language code value.
+  if (isset($page->$lang_name)) {
+    $value = $page->$lang_name;
+  } else {
+    // Backward Compatible for sites with fields without language code.
+    $value = $page->$name;
+  }
 
   // Return default value we don't have a value.
   if (!isset($value) || is_null($value)) {
