@@ -50,7 +50,7 @@ function _ptb_property_type_key ($str = '') {
  */
 
 function _ptb_property_key ($str) {
-  return _f(_ptbify($str));
+  return _f(_ptbify(_ptb_get_lang_field_slug($str)));
 }
 
 /**
