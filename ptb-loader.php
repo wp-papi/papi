@@ -102,8 +102,6 @@ final class PTB_Loader {
       }
     }
 
-    define('PTB_BACKWARD_COMPATIBLE_LANG', 'en');
-
   }
 
   /**
