@@ -24,6 +24,23 @@ function _ptb_lang_exist ($lang = '') {
 }
 
 /**
+ * Get default language code.
+ *
+ * @return string
+ */
+
+function _ptb_lang_default () {
+  if (defined('PTB_POLYLANG') && PTB_POLYLANG) {
+    return pll_default_language();
+  } else if (defined('PTB_LANG_DEFAULT') && _ptb_lang_exist(PTB_LANG_DEFAULT)) {
+    return strtolower(PTB_LANG_DEFAULT);
+  } else {
+    return 'en';
+  }
+}
+
+
+/**
  * Get current language code. Should follow ISO 639-1.
  *
  * @link http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
@@ -31,16 +48,19 @@ function _ptb_lang_exist ($lang = '') {
  * @return string
  */
 
-function _ptb_get_query_lang_code () {
-  if (!defined('PTB_LANG_CODE')) {
-    return PTB_Language::$default;
+function _ptb_get_lang_code () {
+  if (defined('PTB_POLYLANG') && PTB_POLYLANG) {
+    $lang_code = pll_current_language();
+    if ($lang_code === false) {
+      $lang_code = _ptb_lang_default();
+    }
+  } else if (isset($_GET['lang']) && _ptb_lang_exist($_GET['lang'])) {
+    $lang_code = $_GET['lang'];
+  } else {
+    $lang_code = _ptb_lang_default();
   }
 
-  if (!_ptb_lang_exist(PTB_LANG_CODE)) {
-    return PTB_Language::$default;
-  }
-
-  $lang = new PTB_Language(PTB_LANG_CODE);
+  $lang = new PTB_Language($lang_code);
   return $lang->get_lang_code();
 }
 
@@ -56,7 +76,7 @@ function _ptb_get_query_lang_code () {
  */
 
 function _ptb_get_lang_field_slug ($slug = '', $lang = '') {
-  $lang = _ptb_lang_exist($lang) ? $lang : _ptb_get_query_lang_code();
+  $lang = _ptb_lang_exist($lang) ? $lang : _ptb_get_lang_code();
 
   if (!preg_match('/^(\_|)(ptb|)[a-z]{2}\_/', $slug)) {
     return $lang . '_' . $slug;
