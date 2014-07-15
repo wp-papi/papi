@@ -225,3 +225,17 @@ function _ptb_attribute ($name, $value) {
 
   return $name . '="' . implode(',', $value) . '"';
 }
+
+/**
+ * Get query string if it exists and is not empty.
+ *
+ * @return string
+ */
+
+function _ptb_get_qs ($qs) {
+  if (isset($_GET[$qs]) && !empty($_GET[$qs])) {
+    return $_GET[$qs];
+  }
+
+  return null;
+}

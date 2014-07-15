@@ -280,25 +280,36 @@ final class PTB_Admin {
     }
 
     // If we have a null page type we need to find which page type to use.
-    if (is_null($page_type)) {
+    if (empty($page_type)) {
       if (_ptb_is_method('post') && isset($_POST['ptb_page_type']) && $_POST['ptb_page_type']) {
         $page_type = $_POST['ptb_page_type'];
       } else {
         $page_type = _ptb_get_page_type_meta_value();
+
+        // Load right page type when Polylang is in use.
+        if (empty($page_type) && _ptb_polylang()) {
+          $from_post = _ptb_get_qs('from_post');
+
+          if (!is_null($from_post) && !is_numeric($from_post)) {
+            return;
+          }
+
+          $page_type = _ptb_get_page_type_meta_value($from_post);
+        }
       }
     }
 
     // Get the path to the page type file.
     $path = _ptb_get_page_type_file($page_type);
 
-    if (is_null($page_type)) {
+    if (empty($page_type)) {
       return;
     }
 
     // Load the page type and create a new instance of it.
     $page_type = _ptb_get_page_type($path);
 
-    if (is_null($page_type)) {
+    if (empty($page_type)) {
       return;
     }
 
