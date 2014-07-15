@@ -92,16 +92,10 @@ final class PTB_Loader {
       define('PTB_PROPERTY_TYPE_KEY', '_property');
     }
 
-    // Set language code if we have a query string with a valid language code.
-    if (is_admin() && isset($_GET['ptb_lang'])) {
-      $lang = new PTB_Language($_GET['ptb_lang']);
-
-      // Check so we can accept this language code before creating the definition.
-      if ($lang->exist()) {
-        define('PTB_LANG_CODE', strtolower($_GET['ptb_lang']));
-      }
+    // Check for support for Polylang
+    if (defined('POLYLANG_VERSION')) {
+      define('PTB_POLYLANG', true);
     }
-
   }
 
   /**
