@@ -285,17 +285,6 @@ final class PTB_Admin {
         $page_type = $_POST['ptb_page_type'];
       } else {
         $page_type = _ptb_get_page_type_meta_value();
-
-        // Load right page type when Polylang is in use.
-        if (empty($page_type) && _ptb_polylang()) {
-          $from_post = _ptb_get_qs('from_post');
-
-          if (!is_null($from_post) && !is_numeric($from_post)) {
-            return;
-          }
-
-          $page_type = _ptb_get_page_type_meta_value($from_post);
-        }
       }
     }
 

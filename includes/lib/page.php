@@ -56,6 +56,15 @@ function _ptb_get_page_type_meta_value ($post_id = null) {
     $page_type = $_POST['ptb_page_type'];
   }
 
+  // Load right page type when Polylang is in use.
+  if (empty($page_type) && _ptb_polylang()) {
+    $from_post = _ptb_get_qs('from_post');
+    if (!is_null($from_post) && is_numeric($from_post)) {
+      $meta_value = get_post_meta(intval($from_post), $key, true);
+      $page_type = h($meta_value, '');
+    }
+  }
+
   return $page_type;
 }
 
