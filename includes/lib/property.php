@@ -136,6 +136,19 @@ function _ptb_get_property_options ($options) {
     $options->slug = _ptb_slugify($title);
   }
 
+  if (is_array($options->lang)) {
+    // If we have a array and Polylang is supported we can get the right lang.
+    if (_ptb_polylang()) {
+      $lang = _ptb_get_lang_code();
+      if (in_array($lang, $options->lang)) {
+        $options->lang = $lang;
+      }
+    } else {
+      // Can't handle multilanguage without Polylang.
+      $lang = array_shift($options->lang);
+    }
+  }
+
   // Add language code to the slug name.
   $options->slug = _ptb_get_lang_field_slug($options->slug, $options->lang);
 

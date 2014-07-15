@@ -75,7 +75,9 @@ class PTB_Language {
    */
 
   public function __construct ($lang = 'en') {
-    $this->lang = strtolower($lang);
+    if (is_string($lang)) {
+      $this->lang = strtolower($lang);
+    }
   }
 
   /**

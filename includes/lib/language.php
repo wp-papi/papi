@@ -11,6 +11,16 @@
 if (!defined('ABSPATH')) exit;
 
 /**
+ * Is Polylang in use?
+ *
+ * @return bool
+ */
+
+function _ptb_polylang () {
+  return defined('PTB_POLYLANG') && PTB_POLYLANG;
+}
+
+/**
  * Check if lang code exists or not.
  *
  * @param string $lang
@@ -30,13 +40,15 @@ function _ptb_lang_exist ($lang = '') {
  */
 
 function _ptb_lang_default () {
-  if (defined('PTB_POLYLANG') && PTB_POLYLANG) {
+  if (_ptb_polylang()) {
     return pll_default_language();
-  } else if (defined('PTB_LANG_DEFAULT') && _ptb_lang_exist(PTB_LANG_DEFAULT)) {
-    return strtolower(PTB_LANG_DEFAULT);
-  } else {
-    return 'en';
   }
+
+  if (defined('PTB_LANG_DEFAULT') && _ptb_lang_exist(PTB_LANG_DEFAULT)) {
+    return strtolower(PTB_LANG_DEFAULT);
+  }
+
+  return PTB_Language::$default;
 }
 
 
@@ -49,18 +61,18 @@ function _ptb_lang_default () {
  */
 
 function _ptb_get_lang_code () {
-  if (defined('PTB_POLYLANG') && PTB_POLYLANG) {
+  if (_ptb_polylang()) {
     $lang_code = pll_current_language();
-    if ($lang_code === false) {
-      $lang_code = _ptb_lang_default();
-    }
-  } else if (isset($_GET['lang']) && _ptb_lang_exist($_GET['lang'])) {
-    $lang_code = $_GET['lang'];
   } else {
     $lang_code = _ptb_lang_default();
   }
 
+  if (empty($lang_code)) {
+    $lang_code = _ptb_lang_default();
+  }
+
   $lang = new PTB_Language($lang_code);
+
   return $lang->get_lang_code();
 }
 
