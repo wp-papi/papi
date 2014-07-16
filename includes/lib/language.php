@@ -21,6 +21,16 @@ function _ptb_polylang () {
 }
 
 /**
+ * Is Polylang "lang=all"?
+ *
+ * @return bool
+ */
+
+function _ptb_polylang_all () {
+  return strtolower(_ptb_get_qs('lang')) === 'all';
+}
+
+/**
  * Check if lang code exists or not.
  *
  * @param string $lang

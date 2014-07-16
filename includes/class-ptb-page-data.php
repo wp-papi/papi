@@ -116,7 +116,11 @@ abstract class PTB_Page_Data {
   protected function property ($options = array()) {
     $options = _ptb_get_property_options($options);
 
-    $this->properties[] = $options;
+    if (is_array($options)) {
+      $this->properties = array_merge($this->properties, $options);
+    } else {
+      $this->properties[] = $options;
+    }
 
     return $options;
   }

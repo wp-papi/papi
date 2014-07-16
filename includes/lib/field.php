@@ -26,8 +26,6 @@ if (!defined('ABSPATH')) exit;
 function ptb_field ($post_id = null, $name = null, $default = null, $lang = null, $old_name = null) {
   // Check if we have a post id or not.
   if (!is_numeric($post_id) && is_string($post_id)) {
-    // $old_name = $lang;
-    // $lang = $default;
     $default = $name;
     $name = $post_id;
     $post_id = null;

@@ -92,12 +92,52 @@ function _ptb_get_property_type ($type) {
 }
 
 /**
+ * Get property lang.
+ *
+ * @param object $options
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _ptb_get_property_lang ($options) {
+  $rest = array();
+
+  // Fetch all languages from Polylang that is available.
+  if (empty($options->lang)) {
+    if (_ptb_polylang()) {
+      $options->lang = pll_languages_list();
+    } else {
+      $options->lang = _ptb_get_lang_code();
+    }
+  }
+
+  if (is_array($options->lang)) {
+    // If we have a array and Polylang is supported we can get the right lang.
+    if (_ptb_polylang()) {
+      $lang = _ptb_get_lang_code();
+      if (in_array($lang, $options->lang)) {
+        $rest = array_diff($options->lang, array($lang));
+        $options->lang = $lang;
+      }
+    } else {
+      // Can't handle multilanguage without Polylang.
+      $lang = array_shift($options->lang);
+      $rest = $options->lang;
+      $options->lang = $lang;
+    }
+  }
+
+  return array($options->lang, $rest);
+}
+
+/**
  * Get property options.
  *
  * @param array $options
  * @since 1.0.0
  *
- * @return object|null
+ * @return object
  */
 
 function _ptb_get_property_options ($options) {
@@ -112,7 +152,7 @@ function _ptb_get_property_options ($options) {
     'value'      => '',
     'type'       => '',
     'colspan'    => '',
-    'lang'       => PTB_Language::$default,
+    'lang'       => '',
     'old_slug'   => ''
   );
 
@@ -136,25 +176,6 @@ function _ptb_get_property_options ($options) {
     $options->slug = _ptb_slugify($title);
   }
 
-  if (is_array($options->lang)) {
-    // If we have a array and Polylang is supported we can get the right lang.
-    if (_ptb_polylang()) {
-      $lang = _ptb_get_lang_code();
-      if (in_array($lang, $options->lang)) {
-        $options->lang = $lang;
-      }
-    } else {
-      // Can't handle multilanguage without Polylang.
-      $lang = array_shift($options->lang);
-    }
-  }
-
-  // Add language code to the slug name.
-  $options->slug = _ptb_get_lang_field_slug($options->slug, $options->lang);
-
-  // Generate a vaild Page Type Builder meta name.
-  $options->slug = _ptb_name($options->slug);
-
   if (!empty($options->old_slug)) {
     $options->old_slug = _ptb_name($options->old_slug);
   }
@@ -164,10 +185,43 @@ function _ptb_get_property_options ($options) {
     $options->colspan = _ptb_attribute('colspan', $options->colspan);
   }
 
+  // Get property language.
+  list($options->lang, $rest) = _ptb_get_property_lang($options);
+
+  // Add language code to the slug name.
+  $options->slug = _ptb_get_lang_field_slug($options->slug, $options->lang);
+
+  // Generate a vaild Page Type Builder meta name.
+  $options->slug = _ptb_name($options->slug);
+
   // Get meta value for the field
   $options->value = ptb_field($options->slug, null, null, $options->lang, $options->old_slug);
 
-  return $options;
+  $opt = $options;
+
+  if (_ptb_polylang() && !empty($rest) && _ptb_polylang_all()) {
+    $options->title = '(' . strtoupper($options->lang) . ') ' . $options->title;
+    $opt = array($options);
+    foreach ($rest as $lang) {
+      $o = clone $options;
+
+      // Update title.
+      $o->title = '(' . strtoupper($lang) . ') ' . substr($o->title, 4);
+
+      // Add language code to the slug name.
+      $o->slug = _ptb_get_lang_field_slug($o->slug, $lang);
+
+      // Generate a vaild Page Type Builder meta name.
+      $o->slug = _ptb_name($o->slug);
+
+      // Get meta value for the field
+      $o->value = ptb_field($o->slug, null, null, $lang, $o->old_slug);
+
+      $opt[] = $o;
+    }
+  }
+
+  return $opt;
 }
 
 /**
@@ -192,8 +246,8 @@ function _ptb_render_property ($property) {
 
 
   // Only render if it's the right language if the definition exist.
-  if (defined('PTB_LANG_CODE') && !empty($property->lang)) {
-    $render = _ptb_lang_exist(PTB_LANG_CODE) && $property->lang === PTB_LANG_CODE;
+  if (_ptb_get_qs('lang') != null && !_ptb_polylang_all()) {
+    $render = _ptb_lang_exist(_ptb_get_qs('lang')) && $property->lang === strtolower(_ptb_get_qs('lang'));
   } else {
     $render = true;
   }
