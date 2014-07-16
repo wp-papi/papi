@@ -197,31 +197,7 @@ function _ptb_get_property_options ($options) {
   // Get meta value for the field
   $options->value = ptb_field($options->slug, null, null, $options->lang, $options->old_slug);
 
-  $opt = $options;
-
-  if (_ptb_polylang() && !empty($rest) && _ptb_polylang_all()) {
-    $options->title = '(' . strtoupper($options->lang) . ') ' . $options->title;
-    $opt = array($options);
-    foreach ($rest as $lang) {
-      $o = clone $options;
-
-      // Update title.
-      $o->title = '(' . strtoupper($lang) . ') ' . substr($o->title, 4);
-
-      // Add language code to the slug name.
-      $o->slug = _ptb_get_lang_field_slug($o->slug, $lang);
-
-      // Generate a vaild Page Type Builder meta name.
-      $o->slug = _ptb_name($o->slug);
-
-      // Get meta value for the field
-      $o->value = ptb_field($o->slug, null, null, $lang, $o->old_slug);
-
-      $opt[] = $o;
-    }
-  }
-
-  return $opt;
+  return $options;
 }
 
 /**
