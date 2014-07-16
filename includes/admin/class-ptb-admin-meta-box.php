@@ -53,7 +53,26 @@ class PTB_Admin_Meta_Box {
     $this->options = (object)$this->options;
     $this->options->slug = _ptb_slugify($this->options->title);
 
-    $this->properties = array_merge($this->properties, $properties);
+    foreach ($properties as $property) {
+      if (is_array($property)) {
+        foreach ($property as $p) {
+          if (is_object($p)) {
+            $this->properties[] = $p;
+          }
+        }
+      } else if (is_object($property)) {
+        $this->properties[] = $property;
+      }
+    }
+
+    // some sorting here would be nice,
+    // english
+    // ------
+    // fields
+    // ------
+    // swedish
+    // ------
+    // fields
 
     // Setup actions.
     $this->setup_actions();
