@@ -65,15 +65,6 @@ class PTB_Admin_Meta_Box {
       }
     }
 
-    // some sorting here would be nice,
-    // english
-    // ------
-    // fields
-    // ------
-    // swedish
-    // ------
-    // fields
-
     // Setup actions.
     $this->setup_actions();
   }

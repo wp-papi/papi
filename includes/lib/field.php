@@ -63,12 +63,13 @@ function ptb_field ($post_id = null, $name = null, $default = null, $lang = null
   // Remove the first value of the array.
   $names = array_slice($names, 1);
 
+  // Get value.
+  $value = $page->$name;
+
   // Try to get the language code value.
-  if (!empty($old_name)) {
+  if (!empty($old_name) && empty($value)) {
     $old_name = _ptb_remove_ptb($old_name);
     $value = $page->$old_name;
-  } else {
-    $value = $page->$name;
   }
 
   // Return default value we don't have a value.
