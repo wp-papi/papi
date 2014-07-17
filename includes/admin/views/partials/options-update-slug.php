@@ -32,15 +32,17 @@
           <select name="ptb_new_slug">
             <?php
               $page_type = $page_types[0];
-              $klass = new $page_type->page_type;
-              $properties = $klass->get_properties();
-              foreach ($properties as $property): ?>
-                <option data-page-type="<?php echo $page_type->file_name; ?>" value="<?php echo $property->slug; ?>">
-                  <?php echo _ptb_remove_ptb($property->slug); ?>
-                </option>
-            <?php
-              endforeach;
-            ?>
+              if (is_object($page_type)):
+                $klass = new $page_type->page_type;
+                $properties = $klass->get_properties();
+                foreach ($properties as $property): ?>
+                  <option data-page-type="<?php echo $page_type->file_name; ?>" value="<?php echo $property->slug; ?>">
+                    <?php echo _ptb_remove_ptb($property->slug); ?>
+                  </option>
+              <?php
+                endforeach;
+              endif;
+              ?>
           </select>
           <br />
           <br />
