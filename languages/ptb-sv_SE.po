@@ -1,47 +1,50 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Page Type Builder\n"
-"POT-Creation-Date: 2014-04-09 10:47+0100\n"
-"PO-Revision-Date: 2014-04-09 10:48+0100\n"
+"POT-Creation-Date: 2014-07-17 16:44+0100\n"
+"PO-Revision-Date: 2014-07-17 16:44+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.6\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-SearchPath-0: ../includes\n"
-"X-Poedit-SearchPath-1: ../views\n"
 
-#: ../includes/class-ptb-core.php:66 ../includes/class-ptb-core.php:67
-#: ../views/add-new-page.php:9
+#: ../includes/admin/class-ptb-admin.php:119
+#: ../includes/admin/class-ptb-admin.php:120
+#: ../includes/admin/class-ptb-admin.php:126
+#: ../includes/admin/class-ptb-admin.php:127
+#: ../includes/admin/views/add-new.php:17
 msgid "Add New"
 msgstr "Skapa ny"
 
-#: ../includes/class-ptb-core.php:308
+#: ../includes/admin/class-ptb-admin.php:221
 msgid "Page Type"
 msgstr "Sidtyp"
 
-#: ../includes/class-ptb-core.php:326 ../views/add-new-page.php:21
+#: ../includes/admin/class-ptb-admin.php:239
+#: ../includes/admin/views/add-new.php:30
 #, fuzzy
 msgid "Standard Page"
 msgstr "Standard sida"
 
-#: ../includes/properties/class-property-url.php:32
-msgid "Select file"
-msgstr "Välj fil"
-
-#: ../views/add-new-page.php:10
+#: ../includes/admin/views/add-new.php:18
 msgid "Select the type of page to create from the list or search"
 msgstr "Välj den typ av sida att skapa från listan eller sök"
 
-#: ../views/add-new-page.php:22
+#: ../includes/admin/views/add-new.php:31
 msgid "Just the normal WordPress page"
 msgstr "Vanliga WordPress sidan"
+
+#: ../includes/properties/class-property-url.php:37
+msgid "Select file"
+msgstr "Välj fil"
 
 #, fuzzy
 #~ msgid "The Standard Page"
