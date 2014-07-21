@@ -70,6 +70,7 @@ final class PTB_Admin {
     add_action('admin_menu', array($this, 'admin_menu'));
     add_action('admin_head', array($this, 'admin_head'));
     add_action('admin_footer', array($this, 'admin_footer'));
+    add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
   }
 
   /**
@@ -144,15 +145,22 @@ final class PTB_Admin {
   }
 
   /**
+   * Enqueue script into admin footer.
+   *
+   * @since 1.0.0
+   */
+
+  public function admin_enqueue_scripts () {
+    wp_enqueue_script('ptb_main',  PTB_PLUGIN_URL . 'gui/js/main.js', '', '', true);
+  }
+
+  /**
    * Add script to admin footer.
    *
    * @since 1.0.0
    */
 
   public function admin_footer () {
-    // Output the main JavaScript file.
-    echo '<script src="' . PTB_PLUGIN_URL . 'gui/js/main.js" type="text/javascript"></script>';
-
     // Find which screen and post that are in use.
     $screen = get_current_screen();
     $post_type = _ptb_get_wp_post_type();
@@ -179,7 +187,6 @@ final class PTB_Admin {
     <?php
     }
   }
-
 
   /**
    * Add custom body class when it's a page type.

@@ -118,7 +118,7 @@ abstract class PTB_Page_Data {
 
     if (is_array($options)) {
       $this->properties = array_merge($this->properties, $options);
-    } else {
+    } else if (!$options->disabled) {
       $this->properties[] = $options;
     }
 

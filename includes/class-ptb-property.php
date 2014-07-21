@@ -167,6 +167,10 @@ abstract class PTB_Property {
       $title = $this->options->title;
     }
 
+    if (_ptb_is_random_title($title)) {
+      return;
+    }
+
     echo PTB_Html::label($title, $this->options->slug);
   }
 

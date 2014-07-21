@@ -1,7 +1,7 @@
-!function () {
+(function () {
 
   // Init our modules
-  Ptb.Core.init();
-  Ptb.Tabs.init();
+  ptb.Core.init();
+  ptb.Tabs.init();
 
-}();
+})();

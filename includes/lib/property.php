@@ -144,9 +144,9 @@ function _ptb_get_property_options ($options) {
   $defaults = array(
     'title'      => _ptb_random_title(),
     'no_title'   => false,
-    'disable'    => false,
+    'disabled'   => false,
     'slug'       => '',
-    'custom'     => new stdClass,
+    'settings'   => array(),
     'table'      => true,
     'sort_order' => 0,
     'value'      => '',

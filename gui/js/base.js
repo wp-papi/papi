@@ -1,6 +1,8 @@
-!function (window) {
+(function (window) {
 
-  // Setup Ptb object.
-  window.Ptb = window.Ptb || {};
+  // Setup ptb object.
+  window.ptb = window.ptb || {
+    view: {}
+  };
 
-}(window);
+})(window);

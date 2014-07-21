@@ -1,4 +1,4 @@
-!function (window, $) {
+(function ($) {
 
   // Tabs object.
   var Tabs = {};
@@ -15,8 +15,8 @@
     $('a[data-ptb-tab]').on('click', function (e) {
       e.preventDefault();
 
-      var $this = $(this)
-        , tab = $this.data('ptb-tab');
+      var $this = $(this),
+          tab = $this.data('ptb-tab');
 
       $('a[data-ptb-tab]').parent().removeClass('active');
       $this.parent().addClass('active');
@@ -27,7 +27,7 @@
 
   };
 
-  // Add the Tabs object to the Ptb object.
-  window.Ptb.Tabs = Tabs;
+  // Add utils to the ptb object.
+  window.ptb.Tabs = Tabs;
 
-}(window, window.jQuery);
+}(jQuery));

@@ -37,6 +37,40 @@ class PTB_Admin_Meta_Box {
   );
 
   /**
+   * Setup actions.
+   *
+   * @since 1.0.0
+   */
+
+  private function setup_actions () {
+    add_action('add_meta_boxes', array($this, 'setup_meta_box'));
+  }
+
+  /**
+   * Box property is a property that is direct on the box function with the property function.
+   *
+   * @param array $properties
+   * @since 1.0.0
+   *
+   * @return array
+   */
+
+  private function box_property ($properties) {
+    $box_property = array_filter($properties, function ($property) {
+      return !is_object($property) && !is_array($property);
+    });
+
+    if (!empty($box_property)) {
+      $property = _ptb_get_property_options($box_property);
+      if (!$property->disabled) {
+        $properties[] = $property;
+      }
+    }
+
+    return $properties;
+  }
+
+  /**
    * Constructor.
    *
    * @param array $options
@@ -53,6 +87,8 @@ class PTB_Admin_Meta_Box {
     $this->options = (object)$this->options;
     $this->options->slug = _ptb_slugify($this->options->title);
 
+    $properties = $this->box_property($properties);
+
     foreach ($properties as $property) {
       if (is_array($property)) {
         foreach ($property as $p) {
@@ -67,16 +103,6 @@ class PTB_Admin_Meta_Box {
 
     // Setup actions.
     $this->setup_actions();
-  }
-
-  /**
-   * Setup actions.
-   *
-   * @since 1.0.0
-   */
-
-  private function setup_actions () {
-    add_action('add_meta_boxes', array($this, 'setup_meta_box'));
   }
 
   /**

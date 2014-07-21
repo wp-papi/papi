@@ -1,4 +1,4 @@
-!function (window, $) {
+(function ($) {
 
   // Core object.
   var Core = {};
@@ -19,9 +19,9 @@
     // Add new page - search field.
     $('input[name=add-new-page-search]').on('keyup', function () {
 
-      var $this = $(this)
-        , $list = $('.ptb-box-list')
-        , val = $this.val();
+      var $this = $(this),
+          $list = $('.ptb-box-list'),
+          val = $this.val();
 
       $list.find('li').each(function () {
         var $li = $(this);
@@ -32,8 +32,8 @@
 
     // Fixing so "Add new page" get selected if it isn't.
     (function () {
-      var href = typeof window.location === 'string' ? window.location : window.location.href
-        , $adminmenu = $('#adminmenu');
+      var href = typeof window.location === 'string' ? window.location : window.location.href,
+          $adminmenu = $('#adminmenu');
 
       if (!$adminmenu.find('li.current > a.current').length) {
         href = href.substr(href.lastIndexOf('/') + 1);
@@ -50,6 +50,6 @@
   };
 
   // Add the Core object to the ptb object.
-  window.Ptb.Core = Core;
+  window.ptb.Core = Core;
 
-}(window, window.jQuery);
+}(window.jQuery));

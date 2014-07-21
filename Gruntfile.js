@@ -41,7 +41,8 @@ module.exports = function(grunt) {
             'gui/js/vendors/*.js',
             'gui/js/base.js',
             'gui/js/modules/*.js',
-            'gui/js/properties/*.js',
+            'gui/js/views/*.js',
+            'gui/js/binds.js',
             'gui/js/init.js'
           ]
         }
