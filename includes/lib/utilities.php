@@ -229,6 +229,8 @@ function _ptb_attribute ($name, $value) {
 /**
  * Get query string if it exists and is not empty.
  *
+ * @since 1.0.0
+ *
  * @return string
  */
 
@@ -238,4 +240,32 @@ function _ptb_get_qs ($qs) {
   }
 
   return null;
+}
+
+/**
+ * Execute a PHP template file and return the result as a string.
+ *
+ * @param string $tpl_file
+ * @param array $vars
+ * @param bool $include_globals
+ *
+ * @since 1.0.0
+ */
+
+function _ptb_apply_template ($tpl_file, $vars = array(), $include_globals = true) {
+  extract($vars);
+
+  if ($include_globals) extract($GLOBALS, EXTR_SKIP);
+
+  ob_start();
+
+  $path = PTB_PLUGIN_DIR;
+  $path = rtrim($path, '/') . '/';
+
+  require($path . $tpl_file);
+
+  $applied_template = ob_get_contents();
+  ob_end_clean();
+
+  return $applied_template;
 }

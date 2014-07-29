@@ -291,5 +291,5 @@ function _ptb_get_post_types () {
  */
 
 function _ptb_page_type_default_thumbnail () {
-  return PTB_PLUGIN_URL . '/gui/img/page-type-image.png';
+  return get_template_directory_uri() . '/screenshot.png';
 }
