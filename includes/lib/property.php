@@ -245,7 +245,6 @@ function _ptb_render_property ($property) {
 
   $property_type->set_options($property);
 
-
   // Only render if it's the right language if the definition exist.
   if (_ptb_get_qs('lang') != null && !_ptb_polylang_all()) {
     $render = _ptb_lang_exist(_ptb_get_qs('lang')) && $property->lang === strtolower(_ptb_get_qs('lang'));

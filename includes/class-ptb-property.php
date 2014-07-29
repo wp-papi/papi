@@ -177,29 +177,19 @@ abstract class PTB_Property {
   /**
    * Get help text for property.
    *
-   * @param bool $empty_left
-   *
    * @since 1.0.0
    */
 
-  public function helptext ($empty_left = true) {
-    if (isset($this->options->help_text)) {
-      $help_text = $this->options->help_text;
-      $help_text = strip_tags($help_text);
-      $html = PTB_Html::tag('span', $help_text, array(
-        'class' => 'description'
-      ));
-      $html = PTB_Html::td($html);
-
-      if ($empty_left) {
-        $html = PTB_Html::td('&nbsp;') . $html;
-      }
-
-      $html = PTB_Html::tr($html, array(
-        'class' => 'help-text'
-      ));
-      echo $html;
+  public function helptext () {
+    if (empty($this->options->help_text)) {
+      return;
     }
+
+    $help_text = $this->options->help_text;
+    $help_text = strip_tags($help_text);
+    ?>
+      <p><?php echo $help_text; ?></p>
+    <?php
   }
 
   /**
@@ -212,20 +202,19 @@ abstract class PTB_Property {
 
   public function render () {
     $options = $this->get_options();
-    if ($options->table): ?>
+    ?>
       <tr>
-        <?php if (!$options->no_title): ?>
-        <td <?php echo $options->colspan; ?>><?php $this->label(); ?></td>
-        <?php endif; ?>
-        <td <?php echo $options->colspan; ?>><?php $this->html(); ?></td>
+        <td>
+          <?php
+            $this->label();
+            $this->helptext();
+          ?>
+        </td>
+        <td>
+          <?php $this->html(); ?>
+        </td>
       </tr>
     <?php
-      $this->helptext(empty($options->colspan));
-    else:
-      $this->label();
-      $this->html();
-      $this->helptext(false);
-    endif;
   }
 
   /**

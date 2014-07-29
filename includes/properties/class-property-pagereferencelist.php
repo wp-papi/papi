@@ -61,13 +61,15 @@ class PropertyPageReferenceList extends PTB_Property {
 EOF;
 
               foreach ($posts as $post) {
-                $html .= <<< EOF
-                <li>
-                  <input type="hidden" data-name="{$options->slug}[]" value="{$post->ID}" />
-                  <a href="#">{$post->post_title}</a>
-                  <span class="icon plus"></span>
-                </li>
+                if (!empty($post->post_title)) {
+                  $html .= <<< EOF
+                    <li>
+                      <input type="hidden" data-name="{$options->slug}[]" value="{$post->ID}" />
+                      <a href="#">{$post->post_title}</a>
+                      <span class="icon plus"></span>
+                    </li>
 EOF;
+                }
               }
       $html .= <<< EOF
             </ul>
@@ -138,34 +140,6 @@ EOF;
       })(window.jQuery);
     </script>
     <?php
-  }
-
-  /**
-   * Render the final html that is displayed in the table or without table.
-   *
-   * @since 1.0.0
-   */
-
-  public function render () {
-    $options = $this->get_options();
-    if ($options->table): ?>
-      <tr class="ptb-fullwidth">
-        <td colspan="2">
-          <?php $this->label(); ?>
-        </td>
-      </tr>
-      <tr class="ptb-fullwidth">
-        <td colspan="2">
-          <?php $this->html(); ?>
-        </td>
-      </tr>
-    <?php
-      $this->helptext(false);
-    else:
-      $this->label();
-      $this->html();
-      $this->helptext(false);
-    endif;
   }
 
   /**

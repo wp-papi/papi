@@ -18,38 +18,16 @@
     width: 100%;
   }
 }
+#poststuff .inside {
 
-// Table + Sizes
-.ptb-table {
-  cursor: default !important;
-  tr {
-    display: table;
-    margin-bottom: 5px;
+  margin: 0;
+  margin-left: -12px;
+  margin-right: -12px;
+  margin-top: -1px;
 
-    &.help-text {
-      margin-top: -5px;
-      margin-bottom: 10px;
-    }
-
-    td:first-child {
-      min-width: 150px;
-    }
-
-    td[colspan] {
-      width: auto;
-    }
-
-    td label {
-      font-size: 13px;
-      line-height: 1.5;
-      font-weight: 600;
-    }
-
-    &:first-child {
-
-    }
-  }
 }
+
+// Sizes
 
 .ptb-table,
 .ptb-fullwidth {

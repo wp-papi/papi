@@ -120,12 +120,10 @@ class PropertyMap extends PTB_Property {
    */
 
   public function input () {
-    echo PTB_Html::input('text', array(
-      'name' => $this->get_options()->slug,
-      'id' => $this->get_options()->slug,
-      'class' => $this->css_classes('ptb-halfwidth'),
-      'value' => $this->get_options()->value
-    ));
+    $options = $this->get_options();
+    ?>
+    <input type="text" id="<?php echo $options->slug; ?>" name="<?php echo $options->slug; ?>" value="<?php echo $options->value; ?>" class="ptb-fullwidth ptb-property-map-input" placeholder="<?php _e('Latitude and longitude'); ?>"  />
+    <?php
   }
 
   /**
@@ -136,27 +134,21 @@ class PropertyMap extends PTB_Property {
 
   public function render () {
     $options = $this->get_options();
-    if ($options->table): ?>
-      <tr class="ptb-fullwidth">
-        <td colspan="2">
-          <?php $this->html(); ?>
-        </td>
-      </tr>
-      <tr class="ptb-fullwidth">
+    ?>
+      <tr>
         <td>
-          <?php $this->label(); ?>
+          <?php
+            $this->label();
+            $this->helptext();
+          ?>
         </td>
         <td>
-          <?php $this->input(); ?>
+          <?php
+            $this->input();
+            $this->html();
+          ?>
         </td>
       </tr>
-      <?php
-      $this->helptext();
-    else:
-      $this->html();
-      $this->label();
-      $this->input();
-      $this->helptext();
-    endif;
+    <?php
   }
 }

@@ -50,7 +50,7 @@ class PropertyText extends PTB_Property {
    * @since 1.0.0
    */
 
-  public function render () {
+  public function render2 () {
     $options = $this->get_options();
     if ($options->table): ?>
     <tr>

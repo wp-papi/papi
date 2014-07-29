@@ -103,7 +103,7 @@ display: none;
    * @return string
    */
 
-  public function render () {
+  public function render3 () {
     if ($this->get_options()->table): ?>
       <tr>
         <td>

@@ -45,6 +45,11 @@ class PropertyList extends PTB_Property {
             <a class="pr-list-remove-item" href="#">Remove</a>
             <table class="ptb-table">
               <tbody>
+                <tr class="num">
+                  <td colspan="2">
+                    #2
+                  </td>
+                </tr>
                 <?php
                   foreach ($properties as $property):
                     $template_property = clone $property;
@@ -62,6 +67,11 @@ class PropertyList extends PTB_Property {
               <a class="pr-list-remove-item" href="#">Remove</a>
               <table class="ptb-table">
                 <tbody>
+<tr class="num">
+  <td colspan="2">
+    #1
+  </td>
+</tr>
                   <?php
                     foreach ($properties as $property):
                       $render_property = clone $property;
@@ -164,28 +174,6 @@ class PropertyList extends PTB_Property {
       })(window.jQuery);
     </script>
     <?php
-  }
-
-  /**
-   * Render the final html that is displayed in the table or without a table.
-   *
-   * @since 1.0.0
-   */
-
-  public function render () {
-    if ($this->get_options()->table): ?>
-      <tr class="ptb-fullwidth">
-        <td colspan="2">
-          <?php $this->html(); ?>
-        </td>
-      </tr>
-    <?php
-      $this->helptext(false);
-    else:
-      echo '&nbsp;';
-      $this->html();
-      $this->helptext(false);
-    endif;
   }
 
   /**

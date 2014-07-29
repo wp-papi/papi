@@ -1,4 +1,5 @@
 <?php
+  $post_type = _ptb_get_wp_post_type();
 
   // Check if we should show standard page or not.
   $settings = _ptb_get_settings();
