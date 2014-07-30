@@ -18,13 +18,9 @@
     width: 100%;
   }
 }
-#poststuff .inside {
 
-  margin: 0;
-  margin-left: -12px;
-  margin-right: -12px;
-  margin-top: -1px;
-
+#poststuff .inside > .ptb-table {
+  margin: -7px -12px -12px -12px;
 }
 
 // Sizes
