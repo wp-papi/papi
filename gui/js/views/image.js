@@ -27,10 +27,6 @@
         template = $('<li />').html(html);
       }
       this.$el.append(html);
-    },
-
-    hover: function () {
-      console.log('mouse hover')
     }
 
   });

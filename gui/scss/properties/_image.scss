@@ -1,59 +1,41 @@
 .ptb-property-image {
-  margin-bottom: 20px;
-  .pr-image-items {
-    li {
-      float: left;
-      width: 122px;
-      height: 122px;
-      min-height: 140px;
-      padding: 5px;
-      border: 2px #EAEAEA dashed;
-      margin: 5px 10px 5px 0;
-      &.pr-image-item {
-        height: auto !important;
-        border: 2px transparent solid;
-        cursor: pointer;
-        img {
-          height: auto !important;
-          max-height: 140px;
-          border: 2px #EAEAEA dashed;
-          padding: 5px;
-          width: 120px;
-          height: 120px;
-          position: absolute;
-          margin: -7px 0 0 -5px;
-        }
-        p {
-          text-align: right;
-          vertical-align: middle;
-          line-height: 100px;
-          position: absolute;
-          width: 105px;
-          margin-top: -40px;
-          display: none;
-          a {
-            color: #f00;
-            z-index: 1000;
-            position: absolute;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-          }
-        }
-        &:hover {
-          p {
-            display: block;
-          }
-        }
-      }
-      &.pr-add-new {
-        min-height: 0;
-        p {
-          text-align: center;
-          vertical-align: middle;
-          line-height: 100px;
-        }
-      }
+
+  .ptb-image-area {
+    width: 150px;
+    -webkit-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.1);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    img {
+      height: auto;
+      left: 0;
+      top: 0;
+      width: 100%;
+      -webkit-transform: translateZ(0);
+      -webkit-transition: opacity .2s ease-in-out;
+      transition: opacity .2s ease-in-out;
     }
+
+    a {
+      width: 16px;
+      height: 22px;
+      background: #000;
+      position: absolute;
+      border-radius: 15px;
+      color: #FFF;
+      text-decoration: none;
+      padding-top: 2px;
+      padding-left: 9px;
+      font-size: 14px;
+      text-transform: lowercase;
+      margin-left: 138px;
+      margin-top: -10px;
+      display: none;
+      z-index: 100;
+    }
+
   }
+
 }
