@@ -40,17 +40,18 @@
   });
 
   // Remove image
-  $('body').on('click', '.ptb-property-image .ptb-image-area a', function (e) {
+  $('body').on('click', '.ptb-property-image ul li a', function (e) {
     e.preventDefault();
 
-    var $this = $(this).closest('.ptb-property-image');
+    var $this = $(this),
+        $prop = $this.closest('.ptb-property-image')
+        $li   = $this.closest('li');
 
-    $this
+    $prop
       .find('.ptb-image-select')
       .show();
 
-    $this
-      .find('input, img, a')
+    $li
       .remove();
   });
 
