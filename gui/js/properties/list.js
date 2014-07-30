@@ -44,7 +44,7 @@
 
     $('html, body')
       .animate({
-        scrollTop: $('li:last', $items).offset().top
+        scrollTop: $('li:last', $items).offset().top - 40
       });
   });
 

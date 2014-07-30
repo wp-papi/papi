@@ -33,12 +33,9 @@ class PropertyDate extends PTB_Property {
       $value = $value->format('Y-m-d');
     }
 
-    echo PTB_Html::input('text', array(
-      'name' => $options->slug,
-      'value' => $value,
-      'class' => $this->css_classes(),
-      'data-ptb-property' => 'date'
-    ));
+    ?>
+    <input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes('ptb-property-date'); ?>" />
+    <?php
   }
 
   /**
@@ -56,19 +53,6 @@ class PropertyDate extends PTB_Property {
     }
 
     return $value;
-  }
-
-  /**
-   * Output custom JavaScript for the property.
-   *
-   * @since 1.0
-   */
-
-  public function js () {
-    $files = array('moment.min.js', 'pikaday.min.js', 'pikaday.jquery.min.js');
-    foreach ($files as $file) {
-      wp_enqueue_script($file, $this->js_url . 'vendors/' . $file, array(), '1.0.0', true);
-    }
   }
 
 }

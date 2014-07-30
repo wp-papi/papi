@@ -38,7 +38,7 @@ class PropertyDropdown extends PTB_Property {
     }
 
     ?>
-    <select data-ptb-property="dropdown" name="<?php echo $options->slug; ?>" class="<?php echo $this->css_classes(); ?>">
+    <select class="ptb-property-dropdown" name="<?php echo $options->slug; ?>" class="<?php echo $this->css_classes(); ?>">
       <?php
         foreach ($settings->items as $key => $value):
           if (is_numeric($key)) {

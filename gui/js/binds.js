@@ -13,12 +13,13 @@
 
   // Use Select2 for property dropdown list.
   if ('select2' in $.fn) {
-    $('select[data-ptb-property="dropdown"]').select2();
+    $('select.ptb-property-dropdown').select2();
   }
 
   // Use Pikaday for property date.
-  if ('pikaday' in $.fn) {
-    $('input[data-ptb-property="date"]').pikaday({
+  if (window.Pikaday !== undefined) {
+    new Pikaday({
+      field: $('input.ptb-property-date')[0],
       format: 'YYYY-MM-DD',
       setDefaultDate: true
     });

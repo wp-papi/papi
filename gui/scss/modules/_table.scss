@@ -1,8 +1,18 @@
+// Inside fixes
+.inside {
+  &.ptb-inside {
+    padding-right: 0px;
+    margin-right: -13px !important;
+  }
+  > .ptb-table {
+    margin: -7px -12px -12px -12px;
+  }
+}
+
 // Table
 .ptb-table {
   cursor: default !important;
   border-spacing: 0;
-  margin: -1px 0 -12px 0;
 
   tr {
     display: table;
@@ -53,8 +63,14 @@
         line-height: 1.5;
         font-weight: 600;
       }
-      input {
+      input,
+      select,
+      .select2-container {
         width: 99.5%;
+      }
+      input[type="radio"],
+      input[type="checkbox"] {
+        width: auto;
       }
     }
   }
