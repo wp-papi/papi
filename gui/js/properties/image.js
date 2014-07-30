@@ -5,8 +5,10 @@
     e.preventDefault();
 
     var $this   = $(this),
+        $prop   = $this.closest('.ptb-property-image')
         $select = $this.closest('p')
-        $target = $this.closest('.ptb-property-image').find('.ptb-image-area'),
+        $target = $prop.find('ul'),
+        gallery = $prop.hasClass('gallery')
         options = $this.data('ptb-options');
 
     // Open the WordPress media editor
@@ -16,21 +18,23 @@
       }
 
       new ptb.view.Image({
-        el: $target.empty()
+        el: $target
       }).render({
         image: attachment.url,
         id: attachment.id,
         slug: options.slug
       });
 
-      $select
-        .hide();
+      if (!gallery) {
+        $select
+          .hide();
+      }
     });
 
   });
 
   // Toggle remove x
-  $('body').on('hover', '.ptb-property-image', function (e) {
+  $('body').on('hover', '.ptb-property-image ul li', function (e) {
     e.preventDefault();
     $(this).find('a').toggle();
   });
