@@ -26,7 +26,7 @@ class PropertyDate extends PTB_Property {
     $value = $this->get_value('');
 
     if (is_string($value)) {
-      $value = $this->convert($value);
+      $value = $this->format_value($value);
     }
 
     if ($value instanceof DateTime) {
@@ -39,7 +39,7 @@ class PropertyDate extends PTB_Property {
   }
 
   /**
-   * Convert the value of the property before we output it to the application.
+   * Format the value of the property before we output it to the application.
    *
    * @param mixed $value
    * @since 1.0.0
@@ -47,7 +47,7 @@ class PropertyDate extends PTB_Property {
    * @return array|string
    */
 
-  public function convert ($value) {
+  public function format_value ($value) {
     if (preg_match('/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/', $value)) {
       return new DateTime($value);
     }

@@ -120,7 +120,7 @@ class PropertyList extends PTB_Property {
   }
 
   /**
-   * Convert the value of the property before we output it to the application.
+   * Format the value of the property before we output it to the application.
    *
    * @param mixed $value
    * @since 1.0.0
@@ -128,7 +128,7 @@ class PropertyList extends PTB_Property {
    * @return array
    */
 
-  public function convert ($value) {
+  public function format_value ($value) {
     return array_values($value);
   }
 

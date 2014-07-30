@@ -30,7 +30,7 @@ class PropertyNumber extends PTB_Property {
   }
 
   /**
-   * Convert the value of the property before we output it to the application.
+   * Format the value of the property before we output it to the application.
    *
    * @param mixed $value
    * @since 1.0.0
@@ -38,7 +38,7 @@ class PropertyNumber extends PTB_Property {
    * @return int|float
    */
 
-  public function convert ($value) {
+  public function format_value ($value) {
     if (floatval($value) && intval($value) != floatval($value)) {
       return floatval($value);
     } else {

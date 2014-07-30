@@ -42,34 +42,4 @@ class PropertyText extends PTB_Property {
       ));
     }
   }
-
-  /**
-   * Render the final html that is displayed in the tabl
-   * or without a table.
-   *
-   * @since 1.0.0
-   */
-
-  public function render2 () {
-    $options = $this->get_options();
-    if ($options->table): ?>
-    <tr>
-      <td <?php echo $options->colspan; ?>>
-        <?php $this->label(); ?>
-      </td>
-    </tr>
-    <tr>
-      <td <?php echo $options->colspan; ?>>
-        <?php $this->html(); ?>
-      </td>
-    </tr>
-    <?php
-      $this->helptext(false);
-    else:
-      $this->label();
-      $this->html();
-      $this->helptext(false);
-    endif;
-  }
-
 }

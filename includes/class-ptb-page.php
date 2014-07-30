@@ -200,7 +200,7 @@ class PTB_Page {
       }
 
       // Convert the value and return.
-      return $property_type->convert($property['value']);
+      return $property_type->format_value($property['value']);
     }
 
     // If we only have the value, let's return that.

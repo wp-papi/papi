@@ -25,7 +25,7 @@ class PropertyImage extends PTB_Property {
     ));
 
     // Get the value.
-    $value = $this->convert($options->value);
+    $value = $this->format_value($options->value);
 
     if (!is_array($value)) {
       $value = array_filter(array($value));
@@ -79,7 +79,7 @@ class PropertyImage extends PTB_Property {
   }
 
   /**
-   * Convert the value of the property before we output it to the application.
+   * Format the value of the property before we output it to the application.
    *
    * @param mixed $value
    * @since 1.0.0
@@ -87,7 +87,7 @@ class PropertyImage extends PTB_Property {
    * @return array|object|string
    */
 
-  public function convert ($value) {
+  public function format_value ($value) {
     if (is_numeric($value)) {
       $meta = wp_get_attachment_metadata($value);
       if (isset($meta) && !empty($meta)) {
@@ -102,7 +102,7 @@ class PropertyImage extends PTB_Property {
       }
     } else if (is_array($value)) {
       foreach ($value as $k => $v) {
-         $value[$k] = $this->convert($v);
+         $value[$k] = $this->format_value($v);
       }
       return $value;
     } else {
