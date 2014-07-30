@@ -54,78 +54,132 @@ class PropertyMap extends PTB_Property {
       return;
     }
 
-    $api_key = $settings->api_key;
-
     ?>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo $api_key; ?>&sensor=false"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<?php echo $settings->api_key; ?>&sensor=false"></script>
     <script type="text/javascript">
-      function updateLatitudeLangitude (position) {
-        var el = document.querySelectorAll('input[name="<?php echo $options->slug; ?>"]');
-        if (el.length) {
-          el[0].value = [position.lat(), position.lng()].join(', ');
-        }
-      }
+      <?php
+        // Database value.
+        $value = $this->get_value();
 
-      function initialize() {
-        <?php
-
-          // Database value.
-          $value = $this->get_value();
-
-          if (is_null($value) || empty($value)) {
-            if (!empty($settings->latlng)) {
-              $value = explode(',', trim($settings->latlng));
-              $lat = $value[0];
-              $lng = $value[1];
-            } else {
-              $lat = '59.32893';
-              $lng = '18.06491';
-            }
-          } else {
-            $value = explode(',', trim($value));
+        if (isset($value['lat']) && isset($value['lng'])) {
+          $lat = $value['lat'];
+          $lng = $value['lng'];
+        } else {
+          if (!empty($settings->latlng)) {
+            $value = explode(',', trim($settings->latlng));
             $lat = $value[0];
             $lng = $value[1];
+          } else {
+            $lat = '59.32893';
+            $lng = '18.06491';
           }
-        ?>
-        var ptbLatLng = new google.maps.LatLng(<?php echo $lat; ?>, <?php echo $lng; ?>);
+        }
+      ?>
 
-        var mapOptions = {
-          center: ptbLatLng,
-          zoom: 14
-        };
+      (function ($) {
 
-        var map = new google.maps.Map(document.getElementById("<?php echo $options->slug; ?>"), mapOptions);
+        var geocoder = new google.maps.Geocoder(),
+            latLng = new google.maps.LatLng(<?php echo $lat; ?>, <?php echo $lng; ?>),
+            mapOptions = {
+              center: latLng,
+              zoom: 14
+            },
+            map,
+            maker;
 
-        var marker = new google.maps.Marker({
-          position: ptbLatLng,
-          map: map,
-          draggable: true,
-          title: 'Select position'
+        function geocodePosition (pos) {
+          geocoder.geocode({
+            latLng: pos
+          }, function(responses) {
+            if (responses && responses.length) {
+              console.log(responses[0].formatted_address);
+              updateMarkerAddress(responses[0].formatted_address);
+            } else {
+              updateMarkerAddress('<?php _e("Cannot determine address at this location.", "ptb"); ?>');
+            }
+          });
+        }
+
+        function updateLatitudeLangitude (position) {
+          $('input[name="<?php echo $options->slug; ?>[lat]"]').val(position.lat());
+          $('input[name="<?php echo $options->slug; ?>[lng]"]').val(position.lng());
+        }
+
+        function updateMarkerAddress (address) {
+          $('input[name="<?php echo $options->slug; ?>[address]"]').val(address);
+        }
+
+        function initialize() {
+          map = new google.maps.Map(document.getElementById("<?php echo $options->slug; ?>"), mapOptions);
+
+          marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+            draggable: true,
+            title: 'Select position'
+          });
+
+          google.maps.event.addListener(marker, 'drag', function() {
+            updateLatitudeLangitude(marker.getPosition());
+            geocodePosition(marker.getPosition());
+          });
+
+          google.maps.event.addListener(marker, 'dragend', function() {
+            updateLatitudeLangitude(marker.getPosition());
+            geocodePosition(marker.getPosition());
+          });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+        $('.ptb-property-map-search').on('ptb/update_map', function () {
+          var $this    = $(this),
+              val      = $this.val();
+
+          geocoder.geocode({
+            'address': val
+          }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              var loc = results[0].geometry.location;
+              var latLng = new google.maps.LatLng(loc.lat(), loc.lng());
+              marker.setPosition(latLng);
+              map.setCenter(latLng);
+              updateLatitudeLangitude(marker.getPosition());
+            }
+          });
         });
 
-        google.maps.event.addListener(marker, 'drag', function() {
-          updateLatitudeLangitude(marker.getPosition());
+        $('.ptb-property-map-search').on('keypress', function (e) {
+          if (e.which == 13) {
+            e.preventDefault();
+            $(this).trigger('ptb/update_map');
+          }
         });
 
-        google.maps.event.addListener(marker, 'dragend', function() {
-          updateLatitudeLangitude(marker.getPosition());
+        $('.ptb-property-map-search').on('blur', function (e) {
+          e.preventDefault();
+          $(this).trigger('ptb/update_map');
         });
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
+
+      })(jQuery);
+
     </script>
     <?php
   }
 
   /**
-   * Generate the html for the "place" input.
+   * Generate the html for searching adress.
    *
    * @since 1.0.0
    */
 
   public function input () {
     $options = $this->get_options();
+    $value = $this->get_value();
     ?>
-    <input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $options->value; ?>" class="ptb-fullwidth ptb-property-map-input" placeholder="<?php _e('Latitude and longitude'); ?>"  />
+    <input type="search" name="<?php echo $options->slug; ?>[address]" value="<?php echo $value['address']; ?>"  class="ptb-property-map-search" placeholder="<?php _e('Search for address...'); ?>" />
+    <input type="hidden" name="<?php echo $options->slug; ?>[lat]" value="<?php echo $value['lat']; ?>" />
+    <input type="hidden" name="<?php echo $options->slug; ?>[lng]" value="<?php echo $value['lng']; ?>" />
     <?php
   }
 
@@ -153,5 +207,18 @@ class PropertyMap extends PTB_Property {
         </td>
       </tr>
     <?php
+  }
+
+  /**
+   * Format the value of the property before we output it to the application.
+   *
+   * @param mixed $value
+   * @since 1.0.0
+   *
+   * @return array
+   */
+
+  public function format_value ($value) {
+    return $value;
   }
 }
