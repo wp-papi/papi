@@ -19,14 +19,17 @@ class PropertyMap extends PTB_Property {
    */
 
   public function html () {
+    // Property options.
+    $options = $this->get_options();
+
     ?>
     <style type="text/css">
-      #map-canvas {
+      .map-canvas {
         width: 100%;
         height: 400px;
       }
     </style>
-    <div id="map-canvas"></div>
+    <div id="<?php echo $options->slug; ?>" class="map-canvas"></div>
     <?php
   }
 
@@ -91,7 +94,7 @@ class PropertyMap extends PTB_Property {
           zoom: 14
         };
 
-        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+        var map = new google.maps.Map(document.getElementById("<?php echo $options->slug; ?>"), mapOptions);
 
         var marker = new google.maps.Marker({
           position: ptbLatLng,
@@ -122,7 +125,7 @@ class PropertyMap extends PTB_Property {
   public function input () {
     $options = $this->get_options();
     ?>
-    <input type="text" id="<?php echo $options->slug; ?>" name="<?php echo $options->slug; ?>" value="<?php echo $options->value; ?>" class="ptb-fullwidth ptb-property-map-input" placeholder="<?php _e('Latitude and longitude'); ?>"  />
+    <input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $options->value; ?>" class="ptb-fullwidth ptb-property-map-input" placeholder="<?php _e('Latitude and longitude'); ?>"  />
     <?php
   }
 
