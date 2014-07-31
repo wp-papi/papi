@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 abstract class PTB_Property {
 
   /**
-   * Page Type Builder properties array.
+   * Available properties.
    *
    * @var array
    * @since 1.0.0
@@ -54,17 +54,17 @@ abstract class PTB_Property {
    * @param string $property
    * @since 1.0.0
    *
-   * @throws Exception
    * @return PTB_Property
    */
 
   public static function factory ($property) {
     self::filter_custom_properties();
+
     if (in_array($property, self::$properties) && class_exists($property)) {
       return new $property();
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   /**
@@ -76,11 +76,14 @@ abstract class PTB_Property {
 
   private static function filter_custom_properties () {
     $result = apply_filters('ptb_properties', self::$properties);
-    if (is_array($result)) {
-      self::$properties = array_filter(array_unique(array_merge(self::$properties, $result)), function ($property) {
-        return preg_match('/Property\w+/', $property);
-      });
+
+    if (!is_array($result)) {
+      return;
     }
+
+    self::$properties = array_filter(array_unique(array_merge(self::$properties, $result)), function ($property) {
+      return preg_match('/Property\w+/', $property);
+    });
   }
 
   /**
@@ -98,6 +101,7 @@ abstract class PTB_Property {
 
   /**
    * Get the html to display from the property.
+   * This function is required by the property class to have.
    *
    * @since 1.0.0
    */
@@ -148,10 +152,9 @@ abstract class PTB_Property {
       $slug = _ptb_property_type_key($slug);
     }
 
-    echo PTB_Html::input('hidden', array(
-      'name' => $slug,
-      'value' => $this->options->type
-    ));
+    ?>
+    <input type="hidden" value="<?php echo $this->options->type; ?>" name="<?php echo $slug; ?>" />
+    <?php
   }
 
   /**
@@ -171,7 +174,9 @@ abstract class PTB_Property {
       return;
     }
 
-    echo PTB_Html::label($title, $this->options->slug);
+    ?>
+    <label for="<?php echo $this->options->slug; ?>"><?php echo $title; ?></label>
+    <?php
   }
 
   /**
@@ -187,6 +192,7 @@ abstract class PTB_Property {
 
     $help_text = $this->options->help_text;
     $help_text = strip_tags($help_text);
+  
     ?>
       <p><?php echo $help_text; ?></p>
     <?php
@@ -196,8 +202,6 @@ abstract class PTB_Property {
    * Render the final html that is displayed in the table.
    *
    * @since 1.0.0
-   *
-   * @return string
    */
 
   public function render () {
@@ -218,16 +222,45 @@ abstract class PTB_Property {
   }
 
   /**
+   * This filter is applied after the $value is loaded in the database.
+   *
+   * @param mixed $value
+   * @param mixed $post_id
+   * @since 1.0.0
+   *
+   * @return mixed
+   */
+
+  public function load_value ($value, $post_id) {
+    return $value;
+  }
+
+  /**
    * Format the value of the property before we output it to the application.
    *
    * @param mixed $value
+   * @param mixed $post_id
    * @since 1.0.0
    *
-   * @return string
+   * @return mixed
    */
 
-  public function format_value ($value) {
-    return strval($value);
+  public function format_value ($value, $post_id) {
+    return $value;
+  }
+
+  /**
+   * This filter is applied before the $value is saved in the database.
+   *
+   * @param mixed $value
+   * @param mixed $post_id
+   * @since 1.0.0
+   *
+   * @return mixed
+   */
+
+  public function update_value ($value, $post_id) {
+    return $value;
   }
 
   /**
@@ -235,7 +268,7 @@ abstract class PTB_Property {
    *
    * @since 1.0.0
    *
-   * @return object|null
+   * @return object
    */
 
   public function get_options () {
@@ -256,7 +289,7 @@ abstract class PTB_Property {
   /**
    * Get database value.
    *
-   * @param null $default
+   * @param mixed $default
    * @since 1.0.0
    *
    * @return mixed
@@ -265,11 +298,7 @@ abstract class PTB_Property {
   public function get_value ($default = null) {
     $value = $this->options->value;
 
-    if (is_null($value)) {
-      return $default;
-    }
-
-    if (is_string($value) && strlen($value) === 0) {
+    if (empty($value)) {
       return $default;
     }
 

@@ -68,6 +68,7 @@ function _ptb_get_only_property_values ($a = array()) {
       unset($a[$key]);
     }
   }
+
   return $a;
 }
 
@@ -84,8 +85,9 @@ function _ptb_get_property_type ($type) {
   if (is_object($type) && isset($type->type) && is_string($type->type)) {
     $type = $type->type;
   }
-  if (is_null($type) || empty($type)) {
-    return null;
+
+  if (empty($type)) {
+    return;
   }
 
   return PTB_Property::factory($type);
