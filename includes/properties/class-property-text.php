@@ -31,7 +31,7 @@ class PropertyText extends PTB_Property {
     ));
 
     if ($settings->editor) {
-      $id = str_replace('[', '', str_replace(']', '', $options->slug));
+      $id = str_replace('[', '', str_replace(']', '', $options->slug)) . '-' . uniqid();
       wp_editor($options->value, $id, array(
         'textarea_name' => $options->slug
       ));

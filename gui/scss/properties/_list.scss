@@ -30,30 +30,39 @@
 
     }
 
-    > ul > li {
-      margin-top: -2px;
-      width: 100%;
-      &:first-child {
+    > ul {
+      margin-bottom: -6px;
+      > li {
         margin-top: -2px;
-      }
+        width: 100%;
+        &:first-child {
+          margin-top: -2px;
+        }
 
-      .ptb-property-list-remove-item {
-        background: url(../img/plus-minus.png) no-repeat top right;
-        width: 16px;
-        height: 16px;
-        position: absolute;
-        text-indent: -9999px;
-        right: 55px;
-        text-decoration: none;
-        margin-top: 7px;
-      }
+        .ptb-property-list-remove-item {
+          background: url(../img/plus-minus.png) no-repeat top right;
+          width: 16px;
+          height: 16px;
+          position: absolute;
+          text-indent: -9999px;
+          right: 55px;
+          text-decoration: none;
+          margin-top: 7px;
+        }
 
-      .ptb-table tr.num td {
-        border-right: none;
-        padding: 5px 15px;
-      }
+        .ptb-table {
+          tr.num td {
+            border-right: none;
+            padding: 5px 15px;
+          }
+          .wp-editor-wrap {
+            iframe {
+              height: 400px !important;
+            }
+          }
+        }
 
+      }
     }
-
   }
 }
