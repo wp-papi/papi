@@ -11,11 +11,6 @@
     ptb.Utils.wp_media_editor($this, $target);
   });
 
-  // Use Select2 for property dropdown list.
-  if ('select2' in $.fn) {
-    $('select.ptb-property-dropdown').select2();
-  }
-
   // Use Pikaday for property date.
   if (window.Pikaday !== undefined) {
     new Pikaday({
