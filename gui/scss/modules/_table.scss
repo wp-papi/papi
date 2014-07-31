@@ -14,10 +14,12 @@
   cursor: default !important;
   border-spacing: 0;
 
+  * {
+    word-wrap: break-word;
+  }
+
   tr {
-    display: table;
     margin: 0;
-    width: 100%;
     -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 
