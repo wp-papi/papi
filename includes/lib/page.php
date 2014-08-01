@@ -43,7 +43,7 @@ function _ptb_get_page_type_meta_value ($post_id = null) {
 
   if (!is_null($post_id)) {
     $meta_value = get_post_meta($post_id, $key, true);
-    $page_type = h($meta_value, '');
+    $page_type = _ptb_h($meta_value, '');
   }
 
   // Get page type value from get object.
@@ -61,7 +61,7 @@ function _ptb_get_page_type_meta_value ($post_id = null) {
     $from_post = _ptb_get_qs('from_post');
     if (!is_null($from_post) && is_numeric($from_post)) {
       $meta_value = get_post_meta(intval($from_post), $key, true);
-      $page_type = h($meta_value, '');
+      $page_type = _ptb_h($meta_value, '');
     }
   }
 

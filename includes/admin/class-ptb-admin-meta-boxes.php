@@ -57,7 +57,7 @@ class PTB_Admin_Meta_Boxes {
         }
       }
     } else if (is_string($value)) {
-      $value = remove_trailing_quotes($value);
+      $value = _ptb_remove_trailing_quotes($value);
     }
 
     return $value;
@@ -204,7 +204,7 @@ class PTB_Admin_Meta_Boxes {
    */
 
   private function get_page_type (array $data = array()) {
-    return h($data['ptb_page_type'], '');
+    return _ptb_h($data['ptb_page_type'], '');
   }
 
   /**
@@ -260,14 +260,14 @@ class PTB_Admin_Meta_Boxes {
     }
 
     // Can't proceed without a post id.
-    if (!isset($post_id) || empty($post_id)) {
+    if (empty($post_id)) {
       return;
-    } else {
-      $post = get_post($post_id);
     }
 
+    $post = get_post($post_id);
+
     // Can't proceed without a post id or a post.
-    if (!isset($post) || empty($post)) {
+    if (empty($post)) {
       return;
     }
 

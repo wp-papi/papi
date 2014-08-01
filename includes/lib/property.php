@@ -50,7 +50,7 @@ function _ptb_property_type_key ($str = '') {
  */
 
 function _ptb_property_key ($str) {
-  return _f(_ptbify($str));
+  return _ptb_f(_ptbify($str));
 }
 
 /**

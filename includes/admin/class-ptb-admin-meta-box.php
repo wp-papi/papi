@@ -79,10 +79,7 @@ class PTB_Admin_Meta_Box {
    */
 
   public function __construct ($options = array(), $properties = array()) {
-    if (!is_array($options)) {
-      $options = array();
-    }
-
+    $options = _ptb_h($options, array());
     $this->options = array_merge($this->default_options, $options);
     $this->options = (object)$this->options;
     $this->options->slug = _ptb_slugify($this->options->title);
@@ -134,12 +131,9 @@ class PTB_Admin_Meta_Box {
     }
 
     wp_nonce_field('ptb_save_data', 'ptb_meta_nonce');
-
-    // Output hidden field with page type value.
-    echo PTB_Html::input('hidden', array(
-      'name' => 'ptb_page_type',
-      'value' => _ptb_get_page_type_meta_value()
-    ));
+    ?>
+    <input type="hidden" name="ptb_page_type" value="<?php echo _ptb_get_page_type_meta_value(); ?>" />
+    <?php
 
     // Render the properties.
     _ptb_render_properties($args['args']);

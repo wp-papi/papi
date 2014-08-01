@@ -20,20 +20,8 @@ if (!defined('ABSPATH')) exit;
  * @return mixed
  */
 
-function h (&$obj, $default = null) {
+function _ptb_h (&$obj, $default = null) {
   return isset($obj) ? $obj : $default;
-}
-
-/**
- * Check if $obj is set and if not echo null or default.
- *
- * @param mixed $obj The var to check if it is set.
- * @param mixed $default The value to return if var is not set.
- * @since 1.0.0
- */
-
-function eh (&$obj, $default = null) {
-  echo h($obj, $default);
 }
 
 /**
@@ -46,7 +34,7 @@ function eh (&$obj, $default = null) {
  * @return string
  */
 
-function remove_trailing_quotes ($str) {
+function _ptb_remove_trailing_quotes ($str) {
   return str_replace("\'", "'", str_replace('\"', '"', $str));
 }
 
@@ -59,7 +47,7 @@ function remove_trailing_quotes ($str) {
  * @return string
  */
 
-function _f ($str) {
+function _ptb_f ($str) {
   if (strpos($str, '_') === 0) {
     return $str;
   }
