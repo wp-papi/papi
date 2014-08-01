@@ -1,24 +1,39 @@
 # Filters
 
-### ptb_property_before_save
+### ptb/update_value
 
-Every property array that should be saved will go through this filter. The array will have two values. One telling you which property type it is and one with the value.
+Update value for every property before it is saved to the database.
+
+Example:
 
 ```
 <?php
 
-  function eg_property_before_save ($property) {
-    
-    // Property type. E.g "PropertyString".
-    $type = $property['type'];
-    
-    // The value. E.g "Hello, world".
-    $value = $property['value'];
-    
-    return $property;
+  function eg_update_value ($value, $post_id) {
+    // do some magic with the value and return it.
+    return $value;
   }
   
-  add_filter('ptb_property_before_save', 'eg_property_before_save');
+  add_filter('ptb/update_value', 'eg_update_value');
   
+?>
+```
+
+### ptb/update_value/{$property_type}
+
+Update value for the specified property before it is saved to the database. Just remove `Property` from the property type key and then you have the right type for the filter.
+
+Example: `PropertyString` => `ptb/update_value/string`
+
+```
+<?php
+
+  function eg_update_value_string ($value, $post_id) {
+    // do some magic with the value and return it.
+    return $value;
+  }
+
+  add_filter('ptb/update_value/string', 'eg_update_value_string');
+
 ?>
 ```

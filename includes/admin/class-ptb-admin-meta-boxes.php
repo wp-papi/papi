@@ -107,7 +107,7 @@ class PTB_Admin_Meta_Boxes {
    * @return array
    */
 
-  private function prepare_properties_data (array $data = array()) {
+  private function prepare_properties_data (array $data = array(), $post_id) {
     // Since we are storing witch property it is in the $data array
     // we need to remove that and set the property type to the property
     // and make a array of the property type and the value.
@@ -163,13 +163,19 @@ class PTB_Admin_Meta_Boxes {
         continue;
       }
 
-      // Run `before_save` if it exists on the property class.
-      if (method_exists($property, 'before_save')) {
-        $data[$key]['value'] = $property->before_save($data[$key]['value']);
+      // Run `update_value` if it exists on the property class.
+      if (method_exists($property, 'update_value')) {
+        $data[$key]['value'] = $property->update_value($data[$key]['value'], $post_id);
       }
 
-      // Apply a filter so this can be changed from the theme also.
-      $data[$key] = apply_filters('ptb_property_before_save', $data[$key]);
+      // Apply a filter so this can be changed from the theme for every property.
+      $data[$key] = apply_filters('ptb/update_value', $data[$key], $post_id);
+
+      $filter_type_key = preg_replace('/^property$/', '', strtolower($property_type));
+
+      // Apply a filter so this can be changed from the theme for specified property type.
+      // Example: "ptb/update_value/string"
+      $data[$key] = apply_filters('ptb/update_value/' . $filter_type_key, $data[$key], $post_id);
     }
 
     // Check so all properties has a value and a type key and that the property is a array.
@@ -190,7 +196,7 @@ class PTB_Admin_Meta_Boxes {
    */
 
   private function get_page_template (array $data = array()) {
-    $post_id = isset($data['post_ID']) ? $data['post_ID'] : 0;
+    $post_id = _ptb_h($data['post_ID'], 0);
     return _ptb_get_template($post_id);
   }
 
@@ -303,7 +309,7 @@ class PTB_Admin_Meta_Boxes {
     $data = $this->get_properties_data();
 
     // Prepare property data.
-    $data = $this->prepare_properties_data($data);
+    $data = $this->prepare_properties_data($data, $post_id);
 
     // Pre save page template and page type.
     $this->pre_save($post_id);
