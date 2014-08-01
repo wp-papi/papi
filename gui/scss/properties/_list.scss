@@ -1,51 +1,68 @@
-.hidden {
-  display: none;
-}
-
 .ptb-property-list {
   background: #fafafa;
   border: 1px #eaeaea solid;
   padding: 5px;
-  .pr-inner {
-    padding: 5px;
+
+  .ptb-property-list-inner {
     background: #fff;
     border: 1px #eaeaea solid;
-    .pr-actions {
-      height: 20px;
-      /* background: #fafafa; */
-      border-bottom: 1px #eaeaea solid;
+
+    .ptb-property-list-actions {
+      height: 10px;
       padding: 5px;
+
       label {
         float: left;
-        margin-top: -1px;
+        margin-left: 8px;
+        margin-top: 3px;
       }
+
+      .ptb-property-list-add-new-item {
+        background: url(../img/plus-minus.png) no-repeat top left;
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        text-indent: -9999px;
+        right: 55px;
+        text-decoration: none;
+        margin-top: 3px;
+      }
+
     }
-    .pr-right {
-      margin-right: 15px;
-    }
-  }
-  ul li {
-    padding: 5px;
-    border-bottom: 1px #eaeaea solid;
-  }
-  .pr-inner {
-    .pr-actions a.pr-list-add-new-item {
-      background: url(../img/plus-minus.png) no-repeat top left;
-      width: 16px;
-      height: 16px;
-      position: absolute;
-      text-indent: -9999px;
-      right: 35px;
-      text-decoration: none;
-    }
-    a.pr-list-remove-item {
-      background: url(../img/plus-minus.png) no-repeat top right;
-      width: 16px;
-      height: 16px;
-      position: absolute;
-      text-indent: -9999px;
-      right: 35px;
-      text-decoration: none;
+
+    > ul {
+      margin-bottom: -6px;
+      > li {
+        margin-top: -2px;
+        width: 100%;
+        &:first-child {
+          margin-top: -2px;
+        }
+
+        .ptb-property-list-remove-item {
+          background: url(../img/plus-minus.png) no-repeat top right;
+          width: 16px;
+          height: 16px;
+          position: absolute;
+          text-indent: -9999px;
+          right: 55px;
+          text-decoration: none;
+          margin-top: 7px;
+        }
+
+        .ptb-table {
+          tr.num td {
+            border-right: none;
+            padding: 5px 15px;
+          }
+          .wp-editor-wrap {
+            iframe {
+              height: 400px !important;
+            }
+          }
+        }
+
+      }
     }
   }
 }

@@ -120,14 +120,14 @@ class PTB_Page {
     $property_value = get_post_meta($this->id, $property_key, true);
 
     if (is_null($property_value)) {
-      return null;
+      return;
     }
 
     $property_type_key = _ptb_property_type_key($property_key);
     $property_type_value = get_post_meta($this->id, $property_type_key, true);
 
     if (is_null($property_type_value)) {
-      return null;
+      return;
     }
 
     // The convert takes a array as argument so let's make one.
@@ -192,15 +192,18 @@ class PTB_Page {
     if (isset($property['value']) && isset($property['type'])) {
       // Get the property type.
       $type = strval($property['type']);
-      $property_type = PTB_Property::factory($type);
+      $property_type = _ptb_get_property_type($type);
 
       // If no property is found, just return the value.
       if (is_null($property_type)) {
         return $property['value'];
       }
 
-      // Convert the value and return.
-      return $property_type->convert($property['value']);
+      // Run a `load_value` right after the value has been loaded from the database.
+      $property['value'] = $property_type->load_value($property['value'], $this->id);
+
+      // Format the value before we return it.
+      return $property_type->format_value($property['value'], $this->id);
     }
 
     // If we only have the value, let's return that.

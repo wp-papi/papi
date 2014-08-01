@@ -35,16 +35,21 @@ class PropertyList extends PTB_Property {
 
     ?>
     <div class="ptb-property-list">
-      <div class="pr-inner">
-        <div class="pr-actions">
+      <div class="ptb-property-list-inner">
+        <div class="ptb-property-list-actions">
           <?php $this->label(); ?>
-          <a class="pr-list-add-new-item" href="#">Add new</a>
+          <a class="ptb-property-list-add-new-item" href="#">Add new</a>
         </div>
-        <ul class="pr-list-template hidden">
+        <ul class="ptb-property-list-template hidden">
           <li>
-            <a class="pr-list-remove-item" href="#">Remove</a>
+            <a class="ptb-property-list-remove-item" href="#">Remove</a>
             <table class="ptb-table">
               <tbody>
+                <tr class="num">
+                  <td colspan="2">
+                    #<span></span>
+                  </td>
+                </tr>
                 <?php
                   foreach ($properties as $property):
                     $template_property = clone $property;
@@ -56,12 +61,19 @@ class PropertyList extends PTB_Property {
               </table>
             </li>
           </ul>
-          <ul class="pr-list-items">
-            <?php foreach ($values as $value): ?>
+          <ul class="ptb-property-list-items">
+            <?php
+              foreach ($values as $value):
+            ?>
             <li>
-              <a class="pr-list-remove-item" href="#">Remove</a>
+              <a class="ptb-property-list-remove-item" href="#">Remove</a>
               <table class="ptb-table">
                 <tbody>
+                  <tr class="num">
+                    <td colspan="2">
+                      #<span><?php echo $this->counter + 1; ?></span>
+                    </td>
+                  </tr>
                   <?php
                     foreach ($properties as $property):
                       $render_property = clone $property;
@@ -108,88 +120,7 @@ class PropertyList extends PTB_Property {
   }
 
   /**
-   * Output custom JavaScript for the property.
-   *
-   * @since 1.0.0
-   */
-
-  public function js () {
-    ?>
-    <script type="text/javascript">
-      (function ($) {
-
-        // Replace all template name attributes with data-name attribute.
-        $('ul.pr-list-template > li').find('[name*=ptb_]').each(function () {
-          var $this = $(this);
-
-          $this.attr('data-name', $this.attr('name'));
-          $this.removeAttr('name');
-        });
-
-        // Add new item and update the array index in html name.
-        $('.ptb-property-list').on('click', '.pr-list-add-new-item', function (e) {
-          e.preventDefault();
-
-          var $template = $('ul.pr-list-template > li').clone()
-            , counter = $('ul.pr-list-items').children().length
-            , html = $template.html()
-            , dataNameRegex = /data\-name\=/g
-            , attrNameRegex = /name\=\"\ptb_\w+(\[\d+\])\[(\w+)\]\"/g
-            , attrNameValue = '[' + counter + ']';
-
-          html = html.replace(dataNameRegex, 'name=');
-
-          // Update array number in html name and name if ends with a number.
-          html = html.replace(attrNameRegex, function (match, num, name) {
-            return match.replace(num, attrNameValue);
-          });
-
-          $template.html(html).appendTo('ul.pr-list-items');
-
-        <?php if ($this->get_settings(array('scroll_to_last' => true))->scroll_to_last): ?>
-          // Scroll to the last item in list.
-          $('html, body').animate({
-            scrollTop: $('ul.pr-list-items > li:last').offset().top
-          });
-        <?php endif; ?>
-        });
-
-        // Remove item
-        $('.ptb-property-list').on('click', '.pr-list-remove-item', function (e) {
-          e.preventDefault();
-
-          $(this).closest('li').remove();
-        });
-
-      })(window.jQuery);
-    </script>
-    <?php
-  }
-
-  /**
-   * Render the final html that is displayed in the table or without a table.
-   *
-   * @since 1.0.0
-   */
-
-  public function render () {
-    if ($this->get_options()->table): ?>
-      <tr class="ptb-fullwidth">
-        <td colspan="2">
-          <?php $this->html(); ?>
-        </td>
-      </tr>
-    <?php
-      $this->helptext(false);
-    else:
-      echo '&nbsp;';
-      $this->html();
-      $this->helptext(false);
-    endif;
-  }
-
-  /**
-   * Convert the value of the property before we output it to the application.
+   * Format the value of the property before we output it to the application.
    *
    * @param mixed $value
    * @since 1.0.0
@@ -197,7 +128,7 @@ class PropertyList extends PTB_Property {
    * @return array
    */
 
-  public function convert ($value) {
+  public function format_value ($value) {
     return array_values($value);
   }
 

@@ -19,37 +19,7 @@
   }
 }
 
-// Table + Sizes
-.ptb-table {
-  cursor: default !important;
-  tr {
-    display: table;
-    margin-bottom: 5px;
-
-    &.help-text {
-      margin-top: -5px;
-      margin-bottom: 10px;
-    }
-
-    td:first-child {
-      min-width: 150px;
-    }
-
-    td[colspan] {
-      width: auto;
-    }
-
-    td label {
-      font-size: 13px;
-      line-height: 1.5;
-      font-weight: 600;
-    }
-
-    &:first-child {
-
-    }
-  }
-}
+// Sizes
 
 .ptb-table,
 .ptb-fullwidth {
@@ -121,8 +91,7 @@
       transition: opacity .2s ease-in-out;
     }
 
-    img{
-
+    img {
       height: auto;
       left: 0;
       top: 0;

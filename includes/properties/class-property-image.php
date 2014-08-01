@@ -19,8 +19,26 @@ class PropertyImage extends PTB_Property {
     // CSS classes.
     $css_classes = $this->css_classes();
 
+    // Property settings.
+    $settings = $this->get_settings(array(
+      'gallery' => false
+    ));
+
     // Get the value.
-    $value = $this->convert($options->value);
+    $value = $this->format_value($options->value);
+
+    if (!is_array($value)) {
+      $value = array_filter(array($value));
+    }
+
+    $slug = $options->slug;
+    $show_button = empty($value);
+
+    if ($settings->gallery) {
+      $css_classes .= ' gallery ';
+      $slug .= '[]';
+      $show_button = true;
+    }
 
     ?>
 
@@ -30,93 +48,65 @@ class PropertyImage extends PTB_Property {
       <input type="hidden" value="<%= id %>" name="<%= slug %>" />
     </script>
 
-<style type="text/css">
-div[data-ptb-property="image"] a {
-width: 16px;
-height: 22px;
-background: #000;
-position: absolute;
-border-radius: 15px;
-color: #FFF;
-text-decoration: none;
-padding-top: 2px;
-padding-left: 9px;
-font-size: 14px;
-text-transform: lowercase;
-margin-left: 138px;
-margin-top: -10px;
-display: none;
-}
-</style>
-
-    <div class="wrap" data-ptb-property="image">
-      <p class="ptb-image-select <?php echo empty($value) ? '' : 'hidden'; ?>">
-        No image selected
-        <button class="button" data-ptb-options='{"slug":"<?php echo $options->slug; ?>"}'><?php _e('Add image', 'ptb'); ?></button>
+    <div class="wrap ptb-property-image <?php echo $css_classes; ?>">
+      <p class="ptb-image-select <?php echo $show_button ? '' : 'hidden'; ?>">
+        <?php
+          if (!$settings->gallery) {
+            _e('No image selected', 'ptb');
+          }
+        ?>
+        <button class="button" data-ptb-options='{"slug":"<?php echo $slug; ?>"}'><?php _e('Add image', 'ptb'); ?></button>
       </p>
-      <div class="ptb-image-area">
-        <?php if (!empty($value)): ?>
-          <?php $url = isset($value->sizes['thumbnail']) ? $value->sizes['thumbnail'] : $value->url; ?>
-          <a href="#" class="ptb-image-remove" data-ptb-options='{"id":"<?php echo $value->id; ?>"}'>x</a>
-          <img src="<?php echo $url; ?>" />
-          <input type="hidden" value="0" name="<?php echo $options->slug; ?>" />
-        <?php endif; ?>
-      </div>
+      <ul>
+        <?php
+          if (!empty($value)):
+            foreach ($value as $key => $image):
+              $url = wp_get_attachment_thumb_url($image->id);
+        ?>
+              <li>
+                <a href="#" class="ptb-image-remove" data-ptb-options='{"id":"<?php echo $image->id; ?>"}'>x</a>
+                <img src="<?php echo $url; ?>" />
+                <input type="hidden" value="<?php echo $image->id; ?>" name="<?php echo $slug; ?>" />
+              </li>
+        <?php
+            endforeach;
+          endif;
+        ?>
+      </ul>
     </div>
 
     <?php
   }
 
   /**
-   * Convert the value of the property before we output it to the application.
+   * Format the value of the property before we output it to the application.
    *
    * @param mixed $value
    * @since 1.0.0
    *
-   * @return object|string
+   * @return array|object|string
    */
 
-  public function convert ($value) {
+  public function format_value ($value) {
     if (is_numeric($value)) {
       $meta = wp_get_attachment_metadata($value);
-
-      if (!empty($meta)) {
+      if (isset($meta) && !empty($meta)) {
         $mine = array(
           'is_image' => true,
           'url'      => wp_get_attachment_url($value),
           'id'       => intval($value)
         );
         return (object)array_merge($meta, $mine);
+      } else {
+        return $value;
       }
-
+    } else if (is_array($value)) {
+      foreach ($value as $k => $v) {
+         $value[$k] = $this->format_value($v);
+      }
+      return $value;
+    } else {
       return $value;
     }
-
-    return $value;
-  }
-
-  /**
-   * Render the final html that is displayed in the table.
-   *
-   * @since 1.0.0
-   *
-   * @return string
-   */
-
-  public function render () {
-    if ($this->get_options()->table): ?>
-      <tr>
-        <td>
-          <?php $this->label(); ?>
-          <?php $this->html(); ?>
-        </td>
-      </tr>
-    <?php
-      $this->helptext(false);
-    else:
-      $this->label();
-      $this->html();
-      $this->helptext(false);
-    endif;
   }
 }

@@ -1,0 +1,79 @@
+// Inside fixes
+.inside {
+  &.ptb-inside {
+    padding-right: 0px;
+    margin-right: -13px !important;
+  }
+  > .ptb-table {
+    margin: -7px -12px -12px -12px;
+  }
+}
+
+// Table
+.ptb-table {
+  cursor: default !important;
+  border-spacing: 0;
+
+  * {
+    word-wrap: break-word;
+  }
+
+  tr {
+    margin: 0;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+
+    td {
+      padding: 13px 15px;
+      border-top: 1px solid #eaeaea;
+      border-bottom: 0 none;
+      vertical-align: top;
+    }
+
+    td:first-child {
+      width: 15%;
+      background: #F9F9F9;
+      border-top: 1px solid #eaeaea;
+      border-right: 1px solid #eaeaea;
+
+      label {
+        display: block;
+        font-size: 13px;
+        line-height: 1.4em;
+        font-weight: bold;
+        padding: 0;
+        margin: 0 0 3px;
+        color: #333;
+      }
+
+      p {
+        display: block;
+        font-size: 12px;
+        line-height: 1.4em;
+        padding: 0 !important;
+        margin: 3px 0 0 !important;
+        font-style: normal;
+        line-height: 16px;
+        color: #899194;
+      }
+
+    }
+
+    td {
+      label {
+        font-size: 13px;
+        line-height: 1.5;
+        font-weight: 600;
+      }
+      input,
+      select,
+      textarea {
+        width: 99.5%;
+      }
+      input[type="radio"],
+      input[type="checkbox"] {
+        width: auto;
+      }
+    }
+  }
+}

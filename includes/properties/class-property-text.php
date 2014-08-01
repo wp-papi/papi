@@ -31,7 +31,7 @@ class PropertyText extends PTB_Property {
     ));
 
     if ($settings->editor) {
-      $id = str_replace('[', '', str_replace(']', '', $options->slug));
+      $id = str_replace('[', '', str_replace(']', '', $options->slug)) . '-' . uniqid();
       wp_editor($options->value, $id, array(
         'textarea_name' => $options->slug
       ));
@@ -42,34 +42,4 @@ class PropertyText extends PTB_Property {
       ));
     }
   }
-
-  /**
-   * Render the final html that is displayed in the tabl
-   * or without a table.
-   *
-   * @since 1.0.0
-   */
-
-  public function render () {
-    $options = $this->get_options();
-    if ($options->table): ?>
-    <tr>
-      <td <?php echo $options->colspan; ?>>
-        <?php $this->label(); ?>
-      </td>
-    </tr>
-    <tr>
-      <td <?php echo $options->colspan; ?>>
-        <?php $this->html(); ?>
-      </td>
-    </tr>
-    <?php
-      $this->helptext(false);
-    else:
-      $this->label();
-      $this->html();
-      $this->helptext(false);
-    endif;
-  }
-
 }

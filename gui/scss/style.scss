@@ -1,11 +1,12 @@
 @import "modules/utils";
 @import "modules/base";
+@import "modules/table";
 @import "modules/tabs";
 @import "modules/options";
 
+@import "properties/shared";
 @import "properties/date";
 @import "properties/image";
-@import "properties/divider";
 @import "properties/list";
 @import "properties/pagereferencelist";
 

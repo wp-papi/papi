@@ -13,32 +13,6 @@ if (!defined('ABSPATH')) exit;
 abstract class PTB_Property {
 
   /**
-   * Page Type Builder properties array.
-   *
-   * @var array
-   * @since 1.0.0
-   * @access private
-   */
-
-  private static $properties = array(
-    'PropertyString',
-    'PropertyBoolean',
-    'PropertyEmail',
-    'PropertyUrl',
-    'PropertyNumber',
-    'PropertyDate',
-    'PropertyDivider',
-    'PropertyMap',
-    'PropertyText',
-    'PropertyImage',
-    'PropertyDropdown',
-    'PropertyCheckboxList',
-    'PropertyList',
-    'PropertyPageReferenceList',
-    'PropertyRadioButtons'
-  );
-
-  /**
    * Current property options object that is used to generate a property.
    *
    * @var object
@@ -54,33 +28,18 @@ abstract class PTB_Property {
    * @param string $property
    * @since 1.0.0
    *
-   * @throws Exception
    * @return PTB_Property
    */
 
   public static function factory ($property) {
-    self::filter_custom_properties();
-    if (in_array($property, self::$properties) && class_exists($property)) {
-      return new $property();
-    } else {
-      return null;
+    if (class_exists($property)) {
+      $prop = new $property();
+      if (is_subclass_of($prop, 'PTB_Property')) {
+        return $prop;
+      }
     }
-  }
 
-  /**
-   * Find custom properties that isn't register in this plugin.
-   *
-   * @since 1.0.0
-   * @access private
-   */
-
-  private static function filter_custom_properties () {
-    $result = apply_filters('ptb_properties', self::$properties);
-    if (is_array($result)) {
-      self::$properties = array_filter(array_unique(array_merge(self::$properties, $result)), function ($property) {
-        return preg_match('/Property\w+/', $property);
-      });
-    }
+    return;
   }
 
   /**
@@ -98,6 +57,7 @@ abstract class PTB_Property {
 
   /**
    * Get the html to display from the property.
+   * This function is required by the property class to have.
    *
    * @since 1.0.0
    */
@@ -148,10 +108,9 @@ abstract class PTB_Property {
       $slug = _ptb_property_type_key($slug);
     }
 
-    echo PTB_Html::input('hidden', array(
-      'name' => $slug,
-      'value' => $this->options->type
-    ));
+    ?>
+    <input type="hidden" value="<?php echo $this->options->type; ?>" name="<?php echo $slug; ?>" />
+    <?php
   }
 
   /**
@@ -171,74 +130,93 @@ abstract class PTB_Property {
       return;
     }
 
-    echo PTB_Html::label($title, $this->options->slug);
+    ?>
+    <label for="<?php echo $this->options->slug; ?>"><?php echo $title; ?></label>
+    <?php
   }
 
   /**
    * Get help text for property.
    *
-   * @param bool $empty_left
-   *
    * @since 1.0.0
    */
 
-  public function helptext ($empty_left = true) {
-    if (isset($this->options->help_text)) {
-      $help_text = $this->options->help_text;
-      $help_text = strip_tags($help_text);
-      $html = PTB_Html::tag('span', $help_text, array(
-        'class' => 'description'
-      ));
-      $html = PTB_Html::td($html);
-
-      if ($empty_left) {
-        $html = PTB_Html::td('&nbsp;') . $html;
-      }
-
-      $html = PTB_Html::tr($html, array(
-        'class' => 'help-text'
-      ));
-      echo $html;
+  public function helptext () {
+    if (empty($this->options->help_text)) {
+      return;
     }
+
+    $help_text = $this->options->help_text;
+    $help_text = strip_tags($help_text);
+
+    ?>
+      <p><?php echo $help_text; ?></p>
+    <?php
   }
 
   /**
    * Render the final html that is displayed in the table.
    *
    * @since 1.0.0
-   *
-   * @return string
    */
 
   public function render () {
     $options = $this->get_options();
-    if ($options->table): ?>
+    ?>
       <tr>
-        <?php if (!$options->no_title): ?>
-        <td <?php echo $options->colspan; ?>><?php $this->label(); ?></td>
-        <?php endif; ?>
-        <td <?php echo $options->colspan; ?>><?php $this->html(); ?></td>
+        <td>
+          <?php
+            $this->label();
+            $this->helptext();
+          ?>
+        </td>
+        <td>
+          <?php $this->html(); ?>
+        </td>
       </tr>
     <?php
-      $this->helptext(empty($options->colspan));
-    else:
-      $this->label();
-      $this->html();
-      $this->helptext(false);
-    endif;
   }
 
   /**
-   * Convert the value of the property before we output it to the application.
+   * This filter is applied after the $value is loaded in the database.
    *
    * @param mixed $value
+   * @param mixed $post_id
    * @since 1.0.0
    *
-   * @return string
+   * @return mixed
    */
 
-  public function convert ($value) {
-    return strval($value);
+  public function load_value ($value, $post_id) {
+    return $value;
+  }
+
+  /**
+   * Format the value of the property before we output it to the application.
+   *
+   * @param mixed $value
+   * @param mixed $post_id
+   * @since 1.0.0
+   *
+   * @return mixed
+   */
+
+  public function format_value ($value, $post_id) {
+    return $value;
+  }
+
+  /**
+   * This filter is applied before the $value is saved in the database.
+   *
+   * @param mixed $value
+   * @param mixed $post_id
+   * @since 1.0.0
+   *
+   * @return mixed
+   */
+
+  public function update_value ($value, $post_id) {
+    return $value;
   }
 
   /**
@@ -246,7 +224,7 @@ abstract class PTB_Property {
    *
    * @since 1.0.0
    *
-   * @return object|null
+   * @return object
    */
 
   public function get_options () {
@@ -267,7 +245,7 @@ abstract class PTB_Property {
   /**
    * Get database value.
    *
-   * @param null $default
+   * @param mixed $default
    * @since 1.0.0
    *
    * @return mixed
@@ -276,11 +254,7 @@ abstract class PTB_Property {
   public function get_value ($default = null) {
     $value = $this->options->value;
 
-    if (is_null($value)) {
-      return $default;
-    }
-
-    if (is_string($value) && strlen($value) === 0) {
+    if (empty($value)) {
       return $default;
     }
 

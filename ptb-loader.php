@@ -144,41 +144,19 @@ final class PTB_Loader {
     require_once($this->plugin_dir . 'includes/properties/class-property-pagereferencelist.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-radiobuttons.php');
 
-    // Load custom properties.
-    $this->require_custom_properties();
+    // Include third party properties.
+    $this->include_third_party();
   }
 
   /**
-   * Load custom properties.
+   * Include third party properties.
    *
    * @since 1.0.0
    * @access private
    */
 
-  private function require_custom_properties () {
-    $files = _ptb_get_files_in_directory('properties');
-    $this->properties = array();
-    foreach ($files as $file) {
-      $class_name = _ptb_get_class_name($file);
-      if (preg_match('/Property\w+/', $class_name) && !class_exists($class_name)) {
-        require_once($file);
-        $this->properties[] = $class_name;
-      }
-    }
-    add_filter('ptb_properties', array($this, 'add_custom_properties'));
-  }
-
-  /**
-   * Add custom properties.
-   *
-   * @param array $properties
-   * @since 1.0.0
-   *
-   * @return array
-   */
-
-  public function add_custom_properties ($properties) {
-    return array_merge($properties, $this->properties);
+  private function include_third_party () {
+    do_action('ptb/include_property_types');
   }
 
   /**

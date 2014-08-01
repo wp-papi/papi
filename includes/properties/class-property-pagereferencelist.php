@@ -61,13 +61,15 @@ class PropertyPageReferenceList extends PTB_Property {
 EOF;
 
               foreach ($posts as $post) {
-                $html .= <<< EOF
-                <li>
-                  <input type="hidden" data-name="{$options->slug}[]" value="{$post->ID}" />
-                  <a href="#">{$post->post_title}</a>
-                  <span class="icon plus"></span>
-                </li>
+                if (!empty($post->post_title)) {
+                  $html .= <<< EOF
+                    <li>
+                      <input type="hidden" data-name="{$options->slug}[]" value="{$post->ID}" />
+                      <a href="#">{$post->post_title}</a>
+                      <span class="icon plus"></span>
+                    </li>
 EOF;
+                }
               }
       $html .= <<< EOF
             </ul>
@@ -141,35 +143,7 @@ EOF;
   }
 
   /**
-   * Render the final html that is displayed in the table or without table.
-   *
-   * @since 1.0.0
-   */
-
-  public function render () {
-    $options = $this->get_options();
-    if ($options->table): ?>
-      <tr class="ptb-fullwidth">
-        <td colspan="2">
-          <?php $this->label(); ?>
-        </td>
-      </tr>
-      <tr class="ptb-fullwidth">
-        <td colspan="2">
-          <?php $this->html(); ?>
-        </td>
-      </tr>
-    <?php
-      $this->helptext(false);
-    else:
-      $this->label();
-      $this->html();
-      $this->helptext(false);
-    endif;
-  }
-
-  /**
-   * Convert the value of the property before we output it to the application.
+   * Format the value of the property before we output it to the application.
    *
    * @param mixed $value
    * @since 1.0.0
@@ -177,7 +151,7 @@ EOF;
    * @return array
    */
 
-  public function convert ($value) {
+  public function format_value ($value) {
     if (is_array($value)) {
       return array_map(function ($id) {
         return ptb_get_page($id);
