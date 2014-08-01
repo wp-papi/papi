@@ -13,32 +13,6 @@ if (!defined('ABSPATH')) exit;
 abstract class PTB_Property {
 
   /**
-   * Available properties.
-   *
-   * @var array
-   * @since 1.0.0
-   * @access private
-   */
-
-  private static $properties = array(
-    'PropertyString',
-    'PropertyBoolean',
-    'PropertyEmail',
-    'PropertyUrl',
-    'PropertyNumber',
-    'PropertyDate',
-    'PropertyDivider',
-    'PropertyMap',
-    'PropertyText',
-    'PropertyImage',
-    'PropertyDropdown',
-    'PropertyCheckboxList',
-    'PropertyList',
-    'PropertyPageReferenceList',
-    'PropertyRadioButtons'
-  );
-
-  /**
    * Current property options object that is used to generate a property.
    *
    * @var object
@@ -58,32 +32,14 @@ abstract class PTB_Property {
    */
 
   public static function factory ($property) {
-    self::filter_custom_properties();
-
-    if (in_array($property, self::$properties) && class_exists($property)) {
-      return new $property();
+    if (class_exists($property)) {
+      $prop = new $property();
+      if (is_subclass_of($prop, 'PTB_Property')) {
+        return $prop;
+      }
     }
 
-    return null;
-  }
-
-  /**
-   * Find custom properties that isn't register in this plugin.
-   *
-   * @since 1.0.0
-   * @access private
-   */
-
-  private static function filter_custom_properties () {
-    $result = apply_filters('ptb_properties', self::$properties);
-
-    if (!is_array($result)) {
-      return;
-    }
-
-    self::$properties = array_filter(array_unique(array_merge(self::$properties, $result)), function ($property) {
-      return preg_match('/Property\w+/', $property);
-    });
+    return;
   }
 
   /**
@@ -192,7 +148,7 @@ abstract class PTB_Property {
 
     $help_text = $this->options->help_text;
     $help_text = strip_tags($help_text);
-  
+
     ?>
       <p><?php echo $help_text; ?></p>
     <?php
