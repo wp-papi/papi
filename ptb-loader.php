@@ -73,7 +73,7 @@ final class PTB_Loader {
   private function constants () {
     // Path to Page Type Builder plugin directory
     if (!defined('PTB_PLUGIN_DIR')) {
-      define('PTB_PLUGIN_DIR', trailingslashit(WP_PLUGIN_DIR . '/wp-ptb'));
+      define('PTB_PLUGIN_DIR', trailingslashit(WP_PLUGIN_DIR . '/page-type-builder'));
     }
 
     // URL to Page Type Builder plugin directory
