@@ -21,7 +21,7 @@ class PropertyList extends PTB_Property {
    */
 
   private function get_not_allowed_properties () {
-    $list = apply_filters('ptb/property/list/not_allowed_properties');
+    $list = apply_filters('ptb/property/list/not_allowed_properties', array());
 
     if (is_string($list)) {
       $list = array($list);
