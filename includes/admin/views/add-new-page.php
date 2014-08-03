@@ -26,12 +26,12 @@
     <?php
       $page_types = _ptb_get_all_page_types();
 
-      foreach ($page_types as $key => $value) {
+      foreach ($page_types as $key => $page_type) {
         echo _ptb_apply_template('includes/admin/views/partials/add-new-item.php', array(
-              'title'       => $value->name,
-              'description' => $value->description,
-              'image'       => $value->get_thumbnail(),
-              'url'         => _ptb_get_page_new_url ($value->file_name, $post_type)
+              'title'       => $page_type->name,
+              'description' => $page_type->description,
+              'image'       => $page_type->get_thumbnail(),
+              'url'         => _ptb_get_page_new_url ($page_type->file_name, $post_type)
         ));
       }
 

@@ -14,7 +14,6 @@
       label {
         float: left;
         margin-left: 8px;
-        margin-top: 3px;
       }
 
       .ptb-property-list-add-new-item {
@@ -25,7 +24,6 @@
         text-indent: -9999px;
         right: 55px;
         text-decoration: none;
-        margin-top: 3px;
       }
 
     }
@@ -33,10 +31,10 @@
     > ul {
       margin-bottom: -6px;
       > li {
-        margin-top: -2px;
+        margin-top: -6px;
         width: 100%;
         &:first-child {
-          margin-top: -2px;
+          margin-top: -5px;
         }
 
         .ptb-property-list-remove-item {

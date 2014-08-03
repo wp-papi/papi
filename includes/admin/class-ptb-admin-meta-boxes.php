@@ -322,7 +322,7 @@ class PTB_Admin_Meta_Boxes {
       $property_value = $property['value'];
 
       // Property type data.
-      $property_type_key = _ptb_property_type_key(_f($key)); // has to remove '_' + key also.
+      $property_type_key = _ptb_property_type_key(_ptb_f($key)); // has to remove '_' + key also.
       $property_type_value = $property['type'];
 
       // Get the existing value if we have any.

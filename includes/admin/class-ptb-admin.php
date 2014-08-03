@@ -295,12 +295,12 @@ final class PTB_Admin {
       }
     }
 
-    // Get the path to the page type file.
-    $path = _ptb_get_page_type_file($page_type);
-
     if (empty($page_type)) {
       return;
     }
+
+    // Get the path to the page type file.
+    $path = _ptb_get_page_type_file($page_type);
 
     // Load the page type and create a new instance of it.
     $page_type = _ptb_get_page_type($path);

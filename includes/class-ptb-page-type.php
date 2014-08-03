@@ -104,7 +104,7 @@ class PTB_Page_Type {
     // Setup file and page type variables.
     $this->file_path = $file_path;
     $this->page_type = _ptb_get_class_name($this->file_path);
-    $this->file_name = basename($this->file_path, '.php');
+    $this->file_name = _ptb_get_page_type_base_path($this->file_path);
 
     // Try to load the page type class.
     if (!class_exists($this->page_type)) {

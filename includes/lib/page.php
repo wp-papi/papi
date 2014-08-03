@@ -132,7 +132,7 @@ function _ptb_get_page_type ($file_path) {
 
 function _ptb_get_all_page_types ($all = false) {
   // Get all page types files.
-  $files = _ptb_get_files_in_directory('page-types');
+  $files = _ptb_get_all_page_type_files();
 
   // Get the right WordPress post type.
   $post_type = _ptb_get_wp_post_type();
@@ -154,19 +154,6 @@ function _ptb_get_all_page_types ($all = false) {
   });
 
   return $page_types;
-}
-
-/**
- * Get page type file from page type.
- *
- * @param string $page_type
- * @since 1.0.0
- *
- * @return null|string
- */
-
-function _ptb_get_page_type_file ($page_type) {
-  return _ptb_get_files_in_directory('page-types', _ptb_dashify($page_type), true);
 }
 
 /**

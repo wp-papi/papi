@@ -11,110 +11,109 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Get all registered directories.
+ * Get all register directories with Page Type Builder.
  *
- * @param string $find
  * @since 1.0.0
  *
  * @return array
  */
 
-function _ptb_get_ptb_directories ($find = '') {
+function _ptb_get_directories () {
   global $ptb_directories;
 
   if (empty($ptb_directories) || !is_array($ptb_directories)) {
     return array();
   }
 
+  return $ptb_directories;
+}
+
+/**
+ * Get all files in directory.
+ *
+ * @param string $directory
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _ptb_get_all_files_in_directory ($directory = '') {
   $result = array();
 
-  foreach ($ptb_directories as $directory) {
-    $dirs = @scandir($directory);
-    $dirs = array_diff($dirs, array('..', '.'));
-    $dirs = array_filter($dirs, function ($dir) use ($directory) {
-      return is_dir(rtrim($directory, '/') . '/' . $dir);
-    });
-
-    if (empty($dirs)) {
-      $result[] = $directory;
-    } else {
-      foreach ($dirs as $dir) {
-        if ($dir == $find) {
-          $result[] = $directory . '/' . $dir;
+  if ($handle = opendir($directory)) {
+    while (false !== ($file = readdir($handle))) {
+      if (!in_array($file, array('..', '.'))) {
+        if (is_dir($directory . '/' . $file)) {
+          $result = array_merge($result, _ptb_get_all_files_in_directory($directory . '/' . $file));
+          $file = $directory . '/' . $file;
+          $result[] = preg_replace('/\/\//si', '/', $file);
+        } else {
+          $file = $directory . '/' . $file;
+          $result[] = preg_replace('/\/\//si', '/', $file);
         }
       }
     }
+    closedir($handle);
   }
 
   return $result;
 }
 
 /**
- * Get all files in the given directory.
- * Looking down 3 levels.
+ * Get all page type files from the register directories.
  *
- * @param string $directory
- * @param string $file
- * @param bool $first
  * @since 1.0.0
  *
  * @return array
  */
 
-function _ptb_get_files_in_directory ($directory = '', $find_file = '', $first = false) {
-  // Can't proceed empty directory.
-  if (empty($directory)) {
-    return array();
-  }
-
-  // Get all directories that are registered.
-  $dirs = _ptb_get_ptb_directories($directory);
+function _ptb_get_all_page_type_files () {
+  $directories = _ptb_get_directories();
   $result = array();
 
-  // Loop through all directories.
-  foreach ($dirs as $dir) {
-    $files = @scandir($dir);
-    $files = array_diff($files, array('..', '.'));
-    foreach ($files as $file) {
-      $path = $dir . '/' . $file;
-      if (is_dir($path)) {
-        $subfiles = @scandir($dir . '/' . $file);
-        $subfiles = array_diff($subfiles, array('..', '.'));
-        foreach ($subfiles as $subfile) {
-          $path = $dir . '/' . $file . '/' . $subfile;
-          if (is_dir($path)) {
-            $subsubfiles = @scandir($dir . '/' . $file . '/' . $subfile);
-            $subsubfiles = array_diff($subsubfiles, array('..', '.'));
-            foreach ($subsubfiles as $subsubfile) {
-              $result[] = $dir . '/' . $file . '/' . $subfile . '/' . $subsubfile;
-            }
-          } else {
-            $result[] = $dir . '/' . $file . '/' . $subfile;
-          }
-        }
-      } else {
-        $result[] = $path;
-      }
-    }
+  foreach ($directories as $directory) {
+    $result = array_merge($result, _ptb_get_all_files_in_directory($directory));
   }
 
-  if (!empty($find_file)) {
-    if (pathinfo($find_file, PATHINFO_EXTENSION) == null) {
-      $find_file = $find_file . '.php';
+  return $result;
+}
+
+/**
+ * Get page type file from page type query.
+ *
+ * @param string $page_type
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _ptb_get_page_type_file ($file) {
+  $directories = _ptb_get_directories();
+  $file = '/' . _ptb_dashify($file) . '.php';
+  foreach ($directories as $directory) {
+    if (file_exists($directory . $file)) {
+      return $directory . $file;
     }
-
-    $result = array_filter($result, function ($f) use ($find_file) {
-      return basename($f) == basename($find_file);
-    });
-
-    $result = array_values($result);
-
-    if ($first) {
-      return !empty($result) ? reset($result) : '';
-    } else {
-      return $result;
-    }
-  } else {
-    return $result;
   }
+}
+
+/**
+ * Get page type base path.
+ * This is used for figure out which page type to load on which page.
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _ptb_get_page_type_base_path ($file) {
+  $directories = _ptb_get_directories();
+  foreach ($directories as $directory) {
+    if (strpos($file, $directory) !== false) {
+      $file = str_replace($directory, '', $file);
+    }
+  }
+  $file = ltrim($file, '/');
+  $file = explode('.', $file);
+  return $file[0];
 }
