@@ -94,6 +94,7 @@ function ptb_field ($post_id = null, $name = null, $default = null, $lang = null
     }
   }
 
+  // Convert group values to a array with values
   if (preg_match('/^ptb\:group\:/', $value)) {
     $group = str_replace('ptb:group:', '', $value);
     $group = explode(',', $group);
