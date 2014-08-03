@@ -24,7 +24,7 @@
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 
     td {
-      padding: 13px 15px;
+      padding: 10px 15px 13px 15px;
       border-top: 1px solid #eaeaea;
       border-bottom: 0 none;
       vertical-align: top;
@@ -64,6 +64,7 @@
         font-size: 13px;
         line-height: 1.5;
         font-weight: 600;
+        padding-top: 4px !important;
       }
       input,
       select,
@@ -73,6 +74,26 @@
       input[type="radio"],
       input[type="checkbox"] {
         width: auto;
+      }
+    }
+  }
+}
+
+// side meta boxes
+#side-sortables {
+  .inside.ptb-inside > .ptb-table {
+    tr td {
+      float: left;
+      width: 99.5%;
+      padding: 10px 0px;
+      > label {
+        padding-left: 12px;
+      }
+      > input,
+        select,
+        textarea {
+        margin-left: 12px;
+        width: 90.5%;
       }
     }
   }

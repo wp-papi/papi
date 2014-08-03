@@ -24,12 +24,9 @@ class PropertyString extends PTB_Property {
 
     // Database value.
     $value = $this->get_value('');
-
-    echo PTB_Html::input('text', array(
-      'name'  => $options->slug,
-      'value' => $value,
-      'class' => $this->css_classes()
-    ));
+    ?>
+    <input type="string" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes(); ?>" />
+    <?php
   }
 
 }

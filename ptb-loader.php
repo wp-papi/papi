@@ -129,6 +129,7 @@ final class PTB_Loader {
 
     // Load Page Type Builder property classes.
     require_once($this->plugin_dir . 'includes/properties/class-property-string.php');
+    require_once($this->plugin_dir . 'includes/properties/class-property-hidden.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-boolean.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-email.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-date.php');

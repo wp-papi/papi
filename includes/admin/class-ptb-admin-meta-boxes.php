@@ -131,13 +131,6 @@ class PTB_Admin_Meta_Boxes {
       unset($data[$key]);
     }
 
-    // Remove random data that only is used for a nicer ui.
-    foreach ($data as $key => $value) {
-      if (_ptb_is_random_title($key)) {
-        unset($data[$key]);
-      }
-    }
-
     // Properties holder.
     $properties = array();
 

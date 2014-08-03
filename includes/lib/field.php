@@ -54,11 +54,13 @@ function ptb_field ($post_id = null, $name = null, $default = null, $lang = null
   // Check for "dot" notation.
   $names = explode('.', $name);
 
-  // Remove any `ptb_` stuff if it exists.
-  $name = _ptb_remove_ptb($names[0]);
+  $name = $names[0];
 
   // Add language code.
   $name = _ptb_get_lang_field_slug($name, $lang);
+
+  // Remove any `ptb_` stuff if it exists.
+  $name = _ptb_remove_ptb($name);
 
   // Remove the first value of the array.
   $names = array_slice($names, 1);
@@ -90,8 +92,16 @@ function ptb_field ($post_id = null, $name = null, $default = null, $lang = null
         $value = $value[$key];
       }
     }
+  }
 
-    return $value;
+  if (preg_match('/^ptb\:group\:/', $value)) {
+    $group = str_replace('ptb:group:', '', $value);
+    $group = explode(',', $group);
+    $value = array();
+
+    foreach ($group as $slug) {
+      $value[$slug] = ptb_field($slug);
+    }
   }
 
   return $value;

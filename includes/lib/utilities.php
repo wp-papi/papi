@@ -116,7 +116,7 @@ function _ptb_dashify ($str) {
  */
 
 function _ptbify ($str) {
-  if (!preg_match('/^\_\_ptb|^\_ptb|^ptb\_/', $str) && !_ptb_is_random_title($str)) {
+  if (!preg_match('/^\_\_ptb|^\_ptb|^ptb\_/', $str)) {
     return  'ptb_' . $str;
   }
 

@@ -79,9 +79,9 @@ abstract class PTB_Page_Data {
    * @since 1.0.0
    */
 
-  protected function box ($title = '', $options = array(), $properties = array()) {
+  protected function box ($title = '', $options = array(), $properties = null) {
     // Options is optional value.
-    if (empty($properties)) {
+    if (!isset($properties)) {
       $properties = $options;
       $options = array();
     }
@@ -123,6 +123,32 @@ abstract class PTB_Page_Data {
     }
 
     return $options;
+  }
+
+  /**
+   * Group properties.
+   *
+   * @param array $options
+   * @since 1.0.0
+   */
+
+  protected function group ($options = array()) {
+    if (!is_array($options) || empty($options)) {
+      return;
+    }
+
+    $options  = (object)$options;
+
+    $property = $this->property(array(
+      'type'    => 'PropertyHidden',
+      'slug'    => $options->slug,
+      'default' => 'ptb:group:' . implode(',', $options->group)
+    ));
+
+    // Maybe need some way to add this without a box.
+    if (isset($this->box)) {
+      $this->box->add_property($property);
+    }
   }
 
   /**

@@ -23,9 +23,7 @@ class PropertyDivider extends PTB_Property {
     $options = $this->get_options();
     ?>
       <h3 class="hndle ptb-property-divider">
-        <?php if (!_ptb_is_random_title($options->title)): ?>
-          <span><?php echo $options->title; ?>
-        <?php endif; ?>
+        <span><?php echo $options->title; ?></span>
       </h3>
     <?php
   }

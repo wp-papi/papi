@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property Email
+ * Page Type Builder - Property Hidden
  *
  * @package PageTypeBuilder
  * @version 1.0.0
  */
 
-class PropertyEmail extends PTB_Property {
+class PropertyHidden extends PTB_Property {
 
   /**
    * Generate the HTML for the property.
@@ -24,8 +24,9 @@ class PropertyEmail extends PTB_Property {
 
     // Database value.
     $value = $this->get_value('');
+
     ?>
-    <input type="email" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes(); ?>" />
+    <input type="hidden" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes(); ?>" />
     <?php
   }
 

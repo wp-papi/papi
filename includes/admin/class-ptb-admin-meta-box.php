@@ -103,6 +103,17 @@ class PTB_Admin_Meta_Box {
   }
 
   /**
+   * Add property.
+   *
+   * @param object $property
+   * @since 1.0.0
+   */
+
+  public function add_property ($property) {
+    $this->properties[] = $property;
+  }
+
+  /**
    * Setup meta box.
    */
 

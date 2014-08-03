@@ -50,31 +50,6 @@ function _ptb_get_post_id ($post_id = null) {
 }
 
 /**
- * Generate random title for property.
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _ptb_random_title () {
-  return '_rand_' . uniqid();
-}
-
-/**
- * Check if it's a random ptb title string.
- *
- * @param string $str
- * @since 1.0.0
- *
- * @return bool
- */
-
-function _ptb_is_random_title ($str = '') {
-  return !!preg_match('/^\_rand\_/', $str);
-}
-
-/**
  * Get Page Type Builder Core class instance.
  *
  * @since 1.0.0

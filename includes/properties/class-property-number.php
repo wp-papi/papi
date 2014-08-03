@@ -20,13 +20,10 @@ class PropertyNumber extends PTB_Property {
     $options = $this->get_options();
 
     // Database value.
-    $value = $this->get_value('');
-
-    echo PTB_Html::input('number', array(
-      'name'  => $options->slug,
-      'value' => $value,
-      'class' => $this->css_classes()
-    ));
+    $value = $this->get_value(0);
+    ?>
+    <input type="number" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes(); ?>" />
+    <?php
   }
 
   /**

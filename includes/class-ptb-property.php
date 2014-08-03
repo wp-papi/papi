@@ -120,18 +120,8 @@ abstract class PTB_Property {
    */
 
   public function label () {
-    if (isset($this->options->label_text)) {
-      $title = $this->options->label_text;
-    } else {
-      $title = $this->options->title;
-    }
-
-    if (_ptb_is_random_title($title)) {
-      return;
-    }
-
     ?>
-    <label for="<?php echo $this->options->slug; ?>"><?php echo $title; ?></label>
+    <label for="<?php echo $this->options->slug; ?>"><?php echo $this->options->title; ?></label>
     <?php
   }
 
@@ -162,6 +152,7 @@ abstract class PTB_Property {
 
   public function render () {
     $options = $this->get_options();
+    if (!empty($this->options->title)):
     ?>
       <tr>
         <td>
@@ -175,6 +166,9 @@ abstract class PTB_Property {
         </td>
       </tr>
     <?php
+    else:
+      $this->html();
+    endif;
   }
 
   /**

@@ -144,18 +144,18 @@ function _ptb_get_property_lang ($options) {
 
 function _ptb_get_property_options ($options) {
   $defaults = array(
-    'title'      => _ptb_random_title(),
+    'title'      => '',
     'no_title'   => false,
     'disabled'   => false,
     'slug'       => '',
     'settings'   => array(),
-    'table'      => true,
     'sort_order' => 0,
     'value'      => '',
     'type'       => '',
     'colspan'    => '',
     'lang'       => '',
-    'old_slug'   => ''
+    'old_slug'   => '',
+    'default'    => ''
   );
 
   $options = array_merge($defaults, $options);
@@ -167,15 +167,7 @@ function _ptb_get_property_options ($options) {
   }
 
   if (empty($options->slug)) {
-    // Generate a random title if no name is set and title is empty.
-    // This make wp_editor and other stuff that go by name/id attributes to work.
-    if (empty($options->title)) {
-      $title = _ptb_random_title();
-    } else {
-      $title = $options->title;
-    }
-
-    $options->slug = _ptb_slugify($title);
+    $options->slug = _ptb_slugify($options->title);
   }
 
   if (!empty($options->old_slug)) {
@@ -198,6 +190,11 @@ function _ptb_get_property_options ($options) {
 
   // Get meta value for the field
   $options->value = ptb_field($options->slug, null, null, $options->lang, $options->old_slug);
+
+  // Add default value if database value is empty.
+  if (empty($options->value)) {
+    $options->value = $options->default;
+  }
 
   $opt = $options;
 
@@ -280,18 +277,14 @@ function _ptb_render_properties ($properties) {
   if (isset($properties[0]->tab) && $properties[0]->tab) {
     new PTB_Admin_Meta_Box_Tabs($properties);
   } else {
-    if ($properties[0]->table) {
-      echo '<table class="ptb-table">';
-        echo '<tbody>';
-    }
+    echo '<table class="ptb-table">';
+      echo '<tbody>';
 
     foreach ($properties as $property) {
       _ptb_render_property($property);
     }
 
-    if ($properties[0]->table) {
-        echo '</tbody>';
-      echo '</table>';
-    }
+      echo '</tbody>';
+    echo '</table>';
   }
 }
