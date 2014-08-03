@@ -37,3 +37,19 @@ Example: `PropertyString` => `ptb/update_value/string`
 
 ?>
 ```
+
+### ptb/property/list/not_allowed_properties
+
+Some properties aren't allowed to use on property list, like property map. So this filter can be used to return a string or array of properties that aren't okey to use.
+
+```
+<?php
+
+  function eq_not_allowed_properties () {
+    return 'PropertyKvack';
+  }
+  
+  add_filter('ptb/property/list/not_allowed_properties', 'eq_not_allowed_properties');
+  
+?>
+```

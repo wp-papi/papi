@@ -13,6 +13,26 @@ if (!defined('ABSPATH')) exit;
 class PropertyList extends PTB_Property {
 
   /**
+   * Get a list of properties that aren't allowed to use in a list.
+   *
+   * @since 1.0.0
+   *
+   * @return array
+   */
+
+  private function get_not_allowed_properties () {
+    $list = apply_filters('ptb/property/list/not_allowed_properties');
+
+    if (is_string($list)) {
+      $list = array($list);
+    } else if (!is_array($list)) {
+      $list = array();
+    }
+
+    return array_merge(array('PropertyMap'), $list);
+  }
+
+  /**
    * Generate the HTML for the property.
    *
    * @since 1.0.0
@@ -32,6 +52,13 @@ class PropertyList extends PTB_Property {
     if (isset($this->options->properties) && is_array($this->options->properties)) {
       $properties = $this->options->properties;
     }
+
+    $not_allowed_properties = $this->get_not_allowed_properties();
+
+    // Check so we don't try to register a property map in a list since it won't work.
+    $properties = array_filter($properties, function ($property) use($not_allowed_properties) {
+      return !in_array($property->type, $not_allowed_properties);
+    });
 
     ?>
     <div class="ptb-property-list">
