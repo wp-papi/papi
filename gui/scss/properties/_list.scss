@@ -50,9 +50,12 @@
         }
 
         .ptb-table {
-          tr.num td {
-            border-right: none;
-            padding: 5px 15px;
+          tr.num {
+            cursor: move;
+            td {
+              border-right: none;
+              padding: 5px 15px;
+            }
           }
           .wp-editor-wrap {
             iframe {

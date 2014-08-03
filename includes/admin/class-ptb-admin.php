@@ -151,6 +151,8 @@ final class PTB_Admin {
    */
 
   public function admin_enqueue_scripts () {
+    wp_enqueue_script('jquery-ui-core');
+    wp_enqueue_script('jquery-ui-sortable');
     wp_enqueue_script('ptb_main',  PTB_PLUGIN_URL . 'gui/js/main.js', '', '', true);
   }
 

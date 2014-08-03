@@ -57,4 +57,24 @@
       .remove();
   });
 
+  // Add support for sortable list.
+  $('.ptb-property-list-items').sortable({
+    revert: true,
+    stop: function () {
+      $(this).closest('.ptb-property-list-items').find('li').each(function (index) {
+        var $this = $(this);
+
+        $this
+          .find('tr.num span')
+          .text(index + 1);
+
+        $this
+          .find(':input')
+          .each(function () {
+            $(this).attr('name', $(this).attr('name').replace(/(\[\d+\])/, '[' + index + ']'));
+          });
+      });
+    }
+  });
+
 })(jQuery);
