@@ -149,7 +149,7 @@ function _ptb_get_property_options ($options) {
     'disabled'      => false,
     'slug'          => '',
     'settings'      => array(),
-    'sort_order'    => 0,
+    'sort_order'    => null,
     'value'         => '',
     'type'          => '',
     'colspan'       => '',
@@ -233,7 +233,8 @@ function _ptb_get_property_options ($options) {
  */
 
 function _ptb_render_property ($property) {
-  if (empty($property->type)) {
+  // Check so type isn't empty and capabilities on the property.
+  if (empty($property->type) || !_ptb_current_user_is_allowed($property->capabilities)) {
     return;
   }
 
@@ -278,6 +279,9 @@ function _ptb_render_properties ($properties) {
   if (isset($properties[0]->tab) && $properties[0]->tab) {
     new PTB_Admin_Meta_Box_Tabs($properties);
   } else {
+    // Sort properties based on `sort_order` value.
+    $properties = _ptb_sort_order($properties);
+
     echo '<table class="ptb-table">';
       echo '<tbody>';
 

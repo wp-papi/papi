@@ -47,9 +47,13 @@ class PTB_Admin_Meta_Box_Tabs {
    */
 
   private function setup_tabs ($tabs) {
+    // Check capabilities on tabs.
     $tabs = array_filter($tabs, function ($tab) {
-      return _ptb_current_user_is_allowed($tab->options['capabilities'])
+      return _ptb_current_user_is_allowed($tab->options->capabilities);
     });
+
+    // Sort tabs based on `sort_order` value.
+    $tabs = _ptb_sort_order($tabs);
 
     // Generate unique names for all tabs.
     for ($i = 0; $i < count($tabs); $i++) {
@@ -72,6 +76,7 @@ class PTB_Admin_Meta_Box_Tabs {
       <div class="ptb-tabs-back"></div>
       <ul class="ptb-tabs">
       <?php
+
       foreach ($this->tabs as $tab):
         ?>
           <li class="<?php echo $this->tabs[0] == $tab ? 'active': ''; ?>">

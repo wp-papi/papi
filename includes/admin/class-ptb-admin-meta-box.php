@@ -98,11 +98,6 @@ class PTB_Admin_Meta_Box {
       }
     }
 
-    // Check capabilities on properties.
-    $this->properties = array_filter($this->properties, function ($property) {
-      return _ptb_current_user_is_allowed($property->capabilities);
-    });
-
     // Setup actions.
     $this->setup_actions();
   }

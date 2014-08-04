@@ -277,3 +277,52 @@ function _ptb_string_array ($obj) {
 
   return $obj;
 }
+
+/**
+ * Sort array based on given key and numeric value.
+ *
+ * @param array $array
+ * @param string $key
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function _ptb_sort_order ($array, $key = 'sort_order') {
+  if (empty($array)) {
+    return array();
+  }
+
+  $sorter = array();
+
+  foreach ($array as $k => $value) {
+    if (is_object($value)) {
+      $sorter[$k] = $value->$key;
+    } else {
+      $sorter[$k] = $value[$key];
+    }
+  }
+
+  asort($sorter, SORT_NUMERIC);
+
+  $result = array();
+  $rest = array();
+
+  foreach ($sorter as $k => $v) {
+    $value = $array[$k];
+
+    if ((is_object($value) && !isset($value->$key)) || (is_array($value) && !isset($value[$key]))) {
+      $rest[] = $value;
+    } else {
+      $result[$k] = $array[$k];
+    }
+  }
+
+  $result = array_values($result);
+
+  foreach ($rest as $key => $value) {
+    $result[] = $value;
+  }
+
+  return $result;
+}

@@ -164,10 +164,7 @@ abstract class PTB_Page_Data {
    */
 
   protected function remove ($remove_post_type_support = array()) {
-    if (is_string($remove_post_type_support)) {
-      $remove_post_type_support = array($remove_post_type_support);
-    }
-
+    $remove_post_type_support = _ptb_string_array($remove_post_type_support);
     $this->remove_post_type_support = array_merge($this->remove_post_type_support, $remove_post_type_support);
 
     add_action('init', array($this, 'remove_post_type_support'));
@@ -205,8 +202,8 @@ abstract class PTB_Page_Data {
    * @return object
    */
 
-  protected function tab ($title, $options = array(), $properties = array()) {
-    if (empty($properties)) {
+  protected function tab ($title, $options = array(), $properties = null) {
+    if (!isset($properties)) {
       $properties = $options;
       $options = array();
     }
@@ -215,10 +212,22 @@ abstract class PTB_Page_Data {
       $options = array();
     }
 
+    // Default options values.
+    $defaults = array(
+      'sort_order'   => null,
+      'capabilities' => array()
+    );
+
+    $options = array_merge($defaults, $options);
+    $options = (object)$options;
+
+    // Return a tab object.
+    // Sort order key has to be on the root level since the sorter don't go to deep.
     return (object)array(
       'title'        => $title,
       'tab'          => true,
-      'options'      => (object)$options,
+      'options'      => $options,
+      'sort_order'   => $options->sort_order,
       'properties'   => $properties
     );
   }
