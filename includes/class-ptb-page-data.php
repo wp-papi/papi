@@ -131,32 +131,6 @@ abstract class PTB_Page_Data {
   }
 
   /**
-   * Group properties.
-   *
-   * @param array $options
-   * @since 1.0.0
-   */
-
-  protected function group ($options = array()) {
-    if (!is_array($options) || empty($options)) {
-      return;
-    }
-
-    $options  = (object)$options;
-
-    $property = $this->property(array(
-      'type'    => 'PropertyHidden',
-      'slug'    => $options->slug,
-      'default' => 'ptb:group:' . implode(',', $options->group)
-    ));
-
-    // Maybe need some way to add this without a box.
-    if (isset($this->box)) {
-      $this->box->add_property($property);
-    }
-  }
-
-  /**
    * Remove post type support. Runs once, on page load.
    *
    * @param array $post_type_support

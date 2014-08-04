@@ -102,8 +102,12 @@ function _ptb_get_property_type ($type) {
  * @return string
  */
 
-function _ptb_get_property_lang ($options) {
+function _ptb_get_property_lang ($options = null) {
   $rest = array();
+
+  if (!isset($options)) {
+    $options = new stdClass;
+  }
 
   // Fetch all languages from Polylang that is available.
   if (empty($options->lang)) {

@@ -263,7 +263,7 @@ class PTB_Page {
   }
 
   /**
-   * Get Page Type Builder Property value.
+   * Get Page Type Builder property value.
    *
    * @param string $slug
    * @since 1.0.0
@@ -272,6 +272,12 @@ class PTB_Page {
    */
 
   public function __get ($slug) {
+    // Get language.
+    list($lang, $rest) = _ptb_get_property_lang();
+
+    // Add language code to the slug name.
+    $slug = _ptb_get_lang_field_slug($slug, $lang);
+
     return $this->get_value($slug);
   }
 

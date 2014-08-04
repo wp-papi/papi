@@ -100,7 +100,7 @@ function _ptb_get_lang_code () {
 function _ptb_get_lang_field_slug ($slug = '', $lang = '') {
   $lang = _ptb_lang_exist($lang) ? $lang : _ptb_get_lang_code();
 
-  if (!preg_match('/^(\_|)ptb/', $slug) && (!preg_match('/^' . $lang . '\_/', $slug) || !preg_match('/^' . $lang . '\_' . $lang . '/'))) {
+  if (!preg_match('/^(\_|)ptb/', $slug) && (!preg_match('/^' . $lang . '\_/', $slug) || !preg_match('/^' . $lang . '\_' . $lang . '/', $slug))) {
     return $lang . '_' . $slug;
   }
 

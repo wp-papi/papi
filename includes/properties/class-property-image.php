@@ -25,7 +25,7 @@ class PropertyImage extends PTB_Property {
     ));
 
     // Get the value.
-    $value = $this->format_value($options->value);
+    $value = $this->get_value();
 
     if (!is_array($value)) {
       $value = array_filter(array($value));
