@@ -87,8 +87,8 @@ Or we can use `the_ptb_field('twitter_link');`
 
 Everyone is welcome to contribute with patches, bug-fixes and new features.
 
-1. Create an [issue](https://github.com/wp-ptb/wp-ptb/issues) on Github so the community can comment on your idea.
-2. Fork `wp-ptb` on Github.
+1. Create an [issue](https://github.com/wp-ptb/page-type-builder/issues) on Github so the community can comment on your idea.
+2. Fork `page-type-builder` on Github.
 3. Create a new branch: `git checkout -b my_branch`.
 4. Commit your changes.
 5. Push to your branch: `git push origin my_branch`.
