@@ -3,3 +3,4 @@
 #gui/js/main.js
 node_modules
 test.php
+coverage/
