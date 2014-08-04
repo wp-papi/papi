@@ -1,4 +1,6 @@
-# Page Type Builder for WordPress
+# Page Type Builder for WordPress 
+
+[![Build Status](https://travis-ci.org/wp-ptb/page-type-builder.svg?branch=master)](https://travis-ci.org/wp-ptb/page-type-builder)
 
 Page Type Builder for WordPress allows you create page types using the existing page post type or using custom post types. The documentation this project isn't so good, but you can look at the example below and checkout the properties to get a picture of how it works. For those how have work with Page Type Builder in EPiServer you will recognize themselves. Page Type Builder for WordPress is heavily inspired by the Page Type Builder for EPiServer.
 
