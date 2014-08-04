@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Page Type Builder Language Functions.
+ * Page Type Builder Language functions.
  *
  * @package PageTypeBuilder
  * @version 1.0.0

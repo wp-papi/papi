@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Page Type Builder Field Functions.
+ * Page Type Builder Field functions.
  *
  * @package PageTypeBuilder
  * @version 1.0.0
