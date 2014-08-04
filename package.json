@@ -1,5 +1,5 @@
 {
-  "name": "wp-ptb",
+  "name": "page-type-builder",
   "version": "0.2.1",
   "devDependencies": {
     "grunt": "~0.4.1",
