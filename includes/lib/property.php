@@ -144,18 +144,19 @@ function _ptb_get_property_lang ($options) {
 
 function _ptb_get_property_options ($options) {
   $defaults = array(
-    'title'      => '',
-    'no_title'   => false,
-    'disabled'   => false,
-    'slug'       => '',
-    'settings'   => array(),
-    'sort_order' => 0,
-    'value'      => '',
-    'type'       => '',
-    'colspan'    => '',
-    'lang'       => '',
-    'old_slug'   => '',
-    'default'    => ''
+    'title'         => '',
+    'no_title'      => false,
+    'disabled'      => false,
+    'slug'          => '',
+    'settings'      => array(),
+    'sort_order'    => 0,
+    'value'         => '',
+    'type'          => '',
+    'colspan'       => '',
+    'lang'          => '',
+    'old_slug'      => '',
+    'default'       => '',
+    'capabilities' => array()
   );
 
   $options = array_merge($defaults, $options);

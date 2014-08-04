@@ -257,3 +257,23 @@ function _ptb_apply_template ($tpl_file, $vars = array(), $include_globals = tru
 
   return $applied_template;
 }
+
+/**
+ * Get string value into a array.
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function _ptb_string_array ($obj) {
+  if (is_string($obj)) {
+    $obj = array($obj);
+  }
+
+  if (!is_array($obj)) {
+    $obj = array();
+  }
+
+  return $obj;
+}

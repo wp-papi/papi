@@ -47,6 +47,10 @@ class PTB_Admin_Meta_Box_Tabs {
    */
 
   private function setup_tabs ($tabs) {
+    $tabs = array_filter($tabs, function ($tab) {
+      return _ptb_current_user_is_allowed($tab->options['capabilities'])
+    });
+
     // Generate unique names for all tabs.
     for ($i = 0; $i < count($tabs); $i++) {
       $tabs[$i]->name = _ptb_name($tabs[$i]->title) . '_' . $i;

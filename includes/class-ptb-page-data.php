@@ -86,6 +86,11 @@ abstract class PTB_Page_Data {
       $options = array();
     }
 
+    // Can current user view this box?
+    if (isset($options['capabilities']) && !_ptb_current_user_is_allowed($options['capabilities'])) {
+      return;
+    }
+
     // Move title into options.
     if (!isset($options['title'])) {
       $options['title'] = $title;
@@ -211,10 +216,10 @@ abstract class PTB_Page_Data {
     }
 
     return (object)array(
-      'title'      => $title,
-      'tab'        => true,
-      'options'    => (object)$options,
-      'properties' => $properties
+      'title'        => $title,
+      'tab'          => true,
+      'options'      => (object)$options,
+      'properties'   => $properties
     );
   }
 

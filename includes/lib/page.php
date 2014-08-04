@@ -143,7 +143,7 @@ function _ptb_get_all_page_types ($all = false) {
     $p = _ptb_get_page_type($file);
 
     // Add the page type if the post types is allowed.
-    if (!is_null($p) && ($all || in_array($post_type, $p->post_types))) {
+    if (!is_null($p) && _ptb_current_user_is_allowed($p->capabilities) && ($all || in_array($post_type, $p->post_types))) {
       $page_types[] = $p;
     }
   }

@@ -85,6 +85,15 @@ class PTB_Page_Type {
   public $file_path = '';
 
   /**
+   * Capabilities list.
+   *
+   * @var array
+   * @since 1.0.0
+   */
+
+  public $capabilities = array();
+
+  /**
    * Constructor.
    * Load a page type by the file.
    *
@@ -159,6 +168,22 @@ class PTB_Page_Type {
 
   public function has_name () {
     return isset($this->name) && !empty($this->name);
+  }
+
+  /**
+   * Is the user allowed to view this page type?
+   *
+   * @since 1.0.0
+   *
+   * @return bool
+   */
+
+  public function current_user_is_allowed () {
+    foreach ($this->capabilities as $capability) {
+      if (!current_user_can($capability)) return false;
+    }
+
+    return true;
   }
 
   /**
