@@ -82,12 +82,13 @@ class PropertyImage extends PTB_Property {
    * Format the value of the property before we output it to the application.
    *
    * @param mixed $value
+   * @param int $post_id
    * @since 1.0.0
    *
-   * @return array|object|string
+   * @return array
    */
 
-  public function format_value ($value) {
+  public function format_value ($value, $post_id) {
     if (is_numeric($value)) {
       $meta = wp_get_attachment_metadata($value);
       if (isset($meta) && !empty($meta)) {

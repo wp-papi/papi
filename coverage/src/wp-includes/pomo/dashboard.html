@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /vagrant/develop/src/wp-includes/pomo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../css/nv.d3.css" rel="stylesheet">
+  <link href="../../../css/style.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+  <script src="../../../js/html5shiv.js"></script>
+  <script src="../../../js/respond.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <div class="row">
+     <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="../../../index.html">/vagrant/develop</a></li>
+        <li><a href="../../index.html">src</a></li>
+        <li><a href="../index.html">wp-includes</a></li>
+        <li><a href="src/wp-includes/pomo.html">pomo</a></li>
+        <li class="active">(Dashboard)</li>
+
+      </ol>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th><div align="left">Class</div></th>
+         <th><div align="right">Coverage</div></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#204">POMO_CachedIntFileReader</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#13">Translations</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#135">Gettext_Translations</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#234">NOOP_Translations</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#189">POMO_CachedFileReader</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#150">POMO_StringReader</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#14">MO</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#12">POMO_Reader</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#106">POMO_FileReader</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/entry.php.html#14">Translation_Entry</a></td><td><div align="right">0%</div></td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th><div align="left">Class</div></th>
+         <th><div align="right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></div></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#14">MO</a></td><td><div align="right">1722</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#13">Translations</a></td><td><div align="right">1056</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#12">POMO_Reader</a></td><td><div align="right">380</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#135">Gettext_Translations</a></td><td><div align="right">272</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#234">NOOP_Translations</a></td><td><div align="right">156</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/entry.php.html#14">Translation_Entry</a></td><td><div align="right">156</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#106">POMO_FileReader</a></td><td><div align="right">90</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#150">POMO_StringReader</a></td><td><div align="right">56</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#189">POMO_CachedFileReader</a></td><td><div align="right">6</div></td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th><div align="left">Method</div></th>
+         <th><div align="right">Coverage</div></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#75">Translations::translate</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#70">Translations::translate_entry</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#66">Translations::get_header</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#92">Translations::select_plural_form</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#96">Translations::get_plural_forms_count</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#119">Translations::merge_with</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#100">Translations::translate_plural</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#60">Translations::set_headers</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#56">Translations::set_header</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#178">POMO_StringReader::read_all</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#174">POMO_StringReader::length</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#168">POMO_StringReader::seekto</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#190">POMO_CachedFileReader::POMO_CachedFileReader</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#205">POMO_CachedIntFileReader::POMO_CachedIntFileReader</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#33">Translations::add_entry_or_merge</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#23">Translations::add_entry</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#125">Translations::merge_originals_with</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#143">Gettext_Translations::gettext_select_plural_form</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#256">NOOP_Translations::translate</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#252">NOOP_Translations::translate_entry</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#248">NOOP_Translations::get_header</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#260">NOOP_Translations::select_plural_form</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#264">NOOP_Translations::get_plural_forms_count</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#272">NOOP_Translations::merge_with</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#268">NOOP_Translations::translate_plural</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#245">NOOP_Translations::set_headers</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#242">NOOP_Translations::set_header</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#166">Gettext_Translations::make_plural_form_function</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#152">Gettext_Translations::nplurals_and_expression_from_header</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#181">Gettext_Translations::parenthesize_plural_exression</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#206">Gettext_Translations::make_headers</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#238">NOOP_Translations::add_entry</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#219">Gettext_Translations::set_header</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#161">POMO_StringReader::read</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#154">POMO_StringReader::POMO_StringReader</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#125">MO::get_byteorder</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#117">MO::export_headers</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#112">MO::export_translations</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#142">MO::import_from_reader</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#234">MO::make_entry</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#258">MO::get_plural_forms_count</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#254">MO::select_plural_form</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#104">MO::export_original</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#58">MO::export_to_file_handle</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/entry.php.html#69">Translation_Entry::merge_with</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/entry.php.html#63">Translation_Entry::key</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#23">MO::import_from_file</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#30">MO::export_to_file</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#46">MO::is_entry_good_for_export</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#38">MO::export</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#17">POMO_Reader::POMO_Reader</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#27">POMO_Reader::setEndian</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#116">POMO_FileReader::seekto</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#112">POMO_FileReader::read</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#107">POMO_FileReader::POMO_FileReader</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#124">POMO_FileReader::is_resource</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#128">POMO_FileReader::feof</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#136">POMO_FileReader::read_all</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#132">POMO_FileReader::close</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#99">POMO_Reader::close</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#95">POMO_Reader::is_resource</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#53">POMO_Reader::readint32array</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#37">POMO_Reader::readint32</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#62">POMO_Reader::substr</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#70">POMO_Reader::strlen</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#91">POMO_Reader::pos</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#78">POMO_Reader::str_split</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/entry.php.html#43">Translation_Entry::Translation_Entry</a></td><td><div align="right">0%</div></td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th><div align="left">Method</div></th>
+         <th><div align="right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></div></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#142">MO::import_from_reader</a></td><td><div align="right">210</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#100">Translations::translate_plural</a></td><td><div align="right">56</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/entry.php.html#43">Translation_Entry::Translation_Entry</a></td><td><div align="right">56</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#181">Gettext_Translations::parenthesize_plural_exression</a></td><td><div align="right">30</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#125">MO::get_byteorder</a></td><td><div align="right">20</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#33">Translations::add_entry_or_merge</a></td><td><div align="right">20</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#53">POMO_Reader::readint32array</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#37">POMO_Reader::readint32</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#143">Gettext_Translations::gettext_select_plural_form</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#125">Translations::merge_originals_with</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/entry.php.html#63">Translation_Entry::key</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#78">POMO_Reader::str_split</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#75">Translations::translate</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#234">MO::make_entry</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#58">MO::export_to_file_handle</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#46">MO::is_entry_good_for_export</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#206">Gettext_Translations::make_headers</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#104">MO::export_original</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#23">Translations::add_entry</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#70">Translations::translate_entry</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#92">Translations::select_plural_form</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#152">Gettext_Translations::nplurals_and_expression_from_header</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#268">NOOP_Translations::translate_plural</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#260">NOOP_Translations::select_plural_form</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#219">Gettext_Translations::set_header</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#66">Translations::get_header</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#119">Translations::merge_with</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#136">POMO_FileReader::read_all</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#38">MO::export</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#117">MO::export_headers</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#30">MO::export_to_file</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/mo.php.html#23">MO::import_from_file</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/entry.php.html#69">Translation_Entry::merge_with</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#17">POMO_Reader::POMO_Reader</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#62">POMO_Reader::substr</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#168">POMO_StringReader::seekto</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#190">POMO_CachedFileReader::POMO_CachedFileReader</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#161">POMO_StringReader::read</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#116">POMO_FileReader::seekto</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/streams.php.html#70">POMO_Reader::strlen</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-includes/pomo/translations.php.html#60">Translations::set_headers</a></td><td><div align="right">6</div></td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage 2.0.5</a> using <a href="http://php.net/" target="_top">PHP 5.5.9-1ubuntu4.3</a> and <a href="http://phpunit.de/">PHPUnit 4.0.17</a> at Mon Aug 4 13:14:31 UTC 2014.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../../../js/jquery.js" type="text/javascript"></script>
+  <script src="../../../js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../../../js/holder.js" type="text/javascript"></script>
+  <script src="../../../js/d3.min.js" type="text/javascript"></script>
+  <script src="../../../js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([10,0,0,0,0,0,0,0,0,0,0,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([68,0,0,0,0,0,0,0,0,0,0,0], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.scatter.onlyCircles(false);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,12,"<a href=\"src\/wp-includes\/pomo\/entry.php.html#14\">Translation_Entry<\/a>"],[0,41,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#14\">MO<\/a>"],[0,19,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#12\">POMO_Reader<\/a>"],[0,9,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#106\">POMO_FileReader<\/a>"],[0,7,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#150\">POMO_StringReader<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#189\">POMO_CachedFileReader<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#204\">POMO_CachedIntFileReader<\/a>"],[0,32,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#13\">Translations<\/a>"],[0,16,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#135\">Gettext_Translations<\/a>"],[0,12,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#234\">NOOP_Translations<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.scatter.onlyCircles(false);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,7,"<a href=\"src\/wp-includes\/pomo\/entry.php.html#43\">Translation_Entry::Translation_Entry<\/a>"],[0,3,"<a href=\"src\/wp-includes\/pomo\/entry.php.html#63\">Translation_Entry::key<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/entry.php.html#69\">Translation_Entry::merge_with<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#23\">MO::import_from_file<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#30\">MO::export_to_file<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#38\">MO::export<\/a>"],[0,3,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#46\">MO::is_entry_good_for_export<\/a>"],[0,3,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#58\">MO::export_to_file_handle<\/a>"],[0,3,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#104\">MO::export_original<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#112\">MO::export_translations<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#117\">MO::export_headers<\/a>"],[0,4,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#125\">MO::get_byteorder<\/a>"],[0,14,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#142\">MO::import_from_reader<\/a>"],[0,3,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#234\">MO::make_entry<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#254\">MO::select_plural_form<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/mo.php.html#258\">MO::get_plural_forms_count<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#17\">POMO_Reader::POMO_Reader<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#27\">POMO_Reader::setEndian<\/a>"],[0,3,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#37\">POMO_Reader::readint32<\/a>"],[0,3,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#53\">POMO_Reader::readint32array<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#62\">POMO_Reader::substr<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#70\">POMO_Reader::strlen<\/a>"],[0,3,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#78\">POMO_Reader::str_split<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#91\">POMO_Reader::pos<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#95\">POMO_Reader::is_resource<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#99\">POMO_Reader::close<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#107\">POMO_FileReader::POMO_FileReader<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#112\">POMO_FileReader::read<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#116\">POMO_FileReader::seekto<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#124\">POMO_FileReader::is_resource<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#128\">POMO_FileReader::feof<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#132\">POMO_FileReader::close<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#136\">POMO_FileReader::read_all<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#154\">POMO_StringReader::POMO_StringReader<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#161\">POMO_StringReader::read<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#168\">POMO_StringReader::seekto<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#174\">POMO_StringReader::length<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#178\">POMO_StringReader::read_all<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#190\">POMO_CachedFileReader::POMO_CachedFileReader<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/streams.php.html#205\">POMO_CachedIntFileReader::POMO_CachedIntFileReader<\/a>"],[0,3,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#23\">Translations::add_entry<\/a>"],[0,4,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#33\">Translations::add_entry_or_merge<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#56\">Translations::set_header<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#60\">Translations::set_headers<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#66\">Translations::get_header<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#70\">Translations::translate_entry<\/a>"],[0,3,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#75\">Translations::translate<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#92\">Translations::select_plural_form<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#96\">Translations::get_plural_forms_count<\/a>"],[0,7,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#100\">Translations::translate_plural<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#119\">Translations::merge_with<\/a>"],[0,3,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#125\">Translations::merge_originals_with<\/a>"],[0,3,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#143\">Gettext_Translations::gettext_select_plural_form<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#152\">Gettext_Translations::nplurals_and_expression_from_header<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#166\">Gettext_Translations::make_plural_form_function<\/a>"],[0,5,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#181\">Gettext_Translations::parenthesize_plural_exression<\/a>"],[0,3,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#206\">Gettext_Translations::make_headers<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#219\">Gettext_Translations::set_header<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#238\">NOOP_Translations::add_entry<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#242\">NOOP_Translations::set_header<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#245\">NOOP_Translations::set_headers<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#248\">NOOP_Translations::get_header<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#252\">NOOP_Translations::translate_entry<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#256\">NOOP_Translations::translate<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#260\">NOOP_Translations::select_plural_form<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#264\">NOOP_Translations::get_plural_forms_count<\/a>"],[0,2,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#268\">NOOP_Translations::translate_plural<\/a>"],[0,1,"<a href=\"src\/wp-includes\/pomo\/translations.php.html#272\">NOOP_Translations::merge_with<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

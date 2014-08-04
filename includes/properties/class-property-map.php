@@ -208,17 +208,4 @@ class PropertyMap extends PTB_Property {
       </tr>
     <?php
   }
-
-  /**
-   * Format the value of the property before we output it to the application.
-   *
-   * @param mixed $value
-   * @since 1.0.0
-   *
-   * @return array
-   */
-
-  public function format_value ($value) {
-    return $value;
-  }
 }

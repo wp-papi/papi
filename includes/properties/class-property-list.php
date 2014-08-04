@@ -150,12 +150,13 @@ class PropertyList extends PTB_Property {
    * Format the value of the property before we output it to the application.
    *
    * @param mixed $value
+   * @param int $post_id
    * @since 1.0.0
    *
    * @return array
    */
 
-  public function format_value ($value) {
+  public function format_value ($value, $post_id) {
     return array_values($value);
   }
 

@@ -59,12 +59,13 @@ class PropertyCheckboxList extends PTB_Property {
    * Format the value of the property before we output it to the application.
    *
    * @param mixed $value
-   * @since 1.0
+   * @param int $post_id
+   * @since 1.0.0
    *
-   * @return string
+   * @return array
    */
 
-  public function format_value ($value) {
+  public function format_value ($value, $post_id) {
     if (is_string($value)) {
       return array($value);
     }

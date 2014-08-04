@@ -163,7 +163,7 @@ function _ptb_name ($name) {
  */
 
 function _ptb_is_method ($method = '') {
-  return strtoupper($_SERVER ['REQUEST_METHOD']) == strtoupper($method);
+  return isset($_SERVER['REQUEST_METHOD']) && strtoupper($_SERVER['REQUEST_METHOD']) == strtoupper($method);
 }
 
 /**

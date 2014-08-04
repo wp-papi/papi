@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /vagrant/develop/src/wp-admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../css/nv.d3.css" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+  <script src="../../js/html5shiv.js"></script>
+  <script src="../../js/respond.min.js"></script>
+  <![endif]-->
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <div class="row">
+     <div class="col-md-12">
+      <ol class="breadcrumb">
+        <li><a href="../../index.html">/vagrant/develop</a></li>
+        <li><a href="../index.html">src</a></li>
+        <li><a href="src/wp-admin.html">wp-admin</a></li>
+        <li class="active">(Dashboard)</li>
+
+      </ol>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th><div align="left">Class</div></th>
+         <th><div align="right">Coverage</div></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#23">Walker_Category_Checklist</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#1878">WP_Internal_Pointers</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#195">WP_Screen</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/list-table.php.html#86">_WP_List_Table_Compat</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#332">WP_User_Search</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#10">WP_List_Table</a></td><td><div align="right">0%</div></td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th><div align="left">Class</div></th>
+         <th><div align="right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></div></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#195">WP_Screen</a></td><td><div align="right">19460</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#10">WP_List_Table</a></td><td><div align="right">16256</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#1878">WP_Internal_Pointers</a></td><td><div align="right">870</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#332">WP_User_Search</a></td><td><div align="right">506</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#23">Walker_Category_Checklist</a></td><td><div align="right">90</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/list-table.php.html#86">_WP_List_Table_Compat</a></td><td><div align="right">30</div></td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th><div align="left">Method</div></th>
+         <th><div align="right">Coverage</div></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#631">WP_Screen::remove_options</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#622">WP_Screen::remove_option</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#611">WP_Screen::add_option</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#596">WP_Screen::set_parentage</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#642">WP_Screen::get_options</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#654">WP_Screen::get_option</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#703">WP_Screen::add_help_tab</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#684">WP_Screen::get_help_tab</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#672">WP_Screen::get_help_tabs</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#584">WP_Screen::add_old_compat_help</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#567">WP_Screen::in_admin</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#654">WP_User_Search::is_search</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#640">WP_User_Search::results_are_paged</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#626">WP_User_Search::page_links</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#614">WP_User_Search::get_results</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/list-table.php.html#90">_WP_List_Table_Compat::__construct</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/list-table.php.html#102">_WP_List_Table_Compat::get_column_info</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#533">WP_Screen::set_current_screen</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#376">WP_Screen::get</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/list-table.php.html#110">_WP_List_Table_Compat::get_columns</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#729">WP_Screen::remove_help_tab</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#738">WP_Screen::remove_help_tabs</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#1949">WP_Internal_Pointers::print_js</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#1890">WP_Internal_Pointers::enqueue_scripts</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#109">Walker_Category_Checklist::end_el</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#72">Walker_Category_Checklist::start_el</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#1992">WP_Internal_Pointers::pointer_wp350_media</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#2002">WP_Internal_Pointers::pointer_wp360_revisions</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#2057">WP_Internal_Pointers::dismiss_pointers_for_new_users</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#2026">WP_Internal_Pointers::pointer_wp390_widgets</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#2012">WP_Internal_Pointers::pointer_wp360_locks</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#54">Walker_Category_Checklist::end_lvl</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#38">Walker_Category_Checklist::start_lvl</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#778">WP_Screen::get_columns</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#761">WP_Screen::set_help_sidebar</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#749">WP_Screen::get_help_sidebar</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#789">WP_Screen::render_screen_meta</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#960">WP_Screen::show_screen_options</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#1126">WP_Screen::render_per_page_options</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#1092">WP_Screen::render_screen_layout</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#1013">WP_Screen::render_screen_options</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#578">WP_User_Search::do_paging</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#549">WP_User_Search::query</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#303">WP_List_Table::views</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#293">WP_List_Table::get_views</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#261">WP_List_Table::search_box</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#248">WP_List_Table::no_items</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#337">WP_List_Table::get_bulk_actions</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#349">WP_List_Table::bulk_actions</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#445">WP_List_Table::months_dropdown</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#421">WP_List_Table::row_actions</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#398">WP_List_Table::current_action</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#238">WP_List_Table::has_items</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#222">WP_List_Table::get_pagination_arg</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#134">WP_List_Table::__isset</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#121">WP_List_Table::__set</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#107">WP_List_Table::__get</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#146">WP_List_Table::__unset</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#160">WP_List_Table::__call</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#194">WP_List_Table::set_pagination_args</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#184">WP_List_Table::prepare_items</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#172">WP_List_Table::ajax_user_can</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#500">WP_List_Table::view_switcher</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#535">WP_List_Table::comments_bubble</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#960">WP_List_Table::single_row</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#947">WP_List_Table::display_rows</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#931">WP_List_Table::display_rows_or_placeholder</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#898">WP_List_Table::display_tablenav</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#977">WP_List_Table::single_row_columns</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#1013">WP_List_Table::ajax_response</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#509">WP_User_Search::prepare_query</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#488">WP_User_Search::WP_User_Search</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#1046">WP_List_Table::_js_vars</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#888">WP_List_Table::get_table_classes</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#850">WP_List_Table::display</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#598">WP_List_Table::pagination</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#572">WP_List_Table::get_items_per_page</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#555">WP_List_Table::get_pagenum</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#694">WP_List_Table::get_columns</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#711">WP_List_Table::get_sortable_columns</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#782">WP_List_Table::print_column_headers</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#768">WP_List_Table::get_column_count</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#723">WP_List_Table::get_column_info</a></td><td><div align="right">0%</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#72">WP_List_Table::__construct</a></td><td><div align="right">0%</div></td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th><div align="left">Method</div></th>
+         <th><div align="right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></div></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#376">WP_Screen::get</a></td><td><div align="right">2862</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#789">WP_Screen::render_screen_meta</a></td><td><div align="right">462</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#1013">WP_Screen::render_screen_options</a></td><td><div align="right">380</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#782">WP_List_Table::print_column_headers</a></td><td><div align="right">272</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#1126">WP_Screen::render_per_page_options</a></td><td><div align="right">132</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#598">WP_List_Table::pagination</a></td><td><div align="right">90</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#194">WP_List_Table::set_pagination_args</a></td><td><div align="right">72</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#398">WP_List_Table::current_action</a></td><td><div align="right">56</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#1890">WP_Internal_Pointers::enqueue_scripts</a></td><td><div align="right">56</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#445">WP_List_Table::months_dropdown</a></td><td><div align="right">56</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#261">WP_List_Table::search_box</a></td><td><div align="right">56</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#960">WP_Screen::show_screen_options</a></td><td><div align="right">56</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#72">Walker_Category_Checklist::start_el</a></td><td><div align="right">42</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#977">WP_List_Table::single_row_columns</a></td><td><div align="right">30</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#2026">WP_Internal_Pointers::pointer_wp390_widgets</a></td><td><div align="right">30</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#723">WP_List_Table::get_column_info</a></td><td><div align="right">30</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#421">WP_List_Table::row_actions</a></td><td><div align="right">30</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#1949">WP_Internal_Pointers::print_js</a></td><td><div align="right">30</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#349">WP_List_Table::bulk_actions</a></td><td><div align="right">30</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#578">WP_User_Search::do_paging</a></td><td><div align="right">30</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#509">WP_User_Search::prepare_query</a></td><td><div align="right">30</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#654">WP_Screen::get_option</a></td><td><div align="right">20</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#1013">WP_List_Table::ajax_response</a></td><td><div align="right">20</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#555">WP_List_Table::get_pagenum</a></td><td><div align="right">20</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#1092">WP_Screen::render_screen_layout</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/list-table.php.html#90">_WP_List_Table_Compat::__construct</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#703">WP_Screen::add_help_tab</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#488">WP_User_Search::WP_User_Search</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#500">WP_List_Table::view_switcher</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#535">WP_List_Table::comments_bubble</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#572">WP_List_Table::get_items_per_page</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#303">WP_List_Table::views</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#72">WP_List_Table::__construct</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#222">WP_List_Table::get_pagination_arg</a></td><td><div align="right">12</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#2012">WP_Internal_Pointers::pointer_wp360_locks</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#2002">WP_Internal_Pointers::pointer_wp360_revisions</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#850">WP_List_Table::display</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/template.php.html#1992">WP_Internal_Pointers::pointer_wp350_media</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#898">WP_List_Table::display_tablenav</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#567">WP_Screen::in_admin</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#549">WP_User_Search::query</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#640">WP_User_Search::results_are_paged</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/screen.php.html#684">WP_Screen::get_help_tab</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#960">WP_List_Table::single_row</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#931">WP_List_Table::display_rows_or_placeholder</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/class-wp-list-table.php.html#947">WP_List_Table::display_rows</a></td><td><div align="right">6</div></td></tr>
+       <tr><td><a href="src/wp-admin/includes/deprecated.php.html#654">WP_User_Search::is_search</a></td><td><div align="right">6</div></td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="http://github.com/sebastianbergmann/php-code-coverage" target="_top">PHP_CodeCoverage 2.0.5</a> using <a href="http://php.net/" target="_top">PHP 5.5.9-1ubuntu4.3</a> and <a href="http://phpunit.de/">PHPUnit 4.0.17</a> at Mon Aug 4 13:14:31 UTC 2014.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../../js/jquery.js" type="text/javascript"></script>
+  <script src="../../js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../../js/holder.js" type="text/javascript"></script>
+  <script src="../../js/d3.min.js" type="text/javascript"></script>
+  <script src="../../js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([6,0,0,0,0,0,0,0,0,0,0,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([84,0,0,0,0,0,0,0,0,0,0,8], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.scatter.onlyCircles(false);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,127,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#10\">WP_List_Table<\/a>"],[0,22,"<a href=\"src\/wp-admin\/includes\/deprecated.php.html#332\">WP_User_Search<\/a>"],[0,5,"<a href=\"src\/wp-admin\/includes\/list-table.php.html#86\">_WP_List_Table_Compat<\/a>"],[0,139,"<a href=\"src\/wp-admin\/includes\/screen.php.html#195\">WP_Screen<\/a>"],[0,9,"<a href=\"src\/wp-admin\/includes\/template.php.html#23\">Walker_Category_Checklist<\/a>"],[0,29,"<a href=\"src\/wp-admin\/includes\/template.php.html#1878\">WP_Internal_Pointers<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.scatter.onlyCircles(false);
+    chart.tooltipContent(function(key, y, e, graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,3,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#72\">WP_List_Table::__construct<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#107\">WP_List_Table::__get<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#121\">WP_List_Table::__set<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#134\">WP_List_Table::__isset<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#146\">WP_List_Table::__unset<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#160\">WP_List_Table::__call<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#172\">WP_List_Table::ajax_user_can<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#184\">WP_List_Table::prepare_items<\/a>"],[0,8,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#194\">WP_List_Table::set_pagination_args<\/a>"],[0,3,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#222\">WP_List_Table::get_pagination_arg<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#238\">WP_List_Table::has_items<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#248\">WP_List_Table::no_items<\/a>"],[0,7,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#261\">WP_List_Table::search_box<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#293\">WP_List_Table::get_views<\/a>"],[0,3,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#303\">WP_List_Table::views<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#337\">WP_List_Table::get_bulk_actions<\/a>"],[0,5,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#349\">WP_List_Table::bulk_actions<\/a>"],[0,7,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#398\">WP_List_Table::current_action<\/a>"],[0,5,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#421\">WP_List_Table::row_actions<\/a>"],[0,7,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#445\">WP_List_Table::months_dropdown<\/a>"],[0,3,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#500\">WP_List_Table::view_switcher<\/a>"],[0,3,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#535\">WP_List_Table::comments_bubble<\/a>"],[0,4,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#555\">WP_List_Table::get_pagenum<\/a>"],[0,3,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#572\">WP_List_Table::get_items_per_page<\/a>"],[0,9,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#598\">WP_List_Table::pagination<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#694\">WP_List_Table::get_columns<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#711\">WP_List_Table::get_sortable_columns<\/a>"],[0,5,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#723\">WP_List_Table::get_column_info<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#768\">WP_List_Table::get_column_count<\/a>"],[0,16,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#782\">WP_List_Table::print_column_headers<\/a>"],[0,2,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#850\">WP_List_Table::display<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#888\">WP_List_Table::get_table_classes<\/a>"],[0,2,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#898\">WP_List_Table::display_tablenav<\/a>"],[100,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#923\">WP_List_Table::extra_tablenav<\/a>"],[0,2,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#931\">WP_List_Table::display_rows_or_placeholder<\/a>"],[0,2,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#947\">WP_List_Table::display_rows<\/a>"],[0,2,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#960\">WP_List_Table::single_row<\/a>"],[0,5,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#977\">WP_List_Table::single_row_columns<\/a>"],[0,4,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#1013\">WP_List_Table::ajax_response<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/class-wp-list-table.php.html#1046\">WP_List_Table::_js_vars<\/a>"],[0,3,"<a href=\"src\/wp-admin\/includes\/deprecated.php.html#488\">WP_User_Search::WP_User_Search<\/a>"],[0,5,"<a href=\"src\/wp-admin\/includes\/deprecated.php.html#509\">WP_User_Search::prepare_query<\/a>"],[0,2,"<a href=\"src\/wp-admin\/includes\/deprecated.php.html#549\">WP_User_Search::query<\/a>"],[100,1,"<a href=\"src\/wp-admin\/includes\/deprecated.php.html#568\">WP_User_Search::prepare_vars_for_template_usage<\/a>"],[0,5,"<a href=\"src\/wp-admin\/includes\/deprecated.php.html#578\">WP_User_Search::do_paging<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/deprecated.php.html#614\">WP_User_Search::get_results<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/deprecated.php.html#626\">WP_User_Search::page_links<\/a>"],[0,2,"<a href=\"src\/wp-admin\/includes\/deprecated.php.html#640\">WP_User_Search::results_are_paged<\/a>"],[0,2,"<a href=\"src\/wp-admin\/includes\/deprecated.php.html#654\">WP_User_Search::is_search<\/a>"],[0,3,"<a href=\"src\/wp-admin\/includes\/list-table.php.html#90\">_WP_List_Table_Compat::__construct<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/list-table.php.html#102\">_WP_List_Table_Compat::get_column_info<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/list-table.php.html#110\">_WP_List_Table_Compat::get_columns<\/a>"],[0,53,"<a href=\"src\/wp-admin\/includes\/screen.php.html#376\">WP_Screen::get<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#533\">WP_Screen::set_current_screen<\/a>"],[100,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#555\">WP_Screen::__construct<\/a>"],[0,2,"<a href=\"src\/wp-admin\/includes\/screen.php.html#567\">WP_Screen::in_admin<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#584\">WP_Screen::add_old_compat_help<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#596\">WP_Screen::set_parentage<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#611\">WP_Screen::add_option<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#622\">WP_Screen::remove_option<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#631\">WP_Screen::remove_options<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#642\">WP_Screen::get_options<\/a>"],[0,4,"<a href=\"src\/wp-admin\/includes\/screen.php.html#654\">WP_Screen::get_option<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#672\">WP_Screen::get_help_tabs<\/a>"],[0,2,"<a href=\"src\/wp-admin\/includes\/screen.php.html#684\">WP_Screen::get_help_tab<\/a>"],[0,3,"<a href=\"src\/wp-admin\/includes\/screen.php.html#703\">WP_Screen::add_help_tab<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#729\">WP_Screen::remove_help_tab<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#738\">WP_Screen::remove_help_tabs<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#749\">WP_Screen::get_help_sidebar<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#761\">WP_Screen::set_help_sidebar<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/screen.php.html#778\">WP_Screen::get_columns<\/a>"],[0,21,"<a href=\"src\/wp-admin\/includes\/screen.php.html#789\">WP_Screen::render_screen_meta<\/a>"],[0,7,"<a href=\"src\/wp-admin\/includes\/screen.php.html#960\">WP_Screen::show_screen_options<\/a>"],[0,19,"<a href=\"src\/wp-admin\/includes\/screen.php.html#1013\">WP_Screen::render_screen_options<\/a>"],[0,3,"<a href=\"src\/wp-admin\/includes\/screen.php.html#1092\">WP_Screen::render_screen_layout<\/a>"],[0,11,"<a href=\"src\/wp-admin\/includes\/screen.php.html#1126\">WP_Screen::render_per_page_options<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/template.php.html#38\">Walker_Category_Checklist::start_lvl<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/template.php.html#54\">Walker_Category_Checklist::end_lvl<\/a>"],[0,6,"<a href=\"src\/wp-admin\/includes\/template.php.html#72\">Walker_Category_Checklist::start_el<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/template.php.html#109\">Walker_Category_Checklist::end_el<\/a>"],[0,7,"<a href=\"src\/wp-admin\/includes\/template.php.html#1890\">WP_Internal_Pointers::enqueue_scripts<\/a>"],[0,5,"<a href=\"src\/wp-admin\/includes\/template.php.html#1949\">WP_Internal_Pointers::print_js<\/a>"],[100,1,"<a href=\"src\/wp-admin\/includes\/template.php.html#1986\">WP_Internal_Pointers::pointer_wp330_toolbar<\/a>"],[100,1,"<a href=\"src\/wp-admin\/includes\/template.php.html#1987\">WP_Internal_Pointers::pointer_wp330_media_uploader<\/a>"],[100,1,"<a href=\"src\/wp-admin\/includes\/template.php.html#1988\">WP_Internal_Pointers::pointer_wp330_saving_widgets<\/a>"],[100,1,"<a href=\"src\/wp-admin\/includes\/template.php.html#1989\">WP_Internal_Pointers::pointer_wp340_customize_current_theme_link<\/a>"],[100,1,"<a href=\"src\/wp-admin\/includes\/template.php.html#1990\">WP_Internal_Pointers::pointer_wp340_choose_image_from_library<\/a>"],[0,2,"<a href=\"src\/wp-admin\/includes\/template.php.html#1992\">WP_Internal_Pointers::pointer_wp350_media<\/a>"],[0,2,"<a href=\"src\/wp-admin\/includes\/template.php.html#2002\">WP_Internal_Pointers::pointer_wp360_revisions<\/a>"],[0,2,"<a href=\"src\/wp-admin\/includes\/template.php.html#2012\">WP_Internal_Pointers::pointer_wp360_locks<\/a>"],[0,5,"<a href=\"src\/wp-admin\/includes\/template.php.html#2026\">WP_Internal_Pointers::pointer_wp390_widgets<\/a>"],[0,1,"<a href=\"src\/wp-admin\/includes\/template.php.html#2057\">WP_Internal_Pointers::dismiss_pointers_for_new_users<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
