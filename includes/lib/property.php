@@ -105,7 +105,7 @@ function _ptb_get_property_type ($type) {
 function _ptb_get_property_lang ($options = null) {
   $rest = array();
 
-  if (!isset($options)) {
+  if (is_null($options)) {
     $options = new stdClass;
   }
 

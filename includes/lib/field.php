@@ -54,10 +54,8 @@ function ptb_field ($post_id = null, $name = null, $default = null, $lang = null
   // Check for "dot" notation.
   $names = explode('.', $name);
 
+  // Get the first value in the array.
   $name = $names[0];
-
-  // Add language code.
-  $name = _ptb_get_lang_field_slug($name, $lang);
 
   // Remove any `ptb_` stuff if it exists.
   $name = _ptb_remove_ptb($name);

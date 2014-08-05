@@ -47,7 +47,7 @@ function _ptb_remove_trailing_quotes ($str) {
  * @return string
  */
 
-function _ptb_f ($str) {
+function _ptb_f ($str = '') {
   if (strpos($str, '_') === 0) {
     return $str;
   }
@@ -115,7 +115,7 @@ function _ptb_dashify ($str) {
  * @return string
  */
 
-function _ptbify ($str) {
+function _ptbify ($str = '') {
   if (!preg_match('/^\_\_ptb|^\_ptb|^ptb\_/', $str)) {
     return  'ptb_' . $str;
   }

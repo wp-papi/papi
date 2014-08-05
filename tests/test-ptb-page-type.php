@@ -27,4 +27,36 @@ class WP_PTB_Page_Type extends WP_UnitTestCase {
     $this->assertTrue(!empty($page_types));
   }
 
+  /**
+   * Test slug generation.
+   */
+
+  public function test_slug () {
+    $slug = _test_ptb_generate_slug('heading');
+    $this->assertEquals($slug, '_ptb_en_heading');
+
+    $slug = _ptb_property_type_key($slug);
+    $this->assertEquals($slug, '_ptb_en_heading_property');
+  }
+
+  /**
+   * Test creating a fake property data via `add_post_meta`.
+   */
+
+  public function test_ptb_field () {
+    $post_id = $this->factory->post->create();
+
+    $slug = _test_ptb_generate_slug('heading');
+    add_post_meta($post_id, $slug, 'page type builder');
+
+    $slug = _ptb_property_type_key($slug);
+    add_post_meta($post_id, $slug, 'PropertyString');
+
+    $heading = ptb_field($post_id, 'heading');
+    $this->assertEquals($heading, 'page type builder');
+
+    $heading_property = ptb_field($post_id, 'heading_property');
+    $this->assertEquals($heading_property, 'PropertyString');
+  }
+
 }
