@@ -16,8 +16,7 @@ class WP_PTB_Plugin extends WP_UnitTestCase {
    */
 
   public function test_plugin_activated () {
-    $directory = basename(dirname(dirname(__FILE__)));
-    $this->assertTrue(is_plugin_active($directory . '/ptb-loader.php'));
+    $this->assertTrue(class_exists('PTB_Core') && class_exists('PTB_Admin'));
   }
 
   /**
