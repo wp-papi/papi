@@ -1,5 +1,8 @@
 <?php
 
+// Exit if accessed directly
+if (!defined('ABSPATH')) exit;
+
 /**
  * Unit tests to check so Page Tyep Builder is loaded correctly.
  *

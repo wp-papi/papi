@@ -1,5 +1,8 @@
 <?php
 
+// Exit if accessed directly
+if (!defined('ABSPATH')) exit;
+
 /**
  * Unit tests covering page type functionality.
  *
@@ -15,7 +18,7 @@ class WP_PTB_Page_Type extends WP_UnitTestCase {
   public function setUp () {
     parent::setUp();
 
-    register_ptb_directory(getcwd() . '/tests/data/page-types/');
+    register_ptb_directory(getcwd() . '/tests/data/page-types');
   }
 
   /**

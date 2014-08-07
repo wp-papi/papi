@@ -43,19 +43,6 @@ abstract class PTB_Property {
   }
 
   /**
-   * Check if the property exists in the properties array.
-   *
-   * @param string $property
-   * @since 1.0.0
-   *
-   * @return bool
-   */
-
-  public static function exists ($property) {
-    return isset(self::$properties[$property]);
-  }
-
-  /**
    * Get the html to display from the property.
    * This function is required by the property class to have.
    *
