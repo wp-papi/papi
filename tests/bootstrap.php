@@ -18,11 +18,17 @@ $GLOBALS['wp_tests_options'] = array(
 // WordPress develop SVN checkout.
 
 if (getenv('WP_DEVELOP_DIR') !== false) {
-  require getenv('WP_DEVELOP_DIR') . '/tests/phpunit/includes/bootstrap.php';
-} else {
-  //require '../../../../tests/phpunit/includes/bootstrap.php';
-  require '../../../develop/tests/phpunit/includes/bootstrap.php';
+  $test_root = getenv('WP_DEVELOP_DIR');
+} else if (file_exists('../../../../tests/phpunit/includes/bootstrap.php')) {
+  $test_root = '../../../../includes';
+} else if (file_exists('/tmp/wordpress-tests-lib/includes/bootstrap.php')) {
+  $test_root = '/tmp/wordpress-tests-lib/includes';
+} else if (file_exists('../../../develop/tests/phpunit/includes/bootstrap.php')) {
+  $test_root = '../../../develop/tests/phpunit/includes';
 }
+
+// Load phpunit
+require $test_root . '/bootstrap.php';
 
 // Load utilities file for testing.
 require 'lib/utilities.php';
