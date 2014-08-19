@@ -268,3 +268,6 @@ function register_ptb_directory ($directory) {
 
   return true;
 }
+
+// Add default directory. "path/to/theme/lib/page-types"
+register_ptb_directory(get_template_directory() . '/lib/page-types');
