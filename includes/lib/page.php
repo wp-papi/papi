@@ -270,7 +270,7 @@ function _ptb_get_post_types () {
 }
 
 /**
- * The default page type thumbnail.
+ * The default page type thumbnail if defined.
  *
  * @since 1.0.0
  *
@@ -278,5 +278,9 @@ function _ptb_get_post_types () {
  */
 
 function _ptb_page_type_default_thumbnail () {
-  return get_template_directory_uri() . '/screenshot.png';
+  if (defined('PTB_DEFAULT_PAGE_THUMBNAIL')) {
+    return PTB_DEFAULT_PAGE_THUMBNAIL;
+  }
+
+  return '';
 }

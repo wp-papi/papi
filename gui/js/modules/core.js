@@ -33,6 +33,17 @@
 
     });
 
+    // Fixing equal heights.
+    var boxItems = $('.ptb-post-type-info'),
+        boxMaxHeight = 0;
+
+    boxItems.each(function () {
+      var height = $(this).height();
+      boxMaxHeight = height > boxMaxHeight ? height : boxMaxHeight;
+    });
+
+    boxItems.height(boxMaxHeight);
+
     // Fixing so "Add new page" get selected if it isn't.
     (function () {
       var href = typeof window.location === 'string' ? window.location : window.location.href,

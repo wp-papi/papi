@@ -19,10 +19,10 @@
       <?php _e('Search page types', 'ptb'); ?>
     </label>
 
-    <input placeholder="Search page types..." type="search" name="add-new-page-search" id="add-new-page-search" class="ptb-search">
+    <input placeholder="<?php __('Search page types', 'ptb'); ?>..." type="search" name="add-new-page-search" id="add-new-page-search" class="ptb-search">
   </h2>
 
-  <ul class="ptb-box-list">
+  <div class="ptb-box-list">
     <?php
       $page_types = _ptb_get_all_page_types();
 
@@ -44,6 +44,6 @@
         ));
       }
     ?>
-  </ul>
+  </div>
 </div>
 

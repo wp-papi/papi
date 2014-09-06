@@ -1,6 +1,7 @@
 (function () {
 
   // Image view for property image
+
   ptb.view.Image = wp.Backbone.View.extend({
 
     // The template to compile

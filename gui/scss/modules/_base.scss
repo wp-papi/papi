@@ -51,18 +51,20 @@
 // Boxes that exists on the add new page
 .ptb-box-list {
 
+  margin-top: 20px;
   clear: both;
 
   @media only screen and (max-width: 480px) {
     margin-left: 0;
   }
 
-  li {
+  .ptb-box-item {
+    background: #FFFFFF;
     border: 1px solid #DEDEDE;
     cursor: pointer;
-    float: left;
     cursor: pointer;
     float: left;
+    display: block;
     position: relative;
     width: 22.7%;
     margin: 0 2.3% 3% 0;
@@ -99,43 +101,35 @@
       -webkit-transform: translateZ(0);
       -webkit-transition: opacity .2s ease-in-out;
       transition: opacity .2s ease-in-out;
+      border-bottom: 1px solid #DEDEDE;
     }
 
     .ptb-post-type-info {
-      background: #2F2F2F;
-      padding: 10px;
+      padding: 15px;
       margin-top: -4px;
-      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.5);
-      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.5);
+      max-width: 240px;
+      word-break: break-word;
+      position: relative;
 
       h3, p {
         margin: 0;
-        color: #FFF;
+        color: #2F2F2F;
         font-weight: 300;
         border: none;
       }
 
       h3 {
         margin-bottom: 5px;
+        font-size: 18px;
+        font-weight: 400;
       }
     }
 
     .ptb-post-type-actions {
-      position: absolute;
-      bottom: 0;
-      right: 0;
+      background-color: #FAFAFA;
+      border-top: 1px solid #DEDEDE;
       height: 38px;
       padding: 9px 10px 0;
-    }
-
-    &:hover {
-      background: #DEDEDE;
-
-      .ptb-post-type-screenshot {
-        img {
-          opacity: 0.5;
-        }
-      }
     }
 
   }
