@@ -36,10 +36,10 @@ class WP_PTB_Page_Type extends WP_UnitTestCase {
 
   public function test_slug () {
     $slug = _test_ptb_generate_slug('heading');
-    $this->assertEquals($slug, '_ptb_en_heading');
+    $this->assertEquals($slug, '_ptb_heading');
 
     $slug = _ptb_property_type_key($slug);
-    $this->assertEquals($slug, '_ptb_en_heading_property');
+    $this->assertEquals($slug, '_ptb_heading_property');
   }
 
   /**
