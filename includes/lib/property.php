@@ -127,6 +127,11 @@ function _ptb_get_property_options ($options) {
     $options->colspan = 2;
   }
 
+  // This fixes so you can use "Text" as type and hasn't to write "PropertyText".
+  if (!preg_match('/^Property/', $options->type)) {
+    $options->type = 'Property' . ucfirst(strtolower($options->type));
+  }
+
   if (empty($options->slug)) {
     $options->slug = _ptb_slugify($options->title);
   }
