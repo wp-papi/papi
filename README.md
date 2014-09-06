@@ -47,12 +47,12 @@ class About_Us_Page_Type extends PTB_Page_Data {
     // Add social media links meta box
     $this->box('Social media links', array(
       $this->property(array(
-        'type'  => 'PropertyUrl',
+        'type'  => 'url',
         'title' => 'Twitter link',
         'slug'  => 'twitter_link'
       )),
       $this->property(array(
-        'type'  => 'PropertyUrl',
+        'type'  => 'url',
         'title' => 'Facebook link',
         'slug'  => 'facebook_link'
       ))
@@ -61,7 +61,7 @@ class About_Us_Page_Type extends PTB_Page_Data {
     // Add Google Maps meta box for our office position
     $this->box('Our offfice position', array(
       $this->property(array(
-        'type'     => 'PropertyMap',
+        'type'     => 'map',
         'title'    => 'Position',
         'slug'     => 'position',
         'settings' => array(
