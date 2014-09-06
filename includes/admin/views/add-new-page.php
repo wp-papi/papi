@@ -19,7 +19,7 @@
       <?php _e('Search page types', 'ptb'); ?>
     </label>
 
-    <input placeholder="<?php __('Search page types', 'ptb'); ?>..." type="search" name="add-new-page-search" id="add-new-page-search" class="ptb-search">
+    <input placeholder="<?php _e('Search page types', 'ptb'); ?>..." type="search" name="add-new-page-search" id="add-new-page-search" class="ptb-search">
   </h2>
 
   <div class="ptb-box-list">
