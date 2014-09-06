@@ -94,50 +94,6 @@ function _ptb_get_property_type ($type) {
 }
 
 /**
- * Get property lang.
- *
- * @param object $options
- * @since 1.0.0
- *
- * @return string
- */
-
-function _ptb_get_property_lang ($options = null) {
-  $rest = array();
-
-  if (is_null($options)) {
-    $options = new stdClass;
-  }
-
-  // Fetch all languages from Polylang that is available.
-  if (empty($options->lang)) {
-    if (_ptb_polylang()) {
-      $options->lang = pll_languages_list();
-    } else {
-      $options->lang = _ptb_get_lang_code();
-    }
-  }
-
-  if (is_array($options->lang)) {
-    // If we have a array and Polylang is supported we can get the right lang.
-    if (_ptb_polylang()) {
-      $lang = _ptb_get_lang_code();
-      if (in_array($lang, $options->lang)) {
-        $rest = array_diff($options->lang, array($lang));
-        $options->lang = $lang;
-      }
-    } else {
-      // Can't handle multilanguage without Polylang.
-      $lang = array_shift($options->lang);
-      $rest = $options->lang;
-      $options->lang = $lang;
-    }
-  }
-
-  return array($options->lang, $rest);
-}
-
-/**
  * Get property options.
  *
  * @param array $options
@@ -184,12 +140,6 @@ function _ptb_get_property_options ($options) {
     $options->colspan = _ptb_attribute('colspan', $options->colspan);
   }
 
-  // Get property language.
-  list($options->lang, $rest) = _ptb_get_property_lang($options);
-
-  // Add language code to the slug name.
-  $options->slug = _ptb_get_lang_field_slug($options->slug, $options->lang);
-
   // Generate a vaild Page Type Builder meta name.
   $options->slug = _ptb_name($options->slug);
 
@@ -201,32 +151,7 @@ function _ptb_get_property_options ($options) {
     $options->value = $options->default;
   }
 
-  $opt = $options;
-
-  // Only render more properties when we don't use Polylang but want different fields on the page.
-  if (!_ptb_polylang() && !empty($rest)) {
-    $options->title = '(' . strtoupper($options->lang) . ') ' . $options->title;
-    $opt = array($options);
-    foreach ($rest as $lang) {
-      $o = clone $options;
-
-      // Update title.
-      $o->title = '(' . strtoupper($lang) . ') ' . substr($o->title, 4);
-
-      // Add language code to the slug name.
-      $o->slug = _ptb_get_lang_field_slug($o->slug, $lang);
-
-      // Generate a vaild Page Type Builder meta name.
-      $o->slug = _ptb_name($o->slug);
-
-      // Get meta value for the field
-      $o->value = ptb_field($o->slug, null, null, $lang, $o->old_slug);
-
-      $opt[] = $o;
-    }
-  }
-
-  return $opt;
+  return $options;
 }
 
 /**
@@ -251,8 +176,8 @@ function _ptb_render_property ($property) {
   $property_type->set_options($property);
 
   // Only render if it's the right language if the definition exist.
-  if (_ptb_get_qs('lang') != null && !_ptb_polylang_all()) {
-    $render = _ptb_lang_exist(_ptb_get_qs('lang')) && $property->lang === strtolower(_ptb_get_qs('lang'));
+  if (_ptb_get_qs('lang') != null) {
+    $render = $property->lang === strtolower(_ptb_get_qs('lang'));
   } else {
     $render = true;
   }

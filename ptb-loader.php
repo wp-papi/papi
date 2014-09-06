@@ -112,7 +112,6 @@ final class PTB_Loader {
     // Load Page Type Builder functions.
     require_once($this->plugin_dir . 'includes/lib/utilities.php');
     require_once($this->plugin_dir . 'includes/lib/core.php');
-    require_once($this->plugin_dir . 'includes/lib/language.php');
     require_once($this->plugin_dir . 'includes/lib/page.php');
     require_once($this->plugin_dir . 'includes/lib/property.php');
     require_once($this->plugin_dir . 'includes/lib/io.php');

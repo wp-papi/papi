@@ -326,3 +326,13 @@ function _ptb_sort_order ($array, $key = 'sort_order') {
 
   return $result;
 }
+
+/**
+ * Check if polylang is used or not.
+ *
+ * @return bool
+ */
+
+function _ptb_polylang () {
+  return defined('PTB_POLYLANG') && PTB_POLYLANG;
+}
