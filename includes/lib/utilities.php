@@ -231,11 +231,10 @@ function _ptb_get_qs ($qs) {
 }
 
 /**
- * Execute a PHP template file and return the result as a string.
+ * Include partial view.
  *
  * @param string $tpl_file
  * @param array $vars
- * @param bool $include_globals
  *
  * @since 1.0.0
  */
