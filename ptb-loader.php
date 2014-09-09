@@ -107,7 +107,9 @@ final class PTB_Loader {
 
   private function require_files () {
     // Load languages.
-    load_plugin_textdomain('ptb', false, $this->lang_dir);
+    $domain = 'ptb';
+    $path = $this->plugin_dir . 'languages/' . $domain . '-' . get_locale() . '.mo';
+    load_textdomain($domain, $path);
 
     // Load Page Type Builder functions.
     require_once($this->plugin_dir . 'includes/lib/utilities.php');
@@ -267,6 +269,3 @@ function register_ptb_directory ($directory) {
 
   return true;
 }
-
-// Add default directory. "path/to/theme/lib/page-types"
-register_ptb_directory(get_template_directory() . '/lib/page-types');

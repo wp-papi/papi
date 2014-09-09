@@ -107,33 +107,26 @@ function ptb_field ($post_id = null, $name = null, $default = null, $lang = null
  */
 
 function ptb_field_shortcode ($atts, $content = null) {
-  // Extract arguments.
-  extract(shortcode_atts(array(
-    'id'      => null,
-    'name'    => null,
-    'default' => null
-  ), $atts));
-
   // Try to fetch to post id.
-  if (is_null($id)) {
+  if (empty($atts['id'])) {
     global $post;
     if (isset($post) && isset($post->ID)) {
-      $id = $post->ID;
+      $atts['id'] = $post->ID;
     }
   }
 
   // Fetch value.
-  if (!is_null($id)) {
-    $value = ptb_field($id, $name, $default);
+  if (!empty($atts['id'])) {
+    $value = ptb_field($atts['id'], $atts['name'], $atts['default']);
   }
 
   // Set default value if is null.
-  if (is_null($default)) {
-    $default = '';
+  if (empty($atts['default'])) {
+    $atts['default'] = '';
   }
 
   // Return empty string if null or the value.
-  return !isset($value) || $value == null ? $default : $value;
+  return !isset($value) || $value == null ? $atts['default'] : $value;
 }
 
 add_shortcode('ptb_field', 'ptb_field_shortcode');

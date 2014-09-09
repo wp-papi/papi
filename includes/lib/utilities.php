@@ -240,22 +240,11 @@ function _ptb_get_qs ($qs) {
  * @since 1.0.0
  */
 
-function _ptb_apply_template ($tpl_file, $vars = array(), $include_globals = true) {
-  extract($vars);
-
-  if ($include_globals) extract($GLOBALS, EXTR_SKIP);
-
-  ob_start();
-
+function _ptb_include_template ($tpl_file, $vars = array()) {
   $path = PTB_PLUGIN_DIR;
   $path = rtrim($path, '/') . '/';
 
-  require($path . $tpl_file);
-
-  $applied_template = ob_get_contents();
-  ob_end_clean();
-
-  return $applied_template;
+  include($path . $tpl_file);
 }
 
 /**

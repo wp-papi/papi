@@ -27,7 +27,7 @@
       $page_types = _ptb_get_all_page_types();
 
       foreach ($page_types as $key => $page_type) {
-        echo _ptb_apply_template('includes/admin/views/partials/add-new-item.php', array(
+        _ptb_include_template('includes/admin/views/partials/add-new-item.php', array(
               'title'       => $page_type->name,
               'description' => $page_type->description,
               'image'       => $page_type->get_thumbnail(),
@@ -36,12 +36,13 @@
       }
 
       if ($show_standard_page) {
-        echo _ptb_apply_template('includes/admin/views/partials/add-new-item.php', array(
-              'title'       => __('Standard page', 'ptb'),
-              'description' => __('Just the normal WordPress page', 'ptb'),
-              'image'       => _ptb_page_type_default_thumbnail(),
-              'url'         => 'post-new.php?post_type=page'
+        _ptb_include_template('includes/admin/views/partials/add-new-item.php', array(
+          'title'       => __('Standard page', 'ptb'),
+          'description' => __('Just the normal WordPress page', 'ptb'),
+          'image'       => _ptb_page_type_default_thumbnail(),
+          'url'         => 'post-new.php?post_type=page'
         ));
+
       }
     ?>
   </div>
