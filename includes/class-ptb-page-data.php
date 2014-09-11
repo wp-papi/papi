@@ -13,6 +13,24 @@ if (!defined('ABSPATH')) exit;
 abstract class PTB_Page_Data {
 
   /**
+   * Meta data for the page type.
+   *
+   * @var object
+   * @since 1.0.0
+   */
+
+  private $page_type_meta;
+
+  /**
+   * The meta box instance.
+   *
+   * @var PTB_Admin_Meta_Box
+   * @since 1.0.0
+   */
+
+  private $box;
+
+  /**
    * Contains all register properties on this page.
    * Will only contain root level properties.
    *
@@ -65,8 +83,10 @@ abstract class PTB_Page_Data {
 
   private function setup_page_type_meta () {
     if (method_exists($this, 'page_type')) {
-      $this->page_type_meta = static::page_type();
-      $this->page_type_meta = (object)$this->page_type_meta;
+      $page_type_meta = static::page_type();
+      if (is_array($page_type_meta)) {
+        $this->page_type_meta = (object)$page_type_meta;
+      }
     }
   }
 

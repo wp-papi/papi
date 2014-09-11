@@ -155,7 +155,7 @@ class PTB_Html {
    */
 
   public static function start ($tag, $attributes = array()) {
-    return self::tag($tag, $attributes, false);
+    return self::tag($tag, '', $attributes, false);
   }
 
   /**
