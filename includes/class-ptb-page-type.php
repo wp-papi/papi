@@ -107,9 +107,6 @@ class PTB_Page_Type {
       return;
     }
 
-    // The variable key each page type class should have.
-    $page_type = 'page_type';
-
     // Setup file and page type variables.
     $this->file_path = $file_path;
     $this->page_type = _ptb_get_class_name($this->file_path);
@@ -126,11 +123,11 @@ class PTB_Page_Type {
     }
 
     // Get page type meta data.
-    $this->page_type_meta = call_user_func($this->page_type . '::page_type');
-    $this->page_type_meta = (object)$this->page_type_meta;
+    $page_type_meta = call_user_func($this->page_type . '::page_type');
+    $page_type_meta = (object)$page_type_meta;
 
     // Filter all fields.
-    $fields = $this->filter_page_type_fields($this->page_type_meta);
+    $fields = $this->filter_page_type_fields($page_type_meta);
 
     // Add each field as a variable.
     foreach ($fields as $key => $value) {
