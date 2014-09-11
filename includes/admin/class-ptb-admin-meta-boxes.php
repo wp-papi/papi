@@ -18,7 +18,7 @@ class PTB_Admin_Meta_Boxes {
 
   public function __construct () {
     // Setup actions.
-    $this->setup_actions();
+    // $this->setup_actions();
 
     // On post we need to save our custom data.
     // The action 'save_post' didn't work after

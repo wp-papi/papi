@@ -13,6 +13,30 @@ if (!defined('ABSPATH')) exit;
 final class PTB_Admin {
 
   /**
+   * Thew view instance.
+   *
+   * @var PTB_Admin_View
+   */
+
+  private $view;
+
+  /**
+   * The meta boxes instance.
+   *
+   * @var PTB_Admin_Meta_Boxes
+   */
+
+  private $meta_boxes;
+
+  /**
+   * The options pages instance.
+   *
+   * @var PTB_Admin_Options_Pages
+   */
+
+  private $options_pages;
+
+  /**
    * The instance of Page Type Builder Core.
    *
    * @var object
@@ -202,9 +226,7 @@ final class PTB_Admin {
   public function admin_body_class ($classes) {
     global $post;
 
-    $uri = $_SERVER['REQUEST_URI'];
     $post_id = _ptb_get_post_id();
-    $page_type = _ptb_get_page_type_meta_value($post_id);
     $post_type = _ptb_get_wp_post_type();
 
     if (!in_array($post_type, _ptb_get_post_types())) {
@@ -279,7 +301,6 @@ final class PTB_Admin {
    */
 
   public function setup_ptb () {
-    $uri = $_SERVER['REQUEST_URI'];
     $post_id = _ptb_get_post_id();
     $page_type = _ptb_get_page_type_meta_value($post_id);
     $post_type = _ptb_get_wp_post_type();

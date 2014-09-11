@@ -22,7 +22,7 @@ class PTB_Admin_Meta_Box {
   private $properties = array();
 
   /**
-   * Box default options.
+   * Meta box default options.
    *
    * @var array
    * @since 1.0.0
@@ -35,6 +35,15 @@ class PTB_Admin_Meta_Box {
     'sort_order' => null,
     'properties' => array()
   );
+
+  /**
+   * Meta box options.
+   *
+   * @var object
+   * @since 1.0.0
+   */
+
+  private $options;
 
   /**
    * Setup actions.

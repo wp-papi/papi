@@ -13,6 +13,14 @@ if (!defined('ABSPATH')) exit;
 class PTB_Admin_Options_Pages {
 
   /**
+   * Thew view instance.
+   *
+   * @var PTB_Admin_View
+   */
+
+  private $view;
+
+  /**
    * Constructor.
    */
 
