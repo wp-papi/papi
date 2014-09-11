@@ -226,7 +226,6 @@ final class PTB_Admin {
   public function admin_body_class ($classes) {
     global $post;
 
-    $post_id = _ptb_get_post_id();
     $post_type = _ptb_get_wp_post_type();
 
     if (!in_array($post_type, _ptb_get_post_types())) {

@@ -89,8 +89,8 @@ class PTB_Admin_Meta_Box {
 
   public function __construct ($options = array(), $properties = array()) {
     $options = _ptb_h($options, array());
-    $this->options = array_merge($this->default_options, $options);
-    $this->options = (object)$this->options;
+    $options = array_merge($this->default_options, $options);
+    $this->options = (object)$options;
     $this->options->slug = _ptb_slugify($this->options->title);
 
     $properties = $this->box_property($properties);

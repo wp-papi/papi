@@ -31,14 +31,14 @@ class PTB_Admin_Meta_Boxes {
   /**
    * Setup actions.
    *
+   * @todo Try to get this working
    * @since 1.0.0
    * @access private
    */
 
-  private function setup_actions () {
-    // Try to get this to work.
+  // private function setup_actions () {
     // add_action('save_post', array($this, 'save_meta_boxes'), 1, 2);
-  }
+  // }
 
   /**
    * Sanitize data before saving it.
