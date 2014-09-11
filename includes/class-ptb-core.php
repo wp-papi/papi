@@ -30,8 +30,6 @@ final class PTB_Core {
     if (!isset(self::$instance)) {
       self::$instance = new PTB_Core;
       self::$instance->setup_globals();
-      self::$instance->setup_actions();
-      self::$instance->setup_filters();
     }
     return self::$instance;
   }
@@ -64,24 +62,6 @@ final class PTB_Core {
   private function setup_globals () {
     $this->admin = PTB_Admin::instance();
   }
-
-  /**
-   * Setup actions.
-   *
-   * @since 1.0.0
-   * @access private
-   */
-
-  private function setup_actions () {}
-
-  /**
-   * Setup filters.
-   *
-   * @since 1.0.0
-   * @access private
-   */
-
-  private function setup_filters () {}
 
   /**
    * Get settings array.
