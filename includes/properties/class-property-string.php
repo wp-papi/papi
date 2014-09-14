@@ -34,9 +34,8 @@ class PropertyString extends PTB_Property {
     // Database value.
     $value = $this->get_value('');
 
-    var_dump($this->input_type);
     ?>
-    <input type="<?php echo ''; ?>" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes(); ?>" />
+    <input type="<?php echo $this->input_type; ?>" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes(); ?>" />
     <?php
   }
 
