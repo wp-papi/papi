@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) exit;
 /**
  * Get post or page id from a object.
  *
- * @param object $post_id
+ * @param mixed $post_id
  * @since 1.0.0
  *
  * @return int

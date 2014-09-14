@@ -26,7 +26,7 @@ class PropertyDate extends PTB_Property {
     $value = $this->get_value('');
 
     if (is_string($value)) {
-      $value = $this->format_value($value);
+      $value = $this->format_value($value, 0);
     }
 
     if ($value instanceof DateTime) {

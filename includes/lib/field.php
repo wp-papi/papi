@@ -16,14 +16,13 @@ if (!defined('ABSPATH')) exit;
  * @param int $post_id
  * @param string $name
  * @param mixed $default
- * @param string $lang
  * @param string $old_name
  * @since 1.0.0
  *
  * @return mixed
  */
 
-function ptb_field ($post_id = null, $name = null, $default = null, $lang = null, $old_name = null) {
+function ptb_field ($post_id = null, $name = null, $default = null, $old_name = null) {
   // Check if we have a post id or not.
   if (!is_numeric($post_id) && is_string($post_id)) {
     $default = $name;
@@ -73,7 +72,7 @@ function ptb_field ($post_id = null, $name = null, $default = null, $lang = null
   }
 
   // Return default value we don't have a value.
-  if (!isset($value) || is_null($value)) {
+  if (empty($value)) {
     return $default;
   }
 
