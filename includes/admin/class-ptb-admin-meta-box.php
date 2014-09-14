@@ -95,6 +95,9 @@ class PTB_Admin_Meta_Box {
 
     $properties = $this->box_property($properties);
 
+    // Fix so the properties array will have the right order.
+    $properties = array_reverse($properties);
+
     foreach ($properties as $property) {
       if (is_array($property)) {
         foreach ($property as $p) {
@@ -107,7 +110,6 @@ class PTB_Admin_Meta_Box {
       }
     }
 
-    // Setup actions.
     $this->setup_actions();
   }
 
