@@ -105,7 +105,7 @@ function ptb_field ($post_id = null, $name = null, $default = null, $old_name = 
  * @return mixed
  */
 
-function ptb_field_shortcode ($atts, $content = null) {
+function ptb_field_shortcode ($atts) {
   // Try to fetch to post id.
   if (empty($atts['id'])) {
     global $post;
