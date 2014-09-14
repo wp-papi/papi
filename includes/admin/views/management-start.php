@@ -53,7 +53,4 @@
       ?>
     </tbody>
   </table>
-
-  <?php include 'partials/options-update-slug.php'; ?>
-
 </div>

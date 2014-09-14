@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Admin Options Pages.
+ * Page Type Builder Admin Management Pages.
  *
  * @package PageTypeBuilder
  * @version 1.0.0
  */
 
-class PTB_Admin_Options_Pages {
+class PTB_Admin_Management_Pages {
 
   /**
    * Thew view instance.
@@ -55,18 +55,18 @@ class PTB_Admin_Options_Pages {
   }
 
   /**
-   * Register option page.
+   * Register management page.
    *
    * @since 1.0.0
    */
 
   public function admin_menu () {
     $ptb = page_type_builder();
-    add_options_page($ptb->name, $ptb->name, 'manage_options', 'page-type-builder', array($this, 'render_view'));
+    add_management_page($ptb->name, $ptb->name, 'manage_options', 'page-type-builder', array($this, 'render_view'));
   }
 
   /**
-   * Render options page view.
+   * Render tools page view.
    *
    * @since 1.0.0
    */
@@ -75,7 +75,7 @@ class PTB_Admin_Options_Pages {
     if (isset($_GET['view'])) {
       $page_view = $_GET['view'];
     } else {
-      $page_view = 'options-start';
+      $page_view = 'management-start';
     }
 
     if (!is_null($page_view)) {

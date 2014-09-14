@@ -29,12 +29,12 @@ final class PTB_Admin {
   private $meta_boxes;
 
   /**
-   * The options pages instance.
+   * The management pages instance.
    *
-   * @var PTB_Admin_Options_Pages
+   * @var PTB_Admin_Management_Pages
    */
 
-  private $options_pages;
+  private $management_pages;
 
   /**
    * The instance of Page Type Builder Core.
@@ -80,7 +80,7 @@ final class PTB_Admin {
   private function setup_globals () {
     $this->view = new PTB_Admin_View;
     $this->meta_boxes = new PTB_Admin_Meta_Boxes;
-    $this->options_pages = new PTB_Admin_Options_Pages;
+    $this->tools_pages = new PTB_Admin_Management_Pages;
   }
 
   /**
