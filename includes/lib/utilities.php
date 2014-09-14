@@ -202,7 +202,6 @@ function _ptb_get_class_name ($file) {
  * @param string|array $value
  * @since 1.0.0
  *
- *
  * @return string
  */
 
@@ -217,6 +216,7 @@ function _ptb_attribute ($name, $value) {
 /**
  * Get query string if it exists and is not empty.
  *
+ * @param string $qs
  * @since 1.0.0
  *
  * @return string

@@ -66,7 +66,7 @@ function _ptb_core () {
  *
  * @since 1.0.0
  *
- * @return array
+ * @return string
  */
 
 function _ptb_get_settings () {

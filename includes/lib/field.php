@@ -100,7 +100,6 @@ function ptb_field ($post_id = null, $name = null, $default = null, $old_name = 
  * [ptb_field id=1 name="field_name" default="Default value"][/ptb_field]
  *
  * @param array $atts
- * @param string $content
  *
  * @return mixed
  */

@@ -106,7 +106,7 @@ function _ptb_is_page_type_allowed ($post_type) {
  * @param string $file_path
  * @since 1.0.0
  *
- * @return string
+ * @return null|PTB_Page_Type
  */
 
 function _ptb_get_page_type ($file_path) {
@@ -181,7 +181,7 @@ function _ptb_get_template ($post_id) {
  * @param int|string $post_id Post id or page type
  * @since 1.0.0
  *
- * @return null|object
+ * @return null|PTB_Page_Type
  */
 
 function _ptb_get_file_data ($post_id) {

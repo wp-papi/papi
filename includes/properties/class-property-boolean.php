@@ -33,7 +33,7 @@ class PropertyBoolean extends PTB_Property {
    * @param int $post_id
    * @since 1.0.0
    *
-   * @return array
+   * @return boolean
    */
 
   public function format_value ($value, $post_id) {

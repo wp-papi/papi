@@ -204,7 +204,7 @@ abstract class PTB_Property {
    *
    * @since 1.0.0
    *
-   * @return object
+   * @return string
    */
 
   public function get_options () {
@@ -263,7 +263,7 @@ abstract class PTB_Property {
   /**
    * Get css classes for the property.
    *
-   * @param string $css_classes
+   * @param string $css_class
    * @since 1.0.0
    *
    * @return string

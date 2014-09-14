@@ -97,8 +97,8 @@ class PTB_Page_Type {
    * Constructor.
    * Load a page type by the file.
    *
-   * @param string $file
    * @since 1.0.0
+   * @param string $file_path
    */
 
   public function __construct ($file_path) {
@@ -181,6 +181,7 @@ class PTB_Page_Type {
   /**
    * Load the file and setup page type meta data.
    *
+   * @param string $file_path
    * @since 1.0.0
    * @access private
    */

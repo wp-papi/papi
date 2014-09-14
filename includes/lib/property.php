@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) exit;
  * @param string $str
  * @since 1.0
  *
- * @return bool
+ * @return integer
  */
 
 function _ptb_is_property_type_key ($str = '') {

@@ -41,7 +41,7 @@ class PropertyDate extends PTB_Property {
   /**
    * Format the value of the property before we output it to the application.
    *
-   * @param mixed $value
+   * @param string $value
    * @param int $post_id
    * @since 1.0.0
    *

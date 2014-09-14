@@ -95,7 +95,6 @@ abstract class PTB_Page_Data {
    *
    * @param string $title.
    * @param array $options
-   * @param array $items
    * @since 1.0.0
    */
 
@@ -153,7 +152,7 @@ abstract class PTB_Page_Data {
   /**
    * Remove post type support. Runs once, on page load.
    *
-   * @param array $post_type_support
+   * @param array $remove_post_type_support
    * @since 1.0.0
    */
 

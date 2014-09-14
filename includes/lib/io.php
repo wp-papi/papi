@@ -81,7 +81,6 @@ function _ptb_get_all_page_type_files () {
 /**
  * Get page type file from page type query.
  *
- * @param string $page_type
  * @since 1.0.0
  *
  * @return string
