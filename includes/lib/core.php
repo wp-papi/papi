@@ -70,7 +70,7 @@ function _ptb_core () {
  */
 
 function _ptb_get_settings () {
-  return _ptb_core()->get_settings();
+  return apply_filters('ptb_settings', array());
 }
 
 /**

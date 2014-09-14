@@ -13,6 +13,15 @@ if (!defined('ABSPATH')) exit;
 class PTB_Page {
 
   /**
+   * The WordPress post id.
+   *
+   * @var int
+   * @since 1.0.0
+   */
+
+  public $id;
+
+  /**
    * The WordPress post.
    *
    * @var object
@@ -22,13 +31,17 @@ class PTB_Page {
   private $post;
 
   /**
-   * The Page type data.
+   * The Page type.
    *
    * @var object.
    * @since 1.0.0
    */
 
   private $page_type;
+
+  /**
+   * The Page type
+   */
 
   /**
    * Create a new instance of the class.
@@ -39,71 +52,11 @@ class PTB_Page {
 
   public function __construct ($post_id = 0) {
     $this->id = $post_id;
-    $this->setup_post();
-    $this->setup_page();
-  }
-
-  /**
-   * Setup page variables. This will not setup any variables from the WordPress post.
-   *
-   * @since 1.0.0
-   */
-
-  private function setup_page () {
-    // Can't proceed if we haven't a post object.
-    if (!$this->has_post()) {
-      return;
-    }
-
-    // The path to the page type file.
-    $path = _ptb_get_page_type_file(_ptb_get_page_type_meta_value($this->id));
-
-    // The page type object.
-    $this->page_type_meta = _ptb_get_page_type($path);
-
-    // Can't proceed without a page type.
-    if (is_null($this->page_type_meta)) {
-      return;
-    }
-
-    // The page type name. Example: "Standard Page".
-    $this->page_type_meta_name = $this->page_type_meta->name;
-
-    // The page type. Example: "PTB_Standard_Page".
-    $this->page_type_meta = $this->page_type_meta->page_type;
-  }
-
-  /**
-   * Setup post variables for the WordPress post.
-   *
-   * @since 1.0.0
-   */
-
-  private function setup_post () {
     $this->post = get_post($this->id);
 
-    if (!isset($this->post)) {
-      return;
-    }
-    // variables
-
-    // create ptb_get_page_type_name function in ptb-functions.php
-
-    foreach ($this->post as $key => $value) {
-      // maybe we should remove "post_" and/or remove the variables.
-      // some idéas
-      // page name,
-      // page content
-      // page data
-      // created
-      // created by
-      $this->$key = $value;
-    }
-
-    // utility methods
-    // is logged in
-    // current page url
-    // access
+    // Load page type object.
+    $path = _ptb_get_page_type_file(_ptb_get_page_type_meta_value($this->id));
+    $this->page_type = _ptb_get_page_type($path);
   }
 
   /**

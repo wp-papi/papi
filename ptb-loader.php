@@ -122,7 +122,7 @@ final class PTB_Loader {
     require_once($this->plugin_dir . 'includes/lib/admin.php');
 
     // Load Page Type Builder classes that should not be autoloaded.
-    require_once($this->plugin_dir . 'includes/class-ptb-core.php');
+    require_once($this->plugin_dir . 'includes/admin/class-ptb-admin.php');
     require_once($this->plugin_dir . 'includes/class-ptb-page-type.php');
     require_once($this->plugin_dir . 'includes/class-ptb-page.php');
     require_once($this->plugin_dir . 'includes/class-ptb-property.php');
@@ -169,7 +169,7 @@ final class PTB_Loader {
    */
 
   private function setup_requried () {
-    $this->core = PTB_Core::instance();
+    PTB_Admin::instance();
   }
 
   /**

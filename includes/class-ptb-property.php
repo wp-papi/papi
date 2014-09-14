@@ -138,7 +138,6 @@ abstract class PTB_Property {
    */
 
   public function render () {
-    $options = $this->get_options();
     if (!empty($this->options->title)):
     ?>
       <tr>
