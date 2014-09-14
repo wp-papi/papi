@@ -190,7 +190,6 @@ class PropertyMap extends PTB_Property {
    */
 
   public function render () {
-    $options = $this->get_options();
     ?>
       <tr>
         <td>

@@ -146,12 +146,6 @@ class PropertyList extends PTB_Property {
    */
 
   public function generate_slug ($property) {
-    if (!isset($property->slug) || empty($property->slug)) {
-      $slug = _ptbify(strtolower($property->type));
-    } else {
-      $slug = $property->slug;
-    }
-
     return $this->options->slug . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->slug) . ']';
   }
 

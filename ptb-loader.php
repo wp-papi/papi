@@ -88,7 +88,8 @@ final class PTB_Loader {
       self::$instance->setup_globals();
       self::$instance->require_files();
       self::$instance->setup_requried();
-      self::$instance->setup_actions();
+      // Not used yet.
+      //self::$instance->setup_actions();
     }
     return self::$instance;
   }
@@ -244,7 +245,7 @@ final class PTB_Loader {
    * @access private
    */
 
-  private function setup_actions () {}
+  // private function setup_actions () {}
 
   /**
    * Auto load Page Type Builder classes on demand.

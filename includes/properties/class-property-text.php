@@ -32,11 +32,11 @@ class PropertyText extends PTB_Property {
 
     if ($settings->editor) {
       $id = str_replace('[', '', str_replace(']', '', $options->slug)) . '-' . uniqid();
-      wp_editor($options->value, $id, array(
+      wp_editor($value, $id, array(
         'textarea_name' => $options->slug
       ));
     } else {
-      echo PTB_Html::textarea($options->value, array(
+      echo PTB_Html::textarea($value, array(
         'name' => $options->slug,
         'class' => $this->css_classes('ptb-property-text')
       ));
