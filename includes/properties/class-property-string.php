@@ -22,6 +22,15 @@ class PropertyString extends PTB_Property {
   public $input_type = 'text';
 
   /**
+   * The default value.
+   *
+   * @var string
+   * @since 1.0.0
+   */
+
+  public $default_value = '';
+
+  /**
    * Generate the HTML for the property.
    *
    * @since 1.0.0
@@ -32,7 +41,7 @@ class PropertyString extends PTB_Property {
     $options = $this->get_options();
 
     // Database value.
-    $value = $this->get_value('');
+    $value = $this->get_value($this->default_value);
 
     ?>
     <input type="<?php echo $this->input_type; ?>" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes(); ?>" />

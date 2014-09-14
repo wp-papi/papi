@@ -7,24 +7,25 @@ if (!defined('ABSPATH')) exit;
  * Page Type Builder - Property Number
  */
 
-class PropertyNumber extends PTB_Property {
+class PropertyNumber extends PropertyString {
 
   /**
-   * Generate the HTML for the property.
+   * The input type to use.
    *
+   * @var string
    * @since 1.0.0
    */
 
-  public function html () {
-    // Property options.
-    $options = $this->get_options();
+  public $input_type = 'number';
 
-    // Database value.
-    $value = $this->get_value(0);
-    ?>
-    <input type="number" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes(); ?>" />
-    <?php
-  }
+  /**
+   * The default value.
+   *
+   * @var string
+   * @since 1.0.0
+   */
+
+  public $default_value = 0;
 
   /**
    * Format the value of the property before we output it to the application.
