@@ -81,6 +81,7 @@ function _ptb_get_all_page_type_files () {
 /**
  * Get page type file from page type query.
  *
+ * @param string $file
  * @since 1.0.0
  *
  * @return string
@@ -100,6 +101,7 @@ function _ptb_get_page_type_file ($file) {
  * Get page type base path.
  * This is used for figure out which page type to load on which page.
  *
+ * @param string $file
  * @since 1.0.0
  *
  * @return string
