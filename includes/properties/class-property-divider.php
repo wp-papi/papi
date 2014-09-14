@@ -35,7 +35,6 @@ class PropertyDivider extends PTB_Property {
    */
 
   public function render () {
-    $options = $this->get_options();
     ?>
       <tr class="ptb-fullwidth">
         <td colspan="2">
