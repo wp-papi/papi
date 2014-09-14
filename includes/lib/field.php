@@ -136,13 +136,12 @@ add_shortcode('ptb_field', 'ptb_field_shortcode');
  * @param int $post_id
  * @param string $name
  * @param mixed $default
- * @param string $lang
  * @param string $old_name
  * @since 1.0.0
  */
 
-function the_ptb_field ($post_id = null, $name = null, $default = null, $lang = null, $old_name = null) {
-  $value = ptb_field($post_id, $name, $default, $lang, $old_name);
+function the_ptb_field ($post_id = null, $name = null, $default = null, $old_name = null) {
+  $value = ptb_field($post_id, $name, $default, $old_name);
 
   if (is_array($value)) {
     $value = implode(',', $value);

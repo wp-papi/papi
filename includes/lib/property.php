@@ -149,7 +149,7 @@ function _ptb_get_property_options ($options) {
   $options->slug = _ptb_name($options->slug);
 
   // Get meta value for the field
-  $options->value = ptb_field($options->slug, null, null, $options->lang, $options->old_slug);
+  $options->value = ptb_field($options->slug, null, null, $options->old_slug);
 
   // Add default value if database value is empty.
   if (empty($options->value)) {
