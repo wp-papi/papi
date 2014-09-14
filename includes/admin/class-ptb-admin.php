@@ -80,7 +80,7 @@ final class PTB_Admin {
   private function setup_globals () {
     $this->view = new PTB_Admin_View;
     $this->meta_boxes = new PTB_Admin_Meta_Boxes;
-    $this->tools_pages = new PTB_Admin_Management_Pages;
+    $this->management_pages = new PTB_Admin_Management_Pages;
   }
 
   /**
