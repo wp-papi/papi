@@ -16,7 +16,7 @@ class WP_PTB_Plugin extends WP_UnitTestCase {
    */
 
   public function test_plugin_activated () {
-    $this->assertTrue(class_exists('PTB_Core') && class_exists('PTB_Admin'));
+    $this->assertTrue(class_exists('PTB_Loader') && class_exists('PTB_Admin'));
   }
 
   /**
