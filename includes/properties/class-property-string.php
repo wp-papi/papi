@@ -13,6 +13,15 @@ if (!defined('ABSPATH')) exit;
 class PropertyString extends PTB_Property {
 
   /**
+   * The input type to use.
+   *
+   * @var string
+   * @since 1.0.0
+   */
+
+  public $input_type = 'text';
+
+  /**
    * Generate the HTML for the property.
    *
    * @since 1.0.0
@@ -24,8 +33,10 @@ class PropertyString extends PTB_Property {
 
     // Database value.
     $value = $this->get_value('');
+
+    var_dump($this->input_type);
     ?>
-    <input type="string" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes(); ?>" />
+    <input type="<?php echo ''; ?>" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes(); ?>" />
     <?php
   }
 
