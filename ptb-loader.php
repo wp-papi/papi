@@ -29,6 +29,51 @@ final class PTB_Loader {
   private static $instance;
 
   /**
+   * The plugin name.
+   *
+   * @var string
+   * @since 1.0.0
+   */
+
+  public $name;
+
+  /**
+   * The plugin version.
+   *
+   * @var string
+   * @since 1.0.0
+   */
+
+  public $version;
+
+  /**
+   * The plugin directory path.
+   *
+   * @var string
+   * @since 1.0.0
+   */
+
+  private $plugin_dir;
+
+  /**
+   * The plugin url path.
+   *
+   * @var string
+   * @since 1.0.0
+   */
+
+  private $plugin_url;
+
+  /**
+   * The plugin language directory path.
+   *
+   * @var string
+   * @since 1.0.0
+   */
+
+  private $lang_dir;
+
+  /**
    * Page Type Bulider instance.
    *
    * @since 1.0.0
@@ -184,9 +229,7 @@ final class PTB_Loader {
     $this->name       = 'Page Type Builder';
     $this->version    = '1.0.0';
 
-    // Page Type Builder root directory.
-    $this->file       = __FILE__;
-    $this->basename   = plugin_basename($this->file);
+    // Page Type Builder plugin directory and url.
     $this->plugin_dir = PTB_PLUGIN_DIR;
     $this->plugin_url = PTB_PLUGIN_URL;
 

@@ -13,6 +13,15 @@ if (!defined('ABSPATH')) exit;
 class PropertyList extends PTB_Property {
 
   /**
+   * List counter number.
+   *
+   * @var int
+   * @since 1.0.0
+   */
+
+  private $counter = 0;
+
+  /**
    * Get a list of properties that aren't allowed to use in a list.
    *
    * @since 1.0.0

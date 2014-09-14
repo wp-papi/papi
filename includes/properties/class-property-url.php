@@ -31,7 +31,7 @@ class PropertyUrl extends PTB_Property {
     $value = $this->get_value('');
 
     if ($settings->mediauploader) {
-      echo $html .= '&nbsp;' . PTB_Html::input('submit', array(
+      echo '&nbsp;' . PTB_Html::input('submit', array(
         'name' => $options->slug . '_button',
         'data-ptb-action' => 'mediauploader',
         'value' => __('Select file', 'ptb'),
