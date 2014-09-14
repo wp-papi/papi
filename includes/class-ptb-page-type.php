@@ -107,37 +107,16 @@ class PTB_Page_Type {
       return;
     }
 
-    // Setup file and page type variables.
-    $this->file_path = $file_path;
-    $this->page_type = _ptb_get_class_name($this->file_path);
-    $this->file_name = _ptb_get_page_type_base_path($this->file_path);
-
-    // Try to load the page type class.
-    if (!class_exists($this->page_type)) {
-      require_once($this->file_path);
-    }
+    // Load the file.
+    $this->setup_file($file_path);
 
     // Check so we have the page type meta array function.
     if (!method_exists($this->page_type, 'page_type')) {
       return;
     }
 
-    // Get page type meta data.
-    $page_type_meta = call_user_func($this->page_type . '::page_type');
-    $page_type_meta = (object)$page_type_meta;
-
-    // Filter all fields.
-    $fields = $this->filter_page_type_fields($page_type_meta);
-
-    // Add each field as a variable.
-    foreach ($fields as $key => $value) {
-      $this->$key = $value;
-    }
-
-    // Set a default value to post types array if we don't have a array or a empty array.
-    if (!is_array($this->post_types) || empty($this->post_types)) {
-      $this->post_types = array('page');
-    }
+    // Setup page type meta.
+    $this->setup_page_type();
   }
 
   /**
@@ -197,6 +176,51 @@ class PTB_Page_Type {
     }
 
     return $this->thumbnail;
+  }
+
+  /**
+   * Load the file and setup page type meta data.
+   *
+   * @since 1.0.0
+   * @access private
+   */
+
+  private function setup_file ($file_path) {
+    // Setup file and page type variables.
+    $this->file_path = $file_path;
+    $this->page_type = _ptb_get_class_name($this->file_path);
+    $this->file_name = _ptb_get_page_type_base_path($this->file_path);
+
+    // Try to load the page type class.
+    if (!class_exists($this->page_type)) {
+      require_once($this->file_path);
+    }
+  }
+
+  /**
+   * Setup page type data.
+   *
+   * @since 1.0.0
+   * @access private
+   */
+
+  private function setup_page_type () {
+    // Get page type meta data.
+    $page_type_meta = call_user_func($this->page_type . '::page_type');
+    $page_type_meta = (object)$page_type_meta;
+
+    // Filter all fields.
+    $fields = $this->filter_page_type_fields($page_type_meta);
+
+    // Add each field as a variable.
+    foreach ($fields as $key => $value) {
+      $this->$key = $value;
+    }
+
+    // Set a default value to post types array if we don't have a array or a empty array.
+    if (!is_array($this->post_types) || empty($this->post_types)) {
+      $this->post_types = array('page');
+    }
   }
 
   /**
