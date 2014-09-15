@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property PageReferenceList
+ * Page Type Builder - Property Relationship
  *
  * @package PageTypeBuilder
  * @version 1.0.0
  */
 
-class PropertyPageReferenceList extends PTB_Property {
+class PropertyRelationship extends PTB_Property {
 
   /**
    * Generate the HTML for the property.

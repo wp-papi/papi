@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property CheckboxList
+ * Page Type Builder - Property Checkbox
  *
  * @package PageTypeBuilder
  * @version 1.0.0
  */
 
-class PropertyCheckboxList extends PTB_Property {
+class PropertyCheckbox extends PTB_Property {
 
   /**
    * Generate the HTML for the property.
