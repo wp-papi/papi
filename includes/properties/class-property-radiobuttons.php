@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property Radiolist
+ * Act - Property Radiolist
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
-class PropertyRadioButtons extends PTB_Property {
+class PropertyRadioButtons extends Act_Property {
 
   /**
    * Generate the HTML for the property.

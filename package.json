@@ -1,5 +1,5 @@
 {
-  "name": "page-type-builder",
+  "name": "act",
   "version": "0.2.1",
   "devDependencies": {
     "grunt": "~0.4.1",

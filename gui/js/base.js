@@ -1,7 +1,7 @@
 (function (window) {
 
-  // Setup ptb object.
-  window.ptb = window.ptb || {
+  // Setup act object.
+  window.act = window.act || {
     view: {}
   };
 

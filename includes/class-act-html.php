@@ -4,14 +4,14 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Html class.
+ * Act Html class.
  *
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
-class PTB_Html {
+class Act_Html {
 
   /**
    * Append attributes to html string.

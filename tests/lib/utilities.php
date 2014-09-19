@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Page Type Builder Utilities functions for testing.
+ * Act Utilities functions for testing.
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
@@ -19,6 +19,6 @@ if (!defined('ABSPATH')) exit;
  * @return string
  */
 
-function _test_ptb_generate_slug ($slug) {
-  return _ptb_f(_ptbify($slug));
+function _test_act_generate_slug ($slug) {
+  return _act_f(_actify($slug));
 }

@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Page Data.
+ * Act Page Data.
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
-abstract class PTB_Page_Data {
+abstract class Act_Page_Data {
 
   /**
    * Meta data for the page type.
@@ -24,7 +24,7 @@ abstract class PTB_Page_Data {
   /**
    * The meta box instance.
    *
-   * @var PTB_Admin_Meta_Box
+   * @var Act_Admin_Meta_Box
    * @since 1.0.0
    */
 
@@ -106,7 +106,7 @@ abstract class PTB_Page_Data {
     }
 
     // Can current user view this box?
-    if (isset($options['capabilities']) && !_ptb_current_user_is_allowed($options['capabilities'])) {
+    if (isset($options['capabilities']) && !_act_current_user_is_allowed($options['capabilities'])) {
       return;
     }
 
@@ -115,7 +115,7 @@ abstract class PTB_Page_Data {
       $options['title'] = $title;
     }
 
-    $post_type = _ptb_get_wp_post_type();
+    $post_type = _act_get_wp_post_type();
 
     if (!$this->has_post_type($post_type)) {
       return;
@@ -125,7 +125,7 @@ abstract class PTB_Page_Data {
     $options['post_type'] = $post_type;
 
     // Create a new box.
-    $this->box = new PTB_Admin_Meta_Box($options, $properties);
+    $this->box = new Act_Admin_Meta_Box($options, $properties);
   }
 
   /**
@@ -138,7 +138,7 @@ abstract class PTB_Page_Data {
    */
 
   protected function property ($options = array()) {
-    $options = _ptb_get_property_options($options);
+    $options = _act_get_property_options($options);
 
     if (is_array($options)) {
       $this->properties = array_merge($this->properties, $options);
@@ -157,7 +157,7 @@ abstract class PTB_Page_Data {
    */
 
   protected function remove ($remove_post_type_support = array()) {
-    $remove_post_type_support = _ptb_string_array($remove_post_type_support);
+    $remove_post_type_support = _act_string_array($remove_post_type_support);
     $this->remove_post_type_support = array_merge($this->remove_post_type_support, $remove_post_type_support);
 
     add_action('init', array($this, 'remove_post_type_support'));
@@ -171,7 +171,7 @@ abstract class PTB_Page_Data {
 
   public function remove_post_type_support () {
     // Get post type.
-    $post_type = _ptb_get_wp_post_type();
+    $post_type = _act_get_wp_post_type();
 
     // Can't proceed without a post type.
     if (empty($post_type) || is_null($post_type)) {

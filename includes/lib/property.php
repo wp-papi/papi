@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Page Type Builder Property functions.
+ * Act Property functions.
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
@@ -19,8 +19,8 @@ if (!defined('ABSPATH')) exit;
  * @return integer
  */
 
-function _ptb_is_property_type_key ($str = '') {
-  $pattern = PTB_PROPERTY_TYPE_KEY;
+function _act_is_property_type_key ($str = '') {
+  $pattern = Act_PROPERTY_TYPE_KEY;
   $pattern = str_replace('_', '\_', $pattern);
   $pattern = str_replace('-', '\-', $pattern);
   $pattern = '/' . $pattern . '$/';
@@ -36,8 +36,8 @@ function _ptb_is_property_type_key ($str = '') {
  * @return string
  */
 
-function _ptb_property_type_key ($str = '') {
-  return $str . PTB_PROPERTY_TYPE_KEY;
+function _act_property_type_key ($str = '') {
+  return $str . Act_PROPERTY_TYPE_KEY;
 }
 
 /**
@@ -49,8 +49,8 @@ function _ptb_property_type_key ($str = '') {
  * @return string
  */
 
-function _ptb_property_key ($str) {
-  return _ptb_f(_ptbify($str));
+function _act_property_key ($str) {
+  return _act_f(_actify($str));
 }
 
 /**
@@ -62,9 +62,9 @@ function _ptb_property_key ($str) {
  * @return array
  */
 
-function _ptb_get_only_property_values ($a = array()) {
+function _act_get_only_property_values ($a = array()) {
   foreach ($a as $key => $value) {
-    if (_ptb_is_property_type_key($key)) {
+    if (_act_is_property_type_key($key)) {
       unset($a[$key]);
     }
   }
@@ -81,7 +81,7 @@ function _ptb_get_only_property_values ($a = array()) {
  * @return object|null
  */
 
-function _ptb_get_property_type ($type) {
+function _act_get_property_type ($type) {
   if (is_object($type) && isset($type->type) && is_string($type->type)) {
     $type = $type->type;
   }
@@ -90,7 +90,7 @@ function _ptb_get_property_type ($type) {
     return;
   }
 
-  return PTB_Property::factory($type);
+  return Act_Property::factory($type);
 }
 
 /**
@@ -102,7 +102,7 @@ function _ptb_get_property_type ($type) {
  * @return object
  */
 
-function _ptb_get_property_options ($options) {
+function _act_get_property_options ($options) {
   $defaults = array(
     'title'         => '',
     'no_title'      => false,
@@ -133,23 +133,23 @@ function _ptb_get_property_options ($options) {
   }
 
   if (empty($options->slug)) {
-    $options->slug = _ptb_slugify($options->title);
+    $options->slug = _act_slugify($options->title);
   }
 
   if (!empty($options->old_slug)) {
-    $options->old_slug = _ptb_name($options->old_slug);
+    $options->old_slug = _act_name($options->old_slug);
   }
 
   // Generate colspan attribute
   if (!empty($options->colspan)) {
-    $options->colspan = _ptb_attribute('colspan', $options->colspan);
+    $options->colspan = _act_attribute('colspan', $options->colspan);
   }
 
-  // Generate a vaild Page Type Builder meta name.
-  $options->slug = _ptb_name($options->slug);
+  // Generate a vaild Act meta name.
+  $options->slug = _act_name($options->slug);
 
   // Get meta value for the field
-  $options->value = ptb_field($options->slug, null, null, $options->old_slug);
+  $options->value = act_field($options->slug, null, null, $options->old_slug);
 
   // Add default value if database value is empty.
   if (empty($options->value)) {
@@ -166,13 +166,13 @@ function _ptb_get_property_options ($options) {
  * @since 1.0.0
  */
 
-function _ptb_render_property ($property) {
+function _act_render_property ($property) {
   // Check so type isn't empty and capabilities on the property.
-  if (empty($property->type) || !_ptb_current_user_is_allowed($property->capabilities)) {
+  if (empty($property->type) || !_act_current_user_is_allowed($property->capabilities)) {
     return;
   }
 
-  $property_type = _ptb_get_property_type($property->type);
+  $property_type = _act_get_property_type($property->type);
 
   if (is_null($property_type)) {
     return;
@@ -181,8 +181,8 @@ function _ptb_render_property ($property) {
   $property_type->set_options($property);
 
   // Only render if it's the right language if the definition exist.
-  if (_ptb_get_qs('lang') != null) {
-    $render = $property->lang === strtolower(_ptb_get_qs('lang'));
+  if (_act_get_qs('lang') != null) {
+    $render = $property->lang === strtolower(_act_get_qs('lang'));
   } else {
     $render = true;
   }
@@ -202,7 +202,7 @@ function _ptb_render_property ($property) {
  * @since 1.0.0
  */
 
-function _ptb_render_properties ($properties) {
+function _act_render_properties ($properties) {
   // Don't proceed without any properties
   if (!is_array($properties) || empty($properties)) {
     return;
@@ -211,16 +211,16 @@ function _ptb_render_properties ($properties) {
   // If it's a tab the tabs class will
   // handle the rendering of the properties.
   if (isset($properties[0]->tab) && $properties[0]->tab) {
-    new PTB_Admin_Meta_Box_Tabs($properties);
+    new Act_Admin_Meta_Box_Tabs($properties);
   } else {
     // Sort properties based on `sort_order` value.
-    $properties = _ptb_sort_order($properties);
+    $properties = _act_sort_order($properties);
 
-    echo '<table class="ptb-table">';
+    echo '<table class="act-table">';
       echo '<tbody>';
 
     foreach ($properties as $property) {
-      _ptb_render_property($property);
+      _act_render_property($property);
     }
 
       echo '</tbody>';

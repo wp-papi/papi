@@ -4,7 +4,7 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property Number
+ * Act - Property Number
  */
 
 class PropertyNumber extends PropertyString {

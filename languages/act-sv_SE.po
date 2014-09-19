@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Page Type Builder\n"
+"Project-Id-Version: Act\n"
 "POT-Creation-Date: 2014-04-09 10:47+0100\n"
-"PO-Revision-Date: 2014-04-09 10:48+0100\n"
+"PO-Revision-Date: 2014-09-19 21:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -17,16 +17,16 @@ msgstr ""
 "X-Poedit-SearchPath-0: ../includes\n"
 "X-Poedit-SearchPath-1: ../views\n"
 
-#: ../includes/class-ptb-core.php:66 ../includes/class-ptb-core.php:67
+#: ../includes/class-act-core.php:66 ../includes/class-act-core.php:67
 #: ../views/add-new-page.php:9
 msgid "Add New"
 msgstr "Skapa ny"
 
-#: ../includes/class-ptb-core.php:308
+#: ../includes/class-act-core.php:308
 msgid "Page Type"
 msgstr "Sidtyp"
 
-#: ../includes/class-ptb-core.php:326 ../views/add-new-page.php:21
+#: ../includes/class-act-core.php:326 ../views/add-new-page.php:21
 #, fuzzy
 msgid "Standard Page"
 msgstr "Standard sida"

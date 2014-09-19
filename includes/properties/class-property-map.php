@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property Google Map
+ * Act - Property Google Map
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
-class PropertyMap extends PTB_Property {
+class PropertyMap extends Act_Property {
 
   /**
    * Generate the HTML for the property.
@@ -37,7 +37,7 @@ class PropertyMap extends PTB_Property {
    * Output custom JavaScript for the property.
    *
    * @since 1.0.0
-   * @throws PTB_Exception
+   * @throws Act_Exception
    */
 
   public function js () {
@@ -95,7 +95,7 @@ class PropertyMap extends PTB_Property {
               console.log(responses[0].formatted_address);
               updateMarkerAddress(responses[0].formatted_address);
             } else {
-              updateMarkerAddress('<?php _e("Cannot determine address at this location.", "ptb"); ?>');
+              updateMarkerAddress('<?php _e("Cannot determine address at this location.", "act"); ?>');
             }
           });
         }
@@ -132,7 +132,7 @@ class PropertyMap extends PTB_Property {
 
         google.maps.event.addDomListener(window, 'load', initialize);
 
-        $('.ptb-property-map-search').on('ptb/update_map', function () {
+        $('.act-property-map-search').on('act/update_map', function () {
           var $this    = $(this),
               val      = $this.val();
 
@@ -149,16 +149,16 @@ class PropertyMap extends PTB_Property {
           });
         });
 
-        $('.ptb-property-map-search').on('keypress', function (e) {
+        $('.act-property-map-search').on('keypress', function (e) {
           if (e.which == 13) {
             e.preventDefault();
-            $(this).trigger('ptb/update_map');
+            $(this).trigger('act/update_map');
           }
         });
 
-        $('.ptb-property-map-search').on('blur', function (e) {
+        $('.act-property-map-search').on('blur', function (e) {
           e.preventDefault();
-          $(this).trigger('ptb/update_map');
+          $(this).trigger('act/update_map');
         });
 
       })(jQuery);
@@ -177,7 +177,7 @@ class PropertyMap extends PTB_Property {
     $options = $this->get_options();
     $value = $this->get_value();
     ?>
-    <input type="search" name="<?php echo $options->slug; ?>[address]" value="<?php echo $value['address']; ?>"  class="ptb-property-map-search" placeholder="<?php _e('Search for address...'); ?>" />
+    <input type="search" name="<?php echo $options->slug; ?>[address]" value="<?php echo $value['address']; ?>"  class="act-property-map-search" placeholder="<?php _e('Search for address...'); ?>" />
     <input type="hidden" name="<?php echo $options->slug; ?>[lat]" value="<?php echo $value['lat']; ?>" />
     <input type="hidden" name="<?php echo $options->slug; ?>[lng]" value="<?php echo $value['lng']; ?>" />
     <?php

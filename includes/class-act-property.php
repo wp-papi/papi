@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Property.
+ * Act Property.
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
-abstract class PTB_Property {
+abstract class Act_Property {
 
   /**
    * Current property options object that is used to generate a property.
@@ -28,13 +28,13 @@ abstract class PTB_Property {
    * @param string $property
    * @since 1.0.0
    *
-   * @return PTB_Property
+   * @return Act_Property
    */
 
   public static function factory ($property) {
     if (class_exists($property)) {
       $prop = new $property();
-      if (is_subclass_of($prop, 'PTB_Property')) {
+      if (is_subclass_of($prop, 'Act_Property')) {
         return $prop;
       }
     }
@@ -89,10 +89,10 @@ abstract class PTB_Property {
 
     if (substr($slug, -1) === ']') {
       $slug = substr($slug, 0, -1);
-      $slug = _ptb_property_type_key($slug);
+      $slug = _act_property_type_key($slug);
       $slug .= ']';
     } else {
-      $slug = _ptb_property_type_key($slug);
+      $slug = _act_property_type_key($slug);
     }
 
     ?>

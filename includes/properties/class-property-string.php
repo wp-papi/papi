@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property String
+ * Act - Property String
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
-class PropertyString extends PTB_Property {
+class PropertyString extends Act_Property {
 
   /**
    * The input type to use.

@@ -12,18 +12,18 @@
   Core.binds = function () {
 
     // Make p tag clickable.
-    $('.ptb-box-list > li > p').on('click', function () {
+    $('.act-box-list > li > p').on('click', function () {
       window.location = $(this).prev().attr('href');
     });
 
     // Add our own inside class to the inside div.
-    $('.ptb-table').closest('.inside').addClass('ptb-inside');
+    $('.act-table').closest('.inside').addClass('act-inside');
 
     // Add new page - search field.
     $('input[name=add-new-page-search]').on('keyup', function () {
 
       var $this = $(this),
-          $list = $('.ptb-box-list'),
+          $list = $('.act-box-list'),
           val = $this.val();
 
       $list.find('li').each(function () {
@@ -34,7 +34,7 @@
     });
 
     // Fixing equal heights.
-    var boxItems = $('.ptb-post-type-info'),
+    var boxItems = $('.act-post-type-info'),
         boxMaxHeight = 0;
 
     boxItems.each(function () {
@@ -56,14 +56,14 @@
     })();
 
     // Simple href attribute on non links.
-    $('[data-ptb-href]').on('click touchstart', function (e) {
+    $('[data-act-href]').on('click touchstart', function (e) {
       e.preventDefault();
-      window.location = $(this).data('ptb-href');
+      window.location = $(this).data('act-href');
     });
 
   };
 
-  // Add the Core object to the ptb object.
-  window.ptb.Core = Core;
+  // Add the Core object to the act object.
+  window.act.Core = Core;
 
 }(window.jQuery));

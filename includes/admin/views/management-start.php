@@ -1,11 +1,11 @@
 <div class="wrap">
-  <div class="ptb-options-logo"></div>
+  <div class="act-options-logo"></div>
   <h2><?php echo page_type_builder()->name; ?></h2>
 
   <br />
 
   <h3>Page types</h3>
-  <table class="wp-list-table widefat ptb-options-table">
+  <table class="wp-list-table widefat act-options-table">
     <thead>
       <tr>
         <th>
@@ -24,7 +24,7 @@
     </thead>
     <tbody>
       <?php
-      $page_types = _ptb_get_all_page_types(true);
+      $page_types = _act_get_all_page_types(true);
       foreach ($page_types as $key => $page_type) {
         ?>
         <tr>
@@ -46,7 +46,7 @@
               endif;
             }
           ?></td>
-          <td><?php echo _ptb_get_number_of_pages($page_type->file_name); ?></td>
+          <td><?php echo _act_get_number_of_pages($page_type->file_name); ?></td>
         </tr>
       <?php
         }

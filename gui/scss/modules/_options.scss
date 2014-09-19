@@ -1,4 +1,4 @@
-.ptb-options-logo {
+.act-options-logo {
   background: url(../img/logotype.png) no-repeat;
   width: 50px;
   height: 50px;
@@ -13,24 +13,24 @@
   margin: 0 10px 10px 0;
 }
 
-.ptb-options-table {
+.act-options-table {
   tr:nth-child(2n) {
     background: #FCFCFC;
   }
 }
 
-p.ptb-options-description {
+p.act-options-description {
   margin-top: -12px;
 }
 
-.ptb-options-postbox-outer {
+.act-options-postbox-outer {
   position: static;
   float: left;
   margin-right: 10px;
   width: 250px;
 }
 
-.ptb-options-postbox {
+.act-options-postbox {
   width: 250px;
   label {
     font-size: 1em;

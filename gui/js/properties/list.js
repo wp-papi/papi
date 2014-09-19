@@ -3,7 +3,7 @@
   // Property list binds
 
   // Replace all template name attributes with data-name attribute.
-  $('ul.ptb-property-list-template > li [name*=ptb_]').each(function () {
+  $('ul.act-property-list-template > li [name*=act_]').each(function () {
     var $this = $(this);
 
     $this
@@ -15,16 +15,16 @@
   });
 
   // Add new item and update the array index in html name.
-  $('.ptb-property-list').on('click', '.ptb-property-list-add-new-item', function (e) {
+  $('.act-property-list').on('click', '.act-property-list-add-new-item', function (e) {
     e.preventDefault();
 
-    var $list = $(this).closest('.ptb-property-list'),
-        $template = $('.ptb-property-list-template > li', $list).clone(),
-        $items = $('.ptb-property-list-items', $list),
+    var $list = $(this).closest('.act-property-list'),
+        $template = $('.act-property-list-template > li', $list).clone(),
+        $items = $('.act-property-list-items', $list),
         counter = $items.children().length,
         html = $template.html(),
         dataNameRegex = /data\-name\=/g,
-        attrNameRegex = /name\=\"\ptb_\w+(\[\d+\])\[(\w+)\]\"/g,
+        attrNameRegex = /name\=\"\act_\w+(\[\d+\])\[(\w+)\]\"/g,
         attrNameValue = '[' + counter + ']';
 
     html = html.replace(dataNameRegex, 'name=');
@@ -49,7 +49,7 @@
   });
 
   // Remove item
-  $('.ptb-property-list').on('click', '.ptb-property-list-remove-item', function (e) {
+  $('.act-property-list').on('click', '.act-property-list-remove-item', function (e) {
     e.preventDefault();
 
     $(this)
@@ -58,10 +58,10 @@
   });
 
   // Add support for sortable list.
-  $('.ptb-property-list-items').sortable({
+  $('.act-property-list-items').sortable({
     revert: true,
     stop: function () {
-      $(this).closest('.ptb-property-list-items').find('li').each(function (index) {
+      $(this).closest('.act-property-list-items').find('li').each(function (index) {
         var $this = $(this);
 
         $this

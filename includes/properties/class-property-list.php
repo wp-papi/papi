@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property List
+ * Act - Property List
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
-class PropertyList extends PTB_Property {
+class PropertyList extends Act_Property {
 
   /**
    * List counter number.
@@ -30,7 +30,7 @@ class PropertyList extends PTB_Property {
    */
 
   private function get_not_allowed_properties () {
-    $list = apply_filters('ptb/property/list/not_allowed_properties', array());
+    $list = apply_filters('act/property/list/not_allowed_properties', array());
 
     if (is_string($list)) {
       $list = array($list);
@@ -70,16 +70,16 @@ class PropertyList extends PTB_Property {
     });
 
     ?>
-    <div class="ptb-property-list">
-      <div class="ptb-property-list-inner">
-        <div class="ptb-property-list-actions">
+    <div class="act-property-list">
+      <div class="act-property-list-inner">
+        <div class="act-property-list-actions">
           <?php $this->label(); ?>
-          <a class="ptb-property-list-add-new-item" href="#">Add new</a>
+          <a class="act-property-list-add-new-item" href="#">Add new</a>
         </div>
-        <ul class="ptb-property-list-template hidden">
+        <ul class="act-property-list-template hidden">
           <li>
-            <a class="ptb-property-list-remove-item" href="#">Remove</a>
-            <table class="ptb-table">
+            <a class="act-property-list-remove-item" href="#">Remove</a>
+            <table class="act-table">
               <tbody>
                 <tr class="num">
                   <td colspan="2">
@@ -90,20 +90,20 @@ class PropertyList extends PTB_Property {
                   foreach ($properties as $property):
                     $template_property = clone $property;
                     $template_property->slug = $this->generate_slug($template_property);
-                    _ptb_render_property($template_property);
+                    _act_render_property($template_property);
                   endforeach;
                 ?>
                 </tbody>
               </table>
             </li>
           </ul>
-          <ul class="ptb-property-list-items">
+          <ul class="act-property-list-items">
             <?php
               foreach ($values as $value):
             ?>
             <li>
-              <a class="ptb-property-list-remove-item" href="#">Remove</a>
-              <table class="ptb-table">
+              <a class="act-property-list-remove-item" href="#">Remove</a>
+              <table class="act-table">
                 <tbody>
                   <tr class="num">
                     <td colspan="2">
@@ -113,7 +113,7 @@ class PropertyList extends PTB_Property {
                   <?php
                     foreach ($properties as $property):
                       $render_property = clone $property;
-                      $value_slug = _ptb_remove_ptb($render_property->slug);
+                      $value_slug = _act_remove_act($render_property->slug);
 
                       // Get property value.
                       if (isset($value[$value_slug])) {
@@ -121,7 +121,7 @@ class PropertyList extends PTB_Property {
                       }
 
                       $render_property->slug = $this->generate_slug($render_property);
-                      _ptb_render_property($render_property);
+                      _act_render_property($render_property);
                     endforeach;
                   ?>
                 </tbody>
@@ -146,7 +146,7 @@ class PropertyList extends PTB_Property {
    */
 
   public function generate_slug ($property) {
-    return $this->options->slug . '[' . $this->counter . ']' . '[' . str_replace('ptb_ptb', 'ptb', $property->slug) . ']';
+    return $this->options->slug . '[' . $this->counter . ']' . '[' . str_replace('act_act', 'act', $property->slug) . ']';
   }
 
   /**

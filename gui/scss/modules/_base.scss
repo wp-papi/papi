@@ -1,5 +1,5 @@
 // Add new page
-.ptb-search {
+.act-search {
   position: relative;
   top: -2px;
   left: 20px;
@@ -21,24 +21,24 @@
 
 // Sizes
 
-.ptb-table,
-.ptb-fullwidth {
+.act-table,
+.act-fullwidth {
   width: 100%;
 }
 
-.ptb-halfwidth {
+.act-halfwidth {
   width: 50%;
 }
 
-.ptb-pull-left {
+.act-pull-left {
   float: left;
 }
 
-.ptb-pull-right {
+.act-pull-right {
   float: right;
 }
 
-.ptb-panel {
+.act-panel {
   background: #ffffff;
   border: 1px #eaeaea solid;
   padding: 10px;
@@ -49,7 +49,7 @@
 }
 
 // Boxes that exists on the add new page
-.ptb-box-list {
+.act-box-list {
 
   margin-top: 20px;
   clear: both;
@@ -58,7 +58,7 @@
     margin-left: 0;
   }
 
-  .ptb-box-item {
+  .act-box-item {
     background: #FFFFFF;
     border: 1px solid #DEDEDE;
     cursor: pointer;
@@ -85,7 +85,7 @@
       margin-right: 0;
     }
 
-    .ptb-post-type-screenshot {
+    .act-post-type-screenshot {
       display: block;
       overflow: hidden;
       position: relative;
@@ -104,7 +104,7 @@
       border-bottom: 1px solid #DEDEDE;
     }
 
-    .ptb-post-type-info {
+    .act-post-type-info {
       padding: 15px;
       margin-top: -4px;
       max-width: 240px;
@@ -125,7 +125,7 @@
       }
     }
 
-    .ptb-post-type-actions {
+    .act-post-type-actions {
       background-color: #FAFAFA;
       border-top: 1px solid #DEDEDE;
       height: 38px;
@@ -136,11 +136,11 @@
 }
 
 // Properties
-.ptb-property-text {
+.act-property-text {
   width: 100%;
   height: 250px;
 }
 
-h3.ptb-divider-text {
+h3.act-divider-text {
   padding-left: 0 !important;
 }

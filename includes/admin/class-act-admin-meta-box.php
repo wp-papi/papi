@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Admin Meta Box.
+ * Act Admin Meta Box.
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
-class PTB_Admin_Meta_Box {
+class Act_Admin_Meta_Box {
 
   /**
    * Contains all root level properties in this meta box.
@@ -70,7 +70,7 @@ class PTB_Admin_Meta_Box {
     });
 
     if (!empty($box_property)) {
-      $property = _ptb_get_property_options($box_property);
+      $property = _act_get_property_options($box_property);
       if (!$property->disabled) {
         $properties[] = $property;
       }
@@ -88,10 +88,10 @@ class PTB_Admin_Meta_Box {
    */
 
   public function __construct ($options = array(), $properties = array()) {
-    $options = _ptb_h($options, array());
+    $options = _act_h($options, array());
     $options = array_merge($this->default_options, $options);
     $this->options = (object)$options;
-    $this->options->slug = _ptb_slugify($this->options->title);
+    $this->options->slug = _act_slugify($this->options->title);
 
     $properties = $this->box_property($properties);
 
@@ -131,7 +131,7 @@ class PTB_Admin_Meta_Box {
   public function setup_meta_box () {
     add_meta_box(
       $this->options->slug,
-      _ptb_remove_ptb($this->options->title),
+      _act_remove_act($this->options->title),
       array($this, 'render_meta_box'),
       $this->options->post_type,
       $this->options->context,
@@ -152,12 +152,12 @@ class PTB_Admin_Meta_Box {
       return;
     }
 
-    wp_nonce_field('ptb_save_data', 'ptb_meta_nonce');
+    wp_nonce_field('act_save_data', 'act_meta_nonce');
     ?>
-    <input type="hidden" name="ptb_page_type" value="<?php echo _ptb_get_page_type_meta_value(); ?>" />
+    <input type="hidden" name="act_page_type" value="<?php echo _act_get_page_type_meta_value(); ?>" />
     <?php
 
     // Render the properties.
-    _ptb_render_properties($args['args']);
+    _act_render_properties($args['args']);
   }
 }

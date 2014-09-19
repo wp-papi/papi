@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Admin View.
+ * Act Admin View.
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
-class PTB_Admin_View {
+class Act_Admin_View {
 
   /**
    * Path to view dir.
@@ -25,7 +25,7 @@ class PTB_Admin_View {
    */
 
   public function __construct ($path = '') {
-    $this->path = !empty($path) ? $path : PTB_PLUGIN_DIR . 'includes/admin/views/';
+    $this->path = !empty($path) ? $path : Act_PLUGIN_DIR . 'includes/admin/views/';
   }
 
   /**

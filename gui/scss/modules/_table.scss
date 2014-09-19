@@ -1,16 +1,16 @@
 // Inside fixes
 .inside {
-  &.ptb-inside {
+  &.act-inside {
     padding-right: 0px;
     margin-right: -13px !important;
   }
-  > .ptb-table {
+  > .act-table {
     margin: -7px -12px -12px -12px;
   }
 }
 
 // Table
-.ptb-table {
+.act-table {
   cursor: default !important;
   border-spacing: 0;
 
@@ -81,7 +81,7 @@
 
 // side meta boxes
 #side-sortables {
-  .inside.ptb-inside > .ptb-table {
+  .inside.act-inside > .act-table {
     tr td {
       float: left;
       width: 99.5%;

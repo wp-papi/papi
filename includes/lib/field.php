@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Page Type Builder Field functions.
+ * Act Field functions.
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) exit;
  * @return mixed
  */
 
-function ptb_field ($post_id = null, $name = null, $default = null, $old_name = null) {
+function act_field ($post_id = null, $name = null, $default = null, $old_name = null) {
   // Check if we have a post id or not.
   if (!is_numeric($post_id) && is_string($post_id)) {
     $default = $name;
@@ -34,7 +34,7 @@ function ptb_field ($post_id = null, $name = null, $default = null, $old_name = 
   if (is_numeric($post_id)) {
     $post_id = intval($post_id);
   } else {
-    $post_id = _ptb_get_post_id();
+    $post_id = _act_get_post_id();
   }
 
   // Return the default value if we don't have a name.
@@ -43,7 +43,7 @@ function ptb_field ($post_id = null, $name = null, $default = null, $old_name = 
   }
 
   // Get the page.
-  $page = ptb_get_page($post_id);
+  $page = act_get_page($post_id);
 
   // Return the default value if we don't have a WordPress post on the page object.
   if (is_null($page) || !$page->has_post()) {
@@ -56,8 +56,8 @@ function ptb_field ($post_id = null, $name = null, $default = null, $old_name = 
   // Get the first value in the array.
   $name = $names[0];
 
-  // Remove any `ptb_` stuff if it exists.
-  $name = _ptb_remove_ptb($name);
+  // Remove any `act_` stuff if it exists.
+  $name = _act_remove_act($name);
 
   // Remove the first value of the array.
   $names = array_slice($names, 1);
@@ -67,7 +67,7 @@ function ptb_field ($post_id = null, $name = null, $default = null, $old_name = 
 
   // Try to get the language code value.
   if (!empty($old_name) && empty($value)) {
-    $old_name = _ptb_remove_ptb($old_name);
+    $old_name = _act_remove_act($old_name);
     $value = $page->$old_name;
   }
 
@@ -95,16 +95,16 @@ function ptb_field ($post_id = null, $name = null, $default = null, $old_name = 
 }
 
 /**
- * Shortcode for `ptb_field` function.
+ * Shortcode for `act_field` function.
  *
- * [ptb_field id=1 name="field_name" default="Default value"][/ptb_field]
+ * [act_field id=1 name="field_name" default="Default value"][/act_field]
  *
  * @param array $atts
  *
  * @return mixed
  */
 
-function ptb_field_shortcode ($atts) {
+function act_field_shortcode ($atts) {
   // Try to fetch to post id.
   if (empty($atts['id'])) {
     global $post;
@@ -115,7 +115,7 @@ function ptb_field_shortcode ($atts) {
 
   // Fetch value.
   if (!empty($atts['id'])) {
-    $value = ptb_field($atts['id'], $atts['name'], $atts['default']);
+    $value = act_field($atts['id'], $atts['name'], $atts['default']);
   }
 
   // Set default value if is null.
@@ -127,7 +127,7 @@ function ptb_field_shortcode ($atts) {
   return !isset($value) || $value == null ? $atts['default'] : $value;
 }
 
-add_shortcode('ptb_field', 'ptb_field_shortcode');
+add_shortcode('act_field', 'act_field_shortcode');
 
 /**
  * Echo the property value for property on a page.
@@ -139,8 +139,8 @@ add_shortcode('ptb_field', 'ptb_field_shortcode');
  * @since 1.0.0
  */
 
-function the_ptb_field ($post_id = null, $name = null, $default = null, $old_name = null) {
-  $value = ptb_field($post_id, $name, $default, $old_name);
+function the_act_field ($post_id = null, $name = null, $default = null, $old_name = null) {
+  $value = act_field($post_id, $name, $default, $old_name);
 
   if (is_array($value)) {
     $value = implode(',', $value);

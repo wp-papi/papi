@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Page.
+ * Act Page.
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
-class PTB_Page {
+class Act_Page {
 
   /**
    * The WordPress post id.
@@ -55,12 +55,12 @@ class PTB_Page {
     $this->post = get_post($this->id);
 
     // Load page type object.
-    $path = _ptb_get_page_type_file(_ptb_get_page_type_meta_value($this->id));
-    $this->page_type = _ptb_get_page_type($path);
+    $path = _act_get_page_type_file(_act_get_page_type_meta_value($this->id));
+    $this->page_type = _act_get_page_type($path);
   }
 
   /**
-   * Get Page Type Builder Property value.
+   * Get Act Property value.
    *
    * @param string $slug
    * @since 1.0.0
@@ -69,14 +69,14 @@ class PTB_Page {
    */
 
   private function get_value ($slug) {
-    $property_key = _ptb_property_key($slug);
+    $property_key = _act_property_key($slug);
     $property_value = get_post_meta($this->id, $property_key, true);
 
     if (is_null($property_value)) {
       return;
     }
 
-    $property_type_key = _ptb_property_type_key($property_key);
+    $property_type_key = _act_property_type_key($property_key);
     $property_type_value = get_post_meta($this->id, $property_type_key, true);
 
     if (is_null($property_type_value)) {
@@ -94,15 +94,15 @@ class PTB_Page {
     $convert = false;
 
     // Property List has array with properties.
-    // Remove `ptb_` key and property key.
+    // Remove `act_` key and property key.
     foreach ($property_value as $ki => $vi) {
       if (is_array($property_value[$ki])) {
         foreach ($property_value[$ki] as $k => $v) {
-          if (_ptb_is_property_type_key($k)) {
+          if (_act_is_property_type_key($k)) {
             unset($property_value[$ki][$k]);
           } else {
-            $ptk = _ptb_property_type_key($k);
-            $kn = _ptb_remove_ptb($k);
+            $ptk = _act_property_type_key($k);
+            $kn = _act_remove_act($k);
             $property_value[$ki][$kn] = $this->convert(array(
               'type'  => $property_value[$ki][$ptk],
               'value' => $v
@@ -145,7 +145,7 @@ class PTB_Page {
     if (isset($property['value']) && isset($property['type'])) {
       // Get the property type.
       $type = strval($property['type']);
-      $property_type = _ptb_get_property_type($type);
+      $property_type = _act_get_property_type($type);
 
       // If no property is found, just return the value.
       if (is_null($property_type)) {
@@ -216,7 +216,7 @@ class PTB_Page {
   }
 
   /**
-   * Get Page Type Builder property value.
+   * Get Act property value.
    *
    * @param string $slug
    * @since 1.0.0

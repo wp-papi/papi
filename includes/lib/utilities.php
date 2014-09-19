@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Page Type Builder Utilities functions.
+ * Act Utilities functions.
  *
- * @package PageTypeBuilder
+ * @package Act
  * @version 1.0.0
  */
 
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) exit;
  * @return mixed
  */
 
-function _ptb_h (&$obj, $default = null) {
+function _act_h (&$obj, $default = null) {
   return isset($obj) ? $obj : $default;
 }
 
@@ -34,7 +34,7 @@ function _ptb_h (&$obj, $default = null) {
  * @return string
  */
 
-function _ptb_remove_trailing_quotes ($str) {
+function _act_remove_trailing_quotes ($str) {
   return str_replace("\'", "'", str_replace('\"', '"', $str));
 }
 
@@ -47,7 +47,7 @@ function _ptb_remove_trailing_quotes ($str) {
  * @return string
  */
 
-function _ptb_f ($str = '') {
+function _act_f ($str = '') {
   if (strpos($str, '_') === 0) {
     return $str;
   }
@@ -66,7 +66,7 @@ function _ptb_f ($str = '') {
  * @return string
  */
 
-function _ptb_slugify ($str, $replace = array(), $delimiter = '-') {
+function _act_slugify ($str, $replace = array(), $delimiter = '-') {
   setlocale(LC_ALL, 'en_US.UTF8');
   if(!empty($replace)) {
     $str = str_replace((array)$replace, ' ', $str);
@@ -88,7 +88,7 @@ function _ptb_slugify ($str, $replace = array(), $delimiter = '-') {
  * @return string
  */
 
-function _ptb_underscorify ($str) {
+function _act_underscorify ($str) {
   return str_replace(' ', '_', str_replace('-', '_', $str));
 }
 
@@ -102,12 +102,12 @@ function _ptb_underscorify ($str) {
  * @return string
  */
 
-function _ptb_dashify ($str) {
+function _act_dashify ($str) {
   return str_replace(' ', '-', str_replace('_', '-', $str));
 }
 
 /**
- * Add `ptb_` to the given string ad the start of the string.
+ * Add `act_` to the given string ad the start of the string.
  *
  * @param string $str
  * @since 1.0.0
@@ -115,16 +115,16 @@ function _ptb_dashify ($str) {
  * @return string
  */
 
-function _ptbify ($str = '') {
-  if (!preg_match('/^\_\_ptb|^\_ptb|^ptb\_/', $str)) {
-    return  'ptb_' . $str;
+function _actify ($str = '') {
+  if (!preg_match('/^\_\_act|^\_act|^act\_/', $str)) {
+    return  'act_' . $str;
   }
 
   return $str;
 }
 
 /**
- * Remove `ptb-` or `ptb_` from the given string.
+ * Remove `act-` or `act_` from the given string.
  *
  * @param string $str
  * @since 1.0.0
@@ -132,8 +132,8 @@ function _ptbify ($str = '') {
  * @return string
  */
 
-function _ptb_remove_ptb ($str) {
-  return str_replace('ptb-', '', str_replace('ptb_', '', $str));
+function _act_remove_act ($str) {
+  return str_replace('act-', '', str_replace('act_', '', $str));
 }
 
 /**
@@ -145,9 +145,9 @@ function _ptb_remove_ptb ($str) {
  * @return string
  */
 
-function _ptb_name ($name) {
-  if (!preg_match('/^\_\_ptb|^\_ptb/', $name)) {
-    return _ptb_underscorify(_ptb_slugify(_ptbify($name)));
+function _act_name ($name) {
+  if (!preg_match('/^\_\_act|^\_act/', $name)) {
+    return _act_underscorify(_act_slugify(_actify($name)));
   }
 
   return $name;
@@ -162,7 +162,7 @@ function _ptb_name ($name) {
  * @return bool
  */
 
-function _ptb_is_method ($method = '') {
+function _act_is_method ($method = '') {
   return isset($_SERVER['REQUEST_METHOD']) && strtoupper($_SERVER['REQUEST_METHOD']) == strtoupper($method);
 }
 
@@ -175,7 +175,7 @@ function _ptb_is_method ($method = '') {
  * @return string|null
  */
 
-function _ptb_get_class_name ($file) {
+function _act_get_class_name ($file) {
   $content = file_get_contents($file);
   $tokens = token_get_all($content);
   $class_token = false;
@@ -205,7 +205,7 @@ function _ptb_get_class_name ($file) {
  * @return string
  */
 
-function _ptb_attribute ($name, $value) {
+function _act_attribute ($name, $value) {
   if (!is_array($value)) {
     $value = array($value);
   }
@@ -222,7 +222,7 @@ function _ptb_attribute ($name, $value) {
  * @return string
  */
 
-function _ptb_get_qs ($qs) {
+function _act_get_qs ($qs) {
   if (isset($_GET[$qs]) && !empty($_GET[$qs])) {
     return $_GET[$qs];
   }
@@ -239,8 +239,8 @@ function _ptb_get_qs ($qs) {
  * @since 1.0.0
  */
 
-function _ptb_include_template ($tpl_file, $vars = array()) {
-  $path = PTB_PLUGIN_DIR;
+function _act_include_template ($tpl_file, $vars = array()) {
+  $path = Act_PLUGIN_DIR;
   $path = rtrim($path, '/') . '/';
 
   include($path . $tpl_file);
@@ -254,7 +254,7 @@ function _ptb_include_template ($tpl_file, $vars = array()) {
  * @return array
  */
 
-function _ptb_string_array ($obj) {
+function _act_string_array ($obj) {
   if (is_string($obj)) {
     $obj = array($obj);
   }
@@ -276,7 +276,7 @@ function _ptb_string_array ($obj) {
  * @return array
  */
 
-function _ptb_sort_order ($array, $key = 'sort_order') {
+function _act_sort_order ($array, $key = 'sort_order') {
   if (empty($array)) {
     return array();
   }
@@ -321,6 +321,6 @@ function _ptb_sort_order ($array, $key = 'sort_order') {
  * @return bool
  */
 
-function _ptb_polylang () {
-  return defined('PTB_POLYLANG') && PTB_POLYLANG;
+function _act_polylang () {
+  return defined('Act_POLYLANG') && Act_POLYLANG;
 }
