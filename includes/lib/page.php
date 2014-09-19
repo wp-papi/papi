@@ -278,8 +278,8 @@ function _act_get_post_types () {
  */
 
 function _act_page_type_default_thumbnail () {
-  if (defined('Act_DEFAULT_PAGE_THUMBNAIL')) {
-    return Act_DEFAULT_PAGE_THUMBNAIL;
+  if (defined('ACT_DEFAULT_PAGE_THUMBNAIL')) {
+    return ACT_DEFAULT_PAGE_THUMBNAIL;
   }
 
   return '';

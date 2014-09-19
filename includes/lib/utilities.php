@@ -322,5 +322,5 @@ function _act_sort_order ($array, $key = 'sort_order') {
  */
 
 function _act_polylang () {
-  return defined('Act_POLYLANG') && Act_POLYLANG;
+  return defined('ACT_POLYLANG') && ACT_POLYLANG;
 }

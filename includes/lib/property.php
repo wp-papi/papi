@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) exit;
  */
 
 function _act_is_property_type_key ($str = '') {
-  $pattern = Act_PROPERTY_TYPE_KEY;
+  $pattern = ACT_PROPERTY_TYPE_KEY;
   $pattern = str_replace('_', '\_', $pattern);
   $pattern = str_replace('-', '\-', $pattern);
   $pattern = '/' . $pattern . '$/';
@@ -37,7 +37,7 @@ function _act_is_property_type_key ($str = '') {
  */
 
 function _act_property_type_key ($str = '') {
-  return $str . Act_PROPERTY_TYPE_KEY;
+  return $str . ACT_PROPERTY_TYPE_KEY;
 }
 
 /**

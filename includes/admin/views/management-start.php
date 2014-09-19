@@ -1,6 +1,6 @@
 <div class="wrap">
   <div class="act-options-logo"></div>
-  <h2><?php echo page_type_builder()->name; ?></h2>
+  <h2><?php echo act()->name; ?></h2>
 
   <br />
 

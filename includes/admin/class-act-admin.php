@@ -164,7 +164,7 @@ final class Act_Admin {
    */
 
   public function admin_head () {
-    echo '<link href="' . Act_PLUGIN_URL . 'gui/css/style.css" type="text/css" rel="stylesheet" />';
+    echo '<link href="' . ACT_PLUGIN_URL . 'gui/css/style.css" type="text/css" rel="stylesheet" />';
     wp_enqueue_media();
   }
 
@@ -178,7 +178,7 @@ final class Act_Admin {
     wp_enqueue_script('jquery-ui-core');
     wp_enqueue_script('jquery-ui-sortable');
     wp_enqueue_script('backbone.min');
-    wp_enqueue_script('act_main',  Act_PLUGIN_URL . 'gui/js/main.js', array('jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'backbone', 'wp-backbone'), '', true);
+    wp_enqueue_script('act_main',  ACT_PLUGIN_URL . 'gui/js/main.js', array('jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'backbone', 'wp-backbone'), '', true);
   }
 
   /**

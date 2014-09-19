@@ -25,7 +25,7 @@ class Act_Admin_View {
    */
 
   public function __construct ($path = '') {
-    $this->path = !empty($path) ? $path : Act_PLUGIN_DIR . 'includes/admin/views/';
+    $this->path = !empty($path) ? $path : ACT_PLUGIN_DIR . 'includes/admin/views/';
   }
 
   /**
