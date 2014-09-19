@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act Page.
+ * Papi Page.
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class Act_Page {
+class Papi_Page {
 
   /**
    * The WordPress post id.
@@ -55,12 +55,12 @@ class Act_Page {
     $this->post = get_post($this->id);
 
     // Load page type object.
-    $path = _act_get_page_type_file(_act_get_page_type_meta_value($this->id));
-    $this->page_type = _act_get_page_type($path);
+    $path = _papi_get_page_type_file(_papi_get_page_type_meta_value($this->id));
+    $this->page_type = _papi_get_page_type($path);
   }
 
   /**
-   * Get Act Property value.
+   * Get Papi Property value.
    *
    * @param string $slug
    * @since 1.0.0
@@ -69,14 +69,14 @@ class Act_Page {
    */
 
   private function get_value ($slug) {
-    $property_key = _act_property_key($slug);
+    $property_key = _papi_property_key($slug);
     $property_value = get_post_meta($this->id, $property_key, true);
 
     if (is_null($property_value)) {
       return;
     }
 
-    $property_type_key = _act_property_type_key($property_key);
+    $property_type_key = _papi_property_type_key($property_key);
     $property_type_value = get_post_meta($this->id, $property_type_key, true);
 
     if (is_null($property_type_value)) {
@@ -94,15 +94,15 @@ class Act_Page {
     $convert = false;
 
     // Property List has array with properties.
-    // Remove `act_` key and property key.
+    // Remove `papi_` key and property key.
     foreach ($property_value as $ki => $vi) {
       if (is_array($property_value[$ki])) {
         foreach ($property_value[$ki] as $k => $v) {
-          if (_act_is_property_type_key($k)) {
+          if (_papi_is_property_type_key($k)) {
             unset($property_value[$ki][$k]);
           } else {
-            $ptk = _act_property_type_key($k);
-            $kn = _act_remove_act($k);
+            $ptk = _papi_property_type_key($k);
+            $kn = _papi_remove_papi($k);
             $property_value[$ki][$kn] = $this->convert(array(
               'type'  => $property_value[$ki][$ptk],
               'value' => $v
@@ -145,7 +145,7 @@ class Act_Page {
     if (isset($property['value']) && isset($property['type'])) {
       // Get the property type.
       $type = strval($property['type']);
-      $property_type = _act_get_property_type($type);
+      $property_type = _papi_get_property_type($type);
 
       // If no property is found, just return the value.
       if (is_null($property_type)) {
@@ -216,7 +216,7 @@ class Act_Page {
   }
 
   /**
-   * Get Act property value.
+   * Get Papi property value.
    *
    * @param string $slug
    * @since 1.0.0

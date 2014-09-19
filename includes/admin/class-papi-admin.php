@@ -4,18 +4,18 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act Admin.
+ * Papi Admin.
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-final class Act_Admin {
+final class Papi_Admin {
 
   /**
    * Thew view instance.
    *
-   * @var Act_Admin_View
+   * @var Papi_Admin_View
    */
 
   private $view;
@@ -23,7 +23,7 @@ final class Act_Admin {
   /**
    * The meta boxes instance.
    *
-   * @var Act_Admin_Meta_Boxes
+   * @var Papi_Admin_Meta_Boxes
    */
 
   private $meta_boxes;
@@ -31,13 +31,13 @@ final class Act_Admin {
   /**
    * The management pages instance.
    *
-   * @var Act_Admin_Management_Pages
+   * @var Papi_Admin_Management_Pages
    */
 
   private $management_pages;
 
   /**
-   * The instance of Act Core.
+   * The instance of Papi Core.
    *
    * @var object
    * @since 1.0.0
@@ -46,7 +46,7 @@ final class Act_Admin {
   private static $instance;
 
   /**
-   * Act Admin instance.
+   * Papi Admin instance.
    *
    * @since 1.0.0
    *
@@ -55,11 +55,11 @@ final class Act_Admin {
 
   public static function instance () {
     if (!isset(self::$instance)) {
-      self::$instance = new Act_Admin;
+      self::$instance = new Papi_Admin;
       self::$instance->setup_globals();
       self::$instance->setup_actions();
       self::$instance->setup_filters();
-      self::$instance->setup_act();
+      self::$instance->setup_papi();
     }
     return self::$instance;
   }
@@ -78,9 +78,9 @@ final class Act_Admin {
    */
 
   private function setup_globals () {
-    $this->view = new Act_Admin_View;
-    $this->meta_boxes = new Act_Admin_Meta_Boxes;
-    $this->management_pages = new Act_Admin_Management_Pages;
+    $this->view = new Papi_Admin_View;
+    $this->meta_boxes = new Papi_Admin_Meta_Boxes;
+    $this->management_pages = new Papi_Admin_Management_Pages;
   }
 
   /**
@@ -107,7 +107,7 @@ final class Act_Admin {
   private function setup_filters () {
     add_filter('admin_body_class', array($this, 'admin_body_class'));
 
-    $post_types = _act_get_post_types();
+    $post_types = _papi_get_post_types();
 
     // Add post type columns to eavery post types that is used.
     foreach ($post_types as $post_type) {
@@ -123,9 +123,9 @@ final class Act_Admin {
    */
 
   public function admin_menu () {
-    $post_types = _act_get_post_types();
-    $settings = _act_get_settings();
-    $page_types = _act_get_all_page_types(true);
+    $post_types = _papi_get_post_types();
+    $settings = _papi_get_settings();
+    $page_types = _papi_get_all_page_types(true);
 
     // If we don't have any page types don't change any menu items.
     if (empty($page_types)) {
@@ -138,20 +138,20 @@ final class Act_Admin {
       remove_submenu_page('edit.php?post_type=' . $post_type, 'post-new.php?post_type=' . $post_type);
 
       if (isset($settings[$post_type]) && isset($settings[$post_type]['only_page_type'])) {
-        $url = _act_get_page_new_url($settings[$post_type]['only_page_type'], $post_type, false);
+        $url = _papi_get_page_new_url($settings[$post_type]['only_page_type'], $post_type, false);
         // Add our custom menu item.
         add_submenu_page('edit.php?post_type=' . $post_type,
-                         __('Add New', 'act'),
-                         __('Add New', 'act'),
+                         __('Add New', 'papi'),
+                         __('Add New', 'papi'),
                          'manage_options',
                          $url);
       } else {
         // Add our custom menu item.
         add_submenu_page('edit.php?post_type=' . $post_type,
-                         __('Add New', 'act'),
-                         __('Add New', 'act'),
+                         __('Add New', 'papi'),
+                         __('Add New', 'papi'),
                          'read',
-                         'act-add-new-page,' . $post_type,
+                         'papi-add-new-page,' . $post_type,
                          array($this, 'render_view'));
       }
     }
@@ -164,7 +164,7 @@ final class Act_Admin {
    */
 
   public function admin_head () {
-    echo '<link href="' . ACT_PLUGIN_URL . 'gui/css/style.css" type="text/css" rel="stylesheet" />';
+    echo '<link href="' . PAPI_PLUGIN_URL . 'gui/css/style.css" type="text/css" rel="stylesheet" />';
     wp_enqueue_media();
   }
 
@@ -178,7 +178,7 @@ final class Act_Admin {
     wp_enqueue_script('jquery-ui-core');
     wp_enqueue_script('jquery-ui-sortable');
     wp_enqueue_script('backbone.min');
-    wp_enqueue_script('act_main',  ACT_PLUGIN_URL . 'gui/js/main.js', array('jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'backbone', 'wp-backbone'), '', true);
+    wp_enqueue_script('papi_main',  PAPI_PLUGIN_URL . 'gui/js/main.js', array('jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'backbone', 'wp-backbone'), '', true);
   }
 
   /**
@@ -190,17 +190,17 @@ final class Act_Admin {
   public function admin_footer () {
     // Find which screen and post that are in use.
     $screen = get_current_screen();
-    $post_type = _act_get_wp_post_type();
+    $post_type = _papi_get_wp_post_type();
 
     // Get the core settings.
-    $settings = _act_get_settings();
-    $post_types = _act_get_post_types();
+    $settings = _papi_get_settings();
+    $post_types = _papi_get_post_types();
 
     // Check if we should show one post type or not and create the right url for that.
     if (isset($settings[$post_type]) && isset($settings[$post_type]['only_page_type'])) {
-      $url = _act_get_page_new_url($settings[$post_type]['only_page_type'], $post_type, false);
+      $url = _papi_get_page_new_url($settings[$post_type]['only_page_type'], $post_type, false);
     } else {
-      $url = "edit.php?post_type=$post_type&page=act-add-new-page,$post_type";
+      $url = "edit.php?post_type=$post_type&page=papi-add-new-page,$post_type";
     }
 
     // If we are in the edit-page or has the post type register we output the jQuery code that change the "Add new" link.
@@ -226,14 +226,14 @@ final class Act_Admin {
   public function admin_body_class ($classes) {
     global $post;
 
-    $post_type = _act_get_wp_post_type();
+    $post_type = _papi_get_wp_post_type();
 
-    if (!in_array($post_type, _act_get_post_types())) {
+    if (!in_array($post_type, _papi_get_post_types())) {
       return;
     }
 
     if (count(get_page_templates())) {
-      $classes .= 'act-hide-cpt';
+      $classes .= 'papi-hide-cpt';
     }
 
     return $classes;
@@ -249,7 +249,7 @@ final class Act_Admin {
    */
 
   public function manage_page_type_posts_columns ($defaults) {
-    $defaults['page_type'] = __('Page Type', 'act');
+    $defaults['page_type'] = __('Page Type', 'papi');
     return $defaults;
   }
 
@@ -263,11 +263,11 @@ final class Act_Admin {
 
   public function manage_page_type_posts_custom_column ($column_name, $post_id) {
     if ($column_name === 'page_type') {
-      $page_type = _act_get_file_data($post_id);
+      $page_type = _papi_get_file_data($post_id);
       if (!is_null($page_type)) {
         echo $page_type->name;
       } else {
-        _e('Standard Page', 'act');
+        _e('Standard Page', 'papi');
       }
     }
   }
@@ -279,8 +279,8 @@ final class Act_Admin {
    */
 
   public function render_view () {
-    if (isset($_GET['page']) && strpos($_GET['page'], 'act') !== false) {
-      $page = str_replace('act-', '', $_GET['page']);
+    if (isset($_GET['page']) && strpos($_GET['page'], 'papi') !== false) {
+      $page = str_replace('papi-', '', $_GET['page']);
       $page_view = preg_replace('/\,.*/', '', $page);
     } else {
       $page_view = null;
@@ -289,20 +289,20 @@ final class Act_Admin {
     if (!is_null($page_view)) {
       $this->view->render($page_view);
     } else {
-      echo '<h2>Act - 404</h2>';
+      echo '<h2>Papi - 404</h2>';
     }
   }
 
   /**
-   * Load right Act file if it exists.
+   * Load right Papi file if it exists.
    *
    * @since 1.0.0
    */
 
-  public function setup_act () {
-    $post_id = _act_get_post_id();
-    $page_type = _act_get_page_type_meta_value($post_id);
-    $post_type = _act_get_wp_post_type();
+  public function setup_papi () {
+    $post_id = _papi_get_post_id();
+    $page_type = _papi_get_page_type_meta_value($post_id);
+    $post_type = _papi_get_wp_post_type();
 
     // If the post type isn't in the post types array we can't proceed.
     if (in_array($post_type, array('revision', 'nav_menu_item'))) {
@@ -311,10 +311,10 @@ final class Act_Admin {
 
     // If we have a null page type we need to find which page type to use.
     if (empty($page_type)) {
-      if (_act_is_method('post') && isset($_POST['act_page_type']) && $_POST['act_page_type']) {
-        $page_type = $_POST['act_page_type'];
+      if (_papi_is_method('post') && isset($_POST['papi_page_type']) && $_POST['papi_page_type']) {
+        $page_type = $_POST['papi_page_type'];
       } else {
-        $page_type = _act_get_page_type_meta_value();
+        $page_type = _papi_get_page_type_meta_value();
       }
     }
 
@@ -323,10 +323,10 @@ final class Act_Admin {
     }
 
     // Get the path to the page type file.
-    $path = _act_get_page_type_file($page_type);
+    $path = _papi_get_page_type_file($page_type);
 
     // Load the page type and create a new instance of it.
-    $page_type = _act_get_page_type($path);
+    $page_type = _papi_get_page_type($path);
 
     if (empty($page_type)) {
       return;

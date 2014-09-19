@@ -26,7 +26,7 @@
     return /\.(jpeg|jpg|gif|png)$/.test(url.toLowerCase());
   };
 
-  // Add utils to the act object.
-  window.act.Utils = Utils;
+  // Add utils to the papi object.
+  window.papi.Utils = Utils;
 
 }());

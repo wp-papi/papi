@@ -1,13 +1,13 @@
-.act-property-list {
+.papi-property-list {
   background: #fafafa;
   border: 1px #eaeaea solid;
   padding: 5px;
 
-  .act-property-list-inner {
+  .papi-property-list-inner {
     background: #fff;
     border: 1px #eaeaea solid;
 
-    .act-property-list-actions {
+    .papi-property-list-actions {
       height: 10px;
       padding: 5px;
 
@@ -18,7 +18,7 @@
         margin-top: -1px;
       }
 
-      .act-property-list-add-new-item {
+      .papi-property-list-add-new-item {
         background: url(../img/plus-minus.png) no-repeat top left;
         width: 16px;
         height: 16px;
@@ -40,7 +40,7 @@
           margin-top: -5px;
         }
 
-        .act-property-list-remove-item {
+        .papi-property-list-remove-item {
           background: url(../img/plus-minus.png) no-repeat top right;
           width: 16px;
           height: 16px;
@@ -51,7 +51,7 @@
           margin-top: 7px;
         }
 
-        .act-table {
+        .papi-table {
           tr.num {
             cursor: move;
             td {

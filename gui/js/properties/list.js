@@ -3,7 +3,7 @@
   // Property list binds
 
   // Replace all template name attributes with data-name attribute.
-  $('ul.act-property-list-template > li [name*=act_]').each(function () {
+  $('ul.papi-property-list-template > li [name*=papi_]').each(function () {
     var $this = $(this);
 
     $this
@@ -15,12 +15,12 @@
   });
 
   // Add new item and update the array index in html name.
-  $('.act-property-list').on('click', '.act-property-list-add-new-item', function (e) {
+  $('.papi-property-list').on('click', '.papi-property-list-add-new-item', function (e) {
     e.preventDefault();
 
-    var $list = $(this).closest('.act-property-list'),
-        $template = $('.act-property-list-template > li', $list).clone(),
-        $items = $('.act-property-list-items', $list),
+    var $list = $(this).closest('.papi-property-list'),
+        $template = $('.papi-property-list-template > li', $list).clone(),
+        $items = $('.papi-property-list-items', $list),
         counter = $items.children().length,
         html = $template.html(),
         dataNameRegex = /data\-name\=/g,
@@ -49,7 +49,7 @@
   });
 
   // Remove item
-  $('.act-property-list').on('click', '.act-property-list-remove-item', function (e) {
+  $('.papi-property-list').on('click', '.papi-property-list-remove-item', function (e) {
     e.preventDefault();
 
     $(this)
@@ -58,10 +58,10 @@
   });
 
   // Add support for sortable list.
-  $('.act-property-list-items').sortable({
+  $('.papi-property-list-items').sortable({
     revert: true,
     stop: function () {
-      $(this).closest('.act-property-list-items').find('li').each(function (index) {
+      $(this).closest('.papi-property-list-items').find('li').each(function (index) {
         var $this = $(this);
 
         $this

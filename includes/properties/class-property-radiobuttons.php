@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act - Property Radiolist
+ * Papi - Property Radiolist
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyRadioButtons extends Act_Property {
+class PropertyRadioButtons extends Papi_Property {
 
   /**
    * Generate the HTML for the property.

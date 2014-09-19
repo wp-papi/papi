@@ -4,7 +4,7 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act - Property Number
+ * Papi - Property Number
  */
 
 class PropertyNumber extends PropertyString {

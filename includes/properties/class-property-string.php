@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act - Property String
+ * Papi - Property String
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyString extends Act_Property {
+class PropertyString extends Papi_Property {
 
   /**
    * The input type to use.

@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act - Property Google Map
+ * Papi - Property Google Map
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyMap extends Act_Property {
+class PropertyMap extends Papi_Property {
 
   /**
    * Generate the HTML for the property.
@@ -37,7 +37,7 @@ class PropertyMap extends Act_Property {
    * Output custom JavaScript for the property.
    *
    * @since 1.0.0
-   * @throws Act_Exception
+   * @throws Papi_Exception
    */
 
   public function js () {
@@ -95,7 +95,7 @@ class PropertyMap extends Act_Property {
               console.log(responses[0].formatted_address);
               updateMarkerAddress(responses[0].formatted_address);
             } else {
-              updateMarkerAddress('<?php _e("Cannot determine address at this location.", "act"); ?>');
+              updateMarkerAddress('<?php _e("Cannot determine address at this location.", "papi"); ?>');
             }
           });
         }
@@ -132,7 +132,7 @@ class PropertyMap extends Act_Property {
 
         google.maps.event.addDomListener(window, 'load', initialize);
 
-        $('.act-property-map-search').on('act/update_map', function () {
+        $('.papi-property-map-search').on('papi/update_map', function () {
           var $this    = $(this),
               val      = $this.val();
 
@@ -149,16 +149,16 @@ class PropertyMap extends Act_Property {
           });
         });
 
-        $('.act-property-map-search').on('keypress', function (e) {
+        $('.papi-property-map-search').on('keypress', function (e) {
           if (e.which == 13) {
             e.preventDefault();
-            $(this).trigger('act/update_map');
+            $(this).trigger('papi/update_map');
           }
         });
 
-        $('.act-property-map-search').on('blur', function (e) {
+        $('.papi-property-map-search').on('blur', function (e) {
           e.preventDefault();
-          $(this).trigger('act/update_map');
+          $(this).trigger('papi/update_map');
         });
 
       })(jQuery);
@@ -177,7 +177,7 @@ class PropertyMap extends Act_Property {
     $options = $this->get_options();
     $value = $this->get_value();
     ?>
-    <input type="search" name="<?php echo $options->slug; ?>[address]" value="<?php echo $value['address']; ?>"  class="act-property-map-search" placeholder="<?php _e('Search for address...'); ?>" />
+    <input type="search" name="<?php echo $options->slug; ?>[address]" value="<?php echo $value['address']; ?>"  class="papi-property-map-search" placeholder="<?php _e('Search for address...'); ?>" />
     <input type="hidden" name="<?php echo $options->slug; ?>[lat]" value="<?php echo $value['lat']; ?>" />
     <input type="hidden" name="<?php echo $options->slug; ?>[lng]" value="<?php echo $value['lng']; ?>" />
     <?php

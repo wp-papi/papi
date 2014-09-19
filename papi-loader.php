@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Plugin Name: Act
- * Description: Act is a page type builder for WordPress
+ * Plugin Name: Papi
+ * Description: Papi is a page type builder for WordPress
  * Author: Fredrik Forsmo
  * Author URI: http://forsmo.me/
  * Version: 1.0.0
- * Plugin URI: https://github.com/wp-act/act
+ * Plugin URI: https://github.com/wp-papi/papi
  * Textdomain: act
  */
 
@@ -17,10 +17,10 @@ if (!defined('ABSPATH')) exit;
  * Act loader class.
  */
 
-final class Act_Loader {
+final class Papi_Loader {
 
   /**
-   * The instance of ACT_Loader class.
+   * The instance of Papi loader class.
    *
    * @var object
    * @since 1.0.0
@@ -74,7 +74,7 @@ final class Act_Loader {
   private $lang_dir;
 
   /**
-   * Act instance.
+   * Papi loader instance.
    *
    * @since 1.0.0
    *
@@ -83,7 +83,7 @@ final class Act_Loader {
 
   public static function instance () {
     if (!isset(self::$instance)) {
-      self::$instance = new Act_Loader;
+      self::$instance = new Papi_Loader;
       self::$instance->constants();
       self::$instance->setup_globals();
       self::$instance->require_files();
@@ -117,30 +117,30 @@ final class Act_Loader {
    */
 
   private function constants () {
-    // Path to Act plugin directory
-    if (!defined('ACT_PLUGIN_DIR')) {
-      define('ACT_PLUGIN_DIR', trailingslashit(WP_PLUGIN_DIR . '/' . basename(__DIR__)));
+    // Path to Papi plugin directory
+    if (!defined('PAPI_PLUGIN_DIR')) {
+      define('PAPI_PLUGIN_DIR', trailingslashit(WP_PLUGIN_DIR . '/' . basename(__DIR__)));
     }
 
-    // URL to Act plugin directory
-    if (!defined('ACT_PLUGIN_URL')) {
+    // URL to Papi plugin directory
+    if (!defined('PAPI_PLUGIN_URL')) {
       $plugin_url = plugin_dir_url(__FILE__);
 
       if (is_ssl()) {
         $plugin_url = str_replace('http://', 'https://', $plugin_url);
       }
 
-      define('ACT_PLUGIN_URL', $plugin_url);
+      define('PAPI_PLUGIN_URL', $plugin_url);
     }
 
     // Property type key.
-    if (!defined('ACT_PROPERTY_TYPE_KEY')) {
-      define('ACT_PROPERTY_TYPE_KEY', '_property');
+    if (!defined('PAPI_PROPERTY_TYPE_KEY')) {
+      define('PAPI_PROPERTY_TYPE_KEY', '_property');
     }
 
     // Check for support for Polylang
     if (defined('POLYLANG_VERSION')) {
-      define('ACT_POLYLANG', true);
+      define('PAPI_POLYLANG', true);
     }
   }
 
@@ -153,11 +153,11 @@ final class Act_Loader {
 
   private function require_files () {
     // Load languages.
-    $domain = 'act';
+    $domain = 'papi';
     $path = $this->plugin_dir . 'languages/' . $domain . '-' . get_locale() . '.mo';
     load_textdomain($domain, $path);
 
-    // Load Act functions.
+    // Load Papi functions.
     require_once($this->plugin_dir . 'includes/lib/utilities.php');
     require_once($this->plugin_dir . 'includes/lib/core.php');
     require_once($this->plugin_dir . 'includes/lib/page.php');
@@ -167,14 +167,14 @@ final class Act_Loader {
     require_once($this->plugin_dir . 'includes/lib/template.php');
     require_once($this->plugin_dir . 'includes/lib/admin.php');
 
-    // Load Act classes that should not be autoloaded.
-    require_once($this->plugin_dir . 'includes/admin/class-act-admin.php');
-    require_once($this->plugin_dir . 'includes/class-act-page-type.php');
-    require_once($this->plugin_dir . 'includes/class-act-page.php');
-    require_once($this->plugin_dir . 'includes/class-act-property.php');
-    require_once($this->plugin_dir . 'includes/class-act-page-data.php');
+    // Load Papi classes that should not be autoloaded.
+    require_once($this->plugin_dir . 'includes/admin/class-papi-admin.php');
+    require_once($this->plugin_dir . 'includes/class-papi-page-type.php');
+    require_once($this->plugin_dir . 'includes/class-papi-page.php');
+    require_once($this->plugin_dir . 'includes/class-papi-property.php');
+    require_once($this->plugin_dir . 'includes/class-papi-page-data.php');
 
-    // Load Act property classes.
+    // Load Papi property classes.
     require_once($this->plugin_dir . 'includes/properties/class-property-string.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-hidden.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-boolean.php');
@@ -204,7 +204,7 @@ final class Act_Loader {
    */
 
   private function include_third_party () {
-    do_action('act/include_property_types');
+    do_action('papi/include_property_types');
   }
 
   /**
@@ -215,7 +215,7 @@ final class Act_Loader {
    */
 
   private function setup_requried () {
-    Act_Admin::instance();
+    Papi_Admin::instance();
   }
 
   /**
@@ -227,12 +227,12 @@ final class Act_Loader {
 
   private function setup_globals () {
     // Information globals.
-    $this->name       = 'Act';
+    $this->name       = 'Papi';
     $this->version    = '1.0.0';
 
     // Act plugin directory and url.
-    $this->plugin_dir = ACT_PLUGIN_DIR;
-    $this->plugin_url = ACT_PLUGIN_URL;
+    $this->plugin_dir = PAPI_PLUGIN_DIR;
+    $this->plugin_url = PAPI_PLUGIN_URL;
 
     // Languages.
     $this->lang_dir = $this->plugin_dir . 'languages';
@@ -259,12 +259,12 @@ final class Act_Loader {
     $class = strtolower($class);
     $file = 'class-' . str_replace( '_', '-', $class ) . '.php';
 
-    if (strpos($class, 'act_admin') === 0) {
-      $path = ACT_PLUGIN_DIR . 'includes/admin/';
-    } else if (strpos($class, 'property') === 0 && strpos($class, 'act') !== false) {
-      $path = ACT_PLUGIN_DIR . 'includes/properties/';
-    } else if (strpos($class, 'act') === 0) {
-      $path = ACT_PLUGIN_DIR . 'includes/';
+    if (strpos($class, 'papi_admin') === 0) {
+      $path = PAPI_PLUGIN_DIR . 'includes/admin/';
+    } else if (strpos($class, 'property') === 0 && strpos($class, 'papi') !== false) {
+      $path = PAPI_PLUGIN_DIR . 'includes/properties/';
+    } else if (strpos($class, 'papi') === 0) {
+      $path = PAPI_PLUGIN_DIR . 'includes/';
     }
 
     if (!is_null($path) && is_readable($path . $file)) {
@@ -275,41 +275,41 @@ final class Act_Loader {
 }
 
 /**
- * Return the instance of Act to everyone.
+ * Return the instance of Papi to everyone.
  *
  * @since 1.0.0
  *
  * @return object
  */
 
-function act () {
-  return ACT_Loader::instance();
+function papi () {
+  return Papi_Loader::instance();
 }
 
 // Since we would have custom data in our theme directory we need to hook us up to 'after_setup_theme' action.
-add_action('after_setup_theme', 'act');
+add_action('after_setup_theme', 'papi');
 
 /**
- * Register a directory that contains Act files.
+ * Register a directory that contains papi files.
  *
- * @param string $directory Either the full filesystem path
+ * @param string $directory
  * @since 1.0.0
  *
  * @return bool
  */
 
-function register_act_directory ($directory) {
-  global $act_directories;
+function register_papi_directory ($directory) {
+  global $papi_directories;
 
-  if (!is_array($act_directories)) {
-    $act_directories = array();
+  if (!is_array($papi_directories)) {
+    $papi_directories = array();
   }
 
   if (!file_exists($directory) || !is_dir($directory)) {
     return false;
   }
 
-  $act_directories[] = $directory;
+  $papi_directories[] = $directory;
 
   return true;
 }

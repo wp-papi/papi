@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act - Property Url
+ * Papi - Property Url
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyUrl extends Act_Property {
+class PropertyUrl extends Papi_Property {
 
   /**
    * Generate the HTML for the property.
@@ -31,14 +31,14 @@ class PropertyUrl extends Act_Property {
     $value = $this->get_value('');
 
     if ($settings->mediauploader) {
-      echo '&nbsp;' . Act_Html::input('submit', array(
+      echo '&nbsp;' . Papi_Html::input('submit', array(
         'name' => $options->slug . '_button',
-        'data-act-action' => 'mediauploader',
-        'value' => __('Select file', 'act'),
-        'class' => 'button act-url-media-button'
+        'data-papi-action' => 'mediauploader',
+        'value' => __('Select file', 'papi'),
+        'class' => 'button papi-url-media-button'
       ));
     } else {
-      echo Act_Html::input('url', array(
+      echo Papi_Html::input('url', array(
         'name'  => $options->slug,
         'value' => $value,
         'class' => $this->css_classes()

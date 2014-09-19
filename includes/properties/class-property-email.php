@@ -4,9 +4,9 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act - Property Email
+ * Papi - Property Email
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 

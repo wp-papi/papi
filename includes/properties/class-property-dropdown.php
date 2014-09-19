@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act - Property Dropdown
+ * Papi - Property Dropdown
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyDropdown extends Act_Property {
+class PropertyDropdown extends Papi_Property {
 
   /**
    * Generate the HTML for the property.
@@ -38,7 +38,7 @@ class PropertyDropdown extends Act_Property {
     }
 
     ?>
-    <select class="act-property-dropdown" name="<?php echo $options->slug; ?>" class="<?php echo $this->css_classes(); ?>">
+    <select class="papi-property-dropdown" name="<?php echo $options->slug; ?>" class="<?php echo $this->css_classes(); ?>">
       <?php
         foreach ($settings->items as $key => $value):
           if (is_numeric($key)) {

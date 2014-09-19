@@ -4,9 +4,9 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act - Property Hidden
+ * Papi - Property Hidden
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 

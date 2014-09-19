@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act - Property Boolean
+ * Papi - Property Boolean
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyBoolean extends Act_Property {
+class PropertyBoolean extends Papi_Property {
 
   /**
    * Generate the HTML for the property.
@@ -19,7 +19,7 @@ class PropertyBoolean extends Act_Property {
    */
 
   public function html () {
-    echo Act_Html::input('checkbox', array(
+    echo Papi_Html::input('checkbox', array(
       'name' => $this->get_options()->slug,
       'checked' => $this->get_options()->value ? 'checked' : '',
       'class' => $this->css_classes()

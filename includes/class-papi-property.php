@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act Property.
+ * Papi Property.
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-abstract class Act_Property {
+abstract class Papi_Property {
 
   /**
    * Current property options object that is used to generate a property.
@@ -28,13 +28,13 @@ abstract class Act_Property {
    * @param string $property
    * @since 1.0.0
    *
-   * @return Act_Property
+   * @return Papi_Property
    */
 
   public static function factory ($property) {
     if (class_exists($property)) {
       $prop = new $property();
-      if (is_subclass_of($prop, 'Act_Property')) {
+      if (is_subclass_of($prop, 'Papi_Property')) {
         return $prop;
       }
     }
@@ -89,10 +89,10 @@ abstract class Act_Property {
 
     if (substr($slug, -1) === ']') {
       $slug = substr($slug, 0, -1);
-      $slug = _act_property_type_key($slug);
+      $slug = _papi_property_type_key($slug);
       $slug .= ']';
     } else {
-      $slug = _act_property_type_key($slug);
+      $slug = _papi_property_type_key($slug);
     }
 
     ?>

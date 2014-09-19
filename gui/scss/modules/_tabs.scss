@@ -1,9 +1,9 @@
-.act-tabs-wrapper {
+.papi-tabs-wrapper {
 
   float: left;
   width: 100%;
 
-  .act-tabs-back {
+  .papi-tabs-back {
     position: absolute;
     top: 0;
     left: 0;
@@ -13,7 +13,7 @@
     border-right: 1px solid #dfdfdf;
   }
 
-  .act-tabs {
+  .papi-tabs {
     background: #f4f2f2;
     line-height: 22px;
     float: left;
@@ -71,7 +71,7 @@
     }
   }
 
-  .act-tabs-content {
+  .papi-tabs-content {
     padding-left: 10px;
     margin-left: 145px;
 
@@ -82,7 +82,7 @@
         display: block;
       }
 
-      .act-table {
+      .papi-table {
         margin: -7px 0 -12px -20px;
       }
     }

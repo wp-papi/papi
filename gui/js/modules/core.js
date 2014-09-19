@@ -12,18 +12,18 @@
   Core.binds = function () {
 
     // Make p tag clickable.
-    $('.act-box-list > li > p').on('click', function () {
+    $('.papi-box-list > li > p').on('click', function () {
       window.location = $(this).prev().attr('href');
     });
 
     // Add our own inside class to the inside div.
-    $('.act-table').closest('.inside').addClass('act-inside');
+    $('.papi-table').closest('.inside').addClass('papi-inside');
 
     // Add new page - search field.
     $('input[name=add-new-page-search]').on('keyup', function () {
 
       var $this = $(this),
-          $list = $('.act-box-list'),
+          $list = $('.papi-box-list'),
           val = $this.val();
 
       $list.find('li').each(function () {
@@ -34,7 +34,7 @@
     });
 
     // Fixing equal heights.
-    var boxItems = $('.act-post-type-info'),
+    var boxItems = $('.papi-post-type-info'),
         boxMaxHeight = 0;
 
     boxItems.each(function () {
@@ -56,14 +56,14 @@
     })();
 
     // Simple href attribute on non links.
-    $('[data-act-href]').on('click touchstart', function (e) {
+    $('[data-papi-href]').on('click touchstart', function (e) {
       e.preventDefault();
-      window.location = $(this).data('act-href');
+      window.location = $(this).data('papi-href');
     });
 
   };
 
-  // Add the Core object to the act object.
-  window.act.Core = Core;
+  // Add the Core object to the papi object.
+  window.papi.Core = Core;
 
 }(window.jQuery));

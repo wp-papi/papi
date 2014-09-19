@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Act Page functions.
+ * Papi Page functions.
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
@@ -18,8 +18,8 @@ if (!defined('ABSPATH')) exit;
  * @return string
  */
 
-function _act_get_page_type_meta_key () {
-  return '__act_page_type';
+function _papi_get_page_type_meta_key () {
+  return '__papi_page_type';
 }
 
 /**
@@ -31,19 +31,19 @@ function _act_get_page_type_meta_key () {
  * @return string
  */
 
-function _act_get_page_type_meta_value ($post_id = null) {
+function _papi_get_page_type_meta_value ($post_id = null) {
   if (is_null($post_id)) {
-    $post_id = _act_get_post_id();
+    $post_id = _papi_get_post_id();
   }
 
   $page_type = '';
 
   // Get page type value from database.
-  $key = _act_get_page_type_meta_key();
+  $key = _papi_get_page_type_meta_key();
 
   if (!is_null($post_id)) {
     $meta_value = get_post_meta($post_id, $key, true);
-    $page_type = _act_h($meta_value, '');
+    $page_type = _papi_h($meta_value, '');
   }
 
   // Get page type value from get object.
@@ -52,16 +52,16 @@ function _act_get_page_type_meta_value ($post_id = null) {
   }
 
   // Get page type value from post object.
-  if (empty($page_type) && isset($_POST['act_page_type'])) {
-    $page_type = $_POST['act_page_type'];
+  if (empty($page_type) && isset($_POST['papi_page_type'])) {
+    $page_type = $_POST['papi_page_type'];
   }
 
   // Load right page type when Polylang is in use.
-  if (empty($page_type) && _act_polylang()) {
-    $from_post = _act_get_qs('from_post');
+  if (empty($page_type) && _papi_polylang()) {
+    $from_post = _papi_get_qs('from_post');
     if (!is_null($from_post) && is_numeric($from_post)) {
       $meta_value = get_post_meta(intval($from_post), $key, true);
-      $page_type = _act_h($meta_value, '');
+      $page_type = _papi_h($meta_value, '');
     }
   }
 
@@ -79,7 +79,7 @@ function _act_get_page_type_meta_value ($post_id = null) {
  * @return string
  */
 
-function _act_get_page_new_url ($page_type, $post_type, $append_admin_url = true) {
+function _papi_get_page_new_url ($page_type, $post_type, $append_admin_url = true) {
   $admin_url = $append_admin_url ? get_admin_url () : '';
   return $admin_url . 'post-new.php?post_type=' . $post_type . '&page_type=' . $page_type;
 }
@@ -93,10 +93,10 @@ function _act_get_page_new_url ($page_type, $post_type, $append_admin_url = true
  * @return bool
  */
 
-function _act_is_page_type_allowed ($post_type) {
+function _papi_is_page_type_allowed ($post_type) {
   $post_types = array_map(function ($p) {
     return strtolower($p);
-  }, _act_get_post_types());
+  }, _papi_get_post_types());
   return in_array(strtolower($post_type), $post_types);
 }
 
@@ -106,11 +106,11 @@ function _act_is_page_type_allowed ($post_type) {
  * @param string $file_path
  * @since 1.0.0
  *
- * @return null|Act_Page_Type
+ * @return null|Papi_Page_Type
  */
 
-function _act_get_page_type ($file_path) {
- $page_type = new Act_Page_Type($file_path);
+function _papi_get_page_type ($file_path) {
+ $page_type = new Papi_Page_Type($file_path);
 
  // If the page type don't have a name we can't use it.
  if (!$page_type->has_name()) {
@@ -124,26 +124,26 @@ function _act_get_page_type ($file_path) {
  * Get all page types that exists.
  *
  * @since 1.0.0
- * @todo rewrite and use logic in class-act-page-types.php
+ * @todo rewrite and use logic in class-papi-page-types.php
  * @param bool $all Default false
  *
  * @return array
  */
 
-function _act_get_all_page_types ($all = false) {
+function _papi_get_all_page_types ($all = false) {
   // Get all page types files.
-  $files = _act_get_all_page_type_files();
+  $files = _papi_get_all_page_type_files();
 
   // Get the right WordPress post type.
-  $post_type = _act_get_wp_post_type();
+  $post_type = _papi_get_wp_post_type();
 
   $page_types = array();
 
   foreach ($files as $file) {
-    $p = _act_get_page_type($file);
+    $p = _papi_get_page_type($file);
 
     // Add the page type if the post types is allowed.
-    if (!is_null($p) && _act_current_user_is_allowed($p->capabilities) && ($all || in_array($post_type, $p->post_types))) {
+    if (!is_null($p) && _papi_current_user_is_allowed($p->capabilities) && ($all || in_array($post_type, $p->post_types))) {
       $page_types[] = $p;
     }
   }
@@ -165,8 +165,8 @@ function _act_get_all_page_types ($all = false) {
  * @return null|string
  */
 
-function _act_get_template ($post_id) {
-  $data = _act_get_file_data($post_id);
+function _papi_get_template ($post_id) {
+  $data = _papi_get_file_data($post_id);
 
   if (isset($data) && isset($data->template) && isset($data->template)) {
     return $data->template;
@@ -181,18 +181,18 @@ function _act_get_template ($post_id) {
  * @param int|string $post_id Post id or page type
  * @since 1.0.0
  *
- * @return null|Act_Page_Type
+ * @return null|Papi_Page_Type
  */
 
-function _act_get_file_data ($post_id) {
-  $post_id = _act_get_post_id($post_id);
-  $page_type = _act_get_page_type_meta_value($post_id);
+function _papi_get_file_data ($post_id) {
+  $post_id = _papi_get_post_id($post_id);
+  $page_type = _papi_get_page_type_meta_value($post_id);
 
   // Check so the page type isn't null or empty before we
   // trying to get the page type data.
   if (!is_null($page_type) && !empty($page_type)) {
-    $file = _act_get_page_type_file($page_type);
-    return _act_get_page_type($file);
+    $file = _papi_get_page_type_file($page_type);
+    return _papi_get_page_type($file);
   }
 
   return null;
@@ -204,12 +204,12 @@ function _act_get_file_data ($post_id) {
  * @param int $post_id The post id.
  * @since 1.0.0
  *
- * @return Act_Page|null
+ * @return Papi_Page|null
  */
 
-function act_get_page ($post_id = null) {
-  $post_id = _act_get_post_id($post_id);
-  $page = new Act_Page($post_id);
+function papi_get_page ($post_id = null) {
+  $post_id = _papi_get_post_id($post_id);
+  $page = new Papi_Page($post_id);
 
   if (!$page->has_post()) {
     return null;
@@ -223,11 +223,11 @@ function act_get_page ($post_id = null) {
  *
  * @since 1.0.0
  *
- * @return Act_Page|null
+ * @return Papi_Page|null
  */
 
 function current_page () {
-  return act_get_page();
+  return papi_get_page();
 }
 
 /**
@@ -238,28 +238,28 @@ function current_page () {
  * @return int
  */
 
-function _act_get_number_of_pages ($page_type) {
+function _papi_get_number_of_pages ($page_type) {
   global $wpdb;
 
   if (is_null($page_type) || empty($page_type)) {
     return 0;
   }
 
-  $query = "SELECT COUNT(*) FROM wp_postmeta WHERE `meta_key` = '__act_page_type' AND `meta_value` = '$page_type'";
+  $query = "SELECT COUNT(*) FROM wp_postmeta WHERE `meta_key` = '__papi_page_type' AND `meta_value` = '$page_type'";
 
   return intval($wpdb->get_var($query));
 }
 
 /**
- * Get all post types Act should work with.
+ * Get all post types Papi should work with.
  *
  * @since 1.0.0
  *
  * @return array
  */
 
-function _act_get_post_types () {
-  $page_types = _act_get_all_page_types(true);
+function _papi_get_post_types () {
+  $page_types = _papi_get_all_page_types(true);
   $post_types = array();
 
   foreach ($page_types as $page_type) {
@@ -277,9 +277,9 @@ function _act_get_post_types () {
  * @return string
  */
 
-function _act_page_type_default_thumbnail () {
-  if (defined('ACT_DEFAULT_PAGE_THUMBNAIL')) {
-    return ACT_DEFAULT_PAGE_THUMBNAIL;
+function _papi_page_type_default_thumbnail () {
+  if (defined('PAPI_DEFAULT_PAGE_THUMBNAIL')) {
+    return PAPI_DEFAULT_PAGE_THUMBNAIL;
   }
 
   return '';

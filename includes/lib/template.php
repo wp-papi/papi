@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Act Template functions.
+ * Papi Template functions.
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
@@ -11,7 +11,7 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Include template files from Acts custom page template meta field.
+ * Include template files from Papis custom page template meta field.
  * WordPress build in isn't so good when it comes to changing it without having a
  * real page template.
  *
@@ -21,14 +21,14 @@ if (!defined('ABSPATH')) exit;
  * @return string
  */
 
-function _act_template_include ($original_template) {
+function _papi_template_include ($original_template) {
   global $post;
 
   if (!isset($post) || !isset($post->ID)) {
     return $original_template;
   }
 
-  $page_template = get_post_meta($post->ID, '__act_page_template', true);
+  $page_template = get_post_meta($post->ID, '__papi_page_template', true);
 
   if (!is_null($page_template) && !empty($page_template)) {
     $path = get_template_directory();
@@ -43,4 +43,4 @@ function _act_template_include ($original_template) {
   return $original_template;
 }
 
-add_filter('template_include', '_act_template_include');
+add_filter('template_include', '_papi_template_include');

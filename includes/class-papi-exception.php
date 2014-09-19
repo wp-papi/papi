@@ -4,10 +4,10 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act Exception class.
+ * Papi Exception class.
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class Act_Exception extends Exception {}
+class Papi_Exception extends Exception {}

@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act - Property Text
+ * Papi - Property Text
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyText extends Act_Property {
+class PropertyText extends Papi_Property {
 
  /**
   * Generate the HTML for the property.
@@ -36,9 +36,9 @@ class PropertyText extends Act_Property {
         'textarea_name' => $options->slug
       ));
     } else {
-      echo Act_Html::textarea($value, array(
+      echo Papi_Html::textarea($value, array(
         'name' => $options->slug,
-        'class' => $this->css_classes('act-property-text')
+        'class' => $this->css_classes('papi-property-text')
       ));
     }
   }

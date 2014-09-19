@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act Admin Meta Box Tabs.
+ * Papi Admin Meta Box Tabs.
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class Act_Admin_Meta_Box_Tabs {
+class Papi_Admin_Meta_Box_Tabs {
 
   /**
    * The tabs.
@@ -49,15 +49,15 @@ class Act_Admin_Meta_Box_Tabs {
   private function setup_tabs ($tabs) {
     // Check capabilities on tabs.
     $tabs = array_filter($tabs, function ($tab) {
-      return _act_current_user_is_allowed($tab->options->capabilities);
+      return _papi_current_user_is_allowed($tab->options->capabilities);
     });
 
     // Sort tabs based on `sort_order` value.
-    $tabs = _act_sort_order($tabs);
+    $tabs = _papi_sort_order($tabs);
 
     // Generate unique names for all tabs.
     for ($i = 0; $i < count($tabs); $i++) {
-      $tabs[$i]->name = _act_name($tabs[$i]->title) . '_' . $i;
+      $tabs[$i]->name = _papi_name($tabs[$i]->title) . '_' . $i;
     }
 
     $this->tabs = $tabs;
@@ -72,15 +72,15 @@ class Act_Admin_Meta_Box_Tabs {
 
   private function html () {
     ?>
-    <div class="act-tabs-wrapper">
-      <div class="act-tabs-back"></div>
-      <ul class="act-tabs">
+    <div class="papi-tabs-wrapper">
+      <div class="papi-tabs-back"></div>
+      <ul class="papi-tabs">
       <?php
 
       foreach ($this->tabs as $tab):
         ?>
           <li class="<?php echo $this->tabs[0] == $tab ? 'active': ''; ?>">
-            <a href="#" data-act-tab="<?php echo $tab->name; ?>">
+            <a href="#" data-papi-tab="<?php echo $tab->name; ?>">
               <?php if (isset($tab->options->icon) && !empty($tab->options->icon)): ?>
                 <img src="<?php echo $tab->options->icon; ?>" alt="<?php echo $tab->title; ?>" />
               <?php endif;
@@ -91,19 +91,19 @@ class Act_Admin_Meta_Box_Tabs {
       endforeach;
       ?>
     </ul>
-    <div class="act-tabs-content">
+    <div class="papi-tabs-content">
       <?php
       foreach ($this->tabs as $tab):
         ?>
-        <div class="<?php echo $this->tabs[0] == $tab ? 'active': ''; ?>" data-act-tab="<?php echo $tab->name; ?>">
-          <?php _act_render_properties($tab->properties); ?>
+        <div class="<?php echo $this->tabs[0] == $tab ? 'active': ''; ?>" data-papi-tab="<?php echo $tab->name; ?>">
+          <?php _papi_render_properties($tab->properties); ?>
         </div>
         <?php
       endforeach;
       ?>
     </div>
   </div>
-  <div class="act-clear"></div>
+  <div class="papi-clear"></div>
   <?php
   }
 }

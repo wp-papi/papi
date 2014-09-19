@@ -1,7 +1,7 @@
 (function () {
 
   // Init our modules
-  act.Core.init();
-  act.Tabs.init();
+  papi.Core.init();
+  papi.Tabs.init();
 
 })();

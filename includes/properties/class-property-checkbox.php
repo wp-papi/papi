@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act - Property Checkbox
+ * Papi - Property Checkbox
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyCheckbox extends Act_Property {
+class PropertyCheckbox extends Papi_Property {
 
   /**
    * Generate the HTML for the property.

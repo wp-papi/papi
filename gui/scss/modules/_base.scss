@@ -1,5 +1,5 @@
 // Add new page
-.act-search {
+.papi-search {
   position: relative;
   top: -2px;
   left: 20px;
@@ -21,24 +21,24 @@
 
 // Sizes
 
-.act-table,
-.act-fullwidth {
+.papi-table,
+.papi-fullwidth {
   width: 100%;
 }
 
-.act-halfwidth {
+.papi-halfwidth {
   width: 50%;
 }
 
-.act-pull-left {
+.papi-pull-left {
   float: left;
 }
 
-.act-pull-right {
+.papi-pull-right {
   float: right;
 }
 
-.act-panel {
+.papi-panel {
   background: #ffffff;
   border: 1px #eaeaea solid;
   padding: 10px;
@@ -49,7 +49,7 @@
 }
 
 // Boxes that exists on the add new page
-.act-box-list {
+.papi-box-list {
 
   margin-top: 20px;
   clear: both;
@@ -58,7 +58,7 @@
     margin-left: 0;
   }
 
-  .act-box-item {
+  .papi-box-item {
     background: #FFFFFF;
     border: 1px solid #DEDEDE;
     cursor: pointer;
@@ -85,7 +85,7 @@
       margin-right: 0;
     }
 
-    .act-post-type-screenshot {
+    .papi-post-type-screenshot {
       display: block;
       overflow: hidden;
       position: relative;
@@ -104,7 +104,7 @@
       border-bottom: 1px solid #DEDEDE;
     }
 
-    .act-post-type-info {
+    .papi-post-type-info {
       padding: 15px;
       margin-top: -4px;
       max-width: 240px;
@@ -125,7 +125,7 @@
       }
     }
 
-    .act-post-type-actions {
+    .papi-post-type-actions {
       background-color: #FAFAFA;
       border-top: 1px solid #DEDEDE;
       height: 38px;
@@ -136,11 +136,11 @@
 }
 
 // Properties
-.act-property-text {
+.papi-property-text {
   width: 100%;
   height: 250px;
 }
 
-h3.act-divider-text {
+h3.papi-divider-text {
   padding-left: 0 !important;
 }

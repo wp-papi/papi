@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act Admin View.
+ * Papi Admin View.
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class Act_Admin_View {
+class Papi_Admin_View {
 
   /**
    * Path to view dir.
@@ -25,7 +25,7 @@ class Act_Admin_View {
    */
 
   public function __construct ($path = '') {
-    $this->path = !empty($path) ? $path : ACT_PLUGIN_DIR . 'includes/admin/views/';
+    $this->path = !empty($path) ? $path : PAPI_PLUGIN_DIR . 'includes/admin/views/';
   }
 
   /**

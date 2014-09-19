@@ -4,14 +4,14 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act Html class.
+ * Papi Html class.
  *
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class Act_Html {
+class Papi_Html {
 
   /**
    * Append attributes to html string.

@@ -1,6 +1,6 @@
-# Actions
+# actions
 
-### act/include_property_types
+### papi/include_property_types
 
 Include third party properties.
 
@@ -13,7 +13,7 @@ Example:
     include_once('class-property-kvack.php');
   }
   
-  add_action('act/include_property_types', 'include_property_kvack');
+  add_actions('papi/include_property_types', 'include_property_kvack');
 
 ?>
 ```

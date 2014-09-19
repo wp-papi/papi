@@ -4,18 +4,18 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Act Admin Management Pages.
+ * Papi Admin Management Pages.
  *
- * @package Act
+ * @package Papi
  * @version 1.0.0
  */
 
-class Act_Admin_Management_Pages {
+class Papi_Admin_Management_Pages {
 
   /**
    * Thew view instance.
    *
-   * @var Act_Admin_View
+   * @var Papi_Admin_View
    */
 
   private $view;
@@ -51,7 +51,7 @@ class Act_Admin_Management_Pages {
    */
 
   private function setup_globals () {
-    $this->view = new Act_Admin_View;
+    $this->view = new Papi_Admin_View;
   }
 
   /**
@@ -61,8 +61,8 @@ class Act_Admin_Management_Pages {
    */
 
   public function admin_menu () {
-    $act = act();
-    add_management_page($act->name, $act->name, 'manage_options', 'act', array($this, 'render_view'));
+    $papi = papi();
+    add_management_page($papi->name, $papi->name, 'manage_options', 'papi', array($this, 'render_view'));
   }
 
   /**
@@ -81,7 +81,7 @@ class Act_Admin_Management_Pages {
     if (!is_null($page_view)) {
       $this->view->render($page_view);
     } else {
-      echo '<h2>Act - 404</h2>';
+      echo '<h2>Papi - 404</h2>';
     }
   }
 

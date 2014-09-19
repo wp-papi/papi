@@ -1,7 +1,7 @@
 (function (window) {
 
-  // Setup act object.
-  window.act = window.act || {
+  // Setup papi object.
+  window.papi = window.paip || {
     view: {}
   };
 
