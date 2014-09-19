@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property Image
+ * Papi - Property Image
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyImage extends PTB_Property {
+class PropertyImage extends Papi_Property {
 
   public function html () {
     // Property options.
@@ -42,20 +42,20 @@ class PropertyImage extends PTB_Property {
 
     ?>
 
-    <script type="text/template" id="tmpl-ptb-image">
-      <a href="#" data-ptb-property="image" data-ptb-options='{"id":"<%= id %>"}'>x</a>
+    <script type="text/template" id="tmpl-papi-image">
+      <a href="#" data-papi-property="image" data-papi-options='{"id":"<%= id %>"}'>x</a>
       <img src="<%= image %>" />
       <input type="hidden" value="<%= id %>" name="<%= slug %>" />
     </script>
 
-    <div class="wrap ptb-property-image <?php echo $css_classes; ?>">
-      <p class="ptb-image-select <?php echo $show_button ? '' : 'hidden'; ?>">
+    <div class="wrap papi-property-image <?php echo $css_classes; ?>">
+      <p class="papi-image-select <?php echo $show_button ? '' : 'hidden'; ?>">
         <?php
           if (!$settings->gallery) {
-            _e('No image selected', 'ptb');
+            _e('No image selected', 'papi');
           }
         ?>
-        <button class="button" data-ptb-options='{"slug":"<?php echo $slug; ?>"}'><?php _e('Add image', 'ptb'); ?></button>
+        <button class="button" data-papi-options='{"slug":"<?php echo $slug; ?>"}'><?php _e('Add image', 'papi'); ?></button>
       </p>
       <ul>
         <?php
@@ -64,7 +64,7 @@ class PropertyImage extends PTB_Property {
               $url = wp_get_attachment_thumb_url($image->id);
         ?>
               <li>
-                <a href="#" class="ptb-image-remove" data-ptb-options='{"id":"<?php echo $image->id; ?>"}'>x</a>
+                <a href="#" class="papi-image-remove" data-papi-options='{"id":"<?php echo $image->id; ?>"}'>x</a>
                 <img src="<?php echo $url; ?>" />
                 <input type="hidden" value="<?php echo $image->id; ?>" name="<?php echo $slug; ?>" />
               </li>

@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property Date
+ * Papi - Property Date
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyDate extends PTB_Property {
+class PropertyDate extends Papi_Property {
 
   /**
    * Generate the HTML for the property.
@@ -34,7 +34,7 @@ class PropertyDate extends PTB_Property {
     }
 
     ?>
-    <input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes('ptb-property-date'); ?>" />
+    <input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes('papi-property-date'); ?>" />
     <?php
   }
 

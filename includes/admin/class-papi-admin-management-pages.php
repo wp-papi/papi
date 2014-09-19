@@ -4,18 +4,18 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Admin Management Pages.
+ * Papi Admin Management Pages.
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
-class PTB_Admin_Management_Pages {
+class Papi_Admin_Management_Pages {
 
   /**
    * Thew view instance.
    *
-   * @var PTB_Admin_View
+   * @var Papi_Admin_View
    */
 
   private $view;
@@ -51,7 +51,7 @@ class PTB_Admin_Management_Pages {
    */
 
   private function setup_globals () {
-    $this->view = new PTB_Admin_View;
+    $this->view = new Papi_Admin_View;
   }
 
   /**
@@ -61,8 +61,8 @@ class PTB_Admin_Management_Pages {
    */
 
   public function admin_menu () {
-    $ptb = page_type_builder();
-    add_management_page($ptb->name, $ptb->name, 'manage_options', 'page-type-builder', array($this, 'render_view'));
+    $papi = papi();
+    add_management_page($papi->name, $papi->name, 'manage_options', 'papi', array($this, 'render_view'));
   }
 
   /**
@@ -81,7 +81,7 @@ class PTB_Admin_Management_Pages {
     if (!is_null($page_view)) {
       $this->view->render($page_view);
     } else {
-      echo '<h2>Page Type Builder - 404</h2>';
+      echo '<h2>Papi - 404</h2>';
     }
   }
 

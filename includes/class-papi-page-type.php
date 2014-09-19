@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Page Type.
+ * Papi Page Type.
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
-class PTB_Page_Type {
+class Papi_Page_Type {
 
   /**
    * The name of the page type.
@@ -172,7 +172,7 @@ class PTB_Page_Type {
 
   public function get_thumbnail () {
     if (empty($this->thumbnail)) {
-      return _ptb_page_type_default_thumbnail();
+      return _papi_page_type_default_thumbnail();
     }
 
     return $this->thumbnail;
@@ -189,8 +189,8 @@ class PTB_Page_Type {
   private function setup_file ($file_path) {
     // Setup file and page type variables.
     $this->file_path = $file_path;
-    $this->page_type = _ptb_get_class_name($this->file_path);
-    $this->file_name = _ptb_get_page_type_base_path($this->file_path);
+    $this->page_type = _papi_get_class_name($this->file_path);
+    $this->file_name = _papi_get_page_type_base_path($this->file_path);
 
     // Try to load the page type class.
     if (!class_exists($this->page_type)) {

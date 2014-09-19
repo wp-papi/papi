@@ -1,6 +1,6 @@
 <?php
 
-class Simple_Page_Type extends PTB_Page_Data {
+class Simple_Page_Type extends PAPI_Page_Data {
 
   /**
    * Define our Page Type meta data.

@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property Divider
+ * Papi - Property Divider
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyDivider extends PTB_Property {
+class PropertyDivider extends Papi_Property {
 
   /**
    * Generate the HTML for the property.
@@ -22,7 +22,7 @@ class PropertyDivider extends PTB_Property {
     // Property options
     $options = $this->get_options();
     ?>
-      <h3 class="hndle ptb-property-divider">
+      <h3 class="hndle papi-property-divider">
         <span><?php echo $options->title; ?></span>
       </h3>
     <?php
@@ -36,7 +36,7 @@ class PropertyDivider extends PTB_Property {
 
   public function render () {
     ?>
-      <tr class="ptb-fullwidth">
+      <tr class="papi-fullwidth">
         <td colspan="2">
           <?php
             $this->html();

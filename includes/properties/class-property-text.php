@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property Text
+ * Papi - Property Text
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyText extends PTB_Property {
+class PropertyText extends Papi_Property {
 
  /**
   * Generate the HTML for the property.
@@ -36,9 +36,9 @@ class PropertyText extends PTB_Property {
         'textarea_name' => $options->slug
       ));
     } else {
-      echo PTB_Html::textarea($value, array(
+      echo Papi_Html::textarea($value, array(
         'name' => $options->slug,
-        'class' => $this->css_classes('ptb-property-text')
+        'class' => $this->css_classes('papi-property-text')
       ));
     }
   }

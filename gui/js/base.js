@@ -1,7 +1,7 @@
 (function (window) {
 
-  // Setup ptb object.
-  window.ptb = window.ptb || {
+  // Setup papi object.
+  window.papi = window.paip || {
     view: {}
   };
 

@@ -1,16 +1,16 @@
 // Inside fixes
 .inside {
-  &.ptb-inside {
+  &.papi-inside {
     padding-right: 0px;
     margin-right: -13px !important;
   }
-  > .ptb-table {
+  > .papi-table {
     margin: -7px -12px -12px -12px;
   }
 }
 
 // Table
-.ptb-table {
+.papi-table {
   cursor: default !important;
   border-spacing: 0;
 
@@ -81,7 +81,7 @@
 
 // side meta boxes
 #side-sortables {
-  .inside.ptb-inside > .ptb-table {
+  .inside.papi-inside > .papi-table {
     tr td {
       float: left;
       width: 99.5%;

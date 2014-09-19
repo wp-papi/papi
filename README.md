@@ -1,8 +1,8 @@
-# Page Type Builder for WordPress 
+# Papi
 
-[![Build Status](https://travis-ci.org/wp-ptb/page-type-builder.svg?branch=master)](https://travis-ci.org/wp-ptb/page-type-builder)
+[![Build Status](https://travis-ci.org/wp-papi/papi.svg?branch=master)](https://travis-ci.org/wp-papi/papi)
 
-Page Type Builder for WordPress allows you create page types using the existing page post type or using custom post types. The documentation this project isn't so good, but you can look at the example below and checkout the properties to get a picture of how it works. For those how have work with Page Type Builder in EPiServer you will recognize themselves. Page Type Builder for WordPress is heavily inspired by the Page Type Builder for EPiServer.
+Papi is a page Type Builder for WordPress allows you create page types using the existing page post type or using custom post types. The documentation this project isn't so good, but you can look at the example below and checkout the properties to get a picture of how it works. For those how have work with Page Type Builder in EPiServer you will recognize themselves. Page Type Builder for WordPress is heavily inspired by the Page Type Builder for EPiServer.
 
 **Note: This project and its documentation are still under active development, so use it in production on your own risk**
 
@@ -18,7 +18,7 @@ The page type class.
 
 <?php
 
-class About_Us_Page_Type extends PTB_Page_Data {
+class About_Us_Page_Type extends Papi_Page_Data {
 
   /**
    * Define our Page Type meta data.
@@ -81,16 +81,16 @@ There are three ways to get the property value. We can call on `current_page` ob
 
 Example: `echo current_page()->twitter_link`
 
-Or we can use `echo ptb_field('twitter_link');`
+Or we can use `echo papi_field('twitter_link');`
 
-Or we can use `the_ptb_field('twitter_link');`
+Or we can use `the_papi_field('twitter_link');`
 
 ## Contribute
 
 Everyone is welcome to contribute with patches, bug-fixes and new features.
 
-1. Create an [issue](https://github.com/wp-ptb/page-type-builder/issues) on Github so the community can comment on your idea.
-2. Fork `page-type-builder` on Github.
+1. Create an [issue](https://github.com/wp-papi/papi/issues) on Github so the community can comment on your idea.
+2. Fork `papi` on Github.
 3. Create a new branch: `git checkout -b my_branch`.
 4. Commit your changes.
 5. Push to your branch: `git push origin my_branch`.

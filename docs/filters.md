@@ -1,6 +1,6 @@
 # Filters
 
-### ptb/update_value
+### papi/update_value
 
 Update value for every property before it is saved to the database.
 
@@ -14,16 +14,16 @@ Example:
     return $value;
   }
   
-  add_filter('ptb/update_value', 'eg_update_value');
+  add_filter('papi/update_value', 'eg_update_value');
   
 ?>
 ```
 
-### ptb/update_value/{$property_type}
+### papi/update_value/{$property_type}
 
 Update value for the specified property before it is saved to the database. Just remove `Property` from the property type key and then you have the right type for the filter.
 
-Example: `PropertyString` => `ptb/update_value/string`
+Example: `PropertyString` => `papi/update_value/string`
 
 ```
 <?php
@@ -33,12 +33,12 @@ Example: `PropertyString` => `ptb/update_value/string`
     return $value;
   }
 
-  add_filter('ptb/update_value/string', 'eg_update_value_string');
+  add_filter('papi/update_value/string', 'eg_update_value_string');
 
 ?>
 ```
 
-### ptb/property/list/not_allowed_properties
+### papi/property/list/not_allowed_properties
 
 Some properties aren't allowed to use on property list, like property map. So this filter can be used to return a string or array of properties that aren't okey to use.
 
@@ -49,7 +49,7 @@ Some properties aren't allowed to use on property list, like property map. So th
     return 'PropertyKvack';
   }
   
-  add_filter('ptb/property/list/not_allowed_properties', 'eq_not_allowed_properties');
+  add_filter('papi/property/list/not_allowed_properties', 'eq_not_allowed_properties');
   
 ?>
 ```

@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property Relationship
+ * Papi - Property Relationship
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyRelationship extends PTB_Property {
+class PropertyRelationship extends Papi_Property {
 
   /**
    * Generate the HTML for the property.
@@ -51,7 +51,7 @@ class PropertyRelationship extends PTB_Property {
     });
 
     $html = <<< EOF
-      <div class="ptb-page-reference">
+      <div class="papi-page-reference">
         <div class="pr-inner">
           <div class="pr-left">
             <div class="pr-search">
@@ -89,7 +89,7 @@ EOF;
       $html .= <<< EOF
             </ul>
           </div>
-          <div class="ptb-clear"></div>
+          <div class="papi-clear"></div>
         </div>
       </div>
 EOF;
@@ -109,25 +109,25 @@ EOF;
       (function ($) {
 
         // Add page reference to list
-        $('.ptb-page-reference .pr-left').on('click', 'li', function (e) {
+        $('.papi-page-reference .pr-left').on('click', 'li', function (e) {
           e.preventDefault();
           var $li = $(this).clone();
           $li.find('span.icon').removeClass('plus').addClass('minus');
           $li.find('input').attr('name', $li.find('input').data('name'));
-          $li.appendTo('.ptb-page-reference .pr-right ul');
+          $li.appendTo('.papi-page-reference .pr-right ul');
         });
 
         // Remove page reference from list
-        $('.ptb-page-reference .pr-right').on('click', 'li', function (e) {
+        $('.papi-page-reference .pr-right').on('click', 'li', function (e) {
           e.preventDefault();
           $(this).remove();
         });
 
         // Search field
-        $('.ptb-page-reference .pr-left .pr-search input[type=search]').on('keyup', function () {
+        $('.papi-page-reference .pr-left .pr-search input[type=search]').on('keyup', function () {
 
           var $this = $(this)
-            , $list = $('.ptb-page-reference .pr-left ul')
+            , $list = $('.papi-page-reference .pr-left ul')
             , val = $this.val();
 
           $list.find('li').each(function () {
@@ -155,7 +155,7 @@ EOF;
   public function format_value ($value, $post_id) {
     if (is_array($value)) {
       return array_map(function ($id) {
-        return ptb_get_page($id);
+        return papi_get_page($id);
       }, $value);
     } else {
       return array();

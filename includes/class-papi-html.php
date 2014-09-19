@@ -4,14 +4,14 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Html class.
+ * Papi Html class.
  *
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
-class PTB_Html {
+class Papi_Html {
 
   /**
    * Append attributes to html string.

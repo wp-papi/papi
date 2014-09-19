@@ -12,22 +12,22 @@
   Tabs.binds = function () {
 
     // Tabs (will be rewritten)
-    $('a[data-ptb-tab]').on('click', function (e) {
+    $('a[data-papi-tab]').on('click', function (e) {
       e.preventDefault();
 
       var $this = $(this),
-          tab = $this.data('ptb-tab');
+          tab = $this.data('papi-tab');
 
-      $('a[data-ptb-tab]').parent().removeClass('active');
+      $('a[data-papi-tab]').parent().removeClass('active');
       $this.parent().addClass('active');
 
-      $('div[data-ptb-tab]').removeClass('active').hide();
-      $('div[data-ptb-tab=' + tab + ']').addClass('active').show();
+      $('div[data-papi-tab]').removeClass('active').hide();
+      $('div[data-papi-tab=' + tab + ']').addClass('active').show();
     });
 
   };
 
-  // Add utils to the ptb object.
-  window.ptb.Tabs = Tabs;
+  // Add utils to the papi object.
+  window.papi.Tabs = Tabs;
 
 }(jQuery));

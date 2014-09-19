@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Page Type Builder Core functions.
+ * Papi Core functions.
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) exit;
  * @return int
  */
 
-function _ptb_get_post_id ($post_id = null) {
+function _papi_get_post_id ($post_id = null) {
   // If it's a post object we can return the id from it.
   if (is_object($post_id)) {
     return $post_id->ID;
@@ -50,27 +50,27 @@ function _ptb_get_post_id ($post_id = null) {
 }
 
 /**
- * Get Page Type Builder Core class instance.
+ * Get Papi Core class instance.
  *
  * @since 1.0.0
  *
  * @return object
  */
 
-function _ptb_core () {
-  return PTB_Core::instance();
+function _papi_core () {
+  return Papi_Core::instance();
 }
 
 /**
- * Get Page Type Builder settings.
+ * Get Papi settings.
  *
  * @since 1.0.0
  *
  * @return string
  */
 
-function _ptb_get_settings () {
-  return apply_filters('ptb_settings', array());
+function _papi_get_settings () {
+  return apply_filters('papi_settings', array());
 }
 
 /**
@@ -81,7 +81,7 @@ function _ptb_get_settings () {
  * @return string
  */
 
-function _ptb_get_wp_post_type () {
+function _papi_get_wp_post_type () {
   if (isset($_GET['post_type'])) {
     return strtolower($_GET['post_type']);
   }
@@ -90,7 +90,7 @@ function _ptb_get_wp_post_type () {
     return strtolower($_POST['post_type']);
   }
 
-  $post_id = _ptb_get_post_id();
+  $post_id = _papi_get_post_id();
 
   if ($post_id != 0) {
     return strtolower(get_post_type($post_id));

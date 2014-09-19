@@ -1,5 +1,5 @@
 {
-  "name": "page-type-builder",
+  "name": "papi",
   "version": "0.2.1",
   "devDependencies": {
     "grunt": "~0.4.1",

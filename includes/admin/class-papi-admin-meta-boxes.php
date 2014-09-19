@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder Admin Meta Boxes.
+ * Papi Admin Meta Boxes.
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
-class PTB_Admin_Meta_Boxes {
+class Papi_Admin_Meta_Boxes {
 
   /**
    * Constructor.
@@ -22,8 +22,8 @@ class PTB_Admin_Meta_Boxes {
 
     // On post we need to save our custom data.
     // The action 'save_post' didn't work after
-    // we change how Page Type Builder is loaded.
-    if (_ptb_is_method('post')) {
+    // we change how Papi is loaded.
+    if (_papi_is_method('post')) {
       $this->save_meta_boxes();
     }
   }
@@ -57,7 +57,7 @@ class PTB_Admin_Meta_Boxes {
         }
       }
     } else if (is_string($value)) {
-      $value = _ptb_remove_trailing_quotes($value);
+      $value = _papi_remove_trailing_quotes($value);
     }
 
     return $value;
@@ -73,7 +73,7 @@ class PTB_Admin_Meta_Boxes {
 
   private function get_properties_data () {
     $data = array();
-    $pattern = '/^ptb\_.*/';
+    $pattern = '/^papi\_.*/';
     $keys = preg_grep($pattern, array_keys($_POST));
 
     // Loop through all keys and set values in the data array.
@@ -91,8 +91,8 @@ class PTB_Admin_Meta_Boxes {
     }
 
     // Don't wont to save meta nonce field.
-    if (isset($data['ptb_meta_nonce'])) {
-      unset($data['ptb_meta_nonce']);
+    if (isset($data['papi_meta_nonce'])) {
+      unset($data['papi_meta_nonce']);
     }
 
     return $data;
@@ -112,7 +112,7 @@ class PTB_Admin_Meta_Boxes {
     // we need to remove that and set the property type to the property
     // and make a array of the property type and the value.
     foreach ($data as $key => $value) {
-      $property_type_key = _ptb_property_type_key();
+      $property_type_key = _papi_property_type_key();
 
       if (strpos($key, $property_type_key) === false) {
         continue;
@@ -144,7 +144,7 @@ class PTB_Admin_Meta_Boxes {
 
       // Get the property class if we don't have it.
       if (!isset($properties[$property_type])) {
-        $properties[$property_type] = PTB_Property::factory($property_type);
+        $properties[$property_type] = Papi_Property::factory($property_type);
       }
 
       $property = $properties[$property_type];
@@ -162,13 +162,13 @@ class PTB_Admin_Meta_Boxes {
       }
 
       // Apply a filter so this can be changed from the theme for every property.
-      $data[$key] = apply_filters('ptb/update_value', $data[$key], $post_id);
+      $data[$key] = apply_filters('papi/update_value', $data[$key], $post_id);
 
       $filter_type_key = preg_replace('/^property$/', '', strtolower($property_type));
 
       // Apply a filter so this can be changed from the theme for specified property type.
-      // Example: "ptb/update_value/string"
-      $data[$key] = apply_filters('ptb/update_value/' . $filter_type_key, $data[$key], $post_id);
+      // Example: "papi/update_value/string"
+      $data[$key] = apply_filters('papi/update_value/' . $filter_type_key, $data[$key], $post_id);
     }
 
     // Check so all properties has a value and a type key and that the property is a array.
@@ -189,8 +189,8 @@ class PTB_Admin_Meta_Boxes {
    */
 
   private function get_page_template (array $data = array()) {
-    $post_id = _ptb_h($data['post_ID'], 0);
-    return _ptb_get_template($post_id);
+    $post_id = _papi_h($data['post_ID'], 0);
+    return _papi_get_template($post_id);
   }
 
   /**
@@ -203,7 +203,7 @@ class PTB_Admin_Meta_Boxes {
    */
 
   private function get_page_type (array $data = array()) {
-    return _ptb_h($data['ptb_page_type'], '');
+    return _papi_h($data['papi_page_type'], '');
   }
 
   /**
@@ -221,12 +221,12 @@ class PTB_Admin_Meta_Boxes {
 
     // Data to save.
     $data = array(
-      '__ptb_page_template' => $this->get_page_template($_POST)
+      '__papi_page_template' => $this->get_page_template($_POST)
     );
 
     // Get the page type.
     $page_type = $this->get_page_type($_POST);
-    $page_type_key = _ptb_get_page_type_meta_key();
+    $page_type_key = _papi_get_page_type_meta_key();
     $data[$page_type_key] = $page_type;
 
     foreach ($data as $key => $value) {
@@ -276,7 +276,7 @@ class PTB_Admin_Meta_Boxes {
     }
 
     // Check if our nonce is vailed.
-    if (empty($_POST['ptb_meta_nonce']) || !wp_verify_nonce($_POST['ptb_meta_nonce'], 'ptb_save_data')) {
+    if (empty($_POST['papi_meta_nonce']) || !wp_verify_nonce($_POST['papi_meta_nonce'], 'papi_save_data')) {
       return;
     }
 
@@ -311,11 +311,11 @@ class PTB_Admin_Meta_Boxes {
     foreach ($data as $key => $property) {
 
       // Property data.
-      $property_key = _ptb_property_key($key);
+      $property_key = _papi_property_key($key);
       $property_value = $property['value'];
 
       // Property type data.
-      $property_type_key = _ptb_property_type_key(_ptb_f($key)); // has to remove '_' + key also.
+      $property_type_key = _papi_property_type_key(_papi_f($key)); // has to remove '_' + key also.
       $property_type_value = $property['type'];
 
       // Get the existing value if we have any.

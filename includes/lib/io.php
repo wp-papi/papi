@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Page Type Builder I/O functions.
+ * Papi I/O functions.
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
@@ -11,21 +11,21 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Get all register directories with Page Type Builder.
+ * Get all register directories with Papi.
  *
  * @since 1.0.0
  *
  * @return array
  */
 
-function _ptb_get_directories () {
-  global $ptb_directories;
+function _papi_get_directories () {
+  global $papi_directories;
 
-  if (empty($ptb_directories) || !is_array($ptb_directories)) {
+  if (empty($papi_directories) || !is_array($papi_directories)) {
     return array();
   }
 
-  return $ptb_directories;
+  return $papi_directories;
 }
 
 /**
@@ -37,14 +37,14 @@ function _ptb_get_directories () {
  * @return string
  */
 
-function _ptb_get_all_files_in_directory ($directory = '') {
+function _papi_get_all_files_in_directory ($directory = '') {
   $result = array();
 
   if ($handle = opendir($directory)) {
     while (false !== ($file = readdir($handle))) {
       if (!in_array($file, array('..', '.'))) {
         if (is_dir($directory . '/' . $file)) {
-          $result = array_merge($result, _ptb_get_all_files_in_directory($directory . '/' . $file));
+          $result = array_merge($result, _papi_get_all_files_in_directory($directory . '/' . $file));
           $file = $directory . '/' . $file;
           $result[] = preg_replace('/\/\//si', '/', $file);
         } else {
@@ -67,12 +67,12 @@ function _ptb_get_all_files_in_directory ($directory = '') {
  * @return array
  */
 
-function _ptb_get_all_page_type_files () {
-  $directories = _ptb_get_directories();
+function _papi_get_all_page_type_files () {
+  $directories = _papi_get_directories();
   $result = array();
 
   foreach ($directories as $directory) {
-    $result = array_merge($result, _ptb_get_all_files_in_directory($directory));
+    $result = array_merge($result, _papi_get_all_files_in_directory($directory));
   }
 
   return $result;
@@ -87,9 +87,9 @@ function _ptb_get_all_page_type_files () {
  * @return string
  */
 
-function _ptb_get_page_type_file ($file) {
-  $directories = _ptb_get_directories();
-  $file = '/' . _ptb_dashify($file) . '.php';
+function _papi_get_page_type_file ($file) {
+  $directories = _papi_get_directories();
+  $file = '/' . _papi_dashify($file) . '.php';
   foreach ($directories as $directory) {
     if (file_exists($directory . $file)) {
       return $directory . $file;
@@ -107,8 +107,8 @@ function _ptb_get_page_type_file ($file) {
  * @return string
  */
 
-function _ptb_get_page_type_base_path ($file) {
-  $directories = _ptb_get_directories();
+function _papi_get_page_type_base_path ($file) {
+  $directories = _papi_get_directories();
   foreach ($directories as $directory) {
     if (strpos($file, $directory) !== false) {
       $file = str_replace($directory, '', $file);

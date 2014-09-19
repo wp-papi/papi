@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property String
+ * Papi - Property String
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyString extends PTB_Property {
+class PropertyString extends Papi_Property {
 
   /**
    * The input type to use.

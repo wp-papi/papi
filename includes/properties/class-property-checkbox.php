@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property Checkbox
+ * Papi - Property Checkbox
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyCheckbox extends PTB_Property {
+class PropertyCheckbox extends Papi_Property {
 
   /**
    * Generate the HTML for the property.

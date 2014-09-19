@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property Boolean
+ * Papi - Property Boolean
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
-class PropertyBoolean extends PTB_Property {
+class PropertyBoolean extends Papi_Property {
 
   /**
    * Generate the HTML for the property.
@@ -19,7 +19,7 @@ class PropertyBoolean extends PTB_Property {
    */
 
   public function html () {
-    echo PTB_Html::input('checkbox', array(
+    echo Papi_Html::input('checkbox', array(
       'name' => $this->get_options()->slug,
       'checked' => $this->get_options()->value ? 'checked' : '',
       'class' => $this->css_classes()

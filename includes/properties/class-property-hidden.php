@@ -4,9 +4,9 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Page Type Builder - Property Hidden
+ * Papi - Property Hidden
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 

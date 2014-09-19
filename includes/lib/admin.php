@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Page Type Builder Admin functions.
+ * Papi Admin functions.
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
@@ -18,8 +18,8 @@ if (!defined('ABSPATH')) exit;
  * @return bool
  */
 
-function _ptb_current_user_is_allowed ($capabilities = array()) {
-  foreach (_ptb_string_array($capabilities) as $capability) {
+function _papi_current_user_is_allowed ($capabilities = array()) {
+  foreach (_papi_string_array($capabilities) as $capability) {
     if (!current_user_can($capability)) return false;
   }
 

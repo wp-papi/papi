@@ -1,23 +1,23 @@
 (function ($) {
 
   // Add image
-  $('body').on('click', '.ptb-property-image .ptb-image-select > button', function (e) {
+  $('body').on('click', '.papi-property-image .papi-image-select > button', function (e) {
     e.preventDefault();
 
     var $this   = $(this),
-        $prop   = $this.closest('.ptb-property-image')
+        $prop   = $this.closest('.papi-property-image')
         $select = $this.closest('p')
         $target = $prop.find('ul'),
         gallery = $prop.hasClass('gallery')
-        options = $this.data('ptb-options');
+        options = $this.data('papi-options');
 
     // Open the WordPress media editor
-    ptb.Utils.wpMediaEditor(function (attachment, isImage) {
+    act.Utils.wpMediaEditor(function (attachment, isImage) {
       if (!isImage) {
         return;
       }
 
-      new ptb.view.Image({
+      new papi.view.Image({
         el: $target
       }).render({
         image: attachment.url,
@@ -34,21 +34,21 @@
   });
 
   // Toggle remove x
-  $('body').on('hover', '.ptb-property-image ul li', function (e) {
+  $('body').on('hover', '.papi-property-image ul li', function (e) {
     e.preventDefault();
     $(this).find('a').toggle();
   });
 
   // Remove image
-  $('body').on('click', '.ptb-property-image ul li a', function (e) {
+  $('body').on('click', '.papi-property-image ul li a', function (e) {
     e.preventDefault();
 
     var $this = $(this),
-        $prop = $this.closest('.ptb-property-image')
+        $prop = $this.closest('.papi-property-image')
         $li   = $this.closest('li');
 
     $prop
-      .find('.ptb-image-select')
+      .find('.papi-image-select')
       .show();
 
     $li

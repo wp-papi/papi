@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Page Type Builder Utilities functions for testing.
+ * Papi Utilities functions for testing.
  *
- * @package PageTypeBuilder
+ * @package Papi
  * @version 1.0.0
  */
 
@@ -19,6 +19,6 @@ if (!defined('ABSPATH')) exit;
  * @return string
  */
 
-function _test_ptb_generate_slug ($slug) {
-  return _ptb_f(_ptbify($slug));
+function _test_papi_generate_slug ($slug) {
+  return _papi_f(_papify($slug));
 }
