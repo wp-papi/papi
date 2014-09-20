@@ -22,8 +22,8 @@ class PropertyText extends Papi_Property {
     // Property options.
     $options = $this->get_options();
 
-    // Database value. Can be null.
-    $value = $this->get_value();
+    // Database value.
+    $value = $this->get_value('');
 
     // Property settings from the page type.
     $settings = $this->get_settings(array(
@@ -36,10 +36,9 @@ class PropertyText extends Papi_Property {
         'textarea_name' => $options->slug
       ));
     } else {
-      echo Papi_Html::textarea($value, array(
-        'name' => $options->slug,
-        'class' => $this->css_classes('papi-property-text')
-      ));
+      ?>
+      <textarea name="<?php echo $options->slug; ?>" class="<?php echo $this->css_classes('papi-property-text'); ?>"><?php echo $value; ?></textarea>
+      <?php
     }
   }
 }
