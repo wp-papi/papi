@@ -13,6 +13,7 @@ if (!defined('ABSPATH')) exit;
 /**
  * Check if current is allowed the given capabilities.
  *
+ * @param array $capabilities
  * @since 1.0.0
  *
  * @return bool

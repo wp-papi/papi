@@ -95,6 +95,7 @@ abstract class Papi_Page_Data {
    *
    * @param string $title.
    * @param array $options
+   * @param array $properties
    * @since 1.0.0
    */
 

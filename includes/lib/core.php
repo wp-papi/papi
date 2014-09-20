@@ -50,18 +50,6 @@ function _papi_get_post_id ($post_id = null) {
 }
 
 /**
- * Get Papi Core class instance.
- *
- * @since 1.0.0
- *
- * @return object
- */
-
-function _papi_core () {
-  return Papi_Core::instance();
-}
-
-/**
  * Get Papi settings.
  *
  * @since 1.0.0

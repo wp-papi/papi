@@ -233,6 +233,7 @@ function current_page () {
 /**
  * Get number of how many pages uses the given page type.
  *
+ * @param $page_type
  * @since 1.0.0
  *
  * @return int
@@ -241,7 +242,7 @@ function current_page () {
 function _papi_get_number_of_pages ($page_type) {
   global $wpdb;
 
-  if (is_null($page_type) || empty($page_type)) {
+  if (empty($page_type)) {
     return 0;
   }
 

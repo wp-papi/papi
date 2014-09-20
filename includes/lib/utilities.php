@@ -249,6 +249,7 @@ function _papi_include_template ($tpl_file, $vars = array()) {
 /**
  * Get string value into a array.
  *
+ * @param object|array|string $obj
  * @since 1.0.0
  *
  * @return array

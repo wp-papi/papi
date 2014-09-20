@@ -227,7 +227,7 @@ class Papi_Page_Type {
   /**
    * Filter page type fields. Some keys aren't allowed to use.
    *
-   * @param array $arr
+   * @param object|array $arr
    * @since 1.0.0
    *
    * @return array

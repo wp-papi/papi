@@ -102,6 +102,7 @@ class Papi_Admin_Meta_Boxes {
    * Prepare properties data for saving.
    *
    * @param array $data
+   * @param int $post_id
    * @since 1.0.0
    *
    * @return array

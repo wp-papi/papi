@@ -21,11 +21,12 @@ class Papi_Admin_View {
   /**
    * Constructor.
    *
+   * @param string $path
    * @since 1.0
    */
 
   public function __construct ($path = '') {
-    $this->path = !empty($path) ? $path : PAPI_PLUGIN_DIR . 'includes/admin/views/';
+    $this->path = empty($path) ? PAPI_PLUGIN_DIR . 'includes/admin/views/' : $path;
   }
 
   /**

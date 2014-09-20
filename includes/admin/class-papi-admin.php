@@ -218,18 +218,17 @@ final class Papi_Admin {
   /**
    * Add custom body class when it's a page type.
    *
+   * @param string $classes
    * @since 1.0.0
    *
    * @return string
    */
 
   public function admin_body_class ($classes) {
-    global $post;
-
     $post_type = _papi_get_wp_post_type();
 
     if (!in_array($post_type, _papi_get_post_types())) {
-      return;
+      return null;
     }
 
     if (count(get_page_templates())) {

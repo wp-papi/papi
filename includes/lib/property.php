@@ -87,7 +87,7 @@ function _papi_get_property_type ($type) {
   }
 
   if (empty($type)) {
-    return;
+    return null;
   }
 
   return Papi_Property::factory($type);

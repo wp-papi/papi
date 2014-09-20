@@ -32,14 +32,18 @@ abstract class Papi_Property {
    */
 
   public static function factory ($property) {
-    if (class_exists($property)) {
-      $prop = new $property();
-      if (is_subclass_of($prop, 'Papi_Property')) {
-        return $prop;
-      }
+    if (!class_Exists($property)) {
+      return null;
+	  }
+
+	  $prop = new $property();
+
+    // Property class need to be a subclass of Papi Property class.
+    if (!is_subclass_of($prop, 'Papi_property')) {
+      return null;
     }
 
-    return;
+    return null;
   }
 
   /**
