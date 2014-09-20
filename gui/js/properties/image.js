@@ -5,14 +5,14 @@
     e.preventDefault();
 
     var $this   = $(this),
-        $prop   = $this.closest('.papi-property-image')
-        $select = $this.closest('p')
+        $prop   = $this.closest('.papi-property-image'),
+        $select = $this.closest('p'),
         $target = $prop.find('ul'),
-        gallery = $prop.hasClass('gallery')
+        gallery = $prop.hasClass('gallery'),
         options = $this.data('papi-options');
 
     // Open the WordPress media editor
-    act.Utils.wpMediaEditor(function (attachment, isImage) {
+    papi.Utils.wpMediaEditor(function (attachment, isImage) {
       if (!isImage) {
         return;
       }
