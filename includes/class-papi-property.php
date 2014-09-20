@@ -32,7 +32,7 @@ abstract class Papi_Property {
    */
 
   public static function factory ($property) {
-    if (!class_Exists($property)) {
+    if (!class_exists($property)) {
       return null;
 	  }
 
@@ -43,7 +43,7 @@ abstract class Papi_Property {
       return null;
     }
 
-    return null;
+    return $prop;
   }
 
   /**

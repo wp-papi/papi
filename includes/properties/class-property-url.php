@@ -28,22 +28,14 @@ class PropertyUrl extends Papi_Property {
     ));
 
     // Database value.
-    $value = $this->get_value('');
+    $value = $this->get_value();
 
-    if ($settings->mediauploader) {
-      echo '&nbsp;' . Papi_Html::input('submit', array(
-        'name' => $options->slug . '_button',
-        'data-papi-action' => 'mediauploader',
-        'value' => __('Select file', 'papi'),
-        'class' => 'button papi-url-media-button'
-      ));
-    } else {
-      echo Papi_Html::input('url', array(
-        'name'  => $options->slug,
-        'value' => $value,
-        'class' => $this->css_classes()
-      ));
-    }
+    ?>
+    <input type="url" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes(); ?>" />
+
+    <?php if ($settings->mediauploader): ?>
+      &nbsp; <input type="submit" name="<?php echo $options->slug; ?>_button" value="<?php echo __('Select file', 'papi'); ?>" class="button papi-url-media-button" data-papi-action="mediauploader" />
+    <?php endif;
   }
 
 }
