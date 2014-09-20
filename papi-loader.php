@@ -177,7 +177,7 @@ final class Papi_Loader {
     // Load Papi property classes.
     require_once($this->plugin_dir . 'includes/properties/class-property-string.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-hidden.php');
-    require_once($this->plugin_dir . 'includes/properties/class-property-boolean.php');
+    require_once($this->plugin_dir . 'includes/properties/class-property-bool.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-email.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-date.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-number.php');

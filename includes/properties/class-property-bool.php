@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Papi - Property Boolean
+ * Papi - Property Bool
  *
  * @package Papi
  * @version 1.0.0
  */
 
-class PropertyBoolean extends Papi_Property {
+class PropertyBool extends Papi_Property {
 
   /**
    * Generate the HTML for the property.
@@ -19,11 +19,15 @@ class PropertyBoolean extends Papi_Property {
    */
 
   public function html () {
-    echo Papi_Html::input('checkbox', array(
-      'name' => $this->get_options()->slug,
-      'checked' => $this->get_options()->value ? 'checked' : '',
-      'class' => $this->css_classes()
-    ));
+    // Property options.
+    $options = $this->get_options();
+
+    // Database value.
+    $value = $this->get_value();
+
+    ?>
+    <input type="checkbox" name="<?php echo $options->slug; ?>" <?php echo empty($value) ? '' : 'checked="checked"'; ?> class="<?php echo $this->css_classes(); ?>" />
+    <?php
   }
 
   /**
@@ -37,7 +41,7 @@ class PropertyBoolean extends Papi_Property {
    */
 
   public function format_value ($value, $post_id) {
-    return isset($value) && !empty($value);
+    return !empty($value);
   }
 
 }
