@@ -78,7 +78,7 @@ function _papi_get_only_property_values ($a = array()) {
  * @param string $type
  * @since 1.0.0
  *
- * @return object|null
+ * @return null|Papi_Property
  */
 
 function _papi_get_property_type ($type) {

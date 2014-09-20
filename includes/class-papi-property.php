@@ -165,7 +165,7 @@ abstract class Papi_Property {
    * This filter is applied after the $value is loaded in the database.
    *
    * @param mixed $value
-   * @param mixed $post_id
+   * @param int $post_id
    * @since 1.0.0
    *
    * @return mixed
@@ -179,7 +179,7 @@ abstract class Papi_Property {
    * Format the value of the property before we output it to the application.
    *
    * @param mixed $value
-   * @param mixed $post_id
+   * @param int $post_id
    * @since 1.0.0
    *
    * @return mixed
@@ -193,7 +193,7 @@ abstract class Papi_Property {
    * This filter is applied before the $value is saved in the database.
    *
    * @param mixed $value
-   * @param mixed $post_id
+   * @param int $post_id
    * @since 1.0.0
    *
    * @return mixed
