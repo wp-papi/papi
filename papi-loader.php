@@ -169,10 +169,10 @@ final class Papi_Loader {
 
     // Load Papi classes that should not be autoloaded.
     require_once($this->plugin_dir . 'includes/admin/class-papi-admin.php');
-    require_once($this->plugin_dir . 'includes/class-papi-page-type.php');
     require_once($this->plugin_dir . 'includes/class-papi-page.php');
     require_once($this->plugin_dir . 'includes/class-papi-property.php');
-    require_once($this->plugin_dir . 'includes/class-papi-page-data.php');
+    require_once($this->plugin_dir . 'includes/page-type/class-papi-page-type-base.php');
+    require_once($this->plugin_dir . 'includes/page-type/class-papi-page-type.php');
 
     // Load Papi property classes.
     require_once($this->plugin_dir . 'includes/properties/class-property-string.php');
@@ -298,7 +298,7 @@ add_action('after_setup_theme', 'papi');
  * @return bool
  */
 
-function register_papi_directory ($directory) {
+function register_page_types_directory ($directory) {
   global $papi_directories;
 
   if (!is_array($papi_directories)) {

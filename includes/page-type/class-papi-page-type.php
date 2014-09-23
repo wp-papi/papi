@@ -4,22 +4,14 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Papi Page Data.
+ * Papi Page Type class.
+ * All page types in the WordPress theme will extend this class.
  *
  * @package Papi
  * @version 1.0.0
  */
 
-abstract class Papi_Page_Data {
-
-  /**
-   * Meta data for the page type.
-   *
-   * @var object
-   * @since 1.0.0
-   */
-
-  private $page_type_meta;
+class Papi_Page_Type extends Papi_Page_Type_Base {
 
   /**
    * The meta box instance.
@@ -36,7 +28,6 @@ abstract class Papi_Page_Data {
    *
    * @var array
    * @since 1.0.0
-   * @access private
    */
 
   private $properties = array();
@@ -46,49 +37,64 @@ abstract class Papi_Page_Data {
    *
    * @var array
    * @since 1.0.0
-   * @access private
    */
 
   private $remove_post_type_support = array();
 
   /**
-   * Constructor.
+   * Load a page type by the file.
    *
    * @since 1.0.0
    */
 
-  public function __construct () {
-    // Setup globals.
-    $this->setup_globals();
+  public function __construct ($file_path = '') {
+    parent::__construct($file_path);
+    $this->register();
   }
 
   /**
-   * Setup globals.
+   * Empty register function.
    *
    * @since 1.0.0
-   * @access private
    */
 
-  private function setup_globals () {
-    // Setup page type meta.
-    $this->setup_page_type_meta();
-  }
+  public function register () {}
 
   /**
-   * Setup page type meta.
+   * Remove post type support action.
    *
    * @since 1.0.0
-   * @access private
    */
 
-  private function setup_page_type_meta () {
-    if (method_exists($this, 'page_type')) {
-      $page_type_meta = static::page_type();
-      if (is_array($page_type_meta)) {
-        $this->page_type_meta = (object)$page_type_meta;
-      }
+  public function remove_post_type_support () {
+    // Get post type.
+    $post_type = _papi_get_wp_post_type();
+
+    // Can't proceed without a post type.
+    if (empty($post_type) || is_null($post_type)) {
+      return;
+    }
+
+    // Loop through all post type support to remove.
+    foreach ($this->remove_post_type_support as $post_type_support) {
+      remove_post_type_support($post_type, $post_type_support);
     }
   }
+
+  /**
+   * Create a new instance of the page type file.
+   *
+   * @since 1.0.0
+   *
+   * @return object
+   */
+
+  /*public function new_class () {
+    if (!class_exists($this->page_type)) {
+      require_once($this->file_path);
+    }
+    return new $this->page_type;
+  }*/
 
   /**
    * Add new meta box with properties.
@@ -151,41 +157,6 @@ abstract class Papi_Page_Data {
   }
 
   /**
-   * Remove post type support. Runs once, on page load.
-   *
-   * @param array $remove_post_type_support
-   * @since 1.0.0
-   */
-
-  protected function remove ($remove_post_type_support = array()) {
-    $remove_post_type_support = _papi_string_array($remove_post_type_support);
-    $this->remove_post_type_support = array_merge($this->remove_post_type_support, $remove_post_type_support);
-
-    add_action('init', array($this, 'remove_post_type_support'));
-  }
-
-  /**
-   * Remove post type support action.
-   *
-   * @since 1.0.0
-   */
-
-  public function remove_post_type_support () {
-    // Get post type.
-    $post_type = _papi_get_wp_post_type();
-
-    // Can't proceed without a post type.
-    if (empty($post_type) || is_null($post_type)) {
-      return;
-    }
-
-    // Loop through all post type support to remove.
-    foreach ($this->remove_post_type_support as $post_type_support) {
-      remove_post_type_support($post_type, $post_type_support);
-    }
-  }
-
-  /**
    * Add a new tab.
    *
    * @param string $title
@@ -227,49 +198,16 @@ abstract class Papi_Page_Data {
   }
 
   /**
-   * Get post type for the page type.
+   * Remove post type support. Runs once, on page load.
    *
-   * @since 1.0
-   *
-   * @return array
-   */
-
-  protected function get_post_types () {
-    if (is_null($this->page_type_meta)) {
-      $this->setup_page_type_meta();
-    }
-
-    if (isset($this->page_type_meta->post_types)) {
-      return is_array($this->page_type_meta->post_types) ?
-        $this->page_type_meta->post_types :
-        array($this->page_type_meta->post_type);
-    }
-
-    return array('page');
-  }
-
-  /**
-   * Check if the given post is allowed to use the page type.
-   *
-   * @param string $post_type
+   * @param array $remove_post_type_support
    * @since 1.0.0
-   *
-   * @return bool
    */
 
-  protected function has_post_type ($post_type) {
-    return in_array($post_type, $this->get_post_types());
+  protected function remove ($remove_post_type_support = array()) {
+    $remove_post_type_support = _papi_string_array($remove_post_type_support);
+    $this->remove_post_type_support = array_merge($this->remove_post_type_support, $remove_post_type_support);
+    add_action('init', array($this, 'remove_post_type_support'));
   }
 
-  /**
-   * Get all root properties.
-   *
-   * @since 1.0.0
-   *
-   * @return array
-   */
-
-  public function get_properties () {
-    return $this->properties;
-  }
 }

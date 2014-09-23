@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Papi Page Type.
+ * Papi Page Meta class.
  *
  * @package Papi
  * @version 1.0.0
  */
 
-class Papi_Page_Type {
+class Papi_Page_Type_Base {
 
   /**
    * The name of the page type.
@@ -104,7 +104,7 @@ class Papi_Page_Type {
   public function __construct ($file_path) {
     // Check so we have a file that exists.
     if (!is_string($file_path) || !file_exists($file_path) || !is_file($file_path)) {
-      return;
+      return null;
     }
 
     // Load the file.
@@ -115,23 +115,8 @@ class Papi_Page_Type {
       return;
     }
 
-    // Setup page type meta.
-    $this->setup_page_type();
-  }
-
-  /**
-   * Create a new instance of the page type file.
-   *
-   * @since 1.0.0
-   *
-   * @return object
-   */
-
-  public function new_class () {
-    if (!class_exists($this->page_type)) {
-      require_once($this->file_path);
-    }
-    return new $this->page_type;
+    // Setup page type meta data.
+    $this->setup_meta_data();
   }
 
   /**
@@ -143,7 +128,7 @@ class Papi_Page_Type {
    */
 
   public function has_name () {
-    return isset($this->name) && !empty($this->name);
+    return !empty($this->name);
   }
 
   /**
@@ -179,6 +164,34 @@ class Papi_Page_Type {
   }
 
   /**
+   * Check if the given post is allowed to use the page type.
+   *
+   * @param string $post_type
+   * @since 1.0.0
+   *
+   * @return bool
+   */
+
+  protected function has_post_type ($post_type) {
+    return in_array($post_type, $this->post_types);
+  }
+
+  /**
+   * Create a new instance of the page type file.
+   *
+   * @since 1.0.0
+   *
+   * @return object
+   */
+
+  public function new_class () {
+    if (!class_exists($this->page_type)) {
+      require_once($this->file_path);
+    }
+    return new $this->page_type;
+  }
+
+  /**
    * Load the file and setup page type meta data.
    *
    * @param string $file_path
@@ -199,22 +212,21 @@ class Papi_Page_Type {
   }
 
   /**
-   * Setup page type data.
+   * Setup page type meta data.
    *
    * @since 1.0.0
    * @access private
    */
 
-  private function setup_page_type () {
+  private function setup_meta_data () {
     // Get page type meta data.
     $page_type_meta = call_user_func($this->page_type . '::page_type');
-    $page_type_meta = (object)$page_type_meta;
 
     // Filter all fields.
-    $fields = $this->filter_page_type_fields($page_type_meta);
+    $page_type_meta = $this->filter_page_type_fields($page_type_meta);
 
     // Add each field as a variable.
-    foreach ($fields as $key => $value) {
+    foreach ($page_type_meta as $key => $value) {
       $this->$key = $value;
     }
 
@@ -234,17 +246,8 @@ class Papi_Page_Type {
    */
 
   private function filter_page_type_fields ($arr = array()) {
-    $res = array();
     $not_allowed = array('file_name', 'page_type');
-
-    foreach ($arr as $key => $value) {
-      if (in_array(strtolower($key), $not_allowed)) {
-        continue;
-      }
-      $res[$key] = $value;
-    }
-
-    return $res;
+    return array_intersect_key($arr, array_flip(array_diff(array_keys($arr), $not_allowed)));
   }
 
 }

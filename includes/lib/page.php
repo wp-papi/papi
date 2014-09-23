@@ -106,18 +106,18 @@ function _papi_is_page_type_allowed ($post_type) {
  * @param string $file_path
  * @since 1.0.0
  *
- * @return null|Papi_Page_Type
+ * @return null|Papi_Page_Type_Meta
  */
 
 function _papi_get_page_type ($file_path) {
- $page_type = new Papi_Page_Type($file_path);
+ $page_type_meta = new Papi_Page_Type($file_path);
 
  // If the page type don't have a name we can't use it.
- if (!$page_type->has_name()) {
+ if (!$page_type_meta->has_name()) {
    return null;
  }
 
- return $page_type;
+ return $page_type_meta;
 }
 
 /**
@@ -131,20 +131,16 @@ function _papi_get_page_type ($file_path) {
  */
 
 function _papi_get_all_page_types ($all = false) {
-  // Get all page types files.
   $files = _papi_get_all_page_type_files();
-
-  // Get the right WordPress post type.
   $post_type = _papi_get_wp_post_type();
-
   $page_types = array();
 
   foreach ($files as $file) {
-    $p = _papi_get_page_type($file);
+    $page_type = _papi_get_page_type($file);
 
     // Add the page type if the post types is allowed.
-    if (!is_null($p) && _papi_current_user_is_allowed($p->capabilities) && ($all || in_array($post_type, $p->post_types))) {
-      $page_types[] = $p;
+    if (!is_null($page_type) && _papi_current_user_is_allowed($page_type->capabilities) && ($all || in_array($post_type, $page_type->post_types))) {
+      $page_types[] = $page_type;
     }
   }
 
@@ -189,10 +185,9 @@ function _papi_get_file_data ($post_id) {
   $page_type = _papi_get_page_type_meta_value($post_id);
 
   // Check so the page type isn't null or empty before we
-  // trying to get the page type data.
-  if (!is_null($page_type) && !empty($page_type)) {
-    $file = _papi_get_page_type_file($page_type);
-    return _papi_get_page_type($file);
+  // trying to get the page type meta data.
+  if (!empty($page_type)) {
+    return _papi_get_page_type(_papi_get_page_type_file($page_type));
   }
 
   return null;

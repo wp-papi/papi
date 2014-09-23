@@ -40,10 +40,6 @@ class Papi_Page {
   private $page_type;
 
   /**
-   * The Page type
-   */
-
-  /**
    * Create a new instance of the class.
    *
    * @param int $post_id
