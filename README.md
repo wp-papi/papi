@@ -18,7 +18,7 @@ The page type class.
 
 <?php
 
-class About_Us_Page_Type extends Papi_Page_Data {
+class About_Us_Page_Type extends Papi_Page_Type {
 
   /**
    * Define our Page Type meta data.
