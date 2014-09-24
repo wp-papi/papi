@@ -49,16 +49,10 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 
   public function __construct ($file_path = '') {
     parent::__construct($file_path);
-    $this->register();
+    if (method_exists($this, 'register')) {
+      $this->register();
+    }
   }
-
-  /**
-   * Empty register function.
-   *
-   * @since 1.0.0
-   */
-
-  public function register () {}
 
   /**
    * Remove post type support action.
