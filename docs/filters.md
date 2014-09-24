@@ -1,27 +1,46 @@
 # Filters
 
-### papi/update_value
+### papi/load_value/{$property_type}
 
-Update value for every property before it is saved to the database.
+This filter is applied after the $value is loaded in the database. Just remove `Property` from the property type key and then you have the right type for the filter.
 
-Example:
+Example: `PropertyString` => `papi/load_value/string`
 
 ```
 <?php
 
-  function eg_update_value ($value, $post_id) {
+  function eg_load_value_string ($value, $post_id) {
     // do some magic with the value and return it.
     return $value;
   }
-  
-  add_filter('papi/update_value', 'eg_update_value');
-  
+
+  add_filter('papi/load_value/string', 'eg_load_value_string');
+
+?>
+```
+
+### papi/format_value/{$property_type}
+
+Format the value of the property before we output it to the application. Just remove `Property` from the property type key and then you have the right type for the filter.
+
+Example: `PropertyString` => `papi/format_value/string`
+
+```
+<?php
+
+  function eg_format_value_string ($value, $post_id) {
+    // do some magic with the value and return it.
+    return $value;
+  }
+
+  add_filter('papi/format_value/string', 'eg_format_value_string');
+
 ?>
 ```
 
 ### papi/update_value/{$property_type}
 
-Update value for the specified property before it is saved to the database. Just remove `Property` from the property type key and then you have the right type for the filter.
+This filter is applied before the $value is saved in the database. Just remove `Property` from the property type key and then you have the right type for the filter.
 
 Example: `PropertyString` => `papi/update_value/string`
 
