@@ -18,7 +18,7 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
   public function setUp () {
     parent::setUp();
 
-    register_papi_directory(getcwd() . '/tests/data/page-types');
+    register_page_types_directory(getcwd() . '/tests/data/page-types');
   }
 
   /**
