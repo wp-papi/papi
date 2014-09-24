@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) exit;
  */
 
 function _papi_is_property_type_key ($str = '') {
-  $pattern = PAPI_PROPERTY_TYPE_KEY;
+  $pattern = '_property';
   $pattern = str_replace('_', '\_', $pattern);
   $pattern = str_replace('-', '\-', $pattern);
   $pattern = '/' . $pattern . '$/';
@@ -37,7 +37,7 @@ function _papi_is_property_type_key ($str = '') {
  */
 
 function _papi_property_type_key ($str = '') {
-  return $str . PAPI_PROPERTY_TYPE_KEY;
+  return $str . '_property';
 }
 
 /**

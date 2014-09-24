@@ -133,11 +133,6 @@ final class Papi_Loader {
       define('PAPI_PLUGIN_URL', $plugin_url);
     }
 
-    // Property type key.
-    if (!defined('PAPI_PROPERTY_TYPE_KEY')) {
-      define('PAPI_PROPERTY_TYPE_KEY', '_property');
-    }
-
     // Check for support for Polylang
     if (defined('POLYLANG_VERSION')) {
       define('PAPI_POLYLANG', true);
