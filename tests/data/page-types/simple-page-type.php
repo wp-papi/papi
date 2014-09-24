@@ -1,6 +1,6 @@
 <?php
 
-class Simple_Page_Type extends PAPI_Page_Data {
+class Simple_Page_Type extends Papi_Page_Type {
 
   /**
    * Define our Page Type meta data.
@@ -19,7 +19,5 @@ class Simple_Page_Type extends PAPI_Page_Data {
    * Define our properties.
    */
 
-  public function __construct () {
-    parent::__construct();
-  }
+  public function register () {}
 }
