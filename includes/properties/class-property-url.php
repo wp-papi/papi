@@ -30,8 +30,14 @@ class PropertyUrl extends Papi_Property {
     // Database value.
     $value = $this->get_value();
 
+    $css_classes = $this->css_classes();
+
+    if ($settings->mediauploader) {
+      $css_classes .= ' papi-url-media-input';
+    }
+
     ?>
-    <input type="url" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $this->css_classes(); ?>" />
+    <input type="url" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $css_classes; ?>" />
 
     <?php if ($settings->mediauploader): ?>
       &nbsp; <input type="submit" name="<?php echo $options->slug; ?>_button" value="<?php echo __('Select file', 'papi'); ?>" class="button papi-url-media-button" data-papi-action="mediauploader" />

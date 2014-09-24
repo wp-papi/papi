@@ -5,10 +5,9 @@
   $('body').on('click', '[data-papi-action="mediauploader"]', function (e) {
     e.preventDefault();
 
-    var $this   = $(this),
-        $target = $this.prev();
+    var $target = $(this).prev();
 
-    act.Utils.wp_media_editor($this, $target);
+    papi.Utils.wpMediaEditor($target);
   });
 
   // Use Pikaday for property date.
