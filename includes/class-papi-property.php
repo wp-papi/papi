@@ -182,18 +182,6 @@ abstract class Papi_Property {
   }
 
   /**
-   * Get property type.
-   *
-   * @since 1.0.0
-   *
-   * @return string
-   */
-
-  public function get_property_type () {
-    return strtolower(str_replace('Property', '', get_class($this)));
-  }
-
-  /**
    * This filter is applied after the $value is loaded in the database.
    *
    * @param mixed $value
@@ -204,7 +192,7 @@ abstract class Papi_Property {
    */
 
   public function load_value ($value, $post_id) {
-    return apply_filters('papi/load_value/' . $this->get_property_type(), $value, $post_id);
+    return $value;
   }
 
   /**
@@ -218,7 +206,7 @@ abstract class Papi_Property {
    */
 
   public function format_value ($value, $post_id) {
-    return apply_filters('papi/format_value/' . $this->get_property_type(), $value, $post_id);
+    return $value;
   }
 
   /**
@@ -232,7 +220,7 @@ abstract class Papi_Property {
    */
 
   public function update_value ($value, $post_id) {
-    return apply_filters('papi/update_value/' . $this->get_property_type(), $value, $post_id);
+    return $value;
   }
 
   /**

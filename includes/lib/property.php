@@ -94,6 +94,19 @@ function _papi_get_property_type ($type) {
 }
 
 /**
+ * Get property short type.
+ *
+ * @param string $type
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papi_get_property_short_type ($type) {
+  return preg_replace('/^property/', '', strtolower($type));
+}
+
+/**
  * Get property options.
  *
  * @param array $options

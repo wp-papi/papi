@@ -160,6 +160,7 @@ final class Papi_Loader {
     // Load Papi functions.
     require_once($this->plugin_dir . 'includes/lib/utilities.php');
     require_once($this->plugin_dir . 'includes/lib/core.php');
+    require_once($this->plugin_dir . 'includes/lib/filters.php');
     require_once($this->plugin_dir . 'includes/lib/page.php');
     require_once($this->plugin_dir . 'includes/lib/property.php');
     require_once($this->plugin_dir . 'includes/lib/io.php');

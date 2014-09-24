@@ -159,6 +159,10 @@ class Papi_Admin_Meta_Boxes {
 
       // Run `update_value` if it exists on the property class.
       $data[$key]['value'] = $property->update_value($data[$key]['value'], $post_id);
+
+      // Apply a filter so this can be changed from the theme for specified property type.
+      // Example: "papi/update_value/string"
+      $data[$key] = _papi_update_value($property_type, $data[$key], $post_id);
     }
 
     // Check so all properties has a value and a type key and that the property is a array.

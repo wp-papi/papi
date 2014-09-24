@@ -151,8 +151,16 @@ class Papi_Page {
       // Run a `load_value` right after the value has been loaded from the database.
       $property['value'] = $property_type->load_value($property['value'], $this->id);
 
-      // Format the value before we return it.
-      return $property_type->format_value($property['value'], $this->id);
+      // Apply a filter so this can be changed from the theme for specified property type.
+      // Example: "papi/load_value/string"
+      $property['value'] = _papi_load_value($type, $property['value'], $this->id);
+
+      // Format the value from the property class.
+      $property['value'] = $property_type->format_value($property['value'], $this->id);
+
+      // Apply a filter so this can be changed from the theme for specified property type.
+      // Example: "papi/format_value/string"
+      $property['value'] = _papi_format_value($type, $property['value'], $this->id);
     }
 
     // If we only have the value, let's return that.
