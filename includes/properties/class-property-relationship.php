@@ -155,7 +155,7 @@ EOF;
   public function format_value ($value, $post_id) {
     if (is_array($value)) {
       return array_map(function ($id) {
-        return papi_get_page($id);
+        return get_post($id);
       }, $value);
     } else {
       return array();
