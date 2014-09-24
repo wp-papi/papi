@@ -38,8 +38,7 @@ class About_Us_Page_Type extends Papi_Page_Type {
    * Register our properties.
    */
 
-  public function __construct () {
-    parent::__construct();
+  public function register () {
 
     // Remove comments meta box
     $this->remove('comments');
