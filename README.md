@@ -10,12 +10,26 @@ Papi allows you create page types using the existing page post type or using cus
 
 ![](http://public.forsmo.me/wp-ptb/about-us-page-type.png?v3)
 
-## Example
-
-The page type class.
+#### Register page types directory
 
 ```php
+<?php
 
+// In your functions file
+register_page_types_directory('path/to/page-types/directory');
+
+// If you do this is mu-plugins directory or outside your theme.
+function my_register_page_types_directory () {
+  register_page_types_directory('path/to/page-types/directory');
+}
+add_action('after_setup_theme', 'my_register_page_types_directory');
+
+?>
+```
+
+#### The page type class.
+
+```php
 <?php
 
 class About_Us_Page_Type extends Papi_Page_Type {
@@ -70,13 +84,13 @@ class About_Us_Page_Type extends Papi_Page_Type {
     ));
   }
 }
-?>
 
+?>
 ```
 
 #### Getting property values
 
-There are three ways to get the property value. We can call on `current_page` object that is a object with all properties and the `WP_POST` properties.
+There are three ways to get the property value. We can call on `current_page` object that is a object with all properties.
 
 Example: `echo current_page()->twitter_link`
 
