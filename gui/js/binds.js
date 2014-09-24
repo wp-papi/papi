@@ -13,7 +13,7 @@
   // Use Pikaday for property date.
   if (window.Pikaday !== undefined) {
     new Pikaday({
-      field: $('input.papi-property-date')[0],
+      field: $('input[data-papi-property="date"]')[0],
       format: 'YYYY-MM-DD',
       setDefaultDate: true
     });

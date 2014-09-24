@@ -13,6 +13,16 @@ if (!defined('ABSPATH')) exit;
 abstract class Papi_Property {
 
   /**
+   * The page post id.
+   *
+   * @var int
+   * @since 1.0.0
+   * @access private
+   */
+
+  private $post_id;
+
+  /**
    * Current property options object that is used to generate a property.
    *
    * @var object
@@ -21,6 +31,16 @@ abstract class Papi_Property {
    */
 
   private $options;
+
+  /**
+   * Setup the current post id.
+   *
+   * @since 1.0.0
+   */
+
+  public function __construct () {
+    $this->post_id = _papi_get_post_id();
+  }
 
   /**
    * Create a new instance of the given property.
@@ -162,6 +182,18 @@ abstract class Papi_Property {
   }
 
   /**
+   * Get property type.
+   *
+   * @since 1.0.0
+   *
+   * @return string
+   */
+
+  public function get_property_type () {
+    return strtolower(str_replace('Property', '', get_class($this)));
+  }
+
+  /**
    * This filter is applied after the $value is loaded in the database.
    *
    * @param mixed $value
@@ -172,7 +204,7 @@ abstract class Papi_Property {
    */
 
   public function load_value ($value, $post_id) {
-    return $value;
+    return apply_filters('papi/load_value/' . $this->get_property_type(), $value, $post_id);
   }
 
   /**
@@ -186,7 +218,7 @@ abstract class Papi_Property {
    */
 
   public function format_value ($value, $post_id) {
-    return $value;
+    return apply_filters('papi/format_value/' . $this->get_property_type(), $value, $post_id);
   }
 
   /**
@@ -200,7 +232,7 @@ abstract class Papi_Property {
    */
 
   public function update_value ($value, $post_id) {
-    return $value;
+    return apply_filters('papi/update_value/' . $this->get_property_type(), $value, $post_id);
   }
 
   /**
@@ -235,14 +267,14 @@ abstract class Papi_Property {
    * @return mixed
    */
 
-  public function get_value ($default = null) {
+  public function get_value ($default = '') {
     $value = $this->options->value;
 
     if (empty($value)) {
       return $default;
     }
 
-    return $value;
+    return $this->load_value($value, $this->post_id);
   }
 
   /**
@@ -255,13 +287,7 @@ abstract class Papi_Property {
    */
 
   public function get_settings ($defaults = array()) {
-    if (isset($this->options->settings)) {
-      $custom = $this->options->settings;
-    } else {
-      $custom = array();
-    }
-
-    return (object)wp_parse_args((array)$custom, $defaults);
+    return (object)wp_parse_args($this->options->settings, $defaults);
   }
 
   /**
