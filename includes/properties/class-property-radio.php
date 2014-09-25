@@ -44,9 +44,9 @@ class PropertyRadio extends Papi_Property {
       }
 
       ?>
-      <input type="radio" value="<?php echo $key ?>" name="<?php echo $options->slug; ?>" <?php echo $key == $settings->selected ? 'checked="checked"' : ''; ?> />
+      <input type="radio" value="<?php echo $value ?>" name="<?php echo $options->slug; ?>" <?php echo $value == $settings->selected ? 'checked="checked"' : ''; ?> />
       <?php
-      echo $value . '<br />';
+      echo $key . '<br />';
     }
   }
 

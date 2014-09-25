@@ -32,8 +32,8 @@ class PropertyCheckbox extends Papi_Property {
     ));
 
     // Override selected setting with
-    // database value if not null.
-    if (!is_null($value)) {
+    // database value if not empty.
+    if (!empty($value)) {
       $settings->selected = $value;
     }
 
@@ -49,9 +49,9 @@ class PropertyCheckbox extends Papi_Property {
       }
 
       ?>
-      <input type="checkbox" value="<?php echo $key; ?>" name="<?php echo $options->slug; ?>[]" <?php echo in_array($key, $settings->selected) ? 'checked="checked"': ''; ?> />
+      <input type="checkbox" value="<?php echo $value; ?>" name="<?php echo $options->slug; ?>[]" <?php echo in_array($value, $settings->selected) ? 'checked="checked"': ''; ?> />
       <?php
-      echo $value . '<br />';
+      echo $key . '<br />';
     }
   }
 

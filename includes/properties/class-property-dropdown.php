@@ -32,8 +32,8 @@ class PropertyDropdown extends Papi_Property {
     ));
 
     // Override selected setting with
-    // database value if not null.
-    if (!is_null($value)) {
+    // database value if not empty.
+    if (!empty($value)) {
       $settings->selected = $value;
     }
 
@@ -45,7 +45,7 @@ class PropertyDropdown extends Papi_Property {
             $key = $value;
           }
       ?>
-        <option value="<?php echo $key; ?>" <?php echo $key == $settings->selected ? 'selected="selected"' : ''; ?>><?php echo $value; ?></option>
+        <option value="<?php echo $value; ?>" <?php echo $value == $settings->selected ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
       <?php endforeach; ?>
     </select>
     <?php
