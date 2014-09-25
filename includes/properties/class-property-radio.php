@@ -4,13 +4,13 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Papi - Property Radiolist
+ * Papi - Property Radio
  *
  * @package Papi
  * @version 1.0.0
  */
 
-class PropertyRadioButtons extends Papi_Property {
+class PropertyRadio extends Papi_Property {
 
   /**
    * Generate the HTML for the property.
@@ -33,7 +33,7 @@ class PropertyRadioButtons extends Papi_Property {
 
     // Override selected setting with
     // database value if not null.
-    if (!is_null($value)) {
+    if (!empty($value)) {
       $settings->selected = $value;
     }
 

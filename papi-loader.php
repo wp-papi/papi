@@ -186,7 +186,7 @@ final class Papi_Loader {
     require_once($this->plugin_dir . 'includes/properties/class-property-checkbox.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-list.php');
     require_once($this->plugin_dir . 'includes/properties/class-property-relationship.php');
-    require_once($this->plugin_dir . 'includes/properties/class-property-radiobuttons.php');
+    require_once($this->plugin_dir . 'includes/properties/class-property-radio.php');
 
     // Include third party properties.
     $this->include_third_party();
