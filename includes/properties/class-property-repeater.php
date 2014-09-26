@@ -36,9 +36,6 @@ class PropertyRepeater extends Papi_Property {
   public function html () {
     $this->counter = 0;
 
-    // Property options.
-    $this->options = $this->get_options();
-
     // Database value.
     $values = $this->get_value(array());
 
@@ -153,7 +150,8 @@ class PropertyRepeater extends Papi_Property {
    */
 
   public function generate_slug ($property) {
-    return $this->options->slug . '[' . $this->counter . ']' . '[' . str_replace('papi_papi', 'papi', $property->slug) . ']';
+    $options = $this->get_options();
+    return $options->slug . '[' . $this->counter . ']' . '[' . str_replace('papi_papi', 'papi', $property->slug) . ']';
   }
 
   /**
