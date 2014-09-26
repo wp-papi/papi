@@ -120,7 +120,7 @@ function _papi_get_property_options ($options) {
     'capabilities'  => array(),
     'default'       => '',
     'disabled'      => false,
-    'instruction'   => ''
+    'instruction'   => '',
     'lang'          => '',
     'no_title'      => false,
     'old_slug'      => '',
@@ -130,7 +130,7 @@ function _papi_get_property_options ($options) {
     'sort_order'    => null,
     'title'         => '',
     'type'          => '',
-    'value'         => '',
+    'value'         => ''
   );
 
   $options = array_merge($defaults, $options);
