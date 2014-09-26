@@ -162,7 +162,7 @@ abstract class Papi_Property {
    */
 
   public function render () {
-    if (!empty($this->options->title)):
+    if ($this->options->raw === false):
     ?>
       <tr>
         <td>

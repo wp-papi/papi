@@ -1,0 +1,91 @@
+.papi-property-repeater-templates {
+  display: none;
+}
+
+// The repeater
+.papi-property-repeater {
+  margin-right: -30px;
+
+  .repeater-template {
+    display: none;
+  }
+
+  .papi-table {
+    margin: -11px 0 -13px -15px;
+    border-bottom:  1px solid #EAEAEA;
+    tr th {
+      border: 1px solid #EAEAEA;
+      border-left: 0;
+      border-bottom: 0;
+      background: #F9F9F9;
+
+      padding: 10px 15px;
+
+      &:first-child,
+      &.last {
+        background: #FFFFFF;
+        color: #afafaf;
+        font-weight: bold;
+        width: 5%;
+        padding-right: 15px;
+        position: relative;
+        border-left: none;
+        padding-left: 0;
+        padding-right: 0;
+        span {
+          position: absolute;
+          top: 50%;
+          margin-top: -0.5em;
+          overflow: hidden;
+          white-space: nowrap;
+          width: 100%;
+          text-overflow: ellipsis;
+          text-align: center;
+        }
+      }
+    }
+
+    tr {
+      cursor: move;
+
+      td {
+        border-right: 1px solid #EAEAEA;
+        &:first-child,
+        &.last {
+          background: #F9F9F9;
+          color: #afafaf;
+          font-weight: bold;
+          width: 5%;
+          padding-right: 15px;
+          position: relative;
+          border-left: none;
+          padding-left: 0;
+          padding-right: 0;
+          span {
+            position: absolute;
+            top: 50%;
+            margin-top: -0.5em;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            text-overflow: ellipsis;
+            text-align: center;
+          }
+        }
+      }
+
+      .repeater-remove-item {
+        text-decoration: none;
+        color: #afafaf;
+      }
+    }
+  }
+
+  .bottom {
+    margin-top: 25px;
+    width: 95%;
+    a {
+      float: right;
+    }
+  }
+}

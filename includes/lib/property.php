@@ -129,7 +129,8 @@ function _papi_get_property_options ($options) {
     'lang'          => '',
     'old_slug'      => '',
     'default'       => '',
-    'capabilities' => array()
+    'capabilities'  => array(),
+    'raw'           => false
   );
 
   $options = array_merge($defaults, $options);

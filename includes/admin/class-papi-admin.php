@@ -267,7 +267,7 @@ final class Papi_Admin {
       if (!is_null($page_type)) {
         echo $page_type->name;
       } else {
-        _e('Standard Page', 'papi');
+        _e('Standard page', 'papi');
       }
     }
   }
