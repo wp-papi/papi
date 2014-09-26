@@ -142,16 +142,13 @@ abstract class Papi_Property {
    * @since 1.0.0
    */
 
-  public function helptext () {
-    if (empty($this->options->help_text)) {
+  public function instruction () {
+    if (empty($this->options->instruction)) {
       return;
     }
 
-    $help_text = $this->options->help_text;
-    $help_text = strip_tags($help_text);
-
     ?>
-      <p><?php echo $help_text; ?></p>
+      <p><?php echo strip_tags($this->options->instruction); ?></p>
     <?php
   }
 
@@ -168,7 +165,7 @@ abstract class Papi_Property {
         <td>
           <?php
             $this->label();
-            $this->helptext();
+            $this->instruction();
           ?>
         </td>
         <td>

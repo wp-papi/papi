@@ -195,7 +195,7 @@ class PropertyMap extends Papi_Property {
         <td>
           <?php
             $this->label();
-            $this->helptext();
+            $this->instruction();
           ?>
         </td>
         <td>

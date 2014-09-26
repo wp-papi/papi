@@ -40,7 +40,7 @@ class PropertyDivider extends Papi_Property {
         <td colspan="2">
           <?php
             $this->html();
-            $this->helptext();
+            $this->instruction();
           ?>
         </td>
       </tr>

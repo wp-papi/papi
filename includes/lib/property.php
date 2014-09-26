@@ -117,20 +117,20 @@ function _papi_get_property_short_type ($type) {
 
 function _papi_get_property_options ($options) {
   $defaults = array(
-    'title'         => '',
-    'no_title'      => false,
-    'disabled'      => false,
-    'slug'          => '',
-    'settings'      => array(),
-    'sort_order'    => null,
-    'value'         => '',
-    'type'          => '',
-    'colspan'       => '',
-    'lang'          => '',
-    'old_slug'      => '',
-    'default'       => '',
     'capabilities'  => array(),
-    'raw'           => false
+    'default'       => '',
+    'disabled'      => false,
+    'instruction'   => ''
+    'lang'          => '',
+    'no_title'      => false,
+    'old_slug'      => '',
+    'raw'           => false,
+    'settings'      => array(),
+    'slug'          => '',
+    'sort_order'    => null,
+    'title'         => '',
+    'type'          => '',
+    'value'         => '',
   );
 
   $options = array_merge($defaults, $options);
