@@ -200,7 +200,7 @@ final class Papi_Loader {
    */
 
   private function include_third_party () {
-    do_action('papi/include_property_types');
+    do_action('papi/include_properties');
   }
 
   /**
