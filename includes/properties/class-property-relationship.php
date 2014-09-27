@@ -50,95 +50,43 @@ class PropertyRelationship extends Papi_Property {
       return is_object($post);
     });
 
-    $html = <<< EOF
-      <div class="papi-page-reference">
-        <div class="pr-inner">
-          <div class="pr-left">
-            <div class="pr-search">
+    ?>
+      <div class="papi-property-relationship">
+        <div class="relationship-inner">
+          <div class="relationship-left">
+            <div class="relationship-search">
               <input type="search" placeholder="Sök" />
             </div>
             <ul>
-EOF;
-
-              foreach ($posts as $post) {
-                if (!empty($post->post_title)) {
-                  $html .= <<< EOF
+              <?php
+              foreach ($posts as $post):
+                if (!empty($post->post_title)):
+                    ?>
                     <li>
-                      <input type="hidden" data-name="{$options->slug}[]" value="{$post->ID}" />
-                      <a href="#">{$post->post_title}</a>
+                      <input type="hidden" data-name="<?php echo $options->slug; ?>[]" value="<?php echo $post->ID; ?>" />
+                      <a href="#"><?php echo $post->post_title; ?></a>
                       <span class="icon plus"></span>
                     </li>
-EOF;
-                }
-              }
-      $html .= <<< EOF
+                    <?php
+                endif;
+              endforeach;
+              ?>
             </ul>
           </div>
-          <div class="pr-right">
+          <div class="relationship-right">
             <ul>
-EOF;
-            foreach ($references as $post) {
-              $html .= <<< EOF
+            <?php foreach ($references as $post): ?>
               <li>
-                <input type="hidden" name="{$options->slug}[]" value="{$post->ID}" />
-                <a href="#">{$post->post_title}</a>
+                <input type="hidden" name="<?php echo $options->slug; ?>[]" value="<?php echo $post->ID; ?>" />
+                <a href="#"><?php echo $post->post_title; ?></a>
                 <span class="icon minus"></span>
               </li>
-EOF;
-            }
-      $html .= <<< EOF
+            <?php endforeach; ?>
             </ul>
           </div>
           <div class="papi-clear"></div>
         </div>
       </div>
-EOF;
-
-    echo $html;
-  }
-
-  /**
-   * Output custom JavaScript for the property.
-   *
-   * @since 1.0.0
-   */
-
-  public function js () {
-    ?>
-    <script type="text/javascript">
-      (function ($) {
-
-        // Add page reference to list
-        $('.papi-page-reference .pr-left').on('click', 'li', function (e) {
-          e.preventDefault();
-          var $li = $(this).clone();
-          $li.find('span.icon').removeClass('plus').addClass('minus');
-          $li.find('input').attr('name', $li.find('input').data('name'));
-          $li.appendTo('.papi-page-reference .pr-right ul');
-        });
-
-        // Remove page reference from list
-        $('.papi-page-reference .pr-right').on('click', 'li', function (e) {
-          e.preventDefault();
-          $(this).remove();
-        });
-
-        // Search field
-        $('.papi-page-reference .pr-left .pr-search input[type=search]').on('keyup', function () {
-
-          var $this = $(this)
-            , $list = $('.papi-page-reference .pr-left ul')
-            , val = $this.val();
-
-          $list.find('li').each(function () {
-            var $li = $(this);
-            $li[$li.text().toLowerCase().indexOf(val) === -1 ? 'hide' : 'show']();
-          });
-
-        });
-
-      })(window.jQuery);
-    </script>
     <?php
   }
 

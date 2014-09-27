@@ -1,9 +1,9 @@
-.papi-page-reference {
+.papi-property-relationship {
   background: #fafafa;
   border: 1px #eaeaea solid;
-  .pr-inner {
+  .relationship-inner {
     padding: 5px;
-    .pr-left {
+    .relationship-left {
       float: left;
       width: 49%;
       max-width: 49%;
@@ -15,7 +15,7 @@
       overflow: scroll;
       overflow-x: hidden;
     }
-    .pr-right {
+    .relationship-right {
       float: right;
       width: 49%;
       max-width: 49%;
@@ -27,7 +27,7 @@
       overflow: scroll;
       overflow-x: hidden;
     }
-    .pr-left .pr-search {
+    .relationship-left .relationship-search {
       background: #fafafa;
       border-bottom: 1px #eaeaea solid;
       padding: 5px 0px 5px 0px;
