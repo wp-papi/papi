@@ -4,6 +4,8 @@
 
 Papi allows you create page types using the existing page post type or using custom post types. The documentation this project isn't so good, but you can look at the example below and checkout the properties to get a picture of how it works. For those how have work with Page Type Builder in EPiServer you will recognize themselves. Page Type Builder for WordPress is heavily inspired by the Page Type Builder for EPiServer.
 
+[Documentation](http://wp-papi.github.io/)
+
 **Note: This project and its documentation are still under active development, so use it in production on your own risk**
 
 ![](http://public.forsmo.me/wp-ptb/add-new-page.png?v4)
