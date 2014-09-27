@@ -43,7 +43,7 @@ class PropertyImage extends Papi_Property {
     ?>
 
     <script type="text/template" id="tmpl-papi-image">
-      <a href="#" data-papi-property="image" data-papi-options='{"id":"<%= id %>"}'>x</a>
+      <a href="#" data-papi-options='{"id":"<%= id %>"}'>x</a>
       <img src="<%= image %>" />
       <input type="hidden" value="<%= id %>" name="<%= slug %>" />
     </script>
@@ -64,7 +64,7 @@ class PropertyImage extends Papi_Property {
               $url = wp_get_attachment_thumb_url($image->id);
         ?>
               <li>
-                <a href="#" class="papi-image-remove" data-papi-options='{"id":"<?php echo $image->id; ?>"}'>x</a>
+                <a href="#" data-papi-options='{"id":"<?php echo $image->id; ?>"}'>x</a>
                 <img src="<?php echo $url; ?>" />
                 <input type="hidden" value="<?php echo $image->id; ?>" name="<?php echo $slug; ?>" />
               </li>
