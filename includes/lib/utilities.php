@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) exit;
  * @return mixed
  */
 
-function _papi_h (&$obj, $default = null) {
+function _papi_h ($obj, $default = null) {
   return isset($obj) ? $obj : $default;
 }
 
@@ -224,7 +224,7 @@ function _papi_attribute ($name, $value) {
 
 function _papi_get_qs ($qs) {
   if (isset($_GET[$qs]) && !empty($_GET[$qs])) {
-    return $_GET[$qs];
+    return esc_html($_GET[$qs]);
   }
 
   return null;

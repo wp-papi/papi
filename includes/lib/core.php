@@ -50,18 +50,6 @@ function _papi_get_post_id ($post_id = null) {
 }
 
 /**
- * Get Papi settings.
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _papi_get_settings () {
-  return apply_filters('papi/settings', array());
-}
-
-/**
  * Get WordPress post type in various ways
  *
  * @since 1.0.0
