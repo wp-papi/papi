@@ -122,7 +122,6 @@ function _papi_get_property_options ($options) {
     'disabled'      => false,
     'instruction'   => '',
     'lang'          => '',
-    'no_title'      => false,
     'old_slug'      => '',
     'raw'           => false,
     'settings'      => array(),
@@ -136,9 +135,27 @@ function _papi_get_property_options ($options) {
   $options = array_merge($defaults, $options);
   $options = (object)$options;
 
-  if ($options->no_title) {
-    $options->title = '';
-    $options->colspan = 2;
+  // Capabilities should always be array.
+  if (!is_array($options->capabilities)) {
+    $options->capabilities = array($options->capabilities);
+  }
+
+  // Generate random slug if we don't have a title or slug.
+  if (empty($options->title) && empty($options->slug)) {
+    $options->slug = _papi_slugify(uniqid());
+  }
+
+  // Generate slug from title.
+  if (empty($options->slug)) {
+    $options->slug = _papi_slugify($options->title);
+  }
+
+  // Generate a vaild Papi meta name for slug.
+  $options->slug = _papi_name($options->slug);
+
+  // Generate a valid Papi meta name for old slug.
+  if (!empty($options->old_slug)) {
+    $options->old_slug = _papi_name($options->old_slug);
   }
 
   // This fixes so you can use "Text" as type and hasn't to write "PropertyText".
@@ -146,28 +163,15 @@ function _papi_get_property_options ($options) {
     $options->type = 'Property' . ucfirst(strtolower($options->type));
   }
 
-  if (empty($options->slug)) {
-    $options->slug = _papi_slugify($options->title);
-  }
-
-  if (!empty($options->old_slug)) {
-    $options->old_slug = _papi_name($options->old_slug);
-  }
-
-  // Generate colspan attribute
-  if (!empty($options->colspan)) {
-    $options->colspan = _papi_attribute('colspan', $options->colspan);
-  }
-
-  // Generate a vaild Papi meta name.
-  $options->slug = _papi_name($options->slug);
-
-  // Get meta value for the field
-  $options->value = papi_field($options->slug, null, null, $options->old_slug);
-
-  // Add default value if database value is empty.
   if (empty($options->value)) {
-    $options->value = $options->default;
+    // Get meta value for the field
+    $options->value = papi_field($options->slug, null, null, $options->old_slug);
+
+    // Add default value if database value is empty.
+    if (empty($options->value)) {
+      $options->value = $options->default;
+    }
+
   }
 
   return $options;

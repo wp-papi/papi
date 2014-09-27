@@ -9,10 +9,14 @@
       multiple: false
     }).on('select', function () {
       var attachment = uploader.state().get('selection').first().toJSON();
-      if (typeof $target === 'function' && attachment !== null) {
-        $target(attachment, Utils.isImage(attachment.url));
-      } else {
-        $target.val(attachment.url);
+      if (attachment !== null) {
+        var ext = /\.(jpeg|jpg|gif|png)/.exec(attachment.url)[0];
+        attachment.thumbnail = attachment.url.replace(ext, '-150x150' + ext);
+        if (typeof $target === 'function') {
+          $target(attachment, Utils.isImage(attachment.url));
+        } else {
+          $target.val(attachment.url);
+        }
       }
     }).on('escape', function () {
       if (typeof $target === 'function') {

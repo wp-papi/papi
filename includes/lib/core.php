@@ -58,7 +58,7 @@ function _papi_get_post_id ($post_id = null) {
  */
 
 function _papi_get_settings () {
-  return apply_filters('papi_settings', array());
+  return apply_filters('papi/settings', array());
 }
 
 /**
