@@ -114,7 +114,7 @@ function _papi_is_page_type_allowed( $post_type ) {
  *
  * @since 1.0.0
  *
- * @return null|Papi_Page_Type_Meta
+ * @return null|Papi_Page_Type
  */
 
 function _papi_get_page_type( $file_path ) {

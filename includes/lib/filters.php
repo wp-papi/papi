@@ -29,6 +29,7 @@ function _papi_get_settings() {
  *
  * @param mixed $value
  * @param int $post_id
+ * @param string $type
  *
  * @since 1.0.0
  *
@@ -44,6 +45,7 @@ function _papi_load_value( $type, $value, $post_id ) {
  *
  * @param mixed $value
  * @param int $post_id
+ * @param string $type
  *
  * @since 1.0.0
  *

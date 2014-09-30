@@ -88,7 +88,7 @@ class PropertyImage extends Papi_Property {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return array
+	 * @return mixed
 	 */
 
 	public function format_value( $value, $post_id ) {

@@ -50,7 +50,7 @@ abstract class Papi_Property {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return Papi_Property
+	 * @return object
 	 */
 
 	public static function factory( $property ) {
