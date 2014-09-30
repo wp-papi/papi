@@ -1,7 +1,9 @@
 <?php
 
 // Exit if accessed directly
-if (!defined('ABSPATH')) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Papi - Property Url
@@ -9,39 +11,41 @@ if (!defined('ABSPATH')) exit;
  * @package Papi
  * @version 1.0.0
  */
-
 class PropertyUrl extends Papi_Property {
 
-  /**
-   * Generate the HTML for the property.
-   *
-   * @since 1.0.0
-   */
+	/**
+	 * Generate the HTML for the property.
+	 *
+	 * @since 1.0.0
+	 */
 
-  public function html () {
-    // Property options.
-    $options = $this->get_options();
+	public function html() {
+		// Property options.
+		$options = $this->get_options();
 
-    // Property settings.
-    $settings = $this->get_settings(array(
-      'mediauploader' => false
-    ));
+		// Property settings.
+		$settings = $this->get_settings( array(
+			'mediauploader' => false
+		) );
 
-    // Database value.
-    $value = $this->get_value();
+		// Database value.
+		$value = $this->get_value();
 
-    $css_classes = $this->css_classes();
+		$css_classes = $this->css_classes();
 
-    if ($settings->mediauploader) {
-      $css_classes .= ' papi-url-media-input';
-    }
+		if ( $settings->mediauploader ) {
+			$css_classes .= ' papi-url-media-input';
+		}
 
-    ?>
-    <input type="url" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="<?php echo $css_classes; ?>" />
+		?>
+		<input type="url" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>"
+		       class="<?php echo $css_classes; ?>"/>
 
-    <?php if ($settings->mediauploader): ?>
-      &nbsp; <input type="submit" name="<?php echo $options->slug; ?>_button" value="<?php echo __('Select file', 'papi'); ?>" class="button papi-url-media-button" data-papi-action="mediauploader" />
-    <?php endif;
-  }
+		<?php if ( $settings->mediauploader ): ?>
+			&nbsp; <input type="submit" name="<?php echo $options->slug; ?>_button"
+			              value="<?php echo __( 'Select file', 'papi' ); ?>" class="button papi-url-media-button"
+			              data-papi-action="mediauploader"/>
+		<?php endif;
+	}
 
 }

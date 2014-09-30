@@ -8,7 +8,9 @@
  */
 
 // Exit if accessed directly
-if (!defined('ABSPATH')) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Include template files from Papis custom page template meta field.
@@ -16,31 +18,32 @@ if (!defined('ABSPATH')) exit;
  * real page template.
  *
  * @param string $original_template
+ *
  * @since 1.0.0
  *
  * @return string
  */
 
-function _papi_template_include ($original_template) {
-  global $post;
+function _papi_template_include( $original_template ) {
+	global $post;
 
-  if (!isset($post) || !isset($post->ID)) {
-    return $original_template;
-  }
+	if ( ! isset( $post ) || ! isset( $post->ID ) ) {
+		return $original_template;
+	}
 
-  $page_template = get_post_meta($post->ID, '__papi_page_template', true);
+	$page_template = get_post_meta( $post->ID, '__papi_page_template', true );
 
-  if (!is_null($page_template) && !empty($page_template)) {
-    $path = get_template_directory();
-    $path = trailingslashit($path);
-    $file = $path . $page_template;
+	if ( ! is_null( $page_template ) && ! empty( $page_template ) ) {
+		$path = get_template_directory();
+		$path = trailingslashit( $path );
+		$file = $path . $page_template;
 
-    if (file_exists($file) && !is_dir($file)) {
-      return $file;
-    }
-  }
+		if ( file_exists( $file ) && ! is_dir( $file ) ) {
+			return $file;
+		}
+	}
 
-  return $original_template;
+	return $original_template;
 }
 
-add_filter('template_include', '_papi_template_include');
+add_filter( 'template_include', '_papi_template_include' );

@@ -1,7 +1,9 @@
 <?php
 
 // Exit if accessed directly
-if (!defined('ABSPATH')) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Papi Admin.
@@ -9,331 +11,346 @@ if (!defined('ABSPATH')) exit;
  * @package Papi
  * @version 1.0.0
  */
-
 final class Papi_Admin {
 
-  /**
-   * Thew view instance.
-   *
-   * @var Papi_Admin_View
-   */
+	/**
+	 * Thew view instance.
+	 *
+	 * @var Papi_Admin_View
+	 */
 
-  private $view;
+	private $view;
 
-  /**
-   * The meta boxes instance.
-   *
-   * @var Papi_Admin_Meta_Boxes
-   */
+	/**
+	 * The meta boxes instance.
+	 *
+	 * @var Papi_Admin_Meta_Boxes
+	 */
 
-  private $meta_boxes;
+	private $meta_boxes;
 
-  /**
-   * The management pages instance.
-   *
-   * @var Papi_Admin_Management_Pages
-   */
+	/**
+	 * The management pages instance.
+	 *
+	 * @var Papi_Admin_Management_Pages
+	 */
 
-  private $management_pages;
+	private $management_pages;
 
-  /**
-   * The instance of Papi Core.
-   *
-   * @var object
-   * @since 1.0.0
-   */
+	/**
+	 * The instance of Papi Core.
+	 *
+	 * @var object
+	 * @since 1.0.0
+	 */
 
-  private static $instance;
+	private static $instance;
 
-  /**
-   * Papi Admin instance.
-   *
-   * @since 1.0.0
-   *
-   * @return object
-   */
+	/**
+	 * Papi Admin instance.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return object
+	 */
 
-  public static function instance () {
-    if (!isset(self::$instance)) {
-      self::$instance = new Papi_Admin;
-      self::$instance->setup_globals();
-      self::$instance->setup_actions();
-      self::$instance->setup_filters();
-      self::$instance->setup_papi();
-    }
-    return self::$instance;
-  }
+	public static function instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new Papi_Admin;
+			self::$instance->setup_globals();
+			self::$instance->setup_actions();
+			self::$instance->setup_filters();
+			self::$instance->setup_papi();
+		}
 
-  /**
-   * Constructor.
-   */
+		return self::$instance;
+	}
 
-  public function __construct () {}
+	/**
+	 * Constructor.
+	 */
 
-  /**
-   * Setup globals.
-   *
-   * @since 1.0.0
-   * @access private
-   */
+	public function __construct() {
+	}
 
-  private function setup_globals () {
-    $this->view = new Papi_Admin_View;
-    $this->meta_boxes = new Papi_Admin_Meta_Boxes;
-    $this->management_pages = new Papi_Admin_Management_Pages;
-  }
+	/**
+	 * Setup globals.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 */
 
-  /**
-   * Setup actions.
-   *
-   * @since 1.0.0
-   * @access private
-   */
+	private function setup_globals() {
+		$this->view             = new Papi_Admin_View;
+		$this->meta_boxes       = new Papi_Admin_Meta_Boxes;
+		$this->management_pages = new Papi_Admin_Management_Pages;
+	}
 
-  private function setup_actions () {
-    add_action('admin_menu', array($this, 'admin_menu'));
-    add_action('admin_head', array($this, 'admin_head'));
-    add_action('admin_footer', array($this, 'admin_footer'));
-    add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
-  }
+	/**
+	 * Setup actions.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 */
 
-  /**
-   * Setup filters.
-   *
-   * @since 1.0.0
-   * @access private
-   */
+	private function setup_actions() {
+		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_action( 'admin_head', array( $this, 'admin_head' ) );
+		add_action( 'admin_footer', array( $this, 'admin_footer' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+	}
 
-  private function setup_filters () {
-    add_filter('admin_body_class', array($this, 'admin_body_class'));
+	/**
+	 * Setup filters.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 */
 
-    $post_types = _papi_get_post_types();
+	private function setup_filters() {
+		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 
-    // Add post type columns to eavery post types that is used.
-    foreach ($post_types as $post_type) {
-      add_filter('manage_' . $post_type . '_posts_columns', array($this, 'manage_page_type_posts_columns'));
-      add_action('manage_' . $post_type . '_posts_custom_column', array($this, 'manage_page_type_posts_custom_column'), 10, 2);
-    }
-  }
+		$post_types = _papi_get_post_types();
 
-  /**
-   * Build up the sub menu for "Page".
-   *
-   * @since 1.0.0
-   */
+		// Add post type columns to eavery post types that is used.
+		foreach ( $post_types as $post_type ) {
+			add_filter( 'manage_' . $post_type . '_posts_columns', array( $this, 'manage_page_type_posts_columns' ) );
+			add_action( 'manage_' . $post_type . '_posts_custom_column', array(
+					$this,
+					'manage_page_type_posts_custom_column'
+				), 10, 2 );
+		}
+	}
 
-  public function admin_menu () {
-    $post_types = _papi_get_post_types();
-    $settings = _papi_get_settings();
-    $page_types = _papi_get_all_page_types(true);
+	/**
+	 * Build up the sub menu for "Page".
+	 *
+	 * @since 1.0.0
+	 */
 
-    // If we don't have any page types don't change any menu items.
-    if (empty($page_types)) {
-      return;
-    }
+	public function admin_menu() {
+		$post_types = _papi_get_post_types();
+		$settings   = _papi_get_settings();
+		$page_types = _papi_get_all_page_types( true );
 
-    foreach ($post_types as $post_type) {
+		// If we don't have any page types don't change any menu items.
+		if ( empty( $page_types ) ) {
+			return;
+		}
 
-      // Remove "Add new" menu item.
-      remove_submenu_page('edit.php?post_type=' . $post_type, 'post-new.php?post_type=' . $post_type);
+		foreach ( $post_types as $post_type ) {
 
-      if (isset($settings[$post_type]) && isset($settings[$post_type]['only_page_type'])) {
-        $url = _papi_get_page_new_url($settings[$post_type]['only_page_type'], $post_type, false);
-        // Add our custom menu item.
-        add_submenu_page('edit.php?post_type=' . $post_type,
-                         __('Add New', 'papi'),
-                         __('Add New', 'papi'),
-                         'manage_options',
-                         $url);
-      } else {
-        // Add our custom menu item.
-        add_submenu_page('edit.php?post_type=' . $post_type,
-                         __('Add New', 'papi'),
-                         __('Add New', 'papi'),
-                         'read',
-                         'papi-add-new-page,' . $post_type,
-                         array($this, 'render_view'));
-      }
-    }
-  }
+			// Remove "Add new" menu item.
+			remove_submenu_page( 'edit.php?post_type=' . $post_type, 'post-new.php?post_type=' . $post_type );
 
-  /**
-   * Add style to admin head.
-   *
-   * @since 1.0.0
-   */
+			if ( isset( $settings[ $post_type ] ) && isset( $settings[ $post_type ]['only_page_type'] ) ) {
+				$url = _papi_get_page_new_url( $settings[ $post_type ]['only_page_type'], $post_type, false );
+				// Add our custom menu item.
+				add_submenu_page( 'edit.php?post_type=' . $post_type,
+					__( 'Add New', 'papi' ),
+					__( 'Add New', 'papi' ),
+					'manage_options',
+					$url );
+			} else {
+				// Add our custom menu item.
+				add_submenu_page( 'edit.php?post_type=' . $post_type,
+					__( 'Add New', 'papi' ),
+					__( 'Add New', 'papi' ),
+					'read',
+					'papi-add-new-page,' . $post_type,
+					array( $this, 'render_view' ) );
+			}
+		}
+	}
 
-  public function admin_head () {
-    echo '<link href="' . PAPI_PLUGIN_URL . 'gui/css/style.css" type="text/css" rel="stylesheet" />';
-    wp_enqueue_media();
-  }
+	/**
+	 * Add style to admin head.
+	 *
+	 * @since 1.0.0
+	 */
 
-  /**
-   * Enqueue script into admin footer.
-   *
-   * @since 1.0.0
-   */
+	public function admin_head() {
+		echo '<link href="' . PAPI_PLUGIN_URL . 'gui/css/style.css" type="text/css" rel="stylesheet" />';
+		wp_enqueue_media();
+	}
 
-  public function admin_enqueue_scripts () {
-    wp_enqueue_script('jquery-ui-core');
-    wp_enqueue_script('jquery-ui-sortable');
-    wp_enqueue_script('jquery-ui-datepicker');
-    wp_enqueue_script('backbone.min');
-    wp_enqueue_script('papi_main',  PAPI_PLUGIN_URL . 'gui/js/main.js', array('jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'backbone', 'wp-backbone'), '', true);
-  }
+	/**
+	 * Enqueue script into admin footer.
+	 *
+	 * @since 1.0.0
+	 */
 
-  /**
-   * Add script to admin footer.
-   *
-   * @since 1.0.0
-   */
+	public function admin_enqueue_scripts() {
+		wp_enqueue_script( 'jquery-ui-core' );
+		wp_enqueue_script( 'jquery-ui-sortable' );
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+		wp_enqueue_script( 'backbone.min' );
+		wp_enqueue_script( 'papi_main', PAPI_PLUGIN_URL . 'gui/js/main.js', array(
+				'jquery',
+				'jquery-ui-core',
+				'jquery-ui-sortable',
+				'backbone',
+				'wp-backbone'
+			), '', true );
+	}
 
-  public function admin_footer () {
-    // Find which screen and post that are in use.
-    $screen = get_current_screen();
-    $post_type = _papi_get_wp_post_type();
+	/**
+	 * Add script to admin footer.
+	 *
+	 * @since 1.0.0
+	 */
 
-    // Get the core settings.
-    $settings = _papi_get_settings();
-    $post_types = _papi_get_post_types();
+	public function admin_footer() {
+		// Find which screen and post that are in use.
+		$screen    = get_current_screen();
+		$post_type = _papi_get_wp_post_type();
 
-    // Check if we should show one post type or not and create the right url for that.
-    if (isset($settings[$post_type]) && isset($settings[$post_type]['only_page_type'])) {
-      $url = _papi_get_page_new_url($settings[$post_type]['only_page_type'], $post_type, false);
-    } else {
-      $url = "edit.php?post_type=$post_type&page=papi-add-new-page,$post_type";
-    }
+		// Get the core settings.
+		$settings   = _papi_get_settings();
+		$post_types = _papi_get_post_types();
 
-    // If we are in the edit-page or has the post type register we output the jQuery code that change the "Add new" link.
-    if ($screen->id == 'edit-page' || in_array($post_type, $post_types)) { ?>
-      <script type="text/javascript">
-        var current = jQuery('#adminmenu').find('li > a[href="<?php echo $url; ?>"]').attr('href');
-        if (current === '<?php echo $url; ?>') {
-          jQuery('.wrap h2 .add-new-h2').attr('href', '<?php echo $url; ?>');
-        }
-      </script>
-    <?php
-    }
-  }
+		// Check if we should show one post type or not and create the right url for that.
+		if ( isset( $settings[ $post_type ] ) && isset( $settings[ $post_type ]['only_page_type'] ) ) {
+			$url = _papi_get_page_new_url( $settings[ $post_type ]['only_page_type'], $post_type, false );
+		} else {
+			$url = "edit.php?post_type=$post_type&page=papi-add-new-page,$post_type";
+		}
 
-  /**
-   * Add custom body class when it's a page type.
-   *
-   * @param string $classes
-   * @since 1.0.0
-   *
-   * @return string
-   */
+		// If we are in the edit-page or has the post type register we output the jQuery code that change the "Add new" link.
+		if ( $screen->id == 'edit-page' || in_array( $post_type, $post_types ) ) {
+			?>
+			<script type="text/javascript">
+				var current = jQuery ('#adminmenu').find ('li > a[href="<?php echo $url; ?>"]').attr ('href');
+				if (current === '<?php echo $url; ?>') {
+					jQuery ('.wrap h2 .add-new-h2').attr ('href', '<?php echo $url; ?>');
+				}
+			</script>
+		<?php
+		}
+	}
 
-  public function admin_body_class ($classes) {
-    $post_type = _papi_get_wp_post_type();
+	/**
+	 * Add custom body class when it's a page type.
+	 *
+	 * @param string $classes
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
 
-    if (!in_array($post_type, _papi_get_post_types())) {
-      return null;
-    }
+	public function admin_body_class( $classes ) {
+		$post_type = _papi_get_wp_post_type();
 
-    if (count(get_page_templates())) {
-      $classes .= 'papi-hide-cpt';
-    }
+		if ( ! in_array( $post_type, _papi_get_post_types() ) ) {
+			return null;
+		}
 
-    return $classes;
-  }
+		if ( count( get_page_templates() ) ) {
+			$classes .= 'papi-hide-cpt';
+		}
 
-  /**
-   * Add custom table header to page type.
-   *
-   * @param array $defaults
-   * @since 1.0.0
-   *
-   * @return array
-   */
+		return $classes;
+	}
 
-  public function manage_page_type_posts_columns ($defaults) {
-    $defaults['page_type'] = __('Page Type', 'papi');
-    return $defaults;
-  }
+	/**
+	 * Add custom table header to page type.
+	 *
+	 * @param array $defaults
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
 
-  /**
-   * Add custom table column to page type.
-   *
-   * @param string $column_name
-   * @param int $post_id
-   * @since 1.0.0
-   */
+	public function manage_page_type_posts_columns( $defaults ) {
+		$defaults['page_type'] = __( 'Page Type', 'papi' );
 
-  public function manage_page_type_posts_custom_column ($column_name, $post_id) {
-    if ($column_name === 'page_type') {
-      $page_type = _papi_get_file_data($post_id);
-      if (!is_null($page_type)) {
-        echo $page_type->name;
-      } else {
-        _e('Standard page', 'papi');
-      }
-    }
-  }
+		return $defaults;
+	}
 
-  /**
-   * Menu callback that loads right view depending on what the "page" query string says.
-   *
-   * @since 1.0.0
-   */
+	/**
+	 * Add custom table column to page type.
+	 *
+	 * @param string $column_name
+	 * @param int $post_id
+	 *
+	 * @since 1.0.0
+	 */
 
-  public function render_view () {
-    if (isset($_GET['page']) && strpos($_GET['page'], 'papi') !== false) {
-      $page = str_replace('papi-', '', $_GET['page']);
-      $page_view = preg_replace('/\,.*/', '', $page);
-    } else {
-      $page_view = null;
-    }
+	public function manage_page_type_posts_custom_column( $column_name, $post_id ) {
+		if ( $column_name === 'page_type' ) {
+			$page_type = _papi_get_file_data( $post_id );
+			if ( ! is_null( $page_type ) ) {
+				echo $page_type->name;
+			} else {
+				_e( 'Standard page', 'papi' );
+			}
+		}
+	}
 
-    if (!is_null($page_view)) {
-      $this->view->render($page_view);
-    } else {
-      echo '<h2>Papi - 404</h2>';
-    }
-  }
+	/**
+	 * Menu callback that loads right view depending on what the "page" query string says.
+	 *
+	 * @since 1.0.0
+	 */
 
-  /**
-   * Load right Papi file if it exists.
-   *
-   * @since 1.0.0
-   */
+	public function render_view() {
+		if ( isset( $_GET['page'] ) && strpos( $_GET['page'], 'papi' ) !== false ) {
+			$page      = str_replace( 'papi-', '', $_GET['page'] );
+			$page_view = preg_replace( '/\,.*/', '', $page );
+		} else {
+			$page_view = null;
+		}
 
-  public function setup_papi () {
-    $post_id = _papi_get_post_id();
-    $page_type = _papi_get_page_type_meta_value($post_id);
-    $post_type = _papi_get_wp_post_type();
+		if ( ! is_null( $page_view ) ) {
+			$this->view->render( $page_view );
+		} else {
+			echo '<h2>Papi - 404</h2>';
+		}
+	}
 
-    // If the post type isn't in the post types array we can't proceed.
-    if (in_array($post_type, array('revision', 'nav_menu_item'))) {
-      return;
-    }
+	/**
+	 * Load right Papi file if it exists.
+	 *
+	 * @since 1.0.0
+	 */
 
-    // If we have a null page type we need to find which page type to use.
-    if (empty($page_type)) {
-      if (_papi_is_method('post') && isset($_POST['papi_page_type']) && $_POST['papi_page_type']) {
-        $page_type = $_POST['papi_page_type'];
-      } else {
-        $page_type = _papi_get_page_type_meta_value();
-      }
-    }
+	public function setup_papi() {
+		$post_id   = _papi_get_post_id();
+		$page_type = _papi_get_page_type_meta_value( $post_id );
+		$post_type = _papi_get_wp_post_type();
 
-    if (empty($page_type)) {
-      return;
-    }
+		// If the post type isn't in the post types array we can't proceed.
+		if ( in_array( $post_type, array( 'revision', 'nav_menu_item' ) ) ) {
+			return;
+		}
 
-    // Get the path to the page type file.
-    $path = _papi_get_page_type_file($page_type);
+		// If we have a null page type we need to find which page type to use.
+		if ( empty( $page_type ) ) {
+			if ( _papi_is_method( 'post' ) && isset( $_POST['papi_page_type'] ) && $_POST['papi_page_type'] ) {
+				$page_type = $_POST['papi_page_type'];
+			} else {
+				$page_type = _papi_get_page_type_meta_value();
+			}
+		}
 
-    // Load the page type and create a new instance of it.
-    $page_type = _papi_get_page_type($path);
+		if ( empty( $page_type ) ) {
+			return;
+		}
 
-    if (empty($page_type)) {
-      return;
-    }
+		// Get the path to the page type file.
+		$path = _papi_get_page_type_file( $page_type );
 
-    // Create a new class of the page type.
-    $page_type->new_class();
-  }
+		// Load the page type and create a new instance of it.
+		$page_type = _papi_get_page_type( $path );
+
+		if ( empty( $page_type ) ) {
+			return;
+		}
+
+		// Create a new class of the page type.
+		$page_type->new_class();
+	}
 
 }

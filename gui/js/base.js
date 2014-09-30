@@ -1,7 +1,7 @@
 (function (window) {
 
   // Setup papi object.
-  window.papi = window.paip || {
+  window.papi = window.papi || {
     view: {}
   };
 

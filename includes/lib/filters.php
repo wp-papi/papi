@@ -8,7 +8,9 @@
  */
 
 // Exit if accessed directly
-if (!defined('ABSPATH')) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /**
  * Get Papi settings.
@@ -18,8 +20,8 @@ if (!defined('ABSPATH')) exit;
  * @return string
  */
 
-function _papi_get_settings () {
-  return apply_filters('papi/settings', array());
+function _papi_get_settings() {
+	return apply_filters( 'papi/settings', array() );
 }
 
 /**
@@ -27,13 +29,14 @@ function _papi_get_settings () {
  *
  * @param mixed $value
  * @param int $post_id
+ *
  * @since 1.0.0
  *
  * @return mixed
  */
 
-function _papi_load_value ($type, $value, $post_id) {
-  return apply_filters('papi/load_value/' . _papi_get_property_short_type($type), $value, $post_id);
+function _papi_load_value( $type, $value, $post_id ) {
+	return apply_filters( 'papi/load_value/' . _papi_get_property_short_type( $type ), $value, $post_id );
 }
 
 /**
@@ -41,13 +44,14 @@ function _papi_load_value ($type, $value, $post_id) {
  *
  * @param mixed $value
  * @param int $post_id
+ *
  * @since 1.0.0
  *
  * @return mixed
  */
 
-function _papi_format_value ($type, $value, $post_id) {
-  return apply_filters('papi/format_value/' . _papi_get_property_short_type($type), $value, $post_id);
+function _papi_format_value( $type, $value, $post_id ) {
+	return apply_filters( 'papi/format_value/' . _papi_get_property_short_type( $type ), $value, $post_id );
 }
 
 /**
@@ -55,11 +59,12 @@ function _papi_format_value ($type, $value, $post_id) {
  *
  * @param mixed $value
  * @param int $post_id
+ *
  * @since 1.0.0
  *
  * @return mixed
  */
 
-function _papi_update_value ($type, $value, $post_id) {
-  return apply_filters('papi/update_value/' . _papi_get_property_short_type($type), $value, $post_id);
+function _papi_update_value( $type, $value, $post_id ) {
+	return apply_filters( 'papi/update_value/' . _papi_get_property_short_type( $type ), $value, $post_id );
 }
