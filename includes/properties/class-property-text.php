@@ -24,11 +24,11 @@ class PropertyText extends Papi_Property {
 		$options = $this->get_options();
 
 		// Database value.
-		$value = $this->get_value( '' );
+		$value = $this->get_value();
 
 		// Property settings from the page type.
 		$settings = $this->get_settings( array(
-			'editor' => false,
+			'editor' => false
 		) );
 
 		if ( $settings->editor ) {
