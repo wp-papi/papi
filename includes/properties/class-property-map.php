@@ -167,15 +167,16 @@ class PropertyMap extends Papi_Property {
 
 	public function input() {
 		$options = $this->get_options();
-		$value   = $this->get_value();
+		$value   = $this->get_value(array());
+
 		?>
 		<input type="search" name="<?php echo $options->slug; ?>[address]"
-		       value="<?php echo _papi_h( $value['address'], '' ); ?>" class="papi-property-map-search"
+		       value="<?php echo isset( $value['address'] ) ? $value['address'] : ''; ?>" class="papi-property-map-search"
 		       placeholder="<?php _e( 'Search for address...' ); ?>"/>
 		<input type="hidden" name="<?php echo $options->slug; ?>[lat]"
-		       value="<?php echo _papi_h( $value['lat'], '' ); ?>"/>
+		       value="<?php echo isset( $value['address'] ) ? $value['lat'] : ''; ?>"/>
 		<input type="hidden" name="<?php echo $options->slug; ?>[lng]"
-		       value="<?php echo _papi_h( $value['lng'], '' ); ?>"/>
+		       value="<?php echo isset( $value['address'] ) ? $value['lng'] : ''; ?>"/>
 	<?php
 	}
 
