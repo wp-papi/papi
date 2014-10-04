@@ -181,7 +181,6 @@ final class Papi_Loader {
 		require_once( $this->plugin_dir . 'includes/properties/class-property-number.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-property-url.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-property-divider.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-map.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-property-text.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-property-image.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-property-dropdown.php' );
