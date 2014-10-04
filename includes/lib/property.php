@@ -137,6 +137,7 @@ function _papi_get_property_options( $options ) {
 		'settings'     => array(),
 		'slug'         => '',
 		'sort_order'   => null,
+		'required'     => false,
 		'title'        => '',
 		'type'         => '',
 		'value'        => ''

@@ -75,7 +75,8 @@ abstract class Papi_Property {
 	 * @since 1.0.0
 	 */
 
-	abstract public function html();
+	public function html() {
+	}
 
 	/**
 	 * Output custom css for property
@@ -135,8 +136,26 @@ abstract class Papi_Property {
 	 */
 
 	public function label() {
+		$title = $this->options->title;
+
+		if ( $this->options->required ) {
+			$title .= ' ' . __( '(required field)', 'papi' );
+		}
+
 		?>
-		<label for="<?php echo $this->options->slug; ?>"><?php echo $this->options->title; ?></label>
+		<label for="<?php echo $this->options->slug; ?>" title="<?php echo $title; ?>">
+			<?php
+
+			echo $this->options->title;
+
+			if ( $this->options->required ):
+				?>
+				<span class="papi-rq">*</span>
+			<?php
+			endif;
+
+			?>
+		</label>
 	<?php
 	}
 

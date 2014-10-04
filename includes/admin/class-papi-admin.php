@@ -185,13 +185,17 @@ final class Papi_Admin {
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_script( 'backbone.min' );
-		wp_enqueue_script( 'papi_main', PAPI_PLUGIN_URL . 'gui/js/main.js', array(
+		wp_enqueue_script( 'papi-main', PAPI_PLUGIN_URL . 'gui/js/main.js', array(
 				'jquery',
 				'jquery-ui-core',
 				'jquery-ui-sortable',
 				'backbone',
 				'wp-backbone'
 			), '', true );
+
+		wp_localize_script( 'papi-main', 'papiL10n', array(
+			'requiredError' => __( 'This fields are required:', 'papi' ),
+		));
 	}
 
 	/**
