@@ -25,7 +25,10 @@ class PropertyDate extends Papi_Property {
 
 		// Database value.
 		$value = $this->get_value();
-		$value = date( 'Y-m-d', $value );
+
+		if (is_integer($value)) {
+			$value = date( 'Y-m-d', $value );
+		}
 
 		?>
 		<input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>"
