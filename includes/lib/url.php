@@ -68,7 +68,6 @@ function _papi_load_post_new() {
 
 		// Get the core settings.
 		$settings   = _papi_get_settings();
-		$post_types = _papi_get_post_types();
 
 		// Check if we should show one post type or not and create the right url for that.
 		if ( isset( $settings[ $post_type ] ) && isset( $settings[ $post_type ]['only_page_type'] ) ) {
