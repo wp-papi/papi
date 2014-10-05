@@ -72,24 +72,6 @@ function _papi_get_page_type_meta_value( $post_id = null ) {
 }
 
 /**
- * Get the url to 'post-new.php' with query string of the page type to load.
- *
- * @param string $page_type
- * @param string $post_type
- * @param bool $append_admin_url Default true
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _papi_get_page_new_url( $page_type, $post_type, $append_admin_url = true ) {
-	$admin_url = $append_admin_url ? get_admin_url() : '';
-
-	return $admin_url . 'post-new.php?post_type=' . $post_type . '&page_type=' . $page_type;
-}
-
-/**
  * Check if page type is allowed to use.
  *
  * @param string $post_type

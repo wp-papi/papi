@@ -32,7 +32,7 @@ if ( isset( $settings[ $post_type ] ) && isset( $settings[ $post_type ]['show_st
 				'title'       => $page_type->name,
 				'description' => $page_type->description,
 				'image'       => $page_type->get_thumbnail(),
-				'url'         => _papi_get_page_new_url( $page_type->file_name, $post_type )
+				'url'         => _papi_get_page_new_url( $page_type->file_name )
 			) );
 		}
 
@@ -41,7 +41,7 @@ if ( isset( $settings[ $post_type ] ) && isset( $settings[ $post_type ]['show_st
 				'title'       => __( 'Standard page', 'papi' ),
 				'description' => __( 'Just the normal WordPress page', 'papi' ),
 				'image'       => _papi_page_type_default_thumbnail(),
-				'url'         => 'post-new.php?post_type=page'
+				'url'         => 'post-new.php' . _papi_get_page_query_strings('?')
 			) );
 
 		}

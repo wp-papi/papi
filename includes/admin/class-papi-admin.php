@@ -96,7 +96,6 @@ final class Papi_Admin {
 	private function setup_actions() {
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_head', array( $this, 'admin_head' ) );
-		add_action( 'admin_footer', array( $this, 'admin_footer' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
@@ -116,9 +115,9 @@ final class Papi_Admin {
 		foreach ( $post_types as $post_type ) {
 			add_filter( 'manage_' . $post_type . '_posts_columns', array( $this, 'manage_page_type_posts_columns' ) );
 			add_action( 'manage_' . $post_type . '_posts_custom_column', array(
-					$this,
-					'manage_page_type_posts_custom_column'
-				), 10, 2 );
+				$this,
+				'manage_page_type_posts_custom_column'
+			), 10, 2 );
 		}
 	}
 
@@ -144,7 +143,7 @@ final class Papi_Admin {
 			remove_submenu_page( 'edit.php?post_type=' . $post_type, 'post-new.php?post_type=' . $post_type );
 
 			if ( isset( $settings[ $post_type ] ) && isset( $settings[ $post_type ]['only_page_type'] ) ) {
-				$url = _papi_get_page_new_url( $settings[ $post_type ]['only_page_type'], $post_type, false );
+				$url = _papi_get_page_new_url( $settings[ $post_type ]['only_page_type'], false );
 				// Add our custom menu item.
 				add_submenu_page( 'edit.php?post_type=' . $post_type,
 					__( 'Add New', 'papi' ),
@@ -186,51 +185,16 @@ final class Papi_Admin {
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_script( 'backbone.min' );
 		wp_enqueue_script( 'papi-main', PAPI_PLUGIN_URL . 'gui/js/main.js', array(
-				'jquery',
-				'jquery-ui-core',
-				'jquery-ui-sortable',
-				'backbone',
-				'wp-backbone'
-			), '', true );
+			'jquery',
+			'jquery-ui-core',
+			'jquery-ui-sortable',
+			'backbone',
+			'wp-backbone'
+		), '', true );
 
 		wp_localize_script( 'papi-main', 'papiL10n', array(
 			'requiredError' => __( 'This fields are required:', 'papi' ),
-		));
-	}
-
-	/**
-	 * Add script to admin footer.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function admin_footer() {
-		// Find which screen and post that are in use.
-		$screen    = get_current_screen();
-		$post_type = _papi_get_wp_post_type();
-
-		// Get the core settings.
-		$settings   = _papi_get_settings();
-		$post_types = _papi_get_post_types();
-
-		// Check if we should show one post type or not and create the right url for that.
-		if ( isset( $settings[ $post_type ] ) && isset( $settings[ $post_type ]['only_page_type'] ) ) {
-			$url = _papi_get_page_new_url( $settings[ $post_type ]['only_page_type'], $post_type, false );
-		} else {
-			$url = "edit.php?post_type=$post_type&page=papi-add-new-page,$post_type";
-		}
-
-		// If we are in the edit-page or has the post type register we output the jQuery code that change the "Add new" link.
-		if ( $screen->id == 'edit-page' || in_array( $post_type, $post_types ) ) {
-			?>
-			<script type="text/javascript">
-				var current = jQuery ('#adminmenu').find ('li > a[href="<?php echo $url; ?>"]').attr ('href');
-				if (current === '<?php echo $url; ?>') {
-					jQuery ('.wrap h2 .add-new-h2').attr ('href', '<?php echo $url; ?>');
-				}
-			</script>
-		<?php
-		}
+		) );
 	}
 
 	/**
