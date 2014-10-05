@@ -41,7 +41,7 @@ if ( isset( $settings[ $post_type ] ) && isset( $settings[ $post_type ]['show_st
 				'title'       => __( 'Standard page', 'papi' ),
 				'description' => __( 'Just the normal WordPress page', 'papi' ),
 				'image'       => _papi_page_type_default_thumbnail(),
-				'url'         => 'post-new.php' . _papi_get_page_query_strings('?')
+				'url'         => 'post-new.php' . _papi_get_page_query_strings('?') . '&papi-bypass=true'
 			) );
 
 		}

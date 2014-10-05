@@ -29,8 +29,15 @@ function _papi_get_page_query_strings($first_char = '&') {
 
 	$query = str_replace( '?', '', $query );
 
-	if ( $query[0] != $first_char ) {
+	if ( $query[0] === '&' || $query[0] === '?' ) {
 		$query[0] = $first_char;
+	} else {
+		$query = $first_char . $query;
+	}
+
+	// Remove last char if it's a & or ?
+	if ($query[count($query) - 1] === '&' || $query[count($query) - 1] === '?') {
+		$query = substr($query, 0, -1);
 	}
 
 	return $query;
@@ -62,7 +69,7 @@ function _papi_get_page_new_url( $page_type, $append_admin_url = true ) {
 function _papi_load_post_new() {
 	$request_uri = $_SERVER['REQUEST_URI'];
 
-	if ( strpos( $request_uri, 'page_type=' ) === false ) {
+	if ( strpos( $request_uri, 'page_type=' ) === false && strpos($request_uri, 'papi-bypass=true') === false ) {
 		$parsed_url = parse_url( $request_uri );
 		$post_type  = _papi_get_wp_post_type();
 
