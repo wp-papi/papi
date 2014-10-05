@@ -27,17 +27,16 @@ function _papi_get_page_query_strings( $first_char = '&' ) {
 	$parsed_url  = parse_url( $request_uri );
 	$query       = $parsed_url['query'];
 	$query       = preg_replace( '/page\=[a-z-,]+/', '', $query );
+	$query       = str_replace( '?', '', $query );
 
-	$query = str_replace( '?', '', $query );
-
-	if ( $query[0] === '&' || $query[0] === '?' ) {
+	if ( substr( $query, 1, 1 ) === '&' || substr( $query, 1, 1 ) === '?' ) {
 		$query[0] = $first_char;
 	} else {
 		$query = $first_char . $query;
 	}
 
 	// Remove last char if it's a & or ?
-	if ( $query[ count( $query ) - 1 ] === '&' || $query[ count( $query ) - 1 ] === '?' ) {
+	if ( substr( $query, - 1, 1 ) === '&' || substr( $query, - 1, 1 ) === '?' ) {
 		$query = substr( $query, 0, - 1 );
 	}
 
