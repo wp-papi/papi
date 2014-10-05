@@ -29,7 +29,7 @@ function _papi_get_page_query_strings( $first_char = '&' ) {
 	$query       = preg_replace( '/page\=[a-z-,]+/', '', $query );
 	$query       = str_replace( '?', '', $query );
 
-	if ( substr( $query, 1, 1 ) === '&' || substr( $query, 1, 1 ) === '?' ) {
+	if ( substr( $query, 0, 1 ) === '&' || substr( $query, 0, 1 ) === '?' ) {
 		$query[0] = $first_char;
 	} else {
 		$query = $first_char . $query;
