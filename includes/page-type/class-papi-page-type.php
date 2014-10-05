@@ -46,6 +46,8 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	 * Load a page type by the file.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param string $file_path
 	 */
 
 	public function __construct( $file_path = '' ) {
@@ -103,8 +105,13 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 
 	protected function box( $title = '', $options = array(), $properties = null ) {
 		// Options is optional value.
-		if ( ! isset( $properties ) ) {
-			$properties = $options;
+		if ( empty( $properties ) ) {
+			if (empty($options)) {
+				$properties = $title;
+				$title = $properties['title'];
+			} else {
+				$properties = $options;
+			}
 			$options    = array();
 		}
 

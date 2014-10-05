@@ -69,10 +69,11 @@ function _papi_get_page_new_url( $page_type, $append_admin_url = true ) {
 
 function _papi_load_post_new() {
 	$request_uri = $_SERVER['REQUEST_URI'];
+	$post_types = _papi_get_post_types();
+	$post_type  = _papi_get_wp_post_type();
 
-	if ( strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
+	if ( in_array($post_type, $post_types) && strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
 		$parsed_url = parse_url( $request_uri );
-		$post_type  = _papi_get_wp_post_type();
 
 		// Get the core settings.
 		$settings = _papi_get_settings();

@@ -104,9 +104,16 @@ class Papi_Page_Type_Base {
 	 */
 
 	public function __construct( $file_path ) {
+		// Try to load the file if the file path is empty.
+		if ( empty( $file_path ) ) {
+			$page_type = _papi_get_page_type_meta_value();
+			$file_path = _papi_get_page_type_file( $page_type );
+		}
+
 		// Check so we have a file that exists.
 		if ( ! is_string( $file_path ) || ! file_exists( $file_path ) || ! is_file( $file_path ) ) {
-			return null;
+			$page_type      = _papi_get_page_type_meta_value();
+			$page_type_file = _papi_get_page_type_file( $page_type );
 		}
 
 		// Load the file.
@@ -237,8 +244,12 @@ class Papi_Page_Type_Base {
 			$this->$key = $value;
 		}
 
+		if ( ! is_array( $this->post_types ) ) {
+			$this->post_types = array( $this->post_types );
+		}
+
 		// Set a default value to post types array if we don't have a array or a empty array.
-		if ( ! is_array( $this->post_types ) || empty( $this->post_types ) ) {
+		if ( empty( $this->post_types ) ) {
 			$this->post_types = array( 'page' );
 		}
 	}

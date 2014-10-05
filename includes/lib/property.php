@@ -234,6 +234,7 @@ function _papi_render_property( $property ) {
  */
 
 function _papi_render_properties( $properties ) {
+
 	// Don't proceed without any properties
 	if ( ! is_array( $properties ) || empty( $properties ) ) {
 		return;

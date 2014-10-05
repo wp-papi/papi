@@ -32,7 +32,7 @@ class Papi_Admin_Meta_Box {
 	private $default_options = array(
 		'context'    => 'normal',
 		'priority'   => 'default',
-		'post_type'  => 'page',
+		'post_type'  => 'product',
 		'sort_order' => null,
 		'properties' => array()
 	);
