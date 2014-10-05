@@ -112,8 +112,7 @@ class Papi_Page_Type_Base {
 
 		// Check so we have a file that exists.
 		if ( ! is_string( $file_path ) || ! file_exists( $file_path ) || ! is_file( $file_path ) ) {
-			$page_type      = _papi_get_page_type_meta_value();
-			$page_type_file = _papi_get_page_type_file( $page_type );
+			return null;
 		}
 
 		// Load the file.

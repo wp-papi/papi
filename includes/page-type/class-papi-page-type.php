@@ -106,7 +106,7 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	protected function box( $title = '', $options = array(), $properties = null ) {
 		// Options is optional value.
 		if ( empty( $properties ) ) {
-			if (empty($options)) {
+			if (empty($options) && is_array($title)) {
 				$properties = $title;
 				$title = $properties['title'];
 			} else {
