@@ -16,12 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Get page query strings.
  *
  * @param string $first_char
+ *
  * @since 1.0.0
  *
  * @return string
  */
 
-function _papi_get_page_query_strings($first_char = '&') {
+function _papi_get_page_query_strings( $first_char = '&' ) {
 	$request_uri = $_SERVER['REQUEST_URI'];
 	$parsed_url  = parse_url( $request_uri );
 	$query       = $parsed_url['query'];
@@ -36,8 +37,8 @@ function _papi_get_page_query_strings($first_char = '&') {
 	}
 
 	// Remove last char if it's a & or ?
-	if ($query[count($query) - 1] === '&' || $query[count($query) - 1] === '?') {
-		$query = substr($query, 0, -1);
+	if ( $query[ count( $query ) - 1 ] === '&' || $query[ count( $query ) - 1 ] === '?' ) {
+		$query = substr( $query, 0, - 1 );
 	}
 
 	return $query;
@@ -48,6 +49,7 @@ function _papi_get_page_query_strings($first_char = '&') {
  *
  * @param string $page_type
  * @param bool $append_admin_url Default true
+ *
  * @since 1.0.0
  *
  * @return string
@@ -69,12 +71,12 @@ function _papi_get_page_new_url( $page_type, $append_admin_url = true ) {
 function _papi_load_post_new() {
 	$request_uri = $_SERVER['REQUEST_URI'];
 
-	if ( strpos( $request_uri, 'page_type=' ) === false && strpos($request_uri, 'papi-bypass=true') === false ) {
+	if ( strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
 		$parsed_url = parse_url( $request_uri );
 		$post_type  = _papi_get_wp_post_type();
 
 		// Get the core settings.
-		$settings   = _papi_get_settings();
+		$settings = _papi_get_settings();
 
 		// Check if we should show one post type or not and create the right url for that.
 		if ( isset( $settings[ $post_type ] ) && isset( $settings[ $post_type ]['only_page_type'] ) ) {
