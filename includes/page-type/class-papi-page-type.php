@@ -77,22 +77,7 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 			remove_post_type_support( $post_type, $post_type_support );
 		}
 	}
-
-	/**
-	 * Create a new instance of the page type file.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return object
-	 */
-
-	/*public function new_class () {
-		if (!class_exists($this->page_type)) {
-		  require_once($this->file_path);
-		}
-		return new $this->page_type;
-	  }*/
-
+	
 	/**
 	 * Add new meta box with properties.
 	 *
