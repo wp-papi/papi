@@ -96,7 +96,7 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	/**
 	 * Add new meta box with properties.
 	 *
-	 * @param string $title .
+	 * @param mixed $title .
 	 * @param array $options
 	 * @param array $properties
 	 *
