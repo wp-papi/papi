@@ -68,14 +68,14 @@ class Papi_Page {
 	 */
 
 	private function get_value( $slug ) {
-		$property_key   =  $slug;
+		$property_key   = $slug;
 		$property_value = get_post_meta( $this->id, $property_key, true );
 
 		if ( is_null( $property_value ) ) {
 			return null;
 		}
 
-		$property_type_key   = _papi_f(_papi_property_type_key( $property_key ));
+		$property_type_key   = _papi_f( _papi_property_type_key( $property_key ) );
 		$property_type_value = get_post_meta( $this->id, $property_type_key, true );
 
 		if ( is_null( $property_type_value ) ) {

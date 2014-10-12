@@ -316,7 +316,7 @@ class Papi_Admin_Meta_Boxes {
 			$property_value = $property['value'];
 
 			// Property type data.
-			$property_type_key   = _papi_f(_papi_property_type_key( _papi_remove_papi( $key ) ));
+			$property_type_key   = _papi_f( _papi_property_type_key( _papi_remove_papi( $key ) ) );
 			$property_type_value = $property['type'];
 
 			// Get the existing value if we have any.
