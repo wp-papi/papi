@@ -34,6 +34,8 @@ class PropertyRepeater extends Papi_Property {
 		// Database value.
 		$values = $this->get_value( array() );
 
+		if (!is_array($values)) $values = array();
+
 		// Property settings.
 		$settings = $this->get_settings( array(
 			'items' => array()
@@ -43,6 +45,11 @@ class PropertyRepeater extends Papi_Property {
 		$settings->items = array_map( function ( $item ) {
 			return (object) _papi_get_property_options( $item, false );
 		}, $settings->items );
+
+		// Remove not allowed properties in repeater.
+		$settings->items = array_filter( $settings->items, function ($item) {
+			return !in_array(_papi_get_property_short_type($item->type), array('map', 'repeater'));
+		});
 		?>
 
 		<div class="papi-property-repeater">
@@ -87,6 +94,7 @@ class PropertyRepeater extends Papi_Property {
 				</tr>
 				</thead>
 				<tbody>
+
 				<?php foreach ( $values as $value ): ?>
 					<tr>
 						<td>
