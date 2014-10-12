@@ -7,7 +7,7 @@
     /**
      * Add a new row to the repeater.
      *
-     * @param $this
+     * @param {object} $this
      */
 
     add: function ($this) {
@@ -39,7 +39,7 @@
     /**
      * Initialize the repeater.
      *
-     * @param $this
+     * @param {object} $this
      */
 
     init: function ($this) {
@@ -62,7 +62,7 @@
     /**
      * Remove item in the repeater.
      *
-     * @param $this
+     * @param {object} $this
      */
 
     remove: function ($this) {
@@ -76,7 +76,7 @@
     /**
      * Update table row number.
      *
-     * @param $tbody
+     * @param {object} $tbody
      */
 
     updateRowNumber: function ($tbody) {

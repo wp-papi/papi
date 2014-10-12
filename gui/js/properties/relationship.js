@@ -7,7 +7,7 @@
     /**
      * Add page to list of selected pages.
      *
-     * @param $this
+     * @param {object} $this
      */
 
     add: function ($this) {
@@ -22,7 +22,7 @@
     /**
      * Remove the selected page.
      *
-     * @param $this
+     * @param {object} $this
      */
 
     remove: function ($this) {
@@ -32,7 +32,7 @@
     /**
      * Search for a page in the list.
      *
-     * @param $this
+     * @param {object} $this
      */
 
     search: function ($this) {

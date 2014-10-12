@@ -7,7 +7,7 @@
     /**
      * Add new media file.
      *
-     * @param $this
+     * @param {object} $this
      */
 
     add: function ($this) {

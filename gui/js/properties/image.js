@@ -7,7 +7,7 @@
     /**
      * Add a new image.
      *
-     * @param $this
+     * @param {object} $this
      */
 
     add: function ($this) {
@@ -42,7 +42,7 @@
     /**
      * Toggle the remove button.
      *
-     * @param $this
+     * @param {object} $this
      */
 
     hover: function ($this) {
@@ -52,7 +52,7 @@
     /**
      * Remove a image.
      *
-     * @param $this
+     * @param {object} $this
      */
 
     remove: function ($this) {

@@ -9,7 +9,7 @@
      */
 
     init: function () {
-      // Use Pikaday for property date.
+      // Don't proceed if Pikaday is undefined.
       if (window.Pikaday === undefined) {
         return;
       }
