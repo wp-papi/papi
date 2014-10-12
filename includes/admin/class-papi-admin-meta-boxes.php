@@ -312,11 +312,11 @@ class Papi_Admin_Meta_Boxes {
 		foreach ( $data as $key => $property ) {
 
 			// Property data.
-			$property_key   = _papi_property_key( $key );
+			$property_key   = _papi_remove_papi( $key );
 			$property_value = $property['value'];
 
 			// Property type data.
-			$property_type_key   = _papi_property_type_key( _papi_f( $key ) ); // has to remove '_' + key also.
+			$property_type_key   = _papi_f(_papi_property_type_key( _papi_remove_papi( $key ) ));
 			$property_type_value = $property['type'];
 
 			// Get the existing value if we have any.
