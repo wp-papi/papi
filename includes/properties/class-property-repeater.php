@@ -23,33 +23,60 @@ class PropertyRepeater extends Papi_Property {
 	private $counter = 0;
 
 	/**
+	 * Generate property slug.
+	 *
+	 * @param object $property
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+
+	private function generate_slug( $property ) {
+		$options = $this->get_options();
+
+		return $options->slug . '[' . $this->counter . ']' . '[' . _papi_remove_papi( $property->slug ) . ']';
+	}
+
+	/**
+	 * Prepare properties, get properties options object,
+	 * check which properties that are allowed to use.
+	 *
+	 * @param $items
+	 *
+	 * @return array
+	 */
+
+	private function prepare_properties( $items ) {
+		$not_allowed = array( 'repeater' );
+		$not_allowed = array_merge( $not_allowed, apply_filters( 'papi/property/repeater/not_allowed_properties', array() ) );
+
+		$items = array_map( function ( $item ) {
+			return (object) _papi_get_property_options( $item, false );
+		}, $items );
+
+		return array_filter( $items, function ( $item ) use ( $not_allowed ) {
+			return ! in_array( _papi_get_property_short_type( $item->type ), $not_allowed );
+		} );
+	}
+
+	/**
 	 * Generate the HTML for the property.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function html() {
-		$this->counter = 0;
-
-		// Database value.
+		// Get the database value.
 		$values = $this->get_value( array() );
 
-		if (!is_array($values)) $values = array();
-
-		// Property settings.
+		// Get the property settings.
 		$settings = $this->get_settings( array(
 			'items' => array()
 		) );
 
-		// Append property options on every item.
-		$settings->items = array_map( function ( $item ) {
-			return (object) _papi_get_property_options( $item, false );
-		}, $settings->items );
-
-		// Remove not allowed properties in repeater.
-		$settings->items = array_filter( $settings->items, function ($item) {
-			return !in_array(_papi_get_property_short_type($item->type), array('map', 'repeater'));
-		});
+		// Prepare properties
+		$settings->items = $this->prepare_properties( $settings->items );
 		?>
 
 		<div class="papi-property-repeater">
@@ -134,22 +161,6 @@ class PropertyRepeater extends Papi_Property {
 
 		</div>
 	<?php
-	}
-
-	/**
-	 * Generate property slug.
-	 *
-	 * @param object $property
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string
-	 */
-
-	public function generate_slug( $property ) {
-		$options = $this->get_options();
-
-		return $options->slug . '[' . $this->counter . ']' . '[' . _papi_remove_papi($property->slug) . ']';
 	}
 
 	/**
