@@ -133,7 +133,6 @@ function _papi_get_property_options( $options, $get_value = true ) {
 		'disabled'     => false,
 		'instruction'  => '',
 		'lang'         => '',
-		'old_slug'     => '',
 		'raw'          => false,
 		'settings'     => array(),
 		'slug'         => '',
@@ -177,7 +176,7 @@ function _papi_get_property_options( $options, $get_value = true ) {
 
 	if ( empty( $options->value ) && $get_value ) {
 		// Get meta value for the field
-		$options->value = papi_field( $options->slug, null, null, $options->old_slug );
+		$options->value = papi_field( $options->slug );
 	}
 
 	// Add default value if database value is empty.
