@@ -36,11 +36,8 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 	 */
 
 	public function test_slug() {
-		$slug = _test_papi_generate_slug( 'heading' );
-		$this->assertEquals( $slug, '_papi_heading' );
-
-		$slug = _papi_property_type_key( $slug );
-		$this->assertEquals( $slug, '_papi_heading_property' );
+		$slug = _papi_f(_papi_property_type_key( 'heading' ));
+		$this->assertEquals( $slug, '_heading_property' );
 	}
 
 	/**
@@ -50,16 +47,16 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 	public function test_papi_field() {
 		$post_id = $this->factory->post->create();
 
-		$slug = _test_papi_generate_slug( 'heading' );
+		$slug = 'heading';
 		add_post_meta( $post_id, $slug, 'papi' );
 
-		$slug = _papi_property_type_key( $slug );
-		add_post_meta( $post_id, $slug, 'PropertyString' );
+		$slug_type = _papi_f(_papi_property_type_key( $slug ));
+		add_post_meta( $post_id, $slug_type, 'PropertyString' );
 
-		$heading = papi_field( $post_id, 'heading' );
+		$heading = papi_field( $post_id, $slug );
 		$this->assertEquals( $heading, 'papi' );
 
-		$heading_property = papi_field( $post_id, 'heading_property' );
+		$heading_property = papi_field( $post_id, $slug_type );
 		$this->assertEquals( $heading_property, 'PropertyString' );
 	}
 
