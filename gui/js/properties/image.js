@@ -1,58 +1,89 @@
 (function ($) {
 
-  // Add image
-  $('body').on('click', '.papi-property-image .papi-image-select > button', function (e) {
-    e.preventDefault();
+  // Property image
 
-    var $this   = $(this),
-        $prop   = $this.closest('.papi-property-image'),
-        $select = $this.closest('p'),
-        $target = $prop.find('ul'),
-        gallery = $prop.hasClass('gallery'),
-        options = $this.data('papi-options');
+  papi.properties.image = {
 
-    // Open the WordPress media editor
-    papi.Utils.wpMediaEditor(function (attachment, isImage) {
-      if (!isImage) {
-        return;
-      }
+    /**
+     * Add a new image.
+     *
+     * @param $this
+     */
 
-      new papi.view.Image({
-        el: $target
-      }).render({
-        image: attachment.thumbnail,
-        id: attachment.id,
-        slug: options.slug
+    add: function ($this) {
+      var $prop     = $this.closest('.papi-property-image'),
+          $select   = $this.closest('p'),
+          $target   = $prop.find('ul'),
+          isGallery = $prop.hasClass('gallery'),
+          options   = $this.data('papi-options');
+
+      papi.utils.wpMediaEditor({
+        multiple: isGallery
+      }, function (attachment, isImage) {
+        if (!isImage) {
+          return;
+        }
+
+        new papi.view.Image({
+          el: $target
+        }).render({
+          image: attachment.thumbnail,
+          id: attachment.id,
+          slug: options.slug
+        });
+
+        if (!isGallery) {
+          $select.hide();
+        }
+
       });
+    },
 
-      if (!gallery) {
-        $select
-          .hide();
-      }
-    });
+    /**
+     * Toggle the remove button.
+     *
+     * @param $this
+     */
 
+    hover: function ($this) {
+      $this.find('a').toggle();
+    },
+
+    /**
+     * Remove a image.
+     *
+     * @param $this
+     */
+
+    remove: function ($this) {
+      var $prop  = $this.closest('.papi-property-image'),
+          $image = $this.closest('li');
+
+      $prop.find('.papi-image-select').show();
+
+      $image.remove();
+    }
+
+  };
+
+  // Events
+
+  $(document).on('click', '.papi-property-image .papi-image-select > .button', function (e) {
+    e.preventDefault();
+
+    papi.properties.image.add($(this));
   });
 
-  // Toggle remove x
-  $('body').on('hover', '.papi-property-image ul li', function (e) {
+  $(document).on('hover', '.papi-property-image ul li', function (e) {
     e.preventDefault();
-    $(this).find('a').toggle();
+
+    papi.properties.image.hover($(this));
   });
 
-  // Remove image
-  $('body').on('click', '.papi-property-image ul li a', function (e) {
+  $(document).on('click', '.papi-property-image ul li a', function (e) {
     e.preventDefault();
 
-    var $this = $(this),
-        $prop = $this.closest('.papi-property-image')
-        $li   = $this.closest('li');
-
-    $prop
-      .find('.papi-image-select')
-      .show();
-
-    $li
-      .remove();
+    papi.properties.image.remove($(this));
   });
 
 })(jQuery);

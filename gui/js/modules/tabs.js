@@ -1,15 +1,15 @@
 (function ($) {
 
   // Tabs object.
-  var Tabs = {};
+  var tabs = {};
 
   // Initialize Tabs.
-  Tabs.init = function () {
+  tabs.init = function () {
     this.binds();
   };
 
   // Tabs binds.
-  Tabs.binds = function () {
+  tabs.binds = function () {
 
     // Tabs (will be rewritten)
     $('a[data-papi-tab]').on('click', function (e) {
@@ -28,6 +28,6 @@
   };
 
   // Add utils to the papi object.
-  window.papi.Tabs = Tabs;
+  window.papi.tabs = tabs;
 
 }(jQuery));

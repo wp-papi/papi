@@ -1,15 +1,15 @@
 (function ($) {
 
   // Core object.
-  var Core = {};
+  var core = {};
 
   // Initialize core.
-  Core.init = function () {
+  core.init = function () {
     this.binds();
   };
 
   // Core binds.
-  Core.binds = function () {
+  core.binds = function () {
 
     // Make p tag clickable.
     $('.papi-box-list > li > p').on('click', function () {
@@ -63,7 +63,7 @@
 
   };
 
-  // Add the Core object to the papi object.
-  window.papi.Core = Core;
+  // Add the core object to the papi object.
+  window.papi.core = core;
 
 }(window.jQuery));
