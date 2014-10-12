@@ -12,68 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Get property value for property on a page.
- *
- * @param int $post_id
- * @param string $name
- * @param mixed $default
- * @param string $old_name
- *
- * @since 1.0.0
- *
- * @return mixed
- */
-
-function papi_field( $post_id = null, $name = null, $default = null, $old_name = null ) {
-	// Check if we have a post id or not.
-	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
-		$default = $name;
-		$name    = $post_id;
-		$post_id = null;
-	}
-
-	// If it's a numeric value, let's convert it to int.
-	if ( is_numeric( $post_id ) ) {
-		$post_id = intval( $post_id );
-	} else {
-		$post_id = _papi_get_post_id();
-	}
-
-	// Return the default value if we don't have a name.
-	if ( is_null( $name ) ) {
-		return $default;
-	}
-
-	// Get the page.
-	$page = papi_get_page( $post_id );
-
-	// Return the default value if we don't have a WordPress post on the page object.
-	if ( is_null( $page ) || ! $page->has_post() ) {
-		return $default;
-	}
-
-	// Check for "dot" notation.
-	$names = explode( '.', $name );
-
-	// Get the first value in the array.
-	$name = $names[0];
-
-	// Remove any `papi_` stuff if it exists.
-	$name = _papi_remove_papi( $name );
-
-	// Remove the first value of the array.
-	$names = array_slice( $names, 1 );
-
-	// Get value.
-	$value = $page->$name;
-
-	// Try to get the language code value.
-	if ( ! empty( $old_name ) && empty( $value ) ) {
-		$old_name = _papi_remove_papi( $old_name );
-		$value    = $page->$old_name;
-	}
-
+function _papi_field_value( $names, $value, $default ) {
 	// Return default value we don't have a value.
 	if ( empty( $value ) ) {
 		return $default;
@@ -95,6 +34,64 @@ function papi_field( $post_id = null, $name = null, $default = null, $old_name =
 	}
 
 	return $value;
+}
+
+/**
+ * Get property value for property on a page.
+ *
+ * @param int $post_id
+ * @param string $name
+ * @param mixed $default
+ *
+ * @since 1.0.0
+ *
+ * @return mixed
+ */
+
+function papi_field( $post_id = null, $name = null, $default = null ) {
+	// Check if we have a post id or not.
+	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
+		$default = $name;
+		$name    = $post_id;
+		$post_id = null;
+	}
+
+	// If it's a numeric value, let's convert it to int.
+	if ( is_numeric( $post_id ) ) {
+		$post_id = intval( $post_id );
+	} else {
+		$post_id = _papi_get_post_id();
+	}
+
+	// Return the default value if we don't have a name.
+	if ( is_null( $name ) ) {
+		return $default;
+	}
+
+	// Check for "dot" notation.
+	$names = explode( '.', $name );
+
+	// Get the first value in the array.
+	$name = $names[0];
+
+	// Remove any `papi_` stuff if it exists.
+	$name = _papi_remove_papi( $name );
+
+	// Remove the first value of the array.
+	$names = array_slice( $names, 1 );
+
+	// Get the page.
+	$page = papi_get_page( $post_id );
+
+	// Return the default value if we don't have a WordPress post on the page object.
+	if ( is_null( $page ) || ! $page->has_post() ) {
+		return $default;
+	}
+
+	// Get value.
+	$value = $page->$name;
+
+	return _papi_field_value( $names, $value, $default );
 }
 
 /**
@@ -138,13 +135,12 @@ add_shortcode( 'papi_field', 'papi_field_shortcode' );
  * @param int $post_id
  * @param string $name
  * @param mixed $default
- * @param string $old_name
  *
  * @since 1.0.0
  */
 
-function the_papi_field( $post_id = null, $name = null, $default = null, $old_name = null ) {
-	$value = papi_field( $post_id, $name, $default, $old_name );
+function the_papi_field( $post_id = null, $name = null, $default = null ) {
+	$value = papi_field( $post_id, $name, $default );
 
 	if ( is_array( $value ) ) {
 		$value = implode( ',', $value );

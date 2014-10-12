@@ -68,14 +68,13 @@ class Papi_Page {
 	 */
 
 	private function get_value( $slug ) {
-		$property_key   = $slug;
-		$property_value = get_post_meta( $this->id, $property_key, true );
+		$property_value = get_post_meta( $this->id, $slug, true );
 
 		if ( is_null( $property_value ) ) {
 			return null;
 		}
 
-		$property_type_key   = _papi_f( _papi_property_type_key( $property_key ) );
+		$property_type_key   = _papi_f( _papi_property_type_key( $slug ) );
 		$property_type_value = get_post_meta( $this->id, $property_type_key, true );
 
 		if ( is_null( $property_type_value ) ) {
@@ -101,12 +100,10 @@ class Papi_Page {
 						unset( $property_value[ $ki ][ $k ] );
 					} else {
 						$ptk                          = _papi_property_type_key( $k );
-						$kn                           = _papi_remove_papi( $k );
-						$property_value[ $ki ][ $kn ] = $this->convert( array(
+						$property_value[ $ki ][ $k ] = $this->convert( array(
 							'type'  => $property_value[ $ki ][ $ptk ],
 							'value' => $v
 						) );
-						unset( $property_value[ $ki ][ $k ] );
 					}
 				}
 			} else {

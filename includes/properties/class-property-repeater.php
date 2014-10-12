@@ -23,12 +23,6 @@ class PropertyRepeater extends Papi_Property {
 	private $counter = 0;
 
 	/**
-	 * Properties that aren't allowed in the repeater.
-	 */
-
-	private $not_allowed_properties = array( 'map' );
-
-	/**
 	 * Generate the HTML for the property.
 	 *
 	 * @since 1.0.0
@@ -47,15 +41,8 @@ class PropertyRepeater extends Papi_Property {
 
 		// Append property options on every item.
 		$settings->items = array_map( function ( $item ) {
-			return (object) _papi_get_property_options( $item );
+			return (object) _papi_get_property_options( $item, false );
 		}, $settings->items );
-
-		// Check so we don't try to register a property map in a list since it won't work.
-		$not_allowed_properties = $this->not_allowed_properties;
-		$settings->items        = array_filter( $settings->items, function ( $property ) use ( $not_allowed_properties ) {
-			return ! in_array( _papi_get_property_short_type( $property->type ), $not_allowed_properties );
-		} );
-
 		?>
 
 		<div class="papi-property-repeater">
@@ -154,7 +141,7 @@ class PropertyRepeater extends Papi_Property {
 	public function generate_slug( $property ) {
 		$options = $this->get_options();
 
-		return $options->slug . '[' . $this->counter . ']' . '[' . str_replace( 'papi_papi', 'papi', $property->slug ) . ']';
+		return $options->slug . '[' . $this->counter . ']' . '[' . _papi_remove_papi($property->slug) . ']';
 	}
 
 	/**

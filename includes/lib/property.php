@@ -119,13 +119,14 @@ function _papi_get_property_short_type( $type ) {
  * Get property options.
  *
  * @param array $options
+ * @param bool $get_value
  *
  * @since 1.0.0
  *
  * @return object
  */
 
-function _papi_get_property_options( $options ) {
+function _papi_get_property_options( $options, $get_value = true ) {
 	$defaults = array(
 		'capabilities' => array(),
 		'default'      => '',
@@ -174,15 +175,14 @@ function _papi_get_property_options( $options ) {
 		$options->type = 'Property' . ucfirst( strtolower( $options->type ) );
 	}
 
-	if ( empty( $options->value ) ) {
+	if ( empty( $options->value ) && $get_value ) {
 		// Get meta value for the field
 		$options->value = papi_field( $options->slug, null, null, $options->old_slug );
+	}
 
-		// Add default value if database value is empty.
-		if ( empty( $options->value ) ) {
-			$options->value = $options->default;
-		}
-
+	// Add default value if database value is empty.
+	if ( empty( $options->value ) ) {
+		$options->value = $options->default;
 	}
 
 	return $options;
