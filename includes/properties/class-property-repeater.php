@@ -44,6 +44,8 @@ class PropertyRepeater extends Papi_Property {
 	 *
 	 * @param $items
 	 *
+	 * @since 1.0.0
+	 *
 	 * @return array
 	 */
 
