@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Act loader class.
+ * Papi loader class.
  */
 final class Papi_Loader {
 
