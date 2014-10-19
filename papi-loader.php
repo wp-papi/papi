@@ -228,7 +228,7 @@ final class Papi_Loader {
 		$this->name    = 'Papi';
 		$this->version = '1.0.0';
 
-		// Act plugin directory and url.
+		// Papi plugin directory and url.
 		$this->plugin_dir = PAPI_PLUGIN_DIR;
 		$this->plugin_url = PAPI_PLUGIN_URL;
 
@@ -246,7 +246,7 @@ final class Papi_Loader {
 	// private function setup_actions () {}
 
 	/**
-	 * Auto load Act classes on demand.
+	 * Auto load Papi classes on demand.
 	 *
 	 * @param mixed $class
 	 *
