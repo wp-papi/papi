@@ -134,7 +134,7 @@ class Papi_Admin_Meta_Box {
 
 	public function setup_meta_box() {
 		add_meta_box(
-			$this->options->slug,
+			str_replace( '_', '-', _papify( $this->options->slug ) ),
 			_papi_remove_papi( $this->options->title ),
 			array( $this, 'render_meta_box' ),
 			$this->options->post_type,
