@@ -135,6 +135,7 @@ function _papi_get_property_options( $options, $get_value = true ) {
 		'lang'         => '',
 		'raw'          => false,
 		'settings'     => array(),
+		'sidebar'      => true,
 		'slug'         => '',
 		'sort_order'   => null,
 		'required'     => false,

@@ -185,13 +185,15 @@ abstract class Papi_Property {
 		if ( $this->options->raw === false ):
 			?>
 			<tr>
-				<td>
-					<?php
-					$this->label();
-					$this->instruction();
-					?>
-				</td>
-				<td>
+				<?php if ( $this->options->sidebar ): ?>
+					<td>
+						<?php
+						$this->label();
+						$this->instruction();
+						?>
+						</td>
+				<?php endif; ?>
+				<td <?php echo $this->options->sidebar ? '' : 'colspan="2"'; ?>>
 					<?php $this->html(); ?>
 				</td>
 			</tr>
