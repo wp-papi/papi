@@ -37,7 +37,7 @@
 
     search: function ($this) {
       var $list = $this.closest('.papi-property-relationship').find('.relationship-left ul'),
-          val   = $this.val();
+          val   = $this.val().toLowerCase();
 
       $list.find('li').each(function () {
         var $li = $(this);
