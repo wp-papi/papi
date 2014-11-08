@@ -11,12 +11,20 @@
      */
 
     add: function ($this) {
-      var $li = $this.clone(),
-          $list = $this.closest('.papi-property-relationship').find('.relationship-right ul');
+      var $li     = $this.clone(),
+          $right  = $this.closest('.papi-property-relationship').find('.relationship-right'),
+          $list   = $right.find('ul'),
+          max     = $right.data('relationship-choose-max'),
+          append  = max === undefined || max === -1 || $list.find('li').length < max;
 
-      $li.find('span.icon').removeClass('plus').addClass('minus');
-      $li.find('input').attr('name', $li.find('input').data('name'));
-      $li.appendTo($list);
+      console.log(max, append, $list.find('li').length);
+
+      if (append) {
+        $li.find('span.icon').removeClass('plus').addClass('minus');
+        $li.find('input').attr('name', $li.find('input').data('name'));
+
+        $li.appendTo($list);
+      }
     },
 
     /**

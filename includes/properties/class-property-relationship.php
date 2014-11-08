@@ -25,27 +25,23 @@ class PropertyRelationship extends Papi_Property {
 
 		// Property settings.
 		$settings = $this->get_settings( array(
+			'choose_max' => - 1,
 			'post_types' => array( 'page' ),
-			'show_max'   => - 1
+			'query'      => array()
 		) );
 
 		// Database value.
-		$references = $this->get_value();
+		$references = $this->get_value( array() );
 
-		// Fetch posts with the post types.
-		$posts = query_posts( array(
-			'post_type' => $settings->post_types
-		) );
-
-		// Take as many posts we should show.
-		$posts = array_slice( $posts, 0, (
-		$settings->show_max === - 1 ?
-			count( $posts ) :
-			$settings->show_max ) );
-
-		if ( ! is_array( $references ) ) {
-			$references = array();
+		// Remove query post type values.
+		if ( isset( $settings->query['post_type'] ) ) {
+			unset( $settings->query['post_type'] );
 		}
+
+		// Fetch posts with the post types and the query.
+		$posts = query_posts( array_merge( $settings->query, array(
+			'post_type' => $settings->post_types
+		) ) );
 
 		$references = array_filter( $references, function ( $post ) {
 			return is_object( $post );
@@ -56,7 +52,7 @@ class PropertyRelationship extends Papi_Property {
 			<div class="relationship-inner">
 				<div class="relationship-left">
 					<div class="relationship-search">
-						<input type="search" placeholder="Sök"/>
+						<input type="search" placeholder="<?php _e( 'Search', 'papi' ); ?>"/>
 					</div>
 					<ul>
 						<?php
@@ -75,7 +71,7 @@ class PropertyRelationship extends Papi_Property {
 						?>
 					</ul>
 				</div>
-				<div class="relationship-right">
+				<div class="relationship-right" data-relationship-choose-max="<?php echo $settings->choose_max; ?>">
 					<ul>
 						<?php foreach ( $references as $post ): ?>
 							<li>
