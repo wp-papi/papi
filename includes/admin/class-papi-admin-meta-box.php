@@ -68,13 +68,13 @@ class Papi_Admin_Meta_Box {
 
 	private function box_property( $properties ) {
 		$box_property = array_filter( $properties, function ( $property ) {
-			return ! is_object( $property ) && ! is_array( $property );
+			return ! is_object( $property );
 		} );
 
 		if ( ! empty( $box_property ) ) {
 			$property = _papi_get_property_options( $box_property );
 			if ( ! $property->disabled ) {
-				$properties[] = $property;
+				$properties = array( $property );
 			}
 		}
 

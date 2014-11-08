@@ -77,7 +77,7 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 			remove_post_type_support( $post_type, $post_type_support );
 		}
 	}
-	
+
 	/**
 	 * Add new meta box with properties.
 	 *
