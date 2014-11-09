@@ -1,0 +1,29 @@
+// Papi meta box style
+
+.papi-box .inside {
+  padding-right: 0px;
+  margin-right: -13px !important;
+  > .papi-table {
+    margin: -7px -12px -12px -12px;
+  }
+}
+
+
+#side-sortables {
+  .papi-box > .papi-table {
+    tr td {
+      float: left;
+      width: 99.5%;
+      padding: 10px 0px;
+      > label {
+        padding-left: 12px;
+      }
+      > input,
+      select,
+      textarea {
+        margin-left: 12px;
+        width: 90.5%;
+      }
+    }
+  }
+}

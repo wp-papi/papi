@@ -1,11 +1,18 @@
-// Inside fixes
-.inside {
-  &.papi-inside {
-    padding-right: 0px;
-    margin-right: -13px !important;
+// Postbox modes
+.postbox.papi-mode-seamless {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+
+  > h3,
+  > .handlediv {
+    display: none;
   }
-  > .papi-table {
-    margin: -7px -12px -12px -12px;
+
+  .papi-table tr td {
+    background: transparent;
+    border: none;
+    padding-left: 0;
   }
 }
 
@@ -82,21 +89,3 @@
 }
 
 // side meta boxes
-#side-sortables {
-  .inside.papi-inside > .papi-table {
-    tr td {
-      float: left;
-      width: 99.5%;
-      padding: 10px 0px;
-      > label {
-        padding-left: 12px;
-      }
-      > input,
-        select,
-        textarea {
-        margin-left: 12px;
-        width: 90.5%;
-      }
-    }
-  }
-}

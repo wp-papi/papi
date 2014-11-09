@@ -248,14 +248,18 @@ function _papi_render_properties( $properties ) {
 		// Sort properties based on `sort_order` value.
 		$properties = _papi_sort_order( $properties );
 
-		echo '<table class="papi-table">';
-		echo '<tbody>';
+		?>
 
-		foreach ( $properties as $property ) {
-			_papi_render_property( $property );
-		}
+		<table class="papi-table papi-mode-seamless">
+			<tbody>
+			<?php
+			foreach ( $properties as $property ) {
+				_papi_render_property( $property );
+			}
+			?>
+			</tbody>
+		</table>
 
-		echo '</tbody>';
-		echo '</table>';
+	<?php
 	}
 }

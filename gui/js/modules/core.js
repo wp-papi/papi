@@ -16,9 +16,6 @@
       window.location = $(this).prev().attr('href');
     });
 
-    // Add our own inside class to the inside div.
-    $('.papi-table').closest('.inside').addClass('papi-inside');
-
     // Add new page - search field.
     $('input[name=add-new-page-search]').on('keyup', function () {
 

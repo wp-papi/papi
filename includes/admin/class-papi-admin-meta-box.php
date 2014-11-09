@@ -30,11 +30,16 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private $default_options = array(
+		'id'         => '',
 		'context'    => 'normal',
-		'priority'   => 'default',
+		'mode'       => 'standard',
 		'post_type'  => 'page',
+		'priority'   => 'default',
+		'properties' => array(),
 		'sort_order' => null,
-		'properties' => array()
+
+		// Private options
+		'_tab_box'   => false
 	);
 
 	/**
@@ -54,6 +59,29 @@ class Papi_Admin_Meta_Box {
 
 	private function setup_actions() {
 		add_action( 'add_meta_boxes', array( $this, 'setup_meta_box' ) );
+		add_action( 'postbox_classes_page_' . $this->options->id, array( $this, 'meta_box_css_classes' ));
+	}
+
+	/**
+	 * Add css classes to meta box.
+	 *
+	 * @param array $classes
+	 *
+	 * @return array
+	 */
+
+	public function meta_box_css_classes ($classes) {
+		$classes[] = 'papi-box';
+
+		if ($this->options->mode === 'seamless') {
+			if ($this->options->_tab_box) {
+				$classes[] = 'papi-mode-seamless-tabs';
+			} else {
+				$classes[] = 'papi-mode-seamless';
+			}
+		}
+
+		return $classes;
 	}
 
 	/**
@@ -95,6 +123,7 @@ class Papi_Admin_Meta_Box {
 		$options             = array_merge( $this->default_options, $options );
 		$this->options       = (object) $options;
 		$this->options->slug = _papi_slugify( $this->options->title );
+		$this->options->id   = str_replace( '_', '-', _papify( $this->options->slug ) );
 
 		$properties = $this->box_property( $properties );
 
@@ -111,6 +140,10 @@ class Papi_Admin_Meta_Box {
 			} else if ( is_object( $property ) ) {
 				$this->properties[] = $property;
 			}
+		}
+
+		if (!empty($this->properties)) {
+			$this->options->_tab_box = isset($this->properties[0]->tab) && $this->properties[0]->tab;
 		}
 
 		$this->setup_actions();
@@ -134,7 +167,7 @@ class Papi_Admin_Meta_Box {
 
 	public function setup_meta_box() {
 		add_meta_box(
-			str_replace( '_', '-', _papify( $this->options->slug ) ),
+			$this->options->id,
 			_papi_remove_papi( $this->options->title ),
 			array( $this, 'render_meta_box' ),
 			$this->options->post_type,
