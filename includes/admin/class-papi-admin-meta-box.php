@@ -30,7 +30,6 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private $default_options = array(
-		'id'         => '',
 		'context'    => 'normal',
 		'mode'       => 'standard',
 		'post_type'  => 'page',
@@ -38,6 +37,7 @@ class Papi_Admin_Meta_Box {
 		'properties' => array(),
 		'sort_order' => null,
 		// Private options
+		'_id'        => '',
 		'_tab_box'   => false
 	);
 
@@ -83,7 +83,7 @@ class Papi_Admin_Meta_Box {
 
 	private function setup_actions() {
 		add_action( 'add_meta_boxes', array( $this, 'setup_meta_box' ) );
-		add_action( 'postbox_classes_page_' . $this->options->id, array( $this, 'meta_box_css_classes' ) );
+		add_action( 'postbox_classes_page_' . $this->options->_id, array( $this, 'meta_box_css_classes' ) );
 	}
 
 	/**
@@ -99,7 +99,7 @@ class Papi_Admin_Meta_Box {
 		$options             = array_merge( $this->default_options, $options );
 		$this->options       = (object) $options;
 		$this->options->slug = _papi_slugify( $this->options->title );
-		$this->options->id   = str_replace( '_', '-', _papify( $this->options->slug ) );
+		$this->options->_id   = str_replace( '_', '-', _papify( $this->options->slug ) );
 
 
 		if ( ! empty( $this->properties ) ) {
@@ -216,7 +216,7 @@ class Papi_Admin_Meta_Box {
 
 	public function setup_meta_box() {
 		add_meta_box(
-			$this->options->id,
+			$this->options->_id,
 			_papi_remove_papi( $this->options->title ),
 			array( $this, 'render_meta_box' ),
 			$this->options->post_type,
