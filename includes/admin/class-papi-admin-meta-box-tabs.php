@@ -61,12 +61,6 @@ class Papi_Admin_Meta_Box_Tabs {
 		// Generate unique names for all tabs.
 		for ( $i = 0; $i < count( $tabs ); $i ++ ) {
 			$tabs[ $i ]->name = _papi_name( $tabs[ $i ]->title ) . '_' . $i;
-
-			foreach ($tabs[$i]->properties as $property) {
-				if (!isset($tabs[$i]->sidebar)) {
-					$tabs[$i]->sidebar = true;
-				}
-			}
 		}
 
 		$this->tabs = $tabs;
