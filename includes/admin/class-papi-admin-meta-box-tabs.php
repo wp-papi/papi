@@ -61,6 +61,12 @@ class Papi_Admin_Meta_Box_Tabs {
 		// Generate unique names for all tabs.
 		for ( $i = 0; $i < count( $tabs ); $i ++ ) {
 			$tabs[ $i ]->name = _papi_name( $tabs[ $i ]->title ) . '_' . $i;
+
+			foreach ($tabs[$i]->properties as $property) {
+				if (!isset($tabs[$i]->sidebar)) {
+					$tabs[$i]->sidebar = true;
+				}
+			}
 		}
 
 		$this->tabs = $tabs;
@@ -76,6 +82,7 @@ class Papi_Admin_Meta_Box_Tabs {
 	private function html() {
 		?>
 		<div class="papi-tabs-wrapper">
+			<div class="papi-tabs-table-back"></div>
 			<div class="papi-tabs-back"></div>
 			<ul class="papi-tabs">
 				<?php
@@ -100,7 +107,18 @@ class Papi_Admin_Meta_Box_Tabs {
 					?>
 					<div class="<?php echo $this->tabs[0] == $tab ? 'active' : ''; ?>"
 					     data-papi-tab="<?php echo $tab->name; ?>">
-						<?php _papi_render_properties( $tab->properties ); ?>
+						<?php
+							$properties = $tab->properties;
+
+							$properties = array_map(function ($property) {
+								// While in a tab the sidebar is required.
+								$property->sidebar = true;
+
+								return $property;
+							}, $properties);
+
+							_papi_render_properties( $properties );
+						?>
 					</div>
 				<?php
 				endforeach;

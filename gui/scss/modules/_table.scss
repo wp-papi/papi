@@ -30,36 +30,38 @@
       vertical-align: top;
     }
 
-    td:first-child {
-      width: 15%;
-      background: #F9F9F9;
-      border-top: 1px solid #eaeaea;
-      border-right: 1px solid #eaeaea;
-
-      label {
-        display: block;
-        font-size: 13px;
-        line-height: 1.4em;
-        font-weight: bold;
-        padding: 0;
-        margin: 0 0 3px;
-        color: #333;
-      }
-
-      p {
-        display: block;
-        font-size: 12px;
-        line-height: 1.4em;
-        padding: 0 !important;
-        margin: 3px 0 0 !important;
-        font-style: normal;
-        line-height: 16px;
-        color: #899194;
-      }
-
-    }
-
     td {
+      &:first-child {
+        width: 15%;
+        background: #F9F9F9;
+        border-top: 1px solid #eaeaea;
+        border-right: 1px solid #eaeaea;
+
+        label {
+          display: block;
+          font-size: 13px;
+          line-height: 1.4em;
+          font-weight: bold;
+          padding: 0;
+          margin: 0 0 3px;
+          color: #333;
+        }
+
+        p {
+          display: block;
+          font-size: 12px;
+          line-height: 1.4em;
+          padding: 0 !important;
+          margin: 3px 0 0 !important;
+          font-style: normal;
+          line-height: 16px;
+          color: #899194;
+        }
+      }
+      &[colspan="2"] {
+        background: white;
+        border-right: none;
+      }
       label {
         font-size: 13px;
         line-height: 1.5;

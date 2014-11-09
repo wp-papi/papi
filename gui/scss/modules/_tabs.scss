@@ -9,7 +9,7 @@
     left: 0;
     bottom: 0;
     background: #f4f2f2;
-    width: 147px;
+    width: 146px;
     border-right: 1px solid #dfdfdf;
   }
 
@@ -17,7 +17,7 @@
     background: #f4f2f2;
     line-height: 22px;
     float: left;
-    width: 145px;
+    width: 144px;
     margin: 0;
     position: relative;
     padding: 0 0 10px;
@@ -71,9 +71,20 @@
     }
   }
 
+  .papi-tabs-table-back {
+    background: #F9F9F9;
+    position: absolute;
+    width: 335px;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    border-right: 1px solid #EAEAEA;
+  }
+
   .papi-tabs-content {
     padding-left: 10px;
     margin-left: 145px;
+    position: relative;
 
     > div {
       display: none;
@@ -84,6 +95,7 @@
 
       .papi-table {
         margin: -7px 0 -12px -20px;
+        min-height: 100%;
       }
     }
 
