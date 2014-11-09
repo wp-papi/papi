@@ -37,7 +37,6 @@ class Papi_Admin_Meta_Box {
 		'priority'   => 'default',
 		'properties' => array(),
 		'sort_order' => null,
-
 		// Private options
 		'_tab_box'   => false
 	);
@@ -52,39 +51,6 @@ class Papi_Admin_Meta_Box {
 	private $options;
 
 	/**
-	 * Setup actions.
-	 *
-	 * @since 1.0.0
-	 */
-
-	private function setup_actions() {
-		add_action( 'add_meta_boxes', array( $this, 'setup_meta_box' ) );
-		add_action( 'postbox_classes_page_' . $this->options->id, array( $this, 'meta_box_css_classes' ));
-	}
-
-	/**
-	 * Add css classes to meta box.
-	 *
-	 * @param array $classes
-	 *
-	 * @return array
-	 */
-
-	public function meta_box_css_classes ($classes) {
-		$classes[] = 'papi-box';
-
-		if ($this->options->mode === 'seamless') {
-			if ($this->options->_tab_box) {
-				$classes[] = 'papi-mode-seamless-tabs';
-			} else {
-				$classes[] = 'papi-mode-seamless';
-			}
-		}
-
-		return $classes;
-	}
-
-	/**
 	 * Box property is a property that is direct on the box function with the property function.
 	 *
 	 * @param array $properties
@@ -94,7 +60,7 @@ class Papi_Admin_Meta_Box {
 	 * @return array
 	 */
 
-	private function box_property( $properties ) {
+	private function get_box_property( $properties ) {
 		$box_property = array_filter( $properties, function ( $property ) {
 			return ! is_object( $property );
 		} );
@@ -110,22 +76,47 @@ class Papi_Admin_Meta_Box {
 	}
 
 	/**
-	 * Constructor.
-	 *
-	 * @param array $options
-	 * @param array $properties
+	 * Setup actions.
 	 *
 	 * @since 1.0.0
 	 */
 
-	public function __construct( $options = array(), $properties = array() ) {
+	private function setup_actions() {
+		add_action( 'add_meta_boxes', array( $this, 'setup_meta_box' ) );
+		add_action( 'postbox_classes_page_' . $this->options->id, array( $this, 'meta_box_css_classes' ) );
+	}
+
+	/**
+	 * Setup options
+	 *
+	 * @param array $options
+	 *
+	 * @since 1.0.0
+	 */
+
+	private function setup_options( $options ) {
 		$options             = _papi_h( $options, array() );
 		$options             = array_merge( $this->default_options, $options );
 		$this->options       = (object) $options;
 		$this->options->slug = _papi_slugify( $this->options->title );
 		$this->options->id   = str_replace( '_', '-', _papify( $this->options->slug ) );
 
-		$properties = $this->box_property( $properties );
+
+		if ( ! empty( $this->properties ) ) {
+			$this->options->_tab_box = isset( $this->properties[0]->tab ) && $this->properties[0]->tab;
+		}
+	}
+
+	/**
+	 * Populate the properties array
+	 *
+	 * @param array $properties
+	 *
+	 * @since 1.0.0
+	 */
+
+	private function populate_properties( $properties ) {
+		$properties = $this->get_box_property( $properties );
 
 		// Fix so the properties array will have the right order.
 		$properties = array_reverse( $properties );
@@ -141,11 +132,20 @@ class Papi_Admin_Meta_Box {
 				$this->properties[] = $property;
 			}
 		}
+	}
 
-		if (!empty($this->properties)) {
-			$this->options->_tab_box = isset($this->properties[0]->tab) && $this->properties[0]->tab;
-		}
+	/**
+	 * Constructor.
+	 *
+	 * @param array $options
+	 * @param array $properties
+	 *
+	 * @since 1.0.0
+	 */
 
+	public function __construct( $options = array(), $properties = array() ) {
+		$this->populate_properties( $properties );
+		$this->setup_options( $options );
 		$this->setup_actions();
 	}
 
@@ -162,19 +162,27 @@ class Papi_Admin_Meta_Box {
 	}
 
 	/**
-	 * Setup meta box.
+	 * Add css classes to meta box.
+	 *
+	 * @param array $classes
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
 	 */
 
-	public function setup_meta_box() {
-		add_meta_box(
-			$this->options->id,
-			_papi_remove_papi( $this->options->title ),
-			array( $this, 'render_meta_box' ),
-			$this->options->post_type,
-			$this->options->context,
-			$this->options->priority,
-			$this->properties
-		);
+	public function meta_box_css_classes( $classes ) {
+		$classes[] = 'papi-box';
+
+		if ( $this->options->mode === 'seamless' ) {
+			if ( $this->options->_tab_box ) {
+				$classes[] = 'papi-mode-seamless-tabs';
+			} else {
+				$classes[] = 'papi-mode-seamless';
+			}
+		}
+
+		return $classes;
 	}
 
 	/**
@@ -182,6 +190,8 @@ class Papi_Admin_Meta_Box {
 	 *
 	 * @param array $post
 	 * @param array $args
+	 *
+	 * @since 1.0.0
 	 */
 
 	public function render_meta_box( $post, $args ) {
@@ -196,5 +206,23 @@ class Papi_Admin_Meta_Box {
 
 		// Render the properties.
 		_papi_render_properties( $args['args'] );
+	}
+
+	/**
+	 * Setup meta box.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function setup_meta_box() {
+		add_meta_box(
+			$this->options->id,
+			_papi_remove_papi( $this->options->title ),
+			array( $this, 'render_meta_box' ),
+			$this->options->post_type,
+			$this->options->context,
+			$this->options->priority,
+			$this->properties
+		);
 	}
 }
