@@ -14,13 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Papi_Page_Type_Base {
 
 	/**
-	 * The name of the page type.
+	 * Capabilities list.
 	 *
-	 * @var string
+	 * @var array
 	 * @since 1.0.0
 	 */
 
-	public $name = '';
+	public $capabilities = array();
 
 	/**
 	 * The description of the page type.
@@ -30,42 +30,6 @@ class Papi_Page_Type_Base {
 	 */
 
 	public $description = '';
-
-	/**
-	 * The page type thumbnail.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-
-	public $thumbnail = '';
-
-	/**
-	 * The template of the page type.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-
-	public $template = '';
-
-	/**
-	 * The post types to register the page type with.
-	 *
-	 * @var array
-	 * @since 1.0.0
-	 */
-
-	public $post_types = array( 'page' );
-
-	/**
-	 * The page type. It's the name of the class.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-
-	public $page_type = '';
 
 	/**
 	 * The file name of the page type file.
@@ -86,13 +50,58 @@ class Papi_Page_Type_Base {
 	public $file_path = '';
 
 	/**
-	 * Capabilities list.
+	 * The name of the page type.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+
+	public $name = '';
+
+	/**
+	 * The page type. It's the name of the class.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+
+	public $page_type = '';
+
+	/**
+	 * The post types to register the page type with.
 	 *
 	 * @var array
 	 * @since 1.0.0
 	 */
 
-	public $capabilities = array();
+	public $post_types = array( 'page' );
+
+	/**
+	 * The sort order of the page type.
+	 *
+	 * @var int
+	 * @since 1.0.0
+	 */
+
+	public $sort_order = 100;
+
+	/**
+	 * The template of the page type.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+
+	public $template = '';
+
+	/**
+	 * The page type thumbnail.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+
+	public $thumbnail = '';
 
 	/**
 	 * Constructor.

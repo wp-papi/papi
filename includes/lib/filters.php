@@ -13,18 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Get Papi settings.
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _papi_get_settings() {
-	return apply_filters( 'papi/settings', array() );
-}
-
-/**
  * This filter is applied after the $value is loaded in the database.
  *
  * @param mixed $value

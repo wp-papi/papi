@@ -2,11 +2,8 @@
 $post_type = _papi_get_wp_post_type();
 
 // Check if we should show standard page or not.
-$settings           = _papi_get_settings();
-$show_standard_page = true;
-if ( isset( $settings[ $post_type ] ) && isset( $settings[ $post_type ]['show_standard_page'] ) ) {
-	$show_standard_page = $settings[ $post_type ]['show_standard_page'];
-}
+$option_key         = sprintf('post_type.%s.show_standard_page', $post_type);
+$show_standard_page = _papi_get_option($option_key, true);
 
 ?>
 
@@ -48,4 +45,3 @@ if ( isset( $settings[ $post_type ] ) && isset( $settings[ $post_type ]['show_st
 		?>
 	</div>
 </div>
-

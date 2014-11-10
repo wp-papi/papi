@@ -129,7 +129,6 @@ final class Papi_Admin {
 
 	public function admin_menu() {
 		$post_types = _papi_get_post_types();
-		$settings   = _papi_get_settings();
 		$page_types = _papi_get_all_page_types( true );
 
 		// If we don't have any page types don't change any menu items.
@@ -142,8 +141,11 @@ final class Papi_Admin {
 			// Remove "Add new" menu item.
 			remove_submenu_page( 'edit.php?post_type=' . $post_type, 'post-new.php?post_type=' . $post_type );
 
-			if ( isset( $settings[ $post_type ] ) && isset( $settings[ $post_type ]['only_page_type'] ) ) {
-				$url = _papi_get_page_new_url( $settings[ $post_type ]['only_page_type'], false );
+			$option_key         = sprintf('post_type.%s.only_page_type', $post_type);
+			$only_page_type     = _papi_get_option($option_key);
+
+			if ( ! empty($only_page_type) ) {
+				$url = _papi_get_page_new_url( $only_page_type, false );
 				// Add our custom menu item.
 				add_submenu_page( 'edit.php?post_type=' . $post_type,
 					__( 'Add New', 'papi' ),

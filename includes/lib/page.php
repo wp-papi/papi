@@ -140,6 +140,9 @@ function _papi_get_all_page_types( $all = false ) {
 		return strcmp( $a->name, $b->name );
 	} );
 
+	// Sort by sort order key.
+	$page_types = _papi_sort_order($page_types);
+
 	return $page_types;
 }
 
