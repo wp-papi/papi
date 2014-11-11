@@ -91,14 +91,14 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	protected function box( $title = '', $options = array(), $properties = null ) {
 		// Options is optional value.
 		if ( empty( $properties ) ) {
-			if (empty($options) && is_array($title)) {
+			if ( empty( $options ) && is_array( $title ) ) {
 				$properties = $title;
-				$title = $properties['title'];
+				$title      = isset( $properties['title'] ) ? $properties['title'] : '';
 			} else {
 				$properties = $options;
 			}
 			$options    = array();
-		}
+		};
 
 		// Can current user view this box?
 		if ( isset( $options['capabilities'] ) && ! _papi_current_user_is_allowed( $options['capabilities'] ) ) {
@@ -123,26 +123,52 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 		$this->box = new Papi_Admin_Meta_Box( $options, $properties );
 	}
 
+	protected function template( $file ) {
+		$filepath = _papi_get_page_type_file( $file );
+
+		if ( empty( $filepath ) ) {
+			return array();
+		}
+
+		return require $filepath;
+	}
+
 	/**
-	 * Add new property to the page.
+	 * Add new property to the page using array or rendering property template file.
 	 *
-	 * @param array $options
+	 * @param string|array $file_or_options
+	 * @param array $values
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
 
-	protected function property( $options = array() ) {
-		$options = _papi_get_property_options( $options );
+	protected function property( $file_or_options = array(), $values = array() ) {
 
-		if ( is_array( $options ) ) {
-			$this->properties = array_merge( $this->properties, $options );
-		} else if ( ! $options->disabled ) {
-			$this->properties[] = $options;
+		// Create a property with array of parameters.
+		if ( is_array( $file_or_options ) ) {
+			$options = _papi_get_property_options( $file_or_options );
+
+			if ( is_array( $options ) ) {
+				$this->properties = array_merge( $this->properties, $options );
+			} else if ( ! $options->disabled ) {
+				$this->properties[] = $options;
+			}
+
+			return $options;
 		}
 
-		return $options;
+		// Create a property with a array of parameters.
+		if ( is_string( $file_or_options ) ) {
+			$filepath = _papi_get_page_type_file ( $file_or_options );
+
+			if ( empty( $filepath ) ) {
+				return array();
+			}
+
+			return include($filepath);
+		}
 	}
 
 	/**

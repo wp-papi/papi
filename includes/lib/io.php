@@ -93,11 +93,15 @@ function _papi_get_all_page_type_files() {
 
 function _papi_get_page_type_file( $file ) {
 	$directories = _papi_get_directories();
-	$file        = '/' . _papi_dashify( $file ) . '.php';
+	$file        = '/' . _papi_dashify( $file );
 
 	foreach ( $directories as $directory ) {
 		if ( file_exists( $directory . $file ) ) {
 			return $directory . $file;
+		}
+
+		if ( file_exists($directory . $file . '.php')) {
+			return $directory . $file . '.php';
 		}
 	}
 

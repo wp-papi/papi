@@ -116,6 +116,16 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private function populate_properties( $properties ) {
+		// Convert all non property objects to property objects.
+		$properties = array_map( function ( $property ) {
+			if ( !is_object( $property ) && is_array($property) ) {
+				return _papi_get_property_options( $property );
+			}
+
+			return $property;
+		}, $properties );
+
+		// Get the box property (when you only put a array in the box method) if it exists.
 		$properties = $this->get_box_property( $properties );
 
 		// Fix so the properties array will have the right order.
