@@ -1,8 +1,8 @@
 <div class="papi-box-item">
 	<div class="papi-post-type">
 		<div class="papi-post-type-screenshot">
-			<?php if ( ! empty( $vars['image'] ) ): ?>
-				<img src="<?php echo $vars['image']; ?>">
+			<?php if ( ! empty( $vars['thumbnail'] ) ): ?>
+				<img src="<?php echo $vars['thumbnail']; ?>">
 			<?php endif; ?>
 		</div>
 	</div>

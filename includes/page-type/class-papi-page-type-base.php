@@ -14,6 +14,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Papi_Page_Type_Base {
 
 	/**
+	 * The page type class name.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+
+	private $_class_name = '';
+
+	/**
+	 * The file name of the page type file.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+
+	public $_file_name = '';
+
+	/**
+	 * The file path of the page type file.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+
+	public $_file_path = '';
+
+	/**
 	 * Capabilities list.
 	 *
 	 * @var array
@@ -32,24 +59,6 @@ class Papi_Page_Type_Base {
 	public $description = '';
 
 	/**
-	 * The file name of the page type file.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-
-	public $file_name = '';
-
-	/**
-	 * The file path of the page type file.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-
-	public $file_path = '';
-
-	/**
 	 * The name of the page type.
 	 *
 	 * @var string
@@ -59,13 +68,13 @@ class Papi_Page_Type_Base {
 	public $name = '';
 
 	/**
-	 * The page type. It's the name of the class.
+	 * The page types that lives under this page type.
 	 *
-	 * @var string
+	 * @var array
 	 * @since 1.0.0
 	 */
 
-	public $page_type = '';
+	public $page_types = array();
 
 	/**
 	 * The post types to register the page type with.
@@ -120,7 +129,7 @@ class Papi_Page_Type_Base {
 		}
 
 		// Check so we have a file that exists.
-		if ( ! is_string( $file_path ) || ! file_exists( $file_path ) || ! is_file( $file_path ) ) {
+		if ( ! file_exists( $file_path ) || ! is_file( $file_path ) ) {
 			return null;
 		}
 
@@ -128,12 +137,12 @@ class Papi_Page_Type_Base {
 		$this->setup_file( $file_path );
 
 		// Check so we have the page type meta array function.
-		if ( ! method_exists( $this->page_type, 'page_type' ) ) {
-			return;
+		if ( ! method_exists( $this->_class_name, 'page_type' ) ) {
+			return null;
 		}
 
-		// Setup page type meta data.
 		$this->setup_meta_data();
+		$this->setup_post_types();
 	}
 
 	/**
@@ -205,11 +214,11 @@ class Papi_Page_Type_Base {
 	 */
 
 	public function new_class() {
-		if ( ! class_exists( $this->page_type ) ) {
-			require_once( $this->file_path );
+		if ( ! class_exists( $this->_class_name ) ) {
+			require_once $this->file_path;
 		}
 
-		return new $this->page_type;
+		return new $this->_class_name;
 	}
 
 	/**
@@ -222,14 +231,15 @@ class Papi_Page_Type_Base {
 	 */
 
 	private function setup_file( $file_path ) {
-		// Setup file and page type variables.
-		$this->file_path = $file_path;
-		$this->page_type = _papi_get_class_name( $this->file_path );
-		$this->file_name = _papi_get_page_type_base_path( $this->file_path );
+		$this->_file_path = $file_path;
+		$this->_file_name = _papi_get_page_type_base_path( $this->_file_path );
+
+		// Get the class name of the file.
+		$this->_class_name = _papi_get_class_name( $this->_file_path );
 
 		// Try to load the page type class.
-		if ( ! class_exists( $this->page_type ) ) {
-			require_once( $this->file_path );
+		if ( ! class_exists( $this->_class_name ) ) {
+			require_once $this->_file_path;
 		}
 	}
 
@@ -241,17 +251,25 @@ class Papi_Page_Type_Base {
 	 */
 
 	private function setup_meta_data() {
-		// Get page type meta data.
-		$page_type_meta = call_user_func( $this->page_type . '::page_type' );
+		$page_type_meta = call_user_func( $this->_class_name . '::page_type' );
 
-		// Filter all fields.
-		$page_type_meta = $this->filter_page_type_fields( $page_type_meta );
-
-		// Add each field as a variable.
 		foreach ( $page_type_meta as $key => $value ) {
+			if ( substr( $key, 0, 1 ) === '_' ) {
+				continue;
+			}
+
 			$this->$key = $value;
 		}
+	}
 
+	/**
+	 * Setup post types array.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 */
+
+	private function setup_post_types () {
 		if ( ! is_array( $this->post_types ) ) {
 			$this->post_types = array( $this->post_types );
 		}
@@ -261,21 +279,4 @@ class Papi_Page_Type_Base {
 			$this->post_types = array( 'page' );
 		}
 	}
-
-	/**
-	 * Filter page type fields. Some keys aren't allowed to use.
-	 *
-	 * @param array $arr
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array
-	 */
-
-	private function filter_page_type_fields( $arr = array() ) {
-		$not_allowed = array( 'file_name', 'page_type' );
-
-		return array_intersect_key( $arr, array_flip( array_diff( array_keys( $arr ), $not_allowed ) ) );
-	}
-
 }

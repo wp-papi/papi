@@ -2,9 +2,8 @@
 $post_type = _papi_get_wp_post_type();
 
 // Check if we should show standard page or not.
-$option_key         = sprintf('post_type.%s.show_standard_page', $post_type);
-$show_standard_page = _papi_get_option($option_key, true);
-
+$option_key         = sprintf( 'post_type.%s.show_standard_page', $post_type );
+$show_standard_page = _papi_get_option( $option_key, true );
 ?>
 
 <div class="wrap">
@@ -28,7 +27,7 @@ $show_standard_page = _papi_get_option($option_key, true);
 			_papi_include_template( 'includes/admin/views/partials/add-new-item.php', array(
 				'title'       => $page_type->name,
 				'description' => $page_type->description,
-				'image'       => $page_type->get_thumbnail(),
+				'thumbnail'   => $page_type->get_thumbnail(),
 				'url'         => _papi_get_page_new_url( $page_type->file_name )
 			) );
 		}
@@ -37,8 +36,8 @@ $show_standard_page = _papi_get_option($option_key, true);
 			_papi_include_template( 'includes/admin/views/partials/add-new-item.php', array(
 				'title'       => __( 'Standard page', 'papi' ),
 				'description' => __( 'Just the normal WordPress page', 'papi' ),
-				'image'       => _papi_page_type_default_thumbnail(),
-				'url'         => 'post-new.php' . _papi_get_page_query_strings('?') . '&papi-bypass=true'
+				'thumbnail'   => _papi_page_type_default_thumbnail(),
+				'url'         => 'post-new.php' . _papi_get_page_query_strings( '?' ) . '&papi-bypass=true'
 			) );
 
 		}
