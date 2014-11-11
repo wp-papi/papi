@@ -125,7 +125,7 @@ class Papi_Page_Type_Base {
 		// Try to load the file if the file path is empty.
 		if ( empty( $file_path ) ) {
 			$page_type = _papi_get_page_type_meta_value();
-			$file_path = _papi_get_page_type_file( $page_type );
+			$file_path = _papi_get_file_path( $page_type );
 		}
 
 		// Check so we have a file that exists.

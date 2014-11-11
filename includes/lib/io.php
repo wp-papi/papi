@@ -91,7 +91,7 @@ function _papi_get_all_page_type_files() {
  * @return string
  */
 
-function _papi_get_page_type_file( $file ) {
+function _papi_get_file_path( $file ) {
 	$directories = _papi_get_directories();
 	$file        = '/' . _papi_dashify( $file );
 

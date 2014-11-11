@@ -259,7 +259,7 @@ function _papi_include_template( $tpl_file, $vars = array() ) {
 	$path = PAPI_PLUGIN_DIR;
 	$path = rtrim( $path, '/' ) . '/';
 
-	include( $path . $tpl_file );
+	include $path . $tpl_file;
 }
 
 /**
@@ -304,8 +304,12 @@ function _papi_sort_order( $array, $key = 'sort_order' ) {
 
 	foreach ( $array as $k => $value ) {
 		if ( is_object( $value ) ) {
-			$sorter[ $k ] = $value->$key;
-		} else {
+			if ( isset( $value->$key ) ) {
+				$sorter[ $k ] = $value->$key;
+			} else if ( isset( $value->options ) && isset( $value->options->$key ) ) {
+				$sorter[ $k ] = $value->options->$key;
+			}
+		} else if ( is_array( $value ) && isset ( $value[ $key ] ) ) {
 			$sorter[ $k ] = $value[ $key ];
 		}
 	}
@@ -317,8 +321,7 @@ function _papi_sort_order( $array, $key = 'sort_order' ) {
 
 	foreach ( $sorter as $k => $v ) {
 		$value = $array[ $k ];
-
-		if ( ( is_object( $value ) && ! isset( $value->$key ) ) || ( is_array( $value ) && ! isset( $value[ $key ] ) ) ) {
+		if ( ( is_object( $value ) && ( ! isset( $value->options ) && ! isset( $value->options->$key ) || ! isset( $value->$key ) ) ) || ( is_array( $value ) && ! isset( $value[ $key ] ) ) ) {
 			$rest[] = $value;
 		} else {
 			$result[ $k ] = $array[ $k ];
@@ -342,4 +345,24 @@ function _papi_sort_order( $array, $key = 'sort_order' ) {
 
 function _papi_polylang() {
 	return defined( 'PAPI_POLYLANG' ) && PAPI_POLYLANG;
+}
+
+/**
+ * Check if string has a extension.
+ *
+ * @param string $str
+ * @param string $ext
+ *
+ * @since 1.0.0
+ *
+ * @return bool
+ */
+
+function _papi_is_ext( $str, $ext ) {
+	if ( is_string( $str ) ) {
+		$arr = explode( '.', $str );
+		return end( $arr ) === $ext;
+	}
+
+	return false;
 }

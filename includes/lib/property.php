@@ -137,7 +137,7 @@ function _papi_get_property_options( $options, $get_value = true ) {
 		'settings'     => array(),
 		'sidebar'      => true,
 		'slug'         => '',
-		'sort_order'   => null,
+		'sort_order'   => 100,
 		'required'     => false,
 		'title'        => '',
 		'type'         => '',
@@ -234,7 +234,6 @@ function _papi_render_property( $property ) {
  */
 
 function _papi_render_properties( $properties ) {
-
 	// Don't proceed without any properties
 	if ( ! is_array( $properties ) || empty( $properties ) ) {
 		return;
@@ -242,6 +241,7 @@ function _papi_render_properties( $properties ) {
 
 	// If it's a tab the tabs class will
 	// handle the rendering of the properties.
+
 	if ( isset( $properties[0]->tab ) && $properties[0]->tab ) {
 		new Papi_Admin_Meta_Box_Tabs( $properties );
 	} else {
@@ -250,7 +250,7 @@ function _papi_render_properties( $properties ) {
 
 		?>
 
-		<table class="papi-table papi-mode-seamless">
+		<table class="papi-table">
 			<tbody>
 			<?php
 			foreach ( $properties as $property ) {
@@ -262,4 +262,72 @@ function _papi_render_properties( $properties ) {
 
 	<?php
 	}
+}
+
+/**
+ * Get box property.
+ *
+ * @param array $properties
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function _papi_get_box_property ($properties) {
+	$box_property = array_filter( $properties, function ( $property ) {
+		return ! is_object( $property );
+	} );
+
+	if ( ! empty( $box_property ) ) {
+		$property = _papi_get_property_options( $box_property );
+		if ( ! $property->disabled ) {
+			$properties = array( $property );
+		}
+	}
+
+	return $properties;
+}
+
+/**
+ * Populate properties array.
+ *
+ * @param array $properties
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function _papi_populate_properties ($properties) {
+	$result = array();
+
+	// Convert all non property objects to property objects.
+	$properties = array_map( function ( $property ) {
+		if ( !is_object( $property ) && is_array( $property ) ) {
+			return _papi_get_property_options( $property );
+		}
+
+		return $property;
+	}, $properties );
+
+	// Get the box property (when you only put a array in the box method) if it exists.
+	$properties = _papi_get_box_property( $properties );
+
+	// Fix so the properties array will have the right order.
+	$properties = array_reverse( $properties );
+
+	foreach ( $properties as $property ) {
+		if ( is_array( $property ) ) {
+			foreach ( $property as $p ) {
+				if ( is_object( $p ) && ! $p->disabled ) {
+					$result[] = $p;
+				}
+			}
+		} else if ( is_object( $property ) ) {
+			$result[] = $property;
+		}
+	}
+
+	return $result;
 }

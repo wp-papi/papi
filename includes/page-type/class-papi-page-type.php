@@ -81,56 +81,84 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	/**
 	 * Add new meta box with properties.
 	 *
-	 * @param mixed $title .
-	 * @param array $options
+	 * @param mixed $file_or_options .
 	 * @param array $properties
 	 *
 	 * @since 1.0.0
 	 */
 
-	protected function box( $title = '', $options = array(), $properties = null ) {
-		// Options is optional value.
-		if ( empty( $properties ) ) {
-			if ( empty( $options ) && is_array( $title ) ) {
-				$properties = $title;
-				$title      = isset( $properties['title'] ) ? $properties['title'] : '';
+	protected function box( $file_or_options = array(), $properties = array() ) {
+		$options = array();
+
+		if ( is_array( $file_or_options ) ) {
+			if ( empty( $properties ) ) {
+				// The first parameter is the options array.
+				$options['title'] = isset( $file_or_options['title'] ) ? $file_or_options['title'] : '';
+				$properties 	  = $file_or_options;
 			} else {
-				$properties = $options;
+				$options = array_merge( $options, $file_or_options );
 			}
-			$options    = array();
-		};
+		} else if ( is_string( $file_or_options ) ) {
+			// If it's a template we need to load it the right way
+			// and add all properties the right way.
+			if ( _papi_is_ext( $file_or_options, 'php' ) ) {
+				$values = $properties;
+				$template = papi_template( $file_or_options, $values );
 
-		// Can current user view this box?
-		if ( isset( $options['capabilities'] ) && ! _papi_current_user_is_allowed( $options['capabilities'] ) ) {
-			return;
-		}
+				// Create the property array from existing property array or a new.
+				if ( isset ( $template['properties'] ) ) {
+					if ( is_array( $template['properties'] ) ) {
+						$properties = $template['properties'];
+					} else {
+						$properties = array();
+					}
+					unset( $template['properties'] );
+				} else {
+					$properties = array();
+				}
 
-		// Move title into options.
-		if ( ! isset( $options['title'] ) ) {
-			$options['title'] = $title;
+				$options = $template;
+
+				// Add all non string keys to the properties array
+				foreach ( $options as $key => $value ) {
+					if ( ! is_string( $key ) ) {
+						$properties[] = $value;
+						unset( $options[$key] );
+					}
+				}
+			} else {
+				// The first parameter is used as the title.
+				$options['title'] = $file_or_options;
+			}
 		}
 
 		$post_type = _papi_get_wp_post_type();
 
+		// Check so we have a post the to add the box to.
 		if ( ! $this->has_post_type( $post_type ) ) {
-			return;
+			return null;
 		}
 
 		// Add post type to the options array.
 		$options['post_type'] = $post_type;
 
 		// Create a new box.
-		$this->box = new Papi_Admin_Meta_Box( $options, $properties );
+		new Papi_Admin_Meta_Box( $options, $properties );
 	}
 
-	protected function template( $file ) {
-		$filepath = _papi_get_page_type_file( $file );
+	/**
+	 * Load template file.
+	 *
+	 * @param string $file
+	 * @param array $values
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
 
-		if ( empty( $filepath ) ) {
-			return array();
-		}
-
-		return require $filepath;
+	protected function template( $file, $values = array() ) {
+		return papi_template( $file, $values );
 	}
 
 	/**
@@ -145,30 +173,7 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	 */
 
 	protected function property( $file_or_options = array(), $values = array() ) {
-
-		// Create a property with array of parameters.
-		if ( is_array( $file_or_options ) ) {
-			$options = _papi_get_property_options( $file_or_options );
-
-			if ( is_array( $options ) ) {
-				$this->properties = array_merge( $this->properties, $options );
-			} else if ( ! $options->disabled ) {
-				$this->properties[] = $options;
-			}
-
-			return $options;
-		}
-
-		// Create a property with a array of parameters.
-		if ( is_string( $file_or_options ) ) {
-			$filepath = _papi_get_page_type_file ( $file_or_options );
-
-			if ( empty( $filepath ) ) {
-				return array();
-			}
-
-			return include($filepath);
-		}
+		return papi_property( $file_or_options, $values );
 	}
 
 	/**
@@ -183,33 +188,49 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	 * @return object
 	 */
 
-	protected function tab( $title, $options = array(), $properties = null ) {
-		if ( ! isset( $properties ) ) {
-			$properties = $options;
-			$options    = array();
+	protected function tab( $file_or_options = array(), $properties = array() ) {
+
+		if ( is_array( $file_or_options ) ) {
+			$options = array_merge( $options, $file_or_options );
+		} else if ( is_string( $file_or_options ) ) {
+			// If it's a template we need to load it the right way
+			// and add all properties the right way.
+			if ( _papi_is_ext( $file_or_options, 'php' ) ) {
+				$values = $properties;
+				$template = papi_template( $file_or_options, $values );
+
+				// Create the property array from existing property array or a new.
+				if ( isset ( $template['properties'] ) ) {
+					if ( is_array( $template['properties'] ) ) {
+						$properties = $template['properties'];
+					} else {
+						$properties = array();
+					}
+					unset( $template['properties'] );
+				} else {
+					$properties = array();
+				}
+
+				$options = $template;
+
+				// Add all non string keys to the properties array
+				foreach ( $options as $key => $value ) {
+					if ( ! is_string( $key ) ) {
+						$properties[] = $value;
+						unset( $options[$key] );
+					}
+				}
+			} else {
+				// The first parameter is used as the title.
+				$options['title'] = $file_or_options;
+			}
 		}
 
-		if ( ! is_array( $options ) ) {
-			$options = array();
-		}
-
-		// Default options values.
-		$defaults = array(
-			'sort_order'   => null,
-			'capabilities' => array()
-		);
-
-		$options = array_merge( $defaults, $options );
-		$options = (object) $options;
-
-		// Return a tab object.
-		// Sort order key has to be on the root level since the sorter don't go to deep.
+		// The tab key is important, it's says that we should render a tab meta box.
 		return (object) array(
-			'title'      => $title,
-			'tab'        => true,
 			'options'    => $options,
-			'sort_order' => $options->sort_order,
-			'properties' => $properties
+			'properties' => $properties,
+			'tab'        => true
 		);
 	}
 

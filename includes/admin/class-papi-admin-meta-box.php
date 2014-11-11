@@ -30,15 +30,16 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private $default_options = array(
-		'context'    => 'normal',
-		'mode'       => 'standard',
-		'post_type'  => 'page',
-		'priority'   => 'default',
-		'properties' => array(),
-		'sort_order' => null,
+		'capabilities' => array(),
+		'context'      => 'normal',
+		'mode'         => 'standard',
+		'post_type'    => 'page',
+		'priority'     => 'default',
+		'properties'   => array(),
+		'sort_order'   => null,
 		// Private options
-		'_id'        => '',
-		'_tab_box'   => false
+		'_id'          => '',
+		'_tab_box'     => false
 	);
 
 	/**
@@ -49,31 +50,6 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private $options;
-
-	/**
-	 * Box property is a property that is direct on the box function with the property function.
-	 *
-	 * @param array $properties
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array
-	 */
-
-	private function get_box_property( $properties ) {
-		$box_property = array_filter( $properties, function ( $property ) {
-			return ! is_object( $property );
-		} );
-
-		if ( ! empty( $box_property ) ) {
-			$property = _papi_get_property_options( $box_property );
-			if ( ! $property->disabled ) {
-				$properties = array( $property );
-			}
-		}
-
-		return $properties;
-	}
 
 	/**
 	 * Setup actions.
@@ -95,15 +71,16 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private function setup_options( $options ) {
-		$options             = _papi_h( $options, array() );
-		$options             = array_merge( $this->default_options, $options );
-		$this->options       = (object) $options;
-		$this->options->slug = _papi_slugify( $this->options->title );
+		$options              = _papi_h( $options, array() );
+		$options              = array_merge( $this->default_options, $options );
+		$this->options        = (object) $options;
+		$this->options->title = ucfirst( $this->options->title );
+		$this->options->slug  = _papi_slugify( $this->options->title );
 		$this->options->_id   = str_replace( '_', '-', _papify( $this->options->slug ) );
 
-
-		if ( ! empty( $this->properties ) ) {
-			$this->options->_tab_box = isset( $this->properties[0]->tab ) && $this->properties[0]->tab;
+		if ( !is_array( $this->options->capabilities ) ) {
+			$capabilities = $this->options->capabilities;
+			$this->options->capabilities = array( $capabilities );
 		}
 	}
 
@@ -116,31 +93,10 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private function populate_properties( $properties ) {
-		// Convert all non property objects to property objects.
-		$properties = array_map( function ( $property ) {
-			if ( !is_object( $property ) && is_array($property) ) {
-				return _papi_get_property_options( $property );
-			}
+		$this->properties = _papi_populate_properties( $properties );
 
-			return $property;
-		}, $properties );
-
-		// Get the box property (when you only put a array in the box method) if it exists.
-		$properties = $this->get_box_property( $properties );
-
-		// Fix so the properties array will have the right order.
-		$properties = array_reverse( $properties );
-
-		foreach ( $properties as $property ) {
-			if ( is_array( $property ) ) {
-				foreach ( $property as $p ) {
-					if ( is_object( $p ) ) {
-						$this->properties[] = $p;
-					}
-				}
-			} else if ( is_object( $property ) ) {
-				$this->properties[] = $property;
-			}
+		if ( ! empty( $this->properties ) ) {
+			$this->options->_tab_box = isset( $this->properties[0]->tab ) && $this->properties[0]->tab;
 		}
 	}
 
@@ -154,8 +110,14 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	public function __construct( $options = array(), $properties = array() ) {
-		$this->populate_properties( $properties );
 		$this->setup_options( $options );
+
+		// Can current user view this box?
+		if ( ! _papi_current_user_is_allowed( $this->options->capabilities ) ) {
+			return null;
+		}
+
+		$this->populate_properties( $properties );
 		$this->setup_actions();
 	}
 

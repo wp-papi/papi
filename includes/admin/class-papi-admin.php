@@ -310,7 +310,7 @@ final class Papi_Admin {
 		}
 
 		// Get the path to the page type file.
-		$path = _papi_get_page_type_file( $page_type );
+		$path = _papi_get_file_path( $page_type );
 
 		// Load the page type and create a new instance of it.
 		$page_type = _papi_get_page_type( $path );

@@ -185,7 +185,7 @@ function _papi_get_file_data( $post_id ) {
 	// Check so the page type isn't null or empty before we
 	// trying to get the page type meta data.
 	if ( ! empty( $page_type ) ) {
-		return _papi_get_page_type( _papi_get_page_type_file( $page_type ) );
+		return _papi_get_page_type( _papi_get_file_path( $page_type ) );
 	}
 
 	return null;
