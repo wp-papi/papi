@@ -27,11 +27,11 @@ function _papi_get_options() {
 
 		/**
 		* What sort should we use?
-		* - 'alphabetical' (by name)
-		* - 'numeric' (using sort_order key).
+		* - 'name'
+		* - 'sort_order'.
 		*/
 
-		'page_types.sort_order' => 'alphabetical',
+		'page_types.sort_by' => 'name',
 
 		// Post types options
 

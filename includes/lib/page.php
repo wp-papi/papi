@@ -135,13 +135,15 @@ function _papi_get_all_page_types( $all = false ) {
 		}
 	}
 
-	// Sort by name.
-	usort( $page_types, function ( $a, $b ) {
-		return strcmp( $a->name, $b->name );
-	} );
-
-	// Sort by sort order key.
-	$page_types = _papi_sort_order($page_types);
+	if ( _papi_get_option( 'page_types.sort_by' ) === 'name' ) {
+		// Sort by name.
+		usort( $page_types, function ( $a, $b ) {
+			return strcmp( $a->name, $b->name );
+		} );
+	} else {
+		// Sort by sort order key.
+		$page_types = _papi_sort_order( $page_types );
+	}
 
 	return $page_types;
 }
