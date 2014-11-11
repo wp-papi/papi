@@ -21,14 +21,14 @@ $show_standard_page = _papi_get_option( $option_key, true );
 
 	<div class="papi-box-list">
 		<?php
-		$page_types = _papi_get_all_page_types();
+		$page_types = _papi_get_all_page_types();;
 
 		foreach ( $page_types as $key => $page_type ) {
 			_papi_include_template( 'includes/admin/views/partials/add-new-item.php', array(
 				'title'       => $page_type->name,
 				'description' => $page_type->description,
 				'thumbnail'   => $page_type->get_thumbnail(),
-				'url'         => _papi_get_page_new_url( $page_type->file_name )
+				'url'         => _papi_get_page_new_url( $page_type->get_filename() )
 			) );
 		}
 

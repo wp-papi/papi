@@ -176,6 +176,18 @@ class Papi_Page_Type_Base {
 	}
 
 	/**
+	 * Get the page type file name.
+	 *
+	 * @since 1.0.0.
+	 *
+	 * @return string
+	 */
+
+	public function get_filename () {
+		return $this->_file_name;
+	}
+
+	/**
 	 * Get page type image thumbnail.
 	 *
 	 * @since 1.0.0
