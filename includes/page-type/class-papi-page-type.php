@@ -189,6 +189,7 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	 */
 
 	protected function tab( $file_or_options = array(), $properties = array() ) {
+		$options = array();
 
 		if ( is_array( $file_or_options ) ) {
 			$options = array_merge( $options, $file_or_options );
