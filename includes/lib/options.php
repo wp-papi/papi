@@ -59,10 +59,10 @@ function _papi_get_options() {
  */
 
 function _papi_get_option( $key, $default = '' ) {
-	$settings = _papi_get_options();
+	$options = _papi_get_options();
 
-	if ( isset( $settings[$key] ) ) {
-		return $settings[$key];
+	if ( isset( $options[$key] ) ) {
+		return $options[$key];
 	}
 
 	return $default;
