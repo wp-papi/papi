@@ -88,49 +88,7 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	 */
 
 	protected function box( $file_or_options = array(), $properties = array() ) {
-		$options = array();
-
-		if ( is_array( $file_or_options ) ) {
-			if ( empty( $properties ) ) {
-				// The first parameter is the options array.
-				$options['title'] = isset( $file_or_options['title'] ) ? $file_or_options['title'] : '';
-				$properties 	  = $file_or_options;
-			} else {
-				$options = array_merge( $options, $file_or_options );
-			}
-		} else if ( is_string( $file_or_options ) ) {
-			// If it's a template we need to load it the right way
-			// and add all properties the right way.
-			if ( _papi_is_ext( $file_or_options, 'php' ) ) {
-				$values = $properties;
-				$template = papi_template( $file_or_options, $values );
-
-				// Create the property array from existing property array or a new.
-				if ( isset ( $template['properties'] ) ) {
-					if ( is_array( $template['properties'] ) ) {
-						$properties = $template['properties'];
-					} else {
-						$properties = array();
-					}
-					unset( $template['properties'] );
-				} else {
-					$properties = array();
-				}
-
-				$options = $template;
-
-				// Add all non string keys to the properties array
-				foreach ( $options as $key => $value ) {
-					if ( ! is_string( $key ) ) {
-						$properties[] = $value;
-						unset( $options[$key] );
-					}
-				}
-			} else {
-				// The first parameter is used as the title.
-				$options['title'] = $file_or_options;
-			}
-		}
+		list( $options, $properties ) = _papi_get_box_base( $file_or_options, $properties );
 
 		$post_type = _papi_get_wp_post_type();
 
@@ -185,54 +143,11 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	 *
 	 * @since 1.0
 	 *
-	 * @return object
+	 * @return array
 	 */
 
 	protected function tab( $file_or_options = array(), $properties = array() ) {
-		$options = array();
-
-		if ( is_array( $file_or_options ) ) {
-			$options = array_merge( $options, $file_or_options );
-		} else if ( is_string( $file_or_options ) ) {
-			// If it's a template we need to load it the right way
-			// and add all properties the right way.
-			if ( _papi_is_ext( $file_or_options, 'php' ) ) {
-				$values = $properties;
-				$template = papi_template( $file_or_options, $values );
-
-				// Create the property array from existing property array or a new.
-				if ( isset ( $template['properties'] ) ) {
-					if ( is_array( $template['properties'] ) ) {
-						$properties = $template['properties'];
-					} else {
-						$properties = array();
-					}
-					unset( $template['properties'] );
-				} else {
-					$properties = array();
-				}
-
-				$options = $template;
-
-				// Add all non string keys to the properties array
-				foreach ( $options as $key => $value ) {
-					if ( ! is_string( $key ) ) {
-						$properties[] = $value;
-						unset( $options[$key] );
-					}
-				}
-			} else {
-				// The first parameter is used as the title.
-				$options['title'] = $file_or_options;
-			}
-		}
-
-		// The tab key is important, it's says that we should render a tab meta box.
-		return (object) array(
-			'options'    => $options,
-			'properties' => $properties,
-			'tab'        => true
-		);
+		return papi_tab( $file_or_options, $properties );
 	}
 
 	/**
