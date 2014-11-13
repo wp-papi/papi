@@ -93,13 +93,14 @@ class Papi_Page {
 
 		// Property List has array with properties.
 		// Remove `papi_` key and property key.
+
 		foreach ( $property_value as $ki => $vi ) {
 			if ( is_array( $property_value[ $ki ] ) ) {
 				foreach ( $property_value[ $ki ] as $k => $v ) {
 					if ( _papi_is_property_type_key( $k ) ) {
-						unset( $property_value[ $ki ][ $k ] );
+						continue;
 					} else {
-						$ptk                          = _papi_property_type_key( $k );
+						$ptk                         = _papi_property_type_key( $k );
 						$property_value[ $ki ][ $k ] = $this->convert( array(
 							'type'  => $property_value[ $ki ][ $ptk ],
 							'value' => $v

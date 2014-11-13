@@ -48,11 +48,13 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	 * @since 1.0.0
 	 *
 	 * @param string $file_path
+	 * @param bool $register
 	 */
 
-	public function __construct( $file_path = '' ) {
+	public function __construct( $file_path = '', $register = true ) {
 		parent::__construct( $file_path );
-		if ( method_exists( $this, 'register' ) ) {
+
+		if ( $register && method_exists( $this, 'register' ) ) {
 			$this->register();
 		}
 	}

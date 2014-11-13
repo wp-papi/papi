@@ -54,12 +54,25 @@ class PropertyRepeater extends Papi_Property {
 		$not_allowed = array_merge( $not_allowed, apply_filters( 'papi/property/repeater/not_allowed_properties', array() ) );
 
 		$items = array_map( function ( $item ) {
+
+			if ( ! is_array( $item ) ) {
+				return null;
+			}
+
 			return (object) _papi_get_property_options( $item, false );
 		}, $items );
 
-		return array_filter( $items, function ( $item ) use ( $not_allowed ) {
+		$items = array_filter( $items, function ( $item ) use ( $not_allowed ) {
+
+			if ( ! is_object( $item ) ) {
+				return false;
+			}
+
 			return ! in_array( _papi_get_property_short_type( $item->type ), $not_allowed );
 		} );
+
+		return _papi_sort_order( $items );
+
 	}
 
 	/**

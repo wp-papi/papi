@@ -37,6 +37,7 @@ class Papi_Admin_Meta_Box {
 		'priority'     => 'default',
 		'properties'   => array(),
 		'sort_order'   => null,
+		'title'        => '',
 		// Private options
 		'_id'          => '',
 		'_tab_box'     => false
@@ -110,6 +111,11 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	public function __construct( $options = array(), $properties = array() ) {
+		// Can't handle empty options.
+		if ( empty( $options ) ) {
+			return null;
+		}
+
 		$this->setup_options( $options );
 
 		// Can current user view this box?

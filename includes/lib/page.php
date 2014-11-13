@@ -100,7 +100,7 @@ function _papi_is_page_type_allowed( $post_type ) {
  */
 
 function _papi_get_page_type( $file_path ) {
-	$page_type_meta = new Papi_Page_Type( $file_path );
+	$page_type_meta = new Papi_Page_Type( $file_path, false );
 
 	// If the page type don't have a name we can't use it.
 	if ( ! $page_type_meta->has_name() ) {

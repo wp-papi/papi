@@ -127,6 +127,11 @@ function _papi_get_property_short_type( $type ) {
  */
 
 function _papi_get_property_options( $options, $get_value = true ) {
+
+	if ( ! is_array( $options ) ) {
+		return null;
+	}
+
 	$defaults = array(
 		'capabilities' => array(),
 		'default'      => '',
@@ -373,6 +378,7 @@ function _papi_get_box_base ($file_or_options = array(), $properties = array(), 
 					unset( $options[$key] );
 				}
 			}
+
 		} else {
 			// The first parameter is used as the title.
 			$options['title'] = $file_or_options;
