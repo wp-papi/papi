@@ -60,6 +60,7 @@ function papi_field( $post_id = null, $name = null, $default = null ) {
 	if ( is_numeric( $post_id ) ) {
 		$post_id = intval( $post_id );
 	} else {
+
 		$post_id = _papi_get_post_id();
 	}
 
@@ -88,10 +89,7 @@ function papi_field( $post_id = null, $name = null, $default = null ) {
 		return $default;
 	}
 
-	// Get value.
-	$value = $page->$name;
-
-	return _papi_field_value( $names, $value, $default );
+	return _papi_field_value( $names, $page->$name, $default );
 }
 
 /**

@@ -15,18 +15,12 @@ class Papi_Admin_Meta_Boxes {
 
 	/**
 	 * Constructor.
+	 *
+	 * @since 1.0.0
 	 */
 
 	public function __construct() {
-		// Setup actions.
-		// $this->setup_actions();
-
-		// On post we need to save our custom data.
-		// The action 'save_post' didn't work after
-		// we change how Papi is loaded.
-		if ( _papi_is_method( 'post' ) ) {
-			$this->save_meta_boxes();
-		}
+		$this->setup_actions();
 	}
 
 	/**
@@ -37,9 +31,9 @@ class Papi_Admin_Meta_Boxes {
 	 * @access private
 	 */
 
-	// private function setup_actions () {
-	// add_action('save_post', array($this, 'save_meta_boxes'), 1, 2);
-	// }
+	 private function setup_actions() {
+		add_action( 'save_post', array( $this, 'save_meta_boxes' ), 1, 2 );
+	 }
 
 	/**
 	 * Sanitize data before saving it.
@@ -78,7 +72,6 @@ class Papi_Admin_Meta_Boxes {
 		$pattern = '/^papi\_.*/';
 		$keys    = preg_grep( $pattern, array_keys( $_POST ) );
 
-		// Loop through all keys and set values in the data array.
 		foreach ( $keys as $key ) {
 			if ( ! isset( $_POST[ $key ] ) ) {
 				continue;
@@ -188,7 +181,6 @@ class Papi_Admin_Meta_Boxes {
 
 	private function get_page_template( array $data = array() ) {
 		$post_id = _papi_h( $data['post_ID'], 0 );
-
 		return _papi_get_template( $post_id );
 	}
 
@@ -231,19 +223,11 @@ class Papi_Admin_Meta_Boxes {
 		$data[ $page_type_key ] = $page_type;
 
 		foreach ( $data as $key => $value ) {
-			// Get the existing value if we have any.
-			$meta_value = get_post_meta( $post_id, $key, true );
-
-			if ( is_null( $meta_value ) ) {
-				// Add post meta key and value.
-				add_post_meta( $post_id, $key, $value, true );
-			} else if ( ! is_null( $meta_value ) && ! is_null( $value ) ) {
-				// Update post meta key and value.
-				update_post_meta( $post_id, $key, $value );
-			} else {
-				// Delete post meta row.
-				delete_post_meta( $post_id, $key );
+			if ( empty( $value ) ) {
+				continue;
 			}
+
+			update_post_meta( $post_id, $key, $value );
 		}
 	}
 
@@ -308,9 +292,7 @@ class Papi_Admin_Meta_Boxes {
 		// Pre save page template and page type.
 		$this->pre_save( $post_id );
 
-		// Save, update or delete all fields.
 		foreach ( $data as $key => $property ) {
-
 			// Property data.
 			$property_key   = _papi_remove_papi( $key );
 			$property_value = $property['value'];
@@ -319,35 +301,12 @@ class Papi_Admin_Meta_Boxes {
 			$property_type_key   = _papi_f( _papi_property_type_key( _papi_remove_papi( $key ) ) );
 			$property_type_value = $property['type'];
 
-			// Get the existing value if we have any.
-			$meta_value = get_post_meta( $post_id, $property_key, true );
-
-			if ( is_null( $meta_value ) ) {
-				// Add the property data if we have any.
-				if ( ! is_null( $property_value ) ) {
-					add_post_meta( $post_id, $property_key, $property_value, true );
-				}
-
-				// Add the property data type if we have any.
-				if ( ! is_null( $property_type_value ) ) {
-					add_post_meta( $post_id, $property_type_key, $property_type_value, true );
-				}
-			} else if ( ! is_null( $meta_value ) && ! is_null( $property_value ) ) {
-				// Update the property data.
-				update_post_meta( $post_id, $property_key, $property_value );
-
-				// Update the property type data if we have any.
-				if ( ! is_null( $property_type_value ) ) {
-					update_post_meta( $post_id, $property_type_key, $property_type_value );
-				}
-			} else {
-				// Delete property.
-				delete_post_meta( $post_id, $property_key );
-
-				// Delete property type.
-				delete_post_meta( $post_id, $property_type_key );
+			if ( empty( $property_value ) || empty( $property_type_value ) ) {
+				continue;
 			}
-		}
 
+			update_post_meta( $post_id, $property_key, $property_value );
+			update_post_meta( $post_id, $property_type_key, $property_type_value );
+		}
 	}
 }
