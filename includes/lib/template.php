@@ -47,3 +47,29 @@ function _papi_template_include( $original_template ) {
 }
 
 add_filter( 'template_include', '_papi_template_include' );
+
+/**
+ * Add page type class name as a css class on body.
+ *
+ * @param array $classes
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function _papi_body_class($classes) {
+	global $post;
+
+	$page_type = get_post_meta( $post->ID, '__papi_page_type', true );
+
+	if ( empty( $page_type ) ) {
+		return $classes;
+	}
+
+	$classes[] = _papi_slugify( $page_type );
+
+	return $classes;
+}
+
+add_filter( 'body_class', '_papi_body_class' );
