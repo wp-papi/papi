@@ -17,18 +17,13 @@ class PropertyRelationship extends Papi_Property {
 	 * Get sort option value.
 	 *
 	 * @param string $slug
-	 * @param bool $show
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return string|null
 	 */
 
-	public function get_sort_option( $slug, $show ) {
-		if ( $show === false ) {
-			return '';
-		}
-
+	public function get_sort_option( $slug ) {
 		$post_id = _papi_get_post_id();
 
 		if ( empty( $post_id ) ) {
@@ -122,7 +117,7 @@ class PropertyRelationship extends Papi_Property {
 			return is_object( $post );
 		} );
 
-		$sort_option  = $this->get_sort_option( $options->slug, $settings->show_sort_by );
+		$sort_option  = $this->get_sort_option( $options->slug );
 
 		?>
 		<div class="papi-property-relationship">
