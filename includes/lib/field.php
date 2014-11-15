@@ -18,13 +18,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param int $post_id
  * @param string $name
  * @param mixed $default
+ * @param bool $internal
  *
  * @since 1.0.0
  *
  * @return mixed
  */
 
-function _papi_field( $post_id = null, $name = null, $default = null ) {
+function _papi_field( $post_id = null, $name = null, $default = null, $internal = false ) {
 	// Check if we have a post id or not.
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$default = $name;
@@ -65,7 +66,13 @@ function _papi_field( $post_id = null, $name = null, $default = null ) {
 		return $default;
 	}
 
-	return _papi_field_value( $names, $page->$name, $default );
+	if ( $internal ) {
+		$value = $page->get_value( $name, true );
+	} else {
+		$value = $page->$name;
+	}
+
+	return _papi_field_value( $names, $value, $default, $internal );
 }
 
 /**

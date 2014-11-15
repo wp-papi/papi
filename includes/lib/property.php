@@ -175,7 +175,8 @@ function _papi_get_property_options( $options, $get_value = true ) {
 
 	if ( empty( $options->value ) && $get_value ) {
 		// Get meta value for the field
-		$options->value = papi_field( $options->slug );
+		$post_id        = _papi_get_post_id();
+		$options->value = _papi_field( $post_id, $options->slug, null, true );
 	}
 
 	// Add default value if database value is empty.

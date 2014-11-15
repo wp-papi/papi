@@ -140,6 +140,7 @@ class PropertyRepeater extends Papi_Property {
 							<span><?php echo $this->counter + 1; ?></span>
 						</td>
 						<?php
+
 						foreach ( $settings->items as $property ):
 							$render_property = clone $property;
 							$value_slug      = _papi_remove_papi( $render_property->slug );

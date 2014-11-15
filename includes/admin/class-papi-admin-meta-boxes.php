@@ -234,6 +234,11 @@ class Papi_Admin_Meta_Boxes {
 			return;
 		}
 
+		// Check for any of the capabilities before we save the code.
+		if ( ! current_user_can( 'edit_posts' ) || ! current_user_can( 'edit_pages' ) ) {
+			return;
+		}
+
 		// Convert post id to int if is a string.
 		if ( is_string( $post_id ) ) {
 			$post_id = intval( $post_id );

@@ -61,13 +61,14 @@ class Papi_Page {
 	 * Get Papi Property value.
 	 *
 	 * @param string $slug
+	 * @param bool $internal
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return mixed
 	 */
 
-	private function get_value( $slug ) {
+	public function get_value( $slug, $internal = false ) {
 		$property_value = get_post_meta( $this->id, $slug, true );
 
 		if ( is_null( $property_value ) ) {
@@ -94,7 +95,6 @@ class Papi_Page {
 
 		// Property Repeater has array with properties.
 		// Remove `papi_` key and property key.
-
 		foreach ( $property_value as $ki => $vi ) {
 			if ( is_array( $property_value[ $ki ] ) ) {
 				foreach ( $property_value[ $ki ] as $k => $v ) {
@@ -109,16 +109,25 @@ class Papi_Page {
 							}
 
 							$item_slug = '.' . $vik;
-							
+
 							break;
 						}
 
-						$ptk                         = _papi_get_property_type_key( $k );
-						$property_value[ $ki ] = $this->convert( array(
-							'slug'  => $slug . $item_slug,
-							'type'  => $property_value[ $ki ][ $ptk ],
-							'value' => $v
-						) );
+						$ptk = _papi_get_property_type_key( $k );
+
+						if ( $internal ) {
+							$property_value[ $ki ][ $k ] = $this->convert( array(
+								'slug'  => $slug . $item_slug,
+								'type'  => $property_value[ $ki ][ $ptk ],
+								'value' => $v
+							) );
+						} else {
+							$property_value[ $ki ] = $this->convert( array(
+								'slug'  => $slug . $item_slug,
+								'type'  => $property_value[ $ki ][ $ptk ],
+								'value' => $v
+							) );
+						}
 					}
 				}
 			} else {
