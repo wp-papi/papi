@@ -108,12 +108,14 @@ class Papi_Page {
 								continue;
 							}
 
-							$item_slug = $vik;
+							$item_slug = '.' . $vik;
+							
+							break;
 						}
 
 						$ptk                         = _papi_get_property_type_key( $k );
 						$property_value[ $ki ] = $this->convert( array(
-							'slug'  => $slug . '.' . $item_slug,
+							'slug'  => $slug . $item_slug,
 							'type'  => $property_value[ $ki ][ $ptk ],
 							'value' => $v
 						) );
