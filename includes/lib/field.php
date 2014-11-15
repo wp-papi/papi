@@ -12,6 +12,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Get field value by keys.
+ *
+ * Example:
+ *
+ * "image.url" will get the url value in the array.
+ *
+ * @param array $names
+ * @param mixed $value
+ * @param mixed $default
+ *
+ * @since 1.0.0
+ *
+ * @return mixed
+ */
+
 function _papi_field_value( $names, $value, $default ) {
 	// Return default value we don't have a value.
 	if ( empty( $value ) ) {
@@ -48,7 +64,7 @@ function _papi_field_value( $names, $value, $default ) {
  * @return mixed
  */
 
-function papi_field( $post_id = null, $name = null, $default = null ) {
+function _papi_field( $post_id = null, $name = null, $default = null ) {
 	// Check if we have a post id or not.
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$default = $name;
@@ -102,7 +118,7 @@ function papi_field( $post_id = null, $name = null, $default = null ) {
  * @return mixed
  */
 
-function papi_field_shortcode( $atts ) {
+function _papi_field_shortcode( $atts ) {
 	// Try to fetch to post id.
 	if ( empty( $atts['id'] ) ) {
 		global $post;
@@ -125,24 +141,4 @@ function papi_field_shortcode( $atts ) {
 	return ! isset( $value ) || $value == null ? $atts['default'] : $value;
 }
 
-add_shortcode( 'papi_field', 'papi_field_shortcode' );
-
-/**
- * Echo the property value for property on a page.
- *
- * @param int $post_id
- * @param string $name
- * @param mixed $default
- *
- * @since 1.0.0
- */
-
-function the_papi_field( $post_id = null, $name = null, $default = null ) {
-	$value = papi_field( $post_id, $name, $default );
-
-	if ( is_array( $value ) ) {
-		$value = implode( ',', $value );
-	}
-
-	echo $value;
-}
+add_shortcode( 'papi_field', '_papi_field_shortcode' );

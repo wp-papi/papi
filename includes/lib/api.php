@@ -13,6 +13,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Get property value for property on a page.
+ *
+ * @param int $post_id
+ * @param string $name
+ * @param mixed $default
+ *
+ * @since 1.0.0
+ *
+ * @return mixed
+ */
+
+function papi_field( $post_id = null, $name = null, $default = null ) {
+	return _papi_field( $post_id, $name, $default );
+}
+
+/**
  * Create a new property array or rendering a template property file.
  *
  * @param string|array $file_or_options
@@ -79,4 +95,24 @@ function papi_template( $file, $values = array() ) {
 	$template = require($filepath);
 
 	return array_merge( $template, $values );
+}
+
+/**
+ * Echo the property value for property on a page.
+ *
+ * @param int $post_id
+ * @param string $name
+ * @param mixed $default
+ *
+ * @since 1.0.0
+ */
+
+function the_papi_field( $post_id = null, $name = null, $default = null ) {
+	$value = papi_field( $post_id, $name, $default );
+
+	if ( is_array( $value ) ) {
+		$value = implode( ',', $value );
+	}
+
+	echo $value;
 }

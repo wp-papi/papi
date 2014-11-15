@@ -14,8 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Include template files from Papis custom page template meta field.
- * WordPress build in isn't so good when it comes to changing it without having a
- * real page template.
  *
  * @param string $original_template
  *
