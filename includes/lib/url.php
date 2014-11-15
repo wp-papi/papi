@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Url functions.
+ * Papi url functions.
  *
  * @package Papi
  * @version 1.0.0
@@ -10,6 +10,23 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
+
+/**
+ * Get the url to 'post-new.php' with query string of the page type to load.
+ *
+ * @param string $page_type
+ * @param bool $append_admin_url Default true
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papi_get_page_new_url( $page_type, $append_admin_url = true ) {
+	$admin_url = $append_admin_url ? get_admin_url() : '';
+
+	return $admin_url . 'post-new.php?page_type=' . $page_type . _papi_get_page_query_strings();
 }
 
 /**
@@ -41,21 +58,4 @@ function _papi_get_page_query_strings( $first_char = '&' ) {
 	}
 
 	return $query;
-}
-
-/**
- * Get the url to 'post-new.php' with query string of the page type to load.
- *
- * @param string $page_type
- * @param bool $append_admin_url Default true
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _papi_get_page_new_url( $page_type, $append_admin_url = true ) {
-	$admin_url = $append_admin_url ? get_admin_url() : '';
-
-	return $admin_url . 'post-new.php?page_type=' . $page_type . _papi_get_page_query_strings();
 }

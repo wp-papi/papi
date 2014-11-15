@@ -74,7 +74,7 @@ class Papi_Page {
 			return null;
 		}
 
-		$property_type_key   = _papi_f( _papi_property_type_key( $slug ) );
+		$property_type_key   = _papi_f( _papi_get_property_type_key( $slug ) );
 		$property_type_value = get_post_meta( $this->id, $property_type_key, true );
 
 		if ( is_null( $property_type_value ) ) {
@@ -100,7 +100,7 @@ class Papi_Page {
 					if ( _papi_is_property_type_key( $k ) ) {
 						continue;
 					} else {
-						$ptk                         = _papi_property_type_key( $k );
+						$ptk                         = _papi_get_property_type_key( $k );
 						$property_value[ $ki ][ $k ] = $this->convert( array(
 							'type'  => $property_value[ $ki ][ $ptk ],
 							'value' => $v

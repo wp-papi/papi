@@ -54,7 +54,7 @@ abstract class Papi_Property {
 	 */
 
 	public static function factory( $property ) {
-		if ( ! class_exists( $property ) ) {
+		if ( empty( $property) || ! class_exists( $property ) ) {
 			return null;
 		}
 
@@ -118,10 +118,10 @@ abstract class Papi_Property {
 
 		if ( substr( $slug, - 1 ) === ']' ) {
 			$slug = substr( $slug, 0, - 1 );
-			$slug = _papi_property_type_key( $slug );
+			$slug = _papi_get_property_type_key( $slug );
 			$slug .= ']';
 		} else {
-			$slug = _papi_property_type_key( $slug );
+			$slug = _papi_get_property_type_key( $slug );
 		}
 
 		?>

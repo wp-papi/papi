@@ -109,7 +109,7 @@ class Papi_Admin_Meta_Boxes {
 		// we need to remove that and set the property type to the property
 		// and make a array of the property type and the value.
 		foreach ( $data as $key => $value ) {
-			$property_type_key = _papi_property_type_key();
+			$property_type_key = _papi_get_property_type_key();
 
 			if ( strpos( $key, $property_type_key ) === false ) {
 				continue;
@@ -181,7 +181,7 @@ class Papi_Admin_Meta_Boxes {
 
 	private function get_page_template( array $data = array() ) {
 		$post_id = _papi_h( $data['post_ID'], 0 );
-		return _papi_get_template( $post_id );
+		return _papi_get_page_type_template( $post_id );
 	}
 
 	/**
@@ -298,7 +298,7 @@ class Papi_Admin_Meta_Boxes {
 			$property_value = $property['value'];
 
 			// Property type data.
-			$property_type_key   = _papi_f( _papi_property_type_key( _papi_remove_papi( $key ) ) );
+			$property_type_key   = _papi_f( _papi_get_property_type_key( _papi_remove_papi( $key ) ) );
 			$property_type_value = $property['type'];
 
 			if ( empty( $property_value ) || empty( $property_type_value ) ) {

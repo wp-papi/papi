@@ -13,6 +13,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Get setting value from Papi options.
+ *
+ * @param string $key
+ * @param mixed $default The default value
+ */
+
+function _papi_get_option( $key, $default = '' ) {
+	$options = _papi_get_options();
+
+	if ( isset( $options[$key] ) ) {
+		return $options[$key];
+	}
+
+	return $default;
+}
+
+/**
  * Get Papi options.
  *
  * @since 1.0.0
@@ -50,24 +67,3 @@ function _papi_get_options() {
 
 	return apply_filters( 'papi/options', $options );
 }
-
-/**
- * Get setting value from Papi options.
- *
- * @param string $key
- * @param mixed $default The default value
- */
-
-function _papi_get_option( $key, $default = '' ) {
-	$options = _papi_get_options();
-
-	if ( isset( $options[$key] ) ) {
-		return $options[$key];
-	}
-
-	return $default;
-}
-
-#_papi_get_option_sprintf('', array(
-#
-#), true);

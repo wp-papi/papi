@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Core functions.
+ * Papi post functions.
  *
  * @package Papi
  * @version 1.0.0

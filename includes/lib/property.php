@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property functions.
+ * Papi property functions.
  *
  * @package Papi
  * @version 1.0.0
@@ -13,106 +13,99 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Check if it's ends with '_property'.
+ * Get box property.
  *
- * @param string $str
- *
- * @since 1.0
- *
- * @return integer
- */
-
-function _papi_is_property_type_key( $str = '' ) {
-	$pattern = '_property';
-	$pattern = str_replace( '_', '\_', $pattern );
-	$pattern = str_replace( '-', '\-', $pattern );
-	$pattern = '/' . $pattern . '$/';
-
-	return preg_match( $pattern, $str );
-}
-
-/**
- * Get the right key for a property type.
- *
- * @param string $str
- *
- * @since 1.0
- *
- * @return string
- */
-
-function _papi_property_type_key( $str = '' ) {
-	return $str . '_property';
-}
-
-/**
- * Get property key.
- *
- * @param string $str
+ * @param array $properties
  *
  * @since 1.0.0
  *
- * @return string
+ * @return array
  */
 
-function _papi_property_key( $str ) {
-	return _papi_f( _papify( $str ) );
+function _papi_get_box_property ($properties) {
+	$box_property = array_filter( $properties, function ( $property ) {
+		return ! is_object( $property );
+	} );
+
+	if ( ! empty( $box_property ) ) {
+		$property = _papi_get_property_options( $box_property );
+		if ( ! $property->disabled ) {
+			$properties = array( $property );
+		}
+	}
+
+	return $properties;
 }
 
 /**
  * Returns only values in the array and removes `{x}_property` key and value.
  *
- * @param array $a
+ * @param array $arr
  *
- * @since 1.0
+ * @since 1.0.0
  *
  * @return array
  */
 
-function _papi_get_only_property_values( $a = array() ) {
-	foreach ( $a as $key => $value ) {
+function _papi_get_only_property_values( $arr = array() ) {
+	foreach ( $arr as $key => $value ) {
 		if ( _papi_is_property_type_key( $key ) ) {
-			unset( $a[ $key ] );
+			unset( $arr[ $key ] );
 		}
 	}
 
-	return $a;
+	return $arr;
 }
 
 /**
- * Get property type by the given type.
+ * Get options and properties.
  *
- * @param string $type
- *
- * @since 1.0.0
- *
- * @return null|Papi_Property
- */
-
-function _papi_get_property_type( $type ) {
-	if ( is_object( $type ) && isset( $type->type ) && is_string( $type->type ) ) {
-		$type = $type->type;
-	}
-
-	if ( empty( $type ) ) {
-		return null;
-	}
-
-	return Papi_Property::factory( $type );
-}
-
-/**
- * Get property short type.
- *
- * @param string $type
+ * @param string|array $file_or_options
+ * @param array $properties
+ * @param bool $is_box
  *
  * @since 1.0.0
  *
- * @return string
+ * @return array
  */
 
-function _papi_get_property_short_type( $type ) {
-	return preg_replace( '/^property/', '', strtolower( $type ) );
+function _papi_get_options_and_properties ($file_or_options = array(), $properties = array(), $is_box = true) {
+	$options = array();
+
+	if ( is_array( $file_or_options ) ) {
+		if ( empty( $properties ) && $is_box ) {
+			// The first parameter is the options array.
+			$options['title'] = isset( $file_or_options['title'] ) ? $file_or_options['title'] : '';
+			$properties 	  = $file_or_options;
+		} else {
+			$options = array_merge( $options, $file_or_options );
+		}
+	} else if ( is_string( $file_or_options ) ) {
+		// If it's a template we need to load it the right way
+		// and add all properties the right way.
+		if ( _papi_is_ext( $file_or_options, 'php' ) ) {
+			$values = $properties;
+			$template = papi_template( $file_or_options, $values );
+
+			// Create the property array from existing property array or a new.
+			$properties = array();
+			$options = $template;
+
+			// Add all non string keys to the properties array
+			foreach ( $options as $key => $value ) {
+				if ( ! is_string( $key ) ) {
+					$properties[] = $value;
+					unset( $options[$key] );
+				}
+			}
+
+		} else {
+			// The first parameter is used as the title.
+			$options['title'] = $file_or_options;
+		}
+	}
+
+	return array($options, $properties);
 }
 
 /**
@@ -194,6 +187,71 @@ function _papi_get_property_options( $options, $get_value = true ) {
 }
 
 /**
+ * Get property short type.
+ *
+ * @param string $type
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papi_get_property_short_type( $type ) {
+	return preg_replace( '/^property/', '', strtolower( $type ) );
+}
+
+/**
+ * Get property type by the given type.
+ *
+ * @param string $type
+ *
+ * @since 1.0.0
+ *
+ * @return null|Papi_Property
+ */
+
+function _papi_get_property_type( $type ) {
+	if ( is_object( $type ) && isset( $type->type ) && is_string( $type->type ) ) {
+		$type = $type->type;
+	}
+
+	return Papi_Property::factory( $type );
+}
+
+/**
+ * Get the right key for a property type.
+ *
+ * @param string $str
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papi_get_property_type_key( $str = '' ) {
+	return $str . '_property';
+}
+
+/**
+ * Check if it's ends with '_property'.
+ *
+ * @param string $str
+ *
+ * @since 1.0.0
+ *
+ * @return integer
+ */
+
+function _papi_is_property_type_key( $str = '' ) {
+	$pattern = '_property';
+	$pattern = str_replace( '_', '\_', $pattern );
+	$pattern = str_replace( '-', '\-', $pattern );
+	$pattern = '/' . $pattern . '$/';
+
+	return preg_match( $pattern, $str );
+}
+
+/**
  * Render a property the right way.
  *
  * @param object $property
@@ -270,31 +328,6 @@ function _papi_render_properties( $properties ) {
 }
 
 /**
- * Get box property.
- *
- * @param array $properties
- *
- * @since 1.0.0
- *
- * @return array
- */
-
-function _papi_get_box_property ($properties) {
-	$box_property = array_filter( $properties, function ( $property ) {
-		return ! is_object( $property );
-	} );
-
-	if ( ! empty( $box_property ) ) {
-		$property = _papi_get_property_options( $box_property );
-		if ( ! $property->disabled ) {
-			$properties = array( $property );
-		}
-	}
-
-	return $properties;
-}
-
-/**
  * Populate properties array.
  *
  * @param array $properties
@@ -335,55 +368,4 @@ function _papi_populate_properties ($properties) {
 	}
 
 	return $result;
-}
-
-/**
- * Get options and properties.
- *
- * @param string|array $file_or_options
- * @param array $properties
- * @param bool $is_box
- *
- * @since 1.0.0
- *
- * @return array
- */
-
-function _papi_get_options_and_properties ($file_or_options = array(), $properties = array(), $is_box = true) {
-	$options = array();
-
-	if ( is_array( $file_or_options ) ) {
-		if ( empty( $properties ) && $is_box ) {
-			// The first parameter is the options array.
-			$options['title'] = isset( $file_or_options['title'] ) ? $file_or_options['title'] : '';
-			$properties 	  = $file_or_options;
-		} else {
-			$options = array_merge( $options, $file_or_options );
-		}
-	} else if ( is_string( $file_or_options ) ) {
-		// If it's a template we need to load it the right way
-		// and add all properties the right way.
-		if ( _papi_is_ext( $file_or_options, 'php' ) ) {
-			$values = $properties;
-			$template = papi_template( $file_or_options, $values );
-
-			// Create the property array from existing property array or a new.
-			$properties = array();
-			$options = $template;
-
-			// Add all non string keys to the properties array
-			foreach ( $options as $key => $value ) {
-				if ( ! is_string( $key ) ) {
-					$properties[] = $value;
-					unset( $options[$key] );
-				}
-			}
-
-		} else {
-			// The first parameter is used as the title.
-			$options['title'] = $file_or_options;
-		}
-	}
-
-	return array($options, $properties);
 }

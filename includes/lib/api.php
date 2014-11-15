@@ -13,6 +13,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Get the current page. Like in EPiServer.
+ *
+ * @since 1.0.0
+ *
+ * @return Papi_Page|null
+ */
+
+function current_page() {
+	return papi_get_page();
+}
+
+/**
  * Get property value for property on a page.
  *
  * @param int $post_id
@@ -26,6 +38,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function papi_field( $post_id = null, $name = null, $default = null ) {
 	return _papi_field( $post_id, $name, $default );
+}
+
+/**
+ * Get the page.
+ *
+ * @param int $post_id The post id.
+ *
+ * @since 1.0.0
+ *
+ * @return Papi_Page|null
+ */
+
+function papi_get_page( $post_id = null ) {
+	$post_id = _papi_get_post_id( $post_id );
+	$page    = new Papi_Page( $post_id );
+
+	if ( ! $page->has_post() ) {
+		return null;
+	}
+
+	return $page;
 }
 
 /**

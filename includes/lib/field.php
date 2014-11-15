@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Field functions.
+ * Papi field functions.
  *
  * @package Papi
  * @version 1.0.0
@@ -10,46 +10,6 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-}
-
-/**
- * Get field value by keys.
- *
- * Example:
- *
- * "image.url" will get the url value in the array.
- *
- * @param array $names
- * @param mixed $value
- * @param mixed $default
- *
- * @since 1.0.0
- *
- * @return mixed
- */
-
-function _papi_field_value( $names, $value, $default ) {
-	// Return default value we don't have a value.
-	if ( empty( $value ) ) {
-		return $default;
-	}
-
-	// Check if it's a array value or object.
-	if ( ! empty( $names ) && ( is_object( $value ) || is_array( $value ) ) ) {
-
-		// Convert object to array.
-		if ( is_object( $value ) ) {
-			$value = (array) $value;
-		}
-
-		foreach ( $names as $key ) {
-			if ( isset( $value[ $key ] ) ) {
-				$value = $value[ $key ];
-			}
-		}
-	}
-
-	return $value;
 }
 
 /**
@@ -142,3 +102,43 @@ function _papi_field_shortcode( $atts ) {
 }
 
 add_shortcode( 'papi_field', '_papi_field_shortcode' );
+
+/**
+ * Get field value by keys.
+ *
+ * Example:
+ *
+ * "image.url" will get the url value in the array.
+ *
+ * @param array $names
+ * @param mixed $value
+ * @param mixed $default
+ *
+ * @since 1.0.0
+ *
+ * @return mixed
+ */
+
+function _papi_field_value( $names, $value, $default ) {
+	// Return default value we don't have a value.
+	if ( empty( $value ) ) {
+		return $default;
+	}
+
+	// Check if it's a array value or object.
+	if ( ! empty( $names ) && ( is_object( $value ) || is_array( $value ) ) ) {
+
+		// Convert object to array.
+		if ( is_object( $value ) ) {
+			$value = (array) $value;
+		}
+
+		foreach ( $names as $key ) {
+			if ( isset( $value[ $key ] ) ) {
+				$value = $value[ $key ];
+			}
+		}
+	}
+
+	return $value;
+}

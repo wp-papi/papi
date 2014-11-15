@@ -13,24 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Get all register directories with Papi.
- *
- * @since 1.0.0
- *
- * @return array
- */
-
-function _papi_get_directories() {
-	global $papi_directories;
-
-	if ( empty( $papi_directories ) || ! is_array( $papi_directories ) ) {
-		return array();
-	}
-
-	return $papi_directories;
-}
-
-/**
  * Get all files in directory.
  *
  * @param string $directory
@@ -79,6 +61,24 @@ function _papi_get_all_page_type_files() {
 	}
 
 	return $result;
+}
+
+/**
+ * Get all register directories with Papi.
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function _papi_get_directories() {
+	global $papi_directories;
+
+	if ( empty( $papi_directories ) || ! is_array( $papi_directories ) ) {
+		return array();
+	}
+
+	return $papi_directories;
 }
 
 /**
