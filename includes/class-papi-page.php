@@ -94,7 +94,7 @@ class Papi_Page {
 		// Check if we need to convert deep values or not.
 		foreach ( $property_value as $ki => $vi ) {
 			if ( is_array( $property_value[ $ki ] ) ) {
-				$property_values = $this->convert_deep_values( $slug, $property_values, $internal );
+				$property_values = $this->convert_deep_values( $ki, $slug, $property_values, $internal );
 			} else {
 				$convert = true;
 				break;
@@ -125,7 +125,7 @@ class Papi_Page {
 	 * @return array
 	 */
 
-	private function convert_deep_values( $slug, $property_values, $internal ) {
+	private function convert_deep_values( $ki, $slug, $property_values, $internal ) {
 		foreach ( $property_value[ $ki ] as $k => $v ) {
 			if ( _papi_is_property_type_key( $k ) ) {
 				continue;
