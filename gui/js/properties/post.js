@@ -36,13 +36,16 @@
      */
 
     search: function ($this) {
-      var $list = $this.closest('.papi-property-post').find('.papi-post-list'),
+      var $prop = $this.closest('.papi-property-post'),
+          $list = $prop.find('.papi-post-list'),
           val   = $this.val().toLowerCase();
 
       $list.find('li').each(function () {
         var $li = $(this);
         $li[$li.text().toLowerCase().indexOf(val) === -1 ? 'hide' : 'show']();
       });
+
+      $prop.find('p em span').text($list.find('li:visible').length);
     },
 
     /**
@@ -95,9 +98,13 @@
   $(document).on('click', '.papi-property-post.thickbox .papi-post-list a', function (e) {
     e.preventDefault();
 
-    console.log($(this));
-
     papi.properties.post.select($(this));
+  });
+
+  $(document).on('click', '.papi-property-post.thickbox .submitdelete', function (e) {
+    e.preventDefault();
+
+    tb_remove();
   });
 
 })(jQuery);

@@ -47,8 +47,10 @@ class PropertyPost extends Papi_Property {
 			<div class="papi-property-post thickbox" data-slug="<?php echo $options->slug; ?>">
 				<h3><?php _e( 'Select post', 'papi' ); ?></h3>
 				<p>
-					<strong>Search</strong>
-					<input type="search" />
+					<em><?php _e('Number of posts:', 'papi'); ?> <span><?php echo count($posts); ?></span></em>
+				</p>
+				<p>
+					<input type="search" placeholder="<?php _e('Search', 'papi'); ?>" />
 				</p>
 				<ul class="papi-post-list">
 					<?php foreach ( $posts as $post ): ?>
@@ -57,6 +59,15 @@ class PropertyPost extends Papi_Property {
 						</li>
 					<?php endforeach; ?>
 				</ul>
+
+				<div class="submitbox">
+					<div id="wp-link-cancel">
+						<a class="submitdelete deletion" href="#"><?php _e('Cancel', 'papi'); ?></a>
+					</div>
+				</div>
+
+				<div class="clear"></div>
+
 			</div>
 		</div>
 
@@ -64,7 +75,7 @@ class PropertyPost extends Papi_Property {
 			<p class="papi-post-select <?php echo empty( $options->value ) ? '' : 'hidden'; ?>">
 				<?php _e( 'No post selected', 'papi' ); ?>
 				<button class="button"><?php _e( 'Select post', 'papi' ); ?></button>
-				<a href="#TB_inline?width=400&height=250&inlineId=<?php echo $options->slug; ?>_box" class="hidden thickbox"><?php _e( 'Select post', 'papi' ); ?></a>
+				<a href="#TB_inline?width=600&height=400&inlineId=<?php echo $options->slug; ?>_box" class="hidden thickbox"><?php _e( 'Select post', 'papi' ); ?></a>
 			</p>
 			<div class="papi-post-value">
 				<?php if ( ! empty( $options->value ) ): ?>
@@ -72,25 +83,13 @@ class PropertyPost extends Papi_Property {
 						<strong><?php _e( 'Selected:', 'papi' ); ?></strong> <?php echo $options->value->post_title; ?>
 					</p>
 
-					<input type="hidden" value="<?php echo $options->value->ID; ?>" name="<?php echo $options->slug; ?>"/>
+					<input type="hidden" value="<?php echo $options->value->post_id; ?>" name="<?php echo $options->slug; ?>"/>
 					<a href="#"><?php _e( 'Remove', 'papi' ); ?></a>
 				<?php endif; ?>
 			</div>
 		</div>
 		<?php
 	}
-
-	/**
-	 * Format the value of the property before we output it to the application.
-	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return mixed
-	 */
 
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_numeric( $value ) ) {

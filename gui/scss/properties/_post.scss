@@ -1,8 +1,21 @@
 .papi-property-post {
 
+  h3 {
+    font-size: 18px;
+    line-height: 50px;
+    margin: 0;
+    margin-bottom: -20px;
+  }
+
   .papi-post-list {
 
-    border: 1px solid #EAEAEA;
+    overflow: auto;
+    border-left: 1px solid #EAEAEA;
+    border-right: 1px solid #EAEAEA;
+    border-bottom: 1px solid #EAEAEA;
+    width: 95.5%;
+    position: absolute;
+    max-height: 350px;
 
     li {
 
@@ -12,10 +25,6 @@
       padding: 10px;
       cursor: pointer;
       position: relative;
-
-      &:first-child {
-        border-top: 0;
-      }
 
       &:hover {
         background: #FAFAFA;
@@ -28,6 +37,16 @@
 
     }
 
+  }
+
+  .submitbox {
+    padding: 8px 16px;
+    background: #FCFCFC;
+    border-top: 1px solid #DFDFDF;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0
   }
 
 
