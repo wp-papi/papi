@@ -16,6 +16,10 @@ if ( getenv( 'WP_DEVELOP_DIR' ) !== false ) {
 	$test_root = getenv( 'WP_DEVELOP_DIR' );
 } else if ( file_exists( '../../../../tests/phpunit/includes/bootstrap.php' ) ) {
 	$test_root = '../../../../';
+} else if ( file_exists( '/tmp/wordpress-tests-lib/includes/bootstrap.php' ) ) {
+	$test_root = '/tmp/wordpress-tests-lib/';
+} else if ( file_exists( '../../../develop/tests/phpunit/includes/bootstrap.php' ) ) {
+	$test_root = '../../../develop/tests/phpunit/';
 }
 
 require $test_root . '/includes/functions.php';
