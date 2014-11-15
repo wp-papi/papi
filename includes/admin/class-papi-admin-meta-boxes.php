@@ -239,13 +239,6 @@ class Papi_Admin_Meta_Boxes {
 			$post_id = intval( $post_id );
 		}
 
-		// Check the user's permissions.
-		// Todo, check custom post types.
-		if ( isset( $_POST['post_type'] ) && in_array( strtolower( $_POST['post_type'] ), array( 'page', 'post' ) ) ) {
-			if ( ! current_user_can( 'edit_' . strtolower( $_POST['post_type'] ), $post_id ) ) {
-				return;
-			}
-		}
 		// Pre save page template, page type and some others dynamic values.
 		$this->pre_save( $post_id );
 
