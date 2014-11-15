@@ -112,6 +112,26 @@ final class Papi_Loader {
 	}
 
 	/**
+	 * Cloning is forbidden.
+	 *
+	 * @since 2.1
+	 */
+
+	public function __clone() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
+	}
+
+	/**
+	 * Unserializing instances of this class is forbidden.
+	 *
+	 * @since 2.1
+	 */
+
+	public function __wakeup() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
+	}
+
+	/**
 	 * Bootstrap constants
 	 *
 	 * @since 1.0.0
@@ -133,11 +153,6 @@ final class Papi_Loader {
 			}
 
 			define( 'PAPI_PLUGIN_URL', $plugin_url );
-		}
-
-		// Check for support for Polylang
-		if ( defined( 'POLYLANG_VERSION' ) ) {
-			define( 'PAPI_POLYLANG', true );
 		}
 	}
 
@@ -173,6 +188,7 @@ final class Papi_Loader {
 		require_once( $this->plugin_dir . 'includes/class-papi-page.php' );
 		require_once( $this->plugin_dir . 'includes/class-papi-property.php' );
 		require_once( $this->plugin_dir . 'includes/page-type/class-papi-page-type-base.php' );
+		require_once( $this->plugin_dir . 'includes/page-type/class-papi-page-type-meta.php' );
 		require_once( $this->plugin_dir . 'includes/page-type/class-papi-page-type.php' );
 
 		// Load Papi property classes.

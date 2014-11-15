@@ -13,36 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Check if $obj is set and if not return null or default.
- *
- * @param mixed $obj The var to check if it is set.
- * @param mixed $default The value to return if var is not set.
- *
- * @since 1.0.0
- *
- * @return mixed
- */
-
-function _papi_h( $obj, $default = null ) {
-	return isset( $obj ) ? $obj : $default;
-}
-
-/**
- * Remove trailing dobule quote.
- * PHP's $_POST object adds this automatic.
- *
- * @param string $str The string to check.
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _papi_remove_trailing_quotes( $str ) {
-	return str_replace( "\'", "'", str_replace( '\"', '"', $str ) );
-}
-
-/**
  * Add a underscore at the start of the string.
  *
  * @param string $str
@@ -61,43 +31,37 @@ function _papi_f( $str = '' ) {
 }
 
 /**
- * Slugify the given string.
+ * Check if $obj is set and if not return null or default.
  *
- * @param string $str
- * @param array $replace
- * @param string $delimiter
+ * @param mixed $obj The var to check if it is set.
+ * @param mixed $default The value to return if var is not set.
  *
  * @since 1.0.0
  *
- * @return string
+ * @return mixed
  */
 
-function _papi_slugify( $str, $replace = array(), $delimiter = '-' ) {
-	setlocale( LC_ALL, 'en_US.UTF8' );
-	if ( ! empty( $replace ) ) {
-		$str = str_replace( (array) $replace, ' ', $str );
-	}
-	$clean = iconv( 'UTF-8', 'ASCII//TRANSLIT', $str );
-	$clean = preg_replace( "/[^a-zA-Z0-9\/_|+ -]/", '', $clean );
-	$clean = strtolower( trim( $clean, '-' ) );
-	$clean = preg_replace( "/[\/_|+ -]+/", $delimiter, $clean );
-
-	return trim( $clean );
+function _papi_h( $obj, $default = null ) {
+	return isset( $obj ) ? $obj : $default;
 }
 
 /**
- * Underscorify the given string.
- * Replacing whitespace and dash with a underscore.
+ * Get html attribute string.
  *
- * @param string $str
+ * @param string $name
+ * @param string|array $value
  *
  * @since 1.0.0
  *
  * @return string
  */
 
-function _papi_underscorify( $str ) {
-	return str_replace( ' ', '_', str_replace( '-', '_', $str ) );
+function _papi_attribute( $name, $value ) {
+	if ( ! is_array( $value ) ) {
+		$value = array( $value );
+	}
+
+	return $name . '="' . implode( ',', $value ) . '"';
 }
 
 /**
@@ -113,70 +77,6 @@ function _papi_underscorify( $str ) {
 
 function _papi_dashify( $str ) {
 	return str_replace( ' ', '-', str_replace( '_', '-', $str ) );
-}
-
-/**
- * Add `papi_` to the given string ad the start of the string.
- *
- * @param string $str
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _papify( $str = '' ) {
-	if ( ! preg_match( '/^\_\_papi|^\_papi|^papi\_/', $str ) ) {
-		return 'papi_' . $str;
-	}
-
-	return $str;
-}
-
-/**
- * Remove `papi-` or `papi_` from the given string.
- *
- * @param string $str
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _papi_remove_papi( $str ) {
-	return str_replace( 'papi-', '', str_replace( 'papi_', '', $str ) );
-}
-
-/**
- * Get a php friendly name.
- *
- * @param string $name
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _papi_name( $name ) {
-	if ( ! preg_match( '/^\_\_papi|^\_papi/', $name ) ) {
-		return _papi_underscorify( _papi_slugify( _papify( $name ) ) );
-	}
-
-	return $name;
-}
-
-/**
- * Check what the request method is.
- *
- * @param string $method
- *
- * @since 1.0.0
- *
- * @return bool
- */
-
-function _papi_is_method( $method = '' ) {
-	return isset( $_SERVER['REQUEST_METHOD'] ) && strtoupper( $_SERVER['REQUEST_METHOD'] ) == strtoupper( $method );
 }
 
 /**
@@ -210,25 +110,6 @@ function _papi_get_class_name( $file ) {
 }
 
 /**
- * Get html attribute string.
- *
- * @param string $name
- * @param string|array $value
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _papi_attribute( $name, $value ) {
-	if ( ! is_array( $value ) ) {
-		$value = array( $value );
-	}
-
-	return $name . '="' . implode( ',', $value ) . '"';
-}
-
-/**
  * Get query string if it exists and is not empty.
  *
  * @param string $qs
@@ -244,6 +125,24 @@ function _papi_get_qs( $qs ) {
 	}
 
 	return null;
+}
+
+/**
+ * Get a php friendly name.
+ *
+ * @param string $name
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papi_html_name( $name ) {
+	if ( ! preg_match( '/^\_\_papi|^\_papi/', $name ) ) {
+		return _papi_underscorify( _papi_slugify( _papify( $name ) ) );
+	}
+
+	return $name;
 }
 
 /**
@@ -263,25 +162,76 @@ function _papi_include_template( $tpl_file, $vars = array() ) {
 }
 
 /**
- * Get string value into a array.
+ * Check if string has a extension.
  *
- * @param object|array|string $obj
+ * @param string $str
+ * @param string $ext
  *
  * @since 1.0.0
  *
- * @return array
+ * @return bool
  */
 
-function _papi_string_array( $obj ) {
-	if ( is_string( $obj ) ) {
-		$obj = array( $obj );
+function _papi_is_ext( $str, $ext ) {
+	if ( is_string( $str ) ) {
+		$arr = explode( '.', $str );
+		return end( $arr ) === $ext;
 	}
 
-	if ( ! is_array( $obj ) ) {
-		$obj = array();
-	}
+	return false;
+}
 
-	return $obj;
+/**
+ * Check what the request method is.
+ *
+ * @param string $method
+ *
+ * @since 1.0.0
+ *
+ * @return bool
+ */
+
+function _papi_is_method( $method = '' ) {
+	return isset( $_SERVER['REQUEST_METHOD'] ) && strtoupper( $_SERVER['REQUEST_METHOD'] ) == strtoupper( $method );
+}
+
+/**
+ * Check if polylang is used or not.
+ *
+ * @return bool
+ */
+
+function _papi_polylang() {
+	return defined( 'POLYLANG_VERSION' );
+}
+
+/**
+ * Remove `papi-` or `papi_` from the given string.
+ *
+ * @param string $str
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papi_remove_papi( $str ) {
+	return str_replace( 'papi-', '', str_replace( 'papi_', '', $str ) );
+}
+
+/**
+ * Remove trailing dobule quote.
+ * PHP's $_POST object adds this automatic.
+ *
+ * @param string $str The string to check.
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papi_remove_trailing_quotes( $str ) {
+	return str_replace( "\'", "'", str_replace( '\"', '"', $str ) );
 }
 
 /**
@@ -338,31 +288,81 @@ function _papi_sort_order( $array, $key = 'sort_order' ) {
 }
 
 /**
- * Check if polylang is used or not.
- *
- * @return bool
- */
-
-function _papi_polylang() {
-	return defined( 'PAPI_POLYLANG' ) && PAPI_POLYLANG;
-}
-
-/**
- * Check if string has a extension.
+ * Slugify the given string.
  *
  * @param string $str
- * @param string $ext
+ * @param array $replace
+ * @param string $delimiter
  *
  * @since 1.0.0
  *
- * @return bool
+ * @return string
  */
 
-function _papi_is_ext( $str, $ext ) {
-	if ( is_string( $str ) ) {
-		$arr = explode( '.', $str );
-		return end( $arr ) === $ext;
+function _papi_slugify( $str, $replace = array(), $delimiter = '-' ) {
+	setlocale( LC_ALL, 'en_US.UTF8' );
+	if ( ! empty( $replace ) ) {
+		$str = str_replace( (array) $replace, ' ', $str );
+	}
+	$clean = iconv( 'UTF-8', 'ASCII//TRANSLIT', $str );
+	$clean = preg_replace( "/[^a-zA-Z0-9\/_|+ -]/", '', $clean );
+	$clean = strtolower( trim( $clean, '-' ) );
+	$clean = preg_replace( "/[\/_|+ -]+/", $delimiter, $clean );
+
+	return trim( $clean );
+}
+
+/**
+ * Get string value into a array.
+ *
+ * @param object|array|string $obj
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function _papi_to_array( $obj ) {
+	if ( is_string( $obj ) ) {
+		$obj = array( $obj );
 	}
 
-	return false;
+	if ( ! is_array( $obj ) ) {
+		$obj = array();
+	}
+
+	return $obj;
+}
+
+/**
+ * Underscorify the given string.
+ * Replacing whitespace and dash with a underscore.
+ *
+ * @param string $str
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papi_underscorify( $str ) {
+	return str_replace( ' ', '_', str_replace( '-', '_', $str ) );
+}
+
+/**
+ * Add `papi_` to the given string ad the start of the string.
+ *
+ * @param string $str
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papify( $str = '' ) {
+	if ( ! preg_match( '/^\_\_papi|^\_papi|^papi\_/', $str ) ) {
+		return 'papi_' . $str;
+	}
+
+	return $str;
 }

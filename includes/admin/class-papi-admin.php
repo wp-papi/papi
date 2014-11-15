@@ -68,61 +68,34 @@ final class Papi_Admin {
 
 	/**
 	 * Constructor.
-	 */
-
-	public function __construct() {
-	}
-
-	/**
-	 * Setup globals.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
-	private function setup_globals() {
-		$this->view             = new Papi_Admin_View;
-		$this->meta_boxes       = new Papi_Admin_Meta_Boxes;
-		$this->management_pages = new Papi_Admin_Management_Pages;
-	}
+	public function __construct() {}
 
 	/**
-	 * Setup actions.
+	 * Cloning is forbidden.
 	 *
-	 * @since 1.0.0
-	 * @access private
+	 * @since 2.1
 	 */
 
-	private function setup_actions() {
-		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-		add_action( 'admin_head', array( $this, 'admin_head' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+	public function __clone() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
 	}
 
 	/**
-	 * Setup filters.
+	 * Unserializing instances of this class is forbidden.
 	 *
-	 * @since 1.0.0
-	 * @access private
+	 * @since 2.1
 	 */
 
-	private function setup_filters() {
-		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
-
-		$post_types = _papi_get_post_types();
-
-		// Add post type columns to eavery post types that is used.
-		foreach ( $post_types as $post_type ) {
-			add_filter( 'manage_' . $post_type . '_posts_columns', array( $this, 'manage_page_type_posts_columns' ) );
-			add_action( 'manage_' . $post_type . '_posts_custom_column', array(
-				$this,
-				'manage_page_type_posts_custom_column'
-			), 10, 2 );
-		}
+	public function __wakeup() {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
 	}
 
 	/**
-	 * Build up the sub menu for "Page".
+	 * Build up the sub menu for post types.
 	 *
 	 * @since 1.0.0
 	 */
@@ -213,7 +186,7 @@ final class Papi_Admin {
 		$post_type = _papi_get_wp_post_type();
 
 		if ( ! in_array( $post_type, _papi_get_post_types() ) ) {
-			return null;
+			return $classes;
 		}
 
 		if ( count( get_page_templates() ) ) {
@@ -221,6 +194,36 @@ final class Papi_Admin {
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * Load post new action
+	 * Redirect to right url if no page type is set.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function load_post_new() {
+		$request_uri = $_SERVER['REQUEST_URI'];
+		$post_types = _papi_get_post_types();
+		$post_type  = _papi_get_wp_post_type();
+
+		if ( in_array($post_type, $post_types) && strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
+			$parsed_url = parse_url( $request_uri );
+
+			$option_key         = sprintf('post_type.%s.only_page_type', $post_type);
+			$only_page_type     = _papi_get_option($option_key);
+
+			// Check if we should show one post type or not and create the right url for that.
+			if ( ! empty($only_page_type) ) {
+				$url = _papi_get_page_new_url( $only_page_type, false );
+			} else {
+				$url = "edit.php?page=papi-add-new-page,$post_type&" . $parsed_url['query'];
+			}
+
+			wp_safe_redirect( $url );
+			exit;
+		}
 	}
 
 	/**
@@ -281,6 +284,56 @@ final class Papi_Admin {
 	}
 
 	/**
+	 * Setup globals.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 */
+
+	private function setup_globals() {
+		$this->view             = new Papi_Admin_View;
+		$this->meta_boxes       = new Papi_Admin_Meta_Boxes;
+		$this->management_pages = new Papi_Admin_Management_Pages;
+	}
+
+	/**
+	 * Setup actions.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 */
+
+	private function setup_actions() {
+		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_action( 'admin_head', array( $this, 'admin_head' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_action( 'load-post-new.php', array( $this, 'load_post_new' ) );
+		add_action( 'load-media-new.php', array( $this, '_papi_load_post_new' ) );
+	}
+
+	/**
+	 * Setup filters.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 */
+
+	private function setup_filters() {
+		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
+
+		$post_types = _papi_get_post_types();
+
+		// Add post type columns to eavery post types that is used.
+		foreach ( $post_types as $post_type ) {
+			add_filter( 'manage_' . $post_type . '_posts_columns', array( $this, 'manage_page_type_posts_columns' ) );
+			add_action( 'manage_' . $post_type . '_posts_custom_column', array(
+				$this,
+				'manage_page_type_posts_custom_column'
+			), 10, 2 );
+		}
+	}
+
+	/**
 	 * Load right Papi file if it exists.
 	 *
 	 * @since 1.0.0
@@ -322,5 +375,4 @@ final class Papi_Admin {
 		// Create a new class of the page type.
 		$page_type->new_class();
 	}
-
 }

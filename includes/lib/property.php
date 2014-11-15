@@ -168,11 +168,11 @@ function _papi_get_property_options( $options, $get_value = true ) {
 	}
 
 	// Generate a vaild Papi meta name for slug.
-	$options->slug = _papi_name( $options->slug );
+	$options->slug = _papi_html_name( $options->slug );
 
 	// Generate a valid Papi meta name for old slug.
 	if ( ! empty( $options->old_slug ) ) {
-		$options->old_slug = _papi_name( $options->old_slug );
+		$options->old_slug = _papi_html_name( $options->old_slug );
 	}
 
 	// This fixes so you can use "Text" as type and hasn't to write "PropertyText".
@@ -338,7 +338,7 @@ function _papi_populate_properties ($properties) {
 }
 
 /**
- * Get box base array.
+ * Get options and properties.
  *
  * @param string|array $file_or_options
  * @param array $properties
@@ -349,7 +349,7 @@ function _papi_populate_properties ($properties) {
  * @return array
  */
 
-function _papi_get_box_base ($file_or_options = array(), $properties = array(), $is_box = true) {
+function _papi_get_options_and_properties ($file_or_options = array(), $properties = array(), $is_box = true) {
 	$options = array();
 
 	if ( is_array( $file_or_options ) ) {

@@ -59,35 +59,3 @@ function _papi_get_page_new_url( $page_type, $append_admin_url = true ) {
 
 	return $admin_url . 'post-new.php?page_type=' . $page_type . _papi_get_page_query_strings();
 }
-
-/**
- * Load post new action
- * Redirect to right url if no page type is set.
- *
- * @since 1.0.0
- */
-
-function _papi_load_post_new() {
-	$request_uri = $_SERVER['REQUEST_URI'];
-	$post_types = _papi_get_post_types();
-	$post_type  = _papi_get_wp_post_type();
-
-	if ( in_array($post_type, $post_types) && strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
-		$parsed_url = parse_url( $request_uri );
-
-		$option_key         = sprintf('post_type.%s.only_page_type', $post_type);
-		$only_page_type     = _papi_get_option($option_key);
-
-		// Check if we should show one post type or not and create the right url for that.
-		if ( ! empty($only_page_type) ) {
-			$url = _papi_get_page_new_url( $only_page_type, false );
-		} else {
-			$url = "edit.php?page=papi-add-new-page,$post_type&" . $parsed_url['query'];
-		}
-
-		wp_safe_redirect( $url );
-		exit;
-	}
-}
-
-add_action( 'load-post-new.php', '_papi_load_post_new' );

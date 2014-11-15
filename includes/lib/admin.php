@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 function _papi_current_user_is_allowed( $capabilities = array() ) {
-	foreach ( _papi_string_array( $capabilities ) as $capability ) {
+	foreach ( _papi_to_array( $capabilities ) as $capability ) {
 		if ( ! current_user_can( $capability ) ) {
 			return false;
 		}

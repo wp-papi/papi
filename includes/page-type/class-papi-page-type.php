@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class Papi_Page_Type extends Papi_Page_Type_Base {
+class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	/**
 	 * The meta box instance.
@@ -60,27 +60,6 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	}
 
 	/**
-	 * Remove post type support action.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function remove_post_type_support() {
-		// Get post type.
-		$post_type = _papi_get_wp_post_type();
-
-		// Can't proceed without a post type.
-		if ( empty( $post_type ) || is_null( $post_type ) ) {
-			return;
-		}
-
-		// Loop through all post type support to remove.
-		foreach ( $this->remove_post_type_support as $post_type_support ) {
-			remove_post_type_support( $post_type, $post_type_support );
-		}
-	}
-
-	/**
 	 * Add new meta box with properties.
 	 *
 	 * @param mixed $file_or_options .
@@ -90,7 +69,7 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	 */
 
 	protected function box( $file_or_options = array(), $properties = array() ) {
-		list( $options, $properties ) = _papi_get_box_base( $file_or_options, $properties );
+		list( $options, $properties ) = _papi_get_options_and_properties( $file_or_options, $properties );
 
 		$post_type = _papi_get_wp_post_type();
 
@@ -107,21 +86,6 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	}
 
 	/**
-	 * Load template file.
-	 *
-	 * @param string $file
-	 * @param array $values
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array
-	 */
-
-	protected function template( $file, $values = array() ) {
-		return papi_template( $file, $values );
-	}
-
-	/**
 	 * Add new property to the page using array or rendering property template file.
 	 *
 	 * @param string|array $file_or_options
@@ -134,6 +98,38 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 
 	protected function property( $file_or_options = array(), $values = array() ) {
 		return papi_property( $file_or_options, $values );
+	}
+
+	/**
+	 * Remove post type support. Runs once, on page load.
+	 *
+	 * @param array $remove_post_type_support
+	 *
+	 * @since 1.0.0
+	 */
+
+	protected function remove( $remove_post_type_support = array() ) {
+		$remove_post_type_support       = _papi_to_array( $remove_post_type_support );
+		$this->remove_post_type_support = array_merge( $this->remove_post_type_support, $remove_post_type_support );
+		add_action( 'init', array( $this, 'remove_post_type_support' ) );
+	}
+
+	/**
+	 * Remove post type support action.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function remove_post_type_support() {
+		$post_type = _papi_get_wp_post_type();
+
+		if ( empty( $post_type ) ) {
+			return;
+		}
+
+		foreach ( $this->remove_post_type_support as $post_type_support ) {
+			remove_post_type_support( $post_type, $post_type_support );
+		}
 	}
 
 	/**
@@ -153,17 +149,17 @@ class Papi_Page_Type extends Papi_Page_Type_Base {
 	}
 
 	/**
-	 * Remove post type support. Runs once, on page load.
+	 * Load template file.
 	 *
-	 * @param array $remove_post_type_support
+	 * @param string $file
+	 * @param array $values
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return array
 	 */
 
-	protected function remove( $remove_post_type_support = array() ) {
-		$remove_post_type_support       = _papi_string_array( $remove_post_type_support );
-		$this->remove_post_type_support = array_merge( $this->remove_post_type_support, $remove_post_type_support );
-		add_action( 'init', array( $this, 'remove_post_type_support' ) );
+	protected function template( $file, $values = array() ) {
+		return papi_template( $file, $values );
 	}
-
 }

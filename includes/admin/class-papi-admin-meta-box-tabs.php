@@ -160,7 +160,7 @@ class Papi_Admin_Meta_Box_Tabs {
 				continue;
 			}
 
-			$tabs[ $i ]->options->_name = _papi_name( $tabs[$i]->options->title ) . '_' . $i;
+			$tabs[ $i ]->options->_name = _papi_html_name( $tabs[$i]->options->title ) . '_' . $i;
 		}
 
 		$this->tabs = $tabs;
