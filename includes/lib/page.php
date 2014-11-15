@@ -217,19 +217,3 @@ function _papi_is_page_type_allowed( $post_type ) {
 
 	return in_array( strtolower( $post_type ), $post_types );
 }
-
-/**
- * The default page type thumbnail if defined.
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _papi_page_type_default_thumbnail() {
-	if ( defined( 'PAPI_DEFAULT_PAGE_THUMBNAIL' ) ) {
-		return PAPI_DEFAULT_PAGE_THUMBNAIL;
-	}
-
-	return '';
-}

@@ -324,7 +324,7 @@ function register_page_types_directory( $directory ) {
 		$papi_directories = array();
 	}
 
-	if ( ! file_exists( $directory ) || ! is_dir( $directory ) ) {
+	if ( ! is_dir( $directory ) ) {
 		return false;
 	}
 

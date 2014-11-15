@@ -36,7 +36,7 @@ $show_standard_page = _papi_get_option( $option_key, true );
 			_papi_include_template( 'includes/admin/views/partials/add-new-item.php', array(
 				'title'       => __( 'Standard page', 'papi' ),
 				'description' => __( 'Just the normal WordPress page', 'papi' ),
-				'thumbnail'   => _papi_page_type_default_thumbnail(),
+				'thumbnail'   => '',
 				'url'         => 'post-new.php' . _papi_get_page_query_strings( '?' ) . '&papi-bypass=true'
 			) );
 

@@ -11,7 +11,8 @@ class Simple_Page_Type extends Papi_Page_Type {
 	public static function page_type() {
 		return array(
 			'name'        => 'Simple page',
-			'description' => 'This is a simple page'
+			'description' => 'This is a simple page',
+			'template'    => 'pages/simple-page.php'
 		);
 	}
 

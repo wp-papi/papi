@@ -127,7 +127,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 
 	public function get_thumbnail() {
 		if ( empty( $this->thumbnail ) ) {
-			return _papi_page_type_default_thumbnail();
+			return '';
 		}
 
 		return $this->thumbnail;
