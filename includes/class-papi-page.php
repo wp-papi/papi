@@ -101,16 +101,14 @@ class Papi_Page {
 					if ( _papi_is_property_type_key( $k ) ) {
 						continue;
 					} else {
-						if ( empty( $vi ) ) {
-							$item_slug = '';
-						} else {
-							foreach ( $vi as $vik => $viv ) {
-								if ( _papi_is_property_type_key( $vik ) ) {
-									continue;
-								}
+						$item_slug = '';
 
-								$item_slug = $vik;
+						foreach ( $vi as $vik => $viv ) {
+							if ( _papi_is_property_type_key( $vik ) ) {
+								continue;
 							}
+
+							$item_slug = $vik;
 						}
 
 						$ptk                         = _papi_get_property_type_key( $k );
