@@ -92,7 +92,7 @@ class Papi_Page {
 
 		$convert = false;
 
-		// Property List has array with properties.
+		// Property Repeater has array with properties.
 		// Remove `papi_` key and property key.
 
 		foreach ( $property_value as $ki => $vi ) {
