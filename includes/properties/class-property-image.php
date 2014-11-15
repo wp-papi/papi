@@ -108,7 +108,7 @@ class PropertyImage extends Papi_Property {
 			}
 		} else if ( is_array( $value ) ) {
 			foreach ( $value as $k => $v ) {
-				$value[ $k ] = $this->format_value( $v, $post_id );
+				$value[ $k ] = $this->format_value( $v, $slug, $post_id );
 			}
 
 			return $value;
