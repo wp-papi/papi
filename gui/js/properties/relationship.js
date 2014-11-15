@@ -17,8 +17,6 @@
           max     = $right.data('relationship-choose-max'),
           append  = max === undefined || max === -1 || $list.find('li').length < max;
 
-      console.log(max, append, $list.find('li').length);
-
       if (append) {
         $li.find('span.icon').removeClass('plus').addClass('minus');
         $li.find('input').attr('name', $li.find('input').data('name'));
@@ -69,7 +67,7 @@
     papi.properties.relationship.remove($(this));
   });
 
-  $(document).on('keyup', '.papi-property-relationship .relationship-left .relationship-search input[type=search]', function (e) {
+  $(document).on('keyup', '.papi-property-relationship input[type=search]', function (e) {
     e.preventDefault();
 
     papi.properties.relationship.search($(this));

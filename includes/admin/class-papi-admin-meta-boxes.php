@@ -60,16 +60,17 @@ class Papi_Admin_Meta_Boxes {
 	}
 
 	/**
-	 * Get properties data from the post object.
+	 * Get post data.
+	 *
+	 * @param string $pattern
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
 
-	private function get_properties_data() {
+	private function get_post_data( $pattern = '/^papi\_.*/' ) {
 		$data    = array();
-		$pattern = '/^papi\_.*/';
 		$keys    = preg_grep( $pattern, array_keys( $_POST ) );
 
 		foreach ( $keys as $key ) {
@@ -154,11 +155,11 @@ class Papi_Admin_Meta_Boxes {
 			}
 
 			// Run `update_value` if it exists on the property class.
-			$data[ $key ]['value'] = $property->update_value( $data[ $key ]['value'], $post_id );
+			$data[ $key ]['value'] = $property->update_value( $data[ $key ]['value'], _papi_remove_papi( $key ), $post_id );
 
 			// Apply a filter so this can be changed from the theme for specified property type.
 			// Example: "papi/update_value/string"
-			$data[ $key ] = _papi_update_value( $property_type, $data[ $key ], $post_id );
+			$data[ $key ]['value'] = _papi_update_value( $property_type, $data[ $key ]['value'], _papi_remove_papi( $key ), $post_id );
 		}
 
 		// Check so all properties has a value and a type key and that the property is a array.
@@ -167,35 +168,6 @@ class Papi_Admin_Meta_Boxes {
 		} );
 
 		return $data;
-	}
-
-	/**
-	 * Get page template from the post data.
-	 *
-	 * @param array $data
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string
-	 */
-
-	private function get_page_template( array $data = array() ) {
-		$post_id = _papi_h( $data['post_ID'], 0 );
-		return _papi_get_page_type_template( $post_id );
-	}
-
-	/**
-	 * Get page type from the post data.
-	 *
-	 * @param array $data
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string
-	 */
-
-	private function get_page_type( array $data = array() ) {
-		return _papi_h( $data['papi_page_type'], '' );
 	}
 
 	/**
@@ -212,15 +184,7 @@ class Papi_Admin_Meta_Boxes {
 			return;
 		}
 
-		// Data to save.
-		$data = array(
-			'__papi_page_template' => $this->get_page_template( $_POST )
-		);
-
-		// Get the page type.
-		$page_type              = $this->get_page_type( $_POST );
-		$page_type_key          = _papi_get_page_type_meta_key();
-		$data[ $page_type_key ] = $page_type;
+		$data = $this->get_post_data( '/\_papi\_.*/' );
 
 		foreach ( $data as $key => $value ) {
 			if ( empty( $value ) ) {
@@ -282,15 +246,14 @@ class Papi_Admin_Meta_Boxes {
 				return;
 			}
 		}
+		// Pre save page template, page type and some others dynamic values.
+		$this->pre_save( $post_id );
 
 		// Get properties data.
-		$data = $this->get_properties_data();
+		$data = $this->get_post_data();
 
 		// Prepare property data.
 		$data = $this->prepare_properties_data( $data, $post_id );
-
-		// Pre save page template and page type.
-		$this->pre_save( $post_id );
 
 		foreach ( $data as $key => $property ) {
 			// Property data.

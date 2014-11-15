@@ -84,6 +84,7 @@ class Papi_Page {
 		// The convert takes a array as argument so let's make one.
 		if ( ! is_array( $property_value ) ) {
 			return $this->convert( array(
+				'slug'  => $slug,
 				'type'  => $property_type_value,
 				'value' => $property_value
 			) );
@@ -102,6 +103,7 @@ class Papi_Page {
 					} else {
 						$ptk                         = _papi_get_property_type_key( $k );
 						$property_value[ $ki ][ $k ] = $this->convert( array(
+							'slug'  => $ptk,
 							'type'  => $property_value[ $ki ][ $ptk ],
 							'value' => $v
 						) );
@@ -116,6 +118,7 @@ class Papi_Page {
 		// Convert non property list arrays.
 		if ( $convert ) {
 			$property_value = $this->convert( array(
+				'slug'  => $slug,
 				'type'  => $property_type_value,
 				'value' => $property_value
 			) );
@@ -145,24 +148,24 @@ class Papi_Page {
 			$type          = strval( $property['type'] );
 			$property_type = _papi_get_property_type( $type );
 
-			// If no property is found, just return the value.
+			// If no property type is found, just return the value.
 			if ( is_null( $property_type ) ) {
 				return $property['value'];
 			}
 
 			// Run a `load_value` right after the value has been loaded from the database.
-			$property['value'] = $property_type->load_value( $property['value'], $this->id );
+			$property['value'] = $property_type->load_value( $property['value'], $property['slug'], $this->id );
 
 			// Apply a filter so this can be changed from the theme for specified property type.
 			// Example: "papi/load_value/string"
-			$property['value'] = _papi_load_value( $type, $property['value'], $this->id );
+			$property['value'] = _papi_load_value( $type, $property['value'], $property['slug'], $this->id );
 
 			// Format the value from the property class.
-			$property['value'] = $property_type->format_value( $property['value'], $this->id );
+			$property['value'] = $property_type->format_value( $property['value'], $property['slug'], $this->id );
 
 			// Apply a filter so this can be changed from the theme for specified property type.
 			// Example: "papi/format_value/string"
-			$property['value'] = _papi_format_value( $type, $property['value'], $this->id );
+			$property['value'] = _papi_format_value(  $type, $property['value'], $property['slug'], $this->id );
 		}
 
 		// If we only have the value, let's return that.

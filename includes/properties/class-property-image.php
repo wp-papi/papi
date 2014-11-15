@@ -84,6 +84,7 @@ class PropertyImage extends Papi_Property {
 	 * Format the value of the property before we output it to the application.
 	 *
 	 * @param mixed $value
+	 * @param string $slug
 	 * @param int $post_id
 	 *
 	 * @since 1.0.0
@@ -91,7 +92,7 @@ class PropertyImage extends Papi_Property {
 	 * @return mixed
 	 */
 
-	public function format_value( $value, $post_id ) {
+	public function format_value( $value, $slug, $post_id ) {
 		if ( is_numeric( $value ) ) {
 			$meta = wp_get_attachment_metadata( $value );
 			if ( isset( $meta ) && ! empty( $meta ) ) {

@@ -1,8 +1,30 @@
 .papi-property-relationship {
   background: #fafafa;
   border: 1px #eaeaea solid;
+
   .relationship-inner {
     padding: 5px;
+
+    .relationship-top-left {
+      width: 49%;
+      max-width: 49%;
+      padding: 10px 0px;
+      float: left;
+
+      input[type="search"] {
+        width: 100%;
+        padding: 5px;
+      }
+
+    }
+
+    .relationship-top-right {
+      width: 49%;
+      max-width: 49%;
+      float: right;
+      padding: 10px 0px;
+    }
+
     .relationship-left {
       float: left;
       width: 49%;
@@ -15,6 +37,7 @@
       overflow: scroll;
       overflow-x: hidden;
     }
+
     .relationship-right {
       float: right;
       width: 49%;
@@ -27,23 +50,15 @@
       overflow: scroll;
       overflow-x: hidden;
     }
-    .relationship-left .relationship-search {
-      background: #fafafa;
-      border-bottom: 1px #eaeaea solid;
-      padding: 5px 0px 5px 0px;
-      margin: -6px -1px 0px -1px;
-      input[type="search"] {
-        width: 100%;
-        padding: 5px;
-        border: 1px #eaeaea solid;
-      }
-    }
+
     ul {
       margin: 0;
       padding: 5px 0;
+
       li {
         border-bottom: 1px #eaeaea solid;
         padding: 5px 10px 10px 5px;
+
         span.icon {
           background: url(../img/plus-minus.png) no-repeat top left;
           width: 16px;
@@ -53,10 +68,15 @@
             background-position: top right;
           }
         }
+
         a {
           text-decoration: none;
         }
+
       }
+
     }
+
   }
+
 }

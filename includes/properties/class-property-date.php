@@ -40,6 +40,7 @@ class PropertyDate extends Papi_Property {
 	 * Convert value to integer.
 	 *
 	 * @param string $value
+	 * @param string $slug
 	 * @param int $post_id
 	 *
 	 * @since 1.0.0
@@ -47,7 +48,7 @@ class PropertyDate extends Papi_Property {
 	 * @return int
 	 */
 
-	public function format_value( $value, $post_id ) {
+	public function format_value( $value, $slug, $post_id ) {
 		return intval( $value );
 	}
 
@@ -55,6 +56,7 @@ class PropertyDate extends Papi_Property {
 	 * Save the date as Unix timestamp.
 	 *
 	 * @param string $value
+	 * @param string $slug
 	 * @param int $post_id
 	 *
 	 * @since 1.0.0
@@ -62,7 +64,7 @@ class PropertyDate extends Papi_Property {
 	 * @return int
 	 */
 
-	public function update_value( $value, $post_id ) {
+	public function update_value( $value, $slug , $post_id ) {
 		return strtotime( $value );
 	}
 

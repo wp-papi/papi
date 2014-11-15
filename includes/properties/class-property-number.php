@@ -32,6 +32,7 @@ class PropertyNumber extends PropertyString {
 	 * Format the value of the property before we output it to the application.
 	 *
 	 * @param mixed $value
+	 * @param string $slug
 	 * @param int $post_id
 	 *
 	 * @since 1.0.0
@@ -39,7 +40,7 @@ class PropertyNumber extends PropertyString {
 	 * @return array
 	 */
 
-	public function format_value( $value, $post_id ) {
+	public function format_value( $value, $slug, $post_id ) {
 		if ( floatval( $value ) && intval( $value ) != floatval( $value ) ) {
 			return floatval( $value );
 		} else {

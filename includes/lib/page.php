@@ -137,18 +137,6 @@ function _papi_get_page_type( $file_path ) {
 }
 
 /**
- * Get page type meta key.
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _papi_get_page_type_meta_key() {
-	return '__papi_page_type';
-}
-
-/**
  * Get page type meta value.
  *
  * @param int $post_id
@@ -163,10 +151,8 @@ function _papi_get_page_type_meta_value( $post_id = null ) {
 		$post_id = _papi_get_post_id();
 	}
 
+	$key       = '_papi_page_type';
 	$page_type = '';
-
-	// Get page type value from database.
-	$key = _papi_get_page_type_meta_key();
 
 	if ( ! is_null( $post_id ) ) {
 		$meta_value = get_post_meta( $post_id, $key, true );

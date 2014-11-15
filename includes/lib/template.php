@@ -56,7 +56,7 @@ function _papi_template_include( $original_template ) {
 		return $original_template;
 	}
 
-	$page_template = get_post_meta( $post->ID, '__papi_page_template', true );
+	$page_template = _papi_get_page_type_template( $post->ID );
 
 	if ( ! is_null( $page_template ) && ! empty( $page_template ) ) {
 		$path = get_template_directory();

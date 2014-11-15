@@ -207,6 +207,7 @@ abstract class Papi_Property {
 	 * This filter is applied after the $value is loaded in the database.
 	 *
 	 * @param mixed $value
+	 * @param string $slug
 	 * @param int $post_id
 	 *
 	 * @since 1.0.0
@@ -214,7 +215,7 @@ abstract class Papi_Property {
 	 * @return mixed
 	 */
 
-	public function load_value( $value, $post_id ) {
+	public function load_value( $value, $slug, $post_id ) {
 		return $value;
 	}
 
@@ -222,6 +223,7 @@ abstract class Papi_Property {
 	 * Format the value of the property before we output it to the application.
 	 *
 	 * @param mixed $value
+	 * @param string $slug
 	 * @param int $post_id
 	 *
 	 * @since 1.0.0
@@ -229,7 +231,7 @@ abstract class Papi_Property {
 	 * @return mixed
 	 */
 
-	public function format_value( $value, $post_id ) {
+	public function format_value( $value, $slug, $post_id ) {
 		return $value;
 	}
 
@@ -237,6 +239,7 @@ abstract class Papi_Property {
 	 * This filter is applied before the $value is saved in the database.
 	 *
 	 * @param mixed $value
+	 * @param string $slug
 	 * @param int $post_id
 	 *
 	 * @since 1.0.0
@@ -244,7 +247,7 @@ abstract class Papi_Property {
 	 * @return mixed
 	 */
 
-	public function update_value( $value, $post_id ) {
+	public function update_value( $value, $slug, $post_id ) {
 		return $value;
 	}
 
@@ -289,7 +292,7 @@ abstract class Papi_Property {
 			return $default;
 		}
 
-		return $this->load_value( $value, $this->post_id );
+		return $this->load_value( $value, $this->options->slug, $this->post_id );
 	}
 
 	/**

@@ -37,6 +37,7 @@ class PropertyBool extends Papi_Property {
 	 * Format the value of the property before we output it to the application.
 	 *
 	 * @param mixed $value
+	 * @param string $slug
 	 * @param int $post_id
 	 *
 	 * @since 1.0.0
@@ -44,7 +45,7 @@ class PropertyBool extends Papi_Property {
 	 * @return boolean
 	 */
 
-	public function format_value( $value, $post_id ) {
+	public function format_value( $value, $slug, $post_id ) {
 		return ! empty( $value );
 	}
 

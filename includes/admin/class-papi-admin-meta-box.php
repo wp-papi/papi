@@ -179,7 +179,7 @@ class Papi_Admin_Meta_Box {
 
 		wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' );
 		?>
-		<input type="hidden" name="papi_page_type" value="<?php echo _papi_get_page_type_meta_value(); ?>"/>
+		<input type="hidden" name="_papi_page_type" value="<?php echo _papi_get_page_type_meta_value(); ?>"/>
 		<?php
 
 		// Render the properties.

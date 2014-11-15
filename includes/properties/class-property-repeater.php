@@ -180,13 +180,14 @@ class PropertyRepeater extends Papi_Property {
 	 *
 	 * @param mixed $value
 	 * @param int $post_id
+	 * @param string $slug
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
 
-	public function format_value( $value, $post_id ) {
+	public function format_value( $value, $slug, $post_id ) {
 		return array_values( $value );
 	}
 

@@ -148,6 +148,20 @@ function _papi_get_qs( $qs ) {
 }
 
 /**
+ * Get hidden meta key.
+ *
+ * @param string $slug
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papi_get_hidden_meta_key ( $slug ) {
+	return '_' . _papify( $slug );
+}
+
+/**
  * Get a php friendly name.
  *
  * @param string $name
