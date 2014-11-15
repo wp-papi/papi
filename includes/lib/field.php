@@ -72,7 +72,7 @@ function _papi_field( $post_id = null, $name = null, $default = null, $internal 
 		$value = $page->$name;
 	}
 
-	return _papi_field_value( $names, $value, $default, $internal );
+	return _papi_field_value( $names, $value, $default );
 }
 
 /**
