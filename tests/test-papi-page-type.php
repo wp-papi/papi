@@ -36,7 +36,7 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 	 */
 
 	public function test_slug() {
-		$slug = _papi_f(_papi_property_type_key( 'heading' ));
+		$slug = _papi_f(_papi_get_property_type_key( 'heading' ));
 		$this->assertEquals( $slug, '_heading_property' );
 	}
 
@@ -50,7 +50,7 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 		$slug = 'heading';
 		add_post_meta( $post_id, $slug, 'papi' );
 
-		$slug_type = _papi_f(_papi_property_type_key( $slug ));
+		$slug_type = _papi_f(_papi_get_property_type_key( $slug ));
 		add_post_meta( $post_id, $slug_type, 'PropertyString' );
 
 		$heading = papi_field( $post_id, $slug );
