@@ -1,0 +1,34 @@
+.papi-property-post {
+
+  .papi-post-list {
+
+    border: 1px solid #EAEAEA;
+
+    li {
+
+      margin: 0;
+      border-top: 1px solid #EAEAEA;
+      color: #333;
+      padding: 10px;
+      cursor: pointer;
+      position: relative;
+
+      &:first-child {
+        border-top: 0;
+      }
+
+      &:hover {
+        background: #FAFAFA;
+
+        a {
+          color: #333;
+        }
+
+      }
+
+    }
+
+  }
+
+
+}
