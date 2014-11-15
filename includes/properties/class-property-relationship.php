@@ -24,6 +24,10 @@ class PropertyRelationship extends Papi_Property {
 	public static function get_sort_options() {
 		$sort_options = array();
 
+		$sort_options[__('Select', 'papi')] = function () {
+			return 0;
+		};
+
 		$sort_options[__( 'Name (alphabetically)', 'papi' )] = function ( $a, $b ) {
 			return strcmp( $a->post_title, $b->post_title );
 		};
