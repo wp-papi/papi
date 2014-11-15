@@ -121,7 +121,7 @@ add_shortcode( 'papi_field', '_papi_field_shortcode' );
 
 function _papi_field_value( $names, $value, $default ) {
 	// Return default value we don't have a value.
-	if ( empty( $value ) ) {
+	if ( empty( $value ) && is_null( $value ) ) {
 		return $default;
 	}
 
