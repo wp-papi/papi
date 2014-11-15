@@ -14,6 +14,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 class PropertyRelationship extends Papi_Property {
 
 	/**
+	 * Get sort option value.
+	 *
+	 * @param string $slug
+	 * @param bool $show
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string|null
+	 */
+
+	public function get_sort_option( $slug, $show ) {
+		if ( $show === false ) {
+			return '';
+		}
+
+		$post_id = _papi_get_post_id();
+
+		if ( empty( $post_id ) ) {
+			return null;
+		}
+
+		$slug = _papi_get_hidden_meta_key( $slug . '_sort_option' );
+
+		return get_post_meta( $post_id, $slug, true );
+	}
+
+	/**
 	 * Get sort options for relationship property.
 	 *
 	 * @since 1.0.0
@@ -95,7 +122,7 @@ class PropertyRelationship extends Papi_Property {
 			return is_object( $post );
 		} );
 
-		$sort_option  = $this->get_sort_option( $options->slug );
+		$sort_option  = $this->get_sort_option( $options->slug, $settings->show_sort_by );
 
 		?>
 		<div class="papi-property-relationship">
@@ -151,27 +178,6 @@ class PropertyRelationship extends Papi_Property {
 			</div>
 		</div>
 	<?php
-	}
-
-	/**
-	 * Get sort option value.
-	 *
-	 * @param string $slug
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string|null
-	 */
-
-	public function get_sort_option( $slug ) {
-		$post_id = _papi_get_post_id();
-
-		if ( empty( $post_id ) ) {
-			return null;
-		}
-
-		$slug = _papi_get_hidden_meta_key( $slug . '_sort_option' );
-		return get_post_meta( $post_id, $slug, true );
 	}
 
 	/**
