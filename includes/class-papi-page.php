@@ -91,10 +91,42 @@ class Papi_Page {
 			) );
 		}
 
-		// Check if we need to convert deep values or not.
+		$convert = false;
+
+		// Property Repeater has array with properties.
+		// Remove `papi_` key and property key.
 		foreach ( $property_value as $ki => $vi ) {
 			if ( is_array( $property_value[ $ki ] ) ) {
-				$property_value = $this->convert_deep_values( $ki, $slug, $property_value, $internal );
+				foreach ( $property_value[ $ki ] as $k => $v ) {
+					if ( _papi_is_property_type_key( $k ) ) {
+						continue;
+					} else {
+						$item_slug = '';
+
+						foreach ( $vi as $vik => $viv ) {
+							if ( _papi_is_property_type_key( $vik ) ) {
+								continue;
+							}
+
+							$item_slug = '.' . $vik;
+
+							break;
+						}
+
+						$ptk = _papi_get_property_type_key( $k );
+						$converted_value = $this->convert( array(
+							'slug'  => $slug . $item_slug,
+							'type'  => $property_value[ $ki ][ $ptk ],
+							'value' => $v
+						) );
+
+						if ( $internal ) {
+							$property_value[ $ki ][ $k ] = $converted_value;
+						} else {
+							$property_value[ $ki ] = $converted_value;
+						}
+					}
+				}
 			} else {
 				$convert = true;
 				break;
@@ -111,54 +143,6 @@ class Papi_Page {
 		}
 
 		return array_filter( $property_value );
-	}
-
-	/**
-	 * Convert deep link values.
-	 *
-	 * @param string $slug
-	 * @param array $property_values
-	 * @param bool $internal
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array
-	 */
-
-	private function convert_deep_values( $ki, $slug, $property_value, $internal ) {
-		foreach ( $property_value[ $ki ] as $k => $v ) {
-			if ( _papi_is_property_type_key( $k ) ) {
-				continue;
-			} else {
-				$item_slug = '';
-
-				foreach ( $vi as $vik => $viv ) {
-					if ( _papi_is_property_type_key( $vik ) ) {
-						continue;
-					}
-
-					$item_slug = '.' . $vik;
-
-					break;
-				}
-
-				$ptk = _papi_get_property_type_key( $k );
-
-				$value = $this->convert( array(
-					'slug'  => $slug . $item_slug,
-					'type'  => $property_value[ $ki ][ $ptk ],
-					'value' => $v
-				) );
-
-				if ( $internal ) {
-					$property_value[ $ki ][ $k ] = $value;
-				} else {
-					$property_value[ $ki ] = $value;
-				}
-			}
-		}
-
-		return $property_value;
 	}
 
 	/**
