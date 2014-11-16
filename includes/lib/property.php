@@ -341,6 +341,9 @@ function _papi_render_properties( $properties ) {
 function _papi_populate_properties ($properties) {
 	$result = array();
 
+	// Get the box property (when you only put a array in the box method) if it exists.
+	$properties = _papi_get_box_property( $properties );
+
 	// Convert all non property objects to property objects.
 	$properties = array_map( function ( $property ) {
 		if ( !is_object( $property ) && is_array( $property ) ) {
@@ -349,9 +352,6 @@ function _papi_populate_properties ($properties) {
 
 		return $property;
 	}, $properties );
-
-	// Get the box property (when you only put a array in the box method) if it exists.
-	$properties = _papi_get_box_property( $properties );
 
 	// Fix so the properties array will have the right order.
 	$properties = array_reverse( $properties );
