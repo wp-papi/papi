@@ -114,16 +114,20 @@ class Papi_Page {
 						}
 
 						$ptk = _papi_get_property_type_key( $k );
+
 						$converted_value = $this->convert( array(
 							'slug'  => $slug . $item_slug,
 							'type'  => $property_value[ $ki ][ $ptk ],
 							'value' => $v
 						) );
+					}
+				}
 
-						if ( $internal ) {
-							$property_value[ $ki ][ $k ] = $converted_value;
-						} else {
-							$property_value[ $ki ] = $converted_value;
+				// Don't return property type values to the user, only internal.
+				if ( ! $internal ) {
+					foreach ( $property_value[ $ki ] as $key => $value ) {
+						if ( _papi_is_property_type_key( $key ) ) {
+							unset( $property_value[ $ki ][ $key ] );
 						}
 					}
 				}
