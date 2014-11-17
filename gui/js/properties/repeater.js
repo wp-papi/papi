@@ -15,21 +15,51 @@
           $template     = $('.repeater-template tr', $repeater).clone(),
           $table        = $repeater.find('> .papi-table tbody'),
           counter       = $table.children().length,
-          html          = $template.html(),
           dataNameRegex = /data\-name\=/g,
-          attrNameRegex = /name\=\"\papi\_\w+(\[\d+\])\[(\w+)\]\"/g,
-          attrNameValue = '[' + counter + ']';
+          attrNameRegex = /\[(\d+)\]/g,
+          attrNameValue = '[' + counter + ']',
+          html          = $template.html().replace(dataNameRegex, 'name=');
 
-      html = html.replace(dataNameRegex, 'name=');
+      $template.html(html);
 
       // Update array number in html name and name if ends with a number.
-      html = html.replace(attrNameRegex, function (match, num) {
-        return match.replace(num, attrNameValue);
+      $template.find('[name],[data-slug], [data-id]').each(function () {
+        var $this = $(this),
+            attrs = [
+              {
+                source: 'data-slug',
+                target: 'data-slug',
+              },
+              {
+                source: 'data-id',
+                target: 'id'
+              },
+              {
+                source: 'name',
+                target: 'name'
+              }
+            ],
+            attr  = '',
+            valeu = '';
+
+        for (var i = 0, l = attrs.length; i < l; i++) {
+          if ($this.attr(attrs[i].source) !== undefined) {
+            attr  = attrs[i].target;
+            value = $this.attr(attrs[i].source);
+          }
+        }
+
+        value = value.replace(attrNameRegex, attrNameValue);
+
+        $this.attr(attr, value);
       });
 
-      $template.html(html).find('td:first-child span').text(counter + 1);
+      $template.find('td:first-child span').text(counter + 1);
 
       $template.appendTo($table);
+
+      // Trigger the property that we just added
+      $template.find('[name*="_property"]').trigger('papi/property/repeater/added');
 
       $('html, body').animate({
         scrollTop: $('> tr:last', $table).offset().top

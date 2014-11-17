@@ -71,6 +71,23 @@
         slug: $prop.data().slug,
         title: $this.text()
       });
+    },
+
+    /**
+     * Added new property to the repeater.
+     *
+     * @param {object} $this
+     */
+
+    added: function ($this) {
+      var $prop = $this.prev(),
+          slug  = $prop.attr('data-slug'),
+          id    = papi.utils.slugify(slug),
+          href  = '#TB_inline?width=600&height=400&inlineId=' + id;
+
+      $prop.find('a').attr('href', href);
+
+      $('[id="' + slug + '"').attr('id', id);
     }
 
   };
@@ -105,6 +122,12 @@
     e.preventDefault();
 
     tb_remove();
+  });
+
+  $(document).on('papi/property/repeater/added', '[value="PropertyPost"]', function (e) {
+    e.preventDefault();
+
+    papi.properties.post.added($(this));
   });
 
 })(jQuery);

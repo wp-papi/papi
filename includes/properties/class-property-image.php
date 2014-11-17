@@ -57,7 +57,7 @@ class PropertyImage extends Papi_Property {
 				}
 				?>
 				<button class="button"
-				        data-papi-options='{"slug":"<?php echo $slug; ?>"}'><?php _e( 'Add image', 'papi' ); ?></button>
+				        data-slug="<?php echo $slug; ?>"><?php _e( 'Add image', 'papi' ); ?></button>
 			</p>
 			<ul>
 				<?php
@@ -66,7 +66,7 @@ class PropertyImage extends Papi_Property {
 						$url = wp_get_attachment_thumb_url( $image->id );
 						?>
 						<li>
-							<a href="#" data-papi-options='{"id":"<?php echo $image->id; ?>"}'>x</a>
+							<a href="#">x</a>
 							<img src="<?php echo $url; ?>"/>
 							<input type="hidden" value="<?php echo $image->id; ?>" name="<?php echo $slug; ?>"/>
 						</li>

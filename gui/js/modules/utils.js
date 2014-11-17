@@ -3,6 +3,13 @@
   // Utils object.
   var utils = {};
 
+  /**
+   * Open WordPress media editor.
+   *
+   * @param {object} options
+   * @param {object} $target
+   */
+
   utils.wpMediaEditor = function (options, $target) {
 
     if (typeof options === 'function' || options instanceof jQuery) {
@@ -35,10 +42,30 @@
     }).open();
   };
 
-   // Check if given string is a image via regex.
+  /**
+   * Check if given string is a image via regex.
+   *
+   * @param {string} url
+   */
+
   utils.isImage = function (url) {
     return /\.(jpeg|jpg|gif|png)$/.test(url.toLowerCase());
   };
+
+  /**
+   * Slugify the given string.
+   *
+   * @param {string} str
+   */
+
+  utils.slugify = function (str) {
+    return str.toString().toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^\w\-]+/g, '')
+          .replace(/\-\-+/g, '-')
+          .replace(/^-+/, '')
+          .replace(/-+$/, '');
+  }
 
   // Add utils to the papi object.
   window.papi.utils = utils;

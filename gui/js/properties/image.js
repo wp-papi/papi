@@ -15,7 +15,7 @@
           $select   = $this.closest('p'),
           $target   = $prop.find('ul'),
           isGallery = $prop.hasClass('gallery'),
-          options   = $this.data('papi-options');
+          slug      = $this.attr('data-slug');
 
       papi.utils.wpMediaEditor({
         multiple: isGallery
@@ -29,7 +29,7 @@
         }).render({
           image: attachment.thumbnail,
           id: attachment.id,
-          slug: options.slug
+          slug: slug
         });
 
         if (!isGallery) {

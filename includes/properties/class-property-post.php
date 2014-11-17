@@ -22,13 +22,16 @@ class PropertyPost extends Papi_Property {
 	public function html() {
 		// Property options.
 		$options = $this->get_options();
-
-		// Database value.
-		$value = $this->get_value();
-
 		$settings = $this->get_settings( array(
 			'post_type' => 'post'
 		) );
+
+		$value = $this->get_value();
+		$empty_value = ! $value instanceof WP_Post;
+
+		if ( $empty_value ) {
+			$value = new stdClass;
+		}
 
 		add_thickbox();
 
@@ -43,7 +46,7 @@ class PropertyPost extends Papi_Property {
 			<a href="#"><?php _e( 'Remove', 'papi' ); ?></a>
 		</script>
 
-		<div id="<?php echo $options->slug; ?>_box" class="hidden">
+		<div id="<?php echo $options->slug; ?>" data-id="<?php echo $options->slug; ?>" class="hidden papi-property-post-wrap">
 			<div class="papi-property-post thickbox" data-slug="<?php echo $options->slug; ?>">
 				<h3><?php _e( 'Select post', 'papi' ); ?></h3>
 				<p>
@@ -72,18 +75,18 @@ class PropertyPost extends Papi_Property {
 		</div>
 
 		<div class="papi-property-post" data-slug="<?php echo $options->slug; ?>">
-			<p class="papi-post-select <?php echo empty( $options->value ) ? '' : 'hidden'; ?>">
+			<p class="papi-post-select <?php echo $empty_value ? '' : 'hidden'; ?>">
 				<?php _e( 'No post selected', 'papi' ); ?>
 				<button class="button"><?php _e( 'Select post', 'papi' ); ?></button>
-				<a href="#TB_inline?width=600&height=400&inlineId=<?php echo $options->slug; ?>_box" class="hidden thickbox"><?php _e( 'Select post', 'papi' ); ?></a>
+				<a href="#TB_inline?width=600&height=400&inlineId=<?php echo _papi_slugify($options->slug); ?>" class="hidden thickbox"><?php _e( 'Select post', 'papi' ); ?></a>
 			</p>
 			<div class="papi-post-value">
-				<?php if ( ! empty( $options->value ) ): ?>
+				<?php if ( ! $empty_value ): ?>
 					<p>
-						<strong><?php _e( 'Selected:', 'papi' ); ?></strong> <?php echo $options->value->post_title; ?>
+						<strong><?php _e( 'Selected:', 'papi' ); ?></strong> <?php echo $empty_value ? '' : $options->value->post_title; ?>
 					</p>
 
-					<input type="hidden" value="<?php echo $options->value->post_id; ?>" name="<?php echo $options->slug; ?>"/>
+					<input type="hidden" value="<?php echo $empty_value ? '' : $options->value->post_id; ?>" name="<?php echo $options->slug; ?>"/>
 					<a href="#"><?php _e( 'Remove', 'papi' ); ?></a>
 				<?php endif; ?>
 			</div>
