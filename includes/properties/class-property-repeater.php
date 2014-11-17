@@ -23,6 +23,15 @@ class PropertyRepeater extends Papi_Property {
 	private $counter = 0;
 
 	/**
+	 * The default value.
+	 *
+	 * @var array
+	 * @since 1.0.0
+	 */
+
+	public $default_value = array();
+
+	/**
 	 * Generate property slug.
 	 *
 	 * @param object $property
@@ -36,6 +45,20 @@ class PropertyRepeater extends Papi_Property {
 		$options = $this->get_options();
 
 		return $options->slug . '[' . $this->counter . ']' . '[' . _papi_remove_papi( $property->slug ) . ']';
+	}
+
+	/**
+	 * Get default settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function get_default_settings() {
+		return array(
+			'items' => array()
+		);
 	}
 
 	/**
@@ -79,15 +102,9 @@ class PropertyRepeater extends Papi_Property {
 	 */
 
 	public function html() {
-		// Get the database value.
-		$values = $this->get_value( array() );
+		$values          = $this->get_value();
+		$settings        = $this->get_settings();
 
-		// Get the property settings.
-		$settings = $this->get_settings( array(
-			'items' => array()
-		) );
-
-		// Prepare properties
 		$settings->items = $this->prepare_properties( $settings->items );
 		?>
 

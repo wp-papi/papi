@@ -26,6 +26,9 @@ class WP_Property_Post extends WP_UnitTestCase {
 		) );
 
 		$this->assertEquals($property->slug, 'papi_post');
+
+		// Test default settings
+		$this->assertEquals($property->settings->post_type, 'post');
 	}
 
 }

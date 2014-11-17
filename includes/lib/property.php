@@ -109,6 +109,26 @@ function _papi_get_options_and_properties ($file_or_options = array(), $properti
 }
 
 /**
+ * Get property type default settings
+ *
+ * @param string $type
+ *
+ * @since 1.0.0
+ *
+ * @return object
+ */
+
+function _papi_get_property_default_settings( $type ) {
+	$property_type = _papi_get_property_type($type);
+
+	if ( is_null( $property_type ) || ! method_exists( $property_type, 'get_default_settings' ) ) {
+		return new stdClass;
+	}
+
+	return (object)$property_type->get_default_settings();
+}
+
+/**
  * Get property options.
  *
  * @param array $options
@@ -172,6 +192,9 @@ function _papi_get_property_options( $options, $get_value = true ) {
 	if ( ! preg_match( '/^Property/', $options->type ) ) {
 		$options->type = 'Property' . ucfirst( strtolower( $options->type ) );
 	}
+
+	// Get the default settings for the property.
+	$options->settings = _papi_get_property_default_settings( $options->type );
 
 	if ( empty( $options->value ) && $get_value ) {
 		// Get meta value for the field

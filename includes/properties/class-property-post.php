@@ -14,6 +14,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 class PropertyPost extends Papi_Property {
 
 	/**
+	 * The default value.
+	 *
+	 * @var int
+	 * @since 1.0.0
+	 */
+
+	public $default_value = 0;
+
+	/**
+	 * Get default settings.
+	 *
+	 * @var array
+	 * @since 1.0.0
+	 */
+
+	public function get_default_settings() {
+		return array(
+			'intro'     => __( 'Select post', 'papi' ),
+			'post_type' => 'post'
+		);
+	}
+
+	/**
 	 * Generate the HTML for the property.
 	 *
 	 * @since 1.0.0
@@ -24,10 +47,7 @@ class PropertyPost extends Papi_Property {
 		$options = $this->get_options();
 
 		// Property settings
-		$settings = $this->get_settings( array(
-			'post_type' => 'post',
-			'intro'     => __('Select post', 'papi')
-		) );
+		$settings = $this->get_settings();
 
 		$value = $this->get_value();
 
@@ -47,7 +67,7 @@ class PropertyPost extends Papi_Property {
 			</p>
 			<select name="<?php echo $options->slug; ?>" class="papi-vendor-select2 papi-fullwidth">
 
-				<?php foreach ($posts as $post) : ?>
+				<?php foreach ( $posts as $post ) : ?>
 
 					<option value="<?php echo $post->ID; ?>" <?php echo $value == $post->ID ? 'selected="selected"' : ''; ?>>
 						<?php echo $post->post_title; ?>

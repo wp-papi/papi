@@ -14,6 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 abstract class Papi_Property {
 
 	/**
+	 * Default value.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
+
+	// public $default_value = '';
+
+	/**
 	 * The page post id.
 	 *
 	 * @var int
@@ -44,6 +53,18 @@ abstract class Papi_Property {
 	}
 
 	/**
+	 * Get default settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	// public function get_default_settings() {
+	//	return array();
+	// }
+
+	/**
 	 * Create a new instance of the given property.
 	 *
 	 * @param string $property
@@ -54,7 +75,7 @@ abstract class Papi_Property {
 	 */
 
 	public static function factory( $property ) {
-		if ( empty( $property) || ! class_exists( $property ) ) {
+		if ( empty( $property ) || ! class_exists( $property ) ) {
 			return null;
 		}
 
@@ -278,7 +299,7 @@ abstract class Papi_Property {
 	/**
 	 * Get database value.
 	 *
-	 * @param mixed $default
+	 * @param mixed $default (Depricated from 1.0.0)
 	 *
 	 * @since 1.0.0
 	 *
@@ -287,6 +308,11 @@ abstract class Papi_Property {
 
 	public function get_value( $default = '' ) {
 		$value = $this->options->value;
+
+		// All core properties should have this variable as of 1.0.0.
+		if ( isset( $this->default_value ) ) {
+			$default = $this->default_value;
+		}
 
 		if ( empty( $value ) ) {
 			return $default;
@@ -298,7 +324,7 @@ abstract class Papi_Property {
 	/**
 	 * Get custom property settings.
 	 *
-	 * @param array $defaults
+	 * @param array $defaults (Depricated 1.0.0)
 	 *
 	 * @since 1.0.0
 	 *
@@ -306,6 +332,12 @@ abstract class Papi_Property {
 	 */
 
 	public function get_settings( $defaults = array() ) {
+
+		// All core properties should have this method as of 1.0.0.
+		if ( method_exists( $this, 'default_settings' ) ) {
+			$defaults = $this->default_settings();
+		}
+
 		return (object) wp_parse_args( $this->options->settings, $defaults );
 	}
 
