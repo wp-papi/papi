@@ -115,7 +115,7 @@ class Papi_Page {
 
 						$ptk = _papi_get_property_type_key( $k );
 
-						$property_value[ $ki ][ $ptk ] = $this->convert( array(
+						$property_value[ $ki ][ $k ] = $this->convert( array(
 							'slug'  => $slug . $item_slug,
 							'type'  => $property_value[ $ki ][ $ptk ],
 							'value' => $v
