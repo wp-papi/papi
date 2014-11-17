@@ -106,6 +106,9 @@ class PropertyRepeater extends Papi_Property {
 		$settings        = $this->get_settings();
 
 		$settings->items = $this->prepare_properties( $settings->items );
+
+		var_dump($settings->items);
+
 		?>
 
 		<div class="papi-property-repeater">

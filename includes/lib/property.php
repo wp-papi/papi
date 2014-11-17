@@ -22,12 +22,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array
  */
 
-function _papi_get_box_property ($properties) {
+function _papi_get_box_property( $properties ) {
 	$box_property = array_filter( $properties, function ( $property ) {
 		return ! is_object( $property );
 	} );
 
-	if ( ! empty( $box_property ) && ! isset($box_property[0]) ) {
+	if ( ! empty( $box_property ) && ! isset( $box_property[0] ) ) {
 		$property = _papi_get_property_options( $box_property );
 		if ( ! $property->disabled ) {
 			$properties = array( $property );
@@ -69,7 +69,7 @@ function _papi_get_only_property_values( $arr = array() ) {
  * @return array
  */
 
-function _papi_get_options_and_properties ($file_or_options = array(), $properties = array(), $is_box = true) {
+function _papi_get_options_and_properties( $file_or_options = array(), $properties = array(), $is_box = true ) {
 	$options = array();
 
 	if ( is_array( $file_or_options ) ) {
@@ -105,7 +105,7 @@ function _papi_get_options_and_properties ($file_or_options = array(), $properti
 		}
 	}
 
-	return array($options, $properties);
+	return array( $options, $properties );
 }
 
 /**
@@ -115,17 +115,17 @@ function _papi_get_options_and_properties ($file_or_options = array(), $properti
  *
  * @since 1.0.0
  *
- * @return object
+ * @return array
  */
 
 function _papi_get_property_default_settings( $type ) {
-	$property_type = _papi_get_property_type($type);
+	$property_type = _papi_get_property_type( $type );
 
 	if ( is_null( $property_type ) || ! method_exists( $property_type, 'get_default_settings' ) ) {
-		return new stdClass;
+		return array();
 	}
 
-	return (object)$property_type->get_default_settings();
+	return $property_type->get_default_settings();
 }
 
 /**
@@ -193,8 +193,9 @@ function _papi_get_property_options( $options, $get_value = true ) {
 		$options->type = 'Property' . ucfirst( strtolower( $options->type ) );
 	}
 
-	// Get the default settings for the property.
-	$options->settings = _papi_get_property_default_settings( $options->type );
+	// Get the default settings for the property and merge them with the given settings.
+	$options->settings = array_merge( _papi_get_property_default_settings( $options->type ), $options->settings );
+	$options->settings = (object)$options->settings;
 
 	if ( empty( $options->value ) && $get_value ) {
 		// Get meta value for the field
@@ -361,7 +362,7 @@ function _papi_render_properties( $properties ) {
  * @return array
  */
 
-function _papi_populate_properties ($properties) {
+function _papi_populate_properties( $properties ) {
 	$result = array();
 
 	// Get the box property (when you only put a array in the box method) if it exists.
