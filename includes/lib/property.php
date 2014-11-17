@@ -27,7 +27,7 @@ function _papi_get_box_property ($properties) {
 		return ! is_object( $property );
 	} );
 
-	if ( ! empty( $box_property ) ) {
+	if ( ! empty( $box_property ) && ! isset($box_property[0]) ) {
 		$property = _papi_get_property_options( $box_property );
 		if ( ! $property->disabled ) {
 			$properties = array( $property );
