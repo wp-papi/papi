@@ -56,6 +56,3 @@
   });
 
 })(jQuery);
-
-
-// <div id="message" class="updated below-h2"><p>Page published. <a href="http://dev.isopress.com/?page_id=44">View page</a></p></div>

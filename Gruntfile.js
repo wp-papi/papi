@@ -43,6 +43,7 @@ module.exports = function(grunt) {
             'gui/js/modules/*.js',
             'gui/js/views/*.js',
             'gui/js/properties/*.js',
+            'gui/js/vendor.js',
             'gui/js/binds.js',
             'gui/js/init.js'
           ]

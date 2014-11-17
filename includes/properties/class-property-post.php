@@ -22,74 +22,40 @@ class PropertyPost extends Papi_Property {
 	public function html() {
 		// Property options.
 		$options = $this->get_options();
+
+		// Property settings
 		$settings = $this->get_settings( array(
-			'post_type' => 'post'
+			'post_type' => 'post',
+			'intro'     => __('Select post', 'papi')
 		) );
 
 		$value = $this->get_value();
-		$empty_value = ! $value instanceof WP_Post;
 
-		if ( $empty_value ) {
-			$value = new stdClass;
+		if ( is_object( $value ) ) {
+			$value = $value->ID;
+		} else {
+			$value = 0;
 		}
 
-		add_thickbox();
-
 		$posts = query_posts( 'post_type=' . $settings->post_type . '&posts_per_page=-1' );
+
 		?>
 
-		<script type="text/template" id="tmpl-papi-post">
+		<div class="papi-property-post">
 			<p>
-				<strong><?php _e( 'Selected:', 'papi' ); ?></strong> <%= title %>
+				<?php echo $settings->intro; ?>
 			</p>
-			<input type="hidden" value="<%= id %>" name="<%= slug %>"/>
-			<a href="#"><?php _e( 'Remove', 'papi' ); ?></a>
-		</script>
+			<select name="<?php echo $options->slug; ?>" class="papi-vendor-select2 papi-fullwidth">
 
-		<div id="<?php echo $options->slug; ?>" data-id="<?php echo $options->slug; ?>" class="hidden papi-property-post-wrap">
-			<div class="papi-property-post thickbox" data-slug="<?php echo $options->slug; ?>">
-				<h3><?php _e( 'Select post', 'papi' ); ?></h3>
-				<p>
-					<em><?php _e('Number of posts:', 'papi'); ?> <span><?php echo count($posts); ?></span></em>
-				</p>
-				<p>
-					<input type="search" placeholder="<?php _e('Search', 'papi'); ?>" />
-				</p>
-				<ul class="papi-post-list">
-					<?php foreach ( $posts as $post ): ?>
-						<li>
-							<a href="#" data-id="<?php echo $post->ID; ?>"><?php echo $post->post_title; ?></a>
-						</li>
-					<?php endforeach; ?>
-				</ul>
+				<?php foreach ($posts as $post) : ?>
 
-				<div class="submitbox">
-					<div id="wp-link-cancel">
-						<a class="submitdelete deletion" href="#"><?php _e('Cancel', 'papi'); ?></a>
-					</div>
-				</div>
+					<option value="<?php echo $post->ID; ?>" <?php echo $value == $post->ID ? 'selected="selected"' : ''; ?>>
+						<?php echo $post->post_title; ?>
+					</option>
 
-				<div class="clear"></div>
+				<?php endforeach; ?>
 
-			</div>
-		</div>
-
-		<div class="papi-property-post" data-slug="<?php echo $options->slug; ?>">
-			<p class="papi-post-select <?php echo $empty_value ? '' : 'hidden'; ?>">
-				<?php _e( 'No post selected', 'papi' ); ?>
-				<button class="button"><?php _e( 'Select post', 'papi' ); ?></button>
-				<a href="#TB_inline?width=600&height=400&inlineId=<?php echo _papi_slugify($options->slug); ?>" class="hidden thickbox"><?php _e( 'Select post', 'papi' ); ?></a>
-			</p>
-			<div class="papi-post-value">
-				<?php if ( ! $empty_value ): ?>
-					<p>
-						<strong><?php _e( 'Selected:', 'papi' ); ?></strong> <?php echo $empty_value ? '' : $options->value->post_title; ?>
-					</p>
-
-					<input type="hidden" value="<?php echo $empty_value ? '' : $options->value->post_id; ?>" name="<?php echo $options->slug; ?>"/>
-					<a href="#"><?php _e( 'Remove', 'papi' ); ?></a>
-				<?php endif; ?>
-			</div>
+			</select>
 		</div>
 		<?php
 	}

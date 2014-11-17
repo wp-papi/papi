@@ -94,7 +94,7 @@ class PropertyRepeater extends Papi_Property {
 		<div class="papi-property-repeater">
 
 			<div class="repeater-template">
-				<table class="papi-table">
+				<table class="papi-table papi-table-template">
 					<tbody>
 					<tr>
 						<td>
