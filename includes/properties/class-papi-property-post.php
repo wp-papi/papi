@@ -31,7 +31,7 @@ class Papi_Property_Post extends Papi_Property {
 
 	public function get_default_settings() {
 		return array(
-			'intro'     => __( 'Select post', 'papi' ),
+			'text'      => __( 'Select post', 'papi' ),
 			'post_type' => 'post'
 		);
 	}
@@ -59,7 +59,7 @@ class Papi_Property_Post extends Papi_Property {
 
 		<div class="papi-property-post">
 			<p>
-				<?php echo $settings->intro; ?>
+				<?php echo $settings->text; ?>
 			</p>
 			<select name="<?php echo $options->slug; ?>" class="papi-vendor-select2 papi-fullwidth">
 
