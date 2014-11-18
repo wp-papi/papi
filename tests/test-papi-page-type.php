@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @package Papi
  */
+
 class WP_Papi_Page_Type extends WP_UnitTestCase {
 
 	/**
@@ -82,13 +83,13 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 		add_post_meta( $this->post_id, $slug, 'papi' );
 
 		$slug_type = _papi_f( _papi_get_property_type_key( $slug ) );
-		add_post_meta( $this->post_id, $slug_type, 'PropertyString' );
+		add_post_meta( $this->post_id, $slug_type, 'string' );
 
 		$heading = papi_field( $this->post_id, $slug );
 		$this->assertEquals( $heading, 'papi' );
 
-		$heading_property = papi_field( $this->post_id, $slug_type );
-		$this->assertEquals( $heading_property, 'PropertyString' );
+		$heading_property = get_post_meta( $this->post_id, $slug_type, true );
+		$this->assertEquals( $heading_property, 'string' );
 	}
 
 }

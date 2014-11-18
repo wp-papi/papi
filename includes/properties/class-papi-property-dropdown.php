@@ -11,7 +11,22 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class PropertyDropdown extends Papi_Property {
+class Papi_Property_Dropdown extends Papi_Property {
+
+	/**
+	 * Get default settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function get_default_settings() {
+		return array(
+			'items'    => array(),
+			'selected' => array()
+		);
+	}
 
 	/**
 	 * Generate the HTML for the property.
@@ -20,17 +35,9 @@ class PropertyDropdown extends Papi_Property {
 	 */
 
 	public function html() {
-		// Property options.
-		$options = $this->get_options();
-
-		// Database value. Can be null.
-		$value = $this->get_value();
-
-		// Property settings from the page type.
-		$settings = $this->get_settings( array(
-			'items'    => array(),
-			'selected' => ''
-		) );
+		$options  = $this->get_options();
+		$settings = $this->get_settings();
+		$value    = $this->get_value();
 
 		// Override selected setting with
 		// database value if not empty.
@@ -39,8 +46,7 @@ class PropertyDropdown extends Papi_Property {
 		}
 
 		?>
-		<select class="papi-property-dropdown" name="<?php echo $options->slug; ?>"
-		        class="<?php echo $this->css_classes(); ?>">
+		<select class="papi-property-dropdown" name="<?php echo $options->slug; ?>">
 			<?php
 			foreach ( $settings->items as $key => $value ):
 				if ( is_numeric( $key ) ) {

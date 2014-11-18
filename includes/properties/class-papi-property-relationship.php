@@ -11,7 +11,33 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class PropertyRelationship extends Papi_Property {
+class Papi_Property_Relationship extends Papi_Property {
+
+	/**
+	 * The default value.
+	 *
+	 * @var int
+	 * @since 1.0.0
+	 */
+
+	public $default_value = array();
+
+	/**
+	 * Get default settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function get_default_settings() {
+		return array(
+			'choose_max'   => - 1,
+			'post_types'   => 'page',
+			'query'        => array(),
+			'show_sort_by' => true
+		);
+	}
 
 	/**
 	 * Get sort option value.
@@ -46,7 +72,7 @@ class PropertyRelationship extends Papi_Property {
 	public static function get_sort_options() {
 		$sort_options = array();
 
-		$sort_options[__('Select', 'papi')] = function () {
+		$sort_options[__( 'Select', 'papi' )] = function () {
 			return 0;
 		};
 
@@ -89,35 +115,20 @@ class PropertyRelationship extends Papi_Property {
 	 */
 
 	public function html() {
-		// Property options.
-		$options = $this->get_options();
-
-		// Property settings.
-		$settings = $this->get_settings( array(
-			'choose_max'   => - 1,
-			'post_types'   => array( 'page' ),
-			'query'        => array(),
-			'show_sort_by' => true
-		) );
-
-		// Database value.
-		$references = $this->get_value( array() );
-
-		// Remove query post type values.
-		if ( isset( $settings->query['post_type'] ) ) {
-			unset( $settings->query['post_type'] );
-		}
+		$options     = $this->get_options();
+		$settings    = $this->get_settings();
+		$sort_option = $this->get_sort_option( $options->slug );
+		$value       = $this->get_value();
 
 		// Fetch posts with the post types and the query.
 		$posts = query_posts( array_merge( $settings->query, array(
-			'post_type' => $settings->post_types
+			'post_type' => _papi_to_array( $settings->post_types )
 		) ) );
 
-		$references = array_filter( $references, function ( $post ) {
+		// Keep only objects.
+		$value = array_filter( _papi_to_array( $value ), function ( $post ) {
 			return is_object( $post );
 		} );
-
-		$sort_option  = $this->get_sort_option( $options->slug );
 
 		?>
 		<div class="papi-property-relationship">
@@ -130,7 +141,7 @@ class PropertyRelationship extends Papi_Property {
 					<?php if ( $settings->show_sort_by ): ?>
 						<strong><?php _e( 'Sort by', 'papi' ); ?></strong>
 						<select name="_<?php echo $options->slug; ?>_sort_option">
-							<?php foreach ( static::get_sort_options() as $key => $value ): ?>
+							<?php foreach ( static::get_sort_options() as $key => $v ): ?>
 								<option value="<?php echo $key; ?>" <?php echo $key == $sort_option ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
 							<?php endforeach; ?>
 						</select>
@@ -159,7 +170,7 @@ class PropertyRelationship extends Papi_Property {
 				</div>
 				<div class="relationship-right" data-relationship-choose-max="<?php echo $settings->choose_max; ?>">
 					<ul>
-						<?php foreach ( $references as $post ): ?>
+						<?php foreach ( $value as $post ): ?>
 							<li>
 								<input type="hidden" name="<?php echo $options->slug; ?>[]"
 								       value="<?php echo $post->ID; ?>"/>

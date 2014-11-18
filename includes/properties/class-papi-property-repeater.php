@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class PropertyRepeater extends Papi_Property {
+class Papi_Property_Repeater extends Papi_Property {
 
 	/**
 	 * List counter number.

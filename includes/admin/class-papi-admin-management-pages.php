@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
+
 class Papi_Admin_Management_Pages {
 
 	/**
@@ -87,4 +88,3 @@ class Papi_Admin_Management_Pages {
 	}
 
 }
-

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class PropertyDivider extends Papi_Property {
+class Papi_Property_Divider extends Papi_Property {
 
 	/**
 	 * Generate the HTML for the property.
@@ -20,7 +20,6 @@ class PropertyDivider extends Papi_Property {
 	 */
 
 	public function html() {
-		// Property options
 		$options = $this->get_options();
 		?>
 		<h3 class="hndle papi-property-divider">

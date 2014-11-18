@@ -11,7 +11,22 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class PropertyUrl extends Papi_Property {
+
+class Papi_Property_Url extends Papi_Property {
+
+	/**
+	 * Get default settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function get_default_settings() {
+		return array(
+			'mediauploader' => false
+		);
+	}
 
 	/**
 	 * Generate the HTML for the property.
@@ -20,26 +35,13 @@ class PropertyUrl extends Papi_Property {
 	 */
 
 	public function html() {
-		// Property options.
-		$options = $this->get_options();
-
-		// Property settings.
-		$settings = $this->get_settings( array(
-			'mediauploader' => false
-		) );
-
-		// Database value.
-		$value = $this->get_value();
-
-		$css_classes = $this->css_classes();
-
-		if ( $settings->mediauploader ) {
-			$css_classes .= ' papi-url-media-input';
-		}
+		$options  = $this->get_options();
+		$settings = $this->get_settings();
+		$value    = $this->get_value();
 
 		?>
 		<input type="url" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>"
-		       class="<?php echo $css_classes; ?>"/>
+		       class="<?php echo $settings->mediauploader ? 'papi-url-media-input' : ''; ?>"/>
 
 		<?php if ( $settings->mediauploader ): ?>
 			&nbsp; <input type="submit" name="<?php echo $options->slug; ?>_button"

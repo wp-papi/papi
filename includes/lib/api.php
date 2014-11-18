@@ -74,7 +74,7 @@ function papi_get_page( $post_id = null ) {
 
 function papi_property( $file_or_options, $values = array() ) {
 	if ( is_array( $file_or_options ) ) {
-		return $file_or_options;
+		return _papi_get_property_options( $file_or_options );
 	}
 
 	if ( is_string( $file_or_options ) && is_array( $values ) ) {
@@ -95,7 +95,7 @@ function papi_property( $file_or_options, $values = array() ) {
  * @return array
  */
 
-function papi_tab ( $file_or_options, $properties = array() ) {
+function papi_tab( $file_or_options, $properties = array() ) {
 	list( $options, $properties ) = _papi_get_options_and_properties( $file_or_options, $properties, false );
 
 	// The tab key is important, it's says that we should render a tab meta box.
@@ -125,7 +125,7 @@ function papi_template( $file, $values = array() ) {
 		return array();
 	}
 
-	$template = require($filepath);
+	$template = require $filepath;
 
 	return array_merge( $template, $values );
 }

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class PropertyPost extends Papi_Property {
+class Papi_Property_Post extends Papi_Property {
 
 	/**
 	 * The default value.
@@ -43,13 +43,9 @@ class PropertyPost extends Papi_Property {
 	 */
 
 	public function html() {
-		// Property options.
-		$options = $this->get_options();
-
-		// Property settings
+		$options  = $this->get_options();
 		$settings = $this->get_settings();
-
-		$value = $this->get_value();
+		$value    = $this->get_value();
 
 		if ( is_object( $value ) ) {
 			$value = $value->ID;
@@ -79,6 +75,18 @@ class PropertyPost extends Papi_Property {
 		</div>
 		<?php
 	}
+
+	/**
+	 * Format the value of the property before we output it to the application.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
 
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_numeric( $value ) ) {

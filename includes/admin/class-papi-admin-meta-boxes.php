@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
+
 class Papi_Admin_Meta_Boxes {
 
 	/**
@@ -259,7 +260,7 @@ class Papi_Admin_Meta_Boxes {
 			$property_value = $property['value'];
 
 			// Property type data.
-			$property_type_key   = _papi_f( _papi_get_property_type_key( _papi_remove_papi( $key ) ) );
+			$property_type_key   = _papi_get_property_type_key_f( $key );
 			$property_type_value = $property['type'];
 
 			if ( empty( $property_value ) || empty( $property_type_value ) ) {

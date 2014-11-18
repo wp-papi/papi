@@ -8,7 +8,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Papi - Property Number
  */
-class PropertyNumber extends PropertyString {
+class Papi_Property_Number extends Papi_Property_String {
+
+	/**
+	 * The default value.
+	 *
+	 * @var int
+	 * @since 1.0.0
+	 */
+
+	public $default_value = 0;
 
 	/**
 	 * The input type to use.
@@ -18,15 +27,6 @@ class PropertyNumber extends PropertyString {
 	 */
 
 	public $input_type = 'number';
-
-	/**
-	 * The default value.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-
-	public $default_value = 0;
 
 	/**
 	 * Format the value of the property before we output it to the application.

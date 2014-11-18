@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class PropertyEmail extends PropertyString {
+class Papi_Property_Email extends Papi_Property_String {
 
 	/**
 	 * The input type to use.

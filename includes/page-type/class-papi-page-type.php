@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
+
 class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	/**
