@@ -46,7 +46,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	public function __construct( $file_path = '', $register = true ) {
 		parent::__construct( $file_path );
 
-		if ( $register ) {
+		if ( $register && method_exists( $this, 'register' ) ) {
 			$this->register();
 		}
 	}
@@ -91,14 +91,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	protected function property( $file_or_options = array(), $values = array() ) {
 		return papi_property( $file_or_options, $values );
 	}
-
-	/**
-	 * Register meta boxes, properties and tabs.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function register() {}
 
 	/**
 	 * Remove post type support. Runs once, on page load.
