@@ -12,16 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
+
 class Papi_Page_Type extends Papi_Page_Type_Meta {
-
-	/**
-	 * The meta box instance.
-	 *
-	 * @var Papi_Admin_Meta_Box
-	 * @since 1.0.0
-	 */
-
-	private $box;
 
 	/**
 	 * Contains all register properties on this page.
@@ -34,13 +26,13 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	private $properties = array();
 
 	/**
-	 * Remove post type support array.
+	 * Array of post type supports to remove.
 	 *
 	 * @var array
 	 * @since 1.0.0
 	 */
 
-	private $remove_post_type_support = array();
+	private $post_type_supports = array();
 
 	/**
 	 * Load a page type by the file.
@@ -54,7 +46,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	public function __construct( $file_path = '', $register = true ) {
 		parent::__construct( $file_path );
 
-		if ( $register && method_exists( $this, 'register' ) ) {
+		if ( $register ) {
 			$this->register();
 		}
 	}
@@ -101,6 +93,14 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	}
 
 	/**
+	 * Register meta boxes, properties and tabs.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function register() {}
+
+	/**
 	 * Remove post type support. Runs once, on page load.
 	 *
 	 * @param array $remove_post_type_support
@@ -108,9 +108,8 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @since 1.0.0
 	 */
 
-	protected function remove( $remove_post_type_support = array() ) {
-		$remove_post_type_support       = _papi_to_array( $remove_post_type_support );
-		$this->remove_post_type_support = array_merge( $this->remove_post_type_support, $remove_post_type_support );
+	protected function remove( $post_type_supports = array() ) {
+		$this->post_type_supports = array_merge( $this->post_type_supports, _papi_to_array( $post_type_supports ) );
 		add_action( 'init', array( $this, 'remove_post_type_support' ) );
 	}
 
@@ -127,7 +126,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			return;
 		}
 
-		foreach ( $this->remove_post_type_support as $post_type_support ) {
+		foreach ( $this->post_type_supports as $post_type_support ) {
 			remove_post_type_support( $post_type, $post_type_support );
 		}
 	}
