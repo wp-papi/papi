@@ -266,7 +266,7 @@ function _papi_get_property_type( $type ) {
  * @return string
  */
 
-function _papi_get_property_type_key( $str ) {
+function _papi_get_property_type_key( $str = '' ) {
 	return _papi_remove_papi( $str . '_property' );
 }
 
