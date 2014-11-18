@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @package Papi
  */
+
 class WP_Papi_Plugin extends WP_UnitTestCase {
 
 	/**

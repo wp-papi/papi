@@ -11,7 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class PropertyString extends Papi_Property {
+
+class Papi_Property_String extends Papi_Property {
 
 	/**
 	 * The input type to use.
@@ -38,15 +39,12 @@ class PropertyString extends Papi_Property {
 	 */
 
 	public function html() {
-		// Property options.
 		$options = $this->get_options();
-
-		// Database value.
-		$value = $this->get_value( $this->default_value );
+		$value   = $this->get_value();
 
 		?>
 		<input type="<?php echo $this->input_type; ?>" name="<?php echo $options->slug; ?>"
-		       value="<?php echo $value; ?>" class="<?php echo $this->css_classes(); ?>"/>
+		       value="<?php echo $value; ?>" />
 	<?php
 	}
 

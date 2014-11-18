@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class PropertyDate extends Papi_Property {
+class Papi_Property_Date extends Papi_Property {
 
 	/**
 	 * Generate the HTML for the property.
@@ -20,19 +20,15 @@ class PropertyDate extends Papi_Property {
 	 */
 
 	public function html() {
-		// Property options.
 		$options = $this->get_options();
+		$value   = $this->get_value();
 
-		// Database value.
-		$value = $this->get_value();
-
-		if (is_integer($value)) {
+		if ( is_integer( $value ) ) {
 			$value = date( 'Y-m-d', $value );
 		}
 
 		?>
-		<input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>"
-		       class="<?php echo $this->css_classes(); ?>" data-papi-property="date"/>
+		<input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" data-papi-property="date"/>
 	<?php
 	}
 

@@ -11,7 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-abstract class Papi_Property {
+
+class Papi_Property {
 
 	/**
 	 * Default value.
@@ -20,7 +21,7 @@ abstract class Papi_Property {
 	 * @since 1.0.0
 	 */
 
-	// public $default_value = '';
+	public $default_value = '';
 
 	/**
 	 * The page post id.
@@ -60,26 +61,28 @@ abstract class Papi_Property {
 	 * @return array
 	 */
 
-	// public function get_default_settings() {
-	//	return array();
-	// }
+	 public function get_default_settings() {
+		return array();
+	 }
 
 	/**
 	 * Create a new instance of the given property.
 	 *
-	 * @param string $property
+	 * @param string $property_type
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return object
 	 */
 
-	public static function factory( $property ) {
-		if ( empty( $property ) || ! class_exists( $property ) ) {
+	public static function factory( $property_type ) {
+		$property_type = _papi_get_property_class_name( $property_type );
+
+		if ( empty( $property_type ) || ! class_exists( $property_type ) ) {
 			return null;
 		}
 
-		$prop = new $property();
+		$prop = new $property_type();
 
 		// Property class need to be a subclass of Papi Property class.
 		if ( ! is_subclass_of( $prop, 'Papi_property' ) ) {
@@ -144,6 +147,8 @@ abstract class Papi_Property {
 		} else {
 			$slug = _papi_get_property_type_key( $slug );
 		}
+
+		$slug = _papify( $slug );
 
 		?>
 		<input type="hidden" value="<?php echo $this->options->type; ?>" name="<?php echo $slug; ?>"/>
@@ -299,23 +304,16 @@ abstract class Papi_Property {
 	/**
 	 * Get database value.
 	 *
-	 * @param mixed $default (Depricated from 1.0.0)
-	 *
 	 * @since 1.0.0
 	 *
 	 * @return mixed
 	 */
 
-	public function get_value( $default = '' ) {
+	public function get_value() {
 		$value = $this->options->value;
 
-		// All core properties should have this variable as of 1.0.0.
-		if ( isset( $this->default_value ) ) {
-			$default = $this->default_value;
-		}
-
 		if ( empty( $value ) ) {
-			return $default;
+			return $this->default_value;
 		}
 
 		return $this->load_value( $value, $this->options->slug, $this->post_id );
@@ -324,34 +322,12 @@ abstract class Papi_Property {
 	/**
 	 * Get custom property settings.
 	 *
-	 * @param array $defaults (Depricated 1.0.0)
-	 *
 	 * @since 1.0.0
 	 *
 	 * @return object
 	 */
 
-	public function get_settings( $defaults = array() ) {
-
-		// All core properties should have this method as of 1.0.0.
-		if ( method_exists( $this, 'default_settings' ) ) {
-			$defaults = $this->default_settings();
-		}
-
-		return (object) wp_parse_args( $this->options->settings, $defaults );
-	}
-
-	/**
-	 * Get css classes for the property.
-	 *
-	 * @param string $css_class
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string
-	 */
-
-	public function css_classes( $css_class = '' ) {
-		return $css_class . ' ' . $this->get_settings( array( 'css_class' => '' ) )->css_class;
+	public function get_settings() {
+		return (object) wp_parse_args( $this->options->settings, $this->get_default_settings() );
 	}
 }

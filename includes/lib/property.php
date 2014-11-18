@@ -142,7 +142,11 @@ function _papi_get_property_default_settings( $type ) {
 function _papi_get_property_options( $options, $get_value = true ) {
 
 	if ( ! is_array( $options ) ) {
-		return null;
+		if ( is_object( $options ) ) {
+			return $options;
+		} else {
+			return null;
+		}
 	}
 
 	$defaults = array(
@@ -188,11 +192,6 @@ function _papi_get_property_options( $options, $get_value = true ) {
 		$options->old_slug = _papi_html_name( $options->old_slug );
 	}
 
-	// This fixes so you can use "Text" as type and hasn't to write "PropertyText".
-	if ( ! preg_match( '/^Property/', $options->type ) ) {
-		$options->type = 'Property' . ucfirst( strtolower( $options->type ) );
-	}
-
 	// Get the default settings for the property and merge them with the given settings.
 	$options->settings = array_merge( _papi_get_property_default_settings( $options->type ), $options->settings );
 	$options->settings = (object)$options->settings;
@@ -212,6 +211,20 @@ function _papi_get_property_options( $options, $get_value = true ) {
 }
 
 /**
+ * Get property class name.
+ *
+ * @param string $type
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papi_get_property_class_name( $type ) {
+	return 'Papi_Property_' . ucfirst( _papi_get_property_short_type( $type ) );
+}
+
+/**
  * Get property short type.
  *
  * @param string $type
@@ -222,7 +235,7 @@ function _papi_get_property_options( $options, $get_value = true ) {
  */
 
 function _papi_get_property_short_type( $type ) {
-	return preg_replace( '/^property/', '', strtolower( $type ) );
+	return preg_replace( '/^property\_/', '', strtolower( $type ) );
 }
 
 /**
@@ -253,8 +266,22 @@ function _papi_get_property_type( $type ) {
  * @return string
  */
 
-function _papi_get_property_type_key( $str = '' ) {
-	return $str . '_property';
+function _papi_get_property_type_key( $str ) {
+	return _papi_remove_papi( $str . '_property' );
+}
+
+/**
+ * Get the right key for a property type with a underscore as the first character.
+ *
+ * @param string $str
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papi_get_property_type_key_f ( $str ) {
+	return _papi_f( _papi_get_property_type_key( $str ) );
 }
 
 /**
@@ -355,7 +382,7 @@ function _papi_render_properties( $properties ) {
 /**
  * Populate properties array.
  *
- * @param array $properties
+ * @param array|object $properties
  *
  * @since 1.0.0
  *
@@ -363,6 +390,12 @@ function _papi_render_properties( $properties ) {
  */
 
 function _papi_populate_properties( $properties ) {
+
+	// If $properties is a object we can just return it in a array.
+	if ( is_object( $properties )  ) {
+		return array( $properties );
+	}
+
 	$result = array();
 
 	// Get the box property (when you only put a array in the box method) if it exists.

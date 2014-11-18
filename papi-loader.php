@@ -191,22 +191,22 @@ final class Papi_Loader {
 		require_once( $this->plugin_dir . 'includes/page-type/class-papi-page-type.php' );
 
 		// Load Papi property classes.
-		require_once( $this->plugin_dir . 'includes/properties/class-property-string.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-hidden.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-bool.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-email.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-date.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-number.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-url.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-divider.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-text.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-image.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-dropdown.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-checkbox.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-repeater.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-relationship.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-radio.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-property-post.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-string.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-hidden.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-bool.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-email.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-date.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-number.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-url.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-divider.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-text.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-image.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-dropdown.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-checkbox.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-repeater.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-relationship.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-radio.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-post.php' );
 
 		// Include third party properties.
 		$this->include_third_party();

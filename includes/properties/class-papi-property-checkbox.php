@@ -11,7 +11,22 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class PropertyCheckbox extends Papi_Property {
+class Papi_Property_Checkbox extends Papi_Property {
+
+	/**
+	 * Get default settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function get_default_settings() {
+		return array(
+			'items'    => array(),
+			'selected' => array()
+		);
+	}
 
 	/**
 	 * Generate the HTML for the property.
@@ -20,17 +35,9 @@ class PropertyCheckbox extends Papi_Property {
 	 */
 
 	public function html() {
-		// Property options.
-		$options = $this->get_options();
-
-		// Database value. Can be null.
-		$value = $this->get_value();
-
-		// Property settings from the page type.
-		$settings = $this->get_settings( array(
-			'items'    => array(),
-			'selected' => array()
-		) );
+		$options  = $this->get_options();
+		$settings = $this->get_settings();
+		$value    = $this->get_value();
 
 		// Override selected setting with
 		// database value if not empty.

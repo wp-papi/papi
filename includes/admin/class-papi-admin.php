@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
+
 final class Papi_Admin {
 
 	/**

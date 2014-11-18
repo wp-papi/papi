@@ -11,22 +11,32 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class PropertyImage extends Papi_Property {
+class Papi_Property_Image extends Papi_Property {
+
+	/**
+	 * Get default settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function get_default_settings() {
+		return array(
+			'gallery' => false
+		);
+	}
+
+	/**
+	 * Generate the HTML for the property.
+	 *
+	 * @since 1.0.0
+	 */
 
 	public function html() {
-		// Property options.
-		$options = $this->get_options();
-
-		// CSS classes.
-		$css_classes = $this->css_classes();
-
-		// Property settings.
-		$settings = $this->get_settings( array(
-			'gallery' => false
-		) );
-
-		// Get the value.
-		$value = $this->get_value();
+		$options  = $this->get_options();
+		$settings = $this->get_settings();
+		$value    = $this->get_value();
 
 		if ( ! is_array( $value ) ) {
 			$value = array_filter( array( $value ) );
@@ -34,6 +44,7 @@ class PropertyImage extends Papi_Property {
 
 		$slug        = $options->slug;
 		$show_button = empty( $value );
+		$css_classes = '';
 
 		if ( $settings->gallery ) {
 			$css_classes .= ' gallery ';

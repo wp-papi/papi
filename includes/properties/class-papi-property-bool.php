@@ -11,7 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class PropertyBool extends Papi_Property {
+class Papi_Property_Bool extends Papi_Property {
+
+	/**
+	 * The default value.
+	 *
+	 * @var bool
+	 * @since 1.0.0
+	 */
+
+	public $default_value = false;
 
 	/**
 	 * Generate the HTML for the property.
@@ -28,8 +37,7 @@ class PropertyBool extends Papi_Property {
 
 		?>
 		<input type="checkbox"
-		       name="<?php echo $options->slug; ?>" <?php echo empty( $value ) ? '' : 'checked="checked"'; ?>
-		       class="<?php echo $this->css_classes(); ?>"/>
+		       name="<?php echo $options->slug; ?>" <?php echo empty( $value ) ? '' : 'checked="checked"'; ?> />
 	<?php
 	}
 

@@ -11,7 +11,22 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Papi
  * @version 1.0.0
  */
-class PropertyText extends Papi_Property {
+
+class Papi_Property_Text extends Papi_Property {
+
+	/**
+	 * Get default settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function get_default_settings() {
+		return array(
+			'editor' => false
+		);
+	}
 
 	/**
 	 * Generate the HTML for the property.
@@ -20,16 +35,9 @@ class PropertyText extends Papi_Property {
 	 */
 
 	public function html() {
-		// Property options.
-		$options = $this->get_options();
-
-		// Database value.
-		$value = $this->get_value();
-
-		// Property settings from the page type.
-		$settings = $this->get_settings( array(
-			'editor' => false
-		) );
+		$options  = $this->get_options();
+		$settings = $this->get_settings();
+		$value    = $this->get_value();
 
 		if ( $settings->editor ) {
 			$id = str_replace( '[', '', str_replace( ']', '', $options->slug ) ) . '-' . uniqid();
@@ -39,7 +47,7 @@ class PropertyText extends Papi_Property {
 		} else {
 			?>
 			<textarea name="<?php echo $options->slug; ?>"
-			          class="<?php echo $this->css_classes( 'papi-property-text' ); ?>"><?php echo $value; ?></textarea>
+			          class="papi-property-text"><?php echo $value; ?></textarea>
 		<?php
 		}
 	}
