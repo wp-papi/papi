@@ -130,7 +130,7 @@ function _papi_get_page_type_template( $post_id ) {
  */
 
 function _papi_get_page_type( $file_path ) {
-	if ( ! is_file( $file_path ) || is_dir( $file_path ) ) {
+	if ( ! is_file( $file_path ) ) {
 		return null;
 	}
 
