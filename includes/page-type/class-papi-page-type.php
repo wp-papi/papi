@@ -15,6 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Papi_Page_Type extends Papi_Page_Type_Meta {
 
+	private $boxes = array();
+
 	/**
 	 * Contains all register properties on this page.
 	 * Will only contain root level properties.
@@ -43,12 +45,8 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @param bool $register
 	 */
 
-	public function __construct( $file_path = '', $register = true ) {
+	public function __construct( $file_path = '' ) {
 		parent::__construct( $file_path );
-
-		if ( $register && method_exists( $this, 'register' ) ) {
-			$this->register();
-		}
 	}
 
 	/**
@@ -61,7 +59,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	protected function box( $file_or_options = array(), $properties = array() ) {
-		list( $options, $properties ) = _papi_get_options_and_properties( $file_or_options, $properties );
+		list( $options, $properties ) = _papi_get_options_and_properties( $file_or_options, $properties, true );
 
 		$post_type = _papi_get_wp_post_type();
 
@@ -73,8 +71,25 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		// Add post type to the options array.
 		$options['post_type'] = $post_type;
 
-		// Create a new box.
-		new Papi_Admin_Meta_Box( $options, $properties );
+		array_push($this->boxes, array($options, $properties));
+	}
+
+	/**
+	 * This function will setup all meta boxes.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function setup () {
+		if ( ! method_exists( $this, 'register' ) ) {
+			return null;
+		}
+
+		$this->register();
+
+		foreach( $this->boxes as $box ) {
+			new Papi_Admin_Meta_Box( $box[0], $box[1] );
+		}
 	}
 
 	/**

@@ -374,6 +374,6 @@ final class Papi_Admin {
 		}
 
 		// Create a new class of the page type.
-		$page_type->new_class();
+		$page_type->setup();
 	}
 }

@@ -126,14 +126,31 @@ function _papi_get_page_type_template( $post_id ) {
  */
 
 function _papi_get_page_type( $file_path ) {
-	$page_type_meta = new Papi_Page_Type( $file_path, false );
+	$class_name = _papi_get_class_name( $file_path );
+
+	if ( ! class_exists( $class_name ) ) {
+		require_once $file_path;
+	}
+
+	// Try to get the instance of the page type.
+	$instance = call_user_func( $class_name . '::instance' );
+
+	if ( ! empty( $instance ) ) {
+		return $instance;
+	}
+
+	$rc         = new ReflectionClass( $class_name );
+	$page_type  = $rc->newInstanceArgs( array( $file_path ) );
+
+	// Set the instance.
+	call_user_func( $class_name . '::instance', $page_type);
 
 	// If the page type don't have a name we can't use it.
-	if ( ! $page_type_meta->has_name() ) {
+	if ( ! $page_type->has_name() ) {
 		return null;
 	}
 
-	return $page_type_meta;
+	return $page_type;
 }
 
 /**

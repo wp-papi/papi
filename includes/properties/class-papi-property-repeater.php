@@ -78,11 +78,16 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		$items = array_map( function ( $item ) {
 
-			if ( ! is_array( $item ) ) {
-				return null;
+			if ( is_array( $item ) ) {
+				return (object) _papi_get_property_options( $item, false );
 			}
 
-			return (object) _papi_get_property_options( $item, false );
+			if ( is_object( $item ) ) {
+				return $item;
+			}
+
+			return null;
+
 		}, $items );
 
 		return array_filter( $items, function ( $item ) use ( $not_allowed ) {
@@ -106,7 +111,6 @@ class Papi_Property_Repeater extends Papi_Property {
 		$settings        = $this->get_settings();
 
 		$settings->items = $this->prepare_properties( $settings->items );
-
 		?>
 
 		<div class="papi-property-repeater">

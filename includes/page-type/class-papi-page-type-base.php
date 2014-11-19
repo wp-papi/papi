@@ -21,7 +21,7 @@ class Papi_Page_Type_Base {
 	 * @since 1.0.0
 	 */
 
-	private $_class_name = '';
+	public $_class_name = '';
 
 	/**
 	 * The file name of the page type file.
@@ -40,6 +40,33 @@ class Papi_Page_Type_Base {
 	 */
 
 	public $_file_path = '';
+
+	/**
+	 * The instance of the page type.
+	 *
+	 * @var object
+	 * @since 1.0.0
+	 */
+
+	protected static $instance;
+
+	/**
+	 * Get instance of the page type.
+	 *
+	 * @param mixed $instance
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return mixed
+	 */
+
+	public static function instance ( $instance = null ) {
+		if ( empty( $instance ) ) {
+			return self::$instance;
+		}
+
+		self::$instance = $instance;
+	}
 
 	/**
 	 * Constructor.
@@ -149,9 +176,7 @@ class Papi_Page_Type_Base {
 	 */
 
 	private function setup_meta_data() {
-		$page_type_meta = call_user_func( $this->_class_name . '::page_type' );
-
-		foreach ( $page_type_meta as $key => $value ) {
+		foreach ( $this->page_type() as $key => $value ) {
 			if ( substr( $key, 0, 1 ) === '_' ) {
 				continue;
 			}
