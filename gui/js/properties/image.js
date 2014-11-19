@@ -27,7 +27,7 @@
         new papi.view.Image({
           el: $target
         }).render({
-          image: attachment.thumbnail,
+          image: attachment.sizes.thumbnail.url,
           id: attachment.id,
           slug: slug
         });

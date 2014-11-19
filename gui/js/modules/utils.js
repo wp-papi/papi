@@ -26,9 +26,6 @@
           continue;
         }
 
-        var ext = /\.(jpeg|jpg|gif|png)/.exec(attachments[i].url)[0];
-        attachments[i].thumbnail = attachments[i].url.replace(ext, '-150x150' + ext);
-
         if (typeof $target === 'function') {
           $target(attachments[i], utils.isImage(attachments[i].url));
         } else {
