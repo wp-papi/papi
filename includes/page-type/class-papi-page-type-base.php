@@ -89,12 +89,6 @@ class Papi_Page_Type_Base {
 		}
 
 		$this->setup_file( $file_path );
-
-		// Check so we have the page type meta array function.
-		if ( ! method_exists( $this->_class_name, 'page_type' ) ) {
-			return null;
-		}
-
 		$this->setup_meta_data();
 	}
 
@@ -176,6 +170,11 @@ class Papi_Page_Type_Base {
 	 */
 
 	private function setup_meta_data() {
+		// Check so we have the page type meta array function.
+		if ( ! method_exists( $this->_class_name, 'page_type' ) ) {
+			return null;
+		}
+
 		foreach ( $this->page_type() as $key => $value ) {
 			if ( substr( $key, 0, 1 ) === '_' ) {
 				continue;
