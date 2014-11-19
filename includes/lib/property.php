@@ -427,3 +427,26 @@ function _papi_populate_properties( $properties ) {
 
 	return $result;
 }
+
+/**
+ * Update property values on the post with the given post id.
+ *
+ * @param int $post_id
+ * @param string $key
+ * @param array $property
+ *
+ * @since 1.0.0
+ */
+
+function _papi_property_update_value ( $property ) {
+	$property          = (object)$property;
+	$property_key      = _papi_remove_papi( $property->slug );
+	$property_type_key = _papi_get_property_type_key_f( $property->slug );
+
+	if ( empty( $property->value ) || empty( $property->type ) ) {
+		continue;
+	}
+
+	update_post_meta( $property->post_id, $property_key, $property->value );
+	update_post_meta( $property->post_id, $property_type_key, $property->type );
+}

@@ -23,16 +23,8 @@ class WP_Papi_Property_Repeater extends WP_UnitTestCase {
 		parent::setUp();
 
 		$this->post_id = $this->factory->post->create();
-	}
 
-	/**
-	 * Test property options.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function test_property_options () {
-		$property = papi_property( array(
+		$this->property = papi_property( array(
 			'type'     => 'repeater',
 			'title'    => 'Books',
 			'slug'     => 'books',
@@ -46,30 +38,54 @@ class WP_Papi_Property_Repeater extends WP_UnitTestCase {
 				)
 			)
 		) );
+	}
+
+	/**
+	 * Test property options.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_property_options () {
+
 
 		// Test the property
-		$this->assertEquals($property->type, 'repeater');
-		$this->assertEquals($property->slug, 'papi_books');
-		$this->assertFalse( empty( $property->settings->items ) );
+		$this->assertEquals($this->property->type, 'repeater');
+		$this->assertEquals($this->property->slug, 'papi_books');
+		$this->assertFalse( empty( $this->property->settings->items ) );
 
 		// Test the first item in the repeater
-		$this->assertEquals( $property->settings->items[0]->type, 'string');
-		$this->assertEquals( $property->settings->items[0]->slug, 'papi_book_name' );
-		$this->assertEquals( $property->settings->items[0]->title, 'Book name' );
+		$this->assertEquals( $this->property->settings->items[0]->type, 'string');
+		$this->assertEquals( $this->property->settings->items[0]->slug, 'papi_book_name' );
+		$this->assertEquals( $this->property->settings->items[0]->title, 'Book name' );
+	}
 
-		// Generate correct property meta key and property type meta key.
-		$meta_key      = _papi_remove_papi( $property->settings->items[0]->slug );
-		$meta_type_key = _papi_get_property_type_key( $meta_key );
+	/**
+	 * Test save property value.
+	 *
+	 * @since 1.0.0
+	 */
 
-		// Add property value.
-		add_post_meta( $this->post_id, _papi_remove_papi( $property->slug ), array( array( $meta_key => 'Harry Potter',  $meta_type_key => $property->settings->items[0]->type ) ) );
+	public function test_save_property_value () {
+		// Generate correct property meta key and property type meta key for string property.
+		$value_slug      = _papi_remove_papi( $this->property->settings->items[0]->slug );
+		$value_type_slug = _papi_get_property_type_key( $value_slug );
 
-		// Add property type value
-		$slug_type = _papi_get_property_type_key_f( $property->slug );
-		add_post_meta( $this->post_id, $slug_type, $property->type );
+		// Save the property
+		_papi_property_update_value( array(
+			'post_id' => $this->post_id,
+			'slug'    => $this->property->slug,
+			'type'    => $this->property->type,
+			'value'   => array(
+				array(
+					$value_slug      => 'Harry Potter',
+					$value_type_slug => $this->property->settings->items[0]->type
+				)
+			)
+		) );
 
 		// Test get the value with papi_field function.
-		$this->assertEquals( papi_field( $this->post_id, _papi_remove_papi( $property->slug ) ), array( array( $meta_key => 'Harry Potter' ) ) );
+		$this->assertEquals( papi_field( $this->post_id, $this->property->slug ), array( array( $value_slug => 'Harry Potter' ) ) );
 	}
 
 }

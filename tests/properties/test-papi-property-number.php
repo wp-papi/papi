@@ -23,6 +23,12 @@ class WP_Papi_Property_Number extends WP_UnitTestCase {
 		parent::setUp();
 
 		$this->post_id = $this->factory->post->create();
+
+		$this->property = papi_property( array(
+			'type'  => 'number',
+			'title' => 'Age',
+			'slug'  => 'age'
+		) );
 	}
 
 	/**
@@ -32,26 +38,29 @@ class WP_Papi_Property_Number extends WP_UnitTestCase {
 	 */
 
 	public function test_property_options() {
-		$property = papi_property( array(
-			'type'  => 'number',
-			'title' => 'Age',
-			'slug'  => 'age'
+		// Test the property
+		$this->assertEquals( $this->property->type, 'number' );
+		$this->assertEquals( $this->property->title, 'Age' );
+		$this->assertEquals( $this->property->slug, 'papi_age' );
+	}
+
+	/**
+	 * Test save property value.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_save_property_value () {
+		// Save the property
+		_papi_property_update_value( array(
+			'post_id' => $this->post_id,
+			'slug'    => $this->property->slug,
+			'type'    => $this->property->type,
+			'value'   => 23
 		) );
 
-		// Test the property
-		$this->assertEquals( $property->type, 'number' );
-		$this->assertEquals( $property->title, 'Age' );
-		$this->assertEquals( $property->slug, 'papi_age' );
-
-		// Add property value
-		add_post_meta( $this->post_id, _papi_remove_papi( $property->slug ), 23 );
-
-		// Add property type value
-		$slug_type = _papi_get_property_type_key_f( $property->slug );
-		add_post_meta( $this->post_id, $slug_type, $property->type );
-
 		// Test get the value with papi_field function.
-		$this->assertEquals( papi_field( $this->post_id, _papi_remove_papi( $property->slug ) ), 23 );
+		$this->assertEquals( papi_field( $this->post_id, $this->property->slug ), 23 );
 	}
 
 }
