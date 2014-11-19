@@ -8,7 +8,7 @@ class Simple_Page_Type extends Papi_Page_Type {
 	 * @return array
 	 */
 
-	public static function page_type() {
+	public function page_type() {
 		return array(
 			'name'        => 'Simple page',
 			'description' => 'This is a simple page',

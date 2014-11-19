@@ -31,6 +31,10 @@ function _papi_get_all_page_types( $all = false ) {
 	foreach ( $files as $file ) {
 		$page_type = _papi_get_page_type( $file );
 
+		if ( is_null( $page_type ) ) {
+			continue;
+		}
+
 		// Add the page type if the post types is allowed.
 		if ( ! is_null( $page_type ) && _papi_current_user_is_allowed( $page_type->capabilities ) && ( $all || in_array( $post_type, $page_type->post_types ) ) ) {
 			$page_types[] = $page_type;
@@ -126,7 +130,15 @@ function _papi_get_page_type_template( $post_id ) {
  */
 
 function _papi_get_page_type( $file_path ) {
+	if ( ! is_file( $file_path ) || is_dir( $file_path ) ) {
+		return null;
+	}
+
 	$class_name = _papi_get_class_name( $file_path );
+
+	if ( empty( $class_name ) ) {
+		return null;
+	}
 
 	if ( ! class_exists( $class_name ) ) {
 		require_once $file_path;
@@ -135,7 +147,7 @@ function _papi_get_page_type( $file_path ) {
 	// Try to get the instance of the page type.
 	$instance = call_user_func( $class_name . '::instance' );
 
-	if ( ! empty( $instance ) ) {
+	if ( ! empty( $instance ) && get_class($instance) === $class_name ) {
 		return $instance;
 	}
 
