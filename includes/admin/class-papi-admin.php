@@ -119,7 +119,8 @@ final class Papi_Admin {
 			$only_page_type     = _papi_get_option($option_key);
 
 			if ( ! empty($only_page_type) ) {
-				$url = _papi_get_page_new_url( $only_page_type, false );
+				$url = _papi_get_page_new_url( $only_page_type, false, $post_type );
+
 				// Add our custom menu item.
 				add_submenu_page( 'edit.php?post_type=' . $post_type,
 					__( 'Add New', 'papi' ),

@@ -131,6 +131,28 @@ function _papi_get_class_name( $file ) {
 }
 
 /**
+ * Get value from $_GET or $_POST with the given key.
+ *
+ * @param string $key
+ *
+ * @since 1.0.0
+ *
+ * @return mixed
+ */
+
+function _papi_get_or_post( $key ) {
+	if ( isset( $_GET[$key] ) ) {
+		return $_GET[$key];
+	}
+
+	if (isset( $_GET[$key] ) ) {
+		return $_GET[$key];
+	}
+
+	return null;
+}
+
+/**
  * Get query string if it exists and is not empty.
  *
  * @param string $qs

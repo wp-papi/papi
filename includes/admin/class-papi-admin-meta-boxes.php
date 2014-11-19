@@ -197,6 +197,55 @@ class Papi_Admin_Meta_Boxes {
 	}
 
 	/**
+	 * Remove empty data from properties data.
+	 *
+	 * @param array $data
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function remove_empty_data( $data ) {
+		$result = array();
+		$remove = array();
+
+		foreach ( $data as $key => $value ) {
+			if ( ! is_array( $value ) ) {
+
+				// For property image that uses backbone views we only have the property type key value
+				// and that should be removed.
+				if ( _papi_is_property_type_key( $key ) ) {
+					$last = strrchr( $key, '_' );
+					if ( $last === _papi_get_property_type_key() ) {
+						$length = strlen( $key ) - strlen( $last );
+						$find = substr( $key, 0, $length );
+						if ( !isset( $data[$find] ) ) {
+							unset( $data[ $key ] );
+							$remove[] = $key;
+						}
+					}
+				}
+
+				if ( ! empty ( $value ) && ! in_array( $key, $remove ) ) {
+					$result[$key] = $value;
+				} else {
+					$property_type_key = _papi_get_property_type_key( $key );
+					if ( isset( $data[ $property_type_key ] ) ) {
+						unset( $data[ $property_type_key ] );
+						$remove[] = $property_type_key;
+					}
+				}
+				continue;
+			}
+
+			$result[$key] = $this->remove_empty_data( $value );
+		}
+
+		return $result;
+	}
+
+	/**
 	 * Save meta boxes.
 	 *
 	 * @since 1.0.0
@@ -250,6 +299,13 @@ class Papi_Admin_Meta_Boxes {
 
 		// Get properties data.
 		$data = $this->get_post_data();
+
+		// Remove empty properties data.
+		$data = $this->remove_empty_data( $data );
+
+#		echo '<pre>';
+#		print_r( $data );
+#		exit;
 
 		// Prepare property data.
 		$data = $this->prepare_properties_data( $data, $post_id );

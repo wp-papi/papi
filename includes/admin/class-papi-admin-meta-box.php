@@ -62,7 +62,7 @@ class Papi_Admin_Meta_Box {
 
 	private function setup_actions() {
 		add_action( 'add_meta_boxes', array( $this, 'setup_meta_box' ) );
-		add_action( 'postbox_classes_' . $this->options->_post_type . '_' . $this->options->_id, array( $this, 'meta_box_css_classes' ) );
+		add_action( 'postbox_classes_' . $this->options->post_type . '_' . $this->options->_id, array( $this, 'meta_box_css_classes' ) );
 	}
 
 	/**
@@ -80,18 +80,36 @@ class Papi_Admin_Meta_Box {
 		$this->options->title     = ucfirst( $this->options->title );
 		$this->options->slug      = _papi_slugify( $this->options->title );
 		$this->options->_id       = _papi_underscorify( _papify( $this->options->slug ) );
-		$this->options->post_type = _papi_to_array( $this->options->post_type );
+		$this->options->post_type = $this->populate_post_type( $this->options->post_type );
+	}
+
+	/**
+	 * Populate post type.
+	 *
+	 * @param array|string $post_type
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+
+	private function populate_post_type ( $post_type ) {
+		$post_id = _papi_get_post_id();
+
+		if ( ! is_null( $post_id ) ) {
+			return get_post_type( $post_id );
+		}
 
 		// Get the post type that we currently are on if it exist in the array of post types.
-		$this->options->_post_type = array_filter( $this->options->post_type, function ( $post_type ) {
-			return strtolower($post_type) == strtolower($_GET['post_type']);
-		});
+		$post_type = array_filter( _papi_to_array( $post_type ), function ( $post_type ) {
+			return strtolower( $post_type ) == strtolower( _papi_get_or_post( 'post_type' ) );
+		} );
 
-		if ( ! empty( $this->options->_post_type ) ) {
-			$this->options->_post_type = $this->options->_post_type[0];
-		} else {
-			$this->options->_post_type = 'page';
+		if ( ! empty( $post_type ) ) {
+			return $post_type[0];
 		}
+
+		return 'page';
 	}
 
 	/**
@@ -206,7 +224,7 @@ class Papi_Admin_Meta_Box {
 			$this->options->_id,
 			_papi_remove_papi( $this->options->title ),
 			array( $this, 'render_meta_box' ),
-			$this->options->_post_type,
+			$this->options->post_type,
 			$this->options->context,
 			$this->options->priority,
 			$this->properties
