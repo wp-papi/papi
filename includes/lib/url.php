@@ -43,8 +43,13 @@ function _papi_get_page_query_strings( $first_char = '&' ) {
 	$request_uri = $_SERVER['REQUEST_URI'];
 	$parsed_url  = parse_url( $request_uri );
 	$query       = $parsed_url['query'];
-	$query       = preg_replace( '/page\=[a-z-,]+/', '', $query );
-	$query       = str_replace( '?', '', $query );
+
+	if ( empty ( $query ) ) {
+		return '';
+	}
+
+	$query = preg_replace( '/page\=[a-z-,]+/', '', $query );
+	$query = str_replace( '?', '', $query );
 
 	if ( substr( $query, 0, 1 ) === '&' || substr( $query, 0, 1 ) === '?' ) {
 		$query[0] = $first_char;
