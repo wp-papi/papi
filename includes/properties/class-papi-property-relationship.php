@@ -32,7 +32,7 @@ class Papi_Property_Relationship extends Papi_Property {
 
 	public function get_default_settings() {
 		return array(
-			'choose_max'   => - 1,
+			'choose_max'   => -1,
 			'post_type'    => 'page',
 			'query'        => array(),
 			'show_sort_by' => true
