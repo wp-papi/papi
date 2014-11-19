@@ -36,11 +36,11 @@ class Papi_Property_Image extends Papi_Property {
 	public function html() {
 		$options  = $this->get_options();
 		$settings = $this->get_settings();
-		$value    = $this->get_value();
+		$value    = _papi_to_array( $this->get_value() );
 
-		if ( ! is_array( $value ) ) {
-			$value = array_filter( array( $value ) );
-		}
+		$value = array_filter( $value, function ( $image ) {
+			return is_object( $image );
+		});
 
 		$slug        = $options->slug;
 		$show_button = empty( $value );
@@ -72,7 +72,7 @@ class Papi_Property_Image extends Papi_Property {
 			</p>
 			<ul>
 				<?php
-				if ( ! empty( $value ) ):
+				if ( is_array( $value ) ):
 					foreach ( $value as $key => $image ):
 						$url = wp_get_attachment_thumb_url( $image->id );
 						?>
