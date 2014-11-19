@@ -42,12 +42,12 @@ function _papi_get_page_new_url( $page_type, $append_admin_url = true ) {
 function _papi_get_page_query_strings( $first_char = '&' ) {
 	$request_uri = $_SERVER['REQUEST_URI'];
 	$parsed_url  = parse_url( $request_uri );
-	$query       = $parsed_url['query'];
 
-	if ( empty ( $query ) ) {
+	if ( !isset( $parsed_url['query'] ) || empty ( $parsed_url['query'] ) ) {
 		return '';
 	}
 
+	$query = $parsed_url['query'];
 	$query = preg_replace( '/page\=[a-z-,]+/', '', $query );
 	$query = str_replace( '?', '', $query );
 
