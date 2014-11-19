@@ -33,7 +33,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	public function get_default_settings() {
 		return array(
 			'choose_max'   => - 1,
-			'post_types'   => 'page',
+			'post_type'    => 'page',
 			'query'        => array(),
 			'show_sort_by' => true
 		);
@@ -122,7 +122,7 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		// Fetch posts with the post types and the query.
 		$posts = query_posts( array_merge( $settings->query, array(
-			'post_type' => _papi_to_array( $settings->post_types )
+			'post_type' => _papi_to_array( $settings->post_type )
 		) ) );
 
 		// Keep only objects.

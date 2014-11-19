@@ -57,7 +57,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * @since 1.0.0
 	 */
 
-	public $post_types = array( 'page' );
+	public $post_type = array( 'page' );
 
 	/**
 	 * The sort order of the page type.
@@ -157,7 +157,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 */
 
 	public function has_post_type( $post_type ) {
-		return in_array( $post_type, $this->post_types );
+		return in_array( $post_type, $this->post_type );
 	}
 
 	/**
@@ -168,13 +168,13 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 */
 
 	private function setup_post_types() {
-		if ( ! is_array( $this->post_types ) ) {
-			$this->post_types = array( $this->post_types );
+		if ( ! is_array( $this->post_type ) ) {
+			$this->post_type = array( $this->post_type );
 		}
 
 		// Set a default value to post types array if we don't have a array or a empty array.
-		if ( empty( $this->post_types ) ) {
-			$this->post_types = array( 'page' );
+		if ( empty( $this->post_type ) ) {
+			$this->post_type = array( 'page' );
 		}
 	}
 

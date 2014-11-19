@@ -36,7 +36,7 @@ function _papi_get_all_page_types( $all = false ) {
 		}
 
 		// Add the page type if the post types is allowed.
-		if ( ! is_null( $page_type ) && _papi_current_user_is_allowed( $page_type->capabilities ) && ( $all || in_array( $post_type, $page_type->post_types ) ) ) {
+		if ( ! is_null( $page_type ) && _papi_current_user_is_allowed( $page_type->capabilities ) && ( $all || in_array( $post_type, $page_type->post_type ) ) ) {
 			$page_types[] = $page_type;
 		}
 	}
@@ -223,7 +223,7 @@ function _papi_get_post_types() {
 	$post_types = array();
 
 	foreach ( $page_types as $page_type ) {
-		$post_types = array_merge( $post_types, $page_type->post_types );
+		$post_types = array_merge( $post_types, $page_type->post_type );
 	}
 
 	return array_unique( $post_types );
