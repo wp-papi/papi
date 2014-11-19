@@ -61,7 +61,10 @@ class Papi_Admin_Meta_Box {
 
 	private function setup_actions() {
 		add_action( 'add_meta_boxes', array( $this, 'setup_meta_box' ) );
-		add_action( 'postbox_classes_page_' . $this->options->_id, array( $this, 'meta_box_css_classes' ) );
+
+		foreach ( $this->options->post_type as $post_type ) {
+			add_action( 'postbox_classes_' . $post_type . '_' . $this->options->_id, array( $this, 'meta_box_css_classes' ) );
+		}
 	}
 
 	/**
@@ -73,17 +76,13 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private function setup_options( $options ) {
-		$options              = _papi_h( $options, array() );
-		$options              = array_merge( $this->default_options, $options );
-		$this->options        = (object) $options;
-		$this->options->title = ucfirst( $this->options->title );
-		$this->options->slug  = _papi_slugify( $this->options->title );
-		$this->options->_id   = str_replace( '_', '-', _papify( $this->options->slug ) );
-
-		if ( !is_array( $this->options->capabilities ) ) {
-			$capabilities = $this->options->capabilities;
-			$this->options->capabilities = array( $capabilities );
-		}
+		$options                  = _papi_h( $options, array() );
+		$options                  = array_merge( $this->default_options, $options );
+		$this->options            = (object) $options;
+		$this->options->title     = ucfirst( $this->options->title );
+		$this->options->slug      = _papi_slugify( $this->options->title );
+		$this->options->_id       = _papi_underscorify( _papify( $this->options->slug ) );
+		$this->options->post_type = _papi_to_array( $this->options->post_type );
 	}
 
 	/**
@@ -194,14 +193,16 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	public function setup_meta_box() {
-		add_meta_box(
-			$this->options->_id,
-			_papi_remove_papi( $this->options->title ),
-			array( $this, 'render_meta_box' ),
-			$this->options->post_type,
-			$this->options->context,
-			$this->options->priority,
-			$this->properties
-		);
+		foreach ( $this->options->post_type as $post_type ) {
+			add_meta_box(
+				$this->options->_id,
+				_papi_remove_papi( $this->options->title ),
+				array( $this, 'render_meta_box' ),
+				$post_type,
+				$this->options->context,
+				$this->options->priority,
+				$this->properties
+			);
+		}
 	}
 }
