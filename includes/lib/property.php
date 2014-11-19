@@ -235,7 +235,7 @@ function _papi_get_property_class_name( $type ) {
  */
 
 function _papi_get_property_short_type( $type ) {
-	return preg_replace( '/^property\_/', '', strtolower( $type ) );
+	return preg_replace( '/^property/', '', strtolower( $type ) );
 }
 
 /**

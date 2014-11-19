@@ -357,12 +357,8 @@ function _papi_slugify( $str, $replace = array(), $delimiter = '-' ) {
  */
 
 function _papi_to_array( $obj ) {
-	if ( is_string( $obj ) ) {
-		$obj = array( $obj );
-	}
-
 	if ( ! is_array( $obj ) ) {
-		$obj = array();
+		$obj = array( $obj );
 	}
 
 	return $obj;
