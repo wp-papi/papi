@@ -41,6 +41,7 @@ class Papi_Admin_Meta_Box {
 		'title'        => '',
 		// Private options
 		'_id'          => '',
+		'_post_type'   => '',
 		'_tab_box'     => false
 	);
 
@@ -61,10 +62,7 @@ class Papi_Admin_Meta_Box {
 
 	private function setup_actions() {
 		add_action( 'add_meta_boxes', array( $this, 'setup_meta_box' ) );
-
-		foreach ( $this->options->post_type as $post_type ) {
-			add_action( 'postbox_classes_' . $post_type . '_' . $this->options->_id, array( $this, 'meta_box_css_classes' ) );
-		}
+		add_action( 'postbox_classes_' . $this->options->_post_type . '_' . $this->options->_id, array( $this, 'meta_box_css_classes' ) );
 	}
 
 	/**
@@ -83,6 +81,17 @@ class Papi_Admin_Meta_Box {
 		$this->options->slug      = _papi_slugify( $this->options->title );
 		$this->options->_id       = _papi_underscorify( _papify( $this->options->slug ) );
 		$this->options->post_type = _papi_to_array( $this->options->post_type );
+
+		// Get the post type that we currently are on if it exist in the array of post types.
+		$this->options->_post_type = array_filter( $this->options->post_type, function ( $post_type ) {
+			return strtolower($post_type) == strtolower($_GET['post_type']);
+		});
+
+		if ( ! empty( $this->options->_post_type ) ) {
+			$this->options->_post_type = $this->options->_post_type[0];
+		} else {
+			$this->options->_post_type = 'page';
+		}
 	}
 
 	/**
@@ -193,16 +202,14 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	public function setup_meta_box() {
-		foreach ( $this->options->post_type as $post_type ) {
-			add_meta_box(
-				$this->options->_id,
-				_papi_remove_papi( $this->options->title ),
-				array( $this, 'render_meta_box' ),
-				$post_type,
-				$this->options->context,
-				$this->options->priority,
-				$this->properties
-			);
-		}
+		add_meta_box(
+			$this->options->_id,
+			_papi_remove_papi( $this->options->title ),
+			array( $this, 'render_meta_box' ),
+			$this->options->_post_type,
+			$this->options->context,
+			$this->options->priority,
+			$this->properties
+		);
 	}
 }
