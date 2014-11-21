@@ -64,7 +64,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		$post_type = _papi_get_wp_post_type();
 
 		// Check so we have a post the to add the box to.
-		if ( ! $this->has_post_type( $post_type ) ) {
+		if ( empty( $page_type ) || ! $this->has_post_type( $post_type ) ) {
 			return null;
 		}
 
