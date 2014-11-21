@@ -18,7 +18,7 @@
           settings = $prop.data().settings;
 
       settings['field'] = $prop[0];
-console.log(settings);
+
       new Pikaday(settings);
     }
   };
