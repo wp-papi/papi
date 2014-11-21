@@ -24,8 +24,8 @@ class Papi_Property_Datetime extends Papi_Property {
 	public function get_default_settings() {
 		return array(
 			'format'       => 'YYYY-MM-DD hh:mm:ss',
-			'show_time'    => true,
 			'show_seconds' => false,
+			'show_time'    => true,
 			'use_24_hour'  => false
 		);
 	}
