@@ -14,9 +14,11 @@
         return;
       }
 
+      var $prop = $('input.papi-property-date');
+
       new Pikaday({
-        field: $('input[data-papi-property="date"]')[0],
-        format: 'YYYY-MM-DD',
+        field: $prop[0],
+        format: $prop.data().format,
         setDefaultDate: true
       });
     }

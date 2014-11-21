@@ -14,54 +14,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Papi_Property_Date extends Papi_Property {
 
 	/**
+	 * Get default settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function get_default_settings() {
+		return array(
+			'format' => 'YYYY-MM-DD'
+		);
+	}
+
+	/**
 	 * Generate the HTML for the property.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function html() {
-		$options = $this->get_options();
-		$value   = $this->get_value();
-
-		if ( is_integer( $value ) ) {
-			$value = date( 'Y-m-d', $value );
-		}
-
+		$options  = $this->get_options();
+		$settings = $this->get_settings();
+		$value    = $this->get_value();
 		?>
-		<input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" data-papi-property="date"/>
+		<input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="papi-property-date" data-format="<?php echo $settings->format; ?>"/>
 	<?php
-	}
-
-	/**
-	 * Convert value to integer.
-	 *
-	 * @param string $value
-	 * @param string $slug
-	 * @param int $post_id
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return int
-	 */
-
-	public function format_value( $value, $slug, $post_id ) {
-		return intval( $value );
-	}
-
-	/**
-	 * Save the date as Unix timestamp.
-	 *
-	 * @param string $value
-	 * @param string $slug
-	 * @param int $post_id
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return int
-	 */
-
-	public function update_value( $value, $slug , $post_id ) {
-		return strtotime( $value );
 	}
 
 }
