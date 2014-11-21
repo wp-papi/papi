@@ -21,7 +21,7 @@ $show_standard_page = _papi_get_option( $option_key, true );
 
 	<div class="papi-box-list">
 		<?php
-		$page_types = _papi_get_all_page_types();;
+		$page_types = _papi_get_all_page_types();
 
 		foreach ( $page_types as $key => $page_type ) {
 			_papi_include_template( 'includes/admin/views/partials/add-new-item.php', array(

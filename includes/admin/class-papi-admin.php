@@ -112,8 +112,15 @@ final class Papi_Admin {
 
 		foreach ( $post_types as $post_type ) {
 
+			// "Post" post type hasn't "post_type" query string.
+			if ( $post_type == 'post' ) {
+				$post_type_query = '';
+			} else {
+				$post_type_query = 'post_type=' . $post_type;
+			}
+
 			// Remove "Add new" menu item.
-			remove_submenu_page( 'edit.php?post_type=' . $post_type, 'post-new.php?post_type=' . $post_type );
+			remove_submenu_page( 'edit.php' . $post_type_query , 'post-new.php' . $post_type_query );
 
 			$option_key         = sprintf('post_type.%s.only_page_type', $post_type);
 			$only_page_type     = _papi_get_option($option_key);
@@ -129,7 +136,7 @@ final class Papi_Admin {
 					$url );
 			} else {
 				// Add our custom menu item.
-				add_submenu_page( 'edit.php?post_type=' . $post_type,
+				add_submenu_page( 'edit.php' . $post_type_query,
 					__( 'Add New', 'papi' ),
 					__( 'Add New', 'papi' ),
 					'read',

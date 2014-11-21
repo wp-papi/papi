@@ -102,6 +102,10 @@ function _papi_append_post_type_query( $url, $post_type_arg = null ) {
 		$post_type = $post_type_arg;
 	}
 
+	if ( empty ( $post_type ) ) {
+		$post_type = _papi_get_wp_post_type();
+	}
+
 	if ( ! empty( $post_type ) ) {
 		if ( substr( $url, - 1, 1 ) !== '&' ) {
 			$url .= '&';

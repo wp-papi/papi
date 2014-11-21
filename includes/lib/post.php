@@ -75,5 +75,21 @@ function _papi_get_wp_post_type() {
 		return strtolower( get_post_type( $post_id ) );
 	}
 
+	if ( isset( $_GET['page'] ) && strpos( strtolower( $_GET['page'] ), 'papi-add-new-page' ) !== false ) {
+		$exploded = explode( ',', $_GET['page'] );
+
+		if ( empty( $exploded ) ) {
+			return null;
+		}
+
+		preg_match('/^\w+/', $exploded[1], $value);
+
+		if ( empty( $value ) ) {
+			return null;
+		}
+
+		return reset( $value );
+	}
+
 	return null;
 }
