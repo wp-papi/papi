@@ -5,7 +5,7 @@
   papi.tabs.init();
 
   // Initialize our properties
-  papi.properties.date.init();
+  papi.properties.datetime.init();
   papi.properties.repeater.init();
 
 })();

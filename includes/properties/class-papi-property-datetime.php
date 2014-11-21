@@ -6,12 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Papi - Property Date
+ * Papi - Property Datetime
  *
  * @package Papi
  * @version 1.0.0
  */
-class Papi_Property_Date extends Papi_Property {
+class Papi_Property_Datetime extends Papi_Property {
 
 	/**
 	 * Get default settings.
@@ -51,7 +51,7 @@ class Papi_Property_Date extends Papi_Property {
 		$settings_json = json_encode( (object)$settings_json );
 
 		?>
-		<input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="papi-property-date" data-settings='<?php echo $settings_json; ?>'/>
+		<input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="papi-property-datetime" data-settings='<?php echo $settings_json; ?>'/>
 	<?php
 	}
 

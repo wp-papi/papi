@@ -1,8 +1,8 @@
 (function ($) {
 
-  // Property date
+  // Property datetime
 
-  papi.properties.date = {
+  papi.properties.datetime = {
 
     /**
      * Initialize property date.
@@ -14,7 +14,7 @@
         return;
       }
 
-      var $prop    = $('input.papi-property-date'),
+      var $prop    = $('input.papi-property-datetime'),
           settings = $prop.data().settings;
 
       settings['field'] = $prop[0];

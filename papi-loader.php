@@ -195,7 +195,7 @@ final class Papi_Loader {
 		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-hidden.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-bool.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-email.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-date.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-datetime.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-number.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-url.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-divider.php' );
