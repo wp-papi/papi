@@ -141,7 +141,7 @@ final class Papi_Loader {
 	private function constants() {
 		// Path to Papi plugin directory
 		if ( ! defined( 'PAPI_PLUGIN_DIR' ) ) {
-			define( 'PAPI_PLUGIN_DIR', trailingslashit( WP_PLUGIN_DIR . '/' . basename( __DIR__ ) ) );
+			define( 'PAPI_PLUGIN_DIR', trailingslashit( WPMU_PLUGIN_DIR . '/' . basename( __DIR__ ) ) );
 		}
 
 		// URL to Papi plugin directory

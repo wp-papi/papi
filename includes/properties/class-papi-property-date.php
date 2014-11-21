@@ -23,7 +23,10 @@ class Papi_Property_Date extends Papi_Property {
 
 	public function get_default_settings() {
 		return array(
-			'format' => 'YYYY-MM-DD'
+			'format'       => 'YYYY-MM-DD',
+			'show_time'    => true,
+			'show_seconds' => false,
+			'use_24_hour'  => false
 		);
 	}
 
@@ -37,8 +40,18 @@ class Papi_Property_Date extends Papi_Property {
 		$options  = $this->get_options();
 		$settings = $this->get_settings();
 		$value    = $this->get_value();
+
+		$settings_json = array(
+			'format'      => $settings->format,
+			'showTime'    => $settings->show_time,
+			'showSeconds' => $settings->show_seconds,
+			'use24hour'   => $settings->use_24_hour
+		);
+
+		$settings_json = json_encode( (object)$settings_json );
+
 		?>
-		<input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="papi-property-date" data-format="<?php echo $settings->format; ?>"/>
+		<input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="papi-property-date" data-settings='<?php echo $settings_json; ?>'/>
 	<?php
 	}
 

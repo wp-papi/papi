@@ -14,13 +14,12 @@
         return;
       }
 
-      var $prop = $('input.papi-property-date');
+      var $prop    = $('input.papi-property-date'),
+          settings = $prop.data().settings;
 
-      new Pikaday({
-        field: $prop[0],
-        format: $prop.data().format,
-        setDefaultDate: true
-      });
+      settings['field'] = $prop[0];
+console.log(settings);
+      new Pikaday(settings);
     }
   };
 
