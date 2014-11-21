@@ -26,7 +26,7 @@ class Papi_Property_Datetime extends Papi_Property {
 			'format'       => 'YYYY-MM-DD hh:mm:ss',
 			'show_seconds' => false,
 			'show_time'    => true,
-			'use_24_hour'  => false
+			'use_24_hours' => false
 		);
 	}
 
@@ -45,7 +45,7 @@ class Papi_Property_Datetime extends Papi_Property {
 			'format'      => $settings->format,
 			'showTime'    => $settings->show_time,
 			'showSeconds' => $settings->show_seconds,
-			'use24hour'   => $settings->use_24_hour
+			'use24hour'   => $settings->use_24_hours
 		);
 
 		$settings_json = json_encode( (object)$settings_json );
