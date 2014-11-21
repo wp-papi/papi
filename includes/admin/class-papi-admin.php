@@ -116,7 +116,7 @@ final class Papi_Admin {
 			if ( $post_type == 'post' ) {
 				$post_type_query = '';
 			} else {
-				$post_type_query = 'post_type=' . $post_type;
+				$post_type_query = '?post_type=' . $post_type;
 			}
 
 			// Remove "Add new" menu item.
@@ -129,7 +129,7 @@ final class Papi_Admin {
 				$url = _papi_get_page_new_url( $only_page_type, false, $post_type );
 
 				// Add our custom menu item.
-				add_submenu_page( 'edit.php?post_type=' . $post_type,
+				add_submenu_page( 'edit.php' . $post_type_query,
 					__( 'Add New', 'papi' ),
 					__( 'Add New', 'papi' ),
 					'manage_options',
