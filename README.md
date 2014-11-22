@@ -83,19 +83,19 @@ class About_Us_Page_Type extends Papi_Page_Type {
         'type'     => 'repeater',
         'title'    => 'Images',
         'slug'     => 'images',
-				'sidebar'  => false,
+	'sidebar'  => false,
         'settings' => [
-					'items' => [
-						papi_property([
-							'type'  => 'image',
-							'title' => 'Image'
-						]),
-						papi_property([
-							'type'  => 'text',
-							'title' => 'Image description'
-						])
-					]
-				]
+	  'items' => [
+	    papi_property([
+	      'type'  => 'image',
+	      'title' => 'Image'
+	    ]),
+	    papi_property([
+	      'type'  => 'text',
+              'title' => 'Image description'
+	    ])
+	  ]
+	]
       ])
     ]);
   }
