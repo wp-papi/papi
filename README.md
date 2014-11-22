@@ -40,65 +40,65 @@ add_action('after_setup_theme', 'my_register_page_types_directory');
 
 class About_Us_Page_Type extends Papi_Page_Type {
 
-  /**
-   * Define our Page Type meta data.
-   *
-   * @return array
-   */
+	/**
+	 * Define our Page Type meta data.
+	 *
+	 * @return array
+	 */
 
-  public function page_type () {
-    return [
-      'name'        => 'About us',
-      'description' => 'About the company',
-      'template'    => 'pages/about-us.php'
-    ];
-  }
+	public function page_type() {
+		return [
+			'name'        => 'About us',
+			'description' => 'About the company',
+			'template'    => 'pages/about-us.php'
+		];
+	}
 
-  /**
-   * Register our properties.
-   */
+	/**
+	 * Register our properties.
+	 */
 
-  public function register () {
+	public function register() {
 
-    // Remove comments meta box
-    $this->remove('comments');
+		// Remove comments meta box
+		$this->remove( 'comments' );
 
-    // Add social media links meta box
-    $this->box('Social media links', array(
-      $this->property([
-        'type'  => 'url',
-        'title' => 'Twitter link',
-        'slug'  => 'twitter_link'
-      ]),
-      $this->property([
-        'type'  => 'url',
-        'title' => 'Facebook link',
-        'slug'  => 'facebook_link'
-      ])
-    ));
+		// Add social media links meta box
+		$this->box( 'Social media links', array(
+			$this->property( [
+				'type'  => 'url',
+				'title' => 'Twitter link',
+				'slug'  => 'twitter_link'
+			] ),
+			$this->property( [
+				'type'  => 'url',
+				'title' => 'Facebook link',
+				'slug'  => 'facebook_link'
+			] )
+		) );
 
-    // Add Google Maps meta box for our office position
-    $this->box('Images', [
-      $this->property([
-        'type'     => 'repeater',
-        'title'    => 'Images',
-        'slug'     => 'images',
-	'sidebar'  => false,
-        'settings' => [
-	  'items' => [
-	    papi_property([
-	      'type'  => 'image',
-	      'title' => 'Image'
-	    ]),
-	    papi_property([
-	      'type'  => 'text',
-              'title' => 'Image description'
-	    ])
-	  ]
-	]
-      ])
-    ]);
-  }
+		// Add Google Maps meta box for our office position
+		$this->box( 'Images', [
+			$this->property( [
+				'type'     => 'repeater',
+				'title'    => 'Images',
+				'slug'     => 'images',
+				'sidebar'  => false,
+				'settings' => [
+					'items' => [
+						papi_property( [
+							'type'  => 'image',
+							'title' => 'Image'
+						] ),
+						papi_property( [
+							'type'  => 'text',
+							'title' => 'Image description'
+						] )
+					]
+				]
+			] )
+		] );
+	}
 }
 ```
 
