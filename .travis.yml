@@ -1,21 +1,19 @@
 language: php
-
 php:
-  - 5.3
-  - 5.4
-  - 5.5
-  - 5.6
-  - hhvm
-
+- 5.3
+- 5.4
+- 5.5
+- 5.6
+- hhvm
 env:
-  - WP_VERSION=latest WP_MULTISITE=0
-  - WP_VERSION=latest WP_MULTISITE=1
-
+- WP_VERSION=latest WP_MULTISITE=0
+- WP_VERSION=latest WP_MULTISITE=1
 before_script:
-  - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-  - cd ..
-  - mv papi /tmp/wordpress/wp-content/plugins/
-  - cd /tmp/wordpress/wp-content/plugins/papi/
-
-script:
-  phpunit
+- bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+- cd ..
+- mv papi /tmp/wordpress/wp-content/plugins/
+- cd /tmp/wordpress/wp-content/plugins/papi/
+script: phpunit
+notifications:
+  slack:
+    secure: nq0YIjL0hgLR6eqSuMTZqc55lomdtls4kw8isuAKDlfqXvge9WeDO0v8Y2GpA6SdeMieLsg4JhDNJR1MhuasNvzeAI9SNBFqyfOIvGjuhcNDY8GsB9GWLC5Yxh/WNGOTiOE+4n4MoacmAj++nSTH35nf7EIM+z7gMiA1Dhvez5k=
