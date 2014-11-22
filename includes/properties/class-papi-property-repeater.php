@@ -107,10 +107,9 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function html() {
-		$options         = $this->get_options();
-		$values          = $this->get_value();
 		$settings        = $this->get_settings();
-
+		$values          = $this->get_value();
+		
 		$settings->items = $this->prepare_properties( $settings->items );
 		?>
 
