@@ -297,6 +297,14 @@ class Papi_Admin_Meta_Boxes {
 		$this->save_property( $post_id );
 	}
 
+	/**
+	 * Save property and property type.
+	 *
+	 * @param int $post_id
+	 *
+	 * @since 1.0.0
+	 */
+
 	public function save_property( $post_id ) {
 		// Pre save page template, page type and some others dynamic values.
 		$this->pre_save( $post_id );
