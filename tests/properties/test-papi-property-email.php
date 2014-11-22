@@ -6,12 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Unit tests covering page type functionality.
+ * Unit tests covering property functionality.
  *
  * @package Papi
  */
 
-class WP_Papi_Property_Post extends WP_UnitTestCase {
+class WP_Papi_Property_Email extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test and register the page types directory.
@@ -22,14 +22,12 @@ class WP_Papi_Property_Post extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$_POST = array();
-
 		$this->post_id = $this->factory->post->create();
 
 		$this->property = papi_property( array(
-			'type'  => 'post',
-			'title' => 'The big post',
-			'slug'  => 'the_big_post'
+			'type'  => 'email',
+			'title' => 'Email',
+			'slug'  => 'email'
 		) );
 	}
 
@@ -40,13 +38,9 @@ class WP_Papi_Property_Post extends WP_UnitTestCase {
 	 */
 
 	public function test_property_options() {
-		// Test the property
-		$this->assertEquals( 'post', $this->property->type );
-		$this->assertEquals( 'The big post', $this->property->title );
-		$this->assertEquals( 'papi_the_big_post', $this->property->slug );
-
-		// Test default settings
-		$this->assertEquals( 'post', $this->property->settings->post_type );
+		$this->assertEquals( 'email', $this->property->type );
+		$this->assertEquals( 'Email', $this->property->title );
+		$this->assertEquals( 'papi_email', $this->property->slug );
 	}
 
 	/**
@@ -62,14 +56,14 @@ class WP_Papi_Property_Post extends WP_UnitTestCase {
 		$_POST = _papi_test_create_property_post_data(array(
 			'slug'  => $this->property->slug,
 			'type'  => $this->property->type,
-			'value' => $this->post_id
+			'value' => 'info@github.com'
 		), $_POST);
 
 		// Save the property using the handler.
 		$handler->save_property( $this->post_id );
 
 		// Test get the value with papi_field function.
-		$expected = get_post( $this->post_id );
+		$expected = 'info@github.com';
 		$actual   = papi_field( $this->post_id, $this->property->slug );
 
 		$this->assertEquals( $expected, $actual );

@@ -230,22 +230,6 @@ class Papi_Property {
 	}
 
 	/**
-	 * This filter is applied after the $value is loaded in the database.
-	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return mixed
-	 */
-
-	public function load_value( $value, $slug, $post_id ) {
-		return $value;
-	}
-
-	/**
 	 * Format the value of the property before we output it to the application.
 	 *
 	 * @param mixed $value
@@ -258,6 +242,22 @@ class Papi_Property {
 	 */
 
 	public function format_value( $value, $slug, $post_id ) {
+		return $value;
+	}
+
+	/**
+	 * This filter is applied after the $value is loaded in the database.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return mixed
+	 */
+
+	public function load_value( $value, $slug, $post_id ) {
 		return $value;
 	}
 

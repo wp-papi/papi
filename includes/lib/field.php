@@ -18,14 +18,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param int $post_id
  * @param string $name
  * @param mixed $default
- * @param bool $internal
+ * @param bool $admin Only used in WordPress admin
  *
  * @since 1.0.0
  *
  * @return mixed
  */
 
-function _papi_field( $post_id = null, $name = null, $default = null, $internal = false ) {
+function _papi_field( $post_id = null, $name = null, $default = null, $admin = false ) {
 	// Check if we have a post id or not.
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$default = $name;
@@ -66,7 +66,7 @@ function _papi_field( $post_id = null, $name = null, $default = null, $internal 
 		return $default;
 	}
 
-	if ( $internal ) {
+	if ( $admin ) {
 		$value = $page->get_value( $name, true );
 	} else {
 		$value = $page->$name;

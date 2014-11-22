@@ -39,9 +39,9 @@ class WP_Papi_Property_Number extends WP_UnitTestCase {
 
 	public function test_property_options() {
 		// Test the property
-		$this->assertEquals( $this->property->type, 'number' );
-		$this->assertEquals( $this->property->title, 'Age' );
-		$this->assertEquals( $this->property->slug, 'papi_age' );
+		$this->assertEquals( 'number', $this->property->type );
+		$this->assertEquals( 'Age', $this->property->title );
+		$this->assertEquals( 'papi_age', $this->property->slug );
 	}
 
 	/**
@@ -50,17 +50,24 @@ class WP_Papi_Property_Number extends WP_UnitTestCase {
 	 * @since 1.0.0
 	 */
 
-	public function test_save_property_value () {
-		// Save the property
-		_papi_property_update_value( array(
-			'post_id' => $this->post_id,
-			'slug'    => $this->property->slug,
-			'type'    => $this->property->type,
-			'value'   => 23
-		) );
+	public function test_save_property_value() {
+		$handler = new Papi_Admin_Meta_Boxes();
+
+		// Create post data.
+		$_POST = _papi_test_create_property_post_data(array(
+			'slug'  => $this->property->slug,
+			'type'  => $this->property->type,
+			'value' => 23
+		), $_POST);
+
+		// Save the property using the handler.
+		$handler->save_property( $this->post_id );
 
 		// Test get the value with papi_field function.
-		$this->assertEquals( papi_field( $this->post_id, $this->property->slug ), 23 );
+		$expected = 23;
+		$actual   = papi_field( $this->post_id, $this->property->slug );
+
+		$this->assertEquals( $expected, $actual );
 	}
 
 }

@@ -145,7 +145,7 @@ function _papi_get_or_post( $key ) {
 		return $_GET[$key];
 	}
 
-	if (isset( $_GET[$key] ) ) {
+	if ( isset( $_GET[$key] ) ) {
 		return $_GET[$key];
 	}
 
@@ -168,20 +168,6 @@ function _papi_get_qs( $qs ) {
 	}
 
 	return null;
-}
-
-/**
- * Get hidden meta key.
- *
- * @param string $slug
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _papi_get_hidden_meta_key ( $slug ) {
-	return '_' . _papify( $slug );
 }
 
 /**
@@ -358,9 +344,11 @@ function _papi_sort_order( $array, $key = 'sort_order' ) {
 
 function _papi_slugify( $str, $replace = array(), $delimiter = '-' ) {
 	setlocale( LC_ALL, 'en_US.UTF8' );
+
 	if ( ! empty( $replace ) ) {
 		$str = str_replace( (array) $replace, ' ', $str );
 	}
+
 	$clean = iconv( 'UTF-8', 'ASCII//TRANSLIT', $str );
 	$clean = preg_replace( "/[^a-zA-Z0-9\/_|+ -]/", '', $clean );
 	$clean = strtolower( trim( $clean, '-' ) );
@@ -372,7 +360,7 @@ function _papi_slugify( $str, $replace = array(), $delimiter = '-' ) {
 /**
  * Get string value into a array.
  *
- * @param object|array|string $obj
+ * @param mixed $obj
  *
  * @since 1.0.0
  *

@@ -62,92 +62,35 @@ class Papi_Page {
 	 * Get Papi Property value.
 	 *
 	 * @param string $slug
-	 * @param bool $internal
+	 * @param bool $admin
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return mixed
 	 */
 
-	public function get_value( $slug, $internal = false ) {
-		$property_value = get_post_meta( $this->id, $slug, true );
-
-		if ( is_null( $property_value ) ) {
-			return null;
-		}
-
+	public function get_value( $slug, $admin = false ) {
+		$property_value      = get_post_meta( $this->id, $slug, true );
 		$property_type_key   = _papi_f( _papi_get_property_type_key( $slug ) );
 		$property_type_value = get_post_meta( $this->id, $property_type_key, true );
 
-		if ( is_null( $property_type_value ) ) {
+		if ( empty( $property_value ) || empty( $property_type_value ) ) {
 			return null;
 		}
 
 		// The convert takes a array as argument so let's make one.
-		if ( ! is_array( $property_value ) ) {
-			return $this->convert( array(
-				'slug'  => $slug,
-				'type'  => $property_type_value,
-				'value' => $property_value
-			) );
+		$property_value = $this->convert( array(
+			'admin' => $admin,
+			'slug'  => $slug,
+			'type'  => $property_type_value,
+			'value' => $property_value
+		) );
+
+		if ( is_array( $property_value ) ) {
+			$property_value = array_filter( $property_value );
 		}
 
-		$convert = false;
-
-		// Property Repeater has array with properties.
-		// Remove `papi_` key and property key.
-		foreach ( $property_value as $ki => $vi ) {
-			if ( is_array( $property_value[ $ki ] ) ) {
-				foreach ( $property_value[ $ki ] as $k => $v ) {
-					if ( _papi_is_property_type_key( $k ) ) {
-						continue;
-					} else {
-						$item_slug = '';
-
-						foreach ( $vi as $vik => $viv ) {
-							if ( _papi_is_property_type_key( $vik ) ) {
-								continue;
-							}
-
-							$item_slug = '.' . $vik;
-
-							break;
-						}
-
-						$ptk = _papi_get_property_type_key( $k );
-
-						$property_value[ $ki ][ $k ] = $this->convert( array(
-							'slug'  => $slug . $item_slug,
-							'type'  => $property_value[ $ki ][ $ptk ],
-							'value' => $v
-						) );
-					}
-				}
-
-				// Don't return property type values to the user, only internal.
-				if ( ! $internal ) {
-					foreach ( $property_value[ $ki ] as $key => $value ) {
-						if ( _papi_is_property_type_key( $key ) ) {
-							unset( $property_value[ $ki ][ $key ] );
-						}
-					}
-				}
-			} else {
-				$convert = true;
-				break;
-			}
-		}
-
-		// Convert non property list arrays.
-		if ( $convert ) {
-			$property_value = $this->convert( array(
-				'slug'  => $slug,
-				'type'  => $property_type_value,
-				'value' => $property_value
-			) );
-		}
-
-		return array_filter( $property_value );
+		return $property_value;
 	}
 
 	/**
@@ -161,42 +104,33 @@ class Papi_Page {
 	 */
 
 	private function convert( $property ) {
-		if ( ! is_array( $property ) ) {
-			return $property;
+		if ( !isset( $property['value'] ) || !isset( $property['type'] ) ) {
+			return null;
 		}
 
-		// Try to convert the property value with a property type.
-		if ( isset( $property['value'] ) && isset( $property['type'] ) ) {
-			// Get the property type.
-			$type          = strval( $property['type'] );
-			$property_type = _papi_get_property_type( $type );
+		$type          = strval( $property['type'] );
+		$property_type = _papi_get_property_type( $type );
 
-			// If no property type is found, just return the value.
-			if ( is_null( $property_type ) ) {
-				return $property['value'];
-			}
-
-			// Run a `load_value` right after the value has been loaded from the database.
-			$property['value'] = $property_type->load_value( $property['value'], $property['slug'], $this->id );
-
-			// Apply a filter so this can be changed from the theme for specified property type.
-			// Example: "papi/load_value/string"
-			$property['value'] = _papi_load_value( $type, $property['value'], $property['slug'], $this->id );
-
-			// Format the value from the property class.
-			$property['value'] = $property_type->format_value( $property['value'], $property['slug'], $this->id );
-
-			// Apply a filter so this can be changed from the theme for specified property type.
-			// Example: "papi/format_value/string"
-			$property['value'] = _papi_format_value(  $type, $property['value'], $property['slug'], $this->id );
-		}
-
-		// If we only have the value, let's return that.
-		if ( isset( $property['value'] ) ) {
+		// If no property type is found, just return the value.
+		if ( empty( $property_type ) ) {
 			return $property['value'];
 		}
 
-		return $property;
+		// Run a `load_value` right after the value has been loaded from the database.
+		$property['value'] = $property_type->load_value( $property['value'], $property['slug'], $this->id );
+
+		// Apply a filter so this can be changed from the theme for specified property type.
+		// Example: "papi/load_value/string"
+		$property['value'] = _papi_load_value( $type, $property['value'], $property['slug'], $this->id );
+
+		// Format the value from the property class.
+		$property['value'] = $property_type->format_value( $property['value'], $property['slug'], $this->id, $property['admin'] );
+
+		// Apply a filter so this can be changed from the theme for specified property type.
+		// Example: "papi/format_value/string"
+		$property['value'] = _papi_format_value(  $type, $property['value'], $property['slug'], $this->id );
+
+		return $property['value'];
 	}
 
 	/**

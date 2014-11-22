@@ -294,6 +294,10 @@ class Papi_Admin_Meta_Boxes {
 			$post_id = intval( $post_id );
 		}
 
+		$this->save_property( $post_id );
+	}
+
+	public function save_property( $post_id ) {
 		// Pre save page template, page type and some others dynamic values.
 		$this->pre_save( $post_id );
 
@@ -303,28 +307,16 @@ class Papi_Admin_Meta_Boxes {
 		// Remove empty properties data.
 		$data = $this->remove_empty_data( $data );
 
-#		echo '<pre>';
-#		print_r( $data );
-#		exit;
-
 		// Prepare property data.
 		$data = $this->prepare_properties_data( $data, $post_id );
 
 		foreach ( $data as $key => $property ) {
-			// Property data.
-			$property_key   = _papi_remove_papi( $key );
-			$property_value = $property['value'];
-
-			// Property type data.
-			$property_type_key   = _papi_get_property_type_key_f( $key );
-			$property_type_value = $property['type'];
-
-			if ( empty( $property_value ) || empty( $property_type_value ) ) {
-				continue;
-			}
-
-			update_post_meta( $post_id, $property_key, $property_value );
-			update_post_meta( $post_id, $property_type_key, $property_type_value );
+			_papi_property_update_meta(array(
+				'post_id' => $post_id,
+				'slug'    => $key,
+				'type'    => $property['type'],
+				'value'   => $property['value']
+			));
 		}
 	}
 }

@@ -13,6 +13,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Convert array of slugs to array with arrays in.
+ *
+ * @param array $value
+ * @param string $slug
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function _papi_from_property_array_slugs( $value, $slug ) {
+	$result = array();
+
+	for ( $i = 0; $i < $value[$slug]; $i++ ) {
+		$item      = array();
+		$item_slug = $slug . '_' . $i . '_';
+		$keys      = preg_grep( '/' . preg_quote( $item_slug ). '/' , array_keys( $value ) );
+
+		foreach ( $keys as $key ) {
+			$arr_key = str_replace( $item_slug, '', $key );
+			$item[$arr_key] = $value[$key];
+		}
+
+		$result[] = $item;
+	}
+
+	return $result;
+}
+
+/**
  * Get box property.
  *
  * @param array $properties
@@ -438,15 +468,66 @@ function _papi_populate_properties( $properties ) {
  * @since 1.0.0
  */
 
-function _papi_property_update_value ( $property ) {
-	$property          = (object)$property;
-	$property_key      = _papi_remove_papi( $property->slug );
-	$property_type_key = _papi_get_property_type_key_f( $property->slug );
+function _papi_property_update_meta ( $meta ) {
+	$meta = (object)$meta;
 
-	if ( empty( $property->value ) || empty( $property->type ) ) {
-		continue;
+	if ( empty( $meta->value ) || empty( $meta->type ) ) {
+		return false;
 	}
 
-	update_post_meta( $property->post_id, $property_key, $property->value );
-	update_post_meta( $property->post_id, $property_type_key, $property->type );
+	$meta->value = _papi_to_array( $meta->value );
+
+	foreach( $meta->value as $key => $value ) {
+
+		if ( ! is_array( $value ) ) {
+
+			if ( is_numeric( $key ) ) {
+				$slug = _papi_remove_papi( $meta->slug );
+			} else {
+				$slug = $key;
+			}
+
+			update_post_meta( $meta->post_id, $slug, $value );
+			continue;
+		}
+
+		foreach( $value as $child_key => $child_value ) {
+			update_post_meta( $meta->post_id, _papi_remove_papi( $child_key ), $child_value );
+		}
+
+	}
+
+	update_post_meta( $meta->post_id, _papi_get_property_type_key_f( $meta->slug ), $meta->type );
+}
+
+/**
+ * Convert array of arrays to array of slugs.
+ * The given slug will match a key with the number of properties.
+ *
+ * @param array $value
+ * @param string $slug
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function _papi_to_property_array_slugs( $value, $slug ) {
+	$result = array(
+		$slug => count( $value )
+	);
+
+	foreach ( $value as $index => $arr ) {
+		foreach ( $arr as $key => $val ) {
+			$item_slug = $slug . '_' . $index . '_' . $key;
+
+			if ( _papi_is_property_type_key( $item_slug ) ) {
+				$item_slug = _papi_f( $item_slug );
+			}
+
+			$result[$item_slug] = $val;
+		}
+	}
+
+	return $result;
 }

@@ -14,8 +14,13 @@
         return;
       }
 
-      var $prop    = $('input.papi-property-datetime'),
-          settings = $prop.data().settings;
+      var $prop    = $('input.papi-property-datetime');
+
+      if (!$prop.length) {
+        return;
+      }
+
+      var settings = $prop.data();
 
       settings['field'] = $prop[0];
 

@@ -56,7 +56,7 @@ class Papi_Property_Relationship extends Papi_Property {
 			return null;
 		}
 
-		$slug = _papi_get_hidden_meta_key( $slug . '_sort_option' );
+		$slug = _papi_f( $slug . '_sort_option' );
 
 		return get_post_meta( $post_id, $slug, true );
 	}
@@ -248,6 +248,7 @@ class Papi_Property_Relationship extends Papi_Property {
 
 	public function update_value( $value, $slug, $post_id ) {
 		$value = $this->format_value( $value, $slug, $post_id );
+
 		return array_map( function ( $post ) {
 			return $post->ID;
 		}, $value );
