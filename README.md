@@ -34,6 +34,10 @@ add_action('after_setup_theme', 'my_register_page_types_directory');
 ```php
 <?php
 
+/**
+ * The about us page type.
+ */
+
 class About_Us_Page_Type extends Papi_Page_Type {
 
   /**
@@ -42,12 +46,12 @@ class About_Us_Page_Type extends Papi_Page_Type {
    * @return array
    */
 
-  public static function page_type () {
-    return array(
+  public function page_type () {
+    return [
       'name'        => 'About us',
       'description' => 'About the company',
       'template'    => 'pages/about-us.php'
-    );
+    ];
   }
 
   /**
@@ -61,33 +65,41 @@ class About_Us_Page_Type extends Papi_Page_Type {
 
     // Add social media links meta box
     $this->box('Social media links', array(
-      $this->property(array(
+      $this->property([
         'type'  => 'url',
         'title' => 'Twitter link',
         'slug'  => 'twitter_link'
-      )),
-      $this->property(array(
+      ]),
+      $this->property([
         'type'  => 'url',
         'title' => 'Facebook link',
         'slug'  => 'facebook_link'
-      ))
+      ])
     ));
 
     // Add Google Maps meta box for our office position
-    $this->box('Our offfice position', array(
-      $this->property(array(
-        'type'     => 'map',
-        'title'    => 'Position',
-        'slug'     => 'position',
-        'settings' => array(
-          'api_key' => 'Google Maps API key'
-        )
-      ))
-    ));
+    $this->box('Images', [
+      $this->property([
+        'type'     => 'repeater',
+        'title'    => 'Images',
+        'slug'     => 'images',
+				'sidebar'  => false,
+        'settings' => [
+					'items' => [
+						papi_property([
+							'type'  => 'image',
+							'title' => 'Image'
+						]),
+						papi_property([
+							'type'  => 'text',
+							'title' => 'Image description'
+						])
+					]
+				]
+      ])
+    ]);
   }
 }
-
-?>
 ```
 
 #### Getting property values
