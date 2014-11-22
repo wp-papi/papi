@@ -86,11 +86,11 @@ class About_Us_Page_Type extends Papi_Page_Type {
 				'sidebar'  => false,
 				'settings' => [
 					'items' => [
-						papi_property( [
+						$this->property( [
 							'type'  => 'image',
 							'title' => 'Image'
 						] ),
-						papi_property( [
+						$this->property( [
 							'type'  => 'text',
 							'title' => 'Image description'
 						] )
