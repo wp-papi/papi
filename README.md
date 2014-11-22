@@ -67,13 +67,13 @@ class About_Us_Page_Type extends Papi_Page_Type {
 		$this->box( 'Social media links', array(
 			$this->property( [
 				'type'  => 'url',
-				'title' => 'Twitter link',
-				'slug'  => 'twitter_link'
+				'title' => 'Twitter url',
+				'slug'  => 'twitter_url'
 			] ),
 			$this->property( [
 				'type'  => 'url',
-				'title' => 'Facebook link',
-				'slug'  => 'facebook_link'
+				'title' => 'Facebook url',
+				'slug'  => 'facebook_url'
 			] )
 		) );
 
