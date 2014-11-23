@@ -298,6 +298,10 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			for( $j = 0; $j < $properties + 1; $j++ ) {
 
+				if ( ! isset( $results[$i + $j] ) ) {
+					continue;
+				}
+
 				$reg  = '/' . preg_quote( $slug . '_' . $i . '_' ) . '/';
 				$meta = $results[$i + $j];
 
