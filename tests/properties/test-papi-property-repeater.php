@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Unit tests covering page type functionality.
+ * Unit tests covering property functionality.
  *
  * @package Papi
  */
@@ -82,19 +82,21 @@ class WP_Papi_Property_Repeater extends WP_UnitTestCase {
 		$item[$value_type_slug] = $this->property->settings->items[0]->type;
 
 		// Create post data.
-		$_POST = _papi_test_create_property_post_data(array(
+		$_POST = _papi_test_create_property_post_data( array(
 			'slug'  => $this->property->slug,
 			'type'  => $this->property->type,
 			'value' => array( $item )
-		), $_POST);
+		), $_POST );
 
 		$handler->save_property( $this->post_id );
 
-		$item = new stdClass;
-		$item->book_name = 'Harry Potter';
-		$expected = array( $item );
+		// Property repeater will save this value that tells how many properties there is on a row.
+		// The test needs to save this value manually.
+		update_post_meta( $this->post_id, _papi_f( $this->property->slug . '_properties' ), 1 );
 
+		$expected = array( array( 'book_name' => 'Harry Potter' ) );
 		$actual = papi_field( $this->post_id, $this->property->slug );
+
 		$this->assertEquals( $expected, $actual );
 	}
 

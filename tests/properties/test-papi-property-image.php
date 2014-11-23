@@ -6,18 +6,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Unit tests covering property functionality.
- *
- * @package Papi
- */
+* Unit tests covering page type functionality.
+*
+* @package Papi
+*/
 
-class WP_Papi_Property_Hidden extends WP_UnitTestCase {
+class WP_Papi_Property_Image extends WP_UnitTestCase {
 
 	/**
-	 * Setup the test and register the page types directory.
-	 *
-	 * @since 1.0.0
-	 */
+	* Setup the test and register the page types directory.
+	*
+	* @since 1.0.0
+	*/
 
 	public function setUp() {
 		parent::setUp();
@@ -25,29 +25,30 @@ class WP_Papi_Property_Hidden extends WP_UnitTestCase {
 		$this->post_id = $this->factory->post->create();
 
 		$this->property = papi_property( array(
-			'type'  => 'hidden',
-			'title' => 'The hidden field',
-			'slug'  => 'hidden_field'
+			'type'  => 'image',
+			'title' => 'Image',
+			'slug'  => 'image'
 		) );
 	}
 
 	/**
-	 * Test property options.
-	 *
-	 * @since 1.0.0
-	 */
+	* Test property options.
+	*
+	* @since 1.0.0
+	*/
 
 	public function test_property_options() {
-		$this->assertEquals( 'hidden', $this->property->type );
-		$this->assertEquals( 'The hidden field', $this->property->title );
-		$this->assertEquals( 'papi_hidden_field', $this->property->slug );
+		// Test the property
+		$this->assertEquals( 'image', $this->property->type );
+		$this->assertEquals( 'Image', $this->property->title );
+		$this->assertEquals( 'papi_image', $this->property->slug );
 	}
 
 	/**
-	 * Test save property value.
-	 *
-	 * @since 1.0.0
-	 */
+	* Test save property value.
+	*
+	* @since 1.0.0
+	*/
 
 	public function test_save_property_value() {
 		$handler = new Papi_Admin_Meta_Boxes();
@@ -56,14 +57,15 @@ class WP_Papi_Property_Hidden extends WP_UnitTestCase {
 		$_POST = _papi_test_create_property_post_data(array(
 			'slug'  => $this->property->slug,
 			'type'  => $this->property->type,
-			'value' => 'hidden value'
+			'value' => 23
 		), $_POST);
 
 		// Save the property using the handler.
 		$handler->save_property( $this->post_id );
 
 		// Test get the value with papi_field function.
-		$expected = 'hidden value';
+		// Property image can return the post image id if dosen't find the attachment.
+		$expected = 23;
 		$actual   = papi_field( $this->post_id, $this->property->slug );
 
 		$this->assertEquals( $expected, $actual );

@@ -320,10 +320,10 @@ class Papi_Admin_Meta_Boxes {
 
 		foreach ( $data as $key => $property ) {
 			_papi_property_update_meta(array(
-				'post_id' => $post_id,
-				'slug'    => $key,
-				'type'    => $property['type'],
-				'value'   => $property['value']
+				'post_id'       => $post_id,
+				'slug'          => $key,
+				'type'          => $property['type'],
+				'value'         => $property['value']
 			));
 		}
 	}

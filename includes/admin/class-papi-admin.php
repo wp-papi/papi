@@ -102,48 +102,46 @@ final class Papi_Admin {
 	 */
 
 	public function admin_menu() {
+		global $menu, $submenu;
+
 		$post_types = _papi_get_post_types();
 		$page_types = _papi_get_all_page_types( true );
 
-		// If we don't have any page types don't change any menu items.
-		if ( empty( $page_types ) ) {
-			return;
-		}
-
 		foreach ( $post_types as $post_type ) {
 
-			// "Post" post type hasn't "post_type" query string.
-			if ( $post_type == 'post' ) {
-				$post_type_query = '';
+			if ( $post_type === 'post' ) {
+				$edit_url = 'edit.php';
 			} else {
-				$post_type_query = '?post_type=' . $post_type;
+				$edit_url = 'edit.php?post_type=' . $post_type;
 			}
 
-			// Remove "Add new" menu item.
-			remove_submenu_page( 'edit.php' . $post_type_query , 'post-new.php' . $post_type_query );
-
-			$option_key         = sprintf('post_type.%s.only_page_type', $post_type);
-			$only_page_type     = _papi_get_option($option_key);
-
-			if ( ! empty($only_page_type) ) {
-				$url = _papi_get_page_new_url( $only_page_type, false, $post_type );
-
-				// Add our custom menu item.
-				add_submenu_page( 'edit.php' . $post_type_query,
-					__( 'Add New', 'papi' ),
-					__( 'Add New', 'papi' ),
-					'manage_options',
-					$url );
-			} else {
-				// Add our custom menu item.
-				add_submenu_page( 'edit.php' . $post_type_query,
-					__( 'Add New', 'papi' ),
-					__( 'Add New', 'papi' ),
-					'read',
-					'papi-add-new-page,' . $post_type,
-					array( $this, 'render_view' ) );
+			if ( ! isset( $submenu[$edit_url] ) || ! isset( $submenu[$edit_url][10] ) || !isset( $submenu[$edit_url][10][2] ) ) {
+				continue;
 			}
+
+			$option_key         = sprintf( 'post_type.%s.only_page_type', $post_type );
+			$only_page_type     = _papi_get_option( $option_key );
+
+			if ( ! empty( $only_page_type ) ) {
+				$submenu[$edit_url][10][2] = _papi_get_page_new_url( $only_page_type, false, $post_type );
+			} else {
+				$page = 'papi-add-new-page,' . $post_type;
+
+				if (strpos($edit_url, 'post_type') === false) {
+					$start = '?';
+				} else {
+					$start = '&';
+				}
+
+				$submenu[$edit_url][10][2] = $edit_url . $start . 'page=' . $page;
+
+				// Hidden menu item.
+				add_submenu_page( null, __( 'Add New', 'papi' ), __( 'Add New', 'papi' ), 'read', $page, array( $this, 'render_view' ) );
+			}
+
+
 		}
+
 	}
 
 	/**
@@ -217,17 +215,23 @@ final class Papi_Admin {
 		$post_types = _papi_get_post_types();
 		$post_type  = _papi_get_wp_post_type();
 
-		if ( in_array($post_type, $post_types) && strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
+		if ( in_array( $post_type, $post_types ) && strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
 			$parsed_url = parse_url( $request_uri );
 
-			$option_key         = sprintf('post_type.%s.only_page_type', $post_type);
-			$only_page_type     = _papi_get_option($option_key);
+			$option_key         = sprintf( 'post_type.%s.only_page_type', $post_type );
+			$only_page_type     = _papi_get_option( $option_key );
 
 			// Check if we should show one post type or not and create the right url for that.
-			if ( ! empty($only_page_type) ) {
+			if ( ! empty( $only_page_type ) ) {
 				$url = _papi_get_page_new_url( $only_page_type, false );
 			} else {
-				$url = "edit.php?page=papi-add-new-page,$post_type&" . $parsed_url['query'];
+				$page = 'page=papi-add-new-page,' . $post_type;
+
+				if ( $post_type !== 'post' ) {
+					$page = '&' . $page;
+				}
+
+				$url = 'edit.php?' . $parsed_url['query'] . $page;
 			}
 
 			wp_safe_redirect( $url );

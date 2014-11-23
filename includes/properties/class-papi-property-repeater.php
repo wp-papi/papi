@@ -107,9 +107,10 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function html() {
+		$options         = $this->get_options();
 		$settings        = $this->get_settings();
 		$values          = $this->get_value();
-		
+
 		$settings->items = $this->prepare_properties( $settings->items );
 		?>
 
@@ -157,43 +158,47 @@ class Papi_Property_Repeater extends Papi_Property {
 				<tbody>
 				<?php foreach ( $values as $value ): ?>
 
+					<tr>
+						<td>
+							<span><?php echo $this->counter + 1; ?></span>
+						</td>
 					<?php
 
 					foreach ( $settings->items as $property ):
 						$render_property = clone $property;
 						$value_slug      = _papi_remove_papi( $render_property->slug );
 
-						if ( !isset( $value->$value_slug ) ) {
+						if ( !isset( $value[$value_slug] ) ) {
 							continue;
 						}
 
-						$render_property->value = $value->$value_slug;
+						$render_property->value = $value[$value_slug];
 						$render_property->slug = $this->generate_slug( $render_property );
 						$render_property->raw  = true;
 						?>
-						<tr>
-							<td>
-								<span><?php echo $this->counter + 1; ?></span>
-							</td>
 							<td>
 								<?php _papi_render_property( $render_property ); ?>
 							</td>
-							<td class="last">
-                				<span>
-                  					<a title="<?php _e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
-                				</span>
-							</td>
-						</tr>
 				<?php
 					endforeach;
 					$this->counter ++;
-				endforeach; ?>
+					?>
+
+					<td class="last">
+						<span>
+							<a title="<?php _e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
+						</span>
+					</td>
+				</tr>
+				<?php endforeach; ?>
 				</tbody>
 			</table>
 
 			<div class="bottom">
 				<a href="#" class="button button-primary"><?php _e( 'Add new row', 'papi' ); ?></a>
 			</div>
+
+			<input type="hidden" name="_<?php echo $options->slug; ?>_properties" value="<?php echo count($settings->items); ?>" />
 
 		</div>
 	<?php
@@ -212,50 +217,53 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function format_value( $values, $slug, $post_id ) {
-		$result = array();
+		$result     = array();
+		$properties = intval( get_post_meta( $post_id, _papi_f( _papify( $slug ) . '_properties' ), true ) );
 
-		foreach ( $values as $key => $value ) {
-			$keys = array_keys( $value );
+		for( $i = 0; $i < count( $values ); $i++) {
+			$keys   = array_keys( $values[$i] );
+			$length = count( $keys );
+			$j      = 0;
 
-			if ( count( $value ) != 2 ) {
-				continue;
-			}
-
-			if ( _papi_is_property_type_key( $keys[0] ) ) {
-				$slug = $keys[1];
-
-				if ( isset( $value[ $keys[0] ] ) ) {
-					$type = $value[ $keys[0] ];
-				} else {
-					$type = null;
+			for ($k = 0; $k < $length; $k++) {
+				if ($k % 2 !== 0) {
+					continue;
 				}
-			} else {
-				$slug = $keys[0];
 
-				if ( isset( $value[ $keys[1] ] ) ) {
-					$type = $value[ $keys[1] ];
-				} else {
-					$type = null;
+				$slug = null;
+				$type = null;
+
+				if ( _papi_is_property_type_key( $keys[$k + 1] ) ) {
+					$slug = $keys[$k];
+
+					if ( isset( $values[ $i ][ $keys[$k + 1] ] ) ) {
+						$type = $values[ $i ][ $keys[$k + 1] ];
+					}
 				}
+
+				if ( empty( $slug ) || empty( $type ) ) {
+					continue;
+				}
+
+				$property_type = _papi_get_property_type( $type );
+
+				if ( empty( $property_type ) ) {
+					continue;
+				}
+
+				// Format the value from the property class.
+				$item = $property_type->format_value( $values[$i][$slug], $slug, $post_id );
+
+				// Apply a filter so this can be changed from the theme for specified property type.
+				// Example: "papi/format_value/string"
+				$item = _papi_format_value( $type, $item, $slug, $post_id );
+
+				if ( ! isset( $result[$i] ) ) {
+					$result[$i] = array();
+				}
+
+				$result[$i][$slug] = $item;
 			}
-
-			$property_type = _papi_get_property_type( $type );
-
-			if ( empty( $property_type ) ) {
-				continue;
-			}
-
-			$item = array();
-
-			// Format the value from the property class.
-			$item[$slug] = $property_type->format_value( $value[$slug], $slug, $post_id );
-
-			// Apply a filter so this can be changed from the theme for specified property type.
-			// Example: "papi/format_value/string"
-
-			$item[$slug] = _papi_format_value( $type, $item[$slug], $slug, $post_id );
-
-			$result[] = (object)$item;
 		}
 
 		return $result;
@@ -276,29 +284,36 @@ class Papi_Property_Repeater extends Papi_Property {
 			return $value;
 		}
 
-		$value   = intval( $value );
-		$values  = array();
-		$table   = $wpdb->prefix . 'postmeta';
-		$query   = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_key` ASC", $slug . '_%', $post_id );
-		$results = $wpdb->get_results( $query );
-		$results = array_slice( $results, 0, $value );
-
+		$value         = intval( $value );
+		$values        = array();
+		$table         = $wpdb->prefix . 'postmeta';
+		$query         = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_key` ASC", $slug . '_%', $post_id );
+		$results       = $wpdb->get_results( $query );
+		$properties    = intval( get_post_meta( $post_id, _papi_f( _papify( $slug ) . '_properties' ), true ) );
 		$values[$slug] = $value;
+
+		if ( empty( $value ) || empty( $properties ) || empty( $results ) ) {
+			return array();
+		}
 
 		for ( $i = 0; $i < $value; $i++ ) {
 
-			$reg  = '/' . preg_quote( $slug . '_' . $i . '_' ) . '/';
-			$meta = $results[$i];
+			for( $j = 0; $j < $properties + 1; $j++ ) {
 
-			if ( ! preg_match( $reg, $meta->meta_key ) ) {
-				continue;
+				$reg  = '/' . preg_quote( $slug . '_' . $i . '_' ) . '/';
+				$meta = $results[$i + $j];
+
+				if ( ! preg_match( $reg, $meta->meta_key ) ) {
+					continue;
+				}
+
+				$property_type_key   = _papi_get_property_type_key( $meta->meta_key );
+				$property_type_value = get_post_meta( $post_id, _papi_f( $property_type_key ), true );
+
+				$values[$meta->meta_key] = $meta->meta_value;
+				$values[$property_type_key] = $property_type_value;
+
 			}
-
-			$property_type_key   = _papi_get_property_type_key( $meta->meta_key );
-			$property_type_value = get_post_meta( $post_id, _papi_f( $property_type_key ), true );
-
-			$values[$meta->meta_key] = $meta->meta_value;
-			$values[$property_type_key] = $property_type_value;
 		}
 
 		return _papi_from_property_array_slugs( $values, $slug );

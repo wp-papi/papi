@@ -56,7 +56,7 @@ class Papi_Property_Relationship extends Papi_Property {
 			return null;
 		}
 
-		$slug = _papi_f( $slug . '_sort_option' );
+		$slug = _papi_f( _papify( $slug ) . '_sort_option' );
 
 		return get_post_meta( $post_id, $slug, true );
 	}
@@ -77,7 +77,7 @@ class Papi_Property_Relationship extends Papi_Property {
 		};
 
 		$sort_options[__( 'Name (alphabetically)', 'papi' )] = function ( $a, $b ) {
-			return strcmp( $a->post_title, $b->post_title );
+			return strcmp( strtolower( $a->post_title ), strtolower( $b->post_title ) );
 		};
 
 		$sort_options[__( 'Post created date (ascending)', 'papi' )] = function ( $a, $b ) {
@@ -226,7 +226,13 @@ class Papi_Property_Relationship extends Papi_Property {
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_array( $value ) ) {
 			$value = array_map( function ( $id ) {
-				return get_post( $id );
+				$post = get_post( $id );
+
+				if ( empty( $post ) ) {
+					return $id;
+				}
+
+				return $post;
 			}, $value );
 			return $this->sort_value( $value, $slug, $post_id );
 		} else {
@@ -246,7 +252,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @return array
 	 */
 
-	public function update_value( $value, $slug, $post_id ) {
+	public function update_value2( $value, $slug, $post_id ) {
 		$value = $this->format_value( $value, $slug, $post_id );
 
 		return array_map( function ( $post ) {

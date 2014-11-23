@@ -91,5 +91,15 @@ function _papi_get_wp_post_type() {
 		return reset( $value );
 	}
 
+	// If only `post-new.php` without any querystrings
+	// it would be the post post type.
+	$req_uri  = $_SERVER['REQUEST_URI'];
+	$exploded = explode('/', $req_uri);
+	$last     = end($exploded);
+
+	if ( $last === 'post-new.php' ) {
+		return 'post';
+	}
+
 	return null;
 }

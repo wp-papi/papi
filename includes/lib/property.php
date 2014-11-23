@@ -475,9 +475,20 @@ function _papi_property_update_meta ( $meta ) {
 		return false;
 	}
 
-	$meta->value = _papi_to_array( $meta->value );
+	$save_value = true;
 
-	foreach( $meta->value as $key => $value ) {
+	foreach( _papi_to_array( $meta->value ) as $key => $value ) {
+		if ( is_string( $key ) ) {
+			$save_value = false;
+			break;
+		}
+	}
+
+	if ( ! $save_value && is_array( $meta->value ) ) {
+		$meta->value = array( $meta->value );
+	}
+
+	foreach( _papi_to_array( $meta->value ) as $key => $value ) {
 
 		if ( ! is_array( $value ) ) {
 
@@ -487,7 +498,12 @@ function _papi_property_update_meta ( $meta ) {
 				$slug = $key;
 			}
 
+			if ( $save_value ) {
+				$value = $meta->value;
+			}
+
 			update_post_meta( $meta->post_id, $slug, $value );
+
 			continue;
 		}
 

@@ -6,12 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Unit tests covering property functionality.
- *
- * @package Papi
- */
+* Unit tests covering property functionality.
+*
+* @package Papi
+*/
 
-class WP_Papi_Property_Hidden extends WP_UnitTestCase {
+class WP_Papi_Property_Relationship extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test and register the page types directory.
@@ -25,9 +25,9 @@ class WP_Papi_Property_Hidden extends WP_UnitTestCase {
 		$this->post_id = $this->factory->post->create();
 
 		$this->property = papi_property( array(
-			'type'  => 'hidden',
-			'title' => 'The hidden field',
-			'slug'  => 'hidden_field'
+			'type'  => 'relationship',
+			'title' => 'Select pages',
+			'slug'  => 'pages'
 		) );
 	}
 
@@ -38,9 +38,9 @@ class WP_Papi_Property_Hidden extends WP_UnitTestCase {
 	 */
 
 	public function test_property_options() {
-		$this->assertEquals( 'hidden', $this->property->type );
-		$this->assertEquals( 'The hidden field', $this->property->title );
-		$this->assertEquals( 'papi_hidden_field', $this->property->slug );
+		$this->assertEquals( 'relationship', $this->property->type );
+		$this->assertEquals( 'Select pages', $this->property->title );
+		$this->assertEquals( 'papi_pages', $this->property->slug );
 	}
 
 	/**
@@ -56,14 +56,14 @@ class WP_Papi_Property_Hidden extends WP_UnitTestCase {
 		$_POST = _papi_test_create_property_post_data(array(
 			'slug'  => $this->property->slug,
 			'type'  => $this->property->type,
-			'value' => 'hidden value'
+			'value' => array( 1 )
 		), $_POST);
 
 		// Save the property using the handler.
 		$handler->save_property( $this->post_id );
 
 		// Test get the value with papi_field function.
-		$expected = 'hidden value';
+		$expected = array( get_post( 1 ) );
 		$actual   = papi_field( $this->post_id, $this->property->slug );
 
 		$this->assertEquals( $expected, $actual );

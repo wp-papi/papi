@@ -6,12 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Unit tests covering property functionality.
- *
- * @package Papi
- */
+* Unit tests covering property functionality.
+*
+* @package Papi
+*/
 
-class WP_Papi_Property_Hidden extends WP_UnitTestCase {
+class WP_Papi_Property_Checkbox extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test and register the page types directory.
@@ -22,12 +22,20 @@ class WP_Papi_Property_Hidden extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
+		$_POST = array();
+
 		$this->post_id = $this->factory->post->create();
 
 		$this->property = papi_property( array(
-			'type'  => 'hidden',
-			'title' => 'The hidden field',
-			'slug'  => 'hidden_field'
+			'type'     => 'checkbox',
+			'title'    => 'Color',
+			'slug'     => 'color',
+			'settings' => array(
+				'items' => array(
+					'White' => '#ffffff',
+					'Black' => '#000000'
+				)
+			)
 		) );
 	}
 
@@ -38,9 +46,9 @@ class WP_Papi_Property_Hidden extends WP_UnitTestCase {
 	 */
 
 	public function test_property_options() {
-		$this->assertEquals( 'hidden', $this->property->type );
-		$this->assertEquals( 'The hidden field', $this->property->title );
-		$this->assertEquals( 'papi_hidden_field', $this->property->slug );
+		$this->assertEquals( 'checkbox', $this->property->type );
+		$this->assertEquals( 'papi_color', $this->property->slug );
+		$this->assertFalse( empty( $this->property->settings->items ) );
 	}
 
 	/**
@@ -53,18 +61,16 @@ class WP_Papi_Property_Hidden extends WP_UnitTestCase {
 		$handler = new Papi_Admin_Meta_Boxes();
 
 		// Create post data.
-		$_POST = _papi_test_create_property_post_data(array(
+		$_POST = _papi_test_create_property_post_data( array(
 			'slug'  => $this->property->slug,
 			'type'  => $this->property->type,
-			'value' => 'hidden value'
-		), $_POST);
+			'value' => '#ffffff'
+		), $_POST );
 
-		// Save the property using the handler.
 		$handler->save_property( $this->post_id );
 
-		// Test get the value with papi_field function.
-		$expected = 'hidden value';
-		$actual   = papi_field( $this->post_id, $this->property->slug );
+		$expected = array( '#ffffff' );
+		$actual = papi_field( $this->post_id, $this->property->slug );
 
 		$this->assertEquals( $expected, $actual );
 	}
