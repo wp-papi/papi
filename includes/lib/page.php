@@ -41,6 +41,10 @@ function _papi_get_all_page_types( $all = false ) {
 		}
 	}
 
+	usort( $page_types, function ( $a, $b ) {
+		return strcmp( $a->name, $b->name );
+	} );
+
 	$page_types = _papi_sort_order( array_reverse( $page_types ) );
 
 	return $page_types;
