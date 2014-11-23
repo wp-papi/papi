@@ -218,12 +218,10 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	public function format_value( $values, $slug, $post_id ) {
 		$result     = array();
-		$properties = intval( get_post_meta( $post_id, _papi_f( _papify( $slug ) . '_properties' ), true ) );
 
 		for( $i = 0; $i < count( $values ); $i++) {
 			$keys   = array_keys( $values[$i] );
 			$length = count( $keys );
-			$j      = 0;
 
 			for ($k = 0; $k < $length; $k++) {
 				if ($k % 2 !== 0) {

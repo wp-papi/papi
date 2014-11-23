@@ -105,7 +105,6 @@ final class Papi_Admin {
 		global $menu, $submenu;
 
 		$post_types = _papi_get_post_types();
-		$page_types = _papi_get_all_page_types( true );
 
 		foreach ( $post_types as $post_type ) {
 
