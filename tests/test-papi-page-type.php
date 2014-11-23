@@ -84,6 +84,16 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test _papi_is_page_type_allowed.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_is_page_type_allowed() {
+		$this->assertTrue( _papi_is_page_type_allowed( 'page' ) );
+	}
+
+	/**
 	 * Test slug generation.
 	 *
 	 * @since 1.0.0

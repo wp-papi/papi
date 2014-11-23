@@ -45,14 +45,4 @@ class WP_Papi_Functions_Page extends WP_UnitTestCase {
 		$this->assertEquals( array( 'page' ), _papi_get_post_types() );
 	}
 
-	/**
-	 * Test _papi_is_page_type_allowed.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function test_papi_is_page_type_allowed() {
-		$this->assertTrue( _papi_is_page_type_allowed( 'page' ) );
-	}
-
 }
