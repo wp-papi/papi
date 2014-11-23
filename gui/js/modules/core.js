@@ -58,6 +58,14 @@
       window.location = $(this).data('papi-href');
     });
 
+    // Add current class to add new menu link.
+    var $submenu = $('.wp-has-current-submenu .wp-submenu'),
+        $menuitem = $submenu.find('a[href*="papi-add-new-page"]').parent();
+
+    if (!$menuitem.hasClass('current')) {
+      $menuitem.addClass('current');
+    }
+
   };
 
   // Add the core object to the papi object.
