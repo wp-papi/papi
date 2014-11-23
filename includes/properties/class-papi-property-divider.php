@@ -25,6 +25,10 @@ class Papi_Property_Divider extends Papi_Property {
 		<h3 class="hndle papi-property-divider">
 			<span><?php echo $options->title; ?></span>
 		</h3>
+
+		<?php if ( ! empty( $options->instruction ) ): ?>
+			<p><?php echo $options->instruction; ?></p>
+		<?php endif; ?>
 	<?php
 	}
 
@@ -38,10 +42,7 @@ class Papi_Property_Divider extends Papi_Property {
 		?>
 		<tr class="papi-fullwidth">
 			<td colspan="2">
-				<?php
-				$this->html();
-				$this->instruction();
-				?>
+				<?php $this->html(); ?>
 			</td>
 		</tr>
 	<?php
