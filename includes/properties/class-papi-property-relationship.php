@@ -120,6 +120,11 @@ class Papi_Property_Relationship extends Papi_Property {
 		$sort_option = $this->get_sort_option( $options->slug );
 		$value       = $this->get_value();
 
+		// By default we add posts per page key with the value -1 (all).
+		if ( ! isset( $settings->query['posts_per_page'] ) ) {
+			$settings->query['posts_per_page'] = -1;
+		}
+
 		// Fetch posts with the post types and the query.
 		$posts = query_posts( array_merge( $settings->query, array(
 			'post_type' => _papi_to_array( $settings->post_type )
