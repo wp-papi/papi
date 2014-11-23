@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/wp-papi/papi.svg?branch=master)](https://travis-ci.org/wp-papi/papi)
 
-Papi allows you create page types using the existing page post type or using custom post types. The documentation this project isn't so good, but you can look at the example below and checkout the properties to get a picture of how it works. For those how have work with Page Type Builder in EPiServer you will recognize themselves. Page Type Builder for WordPress is heavily inspired by the Page Type Builder for EPiServer.
+Papi has a different approach on how to work with fields and page types in WordPress. The idea is coming from how Page Type Builder in EPiServer works and has been loved by the developers.
+
+So we though why don’t use the same approach in WordPress? Papi is today running in production and has been easy to work with when it came to add new fields. Papi don’t have any admin user interface where should add all fields, we use classes in PHP, where one class represents one page type and in your class you add all fields you need. It’s that easy!
 
 [Documentation](http://wp-papi.github.io/)
 
@@ -38,96 +40,67 @@ add_action('after_setup_theme', 'my_register_page_types_directory');
  * The about us page type.
  */
 
-class Sample_Page_Type extends Papi_Page_Type {
+class About_Us_Page_Type extends Papi_Page_Type {
 
-    /**
-     * Define our Page Type meta data.
-     *
-     * @return array
-     */
+	/**
+	 * Define our Page Type meta data.
+	 *
+	 * @return array
+	 */
 
-    public function page_type() {
-        return [
-            'name'        => 'Sample page type',
-            'description' => 'The description of the page type',
-            'template'    => 'pages/sample-page.php'
-        ];
-    }
+	public function page_type() {
+		return [
+			'name'        => 'About us',
+			'description' => 'About the company',
+			'template'    => 'pages/about-us.php'
+		];
+	}
 
-    /**
-     * Register our properties.
-     */
+	/**
+	 * Register our properties.
+	 */
 
-    public function register() {
+	public function register() {
 
-        // Remove comments meta box
-        $this->remove( 'comments' );
+		// Remove comments meta box
+		$this->remove( 'comments' );
 
-        // Url properties
-        $this->box( 'Social media links', [
-            $this->property( [
-                'type'  => 'url',
-                'title' => 'Twitter url',
-                'slug'  => 'twitter_url'
-            ] ),
-            $this->property( [
-                'type'  => 'url',
-                'title' => 'Facebook url',
-                'slug'  => 'facebook_url'
-            ] )
-        ] );
-        
-        // Dropdown property
-        $this->box( 'Select year', [
-          $this->property( [
-            'type'     => 'dropdown',
-            'title'    => 'Select year',
-            'sidebar'  => false,
-            'settings' => [
-              'items' => [
-                '2013',
-                '2014',
-                '2015',
-                '2016'
-              ]
-            ]
-          ] )
-        ] );
-        
-        // Relationship property
-        $this->box( 'Select posts', [
-          $this->property( [
-            'type'     => 'relationship',
-            'title'    => 'Select posts',
-            'sidebar'  => false,
-            'settings' => [
-              'post_type' => [ 'post', 'page' ]
-            ]
-          ] )
-        ]);
+		// Url properties
+		$this->box( 'Social media links', array(
+			$this->property( [
+				'type'  => 'url',
+				'title' => 'Twitter url',
+				'slug'  => 'twitter_url'
+			] ),
+			$this->property( [
+				'type'  => 'url',
+				'title' => 'Facebook url',
+				'slug'  => 'facebook_url'
+			] )
+		) );
 
-        // Repeater property
-        $this->box( 'Images', [
-            $this->property( [
-                'type'     => 'repeater',
-                'title'    => 'Images',
-                'slug'     => 'images',
-                'sidebar'  => false,
-                'settings' => [
-                    'items' => [
-                        $this->property( [
-                            'type'  => 'image',
-                            'title' => 'Image'
-                        ] ),
-                        $this->property( [
-                            'type'  => 'text',
-                            'title' => 'Image description'
-                        ] )
-                    ]
-                ]
-            ] )
-        ] );
-    }
+		// Repeater property
+		$this->box( 'Images', [
+			$this->property( [
+				'type'     => 'repeater',
+				'title'    => 'Images',
+				'slug'     => 'images',
+				'sidebar'  => false,
+				'settings' => [
+					'items' => [
+						$this->property( [
+							'type'  => 'image',
+							'title' => 'Image'
+						] ),
+						$this->property( [
+							'type'  => 'text',
+							'title' => 'Image description'
+						] )
+					]
+				]
+			] )
+		] );
+	}
 }
 ```
 
