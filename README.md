@@ -116,15 +116,4 @@ Or we can use `the_papi_field('twitter_link');`
 
 ## Contribute
 
-Everyone is welcome to contribute with patches, bug-fixes and new features.
-
-1. Create an [issue](https://github.com/wp-papi/papi/issues) on Github so the community can comment on your idea.
-2. Fork `papi` on Github.
-3. Create a new branch: `git checkout -b my_branch`.
-4. Commit your changes.
-5. Push to your branch: `git push origin my_branch`.
-6. Create a pull request against `master` branch. (This will change after 1.0 release)
-
-**Note:**
-
-* If you are making several changes at once please divide them into multiple pull requests.
+Visit our [contribute](http://wp-papi.github.io/contribute/) page.
