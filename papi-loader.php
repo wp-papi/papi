@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: Papi
- * Description: Papi is a page type builder for WordPress
+ * Description: Page Type API
  * Author: Fredrik Forsmo
  * Author URI: http://forsmo.me/
  * Version: 1.0.0
