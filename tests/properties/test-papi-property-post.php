@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WP_Papi_Property_Post extends WP_UnitTestCase {
 
 	/**
-	 * Setup the test and register the page types directory.
+	 * Setup the test and.
 	 *
 	 * @since 1.0.0
 	 */
