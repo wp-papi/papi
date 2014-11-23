@@ -151,7 +151,13 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	protected function tab( $file_or_options = array(), $properties = array() ) {
-		return papi_tab( $file_or_options, $properties );
+		$tab = papi_tab( $file_or_options, $properties );
+
+		if ( isset( $tab['options']['options'] ) ) {
+			return $tab['options'];
+		}
+
+		return $tab;
 	}
 
 	/**

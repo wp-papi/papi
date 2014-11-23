@@ -78,7 +78,7 @@ function papi_property( $file_or_options, $values = array() ) {
 	}
 
 	if ( is_string( $file_or_options ) && is_array( $values ) ) {
-		return papi_template( $file_or_options, $values );
+		return _papi_template( $file_or_options, $values, true );
 	}
 
 	return array();
@@ -96,11 +96,11 @@ function papi_property( $file_or_options, $values = array() ) {
  */
 
 function papi_tab( $file_or_options, $properties = array() ) {
-	list( $options, $properties ) = _papi_get_options_and_properties( $file_or_options, $properties, false );
+	list( $options, $properties ) = _papi_get_options_and_properties( $file_or_options, $properties, false);
 
 	// The tab key is important, it's says that we should render a tab meta box.
 	// This may change in later version of Papi.
-	return array(
+	return (object)array(
 		'options'    => $options,
 		'properties' => $properties,
 		'tab'        => true
@@ -119,19 +119,7 @@ function papi_tab( $file_or_options, $properties = array() ) {
  */
 
 function papi_template( $file, $values = array() ) {
-	$filepath = _papi_get_file_path( $file );
-
-	if ( empty( $filepath ) && is_file( $file ) ) {
-		$filepath = $file;
-	}
-
-	if ( ! is_file( $filepath ) || empty( $filepath ) ) {
-		return array();
-	}
-
-	$template = require $filepath;
-
-	return array_merge( $template, $values );
+	return _papi_template( $file, $values );
 }
 
 /**

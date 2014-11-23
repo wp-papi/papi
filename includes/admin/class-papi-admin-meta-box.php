@@ -151,6 +151,7 @@ class Papi_Admin_Meta_Box {
 		}
 
 		$this->populate_properties( $properties );
+
 		$this->setup_actions();
 	}
 

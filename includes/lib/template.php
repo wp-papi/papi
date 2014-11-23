@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array
  */
 
-function _papi_body_class($classes) {
+function _papi_body_class( $classes ) {
 	global $post;
 
 	$page_type = get_post_meta( $post->ID, '__papi_page_type', true );
@@ -38,6 +38,39 @@ function _papi_body_class($classes) {
 
 add_filter( 'body_class', '_papi_body_class' );
 
+/**
+ * Load a template array file and merge values with it.
+ *
+ * @param string $file
+ * @param array $values
+ * @param bool $convert_to_object
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function _papi_template( $file, $values = array(), $convert_to_object = false ) {
+	$filepath = _papi_get_file_path( $file );
+
+	if ( empty( $filepath ) && is_file( $file ) ) {
+		$filepath = $file;
+	}
+
+	if ( ! is_file( $filepath ) || empty( $filepath ) ) {
+		return array();
+	}
+
+	$template = require $filepath;
+
+	$result = array_merge( (array)$template, $values );
+
+	if ( $convert_to_object ) {
+		return (object) $result;
+	}
+
+	return $result;
+}
 
 /**
  * Include template files from Papis custom page template meta field.

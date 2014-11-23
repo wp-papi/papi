@@ -57,7 +57,7 @@ function _papi_get_box_property( $properties ) {
 		return ! is_object( $property );
 	} );
 
-	if ( ! empty( $box_property ) && ! isset( $box_property[0] ) ) {
+	if ( ! empty( $box_property ) && ! isset( $box_property[0] ) && ! isset( $box_property[0]['tab'] ) ) {
 		$property = _papi_get_property_options( $box_property );
 		if ( ! $property->disabled ) {
 			$properties = array( $property );
@@ -109,13 +109,24 @@ function _papi_get_options_and_properties( $file_or_options = array(), $properti
 			$properties 	  = $file_or_options;
 		} else {
 			$options = array_merge( $options, $file_or_options );
+
+			if ( !$is_box ) {
+				// Add all non string keys to the properties array
+				foreach ( $options as $key => $value ) {
+					if ( ! is_string( $key ) ) {
+						$properties[] = $value;
+						unset( $options[$key] );
+					}
+				}
+			}
 		}
 	} else if ( is_string( $file_or_options ) ) {
 		// If it's a template we need to load it the right way
 		// and add all properties the right way.
+
 		if ( _papi_is_ext( $file_or_options, 'php' ) ) {
 			$values = $properties;
-			$template = papi_template( $file_or_options, $values );
+			$template = _papi_template( $file_or_options, $values );
 
 			// Create the property array from existing property array or a new.
 			$properties = array();
@@ -128,7 +139,6 @@ function _papi_get_options_and_properties( $file_or_options = array(), $properti
 					unset( $options[$key] );
 				}
 			}
-
 		} else {
 			// The first parameter is used as the title.
 			$options['title'] = $file_or_options;
@@ -310,7 +320,7 @@ function _papi_get_property_type_key( $str = '' ) {
  * @return string
  */
 
-function _papi_get_property_type_key_f ( $str ) {
+function _papi_get_property_type_key_f( $str ) {
 	return _papi_f( _papi_get_property_type_key( $str ) );
 }
 
@@ -387,7 +397,7 @@ function _papi_render_properties( $properties ) {
 	// If it's a tab the tabs class will
 	// handle the rendering of the properties.
 
-	if ( isset( $properties[0]->tab ) && $properties[0]->tab ) {
+	if ( is_array( $properties ) && is_array($properties[0]) && isset( $properties[0]['tab'] ) && $properties[0]['tab'] ) {
 		new Papi_Admin_Meta_Box_Tabs( $properties );
 	} else {
 		// Sort properties based on `sort_order` value.
@@ -433,7 +443,7 @@ function _papi_populate_properties( $properties ) {
 
 	// Convert all non property objects to property objects.
 	$properties = array_map( function ( $property ) {
-		if ( !is_object( $property ) && is_array( $property ) ) {
+		if ( ! is_object( $property ) && is_array( $property ) && ! isset( $property['tab'] ) ) {
 			return _papi_get_property_options( $property );
 		}
 
@@ -445,6 +455,12 @@ function _papi_populate_properties( $properties ) {
 
 	foreach ( $properties as $property ) {
 		if ( is_array( $property ) ) {
+
+			if ( isset( $property['tab'] ) && $property['tab'] ) {
+				$result[] = $property;
+				continue;
+			}
+
 			foreach ( $property as $p ) {
 				if ( is_object( $p ) && ! $p->disabled ) {
 					$result[] = $p;
@@ -468,7 +484,7 @@ function _papi_populate_properties( $properties ) {
  * @since 1.0.0
  */
 
-function _papi_property_update_meta ( $meta ) {
+function _papi_property_update_meta( $meta ) {
 	$meta = (object)$meta;
 
 	if ( empty( $meta->value ) || empty( $meta->type ) ) {
@@ -477,7 +493,7 @@ function _papi_property_update_meta ( $meta ) {
 
 	$save_value = true;
 
-	foreach( _papi_to_array( $meta->value ) as $key => $value ) {
+	foreach ( _papi_to_array( $meta->value ) as $key => $value ) {
 		if ( is_string( $key ) ) {
 			$save_value = false;
 			break;
@@ -488,7 +504,7 @@ function _papi_property_update_meta ( $meta ) {
 		$meta->value = array( $meta->value );
 	}
 
-	foreach( _papi_to_array( $meta->value ) as $key => $value ) {
+	foreach ( _papi_to_array( $meta->value ) as $key => $value ) {
 
 		if ( ! is_array( $value ) ) {
 
@@ -507,7 +523,7 @@ function _papi_property_update_meta ( $meta ) {
 			continue;
 		}
 
-		foreach( $value as $child_key => $child_value ) {
+		foreach ( $value as $child_key => $child_value ) {
 			update_post_meta( $meta->post_id, _papi_remove_papi( $child_key ), $child_value );
 		}
 

@@ -62,6 +62,28 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test _papi_get_all_files_in_directory.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_get_all_files_in_directory() {
+		$files = _papi_get_all_page_type_files();
+		$this->assertTrue( strpos( $files[0], 'simple-page-type' ) !== false );
+	}
+
+	/**
+	 * Test _papi_get_page_type_base_path.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_get_page_type_base_path() {
+		$files = _papi_get_all_page_type_files();
+		$this->assertEquals( 'simple-page-type', _papi_get_page_type_base_path( $files[0] ) );
+	}
+
+	/**
 	 * Test slug generation.
 	 *
 	 * @since 1.0.0
