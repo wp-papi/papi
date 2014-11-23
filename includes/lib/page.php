@@ -226,6 +226,10 @@ function _papi_get_post_types() {
 		$post_types = array_merge( $post_types, $page_type->post_type );
 	}
 
+	if ( empty( $post_types ) ) {
+		return array( 'page' );
+	}
+
 	return array_unique( $post_types );
 }
 
