@@ -67,25 +67,6 @@ function _papi_h( $obj, $default = null ) {
 }
 
 /**
- * Get html attribute string.
- *
- * @param string $name
- * @param string|array $value
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function _papi_attribute( $name, $value ) {
-	if ( ! is_array( $value ) ) {
-		$value = array( $value );
-	}
-
-	return $name . '="' . implode( ',', $value ) . '"';
-}
-
-/**
  * Dashify the given string.
  * Replacing whitespace and underscore with a dash.
  *
@@ -145,8 +126,8 @@ function _papi_get_or_post( $key ) {
 		return $_GET[$key];
 	}
 
-	if ( isset( $_GET[$key] ) ) {
-		return $_GET[$key];
+	if ( isset( $_POST[$key] ) ) {
+		return $_POST[$key];
 	}
 
 	return null;

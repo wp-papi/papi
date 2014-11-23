@@ -330,7 +330,7 @@ function _papi_is_property_type_key( $str = '' ) {
 	$pattern = str_replace( '-', '\-', $pattern );
 	$pattern = '/' . $pattern . '$/';
 
-	return preg_match( $pattern, $str );
+	return preg_match( $pattern, $str ) === 1;
 }
 
 /**

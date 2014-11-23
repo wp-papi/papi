@@ -58,7 +58,7 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 		$this->assertEquals( $page_type->get_filename(), _papi_get_page_type_meta_value( $this->post_id ) );
 
 		// Test to get the template file from the page type.
-		$this->assertEquals( 'pages/simple-page.php', _papi_get_page_type_template($this->post_id) );
+		$this->assertEquals( 'pages/simple-page.php', _papi_get_page_type_template( $this->post_id ) );
 	}
 
 	/**
@@ -68,7 +68,7 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 	 */
 
 	public function test_slug() {
-		$slug = _papi_f( _papi_get_property_type_key( 'heading' ) );
+		$slug = _papi_get_property_type_key_f( 'heading' );
 		$this->assertEquals( $slug, '_heading_property' );
 	}
 

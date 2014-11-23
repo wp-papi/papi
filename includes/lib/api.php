@@ -121,6 +121,10 @@ function papi_tab( $file_or_options, $properties = array() ) {
 function papi_template( $file, $values = array() ) {
 	$filepath = _papi_get_file_path( $file );
 
+	if ( empty( $filepath ) && is_file( $file ) ) {
+		$filepath = $file;
+	}
+
 	if ( ! is_file( $filepath ) || empty( $filepath ) ) {
 		return array();
 	}
