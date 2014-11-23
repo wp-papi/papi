@@ -42,7 +42,16 @@ class WP_Papi_Functions_Page extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_get_post_types() {
-		$this->assertEquals( array( 'page' ), _papi_get_post_types() );
+		$actual = _papi_get_post_types();
+
+		// Remove all post types can be in your own WordPress site.
+		foreach ( $actual as $key => $value ) {
+			if ( $value !== 'page' ) {
+				unset( $actual[$key] );
+			}
+		}
+
+		$this->assertEquals( array( 'page' ), array_values( $actual ) );
 	}
 
 	/**
