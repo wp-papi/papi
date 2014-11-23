@@ -63,7 +63,7 @@ class About_Us_Page_Type extends Papi_Page_Type {
 		// Remove comments meta box
 		$this->remove( 'comments' );
 
-		// Add social media links meta box
+		// Url properties
 		$this->box( 'Social media links', array(
 			$this->property( [
 				'type'  => 'url',
@@ -77,7 +77,7 @@ class About_Us_Page_Type extends Papi_Page_Type {
 			] )
 		) );
 
-		// Add Google Maps meta box for our office position
+		// Repeater property
 		$this->box( 'Images', [
 			$this->property( [
 				'type'     => 'repeater',
