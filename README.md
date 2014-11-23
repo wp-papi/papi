@@ -8,9 +8,9 @@ Papi allows you create page types using the existing page post type or using cus
 
 **Note: This project and its documentation are still under active development, so use it in production on your own risk**
 
-![](http://public.forsmo.me/wp-ptb/add-new-page.png?v4)
+![](http://wp-papi.github.io/assets/images/papi/add-new-page-type-view.png)
 
-![](http://public.forsmo.me/wp-ptb/about-us-page-type.png?v3)
+![](http://wp-papi.github.io/assets/images/papi/start-page-example-page.png)
 
 #### Register page types directory
 
@@ -38,67 +38,96 @@ add_action('after_setup_theme', 'my_register_page_types_directory');
  * The about us page type.
  */
 
-class About_Us_Page_Type extends Papi_Page_Type {
+class Sample_Page_Type extends Papi_Page_Type {
 
-	/**
-	 * Define our Page Type meta data.
-	 *
-	 * @return array
-	 */
+    /**
+     * Define our Page Type meta data.
+     *
+     * @return array
+     */
 
-	public function page_type() {
-		return [
-			'name'        => 'About us',
-			'description' => 'About the company',
-			'template'    => 'pages/about-us.php'
-		];
-	}
+    public function page_type() {
+        return [
+            'name'        => 'Sample page type',
+            'description' => 'The description of the page type',
+            'template'    => 'pages/sample-page.php'
+        ];
+    }
 
-	/**
-	 * Register our properties.
-	 */
+    /**
+     * Register our properties.
+     */
 
-	public function register() {
+    public function register() {
 
-		// Remove comments meta box
-		$this->remove( 'comments' );
+        // Remove comments meta box
+        $this->remove( 'comments' );
 
-		// Url properties
-		$this->box( 'Social media links', array(
-			$this->property( [
-				'type'  => 'url',
-				'title' => 'Twitter url',
-				'slug'  => 'twitter_url'
-			] ),
-			$this->property( [
-				'type'  => 'url',
-				'title' => 'Facebook url',
-				'slug'  => 'facebook_url'
-			] )
-		) );
+        // Url properties
+        $this->box( 'Social media links', [
+            $this->property( [
+                'type'  => 'url',
+                'title' => 'Twitter url',
+                'slug'  => 'twitter_url'
+            ] ),
+            $this->property( [
+                'type'  => 'url',
+                'title' => 'Facebook url',
+                'slug'  => 'facebook_url'
+            ] )
+        ] );
+        
+        // Dropdown property
+        $this->box( 'Select year', [
+          $this->property( [
+            'type'     => 'dropdown',
+            'title'    => 'Select year',
+            'sidebar'  => false,
+            'settings' => [
+              'items' => [
+                '2013',
+                '2014',
+                '2015',
+                '2016'
+              ]
+            ]
+          ] )
+        ] );
+        
+        // Relationship property
+        $this->box( 'Select posts', [
+          $this->property( [
+            'type'     => 'relationship',
+            'title'    => 'Select posts',
+            'sidebar'  => false,
+            'settings' => [
+              'post_type' => [ 'post', 'page' ]
+            ]
+          ] )
+        ]);
 
-		// Repeater property
-		$this->box( 'Images', [
-			$this->property( [
-				'type'     => 'repeater',
-				'title'    => 'Images',
-				'slug'     => 'images',
-				'sidebar'  => false,
-				'settings' => [
-					'items' => [
-						$this->property( [
-							'type'  => 'image',
-							'title' => 'Image'
-						] ),
-						$this->property( [
-							'type'  => 'text',
-							'title' => 'Image description'
-						] )
-					]
-				]
-			] )
-		] );
-	}
+        // Repeater property
+        $this->box( 'Images', [
+            $this->property( [
+                'type'     => 'repeater',
+                'title'    => 'Images',
+                'slug'     => 'images',
+                'sidebar'  => false,
+                'settings' => [
+                    'items' => [
+                        $this->property( [
+                            'type'  => 'image',
+                            'title' => 'Image'
+                        ] ),
+                        $this->property( [
+                            'type'  => 'text',
+                            'title' => 'Image description'
+                        ] )
+                    ]
+                ]
+            ] )
+        ] );
+    }
 }
 ```
 
