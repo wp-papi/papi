@@ -46,7 +46,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 		}
 
 		?>
-		<select class="papi-property-dropdown" name="<?php echo $options->slug; ?>">
+		<select class="papi-vendor-select2 papi-fullwidth" name="<?php echo $options->slug; ?>">
 			<?php
 			foreach ( $settings->items as $key => $value ):
 				if ( is_numeric( $key ) ) {

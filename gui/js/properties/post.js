@@ -12,7 +12,7 @@
 
   // Events
 
-  $(document).on('papi/property/repeater/added', '[value="PropertyPost"]', function (e) {
+  $(document).on('papi/property/repeater/added', '[value="post"]', function (e) {
     e.preventDefault();
 
     papi.properties.post.updateSelect($(this));
