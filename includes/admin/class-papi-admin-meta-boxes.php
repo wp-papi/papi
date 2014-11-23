@@ -200,13 +200,14 @@ class Papi_Admin_Meta_Boxes {
 	 * Remove empty data from properties data.
 	 *
 	 * @param array $data
+	 * @param bool $allow_empty
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
 
-	public function remove_empty_data( $data ) {
+	public function remove_empty_data( $data, $allow_empty = false ) {
 		$result = array();
 		$remove = array();
 
@@ -215,7 +216,7 @@ class Papi_Admin_Meta_Boxes {
 
 				// For property image that uses backbone views we only have the property type key value
 				// and that should be removed.
-				if ( _papi_is_property_type_key( $key ) ) {
+				if ( _papi_is_property_type_key( $key ) && ! $allow_empty ) {
 					$last = strrchr( $key, '_' );
 					if ( $last === _papi_get_property_type_key() ) {
 						$length = strlen( $key ) - strlen( $last );
@@ -227,9 +228,9 @@ class Papi_Admin_Meta_Boxes {
 					}
 				}
 
-				if ( ! empty ( $value ) && ! in_array( $key, $remove ) ) {
+				if ( $allow_empty || ( ! empty ( $value ) && ! in_array( $key, $remove ) ) ) {
 					$result[$key] = $value;
-				} else {
+				} else if ( ! $allow_empty ) {
 					$property_type_key = _papi_get_property_type_key( $key );
 					if ( isset( $data[ $property_type_key ] ) ) {
 						unset( $data[ $property_type_key ] );
@@ -239,7 +240,51 @@ class Papi_Admin_Meta_Boxes {
 				continue;
 			}
 
-			$result[$key] = $this->remove_empty_data( $value );
+			// Property repeater empty checks.
+			// Will check if any property on the row has value
+			// and then allow the other properties on that row to be empty.
+
+			$value = $this->remove_empty_data( $value, true );
+
+			$allow_empty = false;
+
+			$checks = array();
+
+			foreach ( $value as $child_key => $child_value ) {
+				if ( _papi_is_property_type_key( $child_key ) ) {
+					continue;
+				}
+
+				if ( ! is_array( $child_value ) ) {
+					$checks[] = $child_value;
+				} else {
+					foreach ($child_value as $k => $v) {
+						if ( _papi_is_property_type_key( $k ) ) {
+							continue;
+						}
+
+						$checks[] = $v;
+					}
+				}
+			}
+
+			$checks = array_map( function ( $check ) {
+				return ! empty( $check );
+			}, $checks );
+
+			foreach ( $checks as $check ) {
+				if ( $check ) {
+					$allow_empty = true;
+
+					break;
+				}
+			}
+
+			if ( ! $allow_empty ) {
+				$result[ $key ] = $this->remove_empty_data( $value, false );
+			} else {
+				$result[ $key ] = $value;
+			}
 		}
 
 		return $result;
@@ -319,12 +364,12 @@ class Papi_Admin_Meta_Boxes {
 		$data = $this->prepare_properties_data( $data, $post_id );
 
 		foreach ( $data as $key => $property ) {
-			_papi_property_update_meta(array(
+			_papi_property_update_meta( array(
 				'post_id'       => $post_id,
 				'slug'          => $key,
 				'type'          => $property['type'],
 				'value'         => $property['value']
-			));
+			) );
 		}
 	}
 }
