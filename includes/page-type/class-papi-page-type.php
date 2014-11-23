@@ -71,7 +71,13 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		// Add post type to the options array.
 		$options['post_type'] = $post_type;
 
-		array_push($this->boxes, array($options, $properties));
+		if ( isset( $options['sort_order'] ) ) {
+			$sort_order = intval( $options['sort_order'] );
+		} else {
+			$sort_order = 1000;
+		}
+
+		array_push( $this->boxes, array( $options, $properties, 'sort_order' => $sort_order ) );
 	}
 
 	/**
@@ -80,14 +86,16 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @since 1.0.0
 	 */
 
-	public function setup () {
+	public function setup() {
 		if ( ! method_exists( $this, 'register' ) ) {
 			return null;
 		}
 
 		$this->register();
 
-		foreach( $this->boxes as $box ) {
+		$this->boxes = _papi_sort_order( array_reverse( $this->boxes ) );
+
+		foreach ( $this->boxes as $box ) {
 			new Papi_Admin_Meta_Box( $box[0], $box[1] );
 		}
 	}

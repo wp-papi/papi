@@ -32,7 +32,6 @@ class WP_Papi_Functions_Options extends WP_UnitTestCase {
 	public function test_papi_get_options() {
 		$options = _papi_get_options();
 		$this->assertTrue( is_array( $options ) );
-		$this->assertEquals( $options['page_types.sort_by'], 'name' );
 		$this->assertTrue( $options['post_type.post.show_standard_page'] );
 		$this->assertTrue( $options['post_type.page.show_standard_page'] );
 	}
@@ -44,7 +43,6 @@ class WP_Papi_Functions_Options extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_get_option() {
-		$this->assertEquals( _papi_get_option( 'page_types.sort_by' ), 'name' );
 		$this->assertTrue( _papi_get_option( 'post_type.post.show_standard_page' ) );
 		$this->assertTrue( _papi_get_option( 'post_type.page.show_standard_page' ) );
 	}

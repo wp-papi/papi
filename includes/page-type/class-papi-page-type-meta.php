@@ -66,7 +66,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * @since 1.0.0
 	 */
 
-	public $sort_order = 100;
+	public $sort_order = 1000;
 
 	/**
 	 * The template of the page type.

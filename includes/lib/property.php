@@ -199,7 +199,7 @@ function _papi_get_property_options( $options, $get_value = true ) {
 		'settings'     => array(),
 		'sidebar'      => true,
 		'slug'         => '',
-		'sort_order'   => 100,
+		'sort_order'   => 1000,
 		'required'     => false,
 		'title'        => '',
 		'type'         => '',
@@ -397,12 +397,9 @@ function _papi_render_properties( $properties ) {
 	// If it's a tab the tabs class will
 	// handle the rendering of the properties.
 
-	if ( is_array( $properties ) && is_array($properties[0]) && isset( $properties[0]['tab'] ) && $properties[0]['tab'] ) {
+	if ( is_array( $properties ) && is_array( $properties[0] ) && isset( $properties[0]['tab'] ) && $properties[0]['tab'] ) {
 		new Papi_Admin_Meta_Box_Tabs( $properties );
 	} else {
-		// Sort properties based on `sort_order` value.
-		$properties = _papi_sort_order( $properties );
-
 		?>
 
 		<table class="papi-table">
@@ -471,7 +468,7 @@ function _papi_populate_properties( $properties ) {
 		}
 	}
 
-	return $result;
+	return _papi_sort_order( $result );
 }
 
 /**

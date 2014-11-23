@@ -40,16 +40,6 @@ function _papi_get_option( $key, $default = '' ) {
 function _papi_get_options() {
 	$options = array(
 
-		// Page types options
-
-		/**
-		 * What sort should we use?
-		 * - 'name'
-		 * - 'sort_order'.
-		 */
-
-		'page_types.sort_by' => 'name',
-
 		// Post types options
 
 		/**

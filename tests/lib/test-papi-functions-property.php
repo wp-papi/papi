@@ -209,19 +209,45 @@ class WP_Papi_Functions_Property extends WP_UnitTestCase {
 		$actual = _papi_populate_properties(array(
 			array(
 				'type'  => 'string',
-				'title' => 'Name'
+				'title' => 'Name 1'
 			),
 			array(
 				'type'  => 'string',
-				'title' => 'Name'
+				'title' => 'Name 2'
 			)
 		));
 
-		$this->assertEquals( 'Name', $actual[0]->title );
+		$this->assertEquals( 'Name 1', $actual[0]->title );
 		$this->assertEquals( 'string', $actual[0]->type );
 
-		$this->assertEquals( 'Name', $actual[1]->title );
+		$this->assertEquals( 'Name 2', $actual[1]->title );
 		$this->assertEquals( 'string', $actual[1]->type );
+
+		$actual = _papi_populate_properties(array(
+			array(
+				'type'  	 => 'string',
+				'title' 	 => 'Name 1',
+				'sort_order' => 1
+			),
+			array(
+				'type'  	 => 'string',
+				'title' 	 => 'Name 3'
+			),
+			array(
+				'type'  	 => 'string',
+				'title' 	 => 'Name 2',
+				'sort_order' => 0
+			)
+		));
+
+		$this->assertEquals( 'Name 2', $actual[0]->title );
+		$this->assertEquals( 'string', $actual[0]->type );
+
+		$this->assertEquals( 'Name 1', $actual[1]->title );
+		$this->assertEquals( 'string', $actual[1]->type );
+
+		$this->assertEquals( 'Name 3', $actual[2]->title );
+		$this->assertEquals( 'string', $actual[2]->type );
 	}
 
 	/**
