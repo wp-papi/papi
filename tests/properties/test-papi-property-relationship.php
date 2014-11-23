@@ -56,14 +56,14 @@ class WP_Papi_Property_Relationship extends WP_UnitTestCase {
 		$_POST = _papi_test_create_property_post_data(array(
 			'slug'  => $this->property->slug,
 			'type'  => $this->property->type,
-			'value' => array( 1 )
+			'value' => array( $this->post_id )
 		), $_POST);
 
 		// Save the property using the handler.
 		$handler->save_property( $this->post_id );
 
 		// Test get the value with papi_field function.
-		$expected = array( get_post( 1 ) );
+		$expected = array( get_post( $this->post_id ) );
 		$actual   = papi_field( $this->post_id, $this->property->slug );
 
 		$this->assertEquals( $expected, $actual );
