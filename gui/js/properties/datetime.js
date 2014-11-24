@@ -10,6 +10,7 @@
 
     init: function () {
       this.pikaday($('.inside > .papi-table > tbody > tr > td > input.papi-property-datetime'));
+      this.pikaday($('.papi-table .papi-table:not(.papi-table-template) input.papi-property-datetime'));
     },
 
     pikaday: function ($prop) {
