@@ -412,13 +412,21 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	public function update_value( $values, $repeater_slug, $post_id ) {
 		$properties_key = _papi_ff( _papify( $repeater_slug ) . '_properties' );
-		$properties     = $_POST[$properties_key];
-		$properties     = _papi_remove_trailing_quotes( $properties );
-		$properties     = json_decode( $properties );
+		$properties     = array();
+
+		if ( isset( $_POST[$properties_key] ) ) {
+			$properties     = $_POST[$properties_key];
+			$properties     = _papi_remove_trailing_quotes( $properties );
+			$properties     = json_decode( $properties );
+		}
 
 		$rows_key = _papi_ff( _papify( $repeater_slug ) . '_rows' );
-		$rows     = $_POST[$rows_key];
-		$rows     = intval( $rows );
+		$rows     = 0;
+
+		if ( isset( $_POST[$rows_key] ) ) {
+			$rows     = $_POST[$rows_key];
+			$rows     = intval( $rows );
+		}
 
 		if ( ! is_array( $values ) ) {
 			$values = array();
