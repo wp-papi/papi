@@ -1,82 +1,133 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2014-09-26 23:03+0100\n"
-"PO-Revision-Date: 2014-09-26 23:04+0100\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2014-11-24 08:49+0100\n"
+"PO-Revision-Date: 2014-11-24 08:56+0100\n"
+"Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.6.10\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-SearchPath-0: ../includes\n"
 
-#: ../includes/admin/class-papi-admin.php:144
-#: ../includes/admin/class-papi-admin.php:145
-#: ../includes/admin/class-papi-admin.php:151
-#: ../includes/admin/class-papi-admin.php:152
+#: ../includes/admin/class-papi-admin.php:85
+#: ../includes/admin/class-papi-admin.php:95
+#: ../includes/page-type/class-papi-page-type-base.php:102
+#: ../includes/page-type/class-papi-page-type-base.php:112
+msgid "Cheatin&#8217; huh?"
+msgstr "Fuskar du?"
+
+#: ../includes/admin/class-papi-admin.php:138
 msgid "Add New"
 msgstr "Skapa ny"
+
+#: ../includes/admin/class-papi-admin.php:177
+msgid "This fields are required:"
+msgstr "Dessa fält är obligatoriska:"
 
 #: ../includes/admin/class-papi-admin.php:252
 msgid "Page Type"
 msgstr "Sidtyp"
 
-#: ../includes/admin/class-papi-admin.php:270
-#: ../includes/admin/views/add-new-page.php:40
+#: ../includes/admin/class-papi-admin.php:272
+#: ../includes/admin/views/add-new-page.php:37
 msgid "Standard page"
 msgstr "Standard sida"
 
-#: ../includes/admin/views/add-new-page.php:16
+#: ../includes/admin/views/add-new-page.php:12
 msgid "Add new page type"
 msgstr "Lägg till en ny sidtyp"
 
-#: ../includes/admin/views/add-new-page.php:19
-#: ../includes/admin/views/add-new-page.php:22
+#: ../includes/admin/views/add-new-page.php:15
+#: ../includes/admin/views/add-new-page.php:18
 msgid "Search page types"
 msgstr "Sök sidtyper"
 
-#: ../includes/admin/views/add-new-page.php:41
+#: ../includes/admin/views/add-new-page.php:38
 msgid "Just the normal WordPress page"
 msgstr "Vanliga WordPress sidan"
 
-#: ../includes/admin/views/partials/add-new-item.php:14
+#: ../includes/admin/views/partials/add-new-item.php:16
+#: ../includes/properties/class-papi-property-relationship.php:75
 msgid "Select"
 msgstr "Välj"
 
-#: ../includes/properties/class-property-image.php:55
+#: ../includes/class-papi-property.php:168
+msgid "(required field)"
+msgstr "(obligatoriskt fält)"
+
+#: ../includes/properties/class-papi-property-image.php:67
 msgid "No image selected"
 msgstr "Ingen bild vald"
 
-#: ../includes/properties/class-property-image.php:58
+#: ../includes/properties/class-papi-property-image.php:71
 msgid "Add image"
 msgstr "Lägg till bild"
 
-#: ../includes/properties/class-property-map.php:98
-msgid "Cannot determine address at this location."
-msgstr "Kan inte avgöra adress på den här platsen."
+#: ../includes/properties/class-papi-property-post.php:34
+msgid "Select post"
+msgstr "Välj inlägg"
 
-#: ../includes/properties/class-property-map.php:180
-msgid "Search for address..."
-msgstr "Sök efter adress..."
+#: ../includes/properties/class-papi-property-relationship.php:79
+msgid "Name (alphabetically)"
+msgstr "Enligt namn (alfabetiskt)"
 
-#: ../includes/properties/class-property-repeater.php:85
-#: ../includes/properties/class-property-repeater.php:130
+#: ../includes/properties/class-papi-property-relationship.php:83
+msgid "Post created date (ascending)"
+msgstr "Enligt publiceringsdatum (stigande)"
+
+#: ../includes/properties/class-papi-property-relationship.php:87
+msgid "Post created date (descending)"
+msgstr "Enligt publiceringsdatum (fallande)"
+
+#: ../includes/properties/class-papi-property-relationship.php:91
+msgid "Post id (ascending)"
+msgstr "Enligt sidans id (stigande)"
+
+#: ../includes/properties/class-papi-property-relationship.php:95
+msgid "Post id (descending)"
+msgstr "Enligt sidans id (fallande)"
+
+#: ../includes/properties/class-papi-property-relationship.php:99
+msgid "Post modified date (ascending)"
+msgstr "Enligt ändringsdatum (stigande)"
+
+#: ../includes/properties/class-papi-property-relationship.php:103
+msgid "Post modified date (descending)"
+msgstr "Enligt ändringsdatum (fallande)"
+
+#: ../includes/properties/class-papi-property-relationship.php:142
+msgid "Search"
+msgstr "Sök"
+
+#: ../includes/properties/class-papi-property-relationship.php:147
+msgid "Sort by"
+msgstr "Sortera efter"
+
+#: ../includes/properties/class-papi-property-repeater.php:139
+#: ../includes/properties/class-papi-property-repeater.php:189
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../includes/properties/class-property-repeater.php:139
+#: ../includes/properties/class-papi-property-repeater.php:198
 msgid "Add new row"
-msgstr "Lägg till en ny rad"
+msgstr "Lägg till ny rad"
 
-#: ../includes/properties/class-property-url.php:43
+#: ../includes/properties/class-papi-property-url.php:48
 msgid "Select file"
 msgstr "Välj fil"
+
+#~ msgid "Cannot determine address at this location."
+#~ msgstr "Kan inte avgöra adress på den här platsen."
+
+#~ msgid "Search for address..."
+#~ msgstr "Sök efter adress..."
 
 #~ msgid "Standard Page"
 #~ msgstr "Standard sida"
