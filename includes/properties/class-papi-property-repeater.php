@@ -156,7 +156,22 @@ class Papi_Property_Repeater extends Papi_Property {
 				</tr>
 				</thead>
 				<tbody>
-				<?php foreach ( $values as $value ): ?>
+					<?php
+					$slugs = array_map( function( $item ) {
+						return _papi_remove_papi( $item->slug );
+					}, $settings->items );
+
+					// Fixes empty values for bool, checkbox and radio properties.
+					foreach ( $values as $index => $value ) {
+						$keys = array_keys( $value );
+						foreach( $slugs as $empty => $slug ) {
+							if ( ! in_array( $slug, $keys ) ) {
+								$values[$index][$slug] = '';
+							}
+						}
+					}
+
+					foreach ( $values as $value ): ?>
 
 					<tr>
 						<td>
