@@ -6,11 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Papi - Property Email
+ * Papi Property Email.
  *
  * @package Papi
  * @version 1.0.0
  */
+
 class Papi_Property_Email extends Papi_Property_String {
 
 	/**

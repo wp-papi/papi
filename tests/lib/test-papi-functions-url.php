@@ -30,8 +30,8 @@ class WP_Papi_Functions_Url extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_get_page_new_url() {
-		$url = _papi_get_page_new_url( 'page', true, 'page' );
-		$this->assertTrue( strpos( $url, 'page_type=page&post_type=page' ) !== false );
+		$actual = _papi_get_page_new_url( 'page', true, 'page' );
+		$this->assertTrue( strpos( $actual, 'page_type=page&post_type=page' ) !== false );
 	}
 
 	/**

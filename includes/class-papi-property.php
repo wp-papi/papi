@@ -76,6 +76,10 @@ class Papi_Property {
 	 */
 
 	public static function factory( $property_type ) {
+		if ( ! is_string( $property_type ) ) {
+			return null;
+		}
+
 		$property_type = _papi_get_property_class_name( $property_type );
 
 		if ( empty( $property_type ) || ! class_exists( $property_type ) ) {
@@ -313,7 +317,7 @@ class Papi_Property {
 		$value = $this->options->value;
 
 		if ( empty( $value ) ) {
-			return $this->default_value;
+			$value = $this->default_value;
 		}
 
 		return $this->load_value( $value, $this->options->slug, $this->post_id );

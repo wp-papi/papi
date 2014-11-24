@@ -29,12 +29,13 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	/**
 	 * Array of post type supports to remove.
+	 * By default remove `postcustom` which is the Custom fields metabox.
 	 *
 	 * @var array
 	 * @since 1.0.0
 	 */
 
-	private $post_type_supports = array();
+	private $post_type_supports = array( 'custom-fields' );
 
 	/**
 	 * Load a page type by the file.
@@ -47,6 +48,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	public function __construct( $file_path = '' ) {
 		parent::__construct( $file_path );
+		add_action( 'init', array( $this, 'remove_post_type_support' ) );
 	}
 
 	/**
@@ -125,7 +127,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	protected function remove( $post_type_supports = array() ) {
 		$this->post_type_supports = array_merge( $this->post_type_supports, _papi_to_array( $post_type_supports ) );
-		add_action( 'init', array( $this, 'remove_post_type_support' ) );
 	}
 
 	/**

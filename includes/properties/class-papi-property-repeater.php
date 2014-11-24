@@ -6,11 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Papi - Property Repeater
+ * Papi Property Repeater.
  *
  * @package Papi
  * @version 1.0.0
  */
+
 class Papi_Property_Repeater extends Papi_Property {
 
 	/**
@@ -96,7 +97,13 @@ class Papi_Property_Repeater extends Papi_Property {
 				return false;
 			}
 
-			return ! in_array( _papi_get_property_short_type( $item->type ), $not_allowed );
+			$type = _papi_get_property_short_type( $item->type );
+
+			if ( empty( $type ) ) {
+				return false;
+			}
+
+			return ! in_array( $type, $not_allowed );
 		} );
 	}
 
@@ -157,17 +164,26 @@ class Papi_Property_Repeater extends Papi_Property {
 				</thead>
 				<tbody>
 					<?php
-					$slugs = array_map( function( $item ) {
+					$properties = array_map( function( $item ) {
+						$slug = _papi_remove_papi( $item->slug );
+						$property_type_key = _papi_get_property_type_key( $item->slug );
+						$property = array();
+						$property[$slug] = '';
+						$property[$property_type_key] = $item->type;
+						return $property;
+					}, $settings->items );
+
+					$slugs = array_map( function ( $item ) {
 						return _papi_remove_papi( $item->slug );
 					}, $settings->items );
 
-					// Fixes empty values for bool, checkbox and radio properties.
 					foreach ( $values as $index => $value ) {
 						$keys = array_keys( $value );
-						foreach( $slugs as $empty => $slug ) {
-							if ( ! in_array( $slug, $keys ) ) {
-								$values[$index][$slug] = '';
+						foreach ( $slugs as $slug ) {
+							if ( in_array( $slug, $keys ) ) {
+								continue;
 							}
+							$values[$index][$slug] = '';
 						}
 					}
 
@@ -213,40 +229,119 @@ class Papi_Property_Repeater extends Papi_Property {
 				<a href="#" class="button button-primary"><?php _e( 'Add new row', 'papi' ); ?></a>
 			</div>
 
-			<input type="hidden" name="_<?php echo $options->slug; ?>_properties" value="<?php echo count($settings->items); ?>" />
+			<?php /* Default repeater value */ ?>
 
+			<input type="hidden" name="<?php echo $options->slug; ?>[]" />
+
+			<?php /* One underscore is saved, two underscores isn't saved */ ?>
+
+			<input type="hidden" name="_<?php echo $options->slug; ?>_columns" value="<?php echo count( $settings->items ); ?>" />
+			<input type="hidden" name="__<?php echo $options->slug; ?>_rows" value="<?php echo count( $values ); ?>" class="papi-property-repeater-rows" />
+			<input type="hidden" name="__<?php echo $options->slug; ?>_properties" value="<?php echo htmlentities( json_encode( $properties ) ); ?>" />
 		</div>
 	<?php
 	}
 
 	/**
-	 * Format the value of the property before we output it to the application.
+	 * Get results from the database.
 	 *
-	 * @param mixed $value
-	 * @param int $post_id
+	 * @param int $value
 	 * @param string $slug
+	 * @param int $post_id
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
 
-	public function format_value( $values, $slug, $post_id ) {
-		$result     = array();
+	public function get_results( $value, $repeater_slug, $post_id ) {
+		global $wpdb;
 
-		for( $i = 0; $i < count( $values ); $i++) {
+		$value    = intval( $value );
+		$values   = array();
+		$columns  = intval( get_post_meta( $post_id, _papi_f( _papify( $repeater_slug ) . '_columns' ), true ) );
+		$table    = $wpdb->prefix . 'postmeta';
+		$query    = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_key` ASC", $repeater_slug . '_%', $post_id );
+		$results  = $wpdb->get_results( $query );
+		$trash    = array();
+		$trashnum = 0;
+
+		if ( empty( $value ) || empty( $columns ) || empty( $results ) ) {
+			return array( array(), array() );
+		}
+
+		$values[$repeater_slug] = $value;
+
+		for ( $i = 0; $i < $value; $i++ ) {
+			$row = array_slice( $results, $i * $columns, $columns );
+			$trashnum += count( $row );
+
+			for ( $j = 0; $j < count( $row ); $j++ ) {
+				if ( ! isset( $row[$j] ) ) {
+					continue;
+				}
+
+				$reg  = '/' . preg_quote( $repeater_slug . '_' . $i . '_' ) . '/';
+				$meta = $row[$j];
+
+				if ( empty( $meta ) ) {
+					continue;
+				}
+
+				if ( empty( $meta ) || ! isset( $meta->meta_value ) || ! preg_match( $reg, $meta->meta_key ) ) {
+					continue;
+				}
+
+				$property_type_key   = _papi_get_property_type_key( $meta->meta_key );
+				$property_type_value = get_post_meta( $post_id, _papi_f( $property_type_key ), true );
+
+				$meta->meta_value = maybe_unserialize( $meta->meta_value );
+
+				$values[$meta->meta_key] = maybe_unserialize( $meta->meta_value );
+				$values[$property_type_key] = $property_type_value;
+
+			}
+		}
+
+		if ( count( $results ) > $trashnum ) {
+			$trash = array_slice( $results, $trashnum );
+		}
+
+		return array( $values, $trash );
+	}
+
+	/**
+	 * Format the value of the property before we output it to the application.
+	 *
+	 * @param mixed $value
+	 * @param string $repeater_slug
+	 * @param int $post_id
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function format_value( $values, $repeater_slug, $post_id ) {
+		$result = array();
+
+		if ( ! is_array( $values ) ) {
+			$values = array();
+		}
+
+		for ( $i = 0; $i < count( $values ); $i++ ) {
 			$keys   = array_keys( $values[$i] );
 			$length = count( $keys );
 
-			for ($k = 0; $k < $length; $k++) {
-				if ($k % 2 !== 0) {
+			for ( $k = 0; $k < $length; $k++ ) {
+				if ( $k % 2 !== 0 ) {
 					continue;
 				}
 
 				$slug = null;
 				$type = null;
 
-				if ( _papi_is_property_type_key( $keys[$k + 1] ) ) {
+				if ( isset( $keys[$k + 1] ) && _papi_is_property_type_key( $keys[$k + 1] ) ) {
 					$slug = $keys[$k];
 
 					if ( isset( $values[ $i ][ $keys[$k + 1] ] ) ) {
@@ -286,66 +381,88 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Load value from the database.
 	 *
 	 * @param mixed $value
-	 * @param string $slug
+	 * @param string $repeater_slug
 	 * @param int $post_id
 	 */
 
-	public function load_value( $value, $slug, $post_id ) {
-		global $wpdb;
-
+	public function load_value( $value, $repeater_slug, $post_id ) {
 		if ( is_array( $value ) ) {
 			return $value;
 		}
 
-		$value         = intval( $value );
-		$values        = array();
-		$table         = $wpdb->prefix . 'postmeta';
-		$query         = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_key` ASC", $slug . '_%', $post_id );
-		$results       = $wpdb->get_results( $query );
-		$properties    = intval( get_post_meta( $post_id, _papi_f( _papify( $slug ) . '_properties' ), true ) );
-		$values[$slug] = $value;
-
-		if ( empty( $value ) || empty( $properties ) || empty( $results ) ) {
+		if ( intval( $value ) === 0 ) {
 			return array();
 		}
 
-		for ( $i = 0; $i < $value; $i++ ) {
+		list( $results, $trash ) = $this->get_results( $value, $repeater_slug, $post_id );
 
-			for( $j = 0; $j < $properties + 1; $j++ ) {
+		// Will not need this array.
+		unset( $trash );
 
-				if ( ! isset( $results[$i + $j] ) ) {
-					continue;
-				}
-
-				$reg  = '/' . preg_quote( $slug . '_' . $i . '_' ) . '/';
-				$meta = $results[$i + $j];
-
-				if ( ! preg_match( $reg, $meta->meta_key ) ) {
-					continue;
-				}
-
-				$property_type_key   = _papi_get_property_type_key( $meta->meta_key );
-				$property_type_value = get_post_meta( $post_id, _papi_f( $property_type_key ), true );
-
-				$values[$meta->meta_key] = $meta->meta_value;
-				$values[$property_type_key] = $property_type_value;
-
-			}
-		}
-
-		return _papi_from_property_array_slugs( $values, $slug );
+		return _papi_from_property_array_slugs( $results, $repeater_slug );
 	}
 
 	/**
 	 * Update value before it's saved to the database.
 	 *
 	 * @param mixed $value
-	 * @param string $slug
+	 * @param string $repeater_slug
 	 * @param int $post_id
 	 */
 
-	public function update_value( $value, $slug, $post_id ) {
-		return _papi_to_property_array_slugs( $value, $slug );
+	public function update_value( $values, $repeater_slug, $post_id ) {
+		$properties_key = _papi_ff( _papify( $repeater_slug ) . '_properties' );
+		$properties     = $_POST[$properties_key];
+		$properties     = _papi_remove_trailing_quotes( $properties );
+		$properties     = json_decode( $properties );
+
+		$rows_key = _papi_ff( _papify( $repeater_slug ) . '_rows' );
+		$rows     = $_POST[$rows_key];
+		$rows     = intval( $rows );
+
+		if ( ! is_array( $values ) ) {
+			$values = array();
+		}
+
+		list( $results, $trash ) = $this->get_results( $rows, $repeater_slug, $post_id );
+
+		foreach ( $trash as $index => $meta ) {
+			delete_post_meta( $post_id, $meta->meta_key );
+		}
+
+		foreach ( $values as $index => $value ) {
+
+			if ( ! is_array( $value ) || ! is_array( $properties ) ) {
+				continue;
+			}
+
+			$keys = array_keys( $value );
+
+			foreach ( $properties as $empty => $property ) {
+				foreach ( $property as $slug => $type ) {
+					$slug = _papi_remove_papi( $slug );
+
+					if ( in_array( $slug, $keys ) ) {
+						continue;
+					}
+
+					if ( _papi_is_property_type_key( $slug ) ) {
+						$values[$index][$slug] = $type;
+					} else {
+						$values[$index][$slug] = '';
+					}
+				}
+			}
+		}
+
+		$values = _papi_to_property_array_slugs( $values, $repeater_slug );
+		$trash  = array_diff( array_keys( _papi_to_array( $results ) ), array_keys( _papi_to_array( $values ) ) );
+
+		foreach ( $trash as $trash_key => $trash_value ) {
+			delete_post_meta( $post_id, $trash_key );
+		}
+
+		return $values;
 	}
 
 }

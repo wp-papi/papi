@@ -6,21 +6,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Papi - Property Post
+ * Papi Property Post.
  *
  * @package Papi
  * @version 1.0.0
  */
+
 class Papi_Property_Post extends Papi_Property {
 
 	/**
 	 * The default value.
 	 *
-	 * @var int
+	 * @var null
 	 * @since 1.0.0
 	 */
 
-	public $default_value = 0;
+	public $default_value = null;
 
 	/**
 	 * Get default settings.
@@ -93,7 +94,7 @@ class Papi_Property_Post extends Papi_Property {
 			return get_post( $value );
 		}
 
-		return null;
+		return $this->default_value;
 	}
 
 }

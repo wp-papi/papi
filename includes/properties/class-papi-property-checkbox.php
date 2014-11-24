@@ -6,12 +6,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Papi - Property Checkbox
+ * Papi Property Checkbox.
  *
  * @package Papi
  * @version 1.0.0
  */
+
 class Papi_Property_Checkbox extends Papi_Property {
+
+	/**
+	 * The default value.
+	 *
+	 * @var array
+	 * @since 1.0.0
+	 */
+
+	public $default_value = array();
 
 	/**
 	 * Get default settings.
@@ -77,15 +87,15 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 */
 
 	public function format_value( $value, $slug, $post_id ) {
-		if ( is_string( $value ) ) {
+		if ( is_string( $value ) && ! empty( $value ) ) {
 			return array( $value );
 		}
 
-		if ( is_array( $value ) ) {
-			return $value;
+		if ( ! is_array( $value ) ) {
+			return $this->default_value;
 		}
 
-		return null;
+		return $value;
 	}
 
 }

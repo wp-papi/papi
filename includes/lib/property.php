@@ -26,6 +26,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 function _papi_from_property_array_slugs( $value, $slug ) {
 	$result = array();
 
+	if ( empty( $value ) ) {
+		return array();
+	}
+
 	for ( $i = 0; $i < $value[$slug]; $i++ ) {
 		$item      = array();
 		$item_slug = $slug . '_' . $i . '_';
@@ -104,8 +108,14 @@ function _papi_get_options_and_properties( $file_or_options = array(), $properti
 
 	if ( is_array( $file_or_options ) ) {
 		if ( empty( $properties ) && $is_box ) {
-			// The first parameter is the options array.
-			$options['title'] = isset( $file_or_options[0]->title ) ? $file_or_options[0]->title : '';
+			// Check if we have a title or not.
+			if ( isset( $file_or_options['title'] ) ) {
+				$options['title'] = $file_or_options['title'];
+			} else if ( isset( $file_or_options[0]->title ) ) {
+				$options['title'] = $file_or_options[0]->title;
+			} else {
+				$options['title'] = '';
+			}
 			$properties 	  = $file_or_options;
 		} else {
 			$options = array_merge( $options, $file_or_options );
@@ -261,7 +271,13 @@ function _papi_get_property_options( $options, $get_value = true ) {
  */
 
 function _papi_get_property_class_name( $type ) {
-	return 'Papi_Property_' . ucfirst( _papi_get_property_short_type( $type ) );
+	$type = _papi_get_property_short_type( $type );
+
+	if ( empty( $type ) ) {
+		return null;
+	}
+
+	return 'Papi_Property_' . ucfirst( $type );
 }
 
 /**
@@ -275,6 +291,10 @@ function _papi_get_property_class_name( $type ) {
  */
 
 function _papi_get_property_short_type( $type ) {
+	if ( ! is_string( $type ) ) {
+		return null;
+	}
+
 	return preg_replace( '/^property/', '', strtolower( $type ) );
 }
 
@@ -307,7 +327,13 @@ function _papi_get_property_type( $type ) {
  */
 
 function _papi_get_property_type_key( $str = '' ) {
-	return _papi_remove_papi( $str . '_property' );
+	$suffix = '_property';
+
+	if ( ! is_string( $str ) ) {
+		return $suffix;
+	}
+
+	return _papi_remove_papi( $str . $suffix );
 }
 
 /**
@@ -427,7 +453,6 @@ function _papi_render_properties( $properties ) {
  */
 
 function _papi_populate_properties( $properties ) {
-
 	// If $properties is a object we can just return it in a array.
 	if ( is_object( $properties )  ) {
 		return array( $properties );
@@ -542,11 +567,17 @@ function _papi_property_update_meta( $meta ) {
  */
 
 function _papi_to_property_array_slugs( $value, $slug ) {
-	$result = array(
-		$slug => count( $value )
-	);
+	$result  = array();
+	$counter = array();
 
 	foreach ( $value as $index => $arr ) {
+
+		if ( ! is_array( $arr ) ) {
+			continue;
+		}
+
+		$counter[] = $arr;
+
 		foreach ( $arr as $key => $val ) {
 			$item_slug = $slug . '_' . $index . '_' . $key;
 
@@ -557,6 +588,8 @@ function _papi_to_property_array_slugs( $value, $slug ) {
 			$result[$item_slug] = $val;
 		}
 	}
+
+	$result[$slug] = count( $counter );
 
 	return $result;
 }

@@ -6,12 +6,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Papi - Property Image
+ * Papi Property Image.
  *
  * @package Papi
  * @version 1.0.0
  */
+
 class Papi_Property_Image extends Papi_Property {
+
+	/**
+	 * The default value.
+	 *
+	 * @var null
+	 * @since 1.0.0
+	 */
+
+	public $default_value = null;
 
 	/**
 	 * Get default settings.

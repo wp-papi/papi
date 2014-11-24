@@ -52,6 +52,28 @@ function _papi_f( $str = '' ) {
 }
 
 /**
+ * Add two underscores at the start of the string.
+ *
+ * @param string $str
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papi_ff( $str = '' ) {
+	if ( substr( $str, 0, 1 ) === '_' ) {
+		if ( substr( $str, 1, 1 ) === '_' ) {
+			return $str;
+		}
+
+		return '_' . $str;
+	}
+
+	return '__' . $str;
+}
+
+/**
  * Check if $obj is set and if not return null or default.
  *
  * @param mixed $obj The var to check if it is set.

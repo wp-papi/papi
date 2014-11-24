@@ -58,12 +58,14 @@
       li {
         border-bottom: 1px #eaeaea solid;
         padding: 5px 10px 10px 5px;
+        cursor: pointer;
 
         span.icon {
           background: url(../img/plus-minus.png) no-repeat top left;
           width: 16px;
           height: 16px;
           float: right;
+          cursor: pointer;
           &.minus {
             background-position: top right;
           }

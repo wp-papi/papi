@@ -6,11 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Papi - Property Bool
+ * Papi Property Bool.
  *
  * @package Papi
  * @version 1.0.0
  */
+
 class Papi_Property_Bool extends Papi_Property {
 
 	/**

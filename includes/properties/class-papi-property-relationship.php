@@ -6,11 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Papi - Property Relationship
+ * Papi Property Relationship.
  *
  * @package Papi
  * @version 1.0.0
  */
+
 class Papi_Property_Relationship extends Papi_Property {
 
 	/**
@@ -132,7 +133,7 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		// Keep only objects.
 		$value = array_filter( _papi_to_array( $value ), function ( $post ) {
-			return is_object( $post );
+			return is_object( $post ) && isset( $post->post_title );
 		} );
 
 		?>
@@ -241,7 +242,7 @@ class Papi_Property_Relationship extends Papi_Property {
 			}, $value );
 			return $this->sort_value( $value, $slug, $post_id );
 		} else {
-			return array();
+			return $this->default_value;
 		}
 	}
 
@@ -257,7 +258,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @return array
 	 */
 
-	public function update_value2( $value, $slug, $post_id ) {
+	public function update_value( $value, $slug, $post_id ) {
 		$value = $this->format_value( $value, $slug, $post_id );
 
 		return array_map( function ( $post ) {

@@ -34,4 +34,4 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 require $test_root . '/includes/bootstrap.php';
 
 // Load utilities file for testing.
-require dirname(__FILE__) . '/lib/utilities.php';
+require dirname(__FILE__) . '/includes/utilities.php';

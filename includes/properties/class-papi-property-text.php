@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Papi - Property Text
+ * Papi Property Text.
  *
  * @package Papi
  * @version 1.0.0

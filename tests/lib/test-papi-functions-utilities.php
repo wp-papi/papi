@@ -24,8 +24,6 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 
 		$_GET  = array();
 		$_POST = array();
-
-		//$this->post_id = $this->factory->post->create();
 	}
 
 	/**
@@ -36,6 +34,16 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 
 	public function test_papi_f() {
 		$this->assertEquals( '_page', _papi_f( 'page' ) );
+	}
+
+	/**
+	 * Test _papi_ff.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_ff() {
+		$this->assertEquals( '__page', _papi_ff( 'page' ) );
 	}
 
 	/**

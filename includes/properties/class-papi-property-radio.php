@@ -6,11 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Papi - Property Radio
+ * Papi Property Radio.
  *
  * @package Papi
  * @version 1.0.0
  */
+
 class Papi_Property_Radio extends Papi_Property {
 
 	/**
@@ -58,5 +59,4 @@ class Papi_Property_Radio extends Papi_Property {
 			echo $key . '<br />';
 		}
 	}
-
 }

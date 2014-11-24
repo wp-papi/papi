@@ -6,8 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Papi - Property Number
+ * Papi Property number.
+ *
+ * @package Papi
+ * @version 1.0.0
  */
+
 class Papi_Property_Number extends Papi_Property_String {
 
 	/**

@@ -6,11 +6,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Papi - Property Divider
+ * Papi Property Divider.
  *
  * @package Papi
  * @version 1.0.0
  */
+
 class Papi_Property_Divider extends Papi_Property {
 
 	/**
