@@ -51,10 +51,14 @@
       });
     },
 
+    /**
+     * Initialize pikaday field when added to repeater.
+     *
+     * @param object $this
+     */
+
     updateSelect: function ($this) {
       var $prop = $this.prev();
-
-      console.log($prop[0]);
 
       $prop.find('.relationship-left [name]').each(function () {
         var $this = $(this);

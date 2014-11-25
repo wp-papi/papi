@@ -4,6 +4,12 @@
 
   papi.properties.post = {
 
+    /**
+     * Initialize pikaday field when added to repeater.
+     *
+     * @param object $this
+     */
+
     updateSelect: function ($this) {
       $this.parent().find('select').select2();
     }

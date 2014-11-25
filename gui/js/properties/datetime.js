@@ -13,6 +13,12 @@
       this.pikaday($('.papi-table .papi-table:not(.papi-table-template) input.papi-property-datetime'));
     },
 
+    /**
+     * Initialize Pikaday.
+     *
+     * @param {object} $prop
+     */
+
     pikaday: function ($prop) {
       // Don't proceed if Pikaday is undefined.
       if (window.Pikaday === undefined) {
