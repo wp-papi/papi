@@ -164,7 +164,7 @@ class Papi_Property_Relationship extends Papi_Property {
 								?>
 								<li>
 									<input type="hidden" data-name="<?php echo $options->slug; ?>[]"
-									       value="<?php echo $post->ID; ?>"/>
+									       value="<?php echo $post->ID; ?>" class="papi-property-repeater-ignore"/>
 									<a href="#"><?php echo $post->post_title; ?></a>
 									<span class="icon plus"></span>
 								</li>

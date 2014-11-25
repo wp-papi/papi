@@ -63,6 +63,7 @@
         $menuitem = $submenu.find('a[href*="papi-add-new-page"]').parent();
 
     if (!$menuitem.hasClass('current')) {
+      $submenu.find('li').removeClass('current');
       $menuitem.addClass('current');
     }
 

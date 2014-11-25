@@ -49,6 +49,18 @@
         var $li = $(this);
         $li[$li.text().toLowerCase().indexOf(val) === -1 ? 'hide' : 'show']();
       });
+    },
+
+    updateSelect: function ($this) {
+      var $prop = $this.prev();
+
+      console.log($prop[0]);
+
+      $prop.find('.relationship-left [name]').each(function () {
+        var $this = $(this);
+        $this.attr('data-name', $this.attr('name'));
+        $this.removeAttr('name');
+      });
     }
 
   };
@@ -71,6 +83,12 @@
     e.preventDefault();
 
     papi.properties.relationship.search($(this));
+  });
+
+  $(document).on('papi/property/repeater/added', '[value="relationship"]', function (e) {
+    e.preventDefault();
+
+    papi.properties.relationship.updateSelect($(this));
   });
 
 })(jQuery);

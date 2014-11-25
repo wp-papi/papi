@@ -185,7 +185,7 @@ class Papi_Admin_Meta_Boxes {
 			return;
 		}
 
-		$data = $this->get_post_data( '/\_papi\_.*/' );
+		$data = $this->get_post_data( '/^\_papi\_.*/' );
 
 		foreach ( $data as $key => $value ) {
 			if ( empty( $value ) ) {
