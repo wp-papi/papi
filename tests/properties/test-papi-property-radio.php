@@ -62,9 +62,9 @@ class WP_Papi_Property_Radio extends WP_UnitTestCase {
 
 		// Create post data.
 		$_POST = _papi_test_create_property_post_data( array(
-		'slug'  => $this->property->slug,
-		'type'  => $this->property->type,
-		'value' => '#ffffff'
+			'slug'  => $this->property->slug,
+			'type'  => $this->property->type,
+			'value' => '#ffffff'
 		), $_POST );
 
 		$handler->save_property( $this->post_id );

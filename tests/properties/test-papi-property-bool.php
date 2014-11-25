@@ -54,9 +54,9 @@ class WP_Papi_Property_Bool extends WP_UnitTestCase {
 
 		// Create post data.
 		$_POST = _papi_test_create_property_post_data(array(
-		'slug'  => $this->property->slug,
-		'type'  => $this->property->type,
-		'value' => true
+			'slug'  => $this->property->slug,
+			'type'  => $this->property->type,
+			'value' => true
 		), $_POST);
 
 		// Save the property using the handler.
