@@ -34,10 +34,10 @@ class WP_Papi_Functions_Options extends WP_UnitTestCase {
 		$this->assertTrue( is_array( $options ) );
 		$this->assertTrue( $options['post_type.post.show_standard_page'] );
 		$this->assertTrue( $options['post_type.page.show_standard_page'] );
-		$this->assertNull( $options[true] );
-		$this->assertNull( $options[false] );
-		$this->assertNull( $options[null] );
-		$this->assertNull( $options[1] );
+		$this->assertFalse( isset( $options[true] ) );
+		$this->assertFalse( isset( $options[false] ) );
+		$this->assertFalse( isset( $options[null] ) );
+		$this->assertFalse( isset( $options[1] ) );
 	}
 
 	/**
