@@ -5,7 +5,11 @@
   papi.properties.dropdown = {
 
     updateSelect: function ($this) {
-      $this.parent().find('select').select2();
+      var $select = $this.parent().find('select')
+
+      if ($select.hasClass('.papi-vendor-select2')) {
+        $select.select2();
+      }
     }
 
   };

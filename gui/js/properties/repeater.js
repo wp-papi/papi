@@ -127,7 +127,13 @@
         $this.find('td:first-child span').text(index + 1);
 
         $this.find('input,select,textarea').each(function () {
-          $(this).attr('name', $(this).attr('name').replace(/(\[\d+\])/, '[' + index + ']'));
+          var $this = $(this);
+
+          if ($this.attr('name') === undefined || !$this.attr('name').length) {
+            return;
+          }
+
+          $this.attr('name', $this.attr('name').replace(/(\[\d+\])/, '[' + index + ']'));
         });
       });
 
