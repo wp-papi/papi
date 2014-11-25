@@ -55,7 +55,15 @@ function _papi_get_page_query_strings( $first_char = '&' ) {
 	$query = explode( '&', $query );
 
 	$query = array_filter( $query, function ( $q ) {
-		return in_array( $q, array( 'page_type=', 'post_new=', 'post_parent=', 'papi_bypass=' ) );
+		$q = explode('=', $q);
+
+		if ( empty( $q ) ) {
+			return false;
+		}
+
+		$q = $q[0];
+
+		return in_array( $q, array( 'page_type', 'post_new', 'post_parent', 'papi_bypass', 'npparent' ) );
 	} );
 
 	$query = implode( '&', $query );
