@@ -51,6 +51,10 @@ add_filter( 'body_class', '_papi_body_class' );
  */
 
 function _papi_template( $file, $values = array(), $convert_to_object = false ) {
+	if ( ! is_string( $file ) ) {
+		return array();
+	}
+
 	$filepath = _papi_get_file_path( $file );
 
 	if ( empty( $filepath ) && is_file( $file ) ) {

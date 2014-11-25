@@ -76,7 +76,7 @@ function _papi_get_file_data( $post_id ) {
 /**
  * Get number of how many pages uses the given page type.
  *
- * @param $page_type
+ * @param string $page_type
  *
  * @since 1.0.0
  *
@@ -86,7 +86,7 @@ function _papi_get_file_data( $post_id ) {
 function _papi_get_number_of_pages( $page_type ) {
 	global $wpdb;
 
-	if ( empty( $page_type ) ) {
+	if ( empty( $page_type ) || ! is_string( $page_type) ) {
 		return 0;
 	}
 
@@ -240,6 +240,10 @@ function _papi_get_post_types() {
  */
 
 function _papi_is_page_type_allowed( $post_type ) {
+	if ( ! is_string( $post_type ) ) {
+		return false;
+	}
+
 	$post_types = array_map( function ( $p ) {
 		return strtolower( $p );
 	}, _papi_get_post_types() );

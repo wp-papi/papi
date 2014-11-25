@@ -22,6 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 function _papi_get_option( $key, $default = '' ) {
 	$options = _papi_get_options();
 
+	if ( ! is_string( $key ) ) {
+		return $default;
+	}
+
 	if ( isset( $options[$key] ) ) {
 		return $options[$key];
 	}

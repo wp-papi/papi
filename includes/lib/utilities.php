@@ -44,6 +44,10 @@ function _papi_current_user_is_allowed( $capabilities = array() ) {
  */
 
 function _papi_f( $str = '' ) {
+	if ( ! is_string( $str ) ) {
+		return '';
+	}
+
 	if ( strpos( $str, '_' ) === 0 ) {
 		return $str;
 	}
@@ -62,6 +66,10 @@ function _papi_f( $str = '' ) {
  */
 
 function _papi_ff( $str = '' ) {
+	if ( ! is_string( $str ) ) {
+		return '';
+	}
+
 	if ( substr( $str, 0, 1 ) === '_' ) {
 		if ( substr( $str, 1, 1 ) === '_' ) {
 			return $str;
@@ -100,6 +108,10 @@ function _papi_h( $obj, $default = null ) {
  */
 
 function _papi_dashify( $str ) {
+	if ( ! is_string( $str ) ) {
+		return '';
+	}
+
 	return str_replace( ' ', '-', str_replace( '_', '-', $str ) );
 }
 
@@ -114,6 +126,10 @@ function _papi_dashify( $str ) {
  */
 
 function _papi_get_class_name( $file ) {
+	if ( ! is_string( $file ) ) {
+		return '';
+	}
+
 	$content     = file_get_contents( $file );
 	$tokens      = token_get_all( $content );
 	$class_token = false;
@@ -144,6 +160,10 @@ function _papi_get_class_name( $file ) {
  */
 
 function _papi_get_or_post( $key ) {
+	if ( ! is_string( $key ) ) {
+		return null;
+	}
+
 	if ( isset( $_GET[$key] ) ) {
 		return $_GET[$key];
 	}
@@ -166,6 +186,10 @@ function _papi_get_or_post( $key ) {
  */
 
 function _papi_get_qs( $qs ) {
+	if ( ! is_string( $qs ) ) {
+		return null;
+	}
+
 	if ( isset( $_GET[ $qs ] ) && ! empty( $_GET[ $qs ] ) ) {
 		return esc_html( $_GET[ $qs ] );
 	}
@@ -184,6 +208,10 @@ function _papi_get_qs( $qs ) {
  */
 
 function _papi_html_name( $name ) {
+	if ( ! is_string( $name ) ) {
+		return '';
+	}
+
 	if ( ! preg_match( '/^\_\_papi|^\_papi/', $name ) ) {
 		return _papi_underscorify( _papi_slugify( _papify( $name ) ) );
 	}
@@ -201,6 +229,10 @@ function _papi_html_name( $name ) {
  */
 
 function _papi_include_template( $tpl_file, $vars = array() ) {
+	if ( ! is_string( $tpl_file ) ) {
+		return null;
+	}
+
 	$path = PAPI_PLUGIN_DIR;
 	$path = rtrim( $path, '/' ) . '/';
 
@@ -238,6 +270,10 @@ function _papi_is_ext( $str, $ext ) {
  */
 
 function _papi_is_method( $method = '' ) {
+	if ( ! is_string( $method ) ) {
+		return false;
+	}
+
 	return isset( $_SERVER['REQUEST_METHOD'] ) && strtoupper( $_SERVER['REQUEST_METHOD'] ) == strtoupper( $method );
 }
 
@@ -262,6 +298,10 @@ function _papi_polylang() {
  */
 
 function _papi_remove_papi( $str ) {
+	if ( ! is_string( $str ) ) {
+		return '';
+	}
+
 	return str_replace( 'papi-', '', str_replace( 'papi_', '', $str ) );
 }
 
@@ -277,6 +317,10 @@ function _papi_remove_papi( $str ) {
  */
 
 function _papi_remove_trailing_quotes( $str ) {
+	if ( ! is_string( $str ) ) {
+		return '';
+	}
+
 	return str_replace( "\'", "'", str_replace( '\"', '"', $str ) );
 }
 
@@ -346,6 +390,10 @@ function _papi_sort_order( $array, $key = 'sort_order' ) {
  */
 
 function _papi_slugify( $str, $replace = array(), $delimiter = '-' ) {
+	if ( ! is_string( $str ) ) {
+		return '';
+	}
+
 	setlocale( LC_ALL, 'en_US.UTF8' );
 
 	if ( ! empty( $replace ) ) {
@@ -390,6 +438,10 @@ function _papi_to_array( $obj ) {
  */
 
 function _papi_underscorify( $str ) {
+	if ( ! is_string( $str ) ) {
+		return '';
+	}
+
 	return str_replace( ' ', '_', str_replace( '-', '_', $str ) );
 }
 
@@ -404,6 +456,10 @@ function _papi_underscorify( $str ) {
  */
 
 function _papify( $str = '' ) {
+	if ( ! is_string( $str ) ) {
+		return '';
+	}
+
 	if ( ! preg_match( '/^\_\_papi|^\_papi|^papi\_/', $str ) ) {
 		return 'papi_' . $str;
 	}

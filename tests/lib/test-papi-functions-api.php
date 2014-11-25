@@ -34,7 +34,7 @@ class WP_Papi_Functions_API extends WP_UnitTestCase {
 	 */
 
 	public function test_current_page() {
-		$this->assertNull(current_page());
+		$this->assertNull( current_page() );
 	}
 
 	/**
@@ -59,7 +59,7 @@ class WP_Papi_Functions_API extends WP_UnitTestCase {
 	 * @since 1.0.0
 	 */
 
-	public function test_papi_property () {
+	public function test_papi_property() {
 		$actual = papi_property( array(
 			'type'  => 'string',
 			'title' => 'Name'
@@ -67,6 +67,18 @@ class WP_Papi_Functions_API extends WP_UnitTestCase {
 
 		$this->assertEquals( 'Name', $actual->title );
 		$this->assertEquals( 'string', $actual->type );
+
+		$actual = papi_property( array() );
+
+		$this->assertEmpty( $actual->title );
+		$this->assertEmpty( $actual->type );
+		$this->assertTrue( $actual->sidebar );
+
+		$this->assertEmpty( papi_property( null ) );
+		$this->assertEmpty( papi_property( true ) );
+		$this->assertEmpty( papi_property( false ) );
+		$this->assertEmpty( papi_property( 1 ) );
+		$this->assertEmpty( papi_property( new stdClass() ) );
 	}
 
 	/**
@@ -76,7 +88,7 @@ class WP_Papi_Functions_API extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_property_template() {
-		$actual = papi_property(dirname(__FILE__) . '/../data/properties/simple.php');
+		$actual = papi_property( dirname( __FILE__ ) . '/../data/properties/simple.php' );
 
 		$this->assertEquals( 'Name', $actual->title );
 		$this->assertEquals( 'string', $actual->type );
@@ -109,7 +121,7 @@ class WP_Papi_Functions_API extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_tab_template() {
-		$actual = papi_property(dirname(__FILE__) . '/../data/tabs/content.php');
+		$actual = papi_property( dirname( __FILE__ ) . '/../data/tabs/content.php' );
 
 		$this->assertTrue( $actual->tab );
 		$this->assertEquals( 'Content', $actual->options['title'] );
@@ -124,10 +136,17 @@ class WP_Papi_Functions_API extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_template() {
-		$actual = papi_template(dirname(__FILE__) . '/../data/properties/simple.php');
+		$actual = papi_template( dirname( __FILE__ ) . '/../data/properties/simple.php' );
 
 		$this->assertEquals( 'Name', $actual['title'] );
 		$this->assertEquals( 'string', $actual['type'] );
+
+		$this->assertEmpty( papi_template( null ) );
+		$this->assertEmpty( papi_template( true ) );
+		$this->assertEmpty( papi_template( false ) );
+		$this->assertEmpty( papi_template( 1 ) );
+		$this->assertEmpty( papi_template( array() ) );
+		$this->assertEmpty( papi_template( new stdClass() ) );
 	}
 
 }

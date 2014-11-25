@@ -34,6 +34,10 @@ class WP_Papi_Functions_Options extends WP_UnitTestCase {
 		$this->assertTrue( is_array( $options ) );
 		$this->assertTrue( $options['post_type.post.show_standard_page'] );
 		$this->assertTrue( $options['post_type.page.show_standard_page'] );
+		$this->assertNull( $options[true] );
+		$this->assertNull( $options[false] );
+		$this->assertNull( $options[null] );
+		$this->assertNull( $options[1] );
 	}
 
 	/**
@@ -45,6 +49,12 @@ class WP_Papi_Functions_Options extends WP_UnitTestCase {
 	public function test_papi_get_option() {
 		$this->assertTrue( _papi_get_option( 'post_type.post.show_standard_page' ) );
 		$this->assertTrue( _papi_get_option( 'post_type.page.show_standard_page' ) );
+		$this->assertEmpty( _papi_get_option( true ) );
+		$this->assertEmpty( _papi_get_option( false ) );
+		$this->assertEmpty( _papi_get_option( null ) );
+		$this->assertEmpty( _papi_get_option( 1 ) );
+		$this->assertEmpty( _papi_get_option( array() ) );
+		$this->assertEmpty( _papi_get_option( new stdClass() ) );
 	}
 
 }
