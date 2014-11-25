@@ -62,8 +62,7 @@
     var $submenu = $('.wp-has-current-submenu .wp-submenu'),
         $menuitem = $submenu.find('a[href*="papi-add-new-page"]').parent();
 
-    if (!$menuitem.hasClass('current')) {
-      $submenu.find('li').removeClass('current');
+    if (!$menuitem.hasClass('current') && !$submenu.find('li.current').length) {
       $menuitem.addClass('current');
     }
 
