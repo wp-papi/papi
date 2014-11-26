@@ -19,21 +19,29 @@
      * @param {object} $prop
      */
 
-    pikaday: function ($prop) {
+    pikaday: function ($props) {
       // Don't proceed if Pikaday is undefined.
       if (window.Pikaday === undefined) {
         return;
       }
 
-      if (!$prop.length) {
+      if (!$props.length) {
         return;
       }
 
-      var settings = $prop.data().settings;
+      $props.each(function () {
+        var $prop = $(this),
+            settings = $prop.data().settings;
 
-      settings['field'] = $prop[0];
+        // Fixes to 24 hours actually works if you forget to change the format.
+        if (settings.use24hour) {
+          settings.format = settings.format.replace(/hh/, 'HH');
+        }
 
-      new Pikaday(settings);
+        settings['field'] = $prop[0];
+
+        new Pikaday(settings);
+      });
     },
 
     /**
