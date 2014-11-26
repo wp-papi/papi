@@ -24,7 +24,7 @@ class Papi_Admin_Meta_Box_Tabs {
 	private $default_options = array(
 		'capabilities' => array(),
 		'icon'         => '',
-		'sort_order'   => _papi_get_option( 'sort_order', 1000 ),
+		'sort_order'   => 0,
 		// Private options
 		'_name'        => ''
 	);
@@ -42,18 +42,35 @@ class Papi_Admin_Meta_Box_Tabs {
 	 * Constructor.
 	 *
 	 * @param array $tabs
+	 * @param bool $render
 	 *
 	 * @since 1.0.0
 	 */
 
-	public function __construct( $tabs = array() ) {
+	public function __construct( $tabs = array(), $render = true ) {
 		if ( empty( $tabs ) ) {
 			return;
 		}
 
+		$this->default_options['sort_order'] = _papi_get_option( 'sort_order', 1000 );
+
 		$this->setup_tabs( $tabs );
 
-		$this->html();
+		if ( $render ) {
+			$this->html();
+		}
+	}
+
+	/**
+	 * Get the tabs that are registered.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function get_tabs () {
+		return $this->tabs;
 	}
 
 	/**
@@ -136,23 +153,11 @@ class Papi_Admin_Meta_Box_Tabs {
 			$tab->options = $this->setup_options( $tab->options );
 
 			if ( _papi_current_user_is_allowed( $tab->options->capabilities ) ) {
-				$_tabs[] = array(
-					'sort_order' => $tab->options->sort_order,
-					$tab
-				);
+				$_tabs[] = $tab;
 			}
 		}
 
-		// Sort tabs based on `sort_order` value.
-		$tabs = _papi_sort_order( $_tabs );
-
-		$tabs = array_map( function ( $tab ) {
-			if ( is_array( $tab ) && isset( $tab[0] ) ) {
-				return $tab[0];
-			} else {
-				return array();
-			}
-		}, $tabs );
+		$tabs = _papi_sort_order( array_reverse( $_tabs ) );
 
 		// Generate unique names for all tabs.
 		for ( $i = 0; $i < count( $tabs ); $i ++ ) {
@@ -171,6 +176,7 @@ class Papi_Admin_Meta_Box_Tabs {
 	 * Setup options.
 	 *
 	 * @param array $options
+	 * @access private
 	 */
 
 	private function setup_options( $options ) {
