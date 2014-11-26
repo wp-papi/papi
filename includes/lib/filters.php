@@ -13,21 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Run apply filters with Papi prefix.
- *
- * @param string $tag
- * @param mixed $value
- *
- * @since 1.0.0
- *
- * @return mixed
- */
-
-function _papi_apply_filters( $tag, $value ) {
-	return apply_filters( 'papi_' . $tag, $value );
-}
-
-/**
  * Get all registered page type directories.
  *
  * @since 1.0.0
@@ -36,7 +21,7 @@ function _papi_apply_filters( $tag, $value ) {
  */
 
 function _papi_get_get_page_type_directories() {
-	$directories = _papi_apply_filters( 'page_type_directories', array() );
+	$directories = apply_filters( 'papi_page_type_directories', array() );
 
 	if ( is_string( $directories ) ) {
 		return array( $directories );
@@ -65,7 +50,7 @@ function _papi_get_get_page_type_directories() {
  */
 
 function _papi_format_value( $type, $value, $slug, $post_id ) {
-	return _papi_apply_filters( 'format_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
+	return apply_filters( 'papi_format_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
 }
 
 /**
@@ -82,7 +67,7 @@ function _papi_format_value( $type, $value, $slug, $post_id ) {
  */
 
 function _papi_load_value( $type, $value, $slug, $post_id ) {
-	return _papi_apply_filters( 'load_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
+	return apply_filters( 'papi_load_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
 }
 
 /**
@@ -99,5 +84,5 @@ function _papi_load_value( $type, $value, $slug, $post_id ) {
  */
 
 function _papi_update_value( $type, $value, $slug, $post_id ) {
-	return _papi_apply_filters( 'update_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
+	return apply_filters( 'papi_update_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
 }
