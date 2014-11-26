@@ -76,7 +76,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		if ( isset( $options['sort_order'] ) ) {
 			$sort_order = intval( $options['sort_order'] );
 		} else {
-			$sort_order = 1000;
+			$sort_order = _papi_get_option( 'sort_order', 1000 );
 		}
 
 		array_push( $this->boxes, array( $options, $properties, 'sort_order' => $sort_order ) );
@@ -162,8 +162,12 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	protected function tab( $file_or_options = array(), $properties = array() ) {
 		$tab = papi_tab( $file_or_options, $properties );
 
-		if ( isset( $tab['options']['options'] ) ) {
-			return $tab['options'];
+		// Tabs sometimes will be in $tab->options['options'] when you use a tab template in this method
+		// and using the return value of papi_tab function is used.
+		//
+		// This should be fixed later, not a priority for now since this works.
+		if ( is_object( $tab ) && isset( $tab->options ) && isset( $tab->options['options'] ) ) {
+			$tab = (object)$tab->options;
 		}
 
 		return $tab;

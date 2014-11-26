@@ -73,6 +73,7 @@
       &.active {
         a {
           border-color: #dedede;
+          border-top: 1px solid transparent;
           position: relative;
           background-color: #f9f9f9;
           color: #333333;
@@ -85,7 +86,7 @@
   .papi-tabs-table-back {
     background: #F9F9F9;
     position: absolute;
-    width: 272px;
+    width: 252px;
     bottom: 0;
     top: 0;
     left: 0;
@@ -108,7 +109,10 @@
         margin: -7px 0 -12px -20px;
         min-height: 100%;
         tr td:first-child {
-          width: 10%;
+          width: 75px;
+          label {
+            padding-left: 2px;
+          }
         }
       }
     }

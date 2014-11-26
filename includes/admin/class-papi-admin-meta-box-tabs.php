@@ -24,7 +24,7 @@ class Papi_Admin_Meta_Box_Tabs {
 	private $default_options = array(
 		'capabilities' => array(),
 		'icon'         => '',
-		'sort_order'   => 100,
+		'sort_order'   => _papi_get_option( 'sort_order', 1000 ),
 		// Private options
 		'_name'        => ''
 	);

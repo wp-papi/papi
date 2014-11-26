@@ -44,6 +44,14 @@ function _papi_get_option( $key, $default = '' ) {
 function _papi_get_options() {
 	$options = array(
 
+		// Default options
+
+		/**
+		 * The default sorter that page types, metaboxes, tabs and properties.
+		 */
+
+		'sort_order' => 1000,
+
 		// Post types options
 
 		/**
