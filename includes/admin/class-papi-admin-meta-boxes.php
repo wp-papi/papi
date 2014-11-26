@@ -159,7 +159,7 @@ class Papi_Admin_Meta_Boxes {
 			$data[ $key ]['value'] = $property->update_value( $data[ $key ]['value'], _papi_remove_papi( $key ), $post_id );
 
 			// Apply a filter so this can be changed from the theme for specified property type.
-			$data[ $key ]['value'] = _papi_update_value( $property_type, $data[ $key ]['value'], _papi_remove_papi( $key ), $post_id );
+			$data[ $key ]['value'] = _papi_filter_update_value( $property_type, $data[ $key ]['value'], _papi_remove_papi( $key ), $post_id );
 		}
 
 		// Check so all properties has a value and a type key and that the property is a array.

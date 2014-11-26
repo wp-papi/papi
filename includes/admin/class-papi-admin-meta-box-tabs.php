@@ -52,7 +52,7 @@ class Papi_Admin_Meta_Box_Tabs {
 			return;
 		}
 
-		$this->default_options['sort_order'] = _papi_get_option( 'sort_order', 1000 );
+		$this->default_options['sort_order'] = _papi_filter_default_sort_order();
 
 		$this->setup_tabs( $tabs );
 

@@ -363,7 +363,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				$item = $property_type->format_value( $values[$i][$slug], $slug, $post_id );
 
 				// Apply a filter so this can be changed from the theme for specified property type.
-				$item = _papi_format_value( $type, $item, $slug, $post_id );
+				$item = _papi_filter_format_value( $type, $item, $slug, $post_id );
 
 				if ( ! isset( $result[$i] ) ) {
 					$result[$i] = array();
