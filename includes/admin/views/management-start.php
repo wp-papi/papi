@@ -25,11 +25,12 @@
 		<tbody>
 		<?php
 		$page_types = _papi_get_all_page_types( true );
+		var_dump( $page_types );
 		foreach ( $page_types as $key => $page_type ) {
 			?>
 			<tr>
 				<td><?php echo $page_type->name; ?></td>
-				<td><?php echo $page_type->file_name; ?></td>
+				<td><?php echo $page_type->get_filename(); ?></td>
 				<td><?php
 					if ( ! current_user_can( 'edit_themes' ) || defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
 						echo $page_type->template;
@@ -46,7 +47,7 @@
 						endif;
 					}
 					?></td>
-				<td><?php echo _papi_get_number_of_pages( $page_type->file_name ); ?></td>
+				<td><?php echo _papi_get_number_of_pages( $page_type->get_filename() ); ?></td>
 			</tr>
 		<?php
 		}

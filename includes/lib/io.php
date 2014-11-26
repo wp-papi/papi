@@ -53,7 +53,7 @@ function _papi_get_all_files_in_directory( $directory = '' ) {
  */
 
 function _papi_get_all_page_type_files() {
-	$directories = _papi_get_directories();
+	$directories = _papi_get_get_page_type_directories();
 	$result      = array();
 
 	foreach ( $directories as $directory ) {
@@ -64,35 +64,17 @@ function _papi_get_all_page_type_files() {
 }
 
 /**
- * Get all register directories with Papi.
- *
- * @since 1.0.0
- *
- * @return array
- */
-
-function _papi_get_directories() {
-	global $papi_directories;
-
-	if ( empty( $papi_directories ) || ! is_array( $papi_directories ) ) {
-		return array();
-	}
-
-	return $papi_directories;
-}
-
-/**
  * Get page type file from page type query.
  *
  * @param string $file
  *
  * @since 1.0.0
  *
- * @return string
+ * @return string|null
  */
 
 function _papi_get_file_path( $file ) {
-	$directories = _papi_get_directories();
+	$directories = _papi_get_get_page_type_directories();
 	$file        = '/' . _papi_dashify( $file );
 
 	foreach ( $directories as $directory ) {
@@ -116,18 +98,24 @@ function _papi_get_file_path( $file ) {
  *
  * @since 1.0.0
  *
- * @return string
+ * @return string|null
  */
 
 function _papi_get_page_type_base_path( $file ) {
-	$directories = _papi_get_directories();
+	$directories = _papi_get_get_page_type_directories();
+
 	foreach ( $directories as $directory ) {
 		if ( strpos( $file, $directory ) !== false ) {
 			$file = str_replace( $directory, '', $file );
 		}
 	}
+
 	$file = ltrim( $file, '/' );
 	$file = explode( '.', $file );
+
+	if ( empty( $file ) ) {
+		return null;
+	}
 
 	return $file[0];
 }

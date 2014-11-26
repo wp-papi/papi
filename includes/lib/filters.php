@@ -13,6 +13,45 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Run apply filters with Papi prefix.
+ *
+ * @param string $tag
+ * @param mixed $value
+ *
+ * @since 1.0.0
+ *
+ * @return mixed
+ */
+
+function _papi_apply_filters( $tag, $value ) {
+	return apply_filters( 'papi_' . $tag, $value );
+}
+
+/**
+ * Get all registered page type directories.
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function _papi_get_get_page_type_directories() {
+	$directories = _papi_apply_filters( 'page_type_directories', array() );
+
+	if ( is_string( $directories ) ) {
+		return array( $directories );
+	}
+
+	if ( ! is_array( $directories ) ) {
+		return array();
+	}
+
+	return array_filter( $directories, function ($directory) {
+		return is_string( $directory );
+	});
+}
+
+/**
  * Format the value of the property before we output it to the application.
  *
  * @param string $type
@@ -26,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 function _papi_format_value( $type, $value, $slug, $post_id ) {
-	return apply_filters( 'papi_format_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
+	return _papi_apply_filters( 'format_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
 }
 
 /**
@@ -43,7 +82,7 @@ function _papi_format_value( $type, $value, $slug, $post_id ) {
  */
 
 function _papi_load_value( $type, $value, $slug, $post_id ) {
-	return apply_filters( 'papi_load_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
+	return _papi_apply_filters( 'load_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
 }
 
 /**
@@ -54,11 +93,11 @@ function _papi_load_value( $type, $value, $slug, $post_id ) {
  * @param string $slug
  * @param int $post_id
  *
- * @since 1.0.0
+ * @since 1.0.0ytest
  *
  * @return mixed
  */
 
 function _papi_update_value( $type, $value, $slug, $post_id ) {
-	return apply_filters( 'papi_update_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
+	return _papi_apply_filters( 'update_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
 }

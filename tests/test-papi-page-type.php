@@ -22,10 +22,9 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		global $papi_directories;
-		$papi_directories = array();
-
-		register_page_types_directory( dirname( __FILE__ ) . '/data/page-types' );
+		tests_add_filter('papi_page_type_directories', function () {
+			return array(1, dirname( __FILE__ ) . '/data/page-types');
+		});
 
 		$this->post_id = $this->factory->post->create();
 	}

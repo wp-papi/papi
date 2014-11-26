@@ -179,9 +179,9 @@ final class Papi_Loader {
 		// Load Papi functions.
 		require_once( $this->plugin_dir . 'includes/lib/utilities.php' );
 		require_once( $this->plugin_dir . 'includes/lib/filters.php' );
+		require_once( $this->plugin_dir . 'includes/lib/options.php' );
 		require_once( $this->plugin_dir . 'includes/lib/url.php' );
 		require_once( $this->plugin_dir . 'includes/lib/post.php' );
-		require_once( $this->plugin_dir . 'includes/lib/options.php' );
 		require_once( $this->plugin_dir . 'includes/lib/page.php' );
 		require_once( $this->plugin_dir . 'includes/lib/property.php' );
 		require_once( $this->plugin_dir . 'includes/lib/io.php' );
@@ -313,29 +313,3 @@ function papi() {
 
 // Since we would have custom data in our theme directory we need to hook us up to 'after_setup_theme' action.
 add_action( 'after_setup_theme', 'papi' );
-
-/**
- * Register a directory that contains papi files.
- *
- * @param string $directory
- *
- * @since 1.0.0
- *
- * @return bool
- */
-
-function register_page_types_directory( $directory ) {
-	global $papi_directories;
-
-	if ( ! is_array( $papi_directories ) ) {
-		$papi_directories = array();
-	}
-
-	if ( ! is_dir( $directory ) ) {
-		return false;
-	}
-
-	$papi_directories[] = $directory;
-
-	return true;
-}
