@@ -66,7 +66,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * @since 1.0.0
 	 */
 
-	public $sort_order = _papi_get_option( 'sort_order', 1000 );
+	public $sort_order = 0;
 
 	/**
 	 * The template of the page type.
@@ -97,6 +97,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 
 	public function __construct( $file_path ) {
 		parent::__construct( $file_path );
+		$this->setup_page_type();
 		$this->setup_post_types();
 	}
 
@@ -158,6 +159,17 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 
 	public function has_post_type( $post_type ) {
 		return in_array( $post_type, $this->post_type );
+	}
+
+	/**
+	 * Setup page type variables.
+	 *
+	 * @since 1.0.0
+	 * @access private
+	 */
+
+	private function setup_page_type() {
+		$this->sort_order = _papi_get_option( 'sort_order', 1000 );
 	}
 
 	/**

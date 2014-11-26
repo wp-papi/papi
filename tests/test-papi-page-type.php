@@ -53,6 +53,9 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 		$page_type = _papi_get_page_type( dirname( __FILE__ ) . '/data/page-types/simple-page-type.php' );
 		$this->assertEquals( $page_type->name, 'Simple page' );
 
+		// Test the default sort order value.
+		$this->assertEquals( 1000, $page_type->sort_order );
+
 		// Test to save the page type value and load it.
 		add_post_meta( $this->post_id, '_papi_page_type', $page_type->get_filename() );
 		$this->assertEquals( $page_type->get_filename(), _papi_get_page_type_meta_value( $this->post_id ) );
