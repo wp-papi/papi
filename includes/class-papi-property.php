@@ -316,6 +316,10 @@ class Papi_Property {
 	public function get_value() {
 		$value = $this->options->value;
 
+		if ( is_string( $this->default_value ) ) {
+			$value = _papi_convert_to_string( $value );
+		}
+
 		if ( empty( $value ) ) {
 			$value = $this->default_value;
 		}

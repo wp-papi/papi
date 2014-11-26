@@ -13,6 +13,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Try convert to string if is possible else return empty string.
+ *
+ * @param mixed $obj
+ *
+ * @since 1.0.0
+ *
+ * @return string
+ */
+
+function _papi_convert_to_string ( $obj ) {
+	if ( $obj === true ) {
+		return 'true';
+	}
+
+	if ( $obj === false ) {
+		return 'false';
+	}
+
+	if ( ! is_array( $obj ) && ( ( ! is_object( $obj ) && settype( $obj, 'string' ) !== false ) || ( is_object( $obj ) && method_exists( $obj, '__toString' ) ) ) ) {
+		return (string) $obj;
+	}
+
+	return '';
+}
+
+/**
  * Check if current is allowed the given capabilities.
  *
  * @param array $capabilities

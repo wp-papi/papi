@@ -27,6 +27,24 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test _papi_convert_to_string.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_convert_to_string() {
+		$this->assertEquals( 'false', _papi_convert_to_string( false ) );
+		$this->assertEquals( 'true', _papi_convert_to_string( true ) );
+		$this->assertEquals( '0.1', _papi_convert_to_string( 0.1 ) );
+		$this->assertEquals( '1.1', _papi_convert_to_string( 1.1 ) );
+		$this->assertEquals( '0', _papi_convert_to_string( 0 ) );
+		$this->assertEmpty( _papi_convert_to_string( array() ) );
+		$this->assertEmpty( _papi_convert_to_string( new stdClass() ) );
+		$this->assertNotEmpty( _papi_convert_to_string( new ReflectionClass( 'ReflectionClass' ) ) );
+		$this->assertEmpty( _papi_convert_to_string( Papi_Loader::instance() ) );
+	}
+
+	/**
 	 * Test _papi_f.
 	 *
 	 * @since 1.0.0
