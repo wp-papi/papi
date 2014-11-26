@@ -59,7 +59,7 @@
       $template.appendTo($table);
 
       // Trigger the property that we just added
-      $template.find('[name*="_property"]').trigger('papi/property/repeater/added');
+      $template.find('[name*="_property"]').trigger('papi_property_repeater_added');
 
       $('html, body').animate({
         scrollTop: $('> tr:last', $table).offset().top

@@ -75,7 +75,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	private function prepare_properties( $items ) {
 		$not_allowed = array( 'repeater' );
-		$not_allowed = array_merge( $not_allowed, apply_filters( 'papi/property/repeater/not_allowed_properties', array() ) );
+		$not_allowed = array_merge( $not_allowed, apply_filters( 'papi_property_repeater_not_allowed', array() ) );
 
 		$items = array_map( function ( $item ) {
 
@@ -363,7 +363,6 @@ class Papi_Property_Repeater extends Papi_Property {
 				$item = $property_type->format_value( $values[$i][$slug], $slug, $post_id );
 
 				// Apply a filter so this can be changed from the theme for specified property type.
-				// Example: "papi/format_value/string"
 				$item = _papi_format_value( $type, $item, $slug, $post_id );
 
 				if ( ! isset( $result[$i] ) ) {

@@ -120,14 +120,12 @@ class Papi_Page {
 		$property['value'] = $property_type->load_value( $property['value'], $property['slug'], $this->id );
 
 		// Apply a filter so this can be changed from the theme for specified property type.
-		// Example: "papi/load_value/string"
 		$property['value'] = _papi_load_value( $type, $property['value'], $property['slug'], $this->id );
 
 		// Format the value from the property class.
 		$property['value'] = $property_type->format_value( $property['value'], $property['slug'], $this->id, $property['admin'] );
 
 		// Apply a filter so this can be changed from the theme for specified property type.
-		// Example: "papi/format_value/string"
 		$property['value'] = _papi_format_value(  $type, $property['value'], $property['slug'], $this->id );
 
 		return $property['value'];

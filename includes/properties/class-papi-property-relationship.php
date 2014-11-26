@@ -105,7 +105,7 @@ class Papi_Property_Relationship extends Papi_Property {
 			return strtotime( $a->post_modified ) < strtotime( $b->post_modified );
 		};
 
-		$sort_options = apply_filters( 'papi/property/relationship/sort_options', $sort_options );
+		$sort_options = apply_filters( 'papi_property_relationship_sort_options', $sort_options );
 		return $sort_options;
 	}
 

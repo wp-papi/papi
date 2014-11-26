@@ -55,9 +55,9 @@ function _papi_get_options() {
 		 * page or post key with your post type name in lower cases.
 		 */
 
-		'post_type.page.show_standard_page' => true,
-		'post_type.post.show_standard_page' => true
+		'post_type_page_show_standard_page' => true,
+		'post_type_post_show_standard_page' => true
 	);
 
-	return apply_filters( 'papi/options', $options );
+	return apply_filters( 'papi_options', $options );
 }

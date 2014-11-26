@@ -159,7 +159,6 @@ class Papi_Admin_Meta_Boxes {
 			$data[ $key ]['value'] = $property->update_value( $data[ $key ]['value'], _papi_remove_papi( $key ), $post_id );
 
 			// Apply a filter so this can be changed from the theme for specified property type.
-			// Example: "papi/update_value/string"
 			$data[ $key ]['value'] = _papi_update_value( $property_type, $data[ $key ]['value'], _papi_remove_papi( $key ), $post_id );
 		}
 

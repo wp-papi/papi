@@ -18,7 +18,7 @@
 
   // Events
 
-  $(document).on('papi/property/repeater/added', '[value="post"]', function (e) {
+  $(document).on('papi_property_repeater_added', '[value="post"]', function (e) {
     e.preventDefault();
 
     papi.properties.post.updateSelect($(this));

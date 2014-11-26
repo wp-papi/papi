@@ -2,7 +2,7 @@
 $post_type = _papi_get_wp_post_type();
 
 // Check if we should show standard page or not.
-$option_key         = sprintf( 'post_type.%s.show_standard_page', $post_type );
+$option_key         = sprintf( 'post_type_%s_show_standard_page', $post_type );
 $show_standard_page = _papi_get_option( $option_key, true );
 ?>
 

@@ -89,7 +89,7 @@
     papi.properties.relationship.search($(this));
   });
 
-  $(document).on('papi/property/repeater/added', '[value="relationship"]', function (e) {
+  $(document).on('papi_property_repeater_added', '[value="relationship"]', function (e) {
     e.preventDefault();
 
     papi.properties.relationship.updateSelect($(this));
