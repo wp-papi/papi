@@ -144,15 +144,15 @@ class Papi_Page {
 	}
 
 	/**
-	 * Get the WordPress post object.
+	 * Get the page type object of the page.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return object
 	 */
 
-	public function get_post() {
-		return $this->post;
+	public function get_page_type() {
+		return $this->page_type;
 	}
 
 	/**
@@ -165,6 +165,18 @@ class Papi_Page {
 
 	public function get_permalink() {
 		return get_permalink( $this->id );
+	}
+
+	/**
+	 * Get the WordPress post object.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return object
+	 */
+
+	public function get_post() {
+		return $this->post;
 	}
 
 	/**

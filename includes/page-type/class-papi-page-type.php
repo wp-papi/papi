@@ -79,7 +79,19 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			$sort_order = _papi_filter_default_sort_order();
 		}
 
-		array_push( $this->boxes, array( $options, $properties, 'sort_order' => $sort_order ) );
+		array_push( $this->boxes, array( $options, $properties, 'sort_order' => $sort_order, 'title' => $options['title'] ) );
+	}
+
+	/**
+	 * Get boxes from the page type.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function get_boxes() {
+		return $this->boxes;
 	}
 
 	/**
