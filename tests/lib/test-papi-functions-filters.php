@@ -26,6 +26,21 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test _papi_body_class.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_body_class() {
+		global $post;
+		$post = get_post( $this->post_id );
+		$page_type = add_post_meta( $post->ID, '_papi_page_type', 'simple-page-type' );
+		$arr = apply_filters( 'body_class', array() );
+		tests_add_filter( 'body_class', '_papi_body_class' );
+		$this->assertEquals( array( 'simple-page-type' ), $arr );
+	}
+
+	/**
 	 * Test _papi_filter_default_sort_order.
 	 *
 	 * @since 1.0.0
@@ -34,9 +49,9 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	public function test_papi_filter_default_sort_order() {
 		$this->assertEquals( 1000, _papi_filter_default_sort_order() );
 
-		tests_add_filter('papi_default_sort_order', function () {
+		tests_add_filter( 'papi_default_sort_order', function () {
 			return 1;
-		});
+		} );
 
 		$this->assertEquals( 1, _papi_filter_default_sort_order() );
 	}
@@ -50,9 +65,9 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	public function test_papi_filter_format_value() {
 		$this->assertEquals( 'hello', _papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
 
-		tests_add_filter('papi_format_value_string', function () {
+		tests_add_filter( 'papi_format_value_string', function () {
 			return 'change-format';
-		});
+		} );
 
 		$this->assertEquals( 'change-format', _papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
 	}
@@ -64,9 +79,9 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_filter_format_value_property() {
-		tests_add_filter('papi_format_value_string', function () {
+		tests_add_filter( 'papi_format_value_string', function () {
 			return 'change-format';
-		});
+		} );
 
 		$slug = 'heading';
 		add_post_meta( $this->post_id, $slug, 'papi' );
@@ -90,9 +105,9 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	public function test_papi_filter_load_value() {
 		$this->assertEquals( 'hello', _papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
 
-		tests_add_filter('papi_load_value_string', function () {
+		tests_add_filter( 'papi_load_value_string', function () {
 			return 'change-load';
-		});
+		} );
 
 		$this->assertEquals( 'change-load', _papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
 	}
@@ -106,9 +121,9 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	public function test_papi_filter_only_page_type() {
 		$this->assertEquals( '', _papi_filter_only_page_type( 'post' ) );
 
-		tests_add_filter('papi_only_page_type_for_post', function () {
+		tests_add_filter( 'papi_only_page_type_for_post', function () {
 			return 'simple-page-type';
-		});
+		} );
 
 		$this->assertEquals( 'simple-page-type', _papi_filter_only_page_type( 'post' ) );
 	}
@@ -122,7 +137,7 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	public function test_papi_filter_show_standard_page_type_for() {
 		$this->assertEquals( true, _papi_filter_show_standard_page_for( 'post' ) );
 
-		tests_add_filter('papi_show_standard_page_for_post', '__return_false');
+		tests_add_filter( 'papi_show_standard_page_for_post', '__return_false' );
 
 		$this->assertEquals( false, _papi_filter_show_standard_page_for( 'post' ) );
 	}
@@ -134,9 +149,9 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_filter_page_type_directories() {
-		tests_add_filter('papi_page_type_directories', function () {
+		tests_add_filter( 'papi_page_type_directories', function () {
 			return array();
-		});
+		} );
 
 		$this->assertEmpty( _papi_filter_page_type_directories() );
 	}
@@ -150,9 +165,9 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	public function test_papi_filter_update_value() {
 		$this->assertEquals( 'hello', _papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
 
-		tests_add_filter('papi_update_value_string', function () {
+		tests_add_filter( 'papi_update_value_string', function () {
 			return 'change-update';
-		});
+		} );
 
 		$this->assertEquals( 'change-update', _papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
 	}

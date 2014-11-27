@@ -40,7 +40,7 @@ class WP_Papi_Functions_Url extends WP_UnitTestCase {
 	 * @since 1.0.0
 	 */
 
-	public function test__papi_append_post_type_query() {
+	public function test_papi_append_post_type_query() {
 		$this->assertEquals( 'http://dev.papi.com/?post_parent=1&post_type=post', _papi_append_post_type_query( 'http://dev.papi.com/?post_parent=1', 'post' ) );
 	}
 }

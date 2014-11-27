@@ -23,8 +23,6 @@ class WP_Papi_Functions_API extends WP_UnitTestCase {
 		parent::setUp();
 
 		$this->post_id = $this->factory->post->create();
-
-		$post = get_post( $this->post_id );
 	}
 
 	/**

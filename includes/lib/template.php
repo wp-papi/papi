@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function _papi_body_class( $classes ) {
 	global $post;
 
-	$page_type = get_post_meta( $post->ID, '__papi_page_type', true );
+	$page_type = get_post_meta( $post->ID, '_papi_page_type', true );
 
 	if ( empty( $page_type ) ) {
 		return $classes;
