@@ -187,6 +187,15 @@ class WP_Papi_Functions_Property extends WP_UnitTestCase {
 		$this->assertFalse( _papi_get_property_type( false ) instanceof Papi_Property_String );
 		$this->assertFalse( _papi_get_property_type( array() ) instanceof Papi_Property_String );
 		$this->assertFalse( _papi_get_property_type( new stdClass() ) instanceof Papi_Property_String );
+
+		// Test to load a custom property and check if it exists.
+		add_action('papi_include_properties', function() {
+			require_once(dirname(__FILE__) . '/../data/properties/class-papi-property-kvack.php');
+		});
+
+		do_action('papi_include_properties');
+
+		$this->assertTrue( _papi_get_property_type( 'kvack' ) instanceof Papi_Property_Kvack );
 	}
 
 	/**
