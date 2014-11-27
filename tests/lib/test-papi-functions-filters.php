@@ -14,6 +14,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 
 	/**
+	 * Setup the test.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function setUp() {
+		parent::setUp();
+
+		$this->post_id = $this->factory->post->create();
+	}
+
+	/**
 	 * Test _papi_filter_default_sort_order.
 	 *
 	 * @since 1.0.0
@@ -27,6 +39,62 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 		});
 
 		$this->assertEquals( 1, _papi_filter_default_sort_order() );
+	}
+
+	/**
+	 * Test _papi_filter_format_value.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_filter_format_value() {
+		$this->assertEquals( 'hello', _papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
+
+		tests_add_filter('papi_format_value_string', function () {
+			return 'change-format';
+		});
+
+		$this->assertEquals( 'change-format', _papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
+	}
+
+	/**
+	 * Test _papi_filter_format_value with a property.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_filter_format_value_property() {
+		tests_add_filter('papi_format_value_string', function () {
+			return 'change-format';
+		});
+
+		$slug = 'heading';
+		add_post_meta( $this->post_id, $slug, 'papi' );
+
+		$slug_type = _papi_f( _papi_get_property_type_key( $slug ) );
+		add_post_meta( $this->post_id, $slug_type, 'string' );
+
+		$heading = papi_field( $this->post_id, $slug );
+		$this->assertEquals( 'change-format', $heading );
+
+		$heading_property = get_post_meta( $this->post_id, $slug_type, true );
+		$this->assertEquals( $heading_property, 'string' );
+	}
+
+	/**
+	 * Test _papi_filter_load_value.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_filter_load_value() {
+		$this->assertEquals( 'hello', _papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
+
+		tests_add_filter('papi_load_value_string', function () {
+			return 'change-load';
+		});
+
+		$this->assertEquals( 'change-load', _papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
 	}
 
 	/**
@@ -71,6 +139,22 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 		});
 
 		$this->assertEmpty( _papi_filter_page_type_directories() );
+	}
+
+	/**
+	 * Test _papi_filter_update_value.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_filter_update_value() {
+		$this->assertEquals( 'hello', _papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
+
+		tests_add_filter('papi_update_value_string', function () {
+			return 'change-update';
+		});
+
+		$this->assertEquals( 'change-update', _papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
 	}
 
 }

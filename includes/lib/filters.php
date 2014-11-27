@@ -42,6 +42,23 @@ function _papi_filter_format_value( $type, $value, $slug, $post_id ) {
 }
 
 /**
+ * This filter is applied after the $value is loaded in the database.
+ *
+ * @param string $type
+ * @param mixed $value
+ * @param string $slug
+ * @param int $post_id
+ *
+ * @since 1.0.0
+ *
+ * @return mixed
+ */
+
+function _papi_filter_load_value( $type, $value, $slug, $post_id ) {
+	return apply_filters( 'papi_load_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
+}
+
+/**
  * Get the only page type that will be used for the given post type.
  *
  * @since 1.0.0
@@ -93,23 +110,6 @@ function _papi_filter_page_type_directories() {
 	return array_filter( $directories, function ( $directory ) {
 		return is_string( $directory );
 	} );
-}
-
-/**
- * This filter is applied after the $value is loaded in the database.
- *
- * @param string $type
- * @param mixed $value
- * @param string $slug
- * @param int $post_id
- *
- * @since 1.0.0
- *
- * @return mixed
- */
-
-function _papi_filter_load_value( $type, $value, $slug, $post_id ) {
-	return apply_filters( 'papi_load_value_' . _papi_get_property_short_type( $type ), $value, $slug, $post_id );
 }
 
 /**
