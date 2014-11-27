@@ -50,7 +50,7 @@ function _papi_filter_format_value( $type, $value, $slug, $post_id ) {
  */
 
 function _papi_filter_only_page_type ( $post_type ) {
-	$page_type = apply_filters( 'papi_only_page_type_' . $post_type, '' );
+	$page_type = apply_filters( 'papi_only_page_type_for_' . $post_type, '' );
 
 	if ( ! is_string( $page_type ) ) {
 		return '';
@@ -67,8 +67,8 @@ function _papi_filter_only_page_type ( $post_type ) {
  * @return bool
  */
 
-function _papi_filter_show_standard_page_type_on( $post_type ) {
-	return apply_filters( 'papi_show_standard_page_type_on_' . $post_type, true ) === true;
+function _papi_filter_show_standard_page_for( $post_type ) {
+	return apply_filters( 'papi_show_standard_page_for_' . $post_type, true ) === true;
 }
 
 /**

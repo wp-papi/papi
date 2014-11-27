@@ -118,8 +118,7 @@ final class Papi_Admin {
 				continue;
 			}
 
-			$option_key         = sprintf( 'post_type_%s_only_page_type', $post_type );
-			$only_page_type     = _papi_get_option( $option_key );
+			$only_page_type = _papi_filter_only_page_type( $post_type );
 
 			if ( ! empty( $only_page_type ) ) {
 				$submenu[$edit_url][10][2] = _papi_get_page_new_url( $only_page_type, false, $post_type );
@@ -217,8 +216,7 @@ final class Papi_Admin {
 		if ( in_array( $post_type, $post_types ) && strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
 			$parsed_url = parse_url( $request_uri );
 
-			$option_key         = sprintf( 'post_type_%s_only_page_type', $post_type );
-			$only_page_type     = _papi_get_option( $option_key );
+			$only_page_type = _papi_filter_only_page_type( $post_type );
 
 			// Check if we should show one post type or not and create the right url for that.
 			if ( ! empty( $only_page_type ) ) {
