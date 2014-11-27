@@ -25,7 +25,6 @@
 		<tbody>
 		<?php
 		$page_types = _papi_get_all_page_types( true );
-		var_dump( $page_types );
 		foreach ( $page_types as $key => $page_type ) {
 			?>
 			<tr>
