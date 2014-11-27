@@ -37,7 +37,7 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 		$page_type = add_post_meta( $post->ID, '_papi_page_type', 'simple-page-type' );
 		$arr = apply_filters( 'body_class', array() );
 		tests_add_filter( 'body_class', '_papi_body_class' );
-		$this->assertEquals( array( 'simple-page-type' ), $arr );
+		$this->assertTrue( in_array( 'simple-page-type', $arr ) );
 	}
 
 	/**
