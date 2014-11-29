@@ -27,8 +27,8 @@ class Papi_Property_Divider extends Papi_Property {
 			<span><?php echo $options->title; ?></span>
 		</h3>
 
-		<?php if ( ! empty( $options->instruction ) ): ?>
-			<p><?php echo $options->instruction; ?></p>
+		<?php if ( ! empty( $options->description ) ): ?>
+			<p><?php echo $options->description; ?></p>
 		<?php endif; ?>
 	<?php
 	}

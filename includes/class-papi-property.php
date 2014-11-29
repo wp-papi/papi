@@ -190,18 +190,18 @@ class Papi_Property {
 	}
 
 	/**
-	 * Get help text for property.
+	 * Get description for property.
 	 *
 	 * @since 1.0.0
 	 */
 
-	public function instruction() {
-		if ( empty( $this->options->instruction ) ) {
+	public function description() {
+		if ( empty( $this->options->description ) ) {
 			return;
 		}
 
 		?>
-		<p><?php echo strip_tags( $this->options->instruction ); ?></p>
+		<p><?php echo strip_tags( $this->options->description ); ?></p>
 	<?php
 	}
 
@@ -219,7 +219,7 @@ class Papi_Property {
 					<td>
 						<?php
 						$this->label();
-						$this->instruction();
+						$this->description();
 						?>
 						</td>
 				<?php endif; ?>
