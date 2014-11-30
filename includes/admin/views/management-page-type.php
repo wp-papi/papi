@@ -11,6 +11,7 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 				<?php else: ?>
 					<th><?php _e( 'Title', 'papi' ); ?></th>
 					<th><?php _e( 'Type', 'papi' ); ?></th>
+					<th><?php _e( 'Slug', 'papi' ); ?></th>
 					<th><?php _e( 'Sort order', 'papi' ); ?></th>
 				<?php endif; ?>
 			</tr>
@@ -31,6 +32,7 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 						<?php else: ?>
 							<td><?php echo $property->title; ?></td>
 							<td><?php echo $property->type; ?></td>
+							<td><?php echo _papi_remove_papi( $property->slug ); ?></td>
 							<td><?php echo $property->sort_order; ?></td>
 						<?php endif; ?>
 					</tr>
