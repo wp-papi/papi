@@ -1,0 +1,61 @@
+.papi-management-box {
+
+  span.papi-pull-right {
+    font-weight: normal;
+  }
+
+  .inside {
+    margin-bottom: 0;
+
+    .papi-table {
+      margin-top: -11px;
+      margin-left: -13px;
+
+      thead {
+        background: #F9F9F9;
+        tr {
+          th {
+            border: 1px solid #EAEAEA;
+            border-right: none;
+            border-top: none;
+            padding: 10px 10px 10px 15px;
+            text-align: left;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          td {
+            background: white;
+            border: 1px solid #EAEAEA;
+            border-right: none;
+            border-top: none;
+
+            .papi-table {
+              padding: 20px 10px 10px 10px;
+
+              tr {
+                th {
+                  border: 1px solid #EAEAEA;
+                }
+
+                td {
+                  border-left: none;
+
+                  &:first-child {
+                    border-left: 1px solid #EAEAEA;
+                  }
+
+                  border-right: 1px solid #EAEAEA;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+}

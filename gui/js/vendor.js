@@ -2,6 +2,7 @@
 
   // Vendor binds.
 
-  $('.inside > .papi-table > tbody > tr > td > .papi-vendor-select2, .papi-table .papi-table:not(.papi-table-template) .papi-vendor-select2').select2();
+  // Select2
+  $('.inside .papi-table:not(.papi-table-template) > tbody:not(:has(.papi-table-template)) .papi-vendor-select2').select2();
 
 })(jQuery);

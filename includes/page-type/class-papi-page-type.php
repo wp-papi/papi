@@ -15,7 +15,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Papi_Page_Type extends Papi_Page_Type_Meta {
 
+	/**
+	 * The array of meta boxes to register.
+	 *
+	 * @var array
+	 * @since 1.0.0
+	 */
+
 	private $boxes = array();
+
+	/**
+	 * Load all boxes even if we aren't on a post type.
+	 *
+	 * @var bool
+	 * @since 1.0.0
+	 */
+
+	private $load_boxes = false;
 
 	/**
 	 * Contains all register properties on this page.
@@ -66,7 +82,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		$post_type = _papi_get_wp_post_type();
 
 		// Check so we have a post the to add the box to.
-		if ( empty( $post_type ) || ! $this->has_post_type( $post_type ) ) {
+		if ( ! $this->load_boxes && ( empty( $post_type ) || ! $this->has_post_type( $post_type ) ) ) {
 			return null;
 		}
 
@@ -91,6 +107,16 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	public function get_boxes() {
+		if ( empty( $this->boxes ) ) {
+			if ( ! method_exists( $this, 'register' ) ) {
+				return null;
+			}
+
+			$this->load_boxes = true;
+
+			$this->register();
+		}
+
 		return $this->boxes;
 	}
 

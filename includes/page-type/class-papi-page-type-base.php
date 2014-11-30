@@ -115,13 +115,25 @@ class Papi_Page_Type_Base {
 	/**
 	 * Get the page type file name.
 	 *
-	 * @since 1.0.0.
+	 * @since 1.0.0
 	 *
 	 * @return string
 	 */
 
 	public function get_filename () {
 		return $this->_file_name;
+	}
+
+	/**
+	 * Get the page type file pat.h
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+
+	public function get_filepath() {
+		return $this->_file_path;
 	}
 
 	/**
@@ -134,7 +146,7 @@ class Papi_Page_Type_Base {
 
 	public function new_class() {
 		if ( ! class_exists( $this->_class_name ) ) {
-			require_once $this->file_path;
+			require_once $this->_file_path;
 		}
 
 		return new $this->_class_name;
