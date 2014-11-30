@@ -77,6 +77,14 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	protected function box( $file_or_options = array(), $properties = array() ) {
+		if ( is_object( $file_or_options ) ) {
+			$file_or_options = (array)$file_or_options;
+		}
+
+		if ( ! is_string( $file_or_options) && ! is_array( $file_or_options ) ) {
+			return null;
+		}
+
 		list( $options, $properties ) = _papi_get_options_and_properties( $file_or_options, $properties, true );
 
 		$post_type = _papi_get_wp_post_type();
@@ -198,6 +206,10 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	protected function tab( $file_or_options = array(), $properties = array() ) {
+		if ( ! is_string( $file_or_options) && ! is_array( $file_or_options ) ) {
+			return null;
+		}
+
 		$tab = papi_tab( $file_or_options, $properties );
 
 		// Tabs sometimes will be in $tab->options['options'] when you use a tab template in this method

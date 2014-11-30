@@ -149,7 +149,7 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_filter_page_type_directories() {
-		tests_add_filter( 'papi/settings/page_type_directories', function () {
+		tests_add_filter( 'papi/settings/directories', function () {
 			return array();
 		} );
 

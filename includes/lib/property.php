@@ -113,6 +113,8 @@ function _papi_get_options_and_properties( $file_or_options = array(), $properti
 				$options['title'] = $file_or_options['title'];
 			} else if ( isset( $file_or_options[0]->title ) ) {
 				$options['title'] = $file_or_options[0]->title;
+			} else if ( isset( $file_or_options[0]->options ) && isset( $file_or_options[0]->options['title'] ) ) {
+				$options['title'] = $file_or_options[0]->options['title'];
 			} else {
 				$options['title'] = '';
 			}
