@@ -75,7 +75,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	private function prepare_properties( $items ) {
 		$not_allowed = array( 'repeater' );
-		$not_allowed = array_merge( $not_allowed, apply_filters( 'papi_property_repeater_not_allowed', array() ) );
+		$not_allowed = array_merge( $not_allowed, apply_filters( 'papi/property/repeater/exclude', array() ) );
 
 		$items = array_map( function ( $item ) {
 

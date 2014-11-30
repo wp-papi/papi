@@ -57,7 +57,7 @@
 
   // Events
 
-  $(document).on('papi_property_repeater_added', '[value="datetime"]', function (e) {
+  $(document).on('papi/property/repeater/added', '[value="datetime"]', function (e) {
     e.preventDefault();
 
     papi.properties.datetime.updateSelect($(this));

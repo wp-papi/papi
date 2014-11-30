@@ -2,7 +2,7 @@
 $post_type = _papi_get_wp_post_type();
 
 // Check if we should show standard page or not.
-$show_standard_page = _papi_filter_show_standard_page_for( $post_type );
+$show_standard_page = _papi_filter_settings_standard_page_type( $post_type );
 ?>
 
 <div class="wrap">

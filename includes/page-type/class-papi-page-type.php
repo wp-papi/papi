@@ -76,7 +76,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		if ( isset( $options['sort_order'] ) ) {
 			$sort_order = intval( $options['sort_order'] );
 		} else {
-			$sort_order = _papi_filter_default_sort_order();
+			$sort_order = _papi_filter_settings_sort_order();
 		}
 
 		array_push( $this->boxes, array( $options, $properties, 'sort_order' => $sort_order, 'title' => $options['title'] ) );

@@ -47,13 +47,13 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_filter_default_sort_order() {
-		$this->assertEquals( 1000, _papi_filter_default_sort_order() );
+		$this->assertEquals( 1000, _papi_filter_settings_sort_order() );
 
-		tests_add_filter( 'papi_default_sort_order', function () {
+		tests_add_filter( 'papi/settings/sort_order', function () {
 			return 1;
 		} );
 
-		$this->assertEquals( 1, _papi_filter_default_sort_order() );
+		$this->assertEquals( 1, _papi_filter_settings_sort_order() );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	public function test_papi_filter_format_value() {
 		$this->assertEquals( 'hello', _papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
 
-		tests_add_filter( 'papi_format_value_string', function () {
+		tests_add_filter( 'papi/format_value/string', function () {
 			return 'change-format';
 		} );
 
@@ -79,7 +79,7 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_filter_format_value_property() {
-		tests_add_filter( 'papi_format_value_string', function () {
+		tests_add_filter( 'papi/format_value/string', function () {
 			return 'change-format';
 		} );
 
@@ -105,7 +105,7 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	public function test_papi_filter_load_value() {
 		$this->assertEquals( 'hello', _papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
 
-		tests_add_filter( 'papi_load_value_string', function () {
+		tests_add_filter( 'papi/load_value/string', function () {
 			return 'change-load';
 		} );
 
@@ -119,13 +119,13 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_filter_only_page_type() {
-		$this->assertEquals( '', _papi_filter_only_page_type( 'post' ) );
+		$this->assertEquals( '', _papi_filter_settings_only_page_type( 'post' ) );
 
-		tests_add_filter( 'papi_only_page_type_for_post', function () {
+		tests_add_filter( 'papi/settings/only_page_type_post', function () {
 			return 'simple-page-type';
 		} );
 
-		$this->assertEquals( 'simple-page-type', _papi_filter_only_page_type( 'post' ) );
+		$this->assertEquals( 'simple-page-type', _papi_filter_settings_only_page_type( 'post' ) );
 	}
 
 	/**
@@ -135,11 +135,11 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_filter_show_standard_page_type_for() {
-		$this->assertEquals( true, _papi_filter_show_standard_page_for( 'post' ) );
+		$this->assertEquals( true, _papi_filter_settings_standard_page_type( 'post' ) );
 
-		tests_add_filter( 'papi_show_standard_page_for_post', '__return_false' );
+		tests_add_filter( 'papi/settings/standard_page_type_post', '__return_false' );
 
-		$this->assertEquals( false, _papi_filter_show_standard_page_for( 'post' ) );
+		$this->assertEquals( false, _papi_filter_settings_standard_page_type( 'post' ) );
 	}
 
 	/**
@@ -149,11 +149,11 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_filter_page_type_directories() {
-		tests_add_filter( 'papi_page_type_directories', function () {
+		tests_add_filter( 'papi/settings/page_type_directories', function () {
 			return array();
 		} );
 
-		$this->assertEmpty( _papi_filter_page_type_directories() );
+		$this->assertEmpty( _papi_filter_settings_directories() );
 	}
 
 	/**
@@ -165,7 +165,7 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	public function test_papi_filter_update_value() {
 		$this->assertEquals( 'hello', _papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
 
-		tests_add_filter( 'papi_update_value_string', function () {
+		tests_add_filter( 'papi/update_value/string', function () {
 			return 'change-update';
 		} );
 

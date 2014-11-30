@@ -22,7 +22,7 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		tests_add_filter('papi_page_type_directories', function () {
+		tests_add_filter('papi/settings/directories', function () {
 			return array(1, dirname( __FILE__ ) . '/data/page-types');
 		});
 

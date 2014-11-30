@@ -53,7 +53,7 @@ function _papi_get_all_files_in_directory( $directory = '' ) {
  */
 
 function _papi_get_all_page_type_files() {
-	$directories = _papi_filter_page_type_directories();
+	$directories = _papi_filter_settings_directories();
 	$result      = array();
 
 	foreach ( $directories as $directory ) {
@@ -74,7 +74,7 @@ function _papi_get_all_page_type_files() {
  */
 
 function _papi_get_file_path( $file ) {
-	$directories = _papi_filter_page_type_directories();
+	$directories = _papi_filter_settings_directories();
 	$file        = '/' . _papi_dashify( $file );
 
 	foreach ( $directories as $directory ) {
@@ -102,7 +102,7 @@ function _papi_get_file_path( $file ) {
  */
 
 function _papi_get_page_type_base_path( $file ) {
-	$directories = _papi_filter_page_type_directories();
+	$directories = _papi_filter_settings_directories();
 
 	foreach ( $directories as $directory ) {
 		if ( strpos( $file, $directory ) !== false ) {

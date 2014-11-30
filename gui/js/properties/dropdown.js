@@ -16,7 +16,7 @@
 
   // Events
 
-  $(document).on('papi_property_repeater_added', '[value="dropdown"]', function (e) {
+  $(document).on('papi/property/repeater/added', '[value="dropdown"]', function (e) {
     e.preventDefault();
 
     papi.properties.dropdown.updateSelect($(this));

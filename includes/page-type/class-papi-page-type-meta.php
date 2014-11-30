@@ -169,7 +169,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 */
 
 	private function setup_page_type() {
-		$this->sort_order = _papi_filter_default_sort_order();
+		$this->sort_order = _papi_filter_settings_sort_order();
 	}
 
 	/**
