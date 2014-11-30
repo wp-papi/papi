@@ -82,6 +82,8 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 			if ( ! isset( $box['title'] ) || empty( $box['title'] ) ) {
 				continue;
 			}
+
+			$counter = count( _papi_get_box_property( $box[1] ) );
 		?>
 		<div class="postbox papi-box papi-management-box">
 			<div class="handlediv" title="Click to toggle">
@@ -89,7 +91,7 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 			</div>
 			<h3 class="hndle">
 				<span><?php echo $box['title']; ?></span>
-				<span class="papi-pull-right"><?php echo $top_right_text . ': ' . strval( count( $box[1] ) ); ?></span>
+				<span class="papi-pull-right"><?php echo $top_right_text . ': ' . strval( $counter ); ?></span>
 			</h3>
 			<div class="inside">
 				<?php
