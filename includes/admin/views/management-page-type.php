@@ -54,14 +54,31 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 		$page_type = _papi_get_page_type( $page_type );
 	?>
 
-	<h3><?php _e('Page type', 'papi'); ?>: <?php echo $page_type->name; ?></h3>
+	<h3><?php _e( 'Page type', 'papi' ); ?>: <?php echo $page_type->name; ?></h3>
 
-	<?php foreach ( $page_type->get_boxes() as $box ):
+	<p>
+		<a href="tools.php?page=papi"><?php _e( 'Back to list' , 'papi' ); ?></a>
+	</p>
+
+	<?php
+
+	$boxes = $page_type->get_boxes();
+
+	if ( empty( $boxes ) ) {
+		echo '<p>' . __( 'No meta boxes exists.', 'papi' ) . '</p>';
+		return;
+	}
+
+	foreach ( $boxes as $box ):
 			$tab 			= isset( $box[1] ) && isset( $box[1][0] ) && isset( $box[1][0]->tab ) && $box[1][0]->tab;
 			$top_right_text = __( 'Properties', 'papi' );
 
 			if ( $tab ) {
 				$top_right_text = __( 'Tabs', 'papi' );
+			}
+
+			if ( ! isset( $box['title'] ) || empty( $box['title'] ) ) {
+				continue;
 			}
 		?>
 		<div class="postbox papi-box papi-management-box">
