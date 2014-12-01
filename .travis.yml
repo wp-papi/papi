@@ -14,7 +14,7 @@ before_script:
   - mv papi /tmp/wordpress/wp-content/plugins/
   - cd /tmp/wordpress/wp-content/plugins/papi/
   - composer init --require=satooshi/php-coveralls:0.7.x-dev -n
-	- composer install --no-interaction
+  - composer install --no-interaction
 script: phpunit
 after_script:
   - php vendor/bin/coveralls --verbose --exclude-no-stmt
