@@ -18,6 +18,8 @@ before_script:
 script: phpunit
 after_script:
   - php vendor/bin/coveralls --verbose --exclude-no-stmt
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover ./tmp/clover.xml
 notifications:
   webhooks:
     urls:
