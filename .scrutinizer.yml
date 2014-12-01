@@ -1,8 +1,14 @@
-imports:
-    - php
-
 filter:
-    excluded_paths: [tests/*]
+  excluded_paths:
+    - bin/*
+    - gui/*
+    - languages/*
+    - tests/*
+
+checks:
+  php:
+    code_rating: true
+    dublication: true
 
 tools:
-    external_code_coverage: true
+  external_code_coverage: true

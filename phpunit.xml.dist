@@ -24,7 +24,7 @@
     </blacklist>
     <whitelist addUncoveredFilesFromWhitelist="true">
       <file>./papi-loader.php</file>
-      <directory suffix=".php">./includes</directory>
+      <directory suffix=".php">./includes/</directory>
     </whitelist>
   </filter>
   <logging>
