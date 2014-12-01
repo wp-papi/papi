@@ -183,6 +183,7 @@ final class Papi_Loader {
 		require_once( $this->plugin_dir . 'includes/lib/post.php' );
 		require_once( $this->plugin_dir . 'includes/lib/page.php' );
 		require_once( $this->plugin_dir . 'includes/lib/property.php' );
+		require_once( $this->plugin_dir . 'includes/lib/tabs.php' );
 		require_once( $this->plugin_dir . 'includes/lib/io.php' );
 		require_once( $this->plugin_dir . 'includes/lib/field.php' );
 		require_once( $this->plugin_dir . 'includes/lib/template.php' );

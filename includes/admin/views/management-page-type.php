@@ -12,22 +12,33 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 					<th><?php _e( 'Title', 'papi' ); ?></th>
 					<th><?php _e( 'Type', 'papi' ); ?></th>
 					<th><?php _e( 'Slug', 'papi' ); ?></th>
-					<th><?php _e( 'Sort order', 'papi' ); ?></th>
 				<?php endif; ?>
+				<th><?php _e( 'Sort order', 'papi' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
-				<?php foreach ( _papi_populate_properties( $properties ) as $property ): ?>
+				<?php
+
+					$properties = _papi_populate_properties( $properties );
+
+					if ( $tab ) {
+						$properties = _papi_setup_tabs( $properties );
+					}
+
+					foreach ( $properties as $property ): ?>
 					<tr>
-						<?php if ( isset( $property->options ) ): ?>
+						<?php if ( isset( $property->options ) && isset( $property->options->title ) ): ?>
 							<td>
-								<?php echo $property->options['title']; ?>
+								<?php echo $property->options->title; ?>
 								<br />
 								<br />
 								<?php echo __( 'Properties', 'papi' ) . ': ' . strval( count( $property->properties ) ); ?>
 							</td>
 							<td>
 								<?php _papi_management_page_type_render_box( $property->properties ); ?>
+							</td>
+							<td>
+								<?php echo $property->options->sort_order; ?>
 							</td>
 						<?php else: ?>
 							<td><?php echo $property->title; ?></td>
