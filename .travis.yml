@@ -13,11 +13,8 @@ before_script:
   - cd ..
   - mv papi /tmp/wordpress/wp-content/plugins/
   - cd /tmp/wordpress/wp-content/plugins/papi/
-  - composer init --require=satooshi/php-coveralls:0.7.x-dev -n
-  - composer install --no-interaction
-script: phpunit
+script: phpunit -c phpunit.xml.dist
 after_script:
-  - php vendor/bin/coveralls --verbose --exclude-no-stmt
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover ./tmp/clover.xml
 notifications:
