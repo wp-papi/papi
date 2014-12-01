@@ -8,6 +8,24 @@ So we though why don’t use the same approach in WordPress? Papi is today runni
 
 [Visit Papi’s project page](http://wp-papi.github.io/)
 
+## Installation
+
+If you're using Composer to manage WordPress, add Soil to your project's dependencies. Run:
+
+```sh
+composer require wp-papi/papi 1.0.0
+```
+
+Or manually add it to your `composer.json`:
+
+```json
+"require": {
+  "php": ">=5.3.0",
+  "wordpress": "3.8",
+  "wp-papi/papi": "1.0.0"
+}
+```
+
 ## Contribute
 
 Visit our [contribute](http://wp-papi.github.io/contribute/) page.
