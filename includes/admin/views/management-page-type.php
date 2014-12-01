@@ -7,13 +7,14 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 			<tr>
 				<?php if ( $tab ): ?>
 					<th><?php _e( 'Tab title', 'papi' ); ?></th>
+					<th><?php _e( 'Sort order', 'papi' ); ?></th>
 					<th><?php _e( 'Properties', 'papi' ); ?></th>
 				<?php else: ?>
 					<th><?php _e( 'Title', 'papi' ); ?></th>
 					<th><?php _e( 'Type', 'papi' ); ?></th>
 					<th><?php _e( 'Slug', 'papi' ); ?></th>
+					<th><?php _e( 'Sort order', 'papi' ); ?></th>
 				<?php endif; ?>
-				<th><?php _e( 'Sort order', 'papi' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,10 +36,10 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 								<?php echo __( 'Properties', 'papi' ) . ': ' . strval( count( $property->properties ) ); ?>
 							</td>
 							<td>
-								<?php _papi_management_page_type_render_box( $property->properties ); ?>
+								<?php echo $property->options->sort_order; ?>
 							</td>
 							<td>
-								<?php echo $property->options->sort_order; ?>
+								<?php _papi_management_page_type_render_box( $property->properties ); ?>
 							</td>
 						<?php else: ?>
 							<td><?php echo $property->title; ?></td>
@@ -67,7 +68,7 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 		$page_type = _papi_get_page_type( $page_type );
 	?>
 
-	<h3><?php _e( 'Page type', 'papi' ); ?>: <?php echo $page_type->name; ?></h3>
+	<h3><?php _e( 'Overview of page type', 'papi' ); ?>: <?php echo $page_type->name; ?></h3>
 
 	<p>
 		<a href="tools.php?page=papi"><?php _e( 'Back to list' , 'papi' ); ?></a>
