@@ -59,7 +59,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @since 1.0.0
 	 *
 	 * @param string $file_path
-	 * @param bool $register
 	 */
 
 	public function __construct( $file_path = '' ) {
@@ -166,7 +165,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Remove post type support. Runs once, on page load.
 	 *
-	 * @param array $remove_post_type_support
+	 * @param array $post_type_supports
 	 *
 	 * @since 1.0.0
 	 */
@@ -196,8 +195,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Add a new tab.
 	 *
-	 * @param string $title
-	 * @param array $options
 	 * @param array $properties
 	 *
 	 * @since 1.0

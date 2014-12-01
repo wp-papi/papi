@@ -359,7 +359,7 @@ function _papi_get_property_type_key_f( $str ) {
  *
  * @since 1.0.0
  *
- * @return integer
+ * @return boolean
  */
 
 function _papi_is_property_type_key( $str = '' ) {
@@ -508,9 +508,6 @@ function _papi_populate_properties( $properties ) {
 /**
  * Update property values on the post with the given post id.
  *
- * @param int $post_id
- * @param string $key
- * @param array $property
  *
  * @since 1.0.0
  */

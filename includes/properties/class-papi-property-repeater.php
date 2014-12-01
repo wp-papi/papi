@@ -246,8 +246,9 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Get results from the database.
 	 *
 	 * @param int $value
-	 * @param string $slug
 	 * @param int $post_id
+	 * @param string $repeater_slug
+	 * @param integer $post_id
 	 *
 	 * @since 1.0.0
 	 *
@@ -313,7 +314,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Format the value of the property before we output it to the application.
 	 *
-	 * @param mixed $value
+	 * @param mixed $values
 	 * @param string $repeater_slug
 	 * @param int $post_id
 	 *
@@ -404,7 +405,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Update value before it's saved to the database.
 	 *
-	 * @param mixed $value
+	 * @param mixed $values
 	 * @param string $repeater_slug
 	 * @param int $post_id
 	 */

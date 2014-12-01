@@ -182,7 +182,7 @@ function _papi_get_class_name( $file ) {
  *
  * @since 1.0.0
  *
- * @return mixed
+ * @return string
  */
 
 function _papi_get_or_post( $key ) {

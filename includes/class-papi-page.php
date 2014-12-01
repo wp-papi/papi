@@ -148,7 +148,7 @@ class Papi_Page {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return object
+	 * @return null|Papi_Page_Type
 	 */
 
 	public function get_page_type() {
