@@ -7,6 +7,8 @@
   convertNoticesToExceptions="true"
   convertWarningsToExceptions="true"
   verbose="true"
+  syntaxCheck="true"
+  processIsolation="false"
   >
   <testsuites>
     <testsuite name="Papi Test Suite">
@@ -20,6 +22,10 @@
       <directory suffix=".php">./languages/</directory>
       <directory suffix=".php">./tmp/</directory>
     </blacklist>
+    <whitelist addUncoveredFilesFromWhitelist="true">
+      <file>./papi-loader.php</file>
+      <directory suffix=".php">./includes</directory>
+    </whitelist>
   </filter>
   <logging>
     <log type="coverage-clover" target="./tmp/clover.xml" charset="UTF-8" />

@@ -5,18 +5,27 @@ php:
   - 5.5
   - 5.6
   - hhvm
+  - hhvm-nightly
 env:
   - WP_VERSION=latest WP_MULTISITE=0
   - WP_VERSION=latest WP_MULTISITE=1
+
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
   - cd ..
   - mv papi /tmp/wordpress/wp-content/plugins/
   - cd /tmp/wordpress/wp-content/plugins/papi/
+
 script: phpunit -c phpunit.xml.dist
+
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover ./tmp/clover.xml
+
+matrix:
+  allow_failures:
+    - php: hhvm-nightly
+
 notifications:
   webhooks:
     urls:
