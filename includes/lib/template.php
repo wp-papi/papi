@@ -25,6 +25,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 function _papi_body_class( $classes ) {
 	global $post;
 
+	// Check so we only change template on single and page posts.
+	if ( ! is_single() && ! is_page() ) {
+		return $classes;
+	}
+
+	if ( ! isset( $post ) || ! isset( $post->ID ) ) {
+		return $classes;
+	}
+
 	$page_type = get_post_meta( $post->ID, '_papi_page_type', true );
 
 	if ( empty( $page_type ) ) {
