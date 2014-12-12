@@ -26,21 +26,6 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test _papi_body_class.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function test_papi_body_class() {
-		global $post;
-		$post = get_post( $this->post_id );
-		$page_type = add_post_meta( $post->ID, '_papi_page_type', 'simple-page-type' );
-		$arr = apply_filters( 'body_class', array() );
-		tests_add_filter( 'body_class', '_papi_body_class' );
-		$this->assertTrue( in_array( 'simple-page-type', $arr ) );
-	}
-
-	/**
 	 * Test _papi_filter_default_sort_order.
 	 *
 	 * @since 1.0.0
