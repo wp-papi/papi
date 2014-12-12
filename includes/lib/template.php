@@ -89,6 +89,11 @@ function _papi_template( $file, $values = array(), $convert_to_object = false ) 
 function _papi_template_include( $original_template ) {
 	global $post;
 
+	// Check so we only change template on single and page posts.
+	if ( ! is_single() && ! is_page() ) {
+		return $original_template;
+	}
+
 	if ( ! isset( $post ) || ! isset( $post->ID ) ) {
 		return $original_template;
 	}
