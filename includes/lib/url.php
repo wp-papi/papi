@@ -23,10 +23,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  */
 
-function _papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type = null ) {
+function _papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type = null, $exclude = array() ) {
 	$admin_url = $append_admin_url ? get_admin_url() : '';
+	$query_strings = _papi_get_page_query_strings();
 
-	$admin_url = $admin_url . 'post-new.php?page_type=' . $page_type . _papi_get_page_query_strings();
+	$admin_url = $admin_url . 'post-new.php?page_type=' . $page_type . _papi_get_page_query_strings( '&', $exclude );
+
+	if ( ! is_null( $post_type ) && in_array( 'post_type', $exclude ) ) {
+		$admin_url .= '&post_type=' . $post_type;
+	}
 
 	return _papi_append_post_type_query( $admin_url, $post_type );
 }
@@ -35,13 +40,14 @@ function _papi_get_page_new_url( $page_type, $append_admin_url = true, $post_typ
  * Get page query strings.
  *
  * @param string $first_char
+ * @param array $exlude
  *
  * @since 1.0.0
  *
  * @return string
  */
 
-function _papi_get_page_query_strings( $first_char = '&' ) {
+function _papi_get_page_query_strings( $first_char = '&', $exclude = array() ) {
 	$request_uri = $_SERVER['REQUEST_URI'];
 	$parsed_url  = parse_url( $request_uri );
 
@@ -54,8 +60,8 @@ function _papi_get_page_query_strings( $first_char = '&' ) {
 	$query = str_replace( '?', '', $query );
 	$query = explode( '&', $query );
 
-	$query = array_filter( $query, function ( $q ) {
-		$q = explode('=', $q);
+	$query = array_filter( $query, function ( $q ) use ( $exclude ) {
+		$q = explode( '=', $q );
 
 		if ( empty( $q ) ) {
 			return false;
@@ -63,7 +69,10 @@ function _papi_get_page_query_strings( $first_char = '&' ) {
 
 		$q = $q[0];
 
-		return in_array( $q, array( 'page_type', 'post_new', 'post_parent', 'papi_bypass', 'npparent' ) );
+		$allowed = array( 'post_type', 'page_type', 'post_new', 'post_parent', 'papi_bypass', 'npparent' );
+		$allowed = array_diff( $allowed, $exclude );
+
+		return in_array( $q, $allowed );
 	} );
 
 	$query = implode( '&', $query );
@@ -77,6 +86,10 @@ function _papi_get_page_query_strings( $first_char = '&' ) {
 	// Remove last char if it's a & or ?
 	if ( substr( $query, - 1, 1 ) === '&' || substr( $query, - 1, 1 ) === '?' ) {
 		$query = substr( $query, 0, - 1 );
+	}
+
+	if ( in_array( 'post_type', $exclude ) ) {
+		return $query;
 	}
 
 	return _papi_append_post_type_query( $query );
