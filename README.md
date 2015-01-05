@@ -13,7 +13,7 @@ So we though why don’t use the same approach in WordPress? Papi is today runni
 If you're using Composer to manage WordPress, add Soil to your project's dependencies. Run:
 
 ```sh
-composer require wp-papi/papi 1.0.0
+composer require wp-papi/papi
 ```
 
 Or manually add it to your `composer.json`:
@@ -22,7 +22,7 @@ Or manually add it to your `composer.json`:
 "require": {
   "php": ">=5.3.0",
   "wordpress": "3.8",
-  "wp-papi/papi": "1.0.0"
+  "wp-papi/papi": "1.0.2"
 }
 ```
 
