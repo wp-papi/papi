@@ -12,7 +12,7 @@
       var template = _.template(this.template()),
           html = template(data);
 
-      this.$el.append('<li>' + html + '</li>');
+      this.$el.append('<li class="attachment">' + html + '</li>');
     }
 
   });
