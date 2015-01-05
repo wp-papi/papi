@@ -151,6 +151,7 @@ final class Papi_Admin {
 	public function admin_head() {
 		echo '<link href="' . PAPI_PLUGIN_URL . 'gui/css/style.css" type="text/css" rel="stylesheet" />';
 		wp_enqueue_media();
+    	wp_enqueue_style( 'wp-color-picker' );
 	}
 
 	/**
@@ -164,12 +165,14 @@ final class Papi_Admin {
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 		wp_enqueue_script( 'backbone.min' );
+		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_script( 'papi-main', PAPI_PLUGIN_URL . 'gui/js/main.js', array(
 			'jquery',
 			'jquery-ui-core',
 			'jquery-ui-sortable',
 			'backbone',
-			'wp-backbone'
+			'wp-backbone',
+			'wp-color-picker'
 		), '', true );
 
 		wp_localize_script( 'papi-main', 'papiL10n', array(
