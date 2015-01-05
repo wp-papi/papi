@@ -24,7 +24,6 @@
           $field = $('[name="' + $this.attr('for') + '"]');
 
       if (!$field.length) {
-        console.log($this.attr('for'), '[name*="' + $this.attr('for') + '[]"]');
         $field = $('[name="' + $this.attr('for') + '[]"]').first();
       }
 
