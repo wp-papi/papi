@@ -16,7 +16,7 @@ class WP_Papi_Property_Color extends WP_UnitTestCase {
 	/**
 	 * Setup the test.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
 
 	public function setUp() {
@@ -34,7 +34,7 @@ class WP_Papi_Property_Color extends WP_UnitTestCase {
 	/**
 	 * Test property options.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
 
 	public function test_property_options() {
@@ -46,7 +46,7 @@ class WP_Papi_Property_Color extends WP_UnitTestCase {
 	/**
 	 * Test save property value.
 	 *
-	 * @since 1.0.0
+	 * @since 1.1.0
 	 */
 
 	public function test_save_property_value() {
