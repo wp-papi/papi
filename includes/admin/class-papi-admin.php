@@ -149,9 +149,9 @@ final class Papi_Admin {
 	 */
 
 	public function admin_head() {
-		echo '<link href="' . PAPI_PLUGIN_URL . 'gui/css/style.css" type="text/css" rel="stylesheet" />';
 		wp_enqueue_media();
-    	wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_style( 'papi-main', PAPI_PLUGIN_URL . 'gui/css/style.css', false, null );
 	}
 
 	/**
