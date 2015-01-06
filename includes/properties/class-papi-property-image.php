@@ -86,13 +86,13 @@ class Papi_Property_Image extends Papi_Property {
 				<button class="button"
 				        data-slug="<?php echo $slug; ?>"><?php _e( 'Add image', 'papi' ); ?></button>
 			</p>
-			<ul>
+			<div class="attachments">
 				<?php
 				if ( is_array( $value ) ):
 					foreach ( $value as $key => $image ):
 						$url = wp_get_attachment_thumb_url( $image->id );
 						?>
-						<li class="attachment">
+						<div class="attachment">
 							<a class="check" href="#" data-papi-options='{"id":"<%= id %>"}'>X</a>
 							<div class="attachment-preview js--select-attachment type-image subtype-png landscape">
 								<div class="thumbnail">
@@ -102,12 +102,13 @@ class Papi_Property_Image extends Papi_Property {
 									</div>
 								</div>
 							</div>
-						</li>
+						</div>
 					<?php
 					endforeach;
 				endif;
 				?>
-			</ul>
+			</div>
+			<div class="clear"></div>
 		</div>
 
 	<?php

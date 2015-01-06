@@ -1,9 +1,19 @@
 .papi-property-image {
 
-  li.attachment {
+  .attachment {
     max-width: 150px;
     max-height: 150px;
     margin: 0px 5px 0px -8px;
+    cursor: move;
+
+    &.ui-sortable-placeholder {
+    	border: 1px #DFDFDF solid;
+    	visibility: visible !important;
+    	background: #F9F9F9;
+      max-width: 134px;
+      max-height: 134px;
+      margin: 8px 13px 0px 0px;
+    }
 
     a.check {
       font-size: 14px;
@@ -15,9 +25,13 @@
       background: #A00;
     }
 
-    .thumbnail:after {
-      -webkit-box-shadow: none;
-      box-shadow: none;
+    .thumbnail {
+      cursor: move;
+
+      :after {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
     }
   }
 }

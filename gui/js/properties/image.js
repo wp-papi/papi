@@ -5,6 +5,16 @@
   papi.properties.image = {
 
     /**
+     * Initialize property image.
+     */
+
+    init: function () {
+      $('.papi-property-image.gallery .attachments').sortable({
+        revert: true
+      });
+    },
+
+    /**
      * Add a new image.
      *
      * @param {object} $this
@@ -13,7 +23,7 @@
     add: function ($this) {
       var $prop     = $this.closest('.papi-property-image'),
           $select   = $this.closest('p'),
-          $target   = $prop.find('ul'),
+          $target   = $prop.find('.attachments'),
           isGallery = $prop.hasClass('gallery'),
           slug      = $this.attr('data-slug');
 
@@ -57,7 +67,7 @@
 
     remove: function ($this) {
       var $prop  = $this.closest('.papi-property-image'),
-          $image = $this.closest('li');
+          $image = $this.closest('.attachment');
 
       $prop.find('.papi-image-select').show();
 
@@ -74,16 +84,23 @@
     papi.properties.image.add($(this));
   });
 
-  $(document).on('hover', '.papi-property-image ul li', function (e) {
+  $(document).on('hover', '.papi-property-image .attachment', function (e) {
     e.preventDefault();
 
     papi.properties.image.hover($(this));
   });
 
-  $(document).on('click', '.papi-property-image ul li a', function (e) {
+  $(document).on('click', '.papi-property-image .attachment a', function (e) {
     e.preventDefault();
 
     papi.properties.image.remove($(this));
   });
+
+  $(document).on('papi/property/repeater/added', '[value="image"]', function (e) {
+    e.preventDefault();
+
+    papi.properties.image.init();
+  });
+
 
 })(jQuery);
