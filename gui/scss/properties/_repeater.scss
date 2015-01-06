@@ -92,3 +92,33 @@
     }
   }
 }
+
+// Seamless mode
+.postbox.papi-mode-seamless {
+
+  .papi-property-repeater {
+    margin-right: 0;
+    border-left: 1px #EAEAEA solid;
+    border-right: 1px #EAEAEA solid;
+
+    > .papi-table {
+      margin-left: 0;
+
+      tr {
+        border-top: 1px #EAEAEA solid;
+        border-right: 1px #EAEAEA solid;
+
+        td {
+          border-top: 1px #EAEAEA solid;
+          border-right: 1px #EAEAEA solid;
+          padding: 10px;
+
+          &:first-child span,
+          &.last span {
+            margin-left: -.8em;
+          }
+        }
+      }
+    }
+  }
+}
