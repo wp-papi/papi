@@ -94,7 +94,7 @@ class Papi_Property_Image extends Papi_Property {
 						?>
 						<div class="attachment">
 							<a class="check" href="#" data-papi-options='{"id":"<%= id %>"}'>X</a>
-							<div class="attachment-preview js--select-attachment type-image subtype-png landscape">
+							<div class="attachment-preview">
 								<div class="thumbnail">
 									<div class="centered">
 										<img src="<?php echo $url; ?>"/>

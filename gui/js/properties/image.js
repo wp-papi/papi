@@ -9,7 +9,7 @@
      */
 
     init: function () {
-      $('.papi-property-image.gallery .attachments').sortable({
+      $('.inside .papi-table:not(.papi-table-template) > tbody:not(:has(.papi-table-template)) .papi-property-image.gallery .attachments').sortable({
         revert: true
       });
     },
@@ -72,6 +72,18 @@
       $prop.find('.papi-image-select').show();
 
       $image.remove();
+    },
+
+    /**
+     * Update when added to repeater.
+     *
+     * @param {object} $this
+     */
+
+    update: function ($this) {
+      $this.prev().find('.attachments').sortable({
+        revert: true
+      });
     }
 
   };
@@ -99,7 +111,7 @@
   $(document).on('papi/property/repeater/added', '[value="image"]', function (e) {
     e.preventDefault();
 
-    papi.properties.image.init();
+    papi.properties.image.update($(this));
   });
 
 
