@@ -76,7 +76,7 @@ class Papi_Property_Image extends Papi_Property {
 			</div>
 		</script>
 
-		<div class="wrap papi-property-image <?php echo $css_classes; ?>">
+		<div class="papi-property-image <?php echo $css_classes; ?>">
 			<p class="papi-image-select <?php echo $show_button ? '' : 'hidden'; ?>">
 				<?php
 				if ( ! $settings->gallery ) {
