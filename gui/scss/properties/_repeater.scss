@@ -46,10 +46,13 @@
     }
 
     tr {
-      cursor: move;
+      background: #ffffff;
 
       td {
         border-right: 1px solid #EAEAEA;
+        &:first-child {
+          cursor: move;
+        }
         &:first-child,
         &.last {
           background: #F9F9F9;

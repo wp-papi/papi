@@ -73,11 +73,9 @@
 
     /**
      * Initialize the repeater.
-     *
-     * @param {object} $this
      */
 
-    init: function ($this) {
+    init: function () {
       var self = this;
 
       $('.repeater-template [name]').each(function () {
@@ -88,6 +86,7 @@
 
       $('.papi-property-repeater tbody').sortable({
         revert: true,
+        handle: '.handle',
         helper: function (e, ui) {
           ui.children().each(function() {
             $(this).width($(this).width());

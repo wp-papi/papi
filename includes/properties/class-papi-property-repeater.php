@@ -127,7 +127,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				<table class="papi-table papi-table-template">
 					<tbody>
 					<tr>
-						<td>
+						<td class="handle">
 							<span><?php echo $this->counter + 1; ?></span>
 						</td>
 						<?php
@@ -190,7 +190,7 @@ class Papi_Property_Repeater extends Papi_Property {
 					foreach ( $values as $value ): ?>
 
 					<tr>
-						<td>
+						<td class="handle">
 							<span><?php echo $this->counter + 1; ?></span>
 						</td>
 					<?php
