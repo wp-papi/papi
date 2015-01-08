@@ -43,6 +43,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	/**
 	 * Get sort option value.
 	 *
+	 * @param int $post_id
 	 * @param string $slug
 	 *
 	 * @since 1.0.0
@@ -50,13 +51,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @return string|null
 	 */
 
-	public function get_sort_option( $slug ) {
-		$post_id = _papi_get_post_id();
-
-		if ( empty( $post_id ) ) {
-			return null;
-		}
-
+	public function get_sort_option( $post_id, $slug ) {
 		$slug = _papi_f( _papify( $slug ) . '_sort_option' );
 
 		return get_post_meta( $post_id, $slug, true );
@@ -97,6 +92,14 @@ class Papi_Property_Relationship extends Papi_Property {
 			return $a->ID < $b->ID;
 		};
 
+		$sort_options[__( 'Post order value (ascending)', 'papi' )] = function ( $a, $b ) {
+			return $a->menu_order > $b->menu_order;
+		};
+
+		$sort_options[__( 'Post order value (descending)', 'papi' )] = function ( $a, $b ) {
+			return $a->menu_order < $b->menu_order;
+		};
+
 		$sort_options[__( 'Post modified date (ascending)', 'papi' )] = function ( $a, $b ) {
 			return strtotime( $a->post_modified ) > strtotime( $b->post_modified );
 		};
@@ -116,9 +119,10 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 
 	public function html() {
+		$post_id     = _papi_get_post_id();
 		$options     = $this->get_options();
 		$settings    = $this->get_settings();
-		$sort_option = $this->get_sort_option( $options->slug );
+		$sort_option = $this->get_sort_option( $post_id, $options->slug );
 		$value       = $this->get_value();
 
 		// By default we add posts per page key with the value -1 (all).
@@ -205,7 +209,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 
 	public function sort_value( $value, $slug, $post_id ) {
-		$sort_option  = $this->get_sort_option( $slug );
+		$sort_option  = $this->get_sort_option( $post_id, $slug );
 		$sort_options = static::get_sort_options();
 
 		if ( empty( $sort_option ) || ! isset( $sort_options[$sort_option] ) ) {
