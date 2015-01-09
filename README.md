@@ -1,5 +1,7 @@
 # Papi
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wp-papi/papi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/wp-papi/papi.svg?branch=master)](https://travis-ci.org/wp-papi/papi)
 
 **Note: This project and its documentation are still under active development, so use it in production on your own risk**
