@@ -34,7 +34,7 @@
           return;
         }
 
-        new papi.view.Image({
+        new papi.views.Image({
           el: $target
         }).render({
           image: attachment.sizes.thumbnail !== undefined ? attachment.sizes.thumbnail.url : attachment.url,
