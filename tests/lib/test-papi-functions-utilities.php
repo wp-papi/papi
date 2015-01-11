@@ -111,6 +111,50 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test _papi_get_only_arrays.
+	 *
+	 * @since 1.1.0
+	 */
+
+	public function test_papi_get_only_arrays() {
+		$actual = true;
+
+		$items = _papi_get_only_objects( array( 1, 3, new stdClass, 'hej', array() );
+
+		foreach ( $items as $item ) {
+			$actual = is_array( $item );
+
+			if ( !$actual ) {
+				break;
+			}
+		}
+
+		$this->assertTrue( $actual );
+	}
+
+	/**
+	 * Test _papi_get_only_objects.
+	 *
+	 * @since 1.1.0
+	 */
+
+	public function test_papi_get_only_objects() {
+		$actual = true;
+
+		$items = _papi_get_only_objects( array( 1, 3, new stdClass, 'hej', array() );
+
+		foreach ( $items as $item ) {
+			$actual = is_object( $item );
+
+			if ( !$actual ) {
+				break;
+			}
+		}
+
+		$this->assertTrue( $actual );
+	}
+
+	/**
 	 * Test _papi_get_or_post.
 	 *
 	 * @since 1.0.0
@@ -258,6 +302,39 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 		$this->assertEquals( array( true ), _papi_to_array( true ) );
 		$this->assertEquals( array( ), _papi_to_array( array() ) );
 		$this->assertEquals( array( new stdClass() ), _papi_to_array( new stdClass() ) );
+	}
+
+	/**
+	 * Test _papi_to_object.
+	 *
+	 * @since 1.1.0
+	 */
+
+	public function test_papi_to_object() {
+		$actual = _papi_to_object( array() );
+		$this->assertTrue( is_object( $actual ) );
+	}
+
+	/**
+	 * Test _papi_all_to_object.
+	 *
+	 * @since 1.1.0
+	 */
+
+	public function test_all_papi_to_object() {
+		$actual = true;
+
+		$items = _papi_all_to_object( array( array(), array() ) );
+
+		foreach ( $items as $item ) {
+			$actual = is_object( $item );
+
+			if ( !$actual ) {
+				break;
+			}
+		}
+
+		$this->assertTrue( $actual );
 	}
 
 	/**
