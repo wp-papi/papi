@@ -119,7 +119,7 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 	public function test_papi_get_only_arrays() {
 		$actual = true;
 
-		$items = _papi_get_only_objects( array( 1, 3, new stdClass, 'hej', array() ) );
+		$items = _papi_get_only_arrays( array( 1, 3, new stdClass, 'hej', array() ) );
 
 		foreach ( $items as $item ) {
 			$actual = is_array( $item );
