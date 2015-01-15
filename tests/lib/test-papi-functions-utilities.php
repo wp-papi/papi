@@ -178,13 +178,13 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_is_empty() {
-		$this->assertTrue( _papi_is_ext( null ) );
+		$this->assertTrue( _papi_is_empty( null ) );
 		$this->assertFalse( _papi_is_empty( 'false' ) );
-		$this->assertFalse( _papi_is_ext( true ) );
-		$this->assertFalse( _papi_is_ext( false ) );
-		$this->assertFalse( _papi_is_ext( 0 ) );
-		$this->assertFalse( _papi_is_ext( 0.0 ) );
-		$this->assertFalse( _papi_is_ext( "0" ) );
+		$this->assertFalse( _papi_is_empty( true ) );
+		$this->assertFalse( _papi_is_empty( false ) );
+		$this->assertFalse( _papi_is_empty( 0 ) );
+		$this->assertFalse( _papi_is_empty( 0.0 ) );
+		$this->assertFalse( _papi_is_empty( "0" ) );
 	}
 
 	/**
