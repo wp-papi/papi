@@ -42,7 +42,7 @@ class Papi_Property_Radio extends Papi_Property {
 
 		// Override selected setting with
 		// database value if not null.
-		if ( ! empty( $value ) ) {
+		if ( ! _papi_is_empty( $value ) ) {
 			$settings->selected = $value;
 		}
 

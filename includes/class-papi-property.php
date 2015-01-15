@@ -196,7 +196,7 @@ class Papi_Property {
 	 */
 
 	public function description() {
-		if ( empty( $this->options->description ) ) {
+		if ( _papi_is_empty( $this->options->description ) ) {
 			return;
 		}
 
@@ -320,7 +320,7 @@ class Papi_Property {
 			$value = _papi_convert_to_string( $value );
 		}
 
-		if ( empty( $value ) ) {
+		if ( _papi_is_empty( $value ) ) {
 			$value = $this->default_value;
 		}
 

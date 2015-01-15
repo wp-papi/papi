@@ -51,7 +51,7 @@ class Papi_Property_Checkbox extends Papi_Property {
 
 		// Override selected setting with
 		// database value if not empty.
-		if ( ! empty( $value ) ) {
+		if ( ! _papi_is_empty( $value ) ) {
 			$settings->selected = $value;
 		}
 
@@ -87,7 +87,7 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 */
 
 	public function format_value( $value, $slug, $post_id ) {
-		if ( is_string( $value ) && ! empty( $value ) ) {
+		if ( is_string( $value ) && ! _papi_is_empty( $value ) ) {
 			return array( $value );
 		}
 

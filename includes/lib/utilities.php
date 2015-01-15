@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  */
 
-function _papi_convert_to_string ( $obj ) {
+function _papi_convert_to_string( $obj ) {
 	if ( $obj === true ) {
 		return 'true';
 	}
@@ -57,6 +57,20 @@ function _papi_current_user_is_allowed( $capabilities = array() ) {
 	}
 
 	return true;
+}
+
+/**
+ * Check if $obj has $key echo default.
+ *
+ * @param array $obj The array
+ * @param string $key The key to check for
+ * @param string $default The value to return if var is not set.
+ *
+ * @since 1.1.0
+ */
+
+function _papi_ea( array $obj, $key, $default = '' ) {
+	echo isset( $obj[$key] ) ? $obj[$key] : $default;
 }
 
 /**
@@ -105,21 +119,6 @@ function _papi_ff( $str = '' ) {
 	}
 
 	return '__' . $str;
-}
-
-/**
- * Check if $obj is set and if not return null or default.
- *
- * @param mixed $obj The var to check if it is set.
- * @param mixed $default The value to return if var is not set.
- *
- * @since 1.0.0
- *
- * @return mixed
- */
-
-function _papi_h( $obj, $default = null ) {
-	return isset( $obj ) ? $obj : $default;
 }
 
 /**
@@ -176,6 +175,38 @@ function _papi_get_class_name( $file ) {
 }
 
 /**
+ * Get only arrays from $arr.
+ *
+ * @param array $arr
+ *
+ * @since 1.1.0
+ *
+ * @return array
+ */
+
+function _papi_get_only_arrays( array $arr ) {
+	return array_filter( $arr, function ( $item ) {
+		return is_array( $item );
+	} );
+}
+
+/**
+ * Get only objects from $arr.
+ *
+ * @param array $arr
+ *
+ * @since 1.1.0
+ *
+ * @return array
+ */
+
+function _papi_get_only_objects( array $arr ) {
+	return array_filter( $arr, function ( $item ) {
+		return is_object( $item );
+	} );
+}
+
+/**
  * Get value from $_GET or $_POST with the given key.
  *
  * @param string $key
@@ -224,6 +255,21 @@ function _papi_get_qs( $qs ) {
 }
 
 /**
+ * Check if $obj is set and if not return null or default.
+ *
+ * @param mixed $obj The var to check if it is set.
+ * @param mixed $default The value to return if var is not set.
+ *
+ * @since 1.0.0
+ *
+ * @return mixed
+ */
+
+function _papi_h( $obj, $default = null ) {
+	return isset( $obj ) ? $obj : $default;
+}
+
+/**
  * Get a php friendly name.
  *
  * @param string $name
@@ -263,6 +309,28 @@ function _papi_include_template( $tpl_file, $vars = array() ) {
 	$path = rtrim( $path, '/' ) . '/';
 
 	include $path . $tpl_file;
+}
+
+/**
+ * Check if $obj is empty or not.
+ * Values like "0", 0 and false
+ * should not return true.
+ *
+ * @param mixed $obj
+ *
+ * @return bool
+ */
+
+function _papi_is_empty( $obj ) {
+	if ( is_string( $obj ) ) {
+		return empty( $obj ) && ! is_numeric( $obj );
+	}
+
+	if ( is_bool( $obj ) || is_numeric( $obj ) ) {
+		return false;
+	}
+
+	return empty( $obj );
 }
 
 /**
@@ -435,7 +503,7 @@ function _papi_slugify( $str, $replace = array(), $delimiter = '-' ) {
 }
 
 /**
- * Get string value into a array.
+ * Get a array of $obj.
  *
  * @param mixed $obj
  *
@@ -450,6 +518,38 @@ function _papi_to_array( $obj ) {
 	}
 
 	return $obj;
+}
+
+/**
+ * Convert $obj to object.
+ *
+ * @param mixed $obj
+ *
+ * @since 1.1.0
+ *
+ * @return object
+ */
+
+function _papi_to_object( $obj ) {
+	if ( ! is_object( $obj ) ) {
+		$obj = (object)$obj;
+	}
+
+	return $obj;
+}
+
+/**
+ * Get all items of array into object.
+ *
+ * @param array $arr
+ *
+ * @since 1.1.0
+ *
+ * @return array
+ */
+
+function _papi_all_to_object( array $arr ) {
+	return array_map( '_papi_to_object', $arr );
 }
 
 /**

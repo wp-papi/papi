@@ -107,9 +107,6 @@ class Papi_Admin_Meta_Boxes {
 	 */
 
 	private function prepare_properties_data( array $data = array(), $post_id ) {
-		// Properties holder.
-		$properties = array();
-
 		// Since we are storing witch property it is in the $data array
 		// we need to remove that and set the property type to the property
 		// and make a array of the property type and the value.
@@ -122,27 +119,19 @@ class Papi_Admin_Meta_Boxes {
 
 			$property_key = str_replace( $property_type_key, '', $key );
 
-			// Get the property class if we don't have it.
-			if ( ! isset( $properties[ $value ] ) ) {
-				$properties[ $value ] = Papi_Property::factory( $value );
+			// Check if value exists.
+			if ( isset( $data[ $property_key ] ) ) {
+				$data[ $property_key ] = array(
+					'type'  => $value,
+					'value' => $data[ $property_key ]
+				);
 			}
-
-			$property = $properties[ $value ];
-
-			// Can't handle null properties.
-			// Remove it from the data array and continue.
-			if ( is_null( $property ) ) {
-				unset( $data[ $key ] );
-				continue;
-			}
-
-			$data[ $property_key ] = array(
-				'type'  => $value,
-				'value' => isset( $data[ $property_key ] ) ? $data[ $property_key ] : $property->default_value
-			);
 
 			unset( $data[ $key ] );
 		}
+
+		// Properties holder.
+		$properties = array();
 
 		// Run `before_save` on a property class if it exists.
 		foreach ( $data as $key => $value ) {
@@ -152,7 +141,19 @@ class Papi_Admin_Meta_Boxes {
 
 			$property_type = $value['type'];
 
+			// Get the property class if we don't have it.
+			if ( ! isset( $properties[ $property_type ] ) ) {
+				$properties[ $property_type ] = Papi_Property::factory( $property_type );
+			}
+
 			$property = $properties[ $property_type ];
+
+			// Can't handle null properties.
+			// Remove it from the data array and continue.
+			if ( is_null( $property ) ) {
+				unset( $data[ $key ] );
+				continue;
+			}
 
 			// Run `update_value` if it exists on the property class.
 			$data[ $key ]['value'] = $property->update_value( $data[ $key ]['value'], _papi_remove_papi( $key ), $post_id );
