@@ -515,8 +515,8 @@ function _papi_populate_properties( $properties ) {
 function _papi_property_update_meta( $meta ) {
 	$meta = (object)$meta;
 
-	if ( empty( $meta->value ) || empty( $meta->type ) ) {
-		return false;
+	if ( empty( $meta->type ) ) {
+		return null;
 	}
 
 	$save_value = true;
@@ -530,6 +530,11 @@ function _papi_property_update_meta( $meta ) {
 
 	if ( ! $save_value && is_array( $meta->value ) ) {
 		$meta->value = array( $meta->value );
+	}
+
+	if ( empty( $meta->value ) && $meta->value != "0" ) {
+		delete_post_meta( $meta->post_id, _papi_remove_papi( $meta->slug ) );
+		return null;
 	}
 
 	foreach ( _papi_to_array( $meta->value ) as $key => $value ) {
