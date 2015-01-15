@@ -318,6 +318,8 @@ function _papi_include_template( $tpl_file, $vars = array() ) {
  *
  * @param mixed $obj
  *
+ * @since 1.0.3
+ *
  * @return bool
  */
 
