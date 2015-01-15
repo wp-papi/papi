@@ -74,7 +74,7 @@ class Papi_Page {
 		$property_type_key   = _papi_f( _papi_get_property_type_key( $slug ) );
 		$property_type_value = get_post_meta( $this->id, $property_type_key, true );
 
-		if ( empty( $property_value ) || empty( $property_type_value ) ) {
+		if ( _papi_is_empty( $property_value ) || empty( $property_type_value ) ) {
 			return null;
 		}
 

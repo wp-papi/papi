@@ -255,7 +255,7 @@ function _papi_get_property_options( $options, $get_value = true ) {
 	}
 
 	// Add default value if database value is empty.
-	if ( empty( $options->value ) ) {
+	if ( _papi_is_empty( $options->value ) ) {
 		$options->value = $options->default;
 	}
 
@@ -532,7 +532,7 @@ function _papi_property_update_meta( $meta ) {
 		$meta->value = array( $meta->value );
 	}
 
-	if ( empty( $meta->value ) && $meta->value != "0" ) {
+	if ( _papi_is_empty( $meta->value ) ) {
 		delete_post_meta( $meta->post_id, _papi_remove_papi( $meta->slug ) );
 		return null;
 	}
