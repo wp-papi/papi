@@ -22,7 +22,7 @@ Or manually add it to your `composer.json`:
 "require": {
   "php": ">=5.3.0",
   "wordpress": "3.8",
-  "wp-papi/papi": "1.0.2"
+  "wp-papi/papi": ">=1.0.3"
 }
 ```
 
