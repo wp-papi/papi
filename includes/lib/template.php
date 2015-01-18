@@ -4,7 +4,7 @@
  * Papi template functions.
  *
  * @package Papi
- * @version 1.0.0
+ * @since 1.0.0
  */
 
 // Exit if accessed directly
