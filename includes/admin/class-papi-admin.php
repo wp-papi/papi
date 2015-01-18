@@ -125,7 +125,7 @@ final class Papi_Admin {
 			} else {
 				$page = 'papi-add-new-page,' . $post_type;
 
-				if (strpos($edit_url, 'post_type') === false) {
+				if ( strpos( $edit_url, 'post_type' ) === false ) {
 					$start = '?';
 				} else {
 					$start = '&';
@@ -297,6 +297,81 @@ final class Papi_Admin {
 	}
 
 	/**
+	 * Filter page types in post type list.
+	 *
+	 * @since 1.1.0
+	 */
+
+	public function restrict_page_types() {
+		global $typenow;
+
+		$post_types = _papi_get_post_types();
+
+		if ( in_array( $typenow, $post_types ) ) {
+			$page_types = _papi_get_all_page_types( false, $typenow );
+
+			$page_types = array_map( function ( $page_type ) {
+				return array(
+					'name' => $page_type->name,
+					'value' => $page_type->get_filename()
+				);
+			}, $page_types );
+
+			// Add the standard page that isn't a real page type.
+			$page_types[] = array(
+				'name' => __( 'Standard page', 'papi' ),
+				'value' => 'papi-standard-page'
+			);
+
+			usort( $page_types, function ( $a, $b ) {
+				return strcmp( strtolower( $a['name'] ), strtolower( $b['name'] ) );
+			} );
+
+			?>
+			<select name="page_type" class="postform">
+				<option value="0" selected><?php _e( 'Show all page types', 'papi' ); ?></option>
+				<?php
+				foreach ( $page_types as $page_type ) {
+					printf( '<option value="%s" %s>%s</option>', $page_type['value'], ( _papi_get_qs( 'page_type' ) === $page_type['value'] ? ' selected' : '' ), $page_type['name'] );
+				}
+				?>
+			</select>
+			<?php
+		}
+	}
+
+	/**
+	 * Filter posts on load if `page_type` query string is set.
+	 *
+	 * @param object $query
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return object
+	 */
+
+	public function pre_get_posts( $query ) {
+		global $pagenow;
+
+		if ( $pagenow === 'edit.php' && !is_null( _papi_get_qs( 'page_type' ) ) ) {
+			if ( _papi_get_qs( 'page_type' ) === 'papi-standard-page' ) {
+				$query->set( 'meta_query', array(
+					array(
+						'key' => '_papi_page_type',
+						'compare' => 'NOT EXISTS'
+					)
+				) );
+			} else {
+				$query->set( 'meta_key', '_papi_page_type' );
+				$query->set( 'meta_value', _papi_get_qs( 'page_type' ) );
+			}
+		}
+
+		return $query;
+	}
+
+
+	/**
 	 * Setup globals.
 	 *
 	 * @since 1.0.0
@@ -321,6 +396,7 @@ final class Papi_Admin {
 		add_action( 'admin_head', array( $this, 'admin_head' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'load-post-new.php', array( $this, 'load_post_new' ) );
+		add_action( 'restrict_manage_posts', array( $this, 'restrict_page_types' ) );
 	}
 
 	/**
@@ -332,6 +408,7 @@ final class Papi_Admin {
 
 	private function setup_filters() {
 		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
+		add_filter( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
 
 		$post_types = _papi_get_post_types();
 
