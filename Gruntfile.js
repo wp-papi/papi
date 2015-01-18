@@ -38,7 +38,7 @@ module.exports = function(grunt) {
       main: {
         files: {
           'gui/js/main.js': [
-            'gui/js/vendors/*.js',
+            'gui/js/components/*.js',
             'gui/js/base.js',
             'gui/js/modules/*.js',
             'gui/js/views/*.js',

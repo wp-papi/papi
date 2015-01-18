@@ -30,15 +30,15 @@
       }
 
       $props.each(function () {
-        var $prop = $(this),
-            settings = $prop.data().settings;
+        var $prop = $(this);
+        var settings = $prop.data().settings;
 
         // Fixes to 24 hours actually works if you forget to change the format.
         if (settings.use24hour) {
           settings.format = settings.format.replace(/hh/, 'HH');
         }
 
-        settings['field'] = $prop[0];
+        settings.field = $prop[0];
 
         new Pikaday(settings);
       });

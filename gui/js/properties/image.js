@@ -21,11 +21,11 @@
      */
 
     add: function ($this) {
-      var $prop     = $this.closest('.papi-property-image'),
-          $select   = $this.closest('p'),
-          $target   = $prop.find('.attachments'),
-          isGallery = $prop.hasClass('gallery'),
-          slug      = $this.attr('data-slug');
+      var $prop     = $this.closest('.papi-property-image');
+      var $select   = $this.closest('p');
+      var $target   = $prop.find('.attachments');
+      var isGallery = $prop.hasClass('gallery');
+      var slug      = $this.attr('data-slug');
 
       papi.utils.wpMediaEditor({
         multiple: isGallery
@@ -66,8 +66,8 @@
      */
 
     remove: function ($this) {
-      var $prop  = $this.closest('.papi-property-image'),
-          $image = $this.closest('.attachment');
+      var $prop  = $this.closest('.papi-property-image');
+      var $image = $this.closest('.attachment');
 
       $prop.find('.papi-image-select').show();
 

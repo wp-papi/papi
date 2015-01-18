@@ -11,11 +11,11 @@
      */
 
     add: function ($this) {
-      var $li     = $this.clone(),
-          $right  = $this.closest('.papi-property-relationship').find('.relationship-right'),
-          $list   = $right.find('ul'),
-          max     = $right.data('relationship-choose-max'),
-          append  = max === undefined || max === -1 || $list.find('li').length < max;
+      var $li     = $this.clone();
+      var $right  = $this.closest('.papi-property-relationship').find('.relationship-right');
+      var $list   = $right.find('ul');
+      var max     = $right.data('relationship-choose-max');
+      var append  = max === undefined || max === -1 || $list.find('li').length < max;
 
       if (append) {
         $li.find('span.icon').removeClass('plus').addClass('minus');
@@ -42,8 +42,8 @@
      */
 
     search: function ($this) {
-      var $list = $this.closest('.papi-property-relationship').find('.relationship-left ul'),
-          val   = $this.val().toLowerCase();
+      var $list = $this.closest('.papi-property-relationship').find('.relationship-left ul');
+      var val   = $this.val().toLowerCase();
 
       $list.find('li').each(function () {
         var $li = $(this);
@@ -61,7 +61,7 @@
       var $prop = $this.prev();
 
       $prop.find('.relationship-left [name]').each(function () {
-        var $this = $(this);
+        $this = $(this);
         $this.attr('data-name', $this.attr('name'));
         $this.removeAttr('name');
       });

@@ -11,36 +11,36 @@
      */
 
     add: function ($this) {
-      var $repeater     = $this.closest('.papi-property-repeater'),
-          $template     = $('.repeater-template tr', $repeater).clone(),
-          $table        = $repeater.find('> .papi-table tbody'),
-          counter       = $table.children().length,
-          dataNameRegex = /data\-name\=/g,
-          attrNameRegex = /\[(\d+)\]/g,
-          attrNameValue = '[' + counter + ']',
-          html          = $template.html().replace(dataNameRegex, 'name=');
+      var $repeater     = $this.closest('.papi-property-repeater');
+      var $template     = $('.repeater-template tr', $repeater).clone();
+      var $table        = $repeater.find('> .papi-table tbody');
+      var counter       = $table.children().length;
+      var dataNameRegex = /data\-name\=/g;
+      var attrNameRegex = /\[(\d+)\]/g;
+      var attrNameValue = '[' + counter + ']';
+      var html          = $template.html().replace(dataNameRegex, 'name=');
 
       $template.html(html);
 
       // Update array number in html name and name if ends with a number.
       $template.find('[name],[data-slug], [data-id]').each(function () {
-        var $this = $(this),
-            attrs = [
-              {
-                source: 'data-slug',
-                target: 'data-slug',
-              },
-              {
-                source: 'data-id',
-                target: 'id'
-              },
-              {
-                source: 'name',
-                target: 'name'
-              }
-            ],
-            attr  = '',
-            valeu = '';
+        var $this = $(this);
+        var attr  = '';
+        var valeu = '';
+        var attrs = [
+          {
+            source: 'data-slug',
+            target: 'data-slug',
+          },
+          {
+            source: 'data-id',
+            target: 'id'
+          },
+          {
+            source: 'name',
+            target: 'name'
+          }
+        ];
 
         for (var i = 0, l = attrs.length; i < l; i++) {
           if ($this.attr(attrs[i].source) !== undefined) {
@@ -79,7 +79,7 @@
       var self = this;
 
       $('.repeater-template [name]').each(function () {
-        var $this = $(this);
+        $this = $(this);
         $this.attr('data-name', $this.attr('name'));
         $this.removeAttr('name');
       });
@@ -125,8 +125,8 @@
 
         $this.find('td:first-child span').text(index + 1);
 
-        $this.find('input,select,textarea').each(function () {
-          var $this = $(this);
+        $this.find('input, select, textarea').each(function () {
+          $this = $(this);
 
           if ($this.attr('name') === undefined || !$this.attr('name').length) {
             return;
