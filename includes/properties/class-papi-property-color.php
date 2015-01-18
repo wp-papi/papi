@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Property Color
  *
- * @version 1.1.0
+ * @since 1.1.0
  */
 
 class Papi_Property_Color extends Papi_Property {
