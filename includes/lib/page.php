@@ -15,10 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Get all page types that exists.
  *
- * @since 1.1.0
+ * @since 1.0.0
  *
  * @param bool $all Default false
- * @param string $post_type Default null
+ * @param string $post_type Default null (since 1.1.0)
  *
  * @return array
  */
