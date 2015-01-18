@@ -321,7 +321,6 @@ final class Papi_Admin {
 		add_action( 'admin_head', array( $this, 'admin_head' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'load-post-new.php', array( $this, 'load_post_new' ) );
-		add_action( 'load-media-new.php', array( $this, '_papi_load_post_new' ) );
 	}
 
 	/**
