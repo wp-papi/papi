@@ -40,7 +40,7 @@ class Papi_Property_Color extends Papi_Property {
 
 		?>
 			<input type="hidden" value="<?php echo $value; ?>" data-palettes='<?php echo json_encode( $settings->palettes ); ?>'
-				name="<?php echo $options->slug; ?>" class="papi-color-picker" />
+				name="<?php echo $options->slug; ?>" class="papi-property-color-picker" />
 		<?php
 	}
 }
