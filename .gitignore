@@ -3,3 +3,4 @@ node_modules
 test.php
 tmp/
 *.bak
+.vagrant

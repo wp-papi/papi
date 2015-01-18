@@ -26,6 +26,13 @@ Or manually add it to your `composer.json`:
 }
 ```
 
+## Testing
+
+1. `$ vagrant up`
+2. Log in to the virtual machine with `$ vagrant ssh`
+3. Run `$ phpunit`
+4. Done!
+
 ## Contribute
 
 Visit our [contribute](http://wp-papi.github.io/contribute/) page.
