@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Papi Admin Meta Box.
  *
  * @package Papi
- * @version 1.0.0
+ * @since 1.0.0
  */
 
 class Papi_Admin_Meta_Box {
@@ -93,7 +93,7 @@ class Papi_Admin_Meta_Box {
 	 * @return string
 	 */
 
-	private function populate_post_type ( $post_type ) {
+	private function populate_post_type( $post_type ) {
 		$post_id = _papi_get_post_id();
 
 		if ( ! is_null( $post_id ) ) {

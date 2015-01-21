@@ -7,5 +7,7 @@
   // Initialize our properties
   papi.properties.datetime.init();
   papi.properties.repeater.init();
+  papi.properties.color.init();
+  papi.properties.image.init();
 
 })();

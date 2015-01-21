@@ -19,9 +19,9 @@
     // Add new page - search field.
     $('input[name=add-new-page-search]').on('keyup', function () {
 
-      var $this = $(this),
-          $list = $('.papi-box-list'),
-          val = $this.val();
+      var $this = $(this);
+      var $list = $('.papi-box-list');
+      var val = $this.val();
 
       $list.find('li').each(function () {
         var $li = $(this);
@@ -31,8 +31,8 @@
     });
 
     // Fixing equal heights.
-    var boxItems = $('.papi-post-type-info'),
-        boxMaxHeight = 0;
+    var boxItems = $('.papi-post-type-info');
+    var boxMaxHeight = 0;
 
     boxItems.each(function () {
       var height = $(this).height();
@@ -43,8 +43,8 @@
 
     // Fixing so "Add new page" get selected if it isn't.
     (function () {
-      var href = typeof window.location === 'string' ? window.location : window.location.href,
-          $adminmenu = $('#adminmenu');
+      var href = typeof window.location === 'string' ? window.location : window.location.href;
+      var $adminmenu = $('#adminmenu');
 
       if (!$adminmenu.find('li.current > a.current').length) {
         href = href.substr(href.lastIndexOf('/') + 1);
@@ -59,8 +59,8 @@
     });
 
     // Add current class to add new menu link.
-    var $submenu = $('.wp-has-current-submenu .wp-submenu'),
-        $menuitem = $submenu.find('a[href*="papi-add-new-page"]').parent();
+    var $submenu = $('.wp-has-current-submenu .wp-submenu');
+    var $menuitem = $submenu.find('a[href*="papi-add-new-page"]').parent();
 
     if (!$menuitem.hasClass('current') && !$submenu.find('li.current').length) {
       $menuitem.addClass('current');

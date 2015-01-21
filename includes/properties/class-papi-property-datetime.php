@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Papi Property Datetime.
  *
  * @package Papi
- * @version 1.0.0
+ * @since 1.0.0
  */
 
 class Papi_Property_Datetime extends Papi_Property {

@@ -4,7 +4,7 @@
  * Papi property functions.
  *
  * @package Papi
- * @version 1.0.0
+ * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -228,7 +228,11 @@ function _papi_get_property_options( $options, $get_value = true ) {
 
 	// Generate random slug if we don't have a title or slug.
 	if ( empty( $options->title ) && empty( $options->slug ) ) {
-		$options->slug = _papi_slugify( uniqid() );
+		if ( empty( $options->type ) ) {
+			$options->slug = _papi_slugify( uniqid() );
+		} else {
+			$options->slug = _papi_slugify( $options->type );
+		}
 	}
 
 	// Generate slug from title.

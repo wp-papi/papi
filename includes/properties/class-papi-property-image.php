@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Papi Property Image.
  *
  * @package Papi
- * @version 1.0.0
+ * @since 1.0.0
  */
 
 class Papi_Property_Image extends Papi_Property {
@@ -65,12 +65,18 @@ class Papi_Property_Image extends Papi_Property {
 		?>
 
 		<script type="text/template" id="tmpl-papi-image">
-			<a href="#" data-papi-options='{"id":"<%= id %>"}'>x</a>
-			<img src="<%= image %>"/>
-			<input type="hidden" value="<%= id %>" name="<%= slug %>"/>
+			<a class="check" href="#" data-papi-options='{"id":"<%= id %>"}'>X</a>
+			<div class="attachment-preview">
+				<div class="thumbnail">
+					<div class="centered">
+						<img src="<%= image %>"/>
+						<input type="hidden" value="<%= id %>" name="<%= slug %>"/>
+					</div>
+				</div>
+			</div>
 		</script>
 
-		<div class="wrap papi-property-image <?php echo $css_classes; ?>">
+		<div class="papi-property-image <?php echo $css_classes; ?>">
 			<p class="papi-image-select <?php echo $show_button ? '' : 'hidden'; ?>">
 				<?php
 				if ( ! $settings->gallery ) {
@@ -80,22 +86,29 @@ class Papi_Property_Image extends Papi_Property {
 				<button class="button"
 				        data-slug="<?php echo $slug; ?>"><?php _e( 'Add image', 'papi' ); ?></button>
 			</p>
-			<ul>
+			<div class="attachments">
 				<?php
 				if ( is_array( $value ) ):
 					foreach ( $value as $key => $image ):
 						$url = wp_get_attachment_thumb_url( $image->id );
 						?>
-						<li>
-							<a href="#">x</a>
-							<img src="<?php echo $url; ?>"/>
-							<input type="hidden" value="<?php echo $image->id; ?>" name="<?php echo $slug; ?>"/>
-						</li>
+						<div class="attachment">
+							<a class="check" href="#" data-papi-options='{"id":"<%= id %>"}'>X</a>
+							<div class="attachment-preview">
+								<div class="thumbnail">
+									<div class="centered">
+										<img src="<?php echo $url; ?>"/>
+										<input type="hidden" value="<?php echo $image->id; ?>" name="<?php echo $slug; ?>"/>
+									</div>
+								</div>
+							</div>
+						</div>
 					<?php
 					endforeach;
 				endif;
 				?>
-			</ul>
+			</div>
+			<div class="clear"></div>
 		</div>
 
 	<?php

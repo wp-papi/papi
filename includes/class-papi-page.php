@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Papi Page.
  *
  * @package Papi
- * @version 1.0.0
+ * @since 1.0.0
  */
 
 class Papi_Page {

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * All page types in the WordPress theme will extend this class.
  *
  * @package Papi
- * @version 1.0.0
+ * @since 1.0.0
  */
 
 class Papi_Page_Type extends Papi_Page_Type_Meta {
@@ -102,7 +102,9 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			$sort_order = _papi_filter_settings_sort_order();
 		}
 
-		array_push( $this->boxes, array( $options, $properties, 'sort_order' => $sort_order, 'title' => $options['title'] ) );
+		$title = isset( $options['title'] ) ? $options['title'] : '';
+
+		array_push( $this->boxes, array( $options, $properties, 'sort_order' => $sort_order, 'title' => $title ) );
 	}
 
 	/**

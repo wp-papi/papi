@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Papi Property Dropdown.
  *
  * @package Papi
- * @version 1.0.0
+ * @since 1.0.0
  */
 
 class Papi_Property_Dropdown extends Papi_Property {

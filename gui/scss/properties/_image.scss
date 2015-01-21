@@ -1,38 +1,41 @@
 .papi-property-image {
 
-  li {
-    width: 150px;
-    float: left;
-    margin: 0 20px 20px 0;
+  .attachment {
+    max-width: 150px;
+    max-height: 150px;
+    margin: 0px 5px 0px -8px;
+    cursor: move;
 
-    img {
-      height: auto;
-      left: 0;
-      top: 0;
-      width: 100%;
-      -webkit-transform: translateZ(0);
-      -webkit-transition: opacity .2s ease-in-out;
-      transition: opacity .2s ease-in-out;
+    &.ui-sortable-placeholder {
+    	border: 1px #DFDFDF solid;
+    	visibility: visible !important;
+    	background: #F9F9F9;
+      max-width: 134px;
+      max-height: 134px;
+      margin: 8px 13px 0px 0px;
     }
 
-    a {
-      width: 16px;
-      height: 22px;
-      background: #000;
-      position: absolute;
-      border-radius: 15px;
-      color: #FFF;
-      text-decoration: none;
-      padding-top: 2px;
-      padding-left: 9px;
+    a.check {
       font-size: 14px;
-      text-transform: lowercase;
-      margin-left: 138px;
-      margin-top: -10px;
-      display: none;
-      z-index: 100;
+      text-decoration: none;
+      padding-top: 3px;
+      text-transform: uppercase;
+      height: 21px;
+      color: #FFF;
+      background: #A00;
     }
 
-  }
+    .thumbnail {
+      cursor: move;
 
+      :after {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.papi-property-repeater .papi-property-image .attachment {
+  width: 150px;
 }

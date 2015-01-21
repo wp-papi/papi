@@ -2,7 +2,7 @@
 
   // Image view for property image
 
-  papi.view.Image = wp.Backbone.View.extend({
+  papi.views.Image = wp.Backbone.View.extend({
 
     // The template to compile
     template: wp.template('papi-image'),
@@ -12,7 +12,7 @@
       var template = _.template(this.template()),
           html = template(data);
 
-      this.$el.append('<li>' + html + '</li>');
+      this.$el.append('<div class="attachment">' + html + '</div>');
     }
 
   });

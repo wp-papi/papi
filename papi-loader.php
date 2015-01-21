@@ -5,7 +5,7 @@
  * Description: Page Type API
  * Author: Fredrik Forsmo
  * Author URI: http://forsmo.me/
- * Version: 1.0.0
+ * Version: 1.1.0
  * Plugin URI: https://github.com/wp-papi/papi
  * Textdomain: papi
  */
@@ -214,6 +214,7 @@ final class Papi_Loader {
 		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-relationship.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-radio.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-post.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-color.php' );
 
 		// Include third party properties.
 		$this->include_third_party();

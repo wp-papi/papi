@@ -62,7 +62,7 @@
           .replace(/\-\-+/g, '-')
           .replace(/^-+/, '')
           .replace(/-+$/, '');
-  }
+  };
 
   // Add utils to the papi object.
   window.papi.utils = utils;

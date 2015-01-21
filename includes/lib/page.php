@@ -4,7 +4,7 @@
  * Papi page functions.
  *
  * @package Papi
- * @version 1.0.0
+ * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -16,17 +16,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Get all page types that exists.
  *
  * @since 1.0.0
- * @todo rewrite and use logic in class-papi-page-types.php
  *
  * @param bool $all Default false
+ * @param string $post_type Default null (since 1.1.0)
  *
  * @return array
  */
 
-function _papi_get_all_page_types( $all = false ) {
+function _papi_get_all_page_types( $all = false, $post_type = null ) {
 	$files      = _papi_get_all_page_type_files();
-	$post_type  = _papi_get_wp_post_type();
 	$page_types = array();
+
+	if ( is_null( $post_type ) ) {
+		$post_type  = _papi_get_wp_post_type();
+	}
 
 	foreach ( $files as $file ) {
 		$page_type = _papi_get_page_type( $file );
@@ -86,7 +89,7 @@ function _papi_get_file_data( $post_id ) {
 function _papi_get_number_of_pages( $page_type ) {
 	global $wpdb;
 
-	if ( empty( $page_type ) || ! is_string( $page_type) ) {
+	if ( empty( $page_type ) || ! is_string( $page_type ) ) {
 		return 0;
 	}
 
@@ -143,7 +146,7 @@ function _papi_get_page_type( $file_path ) {
 	// Try to get the instance of the page type.
 	$instance = call_user_func( $class_name . '::instance' );
 
-	if ( ! empty( $instance ) && get_class($instance) === $class_name ) {
+	if ( ! empty( $instance ) && get_class( $instance ) === $class_name ) {
 		return $instance;
 	}
 
@@ -151,7 +154,7 @@ function _papi_get_page_type( $file_path ) {
 	$page_type  = $rc->newInstanceArgs( array( $file_path ) );
 
 	// Set the instance.
-	call_user_func( $class_name . '::instance', $page_type);
+	call_user_func( $class_name . '::instance', $page_type );
 
 	// If the page type don't have a name we can't use it.
 	if ( ! $page_type->has_name() ) {

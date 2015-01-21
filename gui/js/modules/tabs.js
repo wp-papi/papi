@@ -15,8 +15,8 @@
     $('a[data-papi-tab]').on('click', function (e) {
       e.preventDefault();
 
-      var $this = $(this),
-          tab = $this.data('papi-tab');
+      var $this = $(this);
+      var tab = $this.data('papi-tab');
 
       $('a[data-papi-tab]').parent().removeClass('active');
       $this.parent().addClass('active');
