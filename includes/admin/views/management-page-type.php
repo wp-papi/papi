@@ -68,7 +68,7 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 		$page_type = _papi_get_page_type( $page_type );
 	?>
 
-	<h3><?php _e( 'Overview of page type', 'papi' ); ?>: <?php echo $page_type->name; ?></h3>
+	<h3><?php _e( 'Overview of page types', 'papi' ); ?>: <?php echo $page_type->name; ?></h3>
 
 	<p>
 		<a href="tools.php?page=papi"><?php _e( 'Back to list' , 'papi' ); ?></a>
