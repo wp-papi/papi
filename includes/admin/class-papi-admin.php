@@ -448,7 +448,12 @@ final class Papi_Admin {
 		}
 
 		if ( empty( $page_type ) ) {
-			return;
+			// If only page type is used, override the page type value.
+			$page_type = _papi_filter_settings_only_page_type( $post_type );
+
+			if ( empty( $page_type ) ) {
+				return;
+			}
 		}
 
 		// Get the path to the page type file.
