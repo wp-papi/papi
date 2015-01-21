@@ -108,6 +108,14 @@ class Papi_Property_Relationship extends Papi_Property {
 			return strtotime( $a->post_modified ) < strtotime( $b->post_modified );
 		};
 
+		$sort_options[__( 'Post menu order (ascending)', 'papi' )] = function ( $a, $b ) {
+			return $a->menu_order > $b->menu_order;
+		};
+
+		$sort_options[__( 'Post menu order (descending)', 'papi' )] = function ( $a, $b ) {
+			return $a->menu_order < $b->menu_order;
+		};
+
 		$sort_options = apply_filters( 'papi/property/relationship/sort_options', $sort_options );
 		return $sort_options;
 	}
