@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     'cssmin': {
       combine: {
         files: {
-          'gui/css/style.css': ['gui/css/style.css']
+          'gui/css/style.css': ['gui/css/components/*.css', 'gui/css/style.css']
         }
       }
     },
