@@ -937,7 +937,7 @@
             }
 
             if (opts.showTime) {
-                html += '<div>' +
+                html += '<div class="pika-time-container">' +
                         renderTime(
                             this._d ? this._d.getHours() : 0,
                             this._d ? this._d.getMinutes() : 0,
