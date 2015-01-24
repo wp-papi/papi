@@ -161,11 +161,6 @@ final class Papi_Admin {
 	 */
 
 	public function admin_enqueue_scripts() {
-		wp_enqueue_script( 'jquery-ui-core' );
-		wp_enqueue_script( 'jquery-ui-sortable' );
-		wp_enqueue_script( 'jquery-ui-datepicker' );
-		wp_enqueue_script( 'backbone.min' );
-		wp_enqueue_script( 'wp-color-picker' );
 		wp_enqueue_script( 'papi-main', PAPI_PLUGIN_URL . 'gui/js/main.js', array(
 			'jquery',
 			'jquery-ui-core',
