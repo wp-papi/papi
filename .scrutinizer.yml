@@ -8,7 +8,6 @@ filter:
 checks:
   php:
     code_rating: true
-    dublication: true
 
 tools:
   external_code_coverage: true
