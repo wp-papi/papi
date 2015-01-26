@@ -376,6 +376,46 @@ function _papi_is_property_type_key( $str = '' ) {
 }
 
 /**
+ * Remove rows before a property that acts like a repeater is saved.
+ * This will clean up the database so fields that don't exists anymore is removed.
+ *
+ * @param object $meta
+ * @param string $table Default is `postmeta`
+ *
+ * @since 1.1.0
+ *
+ * @return boolean
+ */
+
+function _papi_property_remove_rows( $meta, $table = 'postmeta' ) {
+	global $wpdb;
+	$slug = _papi_remove_papi( $meta->slug );
+
+	// The slug should exist in a array that exists in meta value.
+	if ( is_array( $meta->value ) && !empty( $meta->value ) && isset( $meta->value[0][$slug] ) ) {
+
+		// Add the database prefix to the table.
+		$table = $wpdb->prefix . $table;
+
+		// Get all rows.
+		$query = $wpdb->prepare( "SELECT * FROM $table WHERE `post_id` = %s AND (`meta_key` LIKE %s OR `meta_key` LIKE %s)", $meta->post_id, $slug . '_%', '_' . $slug . '_%' );
+		$result = $wpdb->get_results( $query );
+
+		// The property type slug.
+		$property_type_slug = _papi_get_property_type_key_f( $slug );
+
+		foreach ( $result as $res ) {
+			// Don't remove the row for the current property type.
+			if ( $res->meta_key === $property_type_slug ) {
+				continue;
+			}
+
+			delete_post_meta( $meta->post_id, $res->meta_key );
+		}
+	}
+}
+
+/**
  * Render a property the right way.
  *
  * @param object $property
@@ -559,6 +599,10 @@ function _papi_property_update_meta( $meta ) {
 
 			continue;
 		}
+
+		// Remove rows before a property that acts like a repeater is saved.
+		// This will clean up the database so fields that don't exists anymore is removed.
+		_papi_property_remove_rows( $meta );
 
 		foreach ( $value as $child_key => $child_value ) {
 			update_post_meta( $meta->post_id, _papi_remove_papi( $child_key ), $child_value );
