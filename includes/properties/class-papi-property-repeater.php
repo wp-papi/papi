@@ -243,6 +243,21 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
+	 * Get number of columns.
+	 *
+	 * @param int $post_id
+	 * @param string $repeater_slug
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return int
+	 */
+
+	public function get_columns( $post_id, $repeater_slug ) {
+		return intval( get_post_meta( $post_id, _papi_f( _papify( $repeater_slug ) . '_columns' ), true ) );
+	}
+
+	/**
 	 * Get results from the database.
 	 *
 	 * @param int $value
@@ -260,7 +275,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		$value    = intval( $value );
 		$values   = array();
-		$columns  = intval( get_post_meta( $post_id, _papi_f( _papify( $repeater_slug ) . '_columns' ), true ) );
+		$columns  = $this->get_columns( $post_id, $repeater_slug );
 		$table    = $wpdb->prefix . 'postmeta';
 		$query    = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_key` ASC", $repeater_slug . '_%', $post_id );
 		$results  = $wpdb->get_results( $query );
@@ -284,10 +299,6 @@ class Papi_Property_Repeater extends Papi_Property {
 
 				$reg  = '/' . preg_quote( $repeater_slug . '_' . $i . '_' ) . '/';
 				$meta = $row[$j];
-
-				if ( empty( $meta ) ) {
-					continue;
-				}
 
 				if ( empty( $meta ) || ! isset( $meta->meta_value ) || ! preg_match( $reg, $meta->meta_key ) ) {
 					continue;
@@ -415,9 +426,9 @@ class Papi_Property_Repeater extends Papi_Property {
 		$properties     = array();
 
 		if ( isset( $_POST[$properties_key] ) ) {
-			$properties     = $_POST[$properties_key];
-			$properties     = _papi_remove_trailing_quotes( $properties );
-			$properties     = json_decode( $properties );
+			$properties = $_POST[$properties_key];
+			$properties = _papi_remove_trailing_quotes( $properties );
+			$properties = json_decode( $properties );
 		}
 
 		$rows_key = _papi_ff( _papify( $repeater_slug ) . '_rows' );
@@ -431,6 +442,8 @@ class Papi_Property_Repeater extends Papi_Property {
 		if ( ! is_array( $values ) ) {
 			$values = array();
 		}
+
+		$this->clean_db( $post_id, $rows, $repeater_slug );
 
 		list( $results, $trash ) = $this->get_results( $rows, $repeater_slug, $post_id );
 
@@ -471,6 +484,59 @@ class Papi_Property_Repeater extends Papi_Property {
 		}
 
 		return $values;
+	}
+
+	/**
+	 * Clean the database on save.
+	 * It will calculate how many rows to remove.
+	 *
+	 * @param int $post_id
+	 * @param int $rows
+	 * @param string $repeater_slug
+	 *
+	 * @since 1.1.0
+	 */
+
+	public function clean_db( $post_id, $rows, $repeater_slug ) {
+		global $wpdb;
+
+		// Get rows value from database and calculate the diff between rows and rows before
+		$rows_db = intval( get_post_meta( $post_id, _papi_remove_papi( $repeater_slug ), true) );
+
+		if ($rows > 0) {
+			$rows = $rows_db > $rows ? $rows_db - $rows : $rows - $rows_db;
+		} else {
+			$rows = 0;
+		}
+
+		$table = $wpdb->prefix . 'postmeta';
+		$meta_key = $repeater_slug . '_%';
+
+		// Create sql query.
+		$sql = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
+		$query = $wpdb->prepare( $sql, $post_id, $meta_key, _papi_f( $meta_key ), _papi_get_property_type_key_f( $repeater_slug ) );
+
+		// All columns have two values, the property value and the property type value.
+		$columns = $this->get_columns( $post_id, $repeater_slug );
+		$columns = $columns * $columns;
+
+		// Calculate the offset
+		if ($rows > 0) {
+			$offset = $rows * $columns;
+		} else {
+			$offset = 0;
+		}
+
+		// Calculate the limit
+		$limit = ($rows_db > 0 ? $rows_db : 1) * $columns;
+		$limit = ($limit * $limit) + $offset;
+
+		$query .= " LIMIT $limit OFFSET $offset";
+
+		// Delete all results in the array
+		foreach( _papi_to_array( $wpdb->get_results( $query ) ) as $res ) {
+			delete_post_meta( $post_id, $res->meta_key );
+		}
 	}
 
 }
