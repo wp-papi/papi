@@ -516,22 +516,22 @@ class Papi_Property_Repeater extends Papi_Property {
 		$sql = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
 		$query = $wpdb->prepare( $sql, $post_id, $meta_key, _papi_f( $meta_key ), _papi_get_property_type_key_f( $repeater_slug ) );
 
-		// All columns have two values, the property value and the property type value.
-		$columns = $this->get_columns( $post_id, $repeater_slug );
-		$columns = $columns * $columns;
-
-		// Calculate the offset
 		if ($rows > 0) {
-			$offset = $rows * $columns;
-		} else {
-			$offset = 0;
+			// All columns have two values, the property value and the property type value.
+			$columns = $this->get_columns( $post_id, $repeater_slug );
+			$columns = $columns * $columns;
+
+			// Calculate the offset
+			$offset = $rows > 0 ? $rows * $columns : 0;
+
+			// Calculate the limit
+			$limit = $rows_db > $rows ? $rows_db : $rows;
+			$limit *= $columns;
+			$limit = ($limit * $limit) + $offset;
+
+			// Add limit and offset to sql query.
+			$query .= " LIMIT $limit OFFSET $offset";
 		}
-
-		// Calculate the limit
-		$limit = ($rows_db > 0 ? $rows_db : 1) * $columns;
-		$limit = ($limit * $limit) + $offset;
-
-		$query .= " LIMIT $limit OFFSET $offset";
 
 		// Delete all results in the array
 		foreach( _papi_to_array( $wpdb->get_results( $query ) ) as $res ) {
