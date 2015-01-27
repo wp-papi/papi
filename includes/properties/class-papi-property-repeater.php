@@ -500,15 +500,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	public function clean_db( $post_id, $rows, $repeater_slug ) {
 		global $wpdb;
 
-		// Get rows value from database and calculate the diff between rows and rows before
-		$rows_db = intval( get_post_meta( $post_id, _papi_remove_papi( $repeater_slug ), true) );
-
-		if ($rows > 0) {
-			$rows = $rows_db > $rows ? $rows_db - $rows : $rows - $rows_db;
-		} else {
-			$rows = 0;
-		}
-
 		$table = $wpdb->prefix . 'postmeta';
 		$meta_key = $repeater_slug . '_%';
 
@@ -516,25 +507,39 @@ class Papi_Property_Repeater extends Papi_Property {
 		$sql = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
 		$query = $wpdb->prepare( $sql, $post_id, $meta_key, _papi_f( $meta_key ), _papi_get_property_type_key_f( $repeater_slug ) );
 
-		if ($rows > 0) {
-			// All columns have two values, the property value and the property type value.
-			$columns = $this->get_columns( $post_id, $repeater_slug );
-			$columns = $columns * $columns;
+		// Get all columns and multiply it with itself.
+		$columns = $this->get_columns( $post_id, $repeater_slug );
+		$columns = $columns * $columns;
 
-			// Calculate the offset
-			$offset = $rows > 0 ? $rows * $columns : 0;
+		$results = $wpdb->get_results( $query );
 
-			// Calculate the limit
-			$limit = $rows_db > $rows ? $rows_db : $rows;
-			$limit *= $columns;
-			$limit = ($limit * $limit) + $offset;
+		if ( $rows > 0 ) {
+			$r = 0;
+			$c = 1;
 
-			// Add limit and offset to sql query.
-			$query .= " LIMIT $limit OFFSET $offset";
+			// Delete all results in the array
+			foreach ( $results as $index => $res ) {
+				if ( strpos( $res->meta_key, $repeater_slug . '_' . $r ) !== false ) {
+					unset( $results[$index] );
+				}
+
+				// Reset the row and the column counter.
+				if ( $c === $columns ) {
+					$r++;
+					$c = 1;
+				} else {
+					$c++;
+				}
+
+				// Break when all data that should be removed
+				// is removed.
+				if ( $r === $rows + 1 ) {
+					break;
+				}
+			}
 		}
 
-		// Delete all results in the array
-		foreach( _papi_to_array( $wpdb->get_results( $query ) ) as $res ) {
+		foreach ( _papi_to_array( $results ) as $res ) {
 			delete_post_meta( $post_id, $res->meta_key );
 		}
 	}
