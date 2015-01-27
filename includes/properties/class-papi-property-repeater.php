@@ -503,43 +503,66 @@ class Papi_Property_Repeater extends Papi_Property {
 		$table = $wpdb->prefix . 'postmeta';
 		$meta_key = $repeater_slug . '_%';
 
-		// Create sql query.
+		$rows_db = intval( get_post_meta( $post_id, $repeater_slug, true ) );
+
+		// Create sql query and get the results.
 		$sql = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
 		$query = $wpdb->prepare( $sql, $post_id, $meta_key, _papi_f( $meta_key ), _papi_get_property_type_key_f( $repeater_slug ) );
-
-		// Get all columns and multiply it with itself.
-		$columns = $this->get_columns( $post_id, $repeater_slug );
-		$columns = $columns * $columns;
-
 		$results = $wpdb->get_results( $query );
 
-		if ( $rows > 0 ) {
-			$r = 0;
-			$c = 1;
+		$post_rows = 0;
+		$papi_slug = _papify( $repeater_slug );
 
-			// Delete all results in the array
-			foreach ( $results as $index => $res ) {
-				if ( strpos( $res->meta_key, $repeater_slug . '_' . $r ) === 0 || strpos( $res->meta_key, '_' . $repeater_slug . '_' . $r ) === 0 ) {
-					unset( $results[$index] );
-				}
-
-				// Reset the row and the column counter.
-				if ( $c === $columns ) {
-					$r++;
-					$c = 1;
-				} else {
-					$c++;
-				}
-
-				// Break when all data that should be removed
-				// is removed.
-				if ( $r === $rows + 1 ) {
-					break;
-				}
-			}
+		// Get the current number of rows in WordPress admin.
+		if ( !isset( $_POST[$papi_slug] ) ) {
+			return null;
 		}
 
-		foreach ( _papi_to_array( $results ) as $res ) {
+		$post_rows_keys = array_filter( array_map( function ( $row ) {
+			if ( is_array( $row ) ) {
+				return array_keys( $row );
+			}
+
+			return array();
+		}, $_POST[ $papi_slug ] ) );
+
+		// Current column value in the database
+		$col_max = count( $results )/$rows_db - 1;
+		$rows_max = count( $post_rows_keys );
+
+		$row = 0;
+		$col = 0;
+
+		for ( $i = 0; $i < count( $results ); $i++ ) {
+			if ( $row === $rows_max ) {
+				break;
+			}
+
+			$parts = preg_split( '/\_[0-9]+\_/', $results[$i]->meta_key );
+			$slug = array_pop( $parts );
+
+			// Delete row item if it exists in the post rows keys array.
+			if ( isset( $post_rows_keys[$row] ) && in_array( $slug, $post_rows_keys[$row] ) ) {
+				$results[$i] = null;
+			}
+
+			// Update row and reset column counter.
+			if ( $col === $col_max ) {
+				$col = 0;
+				$row++;
+			}
+
+			$col++;
+		}
+
+		$results = array_filter( _papi_to_array( $results ) );
+
+		// Remove last item if results number is odd
+		if ( count( $results ) & 1 ) {
+			array_pop( $results );
+		}
+
+		foreach ( $results as $res ) {
 			delete_post_meta( $post_id, $res->meta_key );
 		}
 	}
