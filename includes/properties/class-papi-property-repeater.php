@@ -524,7 +524,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			return array();
 		}, $_POST[ $papi_slug ] ) );
 
-		if ( empty( $post_rows_keys ) ) {
+		if ( empty( $post_rows_keys ) || $rows_db === 0 ) {
 			return null;
 		}
 
