@@ -525,6 +525,10 @@ class Papi_Property_Repeater extends Papi_Property {
 			return array();
 		}, $_POST[ $papi_slug ] ) );
 
+		if ( empty( $post_rows_keys ) ) {
+			return null;
+		}
+
 		// Current column value in the database
 		$col_max = count( $results )/$rows_db - 1;
 		$rows_max = count( $post_rows_keys );
