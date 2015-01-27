@@ -519,7 +519,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			// Delete all results in the array
 			foreach ( $results as $index => $res ) {
-				if ( strpos( $res->meta_key, $repeater_slug . '_' . $r ) !== false ) {
+				if ( strpos( $res->meta_key, $repeater_slug . '_' . $r ) === 0 || strpos( $res->meta_key, '_' . $repeater_slug . '_' . $r ) === 0 ) {
 					unset( $results[$index] );
 				}
 
