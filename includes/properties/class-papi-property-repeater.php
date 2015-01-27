@@ -504,9 +504,12 @@ class Papi_Property_Repeater extends Papi_Property {
 		$meta_key = $repeater_slug . '_%';
 
 		// Create sql query and get the results.
-		$sql = "DELETE FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
+		$sql = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
 		$query = $wpdb->prepare( $sql, $post_id, $meta_key, _papi_f( $meta_key ), _papi_get_property_type_key_f( $repeater_slug ) );
-		$wpdb->get_results( $query );
-	}
+		$results = $wpdb->get_results( $query );
 
+		foreach ($results as $res ) {
+			delete_post_meta($post_id, $res->meta_key);
+		}
+	}
 }
