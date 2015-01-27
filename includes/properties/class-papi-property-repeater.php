@@ -443,7 +443,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			$values = array();
 		}
 
-		$this->clean_db( $post_id, $rows, $repeater_slug );
+		$this->clean_db( $post_id, $repeater_slug );
 
 		list( $results, $trash ) = $this->get_results( $rows, $repeater_slug, $post_id );
 
@@ -497,7 +497,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @since 1.1.0
 	 */
 
-	public function clean_db( $post_id, $rows, $repeater_slug ) {
+	public function clean_db( $post_id, $repeater_slug ) {
 		global $wpdb;
 
 		$table = $wpdb->prefix . 'postmeta';
@@ -510,7 +510,6 @@ class Papi_Property_Repeater extends Papi_Property {
 		$query = $wpdb->prepare( $sql, $post_id, $meta_key, _papi_f( $meta_key ), _papi_get_property_type_key_f( $repeater_slug ) );
 		$results = $wpdb->get_results( $query );
 
-		$post_rows = 0;
 		$papi_slug = _papify( $repeater_slug );
 
 		// Get the current number of rows in WordPress admin.
