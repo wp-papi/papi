@@ -491,7 +491,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * It will calculate how many rows to remove.
 	 *
 	 * @param int $post_id
-	 * @param int $rows
 	 * @param string $repeater_slug
 	 *
 	 * @since 1.1.0
