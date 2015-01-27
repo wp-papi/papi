@@ -443,8 +443,6 @@ class Papi_Property_Repeater extends Papi_Property {
 			$values = array();
 		}
 
-		$this->clean_db( $post_id, $repeater_slug );
-
 		list( $results, $trash ) = $this->get_results( $rows, $repeater_slug, $post_id );
 
 		foreach ( $trash as $index => $meta ) {
@@ -483,12 +481,15 @@ class Papi_Property_Repeater extends Papi_Property {
 			delete_post_meta( $post_id, $trash_key );
 		}
 
+		// Keep this method before the return statement.
+		// It's safe to remove all rows in the database here.
+		$this->remove_repeater_rows( $post_id, $repeater_slug );
+
 		return $values;
 	}
 
 	/**
-	 * Clean the database on save.
-	 * It will calculate how many rows to remove.
+	 * Remove all repeater rows from the database.
 	 *
 	 * @param int $post_id
 	 * @param string $repeater_slug
@@ -496,77 +497,16 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @since 1.1.0
 	 */
 
-	public function clean_db( $post_id, $repeater_slug ) {
+	public function remove_repeater_rows( $post_id, $repeater_slug ) {
 		global $wpdb;
 
 		$table = $wpdb->prefix . 'postmeta';
 		$meta_key = $repeater_slug . '_%';
 
-		$rows_db = intval( get_post_meta( $post_id, $repeater_slug, true ) );
-
 		// Create sql query and get the results.
-		$sql = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
+		$sql = "DELETE FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
 		$query = $wpdb->prepare( $sql, $post_id, $meta_key, _papi_f( $meta_key ), _papi_get_property_type_key_f( $repeater_slug ) );
-		$results = $wpdb->get_results( $query );
-
-		$papi_slug = _papify( $repeater_slug );
-
-		// Get the current number of rows in WordPress admin.
-		if ( !isset( $_POST[$papi_slug] ) ) {
-			return null;
-		}
-
-		$post_rows_keys = array_filter( array_map( function ( $row ) {
-			if ( is_array( $row ) ) {
-				return array_keys( $row );
-			}
-
-			return array();
-		}, $_POST[ $papi_slug ] ) );
-
-		if ( empty( $post_rows_keys ) || $rows_db === 0 ) {
-			return null;
-		}
-
-		// Current column value in the database
-		$col_max = count( $results )/$rows_db - 1;
-		$rows_max = count( $post_rows_keys );
-
-		$row = 0;
-		$col = 0;
-
-		for ( $i = 0; $i < count( $results ); $i++ ) {
-			if ( $row === $rows_max ) {
-				break;
-			}
-
-			$parts = preg_split( '/\_[0-9]+\_/', $results[$i]->meta_key );
-			$slug = array_pop( $parts );
-
-			// Delete row item if it exists in the post rows keys array.
-			if ( isset( $post_rows_keys[$row] ) && in_array( $slug, $post_rows_keys[$row] ) ) {
-				$results[$i] = null;
-			}
-
-			// Update row and reset column counter.
-			if ( $col === $col_max ) {
-				$col = 0;
-				$row++;
-			}
-
-			$col++;
-		}
-
-		$results = array_filter( _papi_to_array( $results ) );
-
-		// Remove last item if results number is odd
-		if ( count( $results ) & 1 ) {
-			array_pop( $results );
-		}
-
-		foreach ( $results as $res ) {
-			delete_post_meta( $post_id, $res->meta_key );
-		}
+		$wpdb->get_results( $query );
 	}
 
 }
