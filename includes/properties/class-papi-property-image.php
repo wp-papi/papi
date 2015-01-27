@@ -50,7 +50,7 @@ class Papi_Property_Image extends Papi_Property {
 
 		$value    = array_filter( $value, function ( $image ) {
 			return is_object( $image );
-		});
+		} );
 
 		$slug        = $options->slug;
 		$show_button = empty( $value );
@@ -131,9 +131,10 @@ class Papi_Property_Image extends Papi_Property {
 			$meta = wp_get_attachment_metadata( $value );
 			if ( isset( $meta ) && ! empty( $meta ) ) {
 				$mine = array(
+					'alt'      => trim( strip_tags( get_post_meta( $value, '_wp_attachment_image_alt', true ) ) ),
+					'id'       => intval( $value ),
 					'is_image' => true,
 					'url'      => wp_get_attachment_url( $value ),
-					'id'       => intval( $value )
 				);
 
 				return (object) array_merge( $meta, $mine );
