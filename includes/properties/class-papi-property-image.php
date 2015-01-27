@@ -130,11 +130,15 @@ class Papi_Property_Image extends Papi_Property {
 		if ( is_numeric( $value ) ) {
 			$meta = wp_get_attachment_metadata( $value );
 			if ( isset( $meta ) && ! empty( $meta ) ) {
+				$att = get_post( $value );
 				$mine = array(
-					'alt'      => trim( strip_tags( get_post_meta( $value, '_wp_attachment_image_alt', true ) ) ),
-					'id'       => intval( $value ),
-					'is_image' => true,
-					'url'      => wp_get_attachment_url( $value ),
+					'alt'         => trim( strip_tags( get_post_meta( $value, '_wp_attachment_image_alt', true ) ) ),
+					'caption'     => trim( strip_tags( $att->post_excerpt ) ),
+					'description' => trim( strip_tags( $att->post_content ) ),
+					'id'          => intval( $value ),
+					'is_image'    => wp_attachment_is_image( $value ),
+					'title'       => $att->post_title,
+					'url'         => wp_get_attachment_url( $value ),
 				);
 
 				return (object) array_merge( $meta, $mine );
