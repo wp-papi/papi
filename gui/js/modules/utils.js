@@ -1,16 +1,17 @@
 (function () {
 
   // Utils object.
-  var utils = {};
+  var utils = {
+    wpMediaFrame: undefined
+  };
 
   /**
    * Open WordPress media editor.
    *
    * @param {object} options
-   * @param {object} $target
    */
 
-  utils.wpMediaEditor = function (options, $target) {
+  utils.wpMediaEditor = function (options) {
 
     if (typeof options === 'function' || options instanceof jQuery) {
       $target = options;
@@ -19,24 +20,27 @@
       };
     }
 
-    var uploader = wp.media(options).on('select', function () {
-      var attachments = uploader.state().get('selection').toJSON();
+    // Destroy the previous frame if it exists.
+    if (utils.wpMediaFrame !== undefined) {
+      utils.wpMediaFrame.dispose();
+    }
+
+    utils.wpMediaFrame = wp.media(options).on('select', function () {
+      var attachments = utils.wpMediaFrame.state().get('selection').toJSON();
       for (var i = 0, l = attachments.length; i < l; i++) {
         if (attachments[i] === null) {
           continue;
         }
 
-        if (typeof $target === 'function') {
-          $target(attachments[i], utils.isImage(attachments[i].url));
-        } else {
-          $target.val(attachments[i].url);
-        }
+        utils.wpMediaFrame.trigger('insert', attachments[i], utils.isImage(attachments[i].url));
       }
     }).on('escape', function () {
       if (typeof $target === 'function') {
-        $target(null, false);
+        utils.wpMediaFrame.trigger('insert', null, false);
       }
-    }).open();
+    });
+
+    return utils.wpMediaFrame;
   };
 
   /**

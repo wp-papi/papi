@@ -11,7 +11,9 @@
      */
 
     add: function ($this) {
-      papi.utils.wpMediaEditor({}, $this.prev());
+      papi.utils.wpMediaEditor().on('insert', function (attachment, isImage) {
+        $this.prev().val(attachment.url);
+      }).open();
     }
 
   };

@@ -24,12 +24,15 @@
       var $prop     = $this.closest('.papi-property-image');
       var $select   = $this.closest('p');
       var $target   = $prop.find('.attachments');
-      var isGallery = $prop.hasClass('gallery');
+      var multiple  = $prop.hasClass('gallery');
       var slug      = $this.attr('data-slug');
 
       papi.utils.wpMediaEditor({
-        multiple: isGallery
-      }, function (attachment, isImage) {
+        library: {
+          type: 'image'
+        },
+        multiple: multiple
+      }).on('insert', function (attachment, isImage) {
         if (!isImage) {
           return;
         }
@@ -46,7 +49,7 @@
           $select.hide();
         }
 
-      });
+      }).open();
     },
 
     /**
@@ -84,6 +87,34 @@
       $this.prev().find('.attachments').sortable({
         revert: true
       });
+    },
+
+    /**
+     * Replace image with another one.
+     *
+     * @param {object} $this
+     */
+
+    replace: function ($this) {
+      var $img = $this.find('img[src]');
+      var $input = $this.find('input[type=hidden]');
+      var postId = $input.val();
+
+      papi.utils.wpMediaEditor({
+        library: {
+          type: 'image'
+        },
+        multiple: false
+      }).on('open', function () {
+        var selection = papi.utils.wpMediaFrame.state().get('selection');
+        var attachment = wp.media.attachment(postId);
+
+        attachment.fetch();
+        selection.add(attachment ? [attachment] : []);
+      }).on('insert', function (attachment, isImage) {
+        $img.attr('src', attachment.sizes.thumbnail !== undefined ? attachment.sizes.thumbnail.url : attachment.url);
+        $input.val(attachment.id);
+      }).open();
     }
 
   };
@@ -114,5 +145,10 @@
     papi.properties.image.update($(this));
   });
 
+  $(document).on('click', '.papi-property-image .attachment', function (e) {
+    e.preventDefault();
+
+    papi.properties.image.replace($(this));
+  });
 
 })(jQuery);
