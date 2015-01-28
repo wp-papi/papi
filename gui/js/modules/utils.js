@@ -12,14 +12,6 @@
    */
 
   utils.wpMediaEditor = function (options) {
-
-    if (typeof options === 'function' || options instanceof jQuery) {
-      $target = options;
-      options = {
-        multiple: false
-      };
-    }
-
     // Destroy the previous frame if it exists.
     if (utils.wpMediaFrame !== undefined) {
       utils.wpMediaFrame.dispose();
