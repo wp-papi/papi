@@ -277,7 +277,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$values   = array();
 		$columns  = $this->get_columns( $post_id, $repeater_slug );
 		$table    = $wpdb->prefix . 'postmeta';
-		$query    = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_key` ASC", $repeater_slug . '_%', $post_id );
+		$query    = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%', $post_id );
 		$results  = $wpdb->get_results( $query );
 		$trash    = array();
 		$trashnum = 0;

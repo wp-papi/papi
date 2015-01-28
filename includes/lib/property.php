@@ -512,6 +512,7 @@ function _papi_populate_properties( $properties ) {
 /**
  * Update property values on the post with the given post id.
  *
+ * @param array $meta
  *
  * @since 1.0.0
  */
