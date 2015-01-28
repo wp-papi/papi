@@ -12,7 +12,6 @@
 		<p><?php echo $vars['description']; ?></p>
 	</div>
 	<div class="papi-post-type-actions">
-		<a class="button button-primary customize load-customize hide-if-no-customize"
-		   href="<?php echo $vars['url']; ?>"><?php _e( 'Select', 'papi' ); ?></a>
+		<a class="button button-primary" href="<?php echo $vars['url']; ?>"><?php _e( 'Select', 'papi' ); ?></a>
 	</div>
 </div>
