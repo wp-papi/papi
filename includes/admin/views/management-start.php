@@ -24,12 +24,11 @@
 		</thead>
 		<tbody>
 		<?php
-		$url        = $_SERVER['REQUEST_URI'];
 		$page_types = _papi_get_all_page_types( true );
 		foreach ( $page_types as $key => $page_type ) {
 			?>
 			<tr>
-				<td><a href="<?php echo $url; ?>&view=management-page-type&page-type=<?php echo _papi_get_page_type_base_path( $page_type->get_filepath() ); ?>"><?php echo $page_type->name; ?></a></td>
+				<td><a href="<?php echo $_SERVER['REQUEST_URI']; ?>&view=management-page-type&page-type=<?php echo _papi_get_page_type_base_path( $page_type->get_filepath() ); ?>"><?php echo $page_type->name; ?></a></td>
 				<td><?php echo $page_type->get_filename(); ?></td>
 				<td><?php
 					if ( ! current_user_can( 'edit_themes' ) || defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
