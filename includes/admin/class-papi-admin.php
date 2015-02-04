@@ -41,7 +41,7 @@ final class Papi_Admin {
 	/**
 	 * The page type.
 	 *
-	 * @var string
+	 * @var string|Papi_Page_Type
 	 */
 
 	private $page_type;
@@ -472,12 +472,6 @@ final class Papi_Admin {
 		$post_type = _papi_get_wp_post_type();
 
 		if ( isset( $wp_post_types[$post_type] ) && !empty( $this->page_type->add_new_name ) ) {
-			if ( !empty( $this->page_type->add_new_name ) ) {
-				$title = $this->page_type->add_new_name;
-			} else {
-				$title = $wp_post_types[$post_type]->labels->add_new . ' ' . $this->page_type->name;
-			}
-
 			$wp_post_types[$post_type]->labels->add_new_item = $this->page_type->add_new_name;
 		}
 	}
