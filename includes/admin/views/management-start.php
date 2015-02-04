@@ -4,21 +4,21 @@
 
 	<br/>
 
-	<h3>Page types</h3>
+	<h3><?php _e('Page types', 'papi'); ?></h3>
 	<table class="wp-list-table widefat papi-options-table">
 		<thead>
 		<tr>
 			<th>
-				<strong>Name</strong>
+				<strong><?php _e('Name', 'papi'); ?></strong>
 			</th>
 			<th>
-				<strong>Page type</strong>
+				<strong><?php _e('Page type', 'papi'); ?></strong>
 			</th>
 			<th>
-				<strong>Template</strong>
+				<strong><?php _e('Template', 'papi'); ?></strong>
 			</th>
 			<th>
-				<strong>Number of pages</strong>
+				<strong><?php _e('Number of pages', 'papi'); ?></strong>
 			</th>
 		</tr>
 		</thead>

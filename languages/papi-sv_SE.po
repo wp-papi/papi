@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-01-21 09:29+0100\n"
-"PO-Revision-Date: 2015-01-21 09:33+0100\n"
+"POT-Creation-Date: 2015-02-04 16:55+0100\n"
+"PO-Revision-Date: 2015-02-04 16:55+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -27,21 +27,21 @@ msgstr "Fuskar du?"
 msgid "Add New"
 msgstr "Skapa ny"
 
-#: ../includes/admin/class-papi-admin.php:179
+#: ../includes/admin/class-papi-admin.php:174
 msgid "This fields are required:"
 msgstr "Dessa fält är obligatoriska:"
 
-#: ../includes/admin/class-papi-admin.php:253
+#: ../includes/admin/class-papi-admin.php:248
 msgid "Page Type"
 msgstr "Sidtyp"
 
-#: ../includes/admin/class-papi-admin.php:273
-#: ../includes/admin/class-papi-admin.php:322
+#: ../includes/admin/class-papi-admin.php:268
+#: ../includes/admin/class-papi-admin.php:317
 #: ../includes/admin/views/add-new-page.php:36
 msgid "Standard page"
 msgstr "Standard sida"
 
-#: ../includes/admin/class-papi-admin.php:332
+#: ../includes/admin/class-papi-admin.php:327
 msgid "Show all page types"
 msgstr "Visa alla sidtyper"
 
@@ -101,7 +101,27 @@ msgstr "Ingen meta box existerar."
 msgid "Tabs"
 msgstr "Tabbar"
 
-#: ../includes/admin/views/partials/add-new-item.php:16
+#: ../includes/admin/views/management-start.php:7
+msgid "Page types"
+msgstr "Sidtyper"
+
+#: ../includes/admin/views/management-start.php:12
+msgid "Name"
+msgstr "Namn"
+
+#: ../includes/admin/views/management-start.php:15
+msgid "Page type"
+msgstr "Sidtyp"
+
+#: ../includes/admin/views/management-start.php:18
+msgid "Template"
+msgstr "Mall"
+
+#: ../includes/admin/views/management-start.php:21
+msgid "Number of pages"
+msgstr "Antal sidor"
+
+#: ../includes/admin/views/partials/add-new-item.php:15
 #: ../includes/properties/class-papi-property-relationship.php:71
 msgid "Select"
 msgstr "Välj"
