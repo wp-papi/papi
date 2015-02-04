@@ -352,7 +352,7 @@ final class Papi_Admin {
 
 			// Add the standard page that isn't a real page type.
 			$page_types[] = array(
-				'name' => _papi_filter_standard_page_name( $post_type ),
+				'name' => _papi_filter_standard_page_name( _papi_get_wp_post_type() ),
 				'value' => 'papi-standard-page'
 			);
 
