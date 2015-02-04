@@ -83,9 +83,11 @@ class Papi_Property_Post extends Papi_Property {
 		?>
 
 		<div class="papi-property-post">
-			<p>
-				<?php echo $settings->text; ?>
-			</p>
+			<?php if ( !empty($settings->text) ): ?>
+				<p>
+					<?php echo $settings->text; ?>
+				</p>
+			<?php endif; ?>
 			<select name="<?php echo $options->slug; ?>" class="papi-vendor-select2 papi-fullwidth">
 
 				<?php foreach ( $posts as $post ) : ?>
