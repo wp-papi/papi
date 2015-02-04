@@ -23,6 +23,11 @@ $show_standard_page = _papi_filter_settings_standard_page_type( $post_type );
 		$page_types = _papi_get_all_page_types();
 
 		foreach ( $page_types as $key => $page_type ) {
+
+			if ( _papi_hide_page_type( $post_type, $page_type ) ) {
+				continue;
+			}
+
 			_papi_include_template( 'includes/admin/views/partials/add-new-item.php', array(
 				'title'       => $page_type->name,
 				'description' => $page_type->description,

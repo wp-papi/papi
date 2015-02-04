@@ -13,6 +13,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Hide page type in add new page view for the given post type.
+ *
+ * @param string $post_type
+ * @param object $page_type
+ *
+ * @since 1.2.0
+ *
+ * @return bool
+ */
+
+function _papi_hide_page_type( $post_type, $page_type ) {
+	return apply_filters( 'papi/settings/hide_page_type_' . $post_type, $page_type->get_filename() ) === false;
+}
+
+/**
  * Format the value of the property before we output it to the application.
  *
  * @param string $type
