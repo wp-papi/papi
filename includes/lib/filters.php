@@ -89,7 +89,23 @@ function _papi_filter_settings_directories() {
 }
 
 /**
+ * Get standard page name for the given post type.
+ *
+ * @param string $post_type
+ *
+ * @since 1.2.0
+ *
+ * @return string
+ */
+
+function _papi_filter_standard_page_name( $post_type ) {
+	return apply_filters( 'papi/settings/standard_page_name_' . $post_type, __( 'Standard Page', 'papi' ) );
+}
+
+/**
  * Show standard page type on the given post type.
+ *
+ * @param string $post_type
  *
  * @since 1.0.0
  *
@@ -120,7 +136,7 @@ function _papi_filter_settings_sort_order() {
  * @param string $slug
  * @param int $post_id
  *
- * @since 1.0.0ytest
+ * @since 1.0.0
  *
  * @return mixed
  */

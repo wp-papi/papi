@@ -33,7 +33,7 @@ $show_standard_page = _papi_filter_settings_standard_page_type( $post_type );
 
 		if ( $show_standard_page ) {
 			_papi_include_template( 'includes/admin/views/partials/add-new-item.php', array(
-				'title'       => __( 'Standard page', 'papi' ),
+				'title'       => _papi_filter_standard_page_name( $post_type ),
 				'description' => __( 'Just the normal WordPress page', 'papi' ),
 				'thumbnail'   => '',
 				'url'         => 'post-new.php' . _papi_get_page_query_strings( '?' ) . '&papi-bypass=true'
