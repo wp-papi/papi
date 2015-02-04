@@ -15,12 +15,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Papi_Admin {
 
 	/**
-	 * Thew view instance.
+	 * Load page type or not?
 	 *
-	 * @var Papi_Admin_View
+	 * @var bool
 	 */
 
-	private $view;
+	private $load_page_type = false;
 
 	/**
 	 * The meta boxes instance.
@@ -63,6 +63,14 @@ final class Papi_Admin {
 	private $post_type;
 
 	/**
+	 * Thew view instance.
+	 *
+	 * @var Papi_Admin_View
+	 */
+
+	private $view;
+
+	/**
 	 * The instance of Papi Core.
 	 *
 	 * @var object
@@ -84,18 +92,12 @@ final class Papi_Admin {
 			self::$instance = new Papi_Admin;
 			self::$instance->setup_globals();
 
-			$proceed = self::$instance->setup_papi();
-
-			// Some times setup papi method will return false
-			// and Papi should not proceed.
-			if ( !$proceed ) {
-				return null;
-			}
+			self::$instance->load_page_type = self::$instance->setup_papi();
 
 			self::$instance->setup_actions();
 			self::$instance->setup_filters();
 
-			if ( empty( self::$instance->page_type ) || ! is_object( self::$instance->page_type ) ) {
+			if ( !self::$instance->load_page_type ) {
 				return null;
 			}
 
@@ -403,7 +405,6 @@ final class Papi_Admin {
 		return $query;
 	}
 
-
 	/**
 	 * Setup globals.
 	 *
@@ -468,6 +469,10 @@ final class Papi_Admin {
 	 */
 
 	public function admin_init() {
+		if ( !$this->load_page_type ) {
+			return null;
+		}
+
 		global $wp_post_types;
 		$post_type = _papi_get_wp_post_type();
 
@@ -514,6 +519,7 @@ final class Papi_Admin {
 		// Load the page type and create a new instance of it.
 		$this->page_type = _papi_get_page_type( $path );
 
-		return true;
+		// Do a last check so we can be sure that we have a page type object.
+		return !empty( $this->page_type ) && is_object( $this->page_type );
 	}
 }
