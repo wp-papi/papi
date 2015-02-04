@@ -33,7 +33,8 @@ class Papi_Property_Post extends Papi_Property {
 	public function get_default_settings() {
 		return array(
 			'text'      => __( 'Select post', 'papi' ),
-			'post_type' => 'post'
+			'post_type' => 'post',
+			'query'     => array()
 		);
 	}
 
@@ -54,7 +55,25 @@ class Papi_Property_Post extends Papi_Property {
 			$value = 0;
 		}
 
-		$posts = query_posts( 'post_type=' . $settings->post_type . '&posts_per_page=-1' );
+		// The empty value post.
+		$none = new stdClass;
+		$none->ID = 0;
+		$none->post_title = '';
+
+		// By default we add posts per page key with the value -1 (all).
+		if ( ! isset( $settings->query['posts_per_page'] ) ) {
+			$settings->query['posts_per_page'] = -1;
+		}
+
+		// Fetch posts with the post types and the query.
+		$posts = array_merge( array( $none ), query_posts( array_merge( $settings->query, array(
+			'post_type' => _papi_to_array( $settings->post_type )
+		) ) ) );
+
+		// Keep only objects.
+		$value = array_filter( _papi_to_array( $value ), function ( $post ) {
+			return is_object( $post ) && isset( $post->post_title );
+		} );
 
 		?>
 
