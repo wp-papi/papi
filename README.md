@@ -33,6 +33,6 @@ Or manually add it to your `composer.json`:
 3. Run `$ phpunit`
 4. Done!
 
-## Contribute
+## Contributing
 
-Visit our [contribute](http://wp-papi.github.io/contribute/) page.
+Visit the [contributing](CONTRIBUTING.md) file.
