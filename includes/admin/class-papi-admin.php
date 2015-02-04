@@ -59,9 +59,23 @@ final class Papi_Admin {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new Papi_Admin;
 			self::$instance->setup_globals();
+
+			$proceed = self::$instance->setup_papi();
+
+			// Some times setup papi method will return false
+			// and Papi should not proceed.
+			if ( !$proceed ) {
+				return null;
+			}
+
 			self::$instance->setup_actions();
 			self::$instance->setup_filters();
-			self::$instance->setup_papi();
+
+			if ( empty( self::$instance->page_type ) || ! is_object( self::$instance->page_type ) ) {
+				return null;
+			}
+
+			self::$instance->page_type->setup();
 		}
 
 		return self::$instance;
@@ -377,6 +391,9 @@ final class Papi_Admin {
 		$this->view             = new Papi_Admin_View;
 		$this->meta_boxes       = new Papi_Admin_Meta_Boxes;
 		$this->management_pages = new Papi_Admin_Management_Pages;
+		$this->post_type        = _papi_get_wp_post_type();
+		$this->post_id          = _papi_get_post_id();
+		$this->page_type        = _papi_get_page_type_meta_value( $this->post_id );
 	}
 
 	/**
@@ -387,6 +404,7 @@ final class Papi_Admin {
 	 */
 
 	private function setup_actions() {
+		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_head', array( $this, 'admin_head' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
@@ -418,50 +436,66 @@ final class Papi_Admin {
 	}
 
 	/**
+	 * Admin init.
+	 *
+	 * Change add new item text.
+	 *
+	 * @since 1.2.0
+	 */
+
+	public function admin_init() {
+		global $wp_post_types;
+		$post_type = _papi_get_wp_post_type();
+
+		if ( isset( $wp_post_types[$post_type] ) ) {
+			if ( !empty( $this->page_type->add_new_name ) ) {
+				$title = $this->page_type->add_new_name;
+			} else {
+				$title = $wp_post_types[$post_type]->labels->add_new . ' ' . $this->page_type->name;
+			}
+
+			$wp_post_types[$post_type]->labels->add_new_item = $title;
+		}
+	}
+
+	/**
 	 * Load right Papi file if it exists.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @return bool
 	 */
 
 	public function setup_papi() {
-		$post_id   = _papi_get_post_id();
-		$page_type = _papi_get_page_type_meta_value( $post_id );
-		$post_type = _papi_get_wp_post_type();
-
 		// If the post type isn't in the post types array we can't proceed.
-		if ( in_array( $post_type, array( 'revision', 'nav_menu_item' ) ) ) {
-			return;
+		if ( in_array( $this->post_type, array( 'revision', 'nav_menu_item' ) ) ) {
+			return false;
 		}
 
 		// If we have a null page type we need to find which page type to use.
-		if ( empty( $page_type ) ) {
+		if ( empty( $this->page_type ) ) {
 			if ( _papi_is_method( 'post' ) && isset( $_POST['papi_page_type'] ) && $_POST['papi_page_type'] ) {
-				$page_type = $_POST['papi_page_type'];
+				$this->page_type = $_POST['papi_page_type'];
 			} else {
-				$page_type = _papi_get_page_type_meta_value();
+				$this->page_type = _papi_get_page_type_meta_value();
 			}
 		}
 
-		if ( empty( $page_type ) ) {
+		if ( empty( $this->page_type ) ) {
 			// If only page type is used, override the page type value.
-			$page_type = _papi_filter_settings_only_page_type( $post_type );
+			$this->page_type = _papi_filter_settings_only_page_type( $this->post_type );
 
-			if ( empty( $page_type ) ) {
-				return;
+			if ( empty( $this->page_type ) ) {
+				return false;
 			}
 		}
 
 		// Get the path to the page type file.
-		$path = _papi_get_file_path( $page_type );
+		$path = _papi_get_file_path( $this->page_type );
 
 		// Load the page type and create a new instance of it.
-		$page_type = _papi_get_page_type( $path );
+		$this->page_type = _papi_get_page_type( $path );
 
-		if ( empty( $page_type ) ) {
-			return;
-		}
-
-		// Create a new class of the page type.
-		$page_type->setup();
+		return true;
 	}
 }

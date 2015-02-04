@@ -15,6 +15,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 
 	/**
+	 * Add new name.
+	 *
+	 * @var string
+	 * @since 1.2.0
+	 */
+
+	public $add_new_name = '';
+
+	/**
 	 * Capabilities list.
 	 *
 	 * @var array
