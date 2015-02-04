@@ -24,7 +24,7 @@ $show_standard_page = _papi_filter_settings_standard_page_type( $post_type );
 
 		foreach ( $page_types as $key => $page_type ) {
 
-			if ( _papi_hide_page_type( $post_type, $page_type ) ) {
+			if ( ! _papi_filter_show_page_type( $post_type, $page_type ) ) {
 				continue;
 			}
 

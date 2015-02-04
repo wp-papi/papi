@@ -13,21 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Hide page type in add new page view for the given post type.
- *
- * @param string $post_type
- * @param object $page_type
- *
- * @since 1.2.0
- *
- * @return bool
- */
-
-function _papi_hide_page_type( $post_type, $page_type ) {
-	return apply_filters( 'papi/settings/hide_page_type_' . $post_type, $page_type->get_filename() ) === false;
-}
-
-/**
  * Format the value of the property before we output it to the application.
  *
  * @param string $type
@@ -101,6 +86,21 @@ function _papi_filter_settings_directories() {
 	return array_filter( $directories, function ( $directory ) {
 		return is_string( $directory );
 	} );
+}
+
+/**
+ * Show page type in add new page view for the given post type.
+ *
+ * @param string $post_type
+ * @param object $page_type
+ *
+ * @since 1.2.0
+ *
+ * @return bool
+ */
+
+function _papi_filter_show_page_type( $post_type, $page_type ) {
+	return apply_filters( 'papi/settings/show_page_type_' . $post_type, $page_type->get_filename() ) !== false;
 }
 
 /**
