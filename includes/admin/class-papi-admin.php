@@ -39,6 +39,30 @@ final class Papi_Admin {
 	private $management_pages;
 
 	/**
+	 * The page type.
+	 *
+	 * @var Papi_Page_Type
+	 */
+
+	private $page_type;
+
+	/**
+	 * The post id.
+	 *
+	 * @var int
+	 */
+
+	private $post_id;
+
+	/**
+	 * The post type.
+	 *
+	 * @var string
+	 */
+
+	private $post_type;
+
+	/**
 	 * The instance of Papi Core.
 	 *
 	 * @var object
