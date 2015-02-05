@@ -476,8 +476,14 @@ final class Papi_Admin {
 		global $wp_post_types;
 		$post_type = _papi_get_wp_post_type();
 
-		if ( isset( $wp_post_types[$post_type] ) && !empty( $this->page_type->add_new_name ) ) {
-			$wp_post_types[$post_type]->labels->add_new_item = $this->page_type->add_new_name;
+		if ( isset( $wp_post_types[$post_type] ) ) {
+			foreach ( $this->page_type->labels as $key => $value ) {
+				if ( !isset( $wp_post_types[$post_type]->labels->$key ) || empty( $value ) ) {
+					continue;
+				}
+
+				$wp_post_types[$post_type]->labels->$key = $value;
+			}
 		}
 	}
 
