@@ -80,8 +80,8 @@ class Papi_Page_Type_Base {
 	public function __construct( $file_path ) {
 		// Try to load the file if the file path is empty.
 		if ( empty( $file_path ) ) {
-			$page_type = _papi_get_page_type_meta_value();
-			$file_path = _papi_get_file_path( $page_type );
+			$page_type = papi_get_page_type_meta_value();
+			$file_path = papi_get_file_path( $page_type );
 		}
 
 		if ( ! is_file( $file_path ) ) {
@@ -163,10 +163,10 @@ class Papi_Page_Type_Base {
 
 	private function setup_file( $file_path ) {
 		$this->_file_path = $file_path;
-		$this->_file_name = _papi_get_page_type_base_path( $this->_file_path );
+		$this->_file_name = papi_get_page_type_base_path( $this->_file_path );
 
 		// Get the class name of the file.
-		$this->_class_name = _papi_get_class_name( $this->_file_path );
+		$this->_class_name = papi_get_class_name( $this->_file_path );
 
 		// Try to load the page type class.
 		if ( ! class_exists( $this->_class_name ) ) {

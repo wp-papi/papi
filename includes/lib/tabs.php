@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return object
  */
 
-function _papi_get_tab_options( $options ) {
+function papi_get_tab_options( $options ) {
 
 	if ( ! is_array( $options ) ) {
 		if ( is_object( $options ) ) {
@@ -33,7 +33,7 @@ function _papi_get_tab_options( $options ) {
 	$defaults = array(
 		'capabilities' => array(),
 		'icon'         => '',
-		'sort_order'   => _papi_filter_settings_sort_order(),
+		'sort_order'   => papi_filter_settings_sort_order(),
 		// Private options
 		'_name'        => ''
 	);
@@ -51,7 +51,7 @@ function _papi_get_tab_options( $options ) {
  * @return array
  */
 
-function _papi_setup_tabs( $tabs ) {
+function papi_setup_tabs( $tabs ) {
 	$_tabs = array();
 
 	foreach( $tabs as $tab ) {
@@ -61,14 +61,14 @@ function _papi_setup_tabs( $tabs ) {
 			continue;
 		}
 
-		$tab->options = _papi_get_tab_options( $tab->options );
+		$tab->options = papi_get_tab_options( $tab->options );
 
-		if ( _papi_current_user_is_allowed( $tab->options->capabilities ) ) {
+		if ( papi_current_user_is_allowed( $tab->options->capabilities ) ) {
 			$_tabs[] = $tab;
 		}
 	}
 
-	$tabs = _papi_sort_order( $_tabs );
+	$tabs = papi_sort_order( $_tabs );
 
 	// Generate unique names for all tabs.
 	for ( $i = 0; $i < count( $tabs ); $i ++ ) {
@@ -77,7 +77,7 @@ function _papi_setup_tabs( $tabs ) {
 			continue;
 		}
 
-		$tabs[ $i ]->options->_name = _papi_html_name( $tabs[$i]->options->title ) . '_' . $i;
+		$tabs[ $i ]->options->_name = papi_html_name( $tabs[$i]->options->title ) . '_' . $i;
 	}
 
 	return $tabs;

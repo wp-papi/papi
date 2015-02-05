@@ -59,7 +59,7 @@ class WP_Papi_Property_Post extends WP_UnitTestCase {
 		$handler = new Papi_Admin_Meta_Boxes();
 
 		// Create post data.
-		$_POST = _papi_test_create_property_post_data(array(
+		$_POST = papi_test_create_property_post_data(array(
 			'slug'  => $this->property->slug,
 			'type'  => $this->property->type,
 			'value' => $this->post_id

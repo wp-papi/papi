@@ -144,7 +144,7 @@ final class Papi_Admin {
 	public function admin_menu() {
 		global $menu, $submenu;
 
-		$post_types = _papi_get_post_types();
+		$post_types = papi_get_post_types();
 
 		foreach ( $post_types as $post_type ) {
 
@@ -158,10 +158,10 @@ final class Papi_Admin {
 				continue;
 			}
 
-			$only_page_type = _papi_filter_settings_only_page_type( $post_type );
+			$only_page_type = papi_filter_settings_only_page_type( $post_type );
 
 			if ( ! empty( $only_page_type ) ) {
-				$submenu[$edit_url][10][2] = _papi_get_page_new_url( $only_page_type, false, $post_type, array( 'page_type', 'post_type' ) );
+				$submenu[$edit_url][10][2] = papi_get_page_new_url( $only_page_type, false, $post_type, array( 'page_type', 'post_type' ) );
 			} else {
 				$page = 'papi-add-new-page,' . $post_type;
 
@@ -226,9 +226,9 @@ final class Papi_Admin {
 	 */
 
 	public function admin_body_class( $classes ) {
-		$post_type = _papi_get_wp_post_type();
+		$post_type = papi_get_wp_post_type();
 
-		if ( ! in_array( $post_type, _papi_get_post_types() ) ) {
+		if ( ! in_array( $post_type, papi_get_post_types() ) ) {
 			return $classes;
 		}
 
@@ -248,17 +248,17 @@ final class Papi_Admin {
 
 	public function load_post_new() {
 		$request_uri = $_SERVER['REQUEST_URI'];
-		$post_types = _papi_get_post_types();
-		$post_type  = _papi_get_wp_post_type();
+		$post_types = papi_get_post_types();
+		$post_type  = papi_get_wp_post_type();
 
 		if ( in_array( $post_type, $post_types ) && strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
 			$parsed_url = parse_url( $request_uri );
 
-			$only_page_type = _papi_filter_settings_only_page_type( $post_type );
+			$only_page_type = papi_filter_settings_only_page_type( $post_type );
 
 			// Check if we should show one post type or not and create the right url for that.
 			if ( ! empty( $only_page_type ) ) {
-				$url = _papi_get_page_new_url( $only_page_type, false );
+				$url = papi_get_page_new_url( $only_page_type, false );
 			} else {
 				$page = 'page=papi-add-new-page,' . $post_type;
 
@@ -301,11 +301,11 @@ final class Papi_Admin {
 
 	public function manage_page_type_posts_custom_column( $column_name, $post_id ) {
 		if ( $column_name === 'page_type' ) {
-			$page_type = _papi_get_file_data( $post_id );
+			$page_type = papi_get_file_data( $post_id );
 			if ( ! is_null( $page_type ) ) {
 				echo $page_type->name;
 			} else {
-				echo _papi_filter_standard_page_name( _papi_get_wp_post_type() );
+				echo papi_filter_standard_page_name( papi_get_wp_post_type() );
 			}
 		}
 	}
@@ -340,10 +340,10 @@ final class Papi_Admin {
 	public function restrict_page_types() {
 		global $typenow;
 
-		$post_types = _papi_get_post_types();
+		$post_types = papi_get_post_types();
 
 		if ( in_array( $typenow, $post_types ) ) {
-			$page_types = _papi_get_all_page_types( false, $typenow );
+			$page_types = papi_get_all_page_types( false, $typenow );
 
 			$page_types = array_map( function ( $page_type ) {
 				return array(
@@ -354,7 +354,7 @@ final class Papi_Admin {
 
 			// Add the standard page that isn't a real page type.
 			$page_types[] = array(
-				'name' => _papi_filter_standard_page_name( _papi_get_wp_post_type() ),
+				'name' => papi_filter_standard_page_name( papi_get_wp_post_type() ),
 				'value' => 'papi-standard-page'
 			);
 
@@ -367,7 +367,7 @@ final class Papi_Admin {
 				<option value="0" selected><?php _e( 'Show all page types', 'papi' ); ?></option>
 				<?php
 				foreach ( $page_types as $page_type ) {
-					printf( '<option value="%s" %s>%s</option>', $page_type['value'], ( _papi_get_qs( 'page_type' ) === $page_type['value'] ? ' selected' : '' ), $page_type['name'] );
+					printf( '<option value="%s" %s>%s</option>', $page_type['value'], ( papi_get_qs( 'page_type' ) === $page_type['value'] ? ' selected' : '' ), $page_type['name'] );
 				}
 				?>
 			</select>
@@ -388,8 +388,8 @@ final class Papi_Admin {
 	public function pre_get_posts( $query ) {
 		global $pagenow;
 
-		if ( $pagenow === 'edit.php' && !is_null( _papi_get_qs( 'page_type' ) ) ) {
-			if ( _papi_get_qs( 'page_type' ) === 'papi-standard-page' ) {
+		if ( $pagenow === 'edit.php' && !is_null( papi_get_qs( 'page_type' ) ) ) {
+			if ( papi_get_qs( 'page_type' ) === 'papi-standard-page' ) {
 				$query->set( 'meta_query', array(
 					array(
 						'key' => '_papi_page_type',
@@ -398,7 +398,7 @@ final class Papi_Admin {
 				) );
 			} else {
 				$query->set( 'meta_key', '_papi_page_type' );
-				$query->set( 'meta_value', _papi_get_qs( 'page_type' ) );
+				$query->set( 'meta_value', papi_get_qs( 'page_type' ) );
 			}
 		}
 
@@ -416,9 +416,9 @@ final class Papi_Admin {
 		$this->view             = new Papi_Admin_View;
 		$this->meta_boxes       = new Papi_Admin_Meta_Boxes;
 		$this->management_pages = new Papi_Admin_Management_Pages;
-		$this->post_type        = _papi_get_wp_post_type();
-		$this->post_id          = _papi_get_post_id();
-		$this->page_type        = _papi_get_page_type_meta_value( $this->post_id );
+		$this->post_type        = papi_get_wp_post_type();
+		$this->post_id          = papi_get_post_id();
+		$this->page_type        = papi_get_page_type_meta_value( $this->post_id );
 	}
 
 	/**
@@ -448,7 +448,7 @@ final class Papi_Admin {
 		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 		add_filter( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
 
-		$post_types = _papi_get_post_types();
+		$post_types = papi_get_post_types();
 
 		// Add post type columns to eavery post types that is used.
 		foreach ( $post_types as $post_type ) {
@@ -474,7 +474,7 @@ final class Papi_Admin {
 		}
 
 		global $wp_post_types;
-		$post_type = _papi_get_wp_post_type();
+		$post_type = papi_get_wp_post_type();
 
 		if ( isset( $wp_post_types[$post_type] ) ) {
 			foreach ( $this->page_type->labels as $key => $value ) {
@@ -503,16 +503,16 @@ final class Papi_Admin {
 
 		// If we have a null page type we need to find which page type to use.
 		if ( empty( $this->page_type ) ) {
-			if ( _papi_is_method( 'post' ) && isset( $_POST['papi_page_type'] ) && $_POST['papi_page_type'] ) {
-				$this->page_type = $_POST['papi_page_type'];
+			if ( papi_is_method( 'post' ) && isset( $_POST['_papi_page_type'] ) && $_POST['_papi_page_type'] ) {
+				$this->page_type = $_POST['_papi_page_type'];
 			} else {
-				$this->page_type = _papi_get_page_type_meta_value();
+				$this->page_type = papi_get_page_type_meta_value();
 			}
 		}
 
 		if ( empty( $this->page_type ) ) {
 			// If only page type is used, override the page type value.
-			$this->page_type = _papi_filter_settings_only_page_type( $this->post_type );
+			$this->page_type = papi_filter_settings_only_page_type( $this->post_type );
 
 			if ( empty( $this->page_type ) ) {
 				return false;
@@ -520,10 +520,10 @@ final class Papi_Admin {
 		}
 
 		// Get the path to the page type file.
-		$path = _papi_get_file_path( $this->page_type );
+		$path = papi_get_file_path( $this->page_type );
 
 		// Load the page type and create a new instance of it.
-		$this->page_type = _papi_get_page_type( $path );
+		$this->page_type = papi_get_page_type( $path );
 
 		// Do a last check so we can be sure that we have a page type object.
 		return !empty( $this->page_type ) && is_object( $this->page_type );

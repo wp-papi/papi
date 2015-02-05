@@ -49,11 +49,11 @@ class Papi_Property_Reference extends Papi_Property {
 
 		// Fetch posts with the post types and the query.
 		$posts = query_posts( array(
-			'post_type' => _papi_to_array( $settings->post_type ),
+			'post_type' => papi_to_array( $settings->post_type ),
 			'meta_query' => array(
 				array(
-					'key' => '_papi_page_type',
-					'value' => _papi_to_array( $settings->page_type ),
+					'key' => 'papi_page_type',
+					'value' => papi_to_array( $settings->page_type ),
 					'compare' => 'LIKE'
 				)
 			)
@@ -61,15 +61,15 @@ class Papi_Property_Reference extends Papi_Property {
 
 		$values = array();
 
-		foreach ( _papi_to_array( $settings->slug ) as $slug ) {
+		foreach ( papi_to_array( $settings->slug ) as $slug ) {
 			foreach ( $posts as $post ) {
-				$val = _papi_field( $post->ID, $slug, null, true );
+				$val = papi_field( $post->ID, $slug, null, true );
 
 				if ( empty( $val ) ) {
 					continue;
 				}
 
-				$page_type = _papi_get_file_data( $post->ID );
+				$page_type = papi_get_file_data( $post->ID );
 
 				if ( empty( $page_type ) ) {
 					continue;

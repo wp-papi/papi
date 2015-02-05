@@ -42,7 +42,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 
 		// Override selected setting with
 		// database value if not empty.
-		if ( ! _papi_is_empty( $value ) ) {
+		if ( ! papi_is_empty( $value ) ) {
 			$settings->selected = $value;
 		}
 

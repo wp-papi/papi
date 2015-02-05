@@ -46,7 +46,7 @@ class Papi_Property_Image extends Papi_Property {
 	public function html() {
 		$options  = $this->get_options();
 		$settings = $this->get_settings();
-		$value    = _papi_to_array( $this->get_value() );
+		$value    = papi_to_array( $this->get_value() );
 
 		$value    = array_filter( $value, function ( $image ) {
 			return is_object( $image );

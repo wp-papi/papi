@@ -23,23 +23,23 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array
  */
 
-function _papi_get_all_page_types( $all = false, $post_type = null ) {
-	$files      = _papi_get_all_page_type_files();
+function papi_get_all_page_types( $all = false, $post_type = null ) {
+	$files      = papi_get_all_page_type_files();
 	$page_types = array();
 
 	if ( is_null( $post_type ) ) {
-		$post_type  = _papi_get_wp_post_type();
+		$post_type  = papi_get_wp_post_type();
 	}
 
 	foreach ( $files as $file ) {
-		$page_type = _papi_get_page_type( $file );
+		$page_type = papi_get_page_type( $file );
 
 		if ( is_null( $page_type ) ) {
 			continue;
 		}
 
 		// Add the page type if the post types is allowed.
-		if ( ! is_null( $page_type ) && _papi_current_user_is_allowed( $page_type->capabilities ) && ( $all || in_array( $post_type, $page_type->post_type ) ) ) {
+		if ( ! is_null( $page_type ) && papi_current_user_is_allowed( $page_type->capabilities ) && ( $all || in_array( $post_type, $page_type->post_type ) ) ) {
 			$page_types[] = $page_type;
 		}
 	}
@@ -48,7 +48,7 @@ function _papi_get_all_page_types( $all = false, $post_type = null ) {
 		return strcmp( $a->name, $b->name );
 	} );
 
-	$page_types = _papi_sort_order( array_reverse( $page_types ) );
+	$page_types = papi_sort_order( array_reverse( $page_types ) );
 
 	return $page_types;
 }
@@ -63,14 +63,14 @@ function _papi_get_all_page_types( $all = false, $post_type = null ) {
  * @return null|Papi_Page_Type
  */
 
-function _papi_get_file_data( $post_id ) {
-	$post_id   = _papi_get_post_id( $post_id );
-	$page_type = _papi_get_page_type_meta_value( $post_id );
+function papi_get_file_data( $post_id ) {
+	$post_id   = papi_get_post_id( $post_id );
+	$page_type = papi_get_page_type_meta_value( $post_id );
 
 	// Check so the page type isn't null or empty before we
 	// trying to get the page type meta data.
 	if ( ! empty( $page_type ) ) {
-		return _papi_get_page_type( _papi_get_file_path( $page_type ) );
+		return papi_get_page_type( papi_get_file_path( $page_type ) );
 	}
 
 	return null;
@@ -87,7 +87,7 @@ function _papi_get_file_data( $post_id ) {
  * @return int
  */
 
-function _papi_get_number_of_pages( $page_type ) {
+function papi_get_number_of_pages( $page_type ) {
 	global $wpdb;
 
 	if ( empty( $page_type ) || ( !is_string( $page_type ) && ( !is_object( $page_type ) ) ) ) {
@@ -99,7 +99,7 @@ function _papi_get_number_of_pages( $page_type ) {
 		$post_type = '';
 
 		foreach ( $page_type->post_type as $p ) {
-			if ( _papi_filter_settings_only_page_type( $p ) === $file_name ) {
+			if ( papi_filter_settings_only_page_type( $p ) === $file_name ) {
 				$post_type = $p;
 				break;
 			}
@@ -127,8 +127,8 @@ function _papi_get_number_of_pages( $page_type ) {
  * @return null|string
  */
 
-function _papi_get_page_type_template( $post_id ) {
-	$data = _papi_get_file_data( $post_id );
+function papi_get_page_type_template( $post_id ) {
+	$data = papi_get_file_data( $post_id );
 
 	if ( isset( $data ) && isset( $data->template ) && isset( $data->template ) ) {
 		return $data->template;
@@ -147,12 +147,12 @@ function _papi_get_page_type_template( $post_id ) {
  * @return null|Papi_Page_Type
  */
 
-function _papi_get_page_type( $file_path ) {
+function papi_get_page_type( $file_path ) {
 	if ( ! is_file( $file_path ) ) {
 		return null;
 	}
 
-	$class_name = _papi_get_class_name( $file_path );
+	$class_name = papi_get_class_name( $file_path );
 
 	if ( empty( $class_name ) ) {
 		return null;
@@ -193,9 +193,9 @@ function _papi_get_page_type( $file_path ) {
  * @return string
  */
 
-function _papi_get_page_type_meta_value( $post_id = null ) {
+function papi_get_page_type_meta_value( $post_id = null ) {
 	if ( is_null( $post_id ) ) {
-		$post_id = _papi_get_post_id();
+		$post_id = papi_get_post_id();
 	}
 
 	$key       = '_papi_page_type';
@@ -203,7 +203,7 @@ function _papi_get_page_type_meta_value( $post_id = null ) {
 
 	if ( ! is_null( $post_id ) ) {
 		$meta_value = get_post_meta( $post_id, $key, true );
-		$page_type  = _papi_h( $meta_value, '' );
+		$page_type  = papi_h( $meta_value, '' );
 	}
 
 	// Get page type value from get object.
@@ -212,16 +212,16 @@ function _papi_get_page_type_meta_value( $post_id = null ) {
 	}
 
 	// Get page type value from post object.
-	if ( empty( $page_type ) && isset( $_POST['papi_page_type'] ) ) {
-		$page_type = $_POST['papi_page_type'];
+	if ( empty( $page_type ) && isset( $_POST['_papi_page_type'] ) ) {
+		$page_type = $_POST['_papi_page_type'];
 	}
 
 	// Load right page type when Polylang is in use.
-	if ( empty( $page_type ) && _papi_polylang() ) {
-		$from_post = _papi_get_qs( 'from_post' );
+	if ( empty( $page_type ) && papi_polylang() ) {
+		$from_post = papi_get_qs( 'from_post' );
 		if ( ! is_null( $from_post ) && is_numeric( $from_post ) ) {
 			$meta_value = get_post_meta( intval( $from_post ), $key, true );
-			$page_type  = _papi_h( $meta_value, '' );
+			$page_type  = papi_h( $meta_value, '' );
 		}
 	}
 
@@ -236,8 +236,8 @@ function _papi_get_page_type_meta_value( $post_id = null ) {
  * @return array
  */
 
-function _papi_get_post_types() {
-	$page_types = _papi_get_all_page_types( true );
+function papi_get_post_types() {
+	$page_types = papi_get_all_page_types( true );
 	$post_types = array();
 
 	foreach ( $page_types as $page_type ) {
@@ -261,14 +261,14 @@ function _papi_get_post_types() {
  * @return bool
  */
 
-function _papi_is_page_type_allowed( $post_type ) {
+function papi_is_page_type_allowed( $post_type ) {
 	if ( ! is_string( $post_type ) ) {
 		return false;
 	}
 
 	$post_types = array_map( function ( $p ) {
 		return strtolower( $p );
-	}, _papi_get_post_types() );
+	}, papi_get_post_types() );
 
 	return in_array( strtolower( $post_type ), $post_types );
 }

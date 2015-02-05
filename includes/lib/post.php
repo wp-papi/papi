@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return int
  */
 
-function _papi_get_post_id( $post_id = null ) {
+function papi_get_post_id( $post_id = null ) {
 	// If it's a post object we can return the id from it.
 	if ( is_object( $post_id ) ) {
 		return $post_id->ID;
@@ -60,7 +60,7 @@ function _papi_get_post_id( $post_id = null ) {
  * @return string
  */
 
-function _papi_get_wp_post_type() {
+function papi_get_wp_post_type() {
 	if ( isset( $_GET['post_type'] ) ) {
 		return strtolower( $_GET['post_type'] );
 	}
@@ -69,7 +69,7 @@ function _papi_get_wp_post_type() {
 		return strtolower( $_POST['post_type'] );
 	}
 
-	$post_id = _papi_get_post_id();
+	$post_id = papi_get_post_id();
 
 	if ( $post_id != 0 ) {
 		return strtolower( get_post_type( $post_id ) );

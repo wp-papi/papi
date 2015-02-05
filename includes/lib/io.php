@@ -22,14 +22,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  */
 
-function _papi_get_all_files_in_directory( $directory = '' ) {
+function papi_get_all_files_in_directory( $directory = '' ) {
 	$result = array();
 
 	if ( $handle = opendir( $directory ) ) {
 		while ( false !== ( $file = readdir( $handle ) ) ) {
 			if ( ! in_array( $file, array( '..', '.' ) ) ) {
 				if ( is_dir( $directory . '/' . $file ) ) {
-					$result   = array_merge( $result, _papi_get_all_files_in_directory( $directory . '/' . $file ) );
+					$result   = array_merge( $result, papi_get_all_files_in_directory( $directory . '/' . $file ) );
 					$file     = $directory . '/' . $file;
 					$result[] = preg_replace( '/\/\//si', '/', $file );
 				} else {
@@ -52,12 +52,12 @@ function _papi_get_all_files_in_directory( $directory = '' ) {
  * @return array
  */
 
-function _papi_get_all_page_type_files() {
-	$directories = _papi_filter_settings_directories();
+function papi_get_all_page_type_files() {
+	$directories = papi_filter_settings_directories();
 	$result      = array();
 
 	foreach ( $directories as $directory ) {
-		$result = array_merge( $result, _papi_get_all_files_in_directory( $directory ) );
+		$result = array_merge( $result, papi_get_all_files_in_directory( $directory ) );
 	}
 
 	return $result;
@@ -73,9 +73,9 @@ function _papi_get_all_page_type_files() {
  * @return string|null
  */
 
-function _papi_get_file_path( $file ) {
-	$directories = _papi_filter_settings_directories();
-	$file        = '/' . _papi_dashify( $file );
+function papi_get_file_path( $file ) {
+	$directories = papi_filter_settings_directories();
+	$file        = '/' . papi_dashify( $file );
 
 	foreach ( $directories as $directory ) {
 		if ( file_exists( $directory . $file ) ) {
@@ -101,8 +101,8 @@ function _papi_get_file_path( $file ) {
  * @return string|null
  */
 
-function _papi_get_page_type_base_path( $file ) {
-	$directories = _papi_filter_settings_directories();
+function papi_get_page_type_base_path( $file ) {
+	$directories = papi_filter_settings_directories();
 
 	foreach ( $directories as $directory ) {
 		if ( strpos( $file, $directory ) !== false ) {

@@ -52,7 +52,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 
 	public function get_sort_option( $post_id, $slug ) {
-		$slug = _papi_f( _papify( $slug ) . '_sort_option' );
+		$slug = papi_f( _papify( $slug ) . '_sort_option' );
 
 		return get_post_meta( $post_id, $slug, true );
 	}
@@ -119,7 +119,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 
 	public function html() {
-		$post_id     = _papi_get_post_id();
+		$post_id     = papi_get_post_id();
 		$options     = $this->get_options();
 		$settings    = $this->get_settings();
 		$sort_option = $this->get_sort_option( $post_id, $options->slug );
@@ -132,11 +132,11 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		// Fetch posts with the post types and the query.
 		$posts = query_posts( array_merge( $settings->query, array(
-			'post_type' => _papi_to_array( $settings->post_type )
+			'post_type' => papi_to_array( $settings->post_type )
 		) ) );
 
 		// Keep only objects.
-		$value = array_filter( _papi_to_array( $value ), function ( $post ) {
+		$value = array_filter( papi_to_array( $value ), function ( $post ) {
 			return is_object( $post ) && isset( $post->post_title );
 		} );
 

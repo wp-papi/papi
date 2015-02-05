@@ -25,7 +25,7 @@ class WP_Papi_Functions_Post extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test _papi_from_property_array_slugs.
+	 * Test papi_from_property_array_slugs.
 	 *
 	 * @since 1.0.0
 	 */
@@ -36,24 +36,24 @@ class WP_Papi_Functions_Post extends WP_UnitTestCase {
 		$this->post_id = $this->factory->post->create();
 
 		$post = get_post( $this->post_id );
-		$this->assertEquals( 1, _papi_get_post_id( 1 ) );
-		$this->assertEquals( $this->post_id, _papi_get_post_id() );
-		$this->assertEquals( $this->post_id, _papi_get_post_id( null ) );
+		$this->assertEquals( 1, papi_get_post_id( 1 ) );
+		$this->assertEquals( $this->post_id, papi_get_post_id() );
+		$this->assertEquals( $this->post_id, papi_get_post_id( null ) );
 	}
 
 	public function test_papi_get_wp_post_type() {
 		global $post, $_GET, $_POST;
 
 		$post = null;
-		$this->assertNull( _papi_get_wp_post_type() );
+		$this->assertNull( papi_get_wp_post_type() );
 		$_GET = array( 'post_type' => 'post' );
-		$this->assertEquals( 'post', _papi_get_wp_post_type() );
+		$this->assertEquals( 'post', papi_get_wp_post_type() );
 
 		$_GET = array( 'page' => 'papi-add-new-page,books' );
-		$this->assertEquals( 'books', _papi_get_wp_post_type() );
+		$this->assertEquals( 'books', papi_get_wp_post_type() );
 
 		$_POST = array( 'post_type' => 'page' );
-		$this->assertEquals( 'page', _papi_get_wp_post_type() );
+		$this->assertEquals( 'page', papi_get_wp_post_type() );
 
 		$_GET  = array();
 		$_POST = array();

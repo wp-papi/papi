@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array
  */
 
-function _papi_from_property_array_slugs( $value, $slug ) {
+function papi_from_property_array_slugs( $value, $slug ) {
 	$result = array();
 
 	if ( empty( $value ) ) {
@@ -56,13 +56,13 @@ function _papi_from_property_array_slugs( $value, $slug ) {
  * @return array
  */
 
-function _papi_get_box_property( $properties ) {
+function papi_get_box_property( $properties ) {
 	$box_property = array_filter( $properties, function ( $property ) {
 		return ! is_object( $property );
 	} );
 
 	if ( ! empty( $box_property ) && ! isset( $box_property[0] ) && ! isset( $box_property[0]['tab'] ) ) {
-		$property = _papi_get_property_options( $box_property );
+		$property = papi_get_property_options( $box_property );
 		if ( ! $property->disabled ) {
 			$properties = array( $property );
 		}
@@ -81,9 +81,9 @@ function _papi_get_box_property( $properties ) {
  * @return array
  */
 
-function _papi_get_only_property_values( $arr = array() ) {
+function papi_get_only_property_values( $arr = array() ) {
 	foreach ( $arr as $key => $value ) {
-		if ( _papi_is_property_type_key( $key ) ) {
+		if ( papi_is_property_type_key( $key ) ) {
 			unset( $arr[ $key ] );
 		}
 	}
@@ -103,7 +103,7 @@ function _papi_get_only_property_values( $arr = array() ) {
  * @return array
  */
 
-function _papi_get_options_and_properties( $file_or_options = array(), $properties = array(), $is_box = true ) {
+function papi_get_options_and_properties( $file_or_options = array(), $properties = array(), $is_box = true ) {
 	$options = array();
 
 	if ( is_array( $file_or_options ) ) {
@@ -136,9 +136,9 @@ function _papi_get_options_and_properties( $file_or_options = array(), $properti
 		// If it's a template we need to load it the right way
 		// and add all properties the right way.
 
-		if ( _papi_is_ext( $file_or_options, 'php' ) ) {
+		if ( papi_is_ext( $file_or_options, 'php' ) ) {
 			$values = $properties;
-			$template = _papi_template( $file_or_options, $values );
+			$template = papi_template( $file_or_options, $values );
 
 			// Create the property array from existing property array or a new.
 			$properties = array();
@@ -170,8 +170,8 @@ function _papi_get_options_and_properties( $file_or_options = array(), $properti
  * @return array
  */
 
-function _papi_get_property_default_settings( $type ) {
-	$property_type = _papi_get_property_type( $type );
+function papi_get_property_default_settings( $type ) {
+	$property_type = papi_get_property_type( $type );
 
 	if ( is_null( $property_type ) || ! method_exists( $property_type, 'get_default_settings' ) ) {
 		return array();
@@ -191,7 +191,7 @@ function _papi_get_property_default_settings( $type ) {
  * @return object
  */
 
-function _papi_get_property_options( $options, $get_value = true ) {
+function papi_get_property_options( $options, $get_value = true ) {
 
 	if ( ! is_array( $options ) ) {
 		if ( is_object( $options ) ) {
@@ -211,7 +211,7 @@ function _papi_get_property_options( $options, $get_value = true ) {
 		'settings'     => array(),
 		'sidebar'      => true,
 		'slug'         => '',
-		'sort_order'   => _papi_filter_settings_sort_order(),
+		'sort_order'   => papi_filter_settings_sort_order(),
 		'required'     => false,
 		'title'        => '',
 		'type'         => '',
@@ -229,37 +229,37 @@ function _papi_get_property_options( $options, $get_value = true ) {
 	// Generate random slug if we don't have a title or slug.
 	if ( empty( $options->title ) && empty( $options->slug ) ) {
 		if ( empty( $options->type ) ) {
-			$options->slug = _papi_slugify( uniqid() );
+			$options->slug = papi_slugify( uniqid() );
 		} else {
-			$options->slug = _papi_slugify( $options->type );
+			$options->slug = papi_slugify( $options->type );
 		}
 	}
 
 	// Generate slug from title.
 	if ( empty( $options->slug ) ) {
-		$options->slug = _papi_slugify( $options->title );
+		$options->slug = papi_slugify( $options->title );
 	}
 
 	// Generate a vaild Papi meta name for slug.
-	$options->slug = _papi_html_name( $options->slug );
+	$options->slug = papi_html_name( $options->slug );
 
 	// Generate a valid Papi meta name for old slug.
 	if ( ! empty( $options->old_slug ) ) {
-		$options->old_slug = _papi_html_name( $options->old_slug );
+		$options->old_slug = papi_html_name( $options->old_slug );
 	}
 
 	// Get the default settings for the property and merge them with the given settings.
-	$options->settings = array_merge( _papi_get_property_default_settings( $options->type ), $options->settings );
+	$options->settings = array_merge( papi_get_property_default_settings( $options->type ), $options->settings );
 	$options->settings = (object)$options->settings;
 
 	if ( empty( $options->value ) && $get_value ) {
 		// Get meta value for the field
-		$post_id        = _papi_get_post_id();
-		$options->value = _papi_field( $post_id, $options->slug, null, true );
+		$post_id        = papi_get_post_id();
+		$options->value = papi_field( $post_id, $options->slug, null, true );
 	}
 
 	// Add default value if database value is empty.
-	if ( _papi_is_empty( $options->value ) ) {
+	if ( papi_is_empty( $options->value ) ) {
 		$options->value = $options->default;
 	}
 
@@ -276,8 +276,8 @@ function _papi_get_property_options( $options, $get_value = true ) {
  * @return string
  */
 
-function _papi_get_property_class_name( $type ) {
-	$type = _papi_get_property_short_type( $type );
+function papi_get_property_class_name( $type ) {
+	$type = papi_get_property_short_type( $type );
 
 	if ( empty( $type ) ) {
 		return null;
@@ -296,7 +296,7 @@ function _papi_get_property_class_name( $type ) {
  * @return string
  */
 
-function _papi_get_property_short_type( $type ) {
+function papi_get_property_short_type( $type ) {
 	if ( ! is_string( $type ) ) {
 		return null;
 	}
@@ -314,7 +314,7 @@ function _papi_get_property_short_type( $type ) {
  * @return null|Papi_Property
  */
 
-function _papi_get_property_type( $type ) {
+function papi_get_property_type( $type ) {
 	if ( is_object( $type ) && isset( $type->type ) && is_string( $type->type ) ) {
 		$type = $type->type;
 	}
@@ -332,14 +332,14 @@ function _papi_get_property_type( $type ) {
  * @return string
  */
 
-function _papi_get_property_type_key( $str = '' ) {
+function papi_get_property_type_key( $str = '' ) {
 	$suffix = '_property';
 
 	if ( ! is_string( $str ) ) {
 		return $suffix;
 	}
 
-	return _papi_remove_papi( $str . $suffix );
+	return papi_remove_papi( $str . $suffix );
 }
 
 /**
@@ -352,8 +352,8 @@ function _papi_get_property_type_key( $str = '' ) {
  * @return string
  */
 
-function _papi_get_property_type_key_f( $str ) {
-	return _papi_f( _papi_get_property_type_key( $str ) );
+function papi_get_property_type_key_f( $str ) {
+	return papi_f( papi_get_property_type_key( $str ) );
 }
 
 /**
@@ -366,7 +366,7 @@ function _papi_get_property_type_key_f( $str ) {
  * @return boolean
  */
 
-function _papi_is_property_type_key( $str = '' ) {
+function papi_is_property_type_key( $str = '' ) {
 	$pattern = '_property';
 	$pattern = str_replace( '_', '\_', $pattern );
 	$pattern = str_replace( '-', '\-', $pattern );
@@ -383,13 +383,13 @@ function _papi_is_property_type_key( $str = '' ) {
  * @since 1.0.0
  */
 
-function _papi_render_property( $property ) {
+function papi_render_property( $property ) {
 	// Check so type isn't empty and capabilities on the property.
-	if ( empty( $property->type ) || ! _papi_current_user_is_allowed( $property->capabilities ) ) {
+	if ( empty( $property->type ) || ! papi_current_user_is_allowed( $property->capabilities ) ) {
 		return;
 	}
 
-	$property_type = _papi_get_property_type( $property->type );
+	$property_type = papi_get_property_type( $property->type );
 
 	if ( is_null( $property_type ) ) {
 		return;
@@ -398,8 +398,8 @@ function _papi_render_property( $property ) {
 	$property_type->set_options( $property );
 
 	// Only render if it's the right language if the definition exist.
-	if ( _papi_get_qs( 'lang' ) != null ) {
-		$render = $property->lang === strtolower( _papi_get_qs( 'lang' ) );
+	if ( papi_get_qs( 'lang' ) != null ) {
+		$render = $property->lang === strtolower( papi_get_qs( 'lang' ) );
 	} else {
 		$render = true;
 	}
@@ -420,7 +420,7 @@ function _papi_render_property( $property ) {
  * @since 1.0.0
  */
 
-function _papi_render_properties( $properties ) {
+function papi_render_properties( $properties ) {
 	// Don't proceed without any properties
 	if ( ! is_array( $properties ) || empty( $properties ) ) {
 		return;
@@ -438,7 +438,7 @@ function _papi_render_properties( $properties ) {
 			<tbody>
 			<?php
 			foreach ( $properties as $property ) {
-				_papi_render_property( $property );
+				papi_render_property( $property );
 			}
 			?>
 			</tbody>
@@ -458,7 +458,7 @@ function _papi_render_properties( $properties ) {
  * @return array
  */
 
-function _papi_populate_properties( $properties ) {
+function papi_populate_properties( $properties ) {
 	// If $properties is a object we can just return it in a array.
 	if ( is_object( $properties )  ) {
 		return array( $properties );
@@ -467,12 +467,12 @@ function _papi_populate_properties( $properties ) {
 	$result = array();
 
 	// Get the box property (when you only put a array in the box method) if it exists.
-	$properties = _papi_get_box_property( $properties );
+	$properties = papi_get_box_property( $properties );
 
 	// Convert all non property objects to property objects.
 	$properties = array_map( function ( $property ) {
 		if ( ! is_object( $property ) && is_array( $property ) && ! isset( $property['tab'] ) ) {
-			return _papi_get_property_options( $property );
+			return papi_get_property_options( $property );
 		}
 
 		return $property;
@@ -506,7 +506,7 @@ function _papi_populate_properties( $properties ) {
 		return $result;
 	}
 
-	return _papi_sort_order( $result );
+	return papi_sort_order( $result );
 }
 
 /**
@@ -517,7 +517,7 @@ function _papi_populate_properties( $properties ) {
  * @since 1.0.0
  */
 
-function _papi_property_update_meta( $meta ) {
+function papi_property_update_meta( $meta ) {
 	$meta = (object)$meta;
 
 	if ( empty( $meta->type ) ) {
@@ -526,7 +526,7 @@ function _papi_property_update_meta( $meta ) {
 
 	$save_value = true;
 
-	foreach ( _papi_to_array( $meta->value ) as $key => $value ) {
+	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
 		if ( is_string( $key ) ) {
 			$save_value = false;
 			break;
@@ -537,17 +537,17 @@ function _papi_property_update_meta( $meta ) {
 		$meta->value = array( $meta->value );
 	}
 
-	if ( _papi_is_empty( $meta->value ) ) {
-		delete_post_meta( $meta->post_id, _papi_remove_papi( $meta->slug ) );
+	if ( papi_is_empty( $meta->value ) ) {
+		delete_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ) );
 		return null;
 	}
 
-	foreach ( _papi_to_array( $meta->value ) as $key => $value ) {
+	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
 
 		if ( ! is_array( $value ) ) {
 
 			if ( is_numeric( $key ) ) {
-				$slug = _papi_remove_papi( $meta->slug );
+				$slug = papi_remove_papi( $meta->slug );
 			} else {
 				$slug = $key;
 			}
@@ -562,12 +562,12 @@ function _papi_property_update_meta( $meta ) {
 		}
 
 		foreach ( $value as $child_key => $child_value ) {
-			update_post_meta( $meta->post_id, _papi_remove_papi( $child_key ), $child_value );
+			update_post_meta( $meta->post_id, papi_remove_papi( $child_key ), $child_value );
 		}
 
 	}
 
-	update_post_meta( $meta->post_id, _papi_get_property_type_key_f( $meta->slug ), $meta->type );
+	update_post_meta( $meta->post_id, papi_get_property_type_key_f( $meta->slug ), $meta->type );
 }
 
 /**
@@ -582,7 +582,7 @@ function _papi_property_update_meta( $meta ) {
  * @return array
  */
 
-function _papi_to_property_array_slugs( $value, $slug ) {
+function papi_to_property_array_slugs( $value, $slug ) {
 	$result  = array();
 	$counter = array();
 
@@ -597,8 +597,8 @@ function _papi_to_property_array_slugs( $value, $slug ) {
 		foreach ( $arr as $key => $val ) {
 			$item_slug = $slug . '_' . $index . '_' . $key;
 
-			if ( _papi_is_property_type_key( $item_slug ) ) {
-				$item_slug = _papi_f( $item_slug );
+			if ( papi_is_property_type_key( $item_slug ) ) {
+				$item_slug = papi_f( $item_slug );
 			}
 
 			$result[$item_slug] = $val;

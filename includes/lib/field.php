@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return mixed
  */
 
-function _papi_field( $post_id = null, $name = null, $default = null, $admin = false ) {
+function papi_field_finder( $post_id = null, $name = null, $default = null, $admin = false ) {
 	// Check if we have a post id or not.
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$default = $name;
@@ -38,7 +38,7 @@ function _papi_field( $post_id = null, $name = null, $default = null, $admin = f
 		$post_id = intval( $post_id );
 	} else {
 
-		$post_id = _papi_get_post_id();
+		$post_id = papi_get_post_id();
 	}
 
 	// Return the default value if we don't have a name.
@@ -53,7 +53,7 @@ function _papi_field( $post_id = null, $name = null, $default = null, $admin = f
 	$name = $names[0];
 
 	// Remove any `papi_` stuff if it exists.
-	$name = _papi_remove_papi( $name );
+	$name = papi_remove_papi( $name );
 
 	// Remove the first value of the array.
 	$names = array_slice( $names, 1 );
@@ -72,7 +72,7 @@ function _papi_field( $post_id = null, $name = null, $default = null, $admin = f
 		$value = $page->$name;
 	}
 
-	return _papi_field_value( $names, $value, $default );
+	return papi_field_value( $names, $value, $default );
 }
 
 /**
@@ -85,7 +85,7 @@ function _papi_field( $post_id = null, $name = null, $default = null, $admin = f
  * @return mixed
  */
 
-function _papi_field_shortcode( $atts ) {
+function papi_field_shortcode( $atts ) {
 	// Try to fetch to post id.
 	if ( empty( $atts['id'] ) ) {
 		global $post;
@@ -108,7 +108,7 @@ function _papi_field_shortcode( $atts ) {
 	return ! isset( $value ) || $value == null ? $atts['default'] : $value;
 }
 
-add_shortcode( 'papi_field', '_papi_field_shortcode' );
+add_shortcode( 'papi_field', 'papi_field_shortcode' );
 
 /**
  * Get field value by keys.
@@ -126,7 +126,7 @@ add_shortcode( 'papi_field', '_papi_field_shortcode' );
  * @return mixed
  */
 
-function _papi_field_value( $names, $value, $default ) {
+function papi_field_value( $names, $value, $default ) {
 	// Return default value we don't have a value.
 	if ( empty( $value ) && is_null( $value ) ) {
 		return $default;

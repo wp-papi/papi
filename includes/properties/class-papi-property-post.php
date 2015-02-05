@@ -63,7 +63,7 @@ class Papi_Property_Post extends Papi_Property {
 
 		// Fetch posts with the post types and the query.
 		$posts = query_posts( array_merge( $settings->query, array(
-			'post_type' => _papi_to_array( $settings->post_type )
+			'post_type' => papi_to_array( $settings->post_type )
 		) ) );
 
 		// The blank item
@@ -76,7 +76,7 @@ class Papi_Property_Post extends Papi_Property {
 		}
 
 		// Keep only objects.
-		$posts = array_filter( _papi_to_array( $posts ), function ( $post ) {
+		$posts = array_filter( papi_to_array( $posts ), function ( $post ) {
 			return is_object( $post ) && isset( $post->post_title );
 		} );
 

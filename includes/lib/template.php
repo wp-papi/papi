@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array
  */
 
-function _papi_body_class( $classes ) {
+function papi_body_class( $classes ) {
 	global $post;
 
 	// Check so we only change template on single and page posts.
@@ -34,18 +34,18 @@ function _papi_body_class( $classes ) {
 		return $classes;
 	}
 
-	$page_type = get_post_meta( $post->ID, '_papi_page_type', true );
+	$page_type = get_post_meta( $post->ID, 'papi_page_type', true );
 
 	if ( empty( $page_type ) ) {
 		return $classes;
 	}
 
-	$classes[] = _papi_slugify( $page_type );
+	$classes[] = papi_slugify( $page_type );
 
 	return $classes;
 }
 
-add_filter( 'body_class', '_papi_body_class' );
+add_filter( 'body_class', 'papi_body_class' );
 
 /**
  * Load a template array file and merge values with it.
@@ -59,12 +59,12 @@ add_filter( 'body_class', '_papi_body_class' );
  * @return array
  */
 
-function _papi_template( $file, $values = array(), $convert_to_object = false ) {
+function papi_template_loader( $file, $values = array(), $convert_to_object = false ) {
 	if ( ! is_string( $file ) ) {
 		return array();
 	}
 
-	$filepath = _papi_get_file_path( $file );
+	$filepath = papi_get_file_path( $file );
 
 	if ( empty( $filepath ) && is_file( $file ) ) {
 		$filepath = $file;
@@ -95,7 +95,7 @@ function _papi_template( $file, $values = array(), $convert_to_object = false ) 
  * @return string
  */
 
-function _papi_template_include( $original_template ) {
+function papi_template_include( $original_template ) {
 	global $post;
 
 	// Check so we only change template on single and page posts.
@@ -107,7 +107,7 @@ function _papi_template_include( $original_template ) {
 		return $original_template;
 	}
 
-	$page_template = _papi_get_page_type_template( $post->ID );
+	$page_template = papi_get_page_type_template( $post->ID );
 
 	if ( ! is_null( $page_template ) && ! empty( $page_template ) ) {
 		$path = get_template_directory();
@@ -122,4 +122,4 @@ function _papi_template_include( $original_template ) {
 	return $original_template;
 }
 
-add_filter( 'template_include', '_papi_template_include' );
+add_filter( 'template_include', 'papi_template_include' );

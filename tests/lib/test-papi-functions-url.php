@@ -24,23 +24,23 @@ class WP_Papi_Functions_Url extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test _papi_get_new_url.
+	 * Test papi_get_new_url.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_page_new_url() {
-		$actual = _papi_get_page_new_url( 'page', true, 'page' );
+		$actual = papi_get_page_new_url( 'page', true, 'page' );
 		$this->assertTrue( strpos( $actual, 'page_type=page&post_type=page' ) !== false );
 	}
 
 	/**
-	 * Test _papi_append_post_type_query.
+	 * Test papi_append_post_type_query.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papi_append_post_type_query() {
-		$this->assertEquals( 'http://dev.papi.com/?post_parent=1&post_type=post', _papi_append_post_type_query( 'http://dev.papi.com/?post_parent=1', 'post' ) );
+		$this->assertEquals( 'http://dev.papi.com/?post_parent=1&post_type=post', papi_append_post_type_query( 'http://dev.papi.com/?post_parent=1', 'post' ) );
 	}
 }

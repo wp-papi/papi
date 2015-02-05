@@ -45,7 +45,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	private function generate_slug( $property ) {
 		$options = $this->get_options();
 
-		return $options->slug . '[' . $this->counter . ']' . '[' . _papi_remove_papi( $property->slug ) . ']';
+		return $options->slug . '[' . $this->counter . ']' . '[' . papi_remove_papi( $property->slug ) . ']';
 	}
 
 	/**
@@ -80,7 +80,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$items = array_map( function ( $item ) {
 
 			if ( is_array( $item ) ) {
-				return (object) _papi_get_property_options( $item, false );
+				return (object) papi_get_property_options( $item, false );
 			}
 
 			if ( is_object( $item ) ) {
@@ -97,7 +97,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				return false;
 			}
 
-			$type = _papi_get_property_short_type( $item->type );
+			$type = papi_get_property_short_type( $item->type );
 
 			if ( empty( $type ) ) {
 				return false;
@@ -137,7 +137,7 @@ class Papi_Property_Repeater extends Papi_Property {
 							$template_property->value = '';
 							$template_property->slug  = $this->generate_slug( $template_property );
 							echo '<td>';
-							_papi_render_property( $template_property );
+							papi_render_property( $template_property );
 							echo '</td>';
 						}
 						?>
@@ -165,8 +165,8 @@ class Papi_Property_Repeater extends Papi_Property {
 				<tbody>
 					<?php
 					$properties = array_map( function( $item ) {
-						$slug = _papi_remove_papi( $item->slug );
-						$property_type_key = _papi_get_property_type_key( $item->slug );
+						$slug = papi_remove_papi( $item->slug );
+						$property_type_key = papi_get_property_type_key( $item->slug );
 						$property = array();
 						$property[$slug] = '';
 						$property[$property_type_key] = $item->type;
@@ -174,7 +174,7 @@ class Papi_Property_Repeater extends Papi_Property {
 					}, $settings->items );
 
 					$slugs = array_map( function ( $item ) {
-						return _papi_remove_papi( $item->slug );
+						return papi_remove_papi( $item->slug );
 					}, $settings->items );
 
 					foreach ( $values as $index => $value ) {
@@ -197,7 +197,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 					foreach ( $settings->items as $property ):
 						$render_property = clone $property;
-						$value_slug      = _papi_remove_papi( $render_property->slug );
+						$value_slug      = papi_remove_papi( $render_property->slug );
 
 						if ( !isset( $value[$value_slug] ) ) {
 							continue;
@@ -208,7 +208,7 @@ class Papi_Property_Repeater extends Papi_Property {
 						$render_property->raw  = true;
 						?>
 							<td>
-								<?php _papi_render_property( $render_property ); ?>
+								<?php papi_render_property( $render_property ); ?>
 							</td>
 				<?php
 					endforeach;
@@ -254,7 +254,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function get_columns( $post_id, $repeater_slug ) {
-		return intval( get_post_meta( $post_id, _papi_f( _papify( $repeater_slug ) . '_columns' ), true ) );
+		return intval( get_post_meta( $post_id, papi_f( _papify( $repeater_slug ) . '_columns' ), true ) );
 	}
 
 	/**
@@ -304,8 +304,8 @@ class Papi_Property_Repeater extends Papi_Property {
 					continue;
 				}
 
-				$property_type_key   = _papi_get_property_type_key( $meta->meta_key );
-				$property_type_value = get_post_meta( $post_id, _papi_f( $property_type_key ), true );
+				$property_type_key   = papi_get_property_type_key( $meta->meta_key );
+				$property_type_value = get_post_meta( $post_id, papi_f( $property_type_key ), true );
 
 				$meta->meta_value = maybe_unserialize( $meta->meta_value );
 
@@ -353,7 +353,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				$slug = null;
 				$type = null;
 
-				if ( isset( $keys[$k + 1] ) && _papi_is_property_type_key( $keys[$k + 1] ) ) {
+				if ( isset( $keys[$k + 1] ) && papi_is_property_type_key( $keys[$k + 1] ) ) {
 					$slug = $keys[$k];
 
 					if ( isset( $values[ $i ][ $keys[$k + 1] ] ) ) {
@@ -365,7 +365,7 @@ class Papi_Property_Repeater extends Papi_Property {
 					continue;
 				}
 
-				$property_type = _papi_get_property_type( $type );
+				$property_type = papi_get_property_type( $type );
 
 				if ( empty( $property_type ) ) {
 					continue;
@@ -375,7 +375,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				$item = $property_type->format_value( $values[$i][$slug], $slug, $post_id );
 
 				// Apply a filter so this can be changed from the theme for specified property type.
-				$item = _papi_filter_format_value( $type, $item, $slug, $post_id );
+				$item = papi_filter_format_value( $type, $item, $slug, $post_id );
 
 				if ( ! isset( $result[$i] ) ) {
 					$result[$i] = array();
@@ -410,7 +410,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		// Will not need this array.
 		unset( $trash );
 
-		return _papi_from_property_array_slugs( $results, $repeater_slug );
+		return papi_from_property_array_slugs( $results, $repeater_slug );
 	}
 
 	/**
@@ -422,16 +422,16 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function update_value( $values, $repeater_slug, $post_id ) {
-		$properties_key = _papi_ff( _papify( $repeater_slug ) . '_properties' );
+		$properties_key = papi_ff( _papify( $repeater_slug ) . '_properties' );
 		$properties     = array();
 
 		if ( isset( $_POST[$properties_key] ) ) {
 			$properties = $_POST[$properties_key];
-			$properties = _papi_remove_trailing_quotes( $properties );
+			$properties = papi_remove_trailing_quotes( $properties );
 			$properties = json_decode( $properties );
 		}
 
-		$rows_key = _papi_ff( _papify( $repeater_slug ) . '_rows' );
+		$rows_key = papi_ff( _papify( $repeater_slug ) . '_rows' );
 		$rows     = 0;
 
 		if ( isset( $_POST[$rows_key] ) ) {
@@ -459,13 +459,13 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			foreach ( $properties as $empty => $property ) {
 				foreach ( $property as $slug => $type ) {
-					$slug = _papi_remove_papi( $slug );
+					$slug = papi_remove_papi( $slug );
 
 					if ( in_array( $slug, $keys ) ) {
 						continue;
 					}
 
-					if ( _papi_is_property_type_key( $slug ) ) {
+					if ( papi_is_property_type_key( $slug ) ) {
 						$values[$index][$slug] = $type;
 					} else {
 						$values[$index][$slug] = '';
@@ -474,8 +474,8 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 		}
 
-		$values = _papi_to_property_array_slugs( $values, $repeater_slug );
-		$trash  = array_diff( array_keys( _papi_to_array( $results ) ), array_keys( _papi_to_array( $values ) ) );
+		$values = papi_to_property_array_slugs( $values, $repeater_slug );
+		$trash  = array_diff( array_keys( papi_to_array( $results ) ), array_keys( papi_to_array( $values ) ) );
 
 		foreach ( $trash as $trash_key => $trash_value ) {
 			delete_post_meta( $post_id, $trash_key );
@@ -505,7 +505,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		// Create sql query and get the results.
 		$sql = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
-		$query = $wpdb->prepare( $sql, $post_id, $meta_key, _papi_f( $meta_key ), _papi_get_property_type_key_f( $repeater_slug ) );
+		$query = $wpdb->prepare( $sql, $post_id, $meta_key, papi_f( $meta_key ), papi_get_property_type_key_f( $repeater_slug ) );
 		$results = $wpdb->get_results( $query );
 
 		foreach ($results as $res ) {

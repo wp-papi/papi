@@ -23,17 +23,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  */
 
-function _papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type = null, $exclude = array() ) {
+function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type = null, $exclude = array() ) {
 	$admin_url = $append_admin_url ? get_admin_url() : '';
-	$query_strings = _papi_get_page_query_strings();
+	$query_strings = papi_get_page_query_strings();
 
-	$admin_url = $admin_url . 'post-new.php?page_type=' . $page_type . _papi_get_page_query_strings( '&', $exclude );
+	$admin_url = $admin_url . 'post-new.php?page_type=' . $page_type . papi_get_page_query_strings( '&', $exclude );
 
 	if ( ! is_null( $post_type ) && in_array( 'post_type', $exclude ) ) {
 		$admin_url .= '&post_type=' . $post_type;
 	}
 
-	return _papi_append_post_type_query( $admin_url, $post_type );
+	return papi_append_post_type_query( $admin_url, $post_type );
 }
 
 /**
@@ -47,7 +47,7 @@ function _papi_get_page_new_url( $page_type, $append_admin_url = true, $post_typ
  * @return string
  */
 
-function _papi_get_page_query_strings( $first_char = '&', $exclude = array() ) {
+function papi_get_page_query_strings( $first_char = '&', $exclude = array() ) {
 	$request_uri = $_SERVER['REQUEST_URI'];
 	$parsed_url  = parse_url( $request_uri );
 
@@ -92,7 +92,7 @@ function _papi_get_page_query_strings( $first_char = '&', $exclude = array() ) {
 		return $query;
 	}
 
-	return _papi_append_post_type_query( $query );
+	return papi_append_post_type_query( $query );
 }
 
 /**
@@ -106,17 +106,17 @@ function _papi_get_page_query_strings( $first_char = '&', $exclude = array() ) {
  * @return string
  */
 
-function _papi_append_post_type_query( $url, $post_type_arg = null ) {
+function papi_append_post_type_query( $url, $post_type_arg = null ) {
 	if ( strpos( $url, 'post_type=' ) !== false ) {
 		return $url;
 	}
 
-	$post_id = _papi_get_post_id();
+	$post_id = papi_get_post_id();
 
 	if ( ! is_null( $post_id ) ) {
 		$post_type = get_post_type( $post_id );
 	} else {
-		$post_type = _papi_get_or_post( 'post_type' );
+		$post_type = papi_get_or_post( 'post_type' );
 	}
 
 	if ( ! empty( $post_type_arg ) && empty( $post_type ) ) {
@@ -124,7 +124,7 @@ function _papi_append_post_type_query( $url, $post_type_arg = null ) {
 	}
 
 	if ( empty ( $post_type ) ) {
-		$post_type = _papi_get_wp_post_type();
+		$post_type = papi_get_wp_post_type();
 	}
 
 	if ( ! empty( $post_type ) ) {

@@ -54,7 +54,7 @@ class Papi_Admin_Meta_Boxes {
 				}
 			}
 		} else if ( is_string( $value ) ) {
-			$value = _papi_remove_trailing_quotes( $value );
+			$value = papi_remove_trailing_quotes( $value );
 		}
 
 		return $value;
@@ -111,7 +111,7 @@ class Papi_Admin_Meta_Boxes {
 		// we need to remove that and set the property type to the property
 		// and make a array of the property type and the value.
 		foreach ( $data as $key => $value ) {
-			$property_type_key = _papi_get_property_type_key();
+			$property_type_key = papi_get_property_type_key();
 
 			if ( strpos( $key, $property_type_key ) === false ) {
 				continue;
@@ -156,10 +156,10 @@ class Papi_Admin_Meta_Boxes {
 			}
 
 			// Run `update_value` if it exists on the property class.
-			$data[ $key ]['value'] = $property->update_value( $data[ $key ]['value'], _papi_remove_papi( $key ), $post_id );
+			$data[ $key ]['value'] = $property->update_value( $data[ $key ]['value'], papi_remove_papi( $key ), $post_id );
 
 			// Apply a filter so this can be changed from the theme for specified property type.
-			$data[ $key ]['value'] = _papi_filter_update_value( $property_type, $data[ $key ]['value'], _papi_remove_papi( $key ), $post_id );
+			$data[ $key ]['value'] = papi_filter_update_value( $property_type, $data[ $key ]['value'], papi_remove_papi( $key ), $post_id );
 		}
 
 		// Check so all properties has a value and a type key and that the property is a array.
@@ -266,7 +266,7 @@ class Papi_Admin_Meta_Boxes {
 		$data = $this->prepare_properties_data( $data, $post_id );
 
 		foreach ( $data as $key => $property ) {
-			_papi_property_update_meta( array(
+			papi_property_update_meta( array(
 				'post_id'       => $post_id,
 				'slug'          => $key,
 				'type'          => $property['type'],

@@ -25,7 +25,7 @@ class WP_Papi_Functions_Tabs extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test _papi_get_tab_options.
+	 * Test papi_get_tab_options.
 	 *
 	 * @since 1.0.0
 	 */
@@ -35,7 +35,7 @@ class WP_Papi_Functions_Tabs extends WP_UnitTestCase {
 			'title' => 'Content'
 		));
 
-		$options = _papi_get_tab_options($tab->options);
+		$options = papi_get_tab_options($tab->options);
 
 		$this->assertEquals( $tab->options['title'], $options->title );
 		$this->assertEquals( 1000, $options->sort_order );
@@ -44,21 +44,21 @@ class WP_Papi_Functions_Tabs extends WP_UnitTestCase {
 			'title' => 'Content'
 		);
 
-		$options = _papi_get_tab_options($tab);
+		$options = papi_get_tab_options($tab);
 
 		$this->assertEquals( $tab['title'], $options->title );
 		$this->assertEquals( 1000, $options->sort_order );
 	}
 
 	/**
-	 * Test _papi_setup_tabs.
+	 * Test papi_setup_tabs.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papi_setup_tabs() {
 		$tab  = papi_tab('Content');
-		$tabs = _papi_setup_tabs(array(
+		$tabs = papi_setup_tabs(array(
 			$tab
 		));
 

@@ -1,8 +1,8 @@
 <?php
-$post_type = _papi_get_wp_post_type();
+$post_type = papi_get_wp_post_type();
 
 // Check if we should show standard page or not.
-$show_standard_page = _papi_filter_settings_standard_page_type( $post_type );
+$show_standard_page = papi_filter_settings_standard_page_type( $post_type );
 ?>
 
 <div class="wrap">
@@ -20,28 +20,28 @@ $show_standard_page = _papi_filter_settings_standard_page_type( $post_type );
 
 	<div class="papi-box-list">
 		<?php
-		$page_types = _papi_get_all_page_types();
+		$page_types = papi_get_all_page_types();
 
 		foreach ( $page_types as $key => $page_type ) {
 
-			if ( ! _papi_filter_show_page_type( $post_type, $page_type ) ) {
+			if ( ! papi_filter_show_page_type( $post_type, $page_type ) ) {
 				continue;
 			}
 
-			_papi_include_template( 'includes/admin/views/partials/add-new-item.php', array(
+			papi_include_template( 'includes/admin/views/partials/add-new-item.php', array(
 				'title'       => $page_type->name,
 				'description' => $page_type->description,
 				'thumbnail'   => $page_type->get_thumbnail(),
-				'url'         => _papi_get_page_new_url( $page_type->get_filename() )
+				'url'         => papi_get_page_new_url( $page_type->get_filename() )
 			) );
 		}
 
 		if ( $show_standard_page ) {
-			_papi_include_template( 'includes/admin/views/partials/add-new-item.php', array(
-				'title'       => _papi_filter_standard_page_name( $post_type ),
-				'description' => _papi_filter_standard_page_description( $post_type ),
-				'thumbnail'   => _papi_filter_standard_page_thumbnail( $post_type ),
-				'url'         => 'post-new.php' . _papi_get_page_query_strings( '?' ) . '&papi-bypass=true'
+			papi_include_template( 'includes/admin/views/partials/add-new-item.php', array(
+				'title'       => papi_filter_standard_page_name( $post_type ),
+				'description' => papi_filter_standard_page_description( $post_type ),
+				'thumbnail'   => papi_filter_standard_page_thumbnail( $post_type ),
+				'url'         => 'post-new.php' . papi_get_page_query_strings( '?' ) . '&papi-bypass=true'
 			) );
 
 		}

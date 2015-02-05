@@ -26,18 +26,18 @@ class WP_Papi_Functions_IO extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test _papi_get_options.
+	 * Test papi_get_options.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_options() {
-		$actual = _papi_get_all_files_in_directory();
+		$actual = papi_get_all_files_in_directory();
 
 		$this->assertTrue( is_array( $actual ) );
 		$this->assertTrue( empty( $actual ) );
 
-		$actual = _papi_get_all_files_in_directory( dirname( __FILE__ ) . '/../data/page-types' );
+		$actual = papi_get_all_files_in_directory( dirname( __FILE__ ) . '/../data/page-types' );
 		$expected = dirname( __FILE__ ) . '/../data/page-types/simple-page-type.php';
 
 		$this->assertTrue( is_array( $actual ) );

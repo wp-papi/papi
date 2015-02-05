@@ -54,8 +54,8 @@ class Papi_Page {
 		$this->post = get_post( $this->id );
 
 		// Load page type object.
-		$path            = _papi_get_file_path( _papi_get_page_type_meta_value( $this->id ) );
-		$this->page_type = _papi_get_page_type( $path );
+		$path            = papi_get_file_path( papi_get_page_type_meta_value( $this->id ) );
+		$this->page_type = papi_get_page_type( $path );
 	}
 
 	/**
@@ -71,10 +71,10 @@ class Papi_Page {
 
 	public function get_value( $slug, $admin = false ) {
 		$property_value      = get_post_meta( $this->id, $slug, true );
-		$property_type_key   = _papi_f( _papi_get_property_type_key( $slug ) );
+		$property_type_key   = papi_f( papi_get_property_type_key( $slug ) );
 		$property_type_value = get_post_meta( $this->id, $property_type_key, true );
 
-		if ( _papi_is_empty( $property_value ) || empty( $property_type_value ) ) {
+		if ( papi_is_empty( $property_value ) || empty( $property_type_value ) ) {
 			return null;
 		}
 
@@ -109,7 +109,7 @@ class Papi_Page {
 		}
 
 		$type          = strval( $property['type'] );
-		$property_type = _papi_get_property_type( $type );
+		$property_type = papi_get_property_type( $type );
 
 		// If no property type is found, just return the value.
 		if ( empty( $property_type ) ) {
@@ -120,13 +120,13 @@ class Papi_Page {
 		$property['value'] = $property_type->load_value( $property['value'], $property['slug'], $this->id );
 
 		// Apply a filter so this can be changed from the theme for specified property type.
-		$property['value'] = _papi_filter_load_value( $type, $property['value'], $property['slug'], $this->id );
+		$property['value'] = papi_filter_load_value( $type, $property['value'], $property['slug'], $this->id );
 
 		// Format the value from the property class.
 		$property['value'] = $property_type->format_value( $property['value'], $property['slug'], $this->id, $property['admin'] );
 
 		// Apply a filter so this can be changed from the theme for specified property type.
-		$property['value'] = _papi_filter_format_value(  $type, $property['value'], $property['slug'], $this->id );
+		$property['value'] = papi_filter_format_value(  $type, $property['value'], $property['slug'], $this->id );
 
 		return $property['value'];
 	}

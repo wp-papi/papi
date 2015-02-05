@@ -50,7 +50,7 @@ class Papi_Property {
 	 */
 
 	public function __construct() {
-		$this->post_id = _papi_get_post_id();
+		$this->post_id = papi_get_post_id();
 	}
 
 	/**
@@ -80,7 +80,7 @@ class Papi_Property {
 			return null;
 		}
 
-		$property_type = _papi_get_property_class_name( $property_type );
+		$property_type = papi_get_property_class_name( $property_type );
 
 		if ( empty( $property_type ) || ! class_exists( $property_type ) ) {
 			return null;
@@ -146,10 +146,10 @@ class Papi_Property {
 
 		if ( substr( $slug, - 1 ) === ']' ) {
 			$slug = substr( $slug, 0, - 1 );
-			$slug = _papi_get_property_type_key( $slug );
+			$slug = papi_get_property_type_key( $slug );
 			$slug .= ']';
 		} else {
-			$slug = _papi_get_property_type_key( $slug );
+			$slug = papi_get_property_type_key( $slug );
 		}
 
 		$slug = _papify( $slug );
@@ -196,7 +196,7 @@ class Papi_Property {
 	 */
 
 	public function description() {
-		if ( _papi_is_empty( $this->options->description ) ) {
+		if ( papi_is_empty( $this->options->description ) ) {
 			return;
 		}
 
@@ -317,10 +317,10 @@ class Papi_Property {
 		$value = $this->options->value;
 
 		if ( is_string( $this->default_value ) ) {
-			$value = _papi_convert_to_string( $value );
+			$value = papi_convert_to_string( $value );
 		}
 
-		if ( _papi_is_empty( $value ) ) {
+		if ( papi_is_empty( $value ) ) {
 			$value = $this->default_value;
 		}
 

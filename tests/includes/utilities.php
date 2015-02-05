@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-function _papi_test_create_property_post_data ($values, $post) {
-	$property_type_slug = _papi_html_name( _papi_get_property_type_key( $values['slug'] ) );
+function papi_test_create_property_post_data ($values, $post) {
+	$property_type_slug = papi_html_name( papi_get_property_type_key( $values['slug'] ) );
 
 	$data = array();
 	$data[$values['slug']] = $values['value'];

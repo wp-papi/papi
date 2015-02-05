@@ -26,29 +26,29 @@ class WP_Papi_Functions_Page extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test _papi_get_file_data.
+	 * Test papi_get_file_data.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_number_of_pages() {
-		$this->assertEquals( 0, _papi_get_number_of_pages( 'simple-page-type' ) );
-		$this->assertEquals( 0, _papi_get_number_of_pages( null ) );
-		$this->assertEquals( 0, _papi_get_number_of_pages( true ) );
-		$this->assertEquals( 0, _papi_get_number_of_pages( false ) );
-		$this->assertEquals( 0, _papi_get_number_of_pages( array() ) );
-		$this->assertEquals( 0, _papi_get_number_of_pages( new stdClass() ) );
-		$this->assertEquals( 0, _papi_get_number_of_pages( 1 ) );
+		$this->assertEquals( 0, papi_get_number_of_pages( 'simple-page-type' ) );
+		$this->assertEquals( 0, papi_get_number_of_pages( null ) );
+		$this->assertEquals( 0, papi_get_number_of_pages( true ) );
+		$this->assertEquals( 0, papi_get_number_of_pages( false ) );
+		$this->assertEquals( 0, papi_get_number_of_pages( array() ) );
+		$this->assertEquals( 0, papi_get_number_of_pages( new stdClass() ) );
+		$this->assertEquals( 0, papi_get_number_of_pages( 1 ) );
 	}
 
 	/**
-	 * Test _papi_get_post_type.
+	 * Test papi_get_post_type.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_post_types() {
-		$actual = _papi_get_post_types();
+		$actual = papi_get_post_types();
 
 		// Remove all post types can be in your own WordPress site.
 		foreach ( $actual as $key => $value ) {
@@ -61,19 +61,19 @@ class WP_Papi_Functions_Page extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test _papi_is_page_type_allowed.
+	 * Test papi_is_page_type_allowed.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papi_is_page_type_allowed() {
-		$this->assertTrue( _papi_is_page_type_allowed( 'page' ) );
-		$this->assertFalse( _papi_is_page_type_allowed( true ) );
-		$this->assertFalse( _papi_is_page_type_allowed( false ) );
-		$this->assertFalse( _papi_is_page_type_allowed( null ) );
-		$this->assertFalse( _papi_is_page_type_allowed( 1 ) );
-		$this->assertFalse( _papi_is_page_type_allowed( array() ) );
-		$this->assertFalse( _papi_is_page_type_allowed( new stdClass() ) );
+		$this->assertTrue( papi_is_page_type_allowed( 'page' ) );
+		$this->assertFalse( papi_is_page_type_allowed( true ) );
+		$this->assertFalse( papi_is_page_type_allowed( false ) );
+		$this->assertFalse( papi_is_page_type_allowed( null ) );
+		$this->assertFalse( papi_is_page_type_allowed( 1 ) );
+		$this->assertFalse( papi_is_page_type_allowed( array() ) );
+		$this->assertFalse( papi_is_page_type_allowed( new stdClass() ) );
 	}
 
 }

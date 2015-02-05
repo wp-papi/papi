@@ -82,11 +82,11 @@ class WP_Papi_Property_Repeater extends WP_UnitTestCase {
 		$handler = new Papi_Admin_Meta_Boxes();
 
 		// Generate correct property meta key and property type meta key for string property.
-		$value_slug1         = _papi_remove_papi( $this->property->settings->items[0]->slug );
-		$value_type_slug1    = _papi_get_property_type_key( $value_slug1 );
-		$value_slug2         = _papi_remove_papi( $this->property->settings->items[1]->slug );
-		$value_type_slug2    = _papi_get_property_type_key( $value_slug2 );
-		$property_type_slug  = _papi_html_name( _papi_get_property_type_key( $this->property->slug ) );
+		$value_slug1         = papi_remove_papi( $this->property->settings->items[0]->slug );
+		$value_type_slug1    = papi_get_property_type_key( $value_slug1 );
+		$value_slug2         = papi_remove_papi( $this->property->settings->items[1]->slug );
+		$value_type_slug2    = papi_get_property_type_key( $value_slug2 );
+		$property_type_slug  = papi_html_name( papi_get_property_type_key( $this->property->slug ) );
 
 		// Create the repeater item
 		$item = array();
@@ -109,7 +109,7 @@ class WP_Papi_Property_Repeater extends WP_UnitTestCase {
 		}, $values);
 
 		// Create post data.
-		$_POST = _papi_test_create_property_post_data( array(
+		$_POST = papi_test_create_property_post_data( array(
 			'slug'  => $this->property->slug,
 			'type'  => $this->property->type,
 			'value' => $values
@@ -119,14 +119,14 @@ class WP_Papi_Property_Repeater extends WP_UnitTestCase {
 
 		// Property repeater will save this value that tells how many columns there is on a row.
 		// The test needs to save this value manually.
-		update_post_meta( $this->post_id, _papi_f( $this->property->slug . '_columns' ), count( $this->property->settings->items ) );
+		update_post_meta( $this->post_id, papi_f( $this->property->slug . '_columns' ), count( $this->property->settings->items ) );
 
 		// Properties
-		$properties_html_name         = _papi_ff( _papify( $this->property->slug ) . '_properties' );
+		$properties_html_name         = papi_ff( _papify( $this->property->slug ) . '_properties' );
 		$_POST[$properties_html_name] = htmlentities( json_encode( $properties ) );
 
 		// Rows
-		$rows_html_name         = _papi_ff( _papify( $this->property->slug ) . '_rows' );
+		$rows_html_name         = papi_ff( _papify( $this->property->slug ) . '_rows' );
 		$_POST[$rows_html_name] = 1;
 
 		$expected = array( array( 'book_name' => 'Harry Potter', 'is_open' => false ) );

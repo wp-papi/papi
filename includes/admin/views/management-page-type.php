@@ -1,6 +1,6 @@
 <?php
 
-function _papi_management_page_type_render_box( $properties, $tab = false ) {
+function papi_management_page_type_render_box( $properties, $tab = false ) {
 	?>
 	<table class="papi-table">
 		<thead>
@@ -20,10 +20,10 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 		<tbody>
 				<?php
 
-					$properties = _papi_populate_properties( $properties );
+					$properties = papi_populate_properties( $properties );
 
 					if ( $tab ) {
-						$properties = _papi_setup_tabs( $properties );
+						$properties = papi_setup_tabs( $properties );
 					}
 
 					foreach ( $properties as $property ): ?>
@@ -39,12 +39,12 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 								<?php echo $property->options->sort_order; ?>
 							</td>
 							<td>
-								<?php _papi_management_page_type_render_box( $property->properties ); ?>
+								<?php papi_management_page_type_render_box( $property->properties ); ?>
 							</td>
 						<?php else: ?>
 							<td><?php echo $property->title; ?></td>
 							<td><?php echo $property->type; ?></td>
-							<td><?php echo _papi_remove_papi( $property->slug ); ?></td>
+							<td><?php echo papi_remove_papi( $property->slug ); ?></td>
 							<td><?php echo $property->sort_order; ?></td>
 						<?php endif; ?>
 					</tr>
@@ -64,8 +64,8 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 
 	<?php
 		$page_type = $_GET['page-type'];
-		$page_type = _papi_get_file_path( $page_type );
-		$page_type = _papi_get_page_type( $page_type );
+		$page_type = papi_get_file_path( $page_type );
+		$page_type = papi_get_page_type( $page_type );
 	?>
 
 	<h3><?php _e( 'Overview of page types', 'papi' ); ?>: <?php echo $page_type->name; ?></h3>
@@ -95,7 +95,7 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 				continue;
 			}
 
-			$counter = count( _papi_get_box_property( $box[1] ) );
+			$counter = count( papi_get_box_property( $box[1] ) );
 		?>
 		<div class="postbox papi-box papi-management-box">
 			<div class="handlediv" title="Click to toggle">
@@ -107,7 +107,7 @@ function _papi_management_page_type_render_box( $properties, $tab = false ) {
 			</h3>
 			<div class="inside">
 				<?php
-					_papi_management_page_type_render_box( $box[1], $tab );
+					papi_management_page_type_render_box( $box[1], $tab );
 				?>
 			</div>
 		</div>

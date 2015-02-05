@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return string
  */
 
-function _papi_convert_to_string( $obj ) {
+function papi_convert_to_string( $obj ) {
 	if ( $obj === true ) {
 		return 'true';
 	}
@@ -48,9 +48,9 @@ function _papi_convert_to_string( $obj ) {
  * @return bool
  */
 
-function _papi_current_user_is_allowed( $capabilities = array() ) {
-	$capabilities = _papi_to_array( $capabilities );
-	foreach ( _papi_to_array( $capabilities ) as $capability ) {
+function papi_current_user_is_allowed( $capabilities = array() ) {
+	$capabilities = papi_to_array( $capabilities );
+	foreach ( papi_to_array( $capabilities ) as $capability ) {
 		if ( ! current_user_can( $capability ) ) {
 			return false;
 		}
@@ -69,7 +69,7 @@ function _papi_current_user_is_allowed( $capabilities = array() ) {
  * @since 1.1.0
  */
 
-function _papi_ea( array $obj, $key, $default = '' ) {
+function papi_ea( array $obj, $key, $default = '' ) {
 	echo isset( $obj[$key] ) ? $obj[$key] : $default;
 }
 
@@ -83,7 +83,7 @@ function _papi_ea( array $obj, $key, $default = '' ) {
  * @return string
  */
 
-function _papi_f( $str = '' ) {
+function papi_f( $str = '' ) {
 	if ( ! is_string( $str ) ) {
 		return '';
 	}
@@ -105,7 +105,7 @@ function _papi_f( $str = '' ) {
  * @return string
  */
 
-function _papi_ff( $str = '' ) {
+function papi_ff( $str = '' ) {
 	if ( ! is_string( $str ) ) {
 		return '';
 	}
@@ -132,7 +132,7 @@ function _papi_ff( $str = '' ) {
  * @return string
  */
 
-function _papi_dashify( $str ) {
+function papi_dashify( $str ) {
 	if ( ! is_string( $str ) ) {
 		return '';
 	}
@@ -150,7 +150,7 @@ function _papi_dashify( $str ) {
  * @return string|null
  */
 
-function _papi_get_class_name( $file ) {
+function papi_get_class_name( $file ) {
 	if ( ! is_string( $file ) ) {
 		return '';
 	}
@@ -184,7 +184,7 @@ function _papi_get_class_name( $file ) {
  * @return array
  */
 
-function _papi_get_only_arrays( array $arr ) {
+function papi_get_only_arrays( array $arr ) {
 	return array_filter( $arr, function ( $item ) {
 		return is_array( $item );
 	} );
@@ -200,7 +200,7 @@ function _papi_get_only_arrays( array $arr ) {
  * @return array
  */
 
-function _papi_get_only_objects( array $arr ) {
+function papi_get_only_objects( array $arr ) {
 	return array_filter( $arr, function ( $item ) {
 		return is_object( $item );
 	} );
@@ -216,7 +216,7 @@ function _papi_get_only_objects( array $arr ) {
  * @return string
  */
 
-function _papi_get_or_post( $key ) {
+function papi_get_or_post( $key ) {
 	if ( ! is_string( $key ) ) {
 		return null;
 	}
@@ -242,7 +242,7 @@ function _papi_get_or_post( $key ) {
  * @return string
  */
 
-function _papi_get_qs( $qs ) {
+function papi_get_qs( $qs ) {
 	if ( ! is_string( $qs ) ) {
 		return null;
 	}
@@ -265,7 +265,7 @@ function _papi_get_qs( $qs ) {
  * @return mixed
  */
 
-function _papi_h( $obj, $default = null ) {
+function papi_h( $obj, $default = null ) {
 	return isset( $obj ) ? $obj : $default;
 }
 
@@ -279,13 +279,13 @@ function _papi_h( $obj, $default = null ) {
  * @return string
  */
 
-function _papi_html_name( $name ) {
+function papi_html_name( $name ) {
 	if ( ! is_string( $name ) ) {
 		return '';
 	}
 
 	if ( ! preg_match( '/^\_\_papi|^\_papi/', $name ) ) {
-		return _papi_underscorify( _papi_slugify( _papify( $name ) ) );
+		return papi_underscorify( papi_slugify( _papify( $name ) ) );
 	}
 
 	return $name;
@@ -300,7 +300,7 @@ function _papi_html_name( $name ) {
  * @since 1.0.0
  */
 
-function _papi_include_template( $tpl_file, $vars = array() ) {
+function papi_include_template( $tpl_file, $vars = array() ) {
 	if ( ! is_string( $tpl_file ) ) {
 		return null;
 	}
@@ -323,7 +323,7 @@ function _papi_include_template( $tpl_file, $vars = array() ) {
  * @return bool
  */
 
-function _papi_is_empty( $obj ) {
+function papi_is_empty( $obj ) {
 	if ( is_string( $obj ) ) {
 		return empty( $obj ) && ! is_numeric( $obj );
 	}
@@ -346,7 +346,7 @@ function _papi_is_empty( $obj ) {
  * @return bool
  */
 
-function _papi_is_ext( $str, $ext ) {
+function papi_is_ext( $str, $ext ) {
 	if ( is_string( $str ) ) {
 		$arr = explode( '.', $str );
 		return end( $arr ) === $ext;
@@ -365,7 +365,7 @@ function _papi_is_ext( $str, $ext ) {
  * @return bool
  */
 
-function _papi_is_method( $method = '' ) {
+function papi_is_method( $method = '' ) {
 	if ( ! is_string( $method ) ) {
 		return false;
 	}
@@ -379,7 +379,7 @@ function _papi_is_method( $method = '' ) {
  * @return bool
  */
 
-function _papi_polylang() {
+function papi_polylang() {
 	return defined( 'POLYLANG_VERSION' );
 }
 
@@ -393,7 +393,7 @@ function _papi_polylang() {
  * @return string
  */
 
-function _papi_remove_papi( $str ) {
+function papi_remove_papi( $str ) {
 	if ( ! is_string( $str ) ) {
 		return '';
 	}
@@ -412,7 +412,7 @@ function _papi_remove_papi( $str ) {
  * @return string
  */
 
-function _papi_remove_trailing_quotes( $str ) {
+function papi_remove_trailing_quotes( $str ) {
 	if ( ! is_string( $str ) ) {
 		return '';
 	}
@@ -431,7 +431,7 @@ function _papi_remove_trailing_quotes( $str ) {
  * @return array
  */
 
-function _papi_sort_order( $array, $key = 'sort_order' ) {
+function papi_sort_order( $array, $key = 'sort_order' ) {
 	if ( empty( $array ) ) {
 		return array();
 	}
@@ -485,7 +485,7 @@ function _papi_sort_order( $array, $key = 'sort_order' ) {
  * @return string
  */
 
-function _papi_slugify( $str, $replace = array(), $delimiter = '-' ) {
+function papi_slugify( $str, $replace = array(), $delimiter = '-' ) {
 	if ( ! is_string( $str ) ) {
 		return '';
 	}
@@ -514,7 +514,7 @@ function _papi_slugify( $str, $replace = array(), $delimiter = '-' ) {
  * @return array
  */
 
-function _papi_to_array( $obj ) {
+function papi_to_array( $obj ) {
 	if ( ! is_array( $obj ) ) {
 		$obj = array( $obj );
 	}
@@ -532,7 +532,7 @@ function _papi_to_array( $obj ) {
  * @return object
  */
 
-function _papi_to_object( $obj ) {
+function papi_to_object( $obj ) {
 	if ( ! is_object( $obj ) ) {
 		$obj = (object)$obj;
 	}
@@ -550,8 +550,8 @@ function _papi_to_object( $obj ) {
  * @return array
  */
 
-function _papi_all_to_object( array $arr ) {
-	return array_map( '_papi_to_object', $arr );
+function papi_all_to_object( array $arr ) {
+	return array_map( 'papi_to_object', $arr );
 }
 
 /**
@@ -565,7 +565,7 @@ function _papi_all_to_object( array $arr ) {
  * @return string
  */
 
-function _papi_underscorify( $str ) {
+function papi_underscorify( $str ) {
 	if ( ! is_string( $str ) ) {
 		return '';
 	}

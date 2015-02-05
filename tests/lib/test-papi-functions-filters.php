@@ -26,39 +26,39 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test _papi_filter_default_sort_order.
+	 * Test papi_filter_default_sort_order.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papi_filter_default_sort_order() {
-		$this->assertEquals( 1000, _papi_filter_settings_sort_order() );
+		$this->assertEquals( 1000, papi_filter_settings_sort_order() );
 
 		tests_add_filter( 'papi/settings/sort_order', function () {
 			return 1;
 		} );
 
-		$this->assertEquals( 1, _papi_filter_settings_sort_order() );
+		$this->assertEquals( 1, papi_filter_settings_sort_order() );
 	}
 
 	/**
-	 * Test _papi_filter_format_value.
+	 * Test papi_filter_format_value.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papi_filter_format_value() {
-		$this->assertEquals( 'hello', _papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
+		$this->assertEquals( 'hello', papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
 
 		tests_add_filter( 'papi/format_value/string', function () {
 			return 'change-format';
 		} );
 
-		$this->assertEquals( 'change-format', _papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
+		$this->assertEquals( 'change-format', papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
 	}
 
 	/**
-	 * Test _papi_filter_format_value with a property.
+	 * Test papi_filter_format_value with a property.
 	 *
 	 * @since 1.0.0
 	 */
@@ -71,7 +71,7 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 		$slug = 'heading';
 		add_post_meta( $this->post_id, $slug, 'papi' );
 
-		$slug_type = _papi_f( _papi_get_property_type_key( $slug ) );
+		$slug_type = papi_f( papi_get_property_type_key( $slug ) );
 		add_post_meta( $this->post_id, $slug_type, 'string' );
 
 		$heading = papi_field( $this->post_id, $slug );
@@ -82,45 +82,45 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test _papi_filter_load_value.
+	 * Test papi_filter_load_value.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papi_filter_load_value() {
-		$this->assertEquals( 'hello', _papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
+		$this->assertEquals( 'hello', papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
 
 		tests_add_filter( 'papi/load_value/string', function () {
 			return 'change-load';
 		} );
 
-		$this->assertEquals( 'change-load', _papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
+		$this->assertEquals( 'change-load', papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
 	}
 
 	/**
-	 * Test _papi_filter_only_page_type.
+	 * Test papi_filter_only_page_type.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papi_filter_only_page_type() {
-		$this->assertEquals( '', _papi_filter_settings_only_page_type( 'post' ) );
+		$this->assertEquals( '', papi_filter_settings_only_page_type( 'post' ) );
 
 		tests_add_filter( 'papi/settings/only_page_type_post', function () {
 			return 'simple-page-type';
 		} );
 
-		$this->assertEquals( 'simple-page-type', _papi_filter_settings_only_page_type( 'post' ) );
+		$this->assertEquals( 'simple-page-type', papi_filter_settings_only_page_type( 'post' ) );
 	}
 
 	/**
-	 * Test _papi_filter_standard_page_description.
+	 * Test papi_filter_standard_page_description.
 	 *
 	 * @since 1.2.0
 	 */
 
 	public function test_papi_filter_show_page_type() {
-		$this->assertEquals( true, _papi_filter_show_page_type( 'post', 'test-page-type' ) );
+		$this->assertEquals( true, papi_filter_show_page_type( 'post', 'test-page-type' ) );
 
 		tests_add_filter( 'papi/settings/standard_page_type_post', function ($page_type) {
 			if ( $page_type == 'test-page-type' ) {
@@ -134,69 +134,69 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test _papi_filter_standard_page_description.
+	 * Test papi_filter_standard_page_description.
 	 *
 	 * @since 1.2.0
 	 */
 
 	public function test_papi_filter_standard_page_description() {
-		$this->assertEquals( 'Just the normal WordPress page', _papi_filter_standard_page_description( 'post' ) );
+		$this->assertEquals( 'Just the normal WordPress page', papi_filter_standard_page_description( 'post' ) );
 
 		tests_add_filter( 'papi/settings/standard_page_description_post', function () {
 			return 'Hello, world!';
 		} );
 
-		$this->assertEquals( 'Hello, world!', _papi_filter_standard_page_description( 'post' ) );
+		$this->assertEquals( 'Hello, world!', papi_filter_standard_page_description( 'post' ) );
 	}
 
 	/**
-	 * Test _papi_filter_standard_page_name.
+	 * Test papi_filter_standard_page_name.
 	 *
 	 * @since 1.2.0
 	 */
 
 	public function test_papi_filter_standard_page_name() {
-		$this->assertEquals( 'Standard Page', _papi_filter_standard_page_name( 'post' ) );
+		$this->assertEquals( 'Standard Page', papi_filter_standard_page_name( 'post' ) );
 
 		tests_add_filter( 'papi/settings/standard_page_name_post', function () {
 			return 'Hello, world!';
 		} );
 
-		$this->assertEquals( 'Hello, world!', _papi_filter_standard_page_name( 'post' ) );
+		$this->assertEquals( 'Hello, world!', papi_filter_standard_page_name( 'post' ) );
 	}
 
 	/**
-	 * Test _papi_filter_show_standard_page_type_for.
+	 * Test papi_filter_show_standard_page_type_for.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papi_filter_show_standard_page_type_for() {
-		$this->assertEquals( true, _papi_filter_settings_standard_page_type( 'post' ) );
+		$this->assertEquals( true, papi_filter_settings_standard_page_type( 'post' ) );
 
 		tests_add_filter( 'papi/settings/standard_page_type_post', '__return_false' );
 
-		$this->assertEquals( false, _papi_filter_settings_standard_page_type( 'post' ) );
+		$this->assertEquals( false, papi_filter_settings_standard_page_type( 'post' ) );
 	}
 
 	/**
-	 * Test _papi_filter_standard_page_thumbnail.
+	 * Test papi_filter_standard_page_thumbnail.
 	 *
 	 * @since 1.2.0
 	 */
 
 	public function test_papi_filter_standard_page_thumbnail() {
-		$this->assertEquals( '', _papi_filter_standard_page_thumbnail( 'post' ) );
+		$this->assertEquals( '', papi_filter_standard_page_thumbnail( 'post' ) );
 
 		tests_add_filter( 'papi/settings/standard_page_thumbnail_post', function () {
 			return 'Hello, world!';
 		} );
 
-		$this->assertEquals( 'Hello, world!', _papi_filter_standard_page_thumbnail( 'post' ) );
+		$this->assertEquals( 'Hello, world!', papi_filter_standard_page_thumbnail( 'post' ) );
 	}
 
 	/**
-	 * Test _papi_filter_page_type_directories.
+	 * Test papi_filter_page_type_directories.
 	 *
 	 * @since 1.0.0
 	 */
@@ -206,23 +206,23 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 			return array();
 		} );
 
-		$this->assertEmpty( _papi_filter_settings_directories() );
+		$this->assertEmpty( papi_filter_settings_directories() );
 	}
 
 	/**
-	 * Test _papi_filter_update_value.
+	 * Test papi_filter_update_value.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papi_filter_update_value() {
-		$this->assertEquals( 'hello', _papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
+		$this->assertEquals( 'hello', papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
 
 		tests_add_filter( 'papi/update_value/string', function () {
 			return 'change-update';
 		} );
 
-		$this->assertEquals( 'change-update', _papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
+		$this->assertEquals( 'change-update', papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
 	}
 
 }

@@ -84,9 +84,9 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			return null;
 		}
 
-		list( $options, $properties ) = _papi_get_options_and_properties( $file_or_options, $properties, true );
+		list( $options, $properties ) = papi_get_options_and_properties( $file_or_options, $properties, true );
 
-		$post_type = _papi_get_wp_post_type();
+		$post_type = papi_get_wp_post_type();
 
 		// Check so we have a post the to add the box to.
 		if ( ! $this->load_boxes && ( empty( $post_type ) || ! $this->has_post_type( $post_type ) ) ) {
@@ -99,7 +99,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		if ( isset( $options['sort_order'] ) ) {
 			$sort_order = intval( $options['sort_order'] );
 		} else {
-			$sort_order = _papi_filter_settings_sort_order();
+			$sort_order = papi_filter_settings_sort_order();
 		}
 
 		$title = isset( $options['title'] ) ? $options['title'] : '';
@@ -142,7 +142,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 		$this->register();
 
-		$this->boxes = _papi_sort_order( array_reverse( $this->boxes ) );
+		$this->boxes = papi_sort_order( array_reverse( $this->boxes ) );
 
 		foreach ( $this->boxes as $box ) {
 			new Papi_Admin_Meta_Box( $box[0], $box[1] );
@@ -173,7 +173,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	protected function remove( $post_type_supports = array() ) {
-		$this->post_type_supports = array_merge( $this->post_type_supports, _papi_to_array( $post_type_supports ) );
+		$this->post_type_supports = array_merge( $this->post_type_supports, papi_to_array( $post_type_supports ) );
 	}
 
 	/**
@@ -183,7 +183,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	public function remove_post_type_support() {
-		$post_type = _papi_get_wp_post_type();
+		$post_type = papi_get_wp_post_type();
 
 		if ( empty( $post_type ) ) {
 			return;

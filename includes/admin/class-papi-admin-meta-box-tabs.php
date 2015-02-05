@@ -37,7 +37,7 @@ class Papi_Admin_Meta_Box_Tabs {
 			return;
 		}
 
-		$this->tabs = _papi_setup_tabs( $tabs );
+		$this->tabs = papi_setup_tabs( $tabs );
 
 		if ( $render ) {
 			$this->html();
@@ -93,7 +93,7 @@ class Papi_Admin_Meta_Box_Tabs {
 					     data-papi-tab="<?php echo $tab->options->_name; ?>">
 						<?php
 
-							$properties = _papi_populate_properties( $tab->properties );
+							$properties = papi_populate_properties( $tab->properties );
 
 							$properties = array_map( function ( $property ) {
 								// While in a tab the sidebar is required.
@@ -102,7 +102,7 @@ class Papi_Admin_Meta_Box_Tabs {
 								return $property;
 							}, $properties );
 
-							_papi_render_properties( $properties );
+							papi_render_properties( $properties );
 						?>
 					</div>
 				<?php

@@ -74,12 +74,12 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private function setup_options( $options ) {
-		$options                  = _papi_h( $options, array() );
+		$options                  = papi_h( $options, array() );
 		$options                  = array_merge( $this->default_options, $options );
 		$this->options            = (object) $options;
 		$this->options->title     = ucfirst( $this->options->title );
-		$this->options->slug      = _papi_slugify( $this->options->title );
-		$this->options->_id       = _papi_underscorify( _papify( $this->options->slug ) );
+		$this->options->slug      = papi_slugify( $this->options->title );
+		$this->options->_id       = papi_underscorify( _papify( $this->options->slug ) );
 		$this->options->post_type = $this->populate_post_type( $this->options->post_type );
 	}
 
@@ -94,15 +94,15 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private function populate_post_type( $post_type ) {
-		$post_id = _papi_get_post_id();
+		$post_id = papi_get_post_id();
 
 		if ( ! is_null( $post_id ) ) {
 			return get_post_type( $post_id );
 		}
 
 		// Get the post type that we currently are on if it exist in the array of post types.
-		$post_type = array_filter( _papi_to_array( $post_type ), function ( $post_type ) {
-			return strtolower( $post_type ) == strtolower( _papi_get_or_post( 'post_type' ) );
+		$post_type = array_filter( papi_to_array( $post_type ), function ( $post_type ) {
+			return strtolower( $post_type ) == strtolower( papi_get_or_post( 'post_type' ) );
 		} );
 
 		if ( ! empty( $post_type ) ) {
@@ -121,7 +121,7 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private function populate_properties( $properties ) {
-		$this->properties = _papi_populate_properties( $properties );
+		$this->properties = papi_populate_properties( $properties );
 
 		if ( ! empty( $this->properties ) ) {
 			$this->options->_tab_box = isset( $this->properties[0]->tab ) && $this->properties[0]->tab;
@@ -146,7 +146,7 @@ class Papi_Admin_Meta_Box {
 		$this->setup_options( $options );
 
 		// Can current user view this box?
-		if ( ! _papi_current_user_is_allowed( $this->options->capabilities ) ) {
+		if ( ! papi_current_user_is_allowed( $this->options->capabilities ) ) {
 			return null;
 		}
 
@@ -207,11 +207,11 @@ class Papi_Admin_Meta_Box {
 
 		wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' );
 		?>
-		<input type="hidden" name="_papi_page_type" value="<?php echo _papi_get_page_type_meta_value(); ?>"/>
+		<input type="hidden" name="_papi_page_type" value="<?php echo papi_get_page_type_meta_value(); ?>"/>
 		<?php
 
 		// Render the properties.
-		_papi_render_properties( $args['args'] );
+		papi_render_properties( $args['args'] );
 	}
 
 	/**
@@ -223,7 +223,7 @@ class Papi_Admin_Meta_Box {
 	public function setup_meta_box() {
 		add_meta_box(
 			$this->options->_id,
-			_papi_remove_papi( $this->options->title ),
+			papi_remove_papi( $this->options->title ),
 			array( $this, 'render_meta_box' ),
 			$this->options->post_type,
 			$this->options->context,
