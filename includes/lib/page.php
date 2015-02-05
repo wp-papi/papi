@@ -90,11 +90,11 @@ function _papi_get_file_data( $post_id ) {
 function _papi_get_number_of_pages( $page_type ) {
 	global $wpdb;
 
-	if ( empty( $page_type ) || ( !is_string( $page_type ) && !is_object( $page_type ) ) ) {
+	if ( empty( $page_type ) || ( !is_string( $page_type ) && ( !is_object( $page_type ) && method_exists( $page_type, 'get_filename' ) ) ) ) {
 		return 0;
 	}
 
-	if ( is_object( $page_type ) && method_exists( $page_type, 'get_filename' ) ) {
+	if ( is_object( $page_type ) ) {
 		$file_name = $page_type->get_filename();
 		$post_type = '';
 
