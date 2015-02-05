@@ -45,13 +45,11 @@ class Papi_Property_Reference extends Papi_Property {
 	 */
 
 	public function html() {
-		$options  = $this->get_options();
 		$settings = $this->get_settings();
-		$value    = $this->get_value();
 		$post_id  = _papi_get_post_id();
 
 		// Fetch posts with the post types and the query.
-		$posts = query_posts( array_merge( $settings->query, array(
+		$posts = query_posts( array(
 			'post_type' => _papi_to_array( $settings->post_type ),
 			'meta_query' => array(
 				array(
@@ -60,7 +58,7 @@ class Papi_Property_Reference extends Papi_Property {
 					'compare' => 'LIKE'
 				)
 			)
-		) ) );
+		) );
 
 		$values = array();
 
