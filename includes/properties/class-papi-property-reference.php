@@ -46,7 +46,6 @@ class Papi_Property_Reference extends Papi_Property {
 
 	public function html() {
 		$settings = $this->get_settings();
-		$post_id  = _papi_get_post_id();
 
 		// Fetch posts with the post types and the query.
 		$posts = query_posts( array(
