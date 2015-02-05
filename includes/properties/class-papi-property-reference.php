@@ -128,20 +128,4 @@ class Papi_Property_Reference extends Papi_Property {
 		<?php
 	}
 
-	/**
-	 * Format the value of the property before we output it to the application.
-	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
-	 *
-	 * @since 1.2.0
-	 *
-	 * @return null
-	 */
-
-	public function format_value( $value, $slug, $post_id ) {
-		return null;
-	}
-
 }
