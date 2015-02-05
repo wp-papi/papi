@@ -110,7 +110,7 @@ function _papi_filter_show_page_type( $post_type, $page_type ) {
 /**
  * Get standard page description for the given post type.
  *
- * @param string $post_tpye
+ * @param string $post_type
  *
  * @since 1.2.0
  *
