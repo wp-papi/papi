@@ -130,7 +130,7 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 			return true;
 		} );
 
-		$this->assertEquals( false, !_papi_filter_show_page_type( 'post', 'test-page-type' ) );
+		$this->assertEquals( false, !papi_filter_show_page_type( 'post', 'test-page-type' ) );
 	}
 
 	/**
