@@ -116,7 +116,7 @@ class Papi_Property_Post extends Papi_Property {
 	 */
 
 	public function format_value( $value, $slug, $post_id ) {
-		if ( is_numeric( $value ) ) {
+		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
 			return get_post( $value );
 		}
 
