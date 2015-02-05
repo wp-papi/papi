@@ -90,11 +90,11 @@ function _papi_get_file_data( $post_id ) {
 function _papi_get_number_of_pages( $page_type ) {
 	global $wpdb;
 
-	if ( empty( $page_type ) || ( !is_string( $page_type ) && ( !is_object( $page_type ) && method_exists( $page_type, 'get_filename' ) ) ) ) {
+	if ( empty( $page_type ) || ( !is_string( $page_type ) && ( !is_object( $page_type ) ) ) {
 		return 0;
 	}
 
-	if ( is_object( $page_type ) ) {
+	if ( is_object( $page_type ) && method_exists( $page_type, 'get_filename' ) ) {
 		$file_name = $page_type->get_filename();
 		$post_type = '';
 
@@ -107,6 +107,10 @@ function _papi_get_number_of_pages( $page_type ) {
 
 		$query = "SELECT COUNT(*) FROM {$wpdb->prefix}posts WHERE `post_type` = '$post_type'";
 	} else {
+		if ( !is_string( $page_type ) ) {
+			return 0;
+		}
+
 		$query = "SELECT COUNT(*) FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '_papi_page_type' AND `meta_value` = '$page_type'";
 	}
 
