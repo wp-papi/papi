@@ -215,6 +215,7 @@ final class Papi_Loader {
 		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-radio.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-post.php' );
 		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-color.php' );
+		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-reference.php' );
 
 		// Include third party properties.
 		$this->include_third_party();

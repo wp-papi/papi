@@ -1,0 +1,62 @@
+.papi-property-reference {
+  li {
+    float: left;
+    width: 100%;
+    &:first-child {
+      margin-top: -10px;
+    }
+    h3 {
+      margin-top: 5px !important;
+      border: 1px #eaeaea solid;
+      background: #f9f9f9;
+      + .handlediv {
+        margin-top: -38px;
+      }
+    }
+    h4 {
+      margin: 0;
+      float: left;
+      margin-right: 10px;
+    }
+  }
+  .page-types {
+    border: 1px #eaeaea solid;
+    border-top: 0;
+    padding: 20px 15px 10px 15px;
+    margin-top: -6px;
+    ul {
+      float: left;
+      width: 100%;
+    }
+  }
+  .box {
+    margin: 0 0 15px -5px;
+    a {
+      border: 1px #eaeaea solid;
+      padding: 5px 10px 5px 10px;
+      margin: 5px;
+      float: left;
+      width: auto;
+      background: #f8f8f8;
+      text-decoration: none;
+      &:hover {
+        background: #2ea2cc;
+        color: #fff;
+        border: 1px #fff solid;
+        text-decoration: none;
+      }
+    }
+  }
+  .page-types .heading-border {
+    border-bottom: 1px #eaeaea solid;
+    padding-bottom: 5px;
+  }
+  li {
+    .handlediv {
+      margin-top: -10px;
+    }
+    &.closed .handlediv:before {
+      content: '\f140' !important;
+    }
+  }
+}
