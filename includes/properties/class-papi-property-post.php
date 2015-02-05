@@ -76,7 +76,7 @@ class Papi_Property_Post extends Papi_Property {
 		}
 
 		// Keep only objects.
-		$value = array_filter( _papi_to_array( $value ), function ( $post ) {
+		$posts = array_filter( _papi_to_array( $posts ), function ( $post ) {
 			return is_object( $post ) && isset( $post->post_title );
 		} );
 
