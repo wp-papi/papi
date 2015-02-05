@@ -100,7 +100,7 @@ class WP_Papi_Property_Repeater extends WP_UnitTestCase {
 
 		$properties = array_map( function ($item) {
 			foreach ($item as $key => $val) {
-				if (_papi_is_property_type_key($key)) {
+				if (papi_is_property_type_key($key)) {
 					continue;
 				}
 				$item[$key] = '';
