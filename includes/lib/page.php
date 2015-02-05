@@ -90,7 +90,7 @@ function _papi_get_file_data( $post_id ) {
 function _papi_get_number_of_pages( $page_type ) {
 	global $wpdb;
 
-	if ( empty( $page_type ) || ( !is_string( $page_type ) && ( !is_object( $page_type ) ) ) {
+	if ( empty( $page_type ) || ( !is_string( $page_type ) && ( !is_object( $page_type ) ) ) ) {
 		return 0;
 	}
 
