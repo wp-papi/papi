@@ -114,6 +114,58 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test _papi_filter_standard_page_description.
+	 *
+	 * @since 1.2.0
+	 */
+
+	public function test_papi_filter_show_page_type() {
+		$this->assertEquals( true, _papi_filter_show_page_type( 'post', 'test-page-type' ) );
+
+		tests_add_filter( 'papi/settings/standard_page_type_post', function ($page_type) {
+			if ( $page_type == 'test-page-type' ) {
+				return false;
+			}
+
+			return true;
+		} );
+
+		$this->assertEquals( false, !_papi_filter_show_page_type( 'post', 'test-page-type' ) );
+	}
+
+	/**
+	 * Test _papi_filter_standard_page_description.
+	 *
+	 * @since 1.2.0
+	 */
+
+	public function test_papi_filter_standard_page_description() {
+		$this->assertEquals( 'Just the normal WordPress page', _papi_filter_standard_page_description( 'post' ) );
+
+		tests_add_filter( 'papi/settings/standard_page_description_post', function () {
+			return 'Hello, world!';
+		} );
+
+		$this->assertEquals( 'Hello, world!', _papi_filter_standard_page_description( 'post' ) );
+	}
+
+	/**
+	 * Test _papi_filter_standard_page_name.
+	 *
+	 * @since 1.2.0
+	 */
+
+	public function test_papi_filter_standard_page_name() {
+		$this->assertEquals( 'Standard Page', _papi_filter_standard_page_name( 'post' ) );
+
+		tests_add_filter( 'papi/settings/standard_page_name_post', function () {
+			return 'Hello, world!';
+		} );
+
+		$this->assertEquals( 'Hello, world!', _papi_filter_standard_page_name( 'post' ) );
+	}
+
+	/**
 	 * Test _papi_filter_show_standard_page_type_for.
 	 *
 	 * @since 1.0.0
@@ -125,6 +177,22 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 		tests_add_filter( 'papi/settings/standard_page_type_post', '__return_false' );
 
 		$this->assertEquals( false, _papi_filter_settings_standard_page_type( 'post' ) );
+	}
+
+	/**
+	 * Test _papi_filter_standard_page_thumbnail.
+	 *
+	 * @since 1.2.0
+	 */
+
+	public function test_papi_filter_standard_page_thumbnail() {
+		$this->assertEquals( '', _papi_filter_standard_page_thumbnail( 'post' ) );
+
+		tests_add_filter( 'papi/settings/standard_page_thumbnail_post', function () {
+			return 'Hello, world!';
+		} );
+
+		$this->assertEquals( 'Hello, world!', _papi_filter_standard_page_thumbnail( 'post' ) );
 	}
 
 	/**

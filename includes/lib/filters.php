@@ -92,7 +92,7 @@ function _papi_filter_settings_directories() {
  * Show page type in add new page view for the given post type.
  *
  * @param string $post_type
- * @param object $page_type
+ * @param string|object $page_type
  *
  * @since 1.2.0
  *
@@ -100,7 +100,25 @@ function _papi_filter_settings_directories() {
  */
 
 function _papi_filter_show_page_type( $post_type, $page_type ) {
-	return apply_filters( 'papi/settings/show_page_type_' . $post_type, $page_type->get_filename() ) !== false;
+	if ( is_object( $page_type ) && method_exists( $page_type, 'get_filename' ) ) {
+		$page_type = $page_type->get_filename();
+	}
+
+	return apply_filters( 'papi/settings/show_page_type_' . $post_type, $page_type ) !== false;
+}
+
+/**
+ * Get standard page description for the given post type.
+ *
+ * @param string $post_tpye
+ *
+ * @since 1.2.0
+ *
+ * @return string
+ */
+
+function _papi_filter_standard_page_description( $post_type ) {
+	return apply_filters( 'papi/settings/standard_page_description_' . $post_type, __( 'Just the normal WordPress page', 'papi' ) );
 }
 
 /**
@@ -129,6 +147,20 @@ function _papi_filter_standard_page_name( $post_type ) {
 
 function _papi_filter_settings_standard_page_type( $post_type ) {
 	return apply_filters( 'papi/settings/standard_page_type_' . $post_type, true ) === true;
+}
+
+/**
+ * Get standard page thumbnail for the given post type.
+ *
+ * @param string $post_type
+ *
+ * @since 1.2.0
+ *
+ * @return string
+ */
+
+function _papi_filter_standard_page_thumbnail( $post_type ) {
+	return apply_filters( 'papi/settings/standard_page_thumbnail_' . $post_type, '' );
 }
 
 /**
