@@ -78,8 +78,9 @@ function _papi_get_file_data( $post_id ) {
 
 /**
  * Get number of how many pages uses the given page type.
+ * This will also work with only page type.
  *
- * @param string $page_type
+ * @param string|object $page_type
  *
  * @since 1.0.0
  *
@@ -89,11 +90,25 @@ function _papi_get_file_data( $post_id ) {
 function _papi_get_number_of_pages( $page_type ) {
 	global $wpdb;
 
-	if ( empty( $page_type ) || ! is_string( $page_type ) ) {
+	if ( empty( $page_type ) || ( !is_string( $page_type ) && !is_object( $page_type ) ) ) {
 		return 0;
 	}
 
-	$query = "SELECT COUNT(*) FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '_papi_page_type' AND `meta_value` = '$page_type'";
+	if ( is_object( $page_type ) ) {
+		$file_name = $page_type->get_filename();
+		$post_type = '';
+
+		foreach ( $page_type->post_type as $p ) {
+			if ( _papi_filter_settings_only_page_type( $p ) === $file_name ) {
+				$post_type = $p;
+				break;
+			}
+		}
+
+		$query = "SELECT COUNT(*) FROM {$wpdb->prefix}posts WHERE `post_type` = '$post_type'";
+	} else {
+		$query = "SELECT COUNT(*) FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '_papi_page_type' AND `meta_value` = '$page_type'";
+	}
 
 	return intval( $wpdb->get_var( $query ) );
 }
