@@ -56,7 +56,7 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 		$this->assertEquals( 1000, $page_type->sort_order );
 
 		// Test to save the page type value and load it.
-		add_post_meta( $this->post_id, '_papi_page_type', $page_type->get_filename() );
+		add_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, $page_type->get_filename() );
 		$this->assertEquals( $page_type->get_filename(), papi_get_page_type_meta_value( $this->post_id ) );
 
 		// Test to get the template file from the page type.

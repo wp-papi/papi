@@ -161,6 +161,11 @@ final class Papi_Loader {
 
 			define( 'PAPI_PLUGIN_URL', $plugin_url );
 		}
+
+		// The meta key that page type value is using
+		if ( ! defined( 'PAPI_PAGE_TYPE_KEY' ) ) {
+			define( 'PAPI_PAGE_TYPE_KEY', '_papi_page_type' );
+		}
 	}
 
 	/**
@@ -177,44 +182,44 @@ final class Papi_Loader {
 		load_textdomain( $domain, $path );
 
 		// Load Papi functions.
-		require_once( $this->plugin_dir . 'includes/lib/utilities.php' );
-		require_once( $this->plugin_dir . 'includes/lib/filters.php' );
-		require_once( $this->plugin_dir . 'includes/lib/url.php' );
-		require_once( $this->plugin_dir . 'includes/lib/post.php' );
-		require_once( $this->plugin_dir . 'includes/lib/page.php' );
-		require_once( $this->plugin_dir . 'includes/lib/property.php' );
-		require_once( $this->plugin_dir . 'includes/lib/tabs.php' );
-		require_once( $this->plugin_dir . 'includes/lib/io.php' );
-		require_once( $this->plugin_dir . 'includes/lib/field.php' );
-		require_once( $this->plugin_dir . 'includes/lib/template.php' );
+		require_once $this->plugin_dir . 'includes/lib/utilities.php';
+		require_once $this->plugin_dir . 'includes/lib/filters.php';
+		require_once $this->plugin_dir . 'includes/lib/url.php';
+		require_once $this->plugin_dir . 'includes/lib/post.php';
+		require_once $this->plugin_dir . 'includes/lib/page.php';
+		require_once $this->plugin_dir . 'includes/lib/property.php';
+		require_once $this->plugin_dir . 'includes/lib/tabs.php';
+		require_once $this->plugin_dir . 'includes/lib/io.php';
+		require_once $this->plugin_dir . 'includes/lib/field.php';
+		require_once $this->plugin_dir . 'includes/lib/template.php';
 
 		// Load Papi classes that should not be autoloaded.
-		require_once( $this->plugin_dir . 'includes/admin/class-papi-admin.php' );
-		require_once( $this->plugin_dir . 'includes/class-papi-page.php' );
-		require_once( $this->plugin_dir . 'includes/class-papi-property.php' );
-		require_once( $this->plugin_dir . 'includes/page-type/class-papi-page-type-base.php' );
-		require_once( $this->plugin_dir . 'includes/page-type/class-papi-page-type-meta.php' );
-		require_once( $this->plugin_dir . 'includes/page-type/class-papi-page-type.php' );
+		require_once $this->plugin_dir . 'includes/admin/class-papi-admin.php';
+		require_once $this->plugin_dir . 'includes/class-papi-page.php';
+		require_once $this->plugin_dir . 'includes/class-papi-property.php';
+		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type-base.php';
+		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type-meta.php';
+		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type.php';
 
 		// Load Papi property classes.
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-string.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-hidden.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-bool.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-email.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-datetime.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-number.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-url.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-divider.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-text.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-image.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-dropdown.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-checkbox.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-repeater.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-relationship.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-radio.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-post.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-color.php' );
-		require_once( $this->plugin_dir . 'includes/properties/class-papi-property-reference.php' );
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-string.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-hidden.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-bool.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-email.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-datetime.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-number.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-url.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-divider.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-text.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-image.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-dropdown.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-checkbox.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-repeater.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-relationship.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-radio.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-post.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-color.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-reference.php';
 
 		// Include third party properties.
 		$this->include_third_party();
@@ -293,7 +298,7 @@ final class Papi_Loader {
 		}
 
 		if ( ! is_null( $path ) && is_readable( $path . $file ) ) {
-			include_once( $path . $file );
+			include_once $path . $file;
 
 			return;
 		}

@@ -123,7 +123,7 @@ function papi_get_number_of_pages( $page_type ) {
 			return 0;
 		}
 
-		$query = "SELECT COUNT(*) FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '_papi_page_type' AND `meta_value` = '$page_type'";
+		$query = "SELECT COUNT(*) FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '" . PAPI_PAGE_TYPE_KEY . "' AND `meta_value` = '$page_type'";
 	}
 
 	return intval( $wpdb->get_var( $query ) );
@@ -231,7 +231,7 @@ function papi_get_page_type_meta_value( $post_id = null ) {
 		$post_id = papi_get_post_id();
 	}
 
-	$key       = '_papi_page_type';
+	$key       = PAPI_PAGE_TYPE_KEY;
 	$page_type = '';
 
 	if ( ! is_null( $post_id ) ) {
@@ -245,8 +245,8 @@ function papi_get_page_type_meta_value( $post_id = null ) {
 	}
 
 	// Get page type value from post object.
-	if ( empty( $page_type ) && isset( $_POST['_papi_page_type'] ) ) {
-		$page_type = $_POST['_papi_page_type'];
+	if ( empty( $page_type ) && isset( $_POST[PAPI_PAGE_TYPE_KEY] ) ) {
+		$page_type = $_POST[PAPI_PAGE_TYPE_KEY];
 	}
 
 	// Load right page type when Polylang is in use.

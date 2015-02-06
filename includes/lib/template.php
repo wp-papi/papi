@@ -34,7 +34,7 @@ function papi_body_class( $classes ) {
 		return $classes;
 	}
 
-	$page_type = get_post_meta( $post->ID, '_papi_page_type', true );
+	$page_type = get_post_meta( $post->ID, PAPI_PAGE_TYPE_KEY, true );
 
 	if ( empty( $page_type ) ) {
 		return $classes;

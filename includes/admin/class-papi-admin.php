@@ -392,12 +392,12 @@ final class Papi_Admin {
 			if ( papi_get_qs( 'page_type' ) === 'papi-standard-page' ) {
 				$query->set( 'meta_query', array(
 					array(
-						'key' => '_papi_page_type',
+						'key' => PAPI_PAGE_TYPE_KEY,
 						'compare' => 'NOT EXISTS'
 					)
 				) );
 			} else {
-				$query->set( 'meta_key', '_papi_page_type' );
+				$query->set( 'meta_key', PAPI_PAGE_TYPE_KEY );
 				$query->set( 'meta_value', papi_get_qs( 'page_type' ) );
 			}
 		}
@@ -503,8 +503,8 @@ final class Papi_Admin {
 
 		// If we have a null page type we need to find which page type to use.
 		if ( empty( $this->page_type ) ) {
-			if ( papi_is_method( 'post' ) && isset( $_POST['_papi_page_type'] ) && $_POST['_papi_page_type'] ) {
-				$this->page_type = $_POST['_papi_page_type'];
+			if ( papi_is_method( 'post' ) && isset( $_POST[PAPI_PAGE_TYPE_KEY] ) && $_POST[PAPI_PAGE_TYPE_KEY] ) {
+				$this->page_type = $_POST[PAPI_PAGE_TYPE_KEY];
 			} else {
 				$this->page_type = papi_get_page_type_meta_value();
 			}

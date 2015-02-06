@@ -52,7 +52,7 @@ class Papi_Property_Reference extends Papi_Property {
 			'post_type' => papi_to_array( $settings->post_type ),
 			'meta_query' => array(
 				array(
-					'key' => '_papi_page_type',
+					'key' => PAPI_PAGE_TYPE_KEY,
 					'value' => papi_to_array( $settings->page_type ),
 					'compare' => 'LIKE'
 				)
