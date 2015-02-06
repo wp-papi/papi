@@ -20,7 +20,7 @@
       <directory suffix=".php">./bin/</directory>
       <directory suffix=".php">./gui/</directory>
       <directory suffix=".php">./languages/</directory>
-      <directory suffix=".php">./build/</directory>
+      <directory suffix=".php">./tmp/</directory>
       <directory suffix=".php">./vendor/</directory>
     </blacklist>
     <whitelist addUncoveredFilesFromWhitelist="true">
@@ -29,6 +29,6 @@
     </whitelist>
   </filter>
   <logging>
-    <log type="coverage-clover" target="./build/log/clover.xml" charset="UTF-8" />
+    <log type="coverage-clover" target="./tmp/clover.xml" charset="UTF-8" />
   </logging>
 </phpunit>
