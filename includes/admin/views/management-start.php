@@ -4,21 +4,21 @@
 
 	<br/>
 
-	<h3><?php _e('Page types', 'papi'); ?></h3>
+	<h3><?php _e( 'Page types', 'papi' ); ?></h3>
 	<table class="wp-list-table widefat papi-options-table">
 		<thead>
 		<tr>
 			<th>
-				<strong><?php _e('Name', 'papi'); ?></strong>
+				<strong><?php _e( 'Name', 'papi' ); ?></strong>
 			</th>
 			<th>
-				<strong><?php _e('Page type', 'papi'); ?></strong>
+				<strong><?php _e( 'Page type', 'papi' ); ?></strong>
 			</th>
 			<th>
-				<strong><?php _e('Template', 'papi'); ?></strong>
+				<strong><?php _e( 'Template', 'papi' ); ?></strong>
 			</th>
 			<th>
-				<strong><?php _e('Number of pages', 'papi'); ?></strong>
+				<strong><?php _e( 'Number of pages', 'papi' ); ?></strong>
 			</th>
 		</tr>
 		</thead>
@@ -37,12 +37,18 @@
 						$theme_dir  = get_template_directory();
 						$theme_name = basename( $theme_dir );
 						$url        = site_url() . '/wp-admin/theme-editor.php?file=' . $page_type->template . '&theme=' . $theme_name;
+
+						if ( empty( $page_type->template ) ) {
+							_e( 'Page Type has no template file', 'papi' );
+							continue;
+						}
+
 						if ( file_exists( $theme_dir . '/' . $page_type->template ) ):
 							?>
 							<a href="<?php echo $url; ?>"><?php echo $page_type->template; ?></a>
 						<?php
 						else:
-							echo 'Missing';
+							_e( 'Template file does not exist', 'papi' );
 						endif;
 					}
 					?></td>

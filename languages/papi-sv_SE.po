@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-02-04 16:55+0100\n"
-"PO-Revision-Date: 2015-02-04 16:55+0100\n"
+"POT-Creation-Date: 2015-02-06 11:42+0100\n"
+"PO-Revision-Date: 2015-02-06 11:43+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -16,32 +16,26 @@ msgstr ""
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-SearchPath-0: ../includes\n"
 
-#: ../includes/admin/class-papi-admin.php:85
-#: ../includes/admin/class-papi-admin.php:95
+#: ../includes/admin/class-papi-admin.php:125
+#: ../includes/admin/class-papi-admin.php:135
 #: ../includes/page-type/class-papi-page-type-base.php:102
 #: ../includes/page-type/class-papi-page-type-base.php:112
 msgid "Cheatin&#8217; huh?"
 msgstr "Fuskar du?"
 
-#: ../includes/admin/class-papi-admin.php:137
+#: ../includes/admin/class-papi-admin.php:177
 msgid "Add New"
 msgstr "Skapa ny"
 
-#: ../includes/admin/class-papi-admin.php:174
+#: ../includes/admin/class-papi-admin.php:214
 msgid "This fields are required:"
 msgstr "Dessa fält är obligatoriska:"
 
-#: ../includes/admin/class-papi-admin.php:248
+#: ../includes/admin/class-papi-admin.php:288
 msgid "Page Type"
 msgstr "Sidtyp"
 
-#: ../includes/admin/class-papi-admin.php:268
-#: ../includes/admin/class-papi-admin.php:317
-#: ../includes/admin/views/add-new-page.php:36
-msgid "Standard page"
-msgstr "Standard sida"
-
-#: ../includes/admin/class-papi-admin.php:327
+#: ../includes/admin/class-papi-admin.php:367
 msgid "Show all page types"
 msgstr "Visa alla sidtyper"
 
@@ -53,10 +47,6 @@ msgstr "Lägg till en ny sidtyp"
 #: ../includes/admin/views/add-new-page.php:17
 msgid "Search page types"
 msgstr "Sök sidtyper"
-
-#: ../includes/admin/views/add-new-page.php:37
-msgid "Just the normal WordPress page"
-msgstr "Vanliga WordPress sidan"
 
 #: ../includes/admin/views/management-page-type.php:9
 msgid "Tab title"
@@ -121,6 +111,14 @@ msgstr "Mall"
 msgid "Number of pages"
 msgstr "Antal sidor"
 
+#: ../includes/admin/views/management-start.php:42
+msgid "Page Type has no template file"
+msgstr "Sidtypen har ingen mallfil"
+
+#: ../includes/admin/views/management-start.php:51
+msgid "Template file does not exist"
+msgstr "Mallfilen finns inte"
+
 #: ../includes/admin/views/partials/add-new-item.php:15
 #: ../includes/properties/class-papi-property-relationship.php:71
 msgid "Select"
@@ -130,6 +128,14 @@ msgstr "Välj"
 msgid "(required field)"
 msgstr "(obligatoriskt fält)"
 
+#: ../includes/lib/filters.php:121
+msgid "Just the normal WordPress page"
+msgstr "Vanliga WordPress sidan"
+
+#: ../includes/lib/filters.php:135
+msgid "Standard Page"
+msgstr "Standard sida"
+
 #: ../includes/properties/class-papi-property-image.php:83
 msgid "No image selected"
 msgstr "Ingen bild vald"
@@ -138,7 +144,7 @@ msgstr "Ingen bild vald"
 msgid "Add image"
 msgstr "Lägg till bild"
 
-#: ../includes/properties/class-papi-property-post.php:35
+#: ../includes/properties/class-papi-property-post.php:38
 msgid "Select post"
 msgstr "Välj inlägg"
 
@@ -199,6 +205,9 @@ msgstr "Lägg till ny rad"
 msgid "Select file"
 msgstr "Välj fil"
 
+#~ msgid "Standard page"
+#~ msgstr "Standard sida"
+
 #~ msgid "Overview of page type"
 #~ msgstr "Översikt över sidtyper"
 
@@ -207,9 +216,6 @@ msgstr "Välj fil"
 
 #~ msgid "Search for address..."
 #~ msgstr "Sök efter adress..."
-
-#~ msgid "Standard Page"
-#~ msgstr "Standard sida"
 
 #~ msgid "Select the type of page to create from the list or search"
 #~ msgstr "Välj den typ av sida att skapa från listan eller sök"
