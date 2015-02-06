@@ -79,13 +79,13 @@ function papi_get_wp_post_type() {
 		$exploded = explode( ',', $_GET['page'] );
 
 		if ( empty( $exploded ) ) {
-			return null;
+			return '';
 		}
 
 		preg_match('/^\w+/', $exploded[1], $value);
 
 		if ( empty( $value ) ) {
-			return null;
+			return '';
 		}
 
 		return reset( $value );
@@ -101,5 +101,5 @@ function papi_get_wp_post_type() {
 		return 'post';
 	}
 
-	return null;
+	return '';
 }

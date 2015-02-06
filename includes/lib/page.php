@@ -39,7 +39,7 @@ function papi_get_all_page_types( $all = false, $post_type = null ) {
 	$files      = papi_get_all_page_type_files();
 	$page_types = array();
 
-	if ( is_null( $post_type ) ) {
+	if ( is_null( $post_type ) || empty( $post_type ) ) {
 		$post_type  = papi_get_wp_post_type();
 	}
 

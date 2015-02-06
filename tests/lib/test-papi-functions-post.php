@@ -45,7 +45,7 @@ class WP_Papi_Functions_Post extends WP_UnitTestCase {
 		global $post, $_GET, $_POST;
 
 		$post = null;
-		$this->assertNull( papi_get_wp_post_type() );
+		$this->assertEmpty( papi_get_wp_post_type() );
 		$_GET = array( 'post_type' => 'post' );
 		$this->assertEquals( 'post', papi_get_wp_post_type() );
 
