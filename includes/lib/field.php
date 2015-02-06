@@ -139,6 +139,8 @@ function papi_field_shortcode( $atts ) {
 		}
 	}
 
+	$value = null;
+
 	// Fetch value.
 	if ( ! empty( $atts['id'] ) ) {
 		$value = papi_field( $atts['id'], $atts['name'], $atts['default'] );
@@ -150,7 +152,7 @@ function papi_field_shortcode( $atts ) {
 	}
 
 	// Return empty string if null or the value.
-	return ! isset( $value ) || $value == null ? $atts['default'] : $value;
+	return $value == null ? $atts['default'] : $value;
 }
 
 add_shortcode( 'papi_field', 'papi_field_shortcode' );
