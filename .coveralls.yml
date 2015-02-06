@@ -2,3 +2,4 @@ service_name: travis-pro
 repo_token: SOBi0TbXMlr9emdsRO2hdIfBCO1VVPsD5
 src_dir: .
 coverage_clover: ./tmp/clover.xml
+json_path: ./tmp/coveralls.json
