@@ -152,7 +152,7 @@ class Papi_Property {
 			$slug = papi_get_property_type_key( $slug );
 		}
 
-		$slug = _papify( $slug );
+		$slug = papify( $slug );
 
 		?>
 		<input type="hidden" value="<?php echo $this->options->type; ?>" name="<?php echo $slug; ?>"/>

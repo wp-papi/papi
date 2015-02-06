@@ -52,7 +52,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 
 	public function get_sort_option( $post_id, $slug ) {
-		$slug = papi_f( _papify( $slug ) . '_sort_option' );
+		$slug = papi_f( papify( $slug ) . '_sort_option' );
 
 		return get_post_meta( $post_id, $slug, true );
 	}

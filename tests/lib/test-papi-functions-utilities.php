@@ -370,20 +370,20 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test _papify.
+	 * Test papify.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_papify() {
-		$this->assertEquals( 'papi_hello_world', _papify( 'hello_world' ) );
-		$this->assertEquals( 'papi_hello_world', _papify( 'papi_hello_world' ) );
-		$this->assertEmpty( _papify( null ) );
-		$this->assertEmpty( _papify( true ) );
-		$this->assertEmpty( _papify( false ) );
-		$this->assertEmpty( _papify( 1 ) );
-		$this->assertEmpty( _papify( array() ) );
-		$this->assertEmpty( _papify( new stdClass() ) );
+		$this->assertEquals( 'papi_hello_world', papify( 'hello_world' ) );
+		$this->assertEquals( 'papi_hello_world', papify( 'papi_hello_world' ) );
+		$this->assertEmpty( papify( null ) );
+		$this->assertEmpty( papify( true ) );
+		$this->assertEmpty( papify( false ) );
+		$this->assertEmpty( papify( 1 ) );
+		$this->assertEmpty( papify( array() ) );
+		$this->assertEmpty( papify( new stdClass() ) );
 	}
 
 }

@@ -285,7 +285,7 @@ function papi_html_name( $name ) {
 	}
 
 	if ( ! preg_match( '/^\_\_papi|^\_papi/', $name ) ) {
-		return papi_underscorify( papi_slugify( _papify( $name ) ) );
+		return papi_underscorify( papi_slugify( papify( $name ) ) );
 	}
 
 	return $name;
@@ -583,7 +583,7 @@ function papi_underscorify( $str ) {
  * @return string
  */
 
-function _papify( $str = '' ) {
+function papify( $str = '' ) {
 	if ( ! is_string( $str ) ) {
 		return '';
 	}

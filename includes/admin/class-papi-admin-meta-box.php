@@ -79,7 +79,7 @@ class Papi_Admin_Meta_Box {
 		$this->options            = (object) $options;
 		$this->options->title     = ucfirst( $this->options->title );
 		$this->options->slug      = papi_slugify( $this->options->title );
-		$this->options->_id       = papi_underscorify( _papify( $this->options->slug ) );
+		$this->options->_id       = papi_underscorify( papify( $this->options->slug ) );
 		$this->options->post_type = $this->populate_post_type( $this->options->post_type );
 	}
 

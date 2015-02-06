@@ -254,7 +254,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function get_columns( $post_id, $repeater_slug ) {
-		return intval( get_post_meta( $post_id, papi_f( _papify( $repeater_slug ) . '_columns' ), true ) );
+		return intval( get_post_meta( $post_id, papi_f( papify( $repeater_slug ) . '_columns' ), true ) );
 	}
 
 	/**
@@ -422,7 +422,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function update_value( $values, $repeater_slug, $post_id ) {
-		$properties_key = papi_ff( _papify( $repeater_slug ) . '_properties' );
+		$properties_key = papi_ff( papify( $repeater_slug ) . '_properties' );
 		$properties     = array();
 
 		if ( isset( $_POST[$properties_key] ) ) {
@@ -431,7 +431,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			$properties = json_decode( $properties );
 		}
 
-		$rows_key = papi_ff( _papify( $repeater_slug ) . '_rows' );
+		$rows_key = papi_ff( papify( $repeater_slug ) . '_rows' );
 		$rows     = 0;
 
 		if ( isset( $_POST[$rows_key] ) ) {

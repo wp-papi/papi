@@ -122,11 +122,11 @@ class WP_Papi_Property_Repeater extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, papi_f( $this->property->slug . '_columns' ), count( $this->property->settings->items ) );
 
 		// Properties
-		$properties_html_name         = papi_ff( _papify( $this->property->slug ) . '_properties' );
+		$properties_html_name         = papi_ff( papify( $this->property->slug ) . '_properties' );
 		$_POST[$properties_html_name] = htmlentities( json_encode( $properties ) );
 
 		// Rows
-		$rows_html_name         = papi_ff( _papify( $this->property->slug ) . '_rows' );
+		$rows_html_name         = papi_ff( papify( $this->property->slug ) . '_rows' );
 		$_POST[$rows_html_name] = 1;
 
 		$expected = array( array( 'book_name' => 'Harry Potter', 'is_open' => false ) );
