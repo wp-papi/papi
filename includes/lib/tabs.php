@@ -82,3 +82,26 @@ function papi_setup_tabs( $tabs ) {
 
 	return $tabs;
 }
+
+/**
+ * Create a new tab array or rendering a template tab file.
+ *
+ * @param string|array $file_or_options
+ * @param array $properties
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function papi_tab( $file_or_options, $properties = array() ) {
+	list( $options, $properties ) = papi_get_options_and_properties( $file_or_options, $properties, false);
+
+	// The tab key is important, it's says that we should render a tab meta box.
+	// This may change in later version of Papi.
+	return (object)array(
+		'options'    => $options,
+		'properties' => $properties,
+		'tab'        => true
+	);
+}

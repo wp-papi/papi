@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return mixed
  */
 
-function papi_field_finder( $post_id = null, $name = null, $default = null, $admin = false ) {
+function papi_field( $post_id = null, $name = null, $default = null, $admin = false ) {
 	// Check if we have a post id or not.
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$default = $name;
@@ -148,4 +148,24 @@ function papi_field_value( $names, $value, $default ) {
 	}
 
 	return $value;
+}
+
+/**
+ * Echo the property value for property on a page.
+ *
+ * @param int $post_id
+ * @param string $name
+ * @param mixed $default
+ *
+ * @since 1.0.0
+ */
+
+function the_papi_field( $post_id = null, $name = null, $default = null ) {
+	$value = papi_field_finder( $post_id, $name, $default );
+
+	if ( is_array( $value ) ) {
+		$value = implode( ',', $value );
+	}
+
+	echo $value;
 }

@@ -13,6 +13,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Get the current page. Like in EPiServer.
+ *
+ * @since 1.0.0
+ *
+ * @return Papi_Page|null
+ */
+
+function current_page() {
+	return papi_get_page();
+}
+
+/**
  * Get all page types that exists.
  *
  * @since 1.0.0
@@ -115,6 +127,27 @@ function papi_get_number_of_pages( $page_type ) {
 	}
 
 	return intval( $wpdb->get_var( $query ) );
+}
+
+/**
+ * Get the page.
+ *
+ * @param int $post_id The post id.
+ *
+ * @since 1.0.0
+ *
+ * @return Papi_Page|null
+ */
+
+function papi_get_page( $post_id = null ) {
+	$post_id = papi_get_post_id( $post_id );
+	$page    = new Papi_Page( $post_id );
+
+	if ( ! $page->has_post() ) {
+		return null;
+	}
+
+	return $page;
 }
 
 /**

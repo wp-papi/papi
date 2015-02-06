@@ -187,7 +187,6 @@ final class Papi_Loader {
 		require_once( $this->plugin_dir . 'includes/lib/io.php' );
 		require_once( $this->plugin_dir . 'includes/lib/field.php' );
 		require_once( $this->plugin_dir . 'includes/lib/template.php' );
-		require_once( $this->plugin_dir . 'includes/lib/api.php' );
 
 		// Load Papi classes that should not be autoloaded.
 		require_once( $this->plugin_dir . 'includes/admin/class-papi-admin.php' );

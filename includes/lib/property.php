@@ -376,6 +376,29 @@ function papi_is_property_type_key( $str = '' ) {
 }
 
 /**
+ * Create a new property array or rendering a template property file.
+ *
+ * @param string|array $file_or_options
+ * @param array $values
+ *
+ * @since 1.0.0
+ *
+ * @return array
+ */
+
+function papi_property( $file_or_options, $values = array() ) {
+	if ( is_array( $file_or_options ) ) {
+		return papi_get_property_options( $file_or_options );
+	}
+
+	if ( is_string( $file_or_options ) && is_array( $values ) ) {
+		return papi_template( $file_or_options, $values, true );
+	}
+
+	return array();
+}
+
+/**
  * Render a property the right way.
  *
  * @param object $property

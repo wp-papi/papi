@@ -59,7 +59,7 @@ add_filter( 'body_class', 'papi_body_class' );
  * @return array
  */
 
-function papi_template_loader( $file, $values = array(), $convert_to_object = false ) {
+function papi_template( $file, $values = array(), $convert_to_object = false ) {
 	if ( ! is_string( $file ) ) {
 		return array();
 	}

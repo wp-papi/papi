@@ -26,6 +26,16 @@ class WP_Papi_Functions_Page extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test current_page.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_current_page() {
+		$this->assertNull( current_page() );
+	}
+
+	/**
 	 * Test papi_get_file_data.
 	 *
 	 * @since 1.0.0

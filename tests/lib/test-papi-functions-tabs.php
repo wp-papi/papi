@@ -66,4 +66,39 @@ class WP_Papi_Functions_Tabs extends WP_UnitTestCase {
 		$this->assertEquals( 1000, $tabs[0]->options->sort_order );
 	}
 
+	/**
+	 * Test papi_tab.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_tab() {
+		$actual = papi_tab( 'Content', array(
+			papi_property( array(
+				'type'  => 'string',
+				'title' => 'Name'
+			) )
+		) );
+
+		$this->assertTrue( $actual->tab );
+		$this->assertEquals( 'Content', $actual->options['title'] );
+		$this->assertEquals( 'Name', $actual->properties[0]->title );
+		$this->assertEquals( 'string', $actual->properties[0]->type );
+	}
+
+	/**
+	 * Test papi_tab template.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_tab_template() {
+		$actual = papi_property( dirname( __FILE__ ) . '/../data/tabs/content.php' );
+
+		$this->assertTrue( $actual->tab );
+		$this->assertEquals( 'Content', $actual->options['title'] );
+		$this->assertEquals( 'Name', $actual->properties[0]->title );
+		$this->assertEquals( 'string', $actual->properties[0]->type );
+	}
+
 }

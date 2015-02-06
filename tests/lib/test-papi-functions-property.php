@@ -313,6 +313,34 @@ class WP_Papi_Functions_Property extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test papi_property.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_property() {
+		$actual = papi_property( array(
+			'type'  => 'string',
+			'title' => 'Name'
+		) );
+
+		$this->assertEquals( 'Name', $actual->title );
+		$this->assertEquals( 'string', $actual->type );
+
+		$actual = papi_property( array() );
+
+		$this->assertEmpty( $actual->title );
+		$this->assertEmpty( $actual->type );
+		$this->assertTrue( $actual->sidebar );
+
+		$this->assertEmpty( papi_property( null ) );
+		$this->assertEmpty( papi_property( true ) );
+		$this->assertEmpty( papi_property( false ) );
+		$this->assertEmpty( papi_property( 1 ) );
+		$this->assertEmpty( papi_property( new stdClass() ) );
+	}
+
+	/**
 	 * Test papi_to_property_array_slugs.
 	 *
 	 * @since 1.0.0

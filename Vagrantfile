@@ -25,5 +25,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, :path => './bin/vagrant.sh'
 
   # Set synced folder
-  config.vm.synced_folder '.', '/vagrant', type: "nfs", mount_options: ['rw', 'vers=3', 'tcp', 'fsc' ,'actimeo=2']
+  config.vm.synced_folder '.', '/tmp/wordpress/wp-content/plugins/papi', type: "nfs", mount_options: ['rw', 'vers=3', 'tcp', 'fsc' ,'actimeo=2']
 end
