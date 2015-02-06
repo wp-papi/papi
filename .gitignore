@@ -4,3 +4,4 @@ test.php
 tmp/
 *.bak
 .vagrant
+build/
