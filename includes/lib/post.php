@@ -88,7 +88,13 @@ function papi_get_wp_post_type() {
 			return '';
 		}
 
-		return reset( $value );
+		$value = reset( $value );
+
+		if ($value === false) {
+			return '';
+		}
+
+		return $value;
 	}
 
 	// If only `post-new.php` without any querystrings
