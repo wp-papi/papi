@@ -40,7 +40,7 @@ function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type
  * Get page query strings.
  *
  * @param string $first_char
- * @param array $exlude
+ * @param array $exclude
  *
  * @since 1.0.0
  *
