@@ -4,6 +4,7 @@ filter:
     - gui/*
     - languages/*
     - tests/*
+    - includes/admin/views/*
 
 checks:
   php:
@@ -11,7 +12,7 @@ checks:
 
 tools:
     external_code_coverage: true
-    
+
     php_sim:
         enabled: true
         min_mass: 50
