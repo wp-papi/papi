@@ -40,16 +40,15 @@
 
 						if ( empty( $page_type->template ) ) {
 							_e( 'Page Type has no template file', 'papi' );
-							continue;
+						} else {
+							if ( file_exists( $theme_dir . '/' . $page_type->template ) ):
+								?>
+								<a href="<?php echo $url; ?>"><?php echo $page_type->template; ?></a>
+							<?php
+							else:
+								_e( 'Template file does not exist', 'papi' );
+							endif;
 						}
-
-						if ( file_exists( $theme_dir . '/' . $page_type->template ) ):
-							?>
-							<a href="<?php echo $url; ?>"><?php echo $page_type->template; ?></a>
-						<?php
-						else:
-							_e( 'Template file does not exist', 'papi' );
-						endif;
 					}
 					?></td>
 				<td><?php echo papi_get_number_of_pages( $page_type->get_filename() ); ?></td>
