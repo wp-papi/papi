@@ -503,11 +503,7 @@ final class Papi_Admin {
 
 		// If we have a null page type we need to find which page type to use.
 		if ( empty( $this->page_type ) ) {
-			if ( papi_is_method( 'post' ) && isset( $_POST[PAPI_PAGE_TYPE_KEY] ) && $_POST[PAPI_PAGE_TYPE_KEY] ) {
-				$this->page_type = $_POST[PAPI_PAGE_TYPE_KEY];
-			} else {
-				$this->page_type = papi_get_page_type_meta_value();
-			}
+			$this->page_type = papi_get_page_type_meta_value();
 		}
 
 		if ( empty( $this->page_type ) ) {
