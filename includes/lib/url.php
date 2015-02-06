@@ -25,7 +25,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type = null, $exclude = array() ) {
 	$admin_url = $append_admin_url ? get_admin_url() : '';
-	$query_strings = papi_get_page_query_strings();
 
 	$admin_url = $admin_url . 'post-new.php?page_type=' . $page_type . papi_get_page_query_strings( '&', $exclude );
 
