@@ -34,7 +34,7 @@ class Papi_Property_Reference extends Papi_Property {
 		return array(
 			'slug'      => array(),
 			'post_type' => 'post',
-			'page_type' => ''
+			'page_type' => array()
 		);
 	}
 
