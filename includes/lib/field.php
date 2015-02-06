@@ -76,6 +76,46 @@ function papi_field( $post_id = null, $name = null, $default = null, $admin = fa
 }
 
 /**
+ * Get current properties for the page.
+ *
+ * @since 1.2.0
+ *
+ * @return array
+ */
+
+function papi_fields() {
+	$page = current_page();
+
+	if ( empty( $page ) ) {
+		return array();
+	}
+
+	$page_type = $page->get_page_type();
+
+	if ( empty( $page_type ) ) {
+		return array();
+	}
+
+	$arr = array();
+
+	foreach ( $page_type->get_boxes() as $box ) {
+		if ( count( $box ) < 2 || !isset( $box[0]['title'] ) ) {
+			continue;
+		}
+
+		if ( !isset( $arr[$box[0]['title']] ) ) {
+			$arr[$box[0]['title']] = array();
+		}
+
+		foreach ( $box[1] as $property ) {
+			$arr[$box[0]['title']][] = papi_remove_papi( $property->slug );
+		}
+	}
+
+	return $arr;
+}
+
+/**
  * Shortcode for `papi_field` function.
  *
  * [papi_field id=1 name="field_name" default="Default value"][/papi_field]

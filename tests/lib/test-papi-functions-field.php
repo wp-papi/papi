@@ -36,4 +36,15 @@ class WP_Papi_Functions_Field extends WP_UnitTestCase {
 		$this->assertEquals( 'world', papi_field( $this->post_id, 'hello', 'world' ) );
 	}
 
+	/**
+	 * Test papi_fields.
+	 *
+	 * @since 1.2.0
+	 */
+
+	public function test_current_properties() {
+		$actual = papi_fields();
+		$this->assertEmpty( $actual );
+	}
+
 }
