@@ -22,6 +22,7 @@
       <directory suffix=".php">./languages/</directory>
       <directory suffix=".php">./tmp/</directory>
       <directory suffix=".php">./vendor/</directory>
+      <directory suffix=".php">./includes/admin/views/</directory>
     </blacklist>
     <whitelist addUncoveredFilesFromWhitelist="true">
       <file>./papi-loader.php</file>
