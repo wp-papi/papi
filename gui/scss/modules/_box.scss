@@ -14,7 +14,7 @@
     > .papi-table {
       margin: -7px -12px -12px -12px;
     }
-    > div {
+    > div.papi-custom-html {
       margin: -17px 13px -13px -12px;
       h1, h2, h4, h5, h6 {
         padding: 15px 12px 0px 12px;
@@ -36,7 +36,7 @@
     }
   }
   &.papi-mode-seamless .inside {
-    > div {
+    > div.papi-custom-html {
       margin: -17px 12px -13px -12px;
       h1, h2, h3, h4, h5, h6, p {
         margin-left: -11px;

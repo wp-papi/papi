@@ -173,7 +173,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	protected function render( $items ) {
-		papi_render_properties( papi_to_array( $items ) );
+		papi_render_properties( papi_populate_properties( $items ) );
 	}
 
 	/**
