@@ -219,7 +219,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			$tab = (object)$tab->options;
 		}
 
-		return $tab;
+		return papi_esc_html( $tab );
 	}
 
 	/**
