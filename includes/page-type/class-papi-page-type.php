@@ -102,9 +102,9 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			$sort_order = papi_filter_settings_sort_order();
 		}
 
-		$title = isset( $options['title'] ) ? $options['title'] : '';
+		$options['title'] = papi_esc_html( isset( $options['title'] ) ? $options['title'] : '' );
 
-		array_push( $this->boxes, array( $options, $properties, 'sort_order' => $sort_order, 'title' => $title ) );
+		array_push( $this->boxes, array( $options, $properties, 'sort_order' => $sort_order, 'title' => $options['title'] ) );
 	}
 
 	/**

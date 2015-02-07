@@ -44,6 +44,16 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 		$this->assertEmpty( papi_convert_to_string( Papi_Loader::instance() ) );
 	}
 
+	public function test_papi_esc_html() {
+		$this->assertEquals( '&lt;script&gt;alert(1);&lt;/script&gt;', papi_esc_html( '<script>alert(1);</script>' ) );
+		$this->assertEquals( array( '&lt;script&gt;alert(1);&lt;/script&gt;' => 'hello world&lt;script&gt;alert(1);&lt;/script&gt;' ), papi_esc_html( array( '<script>alert(1);</script>' => 'hello world<script>alert(1);</script>' ) ) );
+		$obj = new stdClass;
+		$obj->title = '<script>alert(1);</script>';
+		$obj2 = new stdClass;
+		$obj2->title = '&lt;script&gt;alert(1);&lt;/script&gt;';
+		$this->assertEquals( $obj2, papi_esc_html( $obj ) );
+	}
+
 	/**
 	 * Test papi_f.
 	 *

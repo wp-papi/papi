@@ -336,6 +336,6 @@ class Papi_Property {
 	 */
 
 	public function get_settings() {
-		return (object) wp_parse_args( $this->options->settings, $this->get_default_settings() );
+		return (object) wp_parse_args( papi_esc_html( $this->options->settings ), $this->get_default_settings() );
 	}
 }

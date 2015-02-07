@@ -248,6 +248,8 @@ function papi_get_property_options( $options, $get_value = true ) {
 		$options->old_slug = papi_html_name( $options->old_slug );
 	}
 
+	$options = papi_esc_html( $options );
+
 	// Get the default settings for the property and merge them with the given settings.
 	$options->settings = array_merge( papi_get_property_default_settings( $options->type ), $options->settings );
 	$options->settings = (object)$options->settings;

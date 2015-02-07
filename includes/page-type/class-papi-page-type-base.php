@@ -192,7 +192,7 @@ class Papi_Page_Type_Base {
 				continue;
 			}
 
-			$this->$key = $value;
+			$this->$key = papi_esc_html( $value );
 		}
 	}
 }

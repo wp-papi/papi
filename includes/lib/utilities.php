@@ -74,6 +74,47 @@ function papi_ea( array $obj, $key, $default = '' ) {
 }
 
 /**
+ * Papi escape html.
+ *
+ * @param mixed $obj
+ *
+ * @since 1.2.0
+ *
+ * @return mixed
+ */
+
+function papi_esc_html( $obj ) {
+	$object = is_object( $obj );
+
+	if ( $object ) {
+		$obj = (array)$obj;
+	}
+
+	if ( is_array( $obj ) ) {
+		foreach ( $obj as $key => $value ) {
+			if ( is_string( $key ) ) {
+				unset( $obj[$key] );
+				$key = papi_esc_html( $key );
+			}
+
+			if ( is_string( $value ) || is_object( $value ) || is_array( $obj ) ) {
+				$obj[$key] = papi_esc_html( $value );
+			}
+		}
+
+		if ( $object ) {
+			return (object)$obj;
+		}
+
+		return $obj;
+	} else if ( is_string( $obj ) ) {
+		return esc_html( $obj );
+	} else {
+		return $obj;
+	}
+}
+
+/**
  * Add a underscore at the start of the string.
  *
  * @param string $str
