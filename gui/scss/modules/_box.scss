@@ -7,27 +7,41 @@
   line-height: 1.4;
 }
 
-.papi-box .inside {
-  padding-right: 0px;
-  margin-right: -13px !important;
-  > .papi-table {
-    margin: -7px -12px -12px -12px;
-  }
-  > div {
-    margin: -17px 13px -13px -12px;
-    h1, h2, h3, h4, h5, h6 {
-      padding: 15px 12px 0px 12px !important;
+#poststuff .papi-box {
+  .inside {
+    padding-right: 0px;
+    margin-right: -13px !important;
+    > .papi-table {
+      margin: -7px -12px -12px -12px;
     }
-    p {
-      padding: 0 12px 0 12px;
-      &:last-child {
-        padding-bottom: 15px;
+    > div {
+      margin: -17px 13px -13px -12px;
+      h1, h2, h4, h5, h6 {
+        padding: 15px 12px 0px 12px;
+        margin-top: 0 !important;
+      }
+      h3 {
+        padding: 20px 12px 0px 12px;
+      }
+      p {
+        padding: 0 12px 0 12px;
+        &:last-child {
+          padding-bottom: 15px;
+        }
       }
     }
-  }
 
-  p + .papi-table {
-    margin-top: 15px;
+    p + .papi-table {
+      margin-top: 15px;
+    }
+  }
+  &.papi-mode-seamless .inside {
+    > div {
+      margin: -17px 12px -13px -12px;
+      h1, h2, h3, h4, h5, h6, p {
+        margin-left: -11px;
+      }
+    }
   }
 }
 

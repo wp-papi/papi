@@ -192,7 +192,6 @@ function papi_get_property_default_settings( $type ) {
  */
 
 function papi_get_property_options( $options, $get_value = true ) {
-
 	if ( ! is_array( $options ) ) {
 		if ( is_object( $options ) ) {
 			return $options;

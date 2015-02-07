@@ -90,10 +90,22 @@
   .wp-editor-wrap input {
     width: auto !important;
   }
+}
 
-  + div {
-    margin-top: 10px !important;
-    border-top: 1px solid #eaeaea;
+#poststuff .papi-box {
+  .inside {
+    .papi-table {
+      + div {
+        margin-top: 10px;
+        border-top: 1px solid #eaeaea;
+        h3 {
+          padding-top: 15px;
+        }
+      }
+    }
+  }
+  &.papi-mode-seamless .inside .papi-table + div {
+    border: none;
   }
 }
 
