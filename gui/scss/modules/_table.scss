@@ -95,7 +95,7 @@
 #poststuff .papi-box {
   .inside {
     .papi-table {
-      + div {
+      + .papi-custom-html {
         margin-top: 10px;
         border-top: 1px solid #eaeaea;
         h3 {
@@ -104,7 +104,7 @@
       }
     }
   }
-  &.papi-mode-seamless .inside .papi-table + div {
+  &.papi-mode-seamless .inside .papi-table + .papi-custom-html {
     border: none;
   }
 }
