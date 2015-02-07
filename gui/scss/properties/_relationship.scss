@@ -67,6 +67,7 @@
           float: right;
           cursor: pointer;
           &.minus {
+            width: 15px;
             background-position: top right;
           }
         }
