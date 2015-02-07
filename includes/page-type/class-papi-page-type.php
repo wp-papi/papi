@@ -165,6 +165,18 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	}
 
 	/**
+	 * Render properties direct.
+	 *
+	 * @param mixed $items
+	 *
+	 * @since 1.2.0
+	 */
+
+	protected function render( $items ) {
+		papi_render_properties( papi_to_array( $items ) );
+	}
+
+	/**
 	 * Remove post type support. Runs once, on page load.
 	 *
 	 * @param array $post_type_supports

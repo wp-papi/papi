@@ -90,6 +90,11 @@
   .wp-editor-wrap input {
     width: auto !important;
   }
+
+  + div {
+    margin-top: 10px !important;
+    border-top: 1px solid #eaeaea;
+  }
 }
 
 // side meta boxes
