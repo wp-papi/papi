@@ -227,8 +227,8 @@ function papi_get_only_arrays( array $arr ) {
  * @return array
  */
 
-function papi_get_only_objects( array $arr ) {
-	return array_filter( $arr, function ( $item ) {
+function papi_get_only_objects( $arr ) {
+	return array_filter( papi_to_array( $arr ), function ( $item ) {
 		return is_object( $item );
 	} );
 }

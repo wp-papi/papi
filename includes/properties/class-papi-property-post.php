@@ -76,7 +76,7 @@ class Papi_Property_Post extends Papi_Property {
 		}
 
 		// Keep only objects.
-		$posts = papi_get_only_objects( papi_to_array( $posts ) );
+		$posts = papi_get_only_objects( $posts );
 
 		?>
 
