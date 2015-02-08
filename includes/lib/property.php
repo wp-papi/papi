@@ -205,7 +205,7 @@ function papi_get_property_options( $options, $get_value = true ) {
 		'default'      => '',
 		'description'  => '',
 		'disabled'     => false,
-		'lang'         => '',
+		'lang'         => false,
 		'raw'          => false,
 		'settings'     => array(),
 		'sidebar'      => true,
@@ -422,7 +422,7 @@ function papi_render_property( $property ) {
 	$property_type->set_options( $property );
 
 	// Only render if it's the right language if the definition exist.
-	if ( papi_get_qs( 'lang' ) != null ) {
+	if ( $property->lang !== false && papi_get_qs( 'lang' ) != null ) {
 		$render = $property->lang === strtolower( papi_get_qs( 'lang' ) );
 	} else {
 		$render = true;
