@@ -82,7 +82,7 @@ var banner = [
 
 // Sass
 gulp.task('sass', function() {
-  return gulp.src(config.sass.src, config.basePaths.src + 'css/components/*.css')
+  return gulp.src([config.sass.src, config.basePaths.src + 'css/components/*.css'])
     .pipe(sourcemaps.init())
     .pipe(sass(config.sass.settings))
     .pipe(sourcemaps.write())
@@ -96,7 +96,7 @@ gulp.task('sass', function() {
 
 // Scripts
 gulp.task('scripts', function() {
-  return gulp.src(config.scripts.src)
+  return gulp.src(config.scripts.files)
     .pipe(concat(
       'main.min.js'
     ))
