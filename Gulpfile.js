@@ -26,7 +26,7 @@ var pkg          = require('./package.json');
   Config
 
 -------------------------------------------------------------------*/
-
+var src = './gui/';
 var config = {
   basePaths: {
     src: './gui/'
