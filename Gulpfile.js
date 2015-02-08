@@ -46,7 +46,7 @@ var config = {
     src + 'js/modules/*.js',
     src + 'js/views/*.js',
     src + 'js/properties/*.js',
-    src + 'js/vendor.js',
+    src + 'js/components.js',
     src + 'js/binds.js',
     src + 'js/init.js'
     ],
