@@ -11,75 +11,77 @@
   }
 
   .papi-table {
+    border-bottom:  1px solid #eaeaea;
     margin: -11px 0 -13px -15px;
-    border-bottom:  1px solid #EAEAEA;
-    tr th {
-      border: 1px solid #EAEAEA;
-      border-left: 0;
-      border-bottom: 0;
-      background: #F9F9F9;
 
+    tr th {
+      background: #f9f9f9;
+      border: 1px solid #eaeaea;
+      border-bottom: 0;
+      border-left: 0;
       padding: 10px 15px;
 
       &:first-child,
       &.last {
-        background: #FFFFFF;
+        background: #fff;
+        border-left: 0;
         color: #afafaf;
         font-weight: bold;
-        width: 5%;
-        padding-right: 15px;
-        position: relative;
-        border-left: none;
         padding-left: 0;
         padding-right: 0;
+        position: relative;
+        width: 5%;
+
         span {
-          position: absolute;
-          top: 50%;
-          margin-top: -0.5em;
+          margin-top: -.5em;
           overflow: hidden;
+          position: absolute;
+          text-align: center;
+          text-overflow: ellipsis;
+          top: 50%;
           white-space: nowrap;
           width: 100%;
-          text-overflow: ellipsis;
-          text-align: center;
         }
       }
     }
 
     tr {
-      background: #ffffff;
+      background: #fff;
 
       td {
-        border-right: 1px solid #EAEAEA;
+        border-right: 1px solid #eaeaea;
+
         &:first-child {
           cursor: move;
         }
+
         &:first-child,
         &.last {
-          background: #F9F9F9;
+          background: #f9f9f9;
+          border-left: 0;
           color: #afafaf;
           font-weight: bold;
-          width: 5%;
-          padding-right: 15px;
-          position: relative;
-          border-left: none;
           padding-left: 0;
           padding-right: 0;
+          position: relative;
+          width: 5%;
+
           span {
-            position: absolute;
-            top: 50%;
-            margin-top: -0.5em;
+            margin-top: -.5em;
             overflow: hidden;
+            position: absolute;
+            text-align: center;
+            text-overflow: ellipsis;
+            top: 50%;
             white-space: nowrap;
             width: 100%;
-            text-overflow: ellipsis;
-            text-align: center;
           }
         }
       }
 
       .repeater-remove-item {
-        text-decoration: none;
         color: #afafaf;
+        text-decoration: none;
       }
     }
   }
@@ -87,6 +89,7 @@
   .bottom {
     margin-top: 25px;
     width: 95%;
+
     a {
       float: right;
     }
@@ -97,20 +100,20 @@
 .postbox.papi-mode-seamless {
 
   .papi-property-repeater {
+    border-left: 1px #eaeaea solid;
+    border-right: 1px #eaeaea solid;
     margin-right: 0;
-    border-left: 1px #EAEAEA solid;
-    border-right: 1px #EAEAEA solid;
 
     > .papi-table {
       margin-left: 0;
 
       tr {
-        border-top: 1px #EAEAEA solid;
-        border-right: 1px #EAEAEA solid;
+        border-right: 1px #eaeaea solid;
+        border-top: 1px #eaeaea solid;
 
         td {
-          border-top: 1px #EAEAEA solid;
-          border-right: 1px #EAEAEA solid;
+          border-right: 1px #eaeaea solid;
+          border-top: 1px #eaeaea solid;
           padding: 10px;
 
           &:first-child span,

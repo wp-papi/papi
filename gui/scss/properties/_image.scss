@@ -1,28 +1,28 @@
 .papi-property-image {
 
   .attachment {
-    max-width: 150px;
-    max-height: 150px;
-    margin: 0px 5px 0px -8px;
     cursor: move;
+    margin: 0 5px 0 -8px;
+    max-height: 150px;
+    max-width: 150px;
 
     &.ui-sortable-placeholder {
-    	border: 1px #DFDFDF solid;
-    	visibility: visible !important;
-    	background: #F9F9F9;
-      max-width: 134px;
+      background: #f9f9f9;
+      border: 1px #dfdfdf solid;
+      margin: 8px 13px 0 0;
       max-height: 134px;
-      margin: 8px 13px 0px 0px;
+      max-width: 134px;
+      visibility: visible !important;
     }
 
     a.check {
+      background: #a00;
+      color: #fff;
       font-size: 14px;
-      text-decoration: none;
-      padding-top: 3px;
-      text-transform: uppercase;
       height: 21px;
-      color: #FFF;
-      background: #A00;
+      padding-top: 3px;
+      text-decoration: none;
+      text-transform: uppercase;
     }
 
     .thumbnail {

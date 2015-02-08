@@ -6,56 +6,49 @@
 
   .inside {
     margin-bottom: 0;
+    margin-right: -25px;
+    padding-bottom: 0;
 
     .papi-table {
-      margin-top: -11px;
       margin-left: -13px;
+      margin-top: -11px;
 
       thead {
-        background: #F9F9F9;
-        tr {
-          th {
-            border: 1px solid #EAEAEA;
-            border-right: none;
-            border-top: none;
-            padding: 10px 10px 10px 15px;
-            text-align: left;
-          }
+        background: #f9f9f9;
+
+        tr th {
+          border: 1px solid #eaeaea;
+          border-right: 0;
+          border-top: 0;
+          padding: 10px 10px 10px 15px;
+          text-align: left;
         }
       }
 
-      tbody {
-        tr {
+      tbody tr td {
+        background: #fff;
+        border: 1px solid #eaeaea;
+        border-right: 0;
+        border-top: 0;
+
+        .papi-table {
+          padding: 20px 10px 10px;
+
+          tr th {
+            border: 1px solid #eaeaea;
+          }
+
           td {
-            background: white;
-            border: 1px solid #EAEAEA;
-            border-right: none;
-            border-top: none;
+            border-left: 0;
 
-            .papi-table {
-              padding: 20px 10px 10px 10px;
-
-              tr {
-                th {
-                  border: 1px solid #EAEAEA;
-                }
-
-                td {
-                  border-left: none;
-
-                  &:first-child {
-                    border-left: 1px solid #EAEAEA;
-                  }
-
-                  border-right: 1px solid #EAEAEA;
-                }
-              }
+            &:first-child {
+              border-left: 1px solid #eaeaea;
             }
+
+            border-right: 1px solid #eaeaea;
           }
         }
       }
     }
-
   }
-
 }

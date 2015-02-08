@@ -1,7 +1,7 @@
 // Postbox modes
 .postbox.papi-mode-seamless {
-  border: none;
   background: transparent;
+  border: 0;
   box-shadow: none;
 
   > h3,
@@ -11,75 +11,76 @@
 
   .papi-table tr td {
     background: transparent;
-    border: none;
+    border: 0;
     padding-left: 0;
   }
 }
 
 // Table
 .papi-table {
-  cursor: default !important;
   border-spacing: 0;
+  cursor: default !important;
 
   * {
     word-wrap: break-word;
   }
 
   tr {
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
     margin: 0;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 
     td {
-      padding: 10px 15px 10px;
+      border-bottom: 0;
       border-top: 1px solid #eaeaea;
-      border-bottom: 0 none;
+      padding: 10px 15px;
       vertical-align: top;
-    }
 
-    td {
       &:first-child {
-        width: 15%;
-        background: #F9F9F9;
-        border-top: 1px solid #eaeaea;
+        background: #f9f9f9;
         border-right: 1px solid #eaeaea;
+        border-top: 1px solid #eaeaea;
+        width: 15%;
 
         label {
+          color: #333;
           display: block;
           font-size: 13px;
-          line-height: 1.4em;
           font-weight: bold;
-          padding: 0;
+          line-height: 1.4em;
           margin: 0 0 3px;
-          color: #333;
+          padding: 0;
         }
 
         p {
+          color: #899194;
           font-size: 12px;
-          line-height: 1.4em;
-          padding: 0 !important;
-          margin: 3px 0 0 !important;
           font-style: normal;
           line-height: 16px;
-          color: #899194;
+          margin: 3px 0 0 !important;
+          padding: 0 !important;
         }
       }
+
       &[colspan="2"] {
-        background: white;
-        border-right: none;
+        background: #fff;
+        border-right: 0;
       }
+
       label {
         font-size: 13px;
-        line-height: 1.5;
         font-weight: 600;
+        line-height: 1.5;
         padding-top: 4px !important;
         word-break: break-word;
       }
+
       input,
       select,
       textarea {
         width: 99.5%;
       }
+
       input[type="radio"],
       input[type="checkbox"] {
         width: auto;
@@ -96,16 +97,18 @@
   .inside {
     .papi-table {
       + .papi-custom-html {
-        margin-top: 10px;
         border-top: 1px solid #eaeaea;
+        margin-top: 10px;
+
         h3 {
           padding-top: 15px;
         }
       }
     }
   }
+
   &.papi-mode-seamless .inside .papi-table + .papi-custom-html {
-    border: none;
+    border: 0;
   }
 }
 

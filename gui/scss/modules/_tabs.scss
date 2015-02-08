@@ -15,30 +15,32 @@
   width: 100%;
 
   .papi-tabs-back {
+    background: #f4f2f2;
+    border-right: 1px solid #dfdfdf;
+    bottom: 0;
+    left: 0;
     position: absolute;
     top: 0;
-    left: 0;
-    bottom: 0;
-    background: #f4f2f2;
     width: 146px;
-    border-right: 1px solid #dfdfdf;
   }
 
   .papi-tabs {
     background: #f4f2f2;
-    line-height: 22px;
-    float: left;
-    width: 144px;
-    margin: 0;
-    position: relative;
-    padding: 0 0 10px;
-    margin: -7px 0 -12px -10px;
     border-right: 1px solid #dedede;
     border-top: 1px solid #eaeaea;
+    float: left;
+    line-height: 22px;
+    margin: -7px 0 -12px -10px;
+    padding: 0 0 10px;
+    position: relative;
+    width: 144px;
 
     li {
+
       &:first-child {
+
         &.active {
+
           a {
             border-top: 1px solid transparent;
           }
@@ -50,52 +52,53 @@
       padding: 0;
 
       a {
-        padding: 10px;
+        background: #f4f2f2;
+        border-bottom: 1px solid #eaeaea;
+        border-top: 1px solid transparent;
+        color: #899194;
+        display: block;
+        font-weight: bold;
         line-height: 18px;
         margin: 0 0 0 -1px;
-        display: block;
-        background: #f4f2f2;
+        padding: 10px;
         text-decoration: none;
-        border-top: 1px solid transparent;
-        border-bottom: 1px solid #eaeaea;
-        font-weight: bold;
-        color: #899194;
 
         img {
           float: left;
-          padding: 0 5px;
-          width: 13px;
           height: 13px;
           margin-top: 2px;
+          padding: 0 5px;
+          width: 13px;
         }
       }
 
       &.active {
+
         a {
+          background-color: #f9f9f9;
           border-color: #dedede;
           border-top: 1px solid transparent;
+          color: #333;
+          margin: 0 -1px;
           position: relative;
-          background-color: #f9f9f9;
-          color: #333333;
-          margin: 0 -1px 0 -1px;
         }
       }
     }
   }
 
   .papi-tabs-table-back {
-    background: #F9F9F9;
-    position: absolute;
-    width: 252px;
+    background: #f9f9f9;
+    border-right: 1px solid #eaeaea;
     bottom: 0;
-    top: 0;
     left: 0;
-    border-right: 1px solid #EAEAEA;
+    position: absolute;
+    top: 0;
+    width: 252px;
   }
 
   .papi-tabs-content {
-    padding-left: 10px;
     margin-left: 145px;
+    padding-left: 10px;
     position: relative;
 
     > div {
@@ -108,8 +111,10 @@
       .papi-table {
         margin: -7px 0 -12px -20px;
         min-height: 100%;
+
         tr td:first-child {
           width: 75px;
+
           label {
             padding-left: 2px;
           }

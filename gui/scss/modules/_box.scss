@@ -2,29 +2,39 @@
 
 .papi-box h3 {
   font-size: 14px;
-  padding: 8px 12px;
-  margin: 0;
   line-height: 1.4;
+  margin: 0;
+  padding: 8px 12px;
 }
 
 #poststuff .papi-box {
   .inside {
-    padding-right: 0px;
     margin-right: -13px !important;
+    padding-right: 0;
+
     > .papi-table {
-      margin: -7px -12px -12px -12px;
+      margin: -7px -12px -12px;
     }
-    > div.papi-custom-html {
+
+    > .papi-custom-html {
       margin: -17px 13px -13px -12px;
-      h1, h2, h4, h5, h6 {
-        padding: 15px 12px 0px 12px;
+
+      h1,
+      h2,
+      h4,
+      h5,
+      h6 {
         margin-top: 0 !important;
+        padding: 15px 12px 0;
       }
+
       h3 {
-        padding: 20px 12px 0px 12px;
+        padding: 20px 12px 0;
       }
+
       p {
-        padding: 0 12px 0 12px;
+        padding: 0 12px;
+
         &:last-child {
           padding-bottom: 15px;
         }
@@ -35,10 +45,18 @@
       margin-top: 15px;
     }
   }
+
   &.papi-mode-seamless .inside {
-    > div.papi-custom-html {
+    > .papi-custom-html {
       margin: -17px 12px -13px -12px;
-      h1, h2, h3, h4, h5, h6, p {
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p {
         margin-left: -11px;
       }
     }
@@ -50,11 +68,13 @@
   .papi-box > .papi-table {
     tr td {
       float: left;
+      padding: 10px 0;
       width: 99.5%;
-      padding: 10px 0px;
+
       > label {
         padding-left: 12px;
       }
+
       > input,
       select,
       textarea {

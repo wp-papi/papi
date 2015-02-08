@@ -6,49 +6,49 @@
     padding: 5px;
 
     .relationship-top-left {
-      width: 49%;
-      max-width: 49%;
-      padding: 10px 0px;
       float: left;
+      max-width: 49%;
+      padding: 10px 0;
+      width: 49%;
 
       input[type="search"] {
-        width: 100%;
         padding: 5px;
+        width: 100%;
       }
 
     }
 
     .relationship-top-right {
-      width: 49%;
-      max-width: 49%;
       float: right;
-      padding: 10px 0px;
+      max-width: 49%;
+      padding: 10px 0;
+      width: 49%;
     }
 
     .relationship-left {
-      float: left;
-      width: 49%;
-      max-width: 49%;
-      border: 1px #eaeaea solid;
       background: #fff;
-      min-height: 250px;
+      border: 1px #eaeaea solid;
+      float: left;
       height: 250px;
       max-height: 250px;
+      max-width: 49%;
+      min-height: 250px;
       overflow: scroll;
       overflow-x: hidden;
+      width: 49%;
     }
 
     .relationship-right {
-      float: right;
-      width: 49%;
-      max-width: 49%;
-      border: 1px #eaeaea solid;
       background: #fff;
-      min-height: 250px;
+      border: 1px #eaeaea solid;
+      float: right;
       height: 250px;
       max-height: 250px;
+      max-width: 49%;
+      min-height: 250px;
       overflow: scroll;
       overflow-x: hidden;
+      width: 49%;
     }
 
     ul {
@@ -57,15 +57,16 @@
 
       li {
         border-bottom: 1px #eaeaea solid;
-        padding: 5px 10px 10px 5px;
         cursor: pointer;
+        padding: 5px 10px 10px 5px;
 
         span.icon {
-          background: url(../images/plus-minus.png) no-repeat top left;
-          width: 16px;
-          height: 16px;
-          float: right;
+          background: url('../images/plus-minus.png') no-repeat top left;
           cursor: pointer;
+          float: right;
+          height: 16px;
+          width: 16px;
+
           &.minus {
             width: 15px;
             background-position: top right;
