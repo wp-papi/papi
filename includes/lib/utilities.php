@@ -60,20 +60,6 @@ function papi_current_user_is_allowed( $capabilities = array() ) {
 }
 
 /**
- * Check if $obj has $key echo default.
- *
- * @param array $obj The array
- * @param string $key The key to check for
- * @param string $default The value to return if var is not set.
- *
- * @since 1.1.0
- */
-
-function papi_ea( array $obj, $key, $default = '' ) {
-	echo isset( $obj[$key] ) ? $obj[$key] : $default;
-}
-
-/**
  * Papi escape html.
  *
  * @param mixed $obj
