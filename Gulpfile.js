@@ -6,7 +6,7 @@
 
 /*-------------------------------------------------------------------
 
-  Required plugins
+Required plugins
 
 -------------------------------------------------------------------*/
 
@@ -23,7 +23,7 @@ var pkg          = require('./package.json');
 
 /*-------------------------------------------------------------------
 
-  Config
+Config
 
 -------------------------------------------------------------------*/
 var src = './gui/';
@@ -41,14 +41,14 @@ var config = {
   },
   scripts: {
     files: [
-      src + 'js/components/*.js',
-      src + 'js/base.js',
-      src + 'js/modules/*.js',
-      src + 'js/views/*.js',
-      src + 'js/properties/*.js',
-      src + 'js/vendor.js',
-      src + 'js/binds.js',
-      src + 'js/init.js'
+    src + 'js/components/*.js',
+    src + 'js/base.js',
+    src + 'js/modules/*.js',
+    src + 'js/views/*.js',
+    src + 'js/properties/*.js',
+    src + 'js/vendor.js',
+    src + 'js/binds.js',
+    src + 'js/init.js'
     ],
     dest: src + 'js/'
   }
@@ -57,7 +57,7 @@ var config = {
 
 /*-------------------------------------------------------------------
 
-  Banner using meta data from package.json
+Banner using meta data from package.json
 
 -------------------------------------------------------------------*/
 
@@ -76,35 +76,38 @@ var banner = [
 
 /*-------------------------------------------------------------------
 
-  Tasks
+Tasks
 
 -------------------------------------------------------------------*/
 
 // Sass
 gulp.task('sass', function() {
-  return gulp.src([config.sass.src, config.basePaths.src + 'css/components/*.css'])
-    .pipe(sourcemaps.init())
-    .pipe(sass(config.sass.settings))
-    .pipe(sourcemaps.write())
-    .pipe(autoprefixer({ browsers: ['last 2 version'] }))
-    .pipe(cssmin())
-    .pipe(header(banner, {
-      package: pkg
-    }))
-    .pipe(gulp.dest(config.sass.dest));
+  return gulp.src([config.sass.src, src + 'css/components/*.css'])
+  .pipe(concat(
+    'style.min.css'
+  ))
+  .pipe(sourcemaps.init())
+  .pipe(sass(config.sass.settings))
+  .pipe(sourcemaps.write())
+  .pipe(autoprefixer({ browsers: ['last 2 version'] }))
+  .pipe(cssmin())
+  .pipe(header(banner, {
+    package: pkg
+  }))
+  .pipe(gulp.dest(config.sass.dest));
 });
 
 // Scripts
 gulp.task('scripts', function() {
   return gulp.src(config.scripts.files)
-    .pipe(concat(
-      'main.min.js'
-    ))
-    .pipe(uglify())
-    .pipe(header(banner, {
-      package: pkg
-    }))
-    .pipe(gulp.dest(config.scripts.dest));
+  .pipe(concat(
+    'main.min.js'
+  ))
+  .pipe(uglify())
+  .pipe(header(banner, {
+    package: pkg
+  }))
+  .pipe(gulp.dest(config.scripts.dest));
 });
 
 // Watch
@@ -133,6 +136,6 @@ gulp.task('default', function () {
 
 
 /**
- * Keep on kicking ass Fredik! ;)
- * – The Crip
- */
+* Keep on kicking ass Fredik! ;)
+* – The Crip
+*/
