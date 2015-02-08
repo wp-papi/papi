@@ -33,7 +33,7 @@
     td {
       border-bottom: 0;
       border-top: 1px solid #eaeaea;
-      padding: 10px 15px;
+      padding: 10px 16px 10px 15px;
       vertical-align: top;
 
       &:first-child {
@@ -104,6 +104,10 @@
           padding-top: 15px;
         }
       }
+    }
+
+    > .papi-table {
+      margin-top: -7px;
     }
   }
 
