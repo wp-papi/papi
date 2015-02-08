@@ -76,14 +76,12 @@ class Papi_Property_Post extends Papi_Property {
 		}
 
 		// Keep only objects.
-		$posts = array_filter( papi_to_array( $posts ), function ( $post ) {
-			return is_object( $post ) && isset( $post->post_title );
-		} );
+		$posts = papi_get_only_objects( papi_to_array( $posts ) );
 
 		?>
 
 		<div class="papi-property-post">
-			<?php if ( !empty($settings->text) ): ?>
+			<?php if ( !empty( $settings->text ) ): ?>
 				<p>
 					<?php echo $settings->text; ?>
 				</p>

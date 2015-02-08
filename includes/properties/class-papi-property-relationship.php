@@ -136,9 +136,7 @@ class Papi_Property_Relationship extends Papi_Property {
 		) ) );
 
 		// Keep only objects.
-		$value = array_filter( papi_to_array( $value ), function ( $post ) {
-			return is_object( $post ) && isset( $post->post_title );
-		} );
+		$posts = papi_get_only_objects( papi_to_array( $posts ) );
 
 		?>
 		<div class="papi-property-relationship">

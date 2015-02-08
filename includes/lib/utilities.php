@@ -397,24 +397,6 @@ function papi_is_ext( $str, $ext ) {
 }
 
 /**
- * Check what the request method is.
- *
- * @param string $method
- *
- * @since 1.0.0
- *
- * @return bool
- */
-
-function papi_is_method( $method = '' ) {
-	if ( ! is_string( $method ) ) {
-		return false;
-	}
-
-	return isset( $_SERVER['REQUEST_METHOD'] ) && strtoupper( $_SERVER['REQUEST_METHOD'] ) == strtoupper( $method );
-}
-
-/**
  * Remove `papi-` or `papi_` from the given string.
  *
  * @param string $str
