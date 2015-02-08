@@ -69,7 +69,7 @@ class Papi_Page_Type_Base {
 	 * @return mixed
 	 */
 
-	public static function instance ( $instance = null ) {
+	public static function instance( $instance = null ) {
 		if ( empty( $instance ) ) {
 			return self::$instance;
 		}
@@ -129,7 +129,7 @@ class Papi_Page_Type_Base {
 	 * @return string
 	 */
 
-	public function get_filename () {
+	public function get_filename() {
 		return $this->_file_name;
 	}
 
