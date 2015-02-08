@@ -327,17 +327,6 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_to_object.
-	 *
-	 * @since 1.1.0
-	 */
-
-	public function test_papi_to_object() {
-		$actual = papi_to_object( array() );
-		$this->assertTrue( is_object( $actual ) );
-	}
-
-	/**
 	 * Test papi_underscorify.
 	 *
 	 * @since 1.0.0

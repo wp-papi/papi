@@ -86,19 +86,4 @@ class WP_Papi_Functions_Tabs extends WP_UnitTestCase {
 		$this->assertEquals( 'string', $actual->properties[0]->type );
 	}
 
-	/**
-	 * Test papi_tab template.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function test_papi_tab_template() {
-		$actual = papi_property( dirname( __FILE__ ) . '/../data/tabs/content.php' );
-
-		$this->assertTrue( $actual->tab );
-		$this->assertEquals( 'Content', $actual->options['title'] );
-		$this->assertEquals( 'Name', $actual->properties[0]->title );
-		$this->assertEquals( 'string', $actual->properties[0]->type );
-	}
-
 }

@@ -522,24 +522,6 @@ function papi_to_array( $obj ) {
 }
 
 /**
- * Convert $obj to object.
- *
- * @param mixed $obj
- *
- * @since 1.1.0
- *
- * @return object
- */
-
-function papi_to_object( $obj ) {
-	if ( ! is_object( $obj ) ) {
-		$obj = (object)$obj;
-	}
-
-	return $obj;
-}
-
-/**
  * Underscorify the given string.
  * Replacing whitespace and dash with a underscore.
  *
