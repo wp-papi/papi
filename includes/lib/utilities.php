@@ -540,20 +540,6 @@ function papi_to_object( $obj ) {
 }
 
 /**
- * Get all items of array into object.
- *
- * @param array $arr
- *
- * @since 1.1.0
- *
- * @return array
- */
-
-function papi_all_to_object( array $arr ) {
-	return array_map( 'papi_to_object', $arr );
-}
-
-/**
  * Underscorify the given string.
  * Replacing whitespace and dash with a underscore.
  *
