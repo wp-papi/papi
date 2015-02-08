@@ -15,6 +15,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Papi_Page_Type_Base {
 
 	/**
+	 * The meta method to call.
+	 *
+	 * @var string
+	 * @since 1.2.0
+	 */
+
+	public $_meta_method = 'page_type';
+
+	/**
 	 * The page type class name.
 	 *
 	 * @var string
@@ -183,11 +192,11 @@ class Papi_Page_Type_Base {
 
 	private function setup_meta_data() {
 		// Check so we have the page type meta array function.
-		if ( ! method_exists( $this->_class_name, 'page_type' ) ) {
+		if ( ! method_exists( $this->_class_name, $this->_meta_method ) ) {
 			return null;
 		}
 
-		foreach ( $this->page_type() as $key => $value ) {
+		foreach ( call_user_func( array( $this, $this->_meta_method ) ) as $key => $value ) {
 			if ( substr( $key, 0, 1 ) === '_' ) {
 				continue;
 			}
