@@ -108,7 +108,7 @@ gulp.task('scripts', function() {
 });
 
 // Watch
-gulp.task('watch', ['setWatch', 'browserSync'], function() {
+gulp.task('watch', function() {
   gulp.watch(config.sass.src,     ['sass']);
   gulp.watch(config.scripts.src,  ['scripts']);
 });
