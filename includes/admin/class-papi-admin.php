@@ -142,7 +142,7 @@ final class Papi_Admin {
 	 */
 
 	public function admin_menu() {
-		global $menu, $submenu;
+		global $submenu;
 
 		$post_types = papi_get_post_types();
 
