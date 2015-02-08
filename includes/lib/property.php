@@ -409,7 +409,7 @@ function papi_render_property( $property ) {
 	}
 
 	// Render the property.
-	if ( $render ) {
+	if ( $render && $property->disabled === false ) {
 		$property_type->assets();
 		$property_type->render();
 		$property_type->hidden();

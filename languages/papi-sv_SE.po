@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-02-06 11:42+0100\n"
-"PO-Revision-Date: 2015-02-06 11:43+0100\n"
+"POT-Creation-Date: 2015-02-08 22:14+0100\n"
+"PO-Revision-Date: 2015-02-08 22:15+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.3\n"
+"X-Generator: Poedit 1.6.10\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -18,8 +18,8 @@ msgstr ""
 
 #: ../includes/admin/class-papi-admin.php:125
 #: ../includes/admin/class-papi-admin.php:135
-#: ../includes/page-type/class-papi-page-type-base.php:102
-#: ../includes/page-type/class-papi-page-type-base.php:112
+#: ../includes/page-type/class-papi-page-type-base.php:111
+#: ../includes/page-type/class-papi-page-type-base.php:121
 msgid "Cheatin&#8217; huh?"
 msgstr "Fuskar du?"
 
@@ -58,8 +58,8 @@ msgid "Sort order"
 msgstr "Sorteringsordning"
 
 #: ../includes/admin/views/management-page-type.php:11
-#: ../includes/admin/views/management-page-type.php:36
-#: ../includes/admin/views/management-page-type.php:88
+#: ../includes/admin/views/management-page-type.php:43
+#: ../includes/admin/views/management-page-type.php:95
 msgid "Properties"
 msgstr "Egenskaper"
 
@@ -75,19 +75,23 @@ msgstr "Typ"
 msgid "Slug"
 msgstr "Adress"
 
-#: ../includes/admin/views/management-page-type.php:71
+#: ../includes/admin/views/management-page-type.php:30
+msgid "Custom structure can not be visualized"
+msgstr "Egen struktur kan inte visualiseras"
+
+#: ../includes/admin/views/management-page-type.php:78
 msgid "Overview of page types"
 msgstr "Översikt över sidtyper"
 
-#: ../includes/admin/views/management-page-type.php:74
+#: ../includes/admin/views/management-page-type.php:81
 msgid "Back to list"
 msgstr "Tillbaka till listan"
 
-#: ../includes/admin/views/management-page-type.php:82
+#: ../includes/admin/views/management-page-type.php:89
 msgid "No meta boxes exists."
 msgstr "Ingen meta box existerar."
 
-#: ../includes/admin/views/management-page-type.php:91
+#: ../includes/admin/views/management-page-type.php:98
 msgid "Tabs"
 msgstr "Tabbar"
 
@@ -115,7 +119,7 @@ msgstr "Antal sidor"
 msgid "Page Type has no template file"
 msgstr "Sidtypen har ingen mallfil"
 
-#: ../includes/admin/views/management-start.php:51
+#: ../includes/admin/views/management-start.php:49
 msgid "Template file does not exist"
 msgstr "Mallfilen finns inte"
 
@@ -128,19 +132,19 @@ msgstr "Välj"
 msgid "(required field)"
 msgstr "(obligatoriskt fält)"
 
-#: ../includes/lib/filters.php:121
+#: ../includes/lib/filters.php:133
 msgid "Just the normal WordPress page"
 msgstr "Vanliga WordPress sidan"
 
-#: ../includes/lib/filters.php:135
+#: ../includes/lib/filters.php:147
 msgid "Standard Page"
 msgstr "Standard sida"
 
-#: ../includes/properties/class-papi-property-image.php:83
+#: ../includes/properties/class-papi-property-image.php:82
 msgid "No image selected"
 msgstr "Ingen bild vald"
 
-#: ../includes/properties/class-papi-property-image.php:87
+#: ../includes/properties/class-papi-property-image.php:86
 msgid "Add image"
 msgstr "Lägg till bild"
 
@@ -184,11 +188,11 @@ msgstr "Enligt ändringsdatum (stigande)"
 msgid "Post modified date (descending)"
 msgstr "Enligt ändringsdatum (fallande)"
 
-#: ../includes/properties/class-papi-property-relationship.php:147
+#: ../includes/properties/class-papi-property-relationship.php:145
 msgid "Search"
 msgstr "Sök"
 
-#: ../includes/properties/class-papi-property-relationship.php:152
+#: ../includes/properties/class-papi-property-relationship.php:150
 msgid "Sort by"
 msgstr "Sortera efter"
 
