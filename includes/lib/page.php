@@ -283,25 +283,3 @@ function papi_get_post_types() {
 
 	return array_unique( $post_types );
 }
-
-/**
- * Check if page type is allowed to use.
- *
- * @param string $post_type
- *
- * @since 1.0.0
- *
- * @return bool
- */
-
-function papi_is_page_type_allowed( $post_type ) {
-	if ( ! is_string( $post_type ) ) {
-		return false;
-	}
-
-	$post_types = array_map( function ( $p ) {
-		return strtolower( $p );
-	}, papi_get_post_types() );
-
-	return in_array( strtolower( $post_type ), $post_types );
-}
