@@ -23,9 +23,9 @@
       var $list = $('.papi-box-list');
       var val = $this.val();
 
-      $list.find('li').each(function () {
-        var $li = $(this);
-        $li[$li.text().toLowerCase().indexOf(val) === -1 ? 'hide' : 'show']();
+      $list.find('.papi-box-item').each(function () {
+        var $item = $(this);
+        $item[$item.text().toLowerCase().indexOf(val) === -1 ? 'hide' : 'show']();
       });
 
     });
