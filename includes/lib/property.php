@@ -72,26 +72,6 @@ function papi_get_box_property( $properties ) {
 }
 
 /**
- * Returns only values in the array and removes `{x}_property` key and value.
- *
- * @param array $arr
- *
- * @since 1.0.0
- *
- * @return array
- */
-
-function papi_get_only_property_values( $arr = array() ) {
-	foreach ( $arr as $key => $value ) {
-		if ( papi_is_property_type_key( $key ) ) {
-			unset( $arr[ $key ] );
-		}
-	}
-
-	return $arr;
-}
-
-/**
  * Get options and properties.
  *
  * @param string|array $file_or_options

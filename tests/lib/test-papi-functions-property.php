@@ -69,25 +69,10 @@ class WP_Papi_Functions_Property extends WP_UnitTestCase {
 	}
 
 	/**
-	* Test papi_get_only_property_values.
-	*
-	* @since 1.0.0
-	*/
-
-	public function test_papi_get_only_property_values() {
-		$actual = papi_get_only_property_values( array(
-			'image'  => 1,
-			'_image_property' => 'image'
-		) );
-
-		$this->assertEquals( array( 'image' => 1 ), $actual );
-	}
-
-	/**
-	* Test papi_get_options_and_properties.
-	*
-	* @since 1.0.0
-	*/
+	 * Test papi_get_options_and_properties.
+	 *
+	 * @since 1.0.0
+	 */
 
 	public function test_papi_get_options_and_properties() {
 		$actual = papi_get_options_and_properties( dirname( __FILE__ ) . '/../data/boxes/simple.php', array(
@@ -197,11 +182,11 @@ class WP_Papi_Functions_Property extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_get_property_type_custom() {
-		add_action('papi_include_properties', function() {
-			require_once(dirname(__FILE__) . '/../data/properties/class-papi-property-kvack.php');
-		});
+		add_action( 'papi_include_properties', function() {
+			require_once dirname( __FILE__ ) . '/../data/properties/class-papi-property-kvack.php';
+		} );
 
-		do_action('papi_include_properties');
+		do_action( 'papi_include_properties' );
 
 		$this->assertTrue( papi_get_property_type( 'kvack' ) instanceof Papi_Property_Kvack );
 	}
