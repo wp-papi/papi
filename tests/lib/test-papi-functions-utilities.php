@@ -127,28 +127,6 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_only_arrays.
-	 *
-	 * @since 1.1.0
-	 */
-
-	public function test_papi_get_only_arrays() {
-		$actual = true;
-
-		$items = papi_get_only_arrays( array( 1, 3, new stdClass, 'hej', array() ) );
-
-		foreach ( $items as $item ) {
-			$actual = is_array( $item );
-
-			if ( ! $actual ) {
-				break;
-			}
-		}
-
-		$this->assertTrue( $actual );
-	}
-
-	/**
 	 * Test papi_get_only_objects.
 	 *
 	 * @since 1.1.0

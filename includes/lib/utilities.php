@@ -202,22 +202,6 @@ function papi_get_class_name( $file ) {
 }
 
 /**
- * Get only arrays from $arr.
- *
- * @param array $arr
- *
- * @since 1.1.0
- *
- * @return array
- */
-
-function papi_get_only_arrays( $arr ) {
-	return array_filter( papi_to_array( $arr ), function ( $item ) {
-		return is_array( $item );
-	} );
-}
-
-/**
  * Get only objects from $arr.
  *
  * @param array $arr
