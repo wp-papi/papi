@@ -189,9 +189,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 */
 
 	private function setup_post_types() {
-		if ( ! is_array( $this->post_type ) ) {
-			$this->post_type = array( $this->post_type );
-		}
+		$this->post_type = papi_to_array( $this->post_type );
 
 		// Set a default value to post types array if we don't have a array or a empty array.
 		if ( empty( $this->post_type ) ) {
