@@ -94,7 +94,21 @@
 }
 
 #poststuff .papi-box {
+  .hndle {
+    border: 0;
+  }
+
   .inside {
+    > .papi-custom-html {
+      border-top: 1px solid #eaeaea;
+      margin-top: -4px;
+
+      h3,
+      h4 {
+        padding-top: 15px;
+      }
+    }
+
     .papi-table {
       + .papi-custom-html {
         border-top: 1px solid #eaeaea;
@@ -104,10 +118,6 @@
           padding-top: 15px;
         }
       }
-    }
-
-    > .papi-table {
-      margin-top: -8px;
     }
   }
 
