@@ -211,8 +211,8 @@ function papi_get_class_name( $file ) {
  * @return array
  */
 
-function papi_get_only_arrays( array $arr ) {
-	return array_filter( $arr, function ( $item ) {
+function papi_get_only_arrays( $arr ) {
+	return array_filter( papi_to_array( $arr ), function ( $item ) {
 		return is_array( $item );
 	} );
 }
