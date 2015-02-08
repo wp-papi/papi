@@ -415,16 +415,6 @@ function papi_is_method( $method = '' ) {
 }
 
 /**
- * Check if polylang is used or not.
- *
- * @return bool
- */
-
-function papi_polylang() {
-	return defined( 'POLYLANG_VERSION' );
-}
-
-/**
  * Remove `papi-` or `papi_` from the given string.
  *
  * @param string $str

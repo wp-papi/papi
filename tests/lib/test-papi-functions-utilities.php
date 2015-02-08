@@ -258,16 +258,6 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_polylang.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function test_papi_polylang() {
-		$this->assertFalse( papi_polylang() );
-	}
-
-	/**
 	 * Test papi_remove_papi.
 	 *
 	 * @since 1.0.0

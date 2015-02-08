@@ -249,9 +249,9 @@ function papi_get_page_type_meta_value( $post_id = null ) {
 		$page_type = $_POST[PAPI_PAGE_TYPE_KEY];
 	}
 
-	// Load right page type when Polylang is in use.
-	if ( empty( $page_type ) && papi_polylang() ) {
-		$from_post = papi_get_qs( 'from_post' );
+	// Load right page type from a post query string
+	if ( empty( $page_type ) ) {
+		$from_post = papi_filter_settings_page_type_from_post_qs();
 		if ( ! is_null( $from_post ) && is_numeric( $from_post ) ) {
 			$meta_value = get_post_meta( intval( $from_post ), $key, true );
 			$page_type  = papi_h( $meta_value, '' );

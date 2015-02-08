@@ -98,6 +98,22 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test papi_filter_settings_page_type_from_post_qs.
+	 *
+	 * @since 1.2.0
+	 */
+
+	public function test_papi_filter_page_type_from_post_qs() {
+		$this->assertEquals( 'from_post', papi_filter_settings_page_type_from_post_qs() );
+
+		tests_add_filter( 'papi/settings/page_type_from_post_qs', function () {
+			return 'parent_post';
+		} );
+
+		$this->assertEquals( 'parent_post', papi_filter_settings_page_type_from_post_qs() );
+	}
+
+	/**
 	 * Test papi_filter_only_page_type.
 	 *
 	 * @since 1.0.0
@@ -122,7 +138,7 @@ class WP_Papi_Functions_Filters extends WP_UnitTestCase {
 	public function test_papi_filter_show_page_type() {
 		$this->assertEquals( true, papi_filter_show_page_type( 'post', 'test-page-type' ) );
 
-		tests_add_filter( 'papi/settings/standard_page_type_post', function ($page_type) {
+		tests_add_filter( 'papi/settings/standard_page_type_post', function ( $page_type ) {
 			if ( $page_type == 'test-page-type' ) {
 				return false;
 			}
