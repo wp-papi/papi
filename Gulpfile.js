@@ -1,8 +1,8 @@
 /**
-* Gulpfile
-* Copyright (c) 2015 Fredrik Forsmo & Johnie Hjelm
-* Autoprefixer, Sass, Uglify, Header, Cssmin etc
-*/
+ * Gulpfile
+ * Copyright (c) 2015 Fredrik Forsmo & Johnie Hjelm
+ * Autoprefixer, Sass, Uglify, Header, Cssmin etc
+ */
 
 /*-------------------------------------------------------------------
 
@@ -134,6 +134,6 @@ gulp.task('default', function () {
 
 
 /**
-* Keep on kicking ass Fredik! ;)
-* – The Crip
-*/
+ * Keep on kicking ass Fredik! ;)
+ * – The Crip
+ */
