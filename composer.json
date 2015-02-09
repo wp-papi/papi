@@ -3,7 +3,7 @@
   "type": "wordpress-plugin",
   "license": "MIT",
   "description": "Page Type API",
-  "homepage": "http://wp-papi.github.io",
+  "homepage": "https://wp-papi.github.io",
   "authors": [
     {
       "name": "Fredrik Forsmo",
