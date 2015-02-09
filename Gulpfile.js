@@ -62,15 +62,15 @@ Banner using meta data from package.json
 -------------------------------------------------------------------*/
 
 var banner = [
-'/*!\n' +
-' * <%= package.name %>\n' +
-' * <%= package.description %>\n' +
-' * http://github.com/<%= package.homepage %>\n' +
-' * @author <%= package.author %>\n' +
-' * @version <%= package.version %>\n' +
-' * Copyright ' + new Date().getFullYear() + '. <%= package.license %> licensed.\n' +
-' */',
-'\n'
+  '/*!\n' +
+  ' * <%= package.name %>\n' +
+  ' * <%= package.description %>\n' +
+  ' * http://github.com/<%= package.homepage %>\n' +
+  ' * @author <%= package.author %>\n' +
+  ' * @version <%= package.version %>\n' +
+  ' * Copyright ' + new Date().getFullYear() + '. <%= package.license %> licensed.\n' +
+  ' */',
+  '\n'
 ].join('');
 
 
