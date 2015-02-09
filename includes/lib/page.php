@@ -191,29 +191,24 @@ function papi_get_page_type( $file_path ) {
 		return null;
 	}
 
-	if ( ! class_exists( $class_name ) ) {
-		require_once $file_path;
+	// Try to add the page type to the container.
+	if ( ! papi()->exists( $class_name ) ) {
+		if ( ! class_exists( $class_name ) ) {
+			include_once $file_path;
+		}
+
+		$rc         = new \ReflectionClass( $class_name );
+		$page_type  = $rc->newInstanceArgs( array( $file_path ) );
+
+		// If the page type don't have a name we can't use it.
+		if ( ! $page_type->has_name() ) {
+			return null;
+		}
+
+		papi()->bind( $class_name, $page_type );
 	}
 
-	// Try to get the instance of the page type.
-	$instance = call_user_func( $class_name . '::instance' );
-
-	if ( ! empty( $instance ) && get_class( $instance ) === $class_name ) {
-		return $instance;
-	}
-
-	$rc         = new ReflectionClass( $class_name );
-	$page_type  = $rc->newInstanceArgs( array( $file_path ) );
-
-	// Set the instance.
-	call_user_func( $class_name . '::instance', $page_type );
-
-	// If the page type don't have a name we can't use it.
-	if ( ! $page_type->has_name() ) {
-		return null;
-	}
-
-	return $page_type;
+	return papi()->make( $class_name );
 }
 
 /**

@@ -16,10 +16,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Load Papi Container.
+ */
+
+require_once __DIR__ . '/includes/container/class-papi-container.php';
+
+/**
  * Papi loader class.
  */
 
-final class Papi_Loader {
+final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * The instance of Papi loader class.
@@ -91,7 +97,7 @@ final class Papi_Loader {
 			self::$instance->require_files();
 			self::$instance->setup_requried();
 			// Not used yet.
-			//self::$instance->setup_actions();
+			// self::$instance->setup_actions();
 		}
 
 		return self::$instance;
@@ -269,15 +275,6 @@ final class Papi_Loader {
 	}
 
 	/**
-	 * Setup the default hooks and actions.
-	 *
-	 * @since 1.0.0
-	 * @access private
-	 */
-
-	// private function setup_actions () {}
-
-	/**
 	 * Auto load Papi classes on demand.
 	 *
 	 * @param mixed $class
@@ -318,5 +315,4 @@ function papi() {
 	return Papi_Loader::instance();
 }
 
-// Since we would have custom data in our theme directory we need to hook us up to 'after_setup_theme' action.
-add_action( 'after_setup_theme', 'papi' );
+add_action( 'plugins_loaded', 'papi' );

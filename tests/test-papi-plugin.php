@@ -31,7 +31,7 @@ class WP_Papi_Plugin extends WP_UnitTestCase {
 	 */
 
 	public function test_after_setup_theme_action() {
-		$this->assertEquals( 10, has_action( 'after_setup_theme', 'papi' ) );
+		$this->assertEquals( 10, has_action( 'plugins_loaded', 'papi' ) );
 	}
 
 }
