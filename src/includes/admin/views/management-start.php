@@ -26,6 +26,9 @@
 		<?php
 		$page_types = papi_get_all_page_types( true );
 		foreach ( $page_types as $key => $page_type ) {
+			if ( !method_exists( $page_type, 'get_boxes' ) ) {
+				continue;
+			}
 			?>
 			<tr>
 				<td><a href="<?php echo $_SERVER['REQUEST_URI']; ?>&view=management-page-type&page-type=<?php echo papi_get_page_type_base_path( $page_type->get_filepath() ); ?>"><?php echo $page_type->name; ?></a></td>
