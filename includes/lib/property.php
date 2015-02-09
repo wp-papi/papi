@@ -231,7 +231,7 @@ function papi_get_property_options( $options, $get_value = true ) {
 	$options->settings = array_merge( papi_get_property_default_settings( $options->type ), $options->settings );
 	$options->settings = (object)$options->settings;
 
-	$options = papi_esc_html( $options );
+	$options = papi_esc_html( $options, array( 'html' ) );
 
 	if ( empty( $options->value ) && $get_value ) {
 		// Get meta value for the field

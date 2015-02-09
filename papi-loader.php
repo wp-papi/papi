@@ -220,6 +220,7 @@ final class Papi_Loader {
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-post.php';
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-color.php';
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-reference.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-html.php';
 
 		// Include third party properties.
 		$this->include_third_party();

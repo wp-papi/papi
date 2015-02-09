@@ -63,13 +63,14 @@ function papi_current_user_is_allowed( $capabilities = array() ) {
  * Papi escape html.
  *
  * @param mixed $obj
+ * @param array $keys
  *
  * @since 1.2.0
  *
  * @return mixed
  */
 
-function papi_esc_html( $obj ) {
+function papi_esc_html( $obj, $keys = array() ) {
 	$object = is_object( $obj );
 
 	if ( $object ) {
@@ -78,13 +79,17 @@ function papi_esc_html( $obj ) {
 
 	if ( is_array( $obj ) ) {
 		foreach ( $obj as $key => $value ) {
+			if ( in_array( $key, $keys ) ) {
+				continue;
+			}
+
 			if ( is_string( $key ) ) {
 				unset( $obj[$key] );
 				$key = papi_esc_html( $key );
 			}
 
 			if ( is_string( $value ) || is_object( $value ) || is_array( $obj ) ) {
-				$obj[$key] = papi_esc_html( $value );
+				$obj[$key] = papi_esc_html( $value, $keys );
 			}
 		}
 
