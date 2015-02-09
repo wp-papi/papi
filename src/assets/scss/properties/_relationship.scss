@@ -61,14 +61,16 @@
         padding: 5px 10px 10px 5px;
 
         span.icon {
-          background: url('../images/plus-minus.png') no-repeat top left;
+          background: url('../images/plus-minus.png') 0 0 no-repeat;
           cursor: pointer;
           float: right;
           height: 16px;
           width: 16px;
+          margin: 0 3px 0 0;
 
           &.minus {
-            background-position: top right;
+            background-position: -16px 0;
+            margin: 0;
           }
         }
 

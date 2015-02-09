@@ -26,7 +26,7 @@ var pkg          = require('./package.json');
 Config
 
 -------------------------------------------------------------------*/
-var src = './gui/';
+var src = './src/assets/';
 var dist = './dist/';
 var config = {
   sass: {
