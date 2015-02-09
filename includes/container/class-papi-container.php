@@ -119,6 +119,6 @@ class Papi_Container implements \ArrayAccess {
 	 */
 
     public function offsetUnset( $id ) {
-		unset( $this->keys[$id], $this->frozen[$id], $this->values[$id] );
+		unset( $this->keys[$id], $this->values[$id] );
     }
 }
