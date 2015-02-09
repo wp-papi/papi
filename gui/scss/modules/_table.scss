@@ -93,37 +93,10 @@
   }
 }
 
-#poststuff .papi-box {
-  .hndle {
-    border: 0;
-  }
-
-  .inside {
-    > .papi-custom-html {
-      border-top: 1px solid #eaeaea;
-      margin-top: -4px;
-
-      h3,
-      h4 {
-        padding-top: 15px;
-      }
-    }
-
-    .papi-table {
-      + .papi-custom-html {
-        border-top: 1px solid #eaeaea;
-        margin-top: 10px;
-
-        h3 {
-          padding-top: 15px;
-        }
-      }
-    }
-  }
-
-  &.papi-mode-seamless .inside .papi-table + .papi-custom-html {
-    border: 0;
-  }
-}
+// #poststuff .papi-box {
+//  .hndle {
+//    border: 0;
+//  }
+// }
 
 // side meta boxes
