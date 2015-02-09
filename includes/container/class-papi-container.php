@@ -15,15 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Papi_Container implements \ArrayAccess {
 
 	/**
-	 * The frozen holder.
-	 *
-	 * @var array
-	 * @since 1.2.0
-	 */
-
-	protected $frozen = array();
-
-	/**
 	 * The keys holder.
 	 *
 	 * @var array
@@ -82,9 +73,6 @@ class Papi_Container implements \ArrayAccess {
 		if ( !isset( $this->keys[$id] ) ) {
 			throw new \InvalidArgumentException( sprintf( 'Identifier [%s] is not defined', $id ) );
 		}
-
-		// Froze the value.
-		$this->frozen[$id] = true;
 
 		return call_user_func( $this->values[$id] );
 	}
