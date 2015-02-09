@@ -189,6 +189,7 @@ final class Papi_Loader extends Papi_Container {
 
 		// Load Papi functions.
 		require_once $this->plugin_dir . 'includes/lib/utilities.php';
+		require_once $this->plugin_dir . 'includes/lib/actions.php';
 		require_once $this->plugin_dir . 'includes/lib/filters.php';
 		require_once $this->plugin_dir . 'includes/lib/url.php';
 		require_once $this->plugin_dir . 'includes/lib/post.php';
@@ -229,18 +230,10 @@ final class Papi_Loader extends Papi_Container {
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-html.php';
 
 		// Include third party properties.
-		$this->include_third_party();
-	}
+		papi_action_include_properties();
 
-	/**
-	 * Include third party properties.
-	 *
-	 * @since 1.0.0
-	 * @access private
-	 */
-
-	private function include_third_party() {
-		do_action( 'papi_include_properties' );
+		// Include plugins.
+		papi_action_include();
 	}
 
 	/**
