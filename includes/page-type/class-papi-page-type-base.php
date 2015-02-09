@@ -51,33 +51,6 @@ class Papi_Page_Type_Base {
 	public $_file_path = '';
 
 	/**
-	 * The instance of the page type.
-	 *
-	 * @var object
-	 * @since 1.0.0
-	 */
-
-	protected static $instance;
-
-	/**
-	 * Get instance of the page type.
-	 *
-	 * @param mixed $instance
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return mixed
-	 */
-
-	public static function instance( $instance = null ) {
-		if ( empty( $instance ) ) {
-			return self::$instance;
-		}
-
-		self::$instance = $instance;
-	}
-
-	/**
 	 * Constructor.
 	 * Load a page type by the file.
 	 *
