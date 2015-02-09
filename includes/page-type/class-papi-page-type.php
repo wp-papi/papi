@@ -104,6 +104,10 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 		$options['title'] = papi_esc_html( isset( $options['title'] ) ? $options['title'] : '' );
 
+		if ( is_callable( $properties ) ) {
+			$properties = call_user_func( $properties );
+		}
+
 		array_push( $this->boxes, array( $options, $properties, 'sort_order' => $sort_order, 'title' => $options['title'] ) );
 	}
 

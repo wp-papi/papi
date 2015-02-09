@@ -121,10 +121,6 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private function populate_properties( $properties ) {
-		if ( is_callable( $properties ) ) {
-			$properties = call_user_func( $properties );
-		}
-
 		$this->properties = papi_populate_properties( $properties );
 
 		if ( ! empty( $this->properties ) ) {
