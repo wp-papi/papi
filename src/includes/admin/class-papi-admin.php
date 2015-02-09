@@ -191,7 +191,7 @@ final class Papi_Admin {
 	public function admin_head() {
 		wp_enqueue_media();
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'papi-main', PAPI_PLUGIN_URL . 'gui/css/style.min.css', false, null );
+		wp_enqueue_style( 'papi-main', dirname(PAPI_PLUGIN_URL) . '/dist/css/style.min.css', false, null );
 	}
 
 	/**
@@ -201,7 +201,7 @@ final class Papi_Admin {
 	 */
 
 	public function admin_enqueue_scripts() {
-		wp_enqueue_script( 'papi-main', PAPI_PLUGIN_URL . 'gui/js/main.min.js', array(
+		wp_enqueue_script( 'papi-main', dirname(PAPI_PLUGIN_URL) . '/dist/js/main.min.js', array(
 			'jquery',
 			'jquery-ui-core',
 			'jquery-ui-sortable',

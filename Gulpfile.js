@@ -27,13 +27,11 @@ Config
 
 -------------------------------------------------------------------*/
 var src = './gui/';
+var dist = './dist/';
 var config = {
-  basePaths: {
-    src: './gui/'
-  },
   sass: {
     src: src + 'scss/**/*.{sass,scss}',
-    dest: src + 'css/',
+    dest: dist + 'css/',
     settings: {
       sourceComments: 'map',
       imagePath: '/images' // Used by the image-url helper
@@ -41,16 +39,16 @@ var config = {
   },
   scripts: {
     files: [
-    src + 'js/components/*.js',
-    src + 'js/base.js',
-    src + 'js/modules/*.js',
-    src + 'js/views/*.js',
-    src + 'js/properties/*.js',
-    src + 'js/components.js',
-    src + 'js/binds.js',
-    src + 'js/init.js'
+      src + 'js/components/*.js',
+      src + 'js/base.js',
+      src + 'js/modules/*.js',
+      src + 'js/views/*.js',
+      src + 'js/properties/*.js',
+      src + 'js/components.js',
+      src + 'js/binds.js',
+      src + 'js/init.js'
     ],
-    dest: src + 'js/'
+    dest: dist + 'js/'
   }
 };
 
@@ -83,31 +81,31 @@ Tasks
 // Sass
 gulp.task('sass', function() {
   return gulp.src([config.sass.src, src + 'css/components/*.css'])
-  .pipe(concat(
-    'style.min.css'
-  ))
-  .pipe(sourcemaps.init())
-  .pipe(sass(config.sass.settings))
-  .pipe(sourcemaps.write())
-  .pipe(autoprefixer({ browsers: ['last 2 version'] }))
-  .pipe(cssmin())
-  .pipe(header(banner, {
-    package: pkg
-  }))
-  .pipe(gulp.dest(config.sass.dest));
+    .pipe(concat(
+      'style.min.css'
+    ))
+    .pipe(sourcemaps.init())
+    .pipe(sass(config.sass.settings))
+    .pipe(sourcemaps.write())
+    .pipe(autoprefixer({ browsers: ['last 2 version'] }))
+    .pipe(cssmin())
+    .pipe(header(banner, {
+      package: pkg
+    }))
+    .pipe(gulp.dest(config.sass.dest));
 });
 
 // Scripts
 gulp.task('scripts', function() {
   return gulp.src(config.scripts.files)
-  .pipe(concat(
-    'main.min.js'
-  ))
-  .pipe(uglify())
-  .pipe(header(banner, {
-    package: pkg
-  }))
-  .pipe(gulp.dest(config.scripts.dest));
+    .pipe(concat(
+      'main.min.js'
+    ))
+    .pipe(uglify())
+    .pipe(header(banner, {
+      package: pkg
+    }))
+    .pipe(gulp.dest(config.scripts.dest));
 });
 
 // Watch
