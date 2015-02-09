@@ -24,13 +24,6 @@ function papi_management_page_type_render_box( $properties, $tab = false ) {
 
 					if ( $tab ) {
 						$properties = papi_setup_tabs( $properties );
-					} else if ( count( $properties ) === 1 && empty( $properties[0]->title ) && empty( $properties[0]->type ) && empty( $properties[0]->value ) ) {
-						?>
-						<tr>
-							<td colspan="4"><?php _e( 'Custom structure can not be visualized' , 'papi' ); ?></td>
-						</tr>
-						<?php
-						$properties = array();
 					}
 
 					foreach ( $properties as $property ): ?>
