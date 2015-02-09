@@ -248,7 +248,7 @@ final class Papi_Loader extends Papi_Container {
 	private function setup_globals() {
 		// Information globals.
 		$this->name    = 'Papi';
-		$this->version = '1.0.0';
+		$this->version = '1.2.0';
 
 		// Papi plugin directory and url.
 		$this->plugin_dir = PAPI_PLUGIN_DIR;

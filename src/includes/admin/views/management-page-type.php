@@ -114,4 +114,6 @@ function papi_management_page_type_render_box( $properties, $tab = false ) {
 
 	<?php endforeach; ?>
 
+	<p>Papi version: <?php echo papi()->version; ?></p>
+
 </div>

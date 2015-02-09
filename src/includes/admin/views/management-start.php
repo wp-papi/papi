@@ -58,4 +58,5 @@
 		?>
 		</tbody>
 	</table>
+	<p>Papi version: <?php echo papi()->version; ?></p>
 </div>
