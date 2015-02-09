@@ -122,13 +122,13 @@ class Papi_Admin_Meta_Box {
 
 	private function populate_properties( $properties ) {
 		if ( is_callable( $properties ) ) {
-			$this->properties = $properties;
-		} else {
-			$this->properties = papi_populate_properties( $properties );
+			$properties = call_user_func( $properties );
+		}
 
-			if ( ! empty( $this->properties ) ) {
-				$this->options->_tab_box = isset( $this->properties[0]->tab ) && $this->properties[0]->tab;
-			}
+		$this->properties = papi_populate_properties( $properties );
+
+		if ( ! empty( $this->properties ) ) {
+			$this->options->_tab_box = isset( $this->properties[0]->tab ) && $this->properties[0]->tab;
 		}
 	}
 
@@ -214,12 +214,8 @@ class Papi_Admin_Meta_Box {
 		<input type="hidden" name="<?php echo PAPI_PAGE_TYPE_KEY; ?>" value="<?php echo papi_get_page_type_meta_value(); ?>"/>
 		<?php
 
-		if ( is_callable( $this->properties ) ) {
-			call_user_func( $this->properties );
-		} else {
-			// Render the properties.
-			papi_render_properties( $args['args'] );
-		}
+		// Render the properties.
+		papi_render_properties( $args['args'] );
 	}
 
 	/**
