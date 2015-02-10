@@ -9,7 +9,7 @@
      */
 
     init: function () {
-      $('.papi-property-color-picker').each(function (i, el) {
+      $('.papi-property-color-picker input').each(function (i, el) {
         var $el = $(el);
 
         $el.wpColorPicker({

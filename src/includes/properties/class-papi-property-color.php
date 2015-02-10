@@ -23,7 +23,8 @@ class Papi_Property_Color extends \Papi_Property {
 
 	public function get_default_settings() {
 		return array(
-			'palettes' => array()
+			'palettes'   => array(),
+			'show_input' => true
 		);
 	}
 
@@ -39,8 +40,11 @@ class Papi_Property_Color extends \Papi_Property {
 		$value    = $this->get_value();
 
 		?>
-			<input type="hidden" value="<?php echo $value; ?>" data-palettes='<?php echo json_encode( $settings->palettes ); ?>'
-				name="<?php echo $options->slug; ?>" class="papi-property-color-picker" />
+			<div class="papi-property-color-picker">
+				<input type="<?php echo $settings->show_input === true ? 'text' : 'hidden'; ?>"
+				value="<?php echo $value; ?>" data-palettes='<?php echo json_encode( $settings->palettes ); ?>'
+				name="<?php echo $options->slug; ?>" />
+			</div>
 		<?php
 	}
 }
