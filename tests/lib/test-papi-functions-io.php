@@ -41,8 +41,8 @@ class WP_Papi_Functions_IO extends WP_UnitTestCase {
 		$expected = dirname( __FILE__ ) . '/../data/page-types/simple-page-type.php';
 
 		$this->assertTrue( is_array( $actual ) );
-		$this->assertTrue( ! empty($actual ) );
-		$this->assertEquals( $expected, $actual[1] );
+		$this->assertTrue( ! empty( $actual ) );
+		$this->assertTrue( in_array( $expected, $actual ) );
 	}
 
 }
