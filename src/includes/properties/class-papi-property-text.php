@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 
-class Papi_Property_Text extends Papi_Property {
+class Papi_Property_Text extends \Papi_Property {
 
 	/**
 	 * Get default settings.

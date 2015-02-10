@@ -191,6 +191,7 @@ function papi_get_class_name( $file ) {
 	$tokens          = token_get_all( $content );
 	$class_name      = '';
 	$namespace_name  = '';
+	$i               = 0;
 
 	for ( ; $i < count( $tokens ) ;$i++ ) {
         if ( $tokens[$i][0] === T_NAMESPACE ) {

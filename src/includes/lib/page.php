@@ -141,7 +141,7 @@ function papi_get_number_of_pages( $page_type ) {
 
 function papi_get_page( $post_id = null ) {
 	$post_id = papi_get_post_id( $post_id );
-	$page    = new Papi_Page( $post_id );
+	$page    = new \Papi_Page( $post_id );
 
 	if ( ! $page->has_post() ) {
 		return null;

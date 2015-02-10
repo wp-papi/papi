@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.1.0
  */
 
-class Papi_Property_Color extends Papi_Property {
+class Papi_Property_Color extends \Papi_Property {
 
 	/**
 	 * Get default settings.

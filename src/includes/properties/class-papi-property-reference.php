@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.2.0
  */
 
-class Papi_Property_Reference extends Papi_Property {
+class Papi_Property_Reference extends \Papi_Property {
 
 	/**
 	 * The default value.
