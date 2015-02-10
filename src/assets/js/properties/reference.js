@@ -1,5 +1,7 @@
 (function ($) {
 
+  'use strict';
+
   // Property reference
 
   papi.properties.reference = {
@@ -25,4 +27,4 @@
     papi.properties.reference.toggle($(this));
   });
 
-})(jQuery);
+})(window.jQuery);

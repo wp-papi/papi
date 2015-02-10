@@ -1,5 +1,7 @@
 (function ($) {
 
+  'use strict';
+
   // Property repeater
 
   papi.properties.repeater = {
@@ -26,7 +28,7 @@
       $template.find('[name],[data-slug], [data-id]').each(function () {
         var $this = $(this);
         var attr  = '';
-        var valeu = '';
+        var value = '';
         var attrs = [
           {
             source: 'data-slug',
@@ -79,7 +81,7 @@
       var self = this;
 
       $('.repeater-template [name]').each(function () {
-        $this = $(this);
+        var $this = $(this);
         $this.attr('data-name', $this.attr('name'));
         $this.removeAttr('name');
       });
@@ -158,4 +160,4 @@
     papi.properties.repeater.remove($(this));
   });
 
-  })(jQuery);
+})(window.jQuery);

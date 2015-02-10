@@ -1,5 +1,7 @@
 (function ($) {
 
+  'use strict';
+
   // Property url
 
   papi.properties.url = {
@@ -26,4 +28,4 @@
     papi.properties.url.add($(this));
   });
 
-})(jQuery);
+})(window.jQuery);

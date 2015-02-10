@@ -1,5 +1,7 @@
 (function ($) {
 
+  'use strict';
+
   // Property image
 
   papi.properties.image = {
@@ -107,7 +109,7 @@
         multiple: false
       }).on('open', function () {
         var selection = papi.utils.wpMediaFrame.state().get('selection');
-        var attachment = wp.media.attachment(postId);
+        var attachment = window.wp.media.attachment(postId);
 
         attachment.fetch();
         selection.add(attachment ? [attachment] : []);
@@ -152,4 +154,4 @@
     papi.properties.image.replace($(this));
   });
 
-})(jQuery);
+})(window.jQuery);

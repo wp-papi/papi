@@ -1,5 +1,7 @@
 (function ($) {
 
+  'use strict';
+
   // Property relationship
 
   papi.properties.relationship = {
@@ -95,4 +97,4 @@
     papi.properties.relationship.updateSelect($(this));
   });
 
-})(jQuery);
+})(window.jQuery);

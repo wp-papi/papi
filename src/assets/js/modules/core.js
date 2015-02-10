@@ -1,5 +1,7 @@
 (function ($) {
 
+  'use strict';
+
   // Core object.
   var core = {};
 

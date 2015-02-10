@@ -1,5 +1,7 @@
 (function () {
 
+  'use strict';
+
   // Initialize our modules
   papi.core.init();
   papi.tabs.init();

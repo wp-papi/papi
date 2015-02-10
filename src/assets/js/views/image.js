@@ -1,4 +1,6 @@
-(function () {
+(function (wp, _) {
+
+  'use strict';
 
   // Image view for property image
 
@@ -17,4 +19,4 @@
 
   });
 
-}());
+}(window.wp, window._));

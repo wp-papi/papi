@@ -1,5 +1,7 @@
 (function ($) {
 
+  'use strict';
+
   // Tabs object.
   var tabs = {};
 
@@ -30,4 +32,4 @@
   // Add utils to the papi object.
   window.papi.tabs = tabs;
 
-}(jQuery));
+}(window.jQuery));

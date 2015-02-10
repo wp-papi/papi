@@ -1,5 +1,7 @@
 (function ($) {
 
+  'use strict';
+
   // Property Dropdown
 
   papi.properties.dropdown = {
@@ -26,4 +28,4 @@
     papi.properties.dropdown.updateSelect($(this));
   });
 
-})(jQuery);
+})(window.jQuery);

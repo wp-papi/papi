@@ -1,5 +1,7 @@
 (function ($) {
 
+  'use strict';
+
   // Required fields
 
   $('body').on('click', '.papi-rq-link', function (e) {
@@ -14,14 +16,14 @@
   $('#publish').on('click', function (e) {
 
     var $button = $(this);
-        $fields = $('.papi-rq').closest('label'),
-        $spinner = $('#publishing-action .spinner'),
-        $errors = [];
+    var $fields = $('.papi-rq').closest('label');
+    var $spinner = $('#publishing-action .spinner');
+    var $errors = [];
 
     for (var i = 0, l = $fields.length; i < l; i++) {
 
-      var $this = $($fields[i]),
-          $field = $('[name="' + $this.attr('for') + '"]');
+      var $this = $($fields[i]);
+      var $field = $('[name="' + $this.attr('for') + '"]');
 
       if (!$field.length) {
         $field = $('[name="' + $this.attr('for') + '[]"]').first();
@@ -49,9 +51,9 @@
         }
       }
 
-      $('.wrap h2').after('<div id="message" class="error below-h2"><p>' + papiL10n.requiredError + ' ' + items + '</p></div>');
+      $('.wrap h2').after('<div id="message" class="error below-h2"><p>' + window.papiL10n.requiredError + ' ' + items + '</p></div>');
     }
 
   });
 
-})(jQuery);
+})(window.jQuery);

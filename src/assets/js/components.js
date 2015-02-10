@@ -1,5 +1,7 @@
 (function ($) {
 
+  'use strict';
+
   // Select2
   $('.inside .papi-table:not(.papi-table-template) tr .papi-vendor-select2')
     .filter(function () {
@@ -7,4 +9,4 @@
     })
     .select2();
 
-})(jQuery);
+})(window.jQuery);

@@ -1,5 +1,7 @@
 (function () {
 
+  'use strict';
+
   // Utils object.
   var utils = {
     wpMediaFrame: undefined
@@ -17,7 +19,7 @@
       utils.wpMediaFrame.dispose();
     }
 
-    utils.wpMediaFrame = wp.media(options).on('select', function () {
+    utils.wpMediaFrame = window.wp.media(options).on('select', function () {
       var attachments = utils.wpMediaFrame.state().get('selection').toJSON();
       for (var i = 0, l = attachments.length; i < l; i++) {
         if (attachments[i] === null) {

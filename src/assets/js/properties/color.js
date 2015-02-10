@@ -1,5 +1,7 @@
 (function ($) {
 
+  'use strict';
+
   // Property color
 
   papi.properties.color = {
@@ -20,4 +22,4 @@
     }
   };
 
-})(jQuery);
+})(window.jQuery);

@@ -1,4 +1,5 @@
 (function ($) {
+  'use strict';
 
   // Property Post
 
@@ -24,4 +25,4 @@
     papi.properties.post.updateSelect($(this));
   });
 
-})(jQuery);
+})(window.jQuery);
