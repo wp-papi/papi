@@ -33,7 +33,6 @@ class Papi_Property_Reference extends \Papi_Property {
 	public function get_default_settings() {
 		return array(
 			'slug'      => array(),
-			'post_type' => 'post',
 			'page_type' => array()
 		);
 	}
@@ -48,17 +47,29 @@ class Papi_Property_Reference extends \Papi_Property {
 		$post_id  = papi_get_post_id();
 		$settings = $this->get_settings();
 
-		// Fetch posts with the post types and the query.
-		$posts = query_posts( array(
-			'post_type' => papi_to_array( $settings->post_type ),
-			'meta_query' => array(
-				array(
-					'key' => PAPI_PAGE_TYPE_KEY,
-					'value' => papi_to_array( $settings->page_type ),
-					'compare' => 'IN'
-				)
-			)
-		) );
+		// Create query array for every page type.
+		$page_types = array_map( function ( $page_type ) {
+			return array(
+				'key' => PAPI_PAGE_TYPE_KEY,
+				'value' => $page_type,
+				'compare' => 'LIKE'
+			);
+		}, papi_to_array( $settings->page_type ) );
+
+		// Add relation.
+		$page_types['relation'] = 'OR';
+
+		// Prepare arguments for WP_Query.
+		$args = array(
+			'post_type'              => 'any',
+			'no_found_rows'          => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
+			'meta_query'             => $page_types
+		);
+
+		$query = new WP_Query( $args );
+		$posts = $query->get_posts();
 
 		$values = array();
 
@@ -67,7 +78,7 @@ class Papi_Property_Reference extends \Papi_Property {
 				$val = papi_field( $post->ID, $slug, null, true );
 
 				$val = array_filter( papi_to_array( $val ), function ( $item ) use( $post_id ) {
-					return $item->ID === $post_id;
+					return is_object( $item ) && $item->ID === $post_id;
 				} );
 
 				if ( empty( $val ) ) {

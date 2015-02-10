@@ -61,10 +61,16 @@ class Papi_Property_Post extends \Papi_Property {
 			$settings->query['posts_per_page'] = -1;
 		}
 
-		// Fetch posts with the post types and the query.
-		$posts = query_posts( array_merge( $settings->query, array(
-			'post_type' => papi_to_array( $settings->post_type )
-		) ) );
+		// Prepare arguments for WP_Query.
+		$args = array_merge( $settings->query, array(
+			'post_type'              => papi_to_array( $settings->post_type ),
+			'no_found_rows'          => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false
+		) );
+
+		$query = new WP_Query( $args );
+		$posts = $query->get_posts();
 
 		// The blank item
 		if ( $settings->include_blank ) {
