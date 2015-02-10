@@ -124,6 +124,8 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 		$this->assertEmpty( papi_get_class_name( 1 ) );
 		$this->assertEmpty( papi_get_class_name( array() ) );
 		$this->assertEmpty( papi_get_class_name( new stdClass() ) );
+		$actual = papi_get_class_name( dirname( __FILE__ ).'/../data/page-types/namespace-page-type.php' );
+		$this->assertEquals( '\Foo\Bar\Namespace_Page_Type', $actual );
 	}
 
 	/**

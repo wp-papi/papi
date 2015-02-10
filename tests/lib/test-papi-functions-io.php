@@ -42,7 +42,7 @@ class WP_Papi_Functions_IO extends WP_UnitTestCase {
 
 		$this->assertTrue( is_array( $actual ) );
 		$this->assertTrue( ! empty($actual ) );
-		$this->assertEquals( $expected, $actual[0] );
+		$this->assertEquals( $expected, $actual[1] );
 	}
 
 }
