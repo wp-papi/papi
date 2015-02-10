@@ -45,7 +45,7 @@
           slug: slug
         });
 
-        if (!isGallery) {
+        if (!multiple) {
           $select.hide();
         }
 
@@ -135,6 +135,7 @@
 
   $(document).on('click', '.papi-property-image .attachment a', function (e) {
     e.preventDefault();
+    e.stopPropagation();
 
     papi.properties.image.remove($(this));
   });
