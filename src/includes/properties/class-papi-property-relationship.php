@@ -140,6 +140,7 @@ class Papi_Property_Relationship extends \Papi_Property {
 
 		?>
 		<div class="papi-property-relationship">
+			<input type="hidden" name="<?php echo $options->slug; ?>[]" />
 			<div class="relationship-inner">
 				<div class="relationship-top-left">
 					<strong><?php _e( 'Search', 'papi' ); ?></strong>
@@ -241,7 +242,7 @@ class Papi_Property_Relationship extends \Papi_Property {
 				}
 
 				return $post;
-			}, $value );
+			}, array_filter( $value ) );
 			return $this->sort_value( $value, $slug, $post_id );
 		} else {
 			return $this->default_value;
