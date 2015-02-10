@@ -173,7 +173,7 @@ function papi_dashify( $str ) {
 }
 
 /**
- * Get class name from page type file.
+ * Get namespace name and/or class name from page type file.
  *
  * @param string $file
  *
@@ -187,23 +187,36 @@ function papi_get_class_name( $file ) {
 		return '';
 	}
 
-	$content     = file_get_contents( $file );
-	$tokens      = token_get_all( $content );
-	$class_token = false;
-	$class_name  = null;
+	$content         = file_get_contents( $file );
+	$tokens          = token_get_all( $content );
+	$class_name      = '';
+	$namespace_name  = '';
 
-	foreach ( $tokens as $token ) {
-		if ( is_array( $token ) ) {
-			if ( $token[0] === T_CLASS ) {
-				$class_token = true;
-			} else if ( $class_token && $token[0] === T_STRING ) {
-				$class_name  = $token[1];
-				$class_token = false;
-			}
-		}
+	for ( ; $i < count( $tokens ) ;$i++ ) {
+        if ( $tokens[$i][0] === T_NAMESPACE ) {
+            for ( $j = $i+1; $j < count( $tokens ); $j++ ) {
+                if ( $tokens[$j][0] === T_STRING ) {
+                     $namespace_name .= '\\' . $tokens[$j][1];
+                } else if ( $tokens[$j] === '{' || $tokens[$j] === ';' ) {
+                     break;
+                }
+            }
+        }
+
+        if ( $tokens[$i][0] === T_CLASS ) {
+            for ( $j = $i+1; $j < count( $tokens ); $j++ ) {
+                if ( $tokens[$j] === '{' ) {
+                    $class_name = $tokens[$i+2][1];
+                }
+            }
+        }
+    }
+
+	if ( empty( $namespace_name ) ) {
+		return $class_name;
 	}
 
-	return $class_name;
+	return $namespace_name . '\\' . $class_name;
 }
 
 /**
