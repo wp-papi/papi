@@ -47,7 +47,6 @@ class WP_Papi_Property_Reference extends WP_UnitTestCase {
 
 		// Test default settings
 		$this->assertEquals( true, is_array( $this->property->settings->slug ) );
-		$this->assertEquals( 'post', $this->property->settings->post_type );
 		$this->assertEquals( true, is_array( $this->property->settings->page_type ) );
 	}
 
