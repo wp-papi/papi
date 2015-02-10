@@ -32,6 +32,7 @@ class Papi_Property_Post extends \Papi_Property {
 
 	public function get_default_settings() {
 		return array(
+			'blank_text'    => '',
 			'include_blank' => true,
 			'post_type'     => 'post',
 			'query'         => array(),
@@ -76,7 +77,7 @@ class Papi_Property_Post extends \Papi_Property {
 		if ( $settings->include_blank ) {
 			$blank = new \stdClass;
 			$blank->ID = 0;
-			$blank->post_title = '';
+			$blank->post_title = papi_esc_html( $settings->blank_text );
 
 			$posts = array_merge( array( $blank ), $posts );
 		}
