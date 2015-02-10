@@ -289,4 +289,4 @@ function papi() {
 	return Papi_Loader::instance();
 }
 
-add_action( 'plugins_loaded', 'papi' );
+add_action( 'after_setup_theme', 'papi' );
