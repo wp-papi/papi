@@ -55,7 +55,7 @@ class Papi_Property_Reference extends \Papi_Property {
 				array(
 					'key' => PAPI_PAGE_TYPE_KEY,
 					'value' => papi_to_array( $settings->page_type ),
-					'compare' => 'LIKE'
+					'compare' => 'IN'
 				)
 			)
 		) );
