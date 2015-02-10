@@ -45,6 +45,7 @@ class Papi_Property_Reference extends \Papi_Property {
 	 */
 
 	public function html() {
+		$post_id  = papi_get_post_id();
 		$settings = $this->get_settings();
 
 		// Fetch posts with the post types and the query.
@@ -64,6 +65,10 @@ class Papi_Property_Reference extends \Papi_Property {
 		foreach ( papi_to_array( $settings->slug ) as $slug ) {
 			foreach ( $posts as $post ) {
 				$val = papi_field( $post->ID, $slug, null, true );
+
+				$val = array_filter( papi_to_array( $val ), function ( $item ) use( $post_id ) {
+					return $item->ID === $post_id;
+				} );
 
 				if ( empty( $val ) ) {
 					continue;
@@ -93,7 +98,16 @@ class Papi_Property_Reference extends \Papi_Property {
 
 		?>
 		<ul class="papi-property-reference">
-			<?php ksort( $values ); foreach ( $values as $title => $val ): ?>
+			<?php
+				if ( empty( $values ) ) {
+					?>
+					<p>
+						<?php _e( 'No references exists', 'papi' ); ?>
+					</p>
+					<?php
+				}
+
+				ksort( $values ); foreach ( $values as $title => $val ): ?>
 				<?php $post_type = get_post_type_object( $title ); ?>
 				<li>
 					<h3><?php echo $post_type->labels->name; ?></h3>

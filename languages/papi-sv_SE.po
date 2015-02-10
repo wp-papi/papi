@@ -1,211 +1,212 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-02-08 22:14+0100\n"
-"PO-Revision-Date: 2015-02-08 22:15+0100\n"
+"POT-Creation-Date: 2015-02-10 11:09+0100\n"
+"PO-Revision-Date: 2015-02-10 11:09+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.7.3\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;__\n"
-"X-Poedit-SearchPath-0: ../includes\n"
+"X-Poedit-SearchPath-0: ../src\n"
 
-#: ../includes/admin/class-papi-admin.php:125
-#: ../includes/admin/class-papi-admin.php:135
-#: ../includes/page-type/class-papi-page-type-base.php:111
-#: ../includes/page-type/class-papi-page-type-base.php:121
+#: ../src/includes/admin/class-papi-admin.php:125
+#: ../src/includes/admin/class-papi-admin.php:135
+#: ../src/includes/page-type/class-papi-page-type-base.php:84
+#: ../src/includes/page-type/class-papi-page-type-base.php:94
+#: ../src/papi-loader.php:109 ../src/papi-loader.php:119
 msgid "Cheatin&#8217; huh?"
 msgstr "Fuskar du?"
 
-#: ../includes/admin/class-papi-admin.php:177
+#: ../src/includes/admin/class-papi-admin.php:177
 msgid "Add New"
 msgstr "Skapa ny"
 
-#: ../includes/admin/class-papi-admin.php:214
+#: ../src/includes/admin/class-papi-admin.php:214
 msgid "This fields are required:"
 msgstr "Dessa fält är obligatoriska:"
 
-#: ../includes/admin/class-papi-admin.php:288
+#: ../src/includes/admin/class-papi-admin.php:288
 msgid "Page Type"
 msgstr "Sidtyp"
 
-#: ../includes/admin/class-papi-admin.php:367
+#: ../src/includes/admin/class-papi-admin.php:367
 msgid "Show all page types"
 msgstr "Visa alla sidtyper"
 
-#: ../includes/admin/views/add-new-page.php:11
+#: ../src/includes/admin/views/add-new-page.php:11
 msgid "Add new page type"
 msgstr "Lägg till en ny sidtyp"
 
-#: ../includes/admin/views/add-new-page.php:14
-#: ../includes/admin/views/add-new-page.php:17
+#: ../src/includes/admin/views/add-new-page.php:14
+#: ../src/includes/admin/views/add-new-page.php:17
 msgid "Search page types"
 msgstr "Sök sidtyper"
 
-#: ../includes/admin/views/management-page-type.php:9
+#: ../src/includes/admin/views/management-page-type.php:9
 msgid "Tab title"
 msgstr "Flik rubrik"
 
-#: ../includes/admin/views/management-page-type.php:10
-#: ../includes/admin/views/management-page-type.php:16
+#: ../src/includes/admin/views/management-page-type.php:10
+#: ../src/includes/admin/views/management-page-type.php:16
 msgid "Sort order"
 msgstr "Sorteringsordning"
 
-#: ../includes/admin/views/management-page-type.php:11
-#: ../includes/admin/views/management-page-type.php:43
-#: ../includes/admin/views/management-page-type.php:95
+#: ../src/includes/admin/views/management-page-type.php:11
+#: ../src/includes/admin/views/management-page-type.php:36
+#: ../src/includes/admin/views/management-page-type.php:88
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: ../includes/admin/views/management-page-type.php:13
+#: ../src/includes/admin/views/management-page-type.php:13
 msgid "Title"
 msgstr "Rubrik"
 
-#: ../includes/admin/views/management-page-type.php:14
+#: ../src/includes/admin/views/management-page-type.php:14
 msgid "Type"
 msgstr "Typ"
 
-#: ../includes/admin/views/management-page-type.php:15
+#: ../src/includes/admin/views/management-page-type.php:15
 msgid "Slug"
 msgstr "Adress"
 
-#: ../includes/admin/views/management-page-type.php:30
-msgid "Custom structure can not be visualized"
-msgstr "Egen struktur kan inte visualiseras"
-
-#: ../includes/admin/views/management-page-type.php:78
+#: ../src/includes/admin/views/management-page-type.php:71
 msgid "Overview of page types"
 msgstr "Översikt över sidtyper"
 
-#: ../includes/admin/views/management-page-type.php:81
+#: ../src/includes/admin/views/management-page-type.php:74
 msgid "Back to list"
 msgstr "Tillbaka till listan"
 
-#: ../includes/admin/views/management-page-type.php:89
+#: ../src/includes/admin/views/management-page-type.php:82
 msgid "No meta boxes exists."
 msgstr "Ingen meta box existerar."
 
-#: ../includes/admin/views/management-page-type.php:98
+#: ../src/includes/admin/views/management-page-type.php:91
 msgid "Tabs"
 msgstr "Tabbar"
 
-#: ../includes/admin/views/management-start.php:7
+#: ../src/includes/admin/views/management-start.php:7
 msgid "Page types"
 msgstr "Sidtyper"
 
-#: ../includes/admin/views/management-start.php:12
+#: ../src/includes/admin/views/management-start.php:12
 msgid "Name"
 msgstr "Namn"
 
-#: ../includes/admin/views/management-start.php:15
+#: ../src/includes/admin/views/management-start.php:15
 msgid "Page type"
 msgstr "Sidtyp"
 
-#: ../includes/admin/views/management-start.php:18
+#: ../src/includes/admin/views/management-start.php:18
 msgid "Template"
 msgstr "Mall"
 
-#: ../includes/admin/views/management-start.php:21
+#: ../src/includes/admin/views/management-start.php:21
 msgid "Number of pages"
 msgstr "Antal sidor"
 
-#: ../includes/admin/views/management-start.php:42
+#: ../src/includes/admin/views/management-start.php:45
 msgid "Page Type has no template file"
 msgstr "Sidtypen har ingen mallfil"
 
-#: ../includes/admin/views/management-start.php:49
+#: ../src/includes/admin/views/management-start.php:52
 msgid "Template file does not exist"
 msgstr "Mallfilen finns inte"
 
-#: ../includes/admin/views/partials/add-new-item.php:15
-#: ../includes/properties/class-papi-property-relationship.php:71
+#: ../src/includes/admin/views/partials/add-new-item.php:15
+#: ../src/includes/properties/class-papi-property-relationship.php:71
 msgid "Select"
 msgstr "Välj"
 
-#: ../includes/class-papi-property.php:172
+#: ../src/includes/class-papi-property.php:172
 msgid "(required field)"
 msgstr "(obligatoriskt fält)"
 
-#: ../includes/lib/filters.php:133
+#: ../src/includes/lib/filters.php:133
 msgid "Just the normal WordPress page"
 msgstr "Vanliga WordPress sidan"
 
-#: ../includes/lib/filters.php:147
+#: ../src/includes/lib/filters.php:147
 msgid "Standard Page"
 msgstr "Standard sida"
 
-#: ../includes/properties/class-papi-property-image.php:82
+#: ../src/includes/properties/class-papi-property-image.php:82
 msgid "No image selected"
 msgstr "Ingen bild vald"
 
-#: ../includes/properties/class-papi-property-image.php:86
+#: ../src/includes/properties/class-papi-property-image.php:86
 msgid "Add image"
 msgstr "Lägg till bild"
 
-#: ../includes/properties/class-papi-property-post.php:38
+#: ../src/includes/properties/class-papi-property-post.php:38
 msgid "Select post"
 msgstr "Välj inlägg"
 
-#: ../includes/properties/class-papi-property-relationship.php:75
+#: ../src/includes/properties/class-papi-property-reference.php:105
+msgid "No references exists"
+msgstr "Inga referenser finns"
+
+#: ../src/includes/properties/class-papi-property-relationship.php:75
 msgid "Name (alphabetically)"
 msgstr "Enligt namn (alfabetiskt)"
 
-#: ../includes/properties/class-papi-property-relationship.php:79
+#: ../src/includes/properties/class-papi-property-relationship.php:79
 msgid "Post created date (ascending)"
 msgstr "Enligt publiceringsdatum (stigande)"
 
-#: ../includes/properties/class-papi-property-relationship.php:83
+#: ../src/includes/properties/class-papi-property-relationship.php:83
 msgid "Post created date (descending)"
 msgstr "Enligt publiceringsdatum (fallande)"
 
-#: ../includes/properties/class-papi-property-relationship.php:87
+#: ../src/includes/properties/class-papi-property-relationship.php:87
 msgid "Post id (ascending)"
 msgstr "Enligt sidans id (stigande)"
 
-#: ../includes/properties/class-papi-property-relationship.php:91
+#: ../src/includes/properties/class-papi-property-relationship.php:91
 msgid "Post id (descending)"
 msgstr "Enligt sidans id (fallande)"
 
-#: ../includes/properties/class-papi-property-relationship.php:95
+#: ../src/includes/properties/class-papi-property-relationship.php:95
 msgid "Post order value (ascending)"
 msgstr "Post ordervärde (stigande)"
 
-#: ../includes/properties/class-papi-property-relationship.php:99
+#: ../src/includes/properties/class-papi-property-relationship.php:99
 msgid "Post order value (descending)"
 msgstr "Post ordervärde (fallande)"
 
-#: ../includes/properties/class-papi-property-relationship.php:103
+#: ../src/includes/properties/class-papi-property-relationship.php:103
 msgid "Post modified date (ascending)"
 msgstr "Enligt ändringsdatum (stigande)"
 
-#: ../includes/properties/class-papi-property-relationship.php:107
+#: ../src/includes/properties/class-papi-property-relationship.php:107
 msgid "Post modified date (descending)"
 msgstr "Enligt ändringsdatum (fallande)"
 
-#: ../includes/properties/class-papi-property-relationship.php:145
+#: ../src/includes/properties/class-papi-property-relationship.php:145
 msgid "Search"
 msgstr "Sök"
 
-#: ../includes/properties/class-papi-property-relationship.php:150
+#: ../src/includes/properties/class-papi-property-relationship.php:150
 msgid "Sort by"
 msgstr "Sortera efter"
 
-#: ../includes/properties/class-papi-property-repeater.php:146
-#: ../includes/properties/class-papi-property-repeater.php:220
+#: ../src/includes/properties/class-papi-property-repeater.php:146
+#: ../src/includes/properties/class-papi-property-repeater.php:220
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../includes/properties/class-papi-property-repeater.php:229
+#: ../src/includes/properties/class-papi-property-repeater.php:229
 msgid "Add new row"
 msgstr "Lägg till ny rad"
 
-#: ../includes/properties/class-papi-property-url.php:48
+#: ../src/includes/properties/class-papi-property-url.php:48
 msgid "Select file"
 msgstr "Välj fil"
 
