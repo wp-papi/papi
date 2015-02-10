@@ -36,15 +36,6 @@ final class Papi_Loader extends Papi_Container {
 	public $name;
 
 	/**
-	 * The plugin version.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-
-	public $version;
-
-	/**
 	 * The plugin directory path.
 	 *
 	 * @var string
@@ -248,7 +239,6 @@ final class Papi_Loader extends Papi_Container {
 	private function setup_globals() {
 		// Information globals.
 		$this->name    = 'Papi';
-		$this->version = '1.2.0';
 
 		// Papi plugin directory and url.
 		$this->plugin_dir = PAPI_PLUGIN_DIR;
