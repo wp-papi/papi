@@ -69,12 +69,12 @@ class Papi_Property_Post extends \Papi_Property {
 			'update_post_term_cache' => false
 		) );
 
-		$query = new WP_Query( $args );
+		$query = new \WP_Query( $args );
 		$posts = $query->get_posts();
 
 		// The blank item
 		if ( $settings->include_blank ) {
-			$blank = new stdClass;
+			$blank = new \stdClass;
 			$blank->ID = 0;
 			$blank->post_title = '';
 

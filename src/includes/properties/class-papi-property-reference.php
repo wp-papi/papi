@@ -68,7 +68,7 @@ class Papi_Property_Reference extends \Papi_Property {
 			'meta_query'             => $page_types
 		);
 
-		$query = new WP_Query( $args );
+		$query = new \WP_Query( $args );
 		$posts = $query->get_posts();
 
 		$values = array();
