@@ -64,6 +64,7 @@ function papi_get_box_property( $properties ) {
 	if ( ! empty( $box_property ) && ! isset( $box_property[0] ) && ! isset( $box_property[0]['tab'] ) ) {
 		$property = papi_get_property_options( $box_property );
 		if ( ! $property->disabled ) {
+			$property->_box_property = true;
 			$properties = array( $property );
 		}
 	}
@@ -93,6 +94,9 @@ function papi_get_options_and_properties( $file_or_options = array(), $propertie
 				$options['title'] = $file_or_options['title'];
 			} else if ( isset( $file_or_options[0]->title ) ) {
 				$options['title'] = $file_or_options[0]->title;
+				if ( $file_or_options[0]->sidebar === false && $file_or_options[0]->required ) {
+					$options['_required'] = true;
+				}
 			} else if ( isset( $file_or_options[0]->options ) && isset( $file_or_options[0]->options['title'] ) ) {
 				$options['title'] = $file_or_options[0]->options['title'];
 			} else {
@@ -450,6 +454,43 @@ function papi_render_properties( $properties ) {
 
 	<?php
 	}
+}
+
+/**
+ * Get require text for property.
+ *
+ * @param object $property
+ *
+ * @since 1.2.0
+ *
+ * @return string
+ */
+
+function papi_require_text( $property ) {
+	if ( !is_object( $property ) || !$property->required ) {
+		return '';
+	}
+
+	return __( '(required field)', 'papi' );
+}
+
+/**
+ * Get require tag for property.
+ *
+ * @param object $property
+ * @param bool $text
+ *
+ * @since 1.2.0
+ *
+ * @return string
+ */
+
+function papi_required_html( $property, $text = false ) {
+	if ( !is_object( $property ) || !$property->required ) {
+		return '';
+	}
+
+	return ' <span class="papi-rq" data-property-name="' . $property->title . '" data-property-id="' . $property->slug . '">' . ( $text ? papi_require_text( $property ) : '*' ) . '</span>';
 }
 
 /**

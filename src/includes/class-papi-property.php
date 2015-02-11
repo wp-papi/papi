@@ -166,23 +166,13 @@ class Papi_Property {
 	 */
 
 	public function label() {
-		$title = $this->options->title;
-
-		if ( $this->options->required ) {
-			$title .= ' ' . __( '(required field)', 'papi' );
-		}
-
 		?>
-		<label for="<?php echo $this->options->slug; ?>" title="<?php echo $title; ?>">
+		<label for="<?php echo $this->options->slug; ?>" title="<?php echo $this->options->title . ' ' . papi_require_text( $this->options ); ?>">
 			<?php
 
 			echo $this->options->title;
 
-			if ( $this->options->required ):
-				?>
-				<span class="papi-rq">*</span>
-			<?php
-			endif;
+			echo papi_required_html( $this->options );
 
 			?>
 		</label>

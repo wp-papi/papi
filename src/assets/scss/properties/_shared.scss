@@ -30,3 +30,9 @@ h3.papi-divider-text {
 .papi-rq {
   color: #f00;
 }
+
+.metabox-prefs {
+  .papi-rq {
+    display: none !important;
+  }
+}

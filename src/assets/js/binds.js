@@ -16,17 +16,21 @@
   $('#publish').on('click', function (e) {
 
     var $button = $(this);
-    var $fields = $('.papi-rq').closest('label');
+    var $fields = $('.papi-rq');
     var $spinner = $('#publishing-action .spinner');
     var $errors = [];
-
     for (var i = 0, l = $fields.length; i < l; i++) {
 
       var $this = $($fields[i]);
-      var $field = $('[name="' + $this.attr('for') + '"]');
+
+      if ($this.parent().parent().hasClass('metabox-prefs') || !$this.is(':visible')) {
+        continue;
+      }
+
+      var $field = $('[name="' + $this.attr('data-property-id') + '"]');
 
       if (!$field.length) {
-        $field = $('[name="' + $this.attr('for') + '[]"]').first();
+        $field = $('[name="' + $this.attr('data-property-id') + '[]"]').first();
       }
 
       if ($field.val() === undefined || !$field.val().length) {
@@ -44,7 +48,7 @@
 
       for (var i = 0, l = $errors.length; i < l; i++) {
         var $field = $($errors[i]);
-        items += '<a class="papi-rq-link" href="#' + $field.attr('for') + '">' + $field.clone().children().remove().end().text().trim() + '</a>';
+        items += '<a class="papi-rq-link" href="#' + $field.attr('data-property-id') + '">' + $field.attr('data-property-name') + '</a>';
 
         if (i + 1 !== $errors.length) {
           items += ', ';

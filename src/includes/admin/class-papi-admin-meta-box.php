@@ -42,6 +42,7 @@ class Papi_Admin_Meta_Box {
 		// Private options
 		'_id'          => '',
 		'_post_type'   => '',
+		'_required'    => false,
 		'_tab_box'     => false
 	);
 
@@ -221,9 +222,15 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	public function setup_meta_box() {
+		$this->options->title = papi_remove_papi( $this->options->title );
+
+		if ( $this->options->_required ) {
+			$this->options->title .= papi_required_html( $this->properties[0], true );
+		}
+
 		add_meta_box(
 			$this->options->_id,
-			papi_remove_papi( $this->options->title ),
+			$this->options->title,
 			array( $this, 'render_meta_box' ),
 			$this->options->post_type,
 			$this->options->context,
