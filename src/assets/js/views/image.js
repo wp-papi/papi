@@ -11,8 +11,8 @@
 
     // Render image template with the given data object.
     render: function (data) {
-      var template = _.template(this.template()),
-          html = template(data);
+      var template = _.template(this.template());
+      var html = template(data);
 
       this.$el.append('<div class="attachment">' + html + '</div>');
     }
