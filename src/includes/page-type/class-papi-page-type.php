@@ -63,7 +63,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	public function __construct( $file_path = '' ) {
 		parent::__construct( $file_path );
-		add_action( 'init', array( $this, 'remove_post_type_support' ) );
 	}
 
 	/**
@@ -144,8 +143,13 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			return null;
 		}
 
+		// 1. Run the register method.
 		$this->register();
 
+		// 2. Remove post type support
+		$this->remove_post_type_support();
+
+		// 3. Load all boxes.
 		$this->boxes = papi_sort_order( array_reverse( $this->boxes ) );
 
 		foreach ( $this->boxes as $box ) {

@@ -92,7 +92,7 @@ final class Papi_Admin {
 			self::$instance = new static;
 			self::$instance->setup_globals();
 
-			self::$instance->load_page_type = self::$instance->setup_papi();
+	#		self::$instance->load_page_type = self::$instance->setup_papi();
 
 			self::$instance->setup_actions();
 			self::$instance->setup_filters();
@@ -101,7 +101,7 @@ final class Papi_Admin {
 				return null;
 			}
 
-			self::$instance->page_type->setup();
+		#	self::$instance->page_type->setup();
 		}
 
 		return self::$instance;
@@ -176,7 +176,6 @@ final class Papi_Admin {
 				// Hidden menu item.
 				add_submenu_page( null, __( 'Add New', 'papi' ), __( 'Add New', 'papi' ), 'read', $page, array( $this, 'render_view' ) );
 			}
-
 
 		}
 
@@ -469,11 +468,14 @@ final class Papi_Admin {
 	 */
 
 	public function admin_init() {
-		if ( !$this->load_page_type ) {
+		global $wp_post_types;
+
+		if ( ! $this->setup_papi() ) {
 			return null;
 		}
 
-		global $wp_post_types;
+		$this->page_type->setup();
+
 		$post_type = papi_get_wp_post_type();
 
 		if ( isset( $wp_post_types[$post_type] ) ) {
