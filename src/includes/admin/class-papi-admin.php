@@ -91,17 +91,12 @@ final class Papi_Admin {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new static;
 			self::$instance->setup_globals();
-
-	#		self::$instance->load_page_type = self::$instance->setup_papi();
-
 			self::$instance->setup_actions();
 			self::$instance->setup_filters();
 
 			if ( !self::$instance->load_page_type ) {
 				return null;
 			}
-
-		#	self::$instance->page_type->setup();
 		}
 
 		return self::$instance;
