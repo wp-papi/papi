@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.2.0
  */
 
-class Papi_Property_Reference extends \Papi_Property {
+class Papi_Property_Reference extends Papi_Property {
 
 	/**
 	 * The default value.
@@ -68,7 +68,7 @@ class Papi_Property_Reference extends \Papi_Property {
 			'meta_query'             => $page_types
 		);
 
-		$query = new \WP_Query( $args );
+		$query = new WP_Query( $args );
 		$posts = $query->get_posts();
 
 		$values = array();

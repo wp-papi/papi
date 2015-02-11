@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 
-class Papi_Page_Type extends \Papi_Page_Type_Meta {
+class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	/**
 	 * The array of meta boxes to register.
@@ -149,7 +149,7 @@ class Papi_Page_Type extends \Papi_Page_Type_Meta {
 		$this->boxes = papi_sort_order( array_reverse( $this->boxes ) );
 
 		foreach ( $this->boxes as $box ) {
-			new \Papi_Admin_Meta_Box( $box[0], $box[1] );
+			new Papi_Admin_Meta_Box( $box[0], $box[1] );
 		}
 	}
 

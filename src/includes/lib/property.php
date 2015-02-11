@@ -300,7 +300,7 @@ function papi_get_property_type( $type ) {
 		$type = $type->type;
 	}
 
-	return \Papi_Property::factory( $type );
+	return Papi_Property::factory( $type );
 }
 
 /**
@@ -434,7 +434,7 @@ function papi_render_properties( $properties ) {
 	// handle the rendering of the properties.
 
 	if ( is_array( $properties ) && isset( $properties[0]->tab ) && $properties[0]->tab ) {
-		new \Papi_Admin_Meta_Box_Tabs( $properties );
+		new Papi_Admin_Meta_Box_Tabs( $properties );
 	} else {
 		?>
 

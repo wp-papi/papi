@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 
-class Papi_Property_Post extends \Papi_Property {
+class Papi_Property_Post extends Papi_Property {
 
 	/**
 	 * The default value.
@@ -70,12 +70,12 @@ class Papi_Property_Post extends \Papi_Property {
 			'update_post_term_cache' => false
 		) );
 
-		$query = new \WP_Query( $args );
+		$query = new WP_Query( $args );
 		$posts = $query->get_posts();
 
 		// The blank item
 		if ( $settings->include_blank ) {
-			$blank = new \stdClass;
+			$blank = new stdClass;
 			$blank->ID = 0;
 			$blank->post_title = papi_esc_html( $settings->blank_text );
 

@@ -53,7 +53,7 @@ class Papi_Admin_Management_Pages {
 	 */
 
 	private function setup_globals() {
-		$this->view = new \Papi_Admin_View;
+		$this->view = new Papi_Admin_View;
 	}
 
 	/**

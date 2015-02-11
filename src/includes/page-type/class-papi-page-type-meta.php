@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 
-class Papi_Page_Type_Meta extends \Papi_Page_Type_Base {
+class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 
 	/**
 	 * Capabilities list.

@@ -15,7 +15,7 @@ require_once __DIR__ . '/includes/container/class-papi-container.php';
  * Papi loader class.
  */
 
-final class Papi_Loader extends \Papi_Container {
+final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * The instance of Papi loader class.
@@ -226,7 +226,7 @@ final class Papi_Loader extends \Papi_Container {
 	 */
 
 	private function setup_requried() {
-		\Papi_Admin::instance();
+		Papi_Admin::instance();
 	}
 
 	/**
@@ -286,7 +286,7 @@ final class Papi_Loader extends \Papi_Container {
  */
 
 function papi() {
-	return \Papi_Loader::instance();
+	return Papi_Loader::instance();
 }
 
 add_action( 'after_setup_theme', 'papi' );

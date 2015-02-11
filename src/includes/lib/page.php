@@ -141,7 +141,7 @@ function papi_get_number_of_pages( $page_type ) {
 
 function papi_get_page( $post_id = null ) {
 	$post_id = papi_get_post_id( $post_id );
-	$page    = new \Papi_Page( $post_id );
+	$page    = new Papi_Page( $post_id );
 
 	if ( ! $page->has_post() ) {
 		return null;
@@ -197,7 +197,7 @@ function papi_get_page_type( $file_path ) {
 			include_once $file_path;
 		}
 
-		$rc         = new \ReflectionClass( $class_name );
+		$rc         = new ReflectionClass( $class_name );
 		$page_type  = $rc->newInstanceArgs( array( $file_path ) );
 
 		// If the page type don't have a name we can't use it.

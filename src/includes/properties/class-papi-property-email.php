@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.0.0
  */
 
-class Papi_Property_Email extends \Papi_Property_String {
+class Papi_Property_Email extends Papi_Property_String {
 
 	/**
 	 * The input type to use.
