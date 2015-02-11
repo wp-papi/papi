@@ -24,14 +24,14 @@ class WP_Papi_Plugin extends WP_UnitTestCase {
 	}
 
 	/**
-	 * The action `after_theme_setup` should have the `papi` hook
+	 * The action `plugins_loaded` should have the `papi` hook
 	 * and should have a default priority of 10.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function test_after_setup_theme_action() {
-		$this->assertEquals( 10, has_action( 'after_setup_theme', 'papi' ) );
+		$this->assertEquals( 10, has_action( 'plugins_loaded', 'papi' ) );
 	}
 
 }
