@@ -275,6 +275,31 @@ final class Papi_Loader extends Papi_Container {
 			return;
 		}
 	}
+
+	/**
+	 * Deactivate Papi if the WordPress version is lower then 3.8.
+	 *
+	 * @since 1.2.0
+	 */
+
+	public static function deactivate() {
+		// Remove Papi from plugins_loaded action.
+		remove_action( 'plugins_loaded', 'papi' );
+
+		// Load is_plugin_active and deactivate_plugins.
+		if ( !function_exists( 'is_plugin_active' ) ) {
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		$plugin_path = plugin_basename( dirname( __DIR__ ) . '/' . basename( __FILE__ ) );
+
+		// If the plugin is active then deactivate it.
+		if ( is_plugin_active( $plugin_path ) ) {
+			deactivate_plugins( $plugin_path );
+		}
+
+		wp_die( __( 'WordPress 3.8 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
+	}
 }
 
 /**
@@ -282,10 +307,14 @@ final class Papi_Loader extends Papi_Container {
  *
  * @since 1.0.0
  *
- * @return object
+ * @return object|null
  */
 
 function papi() {
+	if ( version_compare( get_bloginfo( 'version' ), '3.8', '<' ) ) {
+		return Papi_Loader::deactivate();
+	}
+
 	return Papi_Loader::instance();
 }
 

@@ -1,42 +1,42 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-02-10 11:09+0100\n"
-"PO-Revision-Date: 2015-02-10 11:09+0100\n"
+"POT-Creation-Date: 2015-02-12 21:43+0100\n"
+"PO-Revision-Date: 2015-02-12 21:44+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.3\n"
+"X-Generator: Poedit 1.6.10\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: ../src/includes/admin/class-papi-admin.php:125
-#: ../src/includes/admin/class-papi-admin.php:135
-#: ../src/includes/page-type/class-papi-page-type-base.php:84
-#: ../src/includes/page-type/class-papi-page-type-base.php:94
-#: ../src/papi-loader.php:109 ../src/papi-loader.php:119
+#: ../src/includes/admin/class-papi-admin.php:118
+#: ../src/includes/admin/class-papi-admin.php:128
+#: ../src/includes/page-type/class-papi-page-type-base.php:82
+#: ../src/includes/page-type/class-papi-page-type-base.php:92
+#: ../src/papi-loader.php:107 ../src/papi-loader.php:117
 msgid "Cheatin&#8217; huh?"
 msgstr "Fuskar du?"
 
-#: ../src/includes/admin/class-papi-admin.php:177
+#: ../src/includes/admin/class-papi-admin.php:170
 msgid "Add New"
 msgstr "Skapa ny"
 
-#: ../src/includes/admin/class-papi-admin.php:214
+#: ../src/includes/admin/class-papi-admin.php:206
 msgid "This fields are required:"
 msgstr "Dessa fält är obligatoriska:"
 
-#: ../src/includes/admin/class-papi-admin.php:288
+#: ../src/includes/admin/class-papi-admin.php:280
 msgid "Page Type"
 msgstr "Sidtyp"
 
-#: ../src/includes/admin/class-papi-admin.php:367
+#: ../src/includes/admin/class-papi-admin.php:359
 msgid "Show all page types"
 msgstr "Visa alla sidtyper"
 
@@ -121,94 +121,102 @@ msgid "Template file does not exist"
 msgstr "Mallfilen finns inte"
 
 #: ../src/includes/admin/views/partials/add-new-item.php:15
-#: ../src/includes/properties/class-papi-property-relationship.php:71
+#: ../src/includes/properties/class-papi-property-relationship.php:69
 msgid "Select"
 msgstr "Välj"
 
-#: ../src/includes/class-papi-property.php:172
-msgid "(required field)"
-msgstr "(obligatoriskt fält)"
-
-#: ../src/includes/lib/filters.php:133
+#: ../src/includes/lib/filters.php:131
 msgid "Just the normal WordPress page"
 msgstr "Vanliga WordPress sidan"
 
-#: ../src/includes/lib/filters.php:147
+#: ../src/includes/lib/filters.php:145
 msgid "Standard Page"
 msgstr "Standard sida"
 
-#: ../src/includes/properties/class-papi-property-image.php:82
+#: ../src/includes/lib/property.php:472
+msgid "(required field)"
+msgstr "(obligatoriskt fält)"
+
+#: ../src/includes/properties/class-papi-property-image.php:80
 msgid "No image selected"
 msgstr "Ingen bild vald"
 
-#: ../src/includes/properties/class-papi-property-image.php:86
+#: ../src/includes/properties/class-papi-property-image.php:84
 msgid "Add image"
 msgstr "Lägg till bild"
 
-#: ../src/includes/properties/class-papi-property-post.php:38
+#: ../src/includes/properties/class-papi-property-post.php:37
 msgid "Select post"
 msgstr "Välj inlägg"
 
-#: ../src/includes/properties/class-papi-property-reference.php:105
+#: ../src/includes/properties/class-papi-property-reference.php:114
 msgid "No references exists"
 msgstr "Inga referenser finns"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:75
+#: ../src/includes/properties/class-papi-property-relationship.php:73
 msgid "Name (alphabetically)"
 msgstr "Enligt namn (alfabetiskt)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:79
+#: ../src/includes/properties/class-papi-property-relationship.php:77
 msgid "Post created date (ascending)"
 msgstr "Enligt publiceringsdatum (stigande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:83
+#: ../src/includes/properties/class-papi-property-relationship.php:81
 msgid "Post created date (descending)"
 msgstr "Enligt publiceringsdatum (fallande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:87
+#: ../src/includes/properties/class-papi-property-relationship.php:85
 msgid "Post id (ascending)"
 msgstr "Enligt sidans id (stigande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:91
+#: ../src/includes/properties/class-papi-property-relationship.php:89
 msgid "Post id (descending)"
 msgstr "Enligt sidans id (fallande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:95
+#: ../src/includes/properties/class-papi-property-relationship.php:93
 msgid "Post order value (ascending)"
 msgstr "Post ordervärde (stigande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:99
+#: ../src/includes/properties/class-papi-property-relationship.php:97
 msgid "Post order value (descending)"
 msgstr "Post ordervärde (fallande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:103
+#: ../src/includes/properties/class-papi-property-relationship.php:101
 msgid "Post modified date (ascending)"
 msgstr "Enligt ändringsdatum (stigande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:107
+#: ../src/includes/properties/class-papi-property-relationship.php:105
 msgid "Post modified date (descending)"
 msgstr "Enligt ändringsdatum (fallande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:145
+#: ../src/includes/properties/class-papi-property-relationship.php:150
 msgid "Search"
 msgstr "Sök"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:150
+#: ../src/includes/properties/class-papi-property-relationship.php:155
 msgid "Sort by"
 msgstr "Sortera efter"
 
-#: ../src/includes/properties/class-papi-property-repeater.php:146
-#: ../src/includes/properties/class-papi-property-repeater.php:220
+#: ../src/includes/properties/class-papi-property-repeater.php:144
+#: ../src/includes/properties/class-papi-property-repeater.php:218
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../src/includes/properties/class-papi-property-repeater.php:229
+#: ../src/includes/properties/class-papi-property-repeater.php:227
 msgid "Add new row"
 msgstr "Lägg till ny rad"
 
-#: ../src/includes/properties/class-papi-property-url.php:48
+#: ../src/includes/properties/class-papi-property-url.php:46
 msgid "Select file"
 msgstr "Välj fil"
+
+#: ../src/papi-loader.php:296
+msgid ""
+"WordPress 3.8 and higher required to run Papi! The plugin has now disabled "
+"itself."
+msgstr ""
+"Wordpress 3.8 och högre krävs för att köra Papi! Tillägget har nu "
+"inaktiverat sig själv."
 
 #~ msgid "Standard page"
 #~ msgstr "Standard sida"
