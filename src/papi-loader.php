@@ -190,7 +190,7 @@ final class Papi_Loader extends Papi_Container {
 		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type-meta.php';
 		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type.php';
 
-		// Load Papi property classes.
+		// Load Papi properties classes.
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-string.php';
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-hidden.php';
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-bool.php';
@@ -210,6 +210,8 @@ final class Papi_Loader extends Papi_Container {
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-color.php';
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-reference.php';
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-html.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-gallery.php';
+		require_once $this->plugin_dir . 'includes/properties/class-papi-property-editor.php';
 
 		// Include third party properties.
 		papi_action_include_properties();
