@@ -57,8 +57,8 @@ class Papi_Container implements \ArrayAccess {
 	 * @return bool
 	 */
 
-    public function exists( $id ) {
-    	return isset( $this->keys[$id] );
+	public function exists( $id ) {
+		return isset( $this->keys[$id] );
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Papi_Container implements \ArrayAccess {
 	 */
 
 	public function make( $id ) {
-		if ( !isset( $this->keys[$id] ) ) {
+		if ( ! isset( $this->keys[$id] ) ) {
 			throw new \InvalidArgumentException( sprintf( 'Identifier [%s] is not defined', $id ) );
 		}
 
@@ -84,8 +84,8 @@ class Papi_Container implements \ArrayAccess {
 	 * @return bool
 	 */
 
-    public function offsetExists( $id ) {
-    	return $this->exists( $id );
+	public function offsetExists( $id ) {
+		return $this->exists( $id );
 	}
 
 	/**
@@ -117,7 +117,7 @@ class Papi_Container implements \ArrayAccess {
 	 * @param string $id
 	 */
 
-    public function offsetUnset( $id ) {
+	public function offsetUnset( $id ) {
 		unset( $this->keys[$id], $this->values[$id] );
-    }
+	}
 }
