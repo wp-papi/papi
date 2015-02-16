@@ -92,7 +92,7 @@ final class Papi_Admin {
 			self::$instance->setup_actions();
 			self::$instance->setup_filters();
 
-			if ( !self::$instance->load_page_type ) {
+			if ( ! self::$instance->load_page_type ) {
 				return null;
 			}
 		}
@@ -147,7 +147,7 @@ final class Papi_Admin {
 				$edit_url = 'edit.php?post_type=' . $post_type;
 			}
 
-			if ( ! isset( $submenu[$edit_url] ) || ! isset( $submenu[$edit_url][10] ) || !isset( $submenu[$edit_url][10][2] ) ) {
+			if ( ! isset( $submenu[$edit_url] ) || ! isset( $submenu[$edit_url][10] ) || ! isset( $submenu[$edit_url][10][2] ) ) {
 				continue;
 			}
 
@@ -169,7 +169,6 @@ final class Papi_Admin {
 				// Hidden menu item.
 				add_submenu_page( null, __( 'Add New', 'papi' ), __( 'Add New', 'papi' ), 'read', $page, array( $this, 'render_view' ) );
 			}
-
 		}
 
 	}
@@ -183,7 +182,7 @@ final class Papi_Admin {
 	public function admin_head() {
 		wp_enqueue_media();
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'papi-main', dirname(PAPI_PLUGIN_URL) . '/dist/css/style.min.css', false, null );
+		wp_enqueue_style( 'papi-main', dirname( PAPI_PLUGIN_URL ) . '/dist/css/style.min.css', false, null );
 	}
 
 	/**
@@ -193,7 +192,7 @@ final class Papi_Admin {
 	 */
 
 	public function admin_enqueue_scripts() {
-		wp_enqueue_script( 'papi-main', dirname(PAPI_PLUGIN_URL) . '/dist/js/main.min.js', array(
+		wp_enqueue_script( 'papi-main', dirname( PAPI_PLUGIN_URL ) . '/dist/js/main.min.js', array(
 			'jquery',
 			'jquery-ui-core',
 			'jquery-ui-sortable',
@@ -380,7 +379,7 @@ final class Papi_Admin {
 	public function pre_get_posts( $query ) {
 		global $pagenow;
 
-		if ( $pagenow === 'edit.php' && !is_null( papi_get_qs( 'page_type' ) ) ) {
+		if ( $pagenow === 'edit.php' && ! is_null( papi_get_qs( 'page_type' ) ) ) {
 			if ( papi_get_qs( 'page_type' ) === 'papi-standard-page' ) {
 				$query->set( 'meta_query', array(
 					array(
@@ -473,7 +472,7 @@ final class Papi_Admin {
 
 		if ( isset( $wp_post_types[$post_type] ) ) {
 			foreach ( $this->page_type->labels as $key => $value ) {
-				if ( !isset( $wp_post_types[$post_type]->labels->$key ) || empty( $value ) ) {
+				if ( ! isset( $wp_post_types[$post_type]->labels->$key ) || empty( $value ) ) {
 					continue;
 				}
 
@@ -517,6 +516,6 @@ final class Papi_Admin {
 		$this->page_type = papi_get_page_type( $path );
 
 		// Do a last check so we can be sure that we have a page type object.
-		return !empty( $this->page_type ) && is_object( $this->page_type );
+		return ! empty( $this->page_type ) && is_object( $this->page_type );
 	}
 }

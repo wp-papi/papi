@@ -287,7 +287,7 @@ final class Papi_Loader extends Papi_Container {
 		remove_action( 'plugins_loaded', 'papi' );
 
 		// Load is_plugin_active and deactivate_plugins.
-		if ( !function_exists( 'is_plugin_active' ) ) {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
