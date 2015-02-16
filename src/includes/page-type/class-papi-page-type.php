@@ -52,6 +52,15 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	private $post_type_supports = array( 'custom-fields' );
 
 	/**
+	 * Remove meta boxes.
+	 *
+	 * @var array
+	 * @since 1.2.0
+	 */
+
+	private $remove_meta_boxes = array();
+
+	/**
 	 * Load a page type by the file.
 	 *
 	 * @since 1.0.0
@@ -201,14 +210,51 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	public function remove_post_type_support() {
+		global $_wp_post_type_features;
+
 		$post_type = papi_get_wp_post_type();
 
 		if ( empty( $post_type ) ) {
 			return;
 		}
 
-		foreach ( $this->post_type_supports as $post_type_support ) {
-			remove_post_type_support( $post_type, $post_type_support );
+		foreach ( $this->post_type_supports as $key => $value ) {
+			if ( is_numeric( $key ) ) {
+				$key = $value;
+				$value = '';
+			}
+
+			if ( isset( $_wp_post_type_features[$post_type][$key] ) ) {
+				unset( $_wp_post_type_features[$post_type][$key] );
+				continue;
+			}
+
+			// Add non post type support to remove meta boxes array.
+			if ( empty( $value ) ) {
+				$value = 'normal';
+			}
+
+			$this->remove_meta_boxes[] = array( $key, $value );
+		}
+
+		add_action( 'add_meta_boxes', array( $this, 'remove_meta_boxes' ), 999 );
+	}
+
+	/**
+	 * Remove meta boxes.
+	 *
+	 * @since 1.2.0
+	 */
+
+	public function remove_meta_boxes() {
+		$post_type = papi_get_wp_post_type();
+
+		if ( empty( $post_type ) ) {
+			return;
+		}
+
+		foreach ( $this->remove_meta_boxes as $item ) {
+			remove_meta_box( $item[0], $post_type, $item[1] );
 		}
 	}
 
