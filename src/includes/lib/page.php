@@ -100,7 +100,7 @@ function papi_get_file_data( $post_id ) {
 function papi_get_number_of_pages( $page_type ) {
 	global $wpdb;
 
-	if ( empty( $page_type ) || ( !is_string( $page_type ) && ( !is_object( $page_type ) ) ) ) {
+	if ( empty( $page_type ) || ( ! is_string( $page_type ) && ( ! is_object( $page_type ) ) ) ) {
 		return 0;
 	}
 
@@ -117,7 +117,7 @@ function papi_get_number_of_pages( $page_type ) {
 
 		$query = "SELECT COUNT(*) FROM {$wpdb->prefix}posts WHERE `post_type` = '$post_type'";
 	} else {
-		if ( !is_string( $page_type ) ) {
+		if ( ! is_string( $page_type ) ) {
 			return 0;
 		}
 

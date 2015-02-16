@@ -80,7 +80,7 @@ function papi_get_wp_post_type() {
 			return '';
 		}
 
-		preg_match('/^\w+/', $exploded[1], $value);
+		preg_match( '/^\w+/', $exploded[1], $value );
 
 		if ( empty( $value ) ) {
 			return '';
@@ -88,7 +88,7 @@ function papi_get_wp_post_type() {
 
 		$value = reset( $value );
 
-		if ($value === false) {
+		if ( $value === false ) {
 			return '';
 		}
 
@@ -98,8 +98,8 @@ function papi_get_wp_post_type() {
 	// If only `post-new.php` without any querystrings
 	// it would be the post post type.
 	$req_uri  = $_SERVER['REQUEST_URI'];
-	$exploded = explode('/', $req_uri);
-	$last     = end($exploded);
+	$exploded = explode( '/', $req_uri );
+	$last     = end( $exploded );
 
 	if ( $last === 'post-new.php' ) {
 		return 'post';

@@ -191,25 +191,25 @@ function papi_get_class_name( $file ) {
 	$namespace_name  = '';
 	$i               = 0;
 
-	for ( ; $i < count( $tokens ) ;$i++ ) {
-        if ( $tokens[$i][0] === T_NAMESPACE ) {
-            for ( $j = $i+1; $j < count( $tokens ); $j++ ) {
-                if ( $tokens[$j][0] === T_STRING ) {
-                     $namespace_name .= '\\' . $tokens[$j][1];
-                } else if ( $tokens[$j] === '{' || $tokens[$j] === ';' ) {
-                     break;
-                }
-            }
-        }
+	for ( ; $i < count( $tokens );$i++ ) {
+		if ( $tokens[$i][0] === T_NAMESPACE ) {
+			for ( $j = $i + 1; $j < count( $tokens ); $j++ ) {
+				if ( $tokens[$j][0] === T_STRING ) {
+					 $namespace_name .= '\\' . $tokens[$j][1];
+				} else if ( $tokens[$j] === '{' || $tokens[$j] === ';' ) {
+					 break;
+				}
+			}
+		}
 
-        if ( $tokens[$i][0] === T_CLASS ) {
-            for ( $j = $i+1; $j < count( $tokens ); $j++ ) {
-                if ( $tokens[$j] === '{' ) {
-                    $class_name = $tokens[$i+2][1];
-                }
-            }
-        }
-    }
+		if ( $tokens[$i][0] === T_CLASS ) {
+			for ( $j = $i + 1; $j < count( $tokens ); $j++ ) {
+				if ( $tokens[$j] === '{' ) {
+					$class_name = $tokens[$i + 2][1];
+				}
+			}
+		}
+	}
 
 	if ( empty( $namespace_name ) ) {
 		return $class_name;
@@ -497,9 +497,9 @@ function papi_slugify( $str, $replace = array(), $delimiter = '-' ) {
 	}
 
 	$clean = iconv( 'UTF-8', 'ASCII//TRANSLIT', $str );
-	$clean = preg_replace( "/[^a-zA-Z0-9\/_|+ -]/", '', $clean );
+	$clean = preg_replace( '/[^a-zA-Z0-9\/_|+ -]/', '', $clean );
 	$clean = strtolower( trim( $clean, '-' ) );
-	$clean = preg_replace( "/[\/_|+ -]+/", $delimiter, $clean );
+	$clean = preg_replace( '/[\/_|+ -]+/', $delimiter, $clean );
 
 	return trim( $clean );
 }

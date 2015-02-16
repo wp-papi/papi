@@ -104,7 +104,7 @@ function papi_get_options_and_properties( $file_or_options = array(), $propertie
 		} else {
 			$options = array_merge( $options, $file_or_options );
 
-			if ( !$is_box ) {
+			if ( ! $is_box ) {
 				// Add all non string keys to the properties array
 				foreach ( $options as $key => $value ) {
 					if ( ! is_string( $key ) ) {
@@ -465,7 +465,7 @@ function papi_render_properties( $properties ) {
  */
 
 function papi_require_text( $property ) {
-	if ( !is_object( $property ) || !$property->required ) {
+	if ( ! is_object( $property ) || ! $property->required ) {
 		return '';
 	}
 
@@ -484,7 +484,7 @@ function papi_require_text( $property ) {
  */
 
 function papi_required_html( $property, $text = false ) {
-	if ( !is_object( $property ) || !$property->required ) {
+	if ( ! is_object( $property ) || ! $property->required ) {
 		return '';
 	}
 
@@ -607,7 +607,6 @@ function papi_property_update_meta( $meta ) {
 		foreach ( $value as $child_key => $child_value ) {
 			update_post_meta( $meta->post_id, papi_remove_papi( $child_key ), $child_value );
 		}
-
 	}
 
 	update_post_meta( $meta->post_id, papi_get_property_type_key_f( $meta->slug ), $meta->type );

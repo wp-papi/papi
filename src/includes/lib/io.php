@@ -80,7 +80,7 @@ function papi_get_file_path( $file ) {
 			return $directory . $file;
 		}
 
-		if ( file_exists($directory . $file . '.php')) {
+		if ( file_exists( $directory . $file . '.php' ) ) {
 			return $directory . $file . '.php';
 		}
 	}

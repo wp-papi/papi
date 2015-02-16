@@ -97,16 +97,16 @@ function papi_fields() {
 	$arr = array();
 	$boxes = $page_type->get_boxes();
 
-	if ( empty ( $boxes ) || !is_array( $boxes ) ) {
+	if ( empty ( $boxes ) || ! is_array( $boxes ) ) {
 		return array();
 	}
 
 	foreach ( $boxes as $box ) {
-		if ( count( $box ) < 2 || !isset( $box[0]['title'] ) ) {
+		if ( count( $box ) < 2 || ! isset( $box[0]['title'] ) ) {
 			continue;
 		}
 
-		if ( !isset( $arr[$box[0]['title']] ) ) {
+		if ( ! isset( $arr[$box[0]['title']] ) ) {
 			$arr[$box[0]['title']] = array();
 		}
 
