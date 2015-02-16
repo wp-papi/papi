@@ -59,9 +59,9 @@ class Papi_Property {
 	 * @return array
 	 */
 
-	 public function get_default_settings() {
+	public function get_default_settings() {
 		return array();
-	 }
+	}
 
 	/**
 	 * Create a new instance of the given property.
@@ -216,7 +216,7 @@ class Papi_Property {
 				</td>
 			</tr>
 		<?php
-		else:
+		else :
 			$this->html();
 		endif;
 	}
