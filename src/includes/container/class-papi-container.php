@@ -3,7 +3,6 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-
 /**
  * Papi Container.
  *
