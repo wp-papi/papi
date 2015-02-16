@@ -30,9 +30,9 @@ class Papi_Admin_Meta_Boxes {
 	 * @access private
 	 */
 
-	 private function setup_actions() {
+	private function setup_actions() {
 		add_action( 'save_post', array( $this, 'save_meta_boxes' ), 1, 2 );
-	 }
+	}
 
 	/**
 	 * Sanitize data before saving it.
