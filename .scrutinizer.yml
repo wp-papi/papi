@@ -35,4 +35,5 @@ tools:
             - php
 
     php_code_sniffer:
-        config: { standard: WordPress }
+        config:
+          standard: "WordPress"
