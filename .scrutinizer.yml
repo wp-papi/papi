@@ -33,3 +33,6 @@ tools:
         command: hhvm
         extensions:
             - php
+
+    php_code_sniffer:
+        config: { standard: WordPress }
