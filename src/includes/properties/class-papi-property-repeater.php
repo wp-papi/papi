@@ -197,7 +197,7 @@ class Papi_Property_Repeater extends Papi_Property {
 						$render_property = clone $property;
 						$value_slug      = papi_remove_papi( $render_property->slug );
 
-						if ( !isset( $value[$value_slug] ) ) {
+						if ( !array_key_exists( $value_slug, $value ) ) {
 							continue;
 						}
 
