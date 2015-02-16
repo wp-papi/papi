@@ -102,7 +102,7 @@ class Papi_Page {
 	 */
 
 	private function convert( $property ) {
-		if ( !isset( $property['value'] ) || !isset( $property['type'] ) ) {
+		if ( ! isset( $property['value'] ) || ! isset( $property['type'] ) ) {
 			return null;
 		}
 
@@ -124,7 +124,7 @@ class Papi_Page {
 		$property['value'] = $property_type->format_value( $property['value'], $property['slug'], $this->id, $property['admin'] );
 
 		// Apply a filter so this can be changed from the theme for specified property type.
-		$property['value'] = papi_filter_format_value(  $type, $property['value'], $property['slug'], $this->id );
+		$property['value'] = papi_filter_format_value( $type, $property['value'], $property['slug'], $this->id );
 
 		return $property['value'];
 	}
