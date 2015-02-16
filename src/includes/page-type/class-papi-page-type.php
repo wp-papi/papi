@@ -224,7 +224,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 				$value = '';
 			}
 
-			if ( isset( $_wp_post_type_features[$post_type][$key] ) ) {
+			if ( isset( $_wp_post_type_features[$post_type] ) && isset( $_wp_post_type_features[$post_type][$key] ) ) {
 				unset( $_wp_post_type_features[$post_type][$key] );
 				continue;
 			}
