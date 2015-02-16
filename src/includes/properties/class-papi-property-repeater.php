@@ -197,7 +197,7 @@ class Papi_Property_Repeater extends Papi_Property {
 						$render_property = clone $property;
 						$value_slug      = papi_remove_papi( $render_property->slug );
 
-						if ( !array_key_exists( $value_slug, $value ) ) {
+						if ( ! array_key_exists( $value_slug, $value ) ) {
 							continue;
 						}
 
@@ -506,8 +506,8 @@ class Papi_Property_Repeater extends Papi_Property {
 		$query = $wpdb->prepare( $sql, $post_id, $meta_key, papi_f( $meta_key ), papi_get_property_type_key_f( $repeater_slug ) );
 		$results = $wpdb->get_results( $query );
 
-		foreach ($results as $res ) {
-			delete_post_meta($post_id, $res->meta_key);
+		foreach ( $results as $res ) {
+			delete_post_meta( $post_id, $res->meta_key );
 		}
 	}
 }

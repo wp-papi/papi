@@ -72,7 +72,7 @@ class Papi_Property_Bool extends Papi_Property {
 	 */
 
 	public function update_value( $value, $slug, $post_id ) {
-		if ( is_string($value) && $value === 'false' ) {
+		if ( is_string( $value ) && $value === 'false' ) {
 			return false;
 		}
 

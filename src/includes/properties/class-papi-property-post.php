@@ -86,7 +86,7 @@ class Papi_Property_Post extends Papi_Property {
 		?>
 
 		<div class="papi-property-post">
-			<?php if ( !empty( $settings->text ) ): ?>
+			<?php if ( ! empty( $settings->text ) ): ?>
 				<p>
 					<?php echo $settings->text; ?>
 				</p>

@@ -90,16 +90,16 @@ class Papi_Property_Reference extends Papi_Property {
 				}
 
 				// Create the array
-				if ( !isset( $values[$post->post_type] ) ) {
+				if ( ! isset( $values[$post->post_type] ) ) {
 					$values[$post->post_type] = array();
 				}
 
-				if ( !isset( $values[$post->post_type][$page_type->name] ) ) {
+				if ( ! isset( $values[$post->post_type][$page_type->name] ) ) {
 					$values[$post->post_type][$page_type->name] = array();
 				}
 
 				// Add the post
-				if ( !isset( $values[$post->post_type][$page_type->name][$post->ID] ) && ! empty( $val ) ) {
+				if ( ! isset( $values[$post->post_type][$page_type->name][$post->ID] ) && ! empty( $val ) ) {
 					$values[$post->post_type][$page_type->name][$post->ID] = $post;
 				}
 			}
@@ -108,13 +108,13 @@ class Papi_Property_Reference extends Papi_Property {
 		?>
 		<ul class="papi-property-reference">
 			<?php
-				if ( empty( $values ) ) {
-					?>
-					<p>
-						<?php _e( 'No references exists', 'papi' ); ?>
+			if ( empty( $values ) ) {
+				?>
+				<p>
+					<?php _e( 'No references exists', 'papi' ); ?>
 					</p>
 					<?php
-				}
+			}
 
 				ksort( $values ); foreach ( $values as $title => $val ): ?>
 				<?php $post_type = get_post_type_object( $title ); ?>
