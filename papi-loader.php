@@ -10,9 +10,7 @@
  * Textdomain: papi
  */
 
-// Exit if accessed directly.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+// Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
 
 include __DIR__ . '/src/papi-loader.php';
