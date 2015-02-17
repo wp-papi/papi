@@ -117,13 +117,10 @@ class Papi_Admin_Meta_Boxes {
 
 			$property_key = str_replace( $property_type_key, '', $key );
 
-			// Check if value exists.
-			if ( isset( $data[ $property_key ] ) ) {
-				$data[ $property_key ] = array(
-					'type'  => $value,
-					'value' => $data[ $property_key ]
-				);
-			}
+			$data[ $property_key ] = array(
+				'type'  => $value,
+				'value' => isset( $data[ $property_key ] ) ? $data[ $property_key ] : ''
+			);
 
 			unset( $data[ $key ] );
 		}
