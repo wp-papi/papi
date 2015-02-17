@@ -206,7 +206,7 @@ function papi_field_value( $names, $value, $default ) {
  */
 
 function the_papi_field( $post_id = null, $name = null, $default = null ) {
-	$value = papi_field_finder( $post_id, $name, $default );
+	$value = papi_field( $post_id, $name, $default );
 
 	if ( is_array( $value ) ) {
 		$value = implode( ',', $value );
