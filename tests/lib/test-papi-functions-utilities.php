@@ -244,6 +244,17 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test papi_nl2br.
+	 *
+	 * @since 1.2.0
+	 */
+
+	public function test_papi_nl2br() {
+		$this->assertEquals( papi_nl2br( 'Hello\nWorld' ), 'Hello<br />World' );
+		$this->assertEquals( papi_nl2br( "Hello\nWorld" ), 'Hello<br />World' );
+	}
+
+	/**
 	 * Test papi_remove_papi.
 	 *
 	 * @since 1.0.0
