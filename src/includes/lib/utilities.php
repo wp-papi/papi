@@ -394,7 +394,7 @@ function papi_is_ext( $str, $ext ) {
  */
 
 function papi_nl2br( $str ) {
-	return str_replace( '\n', '<br />', $str );
+	return str_replace( '\n', '<br />', nl2br( $str ) );
 }
 
 /**

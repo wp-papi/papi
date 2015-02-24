@@ -251,7 +251,7 @@ class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
 
 	public function test_papi_nl2br() {
 		$this->assertEquals( papi_nl2br( 'Hello\nWorld' ), 'Hello<br />World' );
-		$this->assertEquals( papi_nl2br( "Hello\nWorld" ), 'Hello<br />World' );
+		$this->assertEquals( papi_nl2br( "Hello\nWorld" ), "Hello<br />\nWorld" );
 	}
 
 	/**
