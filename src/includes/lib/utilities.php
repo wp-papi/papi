@@ -464,6 +464,16 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 		}
 	}
 
+	$i = 0;
+	$default_sort = papi_filter_settings_sort_order();
+
+	foreach ( $sorter as $k => $v ) {
+		if ( $default_sort === $v ) {
+			$sorter[$k] = $v - $i;
+			$i++;
+		}
+	}
+
 	asort( $sorter, SORT_NUMERIC );
 
 	$result = array();
