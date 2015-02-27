@@ -384,6 +384,20 @@ function papi_is_ext( $str, $ext ) {
 }
 
 /**
+ * Replace '\n' with '<br />'.
+ *
+ * @param string $str
+ *
+ * @since 1.2.0
+ *
+ * @return string
+ */
+
+function papi_nl2br( $str ) {
+	return str_replace( '\n', '<br />', nl2br( $str ) );
+}
+
+/**
  * Remove `papi-` or `papi_` from the given string.
  *
  * @param string $str
@@ -447,6 +461,16 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 			}
 		} else if ( is_array( $value ) && isset ( $value[ $key ] ) ) {
 			$sorter[ $k ] = $value[ $key ];
+		}
+	}
+
+	$i = 0;
+	$default_sort = papi_filter_settings_sort_order();
+
+	foreach ( $sorter as $k => $v ) {
+		if ( $default_sort === $v ) {
+			$sorter[$k] = $v - $i;
+			$i++;
 		}
 	}
 

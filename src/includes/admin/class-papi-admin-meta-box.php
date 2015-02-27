@@ -204,11 +204,6 @@ class Papi_Admin_Meta_Box {
 			return;
 		}
 
-		wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' );
-		?>
-		<input type="hidden" name="<?php echo PAPI_PAGE_TYPE_KEY; ?>" value="<?php echo papi_get_page_type_meta_value(); ?>"/>
-		<?php
-
 		// Render the properties.
 		papi_render_properties( $args['args'] );
 	}

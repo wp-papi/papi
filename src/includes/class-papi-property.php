@@ -187,7 +187,7 @@ class Papi_Property {
 		}
 
 		?>
-		<p><?php echo strip_tags( $this->options->description ); ?></p>
+		<p><?php echo papi_nl2br( $this->options->description ); ?></p>
 	<?php
 	}
 

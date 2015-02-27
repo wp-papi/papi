@@ -88,9 +88,12 @@ final class Papi_Admin {
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new static;
-			self::$instance->setup_globals();
-			self::$instance->setup_actions();
-			self::$instance->setup_filters();
+
+			if ( is_admin() ) {
+				self::$instance->setup_globals();
+				self::$instance->setup_actions();
+				self::$instance->setup_filters();
+			}
 
 			if ( ! self::$instance->load_page_type ) {
 				return null;
@@ -126,6 +129,36 @@ final class Papi_Admin {
 
 	public function __wakeup() {
 		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
+	}
+
+	/**
+	 * Admin init.
+	 *
+	 * Change add new item text.
+	 *
+	 * @since 1.2.0
+	 */
+
+	public function admin_init() {
+		global $wp_post_types;
+
+		if ( ! $this->setup_papi() ) {
+			return null;
+		}
+
+		$this->page_type->setup();
+
+		$post_type = papi_get_wp_post_type();
+
+		if ( isset( $wp_post_types[$post_type] ) ) {
+			foreach ( $this->page_type->labels as $key => $value ) {
+				if ( ! isset( $wp_post_types[$post_type]->labels->$key ) || empty( $value ) ) {
+					continue;
+				}
+
+				$wp_post_types[$post_type]->labels->$key = $value;
+			}
+		}
 	}
 
 	/**
@@ -228,6 +261,19 @@ final class Papi_Admin {
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * Output Papi page type hidden field.
+	 *
+	 * @since 1.2.1
+	 */
+
+	public function edit_form_after_title() {
+		wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' );
+		?>
+		<input type="hidden" name="<?php echo PAPI_PAGE_TYPE_KEY; ?>" value="<?php echo papi_get_page_type_meta_value(); ?>"/>
+		<?php
 	}
 
 	/**
@@ -421,6 +467,7 @@ final class Papi_Admin {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_head', array( $this, 'admin_head' ) );
+		add_action( 'edit_form_after_title', array( $this, 'edit_form_after_title' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'load-post-new.php', array( $this, 'load_post_new' ) );
 		add_action( 'restrict_manage_posts', array( $this, 'restrict_page_types' ) );
@@ -449,33 +496,19 @@ final class Papi_Admin {
 	}
 
 	/**
-	 * Admin init.
+	 * Setup globals.
 	 *
-	 * Change add new item text.
-	 *
-	 * @since 1.2.0
+	 * @since 1.0.0
+	 * @access private
 	 */
 
-	public function admin_init() {
-		global $wp_post_types;
-
-		if ( ! $this->setup_papi() ) {
-			return null;
-		}
-
-		$this->page_type->setup();
-
-		$post_type = papi_get_wp_post_type();
-
-		if ( isset( $wp_post_types[$post_type] ) ) {
-			foreach ( $this->page_type->labels as $key => $value ) {
-				if ( ! isset( $wp_post_types[$post_type]->labels->$key ) || empty( $value ) ) {
-					continue;
-				}
-
-				$wp_post_types[$post_type]->labels->$key = $value;
-			}
-		}
+	private function setup_globals() {
+		$this->view             = new Papi_Admin_View;
+		$this->meta_boxes       = new Papi_Admin_Meta_Boxes;
+		$this->management_pages = new Papi_Admin_Management_Pages;
+		$this->post_type        = papi_get_wp_post_type();
+		$this->post_id          = papi_get_post_id();
+		$this->page_type        = papi_get_page_type_meta_value( $this->post_id );
 	}
 
 	/**
