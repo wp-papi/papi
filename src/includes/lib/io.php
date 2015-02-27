@@ -23,6 +23,10 @@ defined( 'ABSPATH' ) || exit;
 function papi_get_all_files_in_directory( $directory = '' ) {
 	$result = array();
 
+	if ( empty( $directory ) ) {
+		return $result;
+	}
+
 	if ( $handle = opendir( $directory ) ) {
 		while ( false !== ( $file = readdir( $handle ) ) ) {
 			if ( ! in_array( $file, array( '..', '.' ) ) ) {
