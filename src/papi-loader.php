@@ -86,7 +86,6 @@ final class Papi_Loader extends Papi_Container {
 	 * Construct. Register autoloader.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function __construct() {
@@ -121,7 +120,6 @@ final class Papi_Loader extends Papi_Container {
 	 * Bootstrap constants
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function constants() {
@@ -157,7 +155,6 @@ final class Papi_Loader extends Papi_Container {
 	 * Require files.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function require_files() {
@@ -222,7 +219,6 @@ final class Papi_Loader extends Papi_Container {
 	 * Setup required files.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function setup_requried() {
@@ -233,7 +229,6 @@ final class Papi_Loader extends Papi_Container {
 	 * Setup globals.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function setup_globals() {

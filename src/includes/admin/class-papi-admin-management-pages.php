@@ -36,7 +36,6 @@ class Papi_Admin_Management_Pages {
 	 * Setup actions.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function setup_actions() {
@@ -47,7 +46,6 @@ class Papi_Admin_Management_Pages {
 	 * Setup globals.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function setup_globals() {

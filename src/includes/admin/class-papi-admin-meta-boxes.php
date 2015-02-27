@@ -27,7 +27,6 @@ class Papi_Admin_Meta_Boxes {
 	 *
 	 * @todo Try to get this working
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function setup_actions() {

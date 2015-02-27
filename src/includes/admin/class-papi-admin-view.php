@@ -68,7 +68,6 @@ class Papi_Admin_View {
 	 * @param string $file
 	 *
 	 * @since 1.0
-	 * @access private
 	 *
 	 * @return string
 	 */

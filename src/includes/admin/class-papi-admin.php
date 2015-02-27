@@ -400,7 +400,6 @@ final class Papi_Admin {
 	 * Setup globals.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function setup_globals() {
@@ -416,7 +415,6 @@ final class Papi_Admin {
 	 * Setup actions.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function setup_actions() {
@@ -432,7 +430,6 @@ final class Papi_Admin {
 	 * Setup filters.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function setup_filters() {

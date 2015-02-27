@@ -138,7 +138,6 @@ class Papi_Page_Type_Base {
 	 * @param string $file_path
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function setup_file( $file_path ) {
@@ -158,7 +157,6 @@ class Papi_Page_Type_Base {
 	 * Setup page type meta data.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function setup_meta_data() {

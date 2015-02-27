@@ -26,7 +26,6 @@ class Papi_Property {
 	 *
 	 * @var int
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private $post_id;
@@ -36,7 +35,6 @@ class Papi_Property {
 	 *
 	 * @var object
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private $options;

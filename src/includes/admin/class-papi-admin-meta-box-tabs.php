@@ -58,7 +58,6 @@ class Papi_Admin_Meta_Box_Tabs {
 	 * Generate html for tabs and properties.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function html() {

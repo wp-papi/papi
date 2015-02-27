@@ -172,7 +172,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * Setup page type variables.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function setup_page_type() {
@@ -183,7 +182,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * Setup post types array.
 	 *
 	 * @since 1.0.0
-	 * @access private
 	 */
 
 	private function setup_post_types() {
