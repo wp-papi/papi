@@ -132,6 +132,36 @@ final class Papi_Admin {
 	}
 
 	/**
+	 * Admin init.
+	 *
+	 * Change add new item text.
+	 *
+	 * @since 1.2.0
+	 */
+
+	public function admin_init() {
+		global $wp_post_types;
+
+		if ( ! $this->setup_papi() ) {
+			return null;
+		}
+
+		$this->page_type->setup();
+
+		$post_type = papi_get_wp_post_type();
+
+		if ( isset( $wp_post_types[$post_type] ) ) {
+			foreach ( $this->page_type->labels as $key => $value ) {
+				if ( ! isset( $wp_post_types[$post_type]->labels->$key ) || empty( $value ) ) {
+					continue;
+				}
+
+				$wp_post_types[$post_type]->labels->$key = $value;
+			}
+		}
+	}
+
+	/**
 	 * Build up the sub menu for post types.
 	 *
 	 * @since 1.0.0
@@ -413,22 +443,6 @@ final class Papi_Admin {
 	}
 
 	/**
-	 * Setup globals.
-	 *
-	 * @since 1.0.0
-	 * @access private
-	 */
-
-	private function setup_globals() {
-		$this->view             = new Papi_Admin_View;
-		$this->meta_boxes       = new Papi_Admin_Meta_Boxes;
-		$this->management_pages = new Papi_Admin_Management_Pages;
-		$this->post_type        = papi_get_wp_post_type();
-		$this->post_id          = papi_get_post_id();
-		$this->page_type        = papi_get_page_type_meta_value( $this->post_id );
-	}
-
-	/**
 	 * Setup actions.
 	 *
 	 * @since 1.0.0
@@ -469,33 +483,19 @@ final class Papi_Admin {
 	}
 
 	/**
-	 * Admin init.
+	 * Setup globals.
 	 *
-	 * Change add new item text.
-	 *
-	 * @since 1.2.0
+	 * @since 1.0.0
+	 * @access private
 	 */
 
-	public function admin_init() {
-		global $wp_post_types;
-
-		if ( ! $this->setup_papi() ) {
-			return null;
-		}
-
-		$this->page_type->setup();
-
-		$post_type = papi_get_wp_post_type();
-
-		if ( isset( $wp_post_types[$post_type] ) ) {
-			foreach ( $this->page_type->labels as $key => $value ) {
-				if ( ! isset( $wp_post_types[$post_type]->labels->$key ) || empty( $value ) ) {
-					continue;
-				}
-
-				$wp_post_types[$post_type]->labels->$key = $value;
-			}
-		}
+	private function setup_globals() {
+		$this->view             = new Papi_Admin_View;
+		$this->meta_boxes       = new Papi_Admin_Meta_Boxes;
+		$this->management_pages = new Papi_Admin_Management_Pages;
+		$this->post_type        = papi_get_wp_post_type();
+		$this->post_id          = papi_get_post_id();
+		$this->page_type        = papi_get_page_type_meta_value( $this->post_id );
 	}
 
 	/**
