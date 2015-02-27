@@ -88,9 +88,12 @@ final class Papi_Admin {
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new static;
-			self::$instance->setup_globals();
-			self::$instance->setup_actions();
-			self::$instance->setup_filters();
+
+			if ( is_admin() ) {
+				self::$instance->setup_globals();
+				self::$instance->setup_actions();
+				self::$instance->setup_filters();
+			}
 
 			if ( ! self::$instance->load_page_type ) {
 				return null;
@@ -228,6 +231,19 @@ final class Papi_Admin {
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * Output Papi page type hidden field.
+	 *
+	 * @since 1.2.1
+	 */
+
+	public function edit_form_after_title() {
+		wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' );
+		?>
+		<input type="hidden" name="<?php echo PAPI_PAGE_TYPE_KEY; ?>" value="<?php echo papi_get_page_type_meta_value(); ?>"/>
+		<?php
 	}
 
 	/**
@@ -423,6 +439,7 @@ final class Papi_Admin {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_head', array( $this, 'admin_head' ) );
+		add_action( 'edit_form_after_title', array( $this, 'edit_form_after_title' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'load-post-new.php', array( $this, 'load_post_new' ) );
 		add_action( 'restrict_manage_posts', array( $this, 'restrict_page_types' ) );
