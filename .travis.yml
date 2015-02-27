@@ -29,7 +29,7 @@ matrix:
     - php: hhvm
       env: WP_VERSION=3.9 WP_MULTISITE=0
     - php: hhvm
-      env: WP_VERSION=3.9 WP_MULTISITE=1
+      env: WP_VERSION=latest WP_MULTISITE=1
     - php: hhvm-nightly
       env: WP_VERSION=3.9 WP_MULTISITE=0
     - php: nightly
