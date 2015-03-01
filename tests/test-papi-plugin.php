@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Unit tests to check so Page Tyep Builder is loaded correctly.
+ * Unit tests to check so Papi is loaded correctly.
  *
  * @package Papi
  */
