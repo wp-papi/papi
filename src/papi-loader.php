@@ -83,18 +83,12 @@ final class Papi_Loader extends Papi_Container {
 	}
 
 	/**
-	 * Construct. Register autoloader.
+	 * Empty construct.
 	 *
 	 * @since 1.0.0
 	 */
 
-	private function __construct() {
-		if ( function_exists( '__autoload' ) ) {
-			spl_autoload_register( '__autoload' );
-		}
-
-		spl_autoload_register( array( $this, 'autoload' ) );
-	}
+	private function __construct() {}
 
 	/**
 	 * Cloning is forbidden.
@@ -164,7 +158,7 @@ final class Papi_Loader extends Papi_Container {
 
 		load_textdomain( $domain, $path );
 
-		// Load Papi functions.
+		// Load function files.
 		require_once $this->plugin_dir . 'includes/lib/utilities.php';
 		require_once $this->plugin_dir . 'includes/lib/actions.php';
 		require_once $this->plugin_dir . 'includes/lib/filters.php';
@@ -177,15 +171,22 @@ final class Papi_Loader extends Papi_Container {
 		require_once $this->plugin_dir . 'includes/lib/field.php';
 		require_once $this->plugin_dir . 'includes/lib/template.php';
 
-		// Load Papi classes that should not be autoloaded.
-		require_once $this->plugin_dir . 'includes/admin/class-papi-admin.php';
+		// Load core classes.
 		require_once $this->plugin_dir . 'includes/class-papi-page.php';
 		require_once $this->plugin_dir . 'includes/class-papi-property.php';
 		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type-base.php';
 		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type-meta.php';
 		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type.php';
 
-		// Load Papi properties classes.
+		// Load admin class
+		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-management-pages.php';
+		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-meta-box.php';
+		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-meta-boxes.php';
+		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-meta-box-tabs.php';
+		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-view.php';
+		require_once $this->plugin_dir . 'includes/admin/class-papi-admin.php';
+
+		// Load properties classes.
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-string.php';
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-hidden.php';
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-bool.php';
@@ -241,34 +242,6 @@ final class Papi_Loader extends Papi_Container {
 
 		// Languages.
 		$this->lang_dir = $this->plugin_dir . 'languages';
-	}
-
-	/**
-	 * Auto load Papi classes on demand.
-	 *
-	 * @param mixed $class
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function autoload( $class ) {
-		$path  = null;
-		$class = strtolower( $class );
-		$file  = 'class-' . str_replace( '_', '-', $class ) . '.php';
-
-		if ( strpos( $class, 'papi_admin' ) === 0 ) {
-			$path = PAPI_PLUGIN_DIR . 'includes/admin/';
-		} else if ( strpos( $class, 'property' ) === 0 && strpos( $class, 'papi' ) !== false ) {
-			$path = PAPI_PLUGIN_DIR . 'includes/properties/';
-		} else if ( strpos( $class, 'papi' ) === 0 ) {
-			$path = PAPI_PLUGIN_DIR . 'includes/';
-		}
-
-		if ( ! is_null( $path ) && is_readable( $path . $file ) ) {
-			include_once $path . $file;
-
-			return;
-		}
 	}
 
 	/**
