@@ -86,7 +86,6 @@ class WP_Papi_Property_Repeater extends WP_UnitTestCase {
 		$value_type_slug1    = papi_get_property_type_key( $value_slug1 );
 		$value_slug2         = papi_remove_papi( $this->property->settings->items[1]->slug );
 		$value_type_slug2    = papi_get_property_type_key( $value_slug2 );
-		$property_type_slug  = papi_html_name( papi_get_property_type_key( $this->property->slug ) );
 
 		// Create the repeater item
 		$item = array();

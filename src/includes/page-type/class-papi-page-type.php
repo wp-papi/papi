@@ -32,16 +32,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	private $load_boxes = false;
 
 	/**
-	 * Contains all register properties on this page.
-	 * Will only contain root level properties.
-	 *
-	 * @var array
-	 * @since 1.0.0
-	 */
-
-	private $properties = array();
-
-	/**
 	 * Array of post type supports to remove.
 	 * By default remove `postcustom` which is the Custom fields metabox.
 	 *
