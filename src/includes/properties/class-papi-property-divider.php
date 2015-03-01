@@ -22,8 +22,7 @@ class Papi_Property_Divider extends Papi_Property {
 		$options = $this->get_options();
 		?>
 		<h3 class="hndle papi-property-divider">
-			<span><?php /** @noinspection PhpUndefinedFieldInspection */
-				echo $options->title; ?></span>
+			<span><?php echo $options->title; ?></span>
 		</h3>
 
 		<?php if ( ! papi_is_empty( $options->description ) ): ?>
