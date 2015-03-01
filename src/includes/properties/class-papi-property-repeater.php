@@ -259,9 +259,8 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Get results from the database.
 	 *
 	 * @param int $value
-	 * @param int $post_id
 	 * @param string $repeater_slug
-	 * @param integer $post_id
+	 * @param int $post_id
 	 *
 	 * @since 1.0.0
 	 *
@@ -392,6 +391,8 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param mixed $value
 	 * @param string $repeater_slug
 	 * @param int $post_id
+	 *
+	 * @return array
 	 */
 
 	public function load_value( $value, $repeater_slug, $post_id ) {
@@ -417,6 +418,8 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param mixed $values
 	 * @param string $repeater_slug
 	 * @param int $post_id
+	 *
+	 * @return mixed
 	 */
 
 	public function update_value( $values, $repeater_slug, $post_id ) {

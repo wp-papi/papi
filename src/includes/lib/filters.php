@@ -47,6 +47,8 @@ function papi_filter_load_value( $type, $value, $slug, $post_id ) {
 /**
  * Get the only page type that will be used for the given post type.
  *
+ * @param string $post_type
+ *
  * @since 1.0.0
  *
  * @return string

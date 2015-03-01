@@ -564,7 +564,7 @@ function papi_property_update_meta( $meta ) {
 	$meta = (object)$meta;
 
 	if ( empty( $meta->type ) ) {
-		return null;
+		return;
 	}
 
 	$save_value = true;
@@ -582,7 +582,7 @@ function papi_property_update_meta( $meta ) {
 
 	if ( papi_is_empty( $meta->value ) ) {
 		delete_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ) );
-		return null;
+		return;
 	}
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {

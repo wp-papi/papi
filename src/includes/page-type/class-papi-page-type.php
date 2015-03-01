@@ -75,7 +75,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Add new meta box with properties.
 	 *
-	 * @param mixed $file_or_options .
+	 * @param mixed $file_or_options
 	 * @param array $properties
 	 *
 	 * @since 1.0.0
@@ -87,7 +87,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		}
 
 		if ( ! is_string( $file_or_options ) && ! is_array( $file_or_options ) ) {
-			return null;
+			return;
 		}
 
 		list( $options, $properties ) = papi_get_options_and_properties( $file_or_options, $properties, true );
@@ -96,7 +96,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 		// Check so we have a post the to add the box to.
 		if ( ! $this->load_boxes && ( empty( $post_type ) || ! $this->has_post_type( $post_type ) ) ) {
-			return null;
+			return;
 		}
 
 		// Add post type to the options array.
@@ -261,6 +261,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Add a new tab.
 	 *
+	 * @param mixed $file_or_options
 	 * @param array $properties
 	 *
 	 * @since 1.0

@@ -26,6 +26,8 @@ class Papi_Property_Post extends Papi_Property {
 	 *
 	 * @var array
 	 * @since 1.0.0
+	 *
+	 * @return array
 	 */
 
 	public function get_default_settings() {

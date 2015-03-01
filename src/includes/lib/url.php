@@ -15,6 +15,8 @@ defined( 'ABSPATH' ) || exit;
  *
  * @param string $page_type
  * @param bool $append_admin_url Default true
+ * @param string $post_type
+ * @param array $exclude
  *
  * @since 1.0.0
  *

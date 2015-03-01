@@ -330,7 +330,7 @@ function papi_html_name( $name ) {
 
 function papi_include_template( $tpl_file, $vars = array() ) {
 	if ( ! is_string( $tpl_file ) ) {
-		return null;
+		return;
 	}
 
 	$path = PAPI_PLUGIN_DIR;
