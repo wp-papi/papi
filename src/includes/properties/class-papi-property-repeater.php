@@ -454,7 +454,6 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 
 			$keys = array_keys( $value );
-			$last = array_pop( $keys );
 
 			foreach ( $properties as $empty => $property ) {
 
