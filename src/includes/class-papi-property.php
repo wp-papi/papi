@@ -76,20 +76,25 @@ class Papi_Property {
 			return null;
 		}
 
-		$property_type = papi_get_property_class_name( $property_type );
+		$class_name = papi_get_property_class_name( $property_type );
 
-		if ( empty( $property_type ) || ! class_exists( $property_type ) ) {
+		if ( empty( $class_name ) || ! class_exists( $class_name ) ) {
 			return null;
 		}
 
-		$prop = new $property_type();
+		if ( ! papi()->exists( $class_name ) ) {
+			$rc = new ReflectionClass( $class_name );
+			$prop = $rc->newInstance();
 
-		// Property class need to be a subclass of Papi Property class.
-		if ( ! is_subclass_of( $prop, 'Papi_property' ) ) {
-			return null;
+			// Property class need to be a subclass of Papi Property class.
+			if ( ! is_subclass_of( $class_name, __CLASS__ ) ) {
+				return null;
+			}
+
+			papi()->bind( $class_name, $prop );
 		}
 
-		return $prop;
+		return papi()->make( $class_name );
 	}
 
 	/**
