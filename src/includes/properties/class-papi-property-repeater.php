@@ -200,8 +200,8 @@ class Papi_Property_Repeater extends Papi_Property {
 						if ( ! array_key_exists( $value_slug, $value ) ) {
 							continue;
 						}
-
 						$render_property->value = $value[$value_slug];
+
 						$render_property->slug = $this->generate_slug( $render_property );
 						$render_property->raw  = true;
 						?>
@@ -259,8 +259,9 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Get results from the database.
 	 *
 	 * @param int $value
+	 * @param int $post_id
 	 * @param string $repeater_slug
-	 * @param int $post_id
+	 * @param integer $post_id
 	 *
 	 * @since 1.0.0
 	 *
@@ -391,8 +392,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param mixed $value
 	 * @param string $repeater_slug
 	 * @param int $post_id
-	 *
-	 * @return array
 	 */
 
 	public function load_value( $value, $repeater_slug, $post_id ) {
@@ -418,13 +417,11 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param mixed $values
 	 * @param string $repeater_slug
 	 * @param int $post_id
-	 *
-	 * @return mixed
 	 */
 
 	public function update_value( $values, $repeater_slug, $post_id ) {
-		$properties_key = papi_ff( papify( $repeater_slug ) . '_properties' );
-		$properties     = array();
+		$properties_key  = papi_ff( papify( $repeater_slug ) . '_properties' );
+		$properties      = array();
 
 		if ( isset( $_POST[$properties_key] ) ) {
 			$properties = $_POST[$properties_key];
@@ -457,12 +454,22 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 
 			$keys = array_keys( $value );
+			$last = array_pop( $keys );
 
 			foreach ( $properties as $empty => $property ) {
+
 				foreach ( $property as $slug => $type ) {
 					$slug = papi_remove_papi( $slug );
 
 					if ( in_array( $slug, $keys ) ) {
+						$property_type_slug = papi_get_property_type_key( $slug );
+
+						// Run `update_value` on each property before it's saved.
+						if ( isset( $values[$index][$property_type_slug] ) ) {
+							$property_type = papi_get_property_type( $values[$index][$property_type_slug] );
+							$values[$index][$slug] = $property_type->update_value( $values[$index][$slug], $slug, $post_id );
+						}
+
 						continue;
 					}
 
