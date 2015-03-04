@@ -133,8 +133,8 @@ class Papi_Admin_Meta_Boxes {
 				continue;
 			}
 
-			// Get the property, will only get it once.
-			$property = Papi_Property::factory( $value['type'] );
+			// Get the property, will only make the instance once.
+			$property = papi_get_property_type( $value['type'] );
 
 			// Can't handle null properties.
 			// Remove it from the data array and continue.
