@@ -127,23 +127,14 @@ class Papi_Admin_Meta_Boxes {
 			unset( $data[ $key ] );
 		}
 
-		// Properties holder.
-		$properties = array();
-
 		// Run `before_save` on a property class if it exists.
 		foreach ( $data as $key => $value ) {
 			if ( ! is_array( $value ) || ! isset( $value['type'] ) ) {
 				continue;
 			}
 
-			$property_type = $value['type'];
-
-			// Get the property class if we don't have it.
-			if ( ! isset( $properties[ $property_type ] ) ) {
-				$properties[ $property_type ] = Papi_Property::factory( $property_type );
-			}
-
-			$property = $properties[ $property_type ];
+			// Get the property, will only get it once.
+			$property = Papi_Property::factory( $value['type'] );
 
 			// Can't handle null properties.
 			// Remove it from the data array and continue.
@@ -156,7 +147,7 @@ class Papi_Admin_Meta_Boxes {
 			$data[ $key ]['value'] = $property->update_value( $data[ $key ]['value'], papi_remove_papi( $key ), $post_id );
 
 			// Apply a filter so this can be changed from the theme for specified property type.
-			$data[ $key ]['value'] = papi_filter_update_value( $property_type, $data[ $key ]['value'], papi_remove_papi( $key ), $post_id );
+			$data[ $key ]['value'] = papi_filter_update_value( $value['type'], $data[ $key ]['value'], papi_remove_papi( $key ), $post_id );
 		}
 
 		// Check so all properties has a value and a type key and that the property is a array.
