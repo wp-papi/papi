@@ -30,15 +30,13 @@ class Papi_Property_Editor extends Papi_Property_Text {
 	 * Format the value of the property before we output it to the application.
 	 *
 	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
 	 *
 	 * @since 1.2.2
 	 *
 	 * @return array
 	 */
 
-	public function format_value( $value, $slug, $post_id ) {
+	public function format_value( $value ) {
 		return apply_filters( 'the_content', $value );
 	}
 
