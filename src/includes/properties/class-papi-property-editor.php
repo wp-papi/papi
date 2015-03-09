@@ -36,7 +36,7 @@ class Papi_Property_Editor extends Papi_Property_Text {
 	 * @return array
 	 */
 
-	public function format_value( $value ) {
+	public function format_value( $value, $slug, $post_id ) {
 		return apply_filters( 'the_content', $value );
 	}
 
