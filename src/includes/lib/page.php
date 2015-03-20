@@ -48,6 +48,10 @@ function papi_get_all_page_types( $all = false, $post_type = null ) {
 			continue;
 		}
 
+		if ( ! is_subclass_of( $page_type, 'Papi_Page_Type' ) ) {
+			continue;
+		}
+
 		// Add the page type if the post types is allowed.
 		if ( ! is_null( $page_type ) && papi_current_user_is_allowed( $page_type->capabilities ) && ( $all || in_array( $post_type, $page_type->post_type ) ) ) {
 			$page_types[] = $page_type;
