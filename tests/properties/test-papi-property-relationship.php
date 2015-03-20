@@ -1,15 +1,13 @@
 <?php
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
-* Unit tests covering property functionality.
-*
-* @package Papi
-*/
+ * Unit tests covering property functionality.
+ *
+ * @package Papi
+ */
 
 class WP_Papi_Property_Relationship extends WP_UnitTestCase {
 

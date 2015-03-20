@@ -1,9 +1,7 @@
 <?php
 
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Unit tests covering post functionality.
@@ -12,17 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 class WP_Papi_Functions_Post extends WP_UnitTestCase {
-
-	/**
-	 * Setup the test.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function setUp() {
-		parent::setUp();
-
-	}
 
 	/**
 	 * Test papi_from_property_array_slugs.
