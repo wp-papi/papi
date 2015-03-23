@@ -52,6 +52,18 @@ class Papi_Property {
 	/**
 	 * Get default settings.
 	 *
+	 * @since 1.3.0
+	 *
+	 * @return array
+	 */
+
+	public function get_default_options() {
+		return array();
+	}
+
+	/**
+	 * Get default settings.
+	 *
 	 * @since 1.0.0
 	 *
 	 * @return array
@@ -293,7 +305,7 @@ class Papi_Property {
 	 */
 
 	public function set_options( $options ) {
-		$this->options = $options;
+		$this->options = (object) wp_parse_args( (array) $options, $this->get_default_options() );
 	}
 
 	/**
