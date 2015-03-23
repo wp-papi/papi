@@ -22,7 +22,7 @@ function papi_get_tab_options( $options ) {
 
 	if ( ! is_array( $options ) ) {
 		if ( is_object( $options ) ) {
-			$options = (array)$options;
+			$options = (array) $options;
 		} else {
 			return null;
 		}
@@ -53,7 +53,7 @@ function papi_setup_tabs( $tabs ) {
 	$_tabs = array();
 
 	foreach ( $tabs as $tab ) {
-		$tab = (object)$tab;
+		$tab = (object) $tab;
 
 		if ( ! isset( $tab->options ) ) {
 			continue;
@@ -69,7 +69,8 @@ function papi_setup_tabs( $tabs ) {
 	$tabs = papi_sort_order( $_tabs );
 
 	// Generate unique names for all tabs.
-	for ( $i = 0; $i < count( $tabs ); $i ++ ) {
+	$len = count( $tabs );
+	for ( $i = 0; $i < $len; $i ++ ) {
 
 		if ( empty( $tabs[$i] ) ) {
 			continue;
@@ -97,7 +98,7 @@ function papi_tab( $file_or_options, $properties = array() ) {
 
 	// The tab key is important, it's says that we should render a tab meta box.
 	// This may change in later version of Papi.
-	return (object)array(
+	return (object) array(
 		'options'    => $options,
 		'properties' => $properties,
 		'tab'        => true
