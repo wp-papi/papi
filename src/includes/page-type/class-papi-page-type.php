@@ -73,7 +73,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	protected function box( $file_or_options = array(), $properties = array() ) {
 		if ( is_object( $file_or_options ) ) {
-			$file_or_options = (array)$file_or_options;
+			$file_or_options = (array) $file_or_options;
 		}
 
 		if ( ! is_string( $file_or_options ) && ! is_array( $file_or_options ) ) {
@@ -271,7 +271,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		//
 		// This should be fixed later, not a priority for now since this works.
 		if ( is_object( $tab ) && isset( $tab->options ) && isset( $tab->options['options'] ) ) {
-			$tab = (object)$tab->options;
+			$tab = (object) $tab->options;
 		}
 
 		if ( isset( $tab->options ) ) {

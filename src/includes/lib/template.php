@@ -74,7 +74,7 @@ function papi_template( $file, $values = array(), $convert_to_object = false ) {
 
 	$template = require $filepath;
 
-	$result = array_merge( (array)$template, $values );
+	$result = array_merge( (array) $template, $values );
 
 	if ( $convert_to_object ) {
 		return (object) $result;

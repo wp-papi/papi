@@ -72,7 +72,7 @@ function papi_esc_html( $obj, $keys = array() ) {
 	$object = is_object( $obj );
 
 	if ( $object ) {
-		$obj = (array)$obj;
+		$obj = (array) $obj;
 	}
 
 	if ( is_array( $obj ) ) {
