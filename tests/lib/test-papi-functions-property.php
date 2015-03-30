@@ -324,6 +324,19 @@ class WP_Papi_Functions_Property extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test papi_property template.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function test_papi_property_template() {
+		$actual = papi_property( dirname( __FILE__ ) . '/../data/properties/simple.php' );
+
+		$this->assertEquals( 'Name', $actual->title );
+		$this->assertEquals( 'string', $actual->type );
+	}
+
+	/**
 	 * Test papi_to_property_array_slugs.
 	 *
 	 * @since 1.0.0
