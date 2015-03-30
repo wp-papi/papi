@@ -100,7 +100,7 @@ class Papi_Page_Type_Base {
 	 * @return string
 	 */
 
-	public function get_filename() {
+	public function get_file_name() {
 		return $this->_file_name;
 	}
 
@@ -112,7 +112,7 @@ class Papi_Page_Type_Base {
 	 * @return string
 	 */
 
-	public function get_filepath() {
+	public function get_file_path() {
 		return $this->_file_path;
 	}
 

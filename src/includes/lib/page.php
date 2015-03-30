@@ -108,8 +108,8 @@ function papi_get_number_of_pages( $page_type ) {
 		return 0;
 	}
 
-	if ( is_object( $page_type ) && method_exists( $page_type, 'get_filename' ) ) {
-		$file_name = $page_type->get_filename();
+	if ( is_object( $page_type ) && method_exists( $page_type, 'get_file_name' ) ) {
+		$file_name = $page_type->get_file_name();
 		$post_type = '';
 
 		foreach ( $page_type->post_type as $p ) {

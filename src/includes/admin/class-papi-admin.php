@@ -385,7 +385,7 @@ final class Papi_Admin {
 			$page_types = array_map( function ( $page_type ) {
 				return array(
 					'name' => $page_type->name,
-					'value' => $page_type->get_filename()
+					'value' => $page_type->get_file_name()
 				);
 			}, $page_types );
 

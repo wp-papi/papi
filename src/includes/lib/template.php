@@ -38,7 +38,7 @@ function papi_body_class( $classes ) {
 		return $classes;
 	}
 
-	$classes[] = papi_slugify( $page_type );
+	$classes[] = array_pop( explode( '/', $page_type ) );
 
 	return $classes;
 }

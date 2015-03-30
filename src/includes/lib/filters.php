@@ -112,8 +112,8 @@ function papi_filter_settings_page_type_from_post_qs() {
  */
 
 function papi_filter_show_page_type( $post_type, $page_type ) {
-	if ( is_object( $page_type ) && method_exists( $page_type, 'get_filename' ) ) {
-		$page_type = $page_type->get_filename();
+	if ( is_object( $page_type ) && method_exists( $page_type, 'get_file_name' ) ) {
+		$page_type = $page_type->get_file_name();
 	}
 
 	return apply_filters( 'papi/settings/show_page_type_' . $post_type, $page_type ) !== false;
