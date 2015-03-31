@@ -31,8 +31,8 @@
 			}
 			?>
 			<tr>
-				<td><a href="<?php echo $_SERVER['REQUEST_URI']; ?>&view=management-page-type&page-type=<?php echo papi_get_page_type_base_path( $page_type->get_file_path() ); ?>"><?php echo $page_type->name; ?></a></td>
-				<td><?php echo $page_type->get_file_name(); ?></td>
+				<td><a href="<?php echo $_SERVER['REQUEST_URI']; ?>&view=management-page-type&page-type=<?php echo $page_type->get_id(); ?>"><?php echo $page_type->name; ?></a></td>
+				<td><?php echo $page_type->get_id(); ?></td>
 				<td><?php
 					if ( ! current_user_can( 'edit_themes' ) || defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
 						echo $page_type->template;
@@ -54,7 +54,7 @@
 						}
 					}
 					?></td>
-				<td><?php echo papi_get_number_of_pages( $page_type->get_file_name() ); ?></td>
+				<td><?php echo papi_get_number_of_pages( $page_type->get_id() ); ?></td>
 			</tr>
 		<?php
 		}

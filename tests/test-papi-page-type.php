@@ -46,19 +46,33 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_page_type() {
-		// Test to load the page type.
 		$page_type = papi_get_page_type( dirname( __FILE__ ) . '/data/page-types/simple-page-type.php' );
 		$this->assertEquals( $page_type->name, 'Simple page' );
 
-		// Test the default sort order value.
 		$this->assertEquals( 1000, $page_type->sort_order );
 
-		// Test to save the page type value and load it.
-		add_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, $page_type->get_file_name() );
-		$this->assertEquals( $page_type->get_file_name(), papi_get_page_type_meta_value( $this->post_id ) );
+		add_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, $page_type->get_id() );
+		$this->assertEquals( $page_type->get_id(), papi_get_page_type_meta_value( $this->post_id ) );
 
-		// Test to get the template file from the page type.
 		$this->assertEquals( 'pages/simple-page.php', papi_get_page_type_template( $this->post_id ) );
+	}
+
+	/**
+	 * Test papi_get_page_type_by_id.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_papi_get_page_type_by_id() {
+		$page_type = papi_get_page_type_by_id( 'custom-page-type-id' );
+		$this->assertEquals( $page_type->name, 'Identifier page' );
+
+		$this->assertEquals( 1000, $page_type->sort_order );
+
+		add_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, $page_type->get_id() );
+		$this->assertEquals( $page_type->get_id(), papi_get_page_type_meta_value( $this->post_id ) );
+
+		$this->assertEquals( 'pages/identifier-page.php', papi_get_page_type_template( $this->post_id ) );
 	}
 
 	/**

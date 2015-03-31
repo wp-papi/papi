@@ -52,8 +52,8 @@ class Papi_Page {
 		$this->post = get_post( $this->id );
 
 		// Load page type object.
-		$path            = papi_get_file_path( papi_get_page_type_meta_value( $this->id ) );
-		$this->page_type = papi_get_page_type( $path );
+		$id              = papi_get_page_type_meta_value( $this->id );
+		$this->page_type = papi_get_page_type_by_id( $id );
 	}
 
 	/**

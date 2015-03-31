@@ -385,7 +385,7 @@ final class Papi_Admin {
 			$page_types = array_map( function ( $page_type ) {
 				return array(
 					'name' => $page_type->name,
-					'value' => $page_type->get_file_name()
+					'value' => $page_type->get_id()
 				);
 			}, $page_types );
 
@@ -523,11 +523,7 @@ final class Papi_Admin {
 			}
 		}
 
-		// Get the path to the page type file.
-		$path = papi_get_file_path( $this->page_type );
-
-		// Load the page type and create a new instance of it.
-		$this->page_type = papi_get_page_type( $path );
+		$this->page_type = papi_get_page_type_by_id( $this->page_type );
 
 		// Do a last check so we can be sure that we have a page type object.
 		return ! empty( $this->page_type ) && is_object( $this->page_type );

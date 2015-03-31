@@ -32,7 +32,7 @@ $show_standard_page = papi_filter_settings_standard_page_type( $post_type );
 				'title'       => $page_type->name,
 				'description' => $page_type->description,
 				'thumbnail'   => $page_type->get_thumbnail(),
-				'url'         => papi_get_page_new_url( $page_type->get_file_name() )
+				'url'         => papi_get_page_new_url( $page_type->get_id() )
 			) );
 		}
 

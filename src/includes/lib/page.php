@@ -84,7 +84,7 @@ function papi_get_file_data( $post_id ) {
 	// Check so the page type isn't null or empty before we
 	// trying to get the page type meta data.
 	if ( ! empty( $page_type ) ) {
-		return papi_get_page_type( papi_get_file_path( $page_type ) );
+		return papi_get_page_type_by_id( $page_type );
 	}
 
 	return null;
@@ -108,8 +108,8 @@ function papi_get_number_of_pages( $page_type ) {
 		return 0;
 	}
 
-	if ( is_object( $page_type ) && method_exists( $page_type, 'get_file_name' ) ) {
-		$file_name = $page_type->get_file_name();
+	if ( is_object( $page_type ) && method_exists( $page_type, 'get_id' ) ) {
+		$file_name = $page_type->get_id();
 		$post_type = '';
 
 		foreach ( $page_type->post_type as $p ) {
@@ -211,6 +211,34 @@ function papi_get_page_type( $file_path ) {
 	}
 
 	return papi()->make( $class_name );
+}
+
+/**
+ * Get page type by identifier.
+ *
+ * @param string $id
+ * @since 1.3.0
+ *
+ * @return string
+ */
+
+function papi_get_page_type_by_id( $id ) {
+	$result     = null;
+	$page_types = papi_get_all_page_types( true );
+
+	foreach ( $page_types as $page_type ) {
+		if ( $page_type->match_id( $id ) ) {
+			$result = $page_type;
+			break;
+		}
+	}
+
+	if ( is_null( $result ) ) {
+		$path   = papi_get_file_path( $id );
+		$result = papi_get_page_type( $path );
+	}
+
+	return $result;
 }
 
 /**

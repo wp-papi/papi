@@ -64,8 +64,7 @@ function papi_management_page_type_render_box( $properties, $tab = false ) {
 
 	<?php
 		$page_type = $_GET['page-type'];
-		$page_type = papi_get_file_path( $page_type );
-		$page_type = papi_get_page_type( $page_type );
+		$page_type = papi_get_page_type_by_id( $page_type );
 	?>
 
 	<h3><?php _e( 'Overview of page types', 'papi' ); ?>: <?php echo $page_type->name; ?></h3>

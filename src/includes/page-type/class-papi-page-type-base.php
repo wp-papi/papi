@@ -53,7 +53,6 @@ class Papi_Page_Type_Base {
 	 * Load a page type by the file.
 	 *
 	 * @param string $file_path
-	 *
 	 * @since 1.0.0
 	 */
 
@@ -93,15 +92,15 @@ class Papi_Page_Type_Base {
 	}
 
 	/**
-	 * Get the page type file name.
+	 * Get the page type class name with namespace if exists.
 	 *
-	 * @since 1.0.0
+	 * @since 1.3.0
 	 *
 	 * @return string
 	 */
 
-	public function get_file_name() {
-		return $this->_file_name;
+	public function get_class_name() {
+		return $this->_class_name;
 	}
 
 	/**
@@ -114,6 +113,35 @@ class Papi_Page_Type_Base {
 
 	public function get_file_path() {
 		return $this->_file_path;
+	}
+
+	/**
+	 * Get the page type identifier.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @return string
+	 */
+
+	public function get_id() {
+		if ( ! empty( $this->id ) ) {
+			return $this->id;
+		}
+
+		return $this->_file_name;
+	}
+
+	/**
+	 * Check if the the given identifier match the page type identifier.
+	 *
+	 * @param string $id
+	 * @since 1.3.0
+	 *
+	 * @return bool
+	 */
+
+	public function match_id( $id ) {
+		return $this->get_id() === $id;
 	}
 
 	/**
@@ -136,7 +164,6 @@ class Papi_Page_Type_Base {
 	 * Load the file and setup page type meta data.
 	 *
 	 * @param string $file_path
-	 *
 	 * @since 1.0.0
 	 */
 
