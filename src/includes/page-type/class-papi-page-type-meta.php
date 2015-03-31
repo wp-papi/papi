@@ -31,15 +31,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	public $description = '';
 
 	/**
-	 * The page type identifier.
-	 *
-	 * @var string
-	 * @since 1.3.0
-	 */
-
-	public $id = '';
-
-	/**
 	 * Labels, the same labels that post type object uses.
 	 *
 	 * @var array

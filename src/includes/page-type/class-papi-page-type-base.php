@@ -49,6 +49,15 @@ class Papi_Page_Type_Base {
 	public $_file_path = '';
 
 	/**
+	 * The page type identifier.
+	 *
+	 * @var string
+	 * @since 1.3.0
+	 */
+
+	public $id = '';
+
+	/**
 	 * Constructor.
 	 * Load a page type by the file.
 	 *
