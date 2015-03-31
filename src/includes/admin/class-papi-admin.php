@@ -468,16 +468,14 @@ final class Papi_Admin {
 		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 		add_filter( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
 
-		$post_types = papi_get_post_types();
+		$post_type = papi_get_wp_post_type();
 
 		// Add post type columns to eavery post types that is used.
-		foreach ( $post_types as $post_type ) {
-			add_filter( 'manage_' . $post_type . '_posts_columns', array( $this, 'manage_page_type_posts_columns' ) );
-			add_action( 'manage_' . $post_type . '_posts_custom_column', array(
-				$this,
-				'manage_page_type_posts_custom_column'
-			), 10, 2 );
-		}
+		add_filter( 'manage_' . $post_type . '_posts_columns', array( $this, 'manage_page_type_posts_columns' ) );
+		add_action( 'manage_' . $post_type . '_posts_custom_column', array(
+			$this,
+			'manage_page_type_posts_custom_column'
+		), 10, 2 );
 	}
 
 	/**
