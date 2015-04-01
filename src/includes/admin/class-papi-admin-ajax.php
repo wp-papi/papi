@@ -66,8 +66,8 @@ class Papi_Admin_Ajax {
 				define( 'DOING_AJAX', true );
 			}
 
-			header('Cache-Control: no-cache, must-revalidate');
-			header('Content-type: application/json');
+			header( 'Cache-Control: no-cache, must-revalidate' );
+			header( 'Content-type: application/json' );
 
 			do_action( 'papi_ajax_' . sanitize_text_field( $action ) );
 			die;
