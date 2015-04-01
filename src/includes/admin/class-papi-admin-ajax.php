@@ -53,6 +53,10 @@ class Papi_Admin_Ajax {
     public function handle_papi_ajax() {
         global $wp_query;
 
+        if ( ! is_object( $wp_query ) ) {
+            return;
+        }
+
         if ( ! empty( $_GET['action'] ) ) {
             $wp_query->set( 'action', sanitize_text_field( $_GET['action'] ) );
         }
