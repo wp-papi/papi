@@ -94,7 +94,10 @@ class Papi_Page {
 	/**
 	 * Convert property value with the property type converter.
 	 *
-	 * @param array $property
+	 * @param bool $admin
+	 * @param string $slug
+	 * @param string $type
+	 * @param mixed $value
 	 *
 	 * @since 1.0.0
 	 *
