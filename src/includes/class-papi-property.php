@@ -221,10 +221,10 @@ class Papi_Property {
 				<?php if ( $this->options->sidebar ): ?>
 					<td>
 						<?php
-						$this->label();
-						$this->description();
+							$this->label();
+							$this->description();
 						?>
-						</td>
+					</td>
 				<?php endif; ?>
 				<td <?php echo $this->options->sidebar ? '' : 'colspan="2"'; ?>>
 					<?php $this->html(); ?>

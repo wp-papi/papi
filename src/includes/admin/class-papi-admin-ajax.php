@@ -81,7 +81,8 @@ class Papi_Admin_Ajax {
 	 */
 
 	public function get_property() {
-		$options = papi_get_qs( array( 'type', 'slug' ), true );
+        $keys = array_keys( papi_get_property_default_options() );
+		$options = papi_get_qs( $keys, true );
 
 		$property = papi_property( $options );
 
@@ -91,10 +92,38 @@ class Papi_Admin_Ajax {
 
 		$html = ob_get_clean();
 
-		echo json_encode( array(
-			'html' => utf8_encode( $html )
-		) );
+        if ( empty( $html ) ) {
+            $this->render_error( 'No property found' );
+        } else {
+            $this->render( array(
+                'html' => utf8_encode( $html )
+            ) );
+        }
 	}
+
+    /**
+     * Render json.
+     *
+     * @param mixed $obj
+     * @since 1.3.0
+     */
+
+    public function render( $obj ) {
+        echo json_encode( $obj );
+    }
+
+    /**
+     * Render error message.
+     *
+     * @param string $message
+     * @since 1.3.0
+     */
+
+    public function render_error( $message ) {
+        echo json_encode( array(
+            'error' => $message
+        ) );
+    }
 }
 
 new Papi_Admin_Ajax();

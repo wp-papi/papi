@@ -84,6 +84,19 @@ class WP_Papi_Functions_Property extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test papi_get_property_default_options.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_papi_get_property_default_options() {
+		$actual = papi_get_property_default_options();
+
+		$this->assertTrue( is_array( $actual ) );
+		$this->assertFalse( empty( $actual ) );
+	}
+
+	/**
 	 * Test papi_get_property_default_settings.
 	 *
 	 * @since 1.0.0

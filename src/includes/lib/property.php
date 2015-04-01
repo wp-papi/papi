@@ -143,6 +143,33 @@ function papi_get_options_and_properties( $file_or_options = array(), $propertie
 }
 
 /**
+ * Get property default options.
+ *
+ * @since 1.3.0
+ *
+ * @return array
+ */
+
+function papi_get_property_default_options() {
+	return array(
+		'capabilities' => array(),
+		'default'      => '',
+		'description'  => '',
+		'disabled'     => false,
+		'lang'         => false,
+		'raw'          => false,
+		'settings'     => array(),
+		'sidebar'      => true,
+		'slug'         => '',
+		'sort_order'   => papi_filter_settings_sort_order(),
+		'required'     => false,
+		'title'        => '',
+		'type'         => '',
+		'value'        => ''
+	);
+}
+
+/**
  * Get property type default settings
  *
  * @param string $type
@@ -178,29 +205,13 @@ function papi_get_property_options( $options, $get_value = true ) {
 		if ( is_object( $options ) ) {
 			return $options;
 		} else {
-			return null;
+			return;
 		}
 	}
 
-	$defaults = array(
-		'capabilities' => array(),
-		'default'      => '',
-		'description'  => '',
-		'disabled'     => false,
-		'lang'         => false,
-		'raw'          => false,
-		'settings'     => array(),
-		'sidebar'      => true,
-		'slug'         => '',
-		'sort_order'   => papi_filter_settings_sort_order(),
-		'required'     => false,
-		'title'        => '',
-		'type'         => '',
-		'value'        => ''
-	);
-
-	$options = array_merge( $defaults, $options );
-	$options = (object) $options;
+	$defaults = papi_get_property_default_options();
+	$options  = array_merge( $defaults, $options );
+	$options  = (object) $options;
 
 	// Capabilities should always be array.
 	if ( ! is_array( $options->capabilities ) ) {
@@ -263,7 +274,7 @@ function papi_get_property_class_name( $type ) {
 	$type = papi_get_property_short_type( $type );
 
 	if ( empty( $type ) ) {
-		return null;
+		return;
 	}
 
 	return 'Papi_Property_' . ucfirst( $type );
@@ -281,7 +292,7 @@ function papi_get_property_class_name( $type ) {
 
 function papi_get_property_short_type( $type ) {
 	if ( ! is_string( $type ) ) {
-		return null;
+		return;
 	}
 
 	return preg_replace( '/^property/', '', strtolower( $type ) );
