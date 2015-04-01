@@ -38,7 +38,13 @@ function papi_body_class( $classes ) {
 		return $classes;
 	}
 
-	$classes[] = array_pop( explode( '/', $page_type ) );
+	$parts = explode( '/', $page_type );
+
+	if ( empty( $parts ) ) {
+		return $classes;
+	}
+
+	$classes[] = array_pop( $parts );
 
 	return $classes;
 }

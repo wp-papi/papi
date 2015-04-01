@@ -33,7 +33,7 @@ class Papi_Page {
 	/**
 	 * The Page type.
 	 *
-	 * @var object.
+	 * @var Papi_Page_Type
 	 * @since 1.0.0
 	 */
 
@@ -98,7 +98,7 @@ class Papi_Page {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return mixed|null
+	 * @return mixed
 	 */
 
 	private function convert( $property ) {
@@ -146,7 +146,7 @@ class Papi_Page {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return null|Papi_Page_Type
+	 * @return Papi_Page_Type
 	 */
 
 	public function get_page_type() {

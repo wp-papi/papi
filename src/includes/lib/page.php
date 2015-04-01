@@ -74,7 +74,7 @@ function papi_get_all_page_types( $all = false, $post_type = null ) {
  *
  * @since 1.0.0
  *
- * @return null|Papi_Page_Type
+ * @return Papi_Page_Type
  */
 
 function papi_get_file_data( $post_id ) {
@@ -219,7 +219,7 @@ function papi_get_page_type( $file_path ) {
  * @param string $id
  * @since 1.3.0
  *
- * @return string
+ * @return Papi_Page_Type
  */
 
 function papi_get_page_type_by_id( $id ) {

@@ -39,10 +39,18 @@ final class Papi_Admin {
 	/**
 	 * The page type.
 	 *
-	 * @var string|Papi_Page_Type
+	 * @var Papi_Page_Type
 	 */
 
 	private $page_type;
+
+	/**
+	 * The page type id.
+	 *
+	 * @var string
+	 */
+
+	private $page_type_id;
 
 	/**
 	 * The post id.
@@ -468,16 +476,12 @@ final class Papi_Admin {
 		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 		add_filter( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
 
-		$post_types = papi_get_post_types();
-
 		// Add post type columns to eavery post types that is used.
-		foreach ( $post_types as $post_type ) {
-			add_filter( 'manage_' . $post_type . '_posts_columns', array( $this, 'manage_page_type_posts_columns' ) );
-			add_action( 'manage_' . $post_type . '_posts_custom_column', array(
-				$this,
-				'manage_page_type_posts_custom_column'
-			), 10, 2 );
-		}
+		add_filter( 'manage_' . $this->post_type . '_posts_columns', array( $this, 'manage_page_type_posts_columns' ) );
+		add_action( 'manage_' . $this->post_type . '_posts_custom_column', array(
+			$this,
+			'manage_page_type_posts_custom_column'
+		), 10, 2 );
 	}
 
 	/**
@@ -492,7 +496,7 @@ final class Papi_Admin {
 		$this->management_pages = new Papi_Admin_Management_Pages;
 		$this->post_type        = papi_get_wp_post_type();
 		$this->post_id          = papi_get_post_id();
-		$this->page_type        = papi_get_page_type_meta_value( $this->post_id );
+		$this->page_type_id     = papi_get_page_type_meta_value();
 	}
 
 	/**
@@ -509,21 +513,16 @@ final class Papi_Admin {
 			return false;
 		}
 
-		// If we have a null page type we need to find which page type to use.
-		if ( empty( $this->page_type ) ) {
-			$this->page_type = papi_get_page_type_meta_value();
-		}
-
-		if ( empty( $this->page_type ) ) {
+		if ( empty( $this->page_type_id ) ) {
 			// If only page type is used, override the page type value.
-			$this->page_type = papi_filter_settings_only_page_type( $this->post_type );
+			$this->page_type_id = papi_filter_settings_only_page_type( $this->post_type );
 
-			if ( empty( $this->page_type ) ) {
+			if ( empty( $this->page_type_id ) ) {
 				return false;
 			}
 		}
 
-		$this->page_type = papi_get_page_type_by_id( $this->page_type );
+		$this->page_type = papi_get_page_type_by_id( $this->page_type_id );
 
 		// Do a last check so we can be sure that we have a page type object.
 		return ! empty( $this->page_type ) && is_object( $this->page_type );

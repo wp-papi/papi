@@ -75,8 +75,6 @@ final class Papi_Loader extends Papi_Container {
 			self::$instance->setup_globals();
 			self::$instance->require_files();
 			self::$instance->setup_requried();
-			// Not used yet.
-			// self::$instance->setup_actions();
 		}
 
 		return self::$instance;
