@@ -263,7 +263,7 @@ function papi_get_or_post( $key ) {
 /**
  * Get query string if it exists and is not empty.
  *
- * @param string $qs
+ * @param array|string $qs
  *
  * @since 1.0.0
  *

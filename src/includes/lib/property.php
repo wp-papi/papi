@@ -361,7 +361,7 @@ function papi_is_property_type_key( $str = '' ) {
 /**
  * Create a new property array or rendering a template property file.
  *
- * @param string|array $file_or_options
+ * @param mixed $file_or_options
  * @param array $values
  *
  * @since 1.0.0
