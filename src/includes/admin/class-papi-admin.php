@@ -496,6 +496,7 @@ final class Papi_Admin {
 		$this->management_pages = new Papi_Admin_Management_Pages;
 		$this->post_type        = papi_get_wp_post_type();
 		$this->post_id          = papi_get_post_id();
+		$this->page_type_id     = papi_get_page_type_meta_value();
 	}
 
 	/**
@@ -510,11 +511,6 @@ final class Papi_Admin {
 		// If the post type isn't in the post types array we can't proceed.
 		if ( in_array( $this->post_type, array( 'revision', 'nav_menu_item' ) ) ) {
 			return false;
-		}
-
-		// If we have a null page type we need to find which page type to use.
-		if ( empty( $this->page_type_id ) ) {
-			$this->page_type_id = papi_get_page_type_meta_value();
 		}
 
 		if ( empty( $this->page_type_id ) ) {
