@@ -28,6 +28,16 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		unset( $this->post_id );
+	}
+
+	/**
 	 * Test so we acctually has any page type files.
 	 *
 	 * @since 1.0.0
@@ -82,7 +92,7 @@ class WP_Papi_Page_Type extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_get_all_files_in_directory() {
-		$files = papi_get_all_page_type_files();
+		$files  = papi_get_all_page_type_files();
 		$actual = false;
 
 		foreach ($files as $file) {

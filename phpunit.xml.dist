@@ -6,9 +6,6 @@
   convertErrorsToExceptions="true"
   convertNoticesToExceptions="true"
   convertWarningsToExceptions="true"
-  verbose="true"
-  syntaxCheck="true"
-  processIsolation="false"
   >
   <testsuites>
     <testsuite name="Papi Test Suite">
@@ -16,17 +13,8 @@
     </testsuite>
   </testsuites>
   <filter>
-    <blacklist>
-      <directory suffix=".php">./bin/</directory>
-      <directory suffix=".php">./gui/</directory>
-      <directory suffix=".php">./languages/</directory>
-      <directory suffix=".php">./tmp/</directory>
-      <directory suffix=".php">./vendor/</directory>
-      <directory suffix=".php">./includes/admin/views/</directory>
-    </blacklist>
     <whitelist addUncoveredFilesFromWhitelist="true">
-      <file>./papi-loader.php</file>
-      <directory suffix=".php">./includes/</directory>
+      <directory suffix=".php">src</directory>
     </whitelist>
   </filter>
   <logging>
