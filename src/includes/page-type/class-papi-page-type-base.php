@@ -28,7 +28,7 @@ class Papi_Page_Type_Base {
 	 * @since 1.0.0
 	 */
 
-	public $_class_name = '';
+	private $_class_name = '';
 
 	/**
 	 * The file name of the page type file.
@@ -37,7 +37,7 @@ class Papi_Page_Type_Base {
 	 * @since 1.0.0
 	 */
 
-	public $_file_name = '';
+	private $_file_name = '';
 
 	/**
 	 * The file path of the page type file.
@@ -46,7 +46,7 @@ class Papi_Page_Type_Base {
 	 * @since 1.0.0
 	 */
 
-	public $_file_path = '';
+	private $_file_path = '';
 
 	/**
 	 * The page type identifier.
@@ -55,7 +55,7 @@ class Papi_Page_Type_Base {
 	 * @since 1.3.0
 	 */
 
-	public $id = '';
+	private $id = '';
 
 	/**
 	 * Constructor.
