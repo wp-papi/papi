@@ -496,7 +496,6 @@ final class Papi_Admin {
 		$this->management_pages = new Papi_Admin_Management_Pages;
 		$this->post_type        = papi_get_wp_post_type();
 		$this->post_id          = papi_get_post_id();
-		$this->page_type        = papi_get_page_type_meta_value( $this->post_id );
 	}
 
 	/**

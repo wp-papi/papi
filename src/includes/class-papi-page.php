@@ -33,7 +33,7 @@ class Papi_Page {
 	/**
 	 * The Page type.
 	 *
-	 * @var object.
+	 * @var Papi_Page_Type
 	 * @since 1.0.0
 	 */
 
