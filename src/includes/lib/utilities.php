@@ -270,9 +270,27 @@ function papi_get_or_post( $key ) {
  * @return string
  */
 
-function papi_get_qs( $qs ) {
-	if ( ! is_string( $qs ) ) {
+function papi_get_qs( $qs, $keep_keys = false ) {
+	if ( ! is_string( $qs ) && ! is_array( $qs ) ) {
 		return null;
+	}
+
+	if ( is_array( $qs ) ) {
+		if ( $keep_keys ) {
+			$result = array();
+
+			foreach ( $qs as $key ) {
+				$value = papi_get_qs( $key );
+
+				if ( ! empty( $value ) ) {
+					$result[$key] = $value;
+				}
+			}
+
+			return $result;
+		} else {
+			return array_map( 'papi_get_qs', $qs );
+		}
 	}
 
 	if ( isset( $_GET[ $qs ] ) && ! empty( $_GET[ $qs ] ) ) {

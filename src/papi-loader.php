@@ -183,6 +183,7 @@ final class Papi_Loader extends Papi_Container {
 		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-meta-box-tabs.php';
 		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-view.php';
 		require_once $this->plugin_dir . 'includes/admin/class-papi-admin.php';
+		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-ajax.php';
 
 		// Load properties classes.
 		require_once $this->plugin_dir . 'includes/properties/class-papi-property-string.php';
