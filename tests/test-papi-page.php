@@ -49,7 +49,7 @@ class WP_Papi_Page extends WP_UnitTestCase {
 	public function test_get_page_type() {
 		$this->assertEmpty( $this->page->get_page_type() );
 
-		add_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 
 		$page = papi_get_page( $this->post_id );
 
@@ -86,5 +86,30 @@ class WP_Papi_Page extends WP_UnitTestCase {
 
 	public function test_get_status() {
 		$this->assertEquals( 'publish', $this->page->get_status() );
+	}
+
+	/**
+	 * Test get_value method.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_get_value() {
+		update_post_meta( $this->post_id, 'name', 'Fredrik' );
+		update_post_meta( $this->post_id, papi_f( papi_get_property_type_key( 'name' ) ), 'name');
+
+		$this->assertEquals( 'Fredrik', $this->page->get_value( 'name' ) );
+	}
+
+	/**
+	 * Test __get method.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test__get() {
+		update_post_meta( $this->post_id, 'name', '' );
+
+		$this->assertNull( $this->page->name );
 	}
 }
