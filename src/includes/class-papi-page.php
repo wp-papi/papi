@@ -97,7 +97,7 @@ class Papi_Page {
 	 * @param bool $admin
 	 * @param string $slug
 	 * @param string $type
-	 * @param mixed $valuemr
+	 * @param mixed $value
 	 *
 	 * @since 1.0.0
 	 *
