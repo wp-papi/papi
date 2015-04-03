@@ -30,18 +30,3 @@ function papi_test_create_property_post_data( $values, $post = null ) {
 
 	return $data;
 }
-
-/**
- * Get private or protected method.
- *
- * @param mixed $class
- * @param string $method
- *
- * @return object
- */
-
-function papi_test_get_method( $class, $method ) {
-	$method = new ReflectionMethod( $class, $method );
-	$method->setAccessible( true );
-	return $method;
-}

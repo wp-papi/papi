@@ -40,14 +40,13 @@ class WP_Papi_Property extends WP_UnitTestCase {
 	 */
 
 	public function test_description() {
-		$method = papi_test_get_method( $this->property, 'description' );
-		$this->assertNull( $method->invoke( $this->property ) );
+		$this->assertNull( $this->property->description() );
 
 		$this->property->set_options( array(
 			'description' => 'A simple description'
 		) );
 
-		$method->invoke( $this->property );
+		$this->property->description();
 
 		$this->expectOutputRegex('/A\ssimple\sdescription/');
 	}
@@ -75,15 +74,14 @@ class WP_Papi_Property extends WP_UnitTestCase {
 	 */
 
 	public function test_hidden() {
-		$method = papi_test_get_method( $this->property, 'hidden' );
-		$this->assertNull( $method->invoke( $this->property ) );
+		$this->assertNull( $this->property->hidden() );
 
 		$this->property->set_options( papi_get_property_options( array(
 			'type' => 'string',
 			'slug' => 'hello_world'
 		) ) );
 
-		$method->invoke( $this->property );
+		$this->property->hidden();
 
 		$this->expectOutputRegex('/papi\_hello\_world\_property/');
 
@@ -92,7 +90,7 @@ class WP_Papi_Property extends WP_UnitTestCase {
 			'slug' => 'hello_world[name]'
 		) );
 
-		$method->invoke( $this->property );
+		$this->property->hidden();
 
 		$this->expectOutputRegex('/papi\_hello\_world\[name\_property\]/');
 	}
@@ -210,15 +208,14 @@ class WP_Papi_Property extends WP_UnitTestCase {
 	 */
 
 	public function test_label() {
-		$method = papi_test_get_method( $this->property, 'label' );
-		$this->assertNull( $method->invoke( $this->property ) );
+		$this->assertNull( $this->property->label() );
 
 		$this->property->set_options( papi_get_property_options( array(
 			'slug'  => 'kvack',
 			'title' => 'A simple label'
 		) ) );
 
-		$method->invoke( $this->property );
+		$this->property->label();
 
 		$this->expectOutputRegex('/A\ssimple\slabel/');
 		$this->expectOutputRegex('/papi\_kvack/');
@@ -231,25 +228,23 @@ class WP_Papi_Property extends WP_UnitTestCase {
 	 */
 
 	public function test_render() {
-		$method = papi_test_get_method( $this->property, 'render' );
-		$this->assertNull( $method->invoke( $this->property ) );
+		$this->assertNull( $this->property->render() );
 
 		$this->property->set_options( papi_get_property_options( array(
 			'description' => 'A simple description',
 			'title'       => 'A simple label'
 		) ) );
 
-		$method->invoke( $this->property );
+		$this->property->render();
 
 		$this->expectOutputRegex('/A\ssimple\sdescription/');
 		$this->expectOutputRegex('/A\ssimple\slabel/');
-		$this->expectOutputRegex('/tr/');
 
 		$this->property->set_options( papi_get_property_options( array(
 			'raw' => true
 		) ) );
 
-		$method->invoke( $this->property );
+		$this->property->render();
 	}
 
 	/**
