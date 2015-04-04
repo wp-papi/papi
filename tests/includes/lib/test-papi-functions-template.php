@@ -18,7 +18,7 @@ class WP_Papi_Functions_Template extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_template() {
-		$actual = papi_template( dirname( __FILE__ ) . '/../data/properties/simple.php' );
+		$actual = papi_template( papi_test_get_files_path( '/properties/simple.php' ) );
 
 		$this->assertEquals( 'Name', $actual['title'] );
 		$this->assertEquals( 'string', $actual['type'] );

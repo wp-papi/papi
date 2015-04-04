@@ -28,6 +28,8 @@ function _manually_load_plugin() {
 
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
+$files_root = __DIR__ . '/files';
+
 // Load phpunit
 require $test_root . '/includes/bootstrap.php';
 

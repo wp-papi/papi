@@ -30,3 +30,11 @@ function papi_test_create_property_post_data( $values, $post = null ) {
 
 	return $data;
 }
+
+function papi_test_get_files_path( $path ) {
+	if ($path[0] !== '/') {
+		$path = '/' . $path;
+	}
+
+	return __DIR__ . '/files' . $path;
+}
