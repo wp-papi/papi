@@ -15,6 +15,8 @@ defined( 'ABSPATH' ) || exit;
  *
  * @param array $values
  * @param mixed $post
+ *
+ * @return array
  */
 
 function papi_test_create_property_post_data( $values, $post = null ) {
@@ -30,6 +32,14 @@ function papi_test_create_property_post_data( $values, $post = null ) {
 
 	return $data;
 }
+
+/**
+ * Get real to test files directory with given path.
+ *
+ * @param string
+ *
+ * @return string
+ */
 
 function papi_test_get_files_path( $path ) {
 	if ($path[0] !== '/') {
