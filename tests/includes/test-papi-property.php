@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
  * @package Papi
  */
 
-class WP_Papi_Property extends WP_UnitTestCase {
+class WP_Test_Papi_Property extends WP_UnitTestCase {
 
 	/**
 	 * Setup test.

@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
  * @package Papi
  */
 
-class WP_Papi_Functions_Post extends WP_UnitTestCase {
+class WP_Test_Papi_Functions_Post extends WP_UnitTestCase {
 
 	/**
 	 * Test papi_from_property_array_slugs.

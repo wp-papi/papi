@@ -20,18 +20,16 @@ if ( getenv( 'WP_DEVELOP_DIR' ) !== false ) {
 	$test_root = '../../../develop/tests/phpunit/';
 }
 
+// Load WordPress test functions.
 require $test_root . '/includes/functions.php';
 
-function _manually_load_plugin() {
-	require dirname( __FILE__ ) . '/../papi-loader.php';
-}
+// Load Papi.
+tests_add_filter( 'muplugins_loaded', function () {
+	require dirname( __DIR__ ) . '/papi-loader.php';
+} );
 
-tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
-
-$files_root = __DIR__ . '/files';
-
-// Load phpunit
+// Load phpunit.
 require $test_root . '/includes/bootstrap.php';
 
-// Load utilities file for testing.
-require dirname(__FILE__) . '/utilities.php';
+// Load helpers file for testing.
+require __DIR__ . '/helpers.php';

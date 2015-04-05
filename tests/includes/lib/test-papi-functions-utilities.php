@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
  * @package Papi
  */
 
-class WP_Papi_Functions_Utilities extends WP_UnitTestCase {
+class WP_Test_Papi_Functions_Utilities extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test and register the page types directory.

@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
  * @package Papi
  */
 
-class WP_Papi_Admin_Meta_Box_Tabs extends WP_UnitTestCase {
+class WP_Test_Papi_Admin_Meta_Box_Tabs extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test.
