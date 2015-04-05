@@ -34,6 +34,16 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test broken page type with a non existing meta method.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_broken_page_type() {
+		$this->assertNull( papi_get_page_type_by_id( 'broken-page-type' ) );
+	}
+
+	/**
 	 * Test get_boxes method.
 	 *
 	 * @since 1.3.0
