@@ -105,7 +105,7 @@ function papi_get_file_path( $file ) {
 function papi_get_page_type_base_path( $file ) {
 	$directories = papi_filter_settings_directories();
 
-	if ( empty( $file ) ) {
+	if ( empty( $file ) || ! is_string( $file ) ) {
 		return;
 	}
 
