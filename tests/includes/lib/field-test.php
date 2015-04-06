@@ -71,7 +71,8 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
-		$this->assertTrue( ! empty ( papi_fields() ) && is_array( papi_fields() ) );
+		$actual = papi_fields();
+		$this->assertTrue( ! empty( $actual ) && is_array( $actual ) );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, '' );
 		$this->assertEmpty( papi_fields() );
