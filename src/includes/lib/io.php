@@ -94,7 +94,6 @@ function papi_get_file_path( $file ) {
 
 /**
  * Get page type base path.
- * This is used for figure out which page type to load on which page.
  *
  * @param string $file
  *
@@ -106,6 +105,10 @@ function papi_get_file_path( $file ) {
 function papi_get_page_type_base_path( $file ) {
 	$directories = papi_filter_settings_directories();
 
+	if ( empty( $file ) ) {
+		return;
+	}
+
 	foreach ( $directories as $directory ) {
 		if ( strpos( $file, $directory ) !== false ) {
 			$file = str_replace( $directory, '', $file );
@@ -114,10 +117,6 @@ function papi_get_page_type_base_path( $file ) {
 
 	$file = ltrim( $file, '/' );
 	$file = explode( '.', $file );
-
-	if ( empty( $file ) ) {
-		return null;
-	}
 
 	return $file[0];
 }
