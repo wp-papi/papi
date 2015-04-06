@@ -51,6 +51,18 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	private $remove_meta_boxes = array();
 
 	/**
+	 * Load a page type by the file.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $file_path
+	 */
+
+	public function __construct( $file_path = '' ) {
+		parent::__construct( $file_path );
+	}
+
+	/**
 	 * Add new meta box with properties.
 	 *
 	 * @param mixed $file_or_options
