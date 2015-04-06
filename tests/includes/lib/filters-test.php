@@ -135,16 +135,22 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 		} );
 
 		$this->assertEquals( 'simple-page-type', papi_filter_settings_only_page_type( 'post' ) );
+
+		tests_add_filter( 'papi/settings/only_page_type_post', function () {
+			return false;
+		} );
+
+		$this->assertEmpty( papi_filter_settings_only_page_type( 'post' ) );
 	}
 
 	/**
-	 * Test `papi_filter_standard_page_description` function.
+	 * Test `papi_filter_show_page_type` function.
 	 *
 	 * @since 1.2.0
 	 */
 
 	public function test_papi_filter_show_page_type() {
-		$this->assertEquals( true, papi_filter_show_page_type( 'post', 'test-page-type' ) );
+		$this->assertTrue( papi_filter_show_page_type( 'post', 'test-page-type' ) );
 
 		tests_add_filter( 'papi/settings/standard_page_type_post', function ( $page_type ) {
 			if ( $page_type == 'test-page-type' ) {
@@ -154,7 +160,14 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 			return true;
 		} );
 
-		$this->assertEquals( false, !papi_filter_show_page_type( 'post', 'test-page-type' ) );
+		$this->assertFalse( !papi_filter_show_page_type( 'post', 'test-page-type' ) );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return array( 1,  papi_test_get_fixtures_path( '/page-types' ) );
+		} );
+
+		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$this->assertTrue( papi_filter_show_page_type( 'post', $page_type ) );
 	}
 
 	/**
@@ -228,6 +241,19 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	public function test_papi_filter_page_type_directories() {
 		tests_add_filter( 'papi/settings/directories', function () {
 			return array();
+		} );
+
+		$this->assertEmpty( papi_filter_settings_directories() );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return 'path';
+		} );
+
+		$directories = papi_filter_settings_directories();
+		$this->assertEquals( 'path', $directories[0] );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return null;
 		} );
 
 		$this->assertEmpty( papi_filter_settings_directories() );
