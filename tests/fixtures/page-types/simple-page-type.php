@@ -34,6 +34,16 @@ class Simple_Page_Type extends Papi_Page_Type {
 		// Will not work.
 		$this->box( 1 );
 
+		// Box without a empty title.
+		$this->box( array(
+			'title' => ''
+		), array(
+			papi_property( array(
+				'type'  => 'string',
+				'title' => 'Country'
+			) )
+		) );
+
 		// Test properties from another method.
 		$this->box( array(
 			'title'      => 'Content',
