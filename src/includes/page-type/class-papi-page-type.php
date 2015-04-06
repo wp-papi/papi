@@ -51,18 +51,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	private $remove_meta_boxes = array();
 
 	/**
-	 * Load a page type by the file.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $file_path
-	 */
-
-	public function __construct( $file_path = '' ) {
-		parent::__construct( $file_path );
-	}
-
-	/**
 	 * Add new meta box with properties.
 	 *
 	 * @param mixed $file_or_options
@@ -167,18 +155,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	protected function property( $file_or_options = array(), $values = array() ) {
 		return papi_property( $file_or_options, $values );
-	}
-
-	/**
-	 * Render properties direct.
-	 *
-	 * @param mixed $items
-	 *
-	 * @since 1.2.0
-	 */
-
-	protected function render( $items ) {
-		papi_render_properties( papi_populate_properties( $items ) );
 	}
 
 	/**
