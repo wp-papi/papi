@@ -34,17 +34,17 @@ function papi_test_create_property_post_data( $values, $post = null ) {
 }
 
 /**
- * Get real to test files directory with given path.
+ * Get real to test fixtures directory with given path.
  *
  * @param string
  *
  * @return string
  */
 
-function papi_test_get_files_path( $path ) {
+function papi_test_get_fixtures_path( $path ) {
 	if ($path[0] !== '/') {
 		$path = '/' . $path;
 	}
 
-	return __DIR__ . '/files' . $path;
+	return __DIR__ . '/fixtures' . $path;
 }

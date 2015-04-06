@@ -73,7 +73,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_get_options_and_properties() {
-		$simple_box = papi_test_get_files_path( '/boxes/simple.php' );
+		$simple_box = papi_test_get_fixtures_path( '/boxes/simple.php' );
 
 		$actual = papi_get_options_and_properties( $simple_box, array(
 			'test' => 'test'
@@ -196,7 +196,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_property_type_custom() {
 		add_action( 'papi_include_properties', function() {
-			require_once papi_test_get_files_path( '/properties/class-papi-property-kvack.php' );
+			require_once papi_test_get_fixtures_path( '/properties/class-papi-property-kvack.php' );
 		} );
 
 		do_action( 'papi_include_properties' );
@@ -345,7 +345,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_property_template() {
-		$actual = papi_property( papi_test_get_files_path( '/properties/simple.php' ) );
+		$actual = papi_property( papi_test_get_fixtures_path( '/properties/simple.php' ) );
 
 		$this->assertEquals( 'Name', $actual->title );
 		$this->assertEquals( 'string', $actual->type );

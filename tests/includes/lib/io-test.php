@@ -35,8 +35,8 @@ class Papi_Lib_IO_Test extends WP_UnitTestCase {
 		$this->assertTrue( is_array( $actual ) );
 		$this->assertTrue( empty( $actual ) );
 
-		$actual = papi_get_all_files_in_directory( papi_test_get_files_path( '/page-types' ) );
-		$expected = papi_test_get_files_path( '/page-types/simple-page-type.php' );
+		$actual = papi_get_all_files_in_directory( papi_test_get_fixtures_path( '/page-types' ) );
+		$expected = papi_test_get_fixtures_path( '/page-types/simple-page-type.php' );
 
 		$this->assertTrue( is_array( $actual ) );
 		$this->assertTrue( ! empty( $actual ) );

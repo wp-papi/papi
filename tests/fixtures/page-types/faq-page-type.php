@@ -10,10 +10,13 @@ class FAQ_Page_Type extends Papi_Page_Type {
 
 	public function page_type() {
 		return array(
-			'name'        => 'FAQ page',
-			'description' => 'This is a faq page',
-			'template'    => 'pages/faq-page.php',
-			'_not_used'   => 'Not used'
+			'name'         => 'FAQ page',
+			'description'  => 'This is a faq page',
+			'template'     => 'pages/faq-page.php',
+			'_not_used'    => 'Not used',
+			'capabilities' => array( 'kvack' ),
+			'thumbnail'    => 'faq.png',
+			'post_type'    => 'faq'
 		);
 	}
 

@@ -58,7 +58,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_factory() {
-		require_once papi_test_get_files_path( '/properties/class-papi-property-fake.php' );
+		require_once papi_test_get_fixtures_path( '/properties/class-papi-property-fake.php' );
 
 		$this->assertNull( Papi_Property::factory( null ) );
 		$this->assertNull( Papi_Property::factory( '' ) );

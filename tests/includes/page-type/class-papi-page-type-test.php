@@ -21,7 +21,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		parent::setUp();
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return array( 1,  papi_test_get_files_path( '/page-types' ) );
+			return array( 1,  papi_test_get_fixtures_path( '/page-types' ) );
 		} );
 
 		$this->post_id = $this->factory->post->create();
@@ -31,16 +31,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 		$this->faq_page_type    = papi_get_page_type_by_id( 'faq-page-type' );
 		$this->simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
-	}
-
-	/**
-	 * Test broken page type with a non existing meta method.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function test_broken_page_type() {
-		$this->assertNull( papi_get_page_type_by_id( 'broken-page-type' ) );
+		$this->tab_page_type    = papi_get_page_type_by_id( 'tab-page-type' );
 	}
 
 	/**
@@ -50,81 +41,33 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_get_boxes() {
-		$this->assertEmpty( $this->simple_page_type->get_boxes() );
 		$this->assertTrue( is_array( $this->simple_page_type->get_boxes() ) );
 
 		$boxes = $this->faq_page_type->get_boxes();
 
 		$this->assertEquals( 'Content', $boxes[0][0]['title'], 'Content' );
+
+		$this->assertNull( $this->empty_page_type->get_boxes() );
+	}
+
+	public function test_remove_post_type_support() {
+		$_GET['post_type'] = 'page';
+		$this->assertNull( $this->simple_page_type->remove_post_type_support() );
+		$this->assertNull( $this->simple_page_type->remove_meta_boxes() );
+		$_GET['post_type'] = '';
+		$this->assertNull( $this->simple_page_type->remove_meta_boxes() );
 	}
 
 	/**
-	 * Test get_class_name method.
+	 * Test setup method.
 	 *
 	 * @since 1.3.0
 	 */
 
-	public function test_get_class_name() {
-		$this->assertEmpty( $this->empty_page_type->get_class_name() );
-		$this->assertEquals( 'Simple_Page_Type', $this->simple_page_type->get_class_name() );
-		$this->assertEquals( 'FAQ_Page_Type', $this->faq_page_type->get_class_name() );
+	public function test_setup() {
+		$this->assertNull( $this->simple_page_type->setup() );
+		$this->assertNull( $this->empty_page_type->setup() );
+		$this->assertNull( $this->faq_page_type->setup() );
+		$this->assertNull( $this->tab_page_type->setup() );
 	}
-
-	/**
-	 * Test get_file_path method.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function test_get_file_path() {
-		$this->assertEmpty( $this->empty_page_type->get_file_path() );
-
-		$this->assertEquals(
-			papi_test_get_files_path( '/page-types/simple-page-type.php' ),
-			$this->simple_page_type->get_file_path()
-		);
-
-		$this->assertEquals(
-			papi_test_get_files_path( '/page-types/faq-page-type.php' ),
-			$this->faq_page_type->get_file_path()
-		);
-	}
-
-	/**
-	 * Test get_id method.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function test_get_id() {
-		$this->assertEmpty( $this->empty_page_type->get_id() );
-		$this->assertEquals( 'simple-page-type', $this->simple_page_type->get_id() );
-		$this->assertEquals( 'faq-page-type', $this->faq_page_type->get_id() );
-		$identifier_page_type = papi_get_page_type_by_id( 'custom-page-type-id' );
-		$this->assertEquals( 'custom-page-type-id', $identifier_page_type->get_id() );
-	}
-
-	/**
-	 * Test match_id method.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function test_match_id() {
-		$this->assertTrue( $this->empty_page_type->match_id( '' ) );
-		$this->assertTrue( $this->simple_page_type->match_id( 'simple-page-type' ) );
-		$this->assertTrue( $this->faq_page_type->match_id( 'faq-page-type' ) );
-	}
-
-	/**
-	 * Test new_class method.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function test_new_class() {
-		$this->assertEmpty( $this->empty_page_type->new_class() );
-		$this->assertEquals( new Simple_Page_Type(), $this->simple_page_type->new_class() );
-	}
-
 }

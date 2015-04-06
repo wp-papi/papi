@@ -21,7 +21,7 @@ class Papi_Page_Test extends WP_UnitTestCase {
 		parent::setUp();
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return array( 1, papi_test_get_files_path( '/page-types' ) );
+			return array( 1, papi_test_get_fixtures_path( '/page-types' ) );
 		} );
 
 		$this->post_id = $this->factory->post->create();
