@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering post functionality.
+ * Unit tests covering post functions.
  *
  * @package Papi
  */
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Lib_Post_Test extends WP_UnitTestCase {
 
 	/**
-	 * Test papi_from_property_array_slugs.
+	 * Test `papi_from_property_array_slugs` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -20,13 +20,19 @@ class Papi_Lib_Post_Test extends WP_UnitTestCase {
 	public function test_papi_get_post_id() {
 		global $post;
 
-		$this->post_id = $this->factory->post->create();
+		$post_id = $this->factory->post->create();
 
-		$post = get_post( $this->post_id );
+		$post = get_post( $post_id );
 		$this->assertEquals( 1, papi_get_post_id( 1 ) );
-		$this->assertEquals( $this->post_id, papi_get_post_id() );
-		$this->assertEquals( $this->post_id, papi_get_post_id( null ) );
+		$this->assertEquals( $post_id, papi_get_post_id() );
+		$this->assertEquals( $post_id, papi_get_post_id( null ) );
 	}
+
+	/**
+	 * Test `papi_get_wp_post_type` function.
+	 *
+	 * @since 1.0.0
+	 */
 
 	public function test_papi_get_wp_post_type() {
 		global $post, $_GET, $_POST;

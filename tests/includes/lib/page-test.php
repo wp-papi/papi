@@ -4,9 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering page functionality.
- *
- * Not all page functions is tested here, some are tested in tests/test-papi-page-type.php.
+ * Unit tests covering page functions.
  *
  * @package Papi
  */
@@ -14,17 +12,7 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
-	 * Setup the test.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function setUp() {
-		parent::setUp();
-	}
-
-	/**
-	 * Test current_page.
+	 * Test `current_page` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -34,7 +22,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_file_data.
+	 * Test `papi_get_file_data` functions.
 	 *
 	 * @since 1.0.0
 	 */
@@ -50,7 +38,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_post_type.
+	 * Test `papi_get_post_type` functions.
 	 *
 	 * @since 1.0.0
 	 */
@@ -58,7 +46,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	public function test_papi_get_post_types() {
 		$actual = papi_get_post_types();
 
-		// Remove all post types can be in your own WordPress site.
 		foreach ( $actual as $key => $value ) {
 			if ( $value !== 'page' ) {
 				unset( $actual[$key] );

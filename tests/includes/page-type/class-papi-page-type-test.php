@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering page type functionality.
+ * Unit tests covering `Papi_Page_Type` class.
  *
  * @package Papi
  */
@@ -35,7 +35,24 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test get_boxes method.
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		parent::tearDown();
+		unset(
+			$this->post_id,
+			$this->empty_page_type,
+			$this->faq_page_type,
+			$this->simple_page_type,
+			$this->tab_page_type
+		);
+	}
+
+	/**
+	 * Test `get_boxes` method.
 	 *
 	 * @since 1.3.0
 	 */
@@ -49,6 +66,12 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 		$this->assertNull( $this->empty_page_type->get_boxes() );
 	}
+
+	/**
+	 * Test `remove` method.
+	 *
+	 * @since 1.3.0
+	 */
 
 	public function test_remove_post_type_support() {
 		$_GET['post_type'] = 'page';

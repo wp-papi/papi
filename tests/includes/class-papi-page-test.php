@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests to test Papi_Page.
+ * Unit tests covering `Papi_Page` class.
  *
  * @package Papi
  */
@@ -30,14 +30,14 @@ class Papi_Page_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Tear down test.
+	 * Tear down property.
 	 *
 	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
-		unset( $this->post_id );
-		unset( $this->page );
+		parent::tearDown();
+		unset( $this->post_id, $this->page );
 	}
 
 	/**

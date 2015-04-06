@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering tab functionality.
+ * Unit tests covering `Papi_Admin_Meta_Box_Tabs` class.
  *
  * @package Papi
  */
@@ -29,6 +29,17 @@ class Papi_Admin_Meta_Box_Tabs_Test extends WP_UnitTestCase {
 				) )
 			) )
 		);
+	}
+
+	/**
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		parent::tearDown();
+		unset( $this->tabs );
 	}
 
 	/**

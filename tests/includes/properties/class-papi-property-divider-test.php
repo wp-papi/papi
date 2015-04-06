@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering property functionality.
+ * Unit tests covering property divider.
  *
  * @package Papi
  */
@@ -26,6 +26,17 @@ class Papi_Property_Divider_Test extends WP_UnitTestCase {
 			'type'  => 'divider',
 			'title' => 'Divider'
 		) );
+	}
+
+	/**
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		parent::tearDown();
+		unset( $this->post_id, $this->property );
 	}
 
 	/**

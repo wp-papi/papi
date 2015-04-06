@@ -4,10 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
-* Unit tests covering property functionality.
-*
-* @package Papi
-*/
+ * Unit tests covering property functions.
+ *
+ * @package Papi
+ */
 
 class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
@@ -25,6 +25,17 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->post_id = $this->factory->post->create();
 
 		$post = get_post( $this->post_id );
+	}
+
+	/**
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		parent::tearDown();
+		unset( $this->post_id );
 	}
 
 	/**

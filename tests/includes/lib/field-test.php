@@ -19,12 +19,22 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
-
 		$this->post_id = $this->factory->post->create();
 	}
 
 	/**
-	 * Test papi_field.
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		parent::tearDown();
+		unset( $this->post_id );
+	}
+
+	/**
+	 * Test `papi_field` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -40,7 +50,7 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_fields.
+	 * Test `papi_fields` function.
 	 *
 	 * @since 1.2.0
 	 */

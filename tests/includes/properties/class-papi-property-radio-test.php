@@ -4,10 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
-* Unit tests covering property functionality.
-*
-* @package Papi
-*/
+ * Unit tests covering property radio.
+ *
+ * @package Papi
+ */
 
 class Papi_Property_Radio_Test extends WP_UnitTestCase {
 
@@ -35,6 +35,18 @@ class Papi_Property_Radio_Test extends WP_UnitTestCase {
 				)
 			)
 		) );
+	}
+
+	/**
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		parent::tearDown();
+		$_POST = array();
+		unset( $this->post_id, $this->property );
 	}
 
 	/**

@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering page type functionality.
+ * Unit tests covering `Papi_Page_Type` class.
  *
  * @package Papi
  */
@@ -34,6 +34,22 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		parent::tearDown();
+		unset(
+			$this->post_id,
+			$this->empty_page_type,
+			$this->faq_page_type,
+			$this->simple_page_type
+		);
+	}
+
+	/**
 	 * Test broken page type with a non existing meta method.
 	 *
 	 * @since 1.3.0
@@ -44,7 +60,7 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test get_class_name method.
+	 * Test `get_class_name` method.
 	 *
 	 * @since 1.3.0
 	 */
@@ -56,7 +72,7 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test get_file_path method.
+	 * Test `get_file_path` method.
 	 *
 	 * @since 1.3.0
 	 */
@@ -76,7 +92,7 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test get_id method.
+	 * Test `get_id` method.
 	 *
 	 * @since 1.3.0
 	 */
@@ -90,7 +106,7 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test match_id method.
+	 * Test `match_id` method.
 	 *
 	 * @since 1.3.0
 	 */
@@ -102,7 +118,7 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test new_class method.
+	 * Test `new_class` method.
 	 *
 	 * @since 1.3.0
 	 */

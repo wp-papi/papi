@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering page type functionality.
+ * Unit tests covering page type post.
  *
  * @package Papi
  */
@@ -29,6 +29,18 @@ class Papi_Property_Post_Test extends WP_UnitTestCase {
 			'title' => 'The big post',
 			'slug'  => 'the_big_post'
 		) );
+	}
+
+	/**
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		parent::tearDown();
+		$_POST = array();
+		unset( $this->post_id, $this->property );
 	}
 
 	/**

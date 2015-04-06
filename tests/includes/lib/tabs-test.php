@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering tabs functionality.
+ * Unit tests covering tabs functions.
  *
  * @package Papi
  */

@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering property functionality.
+ * Unit tests covering property relationship.
  *
  * @package Papi
  */
@@ -27,6 +27,17 @@ class Papi_Property_Relationship_Test extends WP_UnitTestCase {
 			'title' => 'Select pages',
 			'slug'  => 'pages'
 		) );
+	}
+
+	/**
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		parent::tearDown();
+		unset( $this->post_id, $this->property );
 	}
 
 	/**

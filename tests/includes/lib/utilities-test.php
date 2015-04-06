@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering utilities functionality.
+ * Unit tests covering utilities functions.
  *
  * @package Papi
  */
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 
 	/**
-	 * Setup the test and register the page types directory.
+	 * Setup the test.
 	 *
 	 * @since 1.0.0
 	 */
@@ -25,7 +25,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_convert_to_string.
+	 * Test `papi_convert_to_string` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -43,7 +43,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_esc_html.
+	 * Test `papi_esc_html` function.
 	 *
 	 * @since 1.2.0
 	 */
@@ -59,7 +59,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_f.
+	 * Test `papi_f` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -75,7 +75,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_ff.
+	 * Test `papi_ff` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -91,7 +91,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_dashify.
+	 * Test `papi_dashify` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -108,7 +108,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_class_name.
+	 * Test `papi_get_class_name` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -127,7 +127,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_only_objects.
+	 * Test `papi_get_only_objects` function.
 	 *
 	 * @since 1.1.0
 	 */
@@ -149,7 +149,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_or_post.
+	 * Test `papi_get_or_post` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -174,7 +174,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_qs.
+	 * Test `papi_get_qs` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -194,7 +194,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_html_name.
+	 * Test `papi_html_name` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -210,7 +210,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_is_empty.
+	 * Test `papi_is_empty` function.
 	 *
 	 * @since 1.0.3
 	 */
@@ -226,7 +226,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_is_ext.
+	 * Test `papi_is_ext` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -242,7 +242,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_nl2br.
+	 * Test `papi_nl2br` function.
 	 *
 	 * @since 1.2.0
 	 */
@@ -253,7 +253,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_remove_papi.
+	 * Test `papi_remove_papi` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -269,7 +269,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_remove_trailing_quotes.
+	 * Test `papi_remove_trailing_quotes` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -285,7 +285,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_slugify.
+	 * Test `papi_slugify` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -301,7 +301,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_to_array.
+	 * Test `papi_to_array` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -316,7 +316,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_underscorify.
+	 * Test `papi_underscorify` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -332,7 +332,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papify.
+	 * Test `papify` function.
 	 *
 	 * @since 1.0.0
 	 */

@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering page type functionality.
+ * Unit tests covering property reference.
  *
  * @package Papi
  */
@@ -29,6 +29,18 @@ class Papi_Property_Reference_Test extends WP_UnitTestCase {
 			'title' => 'References',
 			'slug'  => 'references'
 		) );
+	}
+
+	/**
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		parent::tearDown();
+		$_POST = array();
+		unset( $this->post_id, $this->property );
 	}
 
 	/**

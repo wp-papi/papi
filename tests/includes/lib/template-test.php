@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering template functionality.
+ * Unit tests covering template functions.
  *
  * @package Papi
  */
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	/**
-	 * Test papi_template.
+	 * Test `papi_template` function.
 	 *
 	 * @since 1.0.0
 	 */

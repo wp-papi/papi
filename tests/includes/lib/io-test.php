@@ -4,9 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering io functionality.
- *
- * Not all page functions is tested here, some are tested in tests/test-papi-page-type.php.
+ * Unit tests covering io functions.
  *
  * @package Papi
  */
@@ -14,17 +12,7 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Lib_IO_Test extends WP_UnitTestCase {
 
 	/**
-	 * Setup the test.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function setUp() {
-		parent::setUp();
-	}
-
-	/**
-	 * Test papi_get_options.
+	 * Test `papi_get_options` function.
 	 *
 	 * @since 1.0.0
 	 */

@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering property functionality.
+ * Unit tests covering property checkbox.
  *
  * @package Papi
  */
@@ -35,6 +35,18 @@ class Papi_Property_Checkbox_Test extends WP_UnitTestCase {
 				)
 			)
 		) );
+	}
+
+	/**
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		parent::tearDown();
+		$_POST = array();
+		unset( $this->post_id, $this->property );
 	}
 
 	/**

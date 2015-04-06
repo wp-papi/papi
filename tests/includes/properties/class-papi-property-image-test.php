@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
-* Unit tests covering page type functionality.
+* Unit tests covering page type image.
 *
 * @package Papi
 */
@@ -27,6 +27,17 @@ class Papi_Property_Image_Test extends WP_UnitTestCase {
 			'title' => 'Image',
 			'slug'  => 'image'
 		) );
+	}
+
+	/**
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		parent::tearDown();
+		unset( $this->post_id, $this->property );
 	}
 
 	/**

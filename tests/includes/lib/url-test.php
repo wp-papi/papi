@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering url functionality.
+ * Unit tests covering url functions.
  *
  * @package Papi
  */
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Lib_Url_Test extends WP_UnitTestCase {
 
 	/**
-	 * Test papi_get_new_url.
+	 * Test `papi_get_new_url` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -23,7 +23,7 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_append_post_type_query.
+	 * Test `papi_append_post_type_query` function.
 	 *
 	 * @since 1.0.0
 	 */

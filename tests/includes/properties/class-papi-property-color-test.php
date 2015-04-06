@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering property functionality.
+ * Unit tests covering property color.
  *
  * @package Papi
  */
@@ -27,6 +27,17 @@ class Papi_Property_Color_Test extends WP_UnitTestCase {
 			'title' => 'The color field',
 			'slug'  => 'color_field'
 		) );
+	}
+
+	/**
+	 * Tear down test.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function tearDown() {
+		parent::tearDown();
+		unset( $this->post_id, $this->property );
 	}
 
 	/**

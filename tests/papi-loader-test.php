@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests to check so Papi is loaded correctly.
+ * Unit tests covering `Papi_Loader` class.
  *
  * @package Papi
  */
