@@ -5,3 +5,4 @@ tmp/
 *.bak
 .vagrant
 build/
+coverage/
