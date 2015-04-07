@@ -83,6 +83,7 @@ class Papi_Lib_Post_Test extends WP_UnitTestCase {
 
 		$_SERVER['REQUEST_URI'] = 'wordpress/wp-admin/post-new.php';
 		$this->assertEquals( 'post', papi_get_wp_post_type() );
+		$_SERVER['REQUEST_URI'] = '';
 
 		$post_id = $this->factory->post->create();
 		$post = get_post( $post_id );
