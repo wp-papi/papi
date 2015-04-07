@@ -117,6 +117,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$values          = $this->get_value();
 
 		$settings->items = $this->prepare_properties( papi_to_array( $settings->items ) );
+		$this->counter = 0;
 		?>
 
 		<div class="papi-property-repeater">
