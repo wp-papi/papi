@@ -329,15 +329,16 @@ function papi_get_property_type( $type ) {
 
 function papi_get_property_type_key( $str = '' ) {
 	$suffix = '_property';
-	$len    = strlen( $str );
-
-	if ( $str[$len-1] === ']' ) {
-		$str = substr( $str, 0, $len-1 );
-		return papi_get_property_type_key( $str ) . ']';
-	}
 
 	if ( ! is_string( $str ) ) {
 		return $suffix;
+	}
+
+	$len = strlen( $str );
+
+	if ( isset( $str[$len-1] ) && $str[$len-1] === ']' ) {
+		$str = substr( $str, 0, $len-1 );
+		return papi_get_property_type_key( $str ) . ']';
 	}
 
 	return papi_remove_papi( $str . $suffix );
@@ -394,10 +395,6 @@ function papi_property( $file_or_options, $values = array() ) {
 
 	if ( is_string( $file_or_options ) && is_array( $values ) ) {
 		return papi_template( $file_or_options, $values, true );
-	}
-
-	if ( is_object( $file_or_options ) ) {
-		return $file_or_options;
 	}
 
 	return array();

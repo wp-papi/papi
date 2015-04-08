@@ -127,11 +127,15 @@ class Papi_Admin_Ajax {
 	 */
 
 	public function get_properties() {
-		$json   = file_get_contents('php://input');
-		$items  = json_decode($json);
+		$json   = file_get_contents( 'php://input' );
+		$items  = json_decode( $json );
 
-		foreach ($items as $key => $item) {
-			$property = papi_property( $item );
+		foreach ( $items as $key => $item ) {
+			if ( is_object( $item ) ) {
+				$property = $item;
+			} else {
+				$property = papi_property( $item );
+			}
 
 			ob_start();
 
