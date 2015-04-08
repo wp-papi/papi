@@ -294,7 +294,17 @@ function papi_get_qs( $qs, $keep_keys = false ) {
 	}
 
 	if ( isset( $_GET[ $qs ] ) && ! empty( $_GET[ $qs ] ) ) {
-		return esc_html( $_GET[ $qs ] );
+		$value = esc_html( $_GET[ $qs ] );
+
+		if ( $value === 'false' ) {
+			$value = false;
+		}
+
+		if ( $value === 'true' ) {
+			$value = true;
+		}
+
+		return $value;
 	}
 
 	return null;

@@ -60,13 +60,13 @@ function papi_get_box_property( $properties ) {
 	} );
 
 	if ( ! empty( $box_property ) && ! isset( $box_property[0] ) && ! isset( $box_property[0]['tab'] ) ) {
-		$property = papi_get_property_options( $box_property );
+		$property = papi_get_property_options( $properties );
+
 		if ( ! $property->disabled ) {
 			$property->_box_property = true;
 			$properties = array( $property );
 		}
 	}
-
 	return $properties;
 }
 
@@ -211,6 +211,7 @@ function papi_get_property_options( $options, $get_value = true ) {
 
 	$defaults = papi_get_property_default_options();
 	$options  = array_merge( $defaults, $options );
+
 	$options  = (object) $options;
 
 	// Capabilities should always be array.
@@ -241,7 +242,7 @@ function papi_get_property_options( $options, $get_value = true ) {
 	}
 
 	// Get the default settings for the property and merge them with the given settings.
-	$options->settings = array_merge( papi_get_property_default_settings( $options->type ), $options->settings );
+	$options->settings = array_merge( papi_get_property_default_settings( $options->type ), (array) $options->settings );
 	$options->settings = (object)$options->settings;
 
 	$options = papi_esc_html( $options, array( 'html' ) );
@@ -328,6 +329,12 @@ function papi_get_property_type( $type ) {
 
 function papi_get_property_type_key( $str = '' ) {
 	$suffix = '_property';
+	$len    = strlen( $str );
+
+	if ( $str[$len-1] === ']' ) {
+		$str = substr( $str, 0, $len-1 );
+		return papi_get_property_type_key( $str ) . ']';
+	}
 
 	if ( ! is_string( $str ) ) {
 		return $suffix;
@@ -387,6 +394,10 @@ function papi_property( $file_or_options, $values = array() ) {
 
 	if ( is_string( $file_or_options ) && is_array( $values ) ) {
 		return papi_template( $file_or_options, $values, true );
+	}
+
+	if ( is_object( $file_or_options ) ) {
+		return $file_or_options;
 	}
 
 	return array();

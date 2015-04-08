@@ -1,11 +1,12 @@
-(function (window) {
+(function ($) {
 
   'use strict';
 
-  // Setup papi object.
-  window.papi = window.papi || {
+  papi = papi || {};
+
+  $.extend(papi, {
     properties: {},
     views: {}
-  };
+  });
 
-})(window);
+})(window.jQuery);
