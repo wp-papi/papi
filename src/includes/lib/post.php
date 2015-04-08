@@ -27,23 +27,25 @@ function papi_get_post_id( $post_id = null ) {
 	}
 
 	// If it's not null and it's a numeric string we can convert it to int and return it.
-	if ( ! is_null( $post_id ) && is_numeric( $post_id ) && is_string( $post_id ) ) {
+	if ( is_numeric( $post_id ) && is_string( $post_id ) ) {
 		return intval( $post_id );
 	}
 
-	// If `get_post` function is available and post id is null we can return the post id.
-	if ( is_null( $post_id ) && get_post() ) {
-		return get_the_ID();
-	}
+	if ( is_null( $post_id ) ) {
+		// If `get_post` function is available and post id is null we can return the post id.
+		if ( get_post() ) {
+			return get_the_ID();
+		}
 
-	// If the post id is null and post query string is available we can return it as post id.
-	if ( is_null( $post_id ) && isset( $_GET['post'] ) ) {
-		return intval( $_GET['post'] );
-	}
+		// If the post id is null and post query string is available we can return it as post id.
+		if ( isset( $_GET['post'] ) ) {
+			return intval( $_GET['post'] );
+		}
 
-	// If the post id is null and page id query string is available we can return it as post id.
-	if ( is_null( $post_id ) && isset( $_GET['page_id'] ) ) {
-		return intval( $_GET['page_id'] );
+		// If the post id is null and page id query string is available we can return it as post id.
+		if ( isset( $_GET['page_id'] ) ) {
+			return intval( $_GET['page_id'] );
+		}
 	}
 
 	// Or return null or the given value of post id.
@@ -73,26 +75,14 @@ function papi_get_wp_post_type() {
 		return strtolower( get_post_type( $post_id ) );
 	}
 
-	if ( isset( $_GET['page'] ) && strpos( strtolower( $_GET['page'] ), 'papi-add-new-page' ) !== false ) {
+	if ( isset( $_GET['page'] ) && strpos( strtolower( $_GET['page'] ), 'papi-add-new-page,' ) !== false ) {
 		$exploded = explode( ',', $_GET['page'] );
 
-		if ( empty( $exploded ) ) {
+		if ( empty( $exploded[1] ) ) {
 			return '';
 		}
 
-		preg_match( '/^\w+/', $exploded[1], $value );
-
-		if ( empty( $value ) ) {
-			return '';
-		}
-
-		$value = reset( $value );
-
-		if ( $value === false ) {
-			return '';
-		}
-
-		return $value;
+		return $exploded[1];
 	}
 
 	// If only `post-new.php` without any querystrings

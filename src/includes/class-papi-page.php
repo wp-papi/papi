@@ -73,7 +73,7 @@ class Papi_Page {
 		$property_type_value = get_post_meta( $this->id, $property_type_key, true );
 
 		if ( papi_is_empty( $property_value ) || empty( $property_type_value ) ) {
-			return null;
+			return;
 		}
 
 		// The convert takes a array as argument so let's make one.

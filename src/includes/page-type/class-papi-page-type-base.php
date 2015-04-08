@@ -72,32 +72,10 @@ class Papi_Page_Type_Base {
 			$file_path = papi_get_file_path( $page_type );
 		}
 
-		if ( ! is_file( $file_path ) ) {
-			return null;
+		if ( is_file( $file_path ) ) {
+			$this->setup_file( $file_path );
+			$this->setup_meta_data();
 		}
-
-		$this->setup_file( $file_path );
-		$this->setup_meta_data();
-	}
-
-	/**
-	 * Cloning is forbidden.
-	 *
-	 * @since 2.1
-	 */
-
-	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
-	}
-
-	/**
-	 * Unserializing instances of this class is forbidden.
-	 *
-	 * @since 2.1
-	 */
-
-	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
 	}
 
 	/**
@@ -162,8 +140,8 @@ class Papi_Page_Type_Base {
 	 */
 
 	public function new_class() {
-		if ( ! class_exists( $this->_class_name ) ) {
-			require_once $this->_file_path;
+		if ( empty( $this->_file_path ) ) {
+			return;
 		}
 
 		return new $this->_class_name;
@@ -182,11 +160,6 @@ class Papi_Page_Type_Base {
 
 		// Get the class name of the file.
 		$this->_class_name = papi_get_class_name( $this->_file_path );
-
-		// Try to load the page type class.
-		if ( ! class_exists( $this->_class_name ) ) {
-			require_once $this->_file_path;
-		}
 	}
 
 	/**
@@ -196,9 +169,9 @@ class Papi_Page_Type_Base {
 	 */
 
 	private function setup_meta_data() {
-		// Check so we have the page type meta array function.
+		// Check so we have the page type meta method.
 		if ( ! method_exists( $this->_class_name, $this->_meta_method ) ) {
-			return null;
+			return;
 		}
 
 		foreach ( call_user_func( array( $this, $this->_meta_method ) ) as $key => $value ) {

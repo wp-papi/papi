@@ -120,32 +120,19 @@ class Papi_Property {
 	}
 
 	/**
-	 * Output custom css for property
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function css() {
-	}
-
-	/**
-	 * Output custom js for property
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function js() {
-	}
-
-	/**
 	 * Register assets actions.
 	 *
 	 * @since 1.0.0
 	 */
 
 	public function assets() {
-		add_action( 'admin_head', array( $this, 'css' ) );
-		add_action( 'admin_footer', array( $this, 'js' ) );
+		if ( method_exists( $this, 'css' ) ) {
+			add_action( 'admin_head', array( $this, 'css' ) );
+		}
+
+		if ( method_exists( $this, 'js' ) ) {
+			add_action( 'admin_footer', array( $this, 'js' ) );
+		}
 	}
 
 	/**
@@ -155,6 +142,10 @@ class Papi_Property {
 	 */
 
 	public function hidden() {
+		if ( empty( $this->options ) ) {
+			return;
+		}
+
 		$slug = $this->options->slug;
 
 		if ( substr( $slug, - 1 ) === ']' ) {
@@ -179,6 +170,10 @@ class Papi_Property {
 	 */
 
 	public function label() {
+		if ( empty( $this->options ) ) {
+			return;
+		}
+
 		?>
 		<label for="<?php echo $this->options->slug; ?>" title="<?php echo $this->options->title . ' ' . papi_require_text( $this->options ); ?>">
 			<?php
@@ -199,7 +194,7 @@ class Papi_Property {
 	 */
 
 	public function description() {
-		if ( papi_is_empty( $this->options->description ) ) {
+		if ( empty( $this->options ) || papi_is_empty( $this->options->description ) ) {
 			return;
 		}
 
@@ -215,6 +210,10 @@ class Papi_Property {
 	 */
 
 	public function render() {
+		if ( empty( $this->options ) ) {
+			return;
+		}
+
 		if ( $this->options->raw === false ):
 			?>
 			<tr>
@@ -317,6 +316,10 @@ class Papi_Property {
 	 */
 
 	public function get_value() {
+		if ( ! is_object( $this->options ) ) {
+			return;
+		}
+
 		$value = $this->options->value;
 
 		if ( is_string( $this->default_value ) ) {
@@ -339,6 +342,10 @@ class Papi_Property {
 	 */
 
 	public function get_settings() {
+		if ( ! is_object( $this->options ) ) {
+			return;
+		}
+
 		return (object) wp_parse_args( $this->options->settings, $this->get_default_settings() );
 	}
 }

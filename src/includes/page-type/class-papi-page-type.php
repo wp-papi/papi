@@ -118,7 +118,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	public function get_boxes() {
 		if ( empty( $this->boxes ) ) {
 			if ( ! method_exists( $this, 'register' ) ) {
-				return null;
+				return;
 			}
 
 			$this->load_boxes = true;
@@ -137,7 +137,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	public function setup() {
 		if ( ! method_exists( $this, 'register' ) ) {
-			return null;
+			return;
 		}
 
 		// 1. Run the register method.
@@ -167,18 +167,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	protected function property( $file_or_options = array(), $values = array() ) {
 		return papi_property( $file_or_options, $values );
-	}
-
-	/**
-	 * Render properties direct.
-	 *
-	 * @param mixed $items
-	 *
-	 * @since 1.2.0
-	 */
-
-	protected function render( $items ) {
-		papi_render_properties( papi_populate_properties( $items ) );
 	}
 
 	/**
@@ -261,7 +249,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	protected function tab( $file_or_options = array(), $properties = array() ) {
 		if ( ! is_string( $file_or_options ) && ! is_array( $file_or_options ) ) {
-			return null;
+			return;
 		}
 
 		$tab = papi_tab( $file_or_options, $properties );
