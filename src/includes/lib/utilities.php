@@ -48,6 +48,7 @@ function papi_convert_to_string( $obj ) {
 
 function papi_current_user_is_allowed( $capabilities = array() ) {
 	$capabilities = papi_to_array( $capabilities );
+
 	foreach ( papi_to_array( $capabilities ) as $capability ) {
 		if ( ! current_user_can( $capability ) ) {
 			return false;

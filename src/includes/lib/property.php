@@ -202,11 +202,11 @@ function papi_get_property_default_settings( $type ) {
 
 function papi_get_property_options( $options, $get_value = true ) {
 	if ( ! is_array( $options ) ) {
-		if ( is_object( $options ) ) {
-			return $options;
-		} else {
+		if ( ! is_object( $options ) ) {
 			return;
 		}
+
+		return $options;
 	}
 
 	$defaults = papi_get_property_default_options();
@@ -336,8 +336,8 @@ function papi_get_property_type_key( $str = '' ) {
 
 	$len = strlen( $str );
 
-	if ( isset( $str[$len-1] ) && $str[$len-1] === ']' ) {
-		$str = substr( $str, 0, $len-1 );
+	if ( isset( $str[$len - 1] ) && $str[$len - 1] === ']' ) {
+		$str = substr( $str, 0, $len - 1 );
 		return papi_get_property_type_key( $str ) . ']';
 	}
 
@@ -454,7 +454,7 @@ function papi_render_properties( $properties ) {
 	// If it's a tab the tabs class will
 	// handle the rendering of the properties.
 
-	if ( is_array( $properties ) && isset( $properties[0]->tab ) && $properties[0]->tab ) {
+	if ( isset( $properties[0]->tab ) && $properties[0]->tab ) {
 		new Papi_Admin_Meta_Box_Tabs( $properties );
 	} else {
 		?>
@@ -544,20 +544,12 @@ function papi_populate_properties( $properties ) {
 	$properties = array_reverse( $properties );
 
 	foreach ( $properties as $property ) {
-		if ( is_array( $property ) ) {
-			foreach ( $property as $p ) {
-				if ( is_object( $p ) && ! $p->disabled ) {
-					$result[] = $p;
-				}
-			}
-		} else if ( is_object( $property ) ) {
-			if ( isset( $property->tab ) && $property->tab ) {
-				$result[] = $property;
-				continue;
-			}
-
+		if ( isset( $property->tab ) && $property->tab ) {
 			$result[] = $property;
+			continue;
 		}
+
+		$result[] = $property;
 	}
 
 	if ( empty( $result ) ) {
@@ -605,14 +597,9 @@ function papi_property_update_meta( $meta ) {
 	}
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
-
 		if ( ! is_array( $value ) ) {
 
-			if ( is_numeric( $key ) ) {
-				$slug = papi_remove_papi( $meta->slug );
-			} else {
-				$slug = $key;
-			}
+			$slug = papi_remove_papi( $meta->slug );
 
 			if ( $save_value ) {
 				$value = $meta->value;
