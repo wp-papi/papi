@@ -191,10 +191,11 @@ function papi_get_class_name( $file ) {
 	$class_name      = '';
 	$namespace_name  = '';
 	$i               = 0;
+	$len             = count( $tokens );
 
-	for ( ; $i < count( $tokens );$i++ ) {
+	for ( ; $i < $len;$i++ ) {
 		if ( $tokens[$i][0] === T_NAMESPACE ) {
-			for ( $j = $i + 1; $j < count( $tokens ); $j++ ) {
+			for ( $j = $i + 1; $j < $len; $j++ ) {
 				if ( $tokens[$j][0] === T_STRING ) {
 					 $namespace_name .= '\\' . $tokens[$j][1];
 				} else if ( $tokens[$j] === '{' || $tokens[$j] === ';' ) {
@@ -204,7 +205,7 @@ function papi_get_class_name( $file ) {
 		}
 
 		if ( $tokens[$i][0] === T_CLASS ) {
-			for ( $j = $i + 1; $j < count( $tokens ); $j++ ) {
+			for ( $j = $i + 1; $j < $len; $j++ ) {
 				if ( $tokens[$j] === '{' ) {
 					$class_name = $tokens[$i + 2][1];
 				}
