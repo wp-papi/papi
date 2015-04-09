@@ -385,7 +385,7 @@ function papi_is_property_type_key( $str = '' ) {
  *
  * @since 1.0.0
  *
- * @return array
+ * @return object
  */
 
 function papi_property( $file_or_options, $values = array() ) {
@@ -394,10 +394,8 @@ function papi_property( $file_or_options, $values = array() ) {
 	}
 
 	if ( is_string( $file_or_options ) && is_array( $values ) ) {
-		return papi_template( $file_or_options, $values, true );
+		return (object) papi_template( $file_or_options, $values, true );
 	}
-
-	return array();
 }
 
 /**
