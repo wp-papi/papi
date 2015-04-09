@@ -56,7 +56,7 @@ class Papi_Property_Bool extends Papi_Property {
 	 */
 
 	public function format_value( $value, $slug, $post_id ) {
-		return ! empty( $value );
+		return $this->update_value( $value, $slug, $post_id );
 	}
 
 	/**
@@ -76,7 +76,7 @@ class Papi_Property_Bool extends Papi_Property {
 			return false;
 		}
 
-		return true;
+		return ! empty( $value );
 	}
 
 }
