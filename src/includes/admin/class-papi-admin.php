@@ -235,7 +235,7 @@ final class Papi_Admin {
 	public function admin_enqueue_scripts() {
 		// WordPress will override window.papi on plugins page,
 		// so don't include Papi JavaScript on plugins page.
-		if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], 'plugins.php' ) !== false ) {
+		if ( strpos( $_SERVER['REQUEST_URI'], 'plugins.php' ) !== false ) {
 			return;
 		}
 
