@@ -3,7 +3,6 @@
   'use strict';
 
   // Image view for property image
-
   papi.views.Image = wp.Backbone.View.extend({
 
     // The template to compile

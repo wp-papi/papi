@@ -42,7 +42,6 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	private function generate_slug( $property ) {
 		$options = $this->get_options();
-
 		return $options->slug . '[' . $this->counter . ']' . '[' . papi_remove_papi( $property->slug ) . ']';
 	}
 
@@ -114,131 +113,16 @@ class Papi_Property_Repeater extends Papi_Property {
 	public function html() {
 		$options         = $this->get_options();
 		$settings        = $this->get_settings();
-		$values          = $this->get_value();
-
 		$settings->items = $this->prepare_properties( papi_to_array( $settings->items ) );
+
+		// Reset list counter number.
 		$this->counter = 0;
-		?>
 
-		<div class="papi-property-repeater">
+		// Render repeater html.
+		$this->render_repeater_html($options, $settings);
 
-			<div class="repeater-template">
-				<table class="papi-table papi-table-template">
-					<tbody>
-					<tr>
-						<td class="handle">
-							<span><?php echo $this->counter + 1; ?></span>
-						</td>
-						<?php
-						foreach ( $settings->items as $property ) {
-							$template_property        = clone $property;
-							$template_property->raw   = true;
-							$template_property->value = '';
-							$template_property->slug  = $this->generate_slug( $template_property );
-							echo '<td>';
-							papi_render_property( $template_property );
-							echo '</td>';
-						}
-						?>
-						<td class="last">
-                <span>
-                  <a title="<?php _e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
-                </span>
-						</td>
-					</tbody>
-				</table>
-			</div>
-
-			<table class="papi-table">
-				<thead>
-				<tr>
-					<th></th>
-					<?php
-					foreach ( $settings->items as $property ) {
-						echo '<th>' . $property->title . '</th>';
-					}
-					?>
-					<th class="last"></th>
-				</tr>
-				</thead>
-				<tbody>
-					<?php
-					$properties = array_map( function( $item ) {
-						$slug = papi_remove_papi( $item->slug );
-						$property_type_key = papi_get_property_type_key( $item->slug );
-						$property = array();
-						$property[$slug] = '';
-						$property[$property_type_key] = $item->type;
-						return $property;
-					}, $settings->items );
-
-					$slugs = array_map( function ( $item ) {
-						return papi_remove_papi( $item->slug );
-					}, $settings->items );
-
-					foreach ( $values as $index => $value ) {
-						$keys = array_keys( $value );
-						foreach ( $slugs as $slug ) {
-							if ( in_array( $slug, $keys ) ) {
-								continue;
-							}
-							$values[$index][$slug] = '';
-						}
-					}
-
-					foreach ( $values as $value ): ?>
-
-					<tr>
-						<td class="handle">
-							<span><?php echo $this->counter + 1; ?></span>
-						</td>
-					<?php
-
-					foreach ( $settings->items as $property ):
-						$render_property = clone $property;
-						$value_slug      = papi_remove_papi( $render_property->slug );
-
-						if ( ! array_key_exists( $value_slug, $value ) ) {
-							continue;
-						}
-						$render_property->value = $value[$value_slug];
-
-						$render_property->slug = $this->generate_slug( $render_property );
-						$render_property->raw  = true;
-						?>
-							<td>
-								<?php papi_render_property( $render_property ); ?>
-							</td>
-				<?php
-					endforeach;
-					$this->counter ++;
-					?>
-
-					<td class="last">
-						<span>
-							<a title="<?php _e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
-						</span>
-					</td>
-				</tr>
-				<?php endforeach; ?>
-				</tbody>
-			</table>
-
-			<div class="bottom">
-				<a href="#" class="button button-primary"><?php _e( 'Add new row', 'papi' ); ?></a>
-			</div>
-
-			<?php /* Default repeater value */ ?>
-
-			<input type="hidden" name="<?php echo $options->slug; ?>[]" />
-
-			<?php /* One underscore is saved, two underscores isn't saved */ ?>
-
-			<input type="hidden" name="_<?php echo $options->slug; ?>_columns" value="<?php echo count( $settings->items ); ?>" />
-			<input type="hidden" name="__<?php echo $options->slug; ?>_rows" value="<?php echo count( $values ); ?>" class="papi-property-repeater-rows" />
-			<input type="hidden" name="__<?php echo $options->slug; ?>_properties" value="<?php echo htmlentities( json_encode( $properties ) ); ?>" />
-		</div>
-	<?php
+		// Render template html that is used for Papi ajax.
+		$this->render_template_html($options->slug, $settings->items);
 	}
 
 	/**
@@ -252,7 +136,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @return int
 	 */
 
-	public function get_columns( $post_id, $repeater_slug ) {
+	private function get_columns( $post_id, $repeater_slug ) {
 		return intval( get_post_meta( $post_id, papi_f( papify( $repeater_slug ) . '_columns' ), true ) );
 	}
 
@@ -269,7 +153,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @return array
 	 */
 
-	public function get_results( $value, $repeater_slug, $post_id ) {
+	private function get_results( $value, $repeater_slug, $post_id ) {
 		global $wpdb;
 
 		$value    = intval( $value );
@@ -410,6 +294,138 @@ class Papi_Property_Repeater extends Papi_Property {
 		unset( $trash );
 
 		return papi_from_property_array_slugs( $results, $repeater_slug );
+	}
+
+	/**
+	 * Render repeater template html.
+	 *
+	 * @param string $slug
+	 * @param array $items
+	 *
+	 * @since 1.3.0
+	 */
+
+	private function render_template_html($slug, $items) {
+		?>
+		<script type="application/json" id="<?php echo $slug; ?>_properties_json">
+			<?php
+				$template_properties = array();
+
+				foreach ( $items as $key => $value ) {
+					$template_properties[$key] = $value;
+					$template_properties[$key]->raw   = true;
+					$template_properties[$key]->slug  = $this->generate_slug( $value );
+					$template_properties[$key]->value = '';
+				}
+
+				echo json_encode( $template_properties );
+			?>
+		</script>
+		<?php
+	}
+
+	/**
+	 * Render repeater html.
+	 *
+	 * @since 1.3.0
+	 */
+
+	private function render_repeater_html($options, $settings) {
+		$values          = $this->get_value();
+		?>
+		<div class="papi-property-repeater" data-json-id="#<?php echo $options->slug; ?>_properties_json">
+			<table class="papi-table">
+				<thead>
+				<tr>
+					<th></th>
+					<?php
+					foreach ( $settings->items as $property ) {
+						echo '<th>' . $property->title . '</th>';
+					}
+					?>
+					<th class="last"></th>
+				</tr>
+				</thead>
+				<tbody>
+					<?php
+					$properties = array_map( function( $item ) {
+						$slug = papi_remove_papi( $item->slug );
+						$property_type_key = papi_get_property_type_key( $item->slug );
+
+						$property = array();
+						$property[$slug] = '';
+						$property[$property_type_key] = $item->type;
+
+						return $property;
+					}, $settings->items );
+
+					$slugs = array_map( function ( $item ) {
+						return papi_remove_papi( $item->slug );
+					}, $settings->items );
+
+					foreach ( $values as $index => $value ) {
+						$keys = array_keys( $value );
+						foreach ( $slugs as $slug ) {
+							if ( in_array( $slug, $keys ) ) {
+								continue;
+							}
+							$values[$index][$slug] = '';
+						}
+					}
+
+					foreach ( $values as $value ): ?>
+
+					<tr>
+						<td class="handle">
+							<span><?php echo $this->counter + 1; ?></span>
+						</td>
+					<?php
+
+					foreach ( $settings->items as $property ):
+						$render_property = clone $property;
+						$value_slug      = papi_remove_papi( $render_property->slug );
+
+						if ( ! array_key_exists( $value_slug, $value ) ) {
+							continue;
+						}
+
+						$render_property->value = $value[$value_slug];
+						$render_property->slug = $this->generate_slug( $render_property );
+						$render_property->raw  = true;
+						?>
+							<td>
+								<?php papi_render_property( $render_property ); ?>
+							</td>
+				<?php
+					endforeach;
+					$this->counter ++;
+					?>
+
+					<td class="last">
+						<span>
+							<a title="<?php _e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
+						</span>
+					</td>
+				</tr>
+				<?php endforeach; ?>
+				</tbody>
+			</table>
+
+			<div class="bottom">
+				<a href="#" class="button button-primary"><?php _e( 'Add new row', 'papi' ); ?></a>
+			</div>
+
+			<?php /* Default repeater value */ ?>
+
+			<input type="hidden" name="<?php echo $options->slug; ?>[]" />
+
+			<?php /* One underscore is saved, two underscores isn't saved */ ?>
+
+			<input type="hidden" name="_<?php echo $options->slug; ?>_columns" value="<?php echo count( $settings->items ); ?>" />
+			<input type="hidden" name="__<?php echo $options->slug; ?>_rows" value="<?php echo count( $values ); ?>" class="papi-property-repeater-rows" />
+			<input type="hidden" name="__<?php echo $options->slug; ?>_properties" value="<?php echo htmlentities( json_encode( $properties ) ); ?>" />
+		</div>
+		<?php
 	}
 
 	/**

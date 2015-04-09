@@ -32,11 +32,8 @@ matrix:
       env: WP_VERSION=latest WP_MULTISITE=1
     - php: hhvm-nightly
       env: WP_VERSION=3.9 WP_MULTISITE=0
-    - php: nightly
-      env: WP_VERSION=latest WP_MULTISITE=0
   allow_failures:
     - php: hhvm-nightly
-    - php: nightly
 
 notifications:
   webhooks:

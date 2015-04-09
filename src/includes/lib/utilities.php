@@ -48,6 +48,7 @@ function papi_convert_to_string( $obj ) {
 
 function papi_current_user_is_allowed( $capabilities = array() ) {
 	$capabilities = papi_to_array( $capabilities );
+
 	foreach ( papi_to_array( $capabilities ) as $capability ) {
 		if ( ! current_user_can( $capability ) ) {
 			return false;
@@ -190,10 +191,11 @@ function papi_get_class_name( $file ) {
 	$class_name      = '';
 	$namespace_name  = '';
 	$i               = 0;
+	$len             = count( $tokens );
 
-	for ( ; $i < count( $tokens );$i++ ) {
+	for ( ; $i < $len;$i++ ) {
 		if ( $tokens[$i][0] === T_NAMESPACE ) {
-			for ( $j = $i + 1; $j < count( $tokens ); $j++ ) {
+			for ( $j = $i + 1; $j < $len; $j++ ) {
 				if ( $tokens[$j][0] === T_STRING ) {
 					 $namespace_name .= '\\' . $tokens[$j][1];
 				} else if ( $tokens[$j] === '{' || $tokens[$j] === ';' ) {
@@ -203,7 +205,7 @@ function papi_get_class_name( $file ) {
 		}
 
 		if ( $tokens[$i][0] === T_CLASS ) {
-			for ( $j = $i + 1; $j < count( $tokens ); $j++ ) {
+			for ( $j = $i + 1; $j < $len; $j++ ) {
 				if ( $tokens[$j] === '{' ) {
 					$class_name = $tokens[$i + 2][1];
 				}
@@ -294,7 +296,17 @@ function papi_get_qs( $qs, $keep_keys = false ) {
 	}
 
 	if ( isset( $_GET[ $qs ] ) && ! empty( $_GET[ $qs ] ) ) {
-		return esc_html( $_GET[ $qs ] );
+		$value = esc_html( $_GET[ $qs ] );
+
+		if ( $value === 'false' ) {
+			$value = false;
+		}
+
+		if ( $value === 'true' ) {
+			$value = true;
+		}
+
+		return $value;
 	}
 
 	return null;

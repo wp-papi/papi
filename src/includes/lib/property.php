@@ -60,13 +60,13 @@ function papi_get_box_property( $properties ) {
 	} );
 
 	if ( ! empty( $box_property ) && ! isset( $box_property[0] ) && ! isset( $box_property[0]['tab'] ) ) {
-		$property = papi_get_property_options( $box_property );
+		$property = papi_get_property_options( $properties );
+
 		if ( ! $property->disabled ) {
 			$property->_box_property = true;
 			$properties = array( $property );
 		}
 	}
-
 	return $properties;
 }
 
@@ -202,15 +202,16 @@ function papi_get_property_default_settings( $type ) {
 
 function papi_get_property_options( $options, $get_value = true ) {
 	if ( ! is_array( $options ) ) {
-		if ( is_object( $options ) ) {
-			return $options;
-		} else {
+		if ( ! is_object( $options ) ) {
 			return;
 		}
+
+		return $options;
 	}
 
 	$defaults = papi_get_property_default_options();
 	$options  = array_merge( $defaults, $options );
+
 	$options  = (object) $options;
 
 	// Capabilities should always be array.
@@ -241,7 +242,7 @@ function papi_get_property_options( $options, $get_value = true ) {
 	}
 
 	// Get the default settings for the property and merge them with the given settings.
-	$options->settings = array_merge( papi_get_property_default_settings( $options->type ), $options->settings );
+	$options->settings = array_merge( papi_get_property_default_settings( $options->type ), (array) $options->settings );
 	$options->settings = (object)$options->settings;
 
 	$options = papi_esc_html( $options, array( 'html' ) );
@@ -333,6 +334,13 @@ function papi_get_property_type_key( $str = '' ) {
 		return $suffix;
 	}
 
+	$len = strlen( $str );
+
+	if ( isset( $str[$len - 1] ) && $str[$len - 1] === ']' ) {
+		$str = substr( $str, 0, $len - 1 );
+		return papi_get_property_type_key( $str ) . ']';
+	}
+
 	return papi_remove_papi( $str . $suffix );
 }
 
@@ -377,7 +385,7 @@ function papi_is_property_type_key( $str = '' ) {
  *
  * @since 1.0.0
  *
- * @return array
+ * @return object
  */
 
 function papi_property( $file_or_options, $values = array() ) {
@@ -386,10 +394,8 @@ function papi_property( $file_or_options, $values = array() ) {
 	}
 
 	if ( is_string( $file_or_options ) && is_array( $values ) ) {
-		return papi_template( $file_or_options, $values, true );
+		return (object) papi_template( $file_or_options, $values, true );
 	}
-
-	return array();
 }
 
 /**
@@ -446,7 +452,7 @@ function papi_render_properties( $properties ) {
 	// If it's a tab the tabs class will
 	// handle the rendering of the properties.
 
-	if ( is_array( $properties ) && isset( $properties[0]->tab ) && $properties[0]->tab ) {
+	if ( isset( $properties[0]->tab ) && $properties[0]->tab ) {
 		new Papi_Admin_Meta_Box_Tabs( $properties );
 	} else {
 		?>
@@ -536,20 +542,12 @@ function papi_populate_properties( $properties ) {
 	$properties = array_reverse( $properties );
 
 	foreach ( $properties as $property ) {
-		if ( is_array( $property ) ) {
-			foreach ( $property as $p ) {
-				if ( is_object( $p ) && ! $p->disabled ) {
-					$result[] = $p;
-				}
-			}
-		} else if ( is_object( $property ) ) {
-			if ( isset( $property->tab ) && $property->tab ) {
-				$result[] = $property;
-				continue;
-			}
-
+		if ( isset( $property->tab ) && $property->tab ) {
 			$result[] = $property;
+			continue;
 		}
+
+		$result[] = $property;
 	}
 
 	if ( empty( $result ) ) {
@@ -597,14 +595,9 @@ function papi_property_update_meta( $meta ) {
 	}
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
-
 		if ( ! is_array( $value ) ) {
 
-			if ( is_numeric( $key ) ) {
-				$slug = papi_remove_papi( $meta->slug );
-			} else {
-				$slug = $key;
-			}
+			$slug = papi_remove_papi( $meta->slug );
 
 			if ( $save_value ) {
 				$value = $meta->value;

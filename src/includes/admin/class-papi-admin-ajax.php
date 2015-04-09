@@ -31,7 +31,10 @@ class Papi_Admin_Ajax {
 	private function setup_actions() {
 		add_action( 'init', array( $this, 'add_endpoint' ) );
 		add_action( 'parse_query', array( $this, 'handle_papi_ajax' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'ajax_url' ), 10 );
+
 		add_action( 'papi_ajax_get_property', array( $this, 'get_property' ) );
+		add_action( 'papi_ajax_get_properties', array( $this, 'get_properties' ) );
 	}
 
 	/**
@@ -41,7 +44,23 @@ class Papi_Admin_Ajax {
 	 */
 
 	public function add_endpoint() {
+		add_rewrite_tag( '%papi-ajax%', '([^/]*)' );
 		add_rewrite_rule( 'papi-ajax/([^/]*)/?', 'index.php?action=$matches[1]', 'top' );
+	}
+
+	/**
+	 * Add ajax url to Papi JavaScript object.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function ajax_url() {
+		?>
+		<script type="text/javascript">
+			var papi = papi || {};
+			papi.ajaxUrl = '/papi-ajax/';
+		</script>
+		<?php
 	}
 
 	/**
@@ -57,11 +76,11 @@ class Papi_Admin_Ajax {
 			return;
 		}
 
-		if ( ! empty( $_GET['action'] ) ) {
-			$wp_query->set( 'action', sanitize_text_field( $_GET['action'] ) );
+		if ( ! empty( $_GET['papi-ajax'] ) ) {
+			$wp_query->set( 'papi-ajax', sanitize_text_field( $_GET['papi-ajax'] ) );
 		}
 
-		if ( $action = $wp_query->get( 'action' ) ) {
+		if ( $action = $wp_query->get( 'papi-ajax' ) ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {
 				define( 'DOING_AJAX', true );
 			}
@@ -75,7 +94,7 @@ class Papi_Admin_Ajax {
 	}
 
 	/**
-	 * Get property html via ajax.
+	 * Get property html via GET.
 	 *
 	 * @since 1.3.0
 	 */
@@ -99,6 +118,37 @@ class Papi_Admin_Ajax {
                 'html' => utf8_encode( $html )
             ) );
         }
+	}
+
+	/**
+	 * Get properties via POST.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function get_properties() {
+		$json   = file_get_contents( 'php://input' );
+		$items  = json_decode( $json );
+
+		foreach ( $items as $key => $item ) {
+			if ( is_object( $item ) ) {
+				$property = $item;
+			} else {
+				$property = papi_property( $item );
+			}
+
+			ob_start();
+
+			papi_render_property( $property );
+
+			$items[$key] = ob_get_clean();
+		}
+
+		if ( empty( $items ) ) {
+			$this->render_error( 'No properties found' );
+		} else {
+			$this->render( $items );
+		}
 	}
 
     /**

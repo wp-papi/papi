@@ -233,7 +233,14 @@ final class Papi_Admin {
 	 */
 
 	public function admin_enqueue_scripts() {
+		// WordPress will override window.papi on plugins page,
+		// so don't include Papi JavaScript on plugins page.
+		if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], 'plugins.php' ) !== false ) {
+			return;
+		}
+
 		wp_enqueue_script( 'papi-main', dirname( PAPI_PLUGIN_URL ) . '/dist/js/main.min.js', array(
+			'json2',
 			'jquery',
 			'jquery-ui-core',
 			'jquery-ui-sortable',
@@ -243,6 +250,7 @@ final class Papi_Admin {
 		), '', true );
 
 		wp_localize_script( 'papi-main', 'papiL10n', array(
+			'remove'        => __( 'Remove', 'papi' ),
 			'requiredError' => __( 'This fields are required:', 'papi' ),
 		) );
 	}
@@ -461,7 +469,7 @@ final class Papi_Admin {
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_head', array( $this, 'admin_head' ) );
 		add_action( 'edit_form_after_title', array( $this, 'edit_form_after_title' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 9 );
 		add_action( 'load-post-new.php', array( $this, 'load_post_new' ) );
 		add_action( 'restrict_manage_posts', array( $this, 'restrict_page_types' ) );
 	}
