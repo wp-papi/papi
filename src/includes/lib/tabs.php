@@ -20,12 +20,12 @@ defined( 'ABSPATH' ) || exit;
 
 function papi_get_tab_options( $options ) {
 
-	if ( ! is_array( $options ) ) {
-		if ( is_object( $options ) ) {
-			$options = (array) $options;
-		} else {
-			return null;
-		}
+	if ( ! is_array( $options ) && ! is_object( $options ) ) {
+		return;
+	}
+
+	if ( is_object( $options ) ) {
+		$options = (array) $options;
 	}
 
 	$defaults = array(
@@ -71,11 +71,6 @@ function papi_setup_tabs( $tabs ) {
 	// Generate unique names for all tabs.
 	$len = count( $tabs );
 	for ( $i = 0; $i < $len; $i ++ ) {
-
-		if ( empty( $tabs[$i] ) ) {
-			continue;
-		}
-
 		$tabs[ $i ]->options->_name = papi_html_name( $tabs[$i]->options->title ) . '_' . $i;
 	}
 

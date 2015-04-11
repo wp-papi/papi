@@ -18,12 +18,11 @@ class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_get_tab_options() {
-		$tab = papi_tab(array(
+		$tab = papi_tab( array(
 			'title' => 'Content'
-		));
+		) );
 
-		$options = papi_get_tab_options($tab->options);
-
+		$options = papi_get_tab_options( $tab->options );
 		$this->assertEquals( $tab->options['title'], $options->title );
 		$this->assertEquals( 1000, $options->sort_order );
 
@@ -31,10 +30,23 @@ class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 			'title' => 'Content'
 		);
 
-		$options = papi_get_tab_options($tab);
-
+		$options = papi_get_tab_options( $tab );
 		$this->assertEquals( $tab['title'], $options->title );
 		$this->assertEquals( 1000, $options->sort_order );
+
+		$tab = papi_tab( array(
+			'title' => 'Content'
+		) );
+
+		$options = papi_get_tab_options( $tab );
+		$this->assertEquals( $tab->options['title'], $options->options['title'] );
+		$this->assertEquals( 1000, $options->sort_order );
+
+		$this->assertNull( papi_get_tab_options( null ) );
+		$this->assertNull( papi_get_tab_options( 1 ) );
+		$this->assertNull( papi_get_tab_options( true ) );
+		$this->assertNull( papi_get_tab_options( false ) );
+		$this->assertNull( papi_get_tab_options( 'Title' ) );
 	}
 
 	/**
@@ -44,13 +56,17 @@ class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_setup_tabs() {
-		$tab  = papi_tab('Content');
-		$tabs = papi_setup_tabs(array(
-			$tab
-		));
+		$tab  = papi_tab( 'Content' );
+		$tabs = papi_setup_tabs( array( $tab ) );
 
 		$this->assertEquals( $tab->options->title, $tabs[0]->options->title );
 		$this->assertEquals( 1000, $tabs[0]->options->sort_order );
+
+		$tabs = papi_setup_tabs( array( 1 ) );
+		$this->assertEmpty( $tabs );
+
+		$tabs = papi_setup_tabs( array() );
+		$this->assertEmpty( $tabs );
 	}
 
 	/**
