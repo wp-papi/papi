@@ -88,14 +88,68 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	public function test_papi_get_options_and_properties() {
 		$simple_box = papi_test_get_fixtures_path( '/boxes/simple.php' );
 
-		$actual = papi_get_options_and_properties( $simple_box, array(
+		$options = papi_get_options_and_properties( $simple_box, array(
 			'test' => 'test'
 		) );
 
-		$this->assertEquals( 'Simple', $actual[0]['title'] );
-		$this->assertEquals( 'test', $actual[0]['test'] );
-		$this->assertEquals( 'Name', $actual[1][0]->title );
-		$this->assertEquals( 'string', $actual[1][0]->type );
+		$this->assertEquals( 'Simple', $options[0]['title'] );
+		$this->assertEquals( 'test', $options[0]['test'] );
+		$this->assertEquals( 'Name', $options[1][0]->title );
+		$this->assertEquals( 'string', $options[1][0]->type );
+
+		$options = papi_get_options_and_properties( 'hello' );
+		$this->assertEquals( 'hello', $options[0]['title'] );
+
+		$options = papi_get_options_and_properties( array(
+			'title' => 'Simple',
+			papi_property( array(
+				'type'  => 'string',
+				'title' => 'Name'
+			) )
+		), array(), false );
+
+		$this->assertEquals( 'Simple', $options[0]['title'] );
+		$this->assertEquals( 'Name', $options[1][0]->title );
+		$this->assertEquals( 'string', $options[1][0]->type );
+
+		$options = papi_get_options_and_properties( array(
+			'title' => 'Simple'
+		) );
+
+		$this->assertEquals( 'Simple', $options[0]['title'] );
+
+		$options = papi_get_options_and_properties( array() );
+
+		$this->assertEmpty( $options[0]['title'] );
+
+		$options = papi_get_options_and_properties( array( papi_property( array(
+			'type'  => 'string',
+			'title' => 'Name'
+		) ) ) );
+
+		$this->assertEquals( 'Name', $options[0]['title'] );
+		$this->assertEquals( 'Name', $options[1][0]->title );
+		$this->assertEquals( 'string', $options[1][0]->type );
+
+		$options = papi_get_options_and_properties( array( papi_property( array(
+			'type'     => 'string',
+			'title'    => 'Name',
+			'sidebar'  => false,
+			'required' => true
+		) ) ) );
+
+		$this->assertEquals( 'Name', $options[0]['title'] );
+		$this->assertEquals( 'Name', $options[1][0]->title );
+		$this->assertEquals( 'string', $options[1][0]->type );
+		$this->assertTrue( $options[0]['_required'] );
+
+		$options = papi_get_options_and_properties( array( (object) array(
+			'options' => array(
+				'title' => 'Name'
+			)
+		) ) );
+
+		$this->assertEquals( 'Name', $options[0]['title'] );
 	}
 
 	/**
@@ -312,7 +366,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 			'capabilities' => 'administrator'
 		) );
 		$this->assertEmpty( papi_render_property( $property ) );
-		$this->expectOutputRegex('//');
+		$this->expectOutputRegex( '//' );
 		unset( $_GET );
 	}
 
