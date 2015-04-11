@@ -18,10 +18,10 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_template() {
-		$actual = papi_template( papi_test_get_fixtures_path( '/properties/simple.php' ) );
+		$template = papi_template( papi_test_get_fixtures_path( '/properties/simple.php' ) );
 
-		$this->assertEquals( 'Name', $actual['title'] );
-		$this->assertEquals( 'string', $actual['type'] );
+		$this->assertEquals( 'Name', $template['title'] );
+		$this->assertEquals( 'string', $template['type'] );
 
 		$this->assertEmpty( papi_template( null ) );
 		$this->assertEmpty( papi_template( true ) );
@@ -29,6 +29,13 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_template( 1 ) );
 		$this->assertEmpty( papi_template( array() ) );
 		$this->assertEmpty( papi_template( new stdClass() ) );
+
+		$template = papi_template( papi_test_get_fixtures_path( '/properties/array.php' ), array(), true );
+
+		$this->assertEquals( 'Name', $template->title );
+		$this->assertEquals( 'string', $template->type );
+
+		$this->assertEmpty( papi_template( 'hello' )  );
 	}
 
 }

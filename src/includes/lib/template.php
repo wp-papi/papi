@@ -74,7 +74,7 @@ function papi_template( $file, $values = array(), $convert_to_object = false ) {
 		$filepath = $file;
 	}
 
-	if ( ! is_file( $filepath ) || empty( $filepath ) ) {
+	if ( empty( $filepath ) ) {
 		return array();
 	}
 
