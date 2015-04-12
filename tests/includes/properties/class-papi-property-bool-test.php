@@ -41,6 +41,18 @@ class Papi_Property_Bool_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test output to check if property slug exists and the property type value.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_output() {
+		papi_render_property( $this->property );
+		$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $this->property->slug ) . '\"' );
+		$this->expectOutputRegex( '/value=\"bool\"/' );
+	}
+
+	/**
 	 * Test property options.
 	 *
 	 * @since 1.0.0
@@ -62,11 +74,11 @@ class Papi_Property_Bool_Test extends WP_UnitTestCase {
 		$handler = new Papi_Admin_Meta_Boxes();
 
 		// Create post data.
-		$_POST = papi_test_create_property_post_data(array(
+		$_POST = papi_test_create_property_post_data( array(
 			'slug'  => $this->property->slug,
 			'type'  => $this->property->type,
 			'value' => true
-		), $_POST);
+		), $_POST );
 
 		// Save the property using the handler.
 		$handler->save_property( $this->post_id );
@@ -76,6 +88,17 @@ class Papi_Property_Bool_Test extends WP_UnitTestCase {
 		$actual   = papi_field( $this->post_id, $this->property->slug );
 
 		$this->assertEquals( $expected, $actual );
+	}
+
+	/**
+	 * Test `update_value` method.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_update_value() {
+		$property_class = papi_get_property_type('bool');
+		$this->assertFalse( $property_class->update_value( 'false', '', 0 ) );
 	}
 
 }
