@@ -50,6 +50,31 @@ class Papi_Property_Checkbox_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test `format_value` method.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_format_value() {
+		$property_class = papi_get_property_type( 'checkbox' );
+		$this->assertEquals( array( 'hello' ), $property_class->format_value( 'hello', '', 0 ) );
+		$this->assertEquals( array( 'hello' ), $property_class->format_value( array( 'hello' ), '', 0 ) );
+		$this->assertEmpty( $property_class->format_value( null, '', 0 ) );
+	}
+
+	/**
+	 * Test output to check if property slug exists and the property type value.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_output() {
+		papi_render_property( $this->property );
+		$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $this->property->slug ) . '\"' );
+		$this->expectOutputRegex( '/value=\"checkbox\"/' );
+	}
+
+	/**
 	 * Test property options.
 	 *
 	 * @since 1.0.0
