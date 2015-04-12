@@ -36,7 +36,7 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test `body_class` filter.
+	 * Test `papi_body_class` function.
 	 *
 	 * @since 1.3.0
 	 */
@@ -44,19 +44,17 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 	public function test_papi_body_class() {
 		global $post;
 
-		$res = apply_filters( 'body_class', array() );
-		$this->assertTrue( empty( $res ) || ! empty( $res ) );
+		$this->assertEmpty( papi_body_class( array() ) );
 
 		$post = get_post( $this->post_id );
 		$this->go_to( get_permalink( $this->post_id ) );
-		$res = apply_filters( 'body_class', array() );
-		$this->assertEmpty( empty( $res ) || ! empty( $res ) );
+		$this->assertEmpty(  papi_body_class( array() ) );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, '/' );
-		$this->assertEmpty( apply_filters( 'body_class', array() ) );
+		$this->assertEmpty( papi_body_class( array() ) );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
-		$this->assertEquals( array( 'simple-page-type' ), apply_filters( 'body_class', array() )  );
+		$this->assertEquals( array( 'simple-page-type' ), papi_body_class( array() )  );
 	}
 
 	/**
