@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  * Get the url to 'post-new.php' with query string of the page type to load.
  *
  * @param string $page_type
- * @param bool $append_admin_url Default true
+ * @param bool $append_admin_url
  * @param string $post_type
  * @param array $exclude
  *
@@ -29,7 +29,7 @@ function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type
 	$admin_url = $admin_url . 'post-new.php?page_type=' . $page_type . papi_get_page_query_strings( '&', $exclude );
 
 	if ( ! is_null( $post_type ) && in_array( 'post_type', $exclude ) ) {
-		$admin_url .= '&post_type=' . $post_type;
+		$admin_url = str_replace( '&&', '&', $admin_url . '&post_type=' . $post_type );
 	}
 
 	return papi_append_post_type_query( $admin_url, $post_type );
@@ -62,7 +62,7 @@ function papi_get_page_query_strings( $first_char = '&', $exclude = array() ) {
 	$query = array_filter( $query, function ( $q ) use ( $exclude ) {
 		$q = explode( '=', $q );
 
-		if ( empty( $q ) ) {
+		if ( empty( $q ) || empty( $q[0] ) ) {
 			return false;
 		}
 
@@ -75,17 +75,7 @@ function papi_get_page_query_strings( $first_char = '&', $exclude = array() ) {
 	} );
 
 	$query = implode( '&', $query );
-
-	if ( substr( $query, 0, 1 ) === '&' || substr( $query, 0, 1 ) === '?' ) {
-		$query[0] = $first_char;
-	} else {
-		$query = $first_char . $query;
-	}
-
-	// Remove last char if it's a & or ?
-	if ( substr( $query, - 1, 1 ) === '&' || substr( $query, - 1, 1 ) === '?' ) {
-		$query = substr( $query, 0, - 1 );
-	}
+	$query = $first_char . $query;
 
 	if ( in_array( 'post_type', $exclude ) ) {
 		return $query;
@@ -120,10 +110,6 @@ function papi_append_post_type_query( $url, $post_type_arg = null ) {
 
 	if ( ! empty( $post_type_arg ) && empty( $post_type ) ) {
 		$post_type = $post_type_arg;
-	}
-
-	if ( empty ( $post_type ) ) {
-		$post_type = papi_get_wp_post_type();
 	}
 
 	if ( ! empty( $post_type ) ) {
