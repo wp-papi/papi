@@ -248,7 +248,7 @@ function papi_get_only_objects( $arr ) {
 
 function papi_get_or_post( $key ) {
 	if ( ! is_string( $key ) ) {
-		return null;
+		return;
 	}
 
 	if ( isset( $_GET[$key] ) ) {
@@ -258,8 +258,6 @@ function papi_get_or_post( $key ) {
 	if ( isset( $_POST[$key] ) ) {
 		return $_POST[$key];
 	}
-
-	return null;
 }
 
 /**
@@ -269,12 +267,12 @@ function papi_get_or_post( $key ) {
  *
  * @since 1.0.0
  *
- * @return string
+ * @return array|string
  */
 
 function papi_get_qs( $qs, $keep_keys = false ) {
 	if ( ! is_string( $qs ) && ! is_array( $qs ) ) {
-		return null;
+		return;
 	}
 
 	if ( is_array( $qs ) ) {
@@ -284,7 +282,7 @@ function papi_get_qs( $qs, $keep_keys = false ) {
 			foreach ( $qs as $key ) {
 				$value = papi_get_qs( $key );
 
-				if ( ! empty( $value ) ) {
+				if ( ! papi_is_empty( $value ) ) {
 					$result[$key] = $value;
 				}
 			}
@@ -308,14 +306,12 @@ function papi_get_qs( $qs, $keep_keys = false ) {
 
 		return $value;
 	}
-
-	return null;
 }
 
 /**
  * Check if $obj is set and if not return null or default.
  *
- * @param mixed $obj The var to check if it is set.
+ * @param mixed $obj The value to check if it is empty or not.
  * @param mixed $default The value to return if var is not set.
  *
  * @since 1.0.0
@@ -324,7 +320,7 @@ function papi_get_qs( $qs, $keep_keys = false ) {
  */
 
 function papi_h( $obj, $default = null ) {
-	return isset( $obj ) ? $obj : $default;
+	return empty( $obj ) ? $default : $obj;
 }
 
 /**
@@ -347,26 +343,6 @@ function papi_html_name( $name ) {
 	}
 
 	return $name;
-}
-
-/**
- * Include partial view.
- *
- * @param string $tpl_file
- * @param array $vars
- *
- * @since 1.0.0
- */
-
-function papi_include_template( $tpl_file, $vars = array() ) {
-	if ( ! is_string( $tpl_file ) ) {
-		return;
-	}
-
-	$path = PAPI_PLUGIN_DIR;
-	$path = rtrim( $path, '/' ) . '/';
-
-	include $path . $tpl_file;
 }
 
 /**
@@ -476,8 +452,12 @@ function papi_remove_trailing_quotes( $str ) {
  */
 
 function papi_sort_order( $array, $key = 'sort_order' ) {
-	if ( empty( $array ) ) {
+	if ( empty( $array ) || ! is_array( $array ) && ! is_object( $array ) ) {
 		return array();
+	}
+
+	if ( is_object( $array ) ) {
+		$array = papi_to_array( $array );
 	}
 
 	$sorter = array();

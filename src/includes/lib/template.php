@@ -48,6 +48,26 @@ function papi_body_class( $classes ) {
 add_filter( 'body_class', 'papi_body_class' );
 
 /**
+ * Include partial view.
+ *
+ * @param string $tpl_file
+ * @param array $vars
+ *
+ * @since 1.0.0
+ */
+
+function papi_include_template( $tpl_file, $vars = array() ) {
+	if ( ! is_string( $tpl_file ) ) {
+		return;
+	}
+
+	$path = PAPI_PLUGIN_DIR;
+	$path = rtrim( $path, '/' ) . '/';
+
+	include $path . $tpl_file;
+}
+
+/**
  * Load a template array file and merge values with it.
  *
  * @param string $file

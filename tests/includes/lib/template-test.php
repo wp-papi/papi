@@ -58,6 +58,23 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test `papi_include_template` function.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_papi_include_template() {
+		$this->assertEmpty(papi_include_template(null));
+		$this->assertEmpty(papi_include_template(array()));
+		$this->assertEmpty(papi_include_template(new stdClass));
+		$this->assertEmpty(papi_include_template(true));
+		$this->assertEmpty(papi_include_template(false));
+
+		papi_include_template('includes/admin/views/add-new-page.php');
+		$this->expectOutputRegex('/Add\snew\spage/');
+	}
+
+	/**
 	 * Test `papi_template` function.
 	 *
 	 * @since 1.0.0

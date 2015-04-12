@@ -57,6 +57,10 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 		$qs = papi_get_page_query_strings();
 		$this->assertEmpty( $qs );
 
+		$_SERVER['REQUEST_URI'] = '/?page_id=63';
+		$qs = papi_get_page_query_strings();
+		$this->assertEmpty( $qs );
+
 		$_SERVER['REQUEST_URI'] = 'http://wordpress/wp-admin/edit.php?post_type=page&page=papi-add-new-page,page';
 		$qs = papi_get_page_query_strings();
 		$this->assertEquals( '&post_type=page', $qs );
