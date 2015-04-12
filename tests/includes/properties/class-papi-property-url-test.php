@@ -41,6 +41,18 @@ class Papi_Property_Url_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test output to check if property slug exists and the property type value.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_output() {
+		papi_render_property( $this->property );
+		$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $this->property->slug ) . '\"' );
+		$this->expectOutputRegex( '/value=\"url\"/' );
+	}
+
+	/**
 	 * Test property options.
 	 *
 	 * @since 1.0.0
