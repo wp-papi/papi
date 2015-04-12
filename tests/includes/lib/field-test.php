@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering field functionality.
+ * Unit tests covering field functions.
  *
  * @package Papi
  */
