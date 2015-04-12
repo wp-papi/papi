@@ -81,6 +81,10 @@ function papi_get_page_query_strings( $first_char = '&', $exclude = array() ) {
 		return $query;
 	}
 
+	if ( $query === $first_char ) {
+		$query = '';
+	}
+
 	return papi_append_post_type_query( $query );
 }
 
