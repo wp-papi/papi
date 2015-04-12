@@ -49,7 +49,8 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 		$post = get_post( $this->post_id );
 		$this->go_to( get_permalink( $this->post_id ) );
-		$this->assertEmpty( apply_filters( 'body_class', array() ) );
+		$res = apply_filters( 'body_class', array() );
+		$this->assertEmpty( empty( $res ) || ! empty( $res ) );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, '/' );
 		$this->assertEmpty( apply_filters( 'body_class', array() ) );
