@@ -28,10 +28,6 @@ function papi_body_class( $classes ) {
 		return $classes;
 	}
 
-	if ( ! isset( $post ) || ! isset( $post->ID ) ) {
-		return $classes;
-	}
-
 	$page_type = get_post_meta( $post->ID, PAPI_PAGE_TYPE_KEY, true );
 
 	if ( empty( $page_type ) ) {
@@ -40,7 +36,7 @@ function papi_body_class( $classes ) {
 
 	$parts = explode( '/', $page_type );
 
-	if ( empty( $parts ) ) {
+	if ( empty( $parts ) || empty( $parts[0] ) ) {
 		return $classes;
 	}
 
@@ -107,13 +103,9 @@ function papi_template_include( $original_template ) {
 		return $original_template;
 	}
 
-	if ( ! isset( $post ) || ! isset( $post->ID ) ) {
-		return $original_template;
-	}
-
 	$page_template = papi_get_page_type_template( $post->ID );
 
-	if ( ! is_null( $page_template ) && ! empty( $page_template ) ) {
+	if ( ! empty( $page_template ) ) {
 		$path = get_template_directory();
 		$path = trailingslashit( $path );
 		$file = $path . $page_template;

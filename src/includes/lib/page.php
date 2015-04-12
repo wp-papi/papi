@@ -84,8 +84,6 @@ function papi_get_file_data( $post_id ) {
 	if ( ! empty( $page_type ) ) {
 		return papi_get_page_type_by_id( $page_type );
 	}
-
-	return null;
 }
 
 /**
@@ -155,8 +153,6 @@ function papi_get_page_type_template( $post_id ) {
 
 	if ( isset( $data ) && isset( $data->template ) ) {
 		return $data->template;
-	} else {
-		return null;
 	}
 }
 
