@@ -44,7 +44,7 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 	public function test_papi_body_class() {
 		global $post;
 
-		$res = apply_filters( 'body_class', array() ) ;
+		$res = apply_filters( 'body_class', array() );
 		$this->assertTrue( empty( $res ) || ! empty( $res ) );
 
 		$post = get_post( $this->post_id );
