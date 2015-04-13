@@ -97,7 +97,7 @@ class Papi_Property_Bool_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_update_value() {
-		$property_class = papi_get_property_type('bool');
+		$property_class = papi_get_property_type( 'bool' );
 		$this->assertFalse( $property_class->update_value( 'false', '', 0 ) );
 	}
 

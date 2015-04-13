@@ -21,8 +21,8 @@ class Papi_Admin_Meta_Box_Tabs_Test extends WP_UnitTestCase {
 		parent::setUp();
 
 		$this->tabs = array(
-			papi_tab( array('title' => 'Content') ),
-			papi_tab( array('title' => 'More', 'sort_order' => 1 ), array(
+			papi_tab( array( 'title' => 'Content' ) ),
+			papi_tab( array( 'title' => 'More', 'sort_order' => 1 ), array(
 				papi_property( array(
 					'type'  => 'string',
 					'title' => 'Name'
@@ -49,7 +49,7 @@ class Papi_Admin_Meta_Box_Tabs_Test extends WP_UnitTestCase {
 	 * @since 1.0.0
 	 */
 
-	public function test_tabs () {
+	public function test_tabs() {
 		// "Content" is tab nr 1.
 		$this->assertEquals( 'Content', $this->tabs[0]->options['title'] );
 		$this->assertEmpty( $this->tabs[0]->properties );

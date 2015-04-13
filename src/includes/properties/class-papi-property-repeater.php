@@ -119,10 +119,10 @@ class Papi_Property_Repeater extends Papi_Property {
 		$this->counter = 0;
 
 		// Render repeater html.
-		$this->render_repeater_html($options, $settings);
+		$this->render_repeater_html( $options, $settings );
 
 		// Render template html that is used for Papi ajax.
-		$this->render_template_html($options->slug, $settings->items);
+		$this->render_template_html( $options->slug, $settings->items );
 	}
 
 	/**
@@ -305,7 +305,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @since 1.3.0
 	 */
 
-	private function render_template_html($slug, $items) {
+	private function render_template_html( $slug, $items ) {
 		?>
 		<script type="application/json" id="<?php echo $slug; ?>_properties_json">
 			<?php
@@ -330,7 +330,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @since 1.3.0
 	 */
 
-	private function render_repeater_html($options, $settings) {
+	private function render_repeater_html( $options, $settings ) {
 		$values          = $this->get_value();
 		?>
 		<div class="papi-property-repeater" data-json-id="#<?php echo $options->slug; ?>_properties_json">

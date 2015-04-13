@@ -119,15 +119,15 @@ class Papi_Property_Repeater_Test extends WP_UnitTestCase {
 
 		$values = array( $item );
 
-		$properties = array_map( function ($item) {
-			foreach ($item as $key => $val) {
-				if (papi_is_property_type_key($key)) {
+		$properties = array_map( function ( $item ) {
+			foreach ( $item as $key => $val ) {
+				if ( papi_is_property_type_key( $key ) ) {
 					continue;
 				}
 				$item[$key] = '';
 			}
 			return $item;
-		}, $values);
+		}, $values );
 
 		// Create post data.
 		$_POST = papi_test_create_property_post_data( array(

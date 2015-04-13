@@ -50,7 +50,7 @@ class Papi_Admin_Meta_Box_Tabs {
 	 * @return array
 	 */
 
-	public function get_tabs () {
+	public function get_tabs() {
 		return $this->tabs;
 	}
 

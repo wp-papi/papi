@@ -74,11 +74,11 @@ class Papi_Property_Datetime_Test extends WP_UnitTestCase {
 		$handler = new Papi_Admin_Meta_Boxes();
 
 		// Create post data.
-		$_POST = papi_test_create_property_post_data(array(
+		$_POST = papi_test_create_property_post_data( array(
 			'slug'  => $this->property->slug,
 			'type'  => $this->property->type,
 			'value' => '2014-11-23'
-		), $_POST);
+		), $_POST );
 
 		// Save the property using the handler.
 		$handler->save_property( $this->post_id );

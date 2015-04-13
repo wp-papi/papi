@@ -160,7 +160,7 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 			return true;
 		} );
 
-		$this->assertFalse( !papi_filter_show_page_type( 'post', 'test-page-type' ) );
+		$this->assertFalse( ! papi_filter_show_page_type( 'post', 'test-page-type' ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return array( 1,  papi_test_get_fixtures_path( '/page-types' ) );

@@ -64,14 +64,14 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_include_template() {
-		$this->assertEmpty(papi_include_template(null));
-		$this->assertEmpty(papi_include_template(array()));
-		$this->assertEmpty(papi_include_template(new stdClass));
-		$this->assertEmpty(papi_include_template(true));
-		$this->assertEmpty(papi_include_template(false));
+		$this->assertEmpty( papi_include_template( null ) );
+		$this->assertEmpty( papi_include_template( array() ) );
+		$this->assertEmpty( papi_include_template( new stdClass ) );
+		$this->assertEmpty( papi_include_template( true ) );
+		$this->assertEmpty( papi_include_template( false ) );
 
-		papi_include_template('includes/admin/views/add-new-page.php');
-		$this->expectOutputRegex('/Add\snew\spage/');
+		papi_include_template( 'includes/admin/views/add-new-page.php' );
+		$this->expectOutputRegex( '/Add\snew\spage/' );
 	}
 
 	/**

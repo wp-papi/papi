@@ -49,7 +49,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->property->description();
 
-		$this->expectOutputRegex('/A\ssimple\sdescription/');
+		$this->expectOutputRegex( '/A\ssimple\sdescription/' );
 	}
 
 	/**
@@ -84,7 +84,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->property->hidden();
 
-		$this->expectOutputRegex('/papi\_hello\_world\_property/');
+		$this->expectOutputRegex( '/papi\_hello\_world\_property/' );
 
 		$this->property->set_options( array(
 			'type' => 'string',
@@ -93,7 +93,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->property->hidden();
 
-		$this->expectOutputRegex('/papi\_hello\_world\[name\_property\]/');
+		$this->expectOutputRegex( '/papi\_hello\_world\[name\_property\]/' );
 	}
 
 	/**
@@ -218,8 +218,8 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->property->label();
 
-		$this->expectOutputRegex('/A\ssimple\slabel/');
-		$this->expectOutputRegex('/papi\_kvack/');
+		$this->expectOutputRegex( '/A\ssimple\slabel/' );
+		$this->expectOutputRegex( '/papi\_kvack/' );
 	}
 
 	/**
@@ -238,8 +238,8 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->property->render();
 
-		$this->expectOutputRegex('/A\ssimple\sdescription/');
-		$this->expectOutputRegex('/A\ssimple\slabel/');
+		$this->expectOutputRegex( '/A\ssimple\sdescription/' );
+		$this->expectOutputRegex( '/A\ssimple\slabel/' );
 
 		$this->property->set_options( papi_get_property_options( array(
 			'raw' => true
