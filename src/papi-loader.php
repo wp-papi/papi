@@ -122,7 +122,7 @@ final class Papi_Loader extends Papi_Container {
 			if ( is_dir( $mu_dir ) ) {
 				define( 'PAPI_PLUGIN_DIR', $mu_dir );
 			} else {
-				define( 'PAPI_PLUGIN_DIR', trailingslashit( WP_PLUGIN_DIR . '/' . basename( dirname( __DIR__ ) ) . '/src' ) );
+				define( 'PAPI_PLUGIN_DIR', trailingslashit( __DIR__ ) );
 			}
 		}
 

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-  bootstrap="tests/bootstrap.php"
+  bootstrap="vendor/frozzare/wp-test-suite/bootstrap.php"
   backupGlobals="false"
   colors="true"
   convertErrorsToExceptions="true"
   convertNoticesToExceptions="true"
   convertWarningsToExceptions="true"
   >
+  <php>
+    <const name="WTB_PLUGIN_FILE_NAME" value="papi-loader.php" />
+  </php>
   <testsuites>
     <testsuite name="Papi Test Suite">
       <directory suffix=".php">./tests/</directory>

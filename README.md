@@ -24,7 +24,7 @@ Or manually add it to your `composer.json`:
 "require": {
   "php": ">=5.3",
   "wordpress": "3.8",
-  "wp-papi/papi": ">=1.2.5"
+  "wp-papi/papi": "~1.2"
 }
 ```
 
@@ -32,8 +32,9 @@ Or manually add it to your `composer.json`:
 
 1. `$ vagrant up`
 2. Log in to the virtual machine with `$ vagrant ssh`
-3. Run `$ phpunit`
-4. Done!
+3. Run `$ composer install`
+4. Run `$ phpunit`
+5. Done!
 
 ## Contributing
 
