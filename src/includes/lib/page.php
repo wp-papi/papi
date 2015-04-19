@@ -301,3 +301,63 @@ function papi_get_post_types() {
 
 	return array_unique( $post_types );
 }
+
+/**
+ * Get the Page type name.
+ *
+ * Example:
+ *
+ * `papi_page_type_name()` will return page type name.
+ *
+ * @param int $post_id
+ * @param string $key
+ *
+ * @since 1.3.0
+ *
+ * @return string
+ */
+
+function papi_page_type_name( $post_id = null, $key = '' ) {
+	if ( is_string( $post_id ) ) {
+		$key = $post_id;
+		$post_id = null;
+	}
+
+	$post_id = papi_get_post_id( $post_id );
+	$page_type_id = get_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, true );
+
+	if ( empty( $page_type_id ) ) {
+		return '';
+	}
+
+	$page_type = papi_get_page_type_by_id( $page_type_id );
+
+	if ( empty( $page_type ) ) {
+		return '';
+	}
+
+	if ( $key === 'id' ) {
+		return $page_type->get_id();
+	}
+
+	return $page_type->name;
+}
+
+/**
+ * Echo the Page type name.
+ *
+ * Example:
+ *
+ * `the_papi_page_type_name()` will return page type name.
+ *
+ * @param int $post_id
+ * @param string $key
+ *
+ * @since 1.3.0
+ *
+ * @return string
+ */
+
+function the_papi_page_type_name( $post_id = null, $key = '' ) {
+	echo papi_page_type_name( $post_id, $key );
+}

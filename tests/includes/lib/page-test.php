@@ -230,4 +230,60 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( array( 'page' ), $actual );
 	}
+
+	/**
+	 * Test `papi_page_type` function.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_papi_page_type_name() {
+		$this->assertEmpty(papi_page_type_name());
+		$this->assertEmpty(papi_page_type_name(null));
+		$this->assertEmpty(papi_page_type_name(0));
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return array( 1,  papi_test_get_fixtures_path( '/page-types' ) );
+		} );
+
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+
+		global $post;
+		$post = get_post($this->post_id);
+
+		$this->assertEquals('Simple page', papi_page_type_name());
+		$this->assertEquals('Simple page', papi_page_type_name($this->post_id));
+	}
+
+	/**
+	 * Test `the_papi_page_type_name` function.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_the_papi_page_type_name() {
+		the_papi_page_type_name();
+		$this->expectOutputRegex('//');
+
+		the_papi_page_type_name(null);
+		$this->expectOutputRegex('//');
+
+		the_papi_page_type_name(0);
+		$this->expectOutputRegex('//');
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return array( 1,  papi_test_get_fixtures_path( '/page-types' ) );
+		} );
+
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+
+		global $post;
+		$post = get_post($this->post_id);
+
+		the_papi_page_type_name();
+		$this->expectOutputRegex('/Simple\spage/');
+
+		the_papi_page_type_name($this->post_id);
+		$this->expectOutputRegex('/Simple\spage/');
+	}
 }
