@@ -310,14 +310,13 @@ function papi_get_post_types() {
  * `papi_page_type_name()` will return page type name.
  *
  * @param int $post_id
- * @param string $key
  *
  * @since 1.3.0
  *
  * @return string
  */
 
-function papi_page_type_name( $post_id = null, $key = '' ) {
+function papi_page_type_name( $post_id = null ) {
 	if ( is_string( $post_id ) ) {
 		$key = $post_id;
 		$post_id = null;
@@ -336,10 +335,6 @@ function papi_page_type_name( $post_id = null, $key = '' ) {
 		return '';
 	}
 
-	if ( $key === 'id' ) {
-		return $page_type->get_id();
-	}
-
 	return $page_type->name;
 }
 
@@ -351,13 +346,12 @@ function papi_page_type_name( $post_id = null, $key = '' ) {
  * `the_papi_page_type_name()` will return page type name.
  *
  * @param int $post_id
- * @param string $key
  *
  * @since 1.3.0
  *
  * @return string
  */
 
-function the_papi_page_type_name( $post_id = null, $key = '' ) {
-	echo papi_page_type_name( $post_id, $key );
+function the_papi_page_type_name( $post_id = null ) {
+	echo papi_page_type_name( $post_id );
 }
