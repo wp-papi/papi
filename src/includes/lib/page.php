@@ -317,11 +317,6 @@ function papi_get_post_types() {
  */
 
 function papi_page_type_name( $post_id = null ) {
-	if ( is_string( $post_id ) ) {
-		$key = $post_id;
-		$post_id = null;
-	}
-
 	$post_id = papi_get_post_id( $post_id );
 	$page_type_id = get_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, true );
 
