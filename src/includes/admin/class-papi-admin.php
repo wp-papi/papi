@@ -158,14 +158,27 @@ final class Papi_Admin {
 
 		$post_type = papi_get_wp_post_type();
 
-		if ( isset( $wp_post_types[$post_type] ) ) {
-			foreach ( $this->page_type->labels as $key => $value ) {
-				if ( ! isset( $wp_post_types[$post_type]->labels->$key ) || empty( $value ) ) {
-					continue;
-				}
+		if ( ! isset( $wp_post_types[$post_type] ) ) {
+			return;
+		}
 
-				$wp_post_types[$post_type]->labels->$key = $value;
+		$labels = $this->page_type->labels;
+
+		if ( $this->page_type->fill_labels ) {
+			$fills     = array(
+				'add_new_item' => sprintf( '%s %s', _x( 'Add New', 'page' ), $this->page_type->name ),
+				'edit_item' => sprintf( '%s %s', __( 'Edit' ), $this->page_type->name ),
+			);
+
+			$labels = array_merge( $fills, $labels );
+		}
+
+		foreach ( $labels as $key => $value ) {
+			if ( ! isset( $wp_post_types[$post_type]->labels->$key ) || empty( $value ) ) {
+				continue;
 			}
+
+			$wp_post_types[$post_type]->labels->$key = $value;
 		}
 	}
 
