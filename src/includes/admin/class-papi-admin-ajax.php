@@ -13,6 +13,15 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Admin_Ajax {
 
 	/**
+	 * The action prefix for Papi ajax actions.
+	 *
+	 * @var string
+	 * @since 1.3.0
+	 */
+
+	private $action_prefix = 'papi_ajax_';
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.3.0
@@ -44,7 +53,7 @@ class Papi_Admin_Ajax {
 	 */
 
 	public function add_endpoint() {
-		add_rewrite_tag( '%papi-ajax%', '([^/]*)' );
+		add_rewrite_tag( '%action%', '([^/]*)' );
 		add_rewrite_rule( 'papi-ajax/([^/]*)/?', 'index.php?action=$matches[1]', 'top' );
 	}
 
@@ -76,11 +85,17 @@ class Papi_Admin_Ajax {
 			return;
 		}
 
-		if ( ! empty( $_GET['papi-ajax'] ) ) {
-			$wp_query->set( 'papi-ajax', sanitize_text_field( $_GET['papi-ajax'] ) );
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return;
 		}
 
-		if ( $action = $wp_query->get( 'papi-ajax' ) ) {
+		if ( ! empty( $_GET['action'] ) ) {
+			$wp_query->set( 'papi_action', sanitize_text_field( $_GET['action'] ) );
+		}
+
+		$action = $wp_query->get( 'papi_action' );
+
+		if ( has_action( $this->action_prefix . $action ) != false ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {
 				define( 'DOING_AJAX', true );
 			}
@@ -88,7 +103,7 @@ class Papi_Admin_Ajax {
 			header( 'Cache-Control: no-cache, must-revalidate' );
 			header( 'Content-type: application/json' );
 
-			do_action( 'papi_ajax_' . sanitize_text_field( $action ) );
+			do_action( $this->action_prefix . sanitize_text_field( $action ) );
 			die;
 		}
 	}
@@ -128,7 +143,7 @@ class Papi_Admin_Ajax {
 
 	public function get_properties() {
 		$json   = file_get_contents( 'php://input' );
-		$items  = json_decode( $json );
+		$items  = json_decode( $json, true );
 
 		foreach ( $items as $key => $item ) {
 			if ( is_object( $item ) ) {

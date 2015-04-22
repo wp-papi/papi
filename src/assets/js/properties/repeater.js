@@ -33,7 +33,7 @@
       $.ajax({
         type: 'POST',
         data: JSON.stringify(properties),
-        url: papi.ajaxUrl + '?papi-ajax=get_properties',
+        url: papi.ajaxUrl + '?action=get_properties',
         dataType: 'json'
       }).success(function(res) {
         var html = [
