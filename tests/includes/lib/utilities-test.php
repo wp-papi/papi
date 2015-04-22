@@ -263,6 +263,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'papi_hello', papi_html_name( 'papi_hello' ) );
 		$this->assertEquals( '_papi_hello', papi_html_name( '_papi_hello' ) );
 		$this->assertEquals( 'papi_hello[0][image]', papi_html_name( 'papi_hello[0][image]' ) );
+		$this->assertEquals( 'papi_hello[image]', papi_html_name( 'papi_hello[image]' ) );
 		$this->assertEmpty( papi_html_name( null ) );
 		$this->assertEmpty( papi_html_name( true ) );
 		$this->assertEmpty( papi_html_name( false ) );

@@ -341,7 +341,7 @@ function papi_html_name( $name ) {
 	if ( ! preg_match( '/^\_\_papi|^\_papi/', $name ) ) {
 		$name = papify( $name );
 
-		if ( ! preg_match( '/\[\d\]/', $name ) ) {
+		if ( ! preg_match( '/\[.*\]/', $name ) ) {
 			$name = papi_slugify( $name );
 		}
 
