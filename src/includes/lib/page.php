@@ -249,8 +249,8 @@ function papi_get_page_type_meta_value( $post_id = null ) {
 	}
 
 	// Get page type value from get object.
-	if ( empty( $page_type ) && isset( $_GET['page_type'] ) ) {
-		$page_type = $_GET['page_type'];
+	if ( empty( $page_type ) ) {
+		$page_type = papi_get_qs( 'page_type' );
 	}
 
 	// Get page type value from post object.

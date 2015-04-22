@@ -192,11 +192,17 @@ class Papi_Admin_Meta_Boxes {
 	public function save_meta_boxes() {
 		// Fetch the post id.
 		if ( isset( $_POST['post_ID'] ) ) {
-			$post_id = $_POST['post_ID'];
+			$post_id = papi_get_sanitized_post( 'post_ID' );
+			$post_id = intval( $post_id );
 		}
 
 		// Can't proceed without a post id.
 		if ( empty( $post_id ) ) {
+			return;
+		}
+
+		// Check the post being saved has the same id as the post id. This will prevent other save post events.
+		if ( papi_get_sanitized_post( 'post_ID' ) != strval( $post_id ) ) {
 			return;
 		}
 
@@ -213,12 +219,7 @@ class Papi_Admin_Meta_Boxes {
 		}
 
 		// Check if our nonce is vailed.
-		if ( empty( $_POST['papi_meta_nonce'] ) || ! wp_verify_nonce( $_POST['papi_meta_nonce'], 'papi_save_data' ) ) {
-			return;
-		}
-
-		// Check the post being saved has the same id as the post id. This will prevent other save post events.
-		if ( empty( $_POST['post_ID'] ) || $_POST['post_ID'] != $post_id ) {
+		if ( ! isset( $_POST['papi_meta_nonce'] ) || ! wp_verify_nonce( $_POST['papi_meta_nonce'], 'papi_save_data' ) ) {
 			return;
 		}
 

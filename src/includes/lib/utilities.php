@@ -309,6 +309,24 @@ function papi_get_qs( $qs, $keep_keys = false ) {
 }
 
 /**
+ * Get sanitized value from global `$_POST`.
+ *
+ * @param string $key
+ *
+ * @since 1.3.0
+ *
+ * @return string
+ */
+
+function papi_get_sanitized_post( $key ) {
+	if ( ! isset( $_POST[$key] ) ) {
+		return;
+	}
+
+	return sanitize_text_field( $_POST[$key] );
+}
+
+/**
  * Check if $obj is set and if not return null or default.
  *
  * @param mixed $obj The value to check if it is empty or not.

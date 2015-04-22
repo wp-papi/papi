@@ -242,6 +242,22 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test `papi_get_sanitized_post` function.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_papi_get_sanitized_post() {
+		$this->assertEmpty( papi_get_sanitized_post( 'hello' ) );
+		$_POST['hello'] = '<';
+		$this->assertEquals( '&lt;', papi_get_sanitized_post( 'hello' ) );
+		unset( $_POST['hello'] );
+		$_POST['tag'] = '<tag>';
+		$this->assertEmpty( papi_get_sanitized_post( 'tag' ) );
+		unset( $_POST['tag'] );
+	}
+
+	/**
 	 * Test `papi_h` function.
 	 *
 	 * @since 1.3.0

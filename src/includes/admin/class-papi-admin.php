@@ -122,7 +122,7 @@ final class Papi_Admin {
 	/**
 	 * Cloning is forbidden.
 	 *
-	 * @since 2.1
+	 * @since 1.0.0
 	 */
 
 	public function __clone() {
@@ -132,7 +132,7 @@ final class Papi_Admin {
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 *
-	 * @since 2.1
+	 * @since 1.0.0
 	 */
 
 	public function __wakeup() {
@@ -301,7 +301,7 @@ final class Papi_Admin {
 	public function edit_form_after_title() {
 		wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' );
 		?>
-		<input type="hidden" name="<?php echo PAPI_PAGE_TYPE_KEY; ?>" value="<?php echo papi_get_page_type_meta_value(); ?>"/>
+		<input type="hidden" name="<?php esc_attr_e( PAPI_PAGE_TYPE_KEY ); ?>" value="<?php esc_attr_e( papi_get_page_type_meta_value() ); ?>"/>
 		<?php
 	}
 
@@ -369,9 +369,9 @@ final class Papi_Admin {
 		if ( $column_name === 'page_type' ) {
 			$page_type = papi_get_file_data( $post_id );
 			if ( ! is_null( $page_type ) ) {
-				echo $page_type->name;
+				esc_html_e( $page_type->name );
 			} else {
-				echo papi_filter_standard_page_name( papi_get_wp_post_type() );
+				esc_html_e( papi_filter_standard_page_name( papi_get_wp_post_type() ) );
 			}
 		}
 	}
@@ -383,8 +383,8 @@ final class Papi_Admin {
 	 */
 
 	public function render_view() {
-		if ( isset( $_GET['page'] ) && strpos( $_GET['page'], 'papi' ) !== false ) {
-			$page      = str_replace( 'papi-', '', $_GET['page'] );
+		if ( strpos( papi_get_qs( 'page' ), 'papi' ) !== false ) {
+			$page      = str_replace( 'papi-', '', papi_get_qs( 'page' ) );
 			$page_view = preg_replace( '/\,.*/', '', $page );
 		} else {
 			$page_view = null;

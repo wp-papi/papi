@@ -8,7 +8,7 @@ $show_standard_page = papi_filter_settings_standard_page_type( $post_type );
 <div class="wrap">
 
 	<h2>
-		<?php echo __( 'Add new page type', 'papi' ); ?>
+		<?php _e( 'Add new page type', 'papi' ); ?>
 
 		<label class="screen-reader-text" for="add-new-page-search">
 			<?php _e( 'Search page types', 'papi' ); ?>

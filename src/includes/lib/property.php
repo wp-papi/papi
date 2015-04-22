@@ -486,7 +486,7 @@ function papi_require_text( $property ) {
 		return '';
 	}
 
-	return __( '(required field)', 'papi' );
+	return esc_html__( '(required field)', 'papi' );
 }
 
 /**

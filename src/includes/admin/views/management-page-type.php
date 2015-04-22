@@ -18,34 +18,33 @@ function papi_management_page_type_render_box( $properties, $tab = false ) {
 			</tr>
 		</thead>
 		<tbody>
-				<?php
+			<?php
+				$properties = papi_populate_properties( $properties );
 
-					$properties = papi_populate_properties( $properties );
+				if ( $tab ) {
+					$properties = papi_setup_tabs( $properties );
+				}
 
-					if ( $tab ) {
-						$properties = papi_setup_tabs( $properties );
-					}
-
-					foreach ( $properties as $property ): ?>
+				foreach ( $properties as $property ): ?>
 					<tr>
 						<?php if ( isset( $property->options ) && isset( $property->options->title ) ): ?>
 							<td>
-								<?php echo $property->options->title; ?>
+								<?php esc_html_e( $property->options->title ); ?>
 								<br />
 								<br />
-								<?php echo __( 'Properties', 'papi' ) . ': ' . strval( count( $property->properties ) ); ?>
+								<?php echo __( 'Properties', 'papi' ) . ': ' . trval( count( $property->properties ) ); ?>
 							</td>
 							<td>
-								<?php echo $property->options->sort_order; ?>
+								<?php esc_html_e( $property->options->sort_order ); ?>
 							</td>
 							<td>
 								<?php papi_management_page_type_render_box( $property->properties ); ?>
 							</td>
 						<?php else: ?>
-							<td><?php echo $property->title; ?></td>
-							<td><?php echo $property->type; ?></td>
-							<td><?php echo papi_remove_papi( $property->slug ); ?></td>
-							<td><?php echo $property->sort_order; ?></td>
+							<td><?php esc_html_e( $property->title ); ?></td>
+							<td><?php esc_html_e( $property->type ); ?></td>
+							<td><?php esc_html_e( papi_remove_papi( $property->slug ) ); ?></td>
+							<td><?php esc_html_e( $property->sort_order ); ?></td>
 						<?php endif; ?>
 					</tr>
 				<?php endforeach; ?>
@@ -58,19 +57,19 @@ function papi_management_page_type_render_box( $properties, $tab = false ) {
 
 <div class="wrap">
 	<div class="papi-options-logo"></div>
-	<h2><?php echo papi()->name; ?></h2>
+	<h2><?php papi()->name; ?></h2>
 
 	<br/>
 
 	<?php
-		$page_type = $_GET['page-type'];
+		$page_type = papi_get_qs( 'page-type' );
 		$page_type = papi_get_page_type_by_id( $page_type );
 	?>
 
-	<h3><?php _e( 'Overview of page types', 'papi' ); ?>: <?php echo $page_type->name; ?></h3>
+	<h3><?php _e( 'Overview of page types', 'papi' ); ?>: <?php esc_html_e( $page_type->name ); ?></h3>
 
 	<p>
-		<a href="tools.php?page=papi"><?php _e( 'Back to list' , 'papi' ); ?></a>
+		<a href="tools.php?page=papi"><?php esc_html_e( 'Back to list' , 'papi' ); ?></a>
 	</p>
 
 	<?php
@@ -78,7 +77,7 @@ function papi_management_page_type_render_box( $properties, $tab = false ) {
 	$boxes = $page_type->get_boxes();
 
 	if ( empty( $boxes ) ) {
-		echo '<p>' . __( 'No meta boxes exists.', 'papi' ) . '</p>';
+		echo sprintf( '<p>%s</p>', esc_html__( 'No meta boxes exists.', 'papi' )  );
 		return;
 	}
 
@@ -101,8 +100,8 @@ function papi_management_page_type_render_box( $properties, $tab = false ) {
 				<br>
 			</div>
 			<h3 class="hndle">
-				<span><?php echo $box['title']; ?></span>
-				<span class="papi-pull-right"><?php echo $top_right_text . ': ' . strval( $counter ); ?></span>
+				<span><?php esc_html_e( $box['title'] ); ?></span>
+				<span class="papi-pull-right"><?php esc_html_e( $top_right_text . ': ' . strval( $counter ) ); ?></span>
 			</h3>
 			<div class="inside">
 				<?php

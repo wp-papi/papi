@@ -70,9 +70,9 @@ class Papi_Admin_Management_Pages {
 	 */
 
 	public function render_view() {
-		if ( isset( $_GET['view'] ) ) {
-			$page_view = $_GET['view'];
-		} else {
+		$page_view = papi_get_qs( 'view' );
+
+		if ( empty( $page_view ) ) {
 			$page_view = 'management-start';
 		}
 

@@ -62,11 +62,11 @@ function papi_get_post_id( $post_id = null ) {
 
 function papi_get_wp_post_type() {
 	if ( isset( $_GET['post_type'] ) ) {
-		return strtolower( $_GET['post_type'] );
+		return esc_html( strtolower( $_GET['post_type'] ) );
 	}
 
 	if ( isset( $_POST['post_type'] ) ) {
-		return strtolower( $_POST['post_type'] );
+		return esc_html( strtolower( $_POST['post_type'] ) );
 	}
 
 	$post_id = papi_get_post_id();
@@ -75,8 +75,10 @@ function papi_get_wp_post_type() {
 		return strtolower( get_post_type( $post_id ) );
 	}
 
-	if ( isset( $_GET['page'] ) && strpos( strtolower( $_GET['page'] ), 'papi-add-new-page,' ) !== false ) {
-		$exploded = explode( ',', $_GET['page'] );
+	$page = papi_get_qs( 'page' );
+
+	if ( strpos( strtolower( $page ), 'papi-add-new-page,' ) !== false ) {
+		$exploded = explode( ',', $page );
 
 		if ( empty( $exploded[1] ) ) {
 			return '';

@@ -1,6 +1,6 @@
 <div class="wrap">
 	<div class="papi-options-logo"></div>
-	<h2><?php echo papi()->name; ?></h2>
+	<h2><?php papi()->name; ?></h2>
 
 	<br/>
 
@@ -26,16 +26,17 @@
 		<?php
 		$page_types = papi_get_all_page_types( true );
 		foreach ( $page_types as $key => $page_type ) {
-			if ( !method_exists( $page_type, 'get_boxes' ) ) {
+			if ( ! method_exists( $page_type, 'get_boxes' ) ) {
 				continue;
 			}
 			?>
 			<tr>
-				<td><a href="<?php echo $_SERVER['REQUEST_URI']; ?>&view=management-page-type&page-type=<?php echo $page_type->get_id(); ?>"><?php echo $page_type->name; ?></a></td>
-				<td><?php echo $page_type->get_id(); ?></td>
-				<td><?php
+				<td><a href="<?php echo sanitize_text_field( $_SERVER['REQUEST_URI'] ); ?>&view=management-page-type&page-type=<?php esc_attr_e( $page_type->get_id() ); ?>"><?php esc_html_e( $page_type->name ); ?></a></td>
+				<td><?php esc_html_e( $page_type->get_id() ); ?></td>
+				<td>
+					<?php
 					if ( ! current_user_can( 'edit_themes' ) || defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
-						echo $page_type->template;
+							esc_html_e( $page_type->template );
 					} else {
 						$theme_dir  = get_template_directory();
 						$theme_name = basename( $theme_dir );
@@ -44,17 +45,18 @@
 						if ( empty( $page_type->template ) ) {
 							_e( 'Page Type has no template file', 'papi' );
 						} else {
-							if ( file_exists( $theme_dir . '/' . $page_type->template ) ):
+							if ( file_exists( $theme_dir . '/' . $page_type->template ) ) :
 								?>
-								<a href="<?php echo $url; ?>"><?php echo $page_type->template; ?></a>
+								<a href="<?php esc_attr_e( $url ); ?>"><?php esc_html_e( $page_type->template ); ?></a>
 							<?php
-							else:
+							else :
 								_e( 'Template file does not exist', 'papi' );
 							endif;
 						}
 					}
-					?></td>
-				<td><?php echo papi_get_number_of_pages( $page_type->get_id() ); ?></td>
+					?>
+				</td>
+				<td><?php esc_html_e( papi_get_number_of_pages( $page_type->get_id() ) ); ?></td>
 			</tr>
 		<?php
 		}
