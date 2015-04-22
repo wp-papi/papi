@@ -339,7 +339,13 @@ function papi_html_name( $name ) {
 	}
 
 	if ( ! preg_match( '/^\_\_papi|^\_papi/', $name ) ) {
-		return papi_underscorify( papi_slugify( papify( $name ) ) );
+		$name = papify( $name );
+
+		if ( ! preg_match( '/\[\d\]/', $name ) ) {
+			$name = papi_slugify( $name );
+		}
+
+		return papi_underscorify( $name );
 	}
 
 	return $name;
