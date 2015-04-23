@@ -62,7 +62,6 @@ class Papi_Property_Editor_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'editor', $this->property->type );
 		$this->assertEquals( 'Text', $this->property->title );
 		$this->assertEquals( 'papi_editor', $this->property->slug );
-		$this->assertTrue( $this->property->settings->editor );
 	}
 
 	/**
