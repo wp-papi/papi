@@ -121,7 +121,7 @@ class Papi_Admin_Meta_Box {
 	 * @since 1.3.0
 	 */
 
-	private function move_meta_after_title() {
+	public function move_meta_box_after_title() {
 		global $post, $wp_meta_boxes;
 		do_meta_boxes( get_current_screen(), $this->options->context, $post );
 		unset( $wp_meta_boxes[get_post_type( $post )][$this->options->context] );
@@ -201,7 +201,7 @@ class Papi_Admin_Meta_Box {
 		add_action( 'postbox_classes_' . $this->options->post_type . '_' . $this->options->_id, array( $this, 'meta_box_css_classes' ) );
 
 		if ( $this->options->context === 'after_title' ) {
-			add_action( 'edit_form_after_title', array( $this, 'move_meta_after_title' ) );
+			add_action( 'edit_form_after_title', array( $this, 'move_meta_box_after_title' ) );
 		}
 	}
 
