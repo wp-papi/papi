@@ -13,15 +13,6 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Admin_Meta_Box {
 
 	/**
-	 * Contains all root level properties in this meta box.
-	 *
-	 * @var array
-	 * @since 1.0.0
-	 */
-
-	private $properties = array();
-
-	/**
 	 * Meta box default options.
 	 *
 	 * @var array
@@ -54,32 +45,86 @@ class Papi_Admin_Meta_Box {
 	private $options;
 
 	/**
-	 * Setup actions.
+	 * Contains all root level properties in this meta box.
+	 *
+	 * @var array
+	 * @since 1.0.0
+	 */
+
+	private $properties = array();
+
+	/**
+	 * Constructor.
+	 *
+	 * @param array $options
+	 * @param array $properties
 	 *
 	 * @since 1.0.0
 	 */
 
-	private function setup_actions() {
-		add_action( 'add_meta_boxes', array( $this, 'setup_meta_box' ) );
-		add_action( 'postbox_classes_' . $this->options->post_type . '_' . $this->options->_id, array( $this, 'meta_box_css_classes' ) );
+	public function __construct( $options = array(), $properties = array() ) {
+		if ( empty( $options ) ) {
+			return;
+		}
+
+		$this->setup_options( $options );
+
+		// Check if the current user is allowed to view this box.
+		if ( ! papi_current_user_is_allowed( $this->options->capabilities ) ) {
+			return;
+		}
+
+		$this->populate_properties( $properties );
+
+		$this->setup_actions();
 	}
 
 	/**
-	 * Setup options
+	 * Add property.
 	 *
-	 * @param array $options
+	 * @param object $property
 	 *
 	 * @since 1.0.0
 	 */
 
-	private function setup_options( $options ) {
-		$options                  = papi_h( $options, array() );
-		$options                  = array_merge( $this->default_options, $options );
-		$this->options            = (object) $options;
-		$this->options->title     = ucfirst( $this->options->title );
-		$this->options->slug      = papi_slugify( $this->options->title );
-		$this->options->_id       = papi_underscorify( papify( $this->options->slug ) );
-		$this->options->post_type = $this->populate_post_type( $this->options->post_type );
+	public function add_property( $property ) {
+		$this->properties[] = $property;
+	}
+
+	/**
+	 * Add css classes to meta box.
+	 *
+	 * @param array $classes
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function meta_box_css_classes( $classes ) {
+		$classes[] = 'papi-box';
+
+		if ( $this->options->mode === 'seamless' ) {
+			if ( $this->options->_tab_box ) {
+				$classes[] = 'papi-mode-seamless-tabs';
+			} else {
+				$classes[] = 'papi-mode-seamless';
+			}
+		}
+
+		return $classes;
+	}
+
+	/**
+	 * Move meta boxes after title.
+	 *
+	 * @since 1.3.0
+	 */
+
+	private function move_meta_after_title() {
+		global $post, $wp_meta_boxes;
+		do_meta_boxes( get_current_screen(), $this->options->context, $post );
+		unset( $wp_meta_boxes[get_post_type( $post )][$this->options->context] );
 	}
 
 	/**
@@ -128,69 +173,6 @@ class Papi_Admin_Meta_Box {
 	}
 
 	/**
-	 * Constructor.
-	 *
-	 * @param array $options
-	 * @param array $properties
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function __construct( $options = array(), $properties = array() ) {
-		// Can't handle empty options.
-		if ( empty( $options ) ) {
-			return null;
-		}
-
-		$this->setup_options( $options );
-
-		// Can current user view this box?
-		if ( ! papi_current_user_is_allowed( $this->options->capabilities ) ) {
-			return null;
-		}
-
-		$this->populate_properties( $properties );
-
-		$this->setup_actions();
-	}
-
-	/**
-	 * Add property.
-	 *
-	 * @param object $property
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function add_property( $property ) {
-		$this->properties[] = $property;
-	}
-
-	/**
-	 * Add css classes to meta box.
-	 *
-	 * @param array $classes
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string[]
-	 */
-
-	public function meta_box_css_classes( $classes ) {
-		$classes[] = 'papi-box';
-
-		if ( $this->options->mode === 'seamless' ) {
-			if ( $this->options->_tab_box ) {
-				$classes[] = 'papi-mode-seamless-tabs';
-			} else {
-				$classes[] = 'papi-mode-seamless';
-			}
-		}
-
-		return $classes;
-	}
-
-	/**
 	 * Render the meta box
 	 *
 	 * @param array $post
@@ -206,6 +188,21 @@ class Papi_Admin_Meta_Box {
 
 		// Render the properties.
 		papi_render_properties( $args['args'] );
+	}
+
+	/**
+	 * Setup actions.
+	 *
+	 * @since 1.0.0
+	 */
+
+	private function setup_actions() {
+		add_action( 'add_meta_boxes', array( $this, 'setup_meta_box' ) );
+		add_action( 'postbox_classes_' . $this->options->post_type . '_' . $this->options->_id, array( $this, 'meta_box_css_classes' ) );
+
+		if ( $this->options->context === 'after_title' ) {
+			add_action( 'edit_form_after_title', array( $this, 'move_meta_after_title' ) );
+		}
 	}
 
 	/**
@@ -230,5 +227,25 @@ class Papi_Admin_Meta_Box {
 			$this->options->priority,
 			$this->properties
 		);
+
+		$this->move_meta_boxes();
+	}
+
+	/**
+	 * Setup options
+	 *
+	 * @param array $options
+	 *
+	 * @since 1.0.0
+	 */
+
+	private function setup_options( $options ) {
+		$options                  = papi_h( $options, array() );
+		$options                  = array_merge( $this->default_options, $options );
+		$this->options            = (object) $options;
+		$this->options->title     = ucfirst( $this->options->title );
+		$this->options->slug      = papi_slugify( $this->options->title );
+		$this->options->_id       = papi_underscorify( papify( $this->options->slug ) );
+		$this->options->post_type = $this->populate_post_type( $this->options->post_type );
 	}
 }
