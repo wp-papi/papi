@@ -98,7 +98,7 @@ class Papi_Admin_Meta_Box {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 
 	public function meta_box_css_classes( $classes ) {
