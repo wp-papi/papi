@@ -227,8 +227,6 @@ class Papi_Admin_Meta_Box {
 			$this->options->priority,
 			$this->properties
 		);
-
-		$this->move_meta_boxes();
 	}
 
 	/**
