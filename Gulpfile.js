@@ -4,6 +4,8 @@
  * Autoprefixer, Sass, Uglify, Header, Cssmin etc
  */
 
+/* global require */
+
 /*-------------------------------------------------------------------
 
 Required plugins
@@ -80,6 +82,8 @@ Tasks
 
 // Sass
 gulp.task('sass', function() {
+  'use strict';
+
   return gulp.src([config.sass.src, src + 'css/components/*.css'])
     .pipe(concat(
       'style.min.css'
@@ -97,25 +101,33 @@ gulp.task('sass', function() {
 
 // Scripts
 gulp.task('scripts', function() {
+  'use strict';
+
   return gulp.src(config.scripts.files)
     .pipe(concat(
       'main.min.js'
     ))
+    .pipe(sourcemaps.init())
     .pipe(uglify())
     .pipe(header(banner, {
       package: pkg
     }))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.scripts.dest));
 });
 
 // Watch
 gulp.task('watch', function() {
+  'use strict';
+
   gulp.watch(config.sass.src,       ['sass']);
   gulp.watch(config.scripts.files,  ['scripts']);
 });
 
 // Build
 gulp.task('build', function () {
+  'use strict';
+
   gulp.start(
     'sass',
     'scripts'
@@ -124,14 +136,14 @@ gulp.task('build', function () {
 
 // Default
 gulp.task('default', function () {
+  'use strict';
+
   gulp.start(
     'watch',
     'sass',
     'scripts'
   );
 });
-
-
 
 /**
  * Keep on kicking ass Fredik! ;)

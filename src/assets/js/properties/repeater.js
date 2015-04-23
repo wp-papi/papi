@@ -27,7 +27,7 @@
       var properties = $.parseJSON(jsonText);
 
       for (var i = 0, l = properties.length; i < l; i++) {
-        properties[i].slug.replace(attrNameRegex, attrNameValue);
+        properties[i].slug = properties[i].slug.replace(attrNameRegex, attrNameValue);
       }
 
       $.ajax({

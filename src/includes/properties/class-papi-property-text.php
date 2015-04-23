@@ -36,17 +36,9 @@ class Papi_Property_Text extends Papi_Property {
 		$options  = $this->get_options();
 		$settings = $this->get_settings();
 		$value    = $this->get_value();
-
-		if ( $settings->editor ) {
-			$id = str_replace( '[', '', str_replace( ']', '', $options->slug ) ) . '-' . uniqid();
-			wp_editor( $value, $id, array(
-				'textarea_name' => $options->slug
-			) );
-		} else {
-			?>
-			<textarea name="<?php echo $options->slug; ?>"
-			          class="papi-property-text"><?php echo strip_tags( $value ); ?></textarea>
+		?>
+		<textarea name="<?php echo $options->slug; ?>"
+		          class="papi-property-text"><?php echo sanitize_text_field( $value ); ?></textarea>
 		<?php
-		}
 	}
 }
