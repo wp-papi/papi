@@ -51,15 +51,13 @@ class Papi_Admin_View {
 	 *
 	 * @since 1.0
 	 *
-	 * @return string|null
+	 * @return string
 	 */
 
 	public function render( $file ) {
 		if ( ! empty( $file ) && $this->exists( $file ) ) {
 			require_once $this->file( $file );
 		}
-
-		return null;
 	}
 
 	/**
