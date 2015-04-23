@@ -31,9 +31,8 @@
      */
 
     getElements: function(selectors) {
-      var $dom = tinyMCE.DOM;
       return {
-        $dom: $dom,
+        $dom: tinyMCE.DOM,
         $iframe: $('#' + selectors.iframe)
       };
     },
