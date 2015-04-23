@@ -306,6 +306,29 @@ final class Papi_Admin {
 	}
 
 	/**
+	 * Output hidden meta boxes.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function hidden_meta_boxes() {
+		global $_wp_post_type_features;
+		if ( ! isset( $_wp_post_type_features[$this->post_type]['editor'] ) ) {
+			add_meta_box( 'papi-hidden-editor', 'Papi hidden editor', array( $this, 'hidden_meta_box_editor' ), $this->post_type );
+		}
+	}
+
+	/**
+	 * Output hidden WordPress editor.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function hidden_meta_box_editor() {
+		wp_editor( '', 'papiHiddenEditor' );
+	}
+
+	/**
 	 * Load post new action
 	 * Redirect to right url if no page type is set.
 	 *
@@ -485,6 +508,7 @@ final class Papi_Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 9 );
 		add_action( 'load-post-new.php', array( $this, 'load_post_new' ) );
 		add_action( 'restrict_manage_posts', array( $this, 'restrict_page_types' ) );
+		add_action( 'add_meta_boxes', array( $this, 'hidden_meta_boxes' ), 10 );
 	}
 
 	/**

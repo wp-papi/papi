@@ -88,7 +88,8 @@
      */
 
     qtInit: function(id) {
-      var qtContent = tinyMCEPreInit.qtInit.content;
+      var qtContent = tinyMCEPreInit.qtInit.content === undefined ?
+        tinyMCEPreInit.qtInit.papiHiddenEditor : tinyMCEPreInit.qtInit.content;
       var qtInit = tinyMCEPreInit.qtInit[id] = $.extend({}, qtContent, {
         id: id,
         buttons: qtContent.buttons.replace(',fullscreen', '')
@@ -113,7 +114,9 @@
       var mceInit;
 
       if (!tinyMCEPreInit.mceInit[id]) {
-        mceInit = tinyMCEPreInit.mceInit[id] = $.extend({}, tinyMCEPreInit.mceInit.content);
+        var obj = tinyMCEPreInit.mceInit.content === undefined ?
+          tinyMCEPreInit.mceInit.papiHiddenEditor : tinyMCEPreInit.mceInit.content;
+        mceInit = tinyMCEPreInit.mceInit[id] = $.extend({}, obj);
       } else {
         mceInit = tinyMCEPreInit.mceInit[id];
       }
