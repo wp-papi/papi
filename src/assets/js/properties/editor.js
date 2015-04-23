@@ -63,8 +63,6 @@
         id: id,
         iframe: id + '_ifr',
         htmlTab: '#' + id + '-html',
-        qtName: 'qt_' + id,
-        qtToolbar: 'qt_' + id + '_toolbar',
         visualTab: '#' + id + '-tmce',
         wrap: 'wp-' + id + '-wrap'
       };
