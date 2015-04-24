@@ -408,8 +408,14 @@ final class Papi_Admin {
 	public function render_view() {
 		if ( strpos( papi_get_qs( 'page' ), 'papi' ) !== false ) {
 			$page      = str_replace( 'papi-', '', papi_get_qs( 'page' ) );
-			$page_view = preg_replace( '/\,.*/', '', $page );
-		} else {
+			$res = preg_replace( '/\,.*/', '', $page );
+
+			if ( is_string( $res ) ) {
+				$page_view = $res;
+			}
+		}
+
+		if ( ! isset( $page_view ) ) {
 			$page_view = null;
 		}
 
