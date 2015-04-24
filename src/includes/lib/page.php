@@ -112,9 +112,10 @@ function papi_get_number_of_pages( $page_type ) {
 		return 0;
 	}
 
-	$query = "SELECT COUNT(*) FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '" . PAPI_PAGE_TYPE_KEY . "' AND `meta_value` = '$page_type'";
+	$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '%s' AND `meta_value` = '%s'";
+	$sql = $wpdb->prepare( $sql, PAPI_PAGE_TYPE_KEY, $page_type );
 
-	return intval( $wpdb->get_var( $query ) );
+	return intval( $wpdb->get_var( $sql ) );
 }
 
 /**
