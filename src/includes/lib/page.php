@@ -255,8 +255,8 @@ function papi_get_page_type_meta_value( $post_id = null ) {
 	}
 
 	// Get page type value from post object.
-	if ( empty( $page_type ) && isset( $_POST[PAPI_PAGE_TYPE_KEY] ) ) {
-		$page_type = $_POST[PAPI_PAGE_TYPE_KEY];
+	if ( empty( $page_type ) ) {
+		$page_type = papi_get_sanitized_post( PAPI_PAGE_TYPE_KEY );
 	}
 
 	// Load right page type from a post query string
