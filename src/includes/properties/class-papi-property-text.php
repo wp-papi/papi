@@ -34,7 +34,6 @@ class Papi_Property_Text extends Papi_Property {
 
 	public function html() {
 		$options  = $this->get_options();
-		$settings = $this->get_settings();
 		$value    = $this->get_value();
 		?>
 		<textarea name="<?php echo $options->slug; ?>"
