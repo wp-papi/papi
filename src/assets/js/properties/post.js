@@ -1,7 +1,7 @@
 (function ($) {
   'use strict';
 
-  // Property Post
+  // Property post
 
   papi.properties.post = {
 

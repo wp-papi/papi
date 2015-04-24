@@ -2,7 +2,7 @@
 
   'use strict';
 
-  // Property Dropdown
+  // Property dropdown
 
   papi.properties.dropdown = {
 
