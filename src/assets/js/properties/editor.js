@@ -23,6 +23,49 @@
     },
 
     /**
+     * Get TinyMCE editor.
+     *
+     * @param {string} id
+     *
+     * @return {object}
+     */
+
+    createTinyMceEditor: function(id) {
+      var mceInit;
+
+      if (!tinyMCEPreInit.mceInit[id]) {
+        var obj = tinyMCEPreInit.mceInit.content === undefined ?
+          tinyMCEPreInit.mceInit.papiHiddenEditor : tinyMCEPreInit.mceInit.content;
+        mceInit = tinyMCEPreInit.mceInit[id] = $.extend({}, obj);
+      } else {
+        mceInit = tinyMCEPreInit.mceInit[id];
+      }
+
+      mceInit = $.extend(mceInit, this.customTinyMCESettings, {
+        selector: '#' + id,
+        elements: id
+      });
+
+      tinymce.init(mceInit);
+
+      //return new tinymce.Editor(id, mceInit);
+    },
+
+    /**
+     * Close all QTags.
+     *
+     * @param {object} $iframe
+     */
+
+    closeAllQTags: function ($iframe) {
+      if (typeof(QTags) === undefined || $iframe.canvas === undefined) {
+        return;
+      }
+
+      QTags.closeAllTags($iframe.id);
+    },
+
+    /**
      * Get elements.
      *
      * @param {object} selectors
@@ -68,17 +111,14 @@
     },
 
     /**
-     * Close all QTags.
-     *
-     * @param {object} $iframe
+     * Fix so visual tab is visible at page load.
      */
 
-    closeAllQTags: function ($iframe) {
-      if (typeof(QTags) === undefined || $iframe.canvas === undefined) {
-        return;
-      }
-
-      QTags.closeAllTags($iframe.id);
+    init: function () {
+      $('.papi-table .wp-switch-editor.switch-tmce').on('papi/properties/editor/init', function (e) {
+	       e.preventDefault();
+         window.switchEditors.switchto(this);
+      }).trigger('papi/properties/editor/init');
     },
 
     /**
@@ -100,35 +140,6 @@
       } catch (e) {}
 
       QTags._buttonsInit();
-    },
-
-    /**
-     * Get TinyMCE editor.
-     *
-     * @param {string} id
-     *
-     * @return {object}
-     */
-
-    createTinyMceEditor: function(id) {
-      var mceInit;
-
-      if (!tinyMCEPreInit.mceInit[id]) {
-        var obj = tinyMCEPreInit.mceInit.content === undefined ?
-          tinyMCEPreInit.mceInit.papiHiddenEditor : tinyMCEPreInit.mceInit.content;
-        mceInit = tinyMCEPreInit.mceInit[id] = $.extend({}, obj);
-      } else {
-        mceInit = tinyMCEPreInit.mceInit[id];
-      }
-
-      mceInit = $.extend(mceInit, this.customTinyMCESettings, {
-        selector: '#' + id,
-        elements: id
-      });
-
-      tinymce.init(mceInit);
-
-      //return new tinymce.Editor(id, mceInit);
     },
 
     /**

@@ -11,5 +11,6 @@
   papi.properties.repeater.init();
   papi.properties.color.init();
   papi.properties.image.init();
+  papi.properties.editor.init();
 
 })();
