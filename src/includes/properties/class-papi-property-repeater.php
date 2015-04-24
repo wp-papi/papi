@@ -174,8 +174,9 @@ class Papi_Property_Repeater extends Papi_Property {
 		for ( $i = 0; $i < $value; $i++ ) {
 			$row = array_slice( $results, $i * $columns, $columns );
 			$trashnum += count( $row );
+			$length = count( $row );
 
-			for ( $j = 0; $j < count( $row ); $j++ ) {
+			for ( $j = 0; $j < $length; $j++ ) {
 				if ( ! isset( $row[$j] ) ) {
 					continue;
 				}
