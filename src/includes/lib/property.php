@@ -243,7 +243,7 @@ function papi_get_property_options( $options, $get_value = true ) {
 
 	// Get the default settings for the property and merge them with the given settings.
 	$options->settings = array_merge( papi_get_property_default_settings( $options->type ), (array) $options->settings );
-	$options->settings = (object)$options->settings;
+	$options->settings = (object) $options->settings;
 
 	$options = papi_esc_html( $options, array( 'html' ) );
 
