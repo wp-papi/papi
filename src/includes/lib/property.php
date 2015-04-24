@@ -570,7 +570,7 @@ function papi_populate_properties( $properties ) {
  */
 
 function papi_property_update_meta( $meta ) {
-	$meta = (object)$meta;
+	$meta = (object) $meta;
 
 	if ( empty( $meta->type ) ) {
 		return;
