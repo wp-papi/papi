@@ -93,7 +93,7 @@ function papi_esc_html( $obj, $keys = array() ) {
 		}
 
 		if ( $object ) {
-			return (object)$obj;
+			return (object) $obj;
 		}
 
 		return $obj;
