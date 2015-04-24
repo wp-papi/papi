@@ -225,7 +225,9 @@ class Papi_Property_Repeater extends Papi_Property {
 			$values = array();
 		}
 
-		for ( $i = 0; $i < count( $values ); $i++ ) {
+		$values_length = count( $values );
+
+		for ( $i = 0; $i < $values_length; $i++ ) {
 			$keys   = array_keys( $values[$i] );
 			$length = count( $keys );
 
