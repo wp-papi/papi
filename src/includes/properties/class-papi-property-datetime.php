@@ -47,7 +47,7 @@ class Papi_Property_Datetime extends Papi_Property {
 			'use24hour'   => $settings->use_24_hours
 		);
 
-		$settings_json = json_encode( (object)$settings_json );
+		$settings_json = json_encode( (object) $settings_json );
 
 		?>
 		<input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="papi-property-datetime" data-settings='<?php echo $settings_json; ?>'/>
