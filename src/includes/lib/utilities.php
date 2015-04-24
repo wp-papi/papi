@@ -251,12 +251,12 @@ function papi_get_or_post( $key ) {
 		return;
 	}
 
-	if ( isset( $_GET[$key] ) ) {
-		return $_GET[$key];
+	if ( $value = papi_get_qs( $key ) ) {
+		return $value;
 	}
 
-	if ( isset( $_POST[$key] ) ) {
-		return $_POST[$key];
+	if ( $value = papi_get_sanitized_post( $key ) ) {
+		return $value;
 	}
 }
 

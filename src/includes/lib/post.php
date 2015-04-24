@@ -38,13 +38,13 @@ function papi_get_post_id( $post_id = null ) {
 		}
 
 		// If the post id is null and post query string is available we can return it as post id.
-		if ( isset( $_GET['post'] ) ) {
-			return intval( $_GET['post'] );
+		if ( $value = papi_get_qs( 'post' ) ) {
+			return intval( $value );
 		}
 
 		// If the post id is null and page id query string is available we can return it as post id.
-		if ( isset( $_GET['page_id'] ) ) {
-			return intval( $_GET['page_id'] );
+		if ( $value = papi_get_qs( 'page_id' ) ) {
+			return intval( $value);
 		}
 	}
 
@@ -61,12 +61,8 @@ function papi_get_post_id( $post_id = null ) {
  */
 
 function papi_get_wp_post_type() {
-	if ( isset( $_GET['post_type'] ) ) {
-		return esc_html( strtolower( $_GET['post_type'] ) );
-	}
-
-	if ( isset( $_POST['post_type'] ) ) {
-		return esc_html( strtolower( $_POST['post_type'] ) );
+	if ( $post_type = papi_get_or_post( 'post_type' ) ) {
+		return $post_type;
 	}
 
 	$post_id = papi_get_post_id();
