@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/wp-papi/papi.svg?branch=master)](https://travis-ci.org/wp-papi/papi)
 
+![Page Type API](http://public.forsmo.me/github/wp-papi/github-image.png)
+
 > `master` is unsafe. `1.x` is the stable branch.
 
 Papi has a different approach on how to work with fields and page types in WordPress. The idea is coming from how Page Type Builder in EPiServer works and has been loved by the developers.
