@@ -1,7 +1,5 @@
 (function ($) {
 
-  'use strict';
-
   // Tabs object.
   var tabs = {};
 

@@ -1,7 +1,5 @@
 (function ($) {
 
-  'use strict';
-
   // Property image
 
   papi.properties.image = {
@@ -57,7 +55,7 @@
     /**
      * Toggle the remove button.
      *
-     * @param {object} $this
+     * @param {object} $this
      */
 
     hover: function ($this) {

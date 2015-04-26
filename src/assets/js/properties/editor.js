@@ -2,8 +2,6 @@
 
   /* global tinymce, tinyMCE, tinyMCEPreInit, QTags */
 
-  'use strict';
-
   // Property editor
 
   papi.properties.editor = {
@@ -17,9 +15,9 @@
     customTinyMCESettings: {
       elements: [],
       mode: 'exact',
-      /* jshint ignore:start */
+      /* eslint-disable */
       theme_advanced_resizing: true
-      /* jshint ignore:end */
+      /* eslint-enable */
     },
 
     /**
@@ -58,7 +56,7 @@
      */
 
     closeAllQTags: function ($iframe) {
-      if (typeof(QTags) === undefined || $iframe.canvas === undefined) {
+      if (typeof QTags === undefined || $iframe.canvas === undefined) {
         return;
       }
 
@@ -116,8 +114,8 @@
 
     init: function () {
       $('.papi-table .wp-switch-editor.switch-tmce').on('papi/properties/editor/init', function (e) {
-	       e.preventDefault();
-         window.switchEditors.switchto(this);
+        e.preventDefault();
+        window.switchEditors.switchto(this);
       }).trigger('papi/properties/editor/init');
     },
 
@@ -136,7 +134,9 @@
       });
 
       try {
+        /* eslint-disable */
         new QTags(qtInit);
+        /* eslint-enable */
       } catch (e) {}
 
       QTags._buttonsInit();

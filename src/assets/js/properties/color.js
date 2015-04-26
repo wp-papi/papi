@@ -1,7 +1,5 @@
 (function ($) {
 
-  'use strict';
-
   // Property color
 
   papi.properties.color = {

@@ -1,7 +1,5 @@
 (function ($) {
 
-  'use strict';
-
   // Property url
 
   papi.properties.url = {

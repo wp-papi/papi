@@ -1,7 +1,5 @@
 (function () {
 
-  'use strict';
-
   // Utils object.
   var utils = {
     wpMediaFrame: undefined

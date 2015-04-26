@@ -1,8 +1,6 @@
 (function ($) {
 
-  'use strict';
-
-  papi = papi || {};
+  papi = papi || {};
 
   $.extend(papi, {
     properties: {},

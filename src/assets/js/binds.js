@@ -1,7 +1,5 @@
 (function ($) {
 
-  'use strict';
-
   // Required fields
 
   $('body').on('click', '.papi-rq-link', function (e) {
@@ -19,8 +17,8 @@
     var $fields = $('.papi-rq');
     var $spinner = $('#publishing-action .spinner');
     var $errors = [];
-    for (var i = 0, l = $fields.length; i < l; i++) {
 
+    for (var i = 0, l = $fields.length; i < l; i++) {
       var $this = $($fields[i]);
 
       if ($this.parent().parent().hasClass('metabox-prefs') || !$this.is(':visible')) {
@@ -46,9 +44,9 @@
 
       var items = '';
 
-      for (var i = 0, l = $errors.length; i < l; i++) {
-        var $field = $($errors[i]);
-        items += '<a class="papi-rq-link" href="#' + $field.attr('data-property-id') + '">' + $field.attr('data-property-name') + '</a>';
+      for (var j = 0, k = $errors.length; j < k; j++) {
+        var $item = $($errors[j]);
+        items += '<a class="papi-rq-link" href="#' + $item.attr('data-property-id') + '">' + $item.attr('data-property-name') + '</a>';
 
         if (i + 1 !== $errors.length) {
           items += ', ';

@@ -1,7 +1,5 @@
 (function (wp, _) {
 
-  'use strict';
-
   // Image view for property image
   papi.views.Image = wp.Backbone.View.extend({
 

@@ -1,7 +1,5 @@
 (function ($, papiL10n) {
 
-  'use strict';
-
   // Property repeater
 
   papi.properties.repeater = {
@@ -61,7 +59,7 @@
           var attrs = [
             {
               source: 'data-slug',
-              target: 'data-slug',
+              target: 'data-slug'
             },
             {
               source: 'data-id',
@@ -130,7 +128,7 @@
     /**
      * Remove item in the repeater.
      *
-     * @param {object} $this
+     * @param {object} $this
      */
 
     remove: function ($this) {
@@ -168,7 +166,7 @@
         .closest('.papi-property-repeater')
         .find('.papi-property-repeater-rows')
         .val($tbody.find('tr').length);
-    },
+    }
 
   };
 

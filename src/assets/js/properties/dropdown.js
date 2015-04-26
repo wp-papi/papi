@@ -1,7 +1,5 @@
 (function ($) {
 
-  'use strict';
-
   // Property dropdown
 
   papi.properties.dropdown = {

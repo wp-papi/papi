@@ -1,7 +1,5 @@
 (function ($) {
 
-  'use strict';
-
   // Property datetime
 
   papi.properties.datetime = {
@@ -42,7 +40,9 @@
 
         settings.field = $prop[0];
 
+        /* eslint-disable */
         new window.Pikaday(settings);
+        /* eslint-enable */
       });
     },
 

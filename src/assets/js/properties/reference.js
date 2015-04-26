@@ -1,7 +1,5 @@
 (function ($) {
 
-  'use strict';
-
   // Property reference
 
   papi.properties.reference = {

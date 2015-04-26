@@ -1,7 +1,5 @@
 (function ($) {
 
-  'use strict';
-
   // Property relationship
 
   papi.properties.relationship = {
