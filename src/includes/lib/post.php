@@ -44,7 +44,7 @@ function papi_get_post_id( $post_id = null ) {
 
 		// If the post id is null and page id query string is available we can return it as post id.
 		if ( $value = papi_get_qs( 'page_id' ) ) {
-			return intval( $value);
+			return intval( $value );
 		}
 	}
 
