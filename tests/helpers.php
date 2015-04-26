@@ -7,9 +7,6 @@
  * @version 1.0.0
  */
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Create property post data.
  *
