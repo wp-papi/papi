@@ -4,8 +4,6 @@
  * Autoprefixer, Sass, Uglify, Header, Cssmin etc
  */
 
-/* global require */
-
 /*-------------------------------------------------------------------
 
 Required plugins
@@ -20,8 +18,8 @@ var uglify       = require('gulp-uglify');
 var concat       = require('gulp-concat');
 var header       = require('gulp-header');
 var autoprefixer = require('gulp-autoprefixer');
-var pkg          = require('./package.json');
 var eslint       = require('gulp-eslint');
+var pkg          = require('./package.json');
 
 /*-------------------------------------------------------------------
 
