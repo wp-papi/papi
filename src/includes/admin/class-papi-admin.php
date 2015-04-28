@@ -252,13 +252,12 @@ final class Papi_Admin {
 			return;
 		}
 
-		wp_enqueue_script( 'papi-main', dirname( PAPI_PLUGIN_URL ) . '/dist/js/main.min.js', array(
+		wp_enqueue_script( 'papi-main', dirname( PAPI_PLUGIN_URL ) . '/dist/js/main.js', array(
 			'json2',
 			'jquery',
 			'jquery-ui-core',
 			'jquery-ui-sortable',
 			'backbone',
-			'wp-backbone',
 			'wp-color-picker'
 		), '', true );
 

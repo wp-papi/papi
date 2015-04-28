@@ -433,7 +433,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			</table>
 
 			<div class="bottom">
-				<a href="#" class="button button-primary"><?php _e( 'Add new row', 'papi' ); ?></a>
+				<a href="#" class="button button-primary add-row"><?php _e( 'Add new row', 'papi' ); ?></a>
 			</div>
 
 			<?php /* Default repeater value */ ?>

@@ -162,7 +162,9 @@ class Papi_Admin_Ajax {
 		if ( empty( $items ) ) {
 			$this->render_error( 'No properties found' );
 		} else {
-			$this->render( $items );
+			$this->render( array(
+				'html' => $items
+			) );
 		}
 	}
 

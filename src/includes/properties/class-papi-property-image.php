@@ -171,6 +171,6 @@ class Papi_Property_Image extends Papi_Property {
 	 */
 
 	protected function setup_actions() {
-		add_action( 'admin_head', array( $this, 'render_repeater_row_template' ) );
+		add_action( 'admin_head', array( $this, 'render_image_template' ) );
 	}
 }
