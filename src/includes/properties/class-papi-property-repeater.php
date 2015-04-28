@@ -13,13 +13,22 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Repeater extends Papi_Property {
 
 	/**
-	 * List counter number.
+	 * Repeater counter number.
 	 *
 	 * @var int
 	 * @since 1.0.0
 	 */
 
-	private $counter = 0;
+	protected $counter = 0;
+
+	/**
+	 * Offset columns.
+	 *
+	 * @var int
+	 * @since 1.0.0
+	 */
+
+	protected $offset_columns = 0;
 
 	/**
 	 * The default value.
@@ -31,188 +40,11 @@ class Papi_Property_Repeater extends Papi_Property {
 	public $default_value = array();
 
 	/**
-	 * Generate property slug.
-	 *
-	 * @param object $property
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return string
-	 */
-
-	private function generate_slug( $property ) {
-		$options = $this->get_options();
-		return $options->slug . '[' . $this->counter . ']' . '[' . papi_remove_papi( $property->slug ) . ']';
-	}
-
-	/**
-	 * Get default settings.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array
-	 */
-
-	public function get_default_settings() {
-		return array(
-			'items' => array()
-		);
-	}
-
-	/**
-	 * Prepare properties, get properties options object,
-	 * check which properties that are allowed to use.
-	 *
-	 * @param $items
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array
-	 */
-
-	private function prepare_properties( $items ) {
-		$not_allowed = array( 'repeater' );
-		$not_allowed = array_merge( $not_allowed, apply_filters( 'papi/property/repeater/exclude', array() ) );
-
-		$items = array_map( function ( $item ) {
-
-			if ( is_array( $item ) ) {
-				return (object) papi_get_property_options( $item, false );
-			}
-
-			if ( is_object( $item ) ) {
-				return $item;
-			}
-
-			return null;
-
-		}, $items );
-
-		return array_filter( $items, function ( $item ) use ( $not_allowed ) {
-
-			if ( ! is_object( $item ) ) {
-				return false;
-			}
-
-			$type = papi_get_property_short_type( $item->type );
-
-			if ( empty( $type ) ) {
-				return false;
-			}
-
-			return ! in_array( $type, $not_allowed );
-		} );
-	}
-
-	/**
-	 * Generate the HTML for the property.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function html() {
-		$options         = $this->get_options();
-		$settings        = $this->get_settings();
-		$settings->items = $this->prepare_properties( papi_to_array( $settings->items ) );
-
-		// Reset list counter number.
-		$this->counter = 0;
-
-		// Render repeater html.
-		$this->render_repeater_html( $options, $settings );
-
-		// Render template html that is used for Papi ajax.
-		$this->render_template_html( $options->slug, $settings->items );
-	}
-
-	/**
-	 * Get number of columns.
-	 *
-	 * @param int $post_id
-	 * @param string $repeater_slug
-	 *
-	 * @since 1.1.0
-	 *
-	 * @return int
-	 */
-
-	private function get_columns( $post_id, $repeater_slug ) {
-		return intval( get_post_meta( $post_id, papi_f( papify( $repeater_slug ) . '_columns' ), true ) );
-	}
-
-	/**
-	 * Get results from the database.
-	 *
-	 * @param int $value
-	 * @param int $post_id
-	 * @param string $repeater_slug
-	 * @param integer $post_id
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array
-	 */
-
-	private function get_results( $value, $repeater_slug, $post_id ) {
-		global $wpdb;
-
-		$value    = intval( $value );
-		$values   = array();
-		$columns  = $this->get_columns( $post_id, $repeater_slug );
-		$table    = $wpdb->prefix . 'postmeta';
-		$query    = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%', $post_id );
-		$results  = $wpdb->get_results( $query );
-		$trash    = array();
-		$trashnum = 0;
-
-		if ( empty( $value ) || empty( $columns ) || empty( $results ) ) {
-			return array( array(), array() );
-		}
-
-		$values[$repeater_slug] = $value;
-
-		for ( $i = 0; $i < $value; $i++ ) {
-			$row = array_slice( $results, $i * $columns, $columns );
-			$trashnum += count( $row );
-			$length = count( $row );
-
-			for ( $j = 0; $j < $length; $j++ ) {
-				if ( ! isset( $row[$j] ) ) {
-					continue;
-				}
-
-				$reg  = '/' . preg_quote( $repeater_slug . '_' . $i . '_' ) . '/';
-				$meta = $row[$j];
-
-				if ( empty( $meta ) || ! isset( $meta->meta_value ) || ! preg_match( $reg, $meta->meta_key ) ) {
-					continue;
-				}
-
-				$property_type_key   = papi_get_property_type_key( $meta->meta_key );
-				$property_type_value = get_post_meta( $post_id, papi_f( $property_type_key ), true );
-
-				$meta->meta_value = maybe_unserialize( $meta->meta_value );
-
-				$values[$meta->meta_key] = maybe_unserialize( $meta->meta_value );
-				$values[$property_type_key] = $property_type_value;
-
-			}
-		}
-
-		if ( count( $results ) > $trashnum ) {
-			$trash = array_slice( $results, $trashnum );
-		}
-
-		return array( $values, $trash );
-	}
-
-	/**
 	 * Format the value of the property before we output it to the application.
 	 *
 	 * @param mixed $values
 	 * @param string $repeater_slug
 	 * @param int $post_id
-	 *
 	 * @since 1.0.0
 	 *
 	 * @return array
@@ -275,20 +107,170 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
+	 * Get default settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function get_default_settings() {
+		return array(
+			'items' => array()
+		);
+	}
+
+	/**
+	 * Get number of columns.
+	 *
+	 * @param int $post_id
+	 * @param string $repeater_slug
+	 * @param bool $convert
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return int
+	 */
+
+	protected function get_columns( $post_id, $repeater_slug, $convert = true ) {
+		$columns = get_post_meta( $post_id, papi_f( papify( $repeater_slug ) . '_columns' ), true );
+
+		if ( $convert ) {
+			return intval( $columns );
+		}
+
+		return $columns;
+	}
+
+	/**
+	 * Generate property slug.
+	 *
+	 * @param object|array $property
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
+
+	protected function get_property_slug( $property ) {
+		$options  = $this->get_options();
+		$property = (object) $property;
+		return $options->slug . '[' . $this->counter . ']' . '[' . papi_remove_papi( $property->slug ) . ']';
+	}
+
+	/**
+	 * Get results from the database.
+	 *
+	 * @param int $value
+	 * @param int $post_id
+	 * @param string $repeater_slug
+	 * @param integer $post_id
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	protected function get_results( $value, $repeater_slug, $post_id, $dynamic_columns = false ) {
+		global $wpdb;
+
+		$value    = intval( $value );
+		$values   = array();
+		$table    = $wpdb->prefix . 'postmeta';
+		$query    = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%', $post_id );
+		$results  = $wpdb->get_results( $query );
+		$trash    = array();
+		$trashnum = 0;
+
+		if ( $dynamic_columns ) {
+			$columns  = $this->get_dynamic_columns( $post_id, $repeater_slug, $results );
+		} else {
+			$columns  = $this->get_columns( $post_id, $repeater_slug );
+		}
+
+		if ( empty( $value ) || empty( $columns ) || empty( $results ) ) {
+			return array( array(), array() );
+		}
+
+		$values[$repeater_slug] = $value;
+
+		$last_cols = 0;
+
+		for ( $i = 0; $i < $value; $i++ ) {
+			if ( $dynamic_columns ) {
+				$cols = $columns[$i] + $columns[$i];
+			} else {
+				$cols = $columns;
+			}
+
+			$row = array_slice( $results, $last_cols, $cols );
+
+			$last_cols += $cols;
+
+			$trashnum += count( $row );
+			$length = count( $row );
+
+			for ( $j = 0; $j < $length; $j++ ) {
+				if ( ! isset( $row[$j] ) ) {
+					continue;
+				}
+
+				$reg  = '/' . preg_quote( $repeater_slug . '_' . $i . '_' ) . '/';
+				$meta = $row[$j];
+
+				if ( empty( $meta ) || ! isset( $meta->meta_value ) || ! preg_match( $reg, $meta->meta_key ) ) {
+					continue;
+				}
+
+				$property_type_key   = papi_get_property_type_key( $meta->meta_key );
+				$property_type_value = get_post_meta( $post_id, papi_f( $property_type_key ), true );
+
+				$meta->meta_value = maybe_unserialize( $meta->meta_value );
+
+				$values[$meta->meta_key] = maybe_unserialize( $meta->meta_value );
+				$values[$property_type_key] = $property_type_value;
+
+			}
+		}
+
+		if ( count( $results ) > $trashnum ) {
+			$trash = array_slice( $results, $trashnum );
+		}
+
+		return array( $values, $trash );
+	}
+
+	/**
+	 * Generate the HTML for the property.
+	 *
+	 * @since 1.0.0
+	 */
+
+	public function html() {
+		$options         = $this->get_options();
+		$settings        = $this->get_settings();
+		$settings->items = $this->prepare_properties( papi_to_array( $settings->items ) );
+
+		// Reset list counter number.
+		$this->counter = 0;
+
+		// Render repeater html.
+		$this->render_repeater( $options, $settings );
+
+		// Render JSON template that is used for Papi ajax.
+		$this->render_json_template( $options->slug, $settings->items );
+	}
+
+	/**
 	 * Load value from the database.
 	 *
 	 * @param mixed $value
 	 * @param string $repeater_slug
 	 * @param int $post_id
+	 * @since 1.1.0
 	 */
 
 	public function load_value( $value, $repeater_slug, $post_id ) {
 		if ( is_array( $value ) ) {
 			return $value;
-		}
-
-		if ( intval( $value ) === 0 ) {
-			return array();
 		}
 
 		list( $results, $trash ) = $this->get_results( $value, $repeater_slug, $post_id );
@@ -300,117 +282,162 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
-	 * Render repeater template html.
+	 * Prepare properties, get properties options object,
+	 * check which properties that are allowed to use.
+	 *
+	 * @param $items
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	protected function prepare_properties( $items ) {
+		$not_allowed = array( 'repeater' );
+		$not_allowed = array_merge( $not_allowed, apply_filters( 'papi/property/repeater/exclude', array() ) );
+
+		$items = array_map( function ( $item ) {
+
+			if ( is_array( $item ) ) {
+				return (object) papi_get_property_options( $item, false );
+			}
+
+			if ( is_object( $item ) ) {
+				return $item;
+			}
+
+			return null;
+
+		}, $items );
+
+		return array_filter( $items, function ( $item ) use ( $not_allowed ) {
+
+			if ( ! is_object( $item ) ) {
+				return false;
+			}
+
+			$type = papi_get_property_short_type( $item->type );
+
+			if ( empty( $type ) ) {
+				return false;
+			}
+
+			return ! in_array( $type, $not_allowed );
+		} );
+	}
+
+	/**
+	 * Remove all repeater rows from the database.
+	 *
+	 * @param int $post_id
+	 * @param string $repeater_slug
+	 * @since 1.1.0
+	 */
+
+	protected function remove_repeater_rows( $post_id, $repeater_slug ) {
+		global $wpdb;
+
+		$table = $wpdb->prefix . 'postmeta';
+		$meta_key = $repeater_slug . '_%';
+
+		// Create sql query and get the results.
+		$sql = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
+		$query = $wpdb->prepare( $sql, $post_id, $meta_key, papi_f( $meta_key ), papi_get_property_type_key_f( $repeater_slug ) );
+		$results = $wpdb->get_results( $query );
+
+		foreach ( $results as $res ) {
+			delete_post_meta( $post_id, $res->meta_key );
+		}
+	}
+
+	/**
+	 * Render extra property html.
 	 *
 	 * @param string $slug
-	 * @param array $items
-	 *
+	 * @param array $value
 	 * @since 1.3.0
 	 */
 
-	private function render_template_html( $slug, $items ) {
+	protected function render_extra_property_html( $value_slug, $value ) {
+	}
+
+	/**
+	 * Render property JSON template.
+	 *
+	 * @param string $slug
+	 * @param array $items
+	 * @since 1.3.0
+	 */
+
+	protected function render_json_template( $slug, $items ) {
+		$properties = array();
+
+		foreach ( $items as $key => $value ) {
+			$properties[$key] = $value;
+			$properties[$key]->raw   = true;
+			$properties[$key]->slug  = $this->get_property_slug( $value );
+			$properties[$key]->value = '';
+		}
+
 		?>
 		<script type="application/json" id="<?php echo $slug; ?>_properties_json">
-			<?php
-				$template_properties = array();
-
-				foreach ( $items as $key => $value ) {
-					$template_properties[$key] = $value;
-					$template_properties[$key]->raw   = true;
-					$template_properties[$key]->slug  = $this->generate_slug( $value );
-					$template_properties[$key]->value = '';
-				}
-
-				echo json_encode( $template_properties );
-			?>
+			<?php echo json_encode( $properties ); ?>
 		</script>
 		<?php
 	}
 
 	/**
+	 * Render properties.
+	 *
+	 * @param array $items
+	 * @param array $values
+	 * @since 1.3.0
+	 *
+	 * @return bool
+	 */
+
+	protected function render_properties( $items, $value ) {
+		foreach ( $items as $property ) {
+			$render_property = clone $property;
+			$value_slug      = papi_remove_papi( $render_property->slug );
+
+			if ( ! array_key_exists( $value_slug, $value ) ) {
+				continue;
+			}
+
+			$render_property->value = $value[$value_slug];
+			$render_property->slug = $this->get_property_slug( $render_property );
+			$render_property->raw  = true;
+
+			echo '<td>';
+			$this->render_extra_property_html( $value_slug, $value );
+			papi_render_property( $render_property );
+			echo '</td>';
+		}
+	}
+
+	/**
 	 * Render repeater html.
 	 *
+	 * @param object $options
+	 * @param object $settings
 	 * @since 1.3.0
 	 */
 
-	private function render_repeater_html( $options, $settings ) {
-		$values          = $this->get_value();
+	protected function render_repeater( $options, $settings ) {
 		?>
 		<div class="papi-property-repeater" data-json-id="#<?php echo $options->slug; ?>_properties_json">
 			<table class="papi-table">
 				<thead>
-				<tr>
-					<th></th>
-					<?php
-					foreach ( $settings->items as $property ) {
-						echo '<th>' . $property->title . '</th>';
-					}
-					?>
-					<th class="last"></th>
-				</tr>
+					<tr>
+						<th></th>
+						<?php foreach ( $settings->items as $property ): ?>
+							<th><?php echo $property->title; ?></th>
+						<?php endforeach; ?>
+						<th class="last"></th>
+					</tr>
 				</thead>
 				<tbody>
-					<?php
-					$properties = array_map( function( $item ) {
-						$slug = papi_remove_papi( $item->slug );
-						$property_type_key = papi_get_property_type_key( $item->slug );
-
-						$property = array();
-						$property[$slug] = '';
-						$property[$property_type_key] = $item->type;
-
-						return $property;
-					}, $settings->items );
-
-					$slugs = array_map( function ( $item ) {
-						return papi_remove_papi( $item->slug );
-					}, $settings->items );
-
-					foreach ( $values as $index => $value ) {
-						$keys = array_keys( $value );
-						foreach ( $slugs as $slug ) {
-							if ( in_array( $slug, $keys ) ) {
-								continue;
-							}
-							$values[$index][$slug] = '';
-						}
-					}
-
-					foreach ( $values as $value ): ?>
-
-					<tr>
-						<td class="handle">
-							<span><?php echo $this->counter + 1; ?></span>
-						</td>
-					<?php
-
-					foreach ( $settings->items as $property ):
-						$render_property = clone $property;
-						$value_slug      = papi_remove_papi( $render_property->slug );
-
-						if ( ! array_key_exists( $value_slug, $value ) ) {
-							continue;
-						}
-
-						$render_property->value = $value[$value_slug];
-						$render_property->slug = $this->generate_slug( $render_property );
-						$render_property->raw  = true;
-						?>
-							<td>
-								<?php papi_render_property( $render_property ); ?>
-							</td>
-				<?php
-					endforeach;
-					$this->counter ++;
-					?>
-
-					<td class="last">
-						<span>
-							<a title="<?php _e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
-						</span>
-					</td>
-				</tr>
-				<?php endforeach; ?>
+					<?php $this->render_repeater_row( $settings->items ); ?>
 				</tbody>
 			</table>
 
@@ -425,10 +452,72 @@ class Papi_Property_Repeater extends Papi_Property {
 			<?php /* One underscore is saved, two underscores isn't saved */ ?>
 
 			<input type="hidden" name="_<?php echo $options->slug; ?>_columns" value="<?php echo count( $settings->items ); ?>" />
+			<?php $values = $this->get_value(); ?>
 			<input type="hidden" name="__<?php echo $options->slug; ?>_rows" value="<?php echo count( $values ); ?>" class="papi-property-repeater-rows" />
+
+			<?php
+				// this should be rewritten.
+				$properties = array_map( function( $item ) {
+					$slug = papi_remove_papi( $item->slug );
+					$property_type_key = papi_get_property_type_key( $item->slug );
+					$property = array();
+					$property[$slug] = '';
+					$property[$property_type_key] = $item->type;
+					return $property;
+				}, $settings->items );
+			?>
+
 			<input type="hidden" name="__<?php echo $options->slug; ?>_properties" value="<?php echo htmlentities( json_encode( $properties ) ); ?>" />
 		</div>
 		<?php
+	}
+
+	/**
+	 * Render repeater row.
+	 *
+	 * @param array $items
+	 * @since 1.3.0
+	 */
+
+	protected function render_repeater_row( $items ) {
+		$values = $this->get_value();
+
+		// Get all property slugs.
+		$slugs = array_map( function ( $item ) {
+			return papi_remove_papi( $item->slug );
+		}, $items );
+
+		// Match slugs against database values.
+		foreach ( $values as $index => $value ) {
+			$keys = array_keys( $value );
+
+			foreach ( $slugs as $slug ) {
+				if ( in_array( $slug, $keys ) ) {
+					continue;
+				}
+
+				$values[$index][$slug] = '';
+			}
+		}
+
+		foreach ( $values as $value ):
+			?>
+			<tr>
+				<td class="handle">
+					<span><?php echo $this->counter + 1; ?></span>
+				</td>
+				<?php
+					$this->render_properties( $items, $value );
+					$this->counter ++;
+				?>
+				<td class="last">
+					<span>
+						<a title="<?php _e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
+					</span>
+				</td>
+			</tr>
+			<?php
+		endforeach;
 	}
 
 	/**
@@ -437,6 +526,8 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param mixed $values
 	 * @param string $repeater_slug
 	 * @param int $post_id
+	 *
+	 * @since 1.1.0
 	 */
 
 	public function update_value( $values, $repeater_slug, $post_id ) {
@@ -513,30 +604,5 @@ class Papi_Property_Repeater extends Papi_Property {
 		$this->remove_repeater_rows( $post_id, $repeater_slug );
 
 		return $values;
-	}
-
-	/**
-	 * Remove all repeater rows from the database.
-	 *
-	 * @param int $post_id
-	 * @param string $repeater_slug
-	 *
-	 * @since 1.1.0
-	 */
-
-	public function remove_repeater_rows( $post_id, $repeater_slug ) {
-		global $wpdb;
-
-		$table = $wpdb->prefix . 'postmeta';
-		$meta_key = $repeater_slug . '_%';
-
-		// Create sql query and get the results.
-		$sql = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
-		$query = $wpdb->prepare( $sql, $post_id, $meta_key, papi_f( $meta_key ), papi_get_property_type_key_f( $repeater_slug ) );
-		$results = $wpdb->get_results( $query );
-
-		foreach ( $results as $res ) {
-			delete_post_meta( $post_id, $res->meta_key );
-		}
 	}
 }

@@ -28,7 +28,7 @@ class Papi_Property {
 	 * @since 1.0.0
 	 */
 
-	private $post_id;
+	protected $post_id;
 
 	/**
 	 * Current property options object that is used to generate a property.
@@ -47,6 +47,8 @@ class Papi_Property {
 
 	public function __construct() {
 		$this->post_id = papi_get_post_id();
+		$this->setup_actions();
+		$this->setup_filters();
 	}
 
 	/**
@@ -330,7 +332,7 @@ class Papi_Property {
 			$value = $this->default_value;
 		}
 
-		return $this->load_value( $value, $this->options->slug, $this->post_id );
+		return $value;
 	}
 
 	/**
@@ -347,5 +349,23 @@ class Papi_Property {
 		}
 
 		return (object) wp_parse_args( $this->options->settings, $this->get_default_settings() );
+	}
+
+	/**
+	 * Setup actions.
+	 *
+	 * @since 1.3.0
+	 */
+
+	protected function setup_actions() {
+	}
+
+	/**
+	 * Setup filters.
+	 *
+	 * @since 1.3.0
+	 */
+
+	protected function setup_filters() {
 	}
 }

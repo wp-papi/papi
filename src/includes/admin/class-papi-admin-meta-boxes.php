@@ -68,8 +68,8 @@ class Papi_Admin_Meta_Boxes {
 	 */
 
 	private function get_post_data( $pattern = '/^papi\_.*/' ) {
-		$data    = array();
-		$keys    = preg_grep( $pattern, array_keys( $_POST ) );
+		$data = array();
+		$keys = preg_grep( $pattern, array_keys( $_POST ) );
 
 		foreach ( $keys as $key ) {
 			if ( ! isset( $_POST[ $key ] ) ) {
