@@ -512,6 +512,40 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
+	 * Render repeater row template.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function render_repeater_row_template() {
+		?>
+		<script type="text/template" id="tmpl-papi-property-repeater-row">
+			<tr>
+				<td class="handle">
+					<span><%= counter + 1 %></span>
+				</td>
+				<%= columns %>
+				<td class="last">
+					<span>
+						<a title="<?php _e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
+					</span>
+				</td>
+			</tr>
+		</script>
+		<?php
+	}
+
+	/**
+	 * Setup actions.
+	 *
+	 * @since 1.3.0
+	 */
+
+	protected function setup_actions() {
+		add_action( 'admin_head', array( $this, 'render_repeater_row_template' ) );
+	}
+
+	/**
 	 * Update value before it's saved to the database.
 	 *
 	 * @param mixed $values

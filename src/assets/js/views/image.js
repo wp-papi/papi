@@ -4,7 +4,7 @@
   papi.views.Image = wp.Backbone.View.extend({
 
     // The template to compile
-    template: wp.template('papi-image'),
+    template: wp.template('papi-property-image'),
 
     // Render image template with the given data object.
     render: function (data) {

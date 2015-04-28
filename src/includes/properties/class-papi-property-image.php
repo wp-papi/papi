@@ -22,6 +22,48 @@ class Papi_Property_Image extends Papi_Property {
 	public $default_value = null;
 
 	/**
+	 * Format the value of the property before we output it to the application.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return mixed
+	 */
+
+	public function format_value( $value, $slug, $post_id ) {
+		if ( is_numeric( $value ) ) {
+			$meta = wp_get_attachment_metadata( $value );
+			if ( isset( $meta ) && ! empty( $meta ) ) {
+				$att = get_post( $value );
+				$mine = array(
+					'alt'         => trim( strip_tags( get_post_meta( $value, '_wp_attachment_image_alt', true ) ) ),
+					'caption'     => trim( strip_tags( $att->post_excerpt ) ),
+					'description' => trim( strip_tags( $att->post_content ) ),
+					'id'          => intval( $value ),
+					'is_image'    => wp_attachment_is_image( $value ),
+					'title'       => $att->post_title,
+					'url'         => wp_get_attachment_url( $value ),
+				);
+
+				return (object) array_merge( $meta, $mine );
+			} else {
+				return $value;
+			}
+		} else if ( is_array( $value ) ) {
+			foreach ( $value as $k => $v ) {
+				$value[ $k ] = $this->format_value( $v, $slug, $post_id );
+			}
+
+			return $value;
+		} else {
+			return $value;
+		}
+	}
+
+	/**
 	 * Get default settings.
 	 *
 	 * @since 1.0.0
@@ -60,18 +102,6 @@ class Papi_Property_Image extends Papi_Property {
 		}
 
 		?>
-
-		<script type="text/template" id="tmpl-papi-image">
-			<a class="check" href="#" data-papi-options='{"id":"<%= id %>"}'>X</a>
-			<div class="attachment-preview">
-				<div class="thumbnail">
-					<div class="centered">
-						<img src="<%= image %>"/>
-						<input type="hidden" value="<%= id %>" name="<%= slug %>"/>
-					</div>
-				</div>
-			</div>
-		</script>
 
 		<div class="papi-property-image <?php echo $css_classes; ?>">
 			<p class="papi-image-select <?php echo $show_button ? '' : 'hidden'; ?>">
@@ -112,44 +142,35 @@ class Papi_Property_Image extends Papi_Property {
 	}
 
 	/**
-	 * Format the value of the property before we output it to the application.
+	 * Render image template.
+	 * that will be used in image backbone view.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return mixed
+	 * @since 1.3.0
 	 */
 
-	public function format_value( $value, $slug, $post_id ) {
-		if ( is_numeric( $value ) ) {
-			$meta = wp_get_attachment_metadata( $value );
-			if ( isset( $meta ) && ! empty( $meta ) ) {
-				$att = get_post( $value );
-				$mine = array(
-					'alt'         => trim( strip_tags( get_post_meta( $value, '_wp_attachment_image_alt', true ) ) ),
-					'caption'     => trim( strip_tags( $att->post_excerpt ) ),
-					'description' => trim( strip_tags( $att->post_content ) ),
-					'id'          => intval( $value ),
-					'is_image'    => wp_attachment_is_image( $value ),
-					'title'       => $att->post_title,
-					'url'         => wp_get_attachment_url( $value ),
-				);
+	public function render_image_template() {
+		?>
+		<script type="text/template" id="tmpl-papi-property-image">
+			<a class="check" href="#" data-papi-options='{"id":"<%= id %>"}'>X</a>
+			<div class="attachment-preview">
+				<div class="thumbnail">
+					<div class="centered">
+						<img src="<%= image %>"/>
+						<input type="hidden" value="<%= id %>" name="<%= slug %>"/>
+					</div>
+				</div>
+			</div>
+		</script>
+		<?php
+	}
 
-				return (object) array_merge( $meta, $mine );
-			} else {
-				return $value;
-			}
-		} else if ( is_array( $value ) ) {
-			foreach ( $value as $k => $v ) {
-				$value[ $k ] = $this->format_value( $v, $slug, $post_id );
-			}
+	/**
+	 * Setup actions.
+	 *
+	 * @since 1.3.0
+	 */
 
-			return $value;
-		} else {
-			return $value;
-		}
+	protected function setup_actions() {
+		add_action( 'admin_head', array( $this, 'render_repeater_row_template' ) );
 	}
 }
