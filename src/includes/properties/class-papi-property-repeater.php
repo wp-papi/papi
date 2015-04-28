@@ -180,7 +180,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$trash    = array();
 		$trashnum = 0;
 
-		if ( $dynamic_columns ) {
+		if ( $dynamic_columns && method_exists( $this, 'get_dynamic_columns' ) ) {
 			$columns  = $this->get_dynamic_columns( $post_id, $repeater_slug, $results );
 		} else {
 			$columns  = $this->get_columns( $post_id, $repeater_slug );
@@ -352,7 +352,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Render extra property html.
 	 *
-	 * @param string $slug
+	 * @param string $value_slug
 	 * @param array $value
 	 * @since 1.3.0
 	 */
@@ -389,7 +389,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Render properties.
 	 *
 	 * @param array $items
-	 * @param array $values
+	 * @param array $value
 	 * @since 1.3.0
 	 *
 	 * @return bool
