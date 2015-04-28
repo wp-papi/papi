@@ -22,15 +22,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected $counter = 0;
 
 	/**
-	 * Offset columns.
-	 *
-	 * @var int
-	 * @since 1.0.0
-	 */
-
-	protected $offset_columns = 0;
-
-	/**
 	 * The default value.
 	 *
 	 * @var array
