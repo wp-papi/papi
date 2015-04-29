@@ -79,7 +79,7 @@ class Image {
       });
 
       if (!multiple) {
-        $select.hide();
+        $select.addClass('papi-hide');
       }
     }).open();
   }
@@ -109,7 +109,7 @@ class Image {
 
     $this.closest('.papi-property-image')
       .find('.papi-image-select')
-      .show();
+      .removeClass('papi-hide');
 
     $this.closest('.attachment')
       .remove();

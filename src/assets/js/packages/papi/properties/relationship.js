@@ -76,7 +76,11 @@ class Relationship {
 
     $list.find('li').each(() => {
       let $li = $(this);
-      $li[$li.text().toLowerCase().indexOf(val) === -1 ? 'hide' : 'show']();
+      if ($li.text().toLowerCase().indexOf(val) === -1) {
+        $li.addClass('papi-hide');
+      } else {
+        $li.removeClass('papi-hide');
+      }
     });
   }
 
