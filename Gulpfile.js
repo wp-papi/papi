@@ -19,6 +19,9 @@ var concat       = require('gulp-concat');
 var header       = require('gulp-header');
 var autoprefixer = require('gulp-autoprefixer');
 var eslint       = require('gulp-eslint');
+var browserify   = require('browserify');
+var babelify     = require('babelify');
+var source       = require('vinyl-source-stream');
 var pkg          = require('./package.json');
 
 /*-------------------------------------------------------------------
@@ -38,20 +41,15 @@ var config = {
     }
   },
   scripts: {
+    main: src + 'js/main.js',
+    babel: src + 'js/packages/',
     files: [
       src + 'js/components/*.js',
-      src + 'js/base.js',
-      src + 'js/modules/*.js',
-      src + 'js/views/*.js',
-      src + 'js/properties/*.js',
-      src + 'js/components.js',
-      src + 'js/binds.js',
-      src + 'js/init.js'
+      dist + 'js/*.js'
     ],
     dest: dist + 'js/'
   }
 };
-
 
 /*-------------------------------------------------------------------
 
@@ -95,18 +93,43 @@ gulp.task('sass', function() {
     .pipe(gulp.dest(config.sass.dest));
 });
 
-// Scripts
-gulp.task('scripts', function() {
+// ES6 with Babel
+gulp.task('es6to5', function(cb) {
+  return browserify({
+    entries: config.scripts.main,
+    debug: true
+  })
+  .transform(babelify.configure({
+    resolveModuleSource: function (f, p) {
+      var parts = f.split('/');
+      var file  = parts.pop();
+      var first = parts.shift();
+      var path  = parts.join('/');
+
+      path = (path.length ? path + '/' : '');
+
+      if (!first) {
+        first = file;
+      }
+
+      return require('path').join(__dirname, config.scripts.babel, first, path, file);
+    }
+  }))
+  .bundle()
+  .pipe(source('main.min.js'))
+  .pipe(gulp.dest('./dist/js'));
+});
+
+// ES5 Scripts
+gulp.task('scripts', ['es6to5'], function() {
   return gulp.src(config.scripts.files)
     .pipe(concat(
       'main.min.js'
     ))
-    .pipe(sourcemaps.init())
     .pipe(uglify())
     .pipe(header(banner, {
       package: pkg
     }))
-    .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.scripts.dest));
 });
 
