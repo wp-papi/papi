@@ -1,14 +1,37 @@
-import Ajax from 'papi/ajax';
+// Papi core
 import Core from 'papi/core';
 import Required from 'papi/required';
 import Tabs from 'papi/tabs';
 
+// Properties
+import Color from 'papi/properties/color';
+import Datetime from 'papi/properties/datetime';
+import Dropdown from 'papi/properties/dropdown';
+import Image from 'papi/properties/image';
+import Post from 'papi/properties/post';
+import Reference from 'papi/properties/post';
+import Relationship from 'papi/properties/relationship';
+import Repeater from 'papi/properties/repeater';
+import Url from 'papi/properties/url';
+
 /**
- * Initialize all necessary core classes.
+ * Initialize all imported classes.
  */
 
 export function init() {
+  // Papi core
   Core.init();
   Required.init();
   Tabs.init();
+
+  // Properties
+  Color.init();
+  Datetime.init();
+  Dropdown.init();
+  Image.init();
+  Post.init();
+  Reference.init();
+  Relationship.init();
+  Repeater.init();
+  Url.init();
 }
