@@ -31,6 +31,20 @@ class Papi_Property_String extends Papi_Property {
 	public $default_value = '';
 
 	/**
+	 * Get default settings.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @return array
+	 */
+
+	public function get_default_settings() {
+		return array(
+			'allow_html' => false
+		);
+	}
+
+	/**
 	 * Generate the HTML for the property.
 	 *
 	 * @since 1.0.0

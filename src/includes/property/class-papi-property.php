@@ -20,7 +20,6 @@ class Papi_Property {
 	 */
 
 	private $default_options = array(
-		'allow_html'   => false,
 		'array_slug'   => '',
 		'capabilities' => array(),
 		'default'      => '',
@@ -209,7 +208,7 @@ class Papi_Property {
 			$value = $this->default_value;
 		}
 
-		if ( ! $this->get_option( 'allow_html' ) ) {
+		if ( ! $this->get_setting( 'allow_html' ) ) {
 			$value = papi_santize_data( $value );
 		}
 
@@ -241,6 +240,22 @@ class Papi_Property {
 
 	public function get_options() {
 		return $this->options;
+	}
+
+	/**
+	 * Get setting value.
+	 *
+	 * @param string $key
+	 * @since 1.3.0
+	 *
+	 * @return mixed
+	 */
+
+	public function get_setting( $key ) {
+		$settings = $this->get_settings();
+		if ( isset( $settings->$key ) ) {
+			return $settings->$key;
+		}
 	}
 
 	/**
@@ -372,11 +387,8 @@ class Papi_Property {
 		?>
 		<label for="<?php echo $this->options->slug; ?>" title="<?php echo $this->options->title . ' ' . papi_require_text( $this->options ); ?>">
 			<?php
-
 			echo $this->options->title;
-
 			echo papi_required_html( $this->options );
-
 			?>
 		</label>
 	<?php
