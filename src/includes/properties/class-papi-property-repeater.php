@@ -98,20 +98,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
-	 * Get default settings.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array
-	 */
-
-	public function get_default_settings() {
-		return array(
-			'items' => array()
-		);
-	}
-
-	/**
 	 * Get number of columns.
 	 *
 	 * @param int $post_id
@@ -124,13 +110,27 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	protected function get_columns( $post_id, $repeater_slug, $convert = true ) {
-		$columns = get_post_meta( $post_id, papi_f( papify( $repeater_slug ) . '_columns' ), true );
+		$columns = count( $this->get_settings_properties() );
 
 		if ( $convert ) {
 			return intval( $columns );
 		}
 
 		return $columns;
+	}
+
+	/**
+	 * Get default settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+
+	public function get_default_settings() {
+		return array(
+			'items' => array()
+		);
 	}
 
 	/**
@@ -230,6 +230,19 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
+	 * Get settings properties.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @return array
+	 */
+
+	protected function get_settings_properties() {
+		$settings = $this->get_settings();
+		return $this->prepare_properties( papi_to_array( $settings->items ) );
+	}
+
+	/**
 	 * Generate the HTML for the property.
 	 *
 	 * @since 1.0.0
@@ -238,7 +251,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	public function html() {
 		$options         = $this->get_options();
 		$settings        = $this->get_settings();
-		$settings->items = $this->prepare_properties( papi_to_array( $settings->items ) );
 
 		// Reset list counter number.
 		$this->counter = 0;
@@ -247,7 +259,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$this->render_repeater( $options, $settings );
 
 		// Render JSON template that is used for Papi ajax.
-		$this->render_json_template( $options->slug, $settings->items );
+		$this->render_json_template( $options->slug );
 	}
 
 	/**
@@ -355,11 +367,11 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Render property JSON template.
 	 *
 	 * @param string $slug
-	 * @param array $items
 	 * @since 1.3.0
 	 */
 
-	protected function render_json_template( $slug, $items ) {
+	protected function render_json_template( $slug ) {
+		$items = $this->get_settings_properties();
 		$properties = array();
 
 		foreach ( $items as $key => $value ) {
@@ -418,17 +430,10 @@ class Papi_Property_Repeater extends Papi_Property {
 		?>
 		<div class="papi-property-repeater" data-json-id="#<?php echo $options->slug; ?>_properties_json">
 			<table class="papi-table">
-				<thead>
-					<tr>
-						<th></th>
-						<?php foreach ( $settings->items as $property ): ?>
-							<th><?php echo $property->title; ?></th>
-						<?php endforeach; ?>
-						<th class="last"></th>
-					</tr>
-				</thead>
+				<?php $this->render_repeater_head(); ?>
+
 				<tbody>
-					<?php $this->render_repeater_row( $settings->items ); ?>
+					<?php $this->render_repeater_row(); ?>
 				</tbody>
 			</table>
 
@@ -442,35 +447,41 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			<?php /* One underscore is saved, two underscores isn't saved */ ?>
 
-			<input type="hidden" name="_<?php echo $options->slug; ?>_columns" value="<?php echo count( $settings->items ); ?>" />
 			<?php $values = $this->get_value(); ?>
 			<input type="hidden" name="__<?php echo $options->slug; ?>_rows" value="<?php echo count( $values ); ?>" class="papi-property-repeater-rows" />
-
-			<?php
-				// this should be rewritten.
-				$properties = array_map( function( $item ) {
-					$slug = papi_remove_papi( $item->slug );
-					$property_type_key = papi_get_property_type_key( $item->slug );
-					$property = array();
-					$property[$slug] = '';
-					$property[$property_type_key] = $item->type;
-					return $property;
-				}, $settings->items );
-			?>
-
-			<input type="hidden" name="__<?php echo $options->slug; ?>_properties" value="<?php echo htmlentities( json_encode( $properties ) ); ?>" />
 		</div>
+		<?php
+	}
+
+	/**
+	 * Render repeater head.
+	 *
+	 * @since 1.3.0
+	 */
+
+	protected function render_repeater_head() {
+		$properties = $this->get_settings_properties();
+		?>
+		<thead>
+			<tr>
+				<th></th>
+				<?php foreach ( $properties as $property ): ?>
+					<th><?php echo $property->title; ?></th>
+				<?php endforeach; ?>
+				<th class="last"></th>
+			</tr>
+		</thead>
 		<?php
 	}
 
 	/**
 	 * Render repeater row.
 	 *
-	 * @param array $items
 	 * @since 1.3.0
 	 */
 
-	protected function render_repeater_row( $items ) {
+	protected function render_repeater_row() {
+		$items  = $this->get_settings_properties();
 		$values = $this->get_value();
 
 		// Get all property slugs.
@@ -556,17 +567,9 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function update_value( $values, $repeater_slug, $post_id ) {
-		$properties_key  = papi_ff( papify( $repeater_slug ) . '_properties' );
-		$properties      = array();
-
-		if ( isset( $_POST[$properties_key] ) ) {
-			$properties = $_POST[$properties_key];
-			$properties = papi_remove_trailing_quotes( $properties );
-			$properties = json_decode( $properties );
-		}
-
-		$rows_key = papi_ff( papify( $repeater_slug ) . '_rows' );
-		$rows     = 0;
+		$properties = $this->get_settings_properties();
+		$rows_key   = papi_ff( papify( $repeater_slug ) . '_rows' );
+		$rows       = 0;
 
 		if ( isset( $_POST[$rows_key] ) ) {
 			$rows     = $_POST[$rows_key];
@@ -585,36 +588,39 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		foreach ( $values as $index => $value ) {
 
-			if ( ! is_array( $value ) || ! is_array( $properties ) ) {
+			if ( ! is_array( $value ) ) {
 				continue;
 			}
 
 			$keys = array_keys( $value );
 
 			foreach ( $properties as $empty => $property ) {
+				$slug = $property->array_slug;
+				$slug = papi_remove_papi( $slug );
 
-				foreach ( $property as $slug => $type ) {
-					$slug = papi_remove_papi( $slug );
+				if ( in_array( $slug, $keys ) ) {
+					$property_type_slug = papi_get_property_type_key( $slug );
 
-					if ( in_array( $slug, $keys ) ) {
-						$property_type_slug = papi_get_property_type_key( $slug );
-
-						// Run `update_value` on each property before it's saved.
-						if ( isset( $values[$index][$property_type_slug] ) ) {
+					// Run `update_value` on each property before it's saved.
+					if ( isset( $values[$index][$property_type_slug] ) ) {
+						if ( is_object( $values[$index][$property_type_slug] ) ) {
+							$values[$index][$property_type_slug] = $values[$index][$property_type_slug]->type;
+						} else {
 							$values[$index][$property_type_slug] = papi_get_property_type_from_base64( $values[$index][$property_type_slug] );
-							$property_type = papi_get_property_type( $values[$index][$property_type_slug] );
-							$values[$index][$slug] = $property_type->update_value( $values[$index][$slug], $slug, $post_id );
-							$values[$index][$slug] = papi_filter_update_value( $values[$index][$property_type_slug], $values[$index][$slug], $slug, $post_id );
 						}
 
-						continue;
+						$property_type = papi_get_property_type( $values[$index][$property_type_slug] );
+						$values[$index][$slug] = $property_type->update_value( $values[$index][$slug], $slug, $post_id );
+						$values[$index][$slug] = papi_filter_update_value( $values[$index][$property_type_slug], $values[$index][$slug], $slug, $post_id );
 					}
 
-					if ( papi_is_property_type_key( $slug ) ) {
-						$values[$index][$slug] = $type;
-					} else {
-						$values[$index][$slug] = '';
-					}
+					continue;
+				}
+
+				if ( papi_is_property_type_key( $slug ) ) {
+					$values[$index][$slug] = $type;
+				} else {
+					$values[$index][$slug] = '';
 				}
 			}
 		}

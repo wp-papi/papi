@@ -21,6 +21,7 @@ class Papi_Property {
 
 	private $default_options = array(
 		'allow_html'   => false,
+		'array_slug'   => '',
 		'capabilities' => array(),
 		'default'      => '',
 		'description'  => '',
@@ -467,7 +468,7 @@ class Papi_Property {
 		}
 
 		// Generate a vaild Papi meta name for slug.
-		$options->slug = papi_html_name( $options->slug );
+		$options->array_slug = $options->slug = papi_html_name( $options->slug );
 
 		// Generate a valid Papi meta name for old slug.
 		if ( ! empty( $options->old_slug ) ) {

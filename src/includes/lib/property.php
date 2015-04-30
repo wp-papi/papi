@@ -267,7 +267,7 @@ function papi_get_property_type( $type ) {
  */
 
 function papi_get_property_type_from_base64( $str ) {
-	if (preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $str)) {
+	if ( is_string( $str ) && preg_match( '/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $str ) ) {
 		$str = base64_decode( $str );
 		$property = unserialize( $str );
 		if ( is_object( $property ) ) {
