@@ -236,14 +236,12 @@ class Papi_Admin_Meta_Boxes {
 		// Pre save page template, page type and some others dynamic values.
 		$this->pre_save( $post_id );
 
-//echo '<pre>';
 		// Get properties data.
 		$data = $this->get_post_data();
 
 		// Prepare property data.
 		$data = $this->prepare_properties_data( $data, $post_id );
-//var_dump( $data );
-//exit;
+
 		foreach ( $data as $key => $property ) {
 			papi_property_update_meta( array(
 				'post_id'       => $post_id,

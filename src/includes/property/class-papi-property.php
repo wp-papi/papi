@@ -47,15 +47,6 @@ class Papi_Property {
 	public $default_value = '';
 
 	/**
-	 * Fetch database value.
-	 *
-	 * @var bool
-	 * @since 1.3.0
-	 */
-
-	private $fetch_value = true;
-
-	/**
 	 * The page post id.
 	 *
 	 * @var int
@@ -67,7 +58,7 @@ class Papi_Property {
 	/**
 	 * Current property options object.
 	 *
-	 * @var array
+	 * @var object
 	 * @since 1.0.0
 	 */
 
@@ -88,7 +79,7 @@ class Papi_Property {
 	/**
 	 * Create a property from options.
 	 *
-	 * @param object $options
+	 * @param array $options
 	 * @since 1.0.0
 	 *
 	 * @return Papi_Property
@@ -202,8 +193,6 @@ class Papi_Property {
 			return;
 		}
 
-		$value = null;
-
 		if ( $fetch_value && papi_is_empty( $this->options->value ) ) {
 			$post_id = $this->get_post_id();
 			$value = papi_field( $post_id, $this->options->slug, null, true );
@@ -246,7 +235,7 @@ class Papi_Property {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @return string
+	 * @return object
 	 */
 
 	public function get_options() {
@@ -445,6 +434,7 @@ class Papi_Property {
 	/**
 	 * Setup options.
 	 *
+	 * @param array|object $options
 	 * @since 1.3.0
 	 */
 
@@ -501,7 +491,7 @@ class Papi_Property {
 	/**
 	 * Set the current property options object.
 	 *
-	 * @param object $options
+	 * @param array|object $options
 	 * @since 1.0.0
 	 */
 

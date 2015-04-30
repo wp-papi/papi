@@ -467,7 +467,7 @@ function papi_remove_trailing_quotes( $str ) {
 /**
  * Santize data.
  *
- * @param mixed $data
+ * @param mixed $obj
  * @since 1.3.0
  *
  * @return mixed
