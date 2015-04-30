@@ -204,35 +204,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test `allow_html` option.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function test_option_allow_html() {
-		$property = papi_property( array(
-			'allow_html' => true,
-			'type'       => 'string',
-			'title'      => 'Name',
-			'slug'       => 'name'
-		) );
-
-		$handler  = new Papi_Admin_Meta_Boxes();
-		$expected = '<p>Hello, world</p>';
-
-		// Create post data.
-		$_POST = papi_test_create_property_post_data( array(
-			'slug'  => $property->slug,
-			'type'  => $property,
-			'value' => $expected
-		), $_POST );
-
-		$handler->save_property( $this->post_id );
-		$actual = papi_field( $this->post_id, $property->slug );
-		$this->assertEquals( $expected, $actual );
-	}
-
-	/**
 	 * Test `render_label_html` method.
 	 *
 	 * @since 1.3.0
