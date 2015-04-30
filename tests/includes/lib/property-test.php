@@ -39,7 +39,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_from_property_array_slugs.
+	 * Test `papi_from_property_array_slugs` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -64,7 +64,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_box_property.
+	 * Test `papi_get_box_property` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -80,7 +80,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_options_and_properties.
+	 * Test `papi_get_options_and_properties` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -153,7 +153,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_property_default_options.
+	 * Test `papi_get_property_default_options` function.
 	 *
 	 * @since 1.3.0
 	 */
@@ -166,7 +166,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_property_default_settings.
+	 * Test `papi_get_property_default_settings` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -186,7 +186,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_property_options.
+	 * Test `papi_get_property_options` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -216,7 +216,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_property_class_name.
+	 * Test `papi_get_property_class_name` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -234,7 +234,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_property_short_type.
+	 * Test `papi_get_property_short_type` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -252,7 +252,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_property_type.
+	 * Test `papi_get_property_type` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -273,7 +273,20 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_property_type.
+	 * Test `papi_get_property_type_from_base64` function.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_papi_get_property_type_from_base64() {
+		$this->assertNull( papi_get_property_type_from_base64( 'hello, world' ) );
+		$base64_str = 'Tzo4OiJzdGRDbGFzcyI6MTU6e3M6MTA6ImFsbG93X2h0bWwiO2I6MDtzOjEyOiJjYXBhYmlsaXRpZXMiO2E6MDp7fXM6NzoiZGVmYXVsdCI7czowOiIiO3M6MTE6ImRlc2NyaXB0aW9uIjtzOjA6IiI7czo4OiJkaXNhYmxlZCI7YjowO3M6NDoibGFuZyI7YjowO3M6MzoicmF3IjtiOjE7czo4OiJzZXR0aW5ncyI7Tzo4OiJzdGRDbGFzcyI6MTp7czoxMzoibWVkaWF1cGxvYWRlciI7YjowO31zOjc6InNpZGViYXIiO2I6MTtzOjQ6InNsdWciO3M6NDg6InBhcGlfY29sbGFib3JhdG9yc19yZXBlYXRlclswXVtjb2xsYWJvcmF0b3JfdXJsXSI7czoxMDoic29ydF9vcmRlciI7aToxMDAwO3M6ODoicmVxdWlyZWQiO2I6MDtzOjU6InRpdGxlIjtzOjQ6IkxpbmsiO3M6NDoidHlwZSI7czozOiJ1cmwiO3M6NToidmFsdWUiO3M6MDoiIjt9';
+		$actaul = papi_get_property_type_from_base64( $base64_str );
+		$this->assertEquals( 'url', $actaul );
+	}
+
+	/**
+	 * Test `papi_get_property_type` function.
 	 * Will load a custom property and test if it exists.
 	 *
 	 * @since 1.0.0
@@ -290,7 +303,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_property_type_key.
+	 * Test `papi_get_property_type_key` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -307,7 +320,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_get_property_type_key_f.
+	 * Test `papi_get_property_type_key_f` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -323,7 +336,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_is_property_type_key.
+	 * Test `papi_is_property_type_key` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -338,7 +351,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_render_property.
+	 * Test `papi_render_property` function.
 	 *
 	 * @since 1.3.0
 	 */
@@ -371,7 +384,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_render_properties.
+	 * Test `papi_render_properties` function.
 	 *
 	 * @since 1.3.0
 	 */
@@ -392,7 +405,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_require_text.
+	 * Test `papi_require_text` function.
 	 *
 	 * @since 1.3.0
 	 */
@@ -408,7 +421,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_required_html.
+	 * Test `papi_required_html` function.
 	 *
 	 * @since 1.3.0
 	 */
@@ -424,7 +437,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_populate_properties.
+	 * Test `papi_populate_properties` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -491,7 +504,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_property.
+	 * Test `papi_property` function.
 	 *
 	 * @since 1.0.0
 	 */
@@ -519,7 +532,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_property template.
+	 * Test papi property template.
 	 *
 	 * @since 1.0.0
 	 */
@@ -532,7 +545,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_property_update_meta.
+	 * Test `papi_property_update_meta` function.
 	 *
 	 * @since 1.3.0
 	 */
@@ -586,7 +599,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test papi_to_property_array_slugs.
+	 * Test `papi_to_property_array_slugs` function.
 	 *
 	 * @since 1.0.0
 	 */

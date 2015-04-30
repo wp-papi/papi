@@ -21,7 +21,7 @@ class Post {
    */
 
   binds() {
-    $(document).on('papi/property/repeater/added', '[value="post"]', this.update);
+    $(document).on('papi/property/repeater/added', '[data-property="post"]', this.update);
   }
 
   /**

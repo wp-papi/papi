@@ -58,7 +58,7 @@ class Papi_Property_Radio_Test extends WP_UnitTestCase {
 	public function test_output() {
 		papi_render_property( $this->property );
 		$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $this->property->slug ) . '\"' );
-		$this->expectOutputRegex( '/value=\"radio\"/' );
+		$this->expectOutputRegex( '/data\-property=\"radio\"/' );
 	}
 
 	/**

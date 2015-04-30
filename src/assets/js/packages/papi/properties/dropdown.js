@@ -21,7 +21,7 @@ class Dropdown {
    */
 
   binds() {
-    $(document).on('papi/property/repeater/added', '[value="dropdown"]', this.update);
+    $(document).on('papi/property/repeater/added', '[data-property="dropdown"]', this.update);
   }
 
   /**

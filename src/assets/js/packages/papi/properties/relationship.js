@@ -46,7 +46,7 @@ class Relationship {
     $(document).on('click', '.papi-property-relationship .relationship-left li', this.add);
     $(document).on('click', '.papi-property-relationship .relationship-right li', this.remove);
     $(document).on('keyup', '.papi-property-relationship input[type=search]', this.search);
-    $(document).on('papi/property/repeater/added', '[value="relationship"]', this.update);
+    $(document).on('papi/property/repeater/added', '[data-property="relationship"]', this.update);
   }
 
   /**

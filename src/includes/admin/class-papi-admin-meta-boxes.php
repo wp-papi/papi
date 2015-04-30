@@ -34,30 +34,6 @@ class Papi_Admin_Meta_Boxes {
 	}
 
 	/**
-	 * Sanitize data before saving it.
-	 *
-	 * @param mixed $value
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return mixed
-	 */
-
-	private function santize_data( $value ) {
-		if ( is_array( $value ) ) {
-			foreach ( $value as $k => $v ) {
-				if ( is_string( $v ) ) {
-					$value[ $k ] = $this->santize_data( $v );
-				}
-			}
-		} else if ( is_string( $value ) ) {
-			$value = papi_remove_trailing_quotes( $value );
-		}
-
-		return $value;
-	}
-
-	/**
 	 * Get post data.
 	 *
 	 * @param string $pattern
@@ -80,7 +56,14 @@ class Papi_Admin_Meta_Boxes {
 			if ( $_POST[ $key ] === 'on' ) {
 				$data[ $key ] = true;
 			} else {
-				$data[ $key ] = $this->santize_data( $_POST[ $key ] );
+				$value = $_POST[ $key ];
+
+				if ( papi_is_property_type_key( $key )  ) {
+					$value = base64_decode( $value );
+					$value = unserialize( $value );
+				}
+
+				$data[ $key ] = $value;
 			}
 		}
 
@@ -128,13 +111,13 @@ class Papi_Admin_Meta_Boxes {
 		}
 
 		// Run `before_save` on a property class if it exists.
-		foreach ( $data as $key => $value ) {
-			if ( ! is_array( $value ) || ! isset( $value['type'] ) ) {
+		foreach ( $data as $key => $item ) {
+			if ( ! is_array( $item ) || ! isset( $item['type'] ) ) {
 				continue;
 			}
 
 			// Get the property, will only make the instance once.
-			$property = papi_get_property_type( $value['type'] );
+			$property = papi_get_property_type( $item['type']->type );
 
 			// Can't handle null properties.
 			// Remove it from the data array and continue.
@@ -143,16 +126,21 @@ class Papi_Admin_Meta_Boxes {
 				continue;
 			}
 
+			$property->set_options( $item['type'] );
+			$property->set_option( 'value', $item['value'] );
+			$data[ $key ]['value']  = $property->get_value( false );
+			$data[ $key ]['type'] = $property->get_option( 'type' );
+
 			// Run `update_value` if it exists on the property class.
 			$data[ $key ]['value'] = $property->update_value( $data[ $key ]['value'], papi_remove_papi( $key ), $post_id );
 
 			// Apply a filter so this can be changed from the theme for specified property type.
-			$data[ $key ]['value'] = papi_filter_update_value( $value['type'], $data[ $key ]['value'], papi_remove_papi( $key ), $post_id );
+			$data[ $key ]['value'] = papi_filter_update_value( $item['type'], $data[ $key ]['value'], papi_remove_papi( $key ), $post_id );
 		}
 
 		// Check so all properties has a value and a type key and that the property is a array.
-		$data = array_filter( $data, function ( $property ) {
-			return is_array( $property ) && isset( $property['value'] ) && isset( $property['type'] );
+		$data = array_filter( $data, function ( $item ) {
+			return is_array( $item ) && isset( $item['value'] ) && isset( $item['type'] );
 		} );
 
 		return $data;
@@ -248,12 +236,14 @@ class Papi_Admin_Meta_Boxes {
 		// Pre save page template, page type and some others dynamic values.
 		$this->pre_save( $post_id );
 
+//echo '<pre>';
 		// Get properties data.
 		$data = $this->get_post_data();
 
 		// Prepare property data.
 		$data = $this->prepare_properties_data( $data, $post_id );
-
+//var_dump( $data );
+//exit;
 		foreach ( $data as $key => $property ) {
 			papi_property_update_meta( array(
 				'post_id'       => $post_id,

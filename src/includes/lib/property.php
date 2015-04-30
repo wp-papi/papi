@@ -143,30 +143,15 @@ function papi_get_options_and_properties( $file_or_options = array(), $propertie
 }
 
 /**
- * Get property default options.
+ * Get default options.
  *
- * @since 1.3.0
+ * @since 1.2.0
  *
  * @return array
  */
 
 function papi_get_property_default_options() {
-	return array(
-		'capabilities' => array(),
-		'default'      => '',
-		'description'  => '',
-		'disabled'     => false,
-		'lang'         => false,
-		'raw'          => false,
-		'settings'     => array(),
-		'sidebar'      => true,
-		'slug'         => '',
-		'sort_order'   => papi_filter_settings_sort_order(),
-		'required'     => false,
-		'title'        => '',
-		'type'         => '',
-		'value'        => ''
-	);
+	return Papi_Property::get_default_options();
 }
 
 /**
@@ -193,70 +178,25 @@ function papi_get_property_default_settings( $type ) {
  * Get property options.
  *
  * @param array $options
- * @param bool $get_value
+ * @param bool $fetch_value
  *
  * @since 1.0.0
  *
  * @return object
  */
 
-function papi_get_property_options( $options, $get_value = true ) {
+function papi_get_property_options( $options, $fetch_value = true ) {
 	if ( ! is_array( $options ) ) {
-		if ( ! is_object( $options ) ) {
-			return;
+		if ( is_object( $options ) ) {
+			return $options;
 		}
 
-		return $options;
+		return;
 	}
 
-	$defaults = papi_get_property_default_options();
-	$options  = array_merge( $defaults, $options );
-
-	$options  = (object) $options;
-
-	// Capabilities should always be array.
-	if ( ! is_array( $options->capabilities ) ) {
-		$options->capabilities = array( $options->capabilities );
-	}
-
-	// Generate random slug if we don't have a title or slug.
-	if ( empty( $options->title ) && empty( $options->slug ) ) {
-		if ( empty( $options->type ) ) {
-			$options->slug = papi_slugify( uniqid() );
-		} else {
-			$options->slug = papi_slugify( $options->type );
-		}
-	}
-
-	// Generate slug from title.
-	if ( empty( $options->slug ) ) {
-		$options->slug = papi_slugify( $options->title );
-	}
-
-	// Generate a vaild Papi meta name for slug.
-	$options->slug = papi_html_name( $options->slug );
-
-	// Generate a valid Papi meta name for old slug.
-	if ( ! empty( $options->old_slug ) ) {
-		$options->old_slug = papi_html_name( $options->old_slug );
-	}
-
-	// Get the default settings for the property and merge them with the given settings.
-	$options->settings = array_merge( papi_get_property_default_settings( $options->type ), (array) $options->settings );
-	$options->settings = (object) $options->settings;
-
-	$options = papi_esc_html( $options, array( 'html' ) );
-
-	if ( empty( $options->value ) && $get_value ) {
-		// Get meta value for the field
-		$post_id        = papi_get_post_id();
-		$options->value = papi_field( $post_id, $options->slug, null, true );
-	}
-
-	// Add default value if database value is empty.
-	if ( papi_is_empty( $options->value ) ) {
-		$options->value = $options->default;
-	}
+	$property = Papi_Property::create( $options );
+	$options = $property->get_options();
+	$options->value = $property->get_value( $fetch_value );
 
 	return $options;
 }
@@ -315,6 +255,25 @@ function papi_get_property_type( $type ) {
 	}
 
 	return Papi_Property::factory( $type );
+}
+
+/**
+ * Get property type key from base64 string.
+ *
+ * @param string $str
+ * @since 1.3.0
+ *
+ * @return string
+ */
+
+function papi_get_property_type_from_base64( $str ) {
+	if (preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $str)) {
+		$str = base64_decode( $str );
+		$property = unserialize( $str );
+		if ( is_object( $property ) ) {
+			return $property->type;
+		}
+	}
 }
 
 /**
@@ -429,9 +388,9 @@ function papi_render_property( $property ) {
 
 	// Render the property.
 	if ( $render && $property->disabled === false ) {
-		$property_type->assets();
-		$property_type->render();
-		$property_type->hidden();
+		$property_type->render_assets_html();
+		$property_type->render_row_html();
+		$property_type->render_hidden_html();
 	}
 }
 

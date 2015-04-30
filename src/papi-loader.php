@@ -91,7 +91,7 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Cloning is forbidden.
 	 *
-	 * @since 2.1
+	 * @since 1.0.0
 	 */
 
 	public function __clone() {
@@ -101,7 +101,7 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 *
-	 * @since 2.1
+	 * @since 1.0.0
 	 */
 
 	public function __wakeup() {
@@ -170,8 +170,8 @@ final class Papi_Loader extends Papi_Container {
 		require_once $this->plugin_dir . 'includes/lib/template.php';
 
 		// Load core classes.
-		require_once $this->plugin_dir . 'includes/class-papi-page.php';
-		require_once $this->plugin_dir . 'includes/class-papi-property.php';
+		require_once $this->plugin_dir . 'includes/page/class-papi-page.php';
+		require_once $this->plugin_dir . 'includes/property/class-papi-property.php';
 		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type-base.php';
 		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type-meta.php';
 		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type.php';

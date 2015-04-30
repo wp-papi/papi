@@ -465,6 +465,29 @@ function papi_remove_trailing_quotes( $str ) {
 }
 
 /**
+ * Santize data.
+ *
+ * @param mixed $data
+ * @since 1.3.0
+ *
+ * @return mixed
+ */
+
+function papi_santize_data( $obj ) {
+	if ( is_array( $obj ) ) {
+		foreach ( $obj as $k => $v ) {
+			if ( is_string( $v ) ) {
+				$obj[ $k ] = papi_santize_data( $v );
+			}
+		}
+	} else if ( is_string( $obj ) ) {
+		$obj = papi_remove_trailing_quotes( $obj );
+	}
+
+	return $obj;
+}
+
+/**
  * Sort array based on given key and numeric value.
  *
  * @param array $array

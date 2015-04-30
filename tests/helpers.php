@@ -21,7 +21,14 @@ function papi_test_create_property_post_data( $values, $post = null ) {
 
 	$data = array();
 	$data[$values['slug']] = $values['value'];
-	$data[$property_type_slug] = $values['type'];
+
+	$property_type_options = papi_get_property_options( array(
+		'type' => $values['type']
+	) );
+
+	$property_type_options = base64_encode( serialize( $property_type_options ) );
+
+	$data[$property_type_slug] = $property_type_options;
 
 	if ( ! is_null( $post ) ) {
 		return array_merge( $post, $data );
