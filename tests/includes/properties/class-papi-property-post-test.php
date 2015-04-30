@@ -83,7 +83,7 @@ class Papi_Property_Post_Test extends WP_UnitTestCase {
 		// Create post data.
 		$_POST = papi_test_create_property_post_data( array(
 			'slug'  => $this->property->slug,
-			'type'  => $this->property->type,
+			'type'  => $this->property,
 			'value' => $this->post_id
 		), $_POST );
 

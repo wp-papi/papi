@@ -159,7 +159,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_get_value() {
-		//$this->assertEmpty( $this->property->get_value() );
+		$this->assertEmpty( $this->property->get_value() );
 
 		$this->property->set_options( papi_get_property_options( array(
 			'slug'  => 'name',

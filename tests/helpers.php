@@ -22,9 +22,7 @@ function papi_test_create_property_post_data( $values, $post = null ) {
 	$data = array();
 	$data[$values['slug']] = $values['value'];
 
-	$property_type_options = papi_get_property_options( array(
-		'type' => $values['type']
-	) );
+	$property_type_options = papi_get_property_options( (array) $values['type'] );
 
 	$property_type_options = base64_encode( serialize( $property_type_options ) );
 

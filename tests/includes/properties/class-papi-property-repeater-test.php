@@ -76,8 +76,6 @@ class Papi_Property_Repeater_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_property_options() {
-
-
 		// Test the property
 		$this->assertEquals( 'repeater', $this->property->type );
 		$this->assertEquals( 'papi_books', $this->property->slug );
@@ -112,39 +110,21 @@ class Papi_Property_Repeater_Test extends WP_UnitTestCase {
 		// Create the repeater item
 		$item = array();
 		$item[$value_slug1] = 'Harry Potter';
-		$item[$value_type_slug1] = $this->property->settings->items[0]->type;
+		$item[$value_type_slug1] = $this->property->settings->items[0];
 
 		$item[$value_slug2] = '';
-		$item[$value_type_slug2] = $this->property->settings->items[1]->type;
+		$item[$value_type_slug2] = $this->property->settings->items[1];
 
 		$values = array( $item );
-
-		$properties = array_map( function ( $item ) {
-			foreach ( $item as $key => $val ) {
-				if ( papi_is_property_type_key( $key ) ) {
-					continue;
-				}
-				$item[$key] = '';
-			}
-			return $item;
-		}, $values );
 
 		// Create post data.
 		$_POST = papi_test_create_property_post_data( array(
 			'slug'  => $this->property->slug,
-			'type'  => $this->property->type,
+			'type'  => $this->property,
 			'value' => $values
 		), $_POST );
 
 		$handler->save_property( $this->post_id );
-
-		// Property repeater will save this value that tells how many columns there is on a row.
-		// The test needs to save this value manually.
-		update_post_meta( $this->post_id, papi_f( $this->property->slug . '_columns' ), count( $this->property->settings->items ) );
-
-		// Properties
-		$properties_html_name         = papi_ff( papify( $this->property->slug ) . '_properties' );
-		$_POST[$properties_html_name] = htmlentities( json_encode( $properties ) );
 
 		// Rows
 		$rows_html_name         = papi_ff( papify( $this->property->slug ) . '_rows' );
