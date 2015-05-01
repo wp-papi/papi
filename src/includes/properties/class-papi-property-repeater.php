@@ -236,8 +236,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function html() {
-		$options         = $this->get_options();
-		$settings        = $this->get_settings();
+		$options = $this->get_options();
 
 		// Reset list counter number.
 		$this->counter = 0;
