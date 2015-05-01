@@ -98,28 +98,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
-	 * Get number of columns.
-	 *
-	 * @param int $post_id
-	 * @param string $repeater_slug
-	 * @param bool $convert
-	 *
-	 * @since 1.1.0
-	 *
-	 * @return int
-	 */
-
-	protected function get_columns( $post_id, $repeater_slug, $convert = true ) {
-		$columns = count( $this->get_settings_properties() );
-
-		if ( $convert ) {
-			return intval( $columns );
-		}
-
-		return $columns;
-	}
-
-	/**
 	 * Get default settings.
 	 *
 	 * @since 1.0.0
@@ -174,7 +152,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		if ( $dynamic_columns && method_exists( $this, 'get_dynamic_columns' ) ) {
 			$columns = $this->get_dynamic_columns( $post_id, $repeater_slug, $results );
 		} else {
-			$columns = $this->get_columns( $post_id, $repeater_slug );
+			$columns = count( $this->get_settings_properties() );
 		}
 
 		if ( empty( $value ) || empty( $columns ) || empty( $results ) ) {
@@ -256,7 +234,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$this->counter = 0;
 
 		// Render repeater html.
-		$this->render_repeater( $options, $settings );
+		$this->render_repeater( $options );
 
 		// Render JSON template that is used for Papi ajax.
 		$this->render_json_template( $options->slug );
@@ -422,11 +400,10 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Render repeater html.
 	 *
 	 * @param object $options
-	 * @param object $settings
 	 * @since 1.3.0
 	 */
 
-	protected function render_repeater( $options, $settings ) {
+	protected function render_repeater( $options ) {
 		?>
 		<div class="papi-property-repeater" data-json-id="#<?php echo $options->slug; ?>_properties_json">
 			<table class="papi-table">
@@ -616,7 +593,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				}
 
 				if ( papi_is_property_type_key( $slug ) ) {
-					$values[$index][$slug] = $type;
+					$values[$index][$slug] = $property->type;
 				} else {
 					$values[$index][$slug] = '';
 				}
