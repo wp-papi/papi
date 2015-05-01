@@ -31,6 +31,15 @@ class Papi_Property_Repeater extends Papi_Property {
 	public $default_value = array();
 
 	/**
+	 * Calculate dynamic columns or not?
+	 *
+	 * @var bool
+	 * @since 1.3.0
+	 */
+
+	protected $dynamic_columns = false;
+
+	/**
 	 * Format the value of the property before we output it to the application.
 	 *
 	 * @param mixed $values
@@ -138,7 +147,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @return array
 	 */
 
-	protected function get_results( $value, $repeater_slug, $post_id, $dynamic_columns = false ) {
+	protected function get_results( $value, $repeater_slug, $post_id ) {
 		global $wpdb;
 
 		$value    = intval( $value );
@@ -149,7 +158,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$trash    = array();
 		$trashnum = 0;
 
-		if ( $dynamic_columns && method_exists( $this, 'get_dynamic_columns' ) ) {
+		if ( $this->dynamic_columns && method_exists( $this, 'get_dynamic_columns' ) ) {
 			$columns = $this->get_dynamic_columns( $post_id, $repeater_slug, $results );
 		} else {
 			$columns = count( $this->get_settings_properties() );
@@ -164,7 +173,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$last_cols = 0;
 
 		for ( $i = 0; $i < $value; $i++ ) {
-			if ( $dynamic_columns ) {
+			if ( $this->dynamic_columns ) {
 				$cols = $columns[$i] + $columns[$i];
 			} else {
 				$cols = $columns;
