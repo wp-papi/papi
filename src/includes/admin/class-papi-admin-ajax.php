@@ -115,7 +115,7 @@ class Papi_Admin_Ajax {
 	 */
 
 	public function get_property() {
-        $default_options = Papi_Property::get_default_options();
+        $default_options = Papi_Property::default_options();
 		$keys = array_keys( $default_options );
 		$options = papi_get_qs( $keys, true );
 
