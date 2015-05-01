@@ -151,7 +151,7 @@ function papi_get_options_and_properties( $file_or_options = array(), $propertie
  */
 
 function papi_get_property_default_options() {
-	return Papi_Property::get_default_options();
+	return Papi_Property::default_options();
 }
 
 /**
@@ -388,7 +388,6 @@ function papi_render_property( $property ) {
 
 	// Render the property.
 	if ( $render && $property->disabled === false ) {
-		$property_type->render_assets_html();
 		$property_type->render_row_html();
 		$property_type->render_hidden_html();
 	}

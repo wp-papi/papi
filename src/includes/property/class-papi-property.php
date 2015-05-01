@@ -27,11 +27,11 @@ class Papi_Property {
 		'disabled'     => false,
 		'lang'         => false,
 		'raw'          => false,
+		'required'     => false,
 		'settings'     => array(),
 		'sidebar'      => true,
 		'slug'         => '',
 		'sort_order'   => -1,
-		'required'     => false,
 		'title'        => '',
 		'type'         => '',
 		'value'        => ''
@@ -45,15 +45,6 @@ class Papi_Property {
 	 */
 
 	public $default_value = '';
-
-	/**
-	 * The page post id.
-	 *
-	 * @var int
-	 * @since 1.0.0
-	 */
-
-	protected $post_id;
 
 	/**
 	 * Current property options object.
@@ -70,8 +61,7 @@ class Papi_Property {
 	 * @since 1.0.0
 	 */
 
-	public function __construct( $post_id = null ) {
-		$this->post_id = $post_id;
+	public function __construct() {
 		$this->setup_actions();
 		$this->setup_filters();
 	}
@@ -85,10 +75,28 @@ class Papi_Property {
 	 * @return Papi_Property
 	 */
 
-	public static function create( $options ) {
+	public static function create( $options = array() ) {
 		$property = new self;
 		$property->set_options( $options );
 		return $property;
+	}
+
+	/**
+	 * Get default options.
+	 *
+	 * @since 1.0.0
+	 * @return array
+	 */
+
+	public static function default_options() {
+		$property = new self;
+		$default_options = $property->default_options;
+
+		if ( $default_options['sort_order'] === -1 ) {
+			$default_options['sort_order'] = papi_filter_settings_sort_order();
+		}
+
+		return $default_options;
 	}
 
 	/**
@@ -142,18 +150,6 @@ class Papi_Property {
 	}
 
 	/**
-	 * Get default options.
-	 *
-	 * @since 1.0.0
-	 * @return array
-	 */
-
-	public static function get_default_options() {
-		$property = new self;
-		return $property->default_options;
-	}
-
-	/**
 	 * Get default settings.
 	 *
 	 * @since 1.2.0
@@ -174,11 +170,7 @@ class Papi_Property {
 	 */
 
 	public function get_post_id() {
-		if ( empty( $this->post_id ) ) {
-			return papi_get_post_id();
-		}
-
-		return $this->post_id;
+		return papi_get_post_id();
 	}
 
 	/**
@@ -195,7 +187,9 @@ class Papi_Property {
 
 		if ( $fetch_value && papi_is_empty( $this->options->value ) ) {
 			$post_id = $this->get_post_id();
-			$value = papi_field( $post_id, $this->options->slug, null, true );
+			$value = papi_field( $post_id, $this->options->slug, null, array(
+				'property' => $this
+			) );
 		} else {
 			$value = $this->options->value;
 		}
@@ -309,22 +303,6 @@ class Papi_Property {
 
 	public function override_property_options() {
 		return array();
-	}
-
-	/**
-	 * Register assets actions.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function render_assets_html() {
-		if ( method_exists( $this, 'css' ) ) {
-			add_action( 'admin_head', array( $this, 'css' ) );
-		}
-
-		if ( method_exists( $this, 'js' ) ) {
-			add_action( 'admin_footer', array( $this, 'js' ) );
-		}
 	}
 
 	/**
@@ -481,11 +459,6 @@ class Papi_Property {
 
 		// Generate a vaild Papi meta name for slug.
 		$options->array_slug = $options->slug = papi_html_name( $options->slug );
-
-		// Generate a valid Papi meta name for old slug.
-		if ( ! empty( $options->old_slug ) ) {
-			$options->old_slug = papi_html_name( $options->old_slug );
-		}
 
 		// Get the default settings for the property and merge them with the given settings.
 		$options->settings = array_merge( papi_get_property_default_settings( $options->type ), (array) $options->settings );

@@ -172,9 +172,9 @@ class Papi_Property_Repeater extends Papi_Property {
 		$trashnum = 0;
 
 		if ( $dynamic_columns && method_exists( $this, 'get_dynamic_columns' ) ) {
-			$columns  = $this->get_dynamic_columns( $post_id, $repeater_slug, $results );
+			$columns = $this->get_dynamic_columns( $post_id, $repeater_slug, $results );
 		} else {
-			$columns  = $this->get_columns( $post_id, $repeater_slug );
+			$columns = $this->get_columns( $post_id, $repeater_slug );
 		}
 
 		if ( empty( $value ) || empty( $columns ) || empty( $results ) ) {
@@ -603,15 +603,13 @@ class Papi_Property_Repeater extends Papi_Property {
 
 					// Run `update_value` on each property before it's saved.
 					if ( isset( $values[$index][$property_type_slug] ) ) {
-						if ( is_object( $values[$index][$property_type_slug] ) ) {
-							$values[$index][$property_type_slug] = $values[$index][$property_type_slug]->type;
-						} else {
-							$values[$index][$property_type_slug] = papi_get_property_type_from_base64( $values[$index][$property_type_slug] );
+						if ( ! is_object( $values[$index][$property_type_slug] ) ) {
+							continue;
 						}
 
-						$property_type = papi_get_property_type( $values[$index][$property_type_slug] );
+						$property_type = papi_get_property_type( $values[$index][$property_type_slug]->type );
 						$values[$index][$slug] = $property_type->update_value( $values[$index][$slug], $slug, $post_id );
-						$values[$index][$slug] = papi_filter_update_value( $values[$index][$property_type_slug], $values[$index][$slug], $slug, $post_id );
+						$values[$index][$slug] = papi_filter_update_value( $values[$index][$property_type_slug]->type, $values[$index][$slug], $slug, $post_id );
 					}
 
 					continue;

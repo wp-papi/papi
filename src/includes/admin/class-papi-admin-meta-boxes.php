@@ -34,6 +34,22 @@ class Papi_Admin_Meta_Boxes {
 	}
 
 	/**
+	 * Decode property.
+	 *
+	 * @param string $key
+	 * @param string $value
+	 */
+
+	private function decode_property( $key, $value ) {
+		if ( papi_is_property_type_key( $key ) && is_string( $value ) ) {
+			$value = base64_decode( $value );
+			$value = unserialize( $value );
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Get post data.
 	 *
 	 * @param string $pattern
@@ -56,20 +72,40 @@ class Papi_Admin_Meta_Boxes {
 			if ( $_POST[ $key ] === 'on' ) {
 				$data[ $key ] = true;
 			} else {
-				$value = $_POST[ $key ];
-
-				if ( papi_is_property_type_key( $key )  ) {
-					$value = base64_decode( $value );
-					$value = unserialize( $value );
-				}
-
-				$data[ $key ] = $value;
+				$value = $this->decode_property( $key, $_POST[ $key ] );
+				$data[ $key ] = $this->prepare_post_data( $value );
 			}
 		}
 
 		// Don't wont to save meta nonce field.
 		if ( isset( $data['papi_meta_nonce'] ) ) {
 			unset( $data['papi_meta_nonce'] );
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Prepare post data.
+	 * Will decode property options recursive.
+	 *
+	 * @param mixed $data
+	 * @since 1.3.0
+	 *
+	 * @return mixed
+	 */
+
+	private function prepare_post_data( $data ) {
+		if ( ! is_array( $data ) ) {
+			return $data;
+		}
+
+		foreach ( $data as $key => $value ) {
+			if ( is_array( $value ) ) {
+				$data[$key] = $this->prepare_post_data( $value );
+			} else {
+				$data[$key] = $this->decode_property( $key, $value );
+			}
 		}
 
 		return $data;

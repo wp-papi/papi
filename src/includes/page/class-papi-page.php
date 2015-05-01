@@ -57,38 +57,17 @@ class Papi_Page {
 	}
 
 	/**
-	 * Get Papi Property value.
+	 * Get Papi property value.
 	 *
 	 * @param string $slug
-	 * @param bool $admin
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return mixed
 	 */
 
-	public function get_value( $slug, $admin = false ) {
-		$property_value      = get_post_meta( $this->id, $slug, true );
-		$property_type_key   = papi_f( papi_get_property_type_key( $slug ) );
-		$property_type_value = get_post_meta( $this->id, $property_type_key, true );
-
-		if ( papi_is_empty( $property_value ) || empty( $property_type_value ) ) {
-			return;
-		}
-
-		// The convert takes a array as argument so let's make one.
-		$property_value = $this->convert(
-			$admin,
-			$slug,
-			$property_type_value,
-			$property_value
-		);
-
-		if ( is_array( $property_value ) ) {
-			$property_value = array_filter( $property_value );
-		}
-
-		return $property_value;
+	public function __get( $slug ) {
+		return $this->get_value( $slug );
 	}
 
 	/**
@@ -104,37 +83,28 @@ class Papi_Page {
 	 * @return mixed
 	 */
 
-	private function convert( $admin, $slug, $type, $value ) {
-		$property_type = papi_get_property_type( strval( $type ) );
+	private function convert( $slug, $type, $value ) {
+		$property = papi_get_property_type( strval( $type ) );
 
 		// If no property type is found, just return the value.
-		if ( empty( $property_type ) ) {
+		if ( empty( $type ) || ($property instanceof Papi_Property) === false ) {
 			return $value;
 		}
 
+		// Set property options so we can access them in load value or format value functions.
+		$property->set_options( $this->get_property_options( $type ) );
+
 		// Run a `load_value` right after the value has been loaded from the database.
-		$value = $property_type->load_value( $value, $slug, $this->id );
+		$value = $property->load_value( $value, $slug, $this->id );
 
 		// Apply a filter so this can be changed from the theme for specified property type.
 		$value = papi_filter_load_value( $type, $value, $slug, $this->id );
 
 		// Format the value from the property class.
-		$value = $property_type->format_value( $value, $slug, $this->id, $admin );
+		$value = $property->format_value( $value, $slug, $this->id );
 
 		// Apply a filter so this can be changed from the theme for specified property type.
 		return papi_filter_format_value( $type, $value, $slug, $this->id );
-	}
-
-	/**
-	 * Check if the page has the post object and that it's not null
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool
-	 */
-
-	public function has_post() {
-		return $this->post != null;
 	}
 
 	/**
@@ -174,6 +144,34 @@ class Papi_Page {
 	}
 
 	/**
+	 * Get property options from admin data.
+	 *
+	 * @param string $db_property_type
+	 * @since 1.3.0
+	 *
+	 * @return Papi_Property
+	 */
+
+	private function get_property_options( $db_property_type ) {
+		if ( ! isset( $this->admin_data['property'] ) ) {
+			return;
+		}
+
+		if ( ! method_exists( $this->admin_data['property'], 'get_options' ) ) {
+			return;
+		}
+
+		$options = $this->admin_data['property']->get_options();
+
+
+		if ( $options->type !== $db_property_type ) {
+			$options->type = $db_property_type;
+		}
+
+		return $options;
+	}
+
+	/**
 	 * Get the post status of a page.
 	 *
 	 * @since 1.0.0
@@ -186,17 +184,64 @@ class Papi_Page {
 	}
 
 	/**
-	 * Get Papi property value.
+	 * Check if the page has the post object and that it's not null
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+
+	public function has_post() {
+		return $this->post != null;
+	}
+
+	/**
+	 * Get Papi Property value.
 	 *
 	 * @param string $slug
+	 * @param bool $admin
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return mixed
 	 */
 
-	public function __get( $slug ) {
-		return $this->get_value( $slug );
+	public function get_value( $slug ) {
+		$property_value      = get_post_meta( $this->id, $slug, true );
+		$property_type_key   = papi_f( papi_get_property_type_key( $slug ) );
+		$property_type_value = get_post_meta( $this->id, $property_type_key, true );
+
+		if ( papi_is_empty( $property_value ) || empty( $property_type_value ) ) {
+			return;
+		}
+
+		// The convert takes a array as argument so let's make one.
+		$property_value = $this->convert(
+			$slug,
+			$property_type_value,
+			$property_value
+		);
+
+		if ( is_array( $property_value ) ) {
+			$property_value = array_filter( $property_value );
+		}
+
+		return $property_value;
+	}
+
+	/**
+	 * Set admin data.
+	 *
+	 * @param array $admin_data
+	 * @since 1.3.0
+	 */
+
+	public function set_admin_data( $admin_data = array() ) {
+		if ( ! is_array( $admin_data ) || empty( $admin_data ) ) {
+			return;
+		}
+
+		$this->admin_data = $admin_data;
 	}
 
 }
