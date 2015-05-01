@@ -106,7 +106,10 @@ class Repeater {
       self.add($(this));
     });
 
-    $(document).on('click', '.papi-property-repeater .repeater-remove-item', this.remove);
+    $(document).on('click', '.papi-property-repeater .repeater-remove-item', function (e) {
+      e.preventDefault();
+      self.remove($(this));
+    });
   }
 
   /**
@@ -164,11 +167,8 @@ class Repeater {
    * @param {object} e
    */
 
-  remove(e) {
-    e.preventDefault();
-
-    const $this  = $(this);
-    const $tbody = $this.closest('.papi-property-repeater tbody');
+  remove($this) {
+    const $tbody = $this.closest('.papi-property-repeater').find('tbody');
 
     $this.closest('tr').remove();
 
@@ -195,19 +195,14 @@ class Repeater {
    */
 
   updateRowNumber($tbody) {
-    $tbody.find('tr').each(i => {
-      let $this = $(this);
+    $tbody.find('tr').each((i, el) => {
+      let $el = $(el);
 
-      $this.find('td:first-child span').text(i + 1);
+      $el.find('td:first-child span').text(i + 1);
 
-      $this.find('input, select, textarea').each(() => {
-        $this = (this);
-
-        if ($this.attr('name') === undefined || !$this.attr('name').length) {
-          return;
-        }
-
-        $this.attr('name', $this.attr('name').replace(/(\[\d+\])/, '[' + i + ']'));
+      $el.find('[name*="papi_"]').each((j, input) => {
+        let $input = $(input);
+        $input.attr('name', $input.attr('name').replace(/(\[\d+\])/, '[' + i + ']'));
       });
     });
 
