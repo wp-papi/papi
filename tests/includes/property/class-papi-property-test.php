@@ -21,7 +21,9 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		parent::setUp();
 
 		$this->post_id = $this->factory->post->create();
-		$this->property = new Papi_Property( $this->post_id );
+
+		global $post;
+		$post = get_post( $this->post_id );
 	}
 
 	/**
@@ -32,29 +34,45 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	public function tearDown() {
 		parent::tearDown();
-		unset( $this->property );
+		global $post;
+		unset( $post, $this->post_id );
 	}
 
 	/**
-	 * Test description method.
+	 * Test static `create` method.
 	 *
 	 * @since 1.3.0
 	 */
 
-	public function test_description() {
-		$this->assertNull( $this->property->render_description_html() );
-
-		$this->property->set_options( array(
-			'description' => 'A simple description'
+	public function test_create() {
+		$property = Papi_Property::create( array(
+			'type'  => 'string',
+			'title' => 'Name'
 		) );
 
-		$this->property->render_description_html();
-
-		$this->expectOutputRegex( '/A\ssimple\sdescription/' );
+		$this->assertEquals( $property->get_option( 'type' ), 'string' );
+		$this->assertEquals( $property->get_option( 'title' ), 'Name' );
+		$this->assertEquals( $property->get_option( 'slug' ), 'papi_name' );
 	}
 
 	/**
-	 * Test static factory method.
+	 * Test static `default_options` method.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_default_options() {
+		$default_options = Papi_Property::default_options();
+
+		$this->assertTrue( is_array( $default_options ) );
+		$this->assertEmpty( $default_options['title'] );
+		$this->assertEmpty( $default_options['type'] );
+		$this->assertEmpty( $default_options['slug'] );
+		$this->assertEquals( 1000, $default_options['sort_order'] );
+	}
+
+	/**
+	 * Test static `factory` method.
 	 *
 	 * @since 1.3.0
 	 */
@@ -70,41 +88,20 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test hidden method.
+	 * Test `format_value` method.
 	 *
 	 * @since 1.3.0
 	 */
 
-	public function test_hidden() {
-		$this->assertNull( $this->property->render_hidden_html() );
-
-		$this->property->set_options( papi_get_property_options( array(
-			'type' => 'string',
-			'slug' => 'hello_world'
-		) ) );
-
-		$this->property->render_hidden_html();
-
-		$this->expectOutputRegex( '/papi\_hello\_world\_property/' );
-
-		$this->property->set_options( array(
-			'type' => 'string',
-			'slug' => 'hello_world[name]'
+	public function test_format_value() {
+		$property = Papi_Property::create( array(
+			'type'  => 'string',
+			'title' => 'Hello'
 		) );
 
-		$this->property->render_hidden_html();
+		$actual = $property->format_value( 'Fredrik', '', 0 );
 
-		$this->expectOutputRegex( '/papi\_hello\_world\[name\_property\]/' );
-	}
-
-	/**
-	 * Test empty html.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function test_html() {
-		$this->assertEmpty( $this->property->html() );
+		$this->assertEquals( 'Fredrik', $actual );
 	}
 
 	/**
@@ -114,7 +111,12 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_override_property_options() {
-		$this->assertEquals( array(), $this->property->override_property_options() );
+		$property = Papi_Property::create( array(
+			'type'  => 'string',
+			'title' => 'Hello'
+		) );
+
+		$this->assertEquals( array(), $property->override_property_options() );
 	}
 
 	/**
@@ -124,7 +126,52 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_get_default_settings() {
-		$this->assertEquals( array(), $this->property->get_default_settings() );
+		$property = Papi_Property::create( array(
+			'type'  => 'string',
+			'title' => 'Hello'
+		) );
+
+		$this->assertEquals( array(), $property->get_default_settings() );
+	}
+
+	/**
+	 * Test `get_default_value` method.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_get_default_value() {
+		$property = Papi_Property::create( array(
+			'type'  => 'string',
+			'title' => 'Hello'
+		) );
+
+		$property->set_options( array(
+			'slug'  => 'name',
+			'value' => ''
+		) );
+
+		$this->assertEmpty( $property->get_value() );
+
+		$property->default_value = array();
+
+		$this->assertTrue( is_array( $property->get_value() ) );
+	}
+
+	/**
+	 * Test `get_option` method.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_get_option() {
+		$property = Papi_Property::create(array(
+			'title' => 'Name'
+		));
+
+		$this->assertNull( $property->get_option( 'fake' ) );
+		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
+		$this->assertEquals( 1000, $property->get_option( 'sort_order' ) );
 	}
 
 	/**
@@ -134,23 +181,37 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_get_options() {
-		$this->assertEmpty( $this->property->get_options() );
+		$property = new Papi_Property();
+
+		$this->assertEmpty( $property->get_options() );
 	}
 
 	/**
-	 * Test `set_options` method.
+	 * Test `get_post_id` method.
 	 *
 	 * @since 1.3.0
 	 */
 
-	public function test_set_options() {
-		$this->property->set_options( array(
-			'title' => 'Name'
-		) );
+	public function test_get_post_id() {
+		$property = Papi_Property::create();
 
-		$value = $this->property->get_option( 'title' );
+		$this->assertEquals( $this->post_id, $property->get_post_id() );
+	}
 
-		$this->assertEquals( 'Name', $value );
+	/**
+	 * Test `get_settings` method.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_get_settings() {
+		$property = new Papi_Property();
+
+		$this->assertEmpty( $property->get_settings() );
+
+		$property->set_options( array( 'settings' => array() ) );
+
+		$this->assertTrue( is_object( $property->get_settings() ) );
 	}
 
 	/**
@@ -160,47 +221,98 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_get_value() {
-		$this->assertEmpty( $this->property->get_value() );
+		$property = new Papi_Property();
 
-		$this->property->set_options( papi_get_property_options( array(
+		$this->assertNull( $property->get_value() );
+
+		$property = Papi_Property::create();
+
+		$this->assertEmpty( $property->get_value() );
+
+		$property->set_options( array(
 			'slug'  => 'name',
 			'value' => 'Fredrik'
-		) ) );
+		) );
 
-		$this->assertEquals( 'Fredrik', $this->property->get_value() );
+		$this->assertEquals( 'Fredrik', $property->get_value() );
 	}
 
 	/**
-	 * Test get_default_value method.
+	 * Test `html` method.
 	 *
 	 * @since 1.3.0
 	 */
 
-	public function test_get_default_value() {
-		$this->property->set_options( papi_get_property_options( array(
-			'slug'  => 'name',
-			'value' => ''
-		) ) );
-
-		$this->assertEmpty( $this->property->get_value() );
-
-		$this->property->default_value = array();
-
-		$this->assertTrue( is_array( $this->property->get_value() ) );
+	public function test_html() {
+		$property = Papi_Property::create();
+		$this->assertEmpty( $property->html() );
 	}
 
 	/**
-	 * Test get_settings method.
+	 * Test `load_value` method.
 	 *
 	 * @since 1.3.0
 	 */
 
-	public function test_get_settings() {
-		$this->assertEmpty( $this->property->get_settings() );
+	public function test_load_value() {
+		$property = Papi_Property::create( array(
+			'type'  => 'string',
+			'title' => 'Name'
+		) );
 
-		$this->property->set_options( array( 'settings' => array() ) );
+		$actual = $property->load_value( 'Fredrik', '', 0 );
 
-		$this->assertTrue( is_object( $this->property->get_settings() ) );
+		$this->assertEquals( 'Fredrik', $actual );
+	}
+
+	/**
+	 * Test `render_description_html` method.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_render_description_html() {
+		$property = new Papi_Property();
+
+		$this->assertNull( $property->render_description_html() );
+
+		$property->set_options( array(
+			'description' => 'A simple description'
+		) );
+
+		$property->render_description_html();
+
+		$this->expectOutputRegex( '/A\ssimple\sdescription/' );
+	}
+
+	/**
+	 * Test `render_hidden_html` method.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_render_hidden_html() {
+		$property = new Papi_Property();
+
+		$this->assertNull( $property->render_hidden_html() );
+
+		$property->set_options( papi_get_property_options( array(
+			'type' => 'string',
+			'slug' => 'hello_world'
+		) ) );
+
+		$property->render_hidden_html();
+
+		$this->expectOutputRegex( '/papi\_hello\_world\_property/' );
+
+		$property->set_options( array(
+			'type' => 'string',
+			'slug' => 'hello_world[name]'
+		) );
+
+		$property->render_hidden_html();
+
+		$this->expectOutputRegex( '/papi\_hello\_world\[name\_property\]/' );
 	}
 
 	/**
@@ -210,14 +322,16 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_render_label_html() {
-		$this->assertNull( $this->property->render_label_html() );
+		$property = new Papi_Property();
 
-		$this->property->set_options( papi_get_property_options( array(
+		$this->assertNull( $property->render_label_html() );
+
+		$property->set_options( array(
 			'slug'  => 'kvack',
 			'title' => 'A simple label'
-		) ) );
+		) );
 
-		$this->property->render_label_html();
+		$property->render_label_html();
 
 		$this->expectOutputRegex( '/A\ssimple\slabel/' );
 		$this->expectOutputRegex( '/papi\_kvack/' );
@@ -230,57 +344,84 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_render_row_html() {
-		$this->assertNull( $this->property->render_row_html() );
+		$property = new Papi_Property();
 
-		$this->property->set_options( papi_get_property_options( array(
-			'description' => 'A simple description',
-			'title'       => 'A simple label'
-		) ) );
+		$this->assertNull( $property->render_row_html() );
 
-		$this->property->render_row_html();
+		$property->set_options( array(
+			'title' 	  => 'A simple label',
+			'description' => 'A simple description'
+		) );
+
+		$property->render_row_html();
 
 		$this->expectOutputRegex( '/A\ssimple\sdescription/' );
 		$this->expectOutputRegex( '/A\ssimple\slabel/' );
 
-		$this->property->set_options( papi_get_property_options( array(
+		$property->set_options( array(
 			'raw' => true
-		) ) );
+		) );
 
-		$this->property->render_row_html();
+		$property->render_row_html();
 	}
 
 	/**
-	 * Test format_value method.
+	 * Test `set_option` method.
 	 *
 	 * @since 1.3.0
 	 */
 
-	public function test_format_value() {
-		$actual = $this->property->format_value( 'Fredrik', '', 0 );
+	public function test_set_option() {
+		$property = Papi_Property::create( array(
+			'type'  => 'string',
+			'title' => 'Hello'
+		) );
 
-		$this->assertEquals( 'Fredrik', $actual );
+		$property->set_option( 'title', 'Name' );
+
+		$value = $property->get_option( 'title' );
+
+		$this->assertEquals( 'Name', $value );
 	}
 
 	/**
-	 * Test load_value method.
+	 * Test `set_options` method.
 	 *
 	 * @since 1.3.0
 	 */
 
-	public function test_load_value() {
-		$actual = $this->property->load_value( 'Fredrik', '', 0 );
+	public function test_set_options() {
+		$property = Papi_Property::create( array(
+			'type'     => 'string',
+			'title'    => 'Hello'
+		) );
 
-		$this->assertEquals( 'Fredrik', $actual );
+		$property->set_options( array(
+			'title' => 'Name'
+		) );
+
+		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
+
+		$property = Papi_Property::create( array(
+			'type'     => 'string'
+		) );
+
+		$this->assertEquals( 'papi_string', $property->get_option( 'slug' ) );
 	}
 
 	/**
-	 * Test update_value method.
+	 * Test `update_value` method.
 	 *
 	 * @since 1.3.0
 	 */
 
 	public function test_update_value() {
-		$actual = $this->property->update_value( 'Fredrik', '', 0 );
+		$property = Papi_Property::create( array(
+			'type'  => 'string',
+			'title' => 'Name'
+		) );
+
+		$actual = $property->update_value( 'Fredrik', '', 0 );
 
 		$this->assertEquals( 'Fredrik', $actual );
 	}

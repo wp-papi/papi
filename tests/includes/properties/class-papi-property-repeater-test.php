@@ -131,7 +131,9 @@ class Papi_Property_Repeater_Test extends WP_UnitTestCase {
 		$_POST[$rows_html_name] = 1;
 
 		$expected = array( array( 'book_name' => 'Harry Potter', 'is_open' => false ) );
-		$actual   = papi_field( $this->post_id, $this->property->slug );
+		$actual   = papi_field( $this->post_id, $this->property->slug, null, array(
+			'property' => Papi_Property::create( (array) $this->property )
+		) );
 
 		$this->assertEquals( $expected, $actual );
 	}

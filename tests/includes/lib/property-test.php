@@ -204,12 +204,10 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( array( 'admin' ), $options->capabilities );
 
 		$options = papi_get_property_options( array(
-			'type' 	   => 'string',
-			'old_slug' => 'name'
+			'type' 	   => 'string'
 		) );
 
 		$this->assertEquals( 'papi_string', $options->slug );
-		$this->assertEquals( 'papi_name', $options->old_slug );
 
 		$this->assertEquals( new stdClass(), papi_get_property_options( new stdClass() ) );
 		$this->assertEmpty( papi_get_property_options( null ) );
