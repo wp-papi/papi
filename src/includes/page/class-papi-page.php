@@ -13,6 +13,16 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Page {
 
 	/**
+	 * Admin data array.
+	 * Used to store current property in WordPress admin.
+	 *
+	 * @var array
+	 * @since 1.3.0
+	 */
+
+	private $admin_data;
+
+	/**
 	 * The WordPress post id.
 	 *
 	 * @var int
@@ -73,7 +83,6 @@ class Papi_Page {
 	/**
 	 * Convert property value with the property type converter.
 	 *
-	 * @param bool $admin
 	 * @param string $slug
 	 * @param string $type
 	 * @param mixed $value
@@ -199,7 +208,6 @@ class Papi_Page {
 	 * Get Papi Property value.
 	 *
 	 * @param string $slug
-	 * @param bool $admin
 	 *
 	 * @since 1.0.0
 	 *
