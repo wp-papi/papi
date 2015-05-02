@@ -355,6 +355,10 @@ function papi_property( $file_or_options, $values = array() ) {
 	if ( is_string( $file_or_options ) && is_array( $values ) ) {
 		return (object) papi_template( $file_or_options, $values, true );
 	}
+
+	if ( is_object( $file_or_options ) ) {
+		return $file_or_options;
+	}
 }
 
 /**

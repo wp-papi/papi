@@ -92,6 +92,7 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_template( 1 ) );
 		$this->assertEmpty( papi_template( array() ) );
 		$this->assertEmpty( papi_template( new stdClass() ) );
+		$this->assertEmpty( papi_template( papi_test_get_fixtures_path( '' ) ) );
 
 		$template = papi_template( papi_test_get_fixtures_path( '/properties/array.php' ), array(), true );
 

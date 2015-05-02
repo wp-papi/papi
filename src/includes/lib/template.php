@@ -94,6 +94,10 @@ function papi_template( $file, $values = array(), $convert_to_object = false ) {
 		return array();
 	}
 
+	if ( ! file_exists( $filepath ) || is_dir( $filepath ) ) {
+		return array();
+	}
+
 	$template = require $filepath;
 
 	$result = array_merge( (array) $template, $values );

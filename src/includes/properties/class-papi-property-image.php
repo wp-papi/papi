@@ -149,7 +149,6 @@ class Papi_Property_Image extends Papi_Property {
 	 */
 
 	public function render_image_template() {
-		var_dump('hej');exit;
 		?>
 		<script type="text/template" id="tmpl-papi-property-image">
 			<a class="check" href="#" data-papi-options='{"id":"<%= id %>"}'>X</a>
@@ -172,9 +171,6 @@ class Papi_Property_Image extends Papi_Property {
 	 */
 
 	protected function setup_actions() {
-		echo '<pre>';
-		var_dump(debug_backtrace());
-		exit;
 		add_action( 'admin_head', array( $this, 'render_image_template' ) );
 	}
 }

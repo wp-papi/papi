@@ -104,7 +104,67 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			$properties = call_user_func( $properties );
 		}
 
+		// Check and convert all non properties objects to properties objects.
+		$properties = $this->convert_properties( $properties );
+
 		array_push( $this->boxes, array( $options, $properties, 'sort_order' => $sort_order, 'title' => $options['title'] ) );
+	}
+
+	/**
+	 * Convert properties to properties objects.
+	 *
+	 * @param array $properties
+	 * @since 1.3.0
+	 *
+	 * @return array
+	 */
+
+	private function convert_properties( $properties ) {
+		if ( empty( $properties ) ) {
+			return array();
+		}
+
+		$properties = array_map( function ( $property ) {
+			return papi_property( $property );
+		}, $properties );
+
+		return $this->convert_child_properties( $properties );
+	}
+
+	/**
+	 * Fix child properties so you can skip `papi_property`
+	 * it in for example `settings->items`.
+	 *
+	 * @param array $properties
+	 * @since 1.3.0
+	 *
+	 * @return array
+	 */
+
+	private function convert_child_properties( $properties ) {
+		for ( $i = 0, $l = count( $properties ); $i < $l; $i++ ) {
+			if ( ! isset( $properties[$i]->settings ) ||
+				! isset( $properties[$i]->settings->items ) ||
+				! is_array( $properties[$i]->settings->items ) ) {
+					continue;
+			}
+
+			for ( $j = 0, $k = count( $properties[$i]->settings->items ); $j < $k; $j++ ) {
+				if ( ! isset( $properties[$i]->settings->items[$j]['type'] ) ) {
+					continue;
+				}
+
+				$type = papi_get_property_class_name( $properties[$i]->settings->items[$j]['type'] );
+
+				if ( ! class_exists( $type ) ) {
+					continue;
+				}
+
+				$properties[$i]->settings->items[$j] = papi_property( $properties[$i]->settings->items[$j] );
+			}
+		}
+
+		return $properties;
 	}
 
 	/**

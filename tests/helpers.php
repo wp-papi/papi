@@ -44,7 +44,7 @@ function papi_test_create_property_post_data( $values, $post = null ) {
  */
 
 function papi_test_get_fixtures_path( $path ) {
-	if ( $path[0] !== '/' ) {
+	if ( ! empty( $path ) && $path[0] !== '/' ) {
 		$path = '/' . $path;
 	}
 
