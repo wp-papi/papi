@@ -121,6 +121,20 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
+	 * Get dynamic columns.
+	 *
+	 * @param int $post_id
+	 * @param string $repeater_slug
+	 * @param array $results
+	 * @since 1.3.0
+	 *
+	 * @return array
+	 */
+
+	protected function get_dynamic_columns( $post_id, $repeater_slug, $results ) {
+	}
+
+	/**
 	 * Generate property slug.
 	 *
 	 * @param object|array $property
@@ -373,8 +387,8 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @return bool
 	 */
 
-	protected function render_properties( $items, $value, $colspan = null ) {
-		foreach ($items as $property) {
+	protected function render_properties( $items, $value ) {
+		foreach ( $items as $property ) {
 			$render_property = clone $property;
 			$value_slug      = papi_remove_papi( $render_property->slug );
 

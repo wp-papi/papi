@@ -169,7 +169,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @param int $post_id
 	 * @param string $repeater_slug
-	 * @param array $results
+	 * @param array $dbresults
 	 * @since 1.3.0
 	 *
 	 * @return array
@@ -249,7 +249,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * Render group JSON template.
 	 *
 	 * @param string $slug
-	 * @param array $items
 	 * @since 1.3.0
 	 */
 
@@ -343,7 +342,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected function get_group_settings( $group ) {
 		$settings = $this->get_settings();
 		$defaults = array(
-			'title' => sprintf("%s %s", __('Add New', 'papi'), ucfirst( $group ) )
+			'title' => sprintf( '%s %s', __( 'Add New', 'papi' ), ucfirst( $group ) )
 		);
 
 		if ( isset( $settings->groups[$group] ) ) {
@@ -357,7 +356,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * Render repeater html.
 	 *
 	 * @param object $options
-	 * @param object $settings
 	 * @since 1.3.0
 	 */
 
@@ -374,7 +372,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 			<div class="bottom">
 				<?php foreach ( $items as $key => $group ): ?>
-				<?php $settings = $this->get_group_settings($key); ?>
+				<?php $settings = $this->get_group_settings( $key ); ?>
 					<a href="#" class="button button-primary" data-papi-json="<?php echo $options->slug; ?>_<?php echo papi_slugify( $key ); ?>_flexible_json"><?php echo $settings->title; ?></a>
 				<?php endforeach; ?>
 			</div>
@@ -395,7 +393,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Render repeater row.
 	 *
-	 * @param array $items
 	 * @since 1.3.0
 	 */
 
