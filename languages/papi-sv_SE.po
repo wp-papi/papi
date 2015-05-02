@@ -1,42 +1,54 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-02-12 21:43+0100\n"
-"PO-Revision-Date: 2015-02-12 21:44+0100\n"
+"POT-Creation-Date: 2015-05-02 21:26+0100\n"
+"PO-Revision-Date: 2015-05-02 21:28+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.7.3\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: ../src/includes/admin/class-papi-admin.php:118
-#: ../src/includes/admin/class-papi-admin.php:128
-#: ../src/includes/page-type/class-papi-page-type-base.php:82
-#: ../src/includes/page-type/class-papi-page-type-base.php:92
-#: ../src/papi-loader.php:107 ../src/papi-loader.php:117
+#: ../src/includes/admin/class-papi-admin.php:129
+#: ../src/includes/admin/class-papi-admin.php:139 ../src/papi-loader.php:98
+#: ../src/papi-loader.php:108
 msgid "Cheatin&#8217; huh?"
 msgstr "Fuskar du?"
 
-#: ../src/includes/admin/class-papi-admin.php:170
+#: ../src/includes/admin/class-papi-admin.php:169
+#: ../src/includes/admin/class-papi-admin.php:224
+#: ../src/includes/properties/class-papi-property-flexible.php:343
 msgid "Add New"
 msgstr "Skapa ny"
 
-#: ../src/includes/admin/class-papi-admin.php:206
+#: ../src/includes/admin/class-papi-admin.php:170
+msgid "Edit"
+msgstr "Redigera"
+
+#: ../src/includes/admin/class-papi-admin.php:265
+#: ../src/includes/properties/class-papi-property-flexible.php:447
+#: ../src/includes/properties/class-papi-property-flexible.php:480
+#: ../src/includes/properties/class-papi-property-repeater.php:508
+#: ../src/includes/properties/class-papi-property-repeater.php:532
+msgid "Remove"
+msgstr "Ta bort"
+
+#: ../src/includes/admin/class-papi-admin.php:266
 msgid "This fields are required:"
 msgstr "Dessa fält är obligatoriska:"
 
-#: ../src/includes/admin/class-papi-admin.php:280
+#: ../src/includes/admin/class-papi-admin.php:376
 msgid "Page Type"
 msgstr "Sidtyp"
 
-#: ../src/includes/admin/class-papi-admin.php:359
+#: ../src/includes/admin/class-papi-admin.php:461
 msgid "Show all page types"
 msgstr "Visa alla sidtyper"
 
@@ -59,8 +71,8 @@ msgid "Sort order"
 msgstr "Sorteringsordning"
 
 #: ../src/includes/admin/views/management-page-type.php:11
-#: ../src/includes/admin/views/management-page-type.php:36
-#: ../src/includes/admin/views/management-page-type.php:88
+#: ../src/includes/admin/views/management-page-type.php:35
+#: ../src/includes/admin/views/management-page-type.php:86
 msgid "Properties"
 msgstr "Egenskaper"
 
@@ -76,19 +88,11 @@ msgstr "Typ"
 msgid "Slug"
 msgstr "Adress"
 
-#: ../src/includes/admin/views/management-page-type.php:71
+#: ../src/includes/admin/views/management-page-type.php:69
 msgid "Overview of page types"
 msgstr "Översikt över sidtyper"
 
-#: ../src/includes/admin/views/management-page-type.php:74
-msgid "Back to list"
-msgstr "Tillbaka till listan"
-
-#: ../src/includes/admin/views/management-page-type.php:82
-msgid "No meta boxes exists."
-msgstr "Ingen meta box existerar."
-
-#: ../src/includes/admin/views/management-page-type.php:91
+#: ../src/includes/admin/views/management-page-type.php:89
 msgid "Tabs"
 msgstr "Tabbar"
 
@@ -112,11 +116,11 @@ msgstr "Mall"
 msgid "Number of pages"
 msgstr "Antal sidor"
 
-#: ../src/includes/admin/views/management-start.php:45
+#: ../src/includes/admin/views/management-start.php:46
 msgid "Page Type has no template file"
 msgstr "Sidtypen har ingen mallfil"
 
-#: ../src/includes/admin/views/management-start.php:52
+#: ../src/includes/admin/views/management-start.php:53
 msgid "Template file does not exist"
 msgstr "Mallfilen finns inte"
 
@@ -125,31 +129,27 @@ msgstr "Mallfilen finns inte"
 msgid "Select"
 msgstr "Välj"
 
-#: ../src/includes/lib/filters.php:131
+#: ../src/includes/lib/filters.php:133
 msgid "Just the normal WordPress page"
 msgstr "Vanliga WordPress sidan"
 
-#: ../src/includes/lib/filters.php:145
+#: ../src/includes/lib/filters.php:147
 msgid "Standard Page"
 msgstr "Standard sida"
 
-#: ../src/includes/lib/property.php:472
-msgid "(required field)"
-msgstr "(obligatoriskt fält)"
-
-#: ../src/includes/properties/class-papi-property-image.php:80
+#: ../src/includes/properties/class-papi-property-image.php:110
 msgid "No image selected"
 msgstr "Ingen bild vald"
 
-#: ../src/includes/properties/class-papi-property-image.php:84
+#: ../src/includes/properties/class-papi-property-image.php:114
 msgid "Add image"
 msgstr "Lägg till bild"
 
-#: ../src/includes/properties/class-papi-property-post.php:37
+#: ../src/includes/properties/class-papi-property-post.php:39
 msgid "Select post"
 msgstr "Välj inlägg"
 
-#: ../src/includes/properties/class-papi-property-reference.php:114
+#: ../src/includes/properties/class-papi-property-reference.php:116
 msgid "No references exists"
 msgstr "Inga referenser finns"
 
@@ -197,12 +197,7 @@ msgstr "Sök"
 msgid "Sort by"
 msgstr "Sortera efter"
 
-#: ../src/includes/properties/class-papi-property-repeater.php:144
-#: ../src/includes/properties/class-papi-property-repeater.php:218
-msgid "Remove"
-msgstr "Ta bort"
-
-#: ../src/includes/properties/class-papi-property-repeater.php:227
+#: ../src/includes/properties/class-papi-property-repeater.php:432
 msgid "Add new row"
 msgstr "Lägg till ny rad"
 
@@ -210,13 +205,22 @@ msgstr "Lägg till ny rad"
 msgid "Select file"
 msgstr "Välj fil"
 
-#: ../src/papi-loader.php:296
+#: ../src/papi-loader.php:269
 msgid ""
 "WordPress 3.8 and higher required to run Papi! The plugin has now disabled "
 "itself."
 msgstr ""
 "Wordpress 3.8 och högre krävs för att köra Papi! Tillägget har nu "
 "inaktiverat sig själv."
+
+#~ msgid "Back to list"
+#~ msgstr "Tillbaka till listan"
+
+#~ msgid "No meta boxes exists."
+#~ msgstr "Ingen meta box existerar."
+
+#~ msgid "(required field)"
+#~ msgstr "(obligatoriskt fält)"
 
 #~ msgid "Standard page"
 #~ msgstr "Standard sida"
