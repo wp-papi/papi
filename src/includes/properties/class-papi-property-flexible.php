@@ -99,29 +99,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	}
 
 	/**
-	 * Get colspan number for groups.
-	 *
-	 * @param array $groups
-	 * @since 1.3.0
-	 *
-	 * @return int
-	 */
-
-	private function get_colspan_number( $groups ) {
-		$colspan = 1;
-
-		foreach ( $groups as $group ) {
-			$size = count( $group );
-
-			if ( $size > $colspan ) {
-				$colspan = $size;
-			}
-		}
-
-		return $colspan;
-	}
-
-	/**
 	 * Get default settings.
 	 *
 	 * @since 1.3.0
@@ -254,7 +231,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 	protected function render_json_template( $slug ) {
 		$items = $this->get_settings_properties();
-		$colspan = $this->get_colspan_number( $items );
 		$index = 0;
 
 		foreach ( $items as $name => $group ):
@@ -270,8 +246,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 			<script type="application/json" data-papi-json="<?php echo $this->get_group_slug( $name, 'flexible_json' ); ?>">
 				<?php echo json_encode( array(
-						'colspan'    => $colspan,
-						'columns'    => $this->get_item_slug( 'columns', count( $group ) ),
 						'group'      => $this->get_item_slug( 'group', $name ),
 						'properties' => $properties
 					) ); ?>
@@ -292,7 +266,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @return bool
 	 */
 
-	protected function render_properties( $items, $value, $colspan = null ) {
+	protected function render_properties( $items, $value ) {
 		?>
 			<td class="flexible-td">
 				<table class="flexible-table">
@@ -399,7 +373,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected function render_repeater_row() {
 		$items   = $this->get_settings_properties();
 		$values  = $this->get_value();
-		$colspan = $this->get_colspan_number( $items );
 
 		// Get all property slugs.
 		$slugs = array_map( function ( $group ) {
@@ -436,7 +409,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						}
 
 						// Render all properties in the group
-						$this->render_properties( $group, $value, $colspan );
+						$this->render_properties( $group, $value );
 					}
 
 					$this->counter++;
