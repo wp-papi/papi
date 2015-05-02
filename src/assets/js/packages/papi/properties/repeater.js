@@ -32,10 +32,13 @@ class Repeater {
    */
 
   add($this) {
-    const $repeater     = $this.closest('.papi-property-repeater');
-    const $tbody        = $repeater.find('> .papi-table tbody');
-    const counter       = $tbody.children().length;
-    const jsonText      = $($repeater.data().jsonId).text();
+    const $repeater = $this.parent().parent();
+    const slug      = $repeater.data().slug;
+    const $tbody    = $repeater.find('.repeater-tbody');
+    const counter   = $tbody.children().length;
+    const jsonText  = this.getJSON($this);
+
+    console.log(jsonText);
 
     if (!jsonText.length) {
       return;
@@ -87,7 +90,7 @@ class Repeater {
   binds() {
     const self = this;
 
-    $('.papi-property-repeater tbody').sortable({
+    $('.repeater-tbody').sortable({
       revert: true,
       handle: '.handle',
       helper: function (e, ui) {
@@ -97,7 +100,7 @@ class Repeater {
         return ui;
       },
       stop: function () {
-        self.updateRowNumber($(this).closest('.papi-property-repeater tbody'));
+        self.updateRowNumber($(this).closest('.repeater-tbody'));
       }
     });
 
@@ -129,6 +132,18 @@ class Repeater {
   }
 
   /**
+   * Get JSON properties template.
+   *
+   * @param {object} $this
+   *
+   * @return {string}
+   */
+
+  getJSON($this) {
+    return $('script[data-papi-json="' + $this.data().papiJson + '"]').first().text();
+  }
+
+  /**
    * Get row html as jQuery object.
    *
    * @param {object} data
@@ -152,7 +167,9 @@ class Repeater {
   prepareProperties(properties, counter) {
     const attrNameRegex = /\[(\d+)\]/g;
 
-    properties = $.parseJSON(properties);
+    if (typeof properties === 'string') {
+      properties = $.parseJSON(properties);
+    }
 
     for (let i = 0, l = properties.length; i < l; i++) {
       properties[i].slug = properties[i].slug.replace(attrNameRegex, '[' + counter + ']');
@@ -162,13 +179,13 @@ class Repeater {
   }
 
   /**
-   * Remove item in the repeater.
+   * Remove item from the repeater.
    *
    * @param {object} e
    */
 
   remove($this) {
-    const $tbody = $this.closest('.papi-property-repeater').find('tbody');
+    const $tbody = $this.closest('.papi-property-repeater').find('.repeater-tbody');
 
     $this.closest('tr').remove();
 
@@ -195,13 +212,14 @@ class Repeater {
    */
 
   updateRowNumber($tbody) {
-    $tbody.find('tr').each((i, el) => {
+    $tbody.find('> tr').each((i, el) => {
       let $el = $(el);
 
-      $el.find('td:first-child span').text(i + 1);
+      $el.find('> td:first-child span').text(i + 1);
 
       $el.find('[name*="papi_"]').each((j, input) => {
         let $input = $(input);
+
         $input.attr('name', $input.attr('name').replace(/(\[\d+\])/, '[' + i + ']'));
       });
     });

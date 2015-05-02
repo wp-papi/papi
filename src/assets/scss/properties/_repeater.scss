@@ -2,13 +2,9 @@
   display: none;
 }
 
-// The repeater
-.papi-property-repeater {
+.papi-property-repeater,
+.papi-property-flexible {
   margin-right: -31px;
-
-  .repeater-template {
-    display: none;
-  }
 
   .papi-table {
     border-bottom:  1px solid #eaeaea;
@@ -99,7 +95,8 @@
 // Seamless mode
 .postbox.papi-mode-seamless {
 
-  .papi-property-repeater {
+  .papi-property-repeater,
+  .papi-property-flexible {
     border-left: 1px #eaeaea solid;
     border-right: 1px #eaeaea solid;
     margin-right: 0;

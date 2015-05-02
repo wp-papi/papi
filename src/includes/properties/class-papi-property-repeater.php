@@ -181,7 +181,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			$row = array_slice( $results, $last_cols, $cols );
 
-			$last_cols += $cols;
+			$last_cols += $cols + 1;
 
 			$trashnum += count( $row );
 			$length = count( $row );
@@ -281,7 +281,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	protected function prepare_properties( $items ) {
-		$not_allowed = array( 'repeater' );
+		$not_allowed = array( 'repeater', 'flexible' );
 		$not_allowed = array_merge( $not_allowed, apply_filters( 'papi/property/repeater/exclude', array() ) );
 
 		$items = array_map( function ( $item ) {
@@ -339,17 +339,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
-	 * Render extra property html.
-	 *
-	 * @param string $value_slug
-	 * @param array $value
-	 * @since 1.3.0
-	 */
-
-	protected function render_extra_property_html( $value_slug, $value ) {
-	}
-
-	/**
 	 * Render property JSON template.
 	 *
 	 * @param string $slug
@@ -368,7 +357,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		}
 
 		?>
-		<script type="application/json" id="<?php echo $slug; ?>_properties_json">
+		<script type="application/json" data-papi-json="<?php echo $slug; ?>_repeater_json">
 			<?php echo json_encode( $properties ); ?>
 		</script>
 		<?php
@@ -384,8 +373,8 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @return bool
 	 */
 
-	protected function render_properties( $items, $value ) {
-		foreach ( $items as $property ) {
+	protected function render_properties( $items, $value, $colspan = null ) {
+		foreach ($items as $property) {
 			$render_property = clone $property;
 			$value_slug      = papi_remove_papi( $render_property->slug );
 
@@ -398,7 +387,6 @@ class Papi_Property_Repeater extends Papi_Property {
 			$render_property->raw  = true;
 
 			echo '<td>';
-			$this->render_extra_property_html( $value_slug, $value );
 			papi_render_property( $render_property );
 			echo '</td>';
 		}
@@ -413,17 +401,17 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	protected function render_repeater( $options ) {
 		?>
-		<div class="papi-property-repeater" data-json-id="#<?php echo $options->slug; ?>_properties_json">
+		<div class="papi-property-repeater" data-slug="<?php echo $options->slug; ?>">
 			<table class="papi-table">
 				<?php $this->render_repeater_head(); ?>
 
-				<tbody>
+				<tbody class="repeater-tbody">
 					<?php $this->render_repeater_row(); ?>
 				</tbody>
 			</table>
 
 			<div class="bottom">
-				<a href="#" class="button button-primary"><?php _e( 'Add new row', 'papi' ); ?></a>
+				<a href="#" class="button button-primary" data-papi-json="<?php echo $options->slug; ?>_repeater_json"><?php _e( 'Add new row', 'papi' ); ?></a>
 			</div>
 
 			<?php /* Default repeater value */ ?>

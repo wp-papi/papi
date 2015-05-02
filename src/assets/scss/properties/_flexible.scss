@@ -1,0 +1,23 @@
+.papi-property-flexible .papi-table .flexible-td {
+  padding: 0;
+
+  .flexible-table {
+    margin: -2px 0;
+    width: 100%;
+
+    td {
+      &:first-child {
+        background: none;
+        font-weight: normal;
+        padding: 10px 16px 10px 15px;
+        width: auto;
+      }
+
+      border-top: 0;
+
+      &.flexible-td-last {
+        border-right: none;
+      }
+    }
+  }
+}

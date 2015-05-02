@@ -166,8 +166,8 @@ final class Papi_Admin {
 
 		if ( $this->page_type->fill_labels ) {
 			$fills     = array(
-				'add_new_item' => sprintf( '%s %s', _x( 'Add New', 'page' ), $this->page_type->name ),
-				'edit_item' => sprintf( '%s %s', __( 'Edit' ), $this->page_type->name ),
+				'add_new_item' => sprintf( '%s %s', __( 'Add New', 'papi' ), $this->page_type->name ),
+				'edit_item' => sprintf( '%s %s', __( 'Edit', 'papi' ), $this->page_type->name ),
 			);
 
 			$labels = array_merge( $fills, $labels );
