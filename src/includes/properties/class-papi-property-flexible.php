@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Property Flexible
  *
+ * @package Papi
  * @version 1.0.0
  */
 
@@ -24,7 +25,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * The default value.
 	 *
 	 * @var array
-	 * @since 1.0.0
+	 * @since 1.3.0
 	 */
 
 	public $default_value = array();
@@ -53,7 +54,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @param mixed $values
 	 * @param string $repeater_slug
 	 * @param int $post_id
-	 * @since 1.0.0
+	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
@@ -123,13 +124,15 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Get default settings.
 	 *
-	 * @since 1.0.0
+	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
 
 	public function get_default_settings() {
-		return array();
+		return array(
+			'items' => array()
+		);
 	}
 
 	/**
@@ -230,6 +233,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @param string $slug
 	 * @param string $value
+	 * @since 1.3.0
 	 */
 
 	protected function render_group_input( $slug, $value ) {
@@ -246,7 +250,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @param string $slug
 	 * @param array $items
-	 *
 	 * @since 1.3.0
 	 */
 
@@ -355,7 +358,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @param object $options
 	 * @param object $settings
-	 *
 	 * @since 1.3.0
 	 */
 
