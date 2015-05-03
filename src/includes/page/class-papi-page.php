@@ -181,7 +181,6 @@ class Papi_Page {
 
 		$options = $this->admin_data['property']->get_options();
 
-
 		if ( $options->type !== $db_property_type ) {
 			$options->type = $db_property_type;
 		}
