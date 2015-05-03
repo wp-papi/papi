@@ -28,7 +28,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 	}
 
 	/**
-	 * Generate the HTML for the property.
+	 * Display property html.
 	 *
 	 * @since 1.0.0
 	 */

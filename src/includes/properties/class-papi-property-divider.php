@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Divider extends Papi_Property {
 
 	/**
-	 * Generate the HTML for the property.
+	 * Display property html.
 	 *
 	 * @since 1.0.0
 	 */

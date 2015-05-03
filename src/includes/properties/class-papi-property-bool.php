@@ -22,7 +22,7 @@ class Papi_Property_Bool extends Papi_Property {
 	public $default_value = false;
 
 	/**
-	 * Generate the HTML for the property.
+	 * Display property html.
 	 *
 	 * @since 1.0.0
 	 */

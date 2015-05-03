@@ -38,7 +38,7 @@ class Papi_Property_Reference extends Papi_Property {
 	}
 
 	/**
-	 * Generate the HTML for the property.
+	 * Display property html.
 	 *
 	 * @since 1.2.0
 	 */

@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
  * Property Flexible
  *
  * @package Papi
- * @version 1.0.0
+ * @version 1.3.0
  */
 
 class Papi_Property_Flexible extends Papi_Property_Repeater {
@@ -372,17 +372,19 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				</tbody>
 			</table>
 
-			<div class="flexible-layouts papi-hide">
-				<div class="flexible-layouts-arrow"></div>
-				<ul>
-					<?php foreach ( $items as $layout ): ?>
-						<li data-papi-json="<?php echo $options->slug; ?>_<?php echo $layout['slug']; ?>_flexible_json"><?php echo $layout['title']; ?></li>
-					<?php endforeach; ?>
-				</ul>
-			</div>
-
 			<div class="bottom">
-				<a href="#" class="button button-primary"><?php _e( 'Add new row', 'papi' ); ?></a>
+				<div class="flexible-layouts-btn-wrap">
+					<div class="flexible-layouts papi-hide">
+						<div class="flexible-layouts-arrow"></div>
+						<ul>
+							<?php foreach ( $items as $layout ): ?>
+								<li data-papi-json="<?php echo $options->slug; ?>_<?php echo $layout['slug']; ?>_flexible_json"><?php echo $layout['title']; ?></li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
+
+					<a href="#" class="button button-primary"><?php _e( 'Add new row', 'papi' ); ?></a>
+				</div>
 			</div>
 
 			<?php /* Default repeater value */ ?>

@@ -42,8 +42,8 @@ class Papi_Admin_Ajax {
 		add_action( 'parse_query', array( $this, 'handle_papi_ajax' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'ajax_url' ), 10 );
 
-		add_action( 'papi_ajax_get_property', array( $this, 'get_property' ) );
-		add_action( 'papi_ajax_get_properties', array( $this, 'get_properties' ) );
+		add_action( $this->action_prefix . 'get_property', array( $this, 'get_property' ) );
+		add_action( $this->action_prefix . 'get_properties', array( $this, 'get_properties' ) );
 	}
 
 	/**
@@ -93,7 +93,16 @@ class Papi_Admin_Ajax {
 			$wp_query->set( 'papi_action', sanitize_text_field( $_GET['action'] ) );
 		}
 
-		$action = $wp_query->get( 'papi_action' );
+		if ( ! empty( $_GET['property'] ) ) {
+			$wp_query->set( 'papi_property', sanitize_text_field( $_GET['property'] ) );
+		}
+
+		$action   = $wp_query->get( 'papi_action' );
+		$property = $wp_query->get( 'papi_property' );
+
+		if ( $property = $wp_query->get( 'papi_property' ) ) {
+			papi_get_property_type( $property );
+		}
 
 		if ( has_action( $this->action_prefix . $action ) != false ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {

@@ -27,7 +27,7 @@ class Papi_Property_Text extends Papi_Property {
 	}
 
 	/**
-	 * Generate the HTML for the property.
+	 * Display property html.
 	 *
 	 * @since 1.0.0
 	 */

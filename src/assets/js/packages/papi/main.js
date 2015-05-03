@@ -11,6 +11,7 @@ import Editor from 'papi/properties/editor';
 import Flexible from 'papi/properties/flexible';
 import Image from 'papi/properties/image';
 import Post from 'papi/properties/post';
+import Oembed from 'papi/properties/Oembed';
 import Reference from 'papi/properties/post';
 import Relationship from 'papi/properties/relationship';
 import Repeater from 'papi/properties/repeater';
@@ -34,6 +35,7 @@ export function init() {
   Flexible.init();
   Image.init();
   Post.init();
+  Oembed.init();
   Reference.init();
   Relationship.init();
   Repeater.init();

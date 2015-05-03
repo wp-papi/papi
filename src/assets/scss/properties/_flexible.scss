@@ -27,18 +27,30 @@
     }
   }
 
+  .bottom {
+    text-align: right;
+  }
+
+  .flexible-layouts-btn-wrap{
+    position: relative;
+    display: inline-block;
+  }
+
   .flexible-layouts {
     background: #23282d;
     border-radius: 4px;
-    bottom: 40px;
+    bottom: 140%;
     color: #fff;
     float: right;
     position: absolute;
-    margin: 10px 20px;
-    max-width: 150px;
+    min-width: 150px;
     opacity: 1;
-    right: -7px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform:    translateX(-50%);
+    transform:         translateX(-50%);
     width: 100%;
+    text-align: left;
 
     &:after {
       border: solid transparent;

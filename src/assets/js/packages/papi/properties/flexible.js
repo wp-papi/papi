@@ -84,7 +84,7 @@ class Flexible extends Repeater {
 
     $(document).on('click', '.papi-property-flexible .bottom a.button', function (e) {
       e.preventDefault();
-      $(this).parent().prev().removeClass('papi-hide');
+      $(this).prev().removeClass('papi-hide');
     });
 
     $(document).on('click', '.papi-property-flexible .flexible-layouts li', function (e) {
