@@ -99,9 +99,9 @@ class Flexible extends Repeater {
    */
 
   prepareProperties(jsonText, counter) {
-    const properties  = $.parseJSON(jsonText);
+    const properties   = $.parseJSON(jsonText);
     this.currentLayout = properties.layout;
-    this.properties   = super.prepareProperties(properties.properties, counter);
+    this.properties    = super.prepareProperties(properties.properties, counter);
     return this.properties;
   }
 
