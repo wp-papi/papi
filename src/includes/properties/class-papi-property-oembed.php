@@ -49,8 +49,9 @@ class Papi_Property_Oembed extends Papi_Property {
 
 	public function get_default_settings() {
 		return array(
-			'width'  => 640,
-			'height' => 390
+			'force_size' => 'admin', // or 'both'
+			'height'     => 390,
+			'width'      => 640
 		);
 	}
 
@@ -75,7 +76,10 @@ class Papi_Property_Oembed extends Papi_Property {
 			'height' => $height
 		) );
 
-		if ( is_admin() ) {
+		$force_size = $settings->force_size === 'admin' ?
+			is_admin() : $settings->force_size === 'both';
+
+		if ( $force_size ) {
 			$html = preg_replace( '/height=\"\d+\"/', 'height="' . $height .'"', $html );
 			$html = preg_replace( '/width=\"\d+\"/', 'width="' . $width .'"', $html );
 		}
