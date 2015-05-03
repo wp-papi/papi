@@ -28,7 +28,7 @@ class Papi_Property_Oembed extends Papi_Property {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @return array
+	 * @return string
 	 */
 
 	public function format_value( $value, $slug, $post_id ) {
@@ -58,8 +58,8 @@ class Papi_Property_Oembed extends Papi_Property {
 	 * Get oEmbed html.
 	 *
 	 * @param string $url
-	 * @param int $width
-	 * @param int $height
+	 * @param int|string $width
+	 * @param int|string $height
 	 * @since 1.3.0
 	 *
 	 * @return string
@@ -137,7 +137,7 @@ class Papi_Property_Oembed extends Papi_Property {
 	 * @param int $post_id
 	 * @since 1.3.0
 	 *
-	 * @return mixed
+	 * @return string
 	 */
 
 	public function load_value( $value, $slug, $post_id ) {
@@ -166,7 +166,7 @@ class Papi_Property_Oembed extends Papi_Property {
 	 * @param int $post_id
 	 * @since 1.3.0
 	 *
-	 * @return mixed
+	 * @return string
 	 */
 
 	public function update_value( $value, $slug, $post_id ) {

@@ -98,7 +98,6 @@ class Papi_Admin_Ajax {
 		}
 
 		$action   = $wp_query->get( 'papi_action' );
-		$property = $wp_query->get( 'papi_property' );
 
 		if ( $property = $wp_query->get( 'papi_property' ) ) {
 			papi_get_property_type( $property );
