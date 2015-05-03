@@ -40,6 +40,15 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected $dynamic_columns = true;
 
 	/**
+	 * The group key.
+	 *
+	 * @var string
+	 * @since 1.3.0
+	 */
+
+	private $group_key = '_group';
+
+	/**
 	 * Group prefix regex.
 	 *
 	 * @var string
@@ -71,8 +80,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			foreach ( $group as $key => $val ) {
 				if ( is_string( $val ) && preg_match( $this->group_prefix_regex, $val ) ) {
 					$group = array();
-					$key = papify( 'group' );
-					$group[$key] = $val;
+					$group[$this->group_key] = $val;
 					$groups[$index] = $group;
 				} else {
 					unset( $groups[$index][$key] );
@@ -92,6 +100,13 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$results[$index] = array_merge( $results[$index], $groups[$index] );
 			} else {
 				unset( $results[$index] );
+			}
+		}
+
+		// Remove group prefix when returning result to theme
+		if ( ! is_admin () ) {
+			foreach ( $results as $index => $row ) {
+				$results[$index][$this->group_key] = preg_replace( $this->group_prefix_regex, '', $row[$this->group_key] );
 			}
 		}
 
@@ -128,7 +143,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	}
 
 	/**
-	 * Get item slug.
+	 * Get group key.
 	 *
 	 * @param string $prefix
 	 * @param string $name
@@ -137,7 +152,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @return string
 	 */
 
-	protected function get_item_slug( $prefix, $name ) {
+	protected function get_group_value( $prefix, $name ) {
 		return sprintf( '_papi_%s_%s', $prefix, $name );
 	}
 
@@ -153,10 +168,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function get_dynamic_columns( $post_id, $repeater_slug, $dbresults ) {
-		$columns = $this->get_settings_properties();
+		$columns = parent::get_settings_properties();
 
 		foreach ( $columns as $index => $group ) {
-			$key = $this->get_item_slug( 'group', $group['slug'] );
+			$key = $this->get_group_value( 'group', $group['slug'] );
 			unset( $columns[$index] );
 			$columns[$key] = count( $group['items'] );
 		}
@@ -186,6 +201,23 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		}
 
 		return array_values( $results );
+	}
+
+	/**
+	 * Get settings properties.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @return array
+	 */
+
+	protected function get_settings_properties() {
+		$settings = $this->get_settings();
+		$items    = $settings->items;
+		$items    = array_map( function ( $group ) {
+			return $group['items'];
+		}, $items );
+		return $this->prepare_properties( papi_to_array( $items ) );
 	}
 
 	/**
@@ -240,7 +272,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function render_json_template( $slug ) {
-		$items = $this->get_settings_properties();
+		$items = parent::get_settings_properties();
 		$index = 0;
 
 		foreach ( $items as $group ):
@@ -256,7 +288,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 			<script type="application/json" data-papi-json="<?php echo $this->get_group_slug( $group['title'], 'flexible_json' ); ?>">
 				<?php echo json_encode( array(
-						'group'      => $this->get_item_slug( 'group', $group['slug'] ),
+						'group'      => $this->get_group_value( 'group', $group['slug'] ),
 						'properties' => $properties
 					) ); ?>
 			</script>
@@ -301,7 +333,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				echo '<td>';
 			}
 
-			$this->render_group_input( $value_slug, $value['papi_group'] );
+			$this->render_group_input( $value_slug, $value[$this->group_key] );
 			papi_render_property( $render_property );
 
 			echo '</td>';
@@ -322,7 +354,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function render_repeater( $options ) {
-		$items = $this->get_settings_properties();
+		$items = parent::get_settings_properties();
 		?>
 
 		<div class="papi-property-flexible">
@@ -358,7 +390,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function render_repeater_row() {
-		$items   = $this->get_settings_properties();
+		$items   = parent::get_settings_properties();
 		$values  = $this->get_value();
 
 		// Get all property slugs.
@@ -391,7 +423,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				<?php
 					foreach ( $items as $group ) {
 						// Don't render groups that don't have a valid value in the database.
-						if ( ! isset( $value['papi_group'] ) || $this->get_item_slug( 'group', $group['slug'] ) !== $value['papi_group'] ) {
+						if ( ! isset( $value[$this->group_key] ) || $this->get_group_value( 'group', $group['slug'] ) !== $value[$this->group_key] ) {
 							continue;
 						}
 
