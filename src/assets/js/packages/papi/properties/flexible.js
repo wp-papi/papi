@@ -33,13 +33,13 @@ class Flexible extends Repeater {
     var columns = [];
 
     for (let i = 0, l = res.html.length; i < l; i++) {
-      let groupSlug = this.properties[i].slug.substring(0, this.properties[i].slug.length - 1) + '_group]';
+      let layoutSlug = this.properties[i].slug.substring(0, this.properties[i].slug.length - 1) + '_layout]';
       if (i === l - 1) {
         columns.push('<td class="flexible-td-last">');
       } else {
         columns.push('<td>');
       }
-      columns.push('<input type="hidden" name="' +  groupSlug + '" value="' + this.currentGroup + '" />');
+      columns.push('<input type="hidden" name="' +  layoutSlug + '" value="' + this.currentLayout + '" />');
       columns.push(res.html[i] + '</td>');
     }
 
@@ -100,7 +100,7 @@ class Flexible extends Repeater {
 
   prepareProperties(jsonText, counter) {
     const properties  = $.parseJSON(jsonText);
-    this.currentGroup = properties.group;
+    this.currentLayout = properties.layout;
     this.properties   = super.prepareProperties(properties.properties, counter);
     return this.properties;
   }
