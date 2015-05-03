@@ -67,6 +67,10 @@ class Papi_Property_Oembed extends Papi_Property {
 	 */
 
 	public function get_oembed_html( $url, $width = null, $height = null ) {
+		if ( ! is_string( $url ) || filter_var( $url, FILTER_VALIDATE_URL ) ) {
+			return;
+		}
+
 		$settings = $this->get_settings();
 		$width = intval( empty( $width ) ? $settings->width : $width );
 		$height = intval( empty( $height ) ? $settings->height : $height );
@@ -120,7 +124,7 @@ class Papi_Property_Oembed extends Papi_Property {
 		$settings = $this->get_settings();
 		$slug     = $this->get_option( 'slug' );
 		$value    = $this->get_value();
-		$html     = $this->get_oembed_html( $value );
+		$html     = $this->get_oembed_html( (string) $value );
 		?>
 		<div class="papi-property-oembed">
 			<div class="papi-oembed-top">
