@@ -260,11 +260,15 @@ class Papi_Page {
 		$page_type    = papi_get_page_type_by_id( $page_type_id );
 
 		if ( ! is_object( $page_type ) || ( $page_type instanceof Papi_Page_Type ) === false ) {
-			return array();
+			return;
 		}
 
 		$boxes = $page_type->get_boxes();
 		$property_options = array();
+
+		if ( empty( $boxes ) ) {
+			return;
+		}
 
 		foreach ( $boxes as $box ) {
 			if ( ! isset( $box[1] ) ) {

@@ -314,8 +314,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @param array $items
 	 * @param array $value
 	 * @since 1.3.0
-	 *
-	 * @return bool
 	 */
 
 	protected function render_properties( $items, $value ) {

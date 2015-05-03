@@ -69,7 +69,7 @@ class Papi_Property {
 	/**
 	 * Create a property from options.
 	 *
-	 * @param array $options
+	 * @param array|object $options
 	 * @since 1.0.0
 	 *
 	 * @return Papi_Property
