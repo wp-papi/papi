@@ -263,27 +263,7 @@ class Papi_Page {
 			return;
 		}
 
-		$boxes = $page_type->get_boxes();
-		$property_options = array();
-
-		if ( empty( $boxes ) ) {
-			return;
-		}
-
-		foreach ( $boxes as $box ) {
-			if ( ! isset( $box[1] ) ) {
-				continue;
-			}
-
-			foreach ( $box[1] as $property ) {
-				if ( papi_remove_papi( $property->slug ) === $slug ) {
-					$property_options = $property;
-					break;
-				}
-			}
-		}
-
-		return $property_options;
+		return $page_type->get_property( $slug );
 	}
 
 	/**

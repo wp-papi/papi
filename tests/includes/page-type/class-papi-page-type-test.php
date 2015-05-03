@@ -32,6 +32,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->faq_page_type    = papi_get_page_type_by_id( 'faq-page-type' );
 		$this->simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
 		$this->tab_page_type    = papi_get_page_type_by_id( 'tab-page-type' );
+		$this->flex_page_type   = papi_get_page_type_by_id( 'flex-page-type' );
 	}
 
 	/**
@@ -59,12 +60,34 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 	public function test_get_boxes() {
 		$this->assertTrue( is_array( $this->simple_page_type->get_boxes() ) );
+		$this->assertTrue( is_array( $this->flex_page_type->get_boxes() ) );
 
 		$boxes = $this->faq_page_type->get_boxes();
 
-		$this->assertEquals( 'Content', $boxes[0][0]['title'], 'Content' );
+		$this->assertEquals( 'Content', $boxes[0][0]['title'] );
 
 		$this->assertNull( $this->empty_page_type->get_boxes() );
+	}
+
+	/**
+	 * Test `get_property` method.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_get_property() {
+		$this->assertNull( $this->empty_page_type->get_property( 'fake' ) );
+		$this->assertNull( $this->simple_page_type->get_property( 'fake' ) );
+
+		$property = $this->simple_page_type->get_property( 'name' );
+
+		$this->assertEquals( 'string', $property->type );
+		$this->assertEquals( 'Name', $property->title );
+
+		$property = $this->flex_page_type->get_property( 'sections' );
+
+		$this->assertEquals( 'flexible', $property->type );
+		$this->assertEquals( 'Sections', $property->title );
 	}
 
 	/**

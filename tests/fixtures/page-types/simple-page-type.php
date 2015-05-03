@@ -31,6 +31,13 @@ class Simple_Page_Type extends Papi_Page_Type {
 			'title' => 'Name'
 		) ) );
 
+		// Test box property.
+		$this->box( 'Content', array(
+			'type'  => 'string',
+			'title' => 'Name',
+			'slug' => 'name2'
+		) );
+
 		// Will not work.
 		$this->box( 1 );
 

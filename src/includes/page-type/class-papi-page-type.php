@@ -120,10 +120,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	private function convert_properties( $properties ) {
-		if ( empty( $properties ) ) {
-			return array();
-		}
-
 		$properties = array_map( function ( $property ) {
 			return papi_property( $property );
 		}, $properties );
@@ -220,6 +216,40 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		}
 
 		return $this->boxes;
+	}
+
+	/**
+	 * Get root property.
+	 *
+	 * @param string $slug
+	 * @since 1.3.0
+	 *
+	 * @return object
+	 */
+
+	public function get_property( $slug ) {
+		$boxes = $this->get_boxes();
+
+		if ( empty( $boxes ) ) {
+			return;
+		}
+
+		$result = null;
+
+		foreach ( $boxes as $box ) {
+
+			foreach ( $box[1] as $property ) {
+				if ( ! isset( $property->slug ) ) {
+					continue;
+				}
+
+				if ( papi_remove_papi( $property->slug ) === $slug ) {
+					$result = $property;
+				}
+			}
+		}
+
+		return $result;
 	}
 
 	/**
