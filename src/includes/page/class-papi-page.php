@@ -96,12 +96,12 @@ class Papi_Page {
 		$property = papi_get_property_type( strval( $type ) );
 
 		// If no property type is found, just return the value.
-		if ( empty( $type ) || ($property instanceof Papi_Property) === false ) {
+		if ( empty( $type ) || ( $property instanceof Papi_Property ) === false ) {
 			return $value;
 		}
 
 		// Set property options so we can access them in load value or format value functions.
-		$property->set_options( $this->get_property_options( $type ) );
+		$property->set_options( $this->get_property_options( $slug, $type ) );
 
 		// Run a `load_value` right after the value has been loaded from the database.
 		$value = $property->load_value( $value, $slug, $this->id );
@@ -155,15 +155,24 @@ class Papi_Page {
 	/**
 	 * Get property options from admin data.
 	 *
+	 * @param string $slug
 	 * @param string $db_property_type
 	 * @since 1.3.0
 	 *
 	 * @return Papi_Property
 	 */
 
-	private function get_property_options( $db_property_type ) {
+	private function get_property_options( $slug, $db_property_type ) {
 		if ( ! isset( $this->admin_data['property'] ) ) {
-			return;
+			$property = $this->load_property_options_from_page_type( $slug );
+
+			if ( empty( $property ) ) {
+				return;
+			}
+
+			$this->set_admin_data( array(
+				'property' => Papi_Property::create( $property )
+			) );
 		}
 
 		if ( ! method_exists( $this->admin_data['property'], 'get_options' ) ) {
@@ -190,18 +199,6 @@ class Papi_Page {
 
 	public function get_status() {
 		return get_post_status( $this->id );
-	}
-
-	/**
-	 * Check if the page has the post object and that it's not null
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return bool
-	 */
-
-	public function has_post() {
-		return $this->post != null;
 	}
 
 	/**
@@ -235,6 +232,50 @@ class Papi_Page {
 		}
 
 		return $property_value;
+	}
+
+	/**
+	 * Check if the page has the post object and that it's not null
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool
+	 */
+
+	public function has_post() {
+		return $this->post != null;
+	}
+
+	/**
+	 * Load property options from page type.
+	 *
+	 * @param string $slug
+	 * @since 1.3.0
+	 *
+	 * @return object
+	 */
+
+	private function load_property_options_from_page_type( $slug ) {
+		$page_type_id = papi_get_page_type_meta_value();
+		$page_type    = papi_get_page_type_by_id( $page_type_id );
+		$boxes        = $page_type->get_boxes();
+
+		$property_options = array();
+
+		foreach ( $boxes as $box ) {
+			if ( ! isset( $box[1] ) ) {
+				continue;
+			}
+
+			foreach ( $box[1] as $property ) {
+				if ( papi_remove_papi( $property->slug ) === $slug ) {
+					$property_options = $property;
+					break;
+				}
+			}
+		}
+
+		return $property_options;
 	}
 
 	/**

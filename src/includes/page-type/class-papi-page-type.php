@@ -98,14 +98,14 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			$sort_order = papi_filter_settings_sort_order();
 		}
 
-		$options['title'] = papi_esc_html( isset( $options['title'] ) ? $options['title'] : '' );
-
 		if ( is_callable( $properties ) ) {
 			$properties = call_user_func( $properties );
 		}
 
 		// Check and convert all non properties objects to properties objects.
 		$properties = $this->convert_properties( $properties );
+
+		$options['title'] = papi_esc_html( isset( $options['title'] ) ? $options['title'] : '' );
 
 		array_push( $this->boxes, array( $options, $properties, 'sort_order' => $sort_order, 'title' => $options['title'] ) );
 	}
@@ -149,7 +149,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 			$arr = (array) $properties[$i]->settings;
 
-			foreach ($arr as $key => $value) {
+			foreach ( $arr as $key => $value ) {
 				if ( ! is_array( $value ) ) {
 					continue;
 				}
@@ -179,7 +179,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			}
 
 			if ( ! isset( $items[$j]['type'] ) ) {
-				foreach ($items[$j] as $key => $value) {
+				foreach ( $items[$j] as $key => $value ) {
 					if ( is_array( $items[$j][$key] ) ) {
 						$items[$j][$key] = $this->convert_items_array( $items[$j][$key] );
 					}
