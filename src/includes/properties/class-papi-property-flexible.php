@@ -188,7 +188,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$results = array();
 		$layout_key_regex = $this->layout_key_regex;
 
-		$layouts = array_values( array_filter( $dbresults, function ( $row ) use ($layout_key_regex) {
+		$layouts = array_values( array_filter( $dbresults, function ( $row ) use ( $layout_key_regex ) {
 			return preg_match( $this->layout_key_regex, $row->meta_key );
 		} ) );
 
