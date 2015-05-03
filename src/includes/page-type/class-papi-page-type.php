@@ -143,28 +143,61 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	private function convert_child_properties( $properties ) {
 		for ( $i = 0, $l = count( $properties ); $i < $l; $i++ ) {
-			if ( ! isset( $properties[$i]->settings ) ||
-				! isset( $properties[$i]->settings->items ) ||
-				! is_array( $properties[$i]->settings->items ) ) {
-					continue;
+			if ( ! isset( $properties[$i]->settings ) ) {
+				continue;
 			}
 
-			for ( $j = 0, $k = count( $properties[$i]->settings->items ); $j < $k; $j++ ) {
-				if ( ! isset( $properties[$i]->settings->items[$j]['type'] ) ) {
+			$arr = (array) $properties[$i]->settings;
+
+			foreach ($arr as $key => $value) {
+				if ( ! is_array( $value ) ) {
 					continue;
 				}
 
-				$type = papi_get_property_class_name( $properties[$i]->settings->items[$j]['type'] );
-
-				if ( ! class_exists( $type ) ) {
-					continue;
-				}
-
-				$properties[$i]->settings->items[$j] = papi_property( $properties[$i]->settings->items[$j] );
+				$arr[$key] = $this->convert_items_array( $value );
 			}
+
+			$properties[$i]->settings = (object) $arr;
 		}
 
 		return $properties;
+	}
+
+	/**
+	 * Convert all arrays that has a valid property type.
+	 *
+	 * @param array $items
+	 * @since 1.3.0
+	 *
+	 * @return array
+	 */
+
+	private function convert_items_array( $items ) {
+		for ( $j = 0, $k = count( $items ); $j < $k; $j++ ) {
+			if ( is_object( $items[$j] ) ) {
+				continue;
+			}
+
+			if ( ! isset( $items[$j]['type'] ) ) {
+				foreach ($items[$j] as $key => $value) {
+					if ( is_array( $items[$j][$key] ) ) {
+						$items[$j][$key] = $this->convert_items_array( $items[$j][$key] );
+					}
+				}
+
+				continue;
+			}
+
+			$type = papi_get_property_class_name( $items[$j]['type'] );
+
+			if ( ! class_exists( $type ) ) {
+				continue;
+			}
+
+			$items[$j] = papi_property( $items[$j] );
+		}
+
+		return $items;
 	}
 
 	/**

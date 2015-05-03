@@ -155,10 +155,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected function get_dynamic_columns( $post_id, $repeater_slug, $dbresults ) {
 		$columns = $this->get_settings_properties();
 
-		foreach ( $columns as $group_id => $group ) {
-			$key = $this->get_item_slug( 'group', $group_id );
-			unset( $columns[$group_id] );
-			$columns[$key] = count( $group );
+		foreach ( $columns as $index => $group ) {
+			$key = $this->get_item_slug( 'group', $group['slug'] );
+			unset( $columns[$index] );
+			$columns[$key] = count( $group['items'] );
 		}
 
 		$results = array();
@@ -198,8 +198,18 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function prepare_properties( $items ) {
-		foreach ( $items as $key => $group ) {
-			$items[$key] = parent::prepare_properties( $group );
+		foreach ( $items as $index => $group ) {
+			if ( ! $this->valid_group( $group ) ) {
+				unset( $items[$index] );
+				continue;
+			}
+
+			if ( ! isset( $group['slug'] ) ) {
+				$group['slug'] = $group['title'];
+			}
+
+			$items[$index]['slug']  = papi_slugify( $group['slug'] );
+			$items[$index]['items'] = parent::prepare_properties( $group['items'] );
 		}
 
 		return $items;
@@ -233,10 +243,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$items = $this->get_settings_properties();
 		$index = 0;
 
-		foreach ( $items as $name => $group ):
+		foreach ( $items as $group ):
 			$properties = array();
 
-			foreach ( $group as $key => $value ) {
+			foreach ( $group['items'] as $key => $value ) {
 				$properties[$key] = $value;
 				$properties[$key]->raw   = true;
 				$properties[$key]->slug  = $this->get_property_slug( $value );
@@ -244,9 +254,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 			?>
 
-			<script type="application/json" data-papi-json="<?php echo $this->get_group_slug( $name, 'flexible_json' ); ?>">
+			<script type="application/json" data-papi-json="<?php echo $this->get_group_slug( $group['title'], 'flexible_json' ); ?>">
 				<?php echo json_encode( array(
-						'group'      => $this->get_item_slug( 'group', $name ),
+						'group'      => $this->get_item_slug( 'group', $group['slug'] ),
 						'properties' => $properties
 					) ); ?>
 			</script>
@@ -345,9 +355,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			</table>
 
 			<div class="bottom">
-				<?php foreach ( $items as $key => $group ): ?>
-				<?php $settings = $this->get_group_settings( $key ); ?>
-					<a href="#" class="button button-primary" data-papi-json="<?php echo $options->slug; ?>_<?php echo papi_slugify( $key ); ?>_flexible_json"><?php echo $settings->title; ?></a>
+				<?php foreach ( $items as $group ): ?>
+					<a href="#" class="button button-primary" data-papi-json="<?php echo $options->slug; ?>_<?php echo $group['slug']; ?>_flexible_json"><?php echo $group['title']; ?></a>
 				<?php endforeach; ?>
 			</div>
 
@@ -378,7 +387,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$slugs = array_map( function ( $group ) {
 			return array_map( function ( $item ) {
 				return papi_remove_papi( $item->slug );
-			}, $group );
+			}, $group['items'] );
 		}, $items );
 
 		// Match slugs against database values.
@@ -402,14 +411,14 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					<span><?php echo $this->counter + 1; ?></span>
 				</td>
 				<?php
-					foreach ( $items as $name => $group ) {
+					foreach ( $items as $group ) {
 						// Don't render groups that don't have a valid value in the database.
-						if ( ! isset( $value['papi_group'] ) || $this->get_item_slug( 'group', $name ) !== $value['papi_group'] ) {
+						if ( ! isset( $value['papi_group'] ) || $this->get_item_slug( 'group', $group['slug'] ) !== $value['papi_group'] ) {
 							continue;
 						}
 
 						// Render all properties in the group
-						$this->render_properties( $group, $value );
+						$this->render_properties( $group['items'], $value );
 					}
 
 					$this->counter++;
@@ -455,6 +464,19 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			</tr>
 		</script>
 		<?php
+	}
+
+	/**
+	 * Check if the group is valid or not.
+	 *
+	 * @param array $group
+	 * @since 1.3.0
+	 *
+	 * @return bool
+	 */
+
+	private function valid_group( $group ) {
+		return isset( $group['title'] ) && isset( $group['items'] );
 	}
 
 }

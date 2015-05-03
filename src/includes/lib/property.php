@@ -100,7 +100,7 @@ function papi_get_options_and_properties( $file_or_options = array(), $propertie
 			} else {
 				$options['title'] = '';
 			}
-			$properties 	  = $file_or_options;
+			$properties  = $file_or_options;
 		} else {
 			$options = array_merge( $options, $file_or_options );
 
