@@ -51,6 +51,8 @@ class Flexible extends Repeater {
     $row.appendTo($tbody);
 
     // Trigger the property that we just added
+    console.log($row
+      .find('[name*="_property"]').attr('data-property'));
     $row
       .find('[name*="_property"]')
       .trigger('papi/property/repeater/added');
@@ -76,7 +78,9 @@ class Flexible extends Repeater {
         return ui;
       },
       stop: function () {
-        self.updateRowNumber($(this).closest('.repeater-tbody'));
+        const $tbody = $(this).closest('.repeater-tbody');
+        $tbody.find('[name*="_property"]').trigger('papi/property/repeater/sortable/stop');
+        self.updateRowNumber($tbody);
       }
     });
 

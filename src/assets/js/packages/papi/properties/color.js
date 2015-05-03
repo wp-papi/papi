@@ -21,7 +21,7 @@ class Color {
    */
 
   binds() {
-    $('.papi-property-color-picker input').each(() => {
+    $('.papi-property-color-picker input').each(function () {
       const $el = $(this);
       const palettes = $el.data().palettes;
 

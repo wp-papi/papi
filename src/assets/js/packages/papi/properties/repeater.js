@@ -98,7 +98,9 @@ class Repeater {
         return ui;
       },
       stop: function () {
-        self.updateRowNumber($(this).closest('.repeater-tbody'));
+        const $tbody = $(this).closest('.repeater-tbody');
+      //   $tbody.find('[name*="_property"]').trigger('papi/property/repeater/sortable/stop');
+        self.updateRowNumber($tbody);
       }
     });
 
@@ -215,8 +217,8 @@ class Repeater {
 
       $el.find('> td:first-child span').text(i + 1);
 
-      $el.find('[name*="papi_"]').each((j, input) => {
-        let $input = $(input);
+      $el.find('[name*="papi_"]').each(function () {
+        let $input = $(this);
 
         $input.attr('name', $input.attr('name').replace(/(\[\d+\])/, '[' + i + ']'));
       });

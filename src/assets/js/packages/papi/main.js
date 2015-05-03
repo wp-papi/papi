@@ -7,6 +7,7 @@ import Tabs from 'papi/tabs';
 import Color from 'papi/properties/color';
 import Datetime from 'papi/properties/datetime';
 import Dropdown from 'papi/properties/dropdown';
+import Editor from 'papi/properties/editor';
 import Flexible from 'papi/properties/flexible';
 import Image from 'papi/properties/image';
 import Post from 'papi/properties/post';
@@ -29,6 +30,7 @@ export function init() {
   Color.init();
   Datetime.init();
   Dropdown.init();
+  Editor.init();
   Flexible.init();
   Image.init();
   Post.init();

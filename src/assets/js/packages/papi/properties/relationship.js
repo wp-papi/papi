@@ -74,7 +74,7 @@ class Relationship {
     const $list = $this.closest('.papi-property-relationship').find('.relationshio-left ul');
     const val   = $this.val().toLowerCase();
 
-    $list.find('li').each(() => {
+    $list.find('li').each(function () {
       let $li = $(this);
       if ($li.text().toLowerCase().indexOf(val) === -1) {
         $li.addClass('papi-hide');
@@ -96,7 +96,7 @@ class Relationship {
     let   $this = $(this);
     const $prop = $this.prev();
 
-    $prop.find('.relationship-left [name]').each(() => {
+    $prop.find('.relationship-left [name]').each(function () {
       $this = $(this);
       $this.data('name', $this.attr('name'));
       $this.removeAttr('name');
