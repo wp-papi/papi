@@ -38,8 +38,6 @@ class Repeater {
     const counter   = $tbody.children().length;
     const jsonText  = this.getJSON($this);
 
-    console.log(jsonText);
-
     if (!jsonText.length) {
       return;
     }
