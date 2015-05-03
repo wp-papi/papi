@@ -315,28 +315,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	}
 
 	/**
-	 * Get group settings.
-	 *
-	 * @param string $group
-	 * @since 1.3.0
-	 *
-	 * @return object
-	 */
-
-	protected function get_group_settings( $group ) {
-		$settings = $this->get_settings();
-		$defaults = array(
-			'title' => sprintf( '%s %s', __( 'Add New', 'papi' ), ucfirst( $group ) )
-		);
-
-		if ( isset( $settings->groups[$group] ) ) {
-			return (object) $settings->groups[$group];
-		}
-
-		return (object) $defaults;
-	}
-
-	/**
 	 * Render repeater html.
 	 *
 	 * @param object $options
