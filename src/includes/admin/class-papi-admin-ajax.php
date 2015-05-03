@@ -103,7 +103,7 @@ class Papi_Admin_Ajax {
 			papi_get_property_type( $property );
 		}
 
-		if ( has_action( $this->action_prefix . $action ) != false ) {
+		if ( is_admin() && has_action( $this->action_prefix . $action ) != false ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {
 				define( 'DOING_AJAX', true );
 			}
