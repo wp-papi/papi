@@ -75,7 +75,7 @@ class Papi_Property_Reference extends Papi_Property {
 
 		foreach ( papi_to_array( $settings->slug ) as $slug ) {
 			foreach ( $posts as $post ) {
-				$val = papi_field( $post->ID, $slug, null, true );
+				$val = papi_field( $post->ID, $slug, null );
 
 				$val = array_filter( papi_to_array( $val ), function ( $item ) use( $post_id ) {
 					return is_object( $item ) && $item->ID === $post_id;
