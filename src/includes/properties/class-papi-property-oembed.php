@@ -75,8 +75,10 @@ class Papi_Property_Oembed extends Papi_Property {
 			'height' => $height
 		) );
 
-		$html = preg_replace( '/height=\"\d+\"/', 'height="' . $height .'"', $html );
-		$html = preg_replace( '/width=\"\d+\"/', 'width="' . $width .'"', $html );
+		if ( is_admin() ) {
+			$html = preg_replace( '/height=\"\d+\"/', 'height="' . $height .'"', $html );
+			$html = preg_replace( '/width=\"\d+\"/', 'width="' . $width .'"', $html );
+		}
 
 		return $html;
 	}
