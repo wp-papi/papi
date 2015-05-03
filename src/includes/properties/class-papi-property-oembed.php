@@ -58,8 +58,8 @@ class Papi_Property_Oembed extends Papi_Property {
 	 * Get oEmbed html.
 	 *
 	 * @param string $url
-	 * @param int|string $width
-	 * @param int|string $height
+	 * @param mixed $width
+	 * @param mixed $height
 	 * @since 1.3.0
 	 *
 	 * @return string
