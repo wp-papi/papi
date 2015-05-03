@@ -30,20 +30,25 @@ class Flexible extends Repeater {
    */
 
   addRow($tbody, counter, res) {
-    var columns = [];
+    let heads = [];
+    let columns = [];
 
     for (let i = 0, l = res.html.length; i < l; i++) {
       let layoutSlug = this.properties[i].slug.substring(0, this.properties[i].slug.length - 1) + '_layout]';
       if (i === l - 1) {
+        heads.push('<td class="flexible-td-last">');
         columns.push('<td class="flexible-td-last">');
       } else {
+        heads.push('<td>');
         columns.push('<td>');
       }
       columns.push('<input type="hidden" name="' +  layoutSlug + '" value="' + this.currentLayout + '" />');
       columns.push(res.html[i] + '</td>');
+      heads.push(this.properties[i].title + '</td>');
     }
 
-    var $row = this.getHtml({
+    let $row = this.getHtml({
+      heads: heads.join(''),
       columns: columns.join(''),
       counter: counter
     });
@@ -51,8 +56,6 @@ class Flexible extends Repeater {
     $row.appendTo($tbody);
 
     // Trigger the property that we just added
-    console.log($row
-      .find('[name*="_property"]').attr('data-property'));
     $row
       .find('[name*="_property"]')
       .trigger('papi/property/repeater/added');
@@ -132,6 +135,19 @@ class Flexible extends Repeater {
     $this.closest('tr').remove();
 
     this.updateRowNumber($tbody);
+  }
+
+  /**
+   * Update database row number.
+   *
+   * @param {object} $el
+   */
+
+  updateDatabaseRowNumber($tbody) {
+    $tbody
+      .closest('.papi-property-repeater-top')
+      .find('.papi-property-repeater-rows')
+      .val($tbody.find('tr tbody tr').length);
   }
 
 }

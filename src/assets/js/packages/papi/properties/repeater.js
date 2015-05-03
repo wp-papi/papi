@@ -59,13 +59,13 @@ class Repeater {
    */
 
   addRow($tbody, counter, res) {
-    var columns = [];
+    let columns = [];
 
     for (var i = 0, l = res.html.length; i < l; i++) {
       columns.push('<td>' + res.html[i] + '</td>');
     }
 
-    var $row = this.getHtml({
+    let $row = this.getHtml({
       columns: columns.join(''),
       counter: counter
     });

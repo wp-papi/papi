@@ -320,33 +320,47 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		?>
 			<td class="flexible-td">
 				<table class="flexible-table">
+					<thead>
+						<?php
+						for ( $i = 0, $l = count( $items ); $i < $l; $i++ ) {
+							if ( $i === $l - 1 ) {
+								echo '<td class="flexible-td-last">';
+							} else {
+								echo '<td>';
+							}
+
+							echo $items[$i]->title;
+							echo '</td>';
+						}
+						?>
+					</thead>
 					<tbody>
 						<tr>
-		<?php
-		for ( $i = 0, $l = count( $items ); $i < $l; $i++ ) {
-			$render_property = clone $items[$i];
-			$value_slug      = papi_remove_papi( $render_property->slug );
+						<?php
+						for ( $i = 0, $l = count( $items ); $i < $l; $i++ ) {
+							$render_property = clone $items[$i];
+							$value_slug      = papi_remove_papi( $render_property->slug );
 
-			if ( ! array_key_exists( $value_slug, $value ) ) {
-				continue;
-			}
+							if ( ! array_key_exists( $value_slug, $value ) ) {
+								continue;
+							}
 
-			$render_property->value = $value[$value_slug];
-			$render_property->slug = $this->get_property_slug( $render_property );
-			$render_property->raw  = true;
+							$render_property->value = $value[$value_slug];
+							$render_property->slug = $this->get_property_slug( $render_property );
+							$render_property->raw  = true;
 
-			if ( $i == $l - 1 ) {
-				echo '<td class="flexible-td-last">';
-			} else {
-				echo '<td>';
-			}
+							if ( $i === $l - 1 ) {
+								echo '<td class="flexible-td-last">';
+							} else {
+								echo '<td>';
+							}
 
-			$this->render_layout_input( $value_slug, $value[$this->layout_key] );
-			papi_render_property( $render_property );
+							$this->render_layout_input( $value_slug, $value[$this->layout_key] );
+							papi_render_property( $render_property );
 
-			echo '</td>';
-		}
-		?>
+							echo '</td>';
+						}
+						?>
 						</tr>
 					</tbody>
 				</table>
@@ -393,7 +407,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 			<?php /* One underscore is saved, two underscores isn't saved */ ?>
 
-			<?php $values = $this->get_value(); ?>
+			<?php
+				$values = $this->get_value();
+			?>
 			<input type="hidden" name="__<?php echo $options->slug; ?>_rows" value="<?php echo count( $values ); ?>" class="papi-property-repeater-rows" />
 
 		</div>
@@ -476,6 +492,11 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				</td>
 				<td class="flexible-td">
 					<table class="flexible-table">
+						<thead>
+							<tr>
+								<%= heads %>
+							</tr>
+						</thead>
 						<tbody>
 							<tr>
 								<%= columns %>

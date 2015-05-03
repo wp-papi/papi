@@ -1,24 +1,45 @@
 .papi-property-flexible {
   .papi-table .flexible-td {
     padding: 0;
+    border-bottom: 1px solid #eaeaea;
 
     .flexible-table {
-      margin: -2px 0;
+      margin: -1px 0;
       width: 100%;
+      border-spacing: 0;
 
       .wp-editor-tools {
         margin-bottom: -4px !important;
       }
 
-      td {
+      thead td {
+        &:first-child {
+          font-weight: normal;
+          width: auto;
+          border-left: 0;
+        }
+
+        background: #f9f9f9;
+        border: 1px solid #eaeaea;
+        border-left: 0;
+        color: #afafaf;
+        padding: 5px 10px;
+
+        &.flexible-td-last {
+          border-right: none;
+        }
+      }
+
+      tbody td {
         &:first-child {
           background: none;
           font-weight: normal;
-          padding: 10px 16px 10px 15px;
           width: auto;
+          border-left: 0;
         }
 
         border-top: 0;
+        padding: 20px 16px 20px 15px;
 
         &.flexible-td-last {
           border-right: none;

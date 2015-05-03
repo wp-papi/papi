@@ -103,7 +103,7 @@ class Papi_Admin_Ajax {
 			papi_get_property_type( $property );
 		}
 
-		if ( is_admin() && has_action( $this->action_prefix . $action ) != false ) {
+		if ( is_user_logged_in() && has_action( $this->action_prefix . $action ) != false ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {
 				define( 'DOING_AJAX', true );
 			}
@@ -153,6 +153,11 @@ class Papi_Admin_Ajax {
 	public function get_properties() {
 		$json   = file_get_contents( 'php://input' );
 		$items  = json_decode( $json, true );
+
+		if ( empty( $items ) ) {
+			$this->render_error( 'No properties found' );
+			exit;
+		}
 
 		foreach ( $items as $key => $item ) {
 			if ( is_object( $item ) ) {
