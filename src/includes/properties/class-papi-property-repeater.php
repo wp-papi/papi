@@ -401,7 +401,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	protected function render_repeater( $options ) {
 		?>
-		<div class="papi-property-repeater" data-slug="<?php echo $options->slug; ?>">
+		<div class="papi-property-repeater papi-property-repeater-top" data-slug="<?php echo $options->slug; ?>">
 			<table class="papi-table">
 				<?php $this->render_repeater_head(); ?>
 

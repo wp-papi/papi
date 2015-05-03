@@ -32,7 +32,7 @@ class Repeater {
    */
 
   add($this) {
-    const $repeater = $this.parent().parent();
+    const $repeater = $this.closest('.papi-property-repeater-top');
     const slug      = $repeater.data().slug;
     const $tbody    = $repeater.find('.repeater-tbody');
     const counter   = $tbody.children().length;
@@ -185,7 +185,7 @@ class Repeater {
    */
 
   remove($this) {
-    const $tbody = $this.closest('.papi-property-repeater').find('.repeater-tbody');
+    const $tbody = $this.closest('.papi-property-repeater-top').find('.repeater-tbody');
 
     $this.closest('tr').remove();
 
@@ -235,7 +235,7 @@ class Repeater {
 
   updateDatabaseRowNumber($tbody) {
     $tbody
-      .closest('.papi-property-repeater')
+      .closest('.papi-property-repeater-top')
       .find('.papi-property-repeater-rows')
       .val($tbody.find('tr').length);
   }

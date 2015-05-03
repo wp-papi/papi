@@ -84,7 +84,20 @@ class Flexible extends Repeater {
 
     $(document).on('click', '.papi-property-flexible .bottom a.button', function (e) {
       e.preventDefault();
+      $(this).parent().prev().removeClass('papi-hide');
+    });
+
+    $(document).on('click', '.papi-property-flexible .flexible-layouts li', function (e) {
+      e.preventDefault();
+      $(this).closest('.flexible-layouts').addClass('papi-hide');
       self.add($(this));
+    });
+
+    $(document).on('mouseup', 'body', function (e) {
+      const $layouts = $('.flexible-layouts:not(.papi-hide)');
+      if (!$layouts.is(e.target) && $layouts.has(e.target).length === 0) {
+        $layouts.addClass('papi-hide');
+      }
     });
 
     $(document).on('click', '.papi-property-flexible .repeater-remove-item', function (e) {

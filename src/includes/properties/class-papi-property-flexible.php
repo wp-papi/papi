@@ -367,17 +367,24 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$items = parent::get_settings_properties();
 		?>
 
-		<div class="papi-property-flexible">
+		<div class="papi-property-flexible papi-property-repeater-top">
 			<table class="papi-table">
 				<tbody class="repeater-tbody">
 					<?php $this->render_repeater_row(); ?>
 				</tbody>
 			</table>
 
+			<div class="flexible-layouts papi-hide">
+				<div class="flexible-layouts-arrow"></div>
+				<ul>
+					<?php foreach ( $items as $layout ): ?>
+						<li data-papi-json="<?php echo $options->slug; ?>_<?php echo $layout['slug']; ?>_flexible_json"><?php echo $layout['title']; ?></li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+
 			<div class="bottom">
-				<?php foreach ( $items as $layout ): ?>
-					<a href="#" class="button button-primary" data-papi-json="<?php echo $options->slug; ?>_<?php echo $layout['slug']; ?>_flexible_json"><?php echo $layout['title']; ?></a>
-				<?php endforeach; ?>
+				<a href="#" class="button button-primary"><?php _e( 'Add new row', 'papi' ); ?></a>
 			</div>
 
 			<?php /* Default repeater value */ ?>
