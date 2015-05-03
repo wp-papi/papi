@@ -47,9 +47,10 @@ class Papi_Property_Post extends Papi_Property {
 	 */
 
 	public function html() {
-		$options  = $this->get_options();
-		$settings = $this->get_settings();
-		$value    = $this->get_value();
+		$options    = $this->get_options();
+		$settings   = $this->get_settings();
+		$value      = $this->get_value();
+		$post_types = papi_to_array( $settings->post_type );
 
 		if ( is_object( $value ) ) {
 			$value = $value->ID;
@@ -64,7 +65,7 @@ class Papi_Property_Post extends Papi_Property {
 
 		// Prepare arguments for WP_Query.
 		$args = array_merge( $settings->query, array(
-			'post_type'              => papi_to_array( $settings->post_type ),
+			'post_type'              => $post_types,
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false
@@ -73,17 +74,29 @@ class Papi_Property_Post extends Papi_Property {
 		$query = new WP_Query( $args );
 		$posts = $query->get_posts();
 
+		// Keep only objects.
+		$posts   = papi_get_only_objects( $posts );
+		$results = array();
+
+		// Set labels
+		foreach ( $posts as $post ) {
+			$obj = get_post_type_object( $post->post_type );
+			if ( ! isset( $results[$obj->labels->menu_name] ) ) {
+				$results[$obj->labels->menu_name] = array();
+			}
+			$results[$obj->labels->menu_name][] = $post;
+		}
+
+		$posts = $results;
+		$render_label = count( $posts ) > 1;
+
 		// The blank item
 		if ( $settings->include_blank ) {
 			$blank = new stdClass;
 			$blank->ID = 0;
 			$blank->post_title = papi_esc_html( $settings->blank_text );
-
-			$posts = array_merge( array( $blank ), $posts );
+			$posts = array_merge( array( array( $blank ) ), $posts );
 		}
-
-		// Keep only objects.
-		$posts = papi_get_only_objects( $posts );
 
 		?>
 
@@ -95,11 +108,21 @@ class Papi_Property_Post extends Papi_Property {
 			<?php endif; ?>
 			<select name="<?php echo $options->slug; ?>" class="papi-vendor-select2 papi-fullwidth">
 
-				<?php foreach ( $posts as $post ) : ?>
+				<?php foreach ( $posts as $label => $items ) : ?>
 
-					<option value="<?php echo $post->ID; ?>" <?php echo $value == $post->ID ? 'selected="selected"' : ''; ?>>
-						<?php echo $post->post_title; ?>
-					</option>
+					<?php if ( $render_label && is_string( $label ) ): ?>
+						<optgroup label="<?php echo $label; ?>">
+					<?php endif; ?>
+
+					<?php foreach ( $items as $post ): ?>
+						<option value="<?php echo $post->ID; ?>" <?php echo $value == $post->ID ? 'selected="selected"' : ''; ?>>
+							<?php echo $post->post_title; ?>
+						</option>
+					<?php endforeach; ?>
+
+					<?php if ( $render_label ): ?>
+						</optgroup>
+					<?php endif; ?>
 
 				<?php endforeach; ?>
 
