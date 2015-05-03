@@ -28,7 +28,7 @@
         position: relative;
         width: 5%;
 
-        span {
+        > span {
           margin-top: -.5em;
           overflow: hidden;
           position: absolute;
@@ -62,7 +62,7 @@
           position: relative;
           width: 5%;
 
-          span {
+          > span {
             margin-top: -.5em;
             overflow: hidden;
             position: absolute;
@@ -113,8 +113,8 @@
           border-top: 1px #eaeaea solid;
           padding: 10px;
 
-          &:first-child span,
-          &.last span {
+          &:first-child > span,
+          &.last > span {
             margin-left: -.8em;
           }
         }

@@ -5,6 +5,10 @@
     margin: -2px 0;
     width: 100%;
 
+    .wp-editor-tools {
+      margin-bottom: -4px !important;
+    }
+
     td {
       &:first-child {
         background: none;

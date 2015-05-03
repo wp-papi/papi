@@ -26,6 +26,7 @@ class Editor {
 
   binds() {
     const self = this;
+
     $(document).on('papi/property/repeater/added', '[data-property="editor"]',  function(e) {
       e.preventDefault();
       self.update($(this));
@@ -123,11 +124,6 @@ class Editor {
    */
 
   static init() {
-    $('.papi-table .wp-switch-editor.switch-tmce').on('papi/properties/editor/init', function (e) {
-      e.preventDefault();
-      window.switchEditors.switchto(this);
-    }).trigger('papi/properties/editor/init');
-
     new Editor().binds();
   }
 

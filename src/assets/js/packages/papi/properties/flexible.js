@@ -78,9 +78,7 @@ class Flexible extends Repeater {
         return ui;
       },
       stop: function () {
-        const $tbody = $(this).closest('.repeater-tbody');
-        $tbody.find('[name*="_property"]').trigger('papi/property/repeater/sortable/stop');
-        self.updateRowNumber($tbody);
+        self.updateRowNumber($(this).closest('.repeater-tbody'));
       }
     });
 
