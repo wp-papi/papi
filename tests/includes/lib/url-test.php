@@ -40,6 +40,7 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_get_page_new_url() {
+		$_SERVER['REQUEST_URI'] = '';
 		$url = papi_get_page_new_url( 'page', true, 'page' );
 		$this->assertNotFalse( strpos( $url, 'page_type=page&post_type=page' ) );
 
