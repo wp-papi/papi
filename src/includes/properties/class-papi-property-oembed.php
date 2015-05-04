@@ -67,7 +67,7 @@ class Papi_Property_Oembed extends Papi_Property {
 	 */
 
 	public function get_oembed_html( $url, $width = null, $height = null ) {
-		if ( ! is_string( $url ) || filter_var( $url, FILTER_VALIDATE_URL ) ) {
+		if ( ! is_string( $url ) ) {
 			return;
 		}
 
