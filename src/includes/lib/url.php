@@ -64,7 +64,11 @@ function papi_get_page_query_strings( $first_char = '&', $exclude = array() ) {
 			return false;
 		}
 
-		return true;
+		if ( empty( $exclude ) ) {
+			return true;
+		}
+
+		return ! in_array( $q[0], $exclude );
 	} );
 
 	$query = implode( '&', $query );
