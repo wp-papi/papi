@@ -64,12 +64,7 @@ function papi_get_page_query_strings( $first_char = '&', $exclude = array() ) {
 			return false;
 		}
 
-		$q = $q[0];
-
-		$allowed = array( 'post_type', 'page_type', 'post_new', 'post_parent', 'papi_bypass', 'npparent' );
-		$allowed = array_diff( $allowed, $exclude );
-
-		return in_array( $q, $allowed );
+		return true;
 	} );
 
 	$query = implode( '&', $query );
