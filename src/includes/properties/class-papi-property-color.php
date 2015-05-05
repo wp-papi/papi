@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Property Color
  *
+ * @package Papi
  * @since 1.1.0
  */
 
