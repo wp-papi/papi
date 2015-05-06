@@ -57,53 +57,33 @@ class Papi_Property_Repeater extends Papi_Property {
 			$values = array();
 		}
 
-		$values_length = count( $values );
+		$values = papi_to_property_array_slugs( $values, $repeater_slug );
 
-		for ( $i = 0; $i < $values_length; $i++ ) {
-			$keys   = array_keys( $values[$i] );
-			$length = count( $keys );
-
-			for ( $k = 0; $k < $length; $k++ ) {
-				if ( $k % 2 !== 0 ) {
-					continue;
-				}
-
-				$slug = null;
-				$type = null;
-
-				if ( isset( $keys[$k + 1] ) && papi_is_property_type_key( $keys[$k + 1] ) ) {
-					$slug = $keys[$k];
-
-					if ( isset( $values[ $i ][ $keys[$k + 1] ] ) ) {
-						$type = $values[ $i ][ $keys[$k + 1] ];
-					}
-				}
-
-				if ( empty( $slug ) || empty( $type ) ) {
-					continue;
-				}
-
-				$property_type = papi_get_property_type( $type );
-
-				if ( empty( $property_type ) ) {
-					continue;
-				}
-
-				// Format the value from the property class.
-				$item = $property_type->format_value( $values[$i][$slug], $slug, $post_id );
-
-				// Apply a filter so this can be changed from the theme for specified property type.
-				$item = papi_filter_format_value( $type, $item, $slug, $post_id );
-
-				if ( ! isset( $result[$i] ) ) {
-					$result[$i] = array();
-				}
-
-				$result[$i][$slug] = $item;
+		foreach ( $values as $slug => $value ) {
+			if ( papi_is_property_type_key( $slug ) ) {
+				continue;
 			}
+
+			$property_type_slug = papi_f( papi_get_property_type_key( $slug ) );
+
+			if ( ! isset( $values[$property_type_slug] ) ) {
+				continue;
+			}
+
+			// Get property type
+			$property_type_value = $values[$property_type_slug];
+			$property_type = papi_get_property_type( $property_type_value );
+
+			// Run update value on each property type class.
+			$value = $property_type->format_value( $value, $slug, $post_id );
+
+			// Run update value on each property type filter.
+			$values[$slug] = papi_filter_format_value( $property_type_value, $value, $slug, $post_id );
+
+			$values[$property_type_slug] = $property_type_value;
 		}
 
-		return $result;
+		return papi_from_property_array_slugs( $values, $repeater_slug );
 	}
 
 	/**
@@ -615,7 +595,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 
 			// Get real property slug
-			$property_slug = substr(str_replace($repeater_slug, '', $slug), 3);
+			$property_slug = substr( str_replace( $repeater_slug, '', $slug ), 3 );
 
 			// Get property type
 			$property_type_value = $values[$property_type_slug]->type;
