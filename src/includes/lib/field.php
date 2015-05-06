@@ -38,29 +38,35 @@ function papi_field( $post_id = null, $name = null, $default = null, $admin_data
 		return $default;
 	}
 
-	// Check for "dot" notation.
-	$names = explode( '.', $name );
+	$cache_key = papi_get_cache_key( $name, $post_id );
+	$value     = wp_cache_get( $cache_key );
 
-	// Get the first value in the array.
-	$name = $names[0];
+	if ( $value === false ) {
+		// Check for "dot" notation.
+		$names = explode( '.', $name );
 
-	// Remove any `papi_` stuff if it exists.
-	$name = papi_remove_papi( $name );
+		// Get the first value in the array.
+		$name = $names[0];
 
-	// Remove the first value of the array.
-	$names = array_slice( $names, 1 );
+		// Remove the first value of the array.
+		$names = array_slice( $names, 1 );
 
-	// Get the page.
-	$page = papi_get_page( $post_id );
+		// Get the page.
+		$page = papi_get_page( $post_id );
 
-	// Return the default value if we don't have a WordPress post on the page object.
-	if ( is_null( $page ) || ! $page->has_post() ) {
-		return $default;
+		// Return the default value if we don't have a WordPress post on the page object.
+		if ( is_null( $page ) || ! $page->has_post() ) {
+			return $default;
+		}
+
+		$page->set_admin_data( $admin_data );
+
+		$value = papi_field_value( $names, $page->$name, $default );
+
+		wp_cache_add( $cache_key, $value );
 	}
 
-	$page->set_admin_data( $admin_data );
-
-	return papi_field_value( $names, $page->$name, $default );
+	return $value;
 }
 
 /**
@@ -78,36 +84,41 @@ function papi_fields() {
 		return array();
 	}
 
-	$page_type = $page->get_page_type();
+	$cache_key = papi_get_cache_key( 'page', $page->id );
+	$value     = wp_cache_get( $cache_key );
 
-	if ( empty( $page_type ) ) {
-		return array();
-	}
+	if ( $value === false ) {
+		$page_type = $page->get_page_type();
 
-	$arr = array();
-	$boxes = $page_type->get_boxes();
-
-	if ( empty ( $boxes ) || ! is_array( $boxes ) ) {
-		return array();
-	}
-
-	foreach ( $boxes as $box ) {
-		if ( count( $box ) < 2 || empty( $box[0]['title'] ) ) {
-			continue;
+		if ( empty( $page_type ) ) {
+			return array();
 		}
 
-		if ( ! isset( $arr[$box[0]['title']] ) ) {
-			$arr[$box[0]['title']] = array();
+		$value = array();
+		$boxes = $page_type->get_boxes();
+
+		if ( empty ( $boxes ) || ! is_array( $boxes ) ) {
+			return array();
 		}
 
-		foreach ( $box[1] as $property ) {
-			if ( is_object( $property ) && isset( $property->slug ) ) {
-				$arr[$box[0]['title']][] = papi_remove_papi( $property->slug );
+		foreach ( $boxes as $box ) {
+			if ( count( $box ) < 2 || empty( $box[0]['title'] ) ) {
+				continue;
+			}
+
+			if ( ! isset( $value[$box[0]['title']] ) ) {
+				$value[$box[0]['title']] = array();
+			}
+
+			foreach ( $box[1] as $property ) {
+				if ( is_object( $property ) && isset( $property->slug ) ) {
+					$value[$box[0]['title']][] = papi_remove_papi( $property->slug );
+				}
 			}
 		}
 	}
 
-	return $arr;
+	return $value;
 }
 
 /**

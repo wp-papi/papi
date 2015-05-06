@@ -11,6 +11,22 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Get Papi cache key.
+ *
+ * @param string $key
+ * @param int $post_id
+ * @since 1.3.0
+ *
+ * @return string
+ */
+
+function papi_get_cache_key( $key, $post_id = null ) {
+	$key     = papify( $key );
+	$post_id = papi_get_post_id( $post_id );
+	return sprintf( '%s_%d', $key, $post_id );
+}
+
+/**
  * Try convert to string if is possible else return empty string.
  *
  * @param mixed $obj

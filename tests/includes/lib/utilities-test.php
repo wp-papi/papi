@@ -36,6 +36,21 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test `papi_get_cache_key` function.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_papi_get_cache_key() {
+		global $post;
+		$post_id = $this->factory->post->create();
+		$post = get_post( $post_id );
+		$this->assertEquals( 'papi_page_' . $post_id, papi_get_cache_key( 'page', $post_id ) );
+		$this->assertEquals( 'papi_page_920', papi_get_cache_key( 'page', 920 ) );
+		unset( $post );
+	}
+
+	/**
 	 * Test `papi_convert_to_string` function.
 	 *
 	 * @since 1.0.0

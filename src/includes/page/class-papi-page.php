@@ -215,6 +215,9 @@ class Papi_Page {
 	 */
 
 	public function get_value( $slug ) {
+		// Remove any `papi_` stuff if it exists.
+		$slug = papi_remove_papi( $slug );
+
 		$property_value      = get_post_meta( $this->id, $slug, true );
 		$property_type_key   = papi_f( papi_get_property_type_key( $slug ) );
 		$property_type_value = get_post_meta( $this->id, $property_type_key, true );
