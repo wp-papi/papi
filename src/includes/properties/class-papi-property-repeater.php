@@ -121,20 +121,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
-	 * Get dynamic columns.
-	 *
-	 * @param int $post_id
-	 * @param string $repeater_slug
-	 * @param array $results
-	 * @since 1.3.0
-	 *
-	 * @return array
-	 */
-
-	protected function get_dynamic_columns( $post_id, $repeater_slug, $results ) {
-	}
-
-	/**
 	 * Generate property slug.
 	 *
 	 * @param object|array $property
@@ -178,24 +164,8 @@ class Papi_Property_Repeater extends Papi_Property {
 			return array( array(), array() );
 		}
 
-		// Create a array with a array at every index
-		// with slugs as key and the meta object as the value.
-		foreach ( $dbresults as $key => $meta ) {
-			// Meta key should look like `{repeater_slug}_{index}_{meta_key}`.
-			preg_match( '/\w+\_(\d+)\_\w+/', $meta->meta_key, $matches );
-
-			if ( count( $matches ) < 2 ) {
-				continue;
-			}
-
-			$i = intval( $matches[1] );
-
-			if ( ! isset( $results[$i] ) ) {
-				$results[$i] = array();
-			}
-
-			$results[$i][$meta->meta_key] = $meta;
-		}
+		// Get row results.
+		$rows = $this->get_row_results( $dbresults );
 
 		// Add repeater slug with number of rows to the values array.
 		$values[$repeater_slug] = $value;
@@ -215,12 +185,12 @@ class Papi_Property_Repeater extends Papi_Property {
 				// Generate slug from repeater slug, index and property slug.
 				$slug = sprintf( '%s_%d_%s', $repeater_slug, $i, $slugs[$j] );
 
-				if ( ! isset( $results[$i] ) || ! isset( $results[$i][$slug] ) ) {
+				if ( ! isset( $rows[$i] ) || ! isset( $rows[$i][$slug] ) ) {
 					continue;
 				}
 
 				// Get database value.
-				$meta = $results[$i][$slug];
+				$meta = $rows[$i][$slug];
 
 				// Add meta object to the no trash array.
 				$no_trash[$i][$slug] = $meta;
@@ -238,21 +208,53 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 
 			// Get the meta keys to delete.
-			$trash_diff = array_diff( array_keys( $results[$i] ), array_keys( $no_trash[$i] ) );
+			$trash_diff = array_diff( array_keys( $rows[$i] ), array_keys( $no_trash[$i] ) );
 
 			if ( ! empty( $trash_diff ) ) {
 				// Find all trash meta objects from results array.
 				foreach ( $trash_diff as $slug ) {
-					if ( ! isset( $results[$i] ) || ! isset( $results[$i][$slug] ) ) {
+					if ( ! isset( $results[$i] ) || ! isset( $rows[$i][$slug] ) ) {
 						continue;
 					}
 
-					$trash[$results[$i][$slug]->meta_key] = $results[$i][$slug];
+					$trash[$results[$i][$slug]->meta_key] = $rows[$i][$slug];
 				}
 			}
 		}
 
 		return array( $values, $trash );
+	}
+
+	/**
+	 * Get row results.
+	 *
+	 * @param array $dbresults
+	 * @since 1.3.0
+	 *
+	 * @return array
+	 */
+
+	protected function get_row_results( $dbresults ) {
+		$results = array();
+
+		foreach ( $dbresults as $key => $meta ) {
+			// Find row index key.
+			preg_match( '/^[^\d]*(\d+)/', $meta->meta_key, $matches );
+
+			if ( count( $matches ) < 2 ) {
+				continue;
+			}
+
+			$i = intval( $matches[1] );
+
+			if ( ! isset( $results[$i] ) ) {
+				$results[$i] = array();
+			}
+
+			$results[$i][$meta->meta_key] = $meta;
+		}
+
+		return $results;
 	}
 
 	/**
@@ -338,6 +340,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected function prepare_properties( $items ) {
 		$not_allowed = array( 'repeater', 'flexible' );
 		$not_allowed = array_merge( $not_allowed, apply_filters( 'papi/property/repeater/exclude', array() ) );
+		$items       = array_map( 'papi_get_property_options', $items );
 
 		return array_filter( $items, function ( $item ) use ( $not_allowed ) {
 
@@ -579,7 +582,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function update_value( $values, $repeater_slug, $post_id ) {
-		$properties = $this->get_settings_properties();
 		$rows_key   = papi_ff( papify( $repeater_slug ) . '_rows' );
 		$rows       = 0;
 
@@ -594,50 +596,43 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		list( $results, $trash ) = $this->get_results( $rows, $repeater_slug, $post_id );
 
+		// Delete trash values.
 		foreach ( $trash as $index => $meta ) {
 			delete_post_meta( $post_id, $meta->meta_key );
 		}
 
-		foreach ( $values as $index => $value ) {
+		$values = papi_to_property_array_slugs( $values, $repeater_slug );
 
-			if ( ! is_array( $value ) ) {
+		foreach ( $values as $slug => $value ) {
+			if ( papi_is_property_type_key( $slug ) ) {
 				continue;
 			}
 
-			$keys = array_keys( $value );
+			$property_type_slug = papi_f( papi_get_property_type_key( $slug ) );
 
-			foreach ( $properties as $empty => $property ) {
-				$slug = $property->array_slug;
-				$slug = papi_remove_papi( $slug );
-
-				if ( in_array( $slug, $keys ) ) {
-					$property_type_slug = papi_get_property_type_key( $slug );
-
-					// Run `update_value` on each property before it's saved.
-					if ( isset( $values[$index][$property_type_slug] ) ) {
-						if ( ! is_object( $values[$index][$property_type_slug] ) ) {
-							continue;
-						}
-
-						$property_type = papi_get_property_type( $values[$index][$property_type_slug]->type );
-						$values[$index][$slug] = $property_type->update_value( $values[$index][$slug], $slug, $post_id );
-						$values[$index][$slug] = papi_filter_update_value( $values[$index][$property_type_slug]->type, $values[$index][$slug], $slug, $post_id );
-					}
-
-					continue;
-				}
-
-				if ( papi_is_property_type_key( $slug ) ) {
-					$values[$index][$slug] = $property->type;
-				} else {
-					$values[$index][$slug] = '';
-				}
+			if ( ! isset( $values[$property_type_slug] ) ) {
+				continue;
 			}
+
+			// Get real property slug
+			$property_slug = substr(str_replace($repeater_slug, '', $slug), 3);
+
+			// Get property type
+			$property_type_value = $values[$property_type_slug]->type;
+			$property_type = papi_get_property_type( $property_type_value );
+
+			// Run update value on each property type class.
+			$value = $property_type->update_value( $value, $property_slug, $post_id );
+
+			// Run update value on each property type filter.
+			$values[$slug] = papi_filter_update_value( $property_type_value, $value, $property_slug, $post_id );
+
+			$values[$property_type_slug] = $property_type_value;
 		}
 
-		$values = papi_to_property_array_slugs( $values, $repeater_slug );
 		$trash  = array_diff( array_keys( papi_to_array( $results ) ), array_keys( papi_to_array( $values ) ) );
 
+		// Delete trash values.
 		foreach ( $trash as $trash_key => $trash_value ) {
 			delete_post_meta( $post_id, $trash_key );
 		}
