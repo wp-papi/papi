@@ -31,12 +31,7 @@ function papi_field( $post_id = null, $name = null, $default = null, $admin_data
 		$post_id = null;
 	}
 
-	// If it's a numeric value, let's convert it to int.
-	if ( is_numeric( $post_id ) ) {
-		$post_id = intval( $post_id );
-	} else {
-		$post_id = papi_get_post_id();
-	}
+	$post_id = papi_get_post_id( $post_id );
 
 	// Return the default value if we don't have a name.
 	if ( empty( $name ) ) {
