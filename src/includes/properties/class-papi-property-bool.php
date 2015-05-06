@@ -44,7 +44,7 @@ class Papi_Property_Bool extends Papi_Property {
 	}
 
 	/**
-	 * Format the value of the property before we output it to the application.
+	 * Format the value of the property before it's returned to the theme.
 	 *
 	 * @param mixed $value
 	 * @param string $slug

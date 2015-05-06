@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Format the value of the property before we output it to the application.
+ * Format the value of the property before it's returned to the theme.
  *
  * @param string $type
  * @param mixed $value
@@ -28,7 +28,7 @@ function papi_filter_format_value( $type, $value, $slug, $post_id ) {
 }
 
 /**
- * This filter is applied after the $value is loaded in the database.
+ * This filter is applied after the value is loaded in the database.
  *
  * @param string $type
  * @param mixed $value
@@ -188,7 +188,7 @@ function papi_filter_settings_sort_order() {
 }
 
 /**
- * This filter is applied before the $value is saved in the database.
+ * This filter is applied before the value is saved in the database.
  *
  * @param string $type
  * @param mixed $value

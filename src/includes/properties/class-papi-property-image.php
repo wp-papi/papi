@@ -22,7 +22,7 @@ class Papi_Property_Image extends Papi_Property {
 	public $default_value = null;
 
 	/**
-	 * Format the value of the property before we output it to the application.
+	 * Format the value of the property before it's returned to the theme.
 	 *
 	 * @param mixed $value
 	 * @param string $slug

@@ -49,7 +49,7 @@ class Papi_Property_Url extends Papi_Property {
 	}
 
 	/**
-	 * This filter is applied after the $value is loaded from the database.
+	 * Change value after it's loaded from the database.
 	 *
 	 * @param mixed $value
 	 * @param string $slug
@@ -68,7 +68,7 @@ class Papi_Property_Url extends Papi_Property {
 	}
 
 	/**
-	 * This filter is applied before the $value is saved in the database.
+	 * Update value before it's saved to the database.
 	 *
 	 * @param mixed $value
 	 * @param string $slug

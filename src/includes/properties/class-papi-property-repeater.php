@@ -31,7 +31,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	public $default_value = array();
 
 	/**
-	 * Format the value of the property before we output it to the application.
+	 * Format the value of the property before it's returned to the theme.
 	 *
 	 * @param mixed $values
 	 * @param string $repeater_slug
@@ -280,7 +280,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
-	 * Load value from the database.
+	 * Change value after it's loaded from the database.
 	 *
 	 * @param mixed $value
 	 * @param string $repeater_slug
