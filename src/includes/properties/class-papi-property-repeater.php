@@ -51,10 +51,8 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function format_value( $values, $repeater_slug, $post_id ) {
-		$result = array();
-
 		if ( ! is_array( $values ) ) {
-			$values = array();
+			return array();
 		}
 
 		$values = papi_to_property_array_slugs( $values, $repeater_slug );
