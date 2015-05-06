@@ -241,8 +241,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 	protected function get_settings_layouts() {
 		$settings = $this->get_settings();
-		$items    = $settings->items;
-		return $this->prepare_properties( papi_to_array( $items ) );
+		return $this->prepare_properties( papi_to_array( $settings->items ) );
 	}
 
 	/**
@@ -333,10 +332,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function render_json_template( $slug ) {
-		$items = parent::get_settings_properties();
-		$index = 0;
+		$layouts = $this->get_settings_layouts();
+		$index   = 0;
 
-		foreach ( $items as $layout ):
+		foreach ( $layouts as $layout ):
 			$properties = array();
 
 			foreach ( $layout['items'] as $key => $value ) {
@@ -389,7 +388,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						<tr>
 						<?php
 						for ( $i = 0, $l = count( $items ); $i < $l; $i++ ) {
-							$render_property = clone $items[$i];
+							$render_property = $items[$i];
 							$value_slug      = papi_remove_papi( $render_property->slug );
 
 							if ( ! array_key_exists( $value_slug, $value ) ) {
@@ -427,7 +426,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function render_repeater( $options ) {
-		$items = parent::get_settings_properties();
+		$layouts = $this->get_settings_layouts();
 		?>
 
 		<div class="papi-property-flexible papi-property-repeater-top">
@@ -442,7 +441,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					<div class="flexible-layouts papi-hide">
 						<div class="flexible-layouts-arrow"></div>
 						<ul>
-							<?php foreach ( $items as $layout ): ?>
+							<?php foreach ( $layouts as $layout ): ?>
 								<li data-papi-json="<?php echo $options->slug; ?>_<?php echo $layout['slug']; ?>_flexible_json"><?php echo $layout['title']; ?></li>
 							<?php endforeach; ?>
 						</ul>
@@ -474,9 +473,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function render_repeater_row() {
-		$items  = parent::get_settings_properties();
-		$values = $this->get_value();
-		$slugs  = $this->get_settings_properties_slugs();
+		$layouts = $this->get_settings_layouts();
+		$values  = $this->get_value();
+		$slugs   = $this->get_settings_properties_slugs();
 
 		// Match slugs against database values.
 		foreach ( $values as $index => $value ) {
@@ -499,7 +498,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					<span><?php echo $this->counter + 1; ?></span>
 				</td>
 				<?php
-					foreach ( $items as $layout ) {
+					foreach ( $layouts as $layout ) {
 						// Don't render layouts that don't have a valid value in the database.
 
 						if ( ! isset( $value[$this->layout_key] ) || $this->get_layout_value( 'layout', $layout['slug'] ) !== $value[$this->layout_key] ) {
