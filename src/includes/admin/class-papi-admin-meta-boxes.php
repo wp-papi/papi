@@ -136,14 +136,14 @@ class Papi_Admin_Meta_Boxes {
 			$property_key = str_replace( $property_type_key, '', $key );
 
 			// Check if value exists.
-			if ( isset( $data[ $property_key ] ) ) {
-				$data[ $property_key ] = array(
+			if ( isset( $data[$property_key] ) ) {
+				$data[$property_key] = array(
 					'type'  => $value,
-					'value' => $data[ $property_key ]
+					'value' => $data[$property_key]
 				);
 			}
 
-			unset( $data[ $key ] );
+			unset( $data[$key] );
 		}
 
 		// Run `before_save` on a property class if it exists.
@@ -164,14 +164,16 @@ class Papi_Admin_Meta_Boxes {
 
 			$property->set_options( $item['type'] );
 			$property->set_option( 'value', $item['value'] );
-			$data[ $key ]['value']  = $property->get_value( false );
-			$data[ $key ]['type'] = $property->get_option( 'type' );
+
+			// Get right value and right type from the property.
+			$data[$key]['value']  = $property->get_value( false );
+			$data[$key]['type'] = $property->get_option( 'type' );
 
 			// Run `update_value` if it exists on the property class.
-			$data[ $key ]['value'] = $property->update_value( $data[ $key ]['value'], papi_remove_papi( $key ), $post_id );
+			$data[$key]['value'] = $property->update_value( $data[$key]['value'], papi_remove_papi( $key ), $post_id );
 
 			// Apply a filter so this can be changed from the theme for specified property type.
-			$data[ $key ]['value'] = papi_filter_update_value( $item['type'], $data[ $key ]['value'], papi_remove_papi( $key ), $post_id );
+			$data[$key]['value'] = papi_filter_update_value( $item['type'], $data[$key]['value'], papi_remove_papi( $key ), $post_id );
 		}
 
 		// Check so all properties has a value and a type key and that the property is a array.
