@@ -112,7 +112,11 @@ class Papi_Page {
 		// Format the value from the property class.
 		$value = $property->format_value( $value, $slug, $this->id );
 
-		// Apply a filter so this can be changed from the theme for specified property type.
+		if ( is_admin() ) {
+			return $value;
+		}
+
+		// Only apply `format_value` filter so this can be changed from the theme for specified property type.
 		return papi_filter_format_value( $type, $value, $slug, $this->id );
 	}
 
