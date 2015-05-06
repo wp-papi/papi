@@ -81,6 +81,14 @@ class Papi_Property_Repeater extends Papi_Property {
 			$values[$property_type_slug] = $property_type_value;
 		}
 
+		if ( ! is_admin() ) {
+			foreach ( $values as $slug => $value ) {
+				if ( papi_is_property_type_key( $slug ) ) {
+					unset( $values[$slug] );
+				}
+			}
+		}
+
 		return papi_from_property_array_slugs( $values, $repeater_slug );
 	}
 
