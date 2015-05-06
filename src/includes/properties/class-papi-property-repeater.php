@@ -64,7 +64,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			$property_type = papi_get_property_type( $property_type_value );
 
 			// Run update value on each property type class.
-			$value = $property_type->format_value( $value, $slug, $post_id );
+			$values[$slug] = $property_type->format_value( $value, $slug, $post_id );
 
 			$values[$property_type_slug] = $property_type_value;
 		}
