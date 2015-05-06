@@ -31,15 +31,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	public $default_value = array();
 
 	/**
-	 * Calculate dynamic columns or not?
-	 *
-	 * @var bool
-	 * @since 1.3.0
-	 */
-
-	protected $dynamic_columns = false;
-
-	/**
 	 * Format the value of the property before we output it to the application.
 	 *
 	 * @param mixed $values
@@ -115,7 +106,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @return string
 	 */
 
-	protected function get_property_slug( $property ) {
+	protected function get_property_html_name( $property ) {
 		$options  = $this->get_options();
 		$property = (object) $property;
 		return $options->slug . '[' . $this->counter . ']' . '[' . papi_remove_papi( $property->slug ) . ']';
@@ -382,7 +373,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		foreach ( $items as $key => $value ) {
 			$properties[$key] = $value;
 			$properties[$key]->raw   = true;
-			$properties[$key]->slug  = $this->get_property_slug( $value );
+			$properties[$key]->slug  = $this->get_property_html_name( $value );
 			$properties[$key]->value = '';
 		}
 
@@ -411,7 +402,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 
 			$render_property->value = $value[$value_slug];
-			$render_property->slug = $this->get_property_slug( $render_property );
+			$render_property->slug = $this->get_property_html_name( $render_property );
 			$render_property->raw  = true;
 
 			echo '<td>';
