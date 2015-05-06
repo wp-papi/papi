@@ -40,15 +40,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	private $layout_key = '_layout';
 
 	/**
-	 * The layout key.
-	 *
-	 * @var string
-	 * @since 1.3.0
-	 */
-
-	private $layout_key_regex = '/\_layout/';
-
-	/**
 	 * Layout prefix regex.
 	 *
 	 * @var string
@@ -165,7 +156,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$rows = $this->get_row_results( $dbresults );
 
 		// Get columns, divde all items with two.
-		$columns =  array_map( function( $row ) {
+		$columns = array_map( function( $row ) {
 			return count( $row ) / 2;
 		}, $rows );
 
