@@ -1,6 +1,6 @@
 {
   "name": "papi",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "repository": "wp-papi/papi",
   "description": "Papi has a different approach on how to work with fields and page types in WordPress.",
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
