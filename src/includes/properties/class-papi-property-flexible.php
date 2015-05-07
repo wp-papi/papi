@@ -363,7 +363,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 			<script type="application/json" data-papi-json="<?php echo $this->get_json_id( $layout['title'], 'flexible_json' ); ?>">
 				<?php echo json_encode( array(
-						'layout'     => $this->get_layout_value( 'layout', $layout['slug'] ),
+						'layout'     => $layout['slug'],
 						'properties' => $properties
 					) ); ?>
 			</script>
@@ -456,7 +456,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						<div class="flexible-layouts-arrow"></div>
 						<ul>
 							<?php foreach ( $layouts as $layout ): ?>
-								<li data-papi-json="<?php echo $options->slug; ?>_<?php echo $layout['slug']; ?>_flexible_json"><?php echo $layout['title']; ?></li>
+								<li data-papi-json="<?php echo $this->get_json_id( $layout['title'], 'flexible_json' ); ?>"><?php echo $layout['title']; ?></li>
 							<?php endforeach; ?>
 						</ul>
 					</div>
