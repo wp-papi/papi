@@ -78,6 +78,16 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 		}
 
+		if ( ! is_admin() ) {
+			foreach ( $values as $index => $row ) {
+				foreach ( $row as $slug => $value ) {
+					if ( is_string( $value ) && preg_match( $this->layout_prefix_regex, $value ) ) {
+						$values[$index][$slug] = preg_replace( $this->layout_prefix_regex, '', $value );
+					}
+				}
+			}
+		}
+
 		return $values;
 	}
 
