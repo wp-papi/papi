@@ -96,15 +96,12 @@ final class Papi_Admin {
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new static;
-
-			if ( is_admin() ) {
-				self::$instance->setup_globals();
-				self::$instance->setup_actions();
-				self::$instance->setup_filters();
-			}
+			self::$instance->setup_globals();
+			self::$instance->setup_actions();
+			self::$instance->setup_filters();
 
 			if ( ! self::$instance->load_page_type ) {
-				return null;
+				return;
 			}
 		}
 
@@ -151,35 +148,30 @@ final class Papi_Admin {
 		global $wp_post_types;
 
 		if ( ! $this->setup_papi() ) {
-			return null;
+			return;
 		}
 
 		$this->page_type->setup();
 
-		$post_type = papi_get_wp_post_type();
+		$this->override_labels( $this->page_type );
+	}
 
-		if ( ! isset( $wp_post_types[$post_type] ) ) {
+	/**
+	 * Fill labels on admin bar.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function admin_bar_menu() {
+		$page = papi_get_page();
+
+		if ( empty( $page ) ) {
 			return;
 		}
 
-		$labels = $this->page_type->labels;
+		$page_type = $page->get_page_type();
 
-		if ( $this->page_type->fill_labels ) {
-			$fills     = array(
-				'add_new_item' => sprintf( '%s %s', __( 'Add New', 'papi' ), $this->page_type->name ),
-				'edit_item' => sprintf( '%s %s', __( 'Edit', 'papi' ), $this->page_type->name ),
-			);
-
-			$labels = array_merge( $fills, $labels );
-		}
-
-		foreach ( $labels as $key => $value ) {
-			if ( ! isset( $wp_post_types[$post_type]->labels->$key ) || empty( $value ) ) {
-				continue;
-			}
-
-			$wp_post_types[$post_type]->labels->$key = $value;
-		}
+		$this->override_labels( $page_type );
 	}
 
 	/**
@@ -374,7 +366,6 @@ final class Papi_Admin {
 
 	public function manage_page_type_posts_columns( $defaults ) {
 		$defaults['page_type'] = __( 'Page Type', 'papi' );
-
 		return $defaults;
 	}
 
@@ -395,6 +386,35 @@ final class Papi_Admin {
 			} else {
 				esc_html_e( papi_filter_standard_page_name( papi_get_wp_post_type() ) );
 			}
+		}
+	}
+
+	/**
+	 * Override labels with labels from the page type.
+	 *
+	 * @param Papi_Page_Type $page_type
+	 * @since 1.3.0
+	 */
+
+	private function override_labels( $page_type ) {
+		global $wp_post_types;
+
+		if ( empty( $page_type ) ) {
+			return;
+		}
+
+		$post_type = papi_get_wp_post_type();
+
+		if ( empty( $post_type ) || ! isset( $wp_post_types[$post_type] ) ) {
+			return;
+		}
+
+		foreach ( $page_type->get_labels() as $key => $value ) {
+			if ( ! isset( $wp_post_types[$post_type]->labels->$key ) || empty( $value ) ) {
+				continue;
+			}
+
+			$wp_post_types[$post_type]->labels->$key = $value;
 		}
 	}
 
@@ -506,14 +526,18 @@ final class Papi_Admin {
 	 */
 
 	private function setup_actions() {
-		add_action( 'admin_init', array( $this, 'admin_init' ) );
-		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-		add_action( 'admin_head', array( $this, 'admin_head' ) );
-		add_action( 'edit_form_after_title', array( $this, 'edit_form_after_title' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 9 );
-		add_action( 'load-post-new.php', array( $this, 'load_post_new' ) );
-		add_action( 'restrict_manage_posts', array( $this, 'restrict_page_types' ) );
-		add_action( 'add_meta_boxes', array( $this, 'hidden_meta_boxes' ), 10 );
+		add_action( 'admin_bar_menu', array( $this, 'admin_bar_menu' ) );
+
+		if ( is_admin() ) {
+			add_action( 'admin_init', array( $this, 'admin_init' ) );
+			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+			add_action( 'admin_head', array( $this, 'admin_head' ) );
+			add_action( 'edit_form_after_title', array( $this, 'edit_form_after_title' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 9 );
+			add_action( 'load-post-new.php', array( $this, 'load_post_new' ) );
+			add_action( 'restrict_manage_posts', array( $this, 'restrict_page_types' ) );
+			add_action( 'add_meta_boxes', array( $this, 'hidden_meta_boxes' ), 10 );
+		}
 	}
 
 	/**
@@ -523,15 +547,17 @@ final class Papi_Admin {
 	 */
 
 	private function setup_filters() {
-		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
-		add_filter( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
+		if ( is_admin() ) {
+			add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
+			add_filter( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
 
-		// Add post type columns to eavery post types that is used.
-		add_filter( 'manage_' . $this->post_type . '_posts_columns', array( $this, 'manage_page_type_posts_columns' ) );
-		add_action( 'manage_' . $this->post_type . '_posts_custom_column', array(
-			$this,
-			'manage_page_type_posts_custom_column'
-		), 10, 2 );
+			// Add post type columns to eavery post types that is used.
+			add_filter( 'manage_' . $this->post_type . '_posts_columns', array( $this, 'manage_page_type_posts_columns' ) );
+			add_action( 'manage_' . $this->post_type . '_posts_custom_column', array(
+				$this,
+				'manage_page_type_posts_custom_column'
+			), 10, 2 );
+		}
 	}
 
 	/**
@@ -541,12 +567,15 @@ final class Papi_Admin {
 	 */
 
 	private function setup_globals() {
-		$this->view             = new Papi_Admin_View;
-		$this->meta_boxes       = new Papi_Admin_Meta_Boxes;
-		$this->management_pages = new Papi_Admin_Management_Pages;
 		$this->post_type        = papi_get_wp_post_type();
-		$this->post_id          = papi_get_post_id();
-		$this->page_type_id     = papi_get_page_type_meta_value();
+
+		if ( is_admin() ) {
+			$this->view             = new Papi_Admin_View;
+			$this->meta_boxes       = new Papi_Admin_Meta_Boxes;
+			$this->management_pages = new Papi_Admin_Management_Pages;
+			$this->post_id          = papi_get_post_id();
+			$this->page_type_id     = papi_get_page_type_meta_value();
+		}
 	}
 
 	/**

@@ -136,6 +136,27 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	}
 
 	/**
+	 * Get labels that should be changed
+	 * when using `fill_labels` option.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @return array
+	 */
+
+	public function get_labels() {
+		if ( ! $this->fill_labels ) {
+			return array();
+		}
+
+		return array(
+			'add_new_item' => sprintf( '%s %s', __( 'Add New', 'papi' ), $this->name ),
+			'edit_item' => sprintf( '%s %s', __( 'Edit', 'papi' ), $this->name ),
+			'view_item' => sprintf( '%s %s', __( 'View', 'papi' ), $this->name )
+		);
+	}
+
+	/**
 	 * Get page type image thumbnail.
 	 *
 	 * @since 1.0.0
