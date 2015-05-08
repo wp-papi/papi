@@ -526,8 +526,6 @@ final class Papi_Admin {
 	 */
 
 	private function setup_actions() {
-		add_action( 'admin_bar_menu', array( $this, 'admin_bar_menu' ) );
-
 		if ( is_admin() ) {
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
@@ -537,6 +535,8 @@ final class Papi_Admin {
 			add_action( 'load-post-new.php', array( $this, 'load_post_new' ) );
 			add_action( 'restrict_manage_posts', array( $this, 'restrict_page_types' ) );
 			add_action( 'add_meta_boxes', array( $this, 'hidden_meta_boxes' ), 10 );
+		} else {
+			add_action( 'admin_bar_menu', array( $this, 'admin_bar_menu' ) );
 		}
 	}
 
