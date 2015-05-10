@@ -49,7 +49,7 @@ class Papi_Property_Number_Test extends WP_UnitTestCase {
 	public function test_output() {
 		papi_render_property( $this->property );
 		$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $this->property->slug ) . '\"' );
-		$this->expectOutputRegex( '/data\-property=\"number\"/' );
+		$this->expectOutputRegex( '/data\-property=\"' . $this->property->type . '\"/' );
 	}
 
 	/**
