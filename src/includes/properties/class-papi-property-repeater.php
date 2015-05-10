@@ -53,7 +53,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				continue;
 			}
 
-			$property_type_slug = papi_f( papi_get_property_type_key( $slug ) );
+			$property_type_slug = papi_get_property_type_key_f( $slug );
 
 			if ( ! isset( $values[$property_type_slug] ) ) {
 				continue;
@@ -582,7 +582,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				continue;
 			}
 
-			$property_type_slug = papi_f( papi_get_property_type_key( $slug ) );
+			$property_type_slug = papi_get_property_type_key_f( $slug );
 
 			if ( ! isset( $values[$property_type_slug] ) ) {
 				continue;
