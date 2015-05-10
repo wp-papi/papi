@@ -63,7 +63,7 @@ function papi_field( $post_id = null, $name = null, $default = null, $admin_data
 
 		$value = papi_field_value( $names, $page->$name, $default );
 
-		wp_cache_add( $cache_key, $value );
+		wp_cache_set( $cache_key, $value );
 	}
 
 	return $value;
@@ -116,6 +116,8 @@ function papi_fields() {
 				}
 			}
 		}
+
+		wp_cache_set( $cache_key, $value );
 	}
 
 	return $value;
