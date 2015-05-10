@@ -513,17 +513,17 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					<span><?php echo $this->counter + 1; ?></span>
 				</td>
 				<?php
-					foreach ( $layouts as $layout ) {
-						// Don't render layouts that don't have a valid value in the database.
-						if ( ! isset( $value[$this->layout_key] ) || $layout['slug'] !== $value[$this->layout_key] ) {
-							continue;
-						}
-
-						// Render all properties in the layout
-						$this->render_properties( $layout['items'], $value );
+				foreach ( $layouts as $layout ) {
+					// Don't render layouts that don't have a valid value in the database.
+					if ( ! isset( $value[$this->layout_key] ) || $layout['slug'] !== $value[$this->layout_key] ) {
+						continue;
 					}
 
-					$this->counter++;
+					// Render all properties in the layout
+					$this->render_properties( $layout['items'], $value );
+				}
+
+				$this->counter++;
 				?>
 				<td class="last">
 					<span>
