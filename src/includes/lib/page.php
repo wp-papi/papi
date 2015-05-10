@@ -112,10 +112,20 @@ function papi_get_number_of_pages( $page_type ) {
 		return 0;
 	}
 
-	$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '%s' AND `meta_value` = '%s'";
-	$sql = $wpdb->prepare( $sql, PAPI_PAGE_TYPE_KEY, $page_type );
+	$cache_key = papi_get_cache_key( 'page_type', $page_type );
+	$value = wp_cache_get( $cache_key );
 
-	return intval( $wpdb->get_var( $sql ) );
+	if ( $value === false ) {
+
+		$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '%s' AND `meta_value` = '%s'";
+		$sql = $wpdb->prepare( $sql, PAPI_PAGE_TYPE_KEY, $page_type );
+
+		$value = intval( $wpdb->get_var( $sql ) );
+
+		wp_cache_set( $cache_key, $value );
+	}
+
+	return $value;
 }
 
 /**
