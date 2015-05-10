@@ -67,6 +67,35 @@ class Papi_Property {
 	}
 
 	/**
+	 * Convert settings items to properties if they are a property.
+	 *
+	 * @param array $settings
+	 * @since 1.3.0
+	 *
+	 * @return array
+	 */
+
+	private function convert_settings( $settings ) {
+		foreach ( $settings as $key => $value ) {
+			if ( is_array( $value ) ) {
+				if ( isset( $value['type'] ) ) {
+					$type = papi_get_property_class_name( $value['type'] );
+
+					if ( class_exists( $type ) ) {
+						$settings[$key] = papi_property( $value );
+					} else {
+						$settings[$key] = $this->convert_settings( $value );
+					}
+				} else {
+					$settings[$key] = $this->convert_settings( $value );
+				}
+			}
+		}
+
+		return $settings;
+	}
+
+	/**
 	 * Create a property from options.
 	 *
 	 * @param array|object $options
@@ -162,6 +191,33 @@ class Papi_Property {
 	}
 
 	/**
+	 * Get option value.
+	 *
+	 * @param string $key
+	 * @since 1.3.0
+	 *
+	 * @return mixed
+	 */
+
+	public function get_option( $key ) {
+		if ( isset( $this->options->$key ) ) {
+			return $this->options->$key;
+		}
+	}
+
+	/**
+	 * Get the current property options object.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return object
+	 */
+
+	public function get_options() {
+		return $this->options;
+	}
+
+	/**
 	 * Get post id.
 	 *
 	 * @since 1.3.0
@@ -171,6 +227,40 @@ class Papi_Property {
 
 	public function get_post_id() {
 		return papi_get_post_id();
+	}
+
+	/**
+	 * Get setting value.
+	 *
+	 * @param string $key
+	 * @since 1.3.0
+	 *
+	 * @return mixed
+	 */
+
+	public function get_setting( $key ) {
+		$settings = $this->get_settings();
+		if ( isset( $settings->$key ) ) {
+			return $settings->$key;
+		}
+	}
+
+	/**
+	 * Get custom property settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return object
+	 */
+
+	public function get_settings() {
+		if ( ! is_object( $this->options ) ) {
+			return;
+		}
+
+		$settings = wp_parse_args( $this->options->settings, $this->get_default_settings() );
+
+		return (object) $this->convert_settings( $settings );
 	}
 
 	/**
@@ -207,65 +297,6 @@ class Papi_Property {
 		}
 
 		return $value;
-	}
-
-	/**
-	 * Get option value.
-	 *
-	 * @param string $key
-	 * @since 1.3.0
-	 *
-	 * @return mixed
-	 */
-
-	public function get_option( $key ) {
-		if ( isset( $this->options->$key ) ) {
-			return $this->options->$key;
-		}
-	}
-
-	/**
-	 * Get the current property options object.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return object
-	 */
-
-	public function get_options() {
-		return $this->options;
-	}
-
-	/**
-	 * Get setting value.
-	 *
-	 * @param string $key
-	 * @since 1.3.0
-	 *
-	 * @return mixed
-	 */
-
-	public function get_setting( $key ) {
-		$settings = $this->get_settings();
-		if ( isset( $settings->$key ) ) {
-			return $settings->$key;
-		}
-	}
-
-	/**
-	 * Get custom property settings.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return object
-	 */
-
-	public function get_settings() {
-		if ( ! is_object( $this->options ) ) {
-			return;
-		}
-
-		return (object) wp_parse_args( $this->options->settings, $this->get_default_settings() );
 	}
 
 	/**
