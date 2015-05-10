@@ -14,16 +14,17 @@ defined( 'ABSPATH' ) || exit;
  * Get Papi cache key.
  *
  * @param string $key
- * @param int $post_id
+ * @param mixed $suffix
  * @since 1.3.0
  *
  * @return string
  */
 
-function papi_get_cache_key( $key, $post_id = null ) {
-	$key     = papify( $key );
-	$post_id = papi_get_post_id( $post_id );
-	return sprintf( '%s_%d', $key, $post_id );
+function papi_get_cache_key( $key, $suffix = null ) {
+	$key    = papify( $key );
+	$suffix = papi_convert_to_string( $suffix );
+	$suffix = papi_html_name( $suffix );
+	return sprintf( '%s_%s', $key, $suffix );
 }
 
 /**
