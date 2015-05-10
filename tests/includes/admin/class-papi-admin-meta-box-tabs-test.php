@@ -43,6 +43,17 @@ class Papi_Admin_Meta_Box_Tabs_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test `__construct`.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_construct() {
+		$class = new Papi_Admin_Meta_Box_Tabs();
+		$this->assertEmpty($class->get_tabs());
+	}
+
+	/**
 	 * Test the tabs array.
 	 * The tabs aren't sorted yet with sort order key.
 	 *
