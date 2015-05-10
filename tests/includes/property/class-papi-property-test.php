@@ -165,9 +165,9 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_get_option() {
-		$property = Papi_Property::create(array(
+		$property = Papi_Property::create( array(
 			'title' => 'Name'
-		));
+		) );
 
 		$this->assertNull( $property->get_option( 'fake' ) );
 		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
@@ -209,9 +209,25 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEmpty( $property->get_settings() );
 
-		$property->set_options( array( 'settings' => array() ) );
+		$property->set_options( array(
+			'settings' => array(
+				'items' => array(
+					array(
+						'type' => 'faker'
+					),
+					array(
+						'type' => 'fake'
+					)
+				)
+			)
+		) );
 
-		$this->assertTrue( is_object( $property->get_settings() ) );
+		$settings = $property->get_settings();
+
+		$this->assertTrue( is_object( $settings ) );
+		$this->assertEquals( 'faker', $settings->items[0]['type'] );
+		$this->assertEquals( 'fake', $settings->items[1]->type );
+		$this->assertEquals( 'papi_fake', $settings->items[1]->slug );
 	}
 
 	/**

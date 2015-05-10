@@ -80,7 +80,6 @@ class Papi_Property {
 			if ( is_array( $value ) ) {
 				if ( isset( $value['type'] ) ) {
 					$type = papi_get_property_class_name( $value['type'] );
-
 					if ( class_exists( $type ) ) {
 						$settings[$key] = papi_property( $value );
 					} else {
