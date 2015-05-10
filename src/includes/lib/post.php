@@ -49,7 +49,7 @@ function papi_get_post_id( $post_id = null ) {
 	}
 
 	// Or return null or the given value of post id.
-	return $post_id;
+	return intval( $post_id );
 }
 
 /**
@@ -67,7 +67,7 @@ function papi_get_wp_post_type() {
 
 	$post_id = papi_get_post_id();
 
-	if ( intval( $post_id ) !== 0 ) {
+	if ( $post_id !== 0 ) {
 		return strtolower( get_post_type( $post_id ) );
 	}
 
