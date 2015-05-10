@@ -67,7 +67,7 @@ function papi_get_wp_post_type() {
 
 	$post_id = papi_get_post_id();
 
-	if ( $post_id != 0 ) {
+	if ( $post_id !== 0 ) {
 		return strtolower( get_post_type( $post_id ) );
 	}
 
