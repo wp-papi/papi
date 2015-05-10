@@ -39,3 +39,7 @@ Or manually add it to your `composer.json`:
 ## Contributing
 
 Visit the [contributing](CONTRIBUTING.md) file.
+
+# License
+
+MIT © [Fredrik Forsmo](https://github.com/frozzare)
