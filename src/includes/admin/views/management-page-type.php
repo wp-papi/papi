@@ -19,35 +19,35 @@ function papi_management_page_type_render_box( $properties, $tab = false ) {
 		</thead>
 		<tbody>
 			<?php
-				$properties = papi_populate_properties( $properties );
+			$properties = papi_populate_properties( $properties );
 
-				if ( $tab ) {
-					$properties = papi_setup_tabs( $properties );
-				}
+			if ( $tab ) {
+				$properties = papi_setup_tabs( $properties );
+			}
 
-				foreach ( $properties as $property ): ?>
-					<tr>
-						<?php if ( isset( $property->options ) && isset( $property->options->title ) ): ?>
-							<td>
-								<?php esc_html_e( $property->options->title ); ?>
-								<br />
-								<br />
-								<?php echo __( 'Properties', 'papi' ) . ': ' . trval( count( $property->properties ) ); ?>
-							</td>
-							<td>
-								<?php esc_html_e( $property->options->sort_order ); ?>
-							</td>
-							<td>
-								<?php papi_management_page_type_render_box( $property->properties ); ?>
-							</td>
-						<?php else: ?>
-							<td><?php esc_html_e( $property->title ); ?></td>
-							<td><?php esc_html_e( $property->type ); ?></td>
-							<td><?php esc_html_e( papi_remove_papi( $property->slug ) ); ?></td>
-							<td><?php esc_html_e( $property->sort_order ); ?></td>
-						<?php endif; ?>
-					</tr>
-				<?php endforeach; ?>
+			foreach ( $properties as $property ): ?>
+				<tr>
+					<?php if ( isset( $property->options ) && isset( $property->options->title ) ): ?>
+						<td>
+							<?php esc_html_e( $property->options->title ); ?>
+							<br />
+							<br />
+							<?php echo __( 'Properties', 'papi' ) . ': ' . trval( count( $property->properties ) ); ?>
+						</td>
+						<td>
+							<?php esc_html_e( $property->options->sort_order ); ?>
+						</td>
+						<td>
+							<?php papi_management_page_type_render_box( $property->properties ); ?>
+						</td>
+					<?php else: ?>
+						<td><?php esc_html_e( $property->title ); ?></td>
+						<td><?php esc_html_e( $property->type ); ?></td>
+						<td><?php esc_html_e( papi_remove_papi( $property->slug ) ); ?></td>
+						<td><?php esc_html_e( $property->sort_order ); ?></td>
+					<?php endif; ?>
+				</tr>
+			<?php endforeach; ?>
 			</tr>
 		</tbody>
 	</table>
@@ -77,23 +77,23 @@ function papi_management_page_type_render_box( $properties, $tab = false ) {
 	$boxes = $page_type->get_boxes();
 
 	if ( empty( $boxes ) ) {
-		echo sprintf( '<p>%s</p>', esc_html__( 'No meta boxes exists.', 'papi' )  );
+		echo sprintf( '<p>%s</p>', esc_html__( 'No meta boxes exists.', 'papi' ) );
 		return;
 	}
 
 	foreach ( $boxes as $box ):
-			$tab 			= isset( $box[1] ) && isset( $box[1][0] ) && isset( $box[1][0]->tab ) && $box[1][0]->tab;
-			$top_right_text = __( 'Properties', 'papi' );
+		$tab 			= isset( $box[1] ) && isset( $box[1][0] ) && isset( $box[1][0]->tab ) && $box[1][0]->tab;
+		$top_right_text = __( 'Properties', 'papi' );
 
-			if ( $tab ) {
-				$top_right_text = __( 'Tabs', 'papi' );
-			}
+		if ( $tab ) {
+			$top_right_text = __( 'Tabs', 'papi' );
+		}
 
-			if ( ! isset( $box['title'] ) || empty( $box['title'] ) ) {
-				continue;
-			}
+		if ( ! isset( $box['title'] ) || empty( $box['title'] ) ) {
+			continue;
+		}
 
-			$counter = count( papi_get_box_property( $box[1] ) );
+		$counter = count( papi_get_box_property( $box[1] ) );
 		?>
 		<div class="postbox papi-box papi-management-box">
 			<div class="handlediv" title="Click to toggle">
