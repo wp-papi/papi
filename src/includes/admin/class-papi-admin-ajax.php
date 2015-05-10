@@ -123,7 +123,7 @@ class Papi_Admin_Ajax {
 	 */
 
 	public function get_property() {
-        $default_options = Papi_Property::default_options();
+		$default_options = Papi_Property::default_options();
 		$keys = array_keys( $default_options );
 		$options = papi_get_qs( $keys, true );
 
@@ -135,13 +135,13 @@ class Papi_Admin_Ajax {
 
 		$html = ob_get_clean();
 
-        if ( empty( $html ) ) {
-            $this->render_error( 'No property found' );
-        } else {
-            $this->render( array(
-                'html' => utf8_encode( $html )
-            ) );
-        }
+		if ( empty( $html ) ) {
+			$this->render_error( 'No property found' );
+		} else {
+			$this->render( array(
+				'html' => utf8_encode( $html )
+			) );
+		}
 	}
 
 	/**
@@ -182,29 +182,29 @@ class Papi_Admin_Ajax {
 		}
 	}
 
-    /**
-     * Render json.
-     *
-     * @param mixed $obj
-     * @since 1.3.0
-     */
+	/**
+	 * Render json.
+	 *
+	 * @param mixed $obj
+	 * @since 1.3.0
+	 */
 
-    public function render( $obj ) {
-        echo json_encode( $obj );
-    }
+	public function render( $obj ) {
+		echo json_encode( $obj );
+	}
 
-    /**
-     * Render error message.
-     *
-     * @param string $message
-     * @since 1.3.0
-     */
+	/**
+	 * Render error message.
+	 *
+	 * @param string $message
+	 * @since 1.3.0
+	 */
 
-    public function render_error( $message ) {
-        echo json_encode( array(
-            'error' => $message
-        ) );
-    }
+	public function render_error( $message ) {
+		echo json_encode( array(
+			'error' => $message
+		) );
+	}
 }
 
 new Papi_Admin_Ajax();
