@@ -50,3 +50,14 @@ function papi_test_get_fixtures_path( $path ) {
 
 	return __DIR__ . '/fixtures' . $path;
 }
+
+/**
+ * Reset cache.
+ *
+ * @param string $key
+ * @param string $suffix
+ */
+
+function papi_test_reset_cache( $key, $suffix ) {
+	wp_cache_set( papi_get_cache_key( $key, $suffix ), false );
+}
