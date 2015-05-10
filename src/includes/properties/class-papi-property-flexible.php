@@ -222,7 +222,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					$slug .= '_layout';
 				}
 
-				$values[$slug] = $rows[$i][$slug]->meta_value;
+				if ( isset( $rows[$i][$slug] ) ) {
+					$values[$slug] = $rows[$i][$slug]->meta_value;
+				}
 			}
 
 			// Get the meta keys to delete.
