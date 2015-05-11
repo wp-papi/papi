@@ -41,7 +41,7 @@ Or manually add it to your `composer.json`:
 Papi has a `phpcs.rulset.xml` so you can check the source code coding style.
 
 ```
-$ gulp sniff
+$ gulp phpcs
 
 // or
 

@@ -147,7 +147,7 @@ gulp.task('lint', function () {
 });
 
 // PHP Code Sniffer.
-gulp.task('sniff', function () {
+gulp.task('phpcs', function () {
   return gulp.src(config.phpcs.src)
     .pipe(phpcs({
       bin: 'vendor/bin/phpcs',
