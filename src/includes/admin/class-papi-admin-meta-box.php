@@ -140,7 +140,7 @@ class Papi_Admin_Meta_Box {
 	private function populate_post_type( $post_type ) {
 		$post_id = papi_get_post_id();
 
-		if ( ! is_null( $post_id ) ) {
+		if ( $post_id !== 0 ) {
 			return get_post_type( $post_id );
 		}
 
