@@ -83,7 +83,9 @@ class Papi_Container implements \ArrayAccess {
 	 * @return bool
 	 */
 
+	// @codingStandardsIgnoreStart
 	public function offsetExists( $id ) {
+	// @codingStandardsIgnoreEnd
 		return $this->exists( $id );
 	}
 
@@ -95,7 +97,9 @@ class Papi_Container implements \ArrayAccess {
 	 * @return mixed
 	 */
 
+	// @codingStandardsIgnoreStart
 	public function offsetGet( $id ) {
+	// @codingStandardsIgnoreEnd
 		return $this->make( $id );
 	}
 
@@ -106,7 +110,9 @@ class Papi_Container implements \ArrayAccess {
 	 * @param mixed $value
 	 */
 
+	// @codingStandardsIgnoreStart
 	public function offsetSet( $id, $value ) {
+	// @codingStandardsIgnoreEnd
 		$this->bind( $id, $value );
 	}
 
@@ -116,7 +122,9 @@ class Papi_Container implements \ArrayAccess {
 	 * @param string $id
 	 */
 
+	// @codingStandardsIgnoreStart
 	public function offsetUnset( $id ) {
+	// @codingStandardsIgnoreEnd
 		unset( $this->keys[$id], $this->values[$id] );
 	}
 }

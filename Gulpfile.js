@@ -22,6 +22,7 @@ var eslint       = require('gulp-eslint');
 var browserify   = require('browserify');
 var babelify     = require('babelify');
 var source       = require('vinyl-source-stream');
+var phpcs        = require('gulp-phpcs');
 var pkg          = require('./package.json');
 
 /*-------------------------------------------------------------------
@@ -32,6 +33,9 @@ Config
 var src = './src/assets/';
 var dist = './dist/';
 var config = {
+  phpcs: {
+    src: 'src/**/*.php'
+  },
   sass: {
     src: src + 'scss/**/*.{sass,scss}',
     dest: dist + 'css/',
@@ -47,7 +51,8 @@ var config = {
       src + 'js/components/*.js',
       dist + 'js/*.js'
     ],
-    dest: dist + 'js/'
+    dest: dist + 'js/',
+    lint: 'src/assets/js/**/*.js'
   }
 };
 
@@ -135,12 +140,21 @@ gulp.task('scripts', ['es6to5'], function() {
 
 // Lint using Eslint
 gulp.task('lint', function () {
-  return gulp.src(['src/assets/js/**/*.js'])
+  return gulp.src(config.scripts.lint)
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failOnError());
 });
 
+// PHP Code Sniffer.
+gulp.task('sniff', function () {
+  return gulp.src(config.phpcs.src)
+    .pipe(phpcs({
+      bin: 'vendor/bin/phpcs',
+      standard: 'phpcs.ruleset.xml'
+    }))
+    .pipe(phpcs.reporter('log'));
+});
 
 // Watch
 gulp.task('watch', function() {
