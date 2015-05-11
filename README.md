@@ -36,7 +36,7 @@ Or manually add it to your `composer.json`:
 4. Run `$ phpunit`
 5. Done!
 
-## Code style
+## Coding style
 
 Papi has a `phpcs.rulset.xml` so you can check the source code coding style.
 
