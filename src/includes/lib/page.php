@@ -247,14 +247,11 @@ function papi_get_page_type_by_id( $id ) {
  */
 
 function papi_get_page_type_meta_value( $post_id = null ) {
-	if ( is_null( $post_id ) ) {
-		$post_id = papi_get_post_id();
-	}
-
+	$post_id   = papi_get_post_id( $post_id );
 	$key       = PAPI_PAGE_TYPE_KEY;
 	$page_type = '';
 
-	if ( ! is_null( $post_id ) ) {
+	if ( $post_id !== 0 ) {
 		$meta_value = get_post_meta( $post_id, $key, true );
 		$page_type  = papi_h( $meta_value, '' );
 	}
@@ -329,6 +326,11 @@ function papi_get_post_types() {
 
 function papi_page_type_name( $post_id = null ) {
 	$post_id = papi_get_post_id( $post_id );
+
+	if ( empty( $post_id ) ) {
+		return '';
+	}
+
 	$page_type_id = get_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, true );
 
 	if ( empty( $page_type_id ) ) {

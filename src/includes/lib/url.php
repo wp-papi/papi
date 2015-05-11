@@ -105,7 +105,7 @@ function papi_append_post_type_query( $url, $post_type_arg = null ) {
 
 	$post_id = papi_get_post_id();
 
-	if ( is_null( $post_id ) ) {
+	if ( $post_id === 0 ) {
 		$post_type = papi_get_or_post( 'post_type' );
 	} else {
 		$post_type = get_post_type( $post_id );
