@@ -99,7 +99,6 @@ class Repeater {
       },
       stop: function () {
         const $tbody = $(this).closest('.repeater-tbody');
-      //   $tbody.find('[name*="_property"]').trigger('papi/property/repeater/sortable/stop');
         self.updateRowNumber($tbody);
       }
     });
