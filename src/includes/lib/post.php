@@ -21,34 +21,28 @@ defined( 'ABSPATH' ) || exit;
  */
 
 function papi_get_post_id( $post_id = null ) {
-	// If it's a post object we can return the id from it.
 	if ( is_object( $post_id ) ) {
 		return $post_id->ID;
 	}
 
-	// If it's not null and it's a numeric string we can convert it to int and return it.
 	if ( is_numeric( $post_id ) && is_string( $post_id ) ) {
 		return intval( $post_id );
 	}
 
 	if ( is_null( $post_id ) ) {
-		// If `get_post` function is available and post id is null we can return the post id.
 		if ( get_post() ) {
 			return get_the_ID();
 		}
 
-		// If the post id is null and post query string is available we can return it as post id.
 		if ( $value = papi_get_qs( 'post' ) ) {
 			return intval( $value );
 		}
 
-		// If the post id is null and page id query string is available we can return it as post id.
 		if ( $value = papi_get_qs( 'page_id' ) ) {
 			return intval( $value );
 		}
 	}
 
-	// Or return null or the given value of post id.
 	return intval( $post_id );
 }
 
