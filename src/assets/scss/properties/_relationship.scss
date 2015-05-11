@@ -55,7 +55,12 @@
       margin: 0;
       padding: 5px 0;
 
+      .ui-state-highlight {
+        border-bottom: 1px #eaeaea solid;
+      }
+
       li {
+        background: #fff;
         border-bottom: 1px #eaeaea solid;
         cursor: pointer;
         padding: 5px 10px 10px 5px;
@@ -76,6 +81,13 @@
 
         a {
           text-decoration: none;
+        }
+
+        &.sortable {
+          border: 1px #eaeaea solid;
+          span.icon {
+            margin-top: 2px;
+          }
         }
 
       }

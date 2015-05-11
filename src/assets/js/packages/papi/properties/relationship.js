@@ -43,6 +43,15 @@ class Relationship {
    */
 
   binds() {
+    $('.relationship-right > ul').sortable({
+      placeholder: 'ui-state-highlight',
+      start: function (e, ui) {
+        ui.item.addClass('sortable');
+      },
+      stop: function (e, ui) {
+        ui.item.removeClass('sortable');
+      }
+    }).disableSelection();
     $(document).on('click', '.papi-property-relationship .relationship-left li', this.add);
     $(document).on('click', '.papi-property-relationship .relationship-right li', this.remove);
     $(document).on('keyup', '.papi-property-relationship input[type=search]', this.search);
