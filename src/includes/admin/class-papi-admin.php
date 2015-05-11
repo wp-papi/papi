@@ -53,14 +53,6 @@ final class Papi_Admin {
 	private $page_type_id;
 
 	/**
-	 * The post id.
-	 *
-	 * @var int
-	 */
-
-	private $post_id;
-
-	/**
 	 * The post type.
 	 *
 	 * @var string|bool
@@ -573,7 +565,6 @@ final class Papi_Admin {
 			$this->view             = new Papi_Admin_View;
 			$this->meta_boxes       = new Papi_Admin_Meta_Boxes;
 			$this->management_pages = new Papi_Admin_Management_Pages;
-			$this->post_id          = papi_get_post_id();
 			$this->page_type_id     = papi_get_page_type_meta_value();
 		}
 	}
