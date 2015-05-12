@@ -101,7 +101,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
-		papi_test_reset_cache( 'page_type', 'simple-page-type' );
+		$this->flush_cache();
 		$this->assertEquals( 1, papi_get_number_of_pages( 'simple-page-type' ) );
 
 		$simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
