@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
  */
 
 function papi_get_all_files_in_directory( $directory = '' ) {
-	$result = array();
+	$result = [];
 
 	if ( empty( $directory ) ) {
 		return $result;
@@ -29,7 +29,7 @@ function papi_get_all_files_in_directory( $directory = '' ) {
 
 	if ( $handle = opendir( $directory ) ) {
 		while ( false !== ( $file = readdir( $handle ) ) ) {
-			if ( ! in_array( $file, array( '..', '.' ) ) ) {
+			if ( ! in_array( $file, ['..', '.'] ) ) {
 				if ( is_dir( $directory . '/' . $file ) ) {
 					$result   = array_merge( $result, papi_get_all_files_in_directory( $directory . '/' . $file ) );
 					$file     = $directory . '/' . $file;
@@ -56,7 +56,7 @@ function papi_get_all_files_in_directory( $directory = '' ) {
 
 function papi_get_all_page_type_files() {
 	$directories = papi_filter_settings_directories();
-	$result      = array();
+	$result      = [];
 
 	foreach ( $directories as $directory ) {
 		$result = array_merge( $result, papi_get_all_files_in_directory( $directory ) );

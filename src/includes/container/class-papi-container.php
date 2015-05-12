@@ -19,7 +19,7 @@ class Papi_Container implements \ArrayAccess {
 	 * @since 1.2.0
 	 */
 
-	protected $keys = array();
+	protected $keys = [];
 
 	/**
 	 * The values holder.
@@ -28,7 +28,7 @@ class Papi_Container implements \ArrayAccess {
 	 * @since 1.2.0
 	 */
 
-	protected $values = array();
+	protected $values = [];
 
 	/**
 	 * Set a parameter or an object.

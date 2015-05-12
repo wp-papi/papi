@@ -9,10 +9,10 @@ class Top_Module_Type extends Papi_Page_Type {
 	 */
 
 	public function page_type() {
-		return array(
+		return [
 			'name'        => 'Top module',
 			'description' => 'This is a top module'
-		);
+		];
 	}
 
 	/**

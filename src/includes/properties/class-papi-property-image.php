@@ -29,7 +29,7 @@ class Papi_Property_Image extends Papi_Property {
 			$meta = wp_get_attachment_metadata( $value );
 			if ( isset( $meta ) && ! empty( $meta ) ) {
 				$att = get_post( $value );
-				$mine = array(
+				$mine = [
 					'alt'         => trim( strip_tags( get_post_meta( $value, '_wp_attachment_image_alt', true ) ) ),
 					'caption'     => trim( strip_tags( $att->post_excerpt ) ),
 					'description' => trim( strip_tags( $att->post_content ) ),
@@ -37,7 +37,7 @@ class Papi_Property_Image extends Papi_Property {
 					'is_image'    => wp_attachment_is_image( $value ),
 					'title'       => $att->post_title,
 					'url'         => wp_get_attachment_url( $value ),
-				);
+				];
 
 				return (object) array_merge( $meta, $mine );
 			} else {
@@ -63,9 +63,9 @@ class Papi_Property_Image extends Papi_Property {
 	 */
 
 	public function get_default_settings() {
-		return array(
+		return [
 			'gallery' => false
-		);
+		];
 	}
 
 	/**
@@ -162,6 +162,6 @@ class Papi_Property_Image extends Papi_Property {
 	 */
 
 	protected function setup_actions() {
-		add_action( 'admin_head', array( $this, 'render_image_template' ) );
+		add_action( 'admin_head', [$this, 'render_image_template'] );
 	}
 }

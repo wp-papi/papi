@@ -174,7 +174,7 @@ class Papi_Page_Type_Base {
 			return;
 		}
 
-		foreach ( call_user_func( array( $this, $this->_meta_method ) ) as $key => $value ) {
+		foreach ( call_user_func( [$this, $this->_meta_method] ) as $key => $value ) {
 			if ( substr( $key, 0, 1 ) === '_' ) {
 				continue;
 			}

@@ -9,11 +9,11 @@ class Twenty_Page_Type extends Papi_Page_Type {
 	 */
 
 	public function page_type() {
-		return array(
+		return [
 			'name'        => 'Twenty page',
 			'description' => 'This is a twenty page',
 			'template'    => 'functions.php'
-		);
+		];
 	}
 
 	/**

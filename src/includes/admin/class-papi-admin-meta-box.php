@@ -19,13 +19,13 @@ class Papi_Admin_Meta_Box {
 	 * @since 1.0.0
 	 */
 
-	private $default_options = array(
-		'capabilities' => array(),
+	private $default_options = [
+		'capabilities' => [],
 		'context'      => 'normal',
 		'mode'         => 'standard',
 		'post_type'    => 'page',
 		'priority'     => 'default',
-		'properties'   => array(),
+		'properties'   => [],
 		'sort_order'   => null,
 		'title'        => '',
 		// Private options
@@ -33,7 +33,7 @@ class Papi_Admin_Meta_Box {
 		'_post_type'   => '',
 		'_required'    => false,
 		'_tab_box'     => false
-	);
+	];
 
 	/**
 	 * Meta box options.
@@ -51,7 +51,7 @@ class Papi_Admin_Meta_Box {
 	 * @since 1.0.0
 	 */
 
-	private $properties = array();
+	private $properties = [];
 
 	/**
 	 * Constructor.
@@ -62,7 +62,7 @@ class Papi_Admin_Meta_Box {
 	 * @since 1.0.0
 	 */
 
-	public function __construct( $options = array(), $properties = array() ) {
+	public function __construct( $options = [], $properties = [] ) {
 		if ( empty( $options ) ) {
 			return;
 		}
@@ -197,11 +197,11 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private function setup_actions() {
-		add_action( 'add_meta_boxes', array( $this, 'setup_meta_box' ) );
-		add_action( 'postbox_classes_' . $this->options->post_type . '_' . $this->options->_id, array( $this, 'meta_box_css_classes' ) );
+		add_action( 'add_meta_boxes', [$this, 'setup_meta_box'] );
+		add_action( 'postbox_classes_' . $this->options->post_type . '_' . $this->options->_id, [$this, 'meta_box_css_classes'] );
 
 		if ( $this->options->context === 'after_title' ) {
-			add_action( 'edit_form_after_title', array( $this, 'move_meta_box_after_title' ) );
+			add_action( 'edit_form_after_title', [$this, 'move_meta_box_after_title'] );
 		}
 	}
 
@@ -221,7 +221,7 @@ class Papi_Admin_Meta_Box {
 		add_meta_box(
 			$this->options->_id,
 			$this->options->title,
-			array( $this, 'render_meta_box' ),
+			[ $this, 'render_meta_box' ],
 			$this->options->post_type,
 			$this->options->context,
 			$this->options->priority,
@@ -238,7 +238,7 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private function setup_options( $options ) {
-		$options                  = papi_h( $options, array() );
+		$options                  = papi_h( $options, [] );
 		$options                  = array_merge( $this->default_options, $options );
 		$this->options            = (object) $options;
 		$this->options->title     = ucfirst( $this->options->title );

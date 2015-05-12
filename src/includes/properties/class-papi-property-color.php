@@ -21,10 +21,10 @@ class Papi_Property_Color extends Papi_Property {
 	 */
 
 	public function get_default_settings() {
-		return array(
-			'palettes'   => array(),
+		return [
+			'palettes'   => [],
 			'show_input' => true
-		);
+		];
 	}
 
 	/**

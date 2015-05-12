@@ -28,7 +28,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @since 1.3.0
 	 */
 
-	public $default_value = array();
+	public $default_value = [];
 
 	/**
 	 * The layout key.
@@ -100,9 +100,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	public function get_default_settings() {
-		return array(
-			'items' => array()
-		);
+		return [
+			'items' => []
+		];
 	}
 
 	/**
@@ -150,16 +150,16 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		global $wpdb;
 
 		$value     = intval( $value );
-		$values    = array();
+		$values    = [];
 		$table     = $wpdb->prefix . 'postmeta';
 		$query     = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%', $post_id );
 		$dbresults = $wpdb->get_results( $query );
-		$results   = array();
-		$trash     = array();
+		$results   = [];
+		$trash     = [];
 
 		// Do not proceed with empty value, columns or dbresults.
 		if ( empty( $value ) || empty( $dbresults ) ) {
-			return array( array(), array() );
+			return [[],[]];
 		}
 
 		// Get row results.
@@ -242,7 +242,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 		}
 
-		return array( $values, $trash );
+		return [$values, $trash];
 	}
 
 	/**
@@ -366,7 +366,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$index   = 0;
 
 		foreach ( $layouts as $layout ):
-			$properties = array();
+			$properties = [];
 
 			foreach ( $layout['items'] as $key => $value ) {
 				$properties[$key] = $value;
@@ -377,10 +377,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			?>
 
 			<script type="application/json" data-papi-json="<?php echo $this->get_json_id( $layout['title'], 'flexible_json' ); ?>">
-				<?php echo json_encode( array(
+				<?php echo json_encode( [
 						'layout'     => $layout['slug'],
 						'properties' => $properties
-					) ); ?>
+					] ); ?>
 			</script>
 
 			<?php

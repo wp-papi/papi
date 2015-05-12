@@ -22,11 +22,11 @@ class Papi_Property_String_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
-		$this->property = papi_property( array(
+		$this->property = papi_property( [
 			'type'  => 'string',
 			'title' => 'Name',
 			'slug'  => 'name'
-		) );
+		] );
 	}
 
 	/**
@@ -74,11 +74,11 @@ class Papi_Property_String_Test extends WP_UnitTestCase {
 		$handler = new Papi_Admin_Meta_Boxes();
 
 		// Create post data.
-		$_POST = papi_test_create_property_post_data( array(
+		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $this->property->slug,
 			'type'  => $this->property,
 			'value' => 'fredrik'
-		), $_POST );
+		], $_POST );
 
 		// Save the property using the handler.
 		$handler->save_property( $this->post_id );
@@ -97,22 +97,22 @@ class Papi_Property_String_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_setting_allow_html() {
-		$property = papi_property( array(
+		$property = papi_property( [
 			'allow_html' => true,
 			'type'       => 'string',
 			'title'      => 'Name',
 			'slug'       => 'name'
-		) );
+		] );
 
 		$handler  = new Papi_Admin_Meta_Boxes();
 		$expected = '<p>Hello, world</p>';
 
 		// Create post data.
-		$_POST = papi_test_create_property_post_data( array(
+		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $property->slug,
 			'type'  => $property,
 			'value' => $expected
-		), $_POST );
+		], $_POST );
 
 		$handler->save_property( $this->post_id );
 		$actual = papi_field( $this->post_id, $property->slug );

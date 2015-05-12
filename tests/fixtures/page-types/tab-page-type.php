@@ -9,31 +9,31 @@ class Tab_Page_Type extends Papi_Page_Type {
 	 */
 
 	public function page_type() {
-		return array(
+		return [
 			'name'        => 'Tab page',
 			'description' => 'This is a tab page',
 			'template'    => 'pages/tab-page.php'
-		);
+		];
 	}
 
 	public function register() {
 		// Add tabs to a box.
-		$this->box( 'Tabs', array(
-			$this->tab( 'Content', array(
-				$this->property( array(
+		$this->box( 'Tabs', [
+			$this->tab( 'Content', [
+				$this->property( [
 					'type'  => 'string',
 					'title' => 'Name'
-				))
-			)),
+				] )
+			] ),
 
 			$this->tab(
 				papi_template( dirname( __DIR__ ) . '/tabs/content.php' )
 			)
-		) );
+		] );
 
-		$this->box( 'Tabs not working', array(
+		$this->box( 'Tabs not working', [
 			$this->tab( 1 )
-		) );
+		] );
 	}
 
 }

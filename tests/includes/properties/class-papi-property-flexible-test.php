@@ -24,40 +24,40 @@ class Papi_Property_Flexible_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
-		$this->property = papi_property( array(
+		$this->property = papi_property( [
 			'type'     => 'flexible',
 			'title'    => 'Sections',
 			'slug'     => 'sections',
-			'settings' => array(
-				'items' => array(
-					'twitter' => array(
+			'settings' => [
+				'items' => [
+					'twitter' => [
 						'title' => 'Twitter',
-						'items' => array(
-							papi_property( array(
+						'items' => [
+							papi_property( [
 								'type'  => 'string',
 								'title' => 'Twitter name',
 								'slug'  => 'twitter_name'
-							) )
-						)
-					),
-					'posts' => array(
+							] )
+						]
+					],
+					'posts' => [
 						'title' => 'Posts',
-						'items' => array(
-							papi_property( array(
+						'items' => [
+							papi_property( [
 								'type'  => 'post',
 								'title' => 'Post one',
 								'slug'  => 'post_one'
-							) ),
-							papi_property( array(
+							] ),
+							papi_property( [
 								'type'  => 'post',
 								'title' => 'Post two',
 								'slug'  => 'post_two'
-							) )
-						)
-					)
-				)
-			)
-		) );
+							] )
+						]
+					]
+				]
+			]
+		] );
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Papi_Property_Flexible_Test extends WP_UnitTestCase {
 
 	public function tearDown() {
 		parent::tearDown();
-		$_POST = array();
+		$_POST = [];
 		unset( $this->post_id, $this->property );
 	}
 
@@ -130,12 +130,12 @@ class Papi_Property_Flexible_Test extends WP_UnitTestCase {
 		$value_type_slug2_2  = papi_get_property_type_key( $value_slug2_2 );
 
 		// Create the repeater item
-		$item1 = array();
+		$item1 = [];
 		$item1[$value_slug1] = '@frozzare';
 		$item1[$value_type_slug1] = $this->property->settings->items['twitter']['items'][0];
 		$item1[$value_slug1 . '_layout'] = '_flexible_layout_twitter';
 
-		$item2 = array();
+		$item2 = [];
 		$item2[$value_slug2_1] = $this->post_id;
 		$item2[$value_type_slug2_1] = $this->property->settings->items['posts']['items'][0];
 		$item2[$value_slug2_1 . '_layout'] = '_flexible_layout_posts';
@@ -144,14 +144,14 @@ class Papi_Property_Flexible_Test extends WP_UnitTestCase {
 		$item2[$value_type_slug2_2] = $this->property->settings->items['posts']['items'][0];
 		$item2[$value_slug2_2 . '_layout'] = '_flexible_layout_posts';
 
-		$values = array( $item1, $item2 );
+		$values = [ $item1, $item2 ];
 
 		// Create post data.
-		$_POST = papi_test_create_property_post_data( array(
+		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $this->property->slug,
 			'type'  => $this->property,
 			'value' => $values
-		), $_POST );
+		], $_POST );
 
 		$handler->save_property( $this->post_id );
 
@@ -159,14 +159,14 @@ class Papi_Property_Flexible_Test extends WP_UnitTestCase {
 		$rows_html_name         = papi_ff( papify( $this->property->slug ) . '_rows' );
 		$_POST[$rows_html_name] = 2;
 
-		$expected = array(
-			array( 'twitter_name' => '@frozzare', '_layout' => 'twitter' ),
-			array( 'post_one' => get_post( $this->post_id ), 'post_two' => get_post( $this->post_id ), '_layout' => 'posts' )
-		);
+		$expected = [
+			[ 'twitter_name' => '@frozzare', '_layout' => 'twitter' ],
+			[ 'post_one' => get_post( $this->post_id ), 'post_two' => get_post( $this->post_id ), '_layout' => 'posts' ]
+		];
 
-		$actual   = papi_field( $this->post_id, $this->property->slug, null, array(
+		$actual = papi_field( $this->post_id, $this->property->slug, null, [
 			'property' => Papi_Property::create( (array) $this->property )
-		) );
+		] );
 
 		$this->assertEquals( $expected, $actual );
 	}

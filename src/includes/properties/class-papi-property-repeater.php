@@ -28,7 +28,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @since 1.0.0
 	 */
 
-	public $default_value = array();
+	public $default_value = [];
 
 	/**
 	 * Format the value of the property before it's returned to the theme.
@@ -43,7 +43,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	public function format_value( $values, $repeater_slug, $post_id ) {
 		if ( ! is_array( $values ) ) {
-			return array();
+			return [];
 		}
 
 		$values = papi_to_property_array_slugs( $values, $repeater_slug );
@@ -93,9 +93,9 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function get_default_settings() {
-		return array(
-			'items' => array()
-		);
+		return [
+			'items' => []
+		];
 	}
 
 	/**
@@ -129,17 +129,17 @@ class Papi_Property_Repeater extends Papi_Property {
 		global $wpdb;
 
 		$value     = intval( $value );
-		$values    = array();
+		$values    = [];
 		$table     = $wpdb->prefix . 'postmeta';
 		$query     = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%', $post_id );
 		$dbresults = $wpdb->get_results( $query );
-		$results   = array();
-		$trash     = array();
+		$results   = [];
+		$trash     = [];
 		$columns   = count( $this->get_settings_properties() );
 
 		// Do not proceed with empty value, columns or dbresults.
 		if ( empty( $value ) || empty( $columns ) || empty( $dbresults ) ) {
-			return array( array(), array() );
+			return [[],[]];
 		}
 
 		// Get row results.
@@ -153,10 +153,10 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		for ( $i = 0; $i < $value; $i++ ) {
 
-			$no_trash = array();
+			$no_trash = [];
 
 			if ( ! isset( $no_trash[$i] ) ) {
-				$no_trash[$i] = array();
+				$no_trash[$i] = [];
 			}
 
 			for ( $j = 0; $j < $columns; $j++ ) {
@@ -200,7 +200,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 		}
 
-		return array( $values, $trash );
+		return [$values, $trash];
 	}
 
 	/**
@@ -213,7 +213,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	protected function get_row_results( $dbresults ) {
-		$results = array();
+		$results = [];
 
 		foreach ( $dbresults as $key => $meta ) {
 			// Find row index key.
@@ -226,7 +226,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			$i = intval( $matches[1] );
 
 			if ( ! isset( $results[$i] ) ) {
-				$results[$i] = array();
+				$results[$i] = [];
 			}
 
 			$results[$i][$meta->meta_key] = $meta;
@@ -316,7 +316,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	protected function prepare_properties( $items ) {
-		$not_allowed = array( 'repeater', 'flexible' );
+		$not_allowed = ['repeater', 'flexible'];
 		$not_allowed = array_merge( $not_allowed, apply_filters( 'papi/property/repeater/exclude', array() ) );
 		$items       = array_map( 'papi_get_property_options', $items );
 
@@ -369,7 +369,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	protected function render_json_template( $slug ) {
 		$items = $this->get_settings_properties();
-		$properties = array();
+		$properties = [];
 
 		foreach ( $items as $key => $value ) {
 			$properties[$key] = $value;
@@ -546,7 +546,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	protected function setup_actions() {
-		add_action( 'admin_head', array( $this, 'render_repeater_row_template' ) );
+		add_action( 'admin_head', [$this, 'render_repeater_row_template'] );
 	}
 
 	/**
@@ -569,7 +569,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		}
 
 		if ( ! is_array( $values ) ) {
-			$values = array();
+			$values = [];
 		}
 
 		list( $results, $trash ) = $this->get_results( $rows, $repeater_slug, $post_id );

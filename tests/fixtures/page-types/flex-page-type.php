@@ -13,62 +13,58 @@ class Flex_Page_Type extends Papi_Page_Type {
 
 	public function register() {
 
-		$this->remove( array(
-			'editor'
-		) );
+		$this->remove( 'editor' );
 
-		$this->box( 'Content', array(
-
-			papi_property( array(
+		$this->box( 'Content', [
+			papi_property( [
 				'title'    => 'Sections',
 				'type'     => 'flexible',
 				'sidebar'  => false,
-				'settings' => array(
-					'items'  => array(
-						array(
+				'settings' => [
+					'items' => [
+						[
 							'title' => 'Twitter',
-							'items' => array(
-								papi_property( array(
+							'items' => [
+								papi_property( [
 									'title'    => 'Twitter name 1',
 									'type'     => 'string'
-								) ),
-								papi_property( array(
+								] ),
+								papi_property( [
 									'title'    => 'Twitter name 2',
 									'type'     => 'string'
-								) ),
-								papi_property( array(
+								] ),
+								papi_property( [
 									'title'    => 'Twitter name 3',
 									'type'     => 'string'
-								) )
-							)
-						),
-						array(
+								] )
+							]
+						],
+						[
 							'title' => 'Images',
-							'items' => array(
-								array(
+							'items' => [
+								[
 									'title' => 'Image left',
 									'type'  => 'image'
-								),
-								array(
+								],
+								[
 									'title' => 'Image right',
 									'type'  => 'image'
-								)
-							)
-						),
-						array(
+								]
+							]
+						],
+						[
 							'title' => 'Editor',
-							'items' => array(
-								papi_property( array(
+							'items' => [
+								papi_property( [
 									'title' => 'Editor',
 									'type'  => 'editor'
-								) )
-							)
-						)
-					)
-				)
-			) )
-		) );
-
+								] )
+							]
+						]
+					]
+				]
+			] )
+		] );
 	}
 
 }

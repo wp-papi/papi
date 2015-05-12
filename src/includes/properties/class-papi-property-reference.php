@@ -31,10 +31,10 @@ class Papi_Property_Reference extends Papi_Property {
 	 */
 
 	public function get_default_settings() {
-		return array(
-			'slug'      => array(),
-			'page_type' => array()
-		);
+		return [
+			'slug'      => [],
+			'page_type' => []
+		];
 	}
 
 	/**
@@ -49,29 +49,29 @@ class Papi_Property_Reference extends Papi_Property {
 
 		// Create query array for every page type.
 		$page_types = array_map( function ( $page_type ) {
-			return array(
+			return [
 				'key' => PAPI_PAGE_TYPE_KEY,
 				'value' => $page_type,
 				'compare' => 'LIKE'
-			);
+			];
 		}, papi_to_array( $settings->page_type ) );
 
 		// Add relation.
 		$page_types['relation'] = 'OR';
 
 		// Prepare arguments for WP_Query.
-		$args = array(
+		$args = [
 			'post_type'              => 'any',
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false,
 			'meta_query'             => $page_types
-		);
+		];
 
 		$query = new WP_Query( $args );
 		$posts = $query->get_posts();
 
-		$values = array();
+		$values = [];
 
 		foreach ( papi_to_array( $settings->slug ) as $slug ) {
 			foreach ( $posts as $post ) {
@@ -93,11 +93,11 @@ class Papi_Property_Reference extends Papi_Property {
 
 				// Create the array
 				if ( ! isset( $values[$post->post_type] ) ) {
-					$values[$post->post_type] = array();
+					$values[$post->post_type] = [];
 				}
 
 				if ( ! isset( $values[$post->post_type][$page_type->name] ) ) {
-					$values[$post->post_type][$page_type->name] = array();
+					$values[$post->post_type][$page_type->name] = [];
 				}
 
 				// Add the post

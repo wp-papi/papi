@@ -19,9 +19,9 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->post_id = $this->factory->post->create( array(
+		$this->post_id = $this->factory->post->create( [
 			'post_type' => 'page'
-		) );
+		] );
 	}
 
 	/**
@@ -44,17 +44,17 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 	public function test_papi_body_class() {
 		global $post;
 
-		$this->assertEmpty( papi_body_class( array() ) );
+		$this->assertEmpty( papi_body_class( [] ) );
 
 		$post = get_post( $this->post_id );
 		$this->go_to( get_permalink( $this->post_id ) );
-		$this->assertEmpty(  papi_body_class( array() ) );
+		$this->assertEmpty(  papi_body_class( [] ) );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, '/' );
-		$this->assertEmpty( papi_body_class( array() ) );
+		$this->assertEmpty( papi_body_class( [] ) );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
-		$this->assertEquals( array( 'simple-page-type' ), papi_body_class( array() )  );
+		$this->assertEquals( [ 'simple-page-type' ], papi_body_class( [] )  );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	public function test_papi_include_template() {
 		$this->assertEmpty( papi_include_template( null ) );
-		$this->assertEmpty( papi_include_template( array() ) );
+		$this->assertEmpty( papi_include_template( [] ) );
 		$this->assertEmpty( papi_include_template( new stdClass ) );
 		$this->assertEmpty( papi_include_template( true ) );
 		$this->assertEmpty( papi_include_template( false ) );
@@ -90,11 +90,11 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_template( true ) );
 		$this->assertEmpty( papi_template( false ) );
 		$this->assertEmpty( papi_template( 1 ) );
-		$this->assertEmpty( papi_template( array() ) );
+		$this->assertEmpty( papi_template( [] ) );
 		$this->assertEmpty( papi_template( new stdClass() ) );
 		$this->assertEmpty( papi_template( papi_test_get_fixtures_path( '' ) ) );
 
-		$template = papi_template( papi_test_get_fixtures_path( '/properties/array.php' ), array(), true );
+		$template = papi_template( papi_test_get_fixtures_path( '/properties/array.php' ), [], true );
 
 		$this->assertEquals( 'Name', $template->title );
 		$this->assertEquals( 'string', $template->type );
@@ -118,7 +118,7 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertEmpty( apply_filters( 'template_include', '' ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return array( 1,  papi_test_get_fixtures_path( '/page-types' ) );
+			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );

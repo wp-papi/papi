@@ -56,7 +56,7 @@ add_filter( 'body_class', 'papi_body_class' );
  * @since 1.0.0
  */
 
-function papi_include_template( $tpl_file, $vars = array() ) {
+function papi_include_template( $tpl_file, $vars = [] ) {
 	if ( ! is_string( $tpl_file ) ) {
 		return;
 	}
@@ -79,9 +79,9 @@ function papi_include_template( $tpl_file, $vars = array() ) {
  * @return array
  */
 
-function papi_template( $file, $values = array(), $convert_to_object = false ) {
+function papi_template( $file, $values = [], $convert_to_object = false ) {
 	if ( ! is_string( $file ) ) {
-		return array();
+		return [];
 	}
 
 	$filepath = papi_get_file_path( $file );
@@ -91,11 +91,11 @@ function papi_template( $file, $values = array(), $convert_to_object = false ) {
 	}
 
 	if ( empty( $filepath ) ) {
-		return array();
+		return [];
 	}
 
 	if ( ! file_exists( $filepath ) || is_dir( $filepath ) ) {
-		return array();
+		return [];
 	}
 
 	$template = require $filepath;

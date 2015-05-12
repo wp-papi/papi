@@ -9,11 +9,11 @@ class No_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	public function page_type() {
-		return array(
+		return [
 			'name'        => 'No page',
 			'description' => 'This is a no page',
 			'template'    => 'pages/no-page.php'
-		);
+		];
 	}
 
 	/**

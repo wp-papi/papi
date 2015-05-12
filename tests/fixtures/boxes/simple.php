@@ -1,9 +1,9 @@
 <?php
 
-return array(
+return [
 	'title' => 'Simple',
-	papi_property( array(
+	papi_property( [
 		'type'  => 'string',
 		'title' => 'Name'
-	) )
-);
+	] )
+];

@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 	'title' => 'Name',
 	'type'  => 'string'
-);
+];

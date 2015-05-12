@@ -24,25 +24,25 @@ class Papi_Property_Repeater_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
-		$this->property = papi_property( array(
+		$this->property = papi_property( [
 			'type'     => 'repeater',
 			'title'    => 'Books',
 			'slug'     => 'books',
-			'settings' => array(
-				'items' => array(
-					papi_property( array(
+			'settings' => [
+				'items' => [
+					papi_property( [
 						'type'  => 'string',
 						'title' => 'Book name',
 						'slug'  => 'book_name'
-					) ),
-					papi_property( array(
+					] ),
+					papi_property( [
 						'type'  => 'bool',
 						'title' => 'Is open?',
 						'slug'  => 'is_open'
-					) )
-				)
-			)
-		) );
+					] )
+				]
+			]
+		] );
 	}
 
 	/**

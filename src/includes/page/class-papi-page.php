@@ -174,9 +174,9 @@ class Papi_Page {
 				return;
 			}
 
-			$this->set_admin_data( array(
+			$this->set_admin_data( [
 				'property' => Papi_Property::create( $property )
-			) );
+			] );
 		}
 
 		if ( ! method_exists( $this->admin_data['property'], 'get_options' ) ) {
@@ -279,7 +279,7 @@ class Papi_Page {
 	 * @since 1.3.0
 	 */
 
-	public function set_admin_data( $admin_data = array() ) {
+	public function set_admin_data( $admin_data = [] ) {
 		if ( ! is_array( $admin_data ) || empty( $admin_data ) ) {
 			return;
 		}

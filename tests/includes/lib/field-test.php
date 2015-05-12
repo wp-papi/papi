@@ -67,7 +67,7 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		$post = get_post( $this->post_id );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return array( 1,  papi_test_get_fixtures_path( '/page-types' ) );
+			return [1,  papi_test_get_fixtures_path( '/page-types' )];
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
@@ -93,12 +93,12 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 	public function test_papi_field_value() {
 		$this->assertEquals( 'fredrik', papi_field_value(
-			array( 'what', 'name' ),
-			array( 'what' => array( 'name' => 'fredrik' ) )
+			[ 'what', 'name' ],
+			[ 'what' => [ 'name' => 'fredrik' ] ]
 		) );
 		$this->assertEquals( 'fredrik', papi_field_value(
-			array( 'what', 'name' ),
-			(object) array( 'what' => array( 'name' => 'fredrik' ) )
+			[ 'what', 'name' ],
+			(object) [ 'what' => [ 'name' => 'fredrik' ] ]
 		) );
 	}
 
@@ -112,19 +112,19 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, 'name', 'fredrik' );
 		update_post_meta( $this->post_id, '_name_property', 'string' );
 
-		$this->assertEmpty( papi_field_shortcode( array( ) ) );
-		$this->assertEquals( 'fredrik', papi_field_shortcode( array(
+		$this->assertEmpty( papi_field_shortcode( [] ) );
+		$this->assertEquals( 'fredrik', papi_field_shortcode( [
 			'id'   => $this->post_id,
 			'name' => 'name'
-		) ) );
+		] ) );
 
 		global $post;
 
 		$post = get_post( $this->post_id );
 
-		$this->assertEquals( 'fredrik', papi_field_shortcode( array(
+		$this->assertEquals( 'fredrik', papi_field_shortcode( [
 			'name' => 'name'
-		) ) );
+		] ) );
 	}
 
 	/**
@@ -140,7 +140,7 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		the_papi_field( $this->post_id, 'name' );
 		$this->expectOutputRegex( '/fredrik/' );
 
-		the_papi_field( $this->post_id, 'numbers', array( 1, 2, 3 ) );
+		the_papi_field( $this->post_id, 'numbers', [ 1, 2, 3 ] );
 		$this->expectOutputRegex( '/1\,2\,3/' );
 	}
 

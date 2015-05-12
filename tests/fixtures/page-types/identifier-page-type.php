@@ -9,12 +9,12 @@ class Identifier_Page_Type extends Papi_Page_Type {
 	 */
 
 	public function page_type() {
-		return array(
+		return [
 			'id'          => 'custom-page-type-id',
 			'name'        => 'Identifier page',
 			'description' => 'This is a identifier page',
 			'template'    => 'pages/identifier-page.php'
-		);
+		];
 	}
 
 	/**

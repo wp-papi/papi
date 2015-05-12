@@ -29,7 +29,7 @@ function papi_get_tab_options( $options ) {
 	}
 
 	$defaults = array(
-		'capabilities' => array(),
+		'capabilities' => [],
 		'icon'         => '',
 		'sort_order'   => papi_filter_settings_sort_order(),
 		// Private options
@@ -50,7 +50,7 @@ function papi_get_tab_options( $options ) {
  */
 
 function papi_setup_tabs( $tabs ) {
-	$_tabs = array();
+	$_tabs = [];
 
 	foreach ( $tabs as $tab ) {
 		$tab = (object) $tab;
@@ -93,9 +93,9 @@ function papi_tab( $file_or_options, $properties = array() ) {
 
 	// The tab key is important, it's says that we should render a tab meta box.
 	// This may change in later version of Papi.
-	return (object) array(
+	return (object) [
 		'options'    => $options,
 		'properties' => $properties,
 		'tab'        => true
-	);
+	];
 }

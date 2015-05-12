@@ -22,10 +22,10 @@ defined( 'ABSPATH' ) || exit;
  */
 
 function papi_from_property_array_slugs( $value, $slug ) {
-	$result = array();
+	$results = [];
 
 	if ( empty( $value ) ) {
-		return array();
+		return $results;
 	}
 
 	for ( $i = 0; $i < $value[$slug]; $i++ ) {
@@ -38,10 +38,10 @@ function papi_from_property_array_slugs( $value, $slug ) {
 			$item[$arr_key] = $value[$key];
 		}
 
-		$result[] = $item;
+		$results[] = $item;
 	}
 
-	return $result;
+	return $results;
 }
 
 /**
@@ -64,7 +64,7 @@ function papi_get_box_property( $properties ) {
 
 		if ( ! $property->disabled ) {
 			$property->_box_property = true;
-			$properties = array( $property );
+			$properties = [$property];
 		}
 	}
 	return $properties;
@@ -82,8 +82,8 @@ function papi_get_box_property( $properties ) {
  * @return array
  */
 
-function papi_get_options_and_properties( $file_or_options = array(), $properties = array(), $is_box = true ) {
-	$options = array();
+function papi_get_options_and_properties( $file_or_options = [], $properties = [], $is_box = true ) {
+	$options = [];
 
 	if ( is_array( $file_or_options ) ) {
 		if ( empty( $properties ) && $is_box ) {
@@ -123,7 +123,7 @@ function papi_get_options_and_properties( $file_or_options = array(), $propertie
 			$template = papi_template( $file_or_options, $values );
 
 			// Create the property array from existing property array or a new.
-			$properties = array();
+			$properties = [];
 			$options = $template;
 
 			// Add all non string keys to the properties array
@@ -139,7 +139,7 @@ function papi_get_options_and_properties( $file_or_options = array(), $propertie
 		}
 	}
 
-	return array( $options, $properties );
+	return [$options, $properties];
 }
 
 /**
@@ -168,7 +168,7 @@ function papi_get_property_default_settings( $type ) {
 	$property_type = papi_get_property_type( $type );
 
 	if ( is_null( $property_type ) || ! method_exists( $property_type, 'get_default_settings' ) ) {
-		return array();
+		return [];
 	}
 
 	return $property_type->get_default_settings();
@@ -347,7 +347,7 @@ function papi_is_property_type_key( $str = '' ) {
  * @return object
  */
 
-function papi_property( $file_or_options, $values = array() ) {
+function papi_property( $file_or_options, $values = [] ) {
 	if ( is_array( $file_or_options ) ) {
 		return papi_get_property_options( $file_or_options );
 	}
@@ -483,10 +483,10 @@ function papi_required_html( $property, $text = false ) {
 function papi_populate_properties( $properties ) {
 	// If $properties is a object we can just return it in a array.
 	if ( is_object( $properties )  ) {
-		return array( $properties );
+		return [$properties];
 	}
 
-	$result = array();
+	$results = [];
 
 	// Get the box property (when you only put a array in the box method) if it exists.
 	$properties = papi_get_box_property( $properties );
@@ -505,22 +505,18 @@ function papi_populate_properties( $properties ) {
 
 	foreach ( $properties as $property ) {
 		if ( isset( $property->tab ) && $property->tab ) {
-			$result[] = $property;
+			$results[] = $property;
 			continue;
 		}
 
-		$result[] = $property;
+		$results[] = $property;
 	}
 
-	if ( empty( $result ) ) {
-		return array();
+	if ( empty( $results ) || ( isset( $results[0]->tab ) && $results[0]->tab ) ) {
+		return $results;
 	}
 
-	if ( isset( $result[0]->tab ) && $result[0]->tab ) {
-		return $result;
-	}
-
-	return papi_sort_order( $result );
+	return papi_sort_order( $results );
 }
 
 /**
@@ -548,7 +544,7 @@ function papi_property_update_meta( $meta ) {
 	}
 
 	if ( ! $save_value && is_array( $meta->value ) ) {
-		$meta->value = array( $meta->value );
+		$meta->value = [$meta->value];
 	}
 
 	if ( papi_is_empty( $meta->value ) ) {
@@ -591,8 +587,8 @@ function papi_property_update_meta( $meta ) {
  */
 
 function papi_to_property_array_slugs( $value, $slug ) {
-	$result  = array();
-	$counter = array();
+	$results  = [];
+	$counter = [];
 
 	foreach ( $value as $index => $arr ) {
 
@@ -609,11 +605,11 @@ function papi_to_property_array_slugs( $value, $slug ) {
 				$item_slug = papi_f( $item_slug );
 			}
 
-			$result[$item_slug] = $val;
+			$results[$item_slug] = $val;
 		}
 	}
 
-	$result[$slug] = count( $counter );
+	$results[$slug] = count( $counter );
 
-	return $result;
+	return $results;
 }

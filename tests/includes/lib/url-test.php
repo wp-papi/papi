@@ -44,7 +44,7 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 		$url = papi_get_page_new_url( 'page', true, 'page' );
 		$this->assertNotFalse( strpos( $url, 'page_type=page&post_type=page' ) );
 
-		$url = papi_get_page_new_url( 'page', true, 'page', array( 'post_type' ) );
+		$url = papi_get_page_new_url( 'page', true, 'page', ['post_type'] );
 		$this->assertNotFalse( strpos( $url, 'page_type=page&post_type=page' ) );
 	}
 
@@ -71,7 +71,7 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 		$this->assertEquals( '&post_type=page&page', $qs );
 
 		$_SERVER['REQUEST_URI'] = 'http://wordpress/wp-admin/edit.php?post_type=page&page_type=simple-page-type&&';
-		$qs = papi_get_page_query_strings( '?', array( 'post_type' ) );
+		$qs = papi_get_page_query_strings( '?', ['post_type'] );
 		$this->assertEquals( '?page_type=simple-page-type', $qs );
 	}
 

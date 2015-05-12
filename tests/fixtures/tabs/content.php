@@ -1,9 +1,9 @@
 <?php
 
-return papi_tab( array(
+return papi_tab( [
 	'title' => 'Content',
-	papi_property( array(
+	papi_property( [
 		'type'  => 'string',
 		'title' => 'Name'
-	) )
-) );
+	] )
+] );

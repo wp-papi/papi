@@ -18,25 +18,25 @@ class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_get_tab_options() {
-		$tab = papi_tab( array(
+		$tab = papi_tab( [
 			'title' => 'Content'
-		) );
+		] );
 
 		$options = papi_get_tab_options( $tab->options );
 		$this->assertEquals( $tab->options['title'], $options->title );
 		$this->assertEquals( 1000, $options->sort_order );
 
-		$tab = array(
+		$tab = [
 			'title' => 'Content'
-		);
+		];
 
 		$options = papi_get_tab_options( $tab );
 		$this->assertEquals( $tab['title'], $options->title );
 		$this->assertEquals( 1000, $options->sort_order );
 
-		$tab = papi_tab( array(
+		$tab = papi_tab( [
 			'title' => 'Content'
-		) );
+		] );
 
 		$options = papi_get_tab_options( $tab );
 		$this->assertEquals( $tab->options['title'], $options->options['title'] );
@@ -57,15 +57,15 @@ class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 
 	public function test_papi_setup_tabs() {
 		$tab  = papi_tab( 'Content' );
-		$tabs = papi_setup_tabs( array( $tab ) );
+		$tabs = papi_setup_tabs( [$tab] );
 
 		$this->assertEquals( $tab->options->title, $tabs[0]->options->title );
 		$this->assertEquals( 1000, $tabs[0]->options->sort_order );
 
-		$tabs = papi_setup_tabs( array( 1 ) );
+		$tabs = papi_setup_tabs( [1] );
 		$this->assertEmpty( $tabs );
 
-		$tabs = papi_setup_tabs( array() );
+		$tabs = papi_setup_tabs( [] );
 		$this->assertEmpty( $tabs );
 	}
 
@@ -76,12 +76,12 @@ class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_tab() {
-		$actual = papi_tab( 'Content', array(
-			papi_property( array(
+		$actual = papi_tab( 'Content', [
+			papi_property( [
 				'type'  => 'string',
 				'title' => 'Name'
-			) )
-		) );
+			] )
+		] );
 
 		$this->assertTrue( $actual->tab );
 		$this->assertEquals( 'Content', $actual->options['title'] );

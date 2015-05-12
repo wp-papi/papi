@@ -9,12 +9,12 @@ class Simple_Page_Type extends Papi_Page_Type {
 	 */
 
 	public function page_type() {
-		return array(
+		return [
 			'name'        => 'Simple page',
 			'description' => 'This is a simple page',
 			'template'    => 'pages/simple-page.php',
-			'post_type'   => array()
-		);
+			'post_type'   => []
+		];
 	}
 
 	/**
@@ -23,39 +23,39 @@ class Simple_Page_Type extends Papi_Page_Type {
 
 	public function register() {
 		// Remove post type support and remove_meta_box.
-		$this->remove( array( 'editor', 'commentdiv' ) );
+		$this->remove( [ 'editor', 'commentdiv' ] );
 
 		// Test box property.
-		$this->box( papi_property( array(
+		$this->box( papi_property( [
 			'type'  => 'string',
 			'title' => 'Name'
-		) ) );
+		] ) );
 
 		// Test box property.
-		$this->box( 'Content', array(
+		$this->box( 'Content', [
 			'type'  => 'string',
 			'title' => 'Name',
 			'slug' => 'name2'
-		) );
+		] );
 
 		// Will not work.
 		$this->box( 1 );
 
 		// Box without a empty title.
-		$this->box( array(
+		$this->box( [
 			'title' => ''
-		), array(
-			papi_property( array(
+		], [
+			papi_property( [
 				'type'  => 'string',
 				'title' => 'Country'
-			) )
-		) );
+			] )
+		] );
 
 		// Test properties from another method.
-		$this->box( array(
+		$this->box( [
 			'title'      => 'Content',
 			'sort_order' => 100
-		), array( $this, 'content_box' ) );
+		], [ $this, 'content_box' ] );
 
 		// Load box from a template file.
 		$this->box(
@@ -66,9 +66,9 @@ class Simple_Page_Type extends Papi_Page_Type {
 	}
 
 	public function content_box() {
-		return array( $this->property( array(
+		return [ $this->property( [
 			'type'  => 'string',
 			'title' => 'Name'
-		) ) );
+		] ) ];
 	}
 }

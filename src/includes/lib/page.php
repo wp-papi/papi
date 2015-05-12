@@ -297,7 +297,7 @@ function papi_get_page_type_meta_value( $post_id = null ) {
 
 function papi_get_post_types() {
 	$page_types = papi_get_all_page_types( true );
-	$post_types = array();
+	$post_types = [];
 
 	foreach ( $page_types as $page_type ) {
 		$post_types = array_merge( $post_types, $page_type->post_type );

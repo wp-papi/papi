@@ -20,7 +20,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @since 1.0.0
 	 */
 
-	private $boxes = array();
+	private $boxes = [];
 
 	/**
 	 * Load all boxes even if we aren't on a post type.
@@ -39,7 +39,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @since 1.0.0
 	 */
 
-	private $post_type_supports = array( 'custom-fields' );
+	private $post_type_supports = ['custom-fields'];
 
 	/**
 	 * Remove meta boxes.
@@ -48,7 +48,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @since 1.2.0
 	 */
 
-	private $remove_meta_boxes = array();
+	private $remove_meta_boxes = [];
 
 	/**
 	 * Load a page type by the file.
@@ -71,7 +71,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @since 1.0.0
 	 */
 
-	protected function box( $file_or_options = array(), $properties = array() ) {
+	protected function box( $file_or_options = [], $properties = [] ) {
 		if ( is_object( $file_or_options ) ) {
 			$file_or_options = (array) $file_or_options;
 		}
@@ -107,7 +107,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 		$options['title'] = papi_esc_html( isset( $options['title'] ) ? $options['title'] : '' );
 
-		array_push( $this->boxes, array( $options, $properties, 'sort_order' => $sort_order, 'title' => $options['title'] ) );
+		array_push( $this->boxes, [$options, $properties, 'sort_order' => $sort_order, 'title' => $options['title']] );
 	}
 
 	/**
@@ -288,7 +288,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @return array
 	 */
 
-	protected function property( $file_or_options = array(), $values = array() ) {
+	protected function property( $file_or_options = [], $values = [] ) {
 		return papi_property( $file_or_options, $values );
 	}
 
@@ -300,7 +300,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @since 1.0.0
 	 */
 
-	protected function remove( $post_type_supports = array() ) {
+	protected function remove( $post_type_supports = [] ) {
 		$this->post_type_supports = array_merge( $this->post_type_supports, papi_to_array( $post_type_supports ) );
 	}
 
@@ -335,10 +335,10 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 				$value = 'normal';
 			}
 
-			$this->remove_meta_boxes[] = array( $key, $value );
+			$this->remove_meta_boxes[] = [$key, $value];
 		}
 
-		add_action( 'add_meta_boxes', array( $this, 'remove_meta_boxes' ), 999 );
+		add_action( 'add_meta_boxes', [$this, 'remove_meta_boxes'], 999 );
 	}
 
 	/**
@@ -370,7 +370,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @return array
 	 */
 
-	protected function tab( $file_or_options = array(), $properties = array() ) {
+	protected function tab( $file_or_options = [], $properties = [] ) {
 		if ( ! is_string( $file_or_options ) && ! is_array( $file_or_options ) ) {
 			return;
 		}
@@ -403,7 +403,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @return array
 	 */
 
-	protected function template( $file, $values = array() ) {
+	protected function template( $file, $values = [] ) {
 		return papi_template( $file, $values );
 	}
 }

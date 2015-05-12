@@ -73,14 +73,14 @@ function papi_filter_settings_only_page_type( $post_type ) {
  */
 
 function papi_filter_settings_directories() {
-	$directories = apply_filters( 'papi/settings/directories', array() );
+	$directories = apply_filters( 'papi/settings/directories', [] );
 
 	if ( is_string( $directories ) ) {
-		return array( $directories );
+		return [$directories];
 	}
 
 	if ( ! is_array( $directories ) ) {
-		return array();
+		return [];
 	}
 
 	return array_filter( $directories, function ( $directory ) {

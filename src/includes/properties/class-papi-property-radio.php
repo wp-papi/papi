@@ -21,10 +21,10 @@ class Papi_Property_Radio extends Papi_Property {
 	 */
 
 	public function get_default_settings() {
-		return array(
-			'items'    => array(),
+		return [
+			'items'    => [],
 			'selected' => ''
-		);
+		];
 	}
 
 	/**

@@ -38,12 +38,12 @@ class Papi_Admin_Ajax {
 	 */
 
 	private function setup_actions() {
-		add_action( 'init', array( $this, 'add_endpoint' ) );
-		add_action( 'parse_query', array( $this, 'handle_papi_ajax' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'ajax_url' ), 10 );
+		add_action( 'init', [$this, 'add_endpoint'] );
+		add_action( 'parse_query', [$this, 'handle_papi_ajax'] );
+		add_action( 'admin_enqueue_scripts', [$this, 'ajax_url'], 10 );
 
-		add_action( $this->action_prefix . 'get_property', array( $this, 'get_property' ) );
-		add_action( $this->action_prefix . 'get_properties', array( $this, 'get_properties' ) );
+		add_action( $this->action_prefix . 'get_property', [$this, 'get_property'] );
+		add_action( $this->action_prefix . 'get_properties', [$this, 'get_properties'] );
 	}
 
 	/**
@@ -138,9 +138,9 @@ class Papi_Admin_Ajax {
 		if ( empty( $html ) ) {
 			$this->render_error( 'No property found' );
 		} else {
-			$this->render( array(
+			$this->render( [
 				'html' => utf8_encode( $html )
-			) );
+			] );
 		}
 	}
 
@@ -180,9 +180,9 @@ class Papi_Admin_Ajax {
 		if ( empty( $items ) ) {
 			$this->render_error( 'No properties found' );
 		} else {
-			$this->render( array(
+			$this->render( [
 				'html' => $items
-			) );
+			] );
 		}
 	}
 
@@ -205,9 +205,9 @@ class Papi_Admin_Ajax {
 	 */
 
 	public function render_error( $message ) {
-		echo json_encode( array(
+		echo json_encode( [
 			'error' => $message
-		) );
+		] );
 	}
 }
 

@@ -13,6 +13,15 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Post extends Papi_Property {
 
 	/**
+	 * The default value.
+	 *
+	 * @var null
+	 * @since 1.0.0
+	 */
+
+	public $default_value = array();
+
+	/**
 	 * Get default settings.
 	 *
 	 * @var array
@@ -22,13 +31,13 @@ class Papi_Property_Post extends Papi_Property {
 	 */
 
 	public function get_default_settings() {
-		return array(
+		return [
 			'blank_text'    => '',
 			'include_blank' => true,
 			'post_type'     => 'post',
 			'query'         => array(),
 			'text'          => __( 'Select post', 'papi' )
-		);
+		];
 	}
 
 	/**
@@ -55,12 +64,12 @@ class Papi_Property_Post extends Papi_Property {
 		}
 
 		// Prepare arguments for WP_Query.
-		$args = array_merge( $settings->query, array(
+		$args = array_merge( $settings->query, [
 			'post_type'              => $post_types,
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false
-		) );
+		] );
 
 		$query = new WP_Query( $args );
 		$posts = $query->get_posts();
@@ -73,7 +82,7 @@ class Papi_Property_Post extends Papi_Property {
 		foreach ( $posts as $post ) {
 			$obj = get_post_type_object( $post->post_type );
 			if ( ! isset( $results[$obj->labels->menu_name] ) ) {
-				$results[$obj->labels->menu_name] = array();
+				$results[$obj->labels->menu_name] = [];
 			}
 			$results[$obj->labels->menu_name][] = $post;
 		}
@@ -86,7 +95,7 @@ class Papi_Property_Post extends Papi_Property {
 			$blank = new stdClass;
 			$blank->ID = 0;
 			$blank->post_title = papi_esc_html( $settings->blank_text );
-			$posts = array_merge( array( array( $blank ) ), $posts );
+			$posts = array_merge( [[$blank]], $posts );
 		}
 
 		?>

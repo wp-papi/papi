@@ -30,12 +30,12 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 
 	public function get_default_settings() {
-		return array(
+		return [
 			'choose_max'   => -1,
 			'post_type'    => 'page',
-			'query'        => array(),
+			'query'        => [],
 			'show_sort_by' => true
-		);
+		];
 	}
 
 	/**
@@ -64,7 +64,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 
 	public static function get_sort_options() {
-		$sort_options = array();
+		$sort_options = [];
 
 		$sort_options[__( 'Select', 'papi' )] = function () {
 			return 0;
@@ -129,12 +129,12 @@ class Papi_Property_Relationship extends Papi_Property {
 		}
 
 		// Prepare arguments for WP_Query.
-		$args = array_merge( $settings->query, array(
+		$args = array_merge( $settings->query, [
 			'post_type'              => papi_to_array( $settings->post_type ),
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false
-		) );
+		] );
 
 		$query = new WP_Query( $args );
 		$posts = $query->get_posts();

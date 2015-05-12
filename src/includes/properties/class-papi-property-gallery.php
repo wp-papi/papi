@@ -30,9 +30,9 @@ class Papi_Property_Gallery extends Papi_Property_Image {
 	 */
 
 	public function get_default_settings() {
-		return array(
+		return [
 			'gallery' => true
-		);
+		];
 	}
 
 }

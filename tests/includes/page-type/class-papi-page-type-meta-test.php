@@ -21,7 +21,7 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 		parent::setUp();
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return array( 1,  papi_test_get_fixtures_path( '/page-types' ) );
+			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
 		} );
 
 		$this->faq_page_type    = papi_get_page_type_by_id( 'faq-page-type' );

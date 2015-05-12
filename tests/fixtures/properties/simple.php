@@ -1,6 +1,6 @@
 <?php
 
-return papi_property( array(
+return papi_property( [
 	'type'  => 'string',
 	'title' => 'Name'
-) );
+] );

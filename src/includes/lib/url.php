@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
  * @return string
  */
 
-function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type = null, $exclude = array() ) {
+function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type = null, $exclude = [] ) {
 	$admin_url = $append_admin_url ? get_admin_url() : '';
 
 	$admin_url = $admin_url . 'post-new.php?page_type=' . $page_type . papi_get_page_query_strings( '&', $exclude );
@@ -46,7 +46,7 @@ function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type
  * @return string
  */
 
-function papi_get_page_query_strings( $first_char = '&', $exclude = array() ) {
+function papi_get_page_query_strings( $first_char = '&', $exclude = [] ) {
 	$request_uri = $_SERVER['REQUEST_URI'];
 	$parsed_url  = parse_url( $request_uri );
 

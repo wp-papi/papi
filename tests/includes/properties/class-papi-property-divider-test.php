@@ -22,10 +22,10 @@ class Papi_Property_Divider_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
-		$this->property = papi_property( array(
+		$this->property = papi_property( [
 			'type'  => 'divider',
 			'title' => 'Divider'
-		) );
+		] );
 	}
 
 	/**

@@ -64,7 +64,7 @@ function papi_convert_to_string( $obj ) {
  * @return bool
  */
 
-function papi_current_user_is_allowed( $capabilities = array() ) {
+function papi_current_user_is_allowed( $capabilities = [] ) {
 	$capabilities = papi_to_array( $capabilities );
 
 	foreach ( papi_to_array( $capabilities ) as $capability ) {
@@ -87,7 +87,7 @@ function papi_current_user_is_allowed( $capabilities = array() ) {
  * @return mixed
  */
 
-function papi_esc_html( $obj, $keys = array() ) {
+function papi_esc_html( $obj, $keys = [] ) {
 	$object = is_object( $obj );
 
 	if ( $object ) {
@@ -295,17 +295,17 @@ function papi_get_qs( $qs, $keep_keys = false ) {
 
 	if ( is_array( $qs ) ) {
 		if ( $keep_keys ) {
-			$result = array();
+			$results = [];
 
 			foreach ( $qs as $key ) {
 				$value = papi_get_qs( $key );
 
 				if ( ! papi_is_empty( $value ) ) {
-					$result[$key] = $value;
+					$results[$key] = $value;
 				}
 			}
 
-			return $result;
+			return $results;
 		} else {
 			return array_map( 'papi_get_qs', $qs );
 		}
@@ -518,14 +518,14 @@ function papi_santize_data( $obj ) {
 
 function papi_sort_order( $array, $key = 'sort_order' ) {
 	if ( empty( $array ) || ! is_array( $array ) && ! is_object( $array ) ) {
-		return array();
+		return [];
 	}
 
 	if ( is_object( $array ) ) {
 		$array = papi_to_array( $array );
 	}
 
-	$sorter = array();
+	$sorter = [];
 
 	foreach ( $array as $k => $value ) {
 		if ( is_object( $value ) ) {
@@ -551,8 +551,8 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 
 	asort( $sorter, SORT_NUMERIC );
 
-	$result = array();
-	$rest   = array();
+	$result = [];
+	$rest   = [];
 
 	foreach ( $sorter as $k => $v ) {
 		$value = $array[ $k ];
@@ -584,7 +584,7 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
  * @return string
  */
 
-function papi_slugify( $str, $replace = array(), $delimiter = '-' ) {
+function papi_slugify( $str, $replace = [], $delimiter = '-' ) {
 	if ( ! is_string( $str ) ) {
 		return '';
 	}
@@ -615,7 +615,7 @@ function papi_slugify( $str, $replace = array(), $delimiter = '-' ) {
 
 function papi_to_array( $obj ) {
 	if ( ! is_array( $obj ) ) {
-		$obj = array( $obj );
+		$obj = [$obj];
 	}
 
 	return $obj;

@@ -45,22 +45,22 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_from_property_array_slugs() {
-		$actual = papi_from_property_array_slugs( array(
+		$actual = papi_from_property_array_slugs( [
 			'repeater' => 1,
 			'repeater_0_image' => 1,
 			'_repeater_0_image_property' => 'image'
-		), 'repeater' );
+		], 'repeater' );
 
-		$expected = array(
-			array(
+		$expected = [
+			[
 				'image' => 1,
 				'_image_property' => 'image'
-			)
-		);
+			]
+		];
 
 		$this->assertEquals( $expected, $actual );
 
-		$this->assertEmpty( papi_from_property_array_slugs( array(), 'custom_slug' ) );
+		$this->assertEmpty( papi_from_property_array_slugs( [], 'custom_slug' ) );
 	}
 
 	/**
@@ -70,10 +70,10 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_get_box_property() {
-		$actual = papi_get_box_property( array(
+		$actual = papi_get_box_property( [
 			'type'  => 'string',
 			'title' => 'Name'
-		) );
+		] );
 
 		$this->assertEquals( 'Name', $actual[0]->title );
 		$this->assertEquals( 'string', $actual[0]->type );
@@ -88,9 +88,9 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	public function test_papi_get_options_and_properties() {
 		$simple_box = papi_test_get_fixtures_path( '/boxes/simple.php' );
 
-		$options = papi_get_options_and_properties( $simple_box, array(
+		$options = papi_get_options_and_properties( $simple_box, [
 			'test' => 'test'
-		) );
+		] );
 
 		$this->assertEquals( 'Simple', $options[0]['title'] );
 		$this->assertEquals( 'test', $options[0]['test'] );
@@ -100,54 +100,54 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$options = papi_get_options_and_properties( 'hello' );
 		$this->assertEquals( 'hello', $options[0]['title'] );
 
-		$options = papi_get_options_and_properties( array(
+		$options = papi_get_options_and_properties( [
 			'title' => 'Simple',
-			papi_property( array(
+			papi_property( [
 				'type'  => 'string',
 				'title' => 'Name'
-			) )
-		), array(), false );
+			] )
+		], [], false );
 
 		$this->assertEquals( 'Simple', $options[0]['title'] );
 		$this->assertEquals( 'Name', $options[1][0]->title );
 		$this->assertEquals( 'string', $options[1][0]->type );
 
-		$options = papi_get_options_and_properties( array(
+		$options = papi_get_options_and_properties( [
 			'title' => 'Simple'
-		) );
+		] );
 
 		$this->assertEquals( 'Simple', $options[0]['title'] );
 
-		$options = papi_get_options_and_properties( array() );
+		$options = papi_get_options_and_properties( [] );
 
 		$this->assertEmpty( $options[0]['title'] );
 
-		$options = papi_get_options_and_properties( array( papi_property( array(
+		$options = papi_get_options_and_properties( [ papi_property( [
 			'type'  => 'string',
 			'title' => 'Name'
-		) ) ) );
+		] ) ] );
 
 		$this->assertEquals( 'Name', $options[0]['title'] );
 		$this->assertEquals( 'Name', $options[1][0]->title );
 		$this->assertEquals( 'string', $options[1][0]->type );
 
-		$options = papi_get_options_and_properties( array( papi_property( array(
+		$options = papi_get_options_and_properties( [ papi_property( [
 			'type'     => 'string',
 			'title'    => 'Name',
 			'sidebar'  => false,
 			'required' => true
-		) ) ) );
+		] ) ] );
 
 		$this->assertEquals( 'Name', $options[0]['title'] );
 		$this->assertEquals( 'Name', $options[1][0]->title );
 		$this->assertEquals( 'string', $options[1][0]->type );
 		$this->assertTrue( $options[0]['_required'] );
 
-		$options = papi_get_options_and_properties( array( (object) array(
-			'options' => array(
+		$options = papi_get_options_and_properties( [ (object) [
+			'options' => [
 				'title' => 'Name'
-			)
-		) ) );
+			]
+		] ] );
 
 		$this->assertEquals( 'Name', $options[0]['title'] );
 	}
@@ -181,7 +181,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_get_property_default_settings( true ) );
 		$this->assertEmpty( papi_get_property_default_settings( false ) );
 		$this->assertEmpty( papi_get_property_default_settings( null ) );
-		$this->assertEmpty( papi_get_property_default_settings( array() ) );
+		$this->assertEmpty( papi_get_property_default_settings( [] ) );
 		$this->assertEmpty( papi_get_property_default_settings( new stdClass() ) );
 	}
 
@@ -192,20 +192,20 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_get_property_options() {
-		$options = papi_get_property_options( array(
+		$options = papi_get_property_options( [
 			'type' 		   => 'string',
 			'title' 	   => 'Name',
 			'capabilities' => 'admin'
-		) );
+		] );
 
 		$this->assertEquals( 'Name', $options->title );
 		$this->assertEquals( 'string', $options->type );
 		$this->assertEquals( 'papi_name', $options->slug );
-		$this->assertEquals( array( 'admin' ), $options->capabilities );
+		$this->assertEquals( ['admin'], $options->capabilities );
 
-		$options = papi_get_property_options( array(
+		$options = papi_get_property_options( [
 			'type' 	   => 'string'
-		) );
+		] );
 
 		$this->assertEquals( 'papi_string', $options->slug );
 
@@ -226,7 +226,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_property_class_name( null ) );
 		$this->assertNull( papi_get_property_class_name( false ) );
 		$this->assertNull( papi_get_property_class_name( true ) );
-		$this->assertNull( papi_get_property_class_name( array() ) );
+		$this->assertNull( papi_get_property_class_name( [] ) );
 		$this->assertNull( papi_get_property_class_name( new stdClass() ) );
 		$this->assertNull( papi_get_property_class_name( 1 ) );
 	}
@@ -244,7 +244,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertNull(  papi_get_property_short_type( null ) );
 		$this->assertNull( papi_get_property_short_type( false ) );
 		$this->assertNull( papi_get_property_short_type( true ) );
-		$this->assertNull( papi_get_property_short_type( array() ) );
+		$this->assertNull( papi_get_property_short_type( [] ) );
 		$this->assertNull( papi_get_property_short_type( new stdClass() ) );
 		$this->assertNull( papi_get_property_short_type( 1 ) );
 	}
@@ -262,11 +262,11 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_get_property_type( 1 ) instanceof Papi_Property_String );
 		$this->assertFalse( papi_get_property_type( true ) instanceof Papi_Property_String );
 		$this->assertFalse( papi_get_property_type( false ) instanceof Papi_Property_String );
-		$this->assertFalse( papi_get_property_type( array() ) instanceof Papi_Property_String );
+		$this->assertFalse( papi_get_property_type( [] ) instanceof Papi_Property_String );
 		$this->assertFalse( papi_get_property_type( new stdClass() ) instanceof Papi_Property_String );
-		$options = papi_get_property_options( array(
+		$options = papi_get_property_options( [
 			'type' => 'string'
-		) );
+		] );
 		$this->assertTrue( papi_get_property_type( $options ) instanceof Papi_Property_String );
 	}
 
@@ -314,7 +314,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( '_property', papi_get_property_type_key( null ) );
 		$this->assertEquals( '_property', papi_get_property_type_key( false ) );
 		$this->assertEquals( '_property', papi_get_property_type_key( true ) );
-		$this->assertEquals( '_property', papi_get_property_type_key( array() ) );
+		$this->assertEquals( '_property', papi_get_property_type_key( [] ) );
 		$this->assertEquals( '_property', papi_get_property_type_key( 1 ) );
 		$this->assertEquals( '_property', papi_get_property_type_key( new stdClass() ) );
 		$this->assertEquals( 'my_slug[0][key_property]', papi_get_property_type_key( 'my_slug[0][key]' ) );
@@ -332,7 +332,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( '_property', papi_get_property_type_key_f( true ) );
 		$this->assertEquals( '_property', papi_get_property_type_key_f( false ) );
 		$this->assertEquals( '_property', papi_get_property_type_key_f( 1 ) );
-		$this->assertEquals( '_property', papi_get_property_type_key_f( array() ) );
+		$this->assertEquals( '_property', papi_get_property_type_key_f( [] ) );
 		$this->assertEquals( '_property', papi_get_property_type_key_f( new stdClass() ) );
 	}
 
@@ -358,27 +358,27 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_render_property() {
-		$property = papi_property( array(
+		$property = papi_property( [
 			'title' => 'Name'
-		) );
+		] );
 		$this->assertEmpty( papi_render_property( $property ) );
 
-		$property = papi_property( array(
+		$property = papi_property( [
 			'type'  => 'fake',
 			'title' => 'Name'
-		) );
+		] );
 		$this->assertEmpty( papi_render_property( $property ) );
 
-		$user_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 
-		$_GET = array( 'lang' => 'se' );
-		$property = papi_property( array(
+		$_GET = [ 'lang' => 'se' ];
+		$property = papi_property( [
 			'type'  => 'string',
 			'title' => 'Name',
 			'lang'  => 'dk',
 			'capabilities' => 'administrator'
-		) );
+		] );
 		$this->assertEmpty( papi_render_property( $property ) );
 		$this->expectOutputRegex( '//' );
 		unset( $_GET );
@@ -393,15 +393,15 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	public function test_papi_render_properties() {
 		$this->assertEmpty( papi_render_properties( null ) );
 
-		$tab = papi_tab( 'Content', array() );
-		papi_render_properties( array( $tab ) );
+		$tab = papi_tab( 'Content', [] );
+		papi_render_properties( [ $tab ] );
 		$this->expectOutputRegex( '/class\=\"papi\-tabs\-wrapper\"/' );
 
-		$property = papi_property( array(
+		$property = papi_property( [
 			'type'  => 'string',
 			'title' => 'Name'
-		) );
-		papi_render_properties( array( $property ) );
+		] );
+		papi_render_properties( [ $property ] );
 		$this->expectOutputRegex( '/table\s*class\=\"papi\-table\"/' );
 	}
 
@@ -413,11 +413,11 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	public function test_papi_require_text() {
 		$this->assertEmpty( papi_require_text( null ) );
-		$property = papi_property( array(
+		$property = papi_property( [
 			'type'     => 'string',
 			'title'    => 'Name',
 			'required' => true
-		) );
+		] );
 		$this->assertEquals( '(required field)', papi_require_text( $property ) );
 	}
 
@@ -429,11 +429,11 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	public function test_papi_required_html() {
 		$this->assertEmpty( papi_required_html( null ) );
-		$property = papi_property( array(
+		$property = papi_property( [
 			'type'     => 'string',
 			'title'    => 'Name',
 			'required' => true
-		) );
+		] );
 		$this->assertRegExp( '/class\=\"papi\-rq\"/', papi_required_html( $property ) );
 	}
 
@@ -444,26 +444,26 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_populate_properties() {
-		$actual = papi_populate_properties( array(
+		$actual = papi_populate_properties( [
 			'type'  => 'string',
 			'title' => 'Name'
-		) );
+		] );
 
 		$this->assertEquals( 'Name', $actual[0]->title );
 		$this->assertEquals( 'string', $actual[0]->type );
 
-		$this->assertEquals( array( $actual[0] ), papi_populate_properties( $actual[0] ) );
+		$this->assertEquals( [ $actual[0] ], papi_populate_properties( $actual[0] ) );
 
-		$actual = papi_populate_properties( array(
-			array(
+		$actual = papi_populate_properties( [
+			[
 				'type'  => 'string',
 				'title' => 'Name 1'
-			),
-			array(
+			],
+			[
 				'type'  => 'string',
 				'title' => 'Name 2'
-			)
-		) );
+			]
+		] );
 
 		$this->assertEquals( 'Name 1', $actual[0]->title );
 		$this->assertEquals( 'string', $actual[0]->type );
@@ -471,28 +471,28 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Name 2', $actual[1]->title );
 		$this->assertEquals( 'string', $actual[1]->type );
 
-		$tab = papi_tab( 'Content', array() );
-		$actual = papi_populate_properties( array( $tab ) );
+		$tab = papi_tab( 'Content', [] );
+		$actual = papi_populate_properties( [$tab] );
 
 		$this->assertEquals( 'Content', $actual[0]->options['title'] );
 		$this->assertEmpty( $actual[0]->properties );
 
-		$actual = papi_populate_properties( array(
-			array(
+		$actual = papi_populate_properties( [
+			[
 				'type'  	 => 'string',
 				'title' 	 => 'Name 1',
 				'sort_order' => 1
-			),
-			array(
+			],
+			[
 				'type'  	 => 'string',
 				'title' 	 => 'Name 3'
-			),
-			array(
+			],
+			[
 				'type'  	 => 'string',
 				'title' 	 => 'Name 2',
 				'sort_order' => 0
-			)
-		) );
+			]
+		] );
 
 		$this->assertEquals( 'Name 2', $actual[0]->title );
 		$this->assertEquals( 'string', $actual[0]->type );
@@ -511,15 +511,15 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_property() {
-		$actual = papi_property( array(
+		$actual = papi_property( [
 			'type'  => 'string',
 			'title' => 'Name'
-		) );
+		] );
 
 		$this->assertEquals( 'Name', $actual->title );
 		$this->assertEquals( 'string', $actual->type );
 
-		$actual = papi_property( array() );
+		$actual = papi_property( [] );
 
 		$this->assertEmpty( $actual->title );
 		$this->assertEmpty( $actual->type );
@@ -553,51 +553,51 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_property_update_meta() {
-		$this->assertEmpty( papi_property_update_meta( array(
+		$this->assertEmpty( papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'name',
 			'value'         => 'Fredrik'
-		) ) );
+		] ) );
 
-		papi_property_update_meta( array(
+		papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'name',
 			'type'          => 'string',
 			'value'         => 'Fredrik'
-		) );
+		] );
 
 		$this->assertEquals( 'Fredrik', get_post_meta( $this->post_id, 'name', true ) );
 
-		papi_property_update_meta( array(
+		papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'name',
 			'type'          => 'string',
 			'value'         => ''
-		) );
+		] );
 
 		$this->assertEmpty( get_post_meta( $this->post_id, 'name', true ) );
 
-		papi_property_update_meta( array(
+		papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'what',
 			'type'          => 'string',
-			'value'         => array(
+			'value'         => [
 				'firstname' => 'Fredrik'
-			)
-		) );
+			]
+		] );
 
 		$this->assertEquals( 'Fredrik', get_post_meta( $this->post_id, 'firstname', true ) );
 
-		papi_property_update_meta( array(
+		papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'what',
 			'type'          => 'string',
-			'value'         => array(
+			'value'         => [
 				'Fredrik'
-			)
-		) );
+			]
+		] );
 
-		$this->assertEquals( array( 'Fredrik' ), get_post_meta( $this->post_id, 'what', true ) );
+		$this->assertEquals( ['Fredrik'], get_post_meta( $this->post_id, 'what', true ) );
 	}
 
 	/**
@@ -607,26 +607,26 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_to_property_array_slugs() {
-		$actual = papi_to_property_array_slugs( array(
-			array(
+		$actual = papi_to_property_array_slugs( [
+			[
 				'image' => 1,
 				'image_property' => 'image'
-			)
-		), 'repeater' );
+			]
+		], 'repeater' );
 
-		$expected = array(
+		$expected = [
 			'repeater' => 1,
 			'repeater_0_image' => 1,
 			'_repeater_0_image_property' => 'image'
-		);
+		];
 
 		$this->assertEquals( $expected, $actual );
 
-		$actual = papi_to_property_array_slugs( array( 1, '', true, false ), 'repeater' );
+		$actual = papi_to_property_array_slugs( [ 1, '', true, false ], 'repeater' );
 
-		$expected = array(
+		$expected = [
 			'repeater' => 0
-		);
+		];
 
 		$this->assertEquals( $expected, $actual );
 	}

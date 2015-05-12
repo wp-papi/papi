@@ -9,11 +9,11 @@ class Empty_Page_Type extends Papi_Page_Type {
 	 */
 
 	public function page_type() {
-		return array(
+		return [
 			'name'        => 'Empty page',
 			'description' => 'This is a empty page',
 			'template'    => 'pages/empty-page.php'
-		);
+		];
 	}
 
 	/**

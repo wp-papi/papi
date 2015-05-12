@@ -39,9 +39,9 @@ class Papi_Property_String extends Papi_Property {
 	 */
 
 	public function get_default_settings() {
-		return array(
+		return [
 			'allow_html' => false
-		);
+		];
 	}
 
 	/**

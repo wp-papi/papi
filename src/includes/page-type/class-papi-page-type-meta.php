@@ -19,7 +19,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * @since 1.0.0
 	 */
 
-	public $capabilities = array();
+	public $capabilities = [];
 
 	/**
 	 * The description of the page type.
@@ -46,7 +46,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * @since 1.2.0
 	 */
 
-	public $labels = array();
+	public $labels = [];
 
 	/**
 	 * The name of the page type.
@@ -64,7 +64,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * @since 1.0.0
 	 */
 
-	public $page_types = array();
+	public $page_types = [];
 
 	/**
 	 * The post types to register the page type with.
@@ -73,7 +73,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * @since 1.0.0
 	 */
 
-	public $post_type = array( 'page' );
+	public $post_type = ['page'];
 
 	/**
 	 * The sort order of the page type.
@@ -219,7 +219,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 
 		// Set a default value to post types array if we don't have a array or a empty array.
 		if ( empty( $this->post_type ) ) {
-			$this->post_type = array( 'page' );
+			$this->post_type = ['page'];
 		}
 	}
 

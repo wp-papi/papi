@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
  * @return mixed
  */
 
-function papi_field( $post_id = null, $name = null, $default = null, $admin_data = array() ) {
+function papi_field( $post_id = null, $name = null, $default = null, $admin_data = [] ) {
 	// Check if we have a post id or not.
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$default = $name;
@@ -81,7 +81,7 @@ function papi_fields() {
 	$page = current_page();
 
 	if ( empty( $page ) ) {
-		return array();
+		return [];
 	}
 
 	$cache_key = papi_get_cache_key( 'page', $page->id );
@@ -91,14 +91,14 @@ function papi_fields() {
 		$page_type = $page->get_page_type();
 
 		if ( empty( $page_type ) ) {
-			return array();
+			return [];
 		}
 
-		$value = array();
+		$value = [];
 		$boxes = $page_type->get_boxes();
 
 		if ( empty ( $boxes ) || ! is_array( $boxes ) ) {
-			return array();
+			return [];
 		}
 
 		foreach ( $boxes as $box ) {
@@ -107,7 +107,7 @@ function papi_fields() {
 			}
 
 			if ( ! isset( $value[$box[0]['title']] ) ) {
-				$value[$box[0]['title']] = array();
+				$value[$box[0]['title']] = [];
 			}
 
 			foreach ( $box[1] as $property ) {

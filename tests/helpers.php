@@ -19,7 +19,7 @@
 function papi_test_create_property_post_data( $values, $post = null ) {
 	$property_type_slug = papi_html_name( papi_get_property_type_key( $values['slug'] ) );
 
-	$data = array();
+	$data = [];
 	$data[$values['slug']] = $values['value'];
 
 	$property_type_options = papi_get_property_options( (array) $values['type'] );

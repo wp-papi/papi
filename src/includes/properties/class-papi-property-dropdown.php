@@ -21,10 +21,10 @@ class Papi_Property_Dropdown extends Papi_Property {
 	 */
 
 	public function get_default_settings() {
-		return array(
-			'items'    => array(),
-			'selected' => array()
-		);
+		return [
+			'items'    => [],
+			'selected' => []
+		];
 	}
 
 	/**

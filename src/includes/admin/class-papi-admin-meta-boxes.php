@@ -30,7 +30,7 @@ class Papi_Admin_Meta_Boxes {
 	 */
 
 	private function setup_actions() {
-		add_action( 'save_post', array( $this, 'save_meta_boxes' ), 1, 2 );
+		add_action( 'save_post', [$this, 'save_meta_boxes'], 1, 2 );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class Papi_Admin_Meta_Boxes {
 	 */
 
 	private function get_post_data( $pattern = '/^papi\_.*/' ) {
-		$data = array();
+		$data = [];
 		$keys = preg_grep( $pattern, array_keys( $_POST ) );
 
 		foreach ( $keys as $key ) {
@@ -122,7 +122,7 @@ class Papi_Admin_Meta_Boxes {
 	 * @return array
 	 */
 
-	private function prepare_properties_data( array $data = array(), $post_id ) {
+	private function prepare_properties_data( array $data = [], $post_id ) {
 		// Since we are storing witch property it is in the $data array
 		// we need to remove that and set the property type to the property
 		// and make a array of the property type and the value.
@@ -137,10 +137,10 @@ class Papi_Admin_Meta_Boxes {
 
 			// Check if value exists.
 			if ( isset( $data[$property_key] ) ) {
-				$data[$property_key] = array(
+				$data[$property_key] = [
 					'type'  => $value,
 					'value' => $data[$property_key]
-				);
+				];
 			}
 
 			unset( $data[$key] );
@@ -281,12 +281,12 @@ class Papi_Admin_Meta_Boxes {
 		$data = $this->prepare_properties_data( $data, $post_id );
 
 		foreach ( $data as $key => $property ) {
-			papi_property_update_meta( array(
+			papi_property_update_meta( [
 				'post_id'       => $post_id,
 				'slug'          => $key,
 				'type'          => $property['type'],
 				'value'         => $property['value']
-			) );
+			] );
 		}
 	}
 }

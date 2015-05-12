@@ -19,7 +19,7 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 * @since 1.0.0
 	 */
 
-	public $default_value = array();
+	public $default_value = [];
 
 	/**
 	 * Get default settings.
@@ -30,10 +30,10 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 */
 
 	public function get_default_settings() {
-		return array(
-			'items'    => array(),
-			'selected' => array()
-		);
+		return [
+			'items'    => [],
+			'selected' => []
+		];
 	}
 
 	/**
@@ -55,7 +55,7 @@ class Papi_Property_Checkbox extends Papi_Property {
 
 		// Selected setting need to be an array.
 		if ( ! is_array( $settings->selected ) ) {
-			$settings->selected = array( $settings->selected );
+			$settings->selected = [$settings->selected];
 		}
 
 		foreach ( $settings->items as $key => $value ) {
@@ -86,7 +86,7 @@ class Papi_Property_Checkbox extends Papi_Property {
 
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_string( $value ) && ! papi_is_empty( $value ) ) {
-			return array( $value );
+			return [$value];
 		}
 
 		if ( ! is_array( $value ) ) {

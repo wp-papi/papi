@@ -38,10 +38,10 @@ class Papi_Property_Editor extends Papi_Property {
 
 		$id = str_replace( '[', '', str_replace( ']', '', $options->slug ) ) . '-' . uniqid();
 
-		wp_editor( $value, $id, array(
+		wp_editor( $value, $id, [
 			'textarea_name' => $options->slug,
 			'media_buttons' => true
-		) );
+		] );
 
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			add_filter( 'mce_external_plugins', '__return_empty_array' );

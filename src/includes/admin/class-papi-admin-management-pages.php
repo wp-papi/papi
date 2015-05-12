@@ -16,19 +16,19 @@ class Papi_Admin_Management_Pages {
 	 * Thew view instance.
 	 *
 	 * @var Papi_Admin_View
+	 * @since 1.0.0
 	 */
 
 	private $view;
 
 	/**
 	 * Constructor.
+	 *
+	 * @since 1.0.0
 	 */
 
 	public function __construct() {
-		// Setup globals.
 		$this->setup_globals();
-
-		// Setup actions.
 		$this->setup_actions();
 	}
 
@@ -39,7 +39,7 @@ class Papi_Admin_Management_Pages {
 	 */
 
 	private function setup_actions() {
-		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_action( 'admin_menu', [$this, 'admin_menu'] );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class Papi_Admin_Management_Pages {
 
 	public function admin_menu() {
 		$papi = papi();
-		add_management_page( $papi->name, $papi->name, 'manage_options', 'papi', array( $this, 'render_view' ) );
+		add_management_page( $papi->name, $papi->name, 'manage_options', 'papi', [$this, 'render_view'] );
 	}
 
 	/**

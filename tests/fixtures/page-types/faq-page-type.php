@@ -9,7 +9,7 @@ class FAQ_Page_Type extends Papi_Page_Type {
 	 */
 
 	public function page_type() {
-		return array(
+		return [
 			'name'         => 'FAQ page',
 			'description'  => 'This is a faq page',
 			'template'     => 'pages/faq-page.php',
@@ -17,7 +17,7 @@ class FAQ_Page_Type extends Papi_Page_Type {
 			'capabilities' => array( 'kvack' ),
 			'thumbnail'    => 'faq.png',
 			'post_type'    => 'faq'
-		);
+		];
 	}
 
 	/**
@@ -25,15 +25,15 @@ class FAQ_Page_Type extends Papi_Page_Type {
 	 */
 
 	public function register() {
-		$this->box('Content', array(
-			papi_property(array(
+		$this->box('Content', [
+			papi_property( [
 				'type'  => 'string',
 				'title' => 'Question'
-			)),
-			papi_property(array(
+			] ),
+			papi_property( [
 				'type'  => 'text',
 				'title' => 'Answer'
-			))
-		));
+			] )
+		] );
 	}
 }

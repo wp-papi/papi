@@ -21,9 +21,9 @@ class Papi_Property_Url extends Papi_Property {
 	 */
 
 	public function get_default_settings() {
-		return array(
+		return [
 			'mediauploader' => false
-		);
+		];
 	}
 
 	/**

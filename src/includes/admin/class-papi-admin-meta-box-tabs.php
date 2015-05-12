@@ -19,7 +19,7 @@ class Papi_Admin_Meta_Box_Tabs {
 	 * @since 1.0.0
 	 */
 
-	private $tabs = array();
+	private $tabs = [];
 
 	/**
 	 * Constructor.
@@ -30,7 +30,7 @@ class Papi_Admin_Meta_Box_Tabs {
 	 * @since 1.0.0
 	 */
 
-	public function __construct( $tabs = array(), $render = true ) {
+	public function __construct( $tabs = [], $render = true ) {
 		if ( empty( $tabs ) ) {
 			return;
 		}

@@ -19,23 +19,23 @@ class Papi_Property {
 	 * @since 1.3.0
 	 */
 
-	private $default_options = array(
+	private $default_options = [
 		'array_slug'   => '',
-		'capabilities' => array(),
+		'capabilities' => [],
 		'default'      => '',
 		'description'  => '',
 		'disabled'     => false,
 		'lang'         => false,
 		'raw'          => false,
 		'required'     => false,
-		'settings'     => array(),
+		'settings'     => [],
 		'sidebar'      => true,
 		'slug'         => '',
 		'sort_order'   => -1,
 		'title'        => '',
 		'type'         => '',
 		'value'        => ''
-	);
+	];
 
 	/**
 	 * Default value.
@@ -103,7 +103,7 @@ class Papi_Property {
 	 * @return Papi_Property
 	 */
 
-	public static function create( $options = array() ) {
+	public static function create( $options = [] ) {
 		$property = new self;
 		$property->set_options( $options );
 		return $property;
@@ -186,7 +186,7 @@ class Papi_Property {
 	 */
 
 	public function get_default_settings() {
-		return array();
+		return [];
 	}
 
 	/**
@@ -194,7 +194,7 @@ class Papi_Property {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @return mixed
+	 * @return string
 	 */
 
 	public function get_default_value() {
@@ -352,7 +352,7 @@ class Papi_Property {
 	 */
 
 	public function override_property_options() {
-		return array();
+		return [];
 	}
 
 	/**
@@ -514,7 +514,7 @@ class Papi_Property {
 		$options->settings = array_merge( papi_get_property_default_settings( $options->type ), (array) $options->settings );
 		$options->settings = (object) $options->settings;
 
-		$options = papi_esc_html( $options, array( 'html' ) );
+		$options = papi_esc_html( $options, ['html'] );
 
 		// Add default value if database value is empty.
 		if ( papi_is_empty( $options->value ) ) {

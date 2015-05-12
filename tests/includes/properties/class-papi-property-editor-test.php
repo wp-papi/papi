@@ -22,11 +22,11 @@ class Papi_Property_Editor_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
-		$this->property = papi_property( array(
+		$this->property = papi_property( [
 			'type'  => 'editor',
 			'title' => 'Text',
 			'slug'  => 'editor'
-		) );
+		] );
 	}
 
 	/**
@@ -74,11 +74,11 @@ class Papi_Property_Editor_Test extends WP_UnitTestCase {
 		$handler = new Papi_Admin_Meta_Boxes();
 
 		// Create post data.
-		$_POST = papi_test_create_property_post_data( array(
+		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $this->property->slug,
 			'type'  => $this->property,
 			'value' => '<p>a bit of text with html tags hello, world</p>'
-		), $_POST );
+		], $_POST );
 
 		// Save the property using the handler.
 		$handler->save_property( $this->post_id );

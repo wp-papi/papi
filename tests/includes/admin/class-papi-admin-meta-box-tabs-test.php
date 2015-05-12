@@ -20,15 +20,15 @@ class Papi_Admin_Meta_Box_Tabs_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->tabs = array(
-			papi_tab( array( 'title' => 'Content' ) ),
-			papi_tab( array( 'title' => 'More', 'sort_order' => 1 ), array(
-				papi_property( array(
+		$this->tabs = [
+			papi_tab( [ 'title' => 'Content' ] ),
+			papi_tab( [ 'title' => 'More', 'sort_order' => 1 ], [
+				papi_property( [
 					'type'  => 'string',
 					'title' => 'Name'
-				) )
-			) )
-		);
+				] )
+			] )
+		];
 	}
 
 	/**

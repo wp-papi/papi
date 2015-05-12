@@ -21,12 +21,12 @@ class Papi_Property_Datetime extends Papi_Property {
 	 */
 
 	public function get_default_settings() {
-		return array(
+		return [
 			'format'       => 'YYYY-MM-DD hh:mm:ss',
 			'show_seconds' => false,
 			'show_time'    => true,
 			'use_24_hours' => false
-		);
+		];
 	}
 
 	/**
@@ -40,12 +40,12 @@ class Papi_Property_Datetime extends Papi_Property {
 		$settings = $this->get_settings();
 		$value    = $this->get_value();
 
-		$settings_json = array(
+		$settings_json = [
 			'format'      => $settings->format,
 			'showTime'    => $settings->show_time,
 			'showSeconds' => $settings->show_seconds,
 			'use24hour'   => $settings->use_24_hours
-		);
+		];
 
 		$settings_json = json_encode( (object) $settings_json );
 
