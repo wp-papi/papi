@@ -13,6 +13,15 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Gallery extends Papi_Property_Image {
 
 	/**
+	 * The default value.
+	 *
+	 * @var array
+	 * @since 1.3.0
+	 */
+
+	public $default_value = array();
+
+	/**
 	 * Get default settings.
 	 *
 	 * @since 1.2.0

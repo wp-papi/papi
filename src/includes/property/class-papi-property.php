@@ -190,6 +190,18 @@ class Papi_Property {
 	}
 
 	/**
+	 * Get default value.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @return mixed
+	 */
+
+	public function get_default_value() {
+		return $this->default_value;
+	}
+
+	/**
 	 * Get option value.
 	 *
 	 * @param string $key
@@ -289,12 +301,14 @@ class Papi_Property {
 			return;
 		}
 
-		if ( is_string( $type->default_value ) ) {
+		$default_value = $type->get_default_value();
+
+		if ( is_string( $default_value ) ) {
 			$value = papi_convert_to_string( $value );
 		}
 
 		if ( papi_is_empty( $value ) ) {
-			$value = $type->default_value;
+			$value = $default_value;
 		}
 
 		if ( ! $this->get_setting( 'allow_html' ) ) {

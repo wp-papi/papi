@@ -13,15 +13,6 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Image extends Papi_Property {
 
 	/**
-	 * The default value.
-	 *
-	 * @var null
-	 * @since 1.0.0
-	 */
-
-	public $default_value = null;
-
-	/**
 	 * Format the value of the property before it's returned to the theme.
 	 *
 	 * @param mixed $value
@@ -54,7 +45,7 @@ class Papi_Property_Image extends Papi_Property {
 			}
 		} else if ( is_array( $value ) ) {
 			foreach ( $value as $k => $v ) {
-				$value[ $k ] = $this->format_value( $v, $slug, $post_id );
+				$value[$k] = $this->format_value( $v, $slug, $post_id );
 			}
 
 			return $value;

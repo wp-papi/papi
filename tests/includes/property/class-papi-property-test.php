@@ -146,16 +146,15 @@ class Papi_Property_Test extends WP_UnitTestCase {
 			'title' => 'Hello'
 		) );
 
-		$property->set_options( array(
-			'slug'  => 'name',
-			'value' => ''
-		) );
-
 		$this->assertEmpty( $property->get_value() );
 
-		$property->default_value = array();
+		$property->set_options( array(
+			'type'  => 'string',
+			'slug'  => 'name',
+			'value' => 'hello world'
+		) );
 
-		$this->assertTrue( is_array( $property->get_value() ) );
+		$this->assertEquals( 'hello world', $property->get_value() );
 	}
 
 	/**
@@ -246,6 +245,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $property->get_value() );
 
 		$property->set_options( array(
+			'type'  => 'string',
 			'slug'  => 'name',
 			'value' => 'Fredrik'
 		) );
