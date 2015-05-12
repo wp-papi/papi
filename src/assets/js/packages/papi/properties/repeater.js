@@ -125,7 +125,7 @@ class Repeater {
     $.ajax({
       type: 'POST',
       data: {
-        properties: properties
+        properties: JSON.stringify(properties)
       },
       url: papi.ajaxUrl + '?action=get_properties',
       dataType: 'json'
