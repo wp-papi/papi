@@ -124,7 +124,9 @@ class Repeater {
   fetch(properties, callback) {
     $.ajax({
       type: 'POST',
-      data: JSON.stringify(properties),
+      data: {
+        properties: properties
+      },
       url: papi.ajaxUrl + '?action=get_properties',
       dataType: 'json'
     }).success(callback);

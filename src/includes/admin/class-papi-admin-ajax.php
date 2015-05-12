@@ -151,10 +151,14 @@ class Papi_Admin_Ajax {
 	 */
 
 	public function get_properties() {
-		$json   = file_get_contents( 'php://input' );
-		$items  = json_decode( $json, true );
+		if ( ! isset( $_POST['properties'] ) ) {
+			$this->render_error( 'No properties found' );
+			exit;
+		}
 
-		if ( empty( $items ) ) {
+		$items = $_POST['properties'];
+
+		if ( empty( $items ) || ! is_array( $items ) ) {
 			$this->render_error( 'No properties found' );
 			exit;
 		}
