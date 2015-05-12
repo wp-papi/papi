@@ -283,12 +283,18 @@ class Papi_Property {
 			$value = $this->options->value;
 		}
 
-		if ( is_string( $this->default_value ) ) {
+		$type = self::factory( $this->options->type );
+
+		if ( ! is_object( $type ) ) {
+			return;
+		}
+
+		if ( is_string( $type->default_value ) ) {
 			$value = papi_convert_to_string( $value );
 		}
 
 		if ( papi_is_empty( $value ) ) {
-			$value = $this->default_value;
+			$value = $type->default_value;
 		}
 
 		if ( ! $this->get_setting( 'allow_html' ) ) {
