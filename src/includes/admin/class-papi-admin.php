@@ -192,7 +192,7 @@ final class Papi_Admin {
 			$only_page_type = papi_filter_settings_only_page_type( $post_type );
 
 			if ( ! empty( $only_page_type ) ) {
-				$submenu[$edit_url][10][2] = papi_get_page_new_url( $only_page_type, false, $post_type, array( 'page_type', 'post_type' ) );
+				$submenu[$edit_url][10][2] = papi_get_page_new_url( $only_page_type, false, $post_type, array( 'action', 'message', 'page_type', 'post', 'post_type' ) );
 			} else {
 				$page = 'papi-add-new-page,' . $post_type;
 
