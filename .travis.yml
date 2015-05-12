@@ -17,10 +17,6 @@ after_script:
 
 matrix:
   include:
-    - php: 5.3
-      env: WP_VERSION=latest WP_MULTISITE=0
-    - php: 5.3
-      env: WP_VERSION=3.8 WP_MULTISITE=1
     - php: 5.4
       env: WP_VERSION=3.8 WP_MULTISITE=0
     - php: 5.5
