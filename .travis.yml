@@ -29,8 +29,3 @@ matrix:
       env: WP_VERSION=3.9 WP_MULTISITE=0
     - php: hhvm
       env: WP_VERSION=latest WP_MULTISITE=1
-
-notifications:
-  webhooks:
-    urls:
-      https://webhooks.gitter.im/e/8d1f8d61b39b2676c053
