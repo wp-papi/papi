@@ -152,7 +152,7 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	public function test_papi_filter_show_page_type() {
 		$this->assertTrue( papi_filter_show_page_type( 'post', 'test-page-type' ) );
 
-		tests_add_filter( 'papi/settings/standard_page_type_post', function ( $page_type ) {
+		tests_add_filter( 'papi/settings/show_page_type_post', function ( $page_type ) {
 			if ( $page_type == 'test-page-type' ) {
 				return false;
 			}
@@ -160,7 +160,7 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 			return true;
 		} );
 
-		$this->assertFalse( ! papi_filter_show_page_type( 'post', 'test-page-type' ) );
+		$this->assertFalse( papi_filter_show_page_type( 'post', 'test-page-type' ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
@@ -168,6 +168,13 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 
 		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
 		$this->assertTrue( papi_filter_show_page_type( 'post', $page_type ) );
+
+		tests_add_filter( 'papi/settings/show_page_type_post', function ( $page_type ) {
+			return 'no';
+		} );
+
+		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$this->assertFalse( papi_filter_show_page_type( 'post', $page_type ) );
 	}
 
 	/**
