@@ -23,6 +23,8 @@ var browserify   = require('browserify');
 var babelify     = require('babelify');
 var source       = require('vinyl-source-stream');
 var phpcs        = require('gulp-phpcs');
+var buffer       = require('vinyl-buffer');
+var merge        = require('merge-stream');
 var pkg          = require('./package.json');
 
 /*-------------------------------------------------------------------
@@ -45,11 +47,13 @@ var config = {
     }
   },
   scripts: {
-    main: src + 'js/main.js',
+    entries: [
+      src + 'js/main.js'
+    ],
     babel: src + 'js/packages/',
-    files: [
-      src + 'js/components/*.js',
-      dist + 'js/*.js'
+    debug: true,
+    components: [
+      src + 'js/components/*.js'
     ],
     dest: dist + 'js/',
     lint: 'src/assets/js/**/*.js'
@@ -99,42 +103,40 @@ gulp.task('sass', function() {
 });
 
 // ES6 with Babel
-gulp.task('es6to5', function(cb) {
-  return browserify({
-    entries: config.scripts.main,
-    debug: true
-  })
-  .transform(babelify.configure({
-    resolveModuleSource: function (f, p) {
-      var parts = f.split('/');
-      var file  = parts.pop();
-      var first = parts.shift();
-      var path  = parts.join('/');
+gulp.task('scripts', function(cb) {
+  // Build a stream with all components
+  var components = gulp.src(config.scripts.components);
 
-      path = (path.length ? path + '/' : '');
+  // Build a stream of Papi source files with browserify and babelify
+  var papi = browserify({
+      entries: config.scripts.entries,
+      debug: config.scripts.debug
+    })
+    .transform(babelify.configure({
+      resolveModuleSource: function (f, p) {
+        var parts = f.split('/');
+        var file  = parts.pop();
+        var first = parts.shift();
+        var path  = parts.join('/');
 
-      if (!first) {
-        first = file;
+        path = (path.length ? path + '/' : '');
+
+        if (!first) {
+          first = file;
+        }
+
+        return require('path').join(__dirname, config.scripts.babel, first, path, file);
       }
-
-      return require('path').join(__dirname, config.scripts.babel, first, path, file);
-    }
-  }))
-  .bundle()
-  .pipe(source('main.min.js'))
-  .pipe(gulp.dest('./dist/js'));
-});
-
-// ES5 Scripts
-gulp.task('scripts', ['es6to5'], function() {
-  return gulp.src(config.scripts.files)
-    .pipe(concat(
-      'main.min.js'
-    ))
-    .pipe(uglify())
-    .pipe(header(banner, {
-      package: pkg
     }))
+    .bundle()
+    .pipe(source('main.min.js'))
+    .pipe(buffer());
+
+  return merge(components, papi)
+    // .pipe(sourcemaps.init({loadMaps:true}))
+    .pipe(concat('main.min.js'))
+    .pipe(uglify())
+    // .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.scripts.dest));
 });
 
