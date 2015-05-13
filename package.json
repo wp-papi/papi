@@ -8,7 +8,8 @@
   "devDependencies": {
     "babel-eslint": "^3.0",
     "babelify": "^6.0",
-    "browserify": "^9.0",
+    "browserify": "^10.1",
+    "bundle-collapser": "^1.2.0",
     "gulp": "^3.8",
     "gulp-autoprefixer": "^2.1",
     "gulp-concat": "^2.4",

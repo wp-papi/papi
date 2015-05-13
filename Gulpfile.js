@@ -25,6 +25,7 @@ var source       = require('vinyl-source-stream');
 var phpcs        = require('gulp-phpcs');
 var buffer       = require('vinyl-buffer');
 var merge        = require('merge-stream');
+var collapse     = require('bundle-collapser/plugin');
 var pkg          = require('./package.json');
 
 /*-------------------------------------------------------------------
@@ -112,6 +113,7 @@ gulp.task('scripts', function () {
       entries: config.scripts.entries,
       debug: config.scripts.debug
     })
+    .plugin(collapse)
     .transform(babelify.configure({
       resolveModuleSource: function (f, p) {
         var parts = f.split('/');
