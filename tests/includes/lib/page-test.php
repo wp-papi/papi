@@ -44,6 +44,45 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test `papi_display_page_type` function.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_papi_display_page_type() {
+		$this->assertFalse( papi_display_page_type( 'fake-page-type1' ) );
+
+		$_GET['post_type'] = 'page';
+		$this->assertFalse( papi_display_page_type( 'fake-page-type2' ) );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+		} );
+
+		$page_type = papi_get_page_type_by_id( 'display-not-page-type' );
+		$this->assertFalse( papi_display_page_type( $page_type ) );
+
+		$page_type = papi_get_page_type_by_id( 'empty-page-type' );
+		$this->assertTrue( papi_display_page_type( $page_type ) );
+
+		tests_add_filter( 'papi/settings/show_page_type_page', function ( $page_type ) {
+			if ( $page_type == 'simple-page-type' ) {
+				return false;
+			}
+
+			return true;
+		} );
+
+		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$this->assertFalse( papi_display_page_type( $page_type ) );
+
+		$GET['post_type'] = 'module';
+
+		$page_type = papi_get_page_type_by_id( 'faq-page-type' );
+		$this->assertFalse( papi_display_page_type( $page_type ) );
+	}
+
+	/**
 	 * Test `papi_get_all_page_types` function.
 	 *
 	 * @since 1.3.0
@@ -285,5 +324,13 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 		the_papi_page_type_name( $this->post_id );
 		$this->expectOutputRegex( '/Simple\spage/' );
+
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, '' );
+		the_papi_page_type_name();
+		$this->expectOutputRegex( '//' );
+
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'random322-page-type' );
+		the_papi_page_type_name();
+		$this->expectOutputRegex( '//' );
 	}
 }

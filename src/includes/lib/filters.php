@@ -116,7 +116,17 @@ function papi_filter_show_page_type( $post_type, $page_type ) {
 		$page_type = $page_type->get_id();
 	}
 
-	return apply_filters( 'papi/settings/show_page_type_' . $post_type, $page_type ) !== false;
+	$value = apply_filters( 'papi/settings/show_page_type_' . $post_type, $page_type );
+
+	if ( $value === $page_type ) {
+		return true;
+	}
+
+	if ( ! is_bool( $value ) ) {
+		return false;
+	}
+
+	return $value;
 }
 
 /**

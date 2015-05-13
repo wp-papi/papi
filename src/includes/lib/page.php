@@ -23,6 +23,48 @@ function current_page() {
 }
 
 /**
+ * Check if the page type should be displayed or not.
+ *
+ * @param string|object $page_type
+ * @since 1.3.0
+ *
+ * @return bool
+ */
+
+function papi_display_page_type( $page_type ) {
+	$post_type = papi_get_wp_post_type();
+
+	if ( empty( $post_type ) ) {
+		return false;
+	}
+
+	if ( is_string( $page_type ) ) {
+		$page_type = papi_get_page_type_by_id( $page_type );
+	}
+
+	if ( ! is_object( $page_type ) ) {
+		return false;
+	}
+
+	if ( ! in_array( $post_type, $page_type->post_type ) ) {
+		return false;
+	}
+
+	$display = $page_type->display( $post_type );
+
+	if ( ! is_bool( $display ) ) {
+		return false;
+	}
+
+	// Run show page type filter.
+	// @deprecated deprecated since version 1.3.0
+	// will be removed in feature version.
+	$display = papi_filter_show_page_type( $post_type, $page_type );
+
+	return $display;
+}
+
+/**
  * Get all page types that exists.
  *
  * @since 1.0.0

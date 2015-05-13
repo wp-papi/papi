@@ -197,6 +197,19 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	}
 
 	/**
+	 * Should the Page Type be displayed in WordPress admin or not?
+	 *
+	 * @param string $post_type
+	 * @since 1.3.0
+	 *
+	 * @return bool
+	 */
+
+	public function display( $post_type ) {
+		return true;
+	}
+
+	/**
 	 * Get boxes from the page type.
 	 *
 	 * @since 1.0.0
