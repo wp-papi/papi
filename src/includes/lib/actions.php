@@ -19,13 +19,3 @@ defined( 'ABSPATH' ) || exit;
 function papi_action_include() {
 	do_action( 'papi/include' );
 }
-
-/**
- * Fire the 'papi_include_properties' action, where cstuom properties should be included.
- *
- * @since 1.0.0
- */
-
-function papi_action_include_properties() {
-	do_action( 'papi_include_properties' );
-}
