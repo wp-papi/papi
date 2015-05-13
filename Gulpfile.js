@@ -86,7 +86,7 @@ Tasks
 -------------------------------------------------------------------*/
 
 // Sass
-gulp.task('sass', function() {
+gulp.task('sass', function () {
   return gulp.src([config.sass.src, src + 'css/components/*.css'])
     .pipe(concat(
       'style.min.css'
@@ -103,7 +103,7 @@ gulp.task('sass', function() {
 });
 
 // ES6 with Babel
-gulp.task('scripts', function(cb) {
+gulp.task('scripts', function () {
   // Build a stream with all components
   var components = gulp.src(config.scripts.components);
 
@@ -159,7 +159,7 @@ gulp.task('phpcs', function () {
 });
 
 // Watch
-gulp.task('watch', function() {
+gulp.task('watch', function () {
   gulp.watch(config.sass.src,       ['sass']);
   gulp.watch(config.scripts.files,  ['scripts']);
 });
