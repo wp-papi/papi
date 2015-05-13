@@ -52,7 +52,7 @@ function papi_display_page_type( $page_type ) {
 
 	$display = $page_type->display( $post_type );
 
-	if ( ! is_bool( $display ) ) {
+	if ( ! is_bool( $display ) || $display === false ) {
 		return false;
 	}
 
