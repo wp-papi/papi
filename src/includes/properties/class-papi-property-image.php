@@ -90,8 +90,10 @@ class Papi_Property_Image extends Papi_Property {
 		$settings = $this->get_settings();
 		$value    = papi_to_array( $this->get_value() );
 
-		// Keep only objects.
-		$value = papi_get_only_objects( $value );
+		// Keep only valid objects.
+		$value = array_filter( $value, function ( $item ) {
+			return is_object( $item ) && ! empty( $item->id );
+		} );
 
 		$slug        = $this->html_name();
 		$show_button = empty( $value );
