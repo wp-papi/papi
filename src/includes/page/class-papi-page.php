@@ -265,7 +265,7 @@ class Papi_Page {
 		$page_type_id = papi_get_page_type_meta_value();
 		$page_type    = papi_get_page_type_by_id( $page_type_id );
 
-		if ( ! is_object( $page_type ) || ( $page_type instanceof Papi_Page_Type ) === false ) {
+		if ( ! is_object( $page_type ) || ! ( $page_type instanceof Papi_Page_Type ) ) {
 			return;
 		}
 
