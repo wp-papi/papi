@@ -379,6 +379,27 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test `papi_santize_data` function.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_papi_santize_data() {
+		$value = papi_santize_data( '\"hello\"' );
+		$this->assertEquals( '"hello"', $value );
+
+		$value = papi_santize_data( [
+			'\"hello\"',
+			'\"wordl\"'
+		] );
+
+		$this->assertEquals( [
+			'"hello"',
+			'"world"'
+		], $value );
+	}
+
+	/**
 	 * Test `papi_sort_order` function.
 	 *
 	 * @since 1.0.0
