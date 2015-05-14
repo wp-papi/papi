@@ -206,7 +206,7 @@ final class Papi_Loader extends Papi_Container {
 			deactivate_plugins( $plugin_path );
 		}
 
-		wp_die( __( 'WordPress 3.8 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
+		wp_die( __( 'WordPress 3.9 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
 	}
 }
 
@@ -219,7 +219,7 @@ final class Papi_Loader extends Papi_Container {
  */
 
 function papi() {
-	if ( version_compare( get_bloginfo( 'version' ), '3.8', '<' ) ) {
+	if ( version_compare( get_bloginfo( 'version' ), '3.9', '<' ) ) {
 		return Papi_Loader::deactivate();
 	}
 
