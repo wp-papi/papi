@@ -331,16 +331,16 @@ class Papi_Property {
 	/**
 	 * Get html name for property with or without sub property and row number.
 	 *
-	 * @param object $row
+	 * @param array|object $sub_property
 	 * @param int $row
 	 *
 	 * @return string
 	 */
 
-	public function html_name( $property = null, $row = null ) {
+	public function html_name( $sub_property = null, $row = null ) {
 		$base_slug = $this->get_option( 'slug' );
 
-		if ( is_null( $property ) ) {
+		if ( is_null( $sub_property ) ) {
 			return $base_slug;
 		}
 
@@ -348,11 +348,15 @@ class Papi_Property {
 			$base_slug = sprintf( '%s[%d]', $base_slug, intval( $row ) );
 		}
 
-		if ( ! ( $property instanceof Papi_Property ) ) {
-			return $base_slug;
+		if ( ! ( $sub_property instanceof Papi_Property ) ) {
+			if ( is_array( $sub_property ) || is_object( $sub_property ) ) {
+				$sub_property = Papi_Property::create( $sub_property );
+			} else {
+				return $base_slug;
+			}
 		}
 
-		return sprintf( '%s[%s]', $base_slug, papi_remove_papi( $property->get_option( 'slug' ) ) );
+		return sprintf( '%s[%s]', $base_slug, papi_remove_papi( $sub_property->get_option( 'slug' ) ) );
 	}
 
 	/**
