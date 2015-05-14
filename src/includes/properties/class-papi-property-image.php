@@ -69,6 +69,18 @@ class Papi_Property_Image extends Papi_Property {
 	}
 
 	/**
+	 * Get default value.
+	 *
+	 * @since 1.3.0
+	 *
+	 * @return object
+	 */
+
+	public function get_default_value() {
+		return new stdClass;
+	}
+
+	/**
 	 * Display property html.
 	 *
 	 * @since 1.0.0
@@ -90,7 +102,6 @@ class Papi_Property_Image extends Papi_Property {
 			$slug .= '[]';
 			$show_button = true;
 		}
-
 		?>
 
 		<div class="papi-property-image <?php echo $css_classes; ?>">
