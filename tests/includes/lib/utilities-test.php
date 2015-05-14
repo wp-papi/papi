@@ -390,7 +390,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 
 		$value = papi_santize_data( [
 			'\"hello\"',
-			'\"wordl\"'
+			'\"world\"'
 		] );
 
 		$this->assertEquals( [
