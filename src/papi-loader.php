@@ -31,7 +31,7 @@ final class Papi_Loader extends Papi_Container {
 	 * @since 1.0.0
 	 */
 
-	public $name;
+	public $name = 'Papi';
 
 	/**
 	 * Papi loader instance.
