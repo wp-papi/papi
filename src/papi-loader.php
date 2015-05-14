@@ -43,15 +43,6 @@ final class Papi_Loader extends Papi_Container {
 	private $plugin_dir;
 
 	/**
-	 * The plugin url path.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-
-	private $plugin_url;
-
-	/**
 	 * The plugin language directory path.
 	 *
 	 * @var string
@@ -235,7 +226,6 @@ final class Papi_Loader extends Papi_Container {
 
 		// Papi plugin directory and url.
 		$this->plugin_dir = PAPI_PLUGIN_DIR;
-		$this->plugin_url = PAPI_PLUGIN_URL;
 
 		// Languages.
 		$this->lang_dir = $this->plugin_dir . 'languages';
