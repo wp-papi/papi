@@ -198,6 +198,24 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 *
+	 */
+
+	public function test_get_setting() {
+		$property = new Papi_Property();
+		$this->assertNull( $property->get_setting( 'length' ) );
+
+		$property = Papi_Property::create( [
+			'type'     => 'string',
+			'settings' => [
+				'length' => 50
+			]
+		] );
+
+		$this->assertEquals( 50, $property->get_setting( 'length' ) );
+	}
+
+	/**
 	 * Test `get_settings` method.
 	 *
 	 * @since 1.3.0
