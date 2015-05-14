@@ -604,3 +604,5 @@ final class Papi_Admin {
 		return ! empty( $this->page_type ) && is_object( $this->page_type );
 	}
 }
+
+Papi_Admin::instance();

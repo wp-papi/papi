@@ -34,24 +34,6 @@ final class Papi_Loader extends Papi_Container {
 	public $name;
 
 	/**
-	 * The plugin directory path.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-
-	private $plugin_dir;
-
-	/**
-	 * The plugin language directory path.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-
-	private $lang_dir;
-
-	/**
 	 * Papi loader instance.
 	 *
 	 * @since 1.0.0
@@ -63,9 +45,7 @@ final class Papi_Loader extends Papi_Container {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new static;
 			self::$instance->constants();
-			self::$instance->setup_globals();
 			self::$instance->require_files();
-			self::$instance->setup_requried();
 		}
 
 		return self::$instance;
@@ -143,92 +123,65 @@ final class Papi_Loader extends Papi_Container {
 	private function require_files() {
 		// Load languages.
 		$domain = 'papi';
-		$path   = dirname( $this->plugin_dir ) . '/languages/' . $domain . '-' . get_locale() . '.mo';
+		$path   = __DIR__ . '/../languages/' . $domain . '-' . get_locale() . '.mo';
 
 		load_textdomain( $domain, $path );
 
 		// Load function files.
-		require_once $this->plugin_dir . 'includes/lib/utilities.php';
-		require_once $this->plugin_dir . 'includes/lib/actions.php';
-		require_once $this->plugin_dir . 'includes/lib/filters.php';
-		require_once $this->plugin_dir . 'includes/lib/url.php';
-		require_once $this->plugin_dir . 'includes/lib/post.php';
-		require_once $this->plugin_dir . 'includes/lib/page.php';
-		require_once $this->plugin_dir . 'includes/lib/property.php';
-		require_once $this->plugin_dir . 'includes/lib/tabs.php';
-		require_once $this->plugin_dir . 'includes/lib/io.php';
-		require_once $this->plugin_dir . 'includes/lib/field.php';
-		require_once $this->plugin_dir . 'includes/lib/template.php';
+		require_once __DIR__ . '/includes/lib/utilities.php';
+		require_once __DIR__ . '/includes/lib/actions.php';
+		require_once __DIR__ . '/includes/lib/filters.php';
+		require_once __DIR__ . '/includes/lib/url.php';
+		require_once __DIR__ . '/includes/lib/post.php';
+		require_once __DIR__ . '/includes/lib/page.php';
+		require_once __DIR__ . '/includes/lib/property.php';
+		require_once __DIR__ . '/includes/lib/tabs.php';
+		require_once __DIR__ . '/includes/lib/io.php';
+		require_once __DIR__ . '/includes/lib/field.php';
+		require_once __DIR__ . '/includes/lib/template.php';
 
 		// Load core classes.
-		require_once $this->plugin_dir . 'includes/page/class-papi-page.php';
-		require_once $this->plugin_dir . 'includes/property/class-papi-property.php';
-		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type-base.php';
-		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type-meta.php';
-		require_once $this->plugin_dir . 'includes/page-type/class-papi-page-type.php';
+		require_once __DIR__ . '/includes/page/class-papi-page.php';
+		require_once __DIR__ . '/includes/property/class-papi-property.php';
+		require_once __DIR__ . '/includes/page-type/class-papi-page-type-base.php';
+		require_once __DIR__ . '/includes/page-type/class-papi-page-type-meta.php';
+		require_once __DIR__ . '/includes/page-type/class-papi-page-type.php';
 
 		// Load admin class
-		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-management-pages.php';
-		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-meta-box.php';
-		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-meta-boxes.php';
-		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-meta-box-tabs.php';
-		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-view.php';
-		require_once $this->plugin_dir . 'includes/admin/class-papi-admin.php';
-		require_once $this->plugin_dir . 'includes/admin/class-papi-admin-ajax.php';
+		require_once __DIR__ . '/includes/admin/class-papi-admin-management-pages.php';
+		require_once __DIR__ . '/includes/admin/class-papi-admin-meta-box.php';
+		require_once __DIR__ . '/includes/admin/class-papi-admin-meta-boxes.php';
+		require_once __DIR__ . '/includes/admin/class-papi-admin-meta-box-tabs.php';
+		require_once __DIR__ . '/includes/admin/class-papi-admin-view.php';
+		require_once __DIR__ . '/includes/admin/class-papi-admin.php';
+		require_once __DIR__ . '/includes/admin/class-papi-admin-ajax.php';
 
 		// Load properties classes.
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-string.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-hidden.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-bool.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-email.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-datetime.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-number.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-url.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-divider.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-text.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-image.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-dropdown.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-checkbox.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-repeater.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-relationship.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-radio.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-post.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-color.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-reference.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-html.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-gallery.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-editor.php';
-		require_once $this->plugin_dir . 'includes/properties/class-papi-property-flexible.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-string.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-hidden.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-bool.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-email.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-datetime.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-number.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-url.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-divider.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-text.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-image.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-dropdown.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-checkbox.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-repeater.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-relationship.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-radio.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-post.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-color.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-reference.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-html.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-gallery.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-editor.php';
+		require_once __DIR__ . '/includes/properties/class-papi-property-flexible.php';
 
 		// Include plugins or properties.
 		papi_action_include();
-	}
-
-	/**
-	 * Setup required files.
-	 *
-	 * @since 1.0.0
-	 */
-
-	private function setup_requried() {
-		Papi_Admin::instance();
-	}
-
-	/**
-	 * Setup globals.
-	 *
-	 * @since 1.0.0
-	 */
-
-	private function setup_globals() {
-		// Information globals.
-		$this->name = 'Papi';
-
-		// Papi plugin directory and url.
-		$this->plugin_dir = PAPI_PLUGIN_DIR;
-
-		// Languages.
-		$this->lang_dir = $this->plugin_dir . 'languages';
 	}
 
 	/**
