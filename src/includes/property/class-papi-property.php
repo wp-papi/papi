@@ -194,7 +194,7 @@ class Papi_Property {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @return string
+	 * @return mixed
 	 */
 
 	public function get_default_value() {
@@ -350,7 +350,7 @@ class Papi_Property {
 
 		if ( ! ( $sub_property instanceof Papi_Property ) ) {
 			if ( is_array( $sub_property ) || is_object( $sub_property ) ) {
-				$sub_property = Papi_Property::create( $sub_property );
+				$sub_property = self::create( $sub_property );
 			} else {
 				return $base_slug;
 			}

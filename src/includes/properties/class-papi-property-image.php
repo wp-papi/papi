@@ -73,7 +73,7 @@ class Papi_Property_Image extends Papi_Property {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @return object
+	 * @return stdClass
 	 */
 
 	public function get_default_value() {
