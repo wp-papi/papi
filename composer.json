@@ -22,7 +22,6 @@
     "composer/installers": "~1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.3",
     "frozzare/wp-test-suite": "~1.0",
     "wp-coding-standards/wpcs": "dev-develop"
   },
