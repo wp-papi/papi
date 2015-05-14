@@ -47,7 +47,6 @@ class Papi_Property_Post extends Papi_Property {
 	 */
 
 	public function html() {
-		$options    = $this->get_options();
 		$settings   = $this->get_settings();
 		$value      = $this->get_value();
 		$post_types = papi_to_array( $settings->post_type );
@@ -106,7 +105,7 @@ class Papi_Property_Post extends Papi_Property {
 					<?php echo $settings->text; ?>
 				</p>
 			<?php endif; ?>
-			<select name="<?php echo $options->slug; ?>" class="papi-vendor-select2 papi-fullwidth">
+			<select name="<?php echo $this->html_name(); ?>" class="papi-vendor-select2 papi-fullwidth">
 
 				<?php foreach ( $posts as $label => $items ) : ?>
 

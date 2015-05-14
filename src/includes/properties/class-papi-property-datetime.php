@@ -36,7 +36,6 @@ class Papi_Property_Datetime extends Papi_Property {
 	 */
 
 	public function html() {
-		$options  = $this->get_options();
 		$settings = $this->get_settings();
 		$value    = $this->get_value();
 
@@ -50,7 +49,7 @@ class Papi_Property_Datetime extends Papi_Property {
 		$settings_json = json_encode( (object) $settings_json );
 
 		?>
-		<input type="text" name="<?php echo $options->slug; ?>" value="<?php echo $value; ?>" class="papi-property-datetime" data-settings='<?php echo $settings_json; ?>'/>
+		<input type="text" name="<?php echo $this->html_name(); ?>" value="<?php echo $value; ?>" class="papi-property-datetime" data-settings='<?php echo $settings_json; ?>'/>
 	<?php
 	}
 

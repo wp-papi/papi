@@ -51,11 +51,9 @@ class Papi_Property_String extends Papi_Property {
 	 */
 
 	public function html() {
-		$options = $this->get_options();
 		$value   = $this->get_value();
-
 		?>
-		<input type="<?php echo $this->input_type; ?>" name="<?php echo $options->slug; ?>"
+		<input type="<?php echo $this->input_type; ?>" name="<?php echo $this->html_name(); ?>"
 		       value="<?php echo $value; ?>" />
 	<?php
 	}

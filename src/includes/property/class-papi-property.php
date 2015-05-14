@@ -329,6 +329,33 @@ class Papi_Property {
 	}
 
 	/**
+	 * Get html name for property with or without sub property and row number.
+	 *
+	 * @param object $row
+	 * @param int $row
+	 *
+	 * @return string
+	 */
+
+	public function html_name( $property = null, $row = null ) {
+		$base_slug = $this->get_option( 'slug' );
+
+		if ( is_null( $property ) ) {
+			return $base_slug;
+		}
+
+		if ( is_numeric( $row ) ) {
+			$base_slug = sprintf( '%s[%d]', $base_slug, intval( $row ) );
+		}
+
+		if ( ! ( $property instanceof Papi_Property ) ) {
+			return $base_slug;
+		}
+
+		return sprintf( '%s[%s]', $base_slug, papi_remove_papi( $property->get_option( 'slug' ) ) );
+	}
+
+	/**
 	 * Change value after it's loaded from the database.
 	 *
 	 * @param mixed $value

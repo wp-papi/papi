@@ -75,14 +75,13 @@ class Papi_Property_Image extends Papi_Property {
 	 */
 
 	public function html() {
-		$options  = $this->get_options();
 		$settings = $this->get_settings();
 		$value    = papi_to_array( $this->get_value() );
 
 		// Keep only objects.
 		$value = papi_get_only_objects( $value );
 
-		$slug        = $options->slug;
+		$slug        = $this->html_name();
 		$show_button = empty( $value );
 		$css_classes = '';
 

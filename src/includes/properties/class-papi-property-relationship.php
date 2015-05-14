@@ -118,9 +118,9 @@ class Papi_Property_Relationship extends Papi_Property {
 
 	public function html() {
 		$post_id     = papi_get_post_id();
-		$options     = $this->get_options();
+		$slug        = $this->html_name();
 		$settings    = $this->get_settings();
-		$sort_option = $this->get_sort_option( $post_id, $options->slug );
+		$sort_option = $this->get_sort_option( $post_id, $slug );
 		$value       = $this->get_value();
 
 		// By default we add posts per page key with the value -1 (all).
@@ -144,7 +144,7 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		?>
 		<div class="papi-property-relationship">
-			<input type="hidden" name="<?php echo $options->slug; ?>[]" />
+			<input type="hidden" name="<?php echo $slug; ?>[]" />
 			<div class="relationship-inner">
 				<div class="relationship-top-left">
 					<strong><?php _e( 'Search', 'papi' ); ?></strong>
@@ -153,7 +153,7 @@ class Papi_Property_Relationship extends Papi_Property {
 				<div class="relationship-top-right">
 					<?php if ( $settings->show_sort_by ): ?>
 						<strong><?php _e( 'Sort by', 'papi' ); ?></strong>
-						<select name="_<?php echo $options->slug; ?>_sort_option">
+						<select name="_<?php echo $slug; ?>_sort_option">
 							<?php foreach ( static::get_sort_options() as $key => $v ): ?>
 								<option value="<?php echo $key; ?>" <?php echo $key == $sort_option ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
 							<?php endforeach; ?>
@@ -170,7 +170,7 @@ class Papi_Property_Relationship extends Papi_Property {
 							if ( ! empty( $post->post_title ) ):
 								?>
 								<li>
-									<input type="hidden" data-name="<?php echo $options->slug; ?>[]"
+									<input type="hidden" data-name="<?php echo $slug; ?>[]"
 									       value="<?php echo $post->ID; ?>"/>
 									<a href="#"><?php echo $post->post_title; ?></a>
 									<span class="icon plus"></span>
@@ -185,7 +185,7 @@ class Papi_Property_Relationship extends Papi_Property {
 					<ul>
 						<?php foreach ( $value as $post ): ?>
 							<li>
-								<input type="hidden" name="<?php echo $options->slug; ?>[]"
+								<input type="hidden" name="<?php echo $slug; ?>[]"
 								       value="<?php echo $post->ID; ?>"/>
 								<a href="#"><?php echo $post->post_title; ?></a>
 								<span class="icon minus"></span>

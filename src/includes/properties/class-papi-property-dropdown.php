@@ -34,7 +34,6 @@ class Papi_Property_Dropdown extends Papi_Property {
 	 */
 
 	public function html() {
-		$options  = $this->get_options();
 		$settings = $this->get_settings();
 		$value    = $this->get_value();
 
@@ -45,7 +44,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 		}
 
 		?>
-		<select class="papi-vendor-select2 papi-fullwidth" name="<?php echo $options->slug; ?>">
+		<select class="papi-vendor-select2 papi-fullwidth" name="<?php echo $this->html_name(); ?>">
 			<?php
 			foreach ( $settings->items as $key => $value ):
 				if ( is_numeric( $key ) ) {

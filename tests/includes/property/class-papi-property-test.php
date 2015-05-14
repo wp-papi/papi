@@ -265,6 +265,41 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test `html_name` method.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_html_name() {
+		$property = Papi_Property::create();
+		// this will not be empty since a property without a slug will get a generated uniq id.
+		$this->assertRegExp( '/papi\_\w+/', $property->html_name() );
+
+		$property->set_options( [
+			'type'  => 'string',
+			'slug'  => 'name'
+		] );
+
+		$this->assertEquals( 'papi_name', $property->html_name() );
+
+		$sub_property = Papi_Property::create( [
+			'type' => 'number',
+			'slug' => 'age'
+		] );
+
+		$this->assertEquals( 'papi_name[age]', $property->html_name( $sub_property ) );
+		$this->assertEquals( 'papi_name[0][age]', $property->html_name( $sub_property, 0 ) );
+
+		$sub_property = (object) array(
+			'type' => 'number',
+			'slug' => 'age'
+		);
+
+		$this->assertEquals( 'papi_name', $property->html_name( $sub_property ) );
+		$this->assertEquals( 'papi_name[0]', $property->html_name( $sub_property, 0 ) );
+	}
+
+	/**
 	 * Test `load_value` method.
 	 *
 	 * @since 1.3.0

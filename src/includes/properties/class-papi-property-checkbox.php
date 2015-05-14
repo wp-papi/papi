@@ -43,7 +43,6 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 */
 
 	public function html() {
-		$options  = $this->get_options();
 		$settings = $this->get_settings();
 		$value    = $this->get_value();
 
@@ -66,7 +65,7 @@ class Papi_Property_Checkbox extends Papi_Property {
 
 			?>
 			<input type="checkbox" value="<?php echo $value; ?>"
-			       name="<?php echo $options->slug; ?>[]" <?php echo in_array( $value, $settings->selected ) ? 'checked="checked"' : ''; ?> />
+			       name="<?php echo $this->html_name(); ?>[]" <?php echo in_array( $value, $settings->selected ) ? 'checked="checked"' : ''; ?> />
 			<?php
 			echo $key . '<br />';
 		}
