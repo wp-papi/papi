@@ -346,7 +346,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function render_layout_input( $slug, $value ) {
-		$slug = $this->get_html_name( array(
+		$slug = $this->html_name( array(
 			'slug' => $slug . $this->layout_key
 		) );
 		?>
