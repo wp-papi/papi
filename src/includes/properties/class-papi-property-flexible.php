@@ -348,7 +348,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected function render_layout_input( $slug, $value ) {
 		$slug = $this->html_name( array(
 			'slug' => $slug . $this->layout_key
-		) );
+		), $this->counter );
 		?>
 		<input type="hidden" name="<?php echo $slug; ?>" value="<?php echo $value; ?>" />
 		<?php
@@ -471,7 +471,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						<div class="flexible-layouts-arrow"></div>
 						<ul>
 							<?php foreach ( $layouts as $layout ): ?>
-								<li data-papi-json="<?php echo $this->get_json_id( $layout['title'], 'flexible_json' ); ?>"><?php echo $layout['title']; ?></li>
+								<li data-papi-json="<?php echo $this->get_json_id( $layout['title'], 'flexible_json' ); ?>">
+									<?php echo $layout['title']; ?>
+								</li>
 							<?php endforeach; ?>
 						</ul>
 					</div>
