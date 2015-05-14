@@ -92,7 +92,7 @@ class Papi_Property_Image extends Papi_Property {
 
 		// Keep only valid objects.
 		$value = array_filter( $value, function ( $item ) {
-			return is_object( $item ) && ! empty( $item->id );
+			return is_object( $item ) && isset( $item->id ) && ! empty( $item->id );
 		} );
 
 		$slug        = $this->html_name();
