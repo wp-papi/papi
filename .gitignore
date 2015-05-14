@@ -6,5 +6,6 @@ tmp/
 .vagrant
 build/
 coverage/
+coverage2/
 vendor
 composer.lock
