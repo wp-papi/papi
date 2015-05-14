@@ -346,7 +346,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function render_layout_input( $slug, $value ) {
-		$slug = $this->get_property_html_name( array(
+		$slug = $this->get_html_name( array(
 			'slug' => $slug . $this->layout_key
 		) );
 		?>
@@ -371,7 +371,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			foreach ( $layout['items'] as $key => $value ) {
 				$properties[$key] = $value;
 				$properties[$key]->raw   = true;
-				$properties[$key]->slug  = $this->get_property_html_name( $value );
+				$properties[$key]->slug  = $this->html_name( $value, $this->counter );
 				$properties[$key]->value = '';
 			}
 			?>
@@ -425,7 +425,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 								$render_property->value = $value[$value_slug];
 							}
 
-							$render_property->slug = $this->get_property_html_name( $render_property );
+							$render_property->slug = $this->html_name( $render_property, $this->counter );
 							$render_property->raw  = true;
 
 							if ( $i === $l - 1 ) {
