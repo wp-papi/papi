@@ -313,6 +313,11 @@ class Papi_Property_Test extends WP_UnitTestCase {
 			'slug' => 'age'
 		);
 
+		$this->assertEquals( 'papi_name[age]', $property->html_name( $sub_property ) );
+		$this->assertEquals( 'papi_name[0][age]', $property->html_name( $sub_property, 0 ) );
+
+		$sub_property = 'non array or object';
+
 		$this->assertEquals( 'papi_name', $property->html_name( $sub_property ) );
 		$this->assertEquals( 'papi_name[0]', $property->html_name( $sub_property, 0 ) );
 	}
