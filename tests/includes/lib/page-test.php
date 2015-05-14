@@ -188,6 +188,8 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_page_type( 'hello.php' ) );
 		$path = papi_test_get_fixtures_path( '/boxes/simple.php' );
 		$this->assertNull( papi_get_page_type( $path ) );
+		$path = papi_test_get_fixtures_path( '/page-types/simple-page-type.php' );
+		$this->assertNotEmpty( $path );
 	}
 
 	/**
