@@ -38,6 +38,12 @@ class Simple_Page_Type extends Papi_Page_Type {
 			'slug' => 'name2'
 		] );
 
+		$this->box( papi_property( [
+			'type'  => 'number',
+			'title' => 'Siffran',
+			'slug'  => 'siffran'
+		] ) );
+
 		// Will not work.
 		$this->box( 1 );
 

@@ -101,7 +101,7 @@ class Papi_Page {
 		}
 
 		// Set property options so we can access them in load value or format value functions.
-		$property->set_options( $this->get_property_options( $slug, $type ) );
+		$property->set_options( $this->get_property_options( $slug ) );
 
 		// Run a `load_value` right after the value has been loaded from the database.
 		$value = $property->load_value( $value, $slug, $this->id );
@@ -160,13 +160,12 @@ class Papi_Page {
 	 * Get property options from admin data.
 	 *
 	 * @param string $slug
-	 * @param string $db_property_type
 	 * @since 1.3.0
 	 *
 	 * @return Papi_Property
 	 */
 
-	private function get_property_options( $slug, $db_property_type ) {
+	private function get_property_options( $slug ) {
 		if ( ! isset( $this->admin_data['property'] ) ) {
 			$property = $this->load_property_options_from_page_type( $slug );
 
@@ -179,17 +178,7 @@ class Papi_Page {
 			] );
 		}
 
-		if ( ! method_exists( $this->admin_data['property'], 'get_options' ) ) {
-			return;
-		}
-
-		$options = $this->admin_data['property']->get_options();
-
-		if ( $options->type !== $db_property_type ) {
-			$options->type = $db_property_type;
-		}
-
-		return $options;
+		return $this->admin_data['property']->get_options();
 	}
 
 	/**
@@ -262,7 +251,7 @@ class Papi_Page {
 	 */
 
 	private function load_property_options_from_page_type( $slug ) {
-		$page_type_id = papi_get_page_type_meta_value();
+		$page_type_id = papi_get_page_type_meta_value( $this->id );
 		$page_type    = papi_get_page_type_by_id( $page_type_id );
 
 		if ( ! is_object( $page_type ) || ! ( $page_type instanceof Papi_Page_Type ) ) {
