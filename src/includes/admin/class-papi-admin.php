@@ -247,7 +247,6 @@ final class Papi_Admin {
 			'jquery',
 			'jquery-ui-core',
 			'jquery-ui-sortable',
-			'backbone',
 			'wp-color-picker'
 		], '', true );
 
