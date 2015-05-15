@@ -53,7 +53,7 @@ class Papi_Property_Html_Test extends WP_UnitTestCase {
 
 	public function tearDown() {
 		parent::tearDown();
-		unset( $this->post_id, $this->property );
+		unset( $this->post_id, $this->property, $this->property2 );
 	}
 
 	/**
