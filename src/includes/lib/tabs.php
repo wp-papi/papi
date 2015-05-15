@@ -88,7 +88,7 @@ function papi_setup_tabs( $tabs ) {
  * @return array
  */
 
-function papi_tab( $file_or_options, $properties = array() ) {
+function papi_tab( $file_or_options, $properties = [] ) {
 	list( $options, $properties ) = papi_get_options_and_properties( $file_or_options, $properties, false );
 
 	// The tab key is important, it's says that we should render a tab meta box.

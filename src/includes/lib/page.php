@@ -77,7 +77,7 @@ function papi_display_page_type( $page_type ) {
 
 function papi_get_all_page_types( $all = false, $post_type = null ) {
 	$files      = papi_get_all_page_type_files();
-	$page_types = array();
+	$page_types = [];
 
 	if ( is_null( $post_type ) || empty( $post_type ) ) {
 		$post_type  = papi_get_wp_post_type();
@@ -237,7 +237,7 @@ function papi_get_page_type( $file_path ) {
 		}
 
 		$rc         = new ReflectionClass( $class_name );
-		$page_type  = $rc->newInstanceArgs( array( $file_path ) );
+		$page_type  = $rc->newInstanceArgs( [$file_path] );
 
 		// If the page type don't have a name we can't use it.
 		if ( ! $page_type->has_name() ) {

@@ -19,7 +19,7 @@ class Papi_Property_Gallery extends Papi_Property_Image {
 	 * @since 1.3.0
 	 */
 
-	public $default_value = array();
+	public $default_value = [];
 
 	/**
 	 * Get default settings.

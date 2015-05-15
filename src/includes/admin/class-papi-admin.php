@@ -251,10 +251,10 @@ final class Papi_Admin {
 			'wp-color-picker'
 		], '', true );
 
-		wp_localize_script( 'papi-main', 'papiL10n', array(
+		wp_localize_script( 'papi-main', 'papiL10n', [
 			'remove'        => __( 'Remove', 'papi' ),
 			'requiredError' => __( 'This fields are required:', 'papi' ),
-		) );
+		] );
 	}
 
 	/**

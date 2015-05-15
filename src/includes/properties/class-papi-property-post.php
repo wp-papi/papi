@@ -19,7 +19,7 @@ class Papi_Property_Post extends Papi_Property {
 	 * @since 1.0.0
 	 */
 
-	public $default_value = array();
+	public $default_value = [];
 
 	/**
 	 * Get default settings.
@@ -35,7 +35,7 @@ class Papi_Property_Post extends Papi_Property {
 			'blank_text'    => '',
 			'include_blank' => true,
 			'post_type'     => 'post',
-			'query'         => array(),
+			'query'         => [],
 			'text'          => __( 'Select post', 'papi' )
 		];
 	}
@@ -75,7 +75,7 @@ class Papi_Property_Post extends Papi_Property {
 
 		// Keep only objects.
 		$posts   = papi_get_only_objects( $posts );
-		$results = array();
+		$results = [];
 
 		// Set labels
 		foreach ( $posts as $post ) {

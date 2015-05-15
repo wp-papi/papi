@@ -190,7 +190,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 		for ( $i = 0; $i < $value; $i++ ) {
 
-			$no_trash = array();
+			$no_trash = [];
 
 			if ( ! isset( $columns[$i] ) || ! isset( $rows[$i] ) ) {
 				continue;
@@ -346,9 +346,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function render_layout_input( $slug, $value ) {
-		$slug = $this->html_name( array(
+		$slug = $this->html_name( [
 			'slug' => $slug . $this->layout_key
-		), $this->counter );
+		], $this->counter );
 		?>
 		<input type="hidden" name="<?php echo $slug; ?>" value="<?php echo $value; ?>" />
 		<?php

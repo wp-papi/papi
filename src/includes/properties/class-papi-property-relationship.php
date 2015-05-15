@@ -19,7 +19,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @since 1.0.0
 	 */
 
-	public $default_value = array();
+	public $default_value = [];
 
 	/**
 	 * Get default settings.

@@ -146,7 +146,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 
 	public function get_labels() {
 		if ( ! $this->fill_labels ) {
-			return array();
+			return [];
 		}
 
 		return array(

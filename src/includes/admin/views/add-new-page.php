@@ -28,21 +28,21 @@ $show_standard_page = papi_filter_settings_standard_page_type( $post_type );
 				continue;
 			}
 
-			papi_include_template( 'includes/admin/views/partials/add-new-item.php', array(
+			papi_include_template( 'includes/admin/views/partials/add-new-item.php', [
 				'title'       => $page_type->name,
 				'description' => $page_type->description,
 				'thumbnail'   => $page_type->get_thumbnail(),
 				'url'         => papi_get_page_new_url( $page_type->get_id() )
-			) );
+			] );
 		}
 
 		if ( $show_standard_page ) {
-			papi_include_template( 'includes/admin/views/partials/add-new-item.php', array(
+			papi_include_template( 'includes/admin/views/partials/add-new-item.php', [
 				'title'       => papi_filter_standard_page_name( $post_type ),
 				'description' => papi_filter_standard_page_description( $post_type ),
 				'thumbnail'   => papi_filter_standard_page_thumbnail( $post_type ),
 				'url'         => 'post-new.php' . papi_get_page_query_strings( '?' ) . '&papi-bypass=true'
-			) );
+			] );
 
 		}
 		?>
