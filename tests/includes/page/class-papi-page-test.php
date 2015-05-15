@@ -106,10 +106,6 @@ class Papi_Page_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( 'Fredrik', $this->page->get_value( 'name' ) );
 
-		define( 'WP_ADMIN', true );
-
-		$this->assertEquals( 'Fredrik', $this->page->get_value( 'name' ) );
-
 		$property = papi_property( [
 			'type'  => 'number',
 			'title' => 'Nummer',
