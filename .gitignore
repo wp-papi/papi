@@ -9,3 +9,4 @@ coverage/
 coverage2/
 vendor
 composer.lock
+.settings
