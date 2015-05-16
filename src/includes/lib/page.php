@@ -393,7 +393,7 @@ function papi_page_type_name( $post_id = null ) {
  *
  * Example:
  *
- * `the_papi_page_type_name()` will return page type name.
+ * `the_papi_page_type_name()` will echo the page type name.
  *
  * @param int $post_id
  *
