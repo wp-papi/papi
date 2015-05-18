@@ -2,11 +2,19 @@
 <ruleset name="Papi">
 	<description>Sniffs for the coding standards of the Papi plugin</description>
 
+	<exclude-pattern>node_modules</exclude-pattern>
+	<exclude-pattern>tests</exclude-pattern>
+	<exclude-pattern>vendor</exclude-pattern>
+
 	<rule ref="WordPress-Core">
 		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions" />
 		<exclude name="WordPress.Arrays.ArrayDeclaration" />
 		<exclude name="WordPress.PHP.YodaConditions" />
 		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterStructureOpen" />
 		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeOpenParenthesis" />
+		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBetweenStructureColon" />
+		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis" />
+		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
+		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword" />
 	</rule>
 </ruleset>
