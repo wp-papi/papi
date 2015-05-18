@@ -423,9 +423,8 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			<input type="hidden" name="<?php echo $options->slug; ?>[]" />
 
-			<?php /* One underscore is saved, two underscores isn't saved */ ?>
-
 			<?php $values = $this->get_value(); ?>
+
 			<input type="hidden" name="__<?php echo $options->slug; ?>_rows" value="<?php echo count( $values ); ?>" class="papi-property-repeater-rows" />
 		</div>
 		<?php
