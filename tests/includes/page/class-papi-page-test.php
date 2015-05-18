@@ -95,7 +95,7 @@ class Papi_Page_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_get_value() {
-		$handler = new Papi_Admin_Meta_Boxes();
+		$handler = new Papi_Admin_Post_Handler();
 
 		update_post_meta( $this->post_id, 'name', 'Janni' );
 		update_post_meta( $this->post_id, papi_f( papi_get_property_type_key( 'name' ) ), 'name' );

@@ -119,7 +119,7 @@ class Papi_Property_Flexible_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_save_property_value() {
-		$handler = new Papi_Admin_Meta_Boxes();
+		$handler = new Papi_Admin_Post_Handler();
 
 		// Generate correct property meta key and property type meta key for string property.
 		$value_slug1         = papi_remove_papi( $this->property->settings->items['twitter']['items'][0]->slug );

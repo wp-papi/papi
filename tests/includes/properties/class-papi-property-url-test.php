@@ -71,7 +71,7 @@ class Papi_Property_Url_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_save_property_value() {
-		$handler = new Papi_Admin_Meta_Boxes();
+		$handler = new Papi_Admin_Post_Handler();
 
 		// Create post data.
 		$_POST = papi_test_create_property_post_data( [
