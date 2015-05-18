@@ -22,24 +22,6 @@ final class Papi_Admin {
 	private $load_page_type = false;
 
 	/**
-	 * The meta boxes instance.
-	 *
-	 * @var Papi_Admin_Meta_Boxes
-	 * @since 1.0.0
-	 */
-
-	private $meta_boxes;
-
-	/**
-	 * The management pages instance.
-	 *
-	 * @var Papi_Admin_Management_Pages
-	 * @since 1.0.0
-	 */
-
-	private $management_pages;
-
-	/**
 	 * The page type.
 	 *
 	 * @var Papi_Page_Type
@@ -568,8 +550,6 @@ final class Papi_Admin {
 
 		if ( is_admin() ) {
 			$this->view             = new Papi_Admin_View;
-			$this->meta_boxes       = new Papi_Admin_Meta_Boxes;
-			$this->management_pages = new Papi_Admin_Management_Pages;
 			$this->page_type_id     = papi_get_page_type_meta_value();
 		}
 	}
