@@ -170,7 +170,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	private function convert_items_array( $items ) {
 		for ( $j = 0, $k = count( $items ); $j < $k; $j++ ) {
-			if ( ! is_array( $items[$j] ) ) {
+			if ( ! isset( $items[$j]) || ! is_array( $items[$j] ) ) {
 				continue;
 			}
 
