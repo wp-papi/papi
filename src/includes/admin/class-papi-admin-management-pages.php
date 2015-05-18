@@ -84,3 +84,5 @@ class Papi_Admin_Management_Pages {
 	}
 
 }
+
+new Papi_Admin_Management_Pages;

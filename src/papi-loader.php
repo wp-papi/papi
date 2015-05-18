@@ -148,11 +148,12 @@ final class Papi_Loader extends Papi_Container {
 		require_once __DIR__ . '/includes/page-type/class-papi-page-type.php';
 
 		// Load admin classes.
+		require_once __DIR__ . '/includes/admin/class-papi-admin-view.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-management-pages.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-meta-box.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-meta-boxes.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-meta-box-tabs.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-view.php';
+		require_once __DIR__ . '/includes/admin/class-papi-admin-data-handler.php';
+		require_once __DIR__ . '/includes/admin/class-papi-admin-post-handler.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-ajax.php';
 
