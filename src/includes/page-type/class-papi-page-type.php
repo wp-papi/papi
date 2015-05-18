@@ -20,7 +20,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @since 1.0.0
 	 */
 
-	private $boxes = [];
+	protected $boxes = [];
 
 	/**
 	 * Load all boxes even if we aren't on a post type.
