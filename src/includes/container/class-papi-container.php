@@ -72,7 +72,7 @@ class Papi_Container implements \ArrayAccess {
 			throw new \InvalidArgumentException( sprintf( 'Identifier [%s] is not defined', $id ) );
 		}
 
-		return call_user_func( $this->values[$id] );
+		return $this->values[$id]();
 	}
 
 	/**
