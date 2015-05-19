@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property Gallery.
  *
  * @package Papi
- * @since 1.2.0
  */
 
 class Papi_Property_Gallery extends Papi_Property_Image {
@@ -16,15 +15,12 @@ class Papi_Property_Gallery extends Papi_Property_Image {
 	 * The default value.
 	 *
 	 * @var array
-	 * @since 1.3.0
 	 */
 
 	public $default_value = [];
 
 	/**
 	 * Get default settings.
-	 *
-	 * @since 1.2.0
 	 *
 	 * @return array
 	 */

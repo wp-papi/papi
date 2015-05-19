@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property Reference.
  *
  * @package Papi
- * @since 1.2.0
  */
 
 class Papi_Property_Reference extends Papi_Property {
@@ -16,7 +15,6 @@ class Papi_Property_Reference extends Papi_Property {
 	 * The default value.
 	 *
 	 * @var null
-	 * @since 1.2.0
 	 */
 
 	public $default_value = null;
@@ -25,7 +23,6 @@ class Papi_Property_Reference extends Papi_Property {
 	 * Get default settings.
 	 *
 	 * @var array
-	 * @since 1.2.0
 	 *
 	 * @return array
 	 */
@@ -39,8 +36,6 @@ class Papi_Property_Reference extends Papi_Property {
 
 	/**
 	 * Display property html.
-	 *
-	 * @since 1.2.0
 	 */
 
 	public function html() {

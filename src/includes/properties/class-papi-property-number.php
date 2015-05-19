@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property number.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Property_Number extends Papi_Property_String {
@@ -16,7 +15,6 @@ class Papi_Property_Number extends Papi_Property_String {
 	 * The default value.
 	 *
 	 * @var int
-	 * @since 1.0.0
 	 */
 
 	public $default_value = 0;
@@ -25,7 +23,6 @@ class Papi_Property_Number extends Papi_Property_String {
 	 * The input type to use.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	public $input_type = 'number';
@@ -36,8 +33,6 @@ class Papi_Property_Number extends Papi_Property_String {
 	 * @param mixed $value
 	 * @param string $slug
 	 * @param int $post_id
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */

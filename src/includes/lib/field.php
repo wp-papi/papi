@@ -4,7 +4,6 @@
  * Papi field functions.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -17,8 +16,6 @@ defined( 'ABSPATH' ) || exit;
  * @param string $name
  * @param mixed $default
  * @param array $data_type
- *
- * @since 1.0.0
  *
  * @return mixed
  */
@@ -64,8 +61,6 @@ function papi_field( $post_id = null, $name = null, $default = null, $data_type 
 
 /**
  * Get current properties for the page.
- *
- * @since 1.2.0
  *
  * @return array
  */
@@ -160,8 +155,6 @@ add_shortcode( 'papi_field', 'papi_field_shortcode' );
  * @param mixed $value
  * @param mixed $default
  *
- * @since 1.0.0
- *
  * @return mixed
  */
 
@@ -195,8 +188,6 @@ function papi_field_value( $names, $value, $default = null ) {
  * @param int $post_id
  * @param string $name
  * @param mixed $default
- *
- * @since 1.0.0
  */
 
 function the_papi_field( $post_id = null, $name = null, $default = null ) {

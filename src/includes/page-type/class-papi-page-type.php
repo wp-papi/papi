@@ -19,7 +19,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * The array of meta boxes to register.
 	 *
 	 * @var array
-	 * @since 1.0.0
 	 */
 
 	protected $boxes = [];
@@ -28,7 +27,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * Load all boxes even if we aren't on a post type.
 	 *
 	 * @var bool
-	 * @since 1.0.0
 	 */
 
 	private $load_boxes = false;
@@ -38,7 +36,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * By default remove `postcustom` which is the Custom fields metabox.
 	 *
 	 * @var array
-	 * @since 1.0.0
 	 */
 
 	private $post_type_supports = ['custom-fields'];
@@ -47,15 +44,12 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * Remove meta boxes.
 	 *
 	 * @var array
-	 * @since 1.2.0
 	 */
 
 	private $remove_meta_boxes = [];
 
 	/**
 	 * Load a page type by the file.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @param string $file_path
 	 */
@@ -69,8 +63,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @param mixed $file_or_options
 	 * @param array $properties
-	 *
-	 * @since 1.0.0
 	 */
 
 	protected function box( $file_or_options = [], $properties = [] ) {
@@ -116,7 +108,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * Convert properties to properties objects.
 	 *
 	 * @param array $properties
-	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
@@ -134,7 +125,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * it in for example `settings->items`.
 	 *
 	 * @param array $properties
-	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
@@ -165,7 +155,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * Convert all arrays that has a valid property type.
 	 *
 	 * @param array $items
-	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
@@ -202,7 +191,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * Should the Page Type be displayed in WordPress admin or not?
 	 *
 	 * @param string $post_type
-	 * @since 1.3.0
 	 *
 	 * @return bool
 	 */
@@ -213,8 +201,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	/**
 	 * Get boxes from the page type.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -237,7 +223,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * Get root property.
 	 *
 	 * @param string $slug
-	 * @since 1.3.0
 	 *
 	 * @return object
 	 */
@@ -269,8 +254,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	/**
 	 * This function will setup all meta boxes.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function setup() {
@@ -298,8 +281,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @param string|array $file_or_options
 	 * @param array $values
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return array
 	 */
 
@@ -311,8 +292,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * Remove post type support. Runs once, on page load.
 	 *
 	 * @param array $post_type_supports
-	 *
-	 * @since 1.0.0
 	 */
 
 	protected function remove( $post_type_supports = [] ) {
@@ -321,8 +300,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	/**
 	 * Remove post type support action.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function remove_post_type_support() {
@@ -358,8 +335,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	/**
 	 * Remove meta boxes.
-	 *
-	 * @since 1.2.0
 	 */
 
 	public function remove_meta_boxes() {
@@ -379,8 +354,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @param mixed $file_or_options
 	 * @param array $properties
-	 *
-	 * @since 1.0
 	 *
 	 * @return array
 	 */
@@ -412,8 +385,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @param string $file
 	 * @param array $values
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */

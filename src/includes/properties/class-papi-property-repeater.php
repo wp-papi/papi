@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property Repeater.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Property_Repeater extends Papi_Property {
@@ -16,7 +15,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Repeater counter number.
 	 *
 	 * @var int
-	 * @since 1.0.0
 	 */
 
 	protected $counter = 0;
@@ -25,7 +23,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * The default value.
 	 *
 	 * @var array
-	 * @since 1.0.0
 	 */
 
 	public $default_value = [];
@@ -36,7 +33,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param mixed $values
 	 * @param string $repeater_slug
 	 * @param int $post_id
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -87,8 +83,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Get default settings.
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return array
 	 */
 
@@ -105,7 +99,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param int $post_id
 	 * @param string $repeater_slug
 	 * @param integer $post_id
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -183,7 +176,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Get row results.
 	 *
 	 * @param array $dbresults
-	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
@@ -214,8 +206,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Get settings properties.
 	 *
-	 * @since 1.3.0
-	 *
 	 * @return array
 	 */
 
@@ -226,8 +216,6 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	/**
 	 * Display property html.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function html() {
@@ -249,7 +237,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param mixed $value
 	 * @param string $repeater_slug
 	 * @param int $post_id
-	 * @since 1.1.0
 	 */
 
 	public function load_value( $value, $repeater_slug, $post_id ) {
@@ -270,7 +257,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * check which properties that are allowed to use.
 	 *
 	 * @param $items
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -301,7 +287,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @param int $post_id
 	 * @param string $repeater_slug
-	 * @since 1.1.0
 	 */
 
 	protected function remove_repeater_rows( $post_id, $repeater_slug ) {
@@ -324,7 +309,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Render property JSON template.
 	 *
 	 * @param string $slug
-	 * @since 1.3.0
 	 */
 
 	protected function render_json_template( $slug ) {
@@ -350,7 +334,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @param array $items
 	 * @param array $value
-	 * @since 1.3.0
 	 */
 
 	protected function render_properties( $items, $value ) {
@@ -376,7 +359,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Render repeater html.
 	 *
 	 * @param object $options
-	 * @since 1.3.0
 	 */
 
 	protected function render_repeater( $options ) {
@@ -407,8 +389,6 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	/**
 	 * Render repeater head.
-	 *
-	 * @since 1.3.0
 	 */
 
 	protected function render_repeater_head() {
@@ -428,8 +408,6 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	/**
 	 * Render repeater row.
-	 *
-	 * @since 1.3.0
 	 */
 
 	protected function render_repeater_row() {
@@ -476,8 +454,6 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	/**
 	 * Render repeater row template.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function render_repeater_row_template() {
@@ -500,8 +476,6 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	/**
 	 * Setup actions.
-	 *
-	 * @since 1.3.0
 	 */
 
 	protected function setup_actions() {
@@ -514,8 +488,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param mixed $values
 	 * @param string $repeater_slug
 	 * @param int $post_id
-	 *
-	 * @since 1.1.0
 	 */
 
 	public function update_value( $values, $repeater_slug, $post_id ) {

@@ -4,7 +4,6 @@
  * Papi I/O functions.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -14,8 +13,6 @@ defined( 'ABSPATH' ) || exit;
  * Get all files in directory.
  *
  * @param string $directory
- *
- * @since 1.0.0
  *
  * @return string
  */
@@ -47,8 +44,6 @@ function papi_get_all_files_in_directory( $directory = '' ) {
 /**
  * Get all page type files from the register directories.
  *
- * @since 1.0.0
- *
  * @return array
  */
 
@@ -67,8 +62,6 @@ function papi_get_all_page_type_files() {
  * Get page type file from page type query.
  *
  * @param string $file
- *
- * @since 1.0.0
  *
  * @return string|null
  */
@@ -94,8 +87,6 @@ function papi_get_file_path( $file ) {
  * Get page type base path.
  *
  * @param string $file
- *
- * @since 1.0.0
  *
  * @return string|null
  */

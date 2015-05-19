@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property Editor.
  *
  * @package Papi
- * @since 1.2.0
  */
 
 class Papi_Property_Editor extends Papi_Property {
@@ -16,8 +15,6 @@ class Papi_Property_Editor extends Papi_Property {
 	 * Format the value of the property before it's returned to the theme.
 	 *
 	 * @param mixed $value
-	 *
-	 * @since 1.2.2
 	 *
 	 * @return array
 	 */
@@ -28,8 +25,6 @@ class Papi_Property_Editor extends Papi_Property {
 
 	/**
 	 * Display property html.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function html() {

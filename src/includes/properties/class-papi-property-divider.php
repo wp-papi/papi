@@ -7,15 +7,12 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property Divider.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Property_Divider extends Papi_Property {
 
 	/**
 	 * Display property html.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function html() {
@@ -33,8 +30,6 @@ class Papi_Property_Divider extends Papi_Property {
 
 	/**
 	 * Render the final html that is displayed in a table.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function render() {

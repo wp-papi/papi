@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property.
  *
  * @package Papi
- * @since 1.3.0
  */
 
 class Papi_Property {
@@ -16,7 +15,6 @@ class Papi_Property {
 	 * Default options.
 	 *
 	 * @var array
-	 * @since 1.3.0
 	 */
 
 	private $default_options = [
@@ -41,7 +39,6 @@ class Papi_Property {
 	 * Default value.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	public $default_value = '';
@@ -50,15 +47,12 @@ class Papi_Property {
 	 * Current property options object.
 	 *
 	 * @var object
-	 * @since 1.0.0
 	 */
 
 	private $options;
 
 	/**
 	 * Constructor.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function __construct() {
@@ -70,7 +64,6 @@ class Papi_Property {
 	 * Convert settings items to properties if they are a property.
 	 *
 	 * @param array $settings
-	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
@@ -98,7 +91,6 @@ class Papi_Property {
 	 * Create a property from options.
 	 *
 	 * @param array|object $options
-	 * @since 1.0.0
 	 *
 	 * @return Papi_Property
 	 */
@@ -112,7 +104,6 @@ class Papi_Property {
 	/**
 	 * Get default options.
 	 *
-	 * @since 1.0.0
 	 * @return array
 	 */
 
@@ -131,7 +122,6 @@ class Papi_Property {
 	 * Create a new instance of the given property.
 	 *
 	 * @param string $property_type
-	 * @since 1.0.0
 	 *
 	 * @return object
 	 */
@@ -168,7 +158,6 @@ class Papi_Property {
 	 * @param mixed $value
 	 * @param string $slug
 	 * @param int $post_id
-	 * @since 1.0.0
 	 *
 	 * @return mixed
 	 */
@@ -180,8 +169,6 @@ class Papi_Property {
 	/**
 	 * Get default settings.
 	 *
-	 * @since 1.2.0
-	 *
 	 * @return array
 	 */
 
@@ -191,8 +178,6 @@ class Papi_Property {
 
 	/**
 	 * Get default value.
-	 *
-	 * @since 1.3.0
 	 *
 	 * @return mixed
 	 */
@@ -205,7 +190,6 @@ class Papi_Property {
 	 * Get option value.
 	 *
 	 * @param string $key
-	 * @since 1.3.0
 	 *
 	 * @return mixed
 	 */
@@ -219,8 +203,6 @@ class Papi_Property {
 	/**
 	 * Get the current property options object.
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return object
 	 */
 
@@ -230,8 +212,6 @@ class Papi_Property {
 
 	/**
 	 * Get post id.
-	 *
-	 * @since 1.3.0
 	 *
 	 * @return int
 	 */
@@ -244,7 +224,6 @@ class Papi_Property {
 	 * Get setting value.
 	 *
 	 * @param string $key
-	 * @since 1.3.0
 	 *
 	 * @return mixed
 	 */
@@ -258,8 +237,6 @@ class Papi_Property {
 
 	/**
 	 * Get custom property settings.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return object
 	 */
@@ -277,7 +254,6 @@ class Papi_Property {
 	/**
 	 * Get property value.
 	 *
-	 * @since 1.3.0
 	 * @return array
 	 */
 
@@ -319,8 +295,6 @@ class Papi_Property {
 	/**
 	 * Get the html to display from the property.
 	 * This function is required by the property class to have.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function html() {
@@ -363,7 +337,6 @@ class Papi_Property {
 	 * @param mixed $value
 	 * @param string $slug
 	 * @param int $post_id
-	 * @since 1.0.0
 	 *
 	 * @return mixed
 	 */
@@ -375,8 +348,6 @@ class Papi_Property {
 	/**
 	 * Override property options.
 	 *
-	 * @since 1.3.0
-	 *
 	 * @return array
 	 */
 
@@ -386,8 +357,6 @@ class Papi_Property {
 
 	/**
 	 * Render the property description.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function render_description_html() {
@@ -402,8 +371,6 @@ class Papi_Property {
 
 	/**
 	 * Output hidden input field that cointains which property is used.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function render_hidden_html() {
@@ -432,8 +399,6 @@ class Papi_Property {
 
 	/**
 	 * Get label for the property.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function render_label_html() {
@@ -453,8 +418,6 @@ class Papi_Property {
 
 	/**
 	 * Render the final html that is displayed in the table.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function render_row_html() {
@@ -485,8 +448,6 @@ class Papi_Property {
 
 	/**
 	 * Setup actions.
-	 *
-	 * @since 1.3.0
 	 */
 
 	protected function setup_actions() {
@@ -494,8 +455,6 @@ class Papi_Property {
 
 	/**
 	 * Setup filters.
-	 *
-	 * @since 1.3.0
 	 */
 
 	protected function setup_filters() {
@@ -505,7 +464,6 @@ class Papi_Property {
 	 * Setup options.
 	 *
 	 * @param array|object $options
-	 * @since 1.3.0
 	 */
 
 	private function setup_options( $options ) {
@@ -557,7 +515,6 @@ class Papi_Property {
 	 * Set the current property options object.
 	 *
 	 * @param array|object $options
-	 * @since 1.0.0
 	 */
 
 	public function set_options( $options ) {
@@ -568,7 +525,6 @@ class Papi_Property {
 	 * Set property value.
 	 *
 	 * @param mixed $value
-	 * @since 1.3.0
 	 */
 
 	public function set_option( $key, $value ) {
@@ -583,7 +539,6 @@ class Papi_Property {
 	 * @param mixed $value
 	 * @param string $slug
 	 * @param int $post_id
-	 * @since 1.0.0
 	 *
 	 * @return mixed
 	 */

@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Data Handler.
  *
  * @package Papi
- * @since 1.3.0
  */
 
 class Papi_Admin_Data_Handler {
@@ -32,8 +31,6 @@ class Papi_Admin_Data_Handler {
 	 * Get post data.
 	 *
 	 * @param string $pattern
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -69,7 +66,6 @@ class Papi_Admin_Data_Handler {
 	 * Will decode property options recursive.
 	 *
 	 * @param mixed $data
-	 * @since 1.3.0
 	 *
 	 * @return mixed
 	 */
@@ -95,8 +91,6 @@ class Papi_Admin_Data_Handler {
 	 *
 	 * @param array $data
 	 * @param int $post_id
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -165,8 +159,6 @@ class Papi_Admin_Data_Handler {
 
 	/**
 	 * Pre save page template and page type.
-	 *
-	 * @since 1.0.0
 	 */
 
 	protected function get_pre_data() {

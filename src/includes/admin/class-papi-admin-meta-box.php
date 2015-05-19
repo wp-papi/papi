@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Admin Meta Box.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Admin_Meta_Box {
@@ -16,7 +15,6 @@ class Papi_Admin_Meta_Box {
 	 * Meta box default options.
 	 *
 	 * @var array
-	 * @since 1.0.0
 	 */
 
 	private $default_options = [
@@ -39,7 +37,6 @@ class Papi_Admin_Meta_Box {
 	 * Meta box options.
 	 *
 	 * @var object
-	 * @since 1.0.0
 	 */
 
 	private $options;
@@ -48,7 +45,6 @@ class Papi_Admin_Meta_Box {
 	 * Contains all root level properties in this meta box.
 	 *
 	 * @var array
-	 * @since 1.0.0
 	 */
 
 	private $properties = [];
@@ -58,8 +54,6 @@ class Papi_Admin_Meta_Box {
 	 *
 	 * @param array $options
 	 * @param array $properties
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function __construct( $options = [], $properties = [] ) {
@@ -83,8 +77,6 @@ class Papi_Admin_Meta_Box {
 	 * Add property.
 	 *
 	 * @param object $property
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function add_property( $property ) {
@@ -95,8 +87,6 @@ class Papi_Admin_Meta_Box {
 	 * Add css classes to meta box.
 	 *
 	 * @param array $classes
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return string[]
 	 */
@@ -117,8 +107,6 @@ class Papi_Admin_Meta_Box {
 
 	/**
 	 * Move meta boxes after title.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function move_meta_box_after_title() {
@@ -131,8 +119,6 @@ class Papi_Admin_Meta_Box {
 	 * Populate post type.
 	 *
 	 * @param array|string $post_type
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return string
 	 */
@@ -160,8 +146,6 @@ class Papi_Admin_Meta_Box {
 	 * Populate the properties array
 	 *
 	 * @param array $properties
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function populate_properties( $properties ) {
@@ -177,8 +161,6 @@ class Papi_Admin_Meta_Box {
 	 *
 	 * @param array $post
 	 * @param array $args
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function render_meta_box( $post, $args ) {
@@ -192,8 +174,6 @@ class Papi_Admin_Meta_Box {
 
 	/**
 	 * Setup actions.
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function setup_actions() {
@@ -213,8 +193,6 @@ class Papi_Admin_Meta_Box {
 
 	/**
 	 * Setup meta box.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function setup_meta_box() {
@@ -239,8 +217,6 @@ class Papi_Admin_Meta_Box {
 	 * Setup options
 	 *
 	 * @param array $options
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function setup_options( $options ) {

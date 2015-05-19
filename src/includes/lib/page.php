@@ -4,7 +4,6 @@
  * Papi page functions.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -12,8 +11,6 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Get the current page. Like in EPiServer.
- *
- * @since 1.0.0
  *
  * @return Papi_Page|null
  */
@@ -26,7 +23,6 @@ function current_page() {
  * Check if the page type should be displayed or not.
  *
  * @param string|object $page_type
- * @since 1.3.0
  *
  * @return bool
  */
@@ -66,8 +62,6 @@ function papi_display_page_type( $page_type ) {
 
 /**
  * Get all page types that exists.
- *
- * @since 1.0.0
  *
  * @param bool $all Default false
  * @param string $post_type Default null (since 1.1.0)
@@ -112,8 +106,6 @@ function papi_get_all_page_types( $all = false, $post_type = null ) {
  *
  * @param int|string $post_id Post id or page type
  *
- * @since 1.0.0
- *
  * @return Papi_Page_Type
  */
 
@@ -133,8 +125,6 @@ function papi_get_file_data( $post_id ) {
  * This will also work with only page type.
  *
  * @param string|object $page_type
- *
- * @since 1.0.0
  *
  * @return int
  */
@@ -203,8 +193,6 @@ function papi_get_page( $post_id = null, $data_type = 'post' ) {
  *
  * @param int|string $post_id
  *
- * @since 1.0.0
- *
  * @return null|string
  */
 
@@ -220,8 +208,6 @@ function papi_get_page_type_template( $post_id ) {
  * Get a page type by file path.
  *
  * @param string $file_path
- *
- * @since 1.0.0
  *
  * @return null|Papi_Page_Type
  */
@@ -261,7 +247,6 @@ function papi_get_page_type( $file_path ) {
  * Get page type by identifier.
  *
  * @param string $id
- * @since 1.3.0
  *
  * @return Papi_Page_Type
  */
@@ -289,8 +274,6 @@ function papi_get_page_type_by_id( $id ) {
  * Get page type meta value.
  *
  * @param int $post_id
- *
- * @since 1.0.0
  *
  * @return string
  */
@@ -339,8 +322,6 @@ function papi_get_page_type_meta_value( $post_id = null ) {
 /**
  * Get all post types Papi should work with.
  *
- * @since 1.0.0
- *
  * @return array
  */
 
@@ -367,8 +348,6 @@ function papi_get_post_types() {
  * `papi_page_type_name()` will return page type name.
  *
  * @param int $post_id
- *
- * @since 1.3.0
  *
  * @return string
  */
@@ -403,8 +382,6 @@ function papi_page_type_name( $post_id = null ) {
  * `the_papi_page_type_name()` will echo the page type name.
  *
  * @param int $post_id
- *
- * @since 1.3.0
  *
  * @return string
  */

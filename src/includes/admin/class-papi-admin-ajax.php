@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Admin Ajax.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Admin_Ajax {
@@ -16,15 +15,12 @@ class Papi_Admin_Ajax {
 	 * The action prefix for Papi ajax actions.
 	 *
 	 * @var string
-	 * @since 1.3.0
 	 */
 
 	private $action_prefix = 'papi_ajax_';
 
 	/**
 	 * Constructor.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function __construct() {
@@ -33,8 +29,6 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Setup actions.
-	 *
-	 * @since 1.3.0
 	 */
 
 	private function setup_actions() {
@@ -48,8 +42,6 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Add ajax endpoint.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function add_endpoint() {
@@ -59,8 +51,6 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Add ajax url to Papi JavaScript object.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function ajax_url() {
@@ -74,8 +64,6 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Handle Papi ajax.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function handle_papi_ajax() {
@@ -118,8 +106,6 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Get property html via GET.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function get_property() {
@@ -146,8 +132,6 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Get properties via POST.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function get_properties() {
@@ -190,7 +174,6 @@ class Papi_Admin_Ajax {
 	 * Render json.
 	 *
 	 * @param mixed $obj
-	 * @since 1.3.0
 	 */
 
 	public function render( $obj ) {
@@ -201,7 +184,6 @@ class Papi_Admin_Ajax {
 	 * Render error message.
 	 *
 	 * @param string $message
-	 * @since 1.3.0
 	 */
 
 	public function render_error( $message ) {

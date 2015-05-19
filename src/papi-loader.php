@@ -19,7 +19,6 @@ final class Papi_Loader extends Papi_Container {
 	 * The instance of Papi loader class.
 	 *
 	 * @var object
-	 * @since 1.0.0
 	 */
 
 	private static $instance;
@@ -28,15 +27,12 @@ final class Papi_Loader extends Papi_Container {
 	 * The plugin name.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	public $name = 'Papi';
 
 	/**
 	 * Papi loader instance.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return object
 	 */
@@ -53,16 +49,12 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * Empty construct.
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function __construct() {}
 
 	/**
 	 * Cloning is forbidden.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function __clone() {
@@ -71,8 +63,6 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * Unserializing instances of this class is forbidden.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function __wakeup() {
@@ -81,8 +71,6 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * Bootstrap constants
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function constants() {
@@ -116,8 +104,6 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * Require files.
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function require_files() {
@@ -196,8 +182,6 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * Deactivate Papi if the WordPress version is lower then 3.8.
-	 *
-	 * @since 1.2.0
 	 */
 
 	public static function deactivate() {
@@ -222,8 +206,6 @@ final class Papi_Loader extends Papi_Container {
 
 /**
  * Return the instance of Papi to everyone.
- *
- * @since 1.0.0
  *
  * @return object|null
  */

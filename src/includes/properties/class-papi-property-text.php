@@ -7,15 +7,12 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property Text.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Property_Text extends Papi_Property {
 
 	/**
 	 * Get default settings.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -28,8 +25,6 @@ class Papi_Property_Text extends Papi_Property {
 
 	/**
 	 * Display property html.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function html() {

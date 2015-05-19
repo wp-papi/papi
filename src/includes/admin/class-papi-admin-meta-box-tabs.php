@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Admin Meta Box Tabs.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Admin_Meta_Box_Tabs {
@@ -16,7 +15,6 @@ class Papi_Admin_Meta_Box_Tabs {
 	 * The tabs.
 	 *
 	 * @var array
-	 * @since 1.0.0
 	 */
 
 	private $tabs = [];
@@ -26,8 +24,6 @@ class Papi_Admin_Meta_Box_Tabs {
 	 *
 	 * @param array $tabs
 	 * @param bool $render
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function __construct( $tabs = [], $render = true ) {
@@ -45,8 +41,6 @@ class Papi_Admin_Meta_Box_Tabs {
 	/**
 	 * Get the tabs that are registered.
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return array
 	 */
 
@@ -56,8 +50,6 @@ class Papi_Admin_Meta_Box_Tabs {
 
 	/**
 	 * Generate html for tabs and properties.
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function html() {

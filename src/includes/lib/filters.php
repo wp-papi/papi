@@ -4,7 +4,6 @@
  * Papi filters functions.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -17,8 +16,6 @@ defined( 'ABSPATH' ) || exit;
  * @param mixed $value
  * @param string $slug
  * @param int $post_id
- *
- * @since 1.0.0
  *
  * @return mixed
  */
@@ -35,8 +32,6 @@ function papi_filter_format_value( $type, $value, $slug, $post_id ) {
  * @param string $slug
  * @param int $post_id
  *
- * @since 1.0.0
- *
  * @return mixed
  */
 
@@ -48,8 +43,6 @@ function papi_filter_load_value( $type, $value, $slug, $post_id ) {
  * Get the only page type that will be used for the given post type.
  *
  * @param string $post_type
- *
- * @since 1.0.0
  *
  * @return string
  */
@@ -66,8 +59,6 @@ function papi_filter_settings_only_page_type( $post_type ) {
 
 /**
  * Get all registered page type directories.
- *
- * @since 1.0.0
  *
  * @return array
  */
@@ -91,8 +82,6 @@ function papi_filter_settings_directories() {
 /**
  * Load page type from post query string.
  *
- * @since 1.2.0
- *
  * @return string
  */
 
@@ -105,8 +94,6 @@ function papi_filter_settings_page_type_from_post_qs() {
  *
  * @param string $post_type
  * @param string|object $page_type
- *
- * @since 1.2.0
  *
  * @return bool
  */
@@ -134,8 +121,6 @@ function papi_filter_show_page_type( $post_type, $page_type ) {
  *
  * @param string $post_type
  *
- * @since 1.2.0
- *
  * @return string
  */
 
@@ -147,8 +132,6 @@ function papi_filter_standard_page_description( $post_type ) {
  * Get standard page name for the given post type.
  *
  * @param string $post_type
- *
- * @since 1.2.0
  *
  * @return string
  */
@@ -162,8 +145,6 @@ function papi_filter_standard_page_name( $post_type ) {
  *
  * @param string $post_type
  *
- * @since 1.0.0
- *
  * @return bool
  */
 
@@ -176,8 +157,6 @@ function papi_filter_settings_standard_page_type( $post_type ) {
  *
  * @param string $post_type
  *
- * @since 1.2.0
- *
  * @return string
  */
 
@@ -187,8 +166,6 @@ function papi_filter_standard_page_thumbnail( $post_type ) {
 
 /**
  * Get the default sort order that is 1000.
- *
- * @since 1.0.0
  *
  * @return int
  */
@@ -204,8 +181,6 @@ function papi_filter_settings_sort_order() {
  * @param mixed $value
  * @param string $slug
  * @param int $post_id
- *
- * @since 1.0.0
  *
  * @return mixed
  */

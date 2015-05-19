@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Admin Management Pages.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Admin_Management_Pages {
@@ -16,15 +15,12 @@ class Papi_Admin_Management_Pages {
 	 * Thew view instance.
 	 *
 	 * @var Papi_Admin_View
-	 * @since 1.0.0
 	 */
 
 	private $view;
 
 	/**
 	 * Constructor.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function __construct() {
@@ -34,8 +30,6 @@ class Papi_Admin_Management_Pages {
 
 	/**
 	 * Setup actions.
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function setup_actions() {
@@ -44,8 +38,6 @@ class Papi_Admin_Management_Pages {
 
 	/**
 	 * Setup globals.
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function setup_globals() {
@@ -65,8 +57,6 @@ class Papi_Admin_Management_Pages {
 
 	/**
 	 * Render tools page view.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function render_view() {

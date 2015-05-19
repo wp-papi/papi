@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Admin.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 final class Papi_Admin {
@@ -16,7 +15,6 @@ final class Papi_Admin {
 	 * Load page type or not?
 	 *
 	 * @var bool
-	 * @since 1.0.0
 	 */
 
 	private $load_page_type = false;
@@ -25,7 +23,6 @@ final class Papi_Admin {
 	 * The page type.
 	 *
 	 * @var Papi_Page_Type
-	 * @since 1.0.0
 	 */
 
 	private $page_type;
@@ -34,7 +31,6 @@ final class Papi_Admin {
 	 * The page type id.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	private $page_type_id;
@@ -43,7 +39,6 @@ final class Papi_Admin {
 	 * The post type.
 	 *
 	 * @var string|bool
-	 * @since 1.0.0
 	 */
 
 	private $post_type;
@@ -52,7 +47,6 @@ final class Papi_Admin {
 	 * Thew view instance.
 	 *
 	 * @var Papi_Admin_View
-	 * @since 1.0.0
 	 */
 
 	private $view;
@@ -61,7 +55,6 @@ final class Papi_Admin {
 	 * The instance of Papi Core.
 	 *
 	 * @var object
-	 * @since 1.0.0
 	 */
 
 	private static $instance;
@@ -69,7 +62,6 @@ final class Papi_Admin {
 	/**
 	 * Papi Admin instance.
 	 *
-	 * @since 1.0.0
 	 * @return object
 	 */
 
@@ -90,16 +82,12 @@ final class Papi_Admin {
 
 	/**
 	 * Constructor.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function __construct() {}
 
 	/**
 	 * Cloning is forbidden.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function __clone() {
@@ -108,8 +96,6 @@ final class Papi_Admin {
 
 	/**
 	 * Unserializing instances of this class is forbidden.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function __wakeup() {
@@ -120,8 +106,6 @@ final class Papi_Admin {
 	 * Admin init.
 	 *
 	 * Change add new item text.
-	 *
-	 * @since 1.2.0
 	 */
 
 	public function admin_init() {
@@ -138,8 +122,6 @@ final class Papi_Admin {
 
 	/**
 	 * Fill labels on admin bar.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function admin_bar_menu() {
@@ -156,8 +138,6 @@ final class Papi_Admin {
 
 	/**
 	 * Build up the sub menu for post types.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function admin_menu() {
@@ -205,8 +185,6 @@ final class Papi_Admin {
 
 	/**
 	 * Add style to admin head.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function admin_head() {
@@ -217,8 +195,6 @@ final class Papi_Admin {
 
 	/**
 	 * Enqueue script into admin footer.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function admin_enqueue_scripts() {
@@ -247,8 +223,6 @@ final class Papi_Admin {
 	 *
 	 * @param string $classes
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return string
 	 */
 
@@ -268,8 +242,6 @@ final class Papi_Admin {
 
 	/**
 	 * Output Papi page type hidden field.
-	 *
-	 * @since 1.2.1
 	 */
 
 	public function edit_form_after_title() {
@@ -281,8 +253,6 @@ final class Papi_Admin {
 
 	/**
 	 * Output hidden meta boxes.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function hidden_meta_boxes() {
@@ -294,8 +264,6 @@ final class Papi_Admin {
 
 	/**
 	 * Output hidden WordPress editor.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function hidden_meta_box_editor() {
@@ -305,8 +273,6 @@ final class Papi_Admin {
 	/**
 	 * Load post new action
 	 * Redirect to right url if no page type is set.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function load_post_new() {
@@ -342,8 +308,6 @@ final class Papi_Admin {
 	 *
 	 * @param array $defaults
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return array
 	 */
 
@@ -357,8 +321,6 @@ final class Papi_Admin {
 	 *
 	 * @param string $column_name
 	 * @param int $post_id
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function manage_page_type_posts_custom_column( $column_name, $post_id ) {
@@ -376,7 +338,6 @@ final class Papi_Admin {
 	 * Override labels with labels from the page type.
 	 *
 	 * @param Papi_Page_Type $page_type
-	 * @since 1.3.0
 	 */
 
 	private function override_labels( $page_type ) {
@@ -403,8 +364,6 @@ final class Papi_Admin {
 
 	/**
 	 * Menu callback that loads right view depending on what the `page` query string says.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function render_view() {
@@ -430,8 +389,6 @@ final class Papi_Admin {
 
 	/**
 	 * Filter page types in post type list.
-	 *
-	 * @since 1.1.0
 	 */
 
 	public function restrict_page_types() {
@@ -477,8 +434,6 @@ final class Papi_Admin {
 	 *
 	 * @param object $query
 	 *
-	 * @since 1.1.0
-	 *
 	 * @return object
 	 */
 
@@ -504,8 +459,6 @@ final class Papi_Admin {
 
 	/**
 	 * Setup actions.
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function setup_actions() {
@@ -525,8 +478,6 @@ final class Papi_Admin {
 
 	/**
 	 * Setup filters.
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function setup_filters() {
@@ -545,8 +496,6 @@ final class Papi_Admin {
 
 	/**
 	 * Setup globals.
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function setup_globals() {
@@ -560,8 +509,6 @@ final class Papi_Admin {
 
 	/**
 	 * Load right Papi file if it exists.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return bool
 	 */

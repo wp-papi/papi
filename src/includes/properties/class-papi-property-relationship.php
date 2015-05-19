@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property Relationship.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Property_Relationship extends Papi_Property {
@@ -16,15 +15,12 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * The default value.
 	 *
 	 * @var int
-	 * @since 1.0.0
 	 */
 
 	public $default_value = [];
 
 	/**
 	 * Get default settings.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -44,8 +40,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @param int $post_id
 	 * @param string $slug
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return string|null
 	 */
 
@@ -57,8 +51,6 @@ class Papi_Property_Relationship extends Papi_Property {
 
 	/**
 	 * Get sort options for relationship property.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -112,8 +104,6 @@ class Papi_Property_Relationship extends Papi_Property {
 
 	/**
 	 * Display property html.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function html() {
@@ -206,8 +196,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @param string $slug
 	 * @param int $post_id
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return array
 	 */
 
@@ -230,8 +218,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @param mixed $value
 	 * @param string $slug
 	 * @param int $post_id
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -259,8 +245,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @param mixed $value
 	 * @param string $slug
 	 * @param int $post_id
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */

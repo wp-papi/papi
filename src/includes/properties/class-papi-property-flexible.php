@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Property Flexible
  *
  * @package Papi
- * @since 1.3.0
  */
 
 class Papi_Property_Flexible extends Papi_Property_Repeater {
@@ -16,7 +15,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * Flexible repeater counter number.
 	 *
 	 * @var int
-	 * @since 1.3.0
 	 */
 
 	protected $counter = 0;
@@ -25,7 +23,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * The default value.
 	 *
 	 * @var array
-	 * @since 1.3.0
 	 */
 
 	public $default_value = [];
@@ -34,7 +31,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * The layout key.
 	 *
 	 * @var string
-	 * @since 1.3.0
 	 */
 
 	private $layout_key = '_layout';
@@ -43,7 +39,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * Layout prefix regex.
 	 *
 	 * @var string
-	 * @since 1.3.0
 	 */
 
 	private $layout_prefix_regex = '/^\_flexible\_layout\_/';
@@ -54,7 +49,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @param mixed $values
 	 * @param string $repeater_slug
 	 * @param int $post_id
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -94,8 +88,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Get default settings.
 	 *
-	 * @since 1.3.0
-	 *
 	 * @return array
 	 */
 
@@ -110,7 +102,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @param string $key
 	 * @param string $extra
-	 * @since 1.3.0
 	 *
 	 * @return string
 	 */
@@ -125,7 +116,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @param string $prefix
 	 * @param string $name
-	 * @since 1.3.0
 	 *
 	 * @return string
 	 */
@@ -141,7 +131,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @param int $post_id
 	 * @param string $repeater_slug
 	 * @param integer $post_id
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -248,8 +237,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Get layouts.
 	 *
-	 * @since 1.3.0
-	 *
 	 * @return array
 	 */
 
@@ -260,8 +247,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 	/**
 	 * Get layouts slugs.
-	 *
-	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
@@ -275,8 +260,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 	/**
 	 * Get settings properties.
-	 *
-	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
@@ -296,7 +279,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * property repeater using this we can't rename it.
 	 *
 	 * @param array $layouts
-	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
@@ -325,7 +307,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @param string $slug
 	 * @param string $value
-	 * @since 1.3.0
 	 */
 
 	protected function render_layout_input( $slug, $value ) {
@@ -341,7 +322,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * Render layout JSON template.
 	 *
 	 * @param string $slug
-	 * @since 1.3.0
 	 */
 
 	protected function render_json_template( $slug ) {
@@ -376,7 +356,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @param array $items
 	 * @param array $value
-	 * @since 1.3.0
 	 */
 
 	protected function render_properties( $items, $value ) {
@@ -434,7 +413,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * Render repeater html.
 	 *
 	 * @param object $options
-	 * @since 1.3.0
 	 */
 
 	protected function render_repeater( $options ) {
@@ -479,8 +457,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 	/**
 	 * Render repeater row.
-	 *
-	 * @since 1.3.0
 	 */
 
 	protected function render_repeater_row() {
@@ -520,8 +496,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 	/**
 	 * Render repeater row template.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function render_repeater_row_template() {
@@ -559,7 +533,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * Check if the layout is valid or not.
 	 *
 	 * @param array $layout
-	 * @since 1.3.0
 	 *
 	 * @return bool
 	 */

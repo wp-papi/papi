@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property Bool.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Property_Bool extends Papi_Property {
@@ -16,15 +15,12 @@ class Papi_Property_Bool extends Papi_Property {
 	 * The default value.
 	 *
 	 * @var bool
-	 * @since 1.0.0
 	 */
 
 	public $default_value = false;
 
 	/**
 	 * Display property html.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function html() {
@@ -45,8 +41,6 @@ class Papi_Property_Bool extends Papi_Property {
 	 * @param string $slug
 	 * @param int $post_id
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return boolean
 	 */
 
@@ -60,8 +54,6 @@ class Papi_Property_Bool extends Papi_Property {
 	 * @param mixed $value
 	 * @param string $slug
 	 * @param int $post_id
-	 *
-	 * @since 1.2.0
 	 *
 	 * @return array
 	 */

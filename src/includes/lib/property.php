@@ -4,7 +4,6 @@
  * Papi property functions.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -15,8 +14,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @param array $value
  * @param string $slug
- *
- * @since 1.0.0
  *
  * @return array
  */
@@ -49,8 +46,6 @@ function papi_from_property_array_slugs( $value, $slug ) {
  *
  * @param array $properties
  *
- * @since 1.0.0
- *
  * @return array
  */
 
@@ -76,8 +71,6 @@ function papi_get_box_property( $properties ) {
  * @param string|array $file_or_options
  * @param array $properties
  * @param bool $is_box
- *
- * @since 1.0.0
  *
  * @return array
  */
@@ -145,8 +138,6 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 /**
  * Get default options.
  *
- * @since 1.2.0
- *
  * @return array
  */
 
@@ -158,8 +149,6 @@ function papi_get_property_default_options() {
  * Get property type default settings
  *
  * @param string $type
- *
- * @since 1.0.0
  *
  * @return array
  */
@@ -179,8 +168,6 @@ function papi_get_property_default_settings( $type ) {
  *
  * @param array $options
  * @param bool $fetch_value
- *
- * @since 1.0.0
  *
  * @return object
  */
@@ -206,8 +193,6 @@ function papi_get_property_options( $options, $fetch_value = true ) {
  *
  * @param string $type
  *
- * @since 1.0.0
- *
  * @return string
  */
 
@@ -226,8 +211,6 @@ function papi_get_property_class_name( $type ) {
  *
  * @param string $type
  *
- * @since 1.0.0
- *
  * @return string
  */
 
@@ -244,8 +227,6 @@ function papi_get_property_short_type( $type ) {
  *
  * @param string $type
  *
- * @since 1.0.0
- *
  * @return null|Papi_Property
  */
 
@@ -261,7 +242,6 @@ function papi_get_property_type( $type ) {
  * Get property type key from base64 string.
  *
  * @param string $str
- * @since 1.3.0
  *
  * @return string
  */
@@ -281,8 +261,6 @@ function papi_get_property_type_from_base64( $str ) {
  *
  * @param string $str
  * @param bool $papi_prefix
- *
- * @since 1.0.0
  *
  * @return string
  */
@@ -314,8 +292,6 @@ function papi_get_property_type_key( $str = '', $papi_prefix = false ) {
  * @param string $str
  * @param bool $papi_prefix
  *
- * @since 1.0.0
- *
  * @return string
  */
 
@@ -327,8 +303,6 @@ function papi_get_property_type_key_f( $str, $papi_prefix = false ) {
  * Check if it's ends with '_property'.
  *
  * @param string $str
- *
- * @since 1.0.0
  *
  * @return boolean
  */
@@ -347,8 +321,6 @@ function papi_is_property_type_key( $str = '' ) {
  *
  * @param mixed $file_or_options
  * @param array $values
- *
- * @since 1.0.0
  *
  * @return object
  */
@@ -371,8 +343,6 @@ function papi_property( $file_or_options, $values = [] ) {
  * Render a property the right way.
  *
  * @param object $property
- *
- * @since 1.0.0
  */
 
 function papi_render_property( $property ) {
@@ -407,8 +377,6 @@ function papi_render_property( $property ) {
  * Render properties the right way.
  *
  * @param array $properties
- *
- * @since 1.0.0
  */
 
 function papi_render_properties( $properties ) {
@@ -444,8 +412,6 @@ function papi_render_properties( $properties ) {
  *
  * @param object $property
  *
- * @since 1.2.0
- *
  * @return string
  */
 
@@ -463,8 +429,6 @@ function papi_require_text( $property ) {
  * @param object $property
  * @param bool $text
  *
- * @since 1.2.0
- *
  * @return string
  */
 
@@ -480,8 +444,6 @@ function papi_required_html( $property, $text = false ) {
  * Populate properties array.
  *
  * @param array|object $properties
- *
- * @since 1.0.0
  *
  * @return array
  */
@@ -530,8 +492,6 @@ function papi_populate_properties( $properties ) {
  * or update property values on the option page.
  *
  * @param array $meta
- *
- * @since 1.0.0
  */
 
 function papi_property_update_meta( $meta ) {
@@ -601,8 +561,6 @@ function papi_property_update_meta( $meta ) {
  *
  * @param array $value
  * @param string $slug
- *
- * @since 1.0.0
  *
  * @return array
  */

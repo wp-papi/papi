@@ -4,7 +4,6 @@
  * Papi url functions.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -17,8 +16,6 @@ defined( 'ABSPATH' ) || exit;
  * @param bool $append_admin_url
  * @param string $post_type
  * @param array $exclude
- *
- * @since 1.0.0
  *
  * @return string
  */
@@ -40,8 +37,6 @@ function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type
  *
  * @param string $first_char
  * @param array $exclude
- *
- * @since 1.0.0
  *
  * @return string
  */
@@ -92,8 +87,6 @@ function papi_get_page_query_strings( $first_char = '&', $exclude = [] ) {
  *
  * @param string $url
  * @param string $post_type_arg
- *
- * @since 1.0.0
  *
  * @return string
  */

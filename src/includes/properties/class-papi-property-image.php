@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property Image.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Property_Image extends Papi_Property {
@@ -18,8 +17,6 @@ class Papi_Property_Image extends Papi_Property {
 	 * @param mixed $value
 	 * @param string $slug
 	 * @param int $post_id
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return mixed
 	 */
@@ -57,8 +54,6 @@ class Papi_Property_Image extends Papi_Property {
 	/**
 	 * Get default settings.
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return array
 	 */
 
@@ -71,8 +66,6 @@ class Papi_Property_Image extends Papi_Property {
 	/**
 	 * Get default value.
 	 *
-	 * @since 1.3.0
-	 *
 	 * @return stdClass
 	 */
 
@@ -82,8 +75,6 @@ class Papi_Property_Image extends Papi_Property {
 
 	/**
 	 * Display property html.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function html() {
@@ -147,8 +138,6 @@ class Papi_Property_Image extends Papi_Property {
 	/**
 	 * Render image template.
 	 * that will be used in image backbone view.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function render_image_template() {
@@ -169,8 +158,6 @@ class Papi_Property_Image extends Papi_Property {
 
 	/**
 	 * Setup actions.
-	 *
-	 * @since 1.3.0
 	 */
 
 	protected function setup_actions() {
