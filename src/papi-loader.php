@@ -139,18 +139,25 @@ final class Papi_Loader extends Papi_Container {
 		require_once __DIR__ . '/includes/lib/io.php';
 		require_once __DIR__ . '/includes/lib/field.php';
 		require_once __DIR__ . '/includes/lib/template.php';
+		require_once __DIR__ . '/includes/lib/option.php';
 
 		// Load core classes.
+		require_once __DIR__ . '/includes/page/class-papi-page-manager.php';
 		require_once __DIR__ . '/includes/page/class-papi-page.php';
+		require_once __DIR__ . '/includes/page/class-papi-option-page.php';
+
 		require_once __DIR__ . '/includes/property/class-papi-property.php';
 		require_once __DIR__ . '/includes/page-type/class-papi-page-type-base.php';
 		require_once __DIR__ . '/includes/page-type/class-papi-page-type-meta.php';
 		require_once __DIR__ . '/includes/page-type/class-papi-page-type.php';
 
+		require_once __DIR__ . '/includes/option-type/class-papi-option-type.php';
+
 		// Load admin classes.
 		require_once __DIR__ . '/includes/admin/class-papi-admin-view.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-management-pages.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-meta-box.php';
+		# require_once __DIR__ . '/includes/admin/class-papi-admin-meta-boxes.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-meta-box-tabs.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-data-handler.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-post-handler.php';
@@ -180,6 +187,8 @@ final class Papi_Loader extends Papi_Container {
 		require_once __DIR__ . '/includes/properties/class-papi-property-gallery.php';
 		require_once __DIR__ . '/includes/properties/class-papi-property-editor.php';
 		require_once __DIR__ . '/includes/properties/class-papi-property-flexible.php';
+
+		require_once __DIR__ . '/includes/admin/class-papi-admin-option-handler.php';
 
 		// Include plugins or properties.
 		papi_action_include();

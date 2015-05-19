@@ -32,8 +32,6 @@ function papi_get_all_files_in_directory( $directory = '' ) {
 			if ( ! in_array( $file, ['..', '.'] ) ) {
 				if ( is_dir( $directory . '/' . $file ) ) {
 					$result   = array_merge( $result, papi_get_all_files_in_directory( $directory . '/' . $file ) );
-					$file     = $directory . '/' . $file;
-					$result[] = preg_replace( '/\/\//si', '/', $file );
 				} else {
 					$file     = $directory . '/' . $file;
 					$result[] = preg_replace( '/\/\//si', '/', $file );

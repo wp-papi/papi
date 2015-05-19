@@ -288,9 +288,7 @@ class Papi_Property {
 
 		if ( $fetch_value && papi_is_empty( $this->options->value ) ) {
 			$post_id = $this->get_post_id();
-			$value = papi_field( $post_id, $this->options->slug, null, array(
-				'property' => $this
-			) );
+			$value = papi_field( $post_id, $this->options->slug, null );
 		} else {
 			$value = $this->options->value;
 		}

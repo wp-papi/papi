@@ -432,6 +432,18 @@ function papi_is_ext( $str, $ext ) {
 }
 
 /**
+ * Check which http method it is.
+ *
+ * @param string $method
+ *
+ * @return bool
+ */
+
+function papi_is_metod( $method ) {
+	return $_SERVER ['REQUEST_METHOD'] == strtoupper( $method );
+}
+
+/**
  * Replace '\n' with '<br />'.
  *
  * @param string $str

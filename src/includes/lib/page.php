@@ -173,18 +173,24 @@ function papi_get_number_of_pages( $page_type ) {
 /**
  * Get the page.
  *
- * @param int $post_id The post id.
+ * @param int $post_id
+ * @param string $data_type
  *
- * @since 1.0.0
- *
- * @return Papi_Page|null
+ * @return mixed
  */
 
-function papi_get_page( $post_id = null ) {
-	$post_id = papi_get_post_id( $post_id );
-	$page    = new Papi_Page( $post_id );
+function papi_get_page( $post_id = null, $data_type = 'post' ) {
+	$class_suffix = '_' . ucfirst( $data_type ) . '_Page';
+	$class_suffix = $data_type === 'post' ? '_Page' : $class_suffix;
+	$class_name   = 'Papi' . $class_suffix;
 
-	if ( ! $page->has_post() ) {
+	if ( ! class_exists( $class_name ) ) {
+		return;
+	}
+
+	$page = new $class_name( $post_id );
+
+	if ( ! $page->valid() ) {
 		return;
 	}
 

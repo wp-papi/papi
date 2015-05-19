@@ -280,13 +280,14 @@ function papi_get_property_type_from_base64( $str ) {
  * Get the right key for a property type.
  *
  * @param string $str
+ * @param bool $papi_prefix
  *
  * @since 1.0.0
  *
  * @return string
  */
 
-function papi_get_property_type_key( $str = '' ) {
+function papi_get_property_type_key( $str = '', $papi_prefix = false ) {
 	$suffix = '_property';
 
 	if ( ! is_string( $str ) ) {
@@ -300,6 +301,10 @@ function papi_get_property_type_key( $str = '' ) {
 		return papi_get_property_type_key( $str ) . ']';
 	}
 
+	if ( $papi_prefix ) {
+		return $str . $suffix;
+	}
+
 	return papi_remove_papi( $str . $suffix );
 }
 
@@ -307,14 +312,15 @@ function papi_get_property_type_key( $str = '' ) {
  * Get the right key for a property type with a underscore as the first character.
  *
  * @param string $str
+ * @param bool $papi_prefix
  *
  * @since 1.0.0
  *
  * @return string
  */
 
-function papi_get_property_type_key_f( $str ) {
-	return papi_f( papi_get_property_type_key( $str ) );
+function papi_get_property_type_key_f( $str, $papi_prefix = false ) {
+	return papi_f( papi_get_property_type_key( $str, $papi_prefix ) );
 }
 
 /**
@@ -520,7 +526,8 @@ function papi_populate_properties( $properties ) {
 }
 
 /**
- * Update property values on the post with the given post id.
+ * Update property values on the post with the given post id
+ * or update property values on the option page.
  *
  * @param array $meta
  *
@@ -528,12 +535,13 @@ function papi_populate_properties( $properties ) {
  */
 
 function papi_property_update_meta( $meta ) {
-	$meta = (object) $meta;
+	$meta   = (object) $meta;
 
 	if ( empty( $meta->type ) ) {
 		return;
 	}
 
+	$option     = papi_is_option_page();
 	$save_value = true;
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
@@ -548,30 +556,43 @@ function papi_property_update_meta( $meta ) {
 	}
 
 	if ( papi_is_empty( $meta->value ) ) {
-		delete_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ) );
+		if ( $option ) {
+			delete_option( $meta->slug );
+		} else {
+			delete_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ) );
+		}
 		return;
 	}
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
 		if ( ! is_array( $value ) ) {
-
-			$slug = papi_remove_papi( $meta->slug );
-
 			if ( $save_value ) {
 				$value = $meta->value;
 			}
 
-			update_post_meta( $meta->post_id, $slug, $value );
+			if ( $option ) {
+				update_option( $meta->slug, $value );
+			} else {
+				update_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ), $value );
+			}
 
 			continue;
 		}
 
 		foreach ( $value as $child_key => $child_value ) {
-			update_post_meta( $meta->post_id, papi_remove_papi( $child_key ), $child_value );
+			if ( $option ) {
+				update_option( $child_key, $child_value );
+			} else {
+				update_post_meta( $meta->post_id, papi_remove_papi( $child_key ), $child_value );
+			}
 		}
 	}
 
-	update_post_meta( $meta->post_id, papi_get_property_type_key_f( $meta->slug ), $meta->type );
+	if ( $option ) {
+		update_option( papi_get_property_type_key_f( $meta->slug, true ), $meta->type );
+	} else {
+		update_post_meta( $meta->post_id, papi_get_property_type_key_f( $meta->slug ), $meta->type );
+	}
 }
 
 /**
@@ -587,7 +608,7 @@ function papi_property_update_meta( $meta ) {
  */
 
 function papi_to_property_array_slugs( $value, $slug ) {
-	$results  = [];
+	$results = [];
 	$counter = [];
 
 	foreach ( $value as $index => $arr ) {

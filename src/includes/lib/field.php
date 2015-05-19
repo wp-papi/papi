@@ -16,15 +16,14 @@ defined( 'ABSPATH' ) || exit;
  * @param int $post_id
  * @param string $name
  * @param mixed $default
- * @param array $admin_data Only used in WordPress admin
+ * @param array $data_type
  *
  * @since 1.0.0
  *
  * @return mixed
  */
 
-function papi_field( $post_id = null, $name = null, $default = null, $admin_data = [] ) {
-	// Check if we have a post id or not.
+function papi_field( $post_id = null, $name = null, $default = null, $data_type = 'post' ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$default = $name;
 		$name    = $post_id;
@@ -42,24 +41,18 @@ function papi_field( $post_id = null, $name = null, $default = null, $admin_data
 	$value     = wp_cache_get( $cache_key );
 
 	if ( $value === false ) {
-		// Check for "dot" notation.
+		// Check for dot notation.
 		$names = explode( '.', $name );
-
-		// Get the first value in the array.
-		$name = $names[0];
-
-		// Remove the first value of the array.
+		$name  = $names[0];
 		$names = array_slice( $names, 1 );
 
-		// Get the page.
-		$page = papi_get_page( $post_id );
+		// Get the right page for right data type.
+		$page = papi_get_page( $post_id, $data_type );
 
-		// Return the default value if we don't have a WordPress post on the page object.
-		if ( is_null( $page ) || ! $page->has_post() ) {
+		// Return the default value if we don't have a valid page.
+		if ( is_null( $page ) ) {
 			return $default;
 		}
-
-		$page->set_admin_data( $admin_data );
 
 		$value = papi_field_value( $names, $page->$name, $default );
 

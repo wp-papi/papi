@@ -160,12 +160,16 @@ final class Papi_Admin {
 	 * @since 1.0.0
 	 */
 
-	public function admin_menu() {
+	public function page_type_menu() {
 		global $submenu;
 
 		$post_types = papi_get_post_types();
 
 		foreach ( $post_types as $post_type ) {
+
+			if ( ! post_type_exists( $post_type ) ) {
+				continue;
+			}
 
 			if ( $post_type === 'post' ) {
 				$edit_url = 'edit.php';
@@ -573,8 +577,13 @@ final class Papi_Admin {
 			$this->page_type_id = papi_filter_settings_only_page_type( $this->post_type );
 
 			if ( empty( $this->page_type_id ) ) {
-				return false;
+				// Load page types that don't have any real post type.
+				$this->page_type_id = str_replace( 'papi/', '', papi_get_qs( 'page' ) );
 			}
+		}
+
+		if ( empty( $this->page_type_id ) ) {
+			return false;
 		}
 
 		$this->page_type = papi_get_page_type_by_id( $this->page_type_id );

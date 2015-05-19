@@ -197,12 +197,18 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private function setup_actions() {
-		add_action( 'add_meta_boxes', [$this, 'setup_meta_box'] );
-		add_action( 'postbox_classes_' . $this->options->post_type . '_' . $this->options->_id, [$this, 'meta_box_css_classes'] );
+		if ( post_type_exists( $this->options->post_type ) ) {
+			add_action( 'add_meta_boxes', [$this, 'setup_meta_box'] );
 
-		if ( $this->options->context === 'after_title' ) {
-			add_action( 'edit_form_after_title', [$this, 'move_meta_box_after_title'] );
+			if ( $this->options->context === 'after_title' ) {
+				add_action( 'edit_form_after_title', [$this, 'move_meta_box_after_title'] );
+			}
+		} else {
+			$this->setup_meta_box();
 		}
+
+		// Will be called on when you call do_meta_boxes even without a real post type.
+		add_action( 'postbox_classes_' . $this->options->post_type . '_' . $this->options->_id, [$this, 'meta_box_css_classes'] );
 	}
 
 	/**
