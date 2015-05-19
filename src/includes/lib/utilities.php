@@ -440,6 +440,10 @@ function papi_is_ext( $str, $ext ) {
  */
 
 function papi_is_metod( $method ) {
+	if ( ! isset( $_SERVER['REQUEST_METHOD'] ) ) {
+		return false;
+	}
+
 	return $_SERVER ['REQUEST_METHOD'] == strtoupper( $method );
 }
 
