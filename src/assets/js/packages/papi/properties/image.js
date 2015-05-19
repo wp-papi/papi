@@ -42,7 +42,7 @@ class Image {
       self.add($(this));
     });
 
-    $(document).on('hover', '.papi-property-image .attachment', this.hover);
+    $(document).on('mouseenter mouseleave', '.papi-property-image .attachment', this.hover);
     $(document).on('click', '.papi-property-image .attachment a', this.remove);
     $(document).on('papi/property/repeater/added', '[data-property="image"]', this.update);
     $(document).on('click', '.papi-property-image .attachment', this.replace);
