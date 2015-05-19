@@ -160,7 +160,7 @@ final class Papi_Admin {
 	 * @since 1.0.0
 	 */
 
-	public function page_type_menu() {
+	public function admin_menu() {
 		global $submenu;
 
 		$post_types = papi_get_post_types();
@@ -550,11 +550,11 @@ final class Papi_Admin {
 	 */
 
 	private function setup_globals() {
-		$this->post_type        = papi_get_wp_post_type();
+		$this->post_type = papi_get_wp_post_type();
 
 		if ( is_admin() ) {
-			$this->view             = new Papi_Admin_View;
-			$this->page_type_id     = papi_get_page_type_meta_value();
+			$this->view          = new Papi_Admin_View;
+			$this->page_type_id  = papi_get_page_type_meta_value();
 		}
 	}
 
