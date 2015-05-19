@@ -146,7 +146,7 @@ class Papi_Admin_Meta_Box {
 
 		// Get the post type that we currently are on if it exist in the array of post types.
 		$post_type = array_filter( papi_to_array( $post_type ), function ( $post_type ) {
-			return strtolower( $post_type ) == strtolower( papi_get_or_post( 'post_type' ) );
+			return ! empty( $post_type ) && strtolower( $post_type ) === strtolower( papi_get_or_post( 'post_type' ) );
 		} );
 
 		if ( ! empty( $post_type ) ) {

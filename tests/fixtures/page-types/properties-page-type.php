@@ -1,0 +1,85 @@
+<?php
+
+class Properties_Page_Type extends Papi_Page_Type {
+
+	/**
+	 * Define our Page Type meta data.
+	 *
+	 * @return array
+	 */
+
+	public function page_type() {
+		return [
+			'name'        => 'Properties page type',
+			'description' => 'This is a properties page',
+			'template'    => 'pages/properties-page.php'
+		];
+	}
+
+	/**
+	 * Define our properties.
+	 */
+
+	public function register() {
+
+		$this->box( 'Flexible', [
+			papi_property( [
+				'type'     => 'flexible',
+				'title'    => 'Sections',
+				'slug'     => 'sections',
+				'settings' => [
+					'items' => [
+						'twitter' => [
+							'title' => 'Twitter',
+							'items' => [
+								papi_property( [
+									'type'  => 'string',
+									'title' => 'Twitter name',
+									'slug'  => 'twitter_name'
+								] )
+							]
+						],
+						'posts' => [
+							'title' => 'Posts',
+							'items' => [
+								papi_property( [
+									'type'  => 'post',
+									'title' => 'Post one',
+									'slug'  => 'post_one'
+								] ),
+								papi_property( [
+									'type'  => 'post',
+									'title' => 'Post two',
+									'slug'  => 'post_two'
+								] )
+							]
+						]
+					]
+				]
+			] )
+		] );
+
+		$this->box( 'Repeater', [
+			papi_property( [
+				'type'     => 'repeater',
+				'title'    => 'Books',
+				'slug'     => 'books',
+				'settings' => [
+					'items' => [
+						papi_property( [
+							'type'  => 'string',
+							'title' => 'Book name',
+							'slug'  => 'book_name'
+						] ),
+						papi_property( [
+							'type'  => 'bool',
+							'title' => 'Is open?',
+							'slug'  => 'is_open'
+						] )
+					]
+				]
+			] )
+		] );
+
+	}
+}

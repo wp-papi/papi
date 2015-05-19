@@ -124,7 +124,7 @@ abstract class Papi_Page_Manager {
 	 * @return mixed
 	 */
 
-	abstract protected function get_value( $slug );
+	abstract public function get_value( $slug );
 
 	/**
 	 * Load property options from page type.

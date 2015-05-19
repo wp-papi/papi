@@ -180,6 +180,7 @@ function papi_get_number_of_pages( $page_type ) {
  */
 
 function papi_get_page( $post_id = null, $data_type = 'post' ) {
+	$data_type    = is_string( $data_type ) ? $data_type : 'post';
 	$class_suffix = '_' . ucfirst( $data_type ) . '_Page';
 	$class_suffix = $data_type === 'post' ? '_Page' : $class_suffix;
 	$class_name   = 'Papi' . $class_suffix;

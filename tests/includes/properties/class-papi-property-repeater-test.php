@@ -20,41 +20,31 @@ class Papi_Property_Repeater_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$_POST = array();
+		$_POST = [];
 
-		$this->post_id = $this->factory->post->create();
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+		} );
 
-		$this->property = papi_property( [
-			'type'     => 'repeater',
-			'title'    => 'Books',
-			'slug'     => 'books',
-			'settings' => [
-				'items' => [
-					papi_property( [
-						'type'  => 'string',
-						'title' => 'Book name',
-						'slug'  => 'book_name'
-					] ),
-					papi_property( [
-						'type'  => 'bool',
-						'title' => 'Is open?',
-						'slug'  => 'is_open'
-					] )
-				]
-			]
-		] );
+		$this->page_type = papi_get_page_type_by_id( 'properties-page-type' );
+		$this->post_id   = $this->factory->post->create();
+		$this->property  = $this->page_type->get_property( 'books' );
+
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
 	}
 
 	/**
 	 * Tear down test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
 		parent::tearDown();
-		$_POST = array();
-		unset( $this->post_id, $this->property );
+		$_POST = [];
+		unset(
+			$this->post_id,
+			$this->property,
+			$this->page_type
+		);
 	}
 
 	/**
@@ -83,12 +73,12 @@ class Papi_Property_Repeater_Test extends WP_UnitTestCase {
 
 		// Test the first item in the repeater
 		$this->assertEquals( 'string', $this->property->settings->items[0]->type );
-		$this->assertEquals( 'papi_book_name', $this->property->settings->items[0]->slug );
+		$this->assertEquals( 'papi_book_name', $this->property->settings->items[0]->array_slug );
 		$this->assertEquals( 'Book name', $this->property->settings->items[0]->title );
 
 		// Test the second item in the repeater
 		$this->assertEquals( 'bool', $this->property->settings->items[1]->type );
-		$this->assertEquals( 'papi_is_open', $this->property->settings->items[1]->slug );
+		$this->assertEquals( 'papi_is_open', $this->property->settings->items[1]->array_slug );
 		$this->assertEquals( 'Is open?', $this->property->settings->items[1]->title );
 	}
 
@@ -101,39 +91,36 @@ class Papi_Property_Repeater_Test extends WP_UnitTestCase {
 	public function test_save_property_value() {
 		$handler = new Papi_Admin_Post_Handler();
 
-		// Generate correct property meta key and property type meta key for string property.
-		$value_slug1         = papi_remove_papi( $this->property->settings->items[0]->slug );
+		$value_slug1         = papi_remove_papi( $this->property->settings->items[0]->array_slug );
 		$value_type_slug1    = papi_get_property_type_key( $value_slug1 );
-		$value_slug2         = papi_remove_papi( $this->property->settings->items[1]->slug );
+		$value_slug2         = papi_remove_papi( $this->property->settings->items[1]->array_slug );
 		$value_type_slug2    = papi_get_property_type_key( $value_slug2 );
 
-		// Create the repeater item
-		$item = array();
+		$item = [];
 		$item[$value_slug1] = 'Harry Potter';
 		$item[$value_type_slug1] = $this->property->settings->items[0];
 
 		$item[$value_slug2] = '';
 		$item[$value_type_slug2] = $this->property->settings->items[1];
 
-		$values = array( $item );
+		$values = [ $item ];
 
-		// Create post data.
-		$_POST = papi_test_create_property_post_data( array(
+		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $this->property->slug,
 			'type'  => $this->property,
 			'value' => $values
-		), $_POST );
+		], $_POST );
 
 		$handler->save_property( $this->post_id );
 
-		// Rows
 		$rows_html_name         = papi_ff( papify( $this->property->slug ) . '_rows' );
 		$_POST[$rows_html_name] = 1;
 
-		$expected = array( array( 'book_name' => 'Harry Potter', 'is_open' => false ) );
-		$actual   = papi_field( $this->post_id, $this->property->slug, null, array(
-			'property' => Papi_Property::create( (array) $this->property )
-		) );
+		$expected = [
+			[  'book_name' => 'Harry Potter', 'is_open' => false ]
+		];
+
+		$actual = papi_field( $this->post_id, $this->property->slug, null );
 
 		$this->assertEquals( $expected, $actual );
 	}

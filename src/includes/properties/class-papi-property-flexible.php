@@ -290,23 +290,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	}
 
 	/**
-	 * Get settings properties slugs.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @return array
-	 */
-
-	protected function get_settings_properties_slugs() {
-		$layouts = $this->get_settings_layouts();
-		return array_map( function( $layout ) {
-			return array_map( function ( $property ) {
-				return papi_remove_papi( $property->array_slug );
-			}, $layout['items'] );
-		}, $layouts );
-	}
-
-	/**
 	 * Prepare properties.
 	 *
 	 * Not the best name for this function, but since

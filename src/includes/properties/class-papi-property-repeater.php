@@ -133,9 +133,6 @@ class Papi_Property_Repeater extends Papi_Property {
 		// Add repeater slug with number of rows to the values array.
 		$values[$repeater_slug] = $value;
 
-		// Get all properties slugs.
-		$slugs = $this->get_settings_properties_slugs();
-
 		for ( $i = 0; $i < $value; $i++ ) {
 
 			$no_trash = [];
@@ -144,19 +141,10 @@ class Papi_Property_Repeater extends Papi_Property {
 				$no_trash[$i] = [];
 			}
 
-			for ( $j = 0; $j < $columns; $j++ ) {
-				// Generate slug from repeater slug, index and property slug.
-				$slug = sprintf( '%s_%d_%s', $repeater_slug, $i, $slugs[$j] );
-
-				if ( ! isset( $rows[$i] ) || ! isset( $rows[$i][$slug] ) ) {
-					continue;
-				}
-
-				// Get database value.
-				$meta = $rows[$i][$slug];
-
+			foreach ( $rows[$i] as $slug => $meta ) {
 				// Add meta object to the no trash array.
-				$no_trash[$i][$slug] = $meta;
+				// so it won't be deleted.
+				$no_trash[$slug] = $meta;
 
 				// Get property type key and value.
 				$property_type_key   = papi_get_property_type_key( $meta->meta_key );
@@ -168,6 +156,9 @@ class Papi_Property_Repeater extends Papi_Property {
 				// Add property value and property type value.
 				$values[$meta->meta_key] = maybe_unserialize( $meta->meta_value );
 				$values[$property_type_key] = $property_type_value;
+
+				// Add the meta value.
+				$values[$slug] = $rows[$i][$slug]->meta_value;
 			}
 
 			// Get the meta keys to delete.
@@ -231,22 +222,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected function get_settings_properties() {
 		$settings = $this->get_settings();
 		return $this->prepare_properties( papi_to_array( $settings->items ) );
-	}
-
-	/**
-	 * Get settings properties slugs.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @return array
-	 */
-
-	protected function get_settings_properties_slugs() {
-		$properties = $this->get_settings_properties();
-		$slugs = array_map( function( $property ) {
-			return papi_remove_papi( $property->slug );
-		}, $properties );
-		return array_values( $slugs );
 	}
 
 	/**

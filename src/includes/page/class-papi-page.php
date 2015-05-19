@@ -24,7 +24,6 @@ class Papi_Page extends Papi_Page_Manager {
 	 * The WordPress post.
 	 *
 	 * @var object
-	 * @since 1.0.0
 	 */
 
 	private $post;
@@ -33,7 +32,6 @@ class Papi_Page extends Papi_Page_Manager {
 	 * The Page type.
 	 *
 	 * @var Papi_Page_Type
-	 * @since 1.0.0
 	 */
 
 	private $page_type;
@@ -42,8 +40,6 @@ class Papi_Page extends Papi_Page_Manager {
 	 * Create a new instance of the class.
 	 *
 	 * @param int $post_id
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function __construct( $post_id = 0 ) {
@@ -56,8 +52,6 @@ class Papi_Page extends Papi_Page_Manager {
 	/**
 	 * Get the page type object of the page.
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return Papi_Page_Type
 	 */
 
@@ -67,8 +61,6 @@ class Papi_Page extends Papi_Page_Manager {
 
 	/**
 	 * Get the permalink for the page.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return string
 	 */
@@ -80,8 +72,6 @@ class Papi_Page extends Papi_Page_Manager {
 	/**
 	 * Get the WordPress post object.
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return object
 	 */
 
@@ -91,8 +81,6 @@ class Papi_Page extends Papi_Page_Manager {
 
 	/**
 	 * Get the post status of a page.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return string
 	 */
@@ -106,12 +94,10 @@ class Papi_Page extends Papi_Page_Manager {
 	 *
 	 * @param string $slug
 	 *
-	 * @since 1.3.0
-	 *
 	 * @return mixed
 	 */
 
-	protected function get_value( $slug ) {
+	public function get_value( $slug ) {
 		$slug                = papi_remove_papi( $slug );
 		$property_value      = get_post_meta( $this->id, $slug, true );
 		$property_type_key   = papi_get_property_type_key_f( $slug );
@@ -137,8 +123,6 @@ class Papi_Page extends Papi_Page_Manager {
 
 	/**
 	 * Check if the page has the post object and that it's not null.
-	 *
-	 * @since 1.3.0
 	 *
 	 * @return bool
 	 */

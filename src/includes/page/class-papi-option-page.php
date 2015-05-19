@@ -25,12 +25,10 @@ class Papi_Option_Page extends Papi_Page_Manager {
 	 *
 	 * @param string $slug
 	 *
-	 * @since 1.3.0
-	 *
 	 * @return mixed
 	 */
 
-	protected function get_value( $slug ) {
+	public function get_value( $slug ) {
 		$property_value      = get_option( $slug );
 		$property_type_key   = papi_get_property_type_key_f( $slug, true );
 		$property_type_value = get_option( $property_type_key );
@@ -54,8 +52,6 @@ class Papi_Option_Page extends Papi_Page_Manager {
 
 	/**
 	 * Check if it's a valid page.
-	 *
-	 * @since 1.3.0
 	 *
 	 * @return bool
 	 */
