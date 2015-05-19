@@ -215,7 +215,7 @@ final class Papi_Loader extends Papi_Container {
 	 */
 
 	private function setup_actions() {
-		add_action('after_setup_theme', 'papi_action_include');
+		add_action( 'after_setup_theme', 'papi_action_include' );
 	}
 }
 
