@@ -193,4 +193,6 @@ class Papi_Admin_Ajax {
 	}
 }
 
-new Papi_Admin_Ajax();
+if ( is_admin() ) {
+	new Papi_Admin_Ajax;
+}

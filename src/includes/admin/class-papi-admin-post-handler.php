@@ -130,4 +130,6 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 	}
 }
 
-new Papi_Admin_Post_Handler;
+if ( is_admin() ) {
+	new Papi_Admin_Post_Handler;
+}

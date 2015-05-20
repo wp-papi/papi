@@ -75,4 +75,6 @@ class Papi_Admin_Management_Pages {
 
 }
 
-new Papi_Admin_Management_Pages;
+if ( is_admin() ) {
+	new Papi_Admin_Management_Pages;
+}
