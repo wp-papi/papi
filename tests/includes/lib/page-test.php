@@ -103,6 +103,17 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test `papi_get_data_page` function.
+	 *
+	 * @since 1.3.0
+	 */
+
+	public function test_papi_get_data_page() {
+		$actual = papi_get_data_page( $this->post_id );
+		$this->assertTrue( is_object( $actual ) );
+	}
+
+	/**
 	 * Test `papi_get_file_data` function.
 	 *
 	 * @since 1.3.0
@@ -146,17 +157,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
 
 		$this->assertEquals( 1, papi_get_number_of_pages( $simple_page_type ) );
-	}
-
-	/**
-	 * Test `papi_get_page` function.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function test_papi_get_page() {
-		$actual = papi_get_page( $this->post_id );
-		$this->assertTrue( is_object( $actual ) );
 	}
 
 	/**

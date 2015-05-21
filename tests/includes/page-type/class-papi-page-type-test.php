@@ -20,6 +20,8 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
+		$_GET = [];
+
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
 		} );
@@ -43,6 +45,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 	public function tearDown() {
 		parent::tearDown();
+		$_GET = [];
 		unset(
 			$this->post_id,
 			$this->empty_page_type,

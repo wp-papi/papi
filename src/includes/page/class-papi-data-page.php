@@ -4,12 +4,12 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Page Manager.
+ * Papi Data Page.
  *
  * @package Papi
  */
 
-abstract class Papi_Page_Manager {
+abstract class Papi_Data_Page extends Papi_Container {
 
 	/**
 	 * The WordPress post id if it exists.
@@ -40,7 +40,9 @@ abstract class Papi_Page_Manager {
 	 * Empty constructor.
 	 */
 
-	public function __construct() {}
+	public function __construct( $post_id = 0 ) {
+		$this->id = intval( $post_id );
+	}
 
 	/**
 	 * Get Papi property value.
@@ -90,6 +92,33 @@ abstract class Papi_Page_Manager {
 
 		// Only apply `format_value` filter so this can be changed from the theme for specified property type.
 		return papi_filter_format_value( $type, $value, $slug, $this->id );
+	}
+
+	/**
+	 * Get page from factory.
+	 *
+	 * @param string $data_type
+	 *
+	 * @return mixed
+	 */
+
+	public static function factory( $post_id, $data_type = 'post' ) {
+		$data_type    = papi_filter_internal_data_type( $data_type );
+		$class_suffix = '_' . ucfirst( $data_type ) . '_Page';
+		$class_name   = 'Papi' . $class_suffix;
+
+		if ( ! class_exists( $class_name ) ) {
+			return;
+		}
+
+		$post_id = papi_get_post_id( $post_id );
+		$page = new $class_name( $post_id );
+
+		if ( ! $page->valid() ) {
+			return;
+		}
+
+		return $page;
 	}
 
 	/**

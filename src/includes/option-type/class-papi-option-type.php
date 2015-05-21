@@ -31,14 +31,13 @@ class Papi_Option_Type extends Papi_Page_Type {
 	public $post_type = '_papi_option_type';
 
 	/**
-	 * Constructor.
+	 * Get post type.
 	 *
-	 * @param string $file_path
+	 * @return string
 	 */
 
-	public function __construct( $file_path = '' ) {
-		$_GET['post_type'] = $this->post_type;
-		parent::__construct( $file_path );
+	public function get_post_type() {
+		return $this->post_type[0];
 	}
 
     /**

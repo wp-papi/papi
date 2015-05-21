@@ -128,8 +128,8 @@ final class Papi_Loader extends Papi_Container {
 		require_once __DIR__ . '/includes/lib/option.php';
 
 		// Load core classes.
-		require_once __DIR__ . '/includes/page/class-papi-page-manager.php';
-		require_once __DIR__ . '/includes/page/class-papi-page.php';
+		require_once __DIR__ . '/includes/page/class-papi-data-page.php';
+		require_once __DIR__ . '/includes/page/class-papi-post-page.php';
 		require_once __DIR__ . '/includes/page/class-papi-option-page.php';
 
 		require_once __DIR__ . '/includes/property/class-papi-property.php';
@@ -148,6 +148,7 @@ final class Papi_Loader extends Papi_Container {
 		require_once __DIR__ . '/includes/admin/class-papi-admin-data-handler.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-post-handler.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin.php';
+		require_once __DIR__ . '/includes/admin/class-papi-admin-menu.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-ajax.php';
 
 		// Load properties classes.

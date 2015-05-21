@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
  * @package Papi
  */
 
-class Papi_Option_Page extends Papi_Page_Manager {
+class Papi_Option_Page extends Papi_Data_Page {
 
 	/**
 	 * Data type to describe which

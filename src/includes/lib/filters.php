@@ -25,6 +25,16 @@ function papi_filter_format_value( $type, $value, $slug, $post_id ) {
 }
 
 /**
+ * Get internal data type.
+ *
+ * @return string
+ */
+
+function papi_filter_internal_data_type() {
+	return apply_filters( 'papi/internal/data_type', 'post' );
+}
+
+/**
  * This filter is applied after the value is loaded in the database.
  *
  * @param string $type

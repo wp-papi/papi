@@ -114,6 +114,10 @@ class Papi_Page_Type_Base {
 	 */
 
 	public function match_id( $id ) {
+		if ( strpos( $id, 'papi/' ) === 0 ) {
+			$id = preg_replace( '/^papi\/', '', $id );
+		}
+
 		return $this->get_id() === $id;
 	}
 

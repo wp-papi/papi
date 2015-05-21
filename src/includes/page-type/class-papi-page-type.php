@@ -49,16 +49,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	private $remove_meta_boxes = [];
 
 	/**
-	 * Load a page type by the file.
-	 *
-	 * @param string $file_path
-	 */
-
-	public function __construct( $file_path = '' ) {
-		parent::__construct( $file_path );
-	}
-
-	/**
 	 * Add new meta box with properties.
 	 *
 	 * @param mixed $file_or_options
@@ -76,7 +66,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 		list( $options, $properties ) = papi_get_options_and_properties( $file_or_options, $properties, true );
 
-		$post_type = papi_get_wp_post_type();
+		$post_type = $this->get_post_type();
 
 		// Check so we have a post the to add the box to.
 		if ( ! $this->load_boxes && ( empty( $post_type ) || ! $this->has_post_type( $post_type ) ) ) {
@@ -206,7 +196,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	public function get_boxes() {
-		if ( empty( $this->boxes ) ) {
+		if ( empty( $this->boxes ) && $this->load_boxes === false ) {
 			if ( ! method_exists( $this, 'register' ) ) {
 				return;
 			}
@@ -217,6 +207,16 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		}
 
 		return $this->boxes;
+	}
+
+	/**
+	 * Get post type.
+	 *
+	 * @return string
+	 */
+
+	public function get_post_type() {
+		return papi_get_wp_post_type();
 	}
 
 	/**
@@ -305,7 +305,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	public function remove_post_type_support() {
 		global $_wp_post_type_features;
 
-		$post_type = papi_get_wp_post_type();
+		$post_type = $this->get_post_type();
 
 		if ( empty( $post_type ) ) {
 			return;
@@ -338,7 +338,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	public function remove_meta_boxes() {
-		$post_type = papi_get_wp_post_type();
+		$post_type = $this->get_post_type();
 
 		if ( empty( $post_type ) ) {
 			return;

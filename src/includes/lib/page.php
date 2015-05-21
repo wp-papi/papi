@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  */
 
 function current_page() {
-	return papi_get_page();
+	return papi_get_data_page();
 }
 
 /**
@@ -53,23 +53,20 @@ function papi_display_page_type( $page_type ) {
 	}
 
 	// Run show page type filter.
-	// @deprecated deprecated since version 1.3.0
-	// will be removed in feature version.
-	$display = papi_filter_show_page_type( $post_type, $page_type );
-
-	return $display;
+	return papi_filter_show_page_type( $post_type, $page_type );
 }
 
 /**
  * Get all page types that exists.
  *
- * @param bool $all Default false
- * @param string $post_type Default null (since 1.1.0)
+ * @param bool $all
+ * @param string $post_type
+ * @param bool $fake_post_types
  *
  * @return array
  */
 
-function papi_get_all_page_types( $all = false, $post_type = null ) {
+function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_types = false ) {
 	$files      = papi_get_all_page_type_files();
 	$page_types = [];
 
@@ -88,6 +85,13 @@ function papi_get_all_page_types( $all = false, $post_type = null ) {
 			continue;
 		}
 
+		if ( $fake_post_types ) {
+			if ( isset( $page_type->post_type[0] ) && ! post_type_exists( $page_type->post_type[0] ) ) {
+				$page_types[] = $page_type;
+			}
+			continue;
+		}
+
 		// Add the page type if the post types is allowed.
 		if ( ! is_null( $page_type ) && papi_current_user_is_allowed( $page_type->capabilities ) && ( $all || in_array( $post_type, $page_type->post_type ) ) ) {
 			$page_types[] = $page_type;
@@ -99,6 +103,19 @@ function papi_get_all_page_types( $all = false, $post_type = null ) {
 	} );
 
 	return papi_sort_order( array_reverse( $page_types ) );
+}
+
+/**
+ * Get the data page.
+ *
+ * @param int $post_id
+ * @param string $data_type
+ *
+ * @return mixed
+ */
+
+function papi_get_data_page( $post_id = 0, $data_type = 'post' ) {
+	return Papi_Data_Page::factory( $post_id, $data_type );
 }
 
 /**
@@ -158,34 +175,6 @@ function papi_get_number_of_pages( $page_type ) {
 	}
 
 	return $value;
-}
-
-/**
- * Get the page.
- *
- * @param int $post_id
- * @param string $data_type
- *
- * @return mixed
- */
-
-function papi_get_page( $post_id = null, $data_type = 'post' ) {
-	$data_type    = is_string( $data_type ) ? $data_type : 'post';
-	$class_suffix = '_' . ucfirst( $data_type ) . '_Page';
-	$class_suffix = $data_type === 'post' ? '_Page' : $class_suffix;
-	$class_name   = 'Papi' . $class_suffix;
-
-	if ( ! class_exists( $class_name ) ) {
-		return;
-	}
-
-	$page = new $class_name( $post_id );
-
-	if ( ! $page->valid() ) {
-		return;
-	}
-
-	return $page;
 }
 
 /**

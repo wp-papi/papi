@@ -4,12 +4,12 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Page.
+ * Papi Post Page.
  *
  * @package Papi
  */
 
-class Papi_Page extends Papi_Page_Manager {
+class Papi_Post_Page extends Papi_Data_Page {
 
 	/**
 	 * Data type to describe which

@@ -26,7 +26,7 @@ class Papi_Page_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
-		$this->page = papi_get_page( $this->post_id );
+		$this->page = papi_get_data_page( $this->post_id );
 	}
 
 	/**
@@ -51,7 +51,7 @@ class Papi_Page_Test extends WP_UnitTestCase {
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 
-		$page = papi_get_page( $this->post_id );
+		$page = papi_get_data_page( $this->post_id );
 
 		$this->assertEquals( $page->get_page_type()->name, 'Simple page' );
 	}

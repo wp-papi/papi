@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Container.
  *
  * @package Papi
- * @since 1.2.0
  */
 
 class Papi_Container implements \ArrayAccess {
@@ -16,7 +15,6 @@ class Papi_Container implements \ArrayAccess {
 	 * The keys holder.
 	 *
 	 * @var array
-	 * @since 1.2.0
 	 */
 
 	protected $keys = [];
@@ -25,7 +23,6 @@ class Papi_Container implements \ArrayAccess {
 	 * The values holder.
 	 *
 	 * @var array
-	 * @since 1.2.0
 	 */
 
 	protected $values = [];

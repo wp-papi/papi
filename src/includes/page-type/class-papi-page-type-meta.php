@@ -99,7 +99,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * @param string $file_path
 	 */
 
-	public function __construct( $file_path ) {
+	public function __construct( $file_path = '' ) {
 		parent::__construct( $file_path );
 		$this->setup_page_type();
 		$this->setup_post_types();

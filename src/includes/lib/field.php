@@ -44,14 +44,14 @@ function papi_field( $post_id = null, $name = null, $default = null, $data_type 
 		$names = array_slice( $names, 1 );
 
 		// Get the right page for right data type.
-		$page = papi_get_page( $post_id, $data_type );
+		$data_page = papi_get_data_page( $post_id, $data_type );
 
 		// Return the default value if we don't have a valid page.
-		if ( is_null( $page ) ) {
+		if ( is_null( $data_page ) ) {
 			return $default;
 		}
 
-		$value = papi_field_value( $names, $page->$name, $default );
+		$value = papi_field_value( $names, $data_page->$name, $default );
 
 		wp_cache_set( $cache_key, $value );
 	}
@@ -62,11 +62,13 @@ function papi_field( $post_id = null, $name = null, $default = null, $data_type 
 /**
  * Get current properties for the page.
  *
+ * @param int $post_id
+ *
  * @return array
  */
 
-function papi_fields() {
-	$page = current_page();
+function papi_fields( $post_id = 0 ) {
+	$page = papi_get_data_page( $post_id );
 
 	if ( empty( $page ) ) {
 		return [];
