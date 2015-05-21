@@ -41,7 +41,7 @@ function papi_field( $post_id = null, $name = null, $default = null, $admin_data
 	$cache_key = papi_get_cache_key( $name, $post_id );
 	$value     = wp_cache_get( $cache_key );
 
-	if ( $value === false ) {
+	if ( $value === null || $value === false ) {
 		// Check for "dot" notation.
 		$names = explode( '.', $name );
 
@@ -62,6 +62,10 @@ function papi_field( $post_id = null, $name = null, $default = null, $admin_data
 		$page->set_admin_data( $admin_data );
 
 		$value = papi_field_value( $names, $page->$name, $default );
+
+		if ( papi_is_empty( $value ) && $value != $default ) {
+			$value = $default;
+		}
 
 		wp_cache_set( $cache_key, $value );
 	}

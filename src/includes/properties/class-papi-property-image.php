@@ -13,6 +13,14 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Image extends Papi_Property {
 
 	/**
+	 * The default value.
+	 *
+	 * @var array
+	 */
+
+	public $default_value = [];
+
+	/**
 	 * Format the value of the property before it's returned to the theme.
 	 *
 	 * @param mixed $value
@@ -49,6 +57,8 @@ class Papi_Property_Image extends Papi_Property {
 			}
 
 			return $value;
+		} else if ( is_object( $value ) && ! isset( $value->url ) ) {
+			return null;
 		} else {
 			return $value;
 		}
@@ -66,18 +76,6 @@ class Papi_Property_Image extends Papi_Property {
 		return [
 			'gallery' => false
 		];
-	}
-
-	/**
-	 * Get default value.
-	 *
-	 * @since 1.3.0
-	 *
-	 * @return stdClass
-	 */
-
-	public function get_default_value() {
-		return new stdClass;
 	}
 
 	/**
