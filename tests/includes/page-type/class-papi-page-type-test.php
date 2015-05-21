@@ -108,7 +108,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test setup method.
+	 * Test `setup` method.
 	 *
 	 * @since 1.3.0
 	 */
