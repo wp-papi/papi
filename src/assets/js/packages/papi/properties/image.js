@@ -103,6 +103,7 @@ class Image {
    */
 
   remove(e) {
+    e.stopPropagation();
     e.preventDefault();
 
     const $this = $(this);

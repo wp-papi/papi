@@ -107,7 +107,8 @@ class Papi_Property_Image extends Papi_Property {
 		?>
 
 		<div class="papi-property-image <?php echo $css_classes; ?>">
-			<p class="papi-image-select <?php echo $show_button ? '' : 'hidden'; ?>">
+			<p class="papi-image-select <?php echo $show_button ? '' : 'papi-hide'; ?>">
+				<input type="hidden" value="" name="<?php echo $slug; ?>"/>
 				<?php
 				if ( ! $settings->gallery ) {
 					_e( 'No image selected', 'papi' );
