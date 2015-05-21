@@ -13,8 +13,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function setUp() {
@@ -26,8 +24,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	/**
 	 * Tear down test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
@@ -37,8 +33,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_body_class` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_body_class() {
@@ -59,8 +53,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_include_template` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_include_template() {
@@ -76,8 +68,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_template` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_template() {
@@ -104,8 +94,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `template_include` filter.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_template_include() {

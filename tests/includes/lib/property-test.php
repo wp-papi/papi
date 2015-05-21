@@ -13,8 +13,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function setUp() {
@@ -29,8 +27,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Tear down test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
@@ -40,8 +36,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_from_property_array_slugs` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_from_property_array_slugs() {
@@ -65,8 +59,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_box_property` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_box_property() {
@@ -81,8 +73,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_options_and_properties` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_options_and_properties() {
@@ -154,8 +144,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_property_default_options` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_get_property_default_options() {
@@ -167,8 +155,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_property_default_settings` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_property_default_settings() {
@@ -187,8 +173,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_property_options` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_property_options() {
@@ -215,8 +199,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_property_class_name` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_property_class_name() {
@@ -233,8 +215,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_property_short_type` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_property_short_type() {
@@ -251,8 +231,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_property_type` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_property_type() {
@@ -272,8 +250,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_property_type_from_base64` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_get_property_type_from_base64() {
@@ -289,8 +265,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	/**
 	 * Test `papi_get_property_type` function.
 	 * Will load a custom property and test if it exists.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_property_type_custom() {
@@ -305,8 +279,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_property_type_key` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_property_type_key() {
@@ -322,8 +294,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_property_type_key_f` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_property_type_f() {
@@ -338,8 +308,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_is_property_type_key` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_is_property_type_key() {
@@ -353,8 +321,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_render_property` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_render_property() {
@@ -386,8 +352,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_render_properties` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_render_properties() {
@@ -407,8 +371,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_require_text` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_require_text() {
@@ -423,8 +385,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_required_html` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_required_html() {
@@ -439,8 +399,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_populate_properties` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_populate_properties() {
@@ -506,8 +464,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_property` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_property() {
@@ -535,8 +491,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test papi property template.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_property_template() {
@@ -548,8 +502,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_property_update_meta` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_property_update_meta() {
@@ -602,8 +554,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_to_property_array_slugs` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_to_property_array_slugs() {

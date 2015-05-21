@@ -13,8 +13,6 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function setUp() {
@@ -35,8 +33,6 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 
 	/**
 	 * Tear down test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
@@ -51,8 +47,6 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test broken page type with a non existing meta method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_broken_page_type() {
@@ -61,8 +55,6 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `get_class_name` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_get_class_name() {
@@ -73,8 +65,6 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `get_file_path` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_get_file_path() {
@@ -93,8 +83,6 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `get_id` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_get_id() {
@@ -107,8 +95,6 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `match_id` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_match_id() {
@@ -119,8 +105,6 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `new_class` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_new_class() {

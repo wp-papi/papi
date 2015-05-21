@@ -13,8 +13,6 @@ class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test papi_get_tab_options.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_tab_options() {
@@ -51,8 +49,6 @@ class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test papi_setup_tabs.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_setup_tabs() {
@@ -71,8 +67,6 @@ class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test papi_tab.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_tab() {

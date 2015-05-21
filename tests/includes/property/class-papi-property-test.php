@@ -13,8 +13,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Setup test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function setUp() {
@@ -28,8 +26,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Tear down property.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
@@ -40,8 +36,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test static `create` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_create() {
@@ -57,8 +51,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test static `default_options` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_default_options() {
@@ -73,8 +65,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test static `factory` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_factory() {
@@ -89,8 +79,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `format_value` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_format_value() {
@@ -106,8 +94,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `override_property_options` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_override_property_options() {
@@ -121,8 +107,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `get_default_settings` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_get_default_settings() {
@@ -136,8 +120,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `get_default_value` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_get_default_value() {
@@ -159,8 +141,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `get_option` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_get_option() {
@@ -175,8 +155,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `get_options` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_get_options() {
@@ -187,8 +165,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `get_post_id` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_get_post_id() {
@@ -198,7 +174,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 *
+	 * Test `get_setting` method.
 	 */
 
 	public function test_get_setting() {
@@ -217,8 +193,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `get_settings` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_get_settings() {
@@ -249,8 +223,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `get_value` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_get_value() {
@@ -273,8 +245,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `html` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_html() {
@@ -284,8 +254,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `html_name` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_html_name() {
@@ -324,8 +292,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `load_value` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_load_value() {
@@ -341,8 +307,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `render_description_html` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_render_description_html() {
@@ -361,8 +325,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `render_hidden_html` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_render_hidden_html() {
@@ -391,8 +353,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `render_label_html` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_render_label_html() {
@@ -413,8 +373,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `render_row_html` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_render_row_html() {
@@ -441,8 +399,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `set_option` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_set_option() {
@@ -460,8 +416,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `set_options` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_set_options() {
@@ -485,8 +439,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `update_value` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_update_value() {

@@ -13,8 +13,6 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function setUp() {
@@ -30,8 +28,6 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 
 	/**
 	 * Tear down test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
@@ -44,8 +40,6 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `current_user_is_allowed` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_current_user_is_allowed() {
@@ -55,8 +49,6 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `get_thumbnail` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_get_thumbnail() {
@@ -66,8 +58,6 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `has_post_type` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_has_post_type() {

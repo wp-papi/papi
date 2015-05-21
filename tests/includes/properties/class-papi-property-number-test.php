@@ -13,8 +13,6 @@ class Papi_Property_Number_Test extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function setUp() {
@@ -31,8 +29,6 @@ class Papi_Property_Number_Test extends WP_UnitTestCase {
 
 	/**
 	 * Tear down test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
@@ -42,8 +38,6 @@ class Papi_Property_Number_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test output to check if property slug exists and the property type value.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_output() {
@@ -54,8 +48,6 @@ class Papi_Property_Number_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test property options.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_property_options() {
@@ -67,8 +59,6 @@ class Papi_Property_Number_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test save property value.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_save_property_value() {

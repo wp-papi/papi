@@ -13,8 +13,6 @@ class Papi_Admin_View_Test extends WP_UnitTestCase {
 
 	/**
 	 * Setup test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function setUp() {
@@ -23,8 +21,6 @@ class Papi_Admin_View_Test extends WP_UnitTestCase {
 
 	/**
 	 * Tear down test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
@@ -33,8 +29,6 @@ class Papi_Admin_View_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `exists` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_exists() {
@@ -44,8 +38,6 @@ class Papi_Admin_View_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `render` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_render() {

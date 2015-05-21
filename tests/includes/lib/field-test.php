@@ -13,8 +13,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function setUp() {
@@ -24,8 +22,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 	/**
 	 * Tear down test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
@@ -35,8 +31,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_field` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_field() {
@@ -55,8 +49,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_fields` function.
-	 *
-	 * @since 1.2.0
 	 */
 
 	public function test_papi_fields() {
@@ -87,8 +79,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_field_value` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_field_value() {
@@ -104,8 +94,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_field_shortcode` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_field_shortcode() {
@@ -129,8 +117,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `the_papi_field` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_the_papi_field() {

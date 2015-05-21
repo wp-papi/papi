@@ -13,8 +13,6 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function setUp() {
@@ -24,8 +22,6 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 
 	/**
 	 * Tear down test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
@@ -35,8 +31,6 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_new_url` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_page_new_url() {
@@ -50,8 +44,6 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_page_query_strings` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_get_page_query_strings() {
@@ -77,8 +69,6 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_append_post_type_query` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_append_post_type_query() {

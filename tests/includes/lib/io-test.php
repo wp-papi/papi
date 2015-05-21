@@ -13,8 +13,6 @@ class Papi_Lib_IO_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_all_files_in_directory` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_all_files_in_directory() {
@@ -34,8 +32,6 @@ class Papi_Lib_IO_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_all_page_type_files` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_get_all_page_type_files() {
@@ -52,8 +48,6 @@ class Papi_Lib_IO_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_file_path` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_get_file_path() {
@@ -72,8 +66,6 @@ class Papi_Lib_IO_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_page_type_base_path` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_get_page_type_base_path() {

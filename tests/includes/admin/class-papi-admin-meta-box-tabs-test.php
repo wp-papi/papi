@@ -13,8 +13,6 @@ class Papi_Admin_Meta_Box_Tabs_Test extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function setUp() {
@@ -33,8 +31,6 @@ class Papi_Admin_Meta_Box_Tabs_Test extends WP_UnitTestCase {
 
 	/**
 	 * Tear down test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
@@ -44,8 +40,6 @@ class Papi_Admin_Meta_Box_Tabs_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `__construct`.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_construct() {
@@ -56,8 +50,6 @@ class Papi_Admin_Meta_Box_Tabs_Test extends WP_UnitTestCase {
 	/**
 	 * Test the tabs array.
 	 * The tabs aren't sorted yet with sort order key.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_tabs() {
@@ -76,8 +68,6 @@ class Papi_Admin_Meta_Box_Tabs_Test extends WP_UnitTestCase {
 	/**
 	 * Test Papi_Admin_Meta_Box_Tabs class.
 	 * Here are the tabs sorted with sort order key.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_admin_meta_box_tab_class() {

@@ -13,8 +13,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function setUp() {
@@ -24,8 +22,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Tear down test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
@@ -35,8 +31,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `current_page` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_current_page() {
@@ -45,8 +39,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_display_page_type` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_display_page_type() {
@@ -84,8 +76,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_all_page_types` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_get_all_page_types() {
@@ -104,8 +94,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_data_page` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_get_data_page() {
@@ -115,8 +103,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_file_data` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_get_file_data() {
@@ -133,8 +119,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_file_data` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_number_of_pages() {
@@ -161,8 +145,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_page_type_template` function.
-	 *
-	 * @since 1.3.0
  	 */
 
 	public function test_papi_get_page_type_template() {
@@ -180,8 +162,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_page_type` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_get_page_type() {
@@ -194,8 +174,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_page_type_by_id` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_get_page_type_by_id() {
@@ -211,8 +189,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_page_type_meta_value` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_get_page_type_meta_value() {
@@ -248,8 +224,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_get_post_type` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_get_post_types() {
@@ -274,8 +248,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_page_type` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_page_type_name() {
@@ -298,8 +270,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `the_papi_page_type_name` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_the_papi_page_type_name() {

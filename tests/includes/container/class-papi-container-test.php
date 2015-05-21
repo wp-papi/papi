@@ -13,8 +13,6 @@ class Papi_Container_Test extends WP_UnitTestCase {
 
 	/**
 	 * Setup test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function setUp() {
@@ -24,8 +22,6 @@ class Papi_Container_Test extends WP_UnitTestCase {
 
 	/**
 	 * Tear down test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
@@ -35,8 +31,6 @@ class Papi_Container_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `make` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_make_not_defined() {
@@ -46,8 +40,6 @@ class Papi_Container_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `bind` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_bind() {
@@ -57,8 +49,6 @@ class Papi_Container_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `exists` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_exists() {
@@ -68,8 +58,6 @@ class Papi_Container_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `offsetExists` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_offset_exists() {
@@ -79,8 +67,6 @@ class Papi_Container_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `offsetGet` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_offset_get() {
@@ -90,8 +76,6 @@ class Papi_Container_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `offsetSet` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_offset_set() {
@@ -101,8 +85,6 @@ class Papi_Container_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `offsetUnset` method.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_offset_unset() {
