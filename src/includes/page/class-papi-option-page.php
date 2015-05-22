@@ -29,12 +29,11 @@ class Papi_Option_Page extends Papi_Data_Page {
 	 */
 
 	public function get_value( $slug ) {
-		$slug                = papify( $slug );
 		$property_value      = get_option( $slug );
-		$property_type_key   = papi_get_property_type_key_f( $slug, true );
+		$property_type_key   = papi_get_property_type_key_f( $slug );
 		$property_type_value = get_option( $property_type_key );
 
-		if ( papi_is_empty( $property_value ) || empty( $property_type_value ) ) {
+		if ( $property_value === false || empty( $property_type_value ) ) {
 			return;
 		}
 
