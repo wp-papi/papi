@@ -59,7 +59,7 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		$post = get_post( $this->post_id );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  papi_test_get_fixtures_path( '/page-types' )];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );

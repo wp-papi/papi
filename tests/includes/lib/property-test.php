@@ -76,7 +76,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_get_options_and_properties() {
-		$simple_box = papi_test_get_fixtures_path( '/boxes/simple.php' );
+		$simple_box = PAPI_FIXTURE_DIR . '/boxes/simple.php';
 
 		$options = papi_get_options_and_properties( $simple_box, [
 			'test' => 'test'
@@ -143,35 +143,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test `papi_get_property_default_options` function.
-	 */
-
-	public function test_papi_get_property_default_options() {
-		$actual = papi_get_property_default_options();
-
-		$this->assertTrue( is_array( $actual ) );
-		$this->assertFalse( empty( $actual ) );
-	}
-
-	/**
-	 * Test `papi_get_property_default_settings` function.
-	 */
-
-	public function test_papi_get_property_default_settings() {
-		$actual = papi_get_property_default_settings( 'relationship' );
-
-		$this->assertEquals( 'page', $actual['post_type'] );
-
-		$this->assertEmpty( papi_get_property_default_settings( 'fake' ) );
-		$this->assertEmpty( papi_get_property_default_settings( 1 ) );
-		$this->assertEmpty( papi_get_property_default_settings( true ) );
-		$this->assertEmpty( papi_get_property_default_settings( false ) );
-		$this->assertEmpty( papi_get_property_default_settings( null ) );
-		$this->assertEmpty( papi_get_property_default_settings( [] ) );
-		$this->assertEmpty( papi_get_property_default_settings( new stdClass() ) );
-	}
-
-	/**
 	 * Test `papi_get_property_options` function.
 	 */
 
@@ -214,22 +185,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test `papi_get_property_short_type` function.
-	 */
-
-	public function test_papi_get_property_short_type() {
-		$this->assertEquals( 'string', papi_get_property_short_type( 'PropertyString' ) );
-		$this->assertEquals( 'string', papi_get_property_short_type( 'string' ) );
-		$this->assertEquals( 'fake', papi_get_property_short_type( 'fake' ) );
-		$this->assertNull(  papi_get_property_short_type( null ) );
-		$this->assertNull( papi_get_property_short_type( false ) );
-		$this->assertNull( papi_get_property_short_type( true ) );
-		$this->assertNull( papi_get_property_short_type( [] ) );
-		$this->assertNull( papi_get_property_short_type( new stdClass() ) );
-		$this->assertNull( papi_get_property_short_type( 1 ) );
-	}
-
-	/**
 	 * Test `papi_get_property_type` function.
 	 */
 
@@ -269,7 +224,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_property_type_custom() {
 		add_action( 'papi_include_properties', function() {
-			require_once papi_test_get_fixtures_path( '/properties/class-papi-property-kvack.php' );
+			require_once PAPI_FIXTURE_DIR . '/properties/class-papi-property-kvack.php';
 		} );
 
 		do_action( 'papi_include_properties' );
@@ -494,7 +449,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_property_template() {
-		$actual = papi_property( papi_test_get_fixtures_path( '/properties/simple.php' ) );
+		$actual = papi_property( PAPI_FIXTURE_DIR . '/properties/simple.php' );
 
 		$this->assertEquals( 'Name', $actual->title );
 		$this->assertEquals( 'string', $actual->type );
@@ -514,7 +469,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'name',
-			'type'          => 'string',
 			'value'         => 'Fredrik'
 		] );
 
@@ -523,7 +477,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'name',
-			'type'          => 'string',
 			'value'         => ''
 		] );
 
@@ -532,7 +485,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'what',
-			'type'          => 'string',
 			'value'         => [
 				'firstname' => 'Fredrik'
 			]
@@ -543,7 +495,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'what',
-			'type'          => 'string',
 			'value'         => [
 				'Fredrik'
 			]

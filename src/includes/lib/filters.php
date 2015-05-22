@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
  */
 
 function papi_filter_format_value( $type, $value, $slug, $post_id ) {
-	return apply_filters( 'papi/format_value/' . papi_get_property_short_type( $type ), $value, $slug, $post_id );
+	return apply_filters( 'papi/format_value/' . $type, $value, $slug, $post_id );
 }
 
 /**
@@ -36,7 +36,7 @@ function papi_filter_format_value( $type, $value, $slug, $post_id ) {
  */
 
 function papi_filter_load_value( $type, $value, $slug, $post_id ) {
-	return apply_filters( 'papi/load_value/' . papi_get_property_short_type( $type ), $value, $slug, $post_id );
+	return apply_filters( 'papi/load_value/' . $type, $value, $slug, $post_id );
 }
 
 /**
@@ -186,5 +186,5 @@ function papi_filter_settings_sort_order() {
  */
 
 function papi_filter_update_value( $type, $value, $slug, $post_id ) {
-	return apply_filters( 'papi/update_value/' . papi_get_property_short_type( $type ), $value, $slug, $post_id );
+	return apply_filters( 'papi/update_value/' . $type, $value, $slug, $post_id );
 }

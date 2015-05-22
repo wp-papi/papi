@@ -90,38 +90,6 @@ class Papi_Post_Page extends Papi_Data_Page {
 	}
 
 	/**
-	 * Get property value.
-	 *
-	 * @param string $slug
-	 *
-	 * @return mixed
-	 */
-
-	public function get_value( $slug ) {
-		$slug                = papi_remove_papi( $slug );
-		$property_value      = get_post_meta( $this->id, $slug, true );
-		$property_type_key   = papi_get_property_type_key_f( $slug );
-		$property_type_value = get_post_meta( $this->id, $property_type_key, true );
-
-		if ( papi_is_empty( $property_value ) || empty( $property_type_value ) ) {
-			return;
-		}
-
-		// The convert takes a array as argument so let's make one.
-		$property_value = $this->convert(
-			$slug,
-			$property_type_value,
-			$property_value
-		);
-
-		if ( is_array( $property_value ) ) {
-			$property_value = array_filter( $property_value );
-		}
-
-		return $property_value;
-	}
-
-	/**
 	 * Load property from page type.
 	 *
 	 * @param string $slug
@@ -129,7 +97,7 @@ class Papi_Post_Page extends Papi_Data_Page {
 	 * @return object
 	 */
 
-	protected function load_property_from_page_type( $slug ) {
+	protected function get_property_from_page_type( $slug ) {
 		$page_type_id = papi_get_page_type_meta_value( $this->id );
 		$page_type    = papi_get_page_type_by_id( $page_type_id );
 

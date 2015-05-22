@@ -28,7 +28,7 @@ function current_page() {
  */
 
 function papi_display_page_type( $page_type ) {
-	$post_type = papi_get_wp_post_type();
+	$post_type = papi_get_post_type();
 
 	if ( empty( $post_type ) ) {
 		return false;
@@ -68,7 +68,7 @@ function papi_display_page_type( $page_type ) {
 
 function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_types = false ) {
 	if ( is_null( $post_type ) || empty( $post_type ) ) {
-		$post_type  = papi_get_wp_post_type();
+		$post_type  = papi_get_post_type();
 	}
 
 	$cache_key   = papi_get_cache_key( sprintf( '%s_%s', $all, $post_type ), $fake_post_types );

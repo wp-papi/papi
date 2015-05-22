@@ -310,13 +310,11 @@ class Papi_Property_Repeater extends Papi_Property {
 				return false;
 			}
 
-			$type = papi_get_property_short_type( $item->type );
-
-			if ( empty( $type ) ) {
+			if ( empty( $item->type ) ) {
 				return false;
 			}
 
-			return ! in_array( $type, $not_allowed );
+			return ! in_array( $item->type, $not_allowed );
 		} );
 	}
 

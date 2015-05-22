@@ -140,7 +140,7 @@ final class Papi_Admin {
 	 */
 
 	public function admin_body_class( $classes ) {
-		$post_type = papi_get_wp_post_type();
+		$post_type = papi_get_post_type();
 
 		if ( ! in_array( $post_type, papi_get_post_types() ) ) {
 			return $classes;
@@ -191,7 +191,7 @@ final class Papi_Admin {
 	public function load_post_new() {
 		$request_uri = $_SERVER['REQUEST_URI'];
 		$post_types = papi_get_post_types();
-		$post_type  = papi_get_wp_post_type();
+		$post_type  = papi_get_post_type();
 
 		if ( in_array( $post_type, $post_types ) && strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
 			$parsed_url = parse_url( $request_uri );
@@ -242,7 +242,7 @@ final class Papi_Admin {
 			if ( ! is_null( $page_type ) ) {
 				esc_html_e( $page_type->name );
 			} else {
-				esc_html_e( papi_filter_standard_page_name( papi_get_wp_post_type() ) );
+				esc_html_e( papi_filter_standard_page_name( papi_get_post_type() ) );
 			}
 		}
 	}
@@ -294,7 +294,7 @@ final class Papi_Admin {
 
 			// Add the standard page that isn't a real page type.
 			$page_types[] = [
-				'name' => papi_filter_standard_page_name( papi_get_wp_post_type() ),
+				'name' => papi_filter_standard_page_name( papi_get_post_type() ),
 				'value' => 'papi-standard-page'
 			];
 
@@ -382,7 +382,7 @@ final class Papi_Admin {
 	 */
 
 	private function setup_globals() {
-		$this->post_type = papi_get_wp_post_type();
+		$this->post_type = papi_get_post_type();
 
 		if ( is_admin() ) {
 			$this->page_type_id  = papi_get_page_type_meta_value();

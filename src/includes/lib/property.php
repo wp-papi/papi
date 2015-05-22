@@ -136,31 +136,42 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 }
 
 /**
- * Get default options.
- *
- * @return array
- */
-
-function papi_get_property_default_options() {
-	return Papi_Property::default_options();
-}
-
-/**
- * Get property type default settings
+ * Get property class name.
  *
  * @param string $type
  *
- * @return array
+ * @return string
  */
 
-function papi_get_property_default_settings( $type ) {
-	$property_type = papi_get_property_type( $type );
-
-	if ( is_null( $property_type ) || ! method_exists( $property_type, 'get_default_settings' ) ) {
-		return [];
+function papi_get_property_class_name( $type ) {
+	if ( ! is_string( $type ) || empty( $type ) ) {
+		return;
 	}
 
-	return $property_type->get_default_settings();
+	return 'Papi_Property_' . ucfirst( preg_replace( '/^Property/', '', $type ) );
+}
+
+/**
+ * Get value.
+ *
+ * @param string $slug
+ * @param mixed $value
+ * @param string $type
+ */
+
+function papi_property_get_meta( $post_id, $slug, $data_type = 'post' ) {
+	$value = null;
+
+	switch ( $data_type ) {
+		case 'option':
+			$value = get_option( $slug, true );
+			break;
+		default:
+			$value = get_post_meta( $post_id, $slug, true );
+			break;
+	}
+
+	return $value;
 }
 
 /**
@@ -172,7 +183,7 @@ function papi_get_property_default_settings( $type ) {
  * @return object
  */
 
-function papi_get_property_options( $options, $fetch_value = true ) {
+function papi_get_property_options( $options ) {
 	if ( ! is_array( $options ) ) {
 		if ( is_object( $options ) ) {
 			return $options;
@@ -182,59 +193,18 @@ function papi_get_property_options( $options, $fetch_value = true ) {
 	}
 
 	$property = Papi_Property::create( $options );
-	$options = $property->get_options();
-	$options->value = $property->get_value( $fetch_value );
-
-	return $options;
-}
-
-/**
- * Get property class name.
- *
- * @param string $type
- *
- * @return string
- */
-
-function papi_get_property_class_name( $type ) {
-	$type = papi_get_property_short_type( $type );
-
-	if ( empty( $type ) ) {
-		return;
-	}
-
-	return 'Papi_Property_' . ucfirst( $type );
-}
-
-/**
- * Get property short type.
- *
- * @param string $type
- *
- * @return string
- */
-
-function papi_get_property_short_type( $type ) {
-	if ( ! is_string( $type ) ) {
-		return;
-	}
-
-	return preg_replace( '/^property/', '', strtolower( $type ) );
+	return $property->get_options();
 }
 
 /**
  * Get property type by the given type.
  *
- * @param string $type
+ * @param object|string $type
  *
  * @return null|Papi_Property
  */
 
 function papi_get_property_type( $type ) {
-	if ( is_object( $type ) && isset( $type->type ) && is_string( $type->type ) ) {
-		$type = $type->type;
-	}
-
 	return Papi_Property::factory( $type );
 }
 
@@ -342,17 +312,9 @@ function papi_property( $file_or_options, $values = [] ) {
 
 function papi_render_property( $property ) {
 	// Check so type isn't empty and capabilities on the property.
-	if ( empty( $property->type ) || ! papi_current_user_is_allowed( $property->capabilities ) ) {
+	if ( empty( $property->get_type() ) || ! papi_current_user_is_allowed( $property->capabilities ) ) {
 		return;
 	}
-
-	$property_type = papi_get_property_type( $property->type );
-
-	if ( is_null( $property_type ) ) {
-		return;
-	}
-
-	$property_type->set_options( $property );
 
 	// Only render if it's the right language if the definition exist.
 	if ( $property->lang !== false && papi_get_qs( 'lang' ) != null ) {
@@ -363,8 +325,8 @@ function papi_render_property( $property ) {
 
 	// Render the property.
 	if ( $render && $property->disabled === false ) {
-		$property_type->render_row_html();
-		$property_type->render_hidden_html();
+		$property->render_row_html();
+		$property->render_hidden_html();
 	}
 }
 
@@ -492,7 +454,7 @@ function papi_populate_properties( $properties ) {
 function papi_property_update_meta( $meta ) {
 	$meta   = (object) $meta;
 
-	if ( empty( $meta->type ) ) {
+	if ( ! isset( $meta->value ) ) {
 		return;
 	}
 
@@ -541,14 +503,6 @@ function papi_property_update_meta( $meta ) {
 				update_post_meta( $meta->post_id, papi_remove_papi( $child_key ), $child_value );
 			}
 		}
-	}
-
-	$property_type_key = papi_get_property_type_key_f( $meta->slug );
-
-	if ( $option ) {
-		update_option( $property_type_key, $meta->type );
-	} else {
-		update_post_meta( $meta->post_id, $property_type_key, $meta->type );
 	}
 }
 

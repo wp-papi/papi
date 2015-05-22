@@ -62,7 +62,7 @@ class Papi_Admin_Menu {
 			return;
 		}
 
-		$post_type = papi_get_wp_post_type();
+		$post_type = papi_get_post_type();
 
 		if ( empty( $post_type ) || ! isset( $wp_post_types[$post_type] ) ) {
 			return;

@@ -151,7 +151,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	private function convert_items_array( $items ) {
 		for ( $j = 0, $k = count( $items ); $j < $k; $j++ ) {
-			if ( ! isset( $items[$j]) || ! is_array( $items[$j] ) ) {
+			if ( ! isset( $items[$j] ) || ! is_array( $items[$j] ) ) {
 				continue;
 			}
 
@@ -216,7 +216,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	public function get_post_type() {
-		return papi_get_wp_post_type();
+		return papi_get_post_type();
 	}
 
 	/**
@@ -249,7 +249,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			}
 		}
 
-		return $result;
+		return papi_get_property_type( $result );
 	}
 
 	/**

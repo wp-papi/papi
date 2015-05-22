@@ -21,7 +21,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$_GET = [];
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		$this->post_id = $this->factory->post->create();
@@ -76,13 +76,13 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 		$property = $this->simple_page_type->get_property( 'name' );
 
-		$this->assertEquals( 'string', $property->type );
-		$this->assertEquals( 'Name', $property->title );
+		$this->assertEquals( 'string', $property->get_option( 'type' ) );
+		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
 
 		$property = $this->flex_page_type->get_property( 'sections' );
 
-		$this->assertEquals( 'flexible', $property->type );
-		$this->assertEquals( 'Sections', $property->title );
+		$this->assertEquals( 'flexible', $property->get_option( 'type' ) );
+		$this->assertEquals( 'Sections', $property->get_option( 'title' ) );
 	}
 
 	/**

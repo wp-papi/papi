@@ -119,12 +119,12 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 		// Prepare property data.
 		$data = $this->prepare_properties_data( $data, $post_id );
 
-		foreach ( $data as $key => $property ) {
+		// Save all properties value
+		foreach ( $data as $key => $value ) {
 			papi_property_update_meta( [
 				'post_id'       => $post_id,
 				'slug'          => $key,
-				'type'          => $property['type'],
-				'value'         => $property['value']
+				'value'         => $value
 			] );
 		}
 	}

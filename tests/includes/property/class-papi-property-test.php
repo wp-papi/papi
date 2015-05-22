@@ -68,7 +68,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_factory() {
-		require_once papi_test_get_fixtures_path( '/properties/class-papi-property-fake.php' );
+		require_once PAPI_FIXTURE_DIR . '/properties/class-papi-property-fake.php';
 
 		$this->assertNull( Papi_Property::factory( null ) );
 		$this->assertNull( Papi_Property::factory( '' ) );
@@ -128,7 +128,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 			'title' => 'Hello'
 		] );
 
-		$this->assertEmpty( $property->get_value() );
+		$this->assertNull( $property->get_value() );
 
 		$property->set_options( [
 			'type'  => 'string',
@@ -232,7 +232,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$property = Papi_Property::create();
 
-		$this->assertEmpty( $property->get_value() );
+		$this->assertNull( $property->get_value() );
 
 		$property->set_options( [
 			'type'  => 'string',

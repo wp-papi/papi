@@ -38,9 +38,8 @@ function papi_field( $post_id = null, $name = null, $default = null, $data_type 
 		return $default;
 	}
 
-	$cache_key = papi_get_cache_key( $name, $post_id );
-
-	$value     = wp_cache_get( $cache_key );
+	#$cache_key = papi_get_cache_key( $name, $post_id );
+	$value     = false;#wp_cache_get( $cache_key );
 
 	if ( $value === false ) {
 		// Check for dot notation.
@@ -62,7 +61,7 @@ function papi_field( $post_id = null, $name = null, $default = null, $data_type 
 			return $default;
 		}
 
-		wp_cache_set( $cache_key, $value );
+	#	wp_cache_set( $cache_key, $value );
 	}
 
 	return $value;

@@ -49,7 +49,7 @@ function papi_get_post_id( $post_id = null ) {
  * @return string
  */
 
-function papi_get_wp_post_type() {
+function papi_get_post_type() {
 	if ( $post_type = papi_get_or_post( 'post_type' ) ) {
 		return $post_type;
 	}

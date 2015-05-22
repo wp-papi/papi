@@ -22,6 +22,44 @@ class Properties_Page_Type extends Papi_Page_Type {
 
 	public function register() {
 
+		$this->box( 'Properties', [
+
+			// Bool
+			papi_property( [
+				'type'  => 'bool',
+				'title' => 'Bool test',
+				'slug'  => 'bool_test'
+			] ),
+
+			// Checkbox
+			papi_property( [
+				'type'     => 'checkbox',
+				'title'    => 'Checkbox test',
+				'slug'     => 'checkbox_test',
+				'settings' => [
+					'items' => [
+						'White' => '#ffffff',
+						'Black' => '#000000'
+					]
+				]
+			] ),
+
+			// Color
+			papi_property( [
+				'type'  => 'color',
+				'title' => 'Color test',
+				'slug'  => 'color_test'
+			] ),
+
+			// Datetime
+			papi_property( [
+				'type'  => 'datetime',
+				'title' => 'Datetime test',
+				'slug'  => 'datetime_test'
+			] )
+
+		] );
+
 		$this->box( 'Flexible', [
 			papi_property( [
 				'type'     => 'flexible',

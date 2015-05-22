@@ -48,7 +48,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_display_page_type( 'fake-page-type2' ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		$page_type = papi_get_page_type_by_id( 'display-not-page-type' );
@@ -82,7 +82,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_get_all_page_types() );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		$actual = papi_get_all_page_types();
@@ -109,7 +109,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_file_data( null ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
@@ -131,7 +131,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertEquals( 0, papi_get_number_of_pages( 1 ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
@@ -151,7 +151,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_page_type_template( 0 ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
@@ -166,9 +166,9 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_page_type() {
 		$this->assertNull( papi_get_page_type( 'hello.php' ) );
-		$path = papi_test_get_fixtures_path( '/boxes/simple.php' );
+		$path = PAPI_FIXTURE_DIR . '/boxes/simple.php';
 		$this->assertNull( papi_get_page_type( $path ) );
-		$path = papi_test_get_fixtures_path( '/page-types/simple-page-type.php' );
+		$path = PAPI_FIXTURE_DIR . '/page-types/simple-page-type.php';
 		$this->assertNotEmpty( papi_get_page_type( $path ) );
 	}
 
@@ -180,7 +180,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_page_type_by_id( 'page' ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		$simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
@@ -195,7 +195,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_get_page_type_meta_value() );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
@@ -238,7 +238,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertEquals( ['page'], array_values( $actual ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [ 1,  papi_test_get_fixtures_path( '/page-types2' ) ];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		$actual = papi_get_post_types();
@@ -256,7 +256,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_page_type_name( 0 ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
@@ -283,7 +283,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '//' );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );

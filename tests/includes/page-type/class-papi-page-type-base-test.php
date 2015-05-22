@@ -19,7 +19,7 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 		parent::setUp();
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		$this->post_id = $this->factory->post->create();
@@ -71,12 +71,12 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $this->empty_page_type->get_file_path() );
 
 		$this->assertEquals(
-			papi_test_get_fixtures_path( '/page-types/simple-page-type.php' ),
+			PAPI_FIXTURE_DIR . '/page-types/simple-page-type.php',
 			$this->simple_page_type->get_file_path()
 		);
 
 		$this->assertEquals(
-			papi_test_get_fixtures_path( '/page-types/faq-page-type.php' ),
+				PAPI_FIXTURE_DIR . '/page-types/faq-page-type.php',
 			$this->faq_page_type->get_file_path()
 		);
 	}

@@ -20,12 +20,15 @@ class Papi_Property {
 	public $convert_type = 'string';
 
 	/**
-	 * The data page type.
+	 * The page options.
 	 *
-	 * @var string
+	 * @var array
 	 */
 
-	private $data_page_type;
+	private $page_options = [
+		'data_type' => '',
+		'post_id'   => 0
+	];
 
 	/**
 	 * Default options.
@@ -66,6 +69,18 @@ class Papi_Property {
 	 */
 
 	private $options;
+
+	/**
+	 * Get option value dynamic.
+	 *
+	 * @param string $key
+	 *
+	 * @return mixed
+	 */
+
+	public function __get($key) {
+		return $this->get_option( $key );
+	}
 
 	/**
 	 * Constructor.
@@ -137,35 +152,42 @@ class Papi_Property {
 	/**
 	 * Create a new instance of the given property.
 	 *
-	 * @param string $property_type
+	 * @param string $type
 	 *
 	 * @return object
 	 */
 
-	public static function factory( $property_type ) {
-		if ( ! is_string( $property_type ) ) {
+	public static function factory( $type ) {
+		if ( ! is_string( $type ) && ! is_object( $type ) ) {
 			return;
 		}
 
-		$class_name = papi_get_property_class_name( $property_type );
+		$options = null;
 
-		if ( empty( $class_name ) || ! class_exists( $class_name ) ) {
-			return;
-		}
-
-		if ( ! papi()->exists( $class_name ) ) {
-			$rc = new ReflectionClass( $class_name );
-			$prop = $rc->newInstance();
-
-			// Property class need to be a subclass of Papi Property class.
-			if ( ! is_subclass_of( $class_name, __CLASS__ ) ) {
-				return null;
+		if ( is_object( $type ) ) {
+			if ( ! isset( $type->type ) || ! is_string( $type->type ) ) {
+				return;
 			}
 
-			papi()->bind( $class_name, $prop );
+			$options = $type;
+			$type = $type->type;
 		}
 
-		return papi()->make( $class_name );
+		$type = preg_replace( '/^Property/', '', $type );
+
+		$class_name = papi_get_property_class_name( $type );
+
+		if ( ! class_exists( $class_name ) || ! is_subclass_of( $class_name, __CLASS__ ) ) {
+			return;
+		}
+
+		$property = new $class_name();
+
+		if ( is_object( $options ) ) {
+			$property->set_options( $options );
+		}
+
+		return $property;
 	}
 
 	/**
@@ -204,6 +226,10 @@ class Papi_Property {
 		if ( isset( $this->options->$key ) ) {
 			return $this->options->$key;
 		}
+
+		if ( isset( $this->default_options[$key] ) ) {
+			return $this->default_options[$key];
+		}
 	}
 
 	/**
@@ -223,7 +249,11 @@ class Papi_Property {
 	 */
 
 	public function get_post_id() {
-		return papi_get_post_id();
+		if ( $this->page_options['post_id'] === 0 ) {
+			return papi_get_post_id();
+		}
+
+		return $this->page_options['post_id'];
 	}
 
 	/**
@@ -258,39 +288,56 @@ class Papi_Property {
 	}
 
 	/**
+	 * Get property type.
+	 *
+	 * @return string
+	 */
+
+	public function get_type() {
+		return $this->get_option( 'type' );
+	}
+
+	/**
 	 * Get property value.
 	 *
 	 * @return array
 	 */
 
-	public function get_value( $fetch_value = true ) {
+	public function get_value() {
 		if ( ! is_object( $this->options ) ) {
 			return;
 		}
 
-		if ( $fetch_value && papi_is_empty( $this->options->value ) ) {
+		$value = $this->get_option( 'value' );
+
+		if ( papi_is_empty( $value ) ) {
 			$slug = papi_remove_papi( $this->get_option( 'slug' ) );
+
 			if ( papi_is_option_page() ) {
 				$value = papi_option( $slug );
 			} else {
 				$value = papi_field( $this->get_post_id(), $slug );
 			}
-		} else {
-			$value = $this->options->value;
 		}
 
-		$type = self::factory( $this->get_option( 'type' ) );
+		return $this->prepare_value( $value );
+	}
 
-		if ( ! is_object( $type ) ) {
-			return;
+	/**
+	 * Prepare property value.
+	 *
+	 * @param mixed $value
+	 *
+	 * @return mixed
+	 */
+
+	public function prepare_value( $value ) {
+		if ( papi_is_empty( $value ) ) {
+			return $this->default_value;
 		}
 
 		if ( $this->convert_type === 'string' ) {
 			$value = papi_convert_to_string( $value );
-		}
-
-		if ( papi_is_empty( $value ) ) {
-			$value = $this->default_value;
 		}
 
 		if ( ! $this->get_setting( 'allow_html' ) ) {
@@ -347,7 +394,7 @@ class Papi_Property {
 	 */
 
 	public function is_option_page() {
-		return $this->data_page_type === 'option';
+		return $this->page_options['data_type'] === 'option';
 	}
 
 	/**
@@ -379,12 +426,12 @@ class Papi_Property {
 	 */
 
 	public function render_description_html() {
-		if ( empty( $this->options ) || papi_is_empty( $this->options->description ) ) {
+		if ( papi_is_empty( $this->get_option( 'description' )  ) ) {
 			return;
 		}
 
 		?>
-		<p><?php echo papi_nl2br( $this->options->description ); ?></p>
+		<p><?php echo papi_nl2br( $this->get_option( 'description' ) ); ?></p>
 	<?php
 	}
 
@@ -393,11 +440,7 @@ class Papi_Property {
 	 */
 
 	public function render_hidden_html() {
-		if ( empty( $this->options ) ) {
-			return;
-		}
-
-		$slug = $this->options->slug;
+		$slug = $this->get_option( 'slug' );
 
 		if ( substr( $slug, - 1 ) === ']' ) {
 			$slug = substr( $slug, 0, - 1 );
@@ -412,7 +455,7 @@ class Papi_Property {
 		$property_serialized = base64_encode( serialize( $this->options ) );
 
 		?>
-		<input type="hidden" value="<?php echo $property_serialized; ?>" name="<?php echo $slug; ?>"  data-property="<?php echo $this->options->type; ?>" />
+		<input type="hidden" value="<?php echo $property_serialized; ?>" name="<?php echo $slug; ?>"  data-property="<?php echo $this->get_option( 'type' ); ?>" />
 	<?php
 	}
 
@@ -421,14 +464,11 @@ class Papi_Property {
 	 */
 
 	public function render_label_html() {
-		if ( empty( $this->options ) ) {
-			return;
-		}
-
+		$title = $this->get_option( 'title' );
 		?>
-		<label for="<?php echo $this->options->slug; ?>" title="<?php echo $this->options->title . ' ' . papi_require_text( $this->options ); ?>">
+		<label for="<?php echo $this->get_option( 'slug' ); ?>" title="<?php echo $title . ' ' . papi_require_text( $this->options ); ?>">
 			<?php
-			echo $this->options->title;
+			echo $title;
 			echo papi_required_html( $this->options );
 			?>
 		</label>
@@ -440,14 +480,10 @@ class Papi_Property {
 	 */
 
 	public function render_row_html() {
-		if ( empty( $this->options ) ) {
-			return;
-		}
-
-		if ( $this->options->raw === false ):
+		if ( ! $this->get_option( 'raw' ) ):
 			?>
 			<tr>
-				<?php if ( $this->options->sidebar ): ?>
+				<?php if ( $this->get_options( 'sidebar' ) ): ?>
 					<td>
 						<?php
 							$this->render_label_html();
@@ -455,7 +491,7 @@ class Papi_Property {
 						?>
 					</td>
 				<?php endif; ?>
-				<td <?php echo $this->options->sidebar ? '' : 'colspan="2"'; ?>>
+				<td <?php echo $this->get_options( 'sidebar' ) ? '' : 'colspan="2"'; ?>>
 					<?php $this->html(); ?>
 				</td>
 			</tr>
@@ -516,8 +552,12 @@ class Papi_Property {
 		// Generate a vaild Papi meta name for slug.
 		$options->array_slug = $options->slug = papi_html_name( $options->slug );
 
-		// Get the default settings for the property and merge them with the given settings.
-		$options->settings = array_merge( papi_get_property_default_settings( $options->type ), (array) $options->settings );
+		$type_class = self::factory( $options->type );
+
+		if ( is_object( $type_class ) ) {
+			$options->settings = array_merge( (array) $type_class->get_default_settings(), (array) $options->settings );
+		}
+
 		$options->settings = (object) $options->settings;
 
 		$options = papi_esc_html( $options, ['html'] );
@@ -531,13 +571,13 @@ class Papi_Property {
 	}
 
 	/**
-	 * Set page data type.
+	 * Set page options.
 	 *
-	 * @param string $data_page_type
+	 * @param array $page_options
 	 */
 
-	public function set_data_page_type( $data_page_type ) {
-		$this->data_page_type = $data_page_type;
+	public function set_page_options( array $page_options = [] ) {
+		$this->page_options = array_merge( $this->page_options, $page_options );
 	}
 
 	/**
@@ -557,6 +597,10 @@ class Papi_Property {
 	 */
 
 	public function set_option( $key, $value ) {
+		if ( ! is_object( $this->options ) ) {
+			$this->options = (object) $this->default_options;
+		}
+
 		if ( isset( $this->options->$key ) ) {
 			$this->options->$key = $value;
 		}

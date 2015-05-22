@@ -151,7 +151,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	 */
 
 	public function test_papi_get_class_name() {
-		$actual = papi_get_class_name( papi_test_get_fixtures_path( '/page-types/simple-page-type.php' ) );
+		$actual = papi_get_class_name( PAPI_FIXTURE_DIR . '/page-types/simple-page-type.php' );
 		$this->assertEquals( 'Simple_Page_Type', $actual );
 		$this->assertEmpty( papi_get_class_name( null ) );
 		$this->assertEmpty( papi_get_class_name( true ) );
@@ -159,7 +159,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_get_class_name( 1 ) );
 		$this->assertEmpty( papi_get_class_name( [] ) );
 		$this->assertEmpty( papi_get_class_name( new stdClass() ) );
-		$actual = papi_get_class_name( papi_test_get_fixtures_path( '/page-types/namespace-page-type.php' ) );
+		$actual = papi_get_class_name( PAPI_FIXTURE_DIR . '/page-types/namespace-page-type.php' );
 		$this->assertEquals( '\Foo\Bar\Namespace_Page_Type', $actual );
 	}
 
