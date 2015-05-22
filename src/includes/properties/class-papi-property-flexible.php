@@ -194,6 +194,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		}, $rows );
 
 		// Add repeater slug with number of rows to the values array.
+		$repeater_slug = papi_remove_papi( $repeater_slug );
 		$values[$repeater_slug] = $value;
 
 		for ( $i = 0; $i < $value; $i++ ) {
@@ -268,13 +269,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					$trash[$results[$i][$slug]->meta_key] = $rows[$i][$slug];
 				}
 			}
-		}
-
-		if ( $option_page ) {
-			$repeater_value = $values[$repeater_slug];
-			unset( $values[$repeater_slug] );
-			$repeater_slug = papi_remove_papi( $repeater_slug );
-			$values[$repeater_slug] = $repeater_value;
 		}
 
 		return [$values, $trash];
