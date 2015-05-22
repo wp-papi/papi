@@ -228,15 +228,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$meta->meta_value = maybe_unserialize( $meta->meta_value );
 
 				// Add property value and property type value.
-
-				if ( $option_page ) {
-					$values_slug = papi_remove_papi( $meta->meta_key );
-					unset( $values[$slug] );
-				} else {
-					$values_slug = $meta->meta_key;
-				}
-
-				$values[$values_slug] = maybe_unserialize( $meta->meta_value );
+				$values[papi_remove_papi( $meta->meta_key )] = maybe_unserialize( $meta->meta_value );
 				$values[$property_type_key] = $property_type_value;
 
 				// Add the flexible layout for the property.
@@ -245,14 +237,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				}
 
 				if ( isset( $rows[$i][$slug] ) ) {
-					if ( $option_page ) {
-						$values_slug = papi_remove_papi( $slug );
-					} else {
-						$values_slug = $slug;
-					}
-
 					// Add the meta value.
-					$values[$values_slug] = $rows[$i][$slug]->meta_value;
+					$values[papi_remove_papi( $slug )] = $rows[$i][$slug]->meta_value;
 				}
 			}
 

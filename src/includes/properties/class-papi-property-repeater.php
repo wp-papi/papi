@@ -173,15 +173,8 @@ class Papi_Property_Repeater extends Papi_Property {
 				$values[$meta->meta_key] = maybe_unserialize( $meta->meta_value );
 				$values[$property_type_key] = $property_type_value;
 
-				if ( $option_page ) {
-					$values_slug = papi_remove_papi( $slug );
-					unset( $values[$slug] );
-				} else {
-					$values_slug = $slug;
-				}
-
 				// Add the meta value.
-				$values[$values_slug] = $rows[$i][$slug]->meta_value;
+				$values[papi_remove_papi( $meta->meta_key )] = $rows[$i][$slug]->meta_value;
 			}
 
 			// Get the meta keys to delete.
