@@ -12,12 +12,12 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Number extends Papi_Property_String {
 
 	/**
-	 * The default value.
+	 * The convert type.
 	 *
-	 * @var int
+	 * @var string
 	 */
 
-	public $default_value = 0;
+	public $convert_type = 'int';
 
 	/**
 	 * The input type to use.

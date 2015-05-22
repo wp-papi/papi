@@ -12,6 +12,14 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Checkbox extends Papi_Property {
 
 	/**
+	 * The convert type.
+	 *
+	 * @var string
+	 */
+
+	public $convert_type = 'array';
+
+	/**
 	 * The default value.
 	 *
 	 * @var array

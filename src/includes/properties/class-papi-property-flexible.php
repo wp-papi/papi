@@ -12,6 +12,14 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 	/**
+	 * The convert type.
+	 *
+	 * @var string
+	 */
+
+	public $convert_type = 'array';
+
+	/**
 	 * Flexible repeater counter number.
 	 *
 	 * @var int
@@ -54,7 +62,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	public function format_value( $values, $repeater_slug, $post_id ) {
-
 		foreach ( $values as $index => $layout ) {
 			foreach ( $layout as $slug => $value ) {
 				if ( is_string( $value ) && preg_match( $this->layout_prefix_regex, $value ) ) {
@@ -194,7 +201,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		}, $rows );
 
 		// Add repeater slug with number of rows to the values array.
-		$values[papi_remove_papi( $repeater_slug )] = $value;
+		$values[$repeater_slug] = $value;
 
 		for ( $i = 0; $i < $value; $i++ ) {
 
@@ -218,7 +225,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$property_type_key = papi_get_property_type_key_f( $meta->meta_key );
 
 				if ( $option_page ) {
-					$property_type_value = get_option( papi_f( papify( $property_type_key ) ) );
+					$property_type_value = get_option( $property_type_key );
 				} else {
 					$property_type_value = get_post_meta( $post_id, $property_type_key, true );
 				}
@@ -227,7 +234,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$meta->meta_value = maybe_unserialize( $meta->meta_value );
 
 				// Add property value and property type value.
-				$values[papi_remove_papi( $meta->meta_key )] = maybe_unserialize( $meta->meta_value );
+				$values[$meta->meta_key] = maybe_unserialize( $meta->meta_value );
 				$values[$property_type_key] = $property_type_value;
 
 				// Add the flexible layout for the property.
@@ -237,7 +244,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 				if ( isset( $rows[$i][$slug] ) ) {
 					// Add the meta value.
-					$values[papi_remove_papi( $slug )] = $rows[$i][$slug]->meta_value;
+					$values[$slug] = $rows[$i][$slug]->meta_value;
 				}
 			}
 

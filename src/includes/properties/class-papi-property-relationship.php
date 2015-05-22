@@ -12,12 +12,12 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Relationship extends Papi_Property {
 
 	/**
-	 * The default value.
+	 * The convert type.
 	 *
-	 * @var int
+	 * @var string
 	 */
 
-	public $default_value = [];
+	public $convert_type = 'array';
 
 	/**
 	 * Get default settings.

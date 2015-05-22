@@ -12,20 +12,20 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Repeater extends Papi_Property {
 
 	/**
+	 * The convert type.
+	 *
+	 * @var string
+	 */
+
+	public $convert_type = 'array';
+
+	/**
 	 * Repeater counter number.
 	 *
 	 * @var int
 	 */
 
 	protected $counter = 0;
-
-	/**
-	 * The default value.
-	 *
-	 * @var array
-	 */
-
-	public $default_value = [];
 
 	/**
 	 * Format the value of the property before it's returned to the theme.
@@ -110,7 +110,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		if ( $option_page ) {
 			$table = $wpdb->prefix . 'options';
-			$query = $wpdb->prepare( "SELECT * FROM `$table` WHERE `option_name` LIKE '%s' ORDER BY `option_id` ASC", papify( $repeater_slug . '_%' ) );
+			$query = $wpdb->prepare( "SELECT * FROM `$table` WHERE `option_name` LIKE '%s' ORDER BY `option_id` ASC", $repeater_slug . '_%' );
 		} else {
 			$table = $wpdb->prefix . 'postmeta';
 			$query = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%', $post_id );
@@ -137,7 +137,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		}, $rows );
 
 		// Add repeater slug with number of rows to the values array.
-		$values[papi_remove_papi( $repeater_slug )] = $value;
+		$values[$repeater_slug] = $value;
 
 		for ( $i = 0; $i < $value; $i++ ) {
 
@@ -160,7 +160,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				$property_type_key = papi_get_property_type_key( $meta->meta_key );
 
 				if ( $option_page ) {
-					$property_type_value = get_option( papi_f( papify( $property_type_key ) ) );
+					$property_type_value = get_option( $property_type_key );
 				} else {
 					$property_type_value = get_post_meta( $post_id, papi_f( $property_type_key ), true );
 				}
@@ -173,7 +173,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				$values[$property_type_key] = $property_type_value;
 
 				// Add the meta value.
-				$values[papi_remove_papi( $meta->meta_key )] = $rows[$i][$slug]->meta_value;
+				$values[$meta->meta_key] = $rows[$i][$slug]->meta_value;
 			}
 
 			// Get the meta keys to delete.

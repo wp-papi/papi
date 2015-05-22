@@ -12,12 +12,12 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Post extends Papi_Property {
 
 	/**
-	 * The default value.
+	 * The convert type.
 	 *
-	 * @var null
+	 * @var string
 	 */
 
-	public $default_value = [];
+	public $convert_type = 'object';
 
 	/**
 	 * Get default settings.

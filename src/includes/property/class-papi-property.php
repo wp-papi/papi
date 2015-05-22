@@ -12,12 +12,20 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property {
 
 	/**
+	 * The convert type.
+	 *
+	 * @var string
+	 */
+
+	public $convert_type = 'string';
+
+	/**
 	 * The data page type.
 	 *
 	 * @var string
 	 */
 
-	private $data_type;
+	private $data_page_type;
 
 	/**
 	 * Default options.
@@ -46,10 +54,10 @@ class Papi_Property {
 	/**
 	 * Default value.
 	 *
-	 * @var string
+	 * @var null
 	 */
 
-	public $default_value = '';
+	public $default_value;
 
 	/**
 	 * Current property options object.
@@ -185,16 +193,6 @@ class Papi_Property {
 	}
 
 	/**
-	 * Get default value.
-	 *
-	 * @return mixed
-	 */
-
-	public function get_default_value() {
-		return $this->default_value;
-	}
-
-	/**
 	 * Get option value.
 	 *
 	 * @param string $key
@@ -271,29 +269,28 @@ class Papi_Property {
 		}
 
 		if ( $fetch_value && papi_is_empty( $this->options->value ) ) {
+			$slug = papi_remove_papi( $this->get_option( 'slug' ) );
 			if ( papi_is_option_page() ) {
-				$value = papi_option( $this->options->slug );
+				$value = papi_option( $slug );
 			} else {
-				$value = papi_field( $this->get_post_id(), $this->options->slug );
+				$value = papi_field( $this->get_post_id(), $slug );
 			}
 		} else {
 			$value = $this->options->value;
 		}
 
-		$type = self::factory( $this->options->type );
+		$type = self::factory( $this->get_option( 'type' ) );
 
 		if ( ! is_object( $type ) ) {
 			return;
 		}
 
-		$default_value = $type->get_default_value();
-
-		if ( is_string( $default_value ) ) {
+		if ( $this->convert_type === 'string' ) {
 			$value = papi_convert_to_string( $value );
 		}
 
 		if ( papi_is_empty( $value ) ) {
-			$value = $default_value;
+			$value = $this->default_value;
 		}
 
 		if ( ! $this->get_setting( 'allow_html' ) ) {
@@ -305,7 +302,8 @@ class Papi_Property {
 
 	/**
 	 * Get the html to display from the property.
-	 * This function is required by the property class to have.
+	 *
+	 * @return mixed
 	 */
 
 	public function html() {
@@ -349,7 +347,7 @@ class Papi_Property {
 	 */
 
 	public function is_option_page() {
-		return $this->data_type === 'option';
+		return $this->data_page_type === 'option';
 	}
 
 	/**
@@ -535,11 +533,11 @@ class Papi_Property {
 	/**
 	 * Set page data type.
 	 *
-	 * @param string $data_type
+	 * @param string $data_page_type
 	 */
 
-	public function set_data_type( $data_type ) {
-		$this->data_type = $data_type;
+	public function set_data_page_type( $data_page_type ) {
+		$this->data_page_type = $data_page_type;
 	}
 
 	/**

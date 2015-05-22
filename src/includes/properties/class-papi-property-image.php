@@ -12,6 +12,14 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Image extends Papi_Property {
 
 	/**
+	 * The convert type.
+	 *
+	 * @var string
+	 */
+
+	public $convert_type = 'object';
+
+	/**
 	 * Format the value of the property before it's returned to the theme.
 	 *
 	 * @param mixed $value
@@ -46,9 +54,21 @@ class Papi_Property_Image extends Papi_Property {
 			}
 
 			return $value;
-		} else {
+		} else if ( is_object( $value ) && isset( $value->url ) ) {
 			return $value;
 		}
+
+		return $this->default_value;
+	}
+
+	/**
+	 * Get convert value.
+	 *
+	 * @return object
+	 */
+
+	public function get_convert_value() {
+		return new stdClass;
 	}
 
 	/**
@@ -62,20 +82,6 @@ class Papi_Property_Image extends Papi_Property {
 			'gallery' => false
 		];
 	}
-
-	/**
-	 * Get default value.
-	 *
-	 * @return stdClass
-	 */
-
-	public function get_default_value() {
-		return new stdClass;
-	}
-
-	/**
-	 * Display property html.
-	 */
 
 	public function html() {
 		$settings = $this->get_settings();
@@ -98,12 +104,13 @@ class Papi_Property_Image extends Papi_Property {
 		?>
 
 		<div class="papi-property-image <?php echo $css_classes; ?>">
-			<p class="papi-image-select <?php echo $show_button ? '' : 'hidden'; ?>">
+			<p class="papi-image-select <?php echo $show_button ? '' : 'papi-hide'; ?>">
 				<?php
 				if ( ! $settings->gallery ) {
 					_e( 'No image selected', 'papi' );
 				}
 				?>
+				<input type="hidden" value="" name="<?php echo $slug; ?>"/>
 				<button class="button"
 				        data-slug="<?php echo $slug; ?>"><?php _e( 'Add image', 'papi' ); ?></button>
 			</p>

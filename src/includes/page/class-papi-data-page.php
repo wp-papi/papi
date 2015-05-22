@@ -75,7 +75,7 @@ abstract class Papi_Data_Page extends Papi_Container {
 		}
 
 		// A property need to know about the data type.
-		$property->set_data_type( $this->data_type );
+		$property->set_data_page_type( $this->data_type );
 
 		// Set property options so we can access them in load value or format value functions.
 		$options = $this->get_property_options( $slug );
@@ -139,7 +139,7 @@ abstract class Papi_Data_Page extends Papi_Container {
 	 */
 
 	protected function get_property_options( $slug ) {
-		$property = $this->load_property_from_page_type( papi_remove_papi( $slug ) );
+		$property = $this->load_property_from_page_type( $slug );
 
 		if ( ! is_object( $property ) || ! ( $property instanceof Papi_Property ) ) {
 			return;

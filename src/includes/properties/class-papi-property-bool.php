@@ -12,6 +12,14 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Bool extends Papi_Property {
 
 	/**
+	 * The convert type.
+	 *
+	 * @var string
+	 */
+
+	public $convert_type = 'bool';
+
+	/**
 	 * The default value.
 	 *
 	 * @var bool

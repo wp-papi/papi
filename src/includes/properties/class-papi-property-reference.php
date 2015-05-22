@@ -12,14 +12,6 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Reference extends Papi_Property {
 
 	/**
-	 * The default value.
-	 *
-	 * @var null
-	 */
-
-	public $default_value = null;
-
-	/**
 	 * Get default settings.
 	 *
 	 * @var array

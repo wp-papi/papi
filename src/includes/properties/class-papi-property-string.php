@@ -20,14 +20,6 @@ class Papi_Property_String extends Papi_Property {
 	public $input_type = 'text';
 
 	/**
-	 * The default value.
-	 *
-	 * @var string
-	 */
-
-	public $default_value = '';
-
-	/**
 	 * Get default settings.
 	 *
 	 * @return array
