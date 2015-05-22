@@ -137,8 +137,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		}, $rows );
 
 		// Add repeater slug with number of rows to the values array.
-		$repeater_slug = papi_remove_papi( $repeater_slug );
-		$values[$repeater_slug] = $value;
+		$values[papi_remove_papi( $repeater_slug )] = $value;
 
 		for ( $i = 0; $i < $value; $i++ ) {
 
