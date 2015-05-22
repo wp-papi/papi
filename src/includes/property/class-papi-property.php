@@ -12,6 +12,14 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property {
 
 	/**
+	 * The data page type.
+	 *
+	 * @var string
+	 */
+
+	private $data_type;
+
+	/**
 	 * Default options.
 	 *
 	 * @var array
@@ -263,8 +271,11 @@ class Papi_Property {
 		}
 
 		if ( $fetch_value && papi_is_empty( $this->options->value ) ) {
-			$post_id = $this->get_post_id();
-			$value = papi_field( $post_id, $this->options->slug, null );
+			if ( papi_is_option_page() ) {
+				$value = papi_option( $this->options->slug );
+			} else {
+				$value = papi_field( $this->get_post_id(), $this->options->slug );
+			}
 		} else {
 			$value = $this->options->value;
 		}
@@ -329,6 +340,16 @@ class Papi_Property {
 		}
 
 		return sprintf( '%s[%s]', $base_slug, papi_remove_papi( $sub_property->get_option( 'slug' ) ) );
+	}
+
+	/**
+	 * Check if it's a option page or not.
+	 *
+	 * @return bool
+	 */
+
+	public function is_option_page() {
+		return $this->data_type === 'option';
 	}
 
 	/**
@@ -509,6 +530,16 @@ class Papi_Property {
 		}
 
 		return $options;
+	}
+
+	/**
+	 * Set page data type.
+	 *
+	 * @param string $data_type
+	 */
+
+	public function set_data_type( $data_type ) {
+		$this->data_type = $data_type;
 	}
 
 	/**

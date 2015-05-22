@@ -623,6 +623,10 @@ function papify( $str = '' ) {
 	}
 
 	if ( ! preg_match( '/^\_\_papi|^\_papi|^papi\_/', $str ) ) {
+		if ( ! empty($str) && $str[0] === '_' ) {
+			return 'papi' . $str;
+		}
+
 		return 'papi_' . $str;
 	}
 

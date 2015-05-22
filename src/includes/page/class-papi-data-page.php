@@ -74,36 +74,45 @@ abstract class Papi_Data_Page extends Papi_Container {
 			return $value;
 		}
 
-		// Set property options so we can access them in load value or format value functions.
-		$property->set_options( $this->get_property_options( $slug ) );
+		// A property need to know about the data type.
+		$property->set_data_type( $this->data_type );
 
-		// Run a `load_value` right after the value has been loaded from the database.
+		// Set property options so we can access them in load value or format value functions.
+		$options = $this->get_property_options( $slug );
+
+		$property->set_options( $options );
+
+		// Run load value method right after the value has been loaded from the database.
 		$value = $property->load_value( $value, $slug, $this->id );
 
-		// Apply a filter so this can be changed from the theme for specified property type.
-		$value = papi_filter_load_value( $type, $value, $slug, $this->id );
+		if ( $this->data_type !== 'option' ) {
+			$value = papi_filter_load_value( $type, $value, $slug, $this->id );
+		}
 
 		// Format the value from the property class.
 		$value = $property->format_value( $value, $slug, $this->id );
 
-		if ( is_admin() ) {
+		if ( is_admin() || $this->data_type === 'option' ) {
 			return $value;
 		}
 
-		// Only apply `format_value` filter so this can be changed from the theme for specified property type.
 		return papi_filter_format_value( $type, $value, $slug, $this->id );
 	}
 
 	/**
 	 * Get page from factory.
 	 *
+	 * @param int $post_id
 	 * @param string $data_type
 	 *
 	 * @return mixed
 	 */
 
 	public static function factory( $post_id, $data_type = 'post' ) {
-		$data_type    = papi_filter_internal_data_type( $data_type );
+		if ( papi_is_option_page() ) {
+			$data_type = 'option';
+		}
+
 		$class_suffix = '_' . ucfirst( $data_type ) . '_Page';
 		$class_name   = 'Papi' . $class_suffix;
 
@@ -130,19 +139,13 @@ abstract class Papi_Data_Page extends Papi_Container {
 	 */
 
 	protected function get_property_options( $slug ) {
-		if ( ! isset( $this->admin_data['property'] ) ) {
-			$property = $this->load_property_options_from_page_type( $slug );
+		$property = $this->load_property_from_page_type( papi_remove_papi( $slug ) );
 
-			if ( empty( $property ) ) {
-				return;
-			}
-
-			$this->set_admin_data( [
-				'property' => Papi_Property::create( $property )
-			] );
+		if ( ! is_object( $property ) || ! ( $property instanceof Papi_Property ) ) {
+			return;
 		}
 
-		return $this->admin_data['property']->get_options();
+		return $property->get_options();
 	}
 
 	/**
@@ -163,30 +166,7 @@ abstract class Papi_Data_Page extends Papi_Container {
 	 * @return object
 	 */
 
-	protected function load_property_options_from_page_type( $slug ) {
-		$page_type_id = papi_get_page_type_meta_value( $this->id );
-		$page_type    = papi_get_page_type_by_id( $page_type_id );
-
-		if ( ! is_object( $page_type ) || ! ( $page_type instanceof Papi_Page_Type ) ) {
-			return;
-		}
-
-		return $page_type->get_property( $slug );
-	}
-
-	/**
-	 * Set admin data.
-	 *
-	 * @param array $admin_data
-	 */
-
-	public function set_admin_data( $admin_data = [] ) {
-		if ( ! is_array( $admin_data ) || empty( $admin_data ) ) {
-			return;
-		}
-
-		$this->admin_data = $admin_data;
-	}
+	abstract protected function load_property_from_page_type( $slug );
 
 	/**
 	 * Check if it's a valid page.

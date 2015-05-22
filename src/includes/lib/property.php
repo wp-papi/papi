@@ -18,21 +18,21 @@ defined( 'ABSPATH' ) || exit;
  * @return array
  */
 
-function papi_from_property_array_slugs( $value, $slug ) {
+function papi_from_property_array_slugs( $values, $slug ) {
 	$results = [];
 
-	if ( empty( $value ) ) {
+	if ( empty( $values ) ) {
 		return $results;
 	}
 
-	for ( $i = 0; $i < $value[$slug]; $i++ ) {
+	for ( $i = 0; $i < $values[$slug]; $i++ ) {
 		$item      = [];
 		$item_slug = $slug . '_' . $i . '_';
-		$keys      = preg_grep( '/' . preg_quote( $item_slug ). '/' , array_keys( $value ) );
+		$keys      = preg_grep( '/' . preg_quote( $item_slug ). '/' , array_keys( $values ) );
 
 		foreach ( $keys as $key ) {
 			$arr_key = str_replace( $item_slug, '', $key );
-			$item[$arr_key] = $value[$key];
+			$item[$arr_key] = $values[$key];
 		}
 
 		$results[] = $item;
@@ -541,6 +541,12 @@ function papi_property_update_meta( $meta ) {
 
 		foreach ( $value as $child_key => $child_value ) {
 			if ( $option ) {
+				if ( papi_is_property_type_key( $child_key ) ) {
+					$child_key = papi_f( papify( $child_key ) );
+				} else {
+					$child_key = papify( $child_key );
+				}
+
 				update_option( $child_key, $child_value );
 			} else {
 				update_post_meta( $meta->post_id, papi_remove_papi( $child_key ), $child_value );

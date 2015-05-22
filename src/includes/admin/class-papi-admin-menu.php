@@ -38,7 +38,7 @@ class Papi_Admin_Menu {
 	 */
 
 	public function admin_bar_menu() {
-		$data_page = papi_get_data_page();
+		$data_page = papi_get_data_page($post_id);
 
 		if ( empty( $page ) ) {
 			return;

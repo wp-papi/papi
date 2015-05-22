@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * @param int $post_id
  * @param string $name
  * @param mixed $default
- * @param array $data_type
+ * @param array $options
  *
  * @return mixed
  */
@@ -29,12 +29,17 @@ function papi_field( $post_id = null, $name = null, $default = null, $data_type 
 
 	$post_id = papi_get_post_id( $post_id );
 
+	if ( $post_id === 0 && $data_type === 'post' ) {
+		return $default;
+	}
+
 	// Return the default value if we don't have a name.
 	if ( empty( $name ) ) {
 		return $default;
 	}
 
 	$cache_key = papi_get_cache_key( $name, $post_id );
+
 	$value     = wp_cache_get( $cache_key );
 
 	if ( $value === false ) {
@@ -51,7 +56,11 @@ function papi_field( $post_id = null, $name = null, $default = null, $data_type 
 			return $default;
 		}
 
-		$value = papi_field_value( $names, $data_page->$name, $default );
+		$value = papi_field_value( $names, $data_page->get_value( $name ), $default );
+
+		if ( papi_is_empty( $value ) ) {
+			return $default;
+		}
 
 		wp_cache_set( $cache_key, $value );
 	}

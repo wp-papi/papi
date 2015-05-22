@@ -106,22 +106,35 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected function get_results( $value, $repeater_slug, $post_id ) {
 		global $wpdb;
 
-		$value     = intval( $value );
-		$values    = [];
-		$table     = $wpdb->prefix . 'postmeta';
-		$query     = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%', $post_id );
-		$dbresults = $wpdb->get_results( $query );
-		$results   = [];
-		$trash     = [];
-		$columns   = count( $this->get_settings_properties() );
+		$option_page = $this->is_option_page();
 
-		// Do not proceed with empty value, columns or dbresults.
-		if ( empty( $value ) || empty( $columns ) || empty( $dbresults ) ) {
-			return [[],[]];
+		if ( $option_page ) {
+			$table = $wpdb->prefix . 'options';
+			$query = $wpdb->prepare( "SELECT * FROM `$table` WHERE `option_name` LIKE '%s' ORDER BY `option_id` ASC", papify( $repeater_slug . '_%' ) );
+		} else {
+			$table = $wpdb->prefix . 'postmeta';
+			$query = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%', $post_id );
 		}
+
+		$dbresults = $wpdb->get_results( $query );
+		$value     = intval( $value );
+
+		// Do not proceed with empty value or dbresults.
+		if ( empty( $value ) || empty( $dbresults ) ) {
+			return [[], []];
+		}
+
+		$values  = [];
+		$results = [];
+		$trash   = [];
 
 		// Get row results.
 		$rows = $this->get_row_results( $dbresults );
+
+		// Get columns, divde all items with two.
+		$columns = array_map( function( $row ) {
+			return count( $row ) / 2;
+		}, $rows );
 
 		// Add repeater slug with number of rows to the values array.
 		$values[$repeater_slug] = $value;
@@ -134,14 +147,23 @@ class Papi_Property_Repeater extends Papi_Property {
 				$no_trash[$i] = [];
 			}
 
+			if ( ! isset( $rows[$i] ) ) {
+				continue;
+			}
+
 			foreach ( $rows[$i] as $slug => $meta ) {
 				// Add meta object to the no trash array.
 				// so it won't be deleted.
 				$no_trash[$slug] = $meta;
 
 				// Get property type key and value.
-				$property_type_key   = papi_get_property_type_key( $meta->meta_key );
-				$property_type_value = get_post_meta( $post_id, papi_f( $property_type_key ), true );
+				$property_type_key = papi_get_property_type_key( $meta->meta_key );
+
+				if ( $option_page ) {
+					$property_type_value = get_option( papi_f( papify( $property_type_key ) ) );
+				} else {
+					$property_type_value = get_post_meta( $post_id, papi_f( $property_type_key ), true );
+				}
 
 				// Serialize value if needed.
 				$meta->meta_value = maybe_unserialize( $meta->meta_value );
@@ -150,8 +172,15 @@ class Papi_Property_Repeater extends Papi_Property {
 				$values[$meta->meta_key] = maybe_unserialize( $meta->meta_value );
 				$values[$property_type_key] = $property_type_value;
 
+				if ( $option_page ) {
+					$values_slug = papi_remove_papi( $slug );
+					unset( $values[$slug] );
+				} else {
+					$values_slug = $slug;
+				}
+
 				// Add the meta value.
-				$values[$slug] = $rows[$i][$slug]->meta_value;
+				$values[$values_slug] = $rows[$i][$slug]->meta_value;
 			}
 
 			// Get the meta keys to delete.
@@ -169,6 +198,13 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 		}
 
+		if ( $option_page ) {
+			$repeater_value = $values[$repeater_slug];
+			unset($values[$repeater_slug]);
+			$repeater_slug = papi_remove_papi( $repeater_slug );
+			$values[$repeater_slug] = $repeater_value;
+		}
+
 		return [$values, $trash];
 	}
 
@@ -181,23 +217,34 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	protected function get_row_results( $dbresults ) {
-		$results = [];
+		$results     = [];
+		$option_page =  $this->is_option_page();
 
 		foreach ( $dbresults as $key => $meta ) {
-			// Find row index key.
-			preg_match( '/^[^\d]*(\d+)/', $meta->meta_key, $matches );
+
+			if ( $option_page ) {
+				preg_match( '/^[^\d]*(\d+)/', $meta->option_name, $matches );
+			} else {
+				preg_match( '/^[^\d]*(\d+)/', $meta->meta_key, $matches );
+			}
 
 			if ( count( $matches ) < 2 ) {
 				continue;
 			}
-
 			$i = intval( $matches[1] );
 
 			if ( ! isset( $results[$i] ) ) {
 				$results[$i] = [];
 			}
 
-			$results[$i][$meta->meta_key] = $meta;
+			if ( $option_page ) {
+				$results[$i][$meta->option_name] = (object) [
+					'meta_key'   => $meta->option_name,
+					'meta_value' => $meta->option_value
+				];
+			} else {
+				$results[$i][$meta->meta_key] = $meta;
+			}
 		}
 
 		return $results;
@@ -211,6 +258,11 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	protected function get_settings_properties() {
 		$settings = $this->get_settings();
+
+		if ( is_null( $settings ) ) {
+			return [];
+		}
+
 		return $this->prepare_properties( papi_to_array( $settings->items ) );
 	}
 
@@ -249,7 +301,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		// Will not need this array.
 		unset( $trash );
 
-		return papi_from_property_array_slugs( $results, $repeater_slug );
+		return papi_from_property_array_slugs( $results, papi_remove_papi( $repeater_slug ) );
 	}
 
 	/**
@@ -292,16 +344,31 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected function remove_repeater_rows( $post_id, $repeater_slug ) {
 		global $wpdb;
 
-		$table = $wpdb->prefix . 'postmeta';
-		$meta_key = $repeater_slug . '_%';
+		$option_page   = $this->is_option_page();
+		$repeater_slug = $repeater_slug . '_%';
 
-		// Create sql query and get the results.
-		$sql = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
-		$query = $wpdb->prepare( $sql, $post_id, $meta_key, papi_f( $meta_key ), papi_get_property_type_key_f( $repeater_slug ) );
+		if ( $option_page ) {
+			$table = $wpdb->prefix . 'options';
+			$sql   = "SELECT * FROM $table WHERE (`option_name` LIKE %s OR `option_name` LIKE %s AND NOT `option_name` = %s)";
+			$query = $wpdb->prepare( $sql, $repeater_slug, papi_f( $repeater_slug ), papi_get_property_type_key_f( $repeater_slug ) );
+		} else {
+			$table = $wpdb->prefix . 'postmeta';
+			$sql   = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
+			$query = $wpdb->prepare( $sql, $post_id, $repeater_slug, papi_f( $repeater_slug ), papi_get_property_type_key_f( $repeater_slug ) );
+		}
+
 		$results = $wpdb->get_results( $query );
 
+		// Create sql query and get the results.
+		// $sql = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
+		// $query = $wpdb->prepare( $sql, $post_id, $meta_key, papi_f( $meta_key ), papi_get_property_type_key_f( $repeater_slug ) );
+
 		foreach ( $results as $res ) {
-			delete_post_meta( $post_id, $res->meta_key );
+			if ( $option_page ) {
+				delete_option( $res->option_name );
+			} else {
+				delete_post_meta( $post_id, $res->meta_key );
+			}
 		}
 	}
 

@@ -184,20 +184,6 @@ final class Papi_Admin {
 	}
 
 	/**
-	 * Get page data type.
-	 *
-	 * @return string
-	 */
-
-	public function get_page_data_type() {
-		if ( papi_is_option_page() ) {
-			return 'option';
-		}
-
-		return 'post';
-	}
-
-	/**
 	 * Load post new action
 	 * Redirect to right url if no page type is set.
 	 */
@@ -388,8 +374,6 @@ final class Papi_Admin {
 				$this,
 				'manage_page_type_posts_custom_column'
 			], 10, 2 );
-
-			add_filter( 'papi/internal/data_type', [$this, 'get_page_data_type']);
 		}
 	}
 

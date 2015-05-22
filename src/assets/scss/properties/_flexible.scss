@@ -39,10 +39,11 @@
         }
 
         border-top: 0;
-        padding: 20px 15px;
+        padding: 20px 15px 20px 19px;
 
         &.flexible-td-last {
           border-right: none;
+          padding-left: 37px;
         }
       }
     }

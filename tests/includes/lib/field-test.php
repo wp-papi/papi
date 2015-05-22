@@ -38,8 +38,8 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, '_name_property', 'string' );
 
 		$this->assertEquals( 'fredrik', papi_field( $this->post_id, 'name' ) );
-		$this->assertEquals( 'fredrik', papi_field( $this->post_id, 'name', '', true ) );
-		$this->assertEquals( 'string', get_post_meta( $this->post_id, '_name_property', true ) );
+		$this->assertEquals( 'fredrik', papi_field( $this->post_id, 'name', '', 'post' ) );
+		$this->assertEquals( 'string', get_post_meta( $this->post_id, '_name_property', 'post' ) );
 
 		$this->assertEquals( 'world', papi_field( $this->post_id, 'hello', 'world' ) );
 
@@ -64,6 +64,7 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 		$actual = papi_fields( $this->post_id );
+
 		$this->assertTrue( ! empty( $actual ) );
 		$this->assertTrue( is_array( $actual ) );
 

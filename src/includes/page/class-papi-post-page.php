@@ -122,6 +122,25 @@ class Papi_Post_Page extends Papi_Data_Page {
 	}
 
 	/**
+	 * Load property from page type.
+	 *
+	 * @param string $slug
+	 *
+	 * @return object
+	 */
+
+	protected function load_property_from_page_type( $slug ) {
+		$page_type_id = papi_get_page_type_meta_value( $this->id );
+		$page_type    = papi_get_page_type_by_id( $page_type_id );
+
+		if ( ! is_object( $page_type ) || ! ( $page_type instanceof Papi_Page_Type ) ) {
+			return;
+		}
+
+		return $page_type->get_property( $slug );
+	}
+
+	/**
 	 * Check if the page has the post object and that it's not null.
 	 *
 	 * @return bool

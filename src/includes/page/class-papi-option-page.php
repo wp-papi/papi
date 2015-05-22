@@ -29,6 +29,7 @@ class Papi_Option_Page extends Papi_Data_Page {
 	 */
 
 	public function get_value( $slug ) {
+		$slug                = papify( $slug );
 		$property_value      = get_option( $slug );
 		$property_type_key   = papi_get_property_type_key_f( $slug, true );
 		$property_type_value = get_option( $property_type_key );
@@ -48,6 +49,39 @@ class Papi_Option_Page extends Papi_Data_Page {
 		}
 
 		return $property_value;
+	}
+
+	/**
+	 * Load property from page type.
+	 *
+	 * @param string $slug
+	 *
+	 * @return object
+	 */
+
+	protected function load_property_from_page_type( $slug ) {
+		$page_type_id = str_replace( 'papi/', '', papi_get_qs( 'page' ) );
+
+		if ( empty( $page_type_id ) ) {
+			$page_types = papi_get_all_page_types( false, null, true );
+			$property   = null;
+
+			foreach ( $page_types as $index => $page_type ) {
+				if ( $property = $page_type->get_property( $slug ) ) {
+					break;
+				}
+			}
+
+			return Papi_Property::create( $property );
+		}
+
+		$page_type = papi_get_page_type_by_id( $page_type_id );
+
+		if ( ! is_object( $page_type ) || ! ( $page_type instanceof Papi_Option_Type ) ) {
+			return;
+		}
+
+		return $page_type->get_property( $slug );
 	}
 
 	/**
