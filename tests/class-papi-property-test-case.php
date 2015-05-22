@@ -36,6 +36,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		$value = $this->get_value();
 
 		if ( is_null( $value ) ) {
+			$this->assertTrue( true );
 			return;
 		}
 
@@ -44,7 +45,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $this->property->slug,
 			'type'  => $this->property,
-			'value' =>
+			'value' => $value
 		], $_POST );
 
 		$handler->save_property( $this->post_id );

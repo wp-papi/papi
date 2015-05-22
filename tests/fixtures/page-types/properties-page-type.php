@@ -56,8 +56,82 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'type'  => 'datetime',
 				'title' => 'Datetime test',
 				'slug'  => 'datetime_test'
-			] )
+			] ),
 
+			// Divider
+			papi_property( [
+				'type'  => 'divider',
+				'title' => 'Divider test',
+				'slug'  => 'divider_test'
+			] ),
+
+			// Dropdown
+			papi_property( [
+				'type'     => 'dropdown',
+				'title'    => 'Dropdown test',
+				'slug'     => 'dropdown_test',
+				'settings' => [
+					'items' => [
+						'White' => '#ffffff',
+						'Black' => '#000000'
+					]
+				]
+			] ),
+
+			// Editor
+			papi_property( [
+				'type'  => 'editor',
+				'title' => 'Editor test',
+				'slug'  => 'editor_test'
+			] ),
+
+			// Email
+			papi_property( [
+				'type'  => 'email',
+				'title' => 'Email test',
+				'slug'  => 'email_test'
+			] ),
+
+			// Gallery
+			papi_property( [
+				'type'  => 'gallery',
+				'title' => 'Gallery test',
+				'slug'  => 'gallery_test'
+			] ),
+
+			// Hidden
+			papi_property( [
+				'type'  => 'hidden',
+				'title' => 'Hidden test',
+				'slug'  => 'hidden_test'
+			] ),
+
+			// Html
+			papi_property( [
+				'type'  => 'html',
+				'title' => 'Html test',
+				'slug'  => 'html_test',
+				'settings' => [
+					'html' => '<p>Hello, world!</p>'
+				]
+			] ),
+
+			// Html 2
+			papi_property( [
+				'type'  => 'html',
+				'title' => 'Html test 2',
+				'slug'  => 'html_test_2',
+				'settings' => [
+					'html' => [$this, 'output_html']
+				]
+			] ),
+
+			// Image
+			papi_property( [
+				'type'  => 'image',
+				'title' => 'Image test',
+				'slug'  => 'image_test'
+			] )
 		] );
 
 		$this->box( 'Flexible', [
@@ -119,5 +193,11 @@ class Properties_Page_Type extends Papi_Page_Type {
 			] )
 		] );
 
+	}
+
+	public function output_html() {
+		?>
+		<p>Hello, callable!</p>
+		<?php
 	}
 }
