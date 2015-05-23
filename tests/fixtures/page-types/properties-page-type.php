@@ -131,6 +131,61 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'type'  => 'image',
 				'title' => 'Image test',
 				'slug'  => 'image_test'
+			] ),
+
+			// Number
+			papi_property( [
+				'type'  => 'number',
+				'title' => 'Number test',
+				'slug'  => 'number_test'
+			] ),
+
+			// Post
+			papi_property( [
+				'type'  => 'post',
+				'title' => 'Post test',
+				'slug'  => 'post_test'
+			] ),
+
+			// Radio
+			papi_property( [
+				'type'     => 'radio',
+				'title'    => 'Radio test',
+				'slug'     => 'radio_test',
+				'settings' => [
+					'items' => [
+						'White' => '#ffffff',
+						'Black' => '#000000'
+					]
+				]
+			] ),
+
+			// Reference
+			papi_property( [
+				'type'  => 'reference',
+				'title' => 'Reference test',
+				'slug'  => 'reference_test'
+			] ),
+
+			// Relationship
+			papi_property( [
+				'type'  => 'relationship',
+				'title' => 'Relationship test',
+				'slug'  => 'relationship_test'
+			] ),
+
+			// String
+			papi_property( [
+				'type'  => 'string',
+				'title' => 'String test',
+				'slug'  => 'string_test'
+			] ),
+
+			// Url
+			papi_property( [
+				'type'  => 'url',
+				'title' => 'Url test',
+				'slug'  => 'url_test'
 			] )
 		] );
 

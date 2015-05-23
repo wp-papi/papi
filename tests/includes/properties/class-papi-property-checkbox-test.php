@@ -28,7 +28,10 @@ class Papi_Property_Checkbox_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'checkbox', $this->property->get_option( 'type' ) );
 		$this->assertEquals( 'Checkbox test', $this->property->get_option( 'title' ) );
 		$this->assertEquals( 'papi_checkbox_test', $this->property->get_option( 'slug' ) );
-		$this->assertNotEmpty( $this->property->get_settings()->items );
+	}
+
+	public function test_property_settings() {
+		$this->assertNotEmpty( $this->property->get_setting('items') );
 	}
 
 }

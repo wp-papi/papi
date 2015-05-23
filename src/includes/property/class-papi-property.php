@@ -78,7 +78,7 @@ class Papi_Property {
 	 * @return mixed
 	 */
 
-	public function __get($key) {
+	public function __get( $key ) {
 		return $this->get_option( $key );
 	}
 
@@ -160,6 +160,10 @@ class Papi_Property {
 	public static function factory( $type ) {
 		if ( ! is_string( $type ) && ! is_object( $type ) ) {
 			return;
+		}
+
+		if ( is_subclass_of( $type, __CLASS__ ) ) {
+			return $type;
 		}
 
 		$options = null;
@@ -345,6 +349,16 @@ class Papi_Property {
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Check so the property has a type.
+	 *
+	 * @return bool
+	 */
+
+	public function has_type() {
+		return empty( $this->get_option( 'type' ) );
 	}
 
 	/**

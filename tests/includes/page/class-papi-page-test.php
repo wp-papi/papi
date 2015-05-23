@@ -83,12 +83,12 @@ class Papi_Page_Test extends WP_UnitTestCase {
 	public function test_get_value() {
 		$handler = new Papi_Admin_Post_Handler();
 
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+
 		update_post_meta( $this->post_id, 'name', 'Janni' );
-		update_post_meta( $this->post_id, papi_f( papi_get_property_type_key( 'name' ) ), 'name' );
 		$this->assertEquals( 'Janni', $this->page->get_value( 'name' ) );
 
 		update_post_meta( $this->post_id, 'name', 'Fredrik' );
-		update_post_meta( $this->post_id, papi_f( papi_get_property_type_key( 'name' ) ), 'string' );
 
 		$this->assertEquals( 'Fredrik', $this->page->get_value( 'name' ) );
 
@@ -108,8 +108,6 @@ class Papi_Page_Test extends WP_UnitTestCase {
 
 		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
 		$property  = $page_type->get_property( 'name' );
-
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 
 		$this->assertEquals( 'string', $property->get_option( 'type' ) );
 		$this->assertEquals( 'Name', $property->get_option( 'title' ) );

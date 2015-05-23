@@ -36,7 +36,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		$value = $this->get_value();
 
 		if ( is_null( $value ) ) {
-			$this->assertTrue( true );
+			$this->assertNull( papi_field( $this->post_id, $this->property->slug ) );
 			return;
 		}
 
@@ -54,6 +54,8 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$this->assertEquals( $this->get_expected(), $actual );
 	}
+
+	abstract public function test_property_options();
 
 	abstract public function get_value();
 

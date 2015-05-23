@@ -20,6 +20,14 @@ class Papi_Property_Relationship extends Papi_Property {
 	public $convert_type = 'array';
 
 	/**
+	 * The default value.
+	 *
+	 * @var array
+	 */
+
+	public $default_value = [];
+
+	/**
 	 * Get default settings.
 	 *
 	 * @return array

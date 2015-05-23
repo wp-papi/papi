@@ -41,8 +41,8 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 	public function tearDown() {
 		parent::tearDown();
-		$_GET = [];
 		unset(
+			$_GET,
 			$this->post_id,
 			$this->empty_page_type,
 			$this->faq_page_type,

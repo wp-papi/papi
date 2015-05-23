@@ -311,8 +311,14 @@ function papi_property( $file_or_options, $values = [] ) {
  */
 
 function papi_render_property( $property ) {
-	// Check so type isn't empty and capabilities on the property.
-	if ( empty( $property->get_type() ) || ! papi_current_user_is_allowed( $property->capabilities ) ) {
+	$property = Papi_Property::factory( $property );
+
+	if ( ! is_object( $property ) ) {
+		return;
+	}
+
+	// Check so the property has a type and capabilities on the property.
+	if ( $property->has_type() || ! papi_current_user_is_allowed( $property->capabilities ) ) {
 		return;
 	}
 
@@ -451,12 +457,8 @@ function papi_populate_properties( $properties ) {
  * @param array $meta
  */
 
-function papi_property_update_meta( $meta ) {
-	$meta   = (object) $meta;
-
-	if ( ! isset( $meta->value ) ) {
-		return;
-	}
+function papi_property_update_meta( array $meta = [] ) {
+	$meta = (object) $meta;
 
 	$option     = papi_is_option_page();
 	$save_value = true;
