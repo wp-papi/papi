@@ -62,6 +62,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	public function format_value( $values, $repeater_slug, $post_id ) {
+		if ( ! is_array( $values ) ) {
+			return [];
+		}
+
 		foreach ( $values as $index => $layout ) {
 			foreach ( $layout as $slug => $value ) {
 				if ( is_string( $value ) && preg_match( $this->layout_prefix_regex, $value ) ) {
@@ -72,6 +76,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 					$values[$index][$this->layout_key] = $value;
 					unset( $values[$index][$slug] );
+
 					continue;
 				}
 
@@ -85,7 +90,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					continue;
 				}
 
-				// Get property type
 				$property_type_value = $values[$index][$property_type_slug];
 				$property_type = papi_get_property_type( $property_type_value );
 
@@ -93,9 +97,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					continue;
 				}
 
-				// Run update value on each property type class.
 				$values[$index][$slug] = $property_type->format_value( $value, $slug, $post_id );
-
 				$values[$index][$property_type_slug] = $property_type_value;
 			}
 		}
@@ -297,7 +299,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		unset( $trash );
 
 		$results   = papi_from_property_array_slugs( $results, papi_remove_papi( $repeater_slug ) );
-		$data_page = papi_get_page();
+		$data_page = $this->get_page();
 		$types     = [];
 
 		if ( empty( $data_page ) ) {
@@ -306,7 +308,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 		foreach ( $results as $index => $row ) {
 			foreach ( $row as $slug => $value ) {
-				if ( $property = $data_page->get_property_from_page_type( $slug, true ) ) {
+				if ( $property = $data_page->get_property_from_page_type( $repeater_slug, $slug ) ) {
 					$type_key = papi_get_property_type_key_f( $slug );
 					$results[$index][$type_key] = $property;
 				}

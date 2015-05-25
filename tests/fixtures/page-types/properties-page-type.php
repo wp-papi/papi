@@ -92,6 +92,42 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'slug'  => 'email_test'
 			] ),
 
+			// Flexible
+			papi_property( [
+				'type'     => 'flexible',
+				'title'    => 'Flexible test',
+				'slug'     => 'flexible_test',
+				'settings' => [
+					'items' => [
+						'twitter' => [
+							'title' => 'Twitter',
+							'items' => [
+								papi_property( [
+									'type'  => 'string',
+									'title' => 'Twitter name',
+									'slug'  => 'twitter_name'
+								] )
+							]
+						],
+						'posts' => [
+							'title' => 'Posts',
+							'items' => [
+								papi_property( [
+									'type'  => 'post',
+									'title' => 'Post one',
+									'slug'  => 'post_one'
+								] ),
+								papi_property( [
+									'type'  => 'post',
+									'title' => 'Post two',
+									'slug'  => 'post_two'
+								] )
+							]
+						]
+					]
+				]
+			] ),
+
 			// Gallery
 			papi_property( [
 				'type'  => 'gallery',
@@ -209,44 +245,7 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'slug'  => 'url_test'
 			] )
 		] );
-/*
-		$this->box( 'Flexible', [
-			papi_property( [
-				'type'     => 'flexible',
-				'title'    => 'Sections',
-				'slug'     => 'sections',
-				'settings' => [
-					'items' => [
-						'twitter' => [
-							'title' => 'Twitter',
-							'items' => [
-								papi_property( [
-									'type'  => 'string',
-									'title' => 'Twitter name',
-									'slug'  => 'twitter_name'
-								] )
-							]
-						],
-						'posts' => [
-							'title' => 'Posts',
-							'items' => [
-								papi_property( [
-									'type'  => 'post',
-									'title' => 'Post one',
-									'slug'  => 'post_one'
-								] ),
-								papi_property( [
-									'type'  => 'post',
-									'title' => 'Post two',
-									'slug'  => 'post_two'
-								] )
-							]
-						]
-					]
-				]
-			] )
-		] );
-*/
+
 	}
 
 	public function output_html() {

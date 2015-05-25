@@ -216,8 +216,14 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 				}
 			}
 
-			if ( is_object( $property ) && papi_remove_papi( $property->slug ) === $slug ) {
-				return papi_get_property_type( $property );
+			if ( is_object( $property ) ) {
+				if ( papi_remove_papi( $property->array_slug ) === $slug ) {
+					return papi_get_property_type( $property );
+				}
+
+				if ( papi_remove_papi( $property->slug ) === $slug ) {
+					return papi_get_property_type( $property );
+				}
 			}
 		}
 
