@@ -163,7 +163,7 @@ function papi_property_get_meta( $post_id, $slug, $data_type = 'post' ) {
 
 	switch ( $data_type ) {
 		case 'option':
-			$value = get_option( $slug );
+			$value = get_option( $slug, null );
 			break;
 		default:
 			$value = get_post_meta( $post_id, $slug, true );
