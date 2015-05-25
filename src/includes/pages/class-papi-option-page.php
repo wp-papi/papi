@@ -46,7 +46,7 @@ class Papi_Option_Page extends Papi_Core_Page {
 				return;
 			}
 
-			return Papi_Property::create( $property );
+			return $property;
 		}
 
 		$page_type = papi_get_page_type_by_id( $page_type_id );
