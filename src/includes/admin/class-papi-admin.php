@@ -193,7 +193,7 @@ final class Papi_Admin {
 		require_once __DIR__ . '/class-papi-admin-data-handler.php';
 		require_once __DIR__ . '/class-papi-admin-management-pages.php';
 		require_once __DIR__ . '/class-papi-admin-post-handler.php';
-//		require_once __DIR__ . '/class-papi-admin-option-handler.php';
+		require_once __DIR__ . '/class-papi-admin-option-handler.php';
 	}
 
 	/**

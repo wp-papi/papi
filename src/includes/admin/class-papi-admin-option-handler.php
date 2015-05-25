@@ -29,12 +29,11 @@ class Papi_Admin_Option_Handler extends Papi_Admin_Data_Handler {
 		$data = $this->get_post_data();
 		$data = $this->prepare_properties_data( $data, 0 );
 
-		foreach ( $data as $key => $property ) {
+		foreach ( $data as $key => $value ) {
 			papi_property_update_meta( [
 				'post_id'       => 0,
 				'slug'          => $key,
-				'type'          => $property['type'],
-				'value'         => $property['value']
+				'value'         => $value
 			] );
 		}
 	}
