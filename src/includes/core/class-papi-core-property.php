@@ -341,7 +341,7 @@ class Papi_Core_Property {
 	 */
 
 	public function has_type() {
-		return empty( $this->get_option( 'type' ) );
+		return empty( $this->type );
 	}
 
 	/**
