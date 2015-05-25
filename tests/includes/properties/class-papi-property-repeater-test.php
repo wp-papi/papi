@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Unit tests covering property Repeater.
+ * Unit tests covering property repeater.
  *
  * @package Papi
  */

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Unit tests covering property Repeater.
+ * Unit tests covering property flexible.
  *
  * @package Papi
  */
 
-class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
+class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'flexible_test';
 
