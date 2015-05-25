@@ -325,16 +325,6 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Get property type.
-	 *
-	 * @return string
-	 */
-
-	public function get_type() {
-		return $this->get_option( 'type' );
-	}
-
-	/**
 	 * Check so the property has a type.
 	 *
 	 * @return bool

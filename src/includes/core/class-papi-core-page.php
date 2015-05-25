@@ -95,21 +95,18 @@ abstract class Papi_Core_Page extends Papi_Container {
 		// A property need to know about the page.
 		$property->set_page( $this );
 
-		// Set property options so we can access them in load value or format value functions.
-		//$property->set_options( $this->get_property_options( $slug ) );
-
 		// Run load value method right after the value has been loaded from the database.
 		$value = $property->load_value( $value, $slug, $this->id );
 
-		if ( $this->data_type !== 'option' ) {
-			$value = papi_filter_load_value( $property->get_type(), $value, $slug, $this->id );
+		if ( $this->type !== 'option' ) {
+			$value = papi_filter_load_value( $property->type, $value, $slug, $this->id );
 		}
 
 		// Format the value from the property class.
 		$value = $property->format_value( $value, $slug, $this->id );
 
-		if ( ! is_admin() || $this->data_type !== 'option' ) {
-			$value = papi_filter_format_value( $property->get_type(), $value, $slug, $this->id );
+		if ( ! is_admin() || $this->type !== 'option' ) {
+			$value = papi_filter_format_value( $property->type, $value, $slug, $this->id );
 		}
 
 		if ( is_array( $value ) ) {
