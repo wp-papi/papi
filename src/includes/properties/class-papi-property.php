@@ -60,7 +60,7 @@ class Papi_Property extends Papi_Core_Property {
 
 		if ( ! ( $sub_property instanceof Papi_Property ) ) {
 			if ( is_array( $sub_property ) || is_object( $sub_property ) ) {
-				$sub_property = self::create( $sub_property );
+				$sub_property = self::factory( $sub_property );
 			} else {
 				return $base_slug;
 			}
