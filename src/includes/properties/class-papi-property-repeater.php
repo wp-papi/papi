@@ -20,6 +20,14 @@ class Papi_Property_Repeater extends Papi_Property {
 	public $convert_type = 'array';
 
 	/**
+	 * The default value.
+	 *
+	 * @var array
+	 */
+
+	public $default_value = [];
+
+	/**
 	 * Repeater counter number.
 	 *
 	 * @var int
@@ -156,21 +164,11 @@ class Papi_Property_Repeater extends Papi_Property {
 				// so it won't be deleted.
 				$no_trash[$slug] = $meta;
 
-				// Get property type key and value.
-				$property_type_key = papi_get_property_type_key( $meta->meta_key );
-
-				if ( $option_page ) {
-					$property_type_value = get_option( $property_type_key );
-				} else {
-					$property_type_value = get_post_meta( $post_id, papi_f( $property_type_key ), true );
-				}
-
 				// Serialize value if needed.
 				$meta->meta_value = maybe_unserialize( $meta->meta_value );
 
 				// Add property value and property type value.
 				$values[$meta->meta_key] = maybe_unserialize( $meta->meta_value );
-				$values[$property_type_key] = $property_type_value;
 
 				// Add the meta value.
 				$values[$meta->meta_key] = $rows[$i][$slug]->meta_value;
@@ -270,7 +268,8 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
-	 * Change value after it's loaded from the database.
+	 * Change value after it's loaded from the database
+	 * and populate every property in the repeater with the right property type.
 	 *
 	 * @param mixed $value
 	 * @param string $repeater_slug
@@ -287,7 +286,32 @@ class Papi_Property_Repeater extends Papi_Property {
 		// Will not need this array.
 		unset( $trash );
 
-		return papi_from_property_array_slugs( $results, papi_remove_papi( $repeater_slug ) );
+		$results   = papi_from_property_array_slugs( $results, papi_remove_papi( $repeater_slug ) );
+		$data_page = $this->get_page();
+		$types     = [];
+
+		if ( empty( $data_page ) ) {
+			return $this->default_value;
+		}
+
+		foreach ( $results[0] as $slug => $value ) {
+			if ( $property = $data_page->get_property_from_page_type( $repeater_slug, $slug ) ) {
+				$types[$slug] = $property;
+			}
+		}
+
+		foreach ( $results as $index => $row ) {
+			foreach ( $row as $slug => $value ) {
+				if ( ! isset( $types[$slug] ) ) {
+					continue;
+				}
+
+				$type_key = papi_get_property_type_key_f( $slug );
+				$results[$index][$type_key] = $types[$slug];
+			}
+		}
+
+		return $results;
 	}
 
 	/**
@@ -343,10 +367,6 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		$results = $wpdb->get_results( $query );
 
-		// Create sql query and get the results.
-		// $sql = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
-		// $query = $wpdb->prepare( $sql, $post_id, $meta_key, papi_f( $meta_key ), papi_get_property_type_key_f( $repeater_slug ) );
-
 		foreach ( $results as $res ) {
 			if ( $option_page ) {
 				delete_option( $res->option_name );
@@ -383,12 +403,12 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Render properties.
 	 *
-	 * @param array $items
+	 * @param array $row
 	 * @param array $value
 	 */
 
-	protected function render_properties( $items, $value ) {
-		foreach ( $items as $property ) {
+	protected function render_properties( $row, $value ) {
+		foreach ( $row as $property ) {
 			$render_property = clone $property;
 			$value_slug      = papi_remove_papi( $render_property->slug );
 
@@ -397,8 +417,8 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 
 			$render_property->value = $value[$value_slug];
-			$render_property->slug = $this->html_name( $render_property, $this->counter );
-			$render_property->raw  = true;
+			$render_property->slug  = $this->html_name( $property, $this->counter );
+			$render_property->raw   = true;
 
 			echo '<td>';
 			papi_render_property( $render_property );
@@ -419,7 +439,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				<?php $this->render_repeater_head(); ?>
 
 				<tbody class="repeater-tbody">
-					<?php $this->render_repeater_row(); ?>
+					<?php $this->render_repeater_rows(); ?>
 				</tbody>
 			</table>
 
@@ -458,40 +478,22 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
-	 * Render repeater row.
+	 * Render repeater rows.
 	 */
 
-	protected function render_repeater_row() {
+	protected function render_repeater_rows() {
 		$items  = $this->get_settings_properties();
 		$values = $this->get_value();
 
-		// Get all property slugs.
-		$slugs = array_map( function ( $item ) {
-			return papi_remove_papi( $item->slug );
-		}, $items );
-
-		// Match slugs against database values.
-		foreach ( $values as $index => $value ) {
-			$keys = array_keys( $value );
-
-			foreach ( $slugs as $slug ) {
-				if ( in_array( $slug, $keys ) ) {
-					continue;
-				}
-
-				$values[$index][$slug] = '';
-			}
-		}
-
-		foreach ( $values as $value ):
+		foreach ( $values as $row ):
 			?>
 			<tr>
 				<td class="handle">
 					<span><?php echo $this->counter + 1; ?></span>
 				</td>
 				<?php
-					$this->render_properties( $items, $value );
-					$this->counter ++;
+					$this->render_properties( $items, $row );
+					$this->counter++;
 				?>
 				<td class="last">
 					<span>
@@ -507,7 +509,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Render repeater row template.
 	 */
 
-	public function render_repeater_row_template() {
+	public function render_repeater_rows_template() {
 		?>
 		<script type="text/template" id="tmpl-papi-property-repeater-row">
 			<tr>
@@ -530,7 +532,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	protected function setup_actions() {
-		add_action( 'admin_head', [$this, 'render_repeater_row_template'] );
+		add_action( 'admin_head', [$this, 'render_repeater_rows_template'] );
 	}
 
 	/**
@@ -587,7 +589,9 @@ class Papi_Property_Repeater extends Papi_Property {
 			// Run update value on each property type filter.
 			$values[$slug] = papi_filter_update_value( $property_type_value, $value, $property_slug, $post_id );
 
-			$values[$property_type_slug] = $property_type_value;
+			if ( isset( $values[$property_type_slug] ) ) {
+				unset( $values[$property_type_slug] );
+			}
 		}
 
 		$trash  = array_diff( array_keys( papi_to_array( $results ) ), array_keys( papi_to_array( $values ) ) );

@@ -11,10 +11,6 @@ defined( 'ABSPATH' ) || exit;
 
 class Papi_Page_Type_Test extends WP_UnitTestCase {
 
-	/**
-	 * Setup the test.
-	 */
-
 	public function setUp() {
 		parent::setUp();
 
@@ -29,15 +25,12 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'empty-page-type' );
 		$this->empty_page_type  = new Papi_Page_Type();
 
-		$this->faq_page_type    = papi_get_page_type_by_id( 'faq-page-type' );
-		$this->simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
-		$this->tab_page_type    = papi_get_page_type_by_id( 'tab-page-type' );
-		$this->flex_page_type   = papi_get_page_type_by_id( 'flex-page-type' );
+		$this->faq_page_type        = papi_get_page_type_by_id( 'faq-page-type' );
+		$this->simple_page_type     = papi_get_page_type_by_id( 'simple-page-type' );
+		$this->tab_page_type        = papi_get_page_type_by_id( 'tab-page-type' );
+		$this->flex_page_type       = papi_get_page_type_by_id( 'flex-page-type' );
+		$this->properties_page_type = papi_get_page_type_by_id( 'properties-page-type' );
 	}
-
-	/**
-	 * Tear down test.
-	 */
 
 	public function tearDown() {
 		parent::tearDown();
@@ -51,13 +44,9 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		);
 	}
 
-	/**
-	 * Test `get_boxes` method.
-	 */
-
 	public function test_get_boxes() {
-		$this->assertTrue( is_array( $this->simple_page_type->get_boxes() ) );
 		$this->assertTrue( is_array( $this->flex_page_type->get_boxes() ) );
+		$this->assertTrue( is_array( $this->simple_page_type->get_boxes() ) );
 
 		$boxes = $this->faq_page_type->get_boxes();
 
@@ -66,10 +55,6 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->assertNull( $this->empty_page_type->get_boxes() );
 	}
 
-	/**
-	 * Test `get_property` method.
-	 */
-
 	public function test_get_property() {
 		$this->assertNull( $this->empty_page_type->get_property( 'fake' ) );
 		$this->assertNull( $this->simple_page_type->get_property( 'fake' ) );
@@ -77,17 +62,23 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$property = $this->simple_page_type->get_property( 'name' );
 
 		$this->assertEquals( 'string', $property->get_option( 'type' ) );
+		$this->assertEquals( 'string', $property->type );
 		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
+		$this->assertEquals( 'Name', $property->title );
 
 		$property = $this->flex_page_type->get_property( 'sections' );
 
 		$this->assertEquals( 'flexible', $property->get_option( 'type' ) );
+		$this->assertEquals( 'flexible', $property->type );
 		$this->assertEquals( 'Sections', $property->get_option( 'title' ) );
-	}
+		$this->assertEquals( 'Sections', $property->title );
 
-	/**
-	 * Test `remove` method.
-	 */
+		$property = $this->properties_page_type->get_property( 'repeater_test', 'book_name' );
+		$this->assertEquals( 'Book name', $property->get_option( 'title' ) );
+		$this->assertEquals( 'Book name', $property->title );
+		$this->assertEquals( 'string', $property->get_option( 'type' ) );
+		$this->assertEquals( 'string', $property->type );
+	}
 
 	public function test_remove_post_type_support() {
 		$_GET['post_type'] = 'page';
@@ -96,10 +87,6 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$_GET['post_type'] = '';
 		$this->assertNull( $this->simple_page_type->remove_meta_boxes() );
 	}
-
-	/**
-	 * Test `setup` method.
-	 */
 
 	public function test_setup() {
 		$this->assertNull( $this->simple_page_type->setup() );

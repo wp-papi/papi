@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  */
 
 function current_page() {
-	return papi_get_data_page();
+	return papi_get_page();
 }
 
 /**
@@ -126,8 +126,8 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
  * @return mixed
  */
 
-function papi_get_data_page( $post_id = 0, $data_type = 'post' ) {
-	return Papi_Data_Page::factory( $post_id, $data_type );
+function papi_get_page( $post_id = 0, $data_type = 'post' ) {
+	return Papi_Core_Page::factory( $post_id, $data_type );
 }
 
 /**

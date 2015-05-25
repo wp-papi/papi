@@ -174,6 +174,27 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'slug'  => 'relationship_test'
 			] ),
 
+			// Repeater
+			papi_property( [
+				'type'     => 'repeater',
+				'title'    => 'Repeater test',
+				'slug'     => 'repeater_test',
+				'settings' => [
+					'items' => [
+						papi_property( [
+							'type'  => 'string',
+							'title' => 'Book name',
+							'slug'  => 'book_name'
+						] ),
+						papi_property( [
+							'type'  => 'bool',
+							'title' => 'Is open?',
+							'slug'  => 'is_open'
+						] )
+					]
+				]
+			] ),
+
 			// String
 			papi_property( [
 				'type'  => 'string',
@@ -188,7 +209,7 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'slug'  => 'url_test'
 			] )
 		] );
-
+/*
 		$this->box( 'Flexible', [
 			papi_property( [
 				'type'     => 'flexible',
@@ -225,29 +246,7 @@ class Properties_Page_Type extends Papi_Page_Type {
 				]
 			] )
 		] );
-
-		$this->box( 'Repeater', [
-			papi_property( [
-				'type'     => 'repeater',
-				'title'    => 'Books',
-				'slug'     => 'books',
-				'settings' => [
-					'items' => [
-						papi_property( [
-							'type'  => 'string',
-							'title' => 'Book name',
-							'slug'  => 'book_name'
-						] ),
-						papi_property( [
-							'type'  => 'bool',
-							'title' => 'Is open?',
-							'slug'  => 'is_open'
-						] )
-					]
-				]
-			] )
-		] );
-
+*/
 	}
 
 	public function output_html() {

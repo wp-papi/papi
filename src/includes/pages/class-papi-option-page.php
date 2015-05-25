@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
  * @package Papi
  */
 
-class Papi_Option_Page extends Papi_Data_Page {
+class Papi_Option_Page extends Papi_Core_Page {
 
 	/**
 	 * Data type to describe which
@@ -24,11 +24,12 @@ class Papi_Option_Page extends Papi_Data_Page {
 	 * Load property from page type.
 	 *
 	 * @param string $slug
+	 * @param string $child_slug
 	 *
 	 * @return object
 	 */
 
-	protected function get_property_from_page_type( $slug ) {
+	public function get_property_from_page_type( $slug, $child_slug = '' ) {
 		$page_type_id = str_replace( 'papi/', '', papi_get_qs( 'page' ) );
 
 		if ( empty( $page_type_id ) ) {
@@ -36,9 +37,13 @@ class Papi_Option_Page extends Papi_Data_Page {
 			$property   = null;
 
 			foreach ( $page_types as $index => $page_type ) {
-				if ( $property = $page_type->get_property( $slug ) ) {
+				if ( $property = $page_type->get_property( $slug, $child_slug ) ) {
 					break;
 				}
+			}
+
+			if ( is_null( $property ) ) {
+				return;
 			}
 
 			return Papi_Property::create( $property );
@@ -46,11 +51,11 @@ class Papi_Option_Page extends Papi_Data_Page {
 
 		$page_type = papi_get_page_type_by_id( $page_type_id );
 
-		if ( ! is_object( $page_type ) || ! ( $page_type instanceof Papi_Option_Type ) ) {
+		if ( ! is_object( $page_type ) || $page_type instanceof Papi_Option_Type === false ) {
 			return;
 		}
 
-		return $page_type->get_property( $slug );
+		return $page_type->get_property( $slug, $child_slug );
 	}
 
 	/**

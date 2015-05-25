@@ -4,12 +4,12 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Data Page.
+ * Papi Core Page class.
  *
  * @package Papi
  */
 
-abstract class Papi_Data_Page extends Papi_Container {
+abstract class Papi_Core_Page extends Papi_Container {
 
 	/**
 	 * The WordPress post id if it exists.
@@ -20,21 +20,20 @@ abstract class Papi_Data_Page extends Papi_Container {
 	public $id;
 
 	/**
-	 * Data type to describe which
-	 * type of page data is it.
+	 * The type of page.
 	 *
 	 * @var string
 	 */
 
-	protected $data_type;
+	protected $type;
 
 	/**
-	 * Page data types.
+	 * Allowed page types.
 	 *
 	 * @var array
 	 */
 
-	private $data_types = ['option', 'post'];
+	private $types = ['option', 'post'];
 
 	/**
 	 * Empty constructor.
@@ -72,10 +71,7 @@ abstract class Papi_Data_Page extends Papi_Container {
 			return;
 		}
 
-		return $this->convert(
-			$slug,
-			$value
-		);
+		return $this->convert( $slug, $value );
 	}
 
 	/**
@@ -96,11 +92,8 @@ abstract class Papi_Data_Page extends Papi_Container {
 			return;
 		}
 
-		// A property need to know about the data type.
-		$property->set_page_options( [
-			'data_type' => $this->data_type,
-			'post_id'   => $this->id
-		] );
+		// A property need to know about the page.
+		$property->set_page( $this );
 
 		// Set property options so we can access them in load value or format value functions.
 		//$property->set_options( $this->get_property_options( $slug ) );
@@ -127,6 +120,18 @@ abstract class Papi_Data_Page extends Papi_Container {
 	}
 
 	/**
+	 * Check if the `$type` match the page type.
+	 *
+	 * @param string $type
+	 *
+	 * @return bool
+	 */
+
+	public function is( $type ) {
+		return $this->type === $type;
+	}
+
+	/**
 	 * Get page from factory.
 	 *
 	 * @param int $post_id
@@ -149,6 +154,7 @@ abstract class Papi_Data_Page extends Papi_Container {
 
 		$post_id = papi_get_post_id( $post_id );
 		$page = new $class_name( $post_id );
+		$page->set_type( $data_type );
 
 		if ( ! $page->valid() ) {
 			return;
@@ -179,11 +185,22 @@ abstract class Papi_Data_Page extends Papi_Container {
 	 * Load property options from page type.
 	 *
 	 * @param string $slug
+	 * @param string $child_slug
 	 *
 	 * @return object
 	 */
 
-	abstract protected function get_property_from_page_type( $slug );
+	abstract public function get_property_from_page_type( $slug, $child_slug );
+
+	/**
+	 * Set type.
+	 *
+	 * @param string $type
+	 */
+
+	public function set_type( $type ) {
+		$this->type = $type;
+	}
 
 	/**
 	 * Check if it's a valid page.
@@ -200,7 +217,7 @@ abstract class Papi_Data_Page extends Papi_Container {
 	 */
 
 	protected function valid_data_type() {
-		return in_array( $this->data_type, $this->data_types );
+		return in_array( $this->type, $this->types );
 	}
 
 }

@@ -24,7 +24,7 @@ class Papi_Page_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
-		$this->page = papi_get_data_page( $this->post_id );
+		$this->page = papi_get_page( $this->post_id );
 	}
 
 	/**
@@ -45,7 +45,7 @@ class Papi_Page_Test extends WP_UnitTestCase {
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 
-		$page = papi_get_data_page( $this->post_id );
+		$page = papi_get_page( $this->post_id );
 
 		$this->assertEquals( $page->get_page_type()->name, 'Simple page' );
 	}
@@ -111,7 +111,7 @@ class Papi_Page_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( 'string', $property->get_option( 'type' ) );
 		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_name', $property->get_option( 'slug') );
+		$this->assertEquals( 'papi_name', $property->get_option( 'slug' ) );
 
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $property->get_option( 'slug' ),
@@ -133,5 +133,11 @@ class Papi_Page_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, 'name', '' );
 
 		$this->assertNull( $this->page->name );
+	}
+
+	public function test_get_property_from_page_type() {
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'random322-page-type' );
+		$data_page = papi_get_page( $this->post_id );
+		$this->assertNull( $data_page->get_property_from_page_type( 'fake' ) );
 	}
 }

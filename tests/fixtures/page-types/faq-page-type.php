@@ -16,7 +16,8 @@ class FAQ_Page_Type extends Papi_Page_Type {
 			'_not_used'    => 'Not used',
 			'capabilities' => array( 'kvack' ),
 			'thumbnail'    => 'faq.png',
-			'post_type'    => 'faq'
+			'post_type'    => 'faq',
+			'fill_labels'  => true
 		];
 	}
 

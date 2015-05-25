@@ -56,7 +56,6 @@ function papi_get_box_property( $properties ) {
 
 	if ( ! empty( $box_property ) && ! isset( $box_property[0] ) && ! isset( $box_property[0]['tab'] ) ) {
 		$property = papi_get_property_options( $properties );
-
 		if ( ! $property->disabled ) {
 			$property->_box_property = true;
 			$properties = [$property];
@@ -164,11 +163,15 @@ function papi_property_get_meta( $post_id, $slug, $data_type = 'post' ) {
 
 	switch ( $data_type ) {
 		case 'option':
-			$value = get_option( $slug, true );
+			$value = get_option( $slug );
 			break;
 		default:
 			$value = get_post_meta( $post_id, $slug, true );
 			break;
+	}
+
+	if ( papi_is_empty( $value ) ) {
+		return;
 	}
 
 	return $value;
@@ -292,15 +295,15 @@ function papi_is_property_type_key( $str = '' ) {
 
 function papi_property( $file_or_options, $values = [] ) {
 	if ( is_array( $file_or_options ) ) {
-		return papi_get_property_options( $file_or_options );
-	}
-
-	if ( is_string( $file_or_options ) && is_array( $values ) ) {
-		return (object) papi_template( $file_or_options, $values, true );
+		$file_or_options = papi_get_property_options( $file_or_options );
 	}
 
 	if ( is_object( $file_or_options ) ) {
 		return $file_or_options;
+	}
+
+	if ( is_string( $file_or_options ) && is_array( $values ) ) {
+		return (object) papi_template( $file_or_options, $values, true );
 	}
 }
 
@@ -313,12 +316,12 @@ function papi_property( $file_or_options, $values = [] ) {
 function papi_render_property( $property ) {
 	$property = Papi_Property::factory( $property );
 
-	if ( ! is_object( $property ) ) {
+	if ( is_null( $property ) ) {
 		return;
 	}
 
 	// Check so the property has a type and capabilities on the property.
-	if ( $property->has_type() || ! papi_current_user_is_allowed( $property->capabilities ) ) {
+	if ( ! papi_current_user_is_allowed( $property->capabilities ) ) {
 		return;
 	}
 
@@ -350,7 +353,6 @@ function papi_render_properties( $properties ) {
 
 	// If it's a tab the tabs class will
 	// handle the rendering of the properties.
-
 	if ( isset( $properties[0]->tab ) && $properties[0]->tab ) {
 		new Papi_Admin_Meta_Box_Tabs( $properties );
 	} else {
@@ -531,7 +533,16 @@ function papi_to_property_array_slugs( $value, $slug ) {
 		$counter[] = $arr;
 
 		foreach ( $arr as $key => $val ) {
-			$item_slug = $slug . '_' . $index . '_' . $key;
+
+			if ( ! is_string( $key ) ) {
+				continue;
+			}
+
+			if ( $key[0] !== '_' ) {
+				$key = '_' . $key;
+			}
+
+			$item_slug = $slug . '_' . $index . $key;
 
 			if ( papi_is_property_type_key( $item_slug ) ) {
 				$item_slug = papi_f( $item_slug );

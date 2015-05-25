@@ -93,11 +93,11 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test `papi_get_data_page` function.
+	 * Test `papi_get_page` function.
 	 */
 
-	public function test_papi_get_data_page() {
-		$actual = papi_get_data_page( $this->post_id );
+	public function test_papi_get_page() {
+		$actual = papi_get_page( $this->post_id );
 		$this->assertTrue( is_object( $actual ) );
 	}
 

@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
  * @package Papi
  */
 
-class Papi_Post_Page extends Papi_Data_Page {
+class Papi_Post_Page extends Papi_Core_Page {
 
 	/**
 	 * Data type to describe which
@@ -43,7 +43,12 @@ class Papi_Post_Page extends Papi_Data_Page {
 	 */
 
 	public function __construct( $post_id = 0 ) {
-		$this->id        = intval( $post_id );
+		if ( $post_id === 0 ) {
+			$this->id = papi_get_post_id();
+		} else {
+			$this->id = intval( $post_id );
+		}
+
 		$this->post      = get_post( $post_id );
 		$id              = papi_get_page_type_meta_value( $post_id );
 		$this->page_type = papi_get_page_type_by_id( $id );
@@ -93,19 +98,20 @@ class Papi_Post_Page extends Papi_Data_Page {
 	 * Load property from page type.
 	 *
 	 * @param string $slug
+	 * @param string $child_slug
 	 *
 	 * @return object
 	 */
 
-	protected function get_property_from_page_type( $slug ) {
+	public function get_property_from_page_type( $slug, $child_slug = '' ) {
 		$page_type_id = papi_get_page_type_meta_value( $this->id );
 		$page_type    = papi_get_page_type_by_id( $page_type_id );
 
-		if ( ! is_object( $page_type ) || ! ( $page_type instanceof Papi_Page_Type ) ) {
+		if ( $page_type instanceof Papi_Page_Type === false ) {
 			return;
 		}
 
-		return $page_type->get_property( $slug );
+		return $page_type->get_property( $slug, $child_slug );
 	}
 
 	/**

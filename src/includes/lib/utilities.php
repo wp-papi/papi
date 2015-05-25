@@ -505,12 +505,14 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 	foreach ( $array as $k => $value ) {
 		if ( is_object( $value ) ) {
 			if ( isset( $value->$key ) ) {
-				$sorter[ $k ] = $value->$key;
-			} else if ( isset( $value->options ) && isset( $value->options->$key ) ) {
-				$sorter[ $k ] = $value->options->$key;
+				$sorter[$k] = $value->$key;
+			} else if ( $value instanceof Papi_Property && $value->$key !== null ) {
+				$sorter[$k] = $value->$key;
+			} else if ( isset( $value->options->$key ) ) {
+				$sorter[$k] = $value->options->$key;
 			}
-		} else if ( is_array( $value ) && isset ( $value[ $key ] ) ) {
-			$sorter[ $k ] = $value[ $key ];
+		} else if ( is_array( $value ) && isset ( $value[$key] ) ) {
+			$sorter[$k] = $value[$key];
 		}
 	}
 
@@ -531,10 +533,11 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 
 	foreach ( $sorter as $k => $v ) {
 		$value = $array[ $k ];
-		if ( ( is_object( $value ) && ( ! isset( $value->options ) && ! isset( $value->options->$key ) || ! isset( $value->$key ) ) ) || ( is_array( $value ) && ! isset( $value[ $key ] ) ) ) {
+
+		if ( ( is_object( $value ) && ( ! isset( $value->options ) && ! isset( $value->options->$key ) || ! isset( $value->$key ) ) ) || ( is_array( $value ) && ! isset( $value[$key] ) ) ) {
 			$rest[] = $value;
 		} else {
-			$result[ $k ] = $array[ $k ];
+			$result[$k] = $array[$k];
 		}
 	}
 

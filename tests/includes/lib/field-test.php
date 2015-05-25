@@ -11,10 +11,6 @@ defined( 'ABSPATH' ) || exit;
 
 class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
-	/**
-	 * Setup the test.
-	 */
-
 	public function setUp() {
 		parent::setUp();
 
@@ -29,21 +25,15 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 	}
 
-	/**
-	 * Tear down test.
-	 */
-
 	public function tearDown() {
 		parent::tearDown();
 		unset( $_GET, $this->post_id );
 	}
 
-	/**
-	 * Test `papi_field` function.
-	 */
-
 	public function test_papi_field() {
 		update_post_meta( $this->post_id, 'name', 'fredrik' );
+
+		$this->assertNull( papi_field( '' ) );
 
 		$this->assertEquals( 'fredrik', papi_field( $this->post_id, 'name' ) );
 		$this->assertEquals( 'fredrik', papi_field( $this->post_id, 'name', '', 'post' ) );
@@ -55,10 +45,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_field( 'name' ) );
 		$this->assertEquals( 'fredrik', papi_field( '', 'fredrik' ) );
 	}
-
-	/**
-	 * Test `papi_fields` function.
-	 */
 
 	public function test_papi_fields() {
 		$this->assertEmpty( papi_fields() );
@@ -87,10 +73,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 	}
 
-	/**
-	 * Test `papi_field_value` function.
-	 */
-
 	public function test_papi_field_value() {
 		$this->assertEquals( 'fredrik', papi_field_value(
 			[ 'what', 'name' ],
@@ -101,10 +83,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 			(object) [ 'what' => [ 'name' => 'fredrik' ] ]
 		) );
 	}
-
-	/**
-	 * Test `papi_field_shortcode` function.
-	 */
 
 	public function test_papi_field_shortcode() {
 		update_post_meta( $this->post_id, 'name', 'fredrik' );
@@ -124,10 +102,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 			'name' => 'name'
 		] ) );
 	}
-
-	/**
-	 * Test `the_papi_field` function.
-	 */
 
 	public function test_the_papi_field() {
 		update_post_meta( $this->post_id, 'name', 'fredrik' );

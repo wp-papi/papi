@@ -56,11 +56,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	protected function box( $file_or_options = [], $properties = [] ) {
-		if ( is_object( $file_or_options ) ) {
-			$file_or_options = (array) $file_or_options;
-		}
-
-		if ( ! is_string( $file_or_options ) && ! is_array( $file_or_options ) ) {
+		if ( ! is_string( $file_or_options ) && ! is_array( $file_or_options ) && ! is_object( $file_or_options ) ) {
 			return;
 		}
 
@@ -87,7 +83,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		}
 
 		// Check and convert all non properties objects to properties objects.
-		$properties = $this->convert_properties( $properties );
+		//$properties = $this->convert_properties( $properties );
 
 		$options['title'] = papi_esc_html( isset( $options['title'] ) ? $options['title'] : '' );
 
@@ -97,12 +93,36 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Convert properties to properties objects.
 	 *
-	 * @param array $properties
+	 * @param array|object $properties
 	 *
 	 * @return array
 	 */
 
 	private function convert_properties( $properties ) {
+		if ( is_array( $properties ) ) {
+			if ( isset( $properties['type'] ) ) {
+				$properties = [$properties];
+			} else if ( isset( $properties[0]->tab ) && $properties[0]->tab ) {
+				foreach ( $properties as $index => $items ) {
+					$items->properties = array_map( function ( $property ) {
+						return papi_property( $property );
+					}, $items->properties );
+
+					$properties[$index]->properties = $this->convert_child_properties( $items->properties );
+				}
+
+				return $properties;
+			}
+		}
+
+		if ( $properties instanceof Papi_Property ) {
+			$properties = [$properties];
+		}
+
+		if ( ! is_array( $properties ) ) {
+			return;
+		}
+
 		$properties = array_map( function ( $property ) {
 			return papi_property( $property );
 		}, $properties );
@@ -125,56 +145,12 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 				continue;
 			}
 
-			$arr = (array) $properties[$i]->settings;
-
-			foreach ( $arr as $key => $value ) {
-				if ( ! is_array( $value ) ) {
-					continue;
-				}
-
-				$arr[$key] = $this->convert_items_array( $value );
+			foreach ( $properties[$i]->settings->items as $index => $value ) {
+				$properties[$i]->settings->items[$index] = papi_property( $value );
 			}
-
-			$properties[$i]->settings = (object) $arr;
 		}
 
 		return $properties;
-	}
-
-	/**
-	 * Convert all arrays that has a valid property type.
-	 *
-	 * @param array $items
-	 *
-	 * @return array
-	 */
-
-	private function convert_items_array( $items ) {
-		for ( $j = 0, $k = count( $items ); $j < $k; $j++ ) {
-			if ( ! isset( $items[$j] ) || ! is_array( $items[$j] ) ) {
-				continue;
-			}
-
-			if ( ! isset( $items[$j]['type'] ) ) {
-				foreach ( $items[$j] as $key => $value ) {
-					if ( is_array( $items[$j][$key] ) ) {
-						$items[$j][$key] = $this->convert_items_array( $items[$j][$key] );
-					}
-				}
-
-				continue;
-			}
-
-			$type = papi_get_property_class_name( $items[$j]['type'] );
-
-			if ( ! class_exists( $type ) ) {
-				continue;
-			}
-
-			$items[$j] = papi_property( $items[$j] );
-		}
-
-		return $items;
 	}
 
 	/**
@@ -220,36 +196,71 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	}
 
 	/**
-	 * Get root property.
+	 * Get child property.
 	 *
+	 * @param array $items
 	 * @param string $slug
 	 *
 	 * @return object
 	 */
 
-	public function get_property( $slug ) {
+	protected function get_child_property( $items, $slug ) {
+		$result = null;
+
+		foreach ( $items as $property ) {
+			if ( is_array( $property ) ) {
+				$result = $this->get_child_property( $property, $slug );
+
+				if ( is_object( $result ) ) {
+					return papi_get_property_type( $result );
+				}
+			}
+
+			if ( is_object( $property ) && papi_remove_papi( $property->slug ) === $slug ) {
+				return papi_get_property_type( $property );
+			}
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Get property from page type.
+	 *
+	 * @param string $slug
+	 * @param string $child_slug
+	 *
+	 * @return object
+	 */
+
+	public function get_property( $slug, $child_slug = '' ) {
 		$boxes = $this->get_boxes();
 
 		if ( empty( $boxes ) ) {
 			return;
 		}
 
-		$result = null;
-
 		foreach ( $boxes as $box ) {
-
 			foreach ( $box[1] as $property ) {
-				if ( ! isset( $property->slug ) ) {
+				$property = papi_get_property_type( $property );
+
+				if ( $property instanceof Papi_Property === false ) {
 					continue;
 				}
 
 				if ( papi_remove_papi( $property->slug ) === $slug ) {
-					$result = $property;
+					if ( empty( $child_slug ) ) {
+						return $property;
+					}
+
+					$result = $this->get_child_property( $property->get_child_properties(), $child_slug );
+
+					if ( is_object( $result ) ) {
+						return papi_get_property_type( $result );
+					}
 				}
 			}
 		}
-
-		return papi_get_property_type( $result );
 	}
 
 	/**

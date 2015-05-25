@@ -4,12 +4,12 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property.
+ * Papi Property Core class.
  *
  * @package Papi
  */
 
-class Papi_Property {
+class Papi_Core_Property {
 
 	/**
 	 * The convert type.
@@ -20,23 +20,12 @@ class Papi_Property {
 	public $convert_type = 'string';
 
 	/**
-	 * The page options.
-	 *
-	 * @var array
-	 */
-
-	private $page_options = [
-		'data_type' => '',
-		'post_id'   => 0
-	];
-
-	/**
 	 * Default options.
 	 *
 	 * @var array
 	 */
 
-	private $default_options = [
+	protected $default_options = [
 		'array_slug'   => '',
 		'capabilities' => [],
 		'default'      => '',
@@ -71,6 +60,23 @@ class Papi_Property {
 	private $options;
 
 	/**
+	 * The page that the property exists on.
+	 *
+	 * @var array
+	 */
+
+	private $page;
+
+	/**
+	 * The constructor.
+	 */
+
+	public function __construct() {
+		$this->setup_actions();
+		$this->setup_filters();
+	}
+
+	/**
 	 * Get option value dynamic.
 	 *
 	 * @param string $key
@@ -83,12 +89,40 @@ class Papi_Property {
 	}
 
 	/**
-	 * Constructor.
+	 * Check if options value exists or not.
+	 *
+	 * @param string $key
+	 *
+	 * @return bool
 	 */
 
-	public function __construct() {
-		$this->setup_actions();
-		$this->setup_filters();
+	public function __isset( $key ) {
+		return $this->get_option( $key ) !== null;
+	}
+
+	/**
+	 * Set options value dynamic.
+	 *
+	 * @param string $key
+	 * @param mixed $value
+	 */
+
+	public function __set( $key, $value ) {
+		$this->set_option( $key, $value );
+	}
+
+	/**
+	 * Create a property from options.
+	 *
+	 * @param array|object $options
+	 *
+	 * @return Papi_Property
+	 */
+
+	public static function create( $options = [] ) {
+		$property = new static;
+		$property->set_options( $options );
+		return $property;
 	}
 
 	/**
@@ -116,37 +150,6 @@ class Papi_Property {
 		}
 
 		return $settings;
-	}
-
-	/**
-	 * Create a property from options.
-	 *
-	 * @param array|object $options
-	 *
-	 * @return Papi_Property
-	 */
-
-	public static function create( $options = [] ) {
-		$property = new self;
-		$property->set_options( $options );
-		return $property;
-	}
-
-	/**
-	 * Get default options.
-	 *
-	 * @return array
-	 */
-
-	public static function default_options() {
-		$property = new self;
-		$default_options = $property->default_options;
-
-		if ( $default_options['sort_order'] === -1 ) {
-			$default_options['sort_order'] = papi_filter_settings_sort_order();
-		}
-
-		return $default_options;
 	}
 
 	/**
@@ -209,6 +212,16 @@ class Papi_Property {
 	}
 
 	/**
+	 * Get child properties from `items` in the settings array.
+	 *
+	 * @return array
+	 */
+
+	public function get_child_properties() {
+		return $this->get_setting( 'items', [] );
+	}
+
+	/**
 	 * Get default settings.
 	 *
 	 * @return array
@@ -247,32 +260,52 @@ class Papi_Property {
 	}
 
 	/**
+	 * Get the page that the property is on.
+	 *
+	 * @return Papi_Core_Page
+	 */
+
+	public function get_page() {
+		if ( is_subclass_of( $this->page, 'Papi_Base_Page' ) ) {
+			return $page;
+		}
+
+		$post_id = $this->get_post_id();
+
+		return papi_get_page( $post_id );
+	}
+
+	/**
 	 * Get post id.
 	 *
 	 * @return int
 	 */
 
 	public function get_post_id() {
-		if ( $this->page_options['post_id'] === 0 ) {
-			return papi_get_post_id();
+		if ( isset( $this->page ) ) {
+			return $this->page->id;
 		}
 
-		return $this->page_options['post_id'];
+		return papi_get_post_id();
 	}
 
 	/**
 	 * Get setting value.
 	 *
 	 * @param string $key
+	 * @param mixed $default
 	 *
 	 * @return mixed
 	 */
 
-	public function get_setting( $key ) {
+	public function get_setting( $key, $default = null ) {
 		$settings = $this->get_settings();
+
 		if ( isset( $settings->$key ) ) {
 			return $settings->$key;
 		}
+
+		return $default;
 	}
 
 	/**
@@ -302,9 +335,19 @@ class Papi_Property {
 	}
 
 	/**
-	 * Get property value.
+	 * Check so the property has a type.
 	 *
-	 * @return array
+	 * @return bool
+	 */
+
+	public function has_type() {
+		return empty( $this->get_option( 'type' ) );
+	}
+
+	/**
+	 * Get value.
+	 *
+	 * @return mixed
 	 */
 
 	public function get_value() {
@@ -352,63 +395,17 @@ class Papi_Property {
 	}
 
 	/**
-	 * Check so the property has a type.
-	 *
-	 * @return bool
-	 */
-
-	public function has_type() {
-		return empty( $this->get_option( 'type' ) );
-	}
-
-	/**
-	 * Get the html to display from the property.
-	 *
-	 * @return mixed
-	 */
-
-	public function html() {
-	}
-
-	/**
-	 * Get html name for property with or without sub property and row number.
-	 *
-	 * @param array|object $sub_property
-	 * @param int $row
-	 *
-	 * @return string
-	 */
-
-	public function html_name( $sub_property = null, $row = null ) {
-		$base_slug = $this->get_option( 'slug' );
-
-		if ( is_null( $sub_property ) ) {
-			return $base_slug;
-		}
-
-		if ( is_numeric( $row ) ) {
-			$base_slug = sprintf( '%s[%d]', $base_slug, intval( $row ) );
-		}
-
-		if ( ! ( $sub_property instanceof Papi_Property ) ) {
-			if ( is_array( $sub_property ) || is_object( $sub_property ) ) {
-				$sub_property = self::create( $sub_property );
-			} else {
-				return $base_slug;
-			}
-		}
-
-		return sprintf( '%s[%s]', $base_slug, papi_remove_papi( $sub_property->get_option( 'slug' ) ) );
-	}
-
-	/**
 	 * Check if it's a option page or not.
 	 *
 	 * @return bool
 	 */
 
 	public function is_option_page() {
-		return $this->page_options['data_type'] === 'option';
+		if ( $this->page === null ) {
+			return false;
+		}
+
+		return $this->page->is( 'option' );
 	}
 
 	/**
@@ -423,110 +420,6 @@ class Papi_Property {
 
 	public function load_value( $value, $slug, $post_id ) {
 		return $value;
-	}
-
-	/**
-	 * Override property options.
-	 *
-	 * @return array
-	 */
-
-	public function override_property_options() {
-		return [];
-	}
-
-	/**
-	 * Render the property description.
-	 */
-
-	public function render_description_html() {
-		if ( papi_is_empty( $this->get_option( 'description' )  ) ) {
-			return;
-		}
-
-		?>
-		<p><?php echo papi_nl2br( $this->get_option( 'description' ) ); ?></p>
-	<?php
-	}
-
-	/**
-	 * Output hidden input field that cointains which property is used.
-	 */
-
-	public function render_hidden_html() {
-		$slug = $this->get_option( 'slug' );
-
-		if ( substr( $slug, - 1 ) === ']' ) {
-			$slug = substr( $slug, 0, - 1 );
-			$slug = papi_get_property_type_key( $slug );
-			$slug .= ']';
-		} else {
-			$slug = papi_get_property_type_key( $slug );
-		}
-
-		$slug = papify( $slug );
-
-		$property_serialized = base64_encode( serialize( $this->options ) );
-
-		?>
-		<input type="hidden" value="<?php echo $property_serialized; ?>" name="<?php echo $slug; ?>"  data-property="<?php echo $this->get_option( 'type' ); ?>" />
-	<?php
-	}
-
-	/**
-	 * Get label for the property.
-	 */
-
-	public function render_label_html() {
-		$title = $this->get_option( 'title' );
-		?>
-		<label for="<?php echo $this->get_option( 'slug' ); ?>" title="<?php echo $title . ' ' . papi_require_text( $this->options ); ?>">
-			<?php
-			echo $title;
-			echo papi_required_html( $this->options );
-			?>
-		</label>
-	<?php
-	}
-
-	/**
-	 * Render the final html that is displayed in the table.
-	 */
-
-	public function render_row_html() {
-		if ( ! $this->get_option( 'raw' ) ):
-			?>
-			<tr>
-				<?php if ( $this->get_options( 'sidebar' ) ): ?>
-					<td>
-						<?php
-							$this->render_label_html();
-							$this->render_description_html();
-						?>
-					</td>
-				<?php endif; ?>
-				<td <?php echo $this->get_options( 'sidebar' ) ? '' : 'colspan="2"'; ?>>
-					<?php $this->html(); ?>
-				</td>
-			</tr>
-		<?php
-		else :
-			$this->html();
-		endif;
-	}
-
-	/**
-	 * Setup actions.
-	 */
-
-	protected function setup_actions() {
-	}
-
-	/**
-	 * Setup filters.
-	 */
-
-	protected function setup_filters() {
 	}
 
 	/**
@@ -585,13 +478,13 @@ class Papi_Property {
 	}
 
 	/**
-	 * Set page options.
+	 * Set the page that the property is on.
 	 *
-	 * @param array $page_options
+	 * @param Papi_Core_Page $page
 	 */
 
-	public function set_page_options( array $page_options = [] ) {
-		$this->page_options = array_merge( $this->page_options, $page_options );
+	public function set_page( Papi_Core_Page $page ) {
+		$this->page = $page;
 	}
 
 	/**
@@ -621,6 +514,20 @@ class Papi_Property {
 	}
 
 	/**
+	 * Setup actions.
+	 */
+
+	protected function setup_actions() {
+	}
+
+	/**
+	 * Setup filters.
+	 */
+
+	protected function setup_filters() {
+	}
+
+	/**
 	 * Update value before it's saved to the database.
 	 *
 	 * @param mixed $value
@@ -633,4 +540,5 @@ class Papi_Property {
 	public function update_value( $value, $slug, $post_id ) {
 		return $value;
 	}
+
 }

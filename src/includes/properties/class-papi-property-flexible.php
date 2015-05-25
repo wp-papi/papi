@@ -278,6 +278,45 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	}
 
 	/**
+	 * Change value after it's loaded from the database
+	 * and populate every property in the flexible with the right property type.
+	 *
+	 * @param mixed $value
+	 * @param string $repeater_slug
+	 * @param int $post_id
+	 */
+
+	public function load_value( $value, $repeater_slug, $post_id ) {
+		if ( is_array( $value ) ) {
+			return $value;
+		}
+
+		list( $results, $trash ) = $this->get_results( $value, $repeater_slug, $post_id );
+
+		// Will not need this array.
+		unset( $trash );
+
+		$results   = papi_from_property_array_slugs( $results, papi_remove_papi( $repeater_slug ) );
+		$data_page = papi_get_page();
+		$types     = [];
+
+		if ( empty( $data_page ) ) {
+			return $this->default_value;
+		}
+
+		foreach ( $results as $index => $row ) {
+			foreach ( $row as $slug => $value ) {
+				if ( $property = $data_page->get_property_from_page_type( $slug, true ) ) {
+					$type_key = papi_get_property_type_key_f( $slug );
+					$results[$index][$type_key] = $property;
+				}
+			}
+		}
+
+		return $results;
+	}
+
+	/**
 	 * Prepare properties.
 	 *
 	 * Not the best name for this function, but since
@@ -359,24 +398,24 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Render properties.
 	 *
-	 * @param array $items
+	 * @param array $row
 	 * @param array $value
 	 */
 
-	protected function render_properties( $items, $value ) {
+	protected function render_properties( $row, $value ) {
 		?>
 			<td class="flexible-td">
 				<table class="flexible-table">
 					<thead>
 						<?php
-						for ( $i = 0, $l = count( $items ); $i < $l; $i++ ) {
+						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
 							if ( $i === $l - 1 ) {
 								echo '<td class="flexible-td-last">';
 							} else {
 								echo '<td>';
 							}
 
-							echo $items[$i]->title;
+							echo $row[$i]->title;
 							echo '</td>';
 						}
 						?>
@@ -384,8 +423,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					<tbody>
 						<tr>
 						<?php
-						for ( $i = 0, $l = count( $items ); $i < $l; $i++ ) {
-							$render_property = $items[$i];
+						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
+							$render_property = $row[$i];
 							$value_slug      = papi_remove_papi( $render_property->slug );
 
 							if ( array_key_exists( $value_slug, $value ) ) {
@@ -468,7 +507,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$layouts = $this->get_settings_layouts();
 		$values  = $this->get_value();
 
-		foreach ( $values as $index => $value ):
+		foreach ( $values as $index => $row ):
 			?>
 
 			<tr>
@@ -478,12 +517,12 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				<?php
 				foreach ( $layouts as $layout ) {
 					// Don't render layouts that don't have a valid value in the database.
-					if ( ! isset( $value[$this->layout_key] ) || $layout['slug'] !== $value[$this->layout_key] ) {
+					if ( ! isset( $row[$this->layout_key] ) || $layout['slug'] !== $row[$this->layout_key] ) {
 						continue;
 					}
 
 					// Render all properties in the layout
-					$this->render_properties( $layout['items'], $value );
+					$this->render_properties( $layout['items'], $row );
 				}
 
 				$this->counter++;
@@ -532,6 +571,14 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			</tr>
 		</script>
 		<?php
+	}
+
+	/**
+	 * Setup actions.
+	 */
+
+	protected function setup_actions() {
+		add_action( 'admin_head', [$this, 'render_repeater_row_template'] );
 	}
 
 	/**

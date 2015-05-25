@@ -52,6 +52,7 @@ final class Papi_Admin {
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new static;
+			self::$instance->load_files();
 			self::$instance->setup_globals();
 			self::$instance->setup_actions();
 			self::$instance->setup_filters();
@@ -181,6 +182,19 @@ final class Papi_Admin {
 
 	public function hidden_meta_box_editor() {
 		wp_editor( '', 'papiHiddenEditor' );
+	}
+
+	/**
+	 * Load admin files that are not loaded by the autoload.
+	 */
+
+	private function load_files() {
+		require_once __DIR__ . '/class-papi-admin-ajax.php';
+		require_once __DIR__ . '/class-papi-admin-data-handler.php';
+		require_once __DIR__ . '/class-papi-admin-management-pages.php';
+		require_once __DIR__ . '/class-papi-admin-menu.php';
+		require_once __DIR__ . '/class-papi-admin-post-handler.php';
+//		require_once __DIR__ . '/class-papi-admin-option-handler.php';
 	}
 
 	/**

@@ -48,10 +48,11 @@ final class Papi_Loader extends Papi_Container {
 	}
 
 	/**
-	 * Empty construct.
+	 * The construct.
 	 */
 
-	private function __construct() {}
+	private function __construct() {
+	}
 
 	/**
 	 * Cloning is forbidden.
@@ -113,6 +114,9 @@ final class Papi_Loader extends Papi_Container {
 
 		load_textdomain( $domain, $path );
 
+		// Load the autoload class.
+		require_once __DIR__ . '/includes/core/class-papi-core-autoload.php';
+
 		// Load function files.
 		require_once __DIR__ . '/includes/lib/utilities.php';
 		require_once __DIR__ . '/includes/lib/actions.php';
@@ -127,55 +131,14 @@ final class Papi_Loader extends Papi_Container {
 		require_once __DIR__ . '/includes/lib/template.php';
 		require_once __DIR__ . '/includes/lib/option.php';
 
-		// Load core classes.
-		require_once __DIR__ . '/includes/page/class-papi-data-page.php';
-		require_once __DIR__ . '/includes/page/class-papi-post-page.php';
-		require_once __DIR__ . '/includes/page/class-papi-option-page.php';
-
-		require_once __DIR__ . '/includes/property/class-papi-property.php';
-		require_once __DIR__ . '/includes/page-type/class-papi-page-type-base.php';
-		require_once __DIR__ . '/includes/page-type/class-papi-page-type-meta.php';
-		require_once __DIR__ . '/includes/page-type/class-papi-page-type.php';
-
-		require_once __DIR__ . '/includes/option-type/class-papi-option-type.php';
-
-		// Load admin classes.
-		require_once __DIR__ . '/includes/admin/class-papi-admin-view.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-management-pages.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-meta-box.php';
-		# require_once __DIR__ . '/includes/admin/class-papi-admin-meta-boxes.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-meta-box-tabs.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-data-handler.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-post-handler.php';
+		// Load admin class.
 		require_once __DIR__ . '/includes/admin/class-papi-admin.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-menu.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-ajax.php';
 
-		// Load properties classes.
-		require_once __DIR__ . '/includes/properties/class-papi-property-string.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-hidden.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-bool.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-email.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-datetime.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-number.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-url.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-divider.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-text.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-image.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-dropdown.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-checkbox.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-repeater.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-relationship.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-radio.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-post.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-color.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-reference.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-html.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-gallery.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-editor.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-flexible.php';
+		// Load core classes.
 
-		require_once __DIR__ . '/includes/admin/class-papi-admin-option-handler.php';
+		// require_once __DIR__ . '/includes/option-type/class-papi-option-type.php';
+
+		// require_once __DIR__ . '/includes/admin/class-papi-admin-ajax.php';
 
 		// Include plugins or properties.
 		papi_action_include();

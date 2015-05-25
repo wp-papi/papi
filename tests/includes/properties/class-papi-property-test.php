@@ -11,32 +11,18 @@ defined( 'ABSPATH' ) || exit;
 
 class Papi_Property_Test extends WP_UnitTestCase {
 
-	/**
-	 * Setup test.
-	 */
-
 	public function setUp() {
 		parent::setUp();
 
 		$this->post_id = $this->factory->post->create();
 
-		global $post;
-		$post = get_post( $this->post_id );
+		$_GET['post'] = $this->post_id;
 	}
-
-	/**
-	 * Tear down property.
-	 */
 
 	public function tearDown() {
 		parent::tearDown();
-		global $post;
-		unset( $post, $this->post_id );
+		unset( $_GET, $this->post_id );
 	}
-
-	/**
-	 * Test static `create` method.
-	 */
 
 	public function test_create() {
 		$property = Papi_Property::create( [
@@ -49,23 +35,14 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( $property->get_option( 'slug' ), 'papi_name' );
 	}
 
-	/**
-	 * Test static `default_options` method.
-	 */
-
 	public function test_default_options() {
 		$default_options = Papi_Property::default_options();
-
 		$this->assertTrue( is_array( $default_options ) );
 		$this->assertEmpty( $default_options['title'] );
 		$this->assertEmpty( $default_options['type'] );
 		$this->assertEmpty( $default_options['slug'] );
 		$this->assertEquals( 1000, $default_options['sort_order'] );
 	}
-
-	/**
-	 * Test static `factory` method.
-	 */
 
 	public function test_factory() {
 		require_once PAPI_FIXTURE_DIR . '/properties/class-papi-property-fake.php';
@@ -76,10 +53,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->assertTrue( is_object( Papi_Property::factory( 'string' ) ) );
 	}
-
-	/**
-	 * Test `format_value` method.
-	 */
 
 	public function test_format_value() {
 		$property = Papi_Property::create( [
@@ -92,23 +65,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Fredrik', $actual );
 	}
 
-	/**
-	 * Test `override_property_options` method.
-	 */
-
-	public function test_override_property_options() {
-		$property = Papi_Property::create( [
-			'type'  => 'string',
-			'title' => 'Hello'
-		] );
-
-		$this->assertEquals( [], $property->override_property_options() );
-	}
-
-	/**
-	 * Test `get_default_settings` method.
-	 */
-
 	public function test_get_default_settings() {
 		$property = Papi_Property::create( [
 			'type'  => 'string',
@@ -117,10 +73,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( [], $property->get_default_settings() );
 	}
-
-	/**
-	 * Test `get_default_value` method.
-	 */
 
 	public function test_get_default_value() {
 		$property = Papi_Property::create( [
@@ -139,10 +91,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'hello world', $property->get_value() );
 	}
 
-	/**
-	 * Test `get_option` method.
-	 */
-
 	public function test_get_option() {
 		$property = Papi_Property::create( [
 			'title' => 'Name'
@@ -153,29 +101,17 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 1000, $property->get_option( 'sort_order' ) );
 	}
 
-	/**
-	 * Test `get_options` method.
-	 */
-
 	public function test_get_options() {
 		$property = new Papi_Property();
 
 		$this->assertEmpty( $property->get_options() );
 	}
 
-	/**
-	 * Test `get_post_id` method.
-	 */
-
 	public function test_get_post_id() {
 		$property = Papi_Property::create();
 
 		$this->assertEquals( $this->post_id, $property->get_post_id() );
 	}
-
-	/**
-	 * Test `get_setting` method.
-	 */
 
 	public function test_get_setting() {
 		$property = new Papi_Property();
@@ -190,10 +126,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( 50, $property->get_setting( 'length' ) );
 	}
-
-	/**
-	 * Test `get_settings` method.
-	 */
 
 	public function test_get_settings() {
 		$property = new Papi_Property();
@@ -221,10 +153,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'papi_fake', $settings->items[1]->slug );
 	}
 
-	/**
-	 * Test `get_value` method.
-	 */
-
 	public function test_get_value() {
 		$property = new Papi_Property();
 
@@ -243,18 +171,10 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Fredrik', $property->get_value() );
 	}
 
-	/**
-	 * Test `html` method.
-	 */
-
 	public function test_html() {
 		$property = Papi_Property::create();
 		$this->assertEmpty( $property->html() );
 	}
-
-	/**
-	 * Test `html_name` method.
-	 */
 
 	public function test_html_name() {
 		$property = Papi_Property::create();
@@ -290,10 +210,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'papi_name[0]', $property->html_name( $sub_property, 0 ) );
 	}
 
-	/**
-	 * Test `load_value` method.
-	 */
-
 	public function test_load_value() {
 		$property = Papi_Property::create( [
 			'type'  => 'string',
@@ -304,10 +220,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( 'Fredrik', $actual );
 	}
-
-	/**
-	 * Test `render_description_html` method.
-	 */
 
 	public function test_render_description_html() {
 		$property = new Papi_Property();
@@ -322,10 +234,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->expectOutputRegex( '/A\ssimple\sdescription/' );
 	}
-
-	/**
-	 * Test `render_hidden_html` method.
-	 */
 
 	public function test_render_hidden_html() {
 		$property = new Papi_Property();
@@ -351,10 +259,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/papi\_hello\_world\[name\_property\]/' );
 	}
 
-	/**
-	 * Test `render_label_html` method.
-	 */
-
 	public function test_render_label_html() {
 		$property = new Papi_Property();
 
@@ -370,10 +274,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/A\ssimple\slabel/' );
 		$this->expectOutputRegex( '/papi\_kvack/' );
 	}
-
-	/**
-	 * Test `render_row_html` method.
-	 */
 
 	public function test_render_row_html() {
 		$property = new Papi_Property();
@@ -397,10 +297,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$property->render_row_html();
 	}
 
-	/**
-	 * Test `set_option` method.
-	 */
-
 	public function test_set_option() {
 		$property = Papi_Property::create( [
 			'type'  => 'string',
@@ -413,10 +309,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( 'Name', $value );
 	}
-
-	/**
-	 * Test `set_options` method.
-	 */
 
 	public function test_set_options() {
 		$property = Papi_Property::create( [
@@ -436,10 +328,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( 'papi_string', $property->get_option( 'slug' ) );
 	}
-
-	/**
-	 * Test `update_value` method.
-	 */
 
 	public function test_update_value() {
 		$property = Papi_Property::create( [

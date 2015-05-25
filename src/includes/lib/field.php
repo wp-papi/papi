@@ -38,8 +38,8 @@ function papi_field( $post_id = null, $name = null, $default = null, $data_type 
 		return $default;
 	}
 
-	#$cache_key = papi_get_cache_key( $name, $post_id );
-	$value     = false;#wp_cache_get( $cache_key );
+	$cache_key = papi_get_cache_key( $name, $post_id );
+	$value     = wp_cache_get( $cache_key );
 
 	if ( $value === false ) {
 		// Check for dot notation.
@@ -48,7 +48,7 @@ function papi_field( $post_id = null, $name = null, $default = null, $data_type 
 		$names = array_slice( $names, 1 );
 
 		// Get the right page for right data type.
-		$data_page = papi_get_data_page( $post_id, $data_type );
+		$data_page = papi_get_page( $post_id, $data_type );
 
 		// Return the default value if we don't have a valid page.
 		if ( is_null( $data_page ) ) {
@@ -61,7 +61,7 @@ function papi_field( $post_id = null, $name = null, $default = null, $data_type 
 			return $default;
 		}
 
-	#	wp_cache_set( $cache_key, $value );
+		wp_cache_set( $cache_key, $value );
 	}
 
 	return $value;
@@ -76,7 +76,7 @@ function papi_field( $post_id = null, $name = null, $default = null, $data_type 
  */
 
 function papi_fields( $post_id = 0 ) {
-	$page = papi_get_data_page( $post_id );
+	$page = papi_get_page( $post_id );
 
 	if ( empty( $page ) ) {
 		return [];
@@ -94,10 +94,6 @@ function papi_fields( $post_id = 0 ) {
 
 		$value = [];
 		$boxes = $page_type->get_boxes();
-
-		if ( empty ( $boxes ) || ! is_array( $boxes ) ) {
-			return [];
-		}
 
 		foreach ( $boxes as $box ) {
 			if ( count( $box ) < 2 || empty( $box[0]['title'] ) ) {

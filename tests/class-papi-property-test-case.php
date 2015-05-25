@@ -11,15 +11,20 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
+		$_GET = [];
+		$_GET['post'] = $this->post_id;
+
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
 
 		$this->page_type = papi_get_page_type_by_id( 'properties-page-type' );
 		$this->property  = $this->page_type->get_property( $this->slug );
+
 	}
 
 	public function tearDown() {
 		parent::tearDown();
 		unset(
+			$_GET,
 			$this->post_id,
 			$this->page_type,
 			$this->property
@@ -52,7 +57,9 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$actual = papi_field( $this->post_id, $this->property->slug );
 
-		$this->assertEquals( $this->get_expected(), $actual );
+		$expected = $this->get_expected();
+
+		$this->assertEquals( $expected, $actual );
 	}
 
 	abstract public function test_property_options();

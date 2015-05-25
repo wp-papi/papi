@@ -11,10 +11,6 @@ defined( 'ABSPATH' ) || exit;
 
 class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 
-	/**
-	 * Setup the test.
-	 */
-
 	public function setUp() {
 		parent::setUp();
 		$_GET  = [];
@@ -33,10 +29,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$_POST = [];
 	}
 
-	/**
-	 * Test `papi_get_cache_key` function.
-	 */
-
 	public function test_papi_get_cache_key() {
 		global $post;
 		$post_id = $this->factory->post->create();
@@ -45,10 +37,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'papi_page_920', papi_get_cache_key( 'page', 920 ) );
 		unset( $post );
 	}
-
-	/**
-	 * Test `papi_convert_to_string` function.
-	 */
 
 	public function test_papi_convert_to_string() {
 		$this->assertEquals( 'false', papi_convert_to_string( false ) );
@@ -62,10 +50,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_convert_to_string( Papi_Loader::instance() ) );
 	}
 
-	/**
-	 * Test `papi_current_user_is_allowed` function.
-	 */
-
 	public function test_papi_current_user_is_allowed() {
 		$this->assertTrue( papi_current_user_is_allowed() );
 
@@ -74,10 +58,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertTrue( papi_current_user_is_allowed( 'administrator' ) );
 		$this->assertFalse( papi_current_user_is_allowed( 'administrator2' ) );
 	}
-
-	/**
-	 * Test `papi_esc_html` function.
-	 */
 
 	public function test_papi_esc_html() {
 		$this->assertEquals( '&lt;script&gt;alert(1);&lt;/script&gt;', papi_esc_html( '<script>alert(1);</script>' ) );
@@ -100,10 +80,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEquals( [1], papi_esc_html( [1] ) );
 	}
 
-	/**
-	 * Test `papi_f` function.
-	 */
-
 	public function test_papi_f() {
 		$this->assertEquals( '_page', papi_f( 'page' ) );
 		$this->assertEquals( '_page', papi_f( '_page' ) );
@@ -114,10 +90,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_f( [] ) );
 		$this->assertEmpty( papi_f( new stdClass() ) );
 	}
-
-	/**
-	 * Test `papi_ff` function.
-	 */
 
 	public function test_papi_ff() {
 		$this->assertEquals( '__page', papi_ff( 'page' ) );
@@ -131,11 +103,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_ff( new stdClass() ) );
 	}
 
-	/**
-	 * Test `papi_dashify` function.
-	 */
-
-
 	public function test_papi_dashify() {
 		$this->assertEquals( 'hello-world', papi_dashify( 'hello world' ) );
 		$this->assertEmpty( papi_dashify( null ) );
@@ -145,10 +112,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_dashify( [] ) );
 		$this->assertEmpty( papi_dashify( new stdClass() ) );
 	}
-
-	/**
-	 * Test `papi_get_class_name` function.
-	 */
 
 	public function test_papi_get_class_name() {
 		$actual = papi_get_class_name( PAPI_FIXTURE_DIR . '/page-types/simple-page-type.php' );
@@ -162,10 +125,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$actual = papi_get_class_name( PAPI_FIXTURE_DIR . '/page-types/namespace-page-type.php' );
 		$this->assertEquals( '\Foo\Bar\Namespace_Page_Type', $actual );
 	}
-
-	/**
-	 * Test `papi_get_only_objects` function.
-	 */
 
 	public function test_papi_get_only_objects() {
 		$actual = true;
@@ -182,10 +141,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 
 		$this->assertTrue( $actual );
 	}
-
-	/**
-	 * Test `papi_get_or_post` function.
-	 */
 
 	public function test_papi_get_or_post() {
 		$_GET['world'] = 'hello';
@@ -206,10 +161,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_get_or_post( new stdClass() ) );
 		$this->assertEMpty( papi_get_or_post( 'trams' ) );
 	}
-
-	/**
-	 * Test `papi_get_qs` function.
-	 */
 
 	public function test_papi_get_qs() {
 		$_GET['page'] = 1;
@@ -232,10 +183,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEquals( $qs, $qs2 );
 	}
 
-	/**
-	 * Test `papi_get_sanitized_post` function.
-	 */
-
 	public function test_papi_get_sanitized_post() {
 		$this->assertEmpty( papi_get_sanitized_post( 'hello' ) );
 		$_POST['hello'] = '<';
@@ -246,18 +193,10 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		unset( $_POST['tag'] );
 	}
 
-	/**
-	 * Test `papi_h` function.
-	 */
-
 	public function test_papi_h() {
 		$this->assertEmpty( papi_h( '', '' ) );
 		$this->assertEquals( 'papi', papi_h( 'papi', '' ) );
 	}
-
-	/**
-	 * Test `papi_html_name` function.
-	 */
 
 	public function test_papi_html_name() {
 		$this->assertEquals( 'papi_hello_world_aao', papi_html_name( 'hello world åäö' ) );
@@ -273,10 +212,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_html_name( new stdClass() ) );
 	}
 
-	/**
-	 * Test `papi_is_empty` function.
-	 */
-
 	public function test_papi_is_empty() {
 		$this->assertTrue( papi_is_empty( null ) );
 		$this->assertFalse( papi_is_empty( 'false' ) );
@@ -286,10 +221,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_empty( 0.0 ) );
 		$this->assertFalse( papi_is_empty( "0" ) );
 	}
-
-	/**
-	 * Test `papi_is_ext` function.
-	 */
 
 	public function test_papi_is_ext() {
 		$this->assertTrue( papi_is_ext( 'index.php', 'php' ) );
@@ -301,18 +232,10 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_ext( new stdClass(), 'php' ) );
 	}
 
-	/**
-	 * Test `papi_nl2br` function.
-	 */
-
 	public function test_papi_nl2br() {
 		$this->assertEquals( papi_nl2br( 'Hello\nWorld' ), 'Hello<br />World' );
 		$this->assertEquals( papi_nl2br( "Hello\nWorld" ), "Hello<br />\nWorld" );
 	}
-
-	/**
-	 * Test `papi_remove_papi` function.
-	 */
 
 	public function test_papi_remove_papi() {
 		$this->assertEquals( 'hello-world', papi_remove_papi( 'papi-hello-world' ) );
@@ -324,10 +247,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_remove_papi( new stdClass() ) );
 	}
 
-	/**
-	 * Test `papi_remove_trailing_quotes` function.
-	 */
-
 	public function test_papi_remove_trailing_quotes() {
 		$this->assertEquals( '"hello" "world"', papi_remove_trailing_quotes( '\"hello\" \"world\"' ) );
 		$this->assertEmpty( papi_remove_trailing_quotes( null ) );
@@ -337,10 +256,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_remove_trailing_quotes( [] ) );
 		$this->assertEmpty( papi_remove_trailing_quotes( new stdClass() ) );
 	}
-
-	/**
-	 * Test `papi_santize_data` function.
-	 */
 
 	public function test_papi_santize_data() {
 		$value = papi_santize_data( '\"hello\"' );
@@ -356,10 +271,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 			'"world"'
 		], $value );
 	}
-
-	/**
-	 * Test `papi_sort_order` function.
-	 */
 
 	public function test_papi_sort_order() {
 		$this->assertEmpty( papi_sort_order( null ) );
@@ -388,10 +299,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEquals( $order[0]['sort_order'], 1000 );
 	}
 
-	/**
-	 * Test `papi_slugify` function.
-	 */
-
 	public function test_papi_slugify() {
 		$this->assertEquals( 'hello-world-aao', papi_slugify( 'hello world åäö' ) );
 		$this->assertEmpty( papi_slugify( null ) );
@@ -403,10 +310,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'hello-aao', papi_slugify( 'hello world åäö', [ 'world' ] ) );
 	}
 
-	/**
-	 * Test `papi_to_array` function.
-	 */
-
 	public function test_papi_to_array() {
 		$this->assertEquals( [ 1 ], papi_to_array( 1 ) );
 		$this->assertEquals( [ null ], papi_to_array( null ) );
@@ -415,10 +318,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEquals( [], papi_to_array( [] ) );
 		$this->assertEquals( [ new stdClass() ], papi_to_array( new stdClass() ) );
 	}
-
-	/**
-	 * Test `papi_underscorify` function.
-	 */
 
 	public function test_papi_underscorify() {
 		$this->assertEquals( 'hello_world_it', papi_underscorify( 'hello world-it' ) );
@@ -429,10 +328,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_underscorify( [] ) );
 		$this->assertEmpty( papi_underscorify( new stdClass() ) );
 	}
-
-	/**
-	 * Test `papify` function.
-	 */
 
 	public function test_papify() {
 		$this->assertEquals( 'papi_hello_world', papify( 'hello_world' ) );
