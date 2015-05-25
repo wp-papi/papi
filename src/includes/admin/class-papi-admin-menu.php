@@ -20,33 +20,35 @@ class Papi_Admin_Menu {
 	}
 
 	/**
-	 * Admin init.
-	 *
-	 * Change add new item text.
-	 */
-
-	public function admin_init() {
-		global $wp_post_types;
-
-		$page_type = papi_get_page_type_by_id( papi_get_qs( 'page_type' ) );
-
-		$this->override_labels( $page_type );
-	}
-
-	/**
 	 * Fill labels on admin bar.
 	 */
 
 	public function admin_bar_menu() {
-		$data_page = papi_get_page($post_id);
+		if ( $page_type = $this->get_page_type() ) {
+			$this->override_labels( $page_type );
+		}
+	}
 
-		if ( empty( $page ) ) {
+	/**
+	 * Get current page type.
+	 *
+	 * @return Papi_Page_Type
+	 */
+
+	private function get_page_type() {
+		$page_type_id = papi_get_qs( 'page_type' );
+
+		if ( $page_type = papi_get_page_type_by_id( $page_type_id ) ) {
+			return $page_type;
+		}
+
+		$data_page = papi_get_page();
+
+		if ( empty( $data_page ) || ! $data_page->is( 'post' ) ) {
 			return;
 		}
 
-		$page_type = $data_page->get_page_type();
-
-		$this->override_labels( $page_type );
+		return $data_page->get_page_type();
 	}
 
 	/**
@@ -189,7 +191,7 @@ class Papi_Admin_Menu {
 
 	private function setup_actions() {
 		if ( is_admin() ) {
-			add_action( 'admin_init', [$this, 'admin_init'] );
+			add_action( 'admin_init', [$this, 'admin_bar_menu'] );
 			add_action( 'admin_menu', [$this, 'page_items_menu'] );
 			add_action( 'admin_menu', [$this, 'post_types_menu'] );
 		} else {
@@ -199,6 +201,4 @@ class Papi_Admin_Menu {
 
 }
 
-if ( is_admin() ) {
-	new Papi_Admin_Menu;
-}
+new Papi_Admin_Menu;

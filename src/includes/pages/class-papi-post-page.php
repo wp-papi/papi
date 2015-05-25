@@ -49,8 +49,8 @@ class Papi_Post_Page extends Papi_Core_Page {
 			$this->id = intval( $post_id );
 		}
 
-		$this->post      = get_post( $post_id );
-		$id              = papi_get_page_type_meta_value( $post_id );
+		$this->post      = get_post( $this->id );
+		$id              = papi_get_page_type_meta_value( $this->id );
 		$this->page_type = papi_get_page_type_by_id( $id );
 	}
 

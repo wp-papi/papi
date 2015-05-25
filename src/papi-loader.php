@@ -133,6 +133,7 @@ final class Papi_Loader extends Papi_Container {
 
 		// Load admin class.
 		require_once __DIR__ . '/includes/admin/class-papi-admin.php';
+		require_once __DIR__ . '/includes/admin/class-papi-admin-menu.php';
 
 		// Load core classes.
 
