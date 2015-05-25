@@ -116,7 +116,7 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 		// Get properties data.
 		$data = $this->get_post_data();
 
-		// Prepare property data.
+		// Prepare properties data.
 		$data = $this->prepare_properties_data( $data, $post_id );
 
 		// Save all properties value
