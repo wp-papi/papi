@@ -83,7 +83,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		}
 
 		// Check and convert all non properties objects to properties objects.
-		//$properties = $this->convert_properties( $properties );
+		$properties = $this->convert_properties( $properties );
 
 		$options['title'] = papi_esc_html( isset( $options['title'] ) ? $options['title'] : '' );
 
@@ -123,13 +123,14 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			return;
 		}
 
-		$properties = array_map( function ( $property ) {
-			return papi_property( $property );
-		}, $properties );
+		$properties = array_map( 'papi_property', $properties );
 
-		return $this->convert_child_properties( $properties );
+		$properties = $this->convert_child_properties( $properties );
+
+		return array_filter( $properties, function ( $property ) {
+			return is_object( $property ) && isset( $property->type );
+		} );
 	}
-
 	/**
 	 * Fix child properties so you can skip `papi_property`
 	 * it in for example `settings->items`.
@@ -145,12 +146,55 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 				continue;
 			}
 
-			foreach ( $properties[$i]->settings->items as $index => $value ) {
-				$properties[$i]->settings->items[$index] = papi_property( $value );
+			$arr = (array) $properties[$i]->settings;
+
+			foreach ( $arr as $key => $value ) {
+				if ( ! is_array( $value ) ) {
+					continue;
+				}
+
+				$arr[$key] = $this->convert_items_array( $value );
 			}
+
+			$properties[$i]->settings = (object) $arr;
 		}
 
 		return $properties;
+	}
+
+	/**
+	 * Convert all arrays that has a valid property type.
+	 *
+	 * @param array $items
+	 *
+	 * @return array
+	 */
+
+	private function convert_items_array( $items ) {
+		for ( $j = 0, $k = count( $items ); $j < $k; $j++ ) {
+			if ( ! isset( $items[$j] ) || ! is_array( $items[$j] ) ) {
+				continue;
+			}
+
+			if ( ! isset( $items[$j]['type'] ) ) {
+				foreach ( $items[$j] as $key => $value ) {
+					if ( is_array( $items[$j][$key] ) ) {
+						$items[$j][$key] = $this->convert_items_array( $items[$j][$key] );
+					}
+				}
+				continue;
+			}
+
+			$type = papi_get_property_class_name( $items[$j]['type'] );
+
+			if ( ! class_exists( $type ) ) {
+				continue;
+			}
+
+			$items[$j] = papi_property( $items[$j] );
+		}
+
+		return $items;
 	}
 
 	/**
@@ -247,6 +291,10 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		}
 
 		foreach ( $boxes as $box ) {
+			if ( ! is_array( $box[1] ) ) {
+				continue;
+			}
+
 			foreach ( $box[1] as $property ) {
 				$property = papi_get_property_type( $property );
 

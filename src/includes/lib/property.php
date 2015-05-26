@@ -50,6 +50,10 @@ function papi_from_property_array_slugs( $values, $slug ) {
  */
 
 function papi_get_box_property( $properties ) {
+	if ( ! is_array( $properties ) ) {
+		return [];
+	}
+
 	$box_property = array_filter( $properties, function ( $property ) {
 		return ! is_object( $property );
 	} );

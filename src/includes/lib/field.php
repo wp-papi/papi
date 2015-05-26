@@ -96,7 +96,7 @@ function papi_fields( $post_id = 0 ) {
 		$boxes = $page_type->get_boxes();
 
 		foreach ( $boxes as $box ) {
-			if ( count( $box ) < 2 || empty( $box[0]['title'] ) ) {
+			if ( count( $box ) < 2 || empty( $box[0]['title'] ) || ! is_array( $box[1] ) ) {
 				continue;
 			}
 

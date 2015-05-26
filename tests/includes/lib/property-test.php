@@ -53,6 +53,14 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( 'Name', $actual[0]->title );
 		$this->assertEquals( 'string', $actual[0]->type );
+
+		$this->assertEmpty( papi_get_box_property( null ) );
+		$this->assertEmpty( papi_get_box_property( 1 ) );
+		$this->assertEmpty( papi_get_box_property( true ) );
+		$this->assertEmpty( papi_get_box_property( false ) );
+		$this->assertEmpty( papi_get_box_property( '' ) );
+		$this->assertEmpty( papi_get_box_property( [] ) );
+		$this->assertEmpty( papi_get_box_property( (object) [] ) );
 	}
 
 	public function test_papi_property_get_meta() {
