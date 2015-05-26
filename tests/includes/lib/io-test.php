@@ -11,10 +11,6 @@ defined( 'ABSPATH' ) || exit;
 
 class Papi_Lib_IO_Test extends WP_UnitTestCase {
 
-	/**
-	 * Test `papi_get_all_files_in_directory` function.
-	 */
-
 	public function test_papi_get_all_files_in_directory() {
 		$this->assertEmpty( papi_get_all_files_in_directory() );
 		$actual = papi_get_all_files_in_directory();
@@ -30,10 +26,6 @@ class Papi_Lib_IO_Test extends WP_UnitTestCase {
 		$this->assertTrue( in_array( $expected, $actual ) );
 	}
 
-	/**
-	 * Test `papi_get_all_page_type_files` function.
-	 */
-
 	public function test_papi_get_all_page_type_files() {
 		$this->assertEmpty( papi_get_all_page_type_files() );
 
@@ -45,10 +37,6 @@ class Papi_Lib_IO_Test extends WP_UnitTestCase {
 		$this->assertFalse( empty( $actual ) );
 		$this->assertTrue( is_array( $actual ) );
 	}
-
-	/**
-	 * Test `papi_get_file_path` function.
-	 */
 
 	public function test_papi_get_file_path() {
 		$this->assertNull( papi_get_file_path( 'simple-page-type' ) );
@@ -63,10 +51,6 @@ class Papi_Lib_IO_Test extends WP_UnitTestCase {
 		$this->assertTrue( strpos( $path1, 'simple-page-type.php' ) !== false );
 		$this->assertTrue( strpos( $path2, 'simple-page-type.php' ) !== false );
 	}
-
-	/**
-	 * Test `papi_get_page_type_base_path` function.
-	 */
 
 	public function test_papi_get_page_type_base_path() {
 		$this->assertEquals( 'simple-page-type', papi_get_page_type_base_path( 'simple-page-type' ) );
