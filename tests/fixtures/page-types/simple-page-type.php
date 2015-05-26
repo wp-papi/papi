@@ -26,7 +26,7 @@ class Simple_Page_Type extends Papi_Page_Type {
 		$this->remove( [ 'editor', 'commentdiv' ] );
 
 		// Test box property.
-		$this->box( 'Hej', papi_property( [
+		$this->box( 'Hello', papi_property( [
 			'type'  => 'string',
 			'title' => 'Name'
 		] ) );
