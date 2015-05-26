@@ -356,9 +356,11 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function render_layout_input( $slug, $value ) {
-		$slug = $this->html_name( [
+		// Creating a fake hidden property to generate right slug.
+		$slug = $this->html_name( papi_property( [
+			'type' => 'hidden',
 			'slug' => $slug . $this->layout_key
-		], $this->counter );
+		] ), $this->counter );
 		?>
 		<input type="hidden" name="<?php echo $slug; ?>" value="<?php echo $value; ?>" />
 		<?php
@@ -378,10 +380,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			$properties = [];
 
 			foreach ( $layout['items'] as $key => $value ) {
-				$properties[$key] = $value;
-				$properties[$key]->raw   = true;
-				$properties[$key]->slug  = $this->html_name( $value, $this->counter );
-				$properties[$key]->value = '';
+				$properties[$key] = $this->get_json_property( $value );
 			}
 			?>
 
