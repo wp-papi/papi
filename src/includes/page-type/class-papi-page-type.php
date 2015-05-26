@@ -104,15 +104,16 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 				$properties = [$properties];
 			} else if ( isset( $properties[0]->tab ) && $properties[0]->tab ) {
 				foreach ( $properties as $index => $items ) {
-					$items->properties = array_map( function ( $property ) {
-						return papi_property( $property );
-					}, $items->properties );
-
+					$items->properties = array_map( 'papi_get_property_type', $items->properties );
 					$properties[$index]->properties = $this->convert_child_properties( $items->properties );
 				}
 
 				return $properties;
 			}
+		}
+
+		if ( is_object( $properties ) ) {
+			$properties = papi_get_property_type( $properties );
 		}
 
 		if ( $properties instanceof Papi_Property ) {
@@ -123,12 +124,11 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			return;
 		}
 
-		$properties = array_map( 'papi_property', $properties );
-
+		$properties = array_map( 'papi_get_property_type', $properties );
 		$properties = $this->convert_child_properties( $properties );
 
 		return array_filter( $properties, function ( $property ) {
-			return is_object( $property ) && isset( $property->type );
+			return $property instanceof Papi_Property;
 		} );
 	}
 	/**
@@ -146,17 +146,17 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 				continue;
 			}
 
-			$arr = (array) $properties[$i]->settings;
+			$settings = (array) $properties[$i]->settings;
 
-			foreach ( $arr as $key => $value ) {
+			foreach ( $settings as $key => $value ) {
 				if ( ! is_array( $value ) ) {
 					continue;
 				}
 
-				$arr[$key] = $this->convert_items_array( $value );
+				$settings[$key] = $this->convert_items_array( $value );
 			}
 
-			$properties[$i]->settings = (object) $arr;
+			$properties[$i]->settings = (object) $settings;
 		}
 
 		return $properties;
@@ -171,27 +171,26 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 
 	private function convert_items_array( $items ) {
-		for ( $j = 0, $k = count( $items ); $j < $k; $j++ ) {
-			if ( ! isset( $items[$j] ) || ! is_array( $items[$j] ) ) {
-				continue;
-			}
-
-			if ( ! isset( $items[$j]['type'] ) ) {
-				foreach ( $items[$j] as $key => $value ) {
-					if ( is_array( $items[$j][$key] ) ) {
-						$items[$j][$key] = $this->convert_items_array( $items[$j][$key] );
+		foreach ( $items as $index => $item ) {
+			if ( is_array( $item ) && ! isset( $item['type'] ) ) {
+				foreach ( $item as $key => $value ) {
+					if ( is_array( $value ) ) {
+						$items[$index][$key] = $this->convert_items_array( $value );
 					}
 				}
+
 				continue;
 			}
 
-			$type = papi_get_property_class_name( $items[$j]['type'] );
+			if ( ( is_array( $item ) && isset( $item['type'] ) ) || ( is_object( $item ) && isset( $item->type ) ) ) {
+				if ( is_array( $item ) ) {
+					$type = papi_get_property_class_name( $item['type'] );
+				} else {
+					$type = papi_get_property_class_name( $item->type );
+				}
 
-			if ( ! class_exists( $type ) ) {
-				continue;
+				$items[$index] = papi_get_property_type( $item );
 			}
-
-			$items[$j] = papi_property( $items[$j] );
 		}
 
 		return $items;
