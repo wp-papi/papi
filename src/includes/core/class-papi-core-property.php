@@ -153,14 +153,18 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Create a new instance of the given property.
+	 * Create a new instance of the given type.
 	 *
-	 * @param string $type
+	 * @param mixed $type
 	 *
 	 * @return object
 	 */
 
 	public static function factory( $type ) {
+		if ( is_array( $type ) ) {
+			$type = papi_property( $type );
+		}
+
 		if ( ! is_string( $type ) && ! is_object( $type ) ) {
 			return;
 		}
@@ -188,7 +192,11 @@ class Papi_Core_Property {
 			return;
 		}
 
-		$property = new $class_name();
+		if ( ! papi()->exists( $class_name ) ) {
+			papi()->bind( $class_name, new $class_name() );
+		}
+
+		$property = clone papi()->make( $class_name );
 
 		if ( is_object( $options ) ) {
 			$property->set_options( $options );
