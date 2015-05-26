@@ -81,15 +81,7 @@ class Papi_Admin_Ajax {
 			$wp_query->set( 'papi_action', sanitize_text_field( $_GET['action'] ) );
 		}
 
-		if ( ! empty( $_GET['property'] ) ) {
-			$wp_query->set( 'papi_property', sanitize_text_field( $_GET['property'] ) );
-		}
-
-		$action   = $wp_query->get( 'papi_action' );
-
-		if ( $property = $wp_query->get( 'papi_property' ) ) {
-			papi_get_property_type( $property );
-		}
+		$action = $wp_query->get( 'papi_action' );
 
 		if ( is_user_logged_in() && has_action( $this->action_prefix . $action ) != false ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {
