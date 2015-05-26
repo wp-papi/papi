@@ -101,6 +101,21 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
+	 * Get JSON property that is used when adding new row.
+	 *
+	 * @return object
+	 */
+
+	protected function get_json_property( $property ) {
+		$options = $property->get_options();
+		$options->slug  = $options->array_slug;
+		$options->raw   = true;
+		$options->slug  = $this->html_name( $options, $this->counter );
+		$options->value = '';
+		return $options;
+	}
+
+	/**
 	 * Get results from the database.
 	 *
 	 * @param int $value
@@ -387,10 +402,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$properties = [];
 
 		foreach ( $items as $key => $value ) {
-			$properties[$key] = $value;
-			$properties[$key]->raw   = true;
-			$properties[$key]->slug  = $this->html_name( $value, $this->counter );
-			$properties[$key]->value = '';
+			$properties[$key] = $this->get_json_property( $value );
 		}
 
 		?>
@@ -409,8 +421,8 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	protected function render_properties( $row, $value ) {
 		foreach ( $row as $property ) {
-			$render_property = clone $property;
-			$value_slug      = papi_remove_papi( $render_property->slug );
+			$render_property = $property->get_options();
+			$value_slug      = papi_remove_papi( $render_property->array_slug );
 
 			if ( ! array_key_exists( $value_slug, $value ) ) {
 				continue;
@@ -484,7 +496,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected function render_repeater_rows() {
 		$items  = $this->get_settings_properties();
 		$values = $this->get_value();
-
 		foreach ( $values as $row ):
 			?>
 			<tr>
