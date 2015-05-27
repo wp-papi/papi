@@ -175,6 +175,10 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 
 			foreach ( $rows[$i] as $slug => $meta ) {
+				if ( ! is_string( $slug ) || ! isset( $rows[$i][$slug] ) ) {
+					continue;
+				}
+
 				// Add meta object to the no trash array.
 				// so it won't be deleted.
 				$no_trash[$slug] = $meta;

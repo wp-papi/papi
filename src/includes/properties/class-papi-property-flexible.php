@@ -214,6 +214,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 
 			foreach ( $rows[$i] as $slug => $meta ) {
+				if ( ! is_string( $slug ) || ! isset( $rows[$i][$slug] ) ) {
+					continue;
+				}
+
 				// Do not deal with layout meta object here since the property meta object will deal with it later.
 				if ( is_string( $meta->meta_value ) && preg_match( $this->layout_prefix_regex, $meta->meta_value ) ) {
 					continue;
@@ -426,14 +430,15 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						<?php
 						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
 							$render_property = $row[$i];
-							$value_slug      = papi_remove_papi( $render_property->slug );
+							$value_slug      = papi_remove_papi( $render_property->array_slug );
 
-							if ( array_key_exists( $value_slug, $value ) ) {
-								$render_property->value = $value[$value_slug];
+							if ( ! array_key_exists( $value_slug, $value ) ) {
+								continue;
 							}
 
-							$render_property->slug = $this->html_name( $render_property, $this->counter );
-							$render_property->raw  = true;
+							$render_property->value = $value[$value_slug];
+							$render_property->slug  = $this->html_name( $render_property, $this->counter );
+							$render_property->raw   = true;
 
 							if ( $i === $l - 1 ) {
 								echo '<td class="flexible-td-last">';
