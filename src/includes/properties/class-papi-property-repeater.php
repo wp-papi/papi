@@ -500,6 +500,26 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected function render_repeater_rows() {
 		$items  = $this->get_settings_properties();
 		$values = $this->get_value();
+
+		$slugs = array_map( function ( $item ) {
+			return papi_remove_papi( $item->slug );
+		}, $items );
+
+		// Remove values that don't exists in the slugs array.
+		foreach ( $values as $index => $value ) {
+			$keys = array_keys( $value );
+
+			foreach ( $slugs as $slug ) {
+				if ( in_array( $slug, $keys ) ) {
+					continue;
+				}
+
+				$values[$index][$slug] = '';
+			}
+		}
+
+		$values = array_filter( $values );
+
 		foreach ( $values as $row ):
 			?>
 			<tr>

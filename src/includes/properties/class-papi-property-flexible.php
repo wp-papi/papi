@@ -513,6 +513,28 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$layouts = $this->get_settings_layouts();
 		$values  = $this->get_value();
 
+		// Fetch all slugs in all layouts.
+		$slugs = array_map( function ( $layout ) {
+			return array_map( function ( $item ) {
+				return papi_remove_papi( $item->slug );
+			}, $layout['items'] );
+		}, $layouts );
+
+		// Remove values that don't exists in the slugs array.
+		foreach ( $values as $index => $row ) {
+			$keys = array_keys( $row );
+
+			foreach ( $row as $slug => $value ) {
+				if ( ! isset( $slugs[$index] ) || in_array( $slug, $slugs[$index] ) ) {
+					continue;
+				}
+
+				unset( $values[$index][$slug] );
+			}
+		}
+
+		$values = array_filter( $values );
+
 		foreach ( $values as $index => $row ):
 			?>
 
