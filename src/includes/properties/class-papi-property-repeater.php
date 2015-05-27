@@ -235,7 +235,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	protected function get_row_results( $dbresults ) {
 		$results     = [];
-		$option_page =  $this->is_option_page();
+		$option_page = $this->is_option_page();
 
 		foreach ( $dbresults as $key => $meta ) {
 

@@ -74,7 +74,7 @@ class Papi_Property extends Papi_Core_Property {
 	 */
 
 	public function render_description_html() {
-		if ( papi_is_empty( $this->get_option( 'description' )  ) ) {
+		if ( papi_is_empty( $this->get_option( 'description' ) ) ) {
 			return;
 		}
 

@@ -40,11 +40,11 @@ class Papi_Option_Type extends Papi_Page_Type {
 		return $this->post_type[0];
 	}
 
-    /**
-     * Render option page type.
-     */
+	/**
+	 * Render option page type.
+	 */
 
-    public function render() {
+	public function render() {
 		?>
 		<style type="text/css">
 			#_papi_option_page .inside {
@@ -65,5 +65,5 @@ class Papi_Option_Type extends Papi_Page_Type {
 			</form>
 		</div>
 		<?php
-    }
+	}
 }
