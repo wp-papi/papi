@@ -253,7 +253,13 @@ class Papi_Core_Property {
 		}
 
 		if ( isset( $this->default_options[$key] ) ) {
-			return $this->default_options[$key];
+			$option = $this->default_options[$key];
+
+			if ( $key === 'settings' ) {
+				$option = (object) $option;
+			}
+
+			return $option;
 		}
 	}
 
@@ -496,7 +502,7 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Set property value.
+	 * Set property option value.
 	 *
 	 * @param mixed $value
 	 */
@@ -508,6 +514,18 @@ class Papi_Core_Property {
 
 		if ( isset( $this->options->$key ) ) {
 			$this->options->$key = $value;
+		}
+	}
+
+	/**
+	 * Set property setting value.
+	 *
+	 * @param mixed $value
+	 */
+
+	public function set_setting( $key, $value ) {
+		if ( isset( $this->options->settings ) && isset( $this->options->settings->$key ) ) {
+			$this->options->settings->$key = $value;
 		}
 	}
 
