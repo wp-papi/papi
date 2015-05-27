@@ -309,7 +309,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$data_page = $this->get_page();
 		$types     = [];
 
-		if ( empty( $data_page ) ) {
+		if ( empty( $data_page ) || empty( $results ) ) {
 			return $this->default_value;
 		}
 
