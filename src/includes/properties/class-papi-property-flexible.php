@@ -120,6 +120,18 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	}
 
 	/**
+	 * Check if the given key is a valid layout key.
+	 *
+	 * @param string $key
+	 *
+	 * @return bool
+	 */
+
+	protected function is_layout_key( $key ) {
+		return is_string( $key ) && $this->layout_key === $key;
+	}
+
+	/**
 	 * Get default settings.
 	 *
 	 * @return array
@@ -526,6 +538,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 			foreach ( $row as $slug => $value ) {
 				if ( ! isset( $slugs[$index] ) || in_array( $slug, $slugs[$index] ) ) {
+					continue;
+				}
+
+				if ( papi_is_property_type_key( $slug ) || $this->is_layout_key( $slug ) ) {
 					continue;
 				}
 
