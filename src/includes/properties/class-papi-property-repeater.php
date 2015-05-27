@@ -20,6 +20,14 @@ class Papi_Property_Repeater extends Papi_Property {
 	public $convert_type = 'array';
 
 	/**
+	 * Repeater counter number.
+	 *
+	 * @var int
+	 */
+
+	protected $counter = 0;
+
+	/**
 	 * The default value.
 	 *
 	 * @var array
@@ -28,12 +36,12 @@ class Papi_Property_Repeater extends Papi_Property {
 	public $default_value = [];
 
 	/**
-	 * Repeater counter number.
+	 * Exclude properties that is not allowed in a repeater.
 	 *
-	 * @var int
+	 * @var array
 	 */
 
-	protected $counter = 0;
+	protected $exclude_properties = ['repeater'];
 
 	/**
 	 * Format the value of the property before it's returned to the theme.
@@ -349,11 +357,11 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	protected function prepare_properties( $items ) {
-		$not_allowed = ['repeater', 'flexible'];
-		$not_allowed = array_merge( $not_allowed, apply_filters( 'papi/property/repeater/exclude', array() ) );
+		$exclude_properties = $this->exclude_properties;
+		$exclude_properties = array_merge( $exclude_properties, apply_filters( 'papi/property/repeater/exclude', array() ) );
 		$items       = array_map( 'papi_get_property_options', $items );
 
-		return array_filter( $items, function ( $item ) use ( $not_allowed ) {
+		return array_filter( $items, function ( $item ) use ( $exclude_properties ) {
 
 			if ( ! is_object( $item ) ) {
 				return false;
@@ -363,7 +371,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				return false;
 			}
 
-			return ! in_array( $item->type, $not_allowed );
+			return ! in_array( $item->type, $exclude_properties );
 		} );
 	}
 

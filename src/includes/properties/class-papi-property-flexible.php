@@ -36,6 +36,14 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	public $default_value = [];
 
 	/**
+	 * Exclude properties that is not allowed in a repeater.
+	 *
+	 * @var array
+	 */
+
+	protected $exclude_properties = ['flexible', 'repeater'];
+
+	/**
 	 * The layout key.
 	 *
 	 * @var string
