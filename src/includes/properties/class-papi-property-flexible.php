@@ -398,6 +398,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			foreach ( $layout['items'] as $key => $value ) {
 				$properties[$key] = $this->get_json_property( $value );
 			}
+
 			?>
 
 			<script type="application/json" data-papi-json="<?php echo $this->get_json_id( $layout['title'], 'flexible_json' ); ?>">
@@ -526,22 +527,19 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$values  = $this->get_value();
 
 		// Fetch all slugs in all layouts.
-		$slugs = array_map( function ( $layout ) {
-			return array_map( function ( $item ) {
-				return papi_remove_papi( $item->slug );
-			}, $layout['items'] );
-		}, $layouts );
+		$slugs = [];
+		foreach ( $layouts as $index => $layout ) {
+			foreach ( $layout['items'] as $item ) {
+				$slugs[] = papi_remove_papi( $item->slug );
+			}
+		}
 
 		// Remove values that don't exists in the slugs array.
 		foreach ( $values as $index => $row ) {
 			$keys = array_keys( $row );
 
 			foreach ( $row as $slug => $value ) {
-				if ( ! isset( $slugs[$index] ) || in_array( $slug, $slugs[$index] ) ) {
-					continue;
-				}
-
-				if ( papi_is_property_type_key( $slug ) || $this->is_layout_key( $slug ) ) {
+				if ( in_array( $slug, $keys ) || papi_is_property_type_key( $slug ) || $this->is_layout_key( $slug ) ) {
 					continue;
 				}
 
