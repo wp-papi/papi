@@ -42,6 +42,18 @@ function papi_from_property_array_slugs( $values, $slug ) {
 }
 
 /**
+ * Check if the given value is a instance of a property or not.
+ *
+ * @param mixed $value
+ *
+ * @return bool
+ */
+
+function papi_is_property( $value ) {
+	return $value instanceof Papi_Property;
+}
+
+/**
  * Get box property.
  *
  * @param array $properties

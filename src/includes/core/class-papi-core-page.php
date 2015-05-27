@@ -88,7 +88,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 		$property = $this->get_property( $slug );
 
 		// If no property type is found, just return null.
-		if ( $property instanceof Papi_Property === false ) {
+		if ( ! papi_is_property( $property ) ) {
 			return;
 		}
 

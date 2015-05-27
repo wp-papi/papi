@@ -45,6 +45,18 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_from_property_array_slugs( [], 'custom_slug' ) );
 	}
 
+	public function test_papi_is_property() {
+		$this->assertTrue( papi_is_property( new Papi_Property() ) );
+		$this->assertTrue( papi_is_property( new Papi_Property_String() ) );
+		$this->assertFalse( papi_is_property( (object) [] ) );
+		$this->assertFalse( papi_is_property( [] ) );
+		$this->assertFalse( papi_is_property( null ) );
+		$this->assertFalse( papi_is_property( 1 ) );
+		$this->assertFalse( papi_is_property( true ) );
+		$this->assertFalse( papi_is_property( false ) );
+		$this->assertFalse( papi_is_property( '' ) );
+	}
+
 	public function test_papi_get_box_property() {
 		$actual = papi_get_box_property( [
 			'type'  => 'string',

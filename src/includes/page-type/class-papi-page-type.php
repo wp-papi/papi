@@ -116,7 +116,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			$properties = papi_get_property_type( $properties );
 		}
 
-		if ( $properties instanceof Papi_Property ) {
+		if ( papi_is_property( $properties ) ) {
 			$properties = [$properties];
 		}
 
@@ -128,7 +128,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		$properties = $this->convert_child_properties( $properties );
 
 		return array_filter( $properties, function ( $property ) {
-			return $property instanceof Papi_Property;
+			return papi_is_property( $property );
 		} );
 	}
 	/**
@@ -190,6 +190,11 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 				}
 
 				$items[$index] = papi_get_property_type( $item );
+				$child_items = $items[$index]->get_setting( 'items' );
+
+				if ( is_array( $child_items ) ) {
+					$items[$index]->set_setting( 'items', $this->convert_items_array( $child_items ) );
+				}
 			}
 		}
 
@@ -297,7 +302,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			foreach ( $box[1] as $property ) {
 				$property = papi_get_property_type( $property );
 
-				if ( $property instanceof Papi_Property === false ) {
+				if ( ! papi_is_property( $property ) ) {
 					continue;
 				}
 

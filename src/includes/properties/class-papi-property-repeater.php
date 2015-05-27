@@ -107,6 +107,12 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	protected function get_json_property( $property ) {
+		$property = papi_get_property_type( $property );
+
+		if ( ! papi_is_property( $property ) ) {
+			return (object) [];
+		}
+
 		$options = $property->get_options();
 		$options->slug  = $options->array_slug;
 		$options->raw   = true;

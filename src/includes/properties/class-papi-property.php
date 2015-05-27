@@ -58,7 +58,7 @@ class Papi_Property extends Papi_Core_Property {
 			$base_slug = sprintf( '%s[%d]', $base_slug, intval( $row ) );
 		}
 
-		if ( ! ( $sub_property instanceof Papi_Property ) ) {
+		if ( ! papi_is_property( $sub_property ) ) {
 			if ( is_array( $sub_property ) || is_object( $sub_property ) ) {
 				$sub_property = self::factory( $sub_property );
 			} else {
