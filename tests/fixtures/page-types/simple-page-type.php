@@ -68,6 +68,30 @@ class Simple_Page_Type extends Papi_Page_Type {
 				dirname( __DIR__ ) . '/boxes/simple.php'
 			)
 		);
+
+		$this->box( 'Children', [
+			papi_property( [
+				'type'     => 'string',
+				'title'    => 'Name',
+				'slug'     => 'name_levels',
+				'settings' => [
+					'items' => [
+						papi_property([
+							'type'     => 'string',
+							'title'	   => 'Child name',
+							'settings' => [
+								'items' => [
+									papi_property( [
+										'type'  => 'string',
+										'title' => 'Child child name'
+									] )
+								]
+							]
+						])
+					]
+				]
+			] )
+		] );
 	}
 
 	public function content_box() {
