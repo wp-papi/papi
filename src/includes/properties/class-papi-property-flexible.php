@@ -256,7 +256,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$values[$property_type_key] = $property_type_value;
 
 				// Add the flexible layout for the property.
-				if ( ! preg_match( '/\_layout$/', $slug ) && ! preg_match( $this->layout_prefix_regex, $rows[$i][$slug]->meta_value ) ) {
+				if ( ! preg_match( '/\_layout$/', $slug ) && is_string( $rows[$i][$slug]->meta_value ) && ! preg_match( $this->layout_prefix_regex, $rows[$i][$slug]->meta_value ) ) {
 					$slug .= '_layout';
 				}
 
