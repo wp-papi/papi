@@ -21,8 +21,8 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 		$this->post_id = $this->factory->post->create();
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'empty-page-type' );
-		$this->empty_page_type  = new Papi_Page_Type();
 
+		$this->empty_page_type  = new Papi_Page_Type();
 		$this->faq_page_type    = papi_get_page_type_by_id( 'faq-page-type' );
 		$this->simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
 	}
@@ -38,7 +38,9 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 	}
 
 	public function test_meta_method() {
-		$this->assertEquals( 'page_type', $this->empty_page_type->_meta_method);
+		$this->assertEquals( 'page_type', $this->simple_page_type->_meta_method );
+		$this->assertEquals( 'page_type', $this->empty_page_type->_meta_method );
+		$this->assertEquals( 'page_type', $this->faq_page_type->_meta_method );
 	}
 
 	public function test_broken_page_type() {

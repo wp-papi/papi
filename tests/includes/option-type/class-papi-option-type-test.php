@@ -88,14 +88,20 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'string', $children2[0]->type );
 	}
 
+	public function test_has_post_type() {
+		$this->assertTrue( $this->header_option_type->has_post_type( $this->header_option_type->post_type[0] ) );
+		$this->assertTrue( $this->empty_option_type->has_post_type( $this->empty_option_type->post_type[0] ) );
+	}
+
 	public function test_meta_method() {
 		$this->assertEquals( 'option_type', $this->header_option_type->_meta_method );
 		$this->assertEquals( 'option_type', $this->empty_option_type->_meta_method );
 	}
 
-	public function test_options() {
+	public function test_meta_info() {
 		$this->assertEmpty( $this->empty_option_type->name );
 		$this->assertEmpty( $this->empty_option_type->menu );
+
 		$this->assertEquals( 'Header', $this->header_option_type->name );
 		$this->assertEquals( 'options-general.php', $this->header_option_type->menu );
 	}

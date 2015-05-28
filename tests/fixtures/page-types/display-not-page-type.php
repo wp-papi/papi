@@ -14,7 +14,7 @@ class Display_Not_Page_Type extends Papi_Page_Type {
 			'description'  => 'This is a display not page',
 			'template'     => 'pages/display-not-page.php',
 			'_not_used'    => 'Not used',
-			'capabilities' => array( 'kvack' )
+			'capabilities' => ['kvack']
 		];
 	}
 
