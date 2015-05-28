@@ -37,6 +37,10 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 		);
 	}
 
+	public function test_meta_method() {
+		$this->assertEquals( 'page_type', $this->empty_page_type->_meta_method);
+	}
+
 	public function test_broken_page_type() {
 		$this->assertNull( papi_get_page_type_by_id( 'broken-page-type' ) );
 	}

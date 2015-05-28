@@ -241,9 +241,9 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$actual = papi_get_post_types();
+		$post_types = papi_get_post_types();
 
-		$this->assertEquals( ['page'], $actual );
+		$this->assertTrue( in_array( 'page', $post_types ) );
 	}
 
 	/**

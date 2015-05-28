@@ -23,6 +23,22 @@ class Papi_Option_Type extends Papi_Page_Type {
 	public $_meta_method = 'option_type';
 
 	/**
+	 * The menu to register the option type on.
+	 *
+	 * @var string
+	 */
+
+	public $menu = '';
+
+	/**
+	 * The name of the page type.
+	 *
+	 * @var string
+	 */
+
+	public $name = '';
+
+	/**
 	 * The fake post type to use.
 	 *
 	 * @var string
@@ -46,13 +62,6 @@ class Papi_Option_Type extends Papi_Page_Type {
 
 	public function render() {
 		?>
-		<style type="text/css">
-			#_papi_option_page .inside {
-				padding: 0;
-				margin-top: -1px;
-			}
-		</style>
-
 		<div class="wrap">
 			<h2>Header</h2>
 			<form id="post" method="post" name="post">

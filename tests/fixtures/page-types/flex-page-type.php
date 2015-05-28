@@ -67,4 +67,8 @@ class Flex_Page_Type extends Papi_Page_Type {
 		] );
 	}
 
+	public function display( $post_type ) {
+		return false;
+	}
+
 }

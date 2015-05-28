@@ -79,15 +79,37 @@ class Simple_Page_Type extends Papi_Page_Type {
 						papi_property([
 							'type'     => 'string',
 							'title'	   => 'Child name',
+							'slug'     => 'child_name',
 							'settings' => [
 								'items' => [
-									papi_property( [
+									[
 										'type'  => 'string',
-										'title' => 'Child child name'
-									] )
+										'title' => 'Child child name',
+										'slug'  => 'child_child_name'
+									],
+									null
 								]
 							]
 						])
+					]
+				]
+			] )
+		] );
+
+		$this->box('Children 2', [
+			papi_property( [
+				'type'     => 'string',
+				'title'    => 'Name',
+				'slug'     => 'name_levels_2',
+				'settings' => [
+					'items' => [
+						[
+							papi_property( [
+								'type'  => 'string',
+								'title'	=> 'Child name 2',
+								'slug'  => 'child_name_2'
+							] )
+						]
 					]
 				]
 			] )

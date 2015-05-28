@@ -121,7 +121,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		}
 
 		if ( ! is_array( $properties ) ) {
-			return;
+			return [];
 		}
 
 		$properties = array_map( 'papi_get_property_type', $properties );
@@ -265,11 +265,11 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			}
 
 			if ( is_object( $property ) ) {
-				if ( papi_remove_papi( $property->array_slug ) === $slug ) {
+				if ( papi_remove_papi( $property->slug ) === $slug ) {
 					return papi_get_property_type( $property );
 				}
 
-				if ( papi_remove_papi( $property->slug ) === $slug ) {
+				if ( papi_remove_papi( $property->array_slug ) === $slug ) {
 					return papi_get_property_type( $property );
 				}
 			}
@@ -295,10 +295,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		}
 
 		foreach ( $boxes as $box ) {
-			if ( ! is_array( $box[1] ) ) {
-				continue;
-			}
-
 			foreach ( $box[1] as $property ) {
 				$property = papi_get_property_type( $property );
 
