@@ -36,6 +36,7 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_labels() {
+		$this->assertEmpty( $this->simple_page_type->get_labels() );
 		$this->assertEquals( [
 			'add_new_item' => 'Add New FAQ page',
 			'edit_item'    => 'Edit FAQ page',
