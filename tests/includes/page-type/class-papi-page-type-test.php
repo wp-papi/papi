@@ -78,7 +78,9 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Book name', $property->title );
 		$this->assertEquals( 'string', $property->get_option( 'type' ) );
 		$this->assertEquals( 'string', $property->type );
+	}
 
+	public function test_get_child_properties() {
 		$property = $this->simple_page_type->get_property( 'name_levels' );
 		$children1 = $property->get_child_properties();
 		$children2 = $children1[0]->get_child_properties();
