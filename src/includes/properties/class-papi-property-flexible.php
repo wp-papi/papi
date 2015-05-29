@@ -332,7 +332,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 		foreach ( $results as $index => $row ) {
 			foreach ( $row as $slug => $value ) {
-				if ( $property = $data_page->get_property_from_page_type( $repeater_slug, $slug ) ) {
+				if ( $property = $data_page->get_property( $repeater_slug, $slug ) ) {
 					$type_key = papi_get_property_type_key_f( $slug );
 					$results[$index][$type_key] = $property;
 				}

@@ -4,16 +4,12 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering `Papi_Page` class.
+ * Unit tests covering `Papi_Post_Page` class.
  *
  * @package Papi
  */
 
-class Papi_Page_Test extends WP_UnitTestCase {
-
-	/**
-	 * Setup test.
-	 */
+class Papi_Post_Page_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -27,18 +23,10 @@ class Papi_Page_Test extends WP_UnitTestCase {
 		$this->page = papi_get_page( $this->post_id );
 	}
 
-	/**
-	 * Tear down property.
-	 */
-
 	public function tearDown() {
 		parent::tearDown();
 		unset( $this->post_id, $this->page );
 	}
-
-	/**
-	 * Test `get_page_type` method.
-	 */
 
 	public function test_get_page_type() {
 		$this->assertEmpty( $this->page->get_page_type() );
@@ -50,35 +38,19 @@ class Papi_Page_Test extends WP_UnitTestCase {
 		$this->assertEquals( $page->get_page_type()->name, 'Simple page' );
 	}
 
-	/**
-	 * Test `get_permalink` method.
-	 */
-
 	public function test_get_permalink() {
 		$permalink = $this->page->get_permalink();
 		$this->assertFalse( empty( $permalink ) );
 	}
-
-	/**
-	 * Test `get_post` method.
-	 */
 
 	public function test_get_post() {
 		$this->assertTrue( is_object( $this->page->get_post() ) );
 		$this->assertEquals( $this->post_id, $this->page->get_post()->ID );
 	}
 
-	/**
-	 * Test `get_status` method.
-	 */
-
 	public function test_get_status() {
 		$this->assertEquals( 'publish', $this->page->get_status() );
 	}
-
-	/**
-	 * Test `get_value` method.
-	 */
 
 	public function test_get_value() {
 		$handler = new Papi_Admin_Post_Handler();
@@ -125,19 +97,19 @@ class Papi_Page_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Fredrik', $actual );
 	}
 
-	/**
-	 * Test `__get` method.
-	 */
-
 	public function test__get() {
 		update_post_meta( $this->post_id, 'name', '' );
 
 		$this->assertNull( $this->page->name );
 	}
 
-	public function test_get_property_from_page_type() {
+	public function test_get_property() {
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'random322-page-type' );
 		$data_page = papi_get_page( $this->post_id );
-		$this->assertNull( $data_page->get_property_from_page_type( 'fake' ) );
+		$this->assertNull( $data_page->get_property( 'fake' ) );
+	}
+
+	public function test_valid() {
+		$this->assertTrue( $this->page->valid() );
 	}
 }

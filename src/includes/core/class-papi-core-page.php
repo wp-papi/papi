@@ -161,33 +161,15 @@ abstract class Papi_Core_Page extends Papi_Container {
 	}
 
 	/**
-	 * Get property options from page type.
-	 *
-	 * @param string $slug
-	 *
-	 * @return Papi_Property
-	 */
-
-	protected function get_property( $slug ) {
-		$property = $this->get_property_from_page_type( $slug );
-
-		if ( ! is_object( $property ) ) {
-			return;
-		}
-
-		return $property;
-	}
-
-	/**
-	 * Load property options from page type.
+	 * Get property from page type.
 	 *
 	 * @param string $slug
 	 * @param string $child_slug
 	 *
-	 * @return object
+	 * @return Papi_Property
 	 */
 
-	abstract public function get_property_from_page_type( $slug, $child_slug );
+	abstract public function get_property( $slug, $child_slug = '' );
 
 	/**
 	 * Set type.

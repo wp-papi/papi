@@ -29,7 +29,7 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 * @return object
 	 */
 
-	public function get_property_from_page_type( $slug, $child_slug = '' ) {
+	public function get_property( $slug, $child_slug = '' ) {
 		$page_type_id = str_replace( 'papi/', '', papi_get_qs( 'page' ) );
 
 		if ( empty( $page_type_id ) ) {

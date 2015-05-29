@@ -103,7 +103,7 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 * @return object
 	 */
 
-	public function get_property_from_page_type( $slug, $child_slug = '' ) {
+	public function get_property( $slug, $child_slug = '' ) {
 		$page_type_id = papi_get_page_type_meta_value( $this->id );
 		$page_type    = papi_get_page_type_by_id( $page_type_id );
 

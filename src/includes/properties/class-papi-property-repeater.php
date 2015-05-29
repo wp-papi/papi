@@ -328,7 +328,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		}
 
 		foreach ( $results[0] as $slug => $value ) {
-			if ( $property = $data_page->get_property_from_page_type( $repeater_slug, $slug ) ) {
+			if ( $property = $data_page->get_property( $repeater_slug, $slug ) ) {
 				$types[$slug] = $property;
 			}
 		}
