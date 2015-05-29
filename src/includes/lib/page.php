@@ -121,13 +121,13 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
  * Get the data page.
  *
  * @param int $post_id
- * @param string $data_type
+ * @param string $type
  *
  * @return mixed
  */
 
-function papi_get_page( $post_id = 0, $data_type = 'post' ) {
-	return Papi_Core_Page::factory( $post_id, $data_type );
+function papi_get_page( $post_id = 0, $type = 'post' ) {
+	return Papi_Core_Page::factory( $post_id, $type );
 }
 
 /**

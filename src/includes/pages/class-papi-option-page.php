@@ -18,7 +18,7 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 * @var string
 	 */
 
-	protected $data_type = 'option';
+	protected $type = 'option';
 
 	/**
 	 * Load property from page type.
@@ -65,7 +65,7 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 */
 
 	public function valid() {
-		return $this->id === 0 && $this->valid_data_type();
+		return $this->id === 0 && $this->valid_type();
 	}
 
 }

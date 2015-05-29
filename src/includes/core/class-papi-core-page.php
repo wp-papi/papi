@@ -65,7 +65,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 
 	public function get_value( $slug ) {
 		$slug  = papi_remove_papi( $slug );
-		$value = papi_property_get_meta( $this->id, $slug, $this->data_type );
+		$value = papi_property_get_meta( $this->id, $slug, $this->type );
 
 		if ( papi_is_empty( $value ) ) {
 			return;
@@ -132,17 +132,17 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 * Get page from factory.
 	 *
 	 * @param int $post_id
-	 * @param string $data_type
+	 * @param string $type
 	 *
 	 * @return mixed
 	 */
 
-	public static function factory( $post_id, $data_type = 'post' ) {
+	public static function factory( $post_id, $type = 'post' ) {
 		if ( papi_is_option_page() ) {
-			$data_type = 'option';
+			$type = 'option';
 		}
 
-		$class_suffix = '_' . ucfirst( $data_type ) . '_Page';
+		$class_suffix = '_' . ucfirst( $type ) . '_Page';
 		$class_name   = 'Papi' . $class_suffix;
 
 		if ( ! class_exists( $class_name ) ) {
@@ -151,7 +151,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 
 		$post_id = papi_get_post_id( $post_id );
 		$page = new $class_name( $post_id );
-		$page->set_type( $data_type );
+		$page->set_type( $type );
 
 		if ( ! $page->valid() ) {
 			return;
@@ -190,12 +190,12 @@ abstract class Papi_Core_Page extends Papi_Container {
 	abstract public function valid();
 
 	/**
-	 * Check if the page has a valid data type.
+	 * Check if the page has a valid type.
 	 *
 	 * @return bool
 	 */
 
-	protected function valid_data_type() {
+	protected function valid_type() {
 		return in_array( $this->type, $this->types );
 	}
 

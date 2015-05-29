@@ -109,6 +109,10 @@ class Papi_Post_Page_Test extends WP_UnitTestCase {
 		$this->assertNull( $data_page->get_property( 'fake' ) );
 	}
 
+	public function test_is() {
+		$this->assertTrue( $this->page->is( 'post' ) );
+	}
+
 	public function test_valid() {
 		$this->assertTrue( $this->page->valid() );
 	}

@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
  * @return mixed
  */
 
-function papi_field( $post_id = null, $name = null, $default = null, $data_type = 'post' ) {
+function papi_field( $post_id = null, $name = null, $default = null, $type = 'post' ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$default = $name;
 		$name    = $post_id;
@@ -29,7 +29,7 @@ function papi_field( $post_id = null, $name = null, $default = null, $data_type 
 
 	$post_id = papi_get_post_id( $post_id );
 
-	if ( $post_id === 0 && $data_type === 'post' ) {
+	if ( $post_id === 0 && $type === 'post' ) {
 		return $default;
 	}
 
@@ -48,7 +48,7 @@ function papi_field( $post_id = null, $name = null, $default = null, $data_type 
 		$names = array_slice( $names, 1 );
 
 		// Get the right page for right data type.
-		$data_page = papi_get_page( $post_id, $data_type );
+		$data_page = papi_get_page( $post_id, $type );
 
 		// Return the default value if we don't have a valid page.
 		if ( is_null( $data_page ) ) {

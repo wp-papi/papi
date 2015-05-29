@@ -18,7 +18,7 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 * @var string
 	 */
 
-	protected $data_type = 'post';
+	protected $type = 'post';
 
 	/**
 	 * The WordPress post.
