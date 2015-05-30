@@ -40,6 +40,10 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		);
 	}
 
+	public function test_actions() {
+		$this->assertEquals( 10, has_action( 'save_post', [$this->handler, 'save_meta_boxes'] ) );
+	}
+
 	public function test_save_property() {
 		$property = $this->page_type->get_property( 'string_test' );
 		$_POST = papi_test_create_property_post_data( [
