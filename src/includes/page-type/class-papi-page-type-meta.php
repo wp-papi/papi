@@ -94,7 +94,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 
 	/**
 	 * The constructor.
-	 * 
+	 *
 	 * Load a page type by the file.
 	 *
 	 * @param string $file_path
