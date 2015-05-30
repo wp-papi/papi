@@ -58,7 +58,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		do_action( 'papi/ajax/get_property' );
 
 		$this->expectOutputRegex( '/.*\S.*/' );
-		$this->expectOutputRegex( '/No\sproperty\sfound/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No property found\"\}/' );
 	}
 
 	public function test_get_properties() {
@@ -82,6 +82,18 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/.*\S.*/' );
 		$this->expectOutputRegex( '/papi\_name/' );
 		$this->expectOutputRegex( '/papi\_nyckel/' );
+	}
+
+	public function test_render() {
+		$this->ajax->render([
+			'line' => 'Hello, world!'
+		]);
+		$this->expectOutputString( '{"line":"Hello, world!"}' );
+	}
+
+	public function test_render_error() {
+		$this->ajax->render_error( 'No property found' );
+		$this->expectOutputString( '{"error":"No property found"}' );
 	}
 
 }
