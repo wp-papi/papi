@@ -140,11 +140,7 @@ class Papi_Admin_Ajax {
 		}
 
 		foreach ( $items as $key => $item ) {
-			if ( is_object( $item ) ) {
-				$property = $item;
-			} else {
-				$property = papi_property( $item );
-			}
+			$property = papi_property( (array) $item );
 
 			ob_start();
 

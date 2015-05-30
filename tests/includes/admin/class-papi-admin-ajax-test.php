@@ -43,7 +43,11 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 
 		$_POST = array_merge( $_POST, [
 			'properties' => json_encode( [
-				$property->get_options()
+				$property->get_options(),
+				[
+					'type'  => 'string',
+					'title'	=> 'nyckel'
+				]
 			] )
 		] );
 
@@ -51,6 +55,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 
 		$this->expectOutputRegex( '/.*\S.*/' );
 		$this->expectOutputRegex( '/papi\_name/' );
+		$this->expectOutputRegex( '/papi\_nyckel/' );
 	}
 
 }
