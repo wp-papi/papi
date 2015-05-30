@@ -23,6 +23,14 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		unset( $_GET, $_POST, $this->ajax );
 	}
 
+	public function test_actions() {
+		$this->assertEquals( 10, has_action( 'init', [$this->ajax, 'add_endpoint'] ) );
+		$this->assertEquals( 10, has_action( 'parse_query', [$this->ajax, 'handle_papi_ajax'] ) );
+		$this->assertEquals( 10, has_action( 'admin_enqueue_scripts', [$this->ajax, 'ajax_url'] ) );
+		$this->assertEquals( 10, has_action( 'papi/ajax/get_property', [$this->ajax, 'get_property'] ) );
+		$this->assertEquals( 10, has_action( 'papi/ajax/get_properties', [$this->ajax, 'get_properties'] ) );
+	}
+
 	public function test_get_property() {
 		$_GET = array_merge( $_GET, [
 			'type' => 'string',
