@@ -20,7 +20,7 @@ class Papi_Admin_Ajax {
 	private $action_prefix = 'papi/ajax/';
 
 	/**
-	 * Constructor.
+	 * The constructor.
 	 */
 
 	public function __construct() {

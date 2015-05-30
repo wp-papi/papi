@@ -37,6 +37,8 @@ class Papi_Post_Page extends Papi_Core_Page {
 	private $page_type;
 
 	/**
+	 * The constructor.
+	 *
 	 * Create a new instance of the class.
 	 *
 	 * @param int $post_id

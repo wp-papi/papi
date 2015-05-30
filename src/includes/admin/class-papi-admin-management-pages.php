@@ -20,7 +20,7 @@ class Papi_Admin_Management_Pages {
 	private $view;
 
 	/**
-	 * Constructor.
+	 * The constructor.
 	 */
 
 	public function __construct() {

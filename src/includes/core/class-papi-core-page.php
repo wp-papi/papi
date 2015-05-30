@@ -36,7 +36,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 	private $types = ['option', 'post'];
 
 	/**
-	 * Empty constructor.
+	 * The constructor.
 	 */
 
 	public function __construct( $post_id = 0 ) {

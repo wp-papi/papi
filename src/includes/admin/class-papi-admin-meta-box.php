@@ -50,7 +50,7 @@ class Papi_Admin_Meta_Box {
 	private $properties = [];
 
 	/**
-	 * Constructor.
+	 * The constructor.
 	 *
 	 * @param array $options
 	 * @param array $properties

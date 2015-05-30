@@ -20,7 +20,7 @@ class Papi_Admin_Meta_Box_Tabs {
 	private $tabs = [];
 
 	/**
-	 * Constructor.
+	 * The constructor.
 	 *
 	 * @param array $tabs
 	 * @param bool $render

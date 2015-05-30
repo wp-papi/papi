@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Admin_Menu {
 
 	/**
-	 * Construct.
+	 * The construct.
 	 */
 
 	public function __construct() {

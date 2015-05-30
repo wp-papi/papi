@@ -62,10 +62,10 @@ final class Papi_Admin {
 	}
 
 	/**
-	 * Constructor.
+	 * The constructor.
 	 */
 
-	public function __construct() {}
+	private function __construct() {}
 
 	/**
 	 * Cloning is forbidden.

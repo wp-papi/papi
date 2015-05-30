@@ -20,7 +20,7 @@ class Papi_Admin_View {
 	private $path = '';
 
 	/**
-	 * Constructor.
+	 * The constructor.
 	 *
 	 * @param string $path
 	 */
