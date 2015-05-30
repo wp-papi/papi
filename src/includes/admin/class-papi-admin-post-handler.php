@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 
 	/**
-	 * Constructor.
+	 * The constructor.
 	 */
 
 	public function __construct() {
