@@ -196,11 +196,11 @@ class Papi_Core_Property {
 				// Dirty hack to solve casting issue when some properties class
 				// are cast to a object before going in here for some reason.
 				$new_item = unserialize( sprintf(
-        			'O:%d:"%s"%s',
-        			strlen( __CLASS__ ),
-        			__CLASS__,
-        			strstr( strstr( serialize( $item ), '"' ), ':' )
-    			) );
+					'O:%d:"%s"%s',
+					strlen( __CLASS__ ),
+					__CLASS__,
+					strstr( strstr( serialize( $item ), '"' ), ':' )
+				) );
 
 				if ( $new_item instanceof Papi_Core_Property ) {
 					$items[$index] = papi_get_property_type( $new_item->get_options() );
