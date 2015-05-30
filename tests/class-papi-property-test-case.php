@@ -25,6 +25,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		parent::tearDown();
 		unset(
 			$_GET,
+			$_POST,
 			$this->post_id,
 			$this->page_type,
 			$this->property
