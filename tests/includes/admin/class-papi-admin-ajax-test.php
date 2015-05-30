@@ -31,6 +31,12 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_action( 'papi/ajax/get_properties', [$this->ajax, 'get_properties'] ) );
 	}
 
+	public function test_endpoint() {
+		global $wp_rewrite;
+		$this->assertNotNull( $wp_rewrite->extra_rules_top['papi-ajax/([^/]*)/?'] );
+		$this->assertEquals( 'index.php?action=$matches[1]', $wp_rewrite->extra_rules_top['papi-ajax/([^/]*)/?'] );
+	}
+
 	public function test_get_property() {
 		$_GET = array_merge( $_GET, [
 			'type' => 'string',
