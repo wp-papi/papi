@@ -49,6 +49,18 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/papi\_hello/' );
 	}
 
+	public function test_get_property_fail() {
+		$_GET = array_merge( $_GET, [
+			'type' => 'kvack',
+			'slug' => 'hello'
+		] );
+
+		do_action( 'papi/ajax/get_property' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/No\sproperty\sfound/' );
+	}
+
 	public function test_get_properties() {
 		$property = papi_get_property_type( [
 			'type' => 'string',
