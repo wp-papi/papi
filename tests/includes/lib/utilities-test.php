@@ -291,12 +291,12 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$order = papi_sort_order( $order );
 		$this->assertEquals( $order[0]->options->sort_order, 1000 );
 
-		$order = papi_sort_order( [ (array) papi_property( [
+		$order = papi_sort_order( [ papi_property( [
 			'type' => 'string',
 			'title' => 'Name'
 		] ) ] );
 
-		$this->assertEquals( $order[0]['sort_order'], 1000 );
+		$this->assertEquals( $order[0]->sort_order, 1000 );
 	}
 
 	public function test_papi_slugify() {

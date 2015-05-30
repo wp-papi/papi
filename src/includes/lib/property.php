@@ -314,12 +314,12 @@ function papi_property( $file_or_options, $values = [] ) {
 		$file_or_options = papi_get_property_options( $file_or_options );
 	}
 
-	if ( is_object( $file_or_options ) ) {
-		return $file_or_options;
+	if ( is_string( $file_or_options ) && is_array( $values ) ) {
+		$file_or_options = papi_template( $file_or_options, $values );
 	}
 
-	if ( is_string( $file_or_options ) && is_array( $values ) ) {
-		return (object) papi_template( $file_or_options, $values, true );
+	if ( is_object( $file_or_options ) ) {
+		return papi_get_property_type( $file_or_options );
 	}
 }
 

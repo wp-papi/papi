@@ -378,18 +378,12 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Name', $actual->title );
 		$this->assertEquals( 'string', $actual->type );
 
-		$actual = papi_property( [] );
-
-		$this->assertEmpty( $actual->title );
-		$this->assertEmpty( $actual->type );
-		$this->assertTrue( $actual->sidebar );
-
-		$this->assertEquals( new stdClass(), papi_property( new stdClass() ) );
-
-		$this->assertEmpty( papi_property( null ) );
-		$this->assertEmpty( papi_property( true ) );
-		$this->assertEmpty( papi_property( false ) );
-		$this->assertEmpty( papi_property( 1 ) );
+		$this->assertNull( papi_property( [] ) );
+		$this->assertNull( papi_property( new stdClass() ) );
+		$this->assertNull( papi_property( null ) );
+		$this->assertNull( papi_property( true ) );
+		$this->assertNull( papi_property( false ) );
+		$this->assertNull( papi_property( 1 ) );
 	}
 
 	public function test_papi_property_template() {

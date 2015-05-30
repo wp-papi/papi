@@ -93,7 +93,15 @@ function papi_template( $file, $values = [], $convert_to_object = false ) {
 
 	$template = require $filepath;
 
-	$result = array_merge( (array) $template, $values );
+	if ( papi_is_property( $template ) ) {
+		foreach ( $values as $key => $value ) {
+			$template->set_option( $key, $value );
+		}
+
+		$result = $template;
+	} else {
+		$result = array_merge( (array) $template, $values );
+	}
 
 	if ( $convert_to_object ) {
 		return (object) $result;

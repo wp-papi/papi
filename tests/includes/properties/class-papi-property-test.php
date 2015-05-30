@@ -148,9 +148,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$settings = $property->get_settings();
 
 		$this->assertTrue( is_object( $settings ) );
-		$this->assertEquals( 'faker', $settings->items[0]['type'] );
-		$this->assertEquals( 'fake', $settings->items[1]->type );
-		$this->assertEquals( 'papi_fake', $settings->items[1]->slug );
+		$this->assertEmpty( $settings->items );
 	}
 
 	public function test_get_value() {

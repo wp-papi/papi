@@ -73,8 +73,8 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 	public function test_papi_template() {
 		$template = papi_template( PAPI_FIXTURE_DIR . '/properties/simple.php' );
 
-		$this->assertEquals( 'Name', $template['title'] );
-		$this->assertEquals( 'string', $template['type'] );
+		$this->assertEquals( 'Name', $template->title );
+		$this->assertEquals( 'string', $template->type );
 
 		$this->assertEmpty( papi_template( null ) );
 		$this->assertEmpty( papi_template( true ) );

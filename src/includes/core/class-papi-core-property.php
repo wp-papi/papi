@@ -135,21 +135,84 @@ class Papi_Core_Property {
 
 	private function convert_settings( $settings ) {
 		foreach ( $settings as $key => $value ) {
-			if ( is_array( $value ) ) {
-				if ( isset( $value['type'] ) ) {
-					$type = papi_get_property_class_name( $value['type'] );
-					if ( class_exists( $type ) ) {
-						$settings[$key] = papi_property( $value );
-					} else {
-						$settings[$key] = $this->convert_settings( $value );
+			if ( ! is_array( $value ) ) {
+				continue;
+			}
+
+			$settings[$key] = $this->convert_items_array( $value );
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * Convert all arrays that has a valid property type.
+	 *
+	 * @param array $items
+	 *
+	 * @return array
+	 */
+
+	private function convert_items_array( $items ) {
+		foreach ( $items as $index => $item ) {
+
+			if ( is_array( $item ) && ! isset( $item['type'] ) ) {
+				foreach ( $item as $key => $value ) {
+					if ( is_array( $value ) ) {
+						$items[$index][$key] = $this->convert_items_array( $value );
+						$items[$index][$key] = array_filter( $items[$index][$key] );
+						$items[$index][$key] = array_values( $items[$index][$key] );
 					}
+				}
+
+				continue;
+			}
+
+			if ( ( is_array( $item ) && isset( $item['type'] ) ) || ( is_object( $item ) && isset( $item->type ) ) ) {
+				if ( is_array( $item ) ) {
+					$type = papi_get_property_class_name( $item['type'] );
 				} else {
-					$settings[$key] = $this->convert_settings( $value );
+					$type = papi_get_property_class_name( $item->type );
+				}
+
+				$items[$index] = papi_get_property_type( $item );
+
+				if ( is_null( $items[$index] ) ) {
+					unset( $items[$index] );
+					continue;
+				}
+
+				if ( is_object( $items[$index] ) ) {
+					$child_items = $items[$index]->get_setting( 'items' );
+
+					if ( is_array( $child_items ) ) {
+						$items[$index]->set_setting( 'items', $this->convert_items_array( $child_items ) );
+					}
+					continue;
+				}
+			}
+
+			if ( is_object( $item ) && get_class( $item ) === 'stdClass' && isset( $item->convert_type ) && $item instanceof Papi_Core_Property === false ) {
+				// Dirty hack to solve casting issue when some properties class
+				// are cast to a object before going in here for some reason.
+				$new_item = unserialize( sprintf(
+        			'O:%d:"%s"%s',
+        			strlen( __CLASS__ ),
+        			__CLASS__,
+        			strstr( strstr( serialize( $item ), '"' ), ':' )
+    			) );
+
+				if ( $new_item instanceof Papi_Core_Property ) {
+					$items[$index] = papi_get_property_type( $new_item->get_options() );
+
+					if ( is_null( $items[$index] ) ) {
+						$items[$index] = $item;
+					}
 				}
 			}
 		}
 
-		return $settings;
+		return $items;
 	}
 
 	/**
@@ -185,6 +248,10 @@ class Papi_Core_Property {
 		}
 
 		$type = preg_replace( '/^Property/', '', $type );
+
+		if ( empty( $type ) ) {
+			return;
+		}
 
 		$class_name = papi_get_property_class_name( $type );
 
@@ -329,7 +396,7 @@ class Papi_Core_Property {
 	 */
 
 	public function get_settings() {
-		if ( ! is_object( $this->options ) ) {
+		if ( ! is_object( $this->options ) || ! isset( $this->options->settings ) ) {
 			return;
 		}
 

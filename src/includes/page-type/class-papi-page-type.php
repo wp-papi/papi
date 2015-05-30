@@ -105,7 +105,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			} else if ( isset( $properties[0]->tab ) && $properties[0]->tab ) {
 				foreach ( $properties as $index => $items ) {
 					$items->properties = array_map( 'papi_get_property_type', $items->properties );
-					$properties[$index]->properties = $this->convert_child_properties( $items->properties );
 				}
 
 				return $properties;
@@ -125,80 +124,10 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		}
 
 		$properties = array_map( 'papi_get_property_type', $properties );
-		$properties = $this->convert_child_properties( $properties );
 
 		return array_filter( $properties, function ( $property ) {
 			return papi_is_property( $property );
 		} );
-	}
-	/**
-	 * Fix child properties so you can skip `papi_property`
-	 * it in for example `settings->items`.
-	 *
-	 * @param array $properties
-	 *
-	 * @return array
-	 */
-
-	private function convert_child_properties( $properties ) {
-		for ( $i = 0, $l = count( $properties ); $i < $l; $i++ ) {
-			if ( ! isset( $properties[$i]->settings ) ) {
-				continue;
-			}
-
-			$settings = (array) $properties[$i]->settings;
-
-			foreach ( $settings as $key => $value ) {
-				if ( ! is_array( $value ) ) {
-					continue;
-				}
-
-				$settings[$key] = $this->convert_items_array( $value );
-			}
-
-			$properties[$i]->settings = (object) $settings;
-		}
-
-		return $properties;
-	}
-
-	/**
-	 * Convert all arrays that has a valid property type.
-	 *
-	 * @param array $items
-	 *
-	 * @return array
-	 */
-
-	private function convert_items_array( $items ) {
-		foreach ( $items as $index => $item ) {
-			if ( is_array( $item ) && ! isset( $item['type'] ) ) {
-				foreach ( $item as $key => $value ) {
-					if ( is_array( $value ) ) {
-						$items[$index][$key] = $this->convert_items_array( $value );
-					}
-				}
-
-				continue;
-			}
-
-			if ( ( is_array( $item ) && isset( $item['type'] ) ) || ( is_object( $item ) && isset( $item->type ) ) ) {
-				if ( is_array( $item ) ) {
-					$type = papi_get_property_class_name( $item['type'] );
-				} else {
-					$type = papi_get_property_class_name( $item->type );
-				}
-
-				$items[$index] = papi_get_property_type( $item );
-				$child_items = $items[$index]->get_setting( 'items' );
-
-				if ( is_array( $child_items ) ) {
-					$items[$index]->set_setting( 'items', $this->convert_items_array( $child_items ) );
-				}
-			}
-		}
-
-		return $items;
 	}
 
 	/**
