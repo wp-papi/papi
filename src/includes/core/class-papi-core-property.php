@@ -225,7 +225,8 @@ class Papi_Core_Property {
 
 	public static function factory( $type ) {
 		if ( is_array( $type ) ) {
-			$type = papi_property( $type );
+			$prop = self::create( $type );
+			$type = $prop->get_options();
 		}
 
 		if ( ! is_string( $type ) && ! is_object( $type ) ) {
