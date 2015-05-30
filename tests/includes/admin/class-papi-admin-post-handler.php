@@ -41,7 +41,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 	}
 
 	public function test_actions() {
-		$this->assertEquals( 10, has_action( 'save_post', [$this->handler, 'save_meta_boxes'] ) );
+		$this->assertGreaterThan( 0, has_action( 'save_post', [$this->handler, 'save_meta_boxes'] ) );
 	}
 
 	public function test_save_property() {
