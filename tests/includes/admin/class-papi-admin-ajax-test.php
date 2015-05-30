@@ -29,7 +29,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 			'slug' => 'hello'
 		] );
 
-		do_action( 'papi_ajax_get_property' );
+		do_action( 'papi/ajax/get_property' );
 
 		$this->expectOutputRegex( '/.*\S.*/' );
 		$this->expectOutputRegex( '/papi\_hello/' );
@@ -40,13 +40,14 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 			'type' => 'string',
 			'slug' => 'name'
 		] );
+
 		$_POST = array_merge( $_POST, [
 			'properties' => json_encode( [
 				$property->get_options()
 			] )
 		] );
 
-		do_action( 'papi_ajax_get_properties' );
+		do_action( 'papi/ajax/get_properties' );
 
 		$this->expectOutputRegex( '/.*\S.*/' );
 		$this->expectOutputRegex( '/papi\_name/' );

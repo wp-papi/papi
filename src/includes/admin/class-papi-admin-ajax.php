@@ -17,7 +17,7 @@ class Papi_Admin_Ajax {
 	 * @var string
 	 */
 
-	private $action_prefix = 'papi_ajax_';
+	private $action_prefix = 'papi/ajax/';
 
 	/**
 	 * Constructor.
