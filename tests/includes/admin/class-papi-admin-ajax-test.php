@@ -38,10 +38,10 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_property() {
-		$_GET = array_merge( $_GET, [
+		$_GET = [
 			'type' => 'string',
 			'slug' => 'hello'
-		] );
+		];
 
 		do_action( 'papi/ajax/get_property' );
 
@@ -50,10 +50,10 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_property_fail() {
-		$_GET = array_merge( $_GET, [
-			'type' => 'kvack',
+		$_GET = [
+			'type' => 'fake',
 			'slug' => 'hello'
-		] );
+		];
 
 		do_action( 'papi/ajax/get_property' );
 
@@ -67,7 +67,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 			'slug' => 'name'
 		] );
 
-		$_POST = array_merge( $_POST, [
+		$_POST = [
 			'properties' => json_encode( [
 				$property->get_options(),
 				[
@@ -75,7 +75,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 					'title'	=> 'nyckel'
 				]
 			] )
-		] );
+		];
 
 		do_action( 'papi/ajax/get_properties' );
 
@@ -84,10 +84,26 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/papi\_nyckel/' );
 	}
 
+	public function test_get_properties_fail() {
+		$_POST = [
+			'properties' => json_encode( [
+				[
+					'type'  => 'fake',
+					'title'	=> 'nyckel'
+				]
+			] )
+		];
+
+		do_action( 'papi/ajax/get_properties' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No properties found\"\}/' );
+	}
+
 	public function test_render() {
-		$this->ajax->render([
+		$this->ajax->render( [
 			'line' => 'Hello, world!'
-		]);
+		] );
 		$this->expectOutputString( '{"line":"Hello, world!"}' );
 	}
 

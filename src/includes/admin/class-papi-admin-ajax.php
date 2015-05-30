@@ -149,6 +149,8 @@ class Papi_Admin_Ajax {
 			$items[$key] = ob_get_clean();
 		}
 
+		$items = array_filter( $items );
+
 		if ( empty( $items ) ) {
 			$this->render_error( 'No properties found' );
 		} else {
