@@ -156,6 +156,8 @@ final class Papi_Admin {
 
 	/**
 	 * Output Papi page type hidden field.
+	 *
+	 * This will only output on a post type page.
 	 */
 
 	public function edit_form_after_title() {

@@ -40,6 +40,8 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 			'value' => 'Hello, world!'
 		], $_POST );
 
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+
 		$old_request_uri = $_SERVER['REQUEST_URI'];
 
 		$_SERVER['REQUEST_METHOD'] = 'POST';
