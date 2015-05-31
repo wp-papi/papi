@@ -66,11 +66,7 @@ class Papi_Admin_Management_Pages {
 			$page_view = 'management-start';
 		}
 
-		if ( ! is_null( $page_view ) ) {
-			$this->view->render( $page_view );
-		} else {
-			echo '<h2>Papi - 404</h2>';
-		}
+		$this->view->render( $page_view );
 	}
 
 }

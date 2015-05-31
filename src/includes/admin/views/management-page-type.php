@@ -62,54 +62,64 @@ function papi_management_page_type_render_box( $properties, $tab = false ) {
 	<br/>
 
 	<?php
-		$page_type = papi_get_qs( 'page-type' );
+		$page_type = papi_get_qs( 'page_type' );
 		$page_type = papi_get_page_type_by_id( $page_type );
+
+		if ( empty( $page_type ) ):
 	?>
-
-	<h3><?php _e( 'Overview of page types', 'papi' ); ?>: <?php esc_html_e( $page_type->name ); ?></h3>
-
-	<p>
-		<a href="tools.php?page=papi"><?php esc_html_e( 'Back to list' , 'papi' ); ?></a>
-	</p>
-
+		<h3><?php _e( 'Overview of page type', 'papi' ); ?></h3>
+		<p>
+			<?php _e( 'Cannot find page type', 'papi' );?> -
+			<a href="tools.php?page=papi"><?php esc_html_e( 'Back to list' , 'papi' ); ?></a>
+		</p>
 	<?php
+		else:
+	?>
+		<h3><?php _e( 'Overview of page type', 'papi' ); ?>: <?php esc_html_e( $page_type->name ); ?></h3>
 
-	$boxes = $page_type->get_boxes();
+		<p>
+			<a href="tools.php?page=papi"><?php esc_html_e( 'Back to list' , 'papi' ); ?></a>
+		</p>
 
-	if ( empty( $boxes ) ) {
-		echo sprintf( '<p>%s</p>', esc_html__( 'No meta boxes exists.', 'papi' ) );
-		return;
-	}
+		<?php
 
-	foreach ( $boxes as $box ):
-		$tab 			= isset( $box[1] ) && isset( $box[1][0] ) && isset( $box[1][0]->tab ) && $box[1][0]->tab;
-		$top_right_text = __( 'Properties', 'papi' );
+		$boxes = $page_type->get_boxes();
 
-		if ( $tab ) {
-			$top_right_text = __( 'Tabs', 'papi' );
+		if ( empty( $boxes ) ) {
+			echo sprintf( '<p>%s</p>', esc_html__( 'No meta boxes exists.', 'papi' ) );
+			return;
 		}
 
-		if ( ! isset( $box['title'] ) || empty( $box['title'] ) ) {
-			continue;
-		}
+		foreach ( $boxes as $box ):
+			$tab 			= isset( $box[1] ) && isset( $box[1][0] ) && isset( $box[1][0]->tab ) && $box[1][0]->tab;
+			$top_right_text = __( 'Properties', 'papi' );
 
-		$counter = count( papi_get_box_property( $box[1] ) );
-		?>
-		<div class="postbox papi-box papi-management-box">
-			<div class="handlediv" title="Click to toggle">
-				<br>
-			</div>
-			<h3 class="hndle">
-				<span><?php esc_html_e( $box['title'] ); ?></span>
-				<span class="papi-pull-right"><?php esc_html_e( $top_right_text . ': ' . strval( $counter ) ); ?></span>
-			</h3>
-			<div class="inside">
-				<?php
-					papi_management_page_type_render_box( $box[1], $tab );
-				?>
-			</div>
-		</div>
+			if ( $tab ) {
+				$top_right_text = __( 'Tabs', 'papi' );
+			}
 
-	<?php endforeach; ?>
+			if ( ! isset( $box['title'] ) || empty( $box['title'] ) ) {
+				continue;
+			}
 
+			$counter = count( papi_get_box_property( $box[1] ) );
+			?>
+			<div class="postbox papi-box papi-management-box">
+				<div class="handlediv" title="Click to toggle">
+					<br>
+				</div>
+				<h3 class="hndle">
+					<span><?php esc_html_e( $box['title'] ); ?></span>
+					<span class="papi-pull-right"><?php esc_html_e( $top_right_text . ': ' . strval( $counter ) ); ?></span>
+				</h3>
+				<div class="inside">
+					<?php
+						papi_management_page_type_render_box( $box[1], $tab );
+					?>
+					</div>
+				</div>
+
+		<?php endforeach; ?>
+
+	<?php endif; ?>
 </div>
