@@ -51,7 +51,7 @@ final class Papi_Admin {
 
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
-			self::$instance = new static;
+			self::$instance = new self;
 			self::$instance->load_files();
 			self::$instance->setup_globals();
 			self::$instance->setup_actions();

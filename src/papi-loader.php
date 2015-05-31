@@ -39,7 +39,7 @@ final class Papi_Loader extends Papi_Container {
 
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
-			self::$instance = new static;
+			self::$instance = new self;
 			self::$instance->constants();
 			self::$instance->require_files();
 		}
