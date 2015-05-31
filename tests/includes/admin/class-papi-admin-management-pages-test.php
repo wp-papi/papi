@@ -37,6 +37,9 @@ class Papi_Admin_Management_Pages_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/\<h3\>Page types<\/h3\>/' );
 
 		$_GET['view'] = 'management-page-type';
+		$this->management_pages->render_view();
+		$this->expectOutputRegex( '/\<h3\>Overview of page type\<\/h3\>/' );
+
 		$_GET['page_type'] = 'simple-page-type';
 		$this->management_pages->render_view();
 		$this->expectOutputRegex( '/\<h3\>Overview of page type: Simple page\<\/h3\>/' );

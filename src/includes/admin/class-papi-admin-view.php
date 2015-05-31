@@ -51,7 +51,7 @@ class Papi_Admin_View {
 
 	public function render( $file ) {
 		if ( ! empty( $file ) && $this->exists( $file ) ) {
-			require_once $this->file( $file );
+			require $this->file( $file );
 		}
 	}
 

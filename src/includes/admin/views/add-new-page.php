@@ -1,8 +1,4 @@
-<?php
-?>
-
 <div class="wrap">
-
 	<h2>
 		<?php _e( 'Add new page type', 'papi' ); ?>
 
