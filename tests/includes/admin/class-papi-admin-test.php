@@ -91,7 +91,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	}
 
 	public function test_setup_papi() {
-		$this->assertNull( $this->admin->setup_papi() );
+		$this->assertFalse( $this->admin->setup_papi() );
 	}
 
 }
