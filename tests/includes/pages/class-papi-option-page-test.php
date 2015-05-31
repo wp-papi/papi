@@ -19,11 +19,13 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 		} );
 
 		$this->page = papi_get_page( 0, 'option' );
+
+		$_GET = [];
 	}
 
 	public function tearDown() {
 		parent::tearDown();
-		unset( $this->page );
+		unset( $_GET, $this->page );
 	}
 
 	public function test_is() {
@@ -37,6 +39,15 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'string', $property->get_option( 'type' ) );
 		$this->assertEquals( 'string', $property->type );
 		$this->assertEquals( 'papi_name', $property->slug );
+		$this->assertEquals( 'papi_name', $property->get_option( 'slug' ) );
+		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
+		$this->assertEquals( 'Name', $property->title );
+
+		$_GET['page'] = 'papi/options/header-option-type';
+
+		$property = $this->page->get_property( 'name' );
+		$this->assertEquals( 'string', $property->get_option( 'type' ) );
+		$this->assertEquals( 'string', $property->type );
 		$this->assertEquals( 'papi_name', $property->get_option( 'slug' ) );
 		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
 		$this->assertEquals( 'Name', $property->title );
