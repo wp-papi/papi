@@ -31,6 +31,10 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $classes );
 	}
 
+	public function test_admin_init() {
+		$this->assertNull( $this->admin->admin_init() );
+	}
+
 	public function test_edit_form_after_title() {
 		$this->admin->edit_form_after_title();
 		$this->expectOutputRegex( '/papi\_meta\_nonce/' );
@@ -53,6 +57,27 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 		$this->admin->manage_page_type_posts_custom_column( 'page_type', $this->post_id );
 		$this->expectOutputRegex( '/Simple page/' );
+	}
+
+	public function test_pre_get_posts() {
+		global $pagenow;
+		$pagenow = 'edit.php';
+
+		$_GET['page_type'] = 'simple-page-type';
+		$query = $this->admin->pre_get_posts( new WP_Query() );
+		$this->assertEquals( [
+			'meta_key'   => PAPI_PAGE_TYPE_KEY,
+			'meta_value' => 'simple-page-type'
+		], $query->query_vars );
+
+		$_GET['page_type'] = 'papi-standard-page';
+		$query = $this->admin->pre_get_posts( new WP_Query() );
+		$this->assertEquals( [
+			[
+				'key'     => PAPI_PAGE_TYPE_KEY,
+				'compare' => 'NOT EXISTS'
+			]
+		], $query->query_vars['meta_query'] );
 	}
 
 	public function test_render_view() {
