@@ -154,7 +154,8 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	public function test_get_slug() {
 		$property = Papi_Property::create();
 
-		$this->assertNotEmpty( $property->get_slug() );
+		// this will not be empty since a property without a slug will get a generated uniq id.
+		$this->assertRegExp( '/papi\_\w+/', $property->get_slug() );
 
 		$property->set_options( [
 			'type'  => 'string',
