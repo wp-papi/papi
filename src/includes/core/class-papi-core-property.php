@@ -413,11 +413,11 @@ class Papi_Core_Property {
 	 */
 
 	public function get_slug() {
-		if ( $this->array_slug != $this->slug ) {
-			return $this->array_slug;
+		if ( ! empty( $this->options->array_slug ) && $this->options->array_slug != $this->options->slug ) {
+			return $this->options->array_slug;
 		}
 
-		return $this->slug;
+		return $this->options->slug;
 	}
 
 	/**
