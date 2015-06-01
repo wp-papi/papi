@@ -4,7 +4,6 @@
  * Papi page functions.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -12,8 +11,6 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Get the current page. Like in EPiServer.
- *
- * @since 1.0.0
  *
  * @return Papi_Page|null
  */
@@ -26,13 +23,12 @@ function current_page() {
  * Check if the page type should be displayed or not.
  *
  * @param string|object $page_type
- * @since 1.3.0
  *
  * @return bool
  */
 
 function papi_display_page_type( $page_type ) {
-	$post_type = papi_get_wp_post_type();
+	$post_type = papi_get_post_type();
 
 	if ( empty( $post_type ) ) {
 		return false;
@@ -57,62 +53,87 @@ function papi_display_page_type( $page_type ) {
 	}
 
 	// Run show page type filter.
-	// @deprecated deprecated since version 1.3.0
-	// will be removed in feature version.
-	$display = papi_filter_show_page_type( $post_type, $page_type );
-
-	return $display;
+	return papi_filter_show_page_type( $post_type, $page_type );
 }
 
 /**
  * Get all page types that exists.
  *
- * @since 1.0.0
- *
- * @param bool $all Default false
- * @param string $post_type Default null (since 1.1.0)
+ * @param bool $all
+ * @param string $post_type
+ * @param bool $fake_post_types
  *
  * @return array
  */
 
-function papi_get_all_page_types( $all = false, $post_type = null ) {
-	$files      = papi_get_all_page_type_files();
-	$page_types = [];
-
+function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_types = false ) {
 	if ( is_null( $post_type ) || empty( $post_type ) ) {
-		$post_type  = papi_get_wp_post_type();
+		$post_type  = papi_get_post_type();
 	}
 
-	foreach ( $files as $file ) {
-		$page_type = papi_get_page_type( $file );
+	$cache_key   = papi_get_cache_key( sprintf( '%s_%s', $all, $post_type ), $fake_post_types );
+	$page_types  = wp_cache_get( $cache_key );
 
-		if ( is_null( $page_type ) ) {
-			continue;
+	if ( empty( $page_types ) ) {
+		$files = papi_get_all_page_type_files();
+
+		foreach ( $files as $file ) {
+			$page_type = papi_get_page_type( $file );
+
+			if ( is_null( $page_type ) ) {
+				continue;
+			}
+
+			if ( ! is_subclass_of( $page_type, 'Papi_Page_Type' ) ) {
+				continue;
+			}
+
+			if ( $fake_post_types ) {
+				if ( isset( $page_type->post_type[0] ) && ! post_type_exists( $page_type->post_type[0] ) ) {
+					$page_types[] = $page_type;
+				}
+				continue;
+			}
+
+			// Add the page type if the post types is allowed.
+			if ( ! is_null( $page_type ) && papi_current_user_is_allowed( $page_type->capabilities ) && ( $all || in_array( $post_type, $page_type->post_type ) ) ) {
+				$page_types[] = $page_type;
+			}
 		}
 
-		if ( ! is_subclass_of( $page_type, 'Papi_Page_Type' ) ) {
-			continue;
-		}
+		if ( is_array( $page_types ) ) {
+			usort( $page_types, function ( $a, $b ) {
+				return strcmp( $a->name, $b->name );
+			} );
 
-		// Add the page type if the post types is allowed.
-		if ( ! is_null( $page_type ) && papi_current_user_is_allowed( $page_type->capabilities ) && ( $all || in_array( $post_type, $page_type->post_type ) ) ) {
-			$page_types[] = $page_type;
+			wp_cache_set( $cache_key, $page_types );
 		}
 	}
 
-	usort( $page_types, function ( $a, $b ) {
-		return strcmp( $a->name, $b->name );
-	} );
+	if ( ! is_array( $page_types ) ) {
+		return [];
+	}
 
 	return papi_sort_order( array_reverse( $page_types ) );
+}
+
+/**
+ * Get the data page.
+ *
+ * @param int $post_id
+ * @param string $type
+ *
+ * @return mixed
+ */
+
+function papi_get_page( $post_id = 0, $type = 'post' ) {
+	return Papi_Core_Page::factory( $post_id, $type );
 }
 
 /**
  * Get data from page type file.
  *
  * @param int|string $post_id Post id or page type
- *
- * @since 1.0.0
  *
  * @return Papi_Page_Type
  */
@@ -133,8 +154,6 @@ function papi_get_file_data( $post_id ) {
  * This will also work with only page type.
  *
  * @param string|object $page_type
- *
- * @since 1.0.0
  *
  * @return int
  */
@@ -171,32 +190,9 @@ function papi_get_number_of_pages( $page_type ) {
 }
 
 /**
- * Get the page.
- *
- * @param int $post_id The post id.
- *
- * @since 1.0.0
- *
- * @return Papi_Page|null
- */
-
-function papi_get_page( $post_id = null ) {
-	$post_id = papi_get_post_id( $post_id );
-	$page    = new Papi_Page( $post_id );
-
-	if ( ! $page->has_post() ) {
-		return;
-	}
-
-	return $page;
-}
-
-/**
  * Get template file from post id.
  *
  * @param int|string $post_id
- *
- * @since 1.0.0
  *
  * @return null|string
  */
@@ -213,8 +209,6 @@ function papi_get_page_type_template( $post_id ) {
  * Get a page type by file path.
  *
  * @param string $file_path
- *
- * @since 1.0.0
  *
  * @return null|Papi_Page_Type
  */
@@ -254,7 +248,6 @@ function papi_get_page_type( $file_path ) {
  * Get page type by identifier.
  *
  * @param string $id
- * @since 1.3.0
  *
  * @return Papi_Page_Type
  */
@@ -283,8 +276,6 @@ function papi_get_page_type_by_id( $id ) {
  *
  * @param int $post_id
  *
- * @since 1.0.0
- *
  * @return string
  */
 
@@ -298,12 +289,10 @@ function papi_get_page_type_meta_value( $post_id = null ) {
 		$page_type  = papi_h( $meta_value, '' );
 	}
 
-	// Get page type value from get object.
 	if ( empty( $page_type ) ) {
-		$page_type = papi_get_qs( 'page_type' );
+		$page_type = str_replace( 'papi/', '', papi_get_qs( 'page_type' ) );
 	}
 
-	// Get page type value from post object.
 	if ( empty( $page_type ) ) {
 		$page_type = papi_get_sanitized_post( PAPI_PAGE_TYPE_KEY );
 	}
@@ -332,8 +321,6 @@ function papi_get_page_type_meta_value( $post_id = null ) {
 /**
  * Get all post types Papi should work with.
  *
- * @since 1.0.0
- *
  * @return array
  */
 
@@ -360,8 +347,6 @@ function papi_get_post_types() {
  * `papi_page_type_name()` will return page type name.
  *
  * @param int $post_id
- *
- * @since 1.3.0
  *
  * @return string
  */
@@ -396,8 +381,6 @@ function papi_page_type_name( $post_id = null ) {
  * `the_papi_page_type_name()` will echo the page type name.
  *
  * @param int $post_id
- *
- * @since 1.3.0
  *
  * @return string
  */

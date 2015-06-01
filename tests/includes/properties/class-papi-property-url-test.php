@@ -1,93 +1,39 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
-* Unit tests covering property url.
-*
-* @package Papi
-*/
+ * Unit tests covering property Url.
+ *
+ * @package Papi
+ */
 
-class Papi_Property_Url_Test extends WP_UnitTestCase {
+class Papi_Property_Url_Test extends Papi_Property_Test_Case {
 
-	/**
-	 * Setup the test.
-	 *
-	 * @since 1.0.0
-	 */
+	public $slug = 'url_test';
 
-	public function setUp() {
-		parent::setUp();
-
-		$this->post_id = $this->factory->post->create();
-
-		$this->property = papi_property( [
-			'type'  => 'url',
-			'title' => 'Link',
-			'slug'  => 'link'
-		] );
+	public function get_value() {
+		return 'http://github.com';
 	}
 
-	/**
-	 * Tear down test.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function tearDown() {
-		parent::tearDown();
-		unset( $this->post_id, $this->property );
+	public function get_expected() {
+		return 'http://github.com';
 	}
 
-	/**
-	 * Test output to check if property slug exists and the property type value.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function test_output() {
-		papi_render_property( $this->property );
-		$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $this->property->slug ) . '\"' );
-		$this->expectOutputRegex( '/data\-property=\"' . $this->property->type . '\"/' );
+	public function test_load_value() {
+		$this->assertEquals( 'http://wordpress.org', $this->property->load_value( 'http://wordpress.org', '', 0 ) );
+		$this->assertNull( $this->property->load_value( 'hello', '', 0 ) );
+		$this->assertNull( $this->property->load_value( null, '', 0 ) );
 	}
 
-	/**
-	 * Test property options.
-	 *
-	 * @since 1.0.0
-	 */
+	public function test_update_value() {
+		$this->assertEquals( 'http://wordpress.org', $this->property->update_value( 'http://wordpress.org', '', 0 ) );
+		$this->assertNull( $this->property->update_value( 'hello', '', 0 ) );
+		$this->assertNull( $this->property->update_value( null, '', 0 ) );
+	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'url', $this->property->type );
-		$this->assertEquals( 'Link', $this->property->title );
-		$this->assertEquals( 'papi_link', $this->property->slug );
-	}
-
-	/**
-	 * Test save property value.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function test_save_property_value() {
-		$handler = new Papi_Admin_Post_Handler();
-
-		// Create post data.
-		$_POST = papi_test_create_property_post_data( [
-			'slug'  => $this->property->slug,
-			'type'  => $this->property,
-			'value' => 'http://github.com'
-		], $_POST );
-
-		// Save the property using the handler.
-		$handler->save_property( $this->post_id );
-
-		// Test get the value with papi_field function.
-		$expected = 'http://github.com';
-		$actual   = papi_field( $this->post_id, $this->property->slug );
-
-		$this->assertEquals( $expected, $actual );
+		$this->assertEquals( 'url', $this->property->get_option( 'type' ) );
+		$this->assertEquals( 'Url test', $this->property->get_option( 'title' ) );
+		$this->assertEquals( 'papi_url_test', $this->property->get_option( 'slug' ) );
 	}
 
 }

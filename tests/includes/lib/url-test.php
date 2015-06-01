@@ -11,33 +11,15 @@ defined( 'ABSPATH' ) || exit;
 
 class Papi_Lib_Url_Test extends WP_UnitTestCase {
 
-	/**
-	 * Setup the test.
-	 *
-	 * @since 1.0.0
-	 */
-
 	public function setUp() {
 		parent::setUp();
 		$this->post_id = $this->factory->post->create();
 	}
 
-	/**
-	 * Tear down test.
-	 *
-	 * @since 1.3.0
-	 */
-
 	public function tearDown() {
 		parent::tearDown();
 		unset( $this->post_id );
 	}
-
-	/**
-	 * Test `papi_get_new_url` function.
-	 *
-	 * @since 1.0.0
-	 */
 
 	public function test_papi_get_page_new_url() {
 		$_SERVER['REQUEST_URI'] = '';
@@ -47,12 +29,6 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 		$url = papi_get_page_new_url( 'page', true, 'page', ['post_type'] );
 		$this->assertNotFalse( strpos( $url, 'page_type=page&post_type=page' ) );
 	}
-
-	/**
-	 * Test `papi_get_page_query_strings` function.
-	 *
-	 * @since 1.3.0
-	 */
 
 	public function test_papi_get_page_query_strings() {
 		$qs = papi_get_page_query_strings();
@@ -74,13 +50,7 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 		$qs = papi_get_page_query_strings( '?', ['post_type'] );
 		$this->assertEquals( '?page_type=simple-page-type', $qs );
 	}
-
-	/**
-	 * Test `papi_append_post_type_query` function.
-	 *
-	 * @since 1.0.0
-	 */
-
+	
 	public function test_papi_append_post_type_query() {
 		global $post;
 

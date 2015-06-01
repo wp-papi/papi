@@ -7,10 +7,17 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property Image.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Property_Image extends Papi_Property {
+
+	/**
+	 * The convert type.
+	 *
+	 * @var string
+	 */
+
+	public $convert_type = 'object';
 
 	/**
 	 * The default value.
@@ -26,8 +33,6 @@ class Papi_Property_Image extends Papi_Property {
 	 * @param mixed $value
 	 * @param string $slug
 	 * @param int $post_id
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return mixed
 	 */
@@ -57,17 +62,30 @@ class Papi_Property_Image extends Papi_Property {
 			}
 
 			return $value;
+		} else if ( is_object( $value ) && isset( $value->url ) ) {
 		} else if ( is_object( $value ) && ! isset( $value->url ) ) {
 			return null;
 		} else {
 			return $value;
 		}
+
+		return $this->default_value;
+	}
+
+	/**
+	 * Get convert value.
+	 *
+	 * @return object
+	 */
+
+	public function get_convert_value() {
+		return new stdClass;
 	}
 
 	/**
 	 * Get default settings.
 	 *
-	 * @since 1.0.0
+	 * Display property html.
 	 *
 	 * @return array
 	 */
@@ -77,12 +95,6 @@ class Papi_Property_Image extends Papi_Property {
 			'gallery' => false
 		];
 	}
-
-	/**
-	 * Display property html.
-	 *
-	 * @since 1.0.0
-	 */
 
 	public function html() {
 		$settings = $this->get_settings();
@@ -112,6 +124,7 @@ class Papi_Property_Image extends Papi_Property {
 					_e( 'No image selected', 'papi' );
 				}
 				?>
+				<input type="hidden" value="" name="<?php echo $slug; ?>"/>
 				<button class="button"
 				        data-slug="<?php echo $slug; ?>"><?php _e( 'Add image', 'papi' ); ?></button>
 			</p>
@@ -146,8 +159,6 @@ class Papi_Property_Image extends Papi_Property {
 	/**
 	 * Render image template.
 	 * that will be used in image backbone view.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function render_image_template() {
@@ -168,8 +179,6 @@ class Papi_Property_Image extends Papi_Property {
 
 	/**
 	 * Setup actions.
-	 *
-	 * @since 1.3.0
 	 */
 
 	protected function setup_actions() {

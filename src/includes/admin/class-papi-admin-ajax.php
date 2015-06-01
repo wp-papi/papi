@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Admin Ajax.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Admin_Ajax {
@@ -16,15 +15,12 @@ class Papi_Admin_Ajax {
 	 * The action prefix for Papi ajax actions.
 	 *
 	 * @var string
-	 * @since 1.3.0
 	 */
 
-	private $action_prefix = 'papi_ajax_';
+	private $action_prefix = 'papi/ajax/';
 
 	/**
-	 * Constructor.
-	 *
-	 * @since 1.3.0
+	 * The constructor.
 	 */
 
 	public function __construct() {
@@ -33,8 +29,6 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Setup actions.
-	 *
-	 * @since 1.3.0
 	 */
 
 	private function setup_actions() {
@@ -48,8 +42,6 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Add ajax endpoint.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function add_endpoint() {
@@ -59,8 +51,6 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Add ajax url to Papi JavaScript object.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function ajax_url() {
@@ -74,8 +64,6 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Handle Papi ajax.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function handle_papi_ajax() {
@@ -93,15 +81,7 @@ class Papi_Admin_Ajax {
 			$wp_query->set( 'papi_action', sanitize_text_field( $_GET['action'] ) );
 		}
 
-		if ( ! empty( $_GET['property'] ) ) {
-			$wp_query->set( 'papi_property', sanitize_text_field( $_GET['property'] ) );
-		}
-
-		$action   = $wp_query->get( 'papi_action' );
-
-		if ( $property = $wp_query->get( 'papi_property' ) ) {
-			papi_get_property_type( $property );
-		}
+		$action = $wp_query->get( 'papi_action' );
 
 		if ( is_user_logged_in() && has_action( $this->action_prefix . $action ) != false ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {
@@ -118,8 +98,6 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Get property html via GET.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function get_property() {
@@ -146,8 +124,6 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Get properties via POST.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function get_properties() {
@@ -164,11 +140,7 @@ class Papi_Admin_Ajax {
 		}
 
 		foreach ( $items as $key => $item ) {
-			if ( is_object( $item ) ) {
-				$property = $item;
-			} else {
-				$property = papi_property( $item );
-			}
+			$property = papi_property( (array) $item );
 
 			ob_start();
 
@@ -176,6 +148,8 @@ class Papi_Admin_Ajax {
 
 			$items[$key] = ob_get_clean();
 		}
+
+		$items = array_filter( $items );
 
 		if ( empty( $items ) ) {
 			$this->render_error( 'No properties found' );
@@ -190,7 +164,6 @@ class Papi_Admin_Ajax {
 	 * Render json.
 	 *
 	 * @param mixed $obj
-	 * @since 1.3.0
 	 */
 
 	public function render( $obj ) {
@@ -201,7 +174,6 @@ class Papi_Admin_Ajax {
 	 * Render error message.
 	 *
 	 * @param string $message
-	 * @since 1.3.0
 	 */
 
 	public function render_error( $message ) {
@@ -211,4 +183,4 @@ class Papi_Admin_Ajax {
 	}
 }
 
-new Papi_Admin_Ajax();
+new Papi_Admin_Ajax;

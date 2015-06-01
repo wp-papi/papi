@@ -4,7 +4,6 @@
  * Papi template functions.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -14,8 +13,6 @@ defined( 'ABSPATH' ) || exit;
  * Add page type class name as a css class on body.
  *
  * @param array $classes
- *
- * @since 1.0.0
  *
  * @return array
  */
@@ -52,8 +49,6 @@ add_filter( 'body_class', 'papi_body_class' );
  *
  * @param string $tpl_file
  * @param array $vars
- *
- * @since 1.0.0
  */
 
 function papi_include_template( $tpl_file, $vars = [] ) {
@@ -73,8 +68,6 @@ function papi_include_template( $tpl_file, $vars = [] ) {
  * @param string $file
  * @param array $values
  * @param bool $convert_to_object
- *
- * @since 1.0.0
  *
  * @return array
  */
@@ -100,7 +93,15 @@ function papi_template( $file, $values = [], $convert_to_object = false ) {
 
 	$template = require $filepath;
 
-	$result = array_merge( (array) $template, $values );
+	if ( papi_is_property( $template ) ) {
+		foreach ( $values as $key => $value ) {
+			$template->set_option( $key, $value );
+		}
+
+		$result = $template;
+	} else {
+		$result = array_merge( (array) $template, $values );
+	}
 
 	if ( $convert_to_object ) {
 		return (object) $result;
@@ -113,8 +114,6 @@ function papi_template( $file, $values = [], $convert_to_object = false ) {
  * Include template files from Papis custom page template meta field.
  *
  * @param string $original_template
- *
- * @since 1.0.0
  *
  * @return string
  */

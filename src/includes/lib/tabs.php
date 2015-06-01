@@ -4,7 +4,6 @@
  * Papi tabs functions.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -82,8 +81,6 @@ function papi_setup_tabs( $tabs ) {
  *
  * @param string|array $file_or_options
  * @param array $properties
- *
- * @since 1.0.0
  *
  * @return array
  */

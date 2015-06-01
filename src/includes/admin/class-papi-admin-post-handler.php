@@ -7,15 +7,12 @@ defined( 'ABSPATH' ) || exit;
  * Papi Admin Post Handler.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 
 	/**
-	 * Constructor.
-	 *
-	 * @since 1.0.0
+	 * The constructor.
 	 */
 
 	public function __construct() {
@@ -26,7 +23,6 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 	 * Setup actions.
 	 *
 	 * @todo Try to get this working
-	 * @since 1.0.0
 	 */
 
 	private function setup_actions() {
@@ -37,8 +33,6 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 	 * Pre save page template and page type.
 	 *
 	 * @param int $post_id
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function pre_save( $post_id ) {
@@ -60,8 +54,6 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 
 	/**
 	 * Save meta boxes.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function save_meta_boxes() {
@@ -115,8 +107,6 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 	 * Save property and property type.
 	 *
 	 * @param int $post_id
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function save_property( $post_id ) {
@@ -126,18 +116,20 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 		// Get properties data.
 		$data = $this->get_post_data();
 
-		// Prepare property data.
+		// Prepare properties data.
 		$data = $this->prepare_properties_data( $data, $post_id );
 
-		foreach ( $data as $key => $property ) {
+		// Save all properties value
+		foreach ( $data as $key => $value ) {
 			papi_property_update_meta( [
 				'post_id'       => $post_id,
 				'slug'          => $key,
-				'type'          => $property['type'],
-				'value'         => $property['value']
+				'value'         => $value
 			] );
 		}
 	}
 }
 
-new Papi_Admin_Post_Handler;
+if ( is_admin() ) {
+	new Papi_Admin_Post_Handler;
+}

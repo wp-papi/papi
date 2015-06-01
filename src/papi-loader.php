@@ -19,7 +19,6 @@ final class Papi_Loader extends Papi_Container {
 	 * The instance of Papi loader class.
 	 *
 	 * @var object
-	 * @since 1.0.0
 	 */
 
 	private static $instance;
@@ -28,7 +27,6 @@ final class Papi_Loader extends Papi_Container {
 	 * The plugin name.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	public $name = 'Papi';
@@ -36,14 +34,12 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Papi loader instance.
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return object
 	 */
 
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
-			self::$instance = new static;
+			self::$instance = new self;
 			self::$instance->constants();
 			self::$instance->setup_actions();
 			self::$instance->require_files();
@@ -53,17 +49,13 @@ final class Papi_Loader extends Papi_Container {
 	}
 
 	/**
-	 * Empty construct.
-	 *
-	 * @since 1.0.0
+	 * The constructor.
 	 */
 
 	private function __construct() {}
 
 	/**
 	 * Cloning is forbidden.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function __clone() {
@@ -72,8 +64,6 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * Unserializing instances of this class is forbidden.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function __wakeup() {
@@ -82,8 +72,6 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * Bootstrap constants
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function constants() {
@@ -117,16 +105,16 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * Require files.
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function require_files() {
 		// Load languages.
 		$domain = 'papi';
 		$path   = __DIR__ . '/../languages/' . $domain . '-' . get_locale() . '.mo';
-
 		load_textdomain( $domain, $path );
+
+		// Load the autoload class.
+		require_once __DIR__ . '/includes/core/class-papi-core-autoload.php';
 
 		// Load function files.
 		require_once __DIR__ . '/includes/lib/utilities.php';
@@ -140,53 +128,18 @@ final class Papi_Loader extends Papi_Container {
 		require_once __DIR__ . '/includes/lib/io.php';
 		require_once __DIR__ . '/includes/lib/field.php';
 		require_once __DIR__ . '/includes/lib/template.php';
+		require_once __DIR__ . '/includes/lib/option.php';
 
-		// Load core classes.
-		require_once __DIR__ . '/includes/page/class-papi-page.php';
-		require_once __DIR__ . '/includes/property/class-papi-property.php';
-		require_once __DIR__ . '/includes/page-type/class-papi-page-type-base.php';
-		require_once __DIR__ . '/includes/page-type/class-papi-page-type-meta.php';
-		require_once __DIR__ . '/includes/page-type/class-papi-page-type.php';
-
-		// Load admin classes.
-		require_once __DIR__ . '/includes/admin/class-papi-admin-view.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-management-pages.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-meta-box.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-meta-box-tabs.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-data-handler.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-post-handler.php';
+		// Load admin class.
 		require_once __DIR__ . '/includes/admin/class-papi-admin.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-ajax.php';
+		require_once __DIR__ . '/includes/admin/class-papi-admin-menu.php';
 
-		// Load properties classes.
-		require_once __DIR__ . '/includes/properties/class-papi-property-string.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-hidden.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-bool.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-email.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-datetime.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-number.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-url.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-divider.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-text.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-image.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-dropdown.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-checkbox.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-repeater.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-relationship.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-radio.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-post.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-color.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-reference.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-html.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-gallery.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-editor.php';
-		require_once __DIR__ . '/includes/properties/class-papi-property-flexible.php';
+		// Include plugins or properties.
+		papi_action_include();
 	}
 
 	/**
 	 * Deactivate Papi if the WordPress version is lower then 3.8.
-	 *
-	 * @since 1.2.0
 	 */
 
 	public static function deactivate() {
@@ -221,8 +174,6 @@ final class Papi_Loader extends Papi_Container {
 
 /**
  * Return the instance of Papi to everyone.
- *
- * @since 1.0.0
  *
  * @return object|null
  */

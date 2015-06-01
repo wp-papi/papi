@@ -1,86 +1,42 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
- * Unit tests covering property hidden.
+ * Unit tests covering property html.
  *
  * @package Papi
  */
 
-class Papi_Property_Html_Test extends WP_UnitTestCase {
+class Papi_Property_Html_Test extends Papi_Property_Test_Case {
 
-	/**
-	 * Setup the test.
-	 *
-	 * @since 1.3.0
-	 */
+	public $slug = 'html_test';
 
-	public function setUp() {
-		parent::setUp();
-
-		$this->post_id = $this->factory->post->create();
-
-		$this->property = papi_property( [
-			'type'     => 'html',
-			'title'    => 'The html field',
-			'settings' => [
-				'html' => '<p>Hello, world!</p>'
-			]
-		] );
-
-		$this->property2 = papi_property( [
-			'type'     => 'html',
-			'title'    => 'The html field',
-			'settings' => [
-				'html' => [$this, 'output_html']
-			]
-		] );
+	public function get_value() {
+		return;
 	}
 
-	public function output_html() {
-		?>
-		<p>Hello, callable!</p>
-		<?php
+	public function get_expected() {
+		return;
 	}
-
-	/**
-	 * Tear down test.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function tearDown() {
-		parent::tearDown();
-		unset( $this->post_id, $this->property, $this->property2 );
-	}
-
-	/**
-	 * Test output to check if property slug exists and the property type value.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function test_output() {
-		papi_render_property( $this->property );
-		$this->expectOutputRegex( '/data\-property=\"' . $this->property->type . '\"/' );
-		$this->expectOutputRegex( '/\<p\>Hello, world!\<\/p\>/' );
-
-		papi_render_property( $this->property2 );
-		$this->expectOutputRegex( '/data\-property=\"' . $this->property2->type . '\"/' );
-		$this->expectOutputRegex( '/\<p\>Hello, callable!\<\/p\>/' );
-	}
-
-	/**
-	 * Test property options.
-	 *
-	 * @since 1.3.0
-	 */
 
 	public function test_property_options() {
-		$this->assertEquals( 'html', $this->property->type );
-		$this->assertEquals( 'The html field', $this->property->title );
+		$this->assertEquals( 'html', $this->property->get_option( 'type' ) );
+		$this->assertEquals( 'Html test', $this->property->get_option( 'title' ) );
+		$this->assertEquals( 'papi_html_test', $this->property->get_option( 'slug' ) );
+		$this->assertEquals( '<p>Hello, world!</p>', $this->property->get_setting( 'html' ) );
+
+		$property2 = $this->page_type->get_property( 'html_test_2' );
+		$this->assertEquals( 'html', $property2->get_option( 'type' ) );
+		$this->assertEquals( 'Html test 2', $property2->get_option( 'title' ) );
+		$this->assertEquals( 'papi_html_test_2', $property2->get_option( 'slug' ) );
+	}
+
+	public function test_html_output() {
+		papi_render_property( $this->property );
+		$this->expectOutputRegex( '/\<p\>Hello, world!\<\/p\>/' );
+
+		$property2 = $this->page_type->get_property( 'html_test_2' );
+		papi_render_property( $property2 );
+		$this->expectOutputRegex( '/\<p\>Hello, callable!\<\/p\>/' );
 	}
 
 }

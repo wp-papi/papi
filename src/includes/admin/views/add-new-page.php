@@ -1,12 +1,4 @@
-<?php
-$post_type = papi_get_wp_post_type();
-
-// Check if we should show standard page or not.
-$show_standard_page = papi_filter_settings_standard_page_type( $post_type );
-?>
-
 <div class="wrap">
-
 	<h2>
 		<?php _e( 'Add new page type', 'papi' ); ?>
 
@@ -23,7 +15,6 @@ $show_standard_page = papi_filter_settings_standard_page_type( $post_type );
 		$page_types = papi_get_all_page_types();
 
 		foreach ( $page_types as $key => $page_type ) {
-
 			if ( ! papi_display_page_type( $page_type ) ) {
 				continue;
 			}
@@ -36,7 +27,9 @@ $show_standard_page = papi_filter_settings_standard_page_type( $post_type );
 			] );
 		}
 
-		if ( $show_standard_page ) {
+		$post_type = papi_get_post_type();
+
+		if ( papi_filter_settings_standard_page_type( $post_type ) ) {
 			papi_include_template( 'includes/admin/views/partials/add-new-item.php', [
 				'title'       => papi_filter_standard_page_name( $post_type ),
 				'description' => papi_filter_standard_page_description( $post_type ),

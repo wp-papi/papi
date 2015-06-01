@@ -13,8 +13,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	/**
 	 * Setup the test.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function setUp() {
@@ -26,8 +24,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	/**
 	 * Tear down test.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function tearDown() {
@@ -37,8 +33,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_body_class` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_body_class() {
@@ -59,8 +53,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_include_template` function.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_include_template() {
@@ -76,15 +68,13 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_template` function.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function test_papi_template() {
-		$template = papi_template( papi_test_get_fixtures_path( '/properties/simple.php' ) );
+		$template = papi_template( PAPI_FIXTURE_DIR . '/properties/simple.php' );
 
-		$this->assertEquals( 'Name', $template['title'] );
-		$this->assertEquals( 'string', $template['type'] );
+		$this->assertEquals( 'Name', $template->title );
+		$this->assertEquals( 'string', $template->type );
 
 		$this->assertEmpty( papi_template( null ) );
 		$this->assertEmpty( papi_template( true ) );
@@ -92,9 +82,9 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_template( 1 ) );
 		$this->assertEmpty( papi_template( [] ) );
 		$this->assertEmpty( papi_template( new stdClass() ) );
-		$this->assertEmpty( papi_template( papi_test_get_fixtures_path( '' ) ) );
+		$this->assertEmpty( papi_template( PAPI_FIXTURE_DIR ) );
 
-		$template = papi_template( papi_test_get_fixtures_path( '/properties/array.php' ), [], true );
+		$template = papi_template( PAPI_FIXTURE_DIR . '/properties/array.php', [], true );
 
 		$this->assertEquals( 'Name', $template->title );
 		$this->assertEquals( 'string', $template->type );
@@ -104,8 +94,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `template_include` filter.
-	 *
-	 * @since 1.3.0
 	 */
 
 	public function test_papi_template_include() {
@@ -118,7 +106,7 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertEmpty( apply_filters( 'template_include', '' ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [ 1,  papi_test_get_fixtures_path( '/page-types' ) ];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );

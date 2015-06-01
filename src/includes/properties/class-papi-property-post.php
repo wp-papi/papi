@@ -7,25 +7,22 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property Post.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Property_Post extends Papi_Property {
 
 	/**
-	 * The default value.
+	 * The convert type.
 	 *
-	 * @var null
-	 * @since 1.0.0
+	 * @var string
 	 */
 
-	public $default_value = [];
+	public $convert_type = 'object';
 
 	/**
 	 * Get default settings.
 	 *
 	 * @var array
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -42,8 +39,6 @@ class Papi_Property_Post extends Papi_Property {
 
 	/**
 	 * Display property html.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function html() {
@@ -136,8 +131,6 @@ class Papi_Property_Post extends Papi_Property {
 	 * @param mixed $value
 	 * @param string $slug
 	 * @param int $post_id
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */

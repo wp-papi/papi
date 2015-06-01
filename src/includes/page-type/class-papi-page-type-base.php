@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Page Type Base class.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Page_Type_Base {
@@ -16,7 +15,6 @@ class Papi_Page_Type_Base {
 	 * The meta method to call.
 	 *
 	 * @var string
-	 * @since 1.2.0
 	 */
 
 	public $_meta_method = 'page_type';
@@ -25,7 +23,6 @@ class Papi_Page_Type_Base {
 	 * The page type class name.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	private $_class_name = '';
@@ -34,7 +31,6 @@ class Papi_Page_Type_Base {
 	 * The file name of the page type file.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	private $_file_name = '';
@@ -43,7 +39,6 @@ class Papi_Page_Type_Base {
 	 * The file path of the page type file.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	private $_file_path = '';
@@ -52,17 +47,16 @@ class Papi_Page_Type_Base {
 	 * The page type identifier.
 	 *
 	 * @var string
-	 * @since 1.3.0
 	 */
 
 	private $id = '';
 
 	/**
-	 * Constructor.
+	 * The constructor.
+	 *
 	 * Load a page type by the file.
 	 *
 	 * @param string $file_path
-	 * @since 1.0.0
 	 */
 
 	public function __construct( $file_path ) {
@@ -81,8 +75,6 @@ class Papi_Page_Type_Base {
 	/**
 	 * Get the page type class name with namespace if exists.
 	 *
-	 * @since 1.3.0
-	 *
 	 * @return string
 	 */
 
@@ -93,8 +85,6 @@ class Papi_Page_Type_Base {
 	/**
 	 * Get the page type file pat.h
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return string
 	 */
 
@@ -104,8 +94,6 @@ class Papi_Page_Type_Base {
 
 	/**
 	 * Get the page type identifier.
-	 *
-	 * @since 1.3.0
 	 *
 	 * @return string
 	 */
@@ -122,19 +110,20 @@ class Papi_Page_Type_Base {
 	 * Check if the the given identifier match the page type identifier.
 	 *
 	 * @param string $id
-	 * @since 1.3.0
 	 *
 	 * @return bool
 	 */
 
 	public function match_id( $id ) {
+		if ( strpos( $id, 'papi/' ) === 0 ) {
+			$id = preg_replace( '/^papi\//', '', $id );
+		}
+
 		return $this->get_id() === $id;
 	}
 
 	/**
 	 * Create a new instance of the page type file.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return object
 	 */
@@ -151,7 +140,6 @@ class Papi_Page_Type_Base {
 	 * Load the file and setup page type meta data.
 	 *
 	 * @param string $file_path
-	 * @since 1.0.0
 	 */
 
 	private function setup_file( $file_path ) {
@@ -164,8 +152,6 @@ class Papi_Page_Type_Base {
 
 	/**
 	 * Setup page type meta data.
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function setup_meta_data() {

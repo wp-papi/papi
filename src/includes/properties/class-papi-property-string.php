@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property String.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Property_String extends Papi_Property {
@@ -16,24 +15,12 @@ class Papi_Property_String extends Papi_Property {
 	 * The input type to use.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	public $input_type = 'text';
 
 	/**
-	 * The default value.
-	 *
-	 * @var string
-	 * @since 1.0.0
-	 */
-
-	public $default_value = '';
-
-	/**
 	 * Get default settings.
-	 *
-	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
@@ -46,8 +33,6 @@ class Papi_Property_String extends Papi_Property {
 
 	/**
 	 * Display property html.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function html() {

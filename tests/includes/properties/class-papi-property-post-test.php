@@ -1,100 +1,33 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
- * Unit tests covering page type post.
+ * Unit tests covering property post.
  *
  * @package Papi
  */
 
-class Papi_Property_Post_Test extends WP_UnitTestCase {
+class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 
-	/**
-	 * Setup the test and.
-	 *
-	 * @since 1.0.0
-	 */
+	public $slug = 'post_test';
 
-	public function setUp() {
-		parent::setUp();
-
-		$_POST = [];
-
-		$this->post_id = $this->factory->post->create();
-
-		$this->property = papi_property( [
-			'type'  => 'post',
-			'title' => 'The big post',
-			'slug'  => 'the_big_post'
-		] );
+	public function get_value() {
+		return $this->post_id;
 	}
 
-	/**
-	 * Tear down test.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function tearDown() {
-		parent::tearDown();
-		$_POST = [];
-		unset( $this->post_id, $this->property );
+	public function get_expected() {
+		return get_post( $this->post_id );
 	}
 
-	/**
-	 * Test output to check if property slug exists and the property type value.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function test_output() {
-		papi_render_property( $this->property );
-		$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $this->property->slug ) . '\"' );
-		$this->expectOutputRegex( '/data\-property=\"' . $this->property->type . '\"/' );
+	public function test_format_value() {
+		$this->assertEquals( get_post( $this->post_id ), $this->property->format_value( $this->post_id, '', 0 ) );
+		$this->assertNull( $this->property->format_value( 'hello', '', 0 ) );
+		$this->assertNull( $this->property->format_value( null, '', 0 ) );
 	}
-
-	/**
-	 * Test property options.
-	 *
-	 * @since 1.0.0
-	 */
 
 	public function test_property_options() {
-		// Test the property
-		$this->assertEquals( 'post', $this->property->type );
-		$this->assertEquals( 'The big post', $this->property->title );
-		$this->assertEquals( 'papi_the_big_post', $this->property->slug );
-
-		// Test default settings
-		$this->assertEquals( 'post', $this->property->settings->post_type );
-	}
-
-	/**
-	 * Test save property value.
-	 *
-	 * @since 1.0.0
-	 */
-
-	public function test_save_property_value() {
-		$handler = new Papi_Admin_Post_Handler();
-
-		// Create post data.
-		$_POST = papi_test_create_property_post_data( [
-			'slug'  => $this->property->slug,
-			'type'  => $this->property,
-			'value' => $this->post_id
-		], $_POST );
-
-		// Save the property using the handler.
-		$handler->save_property( $this->post_id );
-
-		// Test get the value with papi_field function.
-		$expected = get_post( $this->post_id );
-		$actual   = papi_field( $this->post_id, $this->property->slug );
-
-		$this->assertEquals( $expected, $actual );
+		$this->assertEquals( 'post', $this->property->get_option( 'type' ) );
+		$this->assertEquals( 'Post test', $this->property->get_option( 'title' ) );
+		$this->assertEquals( 'papi_post_test', $this->property->get_option( 'slug' ) );
 	}
 
 }

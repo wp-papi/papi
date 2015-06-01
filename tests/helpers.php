@@ -22,31 +22,12 @@ function papi_test_create_property_post_data( $values, $post = null ) {
 	$data = [];
 	$data[$values['slug']] = $values['value'];
 
-	$property_type_options = papi_get_property_options( (array) $values['type'] );
-
-	$property_type_options = base64_encode( serialize( $property_type_options ) );
-
-	$data[$property_type_slug] = $property_type_options;
+	$property_type_options = $values['type']->get_options();
+	$data[$property_type_slug] = base64_encode( serialize( $property_type_options ) );
 
 	if ( ! is_null( $post ) ) {
 		return array_merge( $post, $data );
 	}
 
 	return $data;
-}
-
-/**
- * Get real to test fixtures directory with given path.
- *
- * @param string
- *
- * @return string
- */
-
-function papi_test_get_fixtures_path( $path ) {
-	if ( ! empty( $path ) && $path[0] !== '/' ) {
-		$path = '/' . $path;
-	}
-
-	return __DIR__ . '/fixtures' . $path;
 }
