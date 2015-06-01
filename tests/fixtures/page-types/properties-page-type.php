@@ -78,6 +78,21 @@ class Properties_Page_Type extends Papi_Page_Type {
 				]
 			] ),
 
+			// Dropdown 2
+			papi_property( [
+				'type'     => 'dropdown',
+				'title'    => 'Dropdown test 2',
+				'slug'     => 'dropdown_test_2',
+				'settings' => [
+					'include_blank' => false,
+					'blank_text'    => 'Pick one',
+					'items'         => [
+						'White' => '#ffffff',
+						'Black' => '#000000'
+					]
+				]
+			] ),
+
 			// Editor
 			papi_property( [
 				'type'  => 'editor',
