@@ -14,10 +14,6 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'object', $this->property->convert_type );
 	}
 
-	public function test_default_value() {
-		$this->assertNull( $this->property->default_value );
-	}
-
 	public function get_value() {
 		return $this->post_id;
 	}
