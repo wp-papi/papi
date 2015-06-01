@@ -1,95 +1,31 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
-* Unit tests covering page type image.
-*
-* @package Papi
-*/
+ * Unit tests covering property image.
+ *
+ * @package Papi
+ */
 
-class Papi_Property_Image_Test extends WP_UnitTestCase {
+class Papi_Property_Image_Test extends Papi_Property_Test_Case {
 
-	/**
-	* Setup the test.
-	*
-	* @since 1.0.0
-	*/
+	public $slug = 'image_test';
 
-	public function setUp() {
-		parent::setUp();
-
-		$this->post_id = $this->factory->post->create();
-
-		$this->property = papi_property( [
-			'type'  => 'image',
-			'title' => 'Image',
-			'slug'  => 'image'
-		] );
+	public function get_value() {
+		return 23;
 	}
 
-	/**
-	 * Tear down test.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function tearDown() {
-		parent::tearDown();
-		unset( $this->post_id, $this->property );
+	public function get_expected() {
+		return 23;
 	}
-
-	/**
-	 * Test output to check if property slug exists and the property type value.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function test_output() {
-		papi_render_property( $this->property );
-		$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $this->property->slug ) . '\"' );
-		$this->expectOutputRegex( '/data\-property=\"' . $this->property->type . '\"/' );
-	}
-
-	/**
-	* Test property options.
-	*
-	* @since 1.0.0
-	*/
 
 	public function test_property_options() {
-		// Test the property
-		$this->assertEquals( 'image', $this->property->type );
-		$this->assertEquals( 'Image', $this->property->title );
-		$this->assertEquals( 'papi_image', $this->property->slug );
+		$this->assertEquals( 'image', $this->property->get_option( 'type' ) );
+		$this->assertEquals( 'Image test', $this->property->get_option( 'title' ) );
+		$this->assertEquals( 'papi_image_test', $this->property->get_option( 'slug' ) );
 	}
 
-	/**
-	* Test save property value.
-	*
-	* @since 1.0.0
-	*/
-
-	public function test_save_property_value() {
-		$handler = new Papi_Admin_Post_Handler();
-
-		// Create post data.
-		$_POST = papi_test_create_property_post_data( [
-			'slug'  => $this->property->slug,
-			'type'  => $this->property,
-			'value' => 23
-		], $_POST );
-
-		// Save the property using the handler.
-		$handler->save_property( $this->post_id );
-
-		// Test get the value with papi_field function.
-		// Property image can return the post image id if dosen't find the attachment.
-		$expected = 23;
-		$actual   = papi_field( $this->post_id, $this->property->slug );
-
-		$this->assertEquals( $expected, $actual );
+	public function test_property_settings() {
+		$this->assertFalse( $this->property->get_setting( 'gallery' ) );
 	}
 
 }

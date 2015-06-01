@@ -4,7 +4,6 @@
  * Papi utilities functions.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -15,7 +14,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @param string $key
  * @param mixed $suffix
- * @since 1.3.0
  *
  * @return string
  */
@@ -32,8 +30,6 @@ function papi_get_cache_key( $key, $suffix = null ) {
  * Try convert to string if is possible else return empty string.
  *
  * @param mixed $obj
- *
- * @since 1.0.0
  *
  * @return string
  */
@@ -59,8 +55,6 @@ function papi_convert_to_string( $obj ) {
  *
  * @param array $capabilities
  *
- * @since 1.0.0
- *
  * @return bool
  */
 
@@ -81,8 +75,6 @@ function papi_current_user_is_allowed( $capabilities = [] ) {
  *
  * @param mixed $obj
  * @param array $keys
- *
- * @since 1.2.0
  *
  * @return mixed
  */
@@ -127,8 +119,6 @@ function papi_esc_html( $obj, $keys = [] ) {
  *
  * @param string $str
  *
- * @since 1.0.0
- *
  * @return string
  */
 
@@ -148,8 +138,6 @@ function papi_f( $str = '' ) {
  * Add two underscores at the start of the string.
  *
  * @param string $str
- *
- * @since 1.0.0
  *
  * @return string
  */
@@ -176,8 +164,6 @@ function papi_ff( $str = '' ) {
  *
  * @param string $str
  *
- * @since 1.0.0
- *
  * @return string
  */
 
@@ -193,8 +179,6 @@ function papi_dashify( $str ) {
  * Get namespace name and/or class name from page type file.
  *
  * @param string $file
- *
- * @since 1.0.0
  *
  * @return string|null
  */
@@ -243,8 +227,6 @@ function papi_get_class_name( $file ) {
  *
  * @param array $arr
  *
- * @since 1.1.0
- *
  * @return array
  */
 
@@ -258,8 +240,6 @@ function papi_get_only_objects( $arr ) {
  * Get value from $_GET or $_POST with the given key.
  *
  * @param string $key
- *
- * @since 1.0.0
  *
  * @return string
  */
@@ -282,8 +262,6 @@ function papi_get_or_post( $key ) {
  * Get query string if it exists and is not empty.
  *
  * @param array|string $qs
- *
- * @since 1.0.0
  *
  * @return array|string
  */
@@ -331,8 +309,6 @@ function papi_get_qs( $qs, $keep_keys = false ) {
  *
  * @param string $key
  *
- * @since 1.3.0
- *
  * @return string
  */
 
@@ -350,8 +326,6 @@ function papi_get_sanitized_post( $key ) {
  * @param mixed $obj The value to check if it is empty or not.
  * @param mixed $default The value to return if var is not set.
  *
- * @since 1.0.0
- *
  * @return mixed
  */
 
@@ -363,8 +337,6 @@ function papi_h( $obj, $default = null ) {
  * Get a php friendly name.
  *
  * @param string $name
- *
- * @since 1.0.0
  *
  * @return string
  */
@@ -394,8 +366,6 @@ function papi_html_name( $name ) {
  *
  * @param mixed $obj
  *
- * @since 1.0.3
- *
  * @return bool
  */
 
@@ -417,8 +387,6 @@ function papi_is_empty( $obj ) {
  * @param string $str
  * @param string $ext
  *
- * @since 1.0.0
- *
  * @return bool
  */
 
@@ -432,11 +400,25 @@ function papi_is_ext( $str, $ext ) {
 }
 
 /**
+ * Check which http method it is.
+ *
+ * @param string $method
+ *
+ * @return bool
+ */
+
+function papi_is_metod( $method ) {
+	if ( ! isset( $_SERVER['REQUEST_METHOD'] ) ) {
+		return false;
+	}
+
+	return $_SERVER ['REQUEST_METHOD'] == strtoupper( $method );
+}
+
+/**
  * Replace '\n' with '<br />'.
  *
  * @param string $str
- *
- * @since 1.2.0
  *
  * @return string
  */
@@ -449,8 +431,6 @@ function papi_nl2br( $str ) {
  * Remove `papi-` or `papi_` from the given string.
  *
  * @param string $str
- *
- * @since 1.0.0
  *
  * @return string
  */
@@ -469,8 +449,6 @@ function papi_remove_papi( $str ) {
  *
  * @param string $str The string to check.
  *
- * @since 1.0.0
- *
  * @return string
  */
 
@@ -486,7 +464,6 @@ function papi_remove_trailing_quotes( $str ) {
  * Santize data.
  *
  * @param mixed $obj
- * @since 1.3.0
  *
  * @return mixed
  */
@@ -511,8 +488,6 @@ function papi_santize_data( $obj ) {
  * @param array $array
  * @param string $key
  *
- * @since 1.0.0
- *
  * @return array
  */
 
@@ -530,12 +505,14 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 	foreach ( $array as $k => $value ) {
 		if ( is_object( $value ) ) {
 			if ( isset( $value->$key ) ) {
-				$sorter[ $k ] = $value->$key;
-			} else if ( isset( $value->options ) && isset( $value->options->$key ) ) {
-				$sorter[ $k ] = $value->options->$key;
+				$sorter[$k] = $value->$key;
+			} else if ( papi_is_property( $value ) && $value->$key !== null ) {
+				$sorter[$k] = $value->$key;
+			} else if ( isset( $value->options->$key ) ) {
+				$sorter[$k] = $value->options->$key;
 			}
-		} else if ( is_array( $value ) && isset ( $value[ $key ] ) ) {
-			$sorter[ $k ] = $value[ $key ];
+		} else if ( is_array( $value ) && isset ( $value[$key] ) ) {
+			$sorter[$k] = $value[$key];
 		}
 	}
 
@@ -556,10 +533,11 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 
 	foreach ( $sorter as $k => $v ) {
 		$value = $array[ $k ];
-		if ( ( is_object( $value ) && ( ! isset( $value->options ) && ! isset( $value->options->$key ) || ! isset( $value->$key ) ) ) || ( is_array( $value ) && ! isset( $value[ $key ] ) ) ) {
+
+		if ( ( is_object( $value ) && ( ! isset( $value->options ) && ! isset( $value->options->$key ) || ! isset( $value->$key ) ) ) || ( is_array( $value ) && ! isset( $value[$key] ) ) ) {
 			$rest[] = $value;
 		} else {
-			$result[ $k ] = $array[ $k ];
+			$result[$k] = $array[$k];
 		}
 	}
 
@@ -578,8 +556,6 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
  * @param string $str
  * @param array $replace
  * @param string $delimiter
- *
- * @since 1.0.0
  *
  * @return string
  */
@@ -608,8 +584,6 @@ function papi_slugify( $str, $replace = [], $delimiter = '-' ) {
  *
  * @param mixed $obj
  *
- * @since 1.0.0
- *
  * @return array
  */
 
@@ -627,8 +601,6 @@ function papi_to_array( $obj ) {
  *
  * @param string $str
  *
- * @since 1.0.0
- *
  * @return string
  */
 
@@ -645,8 +617,6 @@ function papi_underscorify( $str ) {
  *
  * @param string $str
  *
- * @since 1.0.0
- *
  * @return string
  */
 
@@ -656,6 +626,10 @@ function papify( $str = '' ) {
 	}
 
 	if ( ! preg_match( '/^\_\_papi|^\_papi|^papi\_/', $str ) ) {
+		if ( ! empty($str) && $str[0] === '_' ) {
+			return 'papi' . $str;
+		}
+
 		return 'papi_' . $str;
 	}
 

@@ -4,7 +4,6 @@
  * Papi property functions.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -16,26 +15,24 @@ defined( 'ABSPATH' ) || exit;
  * @param array $value
  * @param string $slug
  *
- * @since 1.0.0
- *
  * @return array
  */
 
-function papi_from_property_array_slugs( $value, $slug ) {
+function papi_from_property_array_slugs( $values, $slug ) {
 	$results = [];
 
-	if ( empty( $value ) ) {
+	if ( empty( $values ) ) {
 		return $results;
 	}
 
-	for ( $i = 0; $i < $value[$slug]; $i++ ) {
+	for ( $i = 0; $i < $values[$slug]; $i++ ) {
 		$item      = [];
 		$item_slug = $slug . '_' . $i . '_';
-		$keys      = preg_grep( '/' . preg_quote( $item_slug ). '/' , array_keys( $value ) );
+		$keys      = preg_grep( '/' . preg_quote( $item_slug ). '/' , array_keys( $values ) );
 
 		foreach ( $keys as $key ) {
 			$arr_key = str_replace( $item_slug, '', $key );
-			$item[$arr_key] = $value[$key];
+			$item[$arr_key] = $values[$key];
 		}
 
 		$results[] = $item;
@@ -45,23 +42,36 @@ function papi_from_property_array_slugs( $value, $slug ) {
 }
 
 /**
+ * Check if the given value is a instance of a property or not.
+ *
+ * @param mixed $value
+ *
+ * @return bool
+ */
+
+function papi_is_property( $value ) {
+	return $value instanceof Papi_Property;
+}
+
+/**
  * Get box property.
  *
  * @param array $properties
- *
- * @since 1.0.0
  *
  * @return array
  */
 
 function papi_get_box_property( $properties ) {
+	if ( ! is_array( $properties ) ) {
+		return [];
+	}
+
 	$box_property = array_filter( $properties, function ( $property ) {
 		return ! is_object( $property );
 	} );
 
 	if ( ! empty( $box_property ) && ! isset( $box_property[0] ) && ! isset( $box_property[0]['tab'] ) ) {
 		$property = papi_get_property_options( $properties );
-
 		if ( ! $property->disabled ) {
 			$property->_box_property = true;
 			$properties = [$property];
@@ -76,8 +86,6 @@ function papi_get_box_property( $properties ) {
  * @param string|array $file_or_options
  * @param array $properties
  * @param bool $is_box
- *
- * @since 1.0.0
  *
  * @return array
  */
@@ -143,35 +151,46 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 }
 
 /**
- * Get default options.
- *
- * @since 1.2.0
- *
- * @return array
- */
-
-function papi_get_property_default_options() {
-	return Papi_Property::default_options();
-}
-
-/**
- * Get property type default settings
+ * Get property class name.
  *
  * @param string $type
  *
- * @since 1.0.0
- *
- * @return array
+ * @return string
  */
 
-function papi_get_property_default_settings( $type ) {
-	$property_type = papi_get_property_type( $type );
-
-	if ( is_null( $property_type ) || ! method_exists( $property_type, 'get_default_settings' ) ) {
-		return [];
+function papi_get_property_class_name( $type ) {
+	if ( ! is_string( $type ) || empty( $type ) ) {
+		return;
 	}
 
-	return $property_type->get_default_settings();
+	return 'Papi_Property_' . ucfirst( preg_replace( '/^Property/', '', $type ) );
+}
+
+/**
+ * Get value.
+ *
+ * @param string $slug
+ * @param mixed $value
+ * @param string $type
+ */
+
+function papi_property_get_meta( $post_id, $slug, $type = 'post' ) {
+	$value = null;
+
+	switch ( $type ) {
+		case 'option':
+			$value = get_option( $slug, null );
+			break;
+		default:
+			$value = get_post_meta( $post_id, $slug, true );
+			break;
+	}
+
+	if ( papi_is_empty( $value ) ) {
+		return;
+	}
+
+	return $value;
 }
 
 /**
@@ -180,12 +199,10 @@ function papi_get_property_default_settings( $type ) {
  * @param array $options
  * @param bool $fetch_value
  *
- * @since 1.0.0
- *
  * @return object
  */
 
-function papi_get_property_options( $options, $fetch_value = true ) {
+function papi_get_property_options( $options ) {
 	if ( ! is_array( $options ) ) {
 		if ( is_object( $options ) ) {
 			return $options;
@@ -195,65 +212,18 @@ function papi_get_property_options( $options, $fetch_value = true ) {
 	}
 
 	$property = Papi_Property::create( $options );
-	$options = $property->get_options();
-	$options->value = $property->get_value( $fetch_value );
-
-	return $options;
-}
-
-/**
- * Get property class name.
- *
- * @param string $type
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function papi_get_property_class_name( $type ) {
-	$type = papi_get_property_short_type( $type );
-
-	if ( empty( $type ) ) {
-		return;
-	}
-
-	return 'Papi_Property_' . ucfirst( $type );
-}
-
-/**
- * Get property short type.
- *
- * @param string $type
- *
- * @since 1.0.0
- *
- * @return string
- */
-
-function papi_get_property_short_type( $type ) {
-	if ( ! is_string( $type ) ) {
-		return;
-	}
-
-	return preg_replace( '/^property/', '', strtolower( $type ) );
+	return $property->get_options();
 }
 
 /**
  * Get property type by the given type.
  *
- * @param string $type
- *
- * @since 1.0.0
+ * @param object|string $type
  *
  * @return null|Papi_Property
  */
 
 function papi_get_property_type( $type ) {
-	if ( is_object( $type ) && isset( $type->type ) && is_string( $type->type ) ) {
-		$type = $type->type;
-	}
-
 	return Papi_Property::factory( $type );
 }
 
@@ -261,7 +231,6 @@ function papi_get_property_type( $type ) {
  * Get property type key from base64 string.
  *
  * @param string $str
- * @since 1.3.0
  *
  * @return string
  */
@@ -280,8 +249,7 @@ function papi_get_property_type_from_base64( $str ) {
  * Get the right key for a property type.
  *
  * @param string $str
- *
- * @since 1.0.0
+ * @param bool $papi_prefix
  *
  * @return string
  */
@@ -308,8 +276,6 @@ function papi_get_property_type_key( $str = '' ) {
  *
  * @param string $str
  *
- * @since 1.0.0
- *
  * @return string
  */
 
@@ -321,8 +287,6 @@ function papi_get_property_type_key_f( $str ) {
  * Check if it's ends with '_property'.
  *
  * @param string $str
- *
- * @since 1.0.0
  *
  * @return boolean
  */
@@ -342,22 +306,20 @@ function papi_is_property_type_key( $str = '' ) {
  * @param mixed $file_or_options
  * @param array $values
  *
- * @since 1.0.0
- *
  * @return object
  */
 
 function papi_property( $file_or_options, $values = [] ) {
 	if ( is_array( $file_or_options ) ) {
-		return papi_get_property_options( $file_or_options );
+		$file_or_options = papi_get_property_options( $file_or_options );
 	}
 
 	if ( is_string( $file_or_options ) && is_array( $values ) ) {
-		return (object) papi_template( $file_or_options, $values, true );
+		$file_or_options = papi_template( $file_or_options, $values );
 	}
 
 	if ( is_object( $file_or_options ) ) {
-		return $file_or_options;
+		return papi_get_property_type( $file_or_options );
 	}
 }
 
@@ -365,23 +327,19 @@ function papi_property( $file_or_options, $values = [] ) {
  * Render a property the right way.
  *
  * @param object $property
- *
- * @since 1.0.0
  */
 
 function papi_render_property( $property ) {
-	// Check so type isn't empty and capabilities on the property.
-	if ( empty( $property->type ) || ! papi_current_user_is_allowed( $property->capabilities ) ) {
+	$property = Papi_Property::factory( $property );
+
+	if ( is_null( $property ) ) {
 		return;
 	}
 
-	$property_type = papi_get_property_type( $property->type );
-
-	if ( is_null( $property_type ) ) {
+	// Check so the property has a type and capabilities on the property.
+	if ( ! papi_current_user_is_allowed( $property->capabilities ) ) {
 		return;
 	}
-
-	$property_type->set_options( $property );
 
 	// Only render if it's the right language if the definition exist.
 	if ( $property->lang !== false && papi_get_qs( 'lang' ) != null ) {
@@ -392,8 +350,8 @@ function papi_render_property( $property ) {
 
 	// Render the property.
 	if ( $render && $property->disabled === false ) {
-		$property_type->render_row_html();
-		$property_type->render_hidden_html();
+		$property->render_row_html();
+		$property->render_hidden_html();
 	}
 }
 
@@ -401,8 +359,6 @@ function papi_render_property( $property ) {
  * Render properties the right way.
  *
  * @param array $properties
- *
- * @since 1.0.0
  */
 
 function papi_render_properties( $properties ) {
@@ -413,7 +369,6 @@ function papi_render_properties( $properties ) {
 
 	// If it's a tab the tabs class will
 	// handle the rendering of the properties.
-
 	if ( isset( $properties[0]->tab ) && $properties[0]->tab ) {
 		new Papi_Admin_Meta_Box_Tabs( $properties );
 	} else {
@@ -438,8 +393,6 @@ function papi_render_properties( $properties ) {
  *
  * @param object $property
  *
- * @since 1.2.0
- *
  * @return string
  */
 
@@ -457,8 +410,6 @@ function papi_require_text( $property ) {
  * @param object $property
  * @param bool $text
  *
- * @since 1.2.0
- *
  * @return string
  */
 
@@ -474,8 +425,6 @@ function papi_required_html( $property, $text = false ) {
  * Populate properties array.
  *
  * @param array|object $properties
- *
- * @since 1.0.0
  *
  * @return array
  */
@@ -520,20 +469,16 @@ function papi_populate_properties( $properties ) {
 }
 
 /**
- * Update property values on the post with the given post id.
+ * Update property values on the post with the given post id
+ * or update property values on the option page.
  *
  * @param array $meta
- *
- * @since 1.0.0
  */
 
-function papi_property_update_meta( $meta ) {
+function papi_property_update_meta( array $meta = [] ) {
 	$meta = (object) $meta;
 
-	if ( empty( $meta->type ) ) {
-		return;
-	}
-
+	$option     = papi_is_option_page();
 	$save_value = true;
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
@@ -548,30 +493,37 @@ function papi_property_update_meta( $meta ) {
 	}
 
 	if ( papi_is_empty( $meta->value ) ) {
-		delete_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ) );
+		if ( $option ) {
+			delete_option( papi_remove_papi( $meta->slug ) );
+		} else {
+			delete_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ) );
+		}
 		return;
 	}
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
 		if ( ! is_array( $value ) ) {
-
-			$slug = papi_remove_papi( $meta->slug );
-
 			if ( $save_value ) {
 				$value = $meta->value;
 			}
 
-			update_post_meta( $meta->post_id, $slug, $value );
+			if ( $option ) {
+				update_option( papi_remove_papi( $meta->slug ), $value );
+			} else {
+				update_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ), $value );
+			}
 
 			continue;
 		}
 
 		foreach ( $value as $child_key => $child_value ) {
-			update_post_meta( $meta->post_id, papi_remove_papi( $child_key ), $child_value );
+			if ( $option ) {
+				update_option( papi_remove_papi( $child_key ), $child_value );
+			} else {
+				update_post_meta( $meta->post_id, papi_remove_papi( $child_key ), $child_value );
+			}
 		}
 	}
-
-	update_post_meta( $meta->post_id, papi_get_property_type_key_f( $meta->slug ), $meta->type );
 }
 
 /**
@@ -581,13 +533,11 @@ function papi_property_update_meta( $meta ) {
  * @param array $value
  * @param string $slug
  *
- * @since 1.0.0
- *
  * @return array
  */
 
 function papi_to_property_array_slugs( $value, $slug ) {
-	$results  = [];
+	$results = [];
 	$counter = [];
 
 	foreach ( $value as $index => $arr ) {
@@ -599,7 +549,16 @@ function papi_to_property_array_slugs( $value, $slug ) {
 		$counter[] = $arr;
 
 		foreach ( $arr as $key => $val ) {
-			$item_slug = $slug . '_' . $index . '_' . $key;
+
+			if ( ! is_string( $key ) ) {
+				continue;
+			}
+
+			if ( $key[0] !== '_' ) {
+				$key = '_' . $key;
+			}
+
+			$item_slug = $slug . '_' . $index . $key;
 
 			if ( papi_is_property_type_key( $item_slug ) ) {
 				$item_slug = papi_f( $item_slug );

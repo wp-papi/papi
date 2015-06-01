@@ -1,65 +1,27 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Unit tests covering property divider.
  *
  * @package Papi
  */
 
-class Papi_Property_Divider_Test extends WP_UnitTestCase {
+class Papi_Property_Divider_Test extends Papi_Property_Test_Case {
 
-	/**
-	 * Setup the test.
-	 *
-	 * @since 1.0.0
-	 */
+	public $slug = 'divider_test';
 
-	public function setUp() {
-		parent::setUp();
-
-		$this->post_id = $this->factory->post->create();
-
-		$this->property = papi_property( [
-			'type'  => 'divider',
-			'title' => 'Divider'
-		] );
+	public function get_value() {
+		return;
 	}
 
-	/**
-	 * Tear down test.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function tearDown() {
-		parent::tearDown();
-		unset( $this->post_id, $this->property );
+	public function get_expected() {
+		return;
 	}
-
-	/**
-	 * Test output to check if property slug exists and the property type value.
-	 *
-	 * @since 1.3.0
-	 */
-
-	public function test_output() {
-		papi_render_property( $this->property );
-		$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $this->property->slug ) . '\"' );
-		$this->expectOutputRegex( '/data\-property=\"' . $this->property->type . '\"/' );
-	}
-
-	/**
-	 * Test property options.
-	 *
-	 * @since 1.0.0
-	 */
 
 	public function test_property_options() {
-		$this->assertEquals( 'divider', $this->property->type );
-		$this->assertEquals( 'Divider', $this->property->title );
+		$this->assertEquals( 'divider', $this->property->get_option( 'type' ) );
+		$this->assertEquals( 'Divider test', $this->property->get_option( 'title' ) );
+		$this->assertEquals( 'papi_divider_test', $this->property->get_option( 'slug' ) );
 	}
 
 }

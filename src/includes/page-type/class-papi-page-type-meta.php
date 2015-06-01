@@ -16,7 +16,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * Capabilities list.
 	 *
 	 * @var array
-	 * @since 1.0.0
 	 */
 
 	public $capabilities = [];
@@ -25,7 +24,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * The description of the page type.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	public $description = '';
@@ -34,7 +32,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * Fill labels.
 	 *
 	 * @var bool
-	 * @since 1.3.0
 	 */
 
 	public $fill_labels = false;
@@ -43,7 +40,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * Labels, the same labels that post type object uses.
 	 *
 	 * @var array
-	 * @since 1.2.0
 	 */
 
 	public $labels = [];
@@ -52,7 +48,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * The name of the page type.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	public $name = '';
@@ -61,7 +56,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * The page types that lives under this page type.
 	 *
 	 * @var array
-	 * @since 1.0.0
 	 */
 
 	public $page_types = [];
@@ -70,7 +64,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * The post types to register the page type with.
 	 *
 	 * @var array
-	 * @since 1.0.0
 	 */
 
 	public $post_type = ['page'];
@@ -79,7 +72,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * The sort order of the page type.
 	 *
 	 * @var int
-	 * @since 1.0.0
 	 */
 
 	public $sort_order = 0;
@@ -88,7 +80,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * The template of the page type.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	public $template = '';
@@ -97,21 +88,19 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * The page type thumbnail.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	public $thumbnail = '';
 
 	/**
-	 * Constructor.
+	 * The constructor.
+	 *
 	 * Load a page type by the file.
 	 *
 	 * @param string $file_path
-	 *
-	 * @since 1.0.0
 	 */
 
-	public function __construct( $file_path ) {
+	public function __construct( $file_path = '' ) {
 		parent::__construct( $file_path );
 		$this->setup_page_type();
 		$this->setup_post_types();
@@ -119,8 +108,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 
 	/**
 	 * Is the user allowed to view this page type?
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return bool
 	 */
@@ -138,8 +125,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	/**
 	 * Get labels that should be changed
 	 * when using `fill_labels` option.
-	 *
-	 * @since 1.3.0
 	 *
 	 * @return array
 	 */
@@ -159,8 +144,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	/**
 	 * Get page type image thumbnail.
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return string
 	 */
 
@@ -175,8 +158,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	/**
 	 * Check so we have a name on the page type.
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return bool
 	 */
 
@@ -189,8 +170,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @param string $post_type
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return bool
 	 */
 
@@ -200,8 +179,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 
 	/**
 	 * Setup page type variables.
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function setup_page_type() {
@@ -210,8 +187,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 
 	/**
 	 * Setup post types array.
-	 *
-	 * @since 1.0.0
 	 */
 
 	private function setup_post_types() {

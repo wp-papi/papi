@@ -7,15 +7,12 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property Radio.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Property_Radio extends Papi_Property {
 
 	/**
 	 * Get default settings.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
@@ -29,8 +26,6 @@ class Papi_Property_Radio extends Papi_Property {
 
 	/**
 	 * Display property html.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function html() {

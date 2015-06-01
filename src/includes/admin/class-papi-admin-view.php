@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Admin View.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Admin_View {
@@ -16,16 +15,14 @@ class Papi_Admin_View {
 	 * Path to view dir.
 	 *
 	 * @var string
-	 * @since 1.0.0
 	 */
 
 	private $path = '';
 
 	/**
-	 * Constructor.
+	 * The constructor.
 	 *
 	 * @param string $path
-	 * @since 1.0.0
 	 */
 
 	public function __construct( $path = '' ) {
@@ -36,7 +33,6 @@ class Papi_Admin_View {
 	 * Check if file exists.
 	 *
 	 * @param string $file
-	 * @since 1.0
 	 *
 	 * @return bool
 	 */
@@ -49,14 +45,13 @@ class Papi_Admin_View {
 	 * Render file.
 	 *
 	 * @param string $file
-	 * @since 1.0.0
 	 *
 	 * @return string
 	 */
 
 	public function render( $file ) {
 		if ( ! empty( $file ) && $this->exists( $file ) ) {
-			require_once $this->file( $file );
+			require $this->file( $file );
 		}
 	}
 
@@ -64,7 +59,6 @@ class Papi_Admin_View {
 	 * Get full path to file with php exstention.
 	 *
 	 * @param string $file
-	 * @since 1.0.0
 	 *
 	 * @return string
 	 */

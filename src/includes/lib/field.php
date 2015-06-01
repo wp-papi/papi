@@ -4,7 +4,6 @@
  * Papi field functions.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 // Exit if accessed directly
@@ -16,15 +15,12 @@ defined( 'ABSPATH' ) || exit;
  * @param int $post_id
  * @param string $name
  * @param mixed $default
- * @param array $admin_data Only used in WordPress admin
- *
- * @since 1.0.0
+ * @param array $options
  *
  * @return mixed
  */
 
-function papi_field( $post_id = null, $name = null, $default = null, $admin_data = [] ) {
-	// Check if we have a post id or not.
+function papi_field( $post_id = null, $name = null, $default = null, $type = 'post' ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$default = $name;
 		$name    = $post_id;
@@ -32,6 +28,10 @@ function papi_field( $post_id = null, $name = null, $default = null, $admin_data
 	}
 
 	$post_id = papi_get_post_id( $post_id );
+
+	if ( $post_id === 0 && $type === 'post' ) {
+		return $default;
+	}
 
 	// Return the default value if we don't have a name.
 	if ( empty( $name ) ) {
@@ -44,24 +44,22 @@ function papi_field( $post_id = null, $name = null, $default = null, $admin_data
 	if ( $value === null || $value === false ) {
 		// Check for "dot" notation.
 		$names = explode( '.', $name );
-
-		// Get the first value in the array.
-		$name = $names[0];
-
-		// Remove the first value of the array.
+		$name  = $names[0];
 		$names = array_slice( $names, 1 );
 
-		// Get the page.
-		$page = papi_get_page( $post_id );
+		// Get the right page for right data type.
+		$data_page = papi_get_page( $post_id, $type );
 
-		// Return the default value if we don't have a WordPress post on the page object.
-		if ( is_null( $page ) || ! $page->has_post() ) {
+		// Return the default value if we don't have a valid page.
+		if ( is_null( $data_page ) ) {
 			return $default;
 		}
 
-		$page->set_admin_data( $admin_data );
+		$value = papi_field_value( $names, $data_page->get_value( $name ), $default );
 
-		$value = papi_field_value( $names, $page->$name, $default );
+		if ( papi_is_empty( $value ) ) {
+			return $default;
+		}
 
 		if ( papi_is_empty( $value ) && $value != $default ) {
 			$value = $default;
@@ -76,13 +74,13 @@ function papi_field( $post_id = null, $name = null, $default = null, $admin_data
 /**
  * Get current properties for the page.
  *
- * @since 1.2.0
+ * @param int $post_id
  *
  * @return array
  */
 
-function papi_fields() {
-	$page = current_page();
+function papi_fields( $post_id = 0 ) {
+	$page = papi_get_page( $post_id );
 
 	if ( empty( $page ) ) {
 		return [];
@@ -101,12 +99,8 @@ function papi_fields() {
 		$value = [];
 		$boxes = $page_type->get_boxes();
 
-		if ( empty ( $boxes ) || ! is_array( $boxes ) ) {
-			return [];
-		}
-
 		foreach ( $boxes as $box ) {
-			if ( count( $box ) < 2 || empty( $box[0]['title'] ) ) {
+			if ( count( $box ) < 2 || empty( $box[0]['title'] ) || ! is_array( $box[1] ) ) {
 				continue;
 			}
 
@@ -171,8 +165,6 @@ add_shortcode( 'papi_field', 'papi_field_shortcode' );
  * @param mixed $value
  * @param mixed $default
  *
- * @since 1.0.0
- *
  * @return mixed
  */
 
@@ -206,8 +198,6 @@ function papi_field_value( $names, $value, $default = null ) {
  * @param int $post_id
  * @param string $name
  * @param mixed $default
- *
- * @since 1.0.0
  */
 
 function the_papi_field( $post_id = null, $name = null, $default = null ) {

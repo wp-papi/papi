@@ -31,7 +31,7 @@
 			}
 			?>
 			<tr>
-				<td><a href="<?php echo sanitize_text_field( $_SERVER['REQUEST_URI'] ); ?>&view=management-page-type&page-type=<?php esc_attr_e( $page_type->get_id() ); ?>"><?php esc_html_e( $page_type->name ); ?></a></td>
+				<td><a href="<?php echo sanitize_text_field( $_SERVER['REQUEST_URI'] ); ?>&view=management-page-type&page_type=<?php esc_attr_e( $page_type->get_id() ); ?>"><?php esc_html_e( $page_type->name ); ?></a></td>
 				<td><?php esc_html_e( $page_type->get_id() ); ?></td>
 				<td>
 					<?php

@@ -5,7 +5,9 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Papi Page Type class.
- * All page types in the WordPress theme will extend this class.
+ *
+ * All page types in the WordPress theme will
+ * extend this class.
  *
  * @package Papi
  * @since 1.0.0
@@ -17,7 +19,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * The array of meta boxes to register.
 	 *
 	 * @var array
-	 * @since 1.0.0
 	 */
 
 	protected $boxes = [];
@@ -26,7 +27,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * Load all boxes even if we aren't on a post type.
 	 *
 	 * @var bool
-	 * @since 1.0.0
 	 */
 
 	private $load_boxes = false;
@@ -36,7 +36,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * By default remove `postcustom` which is the Custom fields metabox.
 	 *
 	 * @var array
-	 * @since 1.0.0
 	 */
 
 	private $post_type_supports = ['custom-fields'];
@@ -45,44 +44,25 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * Remove meta boxes.
 	 *
 	 * @var array
-	 * @since 1.2.0
 	 */
 
 	private $remove_meta_boxes = [];
-
-	/**
-	 * Load a page type by the file.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string $file_path
-	 */
-
-	public function __construct( $file_path = '' ) {
-		parent::__construct( $file_path );
-	}
 
 	/**
 	 * Add new meta box with properties.
 	 *
 	 * @param mixed $file_or_options
 	 * @param array $properties
-	 *
-	 * @since 1.0.0
 	 */
 
 	protected function box( $file_or_options = [], $properties = [] ) {
-		if ( is_object( $file_or_options ) ) {
-			$file_or_options = (array) $file_or_options;
-		}
-
-		if ( ! is_string( $file_or_options ) && ! is_array( $file_or_options ) ) {
+		if ( ! is_string( $file_or_options ) && ! is_array( $file_or_options ) && ! is_object( $file_or_options ) ) {
 			return;
 		}
 
 		list( $options, $properties ) = papi_get_options_and_properties( $file_or_options, $properties, true );
 
-		$post_type = papi_get_wp_post_type();
+		$post_type = $this->get_post_type();
 
 		// Check so we have a post the to add the box to.
 		if ( ! $this->load_boxes && ( empty( $post_type ) || ! $this->has_post_type( $post_type ) ) ) {
@@ -113,94 +93,47 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Convert properties to properties objects.
 	 *
-	 * @param array $properties
-	 * @since 1.3.0
+	 * @param array|object $properties
 	 *
 	 * @return array
 	 */
 
 	private function convert_properties( $properties ) {
-		$properties = array_map( function ( $property ) {
-			return papi_property( $property );
-		}, $properties );
-
-		return $this->convert_child_properties( $properties );
-	}
-
-	/**
-	 * Fix child properties so you can skip `papi_property`
-	 * it in for example `settings->items`.
-	 *
-	 * @param array $properties
-	 * @since 1.3.0
-	 *
-	 * @return array
-	 */
-
-	private function convert_child_properties( $properties ) {
-		for ( $i = 0, $l = count( $properties ); $i < $l; $i++ ) {
-			if ( ! isset( $properties[$i]->settings ) ) {
-				continue;
-			}
-
-			$arr = (array) $properties[$i]->settings;
-
-			foreach ( $arr as $key => $value ) {
-				if ( ! is_array( $value ) ) {
-					continue;
+		if ( is_array( $properties ) ) {
+			if ( isset( $properties['type'] ) ) {
+				$properties = [$properties];
+			} else if ( isset( $properties[0]->tab ) && $properties[0]->tab ) {
+				foreach ( $properties as $index => $items ) {
+					$items->properties = array_map( 'papi_get_property_type', $items->properties );
 				}
 
-				$arr[$key] = $this->convert_items_array( $value );
+				return $properties;
 			}
-
-			$properties[$i]->settings = (object) $arr;
 		}
 
-		return $properties;
-	}
-
-	/**
-	 * Convert all arrays that has a valid property type.
-	 *
-	 * @param array $items
-	 * @since 1.3.0
-	 *
-	 * @return array
-	 */
-
-	private function convert_items_array( $items ) {
-		for ( $j = 0, $k = count( $items ); $j < $k; $j++ ) {
-			if ( ! isset( $items[$j]) || ! is_array( $items[$j] ) ) {
-				continue;
-			}
-
-			if ( ! isset( $items[$j]['type'] ) ) {
-				foreach ( $items[$j] as $key => $value ) {
-					if ( is_array( $items[$j][$key] ) ) {
-						$items[$j][$key] = $this->convert_items_array( $items[$j][$key] );
-					}
-				}
-
-				continue;
-			}
-
-			$type = papi_get_property_class_name( $items[$j]['type'] );
-
-			if ( ! class_exists( $type ) ) {
-				continue;
-			}
-
-			$items[$j] = papi_property( $items[$j] );
+		if ( is_object( $properties ) ) {
+			$properties = papi_get_property_type( $properties );
 		}
 
-		return $items;
+		if ( papi_is_property( $properties ) ) {
+			$properties = [$properties];
+		}
+
+		if ( ! is_array( $properties ) ) {
+			return [];
+		}
+
+		$properties = array_map( 'papi_get_property_type', $properties );
+
+		return array_filter( $properties, function ( $property ) {
+			return papi_is_property( $property );
+		} );
 	}
 
 	/**
 	 * Should the Page Type be displayed in WordPress admin or not?
 	 *
 	 * @param string $post_type
-	 * @since 1.3.0
 	 *
 	 * @return bool
 	 */
@@ -212,13 +145,11 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Get boxes from the page type.
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return array
 	 */
 
 	public function get_boxes() {
-		if ( empty( $this->boxes ) ) {
+		if ( empty( $this->boxes ) && $this->load_boxes == false ) {
 			if ( ! method_exists( $this, 'register' ) ) {
 				return;
 			}
@@ -232,32 +163,43 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	}
 
 	/**
-	 * Get root property.
+	 * Get post type.
 	 *
+	 * @return string
+	 */
+
+	public function get_post_type() {
+		return papi_get_post_type();
+	}
+
+	/**
+	 * Get child property.
+	 *
+	 * @param array $items
 	 * @param string $slug
-	 * @since 1.3.0
 	 *
 	 * @return object
 	 */
 
-	public function get_property( $slug ) {
-		$boxes = $this->get_boxes();
-
-		if ( empty( $boxes ) ) {
-			return;
-		}
-
+	protected function get_child_property( $items, $slug ) {
 		$result = null;
 
-		foreach ( $boxes as $box ) {
+		foreach ( $items as $property ) {
+			if ( is_array( $property ) ) {
+				$result = $this->get_child_property( $property, $slug );
 
-			foreach ( $box[1] as $property ) {
-				if ( ! isset( $property->slug ) ) {
-					continue;
+				if ( is_object( $result ) ) {
+					return papi_get_property_type( $result );
+				}
+			}
+
+			if ( is_object( $property ) ) {
+				if ( papi_remove_papi( $property->slug ) === $slug ) {
+					return papi_get_property_type( $property );
 				}
 
-				if ( papi_remove_papi( $property->slug ) === $slug ) {
-					$result = $property;
+				if ( papi_remove_papi( $property->array_slug ) === $slug ) {
+					return papi_get_property_type( $property );
 				}
 			}
 		}
@@ -266,9 +208,46 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	}
 
 	/**
-	 * This function will setup all meta boxes.
+	 * Get property from page type.
 	 *
-	 * @since 1.0.0
+	 * @param string $slug
+	 * @param string $child_slug
+	 *
+	 * @return object
+	 */
+
+	public function get_property( $slug, $child_slug = '' ) {
+		$boxes = $this->get_boxes();
+
+		if ( empty( $boxes ) ) {
+			return;
+		}
+
+		foreach ( $boxes as $box ) {
+			foreach ( $box[1] as $property ) {
+				$property = papi_get_property_type( $property );
+
+				if ( ! papi_is_property( $property ) ) {
+					continue;
+				}
+
+				if ( papi_remove_papi( $property->slug ) === $slug ) {
+					if ( empty( $child_slug ) ) {
+						return $property;
+					}
+
+					$result = $this->get_child_property( $property->get_child_properties(), $child_slug );
+
+					if ( is_object( $result ) ) {
+						return papi_get_property_type( $result );
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * This function will setup all meta boxes.
 	 */
 
 	public function setup() {
@@ -296,8 +275,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @param string|array $file_or_options
 	 * @param array $values
 	 *
-	 * @since 1.0.0
-	 *
 	 * @return array
 	 */
 
@@ -309,8 +286,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * Remove post type support. Runs once, on page load.
 	 *
 	 * @param array $post_type_supports
-	 *
-	 * @since 1.0.0
 	 */
 
 	protected function remove( $post_type_supports = [] ) {
@@ -319,14 +294,12 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	/**
 	 * Remove post type support action.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function remove_post_type_support() {
 		global $_wp_post_type_features;
 
-		$post_type = papi_get_wp_post_type();
+		$post_type = $this->get_post_type();
 
 		if ( empty( $post_type ) ) {
 			return;
@@ -356,12 +329,10 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	/**
 	 * Remove meta boxes.
-	 *
-	 * @since 1.2.0
 	 */
 
 	public function remove_meta_boxes() {
-		$post_type = papi_get_wp_post_type();
+		$post_type = $this->get_post_type();
 
 		if ( empty( $post_type ) ) {
 			return;
@@ -377,8 +348,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @param mixed $file_or_options
 	 * @param array $properties
-	 *
-	 * @since 1.0
 	 *
 	 * @return array
 	 */
@@ -410,8 +379,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @param string $file
 	 * @param array $values
-	 *
-	 * @since 1.0.0
 	 *
 	 * @return array
 	 */

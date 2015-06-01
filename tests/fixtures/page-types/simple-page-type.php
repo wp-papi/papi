@@ -26,12 +26,11 @@ class Simple_Page_Type extends Papi_Page_Type {
 		$this->remove( [ 'editor', 'commentdiv' ] );
 
 		// Test box property.
-		$this->box( papi_property( [
+		$this->box( 'Hello', papi_property( [
 			'type'  => 'string',
 			'title' => 'Name'
 		] ) );
 
-		// Test box property.
 		$this->box( 'Content', [
 			'type'  => 'string',
 			'title' => 'Name',
@@ -69,6 +68,52 @@ class Simple_Page_Type extends Papi_Page_Type {
 				dirname( __DIR__ ) . '/boxes/simple.php'
 			)
 		);
+
+		$this->box( 'Children', [
+			papi_property( [
+				'type'     => 'string',
+				'title'    => 'Name',
+				'slug'     => 'name_levels',
+				'settings' => [
+					'items' => [
+						papi_property([
+							'type'     => 'string',
+							'title'	   => 'Child name',
+							'slug'     => 'child_name',
+							'settings' => [
+								'items' => [
+									[
+										'type'  => 'string',
+										'title' => 'Child child name',
+										'slug'  => 'child_child_name'
+									],
+									null
+								]
+							]
+						])
+					]
+				]
+			] )
+		] );
+
+		$this->box('Children 2', [
+			papi_property( [
+				'type'     => 'string',
+				'title'    => 'Name',
+				'slug'     => 'name_levels_2',
+				'settings' => [
+					'items' => [
+						[
+							papi_property( [
+								'type'  => 'string',
+								'title'	=> 'Child name 2',
+								'slug'  => 'child_name_2'
+							] )
+						]
+					]
+				]
+			] )
+		] );
 	}
 
 	public function content_box() {

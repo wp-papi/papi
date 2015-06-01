@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Property Email.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Property_Email extends Papi_Property_String {
