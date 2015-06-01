@@ -41,8 +41,8 @@ function papi_field( $post_id = null, $name = null, $default = null, $type = 'po
 	$cache_key = papi_get_cache_key( $name, $post_id );
 	$value     = wp_cache_get( $cache_key );
 
-	if ( $value === false ) {
-		// Check for dot notation.
+	if ( $value === null || $value === false ) {
+		// Check for "dot" notation.
 		$names = explode( '.', $name );
 		$name  = $names[0];
 		$names = array_slice( $names, 1 );
@@ -59,6 +59,10 @@ function papi_field( $post_id = null, $name = null, $default = null, $type = 'po
 
 		if ( papi_is_empty( $value ) ) {
 			return $default;
+		}
+
+		if ( papi_is_empty( $value ) && $value != $default ) {
+			$value = $default;
 		}
 
 		wp_cache_set( $cache_key, $value );

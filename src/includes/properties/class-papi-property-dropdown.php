@@ -19,6 +19,8 @@ class Papi_Property_Dropdown extends Papi_Property {
 
 	public function get_default_settings() {
 		return [
+			'blank_text'    => '',
+			'include_blank' => true,
 			'items'    => [],
 			'selected' => []
 		];
@@ -41,6 +43,13 @@ class Papi_Property_Dropdown extends Papi_Property {
 		?>
 		<select class="papi-vendor-select2 papi-fullwidth" name="<?php echo $this->html_name(); ?>">
 			<?php
+			// The blank item
+			if ( $settings->include_blank ):
+			?>
+				<option value=""><?php echo papi_esc_html( $settings->blank_text ); ?></option>
+			<?php
+			endif;
+			
 			foreach ( $settings->items as $key => $value ):
 				if ( is_numeric( $key ) ) {
 					$key = $value;

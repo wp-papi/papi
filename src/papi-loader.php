@@ -41,6 +41,7 @@ final class Papi_Loader extends Papi_Container {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self;
 			self::$instance->constants();
+			self::$instance->setup_actions();
 			self::$instance->require_files();
 		}
 
@@ -110,7 +111,6 @@ final class Papi_Loader extends Papi_Container {
 		// Load languages.
 		$domain = 'papi';
 		$path   = __DIR__ . '/../languages/' . $domain . '-' . get_locale() . '.mo';
-
 		load_textdomain( $domain, $path );
 
 		// Load the autoload class.
@@ -133,12 +133,6 @@ final class Papi_Loader extends Papi_Container {
 		// Load admin class.
 		require_once __DIR__ . '/includes/admin/class-papi-admin.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-menu.php';
-
-		// Load core classes.
-
-		// require_once __DIR__ . '/includes/option-type/class-papi-option-type.php';
-
-		// require_once __DIR__ . '/includes/admin/class-papi-admin-ajax.php';
 
 		// Include plugins or properties.
 		papi_action_include();
@@ -165,6 +159,16 @@ final class Papi_Loader extends Papi_Container {
 		}
 
 		wp_die( __( 'WordPress 3.9 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
+	}
+
+	/**
+	 * Setup actions.
+	 *
+	 * @since 1.3.0
+	 */
+
+	private function setup_actions() {
+		add_action( 'after_setup_theme', 'papi_action_include' );
 	}
 }
 

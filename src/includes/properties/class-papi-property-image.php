@@ -20,6 +20,14 @@ class Papi_Property_Image extends Papi_Property {
 	public $convert_type = 'object';
 
 	/**
+	 * The default value.
+	 *
+	 * @var array
+	 */
+
+	public $default_value = [];
+
+	/**
 	 * Format the value of the property before it's returned to the theme.
 	 *
 	 * @param mixed $value
@@ -55,6 +63,9 @@ class Papi_Property_Image extends Papi_Property {
 
 			return $value;
 		} else if ( is_object( $value ) && isset( $value->url ) ) {
+		} else if ( is_object( $value ) && ! isset( $value->url ) ) {
+			return null;
+		} else {
 			return $value;
 		}
 
@@ -73,6 +84,8 @@ class Papi_Property_Image extends Papi_Property {
 
 	/**
 	 * Get default settings.
+	 *
+	 * Display property html.
 	 *
 	 * @return array
 	 */
@@ -105,6 +118,7 @@ class Papi_Property_Image extends Papi_Property {
 
 		<div class="papi-property-image <?php echo $css_classes; ?>">
 			<p class="papi-image-select <?php echo $show_button ? '' : 'papi-hide'; ?>">
+				<input type="hidden" value="" name="<?php echo $slug; ?>"/>
 				<?php
 				if ( ! $settings->gallery ) {
 					_e( 'No image selected', 'papi' );
