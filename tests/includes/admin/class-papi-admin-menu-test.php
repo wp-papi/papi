@@ -27,6 +27,8 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 	public function test_actions_admin() {
 		global $current_screen;
 
+		$this->assertNull( $current_screen );
+
         $current_screen = WP_Screen::get( 'admin_init' );
 
 		$menu = new Papi_Admin_Menu();
