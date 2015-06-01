@@ -66,7 +66,7 @@ class Papi_Property extends Papi_Core_Property {
 			}
 		}
 
-		return sprintf( '%s[%s]', $base_slug, papi_remove_papi( $sub_property->get_option( 'slug' ) ) );
+		return sprintf( '%s[%s]', $base_slug, papi_remove_papi( $sub_property->get_slug() ) );
 	}
 
 	/**

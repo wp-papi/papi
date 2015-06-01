@@ -407,13 +407,17 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Check so the property has a type.
+	 * Get property slug.
 	 *
-	 * @return bool
+	 * @return string
 	 */
 
-	public function has_type() {
-		return empty( $this->type );
+	public function get_slug() {
+		if ( $this->array_slug != $this->slug ) {
+			return $this->array_slug;
+		}
+
+		return $this->slug;
 	}
 
 	/**
@@ -440,6 +444,16 @@ class Papi_Core_Property {
 		}
 
 		return $this->prepare_value( $value );
+	}
+
+	/**
+	 * Check so the property has a type.
+	 *
+	 * @return bool
+	 */
+
+	public function has_type() {
+		return empty( $this->type );
 	}
 
 	/**

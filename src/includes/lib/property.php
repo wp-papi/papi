@@ -257,7 +257,7 @@ function papi_get_property_type_from_base64( $str ) {
 function papi_get_property_type_key( $str = '' ) {
 	$suffix = '_property';
 
-	if ( ! is_string( $str ) ) {
+	if ( empty( $str ) ) {
 		return $suffix;
 	}
 
