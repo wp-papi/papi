@@ -54,7 +54,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 				<option value=""><?php echo papi_esc_html( $settings->blank_text ); ?></option>
 			<?php
 			endif;
-			
+
 			foreach ( $settings->items as $key => $value ):
 				if ( is_numeric( $key ) ) {
 					$key = $value;
