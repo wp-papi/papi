@@ -10,6 +10,14 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'relationship_test';
 
+	public function test_convert_type() {
+		$this->assertEquals( 'array', $this->property->convert_type );
+	}
+
+	public function test_default_value() {
+		$this->assertEquals( [], $this->property->default_value );
+	}
+
 	public function get_value() {
 		return [ $this->post_id ];
 	}

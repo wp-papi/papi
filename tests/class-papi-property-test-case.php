@@ -32,6 +32,14 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		);
 	}
 
+	public function test_convert_type() {
+		$this->assertEquals( 'string', $this->property->convert_type );
+	}
+
+	public function test_default_value() {
+		$this->assertNull( $this->property->default_value );
+	}
+
 	public function test_output() {
 		papi_render_property( $this->property );
 		$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $this->property->get_option( 'slug' ) ) . '\"' );

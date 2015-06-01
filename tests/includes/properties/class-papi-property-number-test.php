@@ -10,6 +10,10 @@ class Papi_Property_Number_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'number_test';
 
+	public function test_convert_type() {
+		$this->assertEquals( 'int', $this->property->convert_type );
+	}
+
 	public function get_value() {
 		return 42;
 	}

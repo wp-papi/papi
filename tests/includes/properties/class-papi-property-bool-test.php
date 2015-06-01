@@ -10,6 +10,14 @@ class Papi_Property_Bool_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'bool_test';
 
+	public function test_convert_type() {
+		$this->assertEquals( 'bool', $this->property->convert_type );
+	}
+
+	public function test_default_value() {
+		$this->assertFalse( $this->property->default_value );
+	}
+
 	public function get_value() {
 		return true;
 	}

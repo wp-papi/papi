@@ -10,6 +10,14 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'repeater_test';
 
+	public function test_convert_type() {
+		$this->assertEquals( 'array', $this->property->convert_type );
+	}
+
+	public function test_default_value() {
+		$this->assertEquals( [], $this->property->default_value );
+	}
+
 	public function get_value() {
 		$items = $this->property->get_setting( 'items' );
 		$value_slug1         = papi_remove_papi( $items[0]->array_slug );
