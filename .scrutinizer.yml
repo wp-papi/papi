@@ -12,7 +12,7 @@ checks:
     coding_standard: WordPress
 
 tools:
-    external_code_coverage: true
+    external_code_coverage: false
 
     php_sim:
         enabled: true
