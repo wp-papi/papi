@@ -132,7 +132,7 @@ class Papi_Admin_Ajax {
 			exit;
 		}
 
-		$items = json_decode( stripslashes( $_POST['properties'] ) );
+		$items = json_decode( stripslashes( $_POST['properties'] ), true );
 
 		if ( empty( $items ) || ! is_array( $items ) ) {
 			$this->render_error( 'No properties found' );
