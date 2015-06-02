@@ -358,7 +358,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	protected function prepare_properties( $items ) {
 		$exclude_properties = $this->exclude_properties;
-		$exclude_properties = array_merge( $exclude_properties, apply_filters( 'papi/property/repeater/exclude', array() ) );
+		$exclude_properties = array_merge( $exclude_properties, apply_filters( 'papi/property/repeater/exclude', [] ) );
 		$items       = array_map( 'papi_get_property_options', $items );
 
 		return array_filter( $items, function ( $item ) use ( $exclude_properties ) {

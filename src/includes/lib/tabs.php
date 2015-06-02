@@ -27,13 +27,13 @@ function papi_get_tab_options( $options ) {
 		$options = (array) $options;
 	}
 
-	$defaults = array(
+	$defaults = [
 		'capabilities' => [],
 		'icon'         => '',
 		'sort_order'   => papi_filter_settings_sort_order(),
 		// Private options
 		'_name'        => ''
-	);
+	];
 
 	$options = array_merge( $defaults, $options );
 

@@ -6,6 +6,8 @@
 	<exclude-pattern>tests</exclude-pattern>
 	<exclude-pattern>vendor</exclude-pattern>
 
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+
 	<rule ref="WordPress-Core">
 		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions" />
 		<exclude name="WordPress.Arrays.ArrayDeclaration" />

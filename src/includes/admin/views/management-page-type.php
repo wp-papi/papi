@@ -5,10 +5,10 @@
 	<br/>
 
 	<?php
-		$page_type = papi_get_qs( 'page_type' );
-		$page_type = papi_get_page_type_by_id( $page_type );
+	$page_type = papi_get_qs( 'page_type' );
+	$page_type = papi_get_page_type_by_id( $page_type );
 
-		if ( empty( $page_type ) ):
+	if ( empty( $page_type ) ):
 	?>
 		<h3><?php _e( 'Overview of page type', 'papi' ); ?></h3>
 		<p>

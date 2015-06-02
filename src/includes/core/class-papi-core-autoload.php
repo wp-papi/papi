@@ -13,7 +13,7 @@ class Papi_Core_Autoload {
 	 */
 
 	public function __construct() {
-		spl_autoload_register( array( $this, 'autoload' ) );
+		spl_autoload_register( [$this, 'autoload'] );
 	}
 
 	/**
