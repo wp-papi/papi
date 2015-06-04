@@ -55,7 +55,6 @@
         &.last {
           background: #f9f9f9;
           border-left: 0;
-          color: #afafaf;
           font-weight: bold;
           padding-left: 0;
           padding-right: 0;
@@ -63,6 +62,7 @@
           width: 5%;
 
           > span {
+            color: #afafaf;
             margin-top: -.5em;
             overflow: hidden;
             position: absolute;
