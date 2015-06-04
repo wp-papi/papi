@@ -151,7 +151,7 @@ class Papi_Property_Relationship extends Papi_Property {
 						<strong><?php _e( 'Sort by', 'papi' ); ?></strong>
 						<select name="_<?php echo $options->slug; ?>_sort_option">
 							<?php
-							$sort_options = [];
+							$sort_options = array();
 							$sort_options[__( 'Select', 'papi' )] = '';
 							$sort_options = wp_parse_args( static::get_sort_options(), $sort_options );
 							foreach ( $sort_options as $key => $v ): ?>
