@@ -35,7 +35,7 @@ class Tabs {
     $('a[data-papi-tab]').parent().removeClass('active');
     $this.parent().addClass('active');
 
-    $('div[data-papi-tab]').removeClass('active').addClass('.papi-hide');
+    $('div[data-papi-tab]').removeClass('active').addClass('papi-hide');
     $('div[data-papi-tab="' + tab + '"]').addClass('active').removeClass('papi-hide');
   }
 

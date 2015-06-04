@@ -76,7 +76,7 @@ class Core {
 
     $list.find('.papi-box-item').each(function () {
       let $item = $(this);
-      $item[$item.text().toLowerCase().indexOf(val) === -1 ? 'addClass' : 'removeClass']('.papi-hide');
+      $item[$item.text().toLowerCase().indexOf(val) === -1 ? 'addClass' : 'removeClass']('papi-hide');
     });
   }
 
