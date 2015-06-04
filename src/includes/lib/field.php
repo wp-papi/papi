@@ -109,9 +109,7 @@ function papi_fields( $post_id = 0 ) {
 			}
 
 			foreach ( $box[1] as $property ) {
-				if ( is_object( $property ) && isset( $property->slug ) ) {
-					$value[$box[0]['title']][] = papi_remove_papi( $property->slug );
-				}
+				$value[$box[0]['title']][] = $property->get_slug();
 			}
 		}
 

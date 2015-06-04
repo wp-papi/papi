@@ -409,12 +409,22 @@ class Papi_Core_Property {
 	/**
 	 * Get property slug.
 	 *
+	 * @param bool $remove_prefix
+	 *
 	 * @return string
 	 */
 
-	public function get_slug() {
+	public function get_slug( $remove_prefix = false ) {
 		if ( ! empty( $this->options->array_slug ) && $this->options->array_slug != $this->options->slug ) {
+			if ( $remove_prefix ) {
+				return papi_remove_papi( $this->options->array_slug );
+			}
+
 			return $this->options->array_slug;
+		}
+
+		if ( $remove_prefix ) {
+			return papi_remove_papi( $this->options->slug );
 		}
 
 		return $this->options->slug;
@@ -434,7 +444,7 @@ class Papi_Core_Property {
 		$value = $this->get_option( 'value' );
 
 		if ( papi_is_empty( $value ) ) {
-			$slug = papi_remove_papi( $this->get_option( 'slug' ) );
+			$slug = papi_remove_papi( $this->get_slug() );
 
 			if ( papi_is_option_page() ) {
 				$value = papi_option( $slug );
@@ -454,6 +464,22 @@ class Papi_Core_Property {
 
 	public function has_type() {
 		return empty( $this->type );
+	}
+
+	/**
+	 * Match property slug with given slug value.
+	 *
+	 * @param string $slug
+	 *
+	 * @return bool
+	 */
+
+	public function match_slug( $slug ) {
+		if ( ! is_string( $slug ) ) {
+			$slug = '';
+		}
+
+		return $this->get_slug( ! preg_match( '/^papi\_/', $slug ) ) === $slug;
 	}
 
 	/**

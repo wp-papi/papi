@@ -161,8 +161,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function get_json_id( $key, $extra = '' ) {
-		$options = $this->get_options();
-		return $options->slug . '_' . papi_slugify( $key ) . ( empty( $extra ) ? '' : '_' . $extra );
+		return $this->get_slug() . '_' . papi_slugify( $key ) . ( empty( $extra ) ? '' : '_' . $extra );
 	}
 
 	/**
@@ -516,11 +515,11 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 			<?php /* Default repeater value */ ?>
 
-			<input type="hidden" name="<?php echo $options->slug; ?>[]" />
+			<input type="hidden" name="<?php echo $this->get_slug(); ?>[]" />
 
 			<?php $values = $this->get_value(); ?>
 
-			<input type="hidden" name="__<?php echo $options->slug; ?>_rows" value="<?php echo count( $values ); ?>" class="papi-property-repeater-rows" />
+			<input type="hidden" name="__<?php echo $this->get_slug(); ?>_rows" value="<?php echo count( $values ); ?>" class="papi-property-repeater-rows" />
 
 		</div>
 		<?php
