@@ -62,7 +62,7 @@ class Papi_Core_Property {
 	/**
 	 * The page that the property exists on.
 	 *
-	 * @var array
+	 * @var Papi_Core_Page
 	 */
 
 	private $page;
@@ -349,7 +349,7 @@ class Papi_Core_Property {
 
 	public function get_page() {
 		if ( $this->page instanceof Papi_Core_Page ) {
-			return $page;
+			return $this->page;
 		}
 
 		$post_id = $this->get_post_id();
@@ -397,12 +397,7 @@ class Papi_Core_Property {
 	 */
 
 	public function get_settings() {
-		if ( ! is_object( $this->options ) || ! isset( $this->options->settings ) ) {
-			return;
-		}
-
-		$settings = wp_parse_args( $this->options->settings, $this->get_default_settings() );
-
+		$settings = wp_parse_args( $this->get_option( 'settings' ), $this->get_default_settings() );
 		return (object) $this->convert_settings( $settings );
 	}
 

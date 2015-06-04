@@ -99,6 +99,9 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertNull( $property->get_option( 'fake' ) );
 		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
 		$this->assertEquals( 1000, $property->get_option( 'sort_order' ) );
+
+		$settings = $property->get_option( 'settings' );
+		$this->assertTrue( is_object( $settings ) );
 	}
 
 	public function test_get_options() {
@@ -128,11 +131,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_settings() {
-		$property = new Papi_Property();
-
-		$this->assertEmpty( $property->get_settings() );
-
-		$property->set_options( [
+		$property = Papi_Property::create( [
 			'settings' => [
 				'items' => [
 					[
