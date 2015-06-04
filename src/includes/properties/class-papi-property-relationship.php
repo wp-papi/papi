@@ -66,10 +66,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	public static function get_sort_options() {
 		$sort_options = array();
 
-		$sort_options[__( 'Select', 'papi' )] = function () {
-			return 0;
-		};
-
 		$sort_options[__( 'Name (alphabetically)', 'papi' )] = function ( $a, $b ) {
 			return strcmp( strtolower( $a->post_title ), strtolower( $b->post_title ) );
 		};
@@ -154,7 +150,11 @@ class Papi_Property_Relationship extends Papi_Property {
 					<?php if ( $settings->show_sort_by ): ?>
 						<strong><?php _e( 'Sort by', 'papi' ); ?></strong>
 						<select name="_<?php echo $options->slug; ?>_sort_option">
-							<?php foreach ( static::get_sort_options() as $key => $v ): ?>
+							<?php
+							$sort_options = [];
+							$sort_options[__( 'Select', 'papi' )] = '';
+							$sort_options = wp_parse_args( static::get_sort_options(), $sort_options );
+							foreach ( $sort_options as $key => $v ): ?>
 								<option value="<?php echo $key; ?>" <?php echo $key == $sort_option ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
 							<?php endforeach; ?>
 						</select>

@@ -6,3 +6,5 @@ tmp/
 .vagrant
 build/
 coverage/
+vendor/
+*.lock
