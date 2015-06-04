@@ -348,7 +348,7 @@ class Papi_Core_Property {
 	 */
 
 	public function get_page() {
-		if ( is_subclass_of( $this->page, 'Papi_Base_Page' ) ) {
+		if ( $this->page instanceof Papi_Core_Page ) {
 			return $page;
 		}
 
