@@ -67,8 +67,6 @@ class Papi_Property_Image extends Papi_Property {
 		} else {
 			return $value;
 		}
-
-		return $this->default_value;
 	}
 
 	/**
