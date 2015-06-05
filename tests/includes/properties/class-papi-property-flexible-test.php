@@ -21,11 +21,11 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 	public function get_value() {
 		$items = $this->property->get_setting( 'items' );
 
-		$value_slug1         = papi_remove_papi( $items['twitter']['items'][0]->array_slug );
+		$value_slug1         = $this->get_child_slug( $items['twitter']['items'][0]->slug );
 		$value_type_slug1    = papi_get_property_type_key( $value_slug1 );
-		$value_slug2_1       = papi_remove_papi( $items['posts']['items'][0]->array_slug );
+		$value_slug2_1       = $this->get_child_slug( $items['posts']['items'][0]->slug );
 		$value_type_slug2_1  = papi_get_property_type_key( $value_slug2_1 );
-		$value_slug2_2       = papi_remove_papi( $items['posts']['items'][1]->array_slug );
+		$value_slug2_2       = $this->get_child_slug( $items['posts']['items'][1]->slug );
 		$value_type_slug2_2  = papi_get_property_type_key( $value_slug2_2 );
 
 		$item1 = [];
@@ -73,15 +73,15 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 
 		$this->assertEquals( 'Twitter', $items['twitter']['title'] );
 		$this->assertEquals( 'string', $items['twitter']['items'][0]->type );
-		$this->assertEquals( 'papi_twitter_name', $items['twitter']['items'][0]->array_slug );
+		$this->assertEquals( 'papi_twitter_name', $items['twitter']['items'][0]->slug );
 		$this->assertEquals( 'Twitter name', $items['twitter']['items'][0]->title );
 		$this->assertEquals( 'Posts', $items['posts']['title'] );
 
 		$this->assertEquals( 'post', $items['posts']['items'][0]->type );
-		$this->assertEquals( 'papi_post_one', $items['posts']['items'][0]->array_slug );
+		$this->assertEquals( 'papi_post_one', $items['posts']['items'][0]->slug );
 		$this->assertEquals( 'Post one', $items['posts']['items'][0]->title );
 		$this->assertEquals( 'post', $items['posts']['items'][1]->type );
-		$this->assertEquals( 'papi_post_two', $items['posts']['items'][1]->array_slug );
+		$this->assertEquals( 'papi_post_two', $items['posts']['items'][1]->slug );
 		$this->assertEquals( 'Post two', $items['posts']['items'][1]->title );
 	}
 

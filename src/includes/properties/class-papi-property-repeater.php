@@ -122,7 +122,6 @@ class Papi_Property_Repeater extends Papi_Property {
 		}
 
 		$options = $property->get_options();
-		$options->slug  = $options->array_slug;
 		$options->raw   = true;
 		$options->slug  = $this->html_name( $options, $this->counter );
 		$options->value = '';
@@ -323,7 +322,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		}
 
 		foreach ( $results[0] as $slug => $value ) {
-			if ( $property = $data_page->get_property( $repeater_slug, $slug ) ) {
+			if ( $property = $data_page->get_property( $repeater_slug, $repeater_slug . '[0][' . $slug . ']' ) ) {
 				$types[$slug] = $property;
 			}
 		}
@@ -435,7 +434,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected function render_properties( $row, $value ) {
 		foreach ( $row as $property ) {
 			$render_property = $property->get_options();
-			$value_slug      = papi_remove_papi( $render_property->array_slug );
+			$value_slug      = $property->get_slug( true );
 
 			if ( ! array_key_exists( $value_slug, $value ) ) {
 				continue;

@@ -330,7 +330,11 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 		foreach ( $results as $index => $row ) {
 			foreach ( $row as $slug => $value ) {
-				if ( $property = $data_page->get_property( $repeater_slug, $slug ) ) {
+				if ( papi_is_property_type_key( $slug ) ) {
+					continue;
+				}
+
+				if ( $property = $data_page->get_property( $repeater_slug, $repeater_slug . '[0][' . $slug . ']' ) ) {
 					$type_key = papi_get_property_type_key_f( $slug );
 					$results[$index][$type_key] = $property;
 				}
@@ -449,7 +453,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						<?php
 						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
 							$render_property = $row[$i];
-							$value_slug      = papi_remove_papi( $render_property->array_slug );
+							$value_slug      = papi_remove_papi( $render_property->slug );
 
 							if ( ! array_key_exists( $value_slug, $value ) ) {
 								continue;

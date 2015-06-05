@@ -26,7 +26,6 @@ class Papi_Core_Property {
 	 */
 
 	protected $default_options = [
-		'array_slug'   => '',
 		'capabilities' => [],
 		'default'      => '',
 		'description'  => '',
@@ -168,13 +167,11 @@ class Papi_Core_Property {
 				continue;
 			}
 
-			if ( ( is_array( $item ) && isset( $item['type'] ) ) || ( is_object( $item ) && isset( $item->type ) ) ) {
-				if ( is_array( $item ) ) {
-					$type = papi_get_property_class_name( $item['type'] );
-				} else {
-					$type = papi_get_property_class_name( $item->type );
-				}
+			if ( papi_is_property( $item ) ) {
+				continue;
+			}
 
+			if ( ( is_array( $item ) && isset( $item['type'] ) ) || ( is_object( $item ) && isset( $item->type ) ) ) {
 				$items[$index] = papi_get_property_type( $item );
 
 				if ( is_null( $items[$index] ) ) {
@@ -189,25 +186,6 @@ class Papi_Core_Property {
 						$items[$index]->set_setting( 'items', $this->convert_items_array( $child_items ) );
 					}
 					continue;
-				}
-			}
-
-			if ( is_object( $item ) && get_class( $item ) === 'stdClass' && isset( $item->convert_type ) && $item instanceof Papi_Core_Property === false ) {
-				// Dirty hack to solve casting issue when some properties class
-				// are cast to a object before going in here for some reason.
-				$new_item = unserialize( sprintf(
-					'O:%d:"%s"%s',
-					strlen( __CLASS__ ),
-					__CLASS__,
-					strstr( strstr( serialize( $item ), '"' ), ':' )
-				) );
-
-				if ( $new_item instanceof Papi_Core_Property ) {
-					$items[$index] = papi_get_property_type( $new_item->get_options() );
-
-					if ( is_null( $items[$index] ) ) {
-						$items[$index] = $item;
-					}
 				}
 			}
 		}
@@ -412,14 +390,6 @@ class Papi_Core_Property {
 			return '';
 		}
 
-		if ( ! empty( $this->options->array_slug ) && $this->options->array_slug != $this->options->slug ) {
-			if ( $remove_prefix ) {
-				return papi_remove_papi( $this->options->array_slug );
-			}
-
-			return $this->options->array_slug;
-		}
-
 		if ( $remove_prefix ) {
 			return papi_remove_papi( $this->options->slug );
 		}
@@ -556,7 +526,7 @@ class Papi_Core_Property {
 		}
 
 		// Generate a vaild Papi meta name for slug.
-		$options->array_slug = $options->slug = papi_html_name( $options->slug );
+		$options->slug = papi_html_name( $options->slug );
 
 		$type_class = self::factory( $options->type );
 

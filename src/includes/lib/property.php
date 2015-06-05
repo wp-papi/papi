@@ -548,7 +548,7 @@ function papi_to_property_array_slugs( $value, $slug ) {
 
 		foreach ( $arr as $key => $val ) {
 
-			if ( ! is_string( $key ) ) {
+			if ( ! is_string( $key ) || empty( $key ) ) {
 				continue;
 			}
 

@@ -80,7 +80,7 @@ function papi_current_user_is_allowed( $capabilities = [] ) {
  */
 
 function papi_esc_html( $obj, $keys = [] ) {
-	$object = is_object( $obj );
+	$object = is_object( $obj ) && get_class( $obj ) === 'stdClass';
 
 	if ( $object ) {
 		$obj = (array) $obj;
@@ -626,7 +626,7 @@ function papify( $str = '' ) {
 	}
 
 	if ( ! preg_match( '/^\_\_papi|^\_papi|^papi\_/', $str ) ) {
-		if ( ! empty($str) && $str[0] === '_' ) {
+		if ( ! empty( $str ) && $str[0] === '_' ) {
 			return 'papi' . $str;
 		}
 
