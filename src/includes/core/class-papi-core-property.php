@@ -364,7 +364,7 @@ class Papi_Core_Property {
 	 */
 
 	public function get_post_id() {
-		if ( isset( $this->page ) ) {
+		if ( $this->page instanceof Papi_Core_Page ) {
 			return $this->page->id;
 		}
 
