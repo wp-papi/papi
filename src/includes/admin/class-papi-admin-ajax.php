@@ -119,7 +119,7 @@ class Papi_Admin_Ajax {
 					'html' => utf8_encode( $html )
 				] );
 			}
-		} else {
+		} else {
 			$this->render_error( 'No property found' );
 		}
 	}
@@ -145,6 +145,7 @@ class Papi_Admin_Ajax {
 			$property = papi_property( (array) $item );
 
 			if ( ! papi_is_property( $property ) ) {
+				unset( $items[$key] );
 				continue;
 			}
 
