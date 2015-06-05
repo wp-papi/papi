@@ -232,6 +232,20 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_ext( new stdClass(), 'php' ) );
 	}
 
+	public function test_papi_is_metod() {
+		unset( $_SERVER['REQUEST_METHOD'] );
+		$this->assertFalse( papi_is_metod( 'POST' ) );
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+		$this->assertTrue( papi_is_metod( 'GET' ) );
+		$this->assertFalse( papi_is_metod( 'POST' ) );
+		$this->assertFalse( papi_is_metod( 1 ) );
+		$this->assertFalse( papi_is_metod( true ) );
+		$this->assertFalse( papi_is_metod( false ) );
+		$this->assertFalse( papi_is_metod( [] ) );
+		$this->assertFalse( papi_is_metod( (object) [] ) );
+		$this->assertFalse( papi_is_metod( '' ) );
+	}
+
 	public function test_papi_nl2br() {
 		$this->assertEquals( papi_nl2br( 'Hello\nWorld' ), 'Hello<br />World' );
 		$this->assertEquals( papi_nl2br( "Hello\nWorld" ), "Hello<br />\nWorld" );

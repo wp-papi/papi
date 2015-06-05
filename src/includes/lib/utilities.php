@@ -408,7 +408,7 @@ function papi_is_ext( $str, $ext ) {
  */
 
 function papi_is_metod( $method ) {
-	if ( ! isset( $_SERVER['REQUEST_METHOD'] ) ) {
+	if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || ! is_string( $method ) ) {
 		return false;
 	}
 
