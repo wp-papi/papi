@@ -33,7 +33,6 @@ function papi_is_option_page() {
  *
  * @param string $name
  * @param mixed $default
- * @param array $options
  *
  * @return mixed
  */
