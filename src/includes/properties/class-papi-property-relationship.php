@@ -66,9 +66,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	public static function get_sort_options() {
 		$sort_options = [];
 
-		$sort_options[__( 'Select', 'papi' )] = function () {
-			return 0;
-		};
+		$sort_options[__( 'Select', 'papi' )] = null;
 
 		$sort_options[__( 'Name (alphabetically)', 'papi' )] = function ( $a, $b ) {
 			return strcmp( strtolower( $a->post_title ), strtolower( $b->post_title ) );
@@ -211,7 +209,7 @@ class Papi_Property_Relationship extends Papi_Property {
 		$sort_option  = $this->get_sort_option( $post_id, $slug );
 		$sort_options = static::get_sort_options();
 
-		if ( empty( $sort_option ) || ! isset( $sort_options[$sort_option] ) ) {
+		if ( empty( $sort_option ) || ! isset( $sort_options[$sort_option] ) || is_null( $sort_options[$sort_option] ) ) {
 			return $value;
 		}
 
