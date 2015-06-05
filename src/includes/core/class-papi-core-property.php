@@ -185,6 +185,7 @@ class Papi_Core_Property {
 					if ( is_array( $child_items ) ) {
 						$items[$index]->set_setting( 'items', $this->convert_items_array( $child_items ) );
 					}
+
 					continue;
 				}
 			}
