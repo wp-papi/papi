@@ -92,6 +92,13 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_option() {
+		$property = new Papi_Property();
+
+		$property->set_option( 'title', 'Name' );
+
+		$this->assertEquals( 'Name', $property->title );
+		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
+
 		$property = Papi_Property::create( [
 			'title' => 'Name'
 		] );
