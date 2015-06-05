@@ -323,7 +323,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 		$results   = papi_from_property_array_slugs( $results, papi_remove_papi( $repeater_slug ) );
 		$data_page = $this->get_page();
-		$types     = [];
 
 		if ( empty( $data_page ) ) {
 			return $this->default_value;

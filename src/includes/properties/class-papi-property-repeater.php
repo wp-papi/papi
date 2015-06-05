@@ -168,11 +168,6 @@ class Papi_Property_Repeater extends Papi_Property {
 		// Get row results.
 		$rows = $this->get_row_results( $dbresults );
 
-		// Get columns, divde all items with two.
-		$columns = array_map( function( $row ) {
-			return count( $row ) / 2;
-		}, $rows );
-
 		// Add repeater slug with number of rows to the values array.
 		$values[$repeater_slug] = $value;
 

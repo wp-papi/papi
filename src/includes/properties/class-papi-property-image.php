@@ -62,9 +62,8 @@ class Papi_Property_Image extends Papi_Property {
 			}
 
 			return $value;
-		} else if ( is_object( $value ) && isset( $value->url ) ) {
 		} else if ( is_object( $value ) && ! isset( $value->url ) ) {
-			return null;
+			return;
 		} else {
 			return $value;
 		}
