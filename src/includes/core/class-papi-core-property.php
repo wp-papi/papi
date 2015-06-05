@@ -344,7 +344,7 @@ class Papi_Core_Property {
 	/**
 	 * Get the page that the property is on.
 	 *
-	 * @return Papi_Core_Page
+	 * @return Papi_Core_Page|null
 	 */
 
 	public function get_page() {
@@ -352,9 +352,7 @@ class Papi_Core_Property {
 			return $this->page;
 		}
 
-		$post_id = $this->get_post_id();
-
-		return papi_get_page( $post_id );
+		return papi_get_page( $this->get_post_id() );
 	}
 
 	/**
