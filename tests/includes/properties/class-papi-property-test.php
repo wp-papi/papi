@@ -125,6 +125,11 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Name', $options->title );
 	}
 
+	public function test_get_page() {
+		$property = new Papi_Property();
+		$this->assertTrue( $property->get_page() instanceof Papi_Post_Page );
+	}
+
 	public function test_get_post_id() {
 		$property = Papi_Property::create();
 
