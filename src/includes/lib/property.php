@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Convert array of slugs to array with arrays in.
  *
- * @param array $value
+ * @param array $values
  * @param string $slug
  *
  * @return array
@@ -169,8 +169,8 @@ function papi_get_property_class_name( $type ) {
 /**
  * Get value.
  *
+ * @param int $post_id
  * @param string $slug
- * @param mixed $value
  * @param string $type
  */
 
@@ -197,7 +197,6 @@ function papi_property_get_meta( $post_id, $slug, $type = 'post' ) {
  * Get property options.
  *
  * @param array $options
- * @param bool $fetch_value
  *
  * @return object
  */
@@ -249,7 +248,6 @@ function papi_get_property_type_from_base64( $str ) {
  * Get the right key for a property type.
  *
  * @param string $str
- * @param bool $papi_prefix
  *
  * @return string
  */
