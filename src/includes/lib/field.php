@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * @param int $post_id
  * @param string $name
  * @param mixed $default
- * @param array $options
+ * @param string $type
  *
  * @return mixed
  */
