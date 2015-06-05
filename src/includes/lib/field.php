@@ -61,10 +61,6 @@ function papi_field( $post_id = null, $name = null, $default = null, $type = 'po
 			return $default;
 		}
 
-		if ( papi_is_empty( $value ) && $value != $default ) {
-			$value = $default;
-		}
-
 		wp_cache_set( $cache_key, $value );
 	}
 
