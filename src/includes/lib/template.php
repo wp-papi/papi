@@ -51,15 +51,17 @@ add_filter( 'body_class', 'papi_body_class' );
  * @param array $vars
  */
 
-function papi_include_template( $tpl_file, $vars = [] ) {
-	if ( ! is_string( $tpl_file ) ) {
+function papi_include_template( $file, $vars = [] ) {
+	if ( ! is_string( $file ) ) {
 		return;
 	}
 
 	$path = PAPI_PLUGIN_DIR;
 	$path = rtrim( $path, '/' ) . '/';
 
-	include $path . $tpl_file;
+	if ( file_exists( $path . $file ) ) {
+		include $path . $file;
+	}
 }
 
 /**
