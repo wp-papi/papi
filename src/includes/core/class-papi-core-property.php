@@ -560,7 +560,7 @@ class Papi_Core_Property {
 			$options->settings = array_merge( (array) $type_class->get_default_settings(), (array) $options->settings );
 		}
 
-		$options->settings = (object) $options->settings;
+		$options->settings = (object) $this->convert_settings( $options->settings );
 
 		$options = papi_esc_html( $options, ['html'] );
 
