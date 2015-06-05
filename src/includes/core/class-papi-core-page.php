@@ -78,7 +78,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 * Convert property value with the property type converter.
 	 *
 	 * @param string $slug
-	 * @param string $type
 	 * @param mixed $value
 	 *
 	 * @return mixed
