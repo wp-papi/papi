@@ -39,7 +39,6 @@ class Papi_Core_Autoload {
 			$path .= 'option-type/';
 		} else if ( strpos( $class, 'papi_' ) === 0 && preg_match( '/\_page$/', $class ) ) {
 			$path .= 'pages/';
-		} else {
 		}
 
 		if ( is_readable( $path . $file ) ) {
