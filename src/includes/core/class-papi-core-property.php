@@ -408,6 +408,10 @@ class Papi_Core_Property {
 	 */
 
 	public function get_slug( $remove_prefix = false ) {
+		if ( ! isset( $this->options ) ) {
+			return '';
+		}
+
 		if ( ! empty( $this->options->array_slug ) && $this->options->array_slug != $this->options->slug ) {
 			if ( $remove_prefix ) {
 				return papi_remove_papi( $this->options->array_slug );

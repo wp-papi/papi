@@ -166,6 +166,10 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_slug() {
+		$property = new Papi_Property();
+
+		$this->assertEmpty( $property->get_slug() );
+
 		$property = Papi_Property::create();
 
 		// this will not be empty since a property without a slug will get a generated uniq id.
@@ -180,28 +184,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'papi_name', $property->get_slug() );
 
 		$this->assertEquals( 'name', $property->get_slug( true ) );
-	}
-
-	public function test_match_slug() {
-		$property = Papi_Property::create( [
-			'type'  => 'string',
-			'slug'  => 'name',
-			'value' => 'Fredrik'
-		] );
-
-		$this->assertTrue( $property->match_slug( 'name' ) );
-		$this->assertTrue( $property->match_slug( 'papi_name' ) );
-
-		$this->assertFalse( $property->match_slug( 'kvack' ) );
-		$this->assertFalse( $property->match_slug( 'papi_kvack' ) );
-		$this->assertFalse( $property->match_slug( null ) );
-		$this->assertFalse( $property->match_slug( true ) );
-		$this->assertFalse( $property->match_slug( false ) );
-		$this->assertFalse( $property->match_slug( 1 ) );
-		$this->assertFalse( $property->match_slug( 0 ) );
-		$this->assertFalse( $property->match_slug( [] ) );
-		$this->assertFalse( $property->match_slug( (object) [] ) );
-		$this->assertFalse( $property->match_slug( '' ) );
 	}
 
 	public function test_get_value() {
@@ -270,6 +252,28 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$actual = $property->load_value( 'Fredrik', '', 0 );
 
 		$this->assertEquals( 'Fredrik', $actual );
+	}
+
+	public function test_match_slug() {
+		$property = Papi_Property::create( [
+			'type'  => 'string',
+			'slug'  => 'name',
+			'value' => 'Fredrik'
+		] );
+
+		$this->assertTrue( $property->match_slug( 'name' ) );
+		$this->assertTrue( $property->match_slug( 'papi_name' ) );
+
+		$this->assertFalse( $property->match_slug( 'kvack' ) );
+		$this->assertFalse( $property->match_slug( 'papi_kvack' ) );
+		$this->assertFalse( $property->match_slug( null ) );
+		$this->assertFalse( $property->match_slug( true ) );
+		$this->assertFalse( $property->match_slug( false ) );
+		$this->assertFalse( $property->match_slug( 1 ) );
+		$this->assertFalse( $property->match_slug( 0 ) );
+		$this->assertFalse( $property->match_slug( [] ) );
+		$this->assertFalse( $property->match_slug( (object) [] ) );
+		$this->assertFalse( $property->match_slug( '' ) );
 	}
 
 	public function test_render_description_html() {
