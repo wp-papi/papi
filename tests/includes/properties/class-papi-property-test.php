@@ -96,9 +96,16 @@ class Papi_Property_Test extends WP_UnitTestCase {
 			'title' => 'Name'
 		] );
 
+		$this->assertNull( $property->fake );
 		$this->assertNull( $property->get_option( 'fake' ) );
+		$this->assertEquals( 'Name', $property->title );
 		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
+		$this->assertEquals( 1000, $property->sort_order );
 		$this->assertEquals( 1000, $property->get_option( 'sort_order' ) );
+
+		$property->title = 'Link';
+
+		$this->assertEquals( 'Link', $property->title );
 
 		$settings = $property->get_option( 'settings' );
 		$this->assertTrue( is_object( $settings ) );
@@ -108,6 +115,14 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$property = new Papi_Property();
 
 		$this->assertEmpty( $property->get_options() );
+
+		$property = Papi_Property::create( [
+			'title' => 'Name'
+		] );
+
+		$options = $property->get_options();
+
+		$this->assertEquals( 'Name', $options->title );
 	}
 
 	public function test_get_post_id() {
