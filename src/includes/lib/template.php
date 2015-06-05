@@ -47,7 +47,7 @@ add_filter( 'body_class', 'papi_body_class' );
 /**
  * Include partial view.
  *
- * @param string $tpl_file
+ * @param string $file
  * @param array $vars
  */
 
