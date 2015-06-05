@@ -83,7 +83,7 @@ function papi_get_box_property( $properties ) {
 /**
  * Get options and properties.
  *
- * @param string|array $file_or_options
+ * @param mixed $file_or_options
  * @param array $properties
  * @param bool $is_box
  *
