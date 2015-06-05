@@ -227,7 +227,7 @@ function papi_get_page_type( $file_path ) {
 	// Try to add the page type to the container.
 	if ( ! papi()->exists( $class_name ) ) {
 		if ( ! class_exists( $class_name ) ) {
-			include_once $file_path;
+			require_once $file_path;
 		}
 
 		$rc         = new ReflectionClass( $class_name );
