@@ -450,16 +450,6 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Check so the property has a type.
-	 *
-	 * @return bool
-	 */
-
-	public function has_type() {
-		return empty( $this->type );
-	}
-
-	/**
 	 * Match property slug with given slug value.
 	 *
 	 * @param string $slug
