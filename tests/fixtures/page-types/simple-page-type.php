@@ -76,7 +76,7 @@ class Simple_Page_Type extends Papi_Page_Type {
 				'slug'     => 'name_levels',
 				'settings' => [
 					'items' => [
-						papi_property([
+						papi_property( [
 							'type'     => 'string',
 							'title'	   => 'Child name',
 							'slug'     => 'child_name',
@@ -90,13 +90,13 @@ class Simple_Page_Type extends Papi_Page_Type {
 									null
 								]
 							]
-						])
+						] )
 					]
 				]
 			] )
 		] );
 
-		$this->box('Children 2', [
+		$this->box( 'Children 2', [
 			papi_property( [
 				'type'     => 'string',
 				'title'    => 'Name',
@@ -114,6 +114,8 @@ class Simple_Page_Type extends Papi_Page_Type {
 				]
 			] )
 		] );
+
+		$this->box( 'Content box broken', [ [ $this, 'content_box_broken' ] ] );
 	}
 
 	public function content_box() {
@@ -121,5 +123,9 @@ class Simple_Page_Type extends Papi_Page_Type {
 			'type'  => 'string',
 			'title' => 'Name'
 		] ) ];
+	}
+
+	public function content_box_broken() {
+		return;
 	}
 }
