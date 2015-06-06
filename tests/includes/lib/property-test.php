@@ -271,6 +271,17 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_render_property( $property ) );
 		$this->expectOutputRegex( '//' );
 		unset( $_GET );
+
+		$user_id = $this->factory->user->create( [ 'role' => 'read' ] );
+		wp_set_current_user( $user_id );
+		$property = papi_property( [
+			'type'  => 'string',
+			'title' => 'Name',
+			'capabilities' => 'administrator'
+		] );
+		$this->assertEmpty( papi_render_property( $property ) );
+		$this->expectOutputRegex( '//' );
+		wp_set_current_user( 0 );
 	}
 
 	public function test_papi_render_properties() {
