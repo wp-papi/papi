@@ -17,12 +17,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$_POST = [];
 	}
 
-	/**
-	 * Tear down test.
-	 *
-	 * @since 1.3.0
-	 */
-
 	public function tearDown() {
 		parent::tearDown();
 		$_GET = [];
