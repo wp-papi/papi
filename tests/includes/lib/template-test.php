@@ -11,10 +11,6 @@ defined( 'ABSPATH' ) || exit;
 
 class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
-	/**
-	 * Setup the test.
-	 */
-
 	public function setUp() {
 		parent::setUp();
 		$this->post_id = $this->factory->post->create( [
@@ -22,18 +18,10 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		] );
 	}
 
-	/**
-	 * Tear down test.
-	 */
-
 	public function tearDown() {
 		parent::tearDown();
 		unset( $this->post_id );
 	}
-
-	/**
-	 * Test `papi_body_class` function.
-	 */
 
 	public function test_papi_body_class() {
 		global $post;
@@ -51,10 +39,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertEquals( [ 'simple-page-type' ], papi_body_class( [] )  );
 	}
 
-	/**
-	 * Test `papi_include_template` function.
-	 */
-
 	public function test_papi_include_template() {
 		$this->assertEmpty( papi_include_template( null ) );
 		$this->assertEmpty( papi_include_template( [] ) );
@@ -66,10 +50,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		papi_include_template( 'includes/admin/views/add-new-page.php' );
 		$this->expectOutputRegex( '/Add\snew\spage/' );
 	}
-
-	/**
-	 * Test `papi_template` function.
-	 */
 
 	public function test_papi_template() {
 		$template = papi_template( PAPI_FIXTURE_DIR . '/properties/simple.php' );
@@ -92,10 +72,6 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 		$this->assertEmpty( papi_template( 'hello' )  );
 	}
-
-	/**
-	 * Test `template_include` filter.
-	 */
 
 	public function test_papi_template_include() {
 		global $post;
