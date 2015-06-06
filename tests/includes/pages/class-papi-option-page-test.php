@@ -58,10 +58,10 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 		$property = $this->page->get_property( 'name' );
 		$this->assertEmpty( $property->get_value() );
 
-		update_option( 'name', 'Fredirk' );
-		$this->assertEquals( 'Fredrik', $property->get_value() );
+		update_option( 'name', 'Fredrik' );
+		$this->assertEquals( 'Fredrik', $this->page->get_value( 'name' ) );
 
-		update_option( 'hello', 'fredrik' );
+		update_option( 'hello', 'Fredrik' );
 		$this->assertNull( $this->page->get_value( 'hello' ) );
 	}
 
