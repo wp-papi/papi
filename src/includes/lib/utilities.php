@@ -506,8 +506,6 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 		if ( is_object( $value ) ) {
 			if ( isset( $value->$key ) ) {
 				$sorter[$k] = $value->$key;
-			} else if ( papi_is_property( $value ) && $value->$key !== null ) {
-				$sorter[$k] = $value->$key;
 			} else if ( isset( $value->options->$key ) ) {
 				$sorter[$k] = $value->options->$key;
 			}
