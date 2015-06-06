@@ -26,9 +26,12 @@ class Papi_Admin_Option_Handler extends Papi_Admin_Data_Handler {
 	 */
 
 	private function save_options() {
-		if ( ! isset( $_POST['papi_meta_nonce'] ) || ! wp_verify_nonce( $_POST['papi_meta_nonce'], 'papi_save_data' ) ) {
+		$meta_nonce = papi_get_sanitized_post( 'papi_meta_nonce' );
+
+		// Check if our nonce is vailed.
+		if ( ! wp_verify_nonce( $meta_nonce, 'papi_save_data' ) ) {
 			return;
-	    }
+		}
 
 		$data = $this->get_post_data();
 		$data = $this->prepare_properties_data( $data, 0 );

@@ -58,10 +58,8 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 
 	public function save_meta_boxes() {
 		// Fetch the post id.
-		if ( isset( $_POST['post_ID'] ) ) {
-			$post_id = papi_get_sanitized_post( 'post_ID' );
-			$post_id = intval( $post_id );
-		}
+		$post_id = papi_get_sanitized_post( 'post_ID' );
+		$post_id = intval( $post_id );
 
 		// Can't proceed without a post id.
 		if ( empty( $post_id ) ) {
@@ -85,8 +83,10 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 			return;
 		}
 
+		$meta_nonce = papi_get_sanitized_post( 'papi_meta_nonce' );
+
 		// Check if our nonce is vailed.
-		if ( ! isset( $_POST['papi_meta_nonce'] ) || ! wp_verify_nonce( $_POST['papi_meta_nonce'], 'papi_save_data' ) ) {
+		if ( ! wp_verify_nonce( $meta_nonce, 'papi_save_data' ) ) {
 			return;
 		}
 
