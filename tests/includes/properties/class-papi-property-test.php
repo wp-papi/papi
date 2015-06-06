@@ -331,6 +331,35 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Fredrik', $property->get_value() );
 	}
 
+	public function test_get_value_option() {
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$_GET['page'] = 'papi/options/header-option-type';
+
+		$page = papi_get_page( 0, 'option' );
+		$property = $page->get_property( 'name' );
+		$this->assertEquals( 'string', $property->get_option( 'type' ) );
+		$this->assertEquals( 'string', $property->type );
+		$this->assertEquals( 'papi_name', $property->slug );
+		$this->assertEquals( 'papi_name', $property->get_option( 'slug' ) );
+		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
+		$this->assertEquals( 'Name', $property->title );
+
+		$this->assertEmpty( $property->get_value() );
+
+		$old_request_uri = $_SERVER['REQUEST_URI'];
+
+		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/options-general.php?page=papi%2Foptions%2Fheader-option-type';
+
+		update_option( 'name', 'Fredrik' );
+
+		$this->assertEquals( 'Fredrik', $property->get_value() );
+
+		$_SERVER['REQUEST_URI'] = $old_request_uri;
+	}
+
 	public function test_html() {
 		$property = Papi_Property::create();
 		$this->assertEmpty( $property->html() );

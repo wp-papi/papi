@@ -53,7 +53,7 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
 		$this->assertEquals( 'Name', $property->title );
 
-		$this->assertempty( $property->get_value() );
+		$this->assertEmpty( $property->get_value() );
 	}
 
 	public function test_valid() {
