@@ -396,6 +396,20 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'papi_string', $property->get_option( 'slug' ) );
 	}
 
+	public function test_set_settings() {
+		$property = Papi_Property::create( [
+			'type'     => 'string',
+			'title'    => 'Hello',
+			'settings' => []
+		] );
+
+		$this->assertFalse( $property->get_setting( 'allow_html' ) );
+
+		$property->set_setting( 'allow_html', true );
+
+		$this->assertTrue( $property->get_setting( 'allow_html' ) );
+	}
+
 	public function test_update_value() {
 		$property = Papi_Property::create( [
 			'type'  => 'string',
