@@ -85,11 +85,7 @@ function papi_template( $file, $values = [], $convert_to_object = false ) {
 		$filepath = $file;
 	}
 
-	if ( empty( $filepath ) ) {
-		return [];
-	}
-
-	if ( ! file_exists( $filepath ) || is_dir( $filepath ) ) {
+	if ( empty( $filepath ) || ! file_exists( $filepath ) || is_dir( $filepath ) ) {
 		return [];
 	}
 
