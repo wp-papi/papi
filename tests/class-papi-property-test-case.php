@@ -77,15 +77,4 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 	abstract public function get_expected();
 
-	public function get_child_slug( $slug ) {
-		$slug = papi_remove_papi( $slug );
-		$slug = str_replace( $this->slug, '', $slug );
-
-		if ( preg_match( '/\]\[/', $slug ) ) {
-			return substr( substr( $slug, 4 ), 0, -1 );
-		}
-
-		return $slug;
-	}
-
 }
