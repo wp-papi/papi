@@ -132,6 +132,9 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_page_type( $path ) );
 		$path = PAPI_FIXTURE_DIR . '/page-types/simple-page-type.php';
 		$this->assertNotEmpty( papi_get_page_type( $path ) );
+		$path = PAPI_FIXTURE_DIR . '/page-types2/look-page-type.php';
+		$page_type = papi_get_page_type( $path );
+		$this->assertTrue( $page_type instanceof Look_Module_Type );
 	}
 
 	public function test_papi_get_page_type_by_id() {
