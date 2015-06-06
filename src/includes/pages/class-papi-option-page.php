@@ -51,7 +51,7 @@ class Papi_Option_Page extends Papi_Core_Page {
 
 		$page_type = papi_get_page_type_by_id( $page_type_id );
 
-		if ( ! is_object( $page_type ) || $page_type instanceof Papi_Option_Type === false ) {
+		if ( $page_type instanceof Papi_Option_Type === false ) {
 			return;
 		}
 
