@@ -317,6 +317,30 @@ class Properties_Page_Type extends Papi_Page_Type {
 									]
 								]
 							]
+						],
+						'list2' => [
+							'title' => 'List 2',
+							'items' => [
+								papi_property( [
+									'type'     => 'repeater',
+									'title'    => 'Repeater test 2',
+									'slug'     => 'repeater_test_other_2',
+									'settings' => [
+										'items' => [
+											[
+												'type'  => 'string',
+												'title' => 'Book name',
+												'slug'  => 'book_name'
+											],
+											[
+												'type'  => 'bool',
+												'title' => 'Is open?',
+												'slug'  => 'is_open'
+											]
+										]
+									]
+								] )
+							]
 						]
 					]
 				]

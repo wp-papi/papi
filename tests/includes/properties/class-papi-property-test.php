@@ -105,6 +105,38 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'is_open', $repeater_children[1]->get_slug( true ) );
 		$this->assertEquals( 'Is open?', $repeater_children[1]->title );
 		$this->assertEquals( 'Is open?', $repeater_children[1]->get_option( 'title' ) );
+
+		$this->assertEquals( 'List 2', $flexible_children['list2']['title'] );
+		$repeater2 = $flexible_children['list2']['items'][0];
+
+		$this->assertEquals( 'repeater', $repeater2->type );
+		$this->assertEquals( 'repeater', $repeater2->get_option( 'type' ) );
+		$this->assertEquals( 'Repeater test 2', $repeater2->title );
+		$this->assertEquals( 'Repeater test 2', $repeater2->get_option( 'title' ) );
+		$this->assertEquals( 'papi_repeater_test_other_2', $repeater2->slug );
+		$this->assertEquals( 'papi_repeater_test_other_2', $repeater2->get_option( 'slug' ) );
+		$this->assertEquals( 'papi_repeater_test_other_2', $repeater2->get_slug() );
+		$this->assertEquals( 'repeater_test_other_2', $repeater2->get_slug( true ) );
+
+		$repeater_children2 = $repeater->get_child_properties();
+
+		$this->assertEquals( 'string', $repeater_children2[0]->type );
+		$this->assertEquals( 'string', $repeater_children2[0]->get_option( 'type' ) );
+		$this->assertEquals( 'papi_book_name', $repeater_children2[0]->slug );
+		$this->assertEquals( 'papi_book_name', $repeater_children2[0]->get_option( 'slug' ) );
+		$this->assertEquals( 'papi_book_name', $repeater_children2[0]->get_slug() );
+		$this->assertEquals( 'book_name', $repeater_children2[0]->get_slug( true ) );
+		$this->assertEquals( 'Book name', $repeater_children2[0]->title );
+		$this->assertEquals( 'Book name', $repeater_children2[0]->get_option( 'title' ) );
+
+		$this->assertEquals( 'bool', $repeater_children2[1]->type );
+		$this->assertEquals( 'bool', $repeater_children2[1]->get_option( 'type' ) );
+		$this->assertEquals( 'papi_is_open', $repeater_children2[1]->slug );
+		$this->assertEquals( 'papi_is_open', $repeater_children2[1]->get_option( 'slug' ) );
+		$this->assertEquals( 'papi_is_open', $repeater_children2[1]->get_slug() );
+		$this->assertEquals( 'is_open', $repeater_children2[1]->get_slug( true ) );
+		$this->assertEquals( 'Is open?', $repeater_children2[1]->title );
+		$this->assertEquals( 'Is open?', $repeater_children2[1]->get_option( 'title' ) );
 	}
 
 	public function test_create() {

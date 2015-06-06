@@ -168,6 +168,12 @@ class Papi_Core_Property {
 			}
 
 			if ( papi_is_property( $item ) ) {
+				$child_items = $item->get_setting( 'items' );
+
+				if ( is_array( $child_items ) ) {
+					$items[$index]->set_setting( 'items', $this->convert_items_array( $child_items ) );
+				}
+
 				continue;
 			}
 
@@ -185,8 +191,6 @@ class Papi_Core_Property {
 					if ( is_array( $child_items ) ) {
 						$items[$index]->set_setting( 'items', $this->convert_items_array( $child_items ) );
 					}
-
-					continue;
 				}
 			}
 		}
