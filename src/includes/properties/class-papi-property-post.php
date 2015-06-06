@@ -53,7 +53,7 @@ class Papi_Property_Post extends Papi_Property {
 
 		// Prepare arguments for WP_Query.
 		$args = array_merge( $settings->query, [
-			'post_type'              => $post_types,
+			'post_type'              => papi_to_array( $settings->post_type ),
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false
@@ -76,7 +76,6 @@ class Papi_Property_Post extends Papi_Property {
 		}
 
 		$posts = $results;
-		$render_label = count( $posts ) > 1;
 
 		// The blank item
 		if ( $settings->include_blank ) {
@@ -96,13 +95,15 @@ class Papi_Property_Post extends Papi_Property {
 	public function html() {
 		$settings   = $this->get_settings();
 		$value      = $this->get_value();
-		$post_types = papi_to_array( $settings->post_type );
 
 		if ( is_object( $value ) ) {
 			$value = $value->ID;
 		} else {
 			$value = 0;
 		}
+
+		$posts = $this->get_posts( $settings );
+		$render_label = count( $posts ) > ($settings->include_blank ? 2 : 1);
 
 		?>
 
@@ -114,7 +115,7 @@ class Papi_Property_Post extends Papi_Property {
 			<?php endif; ?>
 			<select name="<?php echo $this->html_name(); ?>" class="papi-vendor-select2 papi-fullwidth">
 
-				<?php foreach ( $this->get_posts() as $label => $items ) : ?>
+				<?php foreach ( $posts as $label => $items ) : ?>
 
 					<?php if ( $render_label && is_string( $label ) ): ?>
 						<optgroup label="<?php echo $label; ?>">
