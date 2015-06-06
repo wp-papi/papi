@@ -52,6 +52,9 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'papi_name', $property->get_option( 'slug' ) );
 		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
 		$this->assertEquals( 'Name', $property->title );
+
+		$_GET['page'] = 'papi/modules/top-module-type';
+		$this->assertNull( $this->page->get_property( 'name' ) );
 	}
 
 	public function test_get_value() {
