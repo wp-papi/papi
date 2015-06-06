@@ -448,6 +448,46 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( ['Fredrik'], get_post_meta( $this->post_id, 'what', true ) );
 	}
 
+	public function test_papi_property_update_meta_option() {
+		$old_request_uri = $_SERVER['REQUEST_URI'];
+
+		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/options-general.php?page=papi%2Foptions%2Fheader-option-type';
+
+		papi_property_update_meta( [
+			'slug'  => 'name',
+			'value' => 'Fredrik'
+		] );
+
+		$this->assertEquals( 'Fredrik', get_option( 'name' ) );
+
+		papi_property_update_meta( [
+			'slug'  => 'name',
+			'value' => ''
+		] );
+
+		$this->assertNull( get_option( 'name', null ) );
+
+		papi_property_update_meta( [
+			'slug'          => 'name',
+			'value'         => [
+				'firstname' => 'Fredrik'
+			]
+		] );
+
+		$this->assertEquals( 'Fredrik', get_option( 'firstname' ) );
+
+		papi_property_update_meta( [
+			'slug'          => 'name',
+			'value'         => [
+				'Fredrik'
+			]
+		] );
+
+		$this->assertEquals( ['Fredrik'], get_option( 'name' ) );
+
+		$_SERVER['REQUEST_URI'] = $old_request_uri;
+	}
+
 	public function test_papi_to_property_array_slugs() {
 		$actual = papi_to_property_array_slugs( [
 			[
