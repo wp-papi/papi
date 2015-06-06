@@ -52,10 +52,16 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_template() {
-		$template = papi_template( PAPI_FIXTURE_DIR . '/properties/simple.php' );
+		$template = papi_template( PAPI_FIXTURE_DIR . '/properties/simple.php', [
+			'lang' => 'se'
+		] );
 
 		$this->assertEquals( 'Name', $template->title );
+		$this->assertEquals( 'Name', $template->get_option( 'title' ) );
 		$this->assertEquals( 'string', $template->type );
+		$this->assertEquals( 'string', $template->get_option( 'type' ) );
+		$this->assertEquals( 'se', $template->lang );
+		$this->assertEquals( 'se', $template->get_option( 'lang' ) );
 
 		$this->assertEmpty( papi_template( null ) );
 		$this->assertEmpty( papi_template( true ) );
