@@ -38,20 +38,14 @@ class Papi_Property_Post extends Papi_Property {
 	}
 
 	/**
-	 * Display property html.
+	 * Get posts.
+	 *
+	 * @param object $settings
+	 *
+	 * @return array
 	 */
 
-	public function html() {
-		$settings   = $this->get_settings();
-		$value      = $this->get_value();
-		$post_types = papi_to_array( $settings->post_type );
-
-		if ( is_object( $value ) ) {
-			$value = $value->ID;
-		} else {
-			$value = 0;
-		}
-
+	protected function get_posts( $settings ) {
 		// By default we add posts per page key with the value -1 (all).
 		if ( ! isset( $settings->query['posts_per_page'] ) ) {
 			$settings->query['posts_per_page'] = -1;
@@ -92,6 +86,24 @@ class Papi_Property_Post extends Papi_Property {
 			$posts = array_merge( [[$blank]], $posts );
 		}
 
+		return $posts;
+	}
+
+	/**
+	 * Display property html.
+	 */
+
+	public function html() {
+		$settings   = $this->get_settings();
+		$value      = $this->get_value();
+		$post_types = papi_to_array( $settings->post_type );
+
+		if ( is_object( $value ) ) {
+			$value = $value->ID;
+		} else {
+			$value = 0;
+		}
+
 		?>
 
 		<div class="papi-property-post">
@@ -102,7 +114,7 @@ class Papi_Property_Post extends Papi_Property {
 			<?php endif; ?>
 			<select name="<?php echo $this->html_name(); ?>" class="papi-vendor-select2 papi-fullwidth">
 
-				<?php foreach ( $posts as $label => $items ) : ?>
+				<?php foreach ( $this->get_posts() as $label => $items ) : ?>
 
 					<?php if ( $render_label && is_string( $label ) ): ?>
 						<optgroup label="<?php echo $label; ?>">
