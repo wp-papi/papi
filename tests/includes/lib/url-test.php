@@ -31,26 +31,28 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_page_query_strings() {
-		$qs = papi_get_page_query_strings();
-		$this->assertEmpty( $qs );
+		$this->assertEmpty( papi_get_page_query_strings() );
+
+		$old_request_uri = $_SERVER['REQUEST_URI'];
 
 		$_SERVER['REQUEST_URI'] = '/?page_id=63';
-		$qs = papi_get_page_query_strings();
-		$this->assertEquals( '&page_id=63', $qs );
+		$this->assertEquals( '&page_id=63', papi_get_page_query_strings() );
 
 		$_SERVER['REQUEST_URI'] = 'http://wordpress/wp-admin/edit.php?post_type=page&page=papi-add-new-page,page';
-		$qs = papi_get_page_query_strings();
-		$this->assertEquals( '&post_type=page', $qs );
+		$this->assertEquals( '&post_type=page', papi_get_page_query_strings() );
 
 		$_SERVER['REQUEST_URI'] = 'http://wordpress/wp-admin/edit.php?post_type=page&page';
-		$qs = papi_get_page_query_strings();
-		$this->assertEquals( '&post_type=page&page', $qs );
+		$this->assertEquals( '&post_type=page&page', papi_get_page_query_strings() );
 
 		$_SERVER['REQUEST_URI'] = 'http://wordpress/wp-admin/edit.php?post_type=page&page_type=simple-page-type&&';
-		$qs = papi_get_page_query_strings( '?', ['post_type'] );
-		$this->assertEquals( '?page_type=simple-page-type', $qs );
+		$this->assertEquals( '?page_type=simple-page-type', papi_get_page_query_strings( '?', ['post_type'] ) );
+
+		$_SERVER['REQUEST_URI'] = 'http://wordpress/wp-admin/edit.php?&';
+		$this->assertEmpty( papi_get_page_query_strings() );
+
+		$_SERVER['REQUEST_URI'] = $old_request_uri;
 	}
-	
+
 	public function test_papi_append_post_type_query() {
 		global $post;
 
