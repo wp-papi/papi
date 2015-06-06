@@ -54,10 +54,7 @@ class Papi_Property_Checkbox extends Papi_Property {
 			$settings->selected = $value;
 		}
 
-		// Selected setting need to be an array.
-		if ( ! is_array( $settings->selected ) ) {
-			$settings->selected = [$settings->selected];
-		}
+		$settings->selected = papi_to_array( $settings->selected );
 
 		foreach ( $settings->items as $key => $value ) {
 
