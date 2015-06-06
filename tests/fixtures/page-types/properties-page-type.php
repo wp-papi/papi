@@ -266,7 +266,7 @@ class Properties_Page_Type extends Papi_Page_Type {
 			papi_property( [
 				'type'     => 'flexible',
 				'title'    => 'Flexible test',
-				'slug'     => 'flexible_test',
+				'slug'     => 'flexible_test_other',
 				'settings' => [
 					'items' => [
 						'twitter' => [
@@ -279,13 +279,28 @@ class Properties_Page_Type extends Papi_Page_Type {
 								] )
 							]
 						],
-						'list' => [
+						'posts' => [
 							'title' => 'Posts',
+							'items' => [
+								papi_property( [
+									'type'  => 'post',
+									'title' => 'Post one',
+									'slug'  => 'post_one'
+								] ),
+								papi_property( [
+									'type'  => 'post',
+									'title' => 'Post two',
+									'slug'  => 'post_two'
+								] )
+							]
+						],
+						'list' => [
+							'title' => 'List',
 							'items' => [
 								papi_property( [
 									'type'     => 'repeater',
 									'title'    => 'Repeater test',
-									'slug'     => 'repeater_test',
+									'slug'     => 'repeater_test_other',
 									'settings' => [
 										'items' => [
 											papi_property( [

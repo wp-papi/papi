@@ -24,6 +24,89 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		unset( $_GET, $this->post_id );
 	}
 
+	public function test_converter() {
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
+
+		$page_type = papi_get_page_type_by_id( 'properties-page-type' );
+		$flexible  = $page_type->get_property( 'flexible_test_other' );
+
+		$this->assertEquals( 'flexible', $flexible->type );
+		$this->assertEquals( 'flexible', $flexible->get_option( 'type' ) );
+		$this->assertEquals( 'Flexible test', $flexible->title );
+		$this->assertEquals( 'Flexible test', $flexible->get_option( 'title' ) );
+		$this->assertEquals( 'papi_flexible_test_other', $flexible->slug );
+		$this->assertEquals( 'papi_flexible_test_other', $flexible->get_option( 'slug' ) );
+		$this->assertEquals( 'papi_flexible_test_other', $flexible->get_slug() );
+		$this->assertEquals( 'flexible_test_other', $flexible->get_slug( true ) );
+
+		$flexible_children = $flexible->get_child_properties();
+
+		$this->assertEquals( 'Twitter', $flexible_children['twitter']['title'] );
+		$this->assertEquals( 'string', $flexible_children['twitter']['items'][0]->type );
+		$this->assertEquals( 'string', $flexible_children['twitter']['items'][0]->get_option( 'type' ) );
+		$this->assertEquals( 'papi_twitter_name', $flexible_children['twitter']['items'][0]->slug );
+		$this->assertEquals( 'papi_twitter_name', $flexible_children['twitter']['items'][0]->get_option( 'slug' ) );
+		$this->assertEquals( 'papi_twitter_name', $flexible_children['twitter']['items'][0]->get_slug() );
+		$this->assertEquals( 'twitter_name', $flexible_children['twitter']['items'][0]->get_slug( true ) );
+		$this->assertEquals( 'Twitter name', $flexible_children['twitter']['items'][0]->title );
+		$this->assertEquals( 'Twitter name', $flexible_children['twitter']['items'][0]->get_option( 'title' ) );
+		$this->assertEquals( 'Posts', $flexible_children['posts']['title'] );
+
+		$this->assertEquals( 'Posts', $flexible_children['posts']['title'] );
+		$this->assertEquals( 'post', $flexible_children['posts']['items'][0]->type );
+		$this->assertEquals( 'post', $flexible_children['posts']['items'][0]->get_option( 'type' ) );
+		$this->assertEquals( 'papi_post_one', $flexible_children['posts']['items'][0]->slug );
+		$this->assertEquals( 'papi_post_one', $flexible_children['posts']['items'][0]->get_option( 'slug' ) );
+		$this->assertEquals( 'papi_post_one', $flexible_children['posts']['items'][0]->get_slug() );
+		$this->assertEquals( 'post_one', $flexible_children['posts']['items'][0]->get_slug( true ) );
+		$this->assertEquals( 'Post one', $flexible_children['posts']['items'][0]->title );
+		$this->assertEquals( 'Post one', $flexible_children['posts']['items'][0]->get_option( 'title' ) );
+		$this->assertEquals( 'post', $flexible_children['posts']['items'][1]->type );
+		$this->assertEquals( 'post', $flexible_children['posts']['items'][1]->get_option( 'type' ) );
+		$this->assertEquals( 'papi_post_two', $flexible_children['posts']['items'][1]->slug );
+		$this->assertEquals( 'papi_post_two', $flexible_children['posts']['items'][1]->get_option( 'slug' ) );
+		$this->assertEquals( 'papi_post_two', $flexible_children['posts']['items'][1]->get_slug() );
+		$this->assertEquals( 'post_two', $flexible_children['posts']['items'][1]->get_slug( true ) );
+		$this->assertEquals( 'Post two', $flexible_children['posts']['items'][1]->title );
+		$this->assertEquals( 'Post two', $flexible_children['posts']['items'][1]->get_option( 'title' ) );
+
+		$this->assertEquals( 'List', $flexible_children['list']['title'] );
+		$repeater = $flexible_children['list']['items'][0];
+
+		$this->assertEquals( 'repeater', $repeater->type );
+		$this->assertEquals( 'repeater', $repeater->get_option( 'type' ) );
+		$this->assertEquals( 'Repeater test', $repeater->title );
+		$this->assertEquals( 'Repeater test', $repeater->get_option( 'title' ) );
+		$this->assertEquals( 'papi_repeater_test_other', $repeater->slug );
+		$this->assertEquals( 'papi_repeater_test_other', $repeater->get_option( 'slug' ) );
+		$this->assertEquals( 'papi_repeater_test_other', $repeater->get_slug() );
+		$this->assertEquals( 'repeater_test_other', $repeater->get_slug( true ) );
+
+		$repeater_children = $repeater->get_child_properties();
+
+		$this->assertEquals( 'string', $repeater_children[0]->type );
+		$this->assertEquals( 'string', $repeater_children[0]->get_option( 'type' ) );
+		$this->assertEquals( 'papi_book_name', $repeater_children[0]->slug );
+		$this->assertEquals( 'papi_book_name', $repeater_children[0]->get_option( 'slug' ) );
+		$this->assertEquals( 'papi_book_name', $repeater_children[0]->get_slug() );
+		$this->assertEquals( 'book_name', $repeater_children[0]->get_slug( true ) );
+		$this->assertEquals( 'Book name', $repeater_children[0]->title );
+		$this->assertEquals( 'Book name', $repeater_children[0]->get_option( 'title' ) );
+
+		$this->assertEquals( 'bool', $repeater_children[1]->type );
+		$this->assertEquals( 'bool', $repeater_children[1]->get_option( 'type' ) );
+		$this->assertEquals( 'papi_is_open', $repeater_children[1]->slug );
+		$this->assertEquals( 'papi_is_open', $repeater_children[1]->get_option( 'slug' ) );
+		$this->assertEquals( 'papi_is_open', $repeater_children[1]->get_slug() );
+		$this->assertEquals( 'is_open', $repeater_children[1]->get_slug( true ) );
+		$this->assertEquals( 'Is open?', $repeater_children[1]->title );
+		$this->assertEquals( 'Is open?', $repeater_children[1]->get_option( 'title' ) );
+	}
+
 	public function test_create() {
 		$property = Papi_Property::create( [
 			'type'  => 'string',
