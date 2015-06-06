@@ -387,15 +387,11 @@ class Papi_Core_Property {
 	 */
 
 	public function get_slug( $remove_prefix = false ) {
-		if ( ! isset( $this->options ) ) {
-			return '';
-		}
-
 		if ( $remove_prefix ) {
-			return papi_remove_papi( $this->options->slug );
+			return papi_remove_papi( $this->get_option( 'slug' ) );
 		}
 
-		return $this->options->slug;
+		return $this->get_option( 'slug' );
 	}
 
 	/**
@@ -405,10 +401,6 @@ class Papi_Core_Property {
 	 */
 
 	public function get_value() {
-		if ( ! is_object( $this->options ) ) {
-			return;
-		}
-
 		$value = $this->get_option( 'value' );
 
 		if ( papi_is_empty( $value ) ) {
