@@ -220,7 +220,8 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		}
 
 		foreach ( $boxes as $box ) {
-			foreach ( $box[1] as $property ) {
+			$properties = isset( $box[1][0]->properties ) ? $box[1][0]->properties : $box[1];
+			foreach ( $properties as $property ) {
 				$property = papi_get_property_type( $property );
 
 				if ( ! papi_is_property( $property ) ) {
