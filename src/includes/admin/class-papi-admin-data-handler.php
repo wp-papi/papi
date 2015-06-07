@@ -40,11 +40,7 @@ class Papi_Admin_Data_Handler {
 		$keys = preg_grep( $pattern, array_keys( $_POST ) );
 
 		foreach ( $keys as $key ) {
-			if ( ! isset( $_POST[ $key ] ) ) {
-				continue;
-			}
-
-			// Fix for input fields that should be true or false.
+			// Fix for input fields that should be true on `on` value.
 			if ( $_POST[ $key ] === 'on' ) {
 				$data[ $key ] = true;
 			} else {
