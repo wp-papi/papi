@@ -185,14 +185,14 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 
 	public function test_pre_data() {
 		$_POST = [
-			'_papi_item' => 'Item 42'
+			'_papi_item'   => 'Item 42',
+			'_papi_item_2' => ''
 		];
 
 		$this->handler->save_property( $this->post_id );
 
-		$value = get_post_meta( $this->post_id, '_papi_item', true );
-
-		$this->assertEquals( 'Item 42', $value );
+		$this->assertEquals( 'Item 42', get_post_meta( $this->post_id, '_papi_item', true ) );
+		$this->assertEmpty( get_post_meta( $this->post_id, '_papi_item_2', true ) );
 	}
 
 }
