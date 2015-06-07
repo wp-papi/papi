@@ -123,8 +123,7 @@ class Papi_Admin_Data_Handler {
 			// Get the property, will only make the instance once.
 			$property = papi_get_property_type( $item['type'] );
 
-			// Can't handle null properties.
-			// Remove it from the data array and continue.
+			// Remove data if property type is null.
 			if ( is_null( $property ) ) {
 				unset( $data[ $key ] );
 				continue;
