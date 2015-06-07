@@ -37,7 +37,7 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 
 	private function pre_save( $post_id ) {
 		// Can't proceed without a post id.
-		if ( is_null( $post_id ) ) {
+		if ( empty( $post_id ) ) {
 			return;
 		}
 
