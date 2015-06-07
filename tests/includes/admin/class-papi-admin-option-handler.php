@@ -56,4 +56,25 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Hello, world!', $value );
 	}
 
+	public function test_save_property_fail() {
+		$_POST = papi_test_create_property_post_data( [
+			'slug'  => $this->property->slug,
+			'type'  => $this->property,
+			'value' => 'Hello, world!'
+		], $_POST );
+
+		$old_request_uri = $_SERVER['REQUEST_URI'];
+
+		$_SERVER['REQUEST_METHOD'] = 'POST';
+		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/options-general.php?page=papi/options/header-option-type';
+
+		new Papi_Admin_Option_Handler;
+
+		$value = papi_option( $this->property->slug );
+
+		$_SERVER['REQUEST_URI'] = $old_request_uri;
+
+		$this->assertNull( $value );
+	}
+
 }
