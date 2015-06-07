@@ -30,6 +30,8 @@ class Papi_Property_Bool_Test extends Papi_Property_Test_Case {
 		$this->assertFalse( $this->property->format_value( 'false', '', 0 ) );
 		$this->assertFalse( $this->property->format_value( '', '', 0 ) );
 		$this->assertFalse( $this->property->format_value( null, '', 0 ) );
+		$this->assertFalse( $this->property->format_value( (object) [], '', 0 ) );
+		$this->assertFalse( $this->property->format_value( [], '', 0 ) );
 		$this->assertTrue( $this->property->format_value( 'true', '', 0 ) );
 		$this->assertTrue( $this->property->format_value( true, '', 0 ) );
 	}

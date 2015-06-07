@@ -53,7 +53,11 @@ class Papi_Property_Bool extends Papi_Property {
 	 */
 
 	public function format_value( $value, $slug, $post_id ) {
-		return $this->update_value( $value, $slug, $post_id );
+		if ( is_string( $value ) && $value === 'false' || $value === false ) {
+			return false;
+		}
+
+		return  is_string( $value ) && ( $value === 'true' || $value === '1' ) || $value === true;
 	}
 
 	/**
@@ -67,11 +71,7 @@ class Papi_Property_Bool extends Papi_Property {
 	 */
 
 	public function update_value( $value, $slug, $post_id ) {
-		if ( is_string( $value ) && $value === 'false' ) {
-			return false;
-		}
-
-		return ! empty( $value );
+		return $this->format_value( $value, $slug, $post_id );
 	}
 
 }
