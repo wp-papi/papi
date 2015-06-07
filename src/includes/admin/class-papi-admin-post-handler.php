@@ -70,13 +70,13 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 			return;
 		}
 
-		// Check if our nonce is vailed.
-		if ( ! wp_verify_nonce( papi_get_sanitized_post( 'papi_meta_nonce' ), 'papi_save_data' ) ) {
+		// Check the post being saved has the same id as the post id. This will prevent other save post events.
+		if ( papi_get_sanitized_post( 'post_ID' ) != strval( $post_id ) ) {
 			return;
 		}
 
-		// Check the post being saved has the same id as the post id. This will prevent other save post events.
-		if ( papi_get_sanitized_post( 'post_ID' ) != strval( $post_id ) ) {
+		// Check if our nonce is vailed.
+		if ( ! wp_verify_nonce( papi_get_sanitized_post( 'papi_meta_nonce' ), 'papi_save_data' ) ) {
 			return;
 		}
 
