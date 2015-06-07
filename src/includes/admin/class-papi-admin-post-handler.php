@@ -73,7 +73,7 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 
 		$post = get_post( $post_id );
 
-		// Can't proceed without a post id or a post.
+		// Can't proceed without post.
 		if ( empty( $post ) ) {
 			return;
 		}
@@ -83,21 +83,14 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 			return;
 		}
 
-		$meta_nonce = papi_get_sanitized_post( 'papi_meta_nonce' );
-
 		// Check if our nonce is vailed.
-		if ( ! wp_verify_nonce( $meta_nonce, 'papi_save_data' ) ) {
+		if ( ! wp_verify_nonce( papi_get_sanitized_post( 'papi_meta_nonce' ), 'papi_save_data' ) ) {
 			return;
 		}
 
 		// Check for any of the capabilities before we save the code.
 		if ( ! current_user_can( 'edit_posts' ) || ! current_user_can( 'edit_pages' ) ) {
 			return;
-		}
-
-		// Convert post id to int if is a string.
-		if ( is_string( $post_id ) ) {
-			$post_id = intval( $post_id );
 		}
 
 		$this->save_property( $post_id );

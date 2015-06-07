@@ -44,6 +44,47 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		$this->assertGreaterThan( 0, has_action( 'save_post', [$this->handler, 'save_meta_boxes'] ) );
 	}
 
+	public function test_save_meta_boxes() {
+		$property = $this->page_type->get_property( 'string_test' );
+
+		$_POST = papi_test_create_property_post_data( [
+			'slug'  => $property->slug,
+			'type'  => $property,
+			'value' => 'Hello, world!'
+		], $_POST );
+
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+		$_POST['post_ID'] = $this->post_id;
+
+		$this->handler->save_meta_boxes();
+		wp_set_current_user( 0 );
+
+		$this->assertEquals( 'Hello, world!', papi_field( $this->post_id, $property->slug ) );
+	}
+
+	public function test_save_meta_boxes_fail() {
+		$property = $this->page_type->get_property( 'string_test' );
+
+		$_POST = papi_test_create_property_post_data( [
+			'slug'  => $property->slug,
+			'type'  => $property,
+			'value' => 'Hello, world!'
+		], $_POST );
+
+		$_POST['post_ID'] = $this->post_id;
+
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$this->handler->save_meta_boxes();
+		wp_set_current_user( 0 );
+
+		$this->assertNull( papi_field( $this->post_id, $property->slug ) );
+	}
+
 	public function test_save_property() {
 		$property = $this->page_type->get_property( 'string_test' );
 		$_POST = papi_test_create_property_post_data( [
