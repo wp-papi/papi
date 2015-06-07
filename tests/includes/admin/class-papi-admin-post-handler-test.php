@@ -59,7 +59,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
 		$_POST['post_ID'] = $this->post_id;
 
-		$this->handler->save_meta_boxes();
+		$this->handler->save_meta_boxes( $this->post_id, get_post( $this->post_id ) );
 		wp_set_current_user( 0 );
 
 		$this->assertEquals( 'Hello, world!', papi_field( $this->post_id, $property->slug ) );
@@ -80,7 +80,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		$_POST['papi_meta_nonce'] = '';
 		$_POST['post_ID'] = $this->post_id;
 
-		$this->handler->save_meta_boxes();
+		$this->handler->save_meta_boxes( $this->post_id, get_post( $this->post_id ) );
 		wp_set_current_user( 0 );
 
 		// wrong nonce
@@ -100,9 +100,8 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		wp_set_current_user( $user_id );
 
 		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
-		$_POST['post_ID'] = 0;
 
-		$this->handler->save_meta_boxes();
+		$this->handler->save_meta_boxes( 0, null );
 		wp_set_current_user( 0 );
 
 		// wrong post id
@@ -126,7 +125,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 
 		define( 'DOING_AUTOSAVE', true );
 
-		$this->handler->save_meta_boxes();
+		$this->handler->save_meta_boxes( $this->post_id, get_post( $this->post_id ) );
 		wp_set_current_user( 0 );
 
 		// doing autosave is true
@@ -148,7 +147,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
 		$_POST['post_ID'] = $this->post_id;
 
-		$this->handler->save_meta_boxes();
+		$this->handler->save_meta_boxes( $this->post_id, get_post( $this->post_id ) );
 		wp_set_current_user( 0 );
 
 		// wrong capability

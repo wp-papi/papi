@@ -54,27 +54,14 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 
 	/**
 	 * Save meta boxes.
+	 *
+	 * @param int $post_id
+	 * @param object $post
 	 */
 
-	public function save_meta_boxes() {
-		// Fetch the post id.
-		$post_id = papi_get_sanitized_post( 'post_ID' );
-		$post_id = intval( $post_id );
-
-		// Can't proceed without a post id.
-		if ( empty( $post_id ) ) {
-			return;
-		}
-
-		// Check the post being saved has the same id as the post id. This will prevent other save post events.
-		if ( papi_get_sanitized_post( 'post_ID' ) != strval( $post_id ) ) {
-			return;
-		}
-
-		$post = get_post( $post_id );
-
-		// Can't proceed without post.
-		if ( empty( $post ) ) {
+	public function save_meta_boxes( $post_id, $post ) {
+		// Can't proceed without a post id or post.
+		if ( empty( $post_id ) || empty( $post ) ) {
 			return;
 		}
 
@@ -85,6 +72,11 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 
 		// Check if our nonce is vailed.
 		if ( ! wp_verify_nonce( papi_get_sanitized_post( 'papi_meta_nonce' ), 'papi_save_data' ) ) {
+			return;
+		}
+
+		// Check the post being saved has the same id as the post id. This will prevent other save post events.
+		if ( empty( papi_get_sanitized_post( 'post_ID' ) ) || papi_get_sanitized_post( 'post_ID' ) != strval( $post_id ) ) {
 			return;
 		}
 
