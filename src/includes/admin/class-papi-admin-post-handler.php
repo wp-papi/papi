@@ -76,7 +76,7 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 		}
 
 		// Check the post being saved has the same id as the post id. This will prevent other save post events.
-		if ( empty( papi_get_sanitized_post( 'post_ID' ) ) || papi_get_sanitized_post( 'post_ID' ) != strval( $post_id ) ) {
+		if ( papi_get_sanitized_post( 'post_ID' ) != strval( $post_id ) ) {
 			return;
 		}
 
