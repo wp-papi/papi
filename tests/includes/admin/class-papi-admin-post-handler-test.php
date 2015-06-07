@@ -65,7 +65,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Hello, world!', papi_field( $this->post_id, $property->slug ) );
 	}
 
-	public function test_save_meta_boxes_fail() {
+	public function test_save_meta_boxes_fail_1() {
 		$property = $this->page_type->get_property( 'string_test' );
 
 		$_POST = papi_test_create_property_post_data( [
@@ -74,14 +74,84 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 			'value' => 'Hello, world!'
 		], $_POST );
 
-		$_POST['post_ID'] = $this->post_id;
-
 		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
+
+		$_POST['papi_meta_nonce'] = '';
+		$_POST['post_ID'] = $this->post_id;
 
 		$this->handler->save_meta_boxes();
 		wp_set_current_user( 0 );
 
+		// wrong nonce
+		$this->assertNull( papi_field( $this->post_id, $property->slug ) );
+	}
+
+	public function test_save_meta_boxes_fail_2() {
+		$property = $this->page_type->get_property( 'string_test' );
+
+		$_POST = papi_test_create_property_post_data( [
+			'slug'  => $property->slug,
+			'type'  => $property,
+			'value' => 'Hello, world!'
+		], $_POST );
+
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+		$_POST['post_ID'] = 0;
+
+		$this->handler->save_meta_boxes();
+		wp_set_current_user( 0 );
+
+		// wrong post id
+		$this->assertNull( papi_field( $this->post_id, $property->slug ) );
+	}
+
+	public function test_save_meta_boxes_fail_3() {
+		$property = $this->page_type->get_property( 'string_test' );
+
+		$_POST = papi_test_create_property_post_data( [
+			'slug'  => $property->slug,
+			'type'  => $property,
+			'value' => 'Hello, world!'
+		], $_POST );
+
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+		$_POST['post_ID'] = $this->post_id;
+
+		define( 'DOING_AUTOSAVE', true );
+
+		$this->handler->save_meta_boxes();
+		wp_set_current_user( 0 );
+
+		// doing autosave is true
+		$this->assertNull( papi_field( $this->post_id, $property->slug ) );
+	}
+
+	public function test_save_meta_boxes_fail_4() {
+		$property = $this->page_type->get_property( 'string_test' );
+
+		$_POST = papi_test_create_property_post_data( [
+			'slug'  => $property->slug,
+			'type'  => $property,
+			'value' => 'Hello, world!'
+		], $_POST );
+
+		$user_id = $this->factory->user->create( [ 'role' => 'read' ] );
+		wp_set_current_user( $user_id );
+
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+		$_POST['post_ID'] = $this->post_id;
+
+		$this->handler->save_meta_boxes();
+		wp_set_current_user( 0 );
+
+		// wrong capability
 		$this->assertNull( papi_field( $this->post_id, $property->slug ) );
 	}
 
