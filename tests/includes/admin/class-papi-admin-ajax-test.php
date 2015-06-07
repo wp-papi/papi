@@ -32,9 +32,20 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 	}
 
 	public function test_endpoint() {
+		$this->ajax->add_endpoint();
 		global $wp_rewrite;
 		$this->assertNotNull( $wp_rewrite->extra_rules_top['papi-ajax/([^/]*)/?'] );
 		$this->assertEquals( 'index.php?action=$matches[1]', $wp_rewrite->extra_rules_top['papi-ajax/([^/]*)/?'] );
+	}
+
+	public function test_ajax_url() {
+		$this->ajax->ajax_url();
+		$this->expectOutputRegex( '/papi\-ajax/' );
+	}
+
+	public function test_handle_papi_ajax() {
+		$this->ajax->handle_papi_ajax();
+		$this->expectOutputRegex( '//' );
 	}
 
 	public function test_get_property() {
