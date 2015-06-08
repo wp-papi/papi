@@ -240,7 +240,7 @@ final class Papi_Admin {
 	 */
 
 	public function manage_page_type_posts_columns( $defaults ) {
-		$defaults['page_type'] = __( 'Page Type', 'papi' );
+		$defaults['page_type'] = papi_filter_settings_page_type_column_title( $this->post_type );
 		return $defaults;
 	}
 
@@ -257,7 +257,7 @@ final class Papi_Admin {
 			if ( ! is_null( $page_type ) ) {
 				esc_html_e( $page_type->name );
 			} else {
-				esc_html_e( papi_filter_standard_page_name( papi_get_post_type() ) );
+				esc_html_e( papi_filter_settings_standard_page_name( papi_get_post_type() ) );
 			}
 		}
 	}
@@ -309,7 +309,7 @@ final class Papi_Admin {
 
 			// Add the standard page that isn't a real page type.
 			$page_types[] = [
-				'name' => papi_filter_standard_page_name( papi_get_post_type() ),
+				'name' => papi_filter_settings_standard_page_name( papi_get_post_type() ),
 				'value' => 'papi-standard-page'
 			];
 

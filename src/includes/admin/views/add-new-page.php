@@ -31,9 +31,9 @@
 
 		if ( papi_filter_settings_standard_page_type( $post_type ) ) {
 			papi_include_template( 'includes/admin/views/partials/add-new-item.php', [
-				'title'       => papi_filter_standard_page_name( $post_type ),
-				'description' => papi_filter_standard_page_description( $post_type ),
-				'thumbnail'   => papi_filter_standard_page_thumbnail( $post_type ),
+				'title'       => papi_filter_settings_standard_page_name( $post_type ),
+				'description' => papi_filter_settings_standard_page_description( $post_type ),
+				'thumbnail'   => papi_filter_settings_standard_page_thumbnail( $post_type ),
 				'url'         => 'post-new.php' . papi_get_page_query_strings( '?' ) . '&papi-bypass=true'
 			] );
 

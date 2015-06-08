@@ -53,7 +53,7 @@ function papi_display_page_type( $page_type ) {
 	}
 
 	// Run show page type filter.
-	return papi_filter_show_page_type( $post_type, $page_type );
+	return papi_filter_settings_show_page_type( $post_type, $page_type );
 }
 
 /**

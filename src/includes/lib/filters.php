@@ -80,6 +80,18 @@ function papi_filter_settings_directories() {
 }
 
 /**
+ * Change column title for page type column.
+ *
+ * @param string $post_type
+ *
+ * @return string
+ */
+
+function papi_filter_settings_page_type_column_title( $post_type ) {
+	return apply_filters( 'papi/settings/column_title_' . $post_type, __( 'Page Type', 'papi' ) );
+}
+
+/**
  * Load page type from post query string.
  *
  * @return string
@@ -98,7 +110,7 @@ function papi_filter_settings_page_type_from_post_qs() {
  * @return bool
  */
 
-function papi_filter_show_page_type( $post_type, $page_type ) {
+function papi_filter_settings_show_page_type( $post_type, $page_type ) {
 	if ( is_object( $page_type ) && method_exists( $page_type, 'get_id' ) ) {
 		$page_type = $page_type->get_id();
 	}
@@ -124,7 +136,7 @@ function papi_filter_show_page_type( $post_type, $page_type ) {
  * @return string
  */
 
-function papi_filter_standard_page_description( $post_type ) {
+function papi_filter_settings_standard_page_description( $post_type ) {
 	return apply_filters( 'papi/settings/standard_page_description_' . $post_type, __( 'Just the normal WordPress page', 'papi' ) );
 }
 
@@ -136,7 +148,7 @@ function papi_filter_standard_page_description( $post_type ) {
  * @return string
  */
 
-function papi_filter_standard_page_name( $post_type ) {
+function papi_filter_settings_standard_page_name( $post_type ) {
 	return apply_filters( 'papi/settings/standard_page_name_' . $post_type, __( 'Standard Page', 'papi' ) );
 }
 
@@ -160,7 +172,7 @@ function papi_filter_settings_standard_page_type( $post_type ) {
  * @return string
  */
 
-function papi_filter_standard_page_thumbnail( $post_type ) {
+function papi_filter_settings_standard_page_thumbnail( $post_type ) {
 	return apply_filters( 'papi/settings/standard_page_thumbnail_' . $post_type, '' );
 }
 
