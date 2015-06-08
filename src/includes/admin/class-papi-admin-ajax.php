@@ -108,7 +108,7 @@ class Papi_Admin_Ajax {
 		if ( $property = papi_property( $options ) ) {
 			ob_start();
 
-			papi_render_property( $property );
+			$property->render_ajax_request();
 
 			$html = ob_get_clean();
 
@@ -151,7 +151,7 @@ class Papi_Admin_Ajax {
 
 			ob_start();
 
-			papi_render_property( $property );
+			$property->render_ajax_request();
 
 			$items[$key] = ob_get_clean();
 		}

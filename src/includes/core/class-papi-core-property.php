@@ -489,6 +489,14 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Render AJAX request.
+	 */
+
+	public function render_ajax_request() {
+		papi_render_property( $this );
+	}
+
+	/**
 	 * Setup options.
 	 *
 	 * @param array|object $options
