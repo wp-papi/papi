@@ -621,7 +621,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 
 			// Get real property slug
-			$property_slug = substr( str_replace( $repeater_slug, '', $slug ), 3 );
+			$property_slug = substr( str_replace( $repeater_slug, '', $slug ), 4 );
 
 			// Get property type
 			$property_type_value = $values[$property_type_slug]->type;
