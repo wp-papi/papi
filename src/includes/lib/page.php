@@ -140,7 +140,7 @@ function papi_get_page( $post_id = 0, $type = 'post' ) {
 
 function papi_get_file_data( $post_id ) {
 	$post_id   = papi_get_post_id( $post_id );
-	$page_type = papi_get_page_type_meta_value( $post_id );
+	$page_type = papi_get_page_type_id( $post_id );
 
 	// Check so the page type isn't null or empty before we
 	// trying to get the page type meta data.

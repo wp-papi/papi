@@ -52,7 +52,7 @@ class Papi_Post_Page extends Papi_Core_Page {
 		}
 
 		$this->post      = get_post( $this->id );
-		$id              = papi_get_page_type_meta_value( $this->id );
+		$id              = papi_get_page_type_id( $this->id );
 		$this->page_type = papi_get_page_type_by_id( $id );
 	}
 
@@ -106,7 +106,7 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 */
 
 	public function get_property( $slug, $child_slug = '' ) {
-		$page_type_id = papi_get_page_type_meta_value( $this->id );
+		$page_type_id = papi_get_page_type_id( $this->id );
 		$page_type    = papi_get_page_type_by_id( $page_type_id );
 
 		if ( $page_type instanceof Papi_Page_Type === false ) {

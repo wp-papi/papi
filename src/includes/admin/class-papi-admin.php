@@ -163,7 +163,7 @@ final class Papi_Admin {
 	public function edit_form_after_title() {
 		wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' );
 		?>
-		<input type="hidden" name="<?php esc_attr_e( PAPI_PAGE_TYPE_KEY ); ?>" value="<?php esc_attr_e( papi_get_page_type_meta_value() ); ?>"/>
+		<input type="hidden" name="<?php esc_attr_e( PAPI_PAGE_TYPE_KEY ); ?>" value="<?php esc_attr_e( papi_get_page_type_id() ); ?>"/>
 		<?php
 	}
 
@@ -400,7 +400,7 @@ final class Papi_Admin {
 		$this->post_type = papi_get_post_type();
 
 		if ( is_admin() ) {
-			$this->page_type_id  = papi_get_page_type_meta_value();
+			$this->page_type_id  = papi_get_page_type_id();
 		}
 	}
 
