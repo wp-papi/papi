@@ -36,8 +36,10 @@ class Repeater {
     const $tbody    = $repeater.find('.repeater-tbody');
     const counter   = $tbody.children().length;
     const jsonText  = this.getJSON($this);
+    const limit     = $repeater.data().repeaterLimit;
+    const append    = limit === undefined || limit === -1 || $tbody.find('> tr').length < limit;
 
-    if (!jsonText.length) {
+    if (!jsonText.length || !append) {
       return;
     }
 

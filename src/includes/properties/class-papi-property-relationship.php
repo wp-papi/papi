@@ -35,7 +35,7 @@ class Papi_Property_Relationship extends Papi_Property {
 
 	public function get_default_settings() {
 		return [
-			'choose_max'   => -1,
+			'limit'        => -1,
 			'post_type'    => 'page',
 			'query'        => [],
 			'show_sort_by' => true
@@ -177,7 +177,7 @@ class Papi_Property_Relationship extends Papi_Property {
 						?>
 					</ul>
 				</div>
-				<div class="relationship-right" data-relationship-choose-max="<?php echo $settings->choose_max; ?>">
+				<div class="relationship-right" data-relationship-limit="<?php echo $settings->limit; ?>">
 					<ul>
 						<?php foreach ( $value as $post ): ?>
 							<li>

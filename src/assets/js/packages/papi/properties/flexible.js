@@ -34,9 +34,10 @@ class Flexible extends Repeater {
     const counter        = $tbody.children().length;
     const jsonText       = this.getJSON($this);
     const flexibleLayout = $this.data().flexibleLayout;
+    const limit          = $repeater.data().flexibleLimit;
+    const append         = limit === undefined || limit === -1 || $tbody.find('> tr').length < limit;
 
-    if (!jsonText.length) {
-      console.log('no json');
+    if (!jsonText.length || !append) {
       return;
     }
 

@@ -27,8 +27,8 @@ class Relationship {
     const $li    = $this.clone();
     const $right = $this.closest('.papi-property-relationship').find('.relationship-right');
     const $list  = $right.find('ul');
-    const max    = $right.data().relationshipChooseMax;
-    const append = max === undefined || max === -1 || $list.find('li').length < max;
+    const limit  = $right.data().relationshipLimit;
+    const append = limit === undefined || limit === -1 || $list.find('li').length < limit;
 
     if (append) {
       $li.find('span.icon').removeClass('plus').addClass('minus');

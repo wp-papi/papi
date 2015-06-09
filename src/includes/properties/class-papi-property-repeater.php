@@ -104,8 +104,9 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	public function get_default_settings() {
 		return [
-			'items'   => [],
-			'layout'  => 'table'
+			'items'  => [],
+			'layout' => 'table',
+			'limit'  => -1
 		];
 	}
 
@@ -514,7 +515,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	protected function render_repeater( $options ) {
 		?>
-		<div class="papi-property-repeater papi-property-repeater-top">
+		<div class="papi-property-repeater papi-property-repeater-top" data-repeater-limit="<?php echo $this->get_setting('limit'); ?>">
 			<table class="papi-table">
 				<?php $this->render_repeater_head(); ?>
 
