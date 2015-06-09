@@ -458,9 +458,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		?>
 			<td class="flexible-td <?php echo $layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
 				<table class="<?php echo $layout === 'table' ? 'flexible-table' : 'papi-table'; ?>">
-					<?php if ( $layout === 'table' ): ?>
-					<thead>
-						<?php
+					<?php
+					if ( $layout === 'table' ):
+						echo '<thead>';
 						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
 							if ( $i === $l - 1 ) {
 								echo '<td class="flexible-td-last">';
@@ -471,49 +471,49 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 							echo $row[$i]->title;
 							echo '</td>';
 						}
-						?>
-					</thead>
-					<?php endif; ?>
-					<tbody>
-						<?php if ( $layout === 'table' ): ?>
-						<tr>
-						<?php endif;
+						echo '</thead>';
+					endif;
 
-						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
-							$render_property = clone $row[$i]->get_options();
-							$value_slug      = papi_remove_papi( $render_property->slug );
+					echo '<tbody>';
 
-							if ( $has_value ) {
-								if ( array_key_exists( $value_slug, $value ) ) {
-									$render_property->value = $value[$value_slug];
-								}
-							}
+					if ( $layout === 'table' ):
+						echo '<tr>';
+					endif;
 
-							$render_property->slug  = $this->html_name( $render_property, $this->counter );
-							$render_property->raw   = $layout === 'table';
+					for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
+						$render_property = clone $row[$i]->get_options();
+						$value_slug      = papi_remove_papi( $render_property->slug );
 
-							if ( $layout === 'table' ) {
-								if ( $i === $l - 1 ) {
-									echo '<td class="flexible-td-last">';
-								} else {
-									echo '<td>';
-								}
-							}
+						if ( $has_value && array_key_exists( $value_slug, $value ) ) {
+							$render_property->value = $value[$value_slug];
+						}
 
-							$flexible_layout = isset( $flexible_layout ) ? $flexible_layout : $value[$this->layout_key];
-							$this->render_layout_input( $value_slug, $flexible_layout );
-							papi_render_property( $render_property );
+						$render_property->slug  = $this->html_name( $render_property, $this->counter );
+						$render_property->raw   = $layout === 'table';
 
-							if ( $layout === 'table' ) {
-								echo '</td>';
+						if ( $layout === 'table' ) {
+							if ( $i === $l - 1 ) {
+								echo '<td class="flexible-td-last">';
+							} else {
+								echo '<td>';
 							}
 						}
 
-						if ( $layout === 'table' ):
-						?>
-						</tr>
-						<?php endif; ?>
-					</tbody>
+						$flexible_layout = isset( $flexible_layout ) ? $flexible_layout : $value[$this->layout_key];
+						$this->render_layout_input( $value_slug, $flexible_layout );
+						papi_render_property( $render_property );
+
+						if ( $layout === 'table' ) {
+							echo '</td>';
+						}
+					}
+
+					if ( $layout === 'table' ):
+						echo '</tr>';
+					endif;
+
+					echo '</tbody>';
+					?>
 				</table>
 			</td>
 		<?php
