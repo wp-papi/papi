@@ -75,18 +75,18 @@ class Papi_Property extends Papi_Core_Property {
 
 	public function render() {
 		// Check so the property has a type and capabilities on the property.
-		if ( ! papi_current_user_is_allowed( $this->capabilities ) ) {
+		if ( ! papi_current_user_is_allowed( $this->get_option( 'capabilities' ) ) ) {
 			return;
 		}
 
 		// Only render if it's the right language if the definition exist.
-		if ( $this->lang !== false && papi_get_qs( 'lang' ) != null ) {
-			$render = $this->lang === strtolower( papi_get_qs( 'lang' ) );
+		if ( $this->get_option( 'lang' ) === strtolower( papi_get_qs( 'lang' ) ) ) {
+			$render = false;
 		} else {
-			$render = true;
+			$render = $this->get_option( 'lang' ) === false && empty( papi_get_qs( 'lang' ) );
 		}
 
-		if ( $render && $this->disabled === false ) {
+		if ( $render && $this->get_option( 'disabled' ) === false ) {
 			$this->render_row_html();
 			$this->render_hidden_html();
 		}
