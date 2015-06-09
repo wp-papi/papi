@@ -175,8 +175,6 @@ function papi_get_property_class_name( $type ) {
  */
 
 function papi_property_get_meta( $post_id, $slug, $type = 'post' ) {
-	$value = null;
-
 	switch ( $type ) {
 		case 'option':
 			$value = get_option( $slug, null );
