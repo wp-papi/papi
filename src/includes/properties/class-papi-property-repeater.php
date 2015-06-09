@@ -104,9 +104,10 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	public function get_default_settings() {
 		return [
-			'items'  => [],
-			'layout' => 'table',
-			'limit'  => -1
+			'items'     => [],
+			'layout'    => 'table',
+			'limit'     => -1,
+			'row_title' => __( 'Items', 'papi' )
 		];
 	}
 
@@ -550,7 +551,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			<tr>
 				<th></th>
 				<?php if ( $this->layout( 'row' ) ): ?>
-					<th>Items</th>
+					<th><?php echo $this->get_setting( 'row_title' ); ?></th>
 				<?php else: ?>
 					<?php foreach ( $properties as $property ): ?>
 						<th><?php echo $property->title; ?></th>
