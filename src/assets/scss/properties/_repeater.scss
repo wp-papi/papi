@@ -76,6 +76,9 @@
             width: 100%;
           }
         }
+        &.last {
+          border-right: 0;
+        }
 
         &.repeater-layout-row {
           padding-left: 0;
