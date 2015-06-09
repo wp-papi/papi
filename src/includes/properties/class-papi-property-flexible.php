@@ -360,7 +360,12 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected function prepare_properties( $layouts ) {
 		foreach ( $layouts as $index => $layout ) {
 			if ( ! $this->valid_layout( $layout ) ) {
-				unset( $layout[$index] );
+				if ( is_array( $layout ) ) {
+					unset( $layout[$index] );
+				} else {
+					unset( $layouts[$index] );
+				}
+
 				continue;
 			}
 
@@ -411,6 +416,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$options = $this->get_options();
 
 		foreach ( $options->settings->items as $key => $value ) {
+			if ( ! isset( $value['items'] ) ) {
+				continue;
+			}
+
 			foreach ( $value['items'] as $index => $property ) {
 				$options->settings->items[$key]['items'][$index] = clone $property->get_options();
 			}
