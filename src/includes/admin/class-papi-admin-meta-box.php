@@ -20,7 +20,6 @@ class Papi_Admin_Meta_Box {
 	private $default_options = [
 		'capabilities' => [],
 		'context'      => 'normal',
-		'mode'         => 'standard',
 		'post_type'    => 'page',
 		'priority'     => 'default',
 		'properties'   => [],
@@ -93,15 +92,6 @@ class Papi_Admin_Meta_Box {
 
 	public function meta_box_css_classes( $classes ) {
 		$classes[] = 'papi-box';
-
-		if ( $this->options->mode === 'seamless' ) {
-			if ( $this->options->_tab_box ) {
-				$classes[] = 'papi-mode-seamless-tabs';
-			} else {
-				$classes[] = 'papi-mode-seamless';
-			}
-		}
-
 		return $classes;
 	}
 

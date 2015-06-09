@@ -39,6 +39,9 @@
           width: 100%;
         }
       }
+      &.last {
+        border-right: 0;
+      }
     }
 
     tr {
@@ -85,7 +88,7 @@
             tr td {
               border-right: 0;
               &:first-child {
-                width: 10%;
+                width: 15%;
                 padding: 10px 16px 10px 15px;
                 border-right: 1px solid #eaeaea;
               }
@@ -110,37 +113,6 @@
 
     a {
       float: right;
-    }
-  }
-}
-
-// Seamless mode
-.postbox.papi-mode-seamless {
-
-  .papi-property-repeater,
-  .papi-property-flexible {
-    border-left: 1px #eaeaea solid;
-    border-right: 1px #eaeaea solid;
-    margin-right: 0;
-
-    > .papi-table {
-      margin-left: 0;
-
-      tr {
-        border-right: 1px #eaeaea solid;
-        border-top: 1px #eaeaea solid;
-
-        td {
-          border-right: 1px #eaeaea solid;
-          border-top: 1px #eaeaea solid;
-          padding: 10px;
-
-          &:first-child > span,
-          &.last > span {
-            margin-left: -.8em;
-          }
-        }
-      }
     }
   }
 }

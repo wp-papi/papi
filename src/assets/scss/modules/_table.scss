@@ -1,21 +1,3 @@
-// Postbox modes
-.postbox.papi-mode-seamless {
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-
-  > h3,
-  > .handlediv {
-    display: none;
-  }
-
-  .papi-table tr td {
-    background: transparent;
-    border: 0;
-    padding-left: 0;
-  }
-}
-
 // Table
 .papi-table {
   border-spacing: 0;
