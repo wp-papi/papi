@@ -574,6 +574,7 @@ class Papi_Core_Property {
 	/**
 	 * Set property option value.
 	 *
+	 * @param string $key
 	 * @param mixed $value
 	 */
 
