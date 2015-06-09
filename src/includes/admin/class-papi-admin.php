@@ -30,7 +30,7 @@ final class Papi_Admin {
 	/**
 	 * The post type.
 	 *
-	 * @var string|bool
+	 * @var string
 	 */
 
 	private $post_type;
