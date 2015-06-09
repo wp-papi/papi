@@ -418,6 +418,21 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
+	 * Render AJAX request.
+	 */
+
+	public function render_ajax_request() {
+		$items = $this->get_settings_properties();
+
+		if ( defined( 'PAPI_AJAX' ) && PAPI_AJAX ) {
+			$counter = papi_get_qs( 'counter' );
+			$this->counter = intval( $counter );
+		}
+
+		$this->render_properties( $items, false );
+	}
+
+	/**
 	 * Render property JSON template.
 	 *
 	 * @param string $slug
@@ -438,21 +453,6 @@ class Papi_Property_Repeater extends Papi_Property {
 			<?php echo json_encode( [$options] ); ?>
 		</script>
 		<?php
-	}
-
-	/**
-	 * Render AJAX request.
-	 */
-
-	public function render_ajax_request() {
-		$items = $this->get_settings_properties();
-
-		if ( defined( 'PAPI_AJAX' ) && PAPI_AJAX ) {
-			$counter = papi_get_qs( 'counter' );
-			$this->counter = intval( $counter );
-		}
-
-		$this->render_properties( $items, false );
 	}
 
 	/**
@@ -514,7 +514,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	protected function render_repeater( $options ) {
 		?>
-		<div class="papi-property-repeater papi-property-repeater-top" data-slug="<?php echo $options->slug; ?>">
+		<div class="papi-property-repeater papi-property-repeater-top">
 			<table class="papi-table">
 				<?php $this->render_repeater_head(); ?>
 

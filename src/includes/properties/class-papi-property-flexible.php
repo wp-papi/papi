@@ -147,7 +147,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 	public function get_default_settings() {
 		return [
-			'items' => []
+			'items'  => [],
+			'layout' => 'table'
 		];
 	}
 
@@ -375,6 +376,52 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	}
 
 	/**
+	 * Render AJAX request.
+	 */
+
+	public function render_ajax_request() {
+		$items   = null;
+		$layouts = $this->get_settings_layouts();
+
+		if ( defined( 'PAPI_AJAX' ) && PAPI_AJAX ) {
+			$counter = papi_get_qs( 'counter' );
+			$this->counter  = intval( $counter );
+			$flexible_layout = papi_get_qs( 'flexible_layout' );
+			foreach ( $layouts as $layout ) {
+				if ( $layout['slug'] === $flexible_layout ) {
+					$items = $layout;
+					break;
+				}
+			}
+		}
+
+		if ( ! empty( $items ) ) {
+			$this->render_properties( $items, false );
+		}
+	}
+
+	/**
+	 * Render layout JSON template.
+	 *
+	 * @param string $slug
+	 */
+
+	protected function render_json_template( $slug ) {
+		$options = $this->get_options();
+
+		foreach ( $options->settings->items as $key => $value ) {
+			foreach ( $value['items'] as $index => $property ) {
+				$options->settings->items[$key]['items'][$index] = clone $property->get_options();
+			}
+		}
+		?>
+		<script type="application/json" data-papi-json="<?php echo $slug; ?>_repeater_json">
+			<?php echo json_encode( [$options] ); ?>
+		</script>
+		<?php
+	}
+
+	/**
 	 * Render layout input.
 	 *
 	 * @param string $slug
@@ -393,37 +440,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	}
 
 	/**
-	 * Render layout JSON template.
-	 *
-	 * @param string $slug
-	 */
-
-	protected function render_json_template( $slug ) {
-		$layouts = $this->get_settings_layouts();
-		$index   = 0;
-
-		foreach ( $layouts as $layout ):
-			$properties = [];
-
-			foreach ( $layout['items'] as $key => $value ) {
-				$properties[$key] = $this->get_json_property( $value );
-			}
-
-			?>
-
-			<script type="application/json" data-papi-json="<?php echo $this->get_json_id( $layout['title'], 'flexible_json' ); ?>">
-				<?php echo json_encode( [
-						'layout'     => $layout['slug'],
-						'properties' => $properties
-					] ); ?>
-			</script>
-
-			<?php
-			$index++;
-		endforeach;
-	}
-
-	/**
 	 * Render properties.
 	 *
 	 * @param array $row
@@ -431,9 +447,18 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function render_properties( $row, $value ) {
+		$layout    = $this->get_setting( 'layout' );
+		$has_value = $value !== false;
+
+		if ( isset( $row['items'] ) ) {
+			$flexible_layout = $row['slug'];
+			$row = $row['items'];
+		}
+
 		?>
-			<td class="flexible-td">
-				<table class="flexible-table">
+			<td class="flexible-td <?php echo $layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
+				<table class="<?php echo $layout === 'table' ? 'flexible-table' : 'papi-table'; ?>">
+					<?php if ( $layout === 'table' ): ?>
 					<thead>
 						<?php
 						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
@@ -448,34 +473,46 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						}
 						?>
 					</thead>
+					<?php endif; ?>
 					<tbody>
+						<?php if ( $layout === 'table' ): ?>
 						<tr>
-						<?php
+						<?php endif;
+
 						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
 							$render_property = clone $row[$i]->get_options();
 							$value_slug      = papi_remove_papi( $render_property->slug );
 
-							if ( ! array_key_exists( $value_slug, $value ) ) {
-								continue;
+							if ( $has_value ) {
+								if ( array_key_exists( $value_slug, $value ) ) {
+									$render_property->value = $value[$value_slug];
+								}
 							}
 
-							$render_property->value = $value[$value_slug];
 							$render_property->slug  = $this->html_name( $render_property, $this->counter );
-							$render_property->raw   = true;
+							$render_property->raw   = $layout === 'table';
 
-							if ( $i === $l - 1 ) {
-								echo '<td class="flexible-td-last">';
-							} else {
-								echo '<td>';
+							if ( $layout === 'table' ) {
+								if ( $i === $l - 1 ) {
+									echo '<td class="flexible-td-last">';
+								} else {
+									echo '<td>';
+								}
 							}
 
-							$this->render_layout_input( $value_slug, $value[$this->layout_key] );
+							$flexible_layout = isset( $flexible_layout ) ? $flexible_layout : $value[$this->layout_key];
+							$this->render_layout_input( $value_slug, $flexible_layout );
 							papi_render_property( $render_property );
 
-							echo '</td>';
+							if ( $layout === 'table' ) {
+								echo '</td>';
+							}
 						}
+
+						if ( $layout === 'table' ):
 						?>
 						</tr>
+						<?php endif; ?>
 					</tbody>
 				</table>
 			</td>
@@ -505,7 +542,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						<div class="flexible-layouts-arrow"></div>
 						<ul>
 							<?php foreach ( $layouts as $layout ): ?>
-								<li data-papi-json="<?php echo $this->get_json_id( $layout['title'], 'flexible_json' ); ?>">
+								<li data-flexible-layout="<?php esc_attr_e( $layout['slug'] ); ?>" data-papi-json="<?php echo $options->slug; ?>_repeater_json">
 									<?php echo $layout['title']; ?>
 								</li>
 							<?php endforeach; ?>
@@ -601,20 +638,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				<td class="handle">
 					<span><%= counter + 1 %></span>
 				</td>
-				<td class="flexible-td">
-					<table class="flexible-table">
-						<thead>
-							<tr>
-								<%= heads %>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<%= columns %>
-							</tr>
-						</tbody>
-					</table>
-				</td>
+				<%= columns %>
 				<td class="last">
 					<span>
 						<a title="<?php _e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>

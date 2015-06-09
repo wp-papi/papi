@@ -22,46 +22,30 @@ class Flexible extends Repeater {
   }
 
   /**
-   * Add a new row to the flexible repeater.
+   * Prepare to add a new row to the repeater
+   * and then call fetch to fetch Papi ajax data.
    *
-   * @param {object} $tbody
-   * @param {int} counter
-   * @param {array} items
+   * @param {object} $this
    */
 
-  addRow($tbody, counter, res) {
-    let heads = [];
-    let columns = [];
+  add($this) {
+    const $repeater      = $this.closest('.papi-property-repeater-top');
+    const $tbody         = $repeater.find('.repeater-tbody');
+    const counter        = $tbody.children().length;
+    const jsonText       = this.getJSON($this);
+    const flexibleLayout = $this.data().flexibleLayout;
 
-    for (let i = 0, l = res.html.length; i < l; i++) {
-      let layoutSlug = this.properties[i].slug.substring(0, this.properties[i].slug.length - 1) + '_layout]';
-      if (i === l - 1) {
-        heads.push('<td class="flexible-td-last">');
-        columns.push('<td class="flexible-td-last">');
-      } else {
-        heads.push('<td>');
-        columns.push('<td>');
-      }
-      columns.push('<input type="hidden" name="' +  layoutSlug + '" value="' + this.currentLayout + '" />');
-      columns.push(res.html[i] + '</td>');
-      heads.push(this.properties[i].title + '</td>');
+    if (!jsonText.length) {
+      console.log('no json');
+      return;
     }
 
-    let $row = this.getHtml({
-      heads: heads.join(''),
-      columns: columns.join(''),
-      counter: counter
+    let properties = $.parseJSON(jsonText);
+
+    const self = this;
+    this.fetch(properties, counter, flexibleLayout, function (res) {
+      self.addRow($tbody, counter, res);
     });
-
-    $row.appendTo($tbody);
-
-    // Trigger the property that we just added
-    $row
-      .find('[name*="_property"]')
-      .trigger('papi/property/repeater/added');
-
-    this.scrollDownTable($tbody);
-    this.updateDatabaseRowNumber($tbody);
   }
 
   /**
@@ -110,17 +94,22 @@ class Flexible extends Repeater {
   }
 
   /**
-   * Prepare properties.
+   * Fetch properties from Papi ajax.
    *
    * @param {array} properties
    * @param {int} counter
+   * @param {function} callback
    */
 
-  prepareProperties(jsonText, counter) {
-    const properties   = $.parseJSON(jsonText);
-    this.currentLayout = properties.layout;
-    this.properties    = super.prepareProperties(properties.properties, counter);
-    return this.properties;
+  fetch(properties, counter, flexibleLayout, callback) {
+    $.ajax({
+      type: 'POST',
+      data: {
+        properties: JSON.stringify(properties)
+      },
+      url: papi.ajaxUrl + '?action=get_properties&counter=' + counter + '&flexible_layout=' + flexibleLayout,
+      dataType: 'json'
+    }).success(callback);
   }
 
   /**

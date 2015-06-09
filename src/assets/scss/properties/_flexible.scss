@@ -1,7 +1,28 @@
 .papi-property-flexible {
   .papi-table .flexible-td {
     padding: 0;
-    border-bottom: 1px solid #eaeaea;
+
+    &.flexible-layout-table {
+      border-bottom: 1px solid #eaeaea;
+    }
+
+    &.flexible-layout-row {
+      border-top: 0;
+
+      > .papi-table {
+        margin: 0;
+        border-bottom: 0;
+
+        tr td {
+          border-right: 0;
+          &:first-child {
+            width: 10%;
+            padding: 10px 16px 10px 15px;
+            border-right: 1px solid #eaeaea;
+          }
+        }
+      }
+    }
 
     .flexible-table {
       margin: -1px 0;
