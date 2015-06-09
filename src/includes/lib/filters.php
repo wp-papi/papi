@@ -40,24 +40,6 @@ function papi_filter_load_value( $type, $value, $slug, $post_id ) {
 }
 
 /**
- * Get the only page type that will be used for the given post type.
- *
- * @param string $post_type
- *
- * @return string
- */
-
-function papi_filter_settings_only_page_type( $post_type ) {
-	$page_type = apply_filters( 'papi/settings/only_page_type_' . $post_type, '' );
-
-	if ( ! is_string( $page_type ) ) {
-		return '';
-	}
-
-	return str_replace( '.php', '', $page_type );
-}
-
-/**
  * Get all registered page type directories.
  *
  * @return array
@@ -77,6 +59,24 @@ function papi_filter_settings_directories() {
 	return array_filter( $directories, function ( $directory ) {
 		return is_string( $directory );
 	} );
+}
+
+/**
+ * Get the only page type that will be used for the given post type.
+ *
+ * @param string $post_type
+ *
+ * @return string
+ */
+
+function papi_filter_settings_only_page_type( $post_type ) {
+	$page_type = apply_filters( 'papi/settings/only_page_type_' . $post_type, '' );
+
+	if ( ! is_string( $page_type ) ) {
+		return '';
+	}
+
+	return str_replace( '.php', '', $page_type );
 }
 
 /**
