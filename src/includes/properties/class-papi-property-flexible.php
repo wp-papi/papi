@@ -443,7 +443,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * Render properties.
 	 *
 	 * @param array $row
-	 * @param array $value
+	 * @param array|bool $value
 	 */
 
 	protected function render_properties( $row, $value ) {
