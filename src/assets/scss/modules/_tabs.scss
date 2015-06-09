@@ -52,16 +52,14 @@
         }
       }
 
-      &.active {
-
-        a {
-          background-color: #f9f9f9;
-          border-color: #dedede;
-          border-top: 1px solid transparent;
-          color: #333;
-          margin: 0 -1px;
-          position: relative;
-        }
+      &.active a {
+        background-color: #f9f9f9;
+        border-color: #dedede;
+        border-top: 1px solid transparent;
+        border-right: 1px #eaeaea solid;
+        color: #333;
+        margin: 0 -1px;
+        position: relative;
       }
 
       &:first-child.active a {
