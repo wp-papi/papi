@@ -1,6 +1,6 @@
 .papi-management-box {
 
-  span.papi-pull-right {
+  .papi-pull-right {
     font-weight: normal;
   }
 
@@ -36,16 +36,20 @@
 
           tr th {
             border: 1px solid #eaeaea;
+            border-right: 0;
+
+            &:first-child {
+              border-left: 1px #eaeaea solid;
+            }
           }
 
           td {
             border-left: 0;
+            border-right: 1px solid #eaeaea;
 
             &:first-child {
               border-left: 1px solid #eaeaea;
             }
-
-            border-right: 1px solid #eaeaea;
           }
         }
       }
