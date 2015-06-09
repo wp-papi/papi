@@ -567,7 +567,6 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	protected function render_repeater_rows() {
 		$items  = $this->get_settings_properties();
-		$layout = $this->get_setting( 'layout' );
 		$values = $this->get_value();
 
 		$slugs = array_map( function ( $item ) {
