@@ -1,10 +1,22 @@
 .papi-property-divider {
-  border-bottom: none !important;
-  padding-top: 0 !important;
-  width: 100%;
+  h3 {
+    border-bottom: none !important;
+    margin-bottom: -8px;
+    padding-top: 0 !important;
+    width: 100%;
 
-  span {
-    margin-left: -12px;
+    span {
+      margin-left: -12px;
+    }
+  }
+
+  p {
+    color: #899194;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 16px;
+    margin-top: -5px !important;
+    margin-bottom: 0;
   }
 }
 
