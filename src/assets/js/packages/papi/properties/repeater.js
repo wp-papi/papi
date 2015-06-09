@@ -42,10 +42,10 @@ class Repeater {
       return;
     }
 
-    let properties = this.prepareProperties(jsonText, counter);
-    const self = this;
+    let properties = $.parseJSON(jsonText);
 
-    this.fetch(properties, function (res) {
+    const self = this;
+    this.fetch(properties, counter, function (res) {
       self.addRow($tbody, counter, res);
     });
   }
@@ -62,7 +62,7 @@ class Repeater {
     let columns = [];
 
     for (var i = 0, l = res.html.length; i < l; i++) {
-      columns.push('<td>' + res.html[i] + '</td>');
+      columns.push(res.html[i]);
     }
 
     let $row = this.getHtml({
@@ -118,16 +118,17 @@ class Repeater {
    * Fetch properties from Papi ajax.
    *
    * @param {array} properties
+   * @param {int} counter
    * @param {function} callback
    */
 
-  fetch(properties, callback) {
+  fetch(properties, counter, callback) {
     $.ajax({
       type: 'POST',
       data: {
         properties: JSON.stringify(properties)
       },
-      url: papi.ajaxUrl + '?action=get_properties',
+      url: papi.ajaxUrl + '?action=get_properties&counter=' + counter,
       dataType: 'json'
     }).success(callback);
   }
@@ -159,27 +160,6 @@ class Repeater {
   }
 
   /**
-   * Prepare properties.
-   *
-   * @param {array} properties
-   * @param {int} counter
-   */
-
-  prepareProperties(properties, counter) {
-    const attrNameRegex = /\[(\d+)\]/g;
-
-    if (typeof properties === 'string') {
-      properties = $.parseJSON(properties);
-    }
-
-    for (let i = 0, l = properties.length; i < l; i++) {
-      properties[i].slug = properties[i].slug.replace(attrNameRegex, '[' + counter + ']');
-    }
-
-    return properties;
-  }
-
-  /**
    * Remove item from the repeater.
    *
    * @param {object} e
@@ -187,9 +167,7 @@ class Repeater {
 
   remove($this) {
     const $tbody = $this.closest('.papi-property-repeater-top').find('.repeater-tbody');
-
     $this.closest('tr').remove();
-
     this.updateRowNumber($tbody);
   }
 

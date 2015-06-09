@@ -104,7 +104,8 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	public function get_default_settings() {
 		return [
-			'items' => []
+			'items'   => [],
+			'layout'  => 'table'
 		];
 	}
 
@@ -296,6 +297,18 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
+	 * Check if the given layout is the layouted used.
+	 *
+	 * @param string $layout
+	 *
+	 * @return bool
+	 */
+
+	protected function layout( $layout ) {
+		return $this->get_setting( 'layout' ) === $layout;
+	}
+
+	/**
 	 * Change value after it's loaded from the database
 	 * and populate every property in the repeater with the right property type.
 	 *
@@ -411,44 +424,86 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	protected function render_json_template( $slug ) {
-		$items = $this->get_settings_properties();
-		$properties = [];
+		$options = $this->get_options();
 
-		foreach ( $items as $key => $value ) {
-			$properties[$key] = $this->get_json_property( $value );
+		foreach ( $options->settings->items as $key => $value ) {
+			if ( ! papi_is_property( $value ) ) {
+				unset( $options->settings->items[$key] );
+				continue;
+			}
+			$options->settings->items[$key] = clone $value->get_options();
 		}
-
 		?>
 		<script type="application/json" data-papi-json="<?php echo $slug; ?>_repeater_json">
-			<?php echo json_encode( $properties ); ?>
+			<?php echo json_encode( [$options] ); ?>
 		</script>
 		<?php
+	}
+
+	/**
+	 * Render AJAX request.
+	 */
+
+	public function render_ajax_request() {
+		$items = $this->get_settings_properties();
+
+		if ( defined( 'PAPI_AJAX' ) && PAPI_AJAX ) {
+			$counter = papi_get_qs( 'counter' );
+			$this->counter = intval( $counter );
+		}
+
+		$this->render_properties( $items, false );
 	}
 
 	/**
 	 * Render properties.
 	 *
 	 * @param array $row
-	 * @param array $value
+	 * @param array|bool $value
 	 */
 
 	protected function render_properties( $row, $value ) {
+		$layout = $this->get_setting( 'layout' );
+
+		if ( $layout === 'row' ): ?>
+		<td class="repeater-layout-row">
+			<table class="papi-table">
+				<tbody>
+		<?php endif;
+
+		$has_value = $value !== false;
+
 		foreach ( $row as $property ) {
 			$render_property = clone $property->get_options();
 			$value_slug      = $property->get_slug( true );
 
-			if ( ! array_key_exists( $value_slug, $value ) ) {
-				continue;
+			if ( $has_value ) {
+				if ( ! array_key_exists( $value_slug, $value ) ) {
+					continue;
+				}
+
+				$render_property->value = $value[$value_slug];
 			}
 
-			$render_property->value = $value[$value_slug];
 			$render_property->slug  = $this->html_name( $property, $this->counter );
-			$render_property->raw   = true;
+			$render_property->raw   = $layout === 'table';
 
-			echo '<td>';
+			if ( $layout === 'table' ) {
+				echo '<td>';
+			}
+
 			papi_render_property( $render_property );
-			echo '</td>';
+
+			if ( $layout === 'table' ) {
+				echo '</td>';
+			}
 		}
+
+		if ( $layout === 'row' ): ?>
+				</tbody>
+			</table>
+		</td>
+		<?php endif;
 	}
 
 	/**
@@ -493,9 +548,13 @@ class Papi_Property_Repeater extends Papi_Property {
 		<thead>
 			<tr>
 				<th></th>
-				<?php foreach ( $properties as $property ): ?>
-					<th><?php echo $property->title; ?></th>
-				<?php endforeach; ?>
+				<?php if ( $this->layout( 'row' ) ): ?>
+					<th>Items</th>
+				<?php else: ?>
+					<?php foreach ( $properties as $property ): ?>
+						<th><?php echo $property->title; ?></th>
+					<?php endforeach; ?>
+				<?php endif; ?>
 				<th class="last"></th>
 			</tr>
 		</thead>
@@ -508,6 +567,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	protected function render_repeater_rows() {
 		$items  = $this->get_settings_properties();
+		$layout = $this->get_setting( 'layout' );
 		$values = $this->get_value();
 
 		$slugs = array_map( function ( $item ) {

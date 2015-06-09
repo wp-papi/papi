@@ -73,6 +73,28 @@
             width: 100%;
           }
         }
+
+        &.repeater-layout-row {
+          padding-left: 0;
+          padding-right: 0;
+
+          .papi-table {
+            margin-left: 0;
+            margin-bottom: -11px;
+
+            tr td {
+              border-right: 0;
+              &:first-child {
+                width: 15%;
+                padding: 10px 16px 10px 15px;
+                border-right: 1px solid #eaeaea;
+              }
+            }
+
+          }
+
+        }
+
       }
 
       .repeater-remove-item {
