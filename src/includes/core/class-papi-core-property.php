@@ -51,6 +51,14 @@ class Papi_Core_Property {
 	public $default_value;
 
 	/**
+	 * Display the property in WordPress admin.
+	 *
+	 * @var bool
+	 */
+
+	protected $display = true;
+
+	/**
 	 * Current property options object.
 	 *
 	 * @var object

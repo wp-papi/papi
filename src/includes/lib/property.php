@@ -320,7 +320,7 @@ function papi_property( $file_or_options, $values = [] ) {
 }
 
 /**
- * Render a property the right way.
+ * Render the given property.
  *
  * @param object $property
  */
@@ -332,23 +332,7 @@ function papi_render_property( $property ) {
 		return;
 	}
 
-	// Check so the property has a type and capabilities on the property.
-	if ( ! papi_current_user_is_allowed( $property->capabilities ) ) {
-		return;
-	}
-
-	// Only render if it's the right language if the definition exist.
-	if ( $property->lang !== false && papi_get_qs( 'lang' ) != null ) {
-		$render = $property->lang === strtolower( papi_get_qs( 'lang' ) );
-	} else {
-		$render = true;
-	}
-
-	// Render the property.
-	if ( $render && $property->disabled === false ) {
-		$property->render_row_html();
-		$property->render_hidden_html();
-	}
+	$property->render();
 }
 
 /**

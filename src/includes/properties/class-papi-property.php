@@ -70,6 +70,29 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
+	 * Render the property.
+	 */
+
+	public function render() {
+		// Check so the property has a type and capabilities on the property.
+		if ( ! papi_current_user_is_allowed( $this->capabilities ) ) {
+			return;
+		}
+
+		// Only render if it's the right language if the definition exist.
+		if ( $this->lang !== false && papi_get_qs( 'lang' ) != null ) {
+			$render = $this->lang === strtolower( papi_get_qs( 'lang' ) );
+		} else {
+			$render = true;
+		}
+
+		if ( $render && $this->disabled === false ) {
+			$this->render_row_html();
+			$this->render_hidden_html();
+		}
+	}
+
+	/**
 	 * Render the property description.
 	 */
 
@@ -131,7 +154,7 @@ class Papi_Property extends Papi_Core_Property {
 	public function render_row_html() {
 		if ( ! $this->get_option( 'raw' ) ):
 			?>
-			<tr>
+			<tr class="<?php echo $this->display ? '' : 'papi-hide'; ?>">
 				<?php if ( $this->get_option( 'sidebar' ) ): ?>
 					<td>
 						<?php
@@ -145,8 +168,16 @@ class Papi_Property extends Papi_Core_Property {
 				</td>
 			</tr>
 		<?php
-		else :
+		else:
+			if ( ! $this->display ):
+				echo '<div class="papi-hide">';
+			endif;
+
 			$this->html();
+
+			if ( ! $this->display ):
+				echo '</div>';
+			endif;
 		endif;
 	}
 }
