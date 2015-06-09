@@ -178,7 +178,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @param array $items
 	 * @param string $slug
 	 *
-	 * @return object|null
+	 * @return object
 	 */
 
 	protected function get_child_property( $items, $slug ) {
