@@ -13,4 +13,4 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-include __DIR__ . '/src/papi-loader.php';
+require_once __DIR__ . '/src/papi-loader.php';

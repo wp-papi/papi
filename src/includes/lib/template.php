@@ -60,7 +60,7 @@ function papi_include_template( $file, $vars = [] ) {
 	$path = rtrim( $path, '/' ) . '/';
 
 	if ( file_exists( $path . $file ) ) {
-		include $path . $file;
+		require $path . $file;
 	}
 }
 
