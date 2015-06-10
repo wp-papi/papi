@@ -208,7 +208,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @param string $slug
 	 * @param string $child_slug
 	 *
-	 * @return object
+	 * @return null|Papi_Property
 	 */
 
 	public function get_property( $slug, $child_slug = '' ) {
@@ -271,7 +271,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @param array|string $file_or_options
 	 * @param array $values
 	 *
-	 * @return array
+	 * @return null|Papi_Property
 	 */
 
 	protected function property( $file_or_options = [], $values = [] ) {
