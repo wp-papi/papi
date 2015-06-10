@@ -18,7 +18,7 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * The instance of Papi loader class.
 	 *
-	 * @var object
+	 * @var Papi_Loader
 	 */
 
 	private static $instance;
@@ -34,7 +34,7 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Papi loader instance.
 	 *
-	 * @return object
+	 * @return Papi_Loader
 	 */
 
 	public static function instance() {
@@ -173,12 +173,12 @@ final class Papi_Loader extends Papi_Container {
 /**
  * Return the instance of Papi to everyone.
  *
- * @return object|null
+ * @return Papi_Loader
  */
 
 function papi() {
 	if ( version_compare( get_bloginfo( 'version' ), '4.0', '<' ) ) {
-		return Papi_Loader::deactivate();
+		Papi_Loader::deactivate();
 	}
 
 	return Papi_Loader::instance();
