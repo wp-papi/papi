@@ -136,9 +136,7 @@ class Papi_Admin_Data_Handler {
 			$data[$key] = papi_filter_update_value( $item['type']->type, $data[$key], papi_remove_papi( $key ), $post_id );
 		}
 
-		return array_filter( $data, function ( $item ) {
-			return ! empty( $item );
-		} );
+		return $data;
 	}
 
 	/**
