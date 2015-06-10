@@ -196,7 +196,7 @@ function papi_property_get_meta( $post_id, $slug, $type = 'post' ) {
  *
  * @param array $options
  *
- * @return object
+ * @return stdClass
  */
 
 function papi_get_property_options( $options ) {
@@ -217,7 +217,7 @@ function papi_get_property_options( $options ) {
  *
  * @param object|string $type
  *
- * @return null|Papi_Property
+ * @return Papi_Property
  */
 
 function papi_get_property_type( $type ) {
@@ -302,7 +302,7 @@ function papi_is_property_type_key( $str = '' ) {
  * @param mixed $file_or_options
  * @param array $values
  *
- * @return object
+ * @return Papi_Property
  */
 
 function papi_property( $file_or_options, $values = [] ) {
@@ -322,7 +322,7 @@ function papi_property( $file_or_options, $values = [] ) {
 /**
  * Render the given property.
  *
- * @param object $property
+ * @param Papi_Property $property
  */
 
 function papi_render_property( $property ) {
@@ -371,7 +371,7 @@ function papi_render_properties( $properties ) {
 /**
  * Get require text for property.
  *
- * @param object $property
+ * @param Papi_Property $property
  *
  * @return string
  */
@@ -387,7 +387,7 @@ function papi_require_text( $property ) {
 /**
  * Get require tag for property.
  *
- * @param object $property
+ * @param Papi_Property $property
  * @param bool $text
  *
  * @return string

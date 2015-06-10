@@ -268,7 +268,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Add new property to the page using array or rendering property template file.
 	 *
-	 * @param string|array $file_or_options
+	 * @param array|string $file_or_options
 	 * @param array $values
 	 *
 	 * @return array

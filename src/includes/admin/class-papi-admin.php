@@ -333,9 +333,9 @@ final class Papi_Admin {
 	/**
 	 * Filter posts on load if `page_type` query string is set.
 	 *
-	 * @param object $query
+	 * @param WP_Query $query
 	 *
-	 * @return object
+	 * @return WP_Query
 	 */
 
 	public function pre_get_posts( $query ) {

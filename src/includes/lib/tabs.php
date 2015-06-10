@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @param array|object $options
  *
- * @return object
+ * @return stdClass
  */
 
 function papi_get_tab_options( $options ) {

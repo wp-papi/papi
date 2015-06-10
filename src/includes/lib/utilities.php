@@ -180,7 +180,7 @@ function papi_dashify( $str ) {
  *
  * @param string $file
  *
- * @return string|null
+ * @return null|string
  */
 
 function papi_get_class_name( $file ) {

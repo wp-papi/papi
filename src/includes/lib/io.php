@@ -63,7 +63,7 @@ function papi_get_all_page_type_files() {
  *
  * @param string $file
  *
- * @return string|null
+ * @return null|string
  */
 
 function papi_get_file_path( $file ) {
@@ -79,8 +79,6 @@ function papi_get_file_path( $file ) {
 			return $directory . $file . '.php';
 		}
 	}
-
-	return null;
 }
 
 /**
@@ -88,7 +86,7 @@ function papi_get_file_path( $file ) {
  *
  * @param string $file
  *
- * @return string|null
+ * @return null|string
  */
 
 function papi_get_page_type_base_path( $file ) {

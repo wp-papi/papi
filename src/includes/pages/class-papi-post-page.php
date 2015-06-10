@@ -79,7 +79,7 @@ class Papi_Post_Page extends Papi_Core_Page {
 	/**
 	 * Get the WordPress post object.
 	 *
-	 * @return object
+	 * @return WP_Post
 	 */
 
 	public function get_post() {

@@ -210,7 +210,7 @@ function papi_get_page_type_template( $post_id ) {
  *
  * @param string $file_path
  *
- * @return null|Papi_Page_Type
+ * @return Papi_Page_Type
  */
 
 function papi_get_page_type( $file_path ) {

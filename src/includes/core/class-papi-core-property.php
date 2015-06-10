@@ -61,7 +61,7 @@ class Papi_Core_Property {
 	/**
 	 * Current property options object.
 	 *
-	 * @var object
+	 * @var stdClass
 	 */
 
 	private $options;
@@ -162,7 +162,6 @@ class Papi_Core_Property {
 
 	private function convert_items_array( $items ) {
 		foreach ( $items as $index => $item ) {
-
 			if ( is_array( $item ) && ! isset( $item['type'] ) ) {
 				foreach ( $item as $key => $value ) {
 					if ( is_array( $value ) ) {
@@ -330,7 +329,7 @@ class Papi_Core_Property {
 	/**
 	 * Get the current property options object.
 	 *
-	 * @return object
+	 * @return stdClass
 	 */
 
 	public function get_options() {
@@ -340,7 +339,7 @@ class Papi_Core_Property {
 	/**
 	 * Get the page that the property is on.
 	 *
-	 * @return Papi_Core_Page|null
+	 * @return Papi_Core_Page
 	 */
 
 	public function get_page() {
@@ -371,7 +370,7 @@ class Papi_Core_Property {
 	 * @param string $key
 	 * @param mixed $default
 	 *
-	 * @return mixed
+	 * @return stdClass
 	 */
 
 	public function get_setting( $key, $default = null ) {
@@ -387,7 +386,7 @@ class Papi_Core_Property {
 	/**
 	 * Get custom property settings.
 	 *
-	 * @return object
+	 * @return stdClass
 	 */
 
 	public function get_settings() {
