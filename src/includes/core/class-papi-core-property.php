@@ -329,7 +329,7 @@ class Papi_Core_Property {
 	/**
 	 * Get the current property options object.
 	 *
-	 * @return stdClass
+	 * @return object
 	 */
 
 	public function get_options() {
