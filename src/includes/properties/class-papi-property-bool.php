@@ -39,7 +39,7 @@ class Papi_Property_Bool extends Papi_Property {
 
 		<input type="checkbox"
 			name="<?php echo $this->html_name(); ?>" <?php echo empty( $value ) ? '' : 'checked="checked"'; ?> />
-	<?php
+		<?php
 	}
 
 	/**

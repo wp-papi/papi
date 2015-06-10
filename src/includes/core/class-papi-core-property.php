@@ -257,6 +257,10 @@ class Papi_Core_Property {
 
 		$property = clone papi()->make( $class_name );
 
+		if ( $property instanceof Papi_Core_Property === false ) {
+			return;
+		}
+
 		if ( is_object( $options ) ) {
 			$property->set_options( $options );
 		}

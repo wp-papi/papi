@@ -155,7 +155,6 @@ class Papi_Page_Type_Base {
 	 */
 
 	private function setup_meta_data() {
-		// Check so we have the page type meta method.
 		if ( ! method_exists( $this->_class_name, $this->_meta_method ) ) {
 			return;
 		}

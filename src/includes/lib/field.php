@@ -163,15 +163,12 @@ add_shortcode( 'papi_field', 'papi_field_shortcode' );
  */
 
 function papi_field_value( $names, $value, $default = null ) {
-	// Return default value we don't have a value.
 	if ( empty( $value ) && is_null( $value ) ) {
 		return $default;
 	}
 
-	// Check if it's a array value or object.
 	if ( ! empty( $names ) && ( is_object( $value ) || is_array( $value ) ) ) {
 
-		// Convert object to array.
 		if ( is_object( $value ) ) {
 			$value = (array) $value;
 		}
