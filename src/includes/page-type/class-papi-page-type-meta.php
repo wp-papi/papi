@@ -7,7 +7,6 @@ defined( 'ABSPATH' ) || exit;
  * Papi Page Type Meta class.
  *
  * @package Papi
- * @since 1.0.0
  */
 
 class Papi_Page_Type_Meta extends Papi_Page_Type_Base {

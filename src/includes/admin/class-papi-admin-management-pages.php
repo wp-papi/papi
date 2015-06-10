@@ -46,8 +46,6 @@ class Papi_Admin_Management_Pages {
 
 	/**
 	 * Register management page.
-	 *
-	 * @since 1.0.0
 	 */
 
 	public function admin_menu() {

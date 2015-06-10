@@ -163,8 +163,6 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * Setup actions.
-	 *
-	 * @since 1.3.0
 	 */
 
 	private function setup_actions() {
