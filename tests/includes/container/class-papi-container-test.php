@@ -36,6 +36,12 @@ class Papi_Container_Test extends WP_UnitTestCase {
 		$this->assertTrue( $this->container->exists( 'name' ) );
 	}
 
+	public function test_remove() {
+		$this->container['plugin'] = 'Papi';
+		$this->container->remove( 'plugin' );
+		$this->assertFalse( isset( $this->container['plugin'] ) );
+	}
+
 	public function test_offset_exists() {
 		$this->container->bind( 'name', 'Fredrik' );
 		$this->assertTrue( isset( $this->container['name'] ) );

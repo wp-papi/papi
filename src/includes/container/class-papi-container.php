@@ -73,6 +73,16 @@ class Papi_Container implements \ArrayAccess {
 	}
 
 	/**
+	 * Unset value by identifier.
+	 *
+	 * @param string $id
+	 */
+
+	public function remove( $id ) {
+		unset( $this->keys[$id], $this->values[$id] );
+	}
+
+	/**
 	 * Check if identifier is set or not.
 	 *
 	 * @param string $id
@@ -122,6 +132,6 @@ class Papi_Container implements \ArrayAccess {
 	// @codingStandardsIgnoreStart
 	public function offsetUnset( $id ) {
 	// @codingStandardsIgnoreEnd
-		unset( $this->keys[$id], $this->values[$id] );
+		$this->remove( $id );
 	}
 }

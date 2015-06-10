@@ -258,6 +258,7 @@ class Papi_Core_Property {
 		$property = clone papi()->make( $class_name );
 
 		if ( $property instanceof Papi_Core_Property === false ) {
+			papi()->remove( $class_name );
 			return;
 		}
 
