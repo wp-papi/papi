@@ -11,6 +11,8 @@ require_once __DIR__ . '/includes/container/class-papi-container.php';
 
 /**
  * Papi loader class.
+ *
+ * @package Papi
  */
 
 final class Papi_Loader extends Papi_Container {
