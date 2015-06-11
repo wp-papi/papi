@@ -508,6 +508,19 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$property->render_row_html();
 	}
 
+	public function test_render_row_html_hidden() {
+		$property = Papi_Property::factory( [
+			'raw'   => true,
+			'slug'  => 'hidden_test_2',
+			'title' => 'Hidden test 2',
+			'type'  => 'hidden'
+		] );
+
+		$property->render_row_html();
+
+		$this->expectOutputRegex( '/class=\"papi\-hide\"/' );
+	}
+
 	public function test_set_option() {
 		$property = Papi_Property::create( [
 			'type'  => 'string',
