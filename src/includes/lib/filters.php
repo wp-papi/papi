@@ -144,7 +144,7 @@ function papi_filter_settings_standard_page_description( $post_type ) {
 		$name = $post_type_obj->labels->singular_name;
 	}
 
-	return apply_filters( 'papi/settings/standard_page_description_' . $post_type, sprintf( __( '%s with the WordPress standard fields', 'papi' ), $name ) );
+	return apply_filters( 'papi/settings/standard_page_description_' . $post_type, sprintf( __( '%s with WordPress standard fields', 'papi' ), $name ) );
 }
 
 /**
