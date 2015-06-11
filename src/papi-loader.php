@@ -175,6 +175,8 @@ final class Papi_Loader extends Papi_Container {
 /**
  * Return the instance of Papi to everyone.
  *
+ * @package Papi
+ *
  * @return Papi_Loader
  */
 
