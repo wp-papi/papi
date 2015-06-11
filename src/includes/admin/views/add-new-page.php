@@ -29,7 +29,7 @@
 
 		$post_type = papi_get_post_type();
 
-		if ( papi_filter_settings_standard_page_type( $post_type ) ) {
+		if ( papi_filter_settings_show_standard_page_type( $post_type ) ) {
 			papi_include_template( 'includes/admin/views/partials/add-new-item.php', [
 				'title'       => papi_filter_settings_standard_page_name( $post_type ),
 				'description' => papi_filter_settings_standard_page_description( $post_type ),

@@ -161,11 +161,11 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_filter_settings_show_standard_page_type_for() {
-		$this->assertEquals( true, papi_filter_settings_standard_page_type( 'post' ) );
+		$this->assertEquals( true, papi_filter_settings_show_standard_page_type( 'post' ) );
 
-		tests_add_filter( 'papi/settings/standard_page_type_post', '__return_false' );
+		tests_add_filter( 'papi/settings/show_standard_page_type_post', '__return_false' );
 
-		$this->assertEquals( false, papi_filter_settings_standard_page_type( 'post' ) );
+		$this->assertEquals( false, papi_filter_settings_show_standard_page_type( 'post' ) );
 	}
 
 	public function test_papi_filter_settings_standard_page_thumbnail() {

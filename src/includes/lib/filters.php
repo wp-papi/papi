@@ -174,8 +174,8 @@ function papi_filter_settings_standard_page_name( $post_type ) {
  * @return bool
  */
 
-function papi_filter_settings_standard_page_type( $post_type ) {
-	return apply_filters( 'papi/settings/standard_page_type_' . $post_type, true ) === true;
+function papi_filter_settings_show_standard_page_type( $post_type ) {
+	return apply_filters( 'papi/settings/show_standard_page_type_' . $post_type, true ) === true;
 }
 
 /**
