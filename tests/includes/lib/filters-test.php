@@ -137,7 +137,9 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_filter_settings_standard_page_description() {
-		$this->assertEquals( 'Just the normal WordPress page', papi_filter_settings_standard_page_description( 'post' ) );
+		$this->assertEquals( 'Post with the WordPress standard fields', papi_filter_settings_standard_page_description( 'post' ) );
+		$this->assertEquals( 'Page with the WordPress standard fields', papi_filter_settings_standard_page_description( 'fake' ) );
+		$this->assertEquals( 'Page with the WordPress standard fields', papi_filter_settings_standard_page_description( 'Page' ) );
 
 		tests_add_filter( 'papi/settings/standard_page_description_post', function () {
 			return 'Hello, world!';
@@ -147,7 +149,9 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_filter_settings_standard_page_name() {
-		$this->assertEquals( 'Standard Page', papi_filter_settings_standard_page_name( 'post' ) );
+		$this->assertEquals( 'Standard Post', papi_filter_settings_standard_page_name( 'post' ) );
+		$this->assertEquals( 'Standard Page', papi_filter_settings_standard_page_name( 'fake' ) );
+		$this->assertEquals( 'Standard Page', papi_filter_settings_standard_page_name( 'page' ) );
 
 		tests_add_filter( 'papi/settings/standard_page_name_post', function () {
 			return 'Hello, world!';
