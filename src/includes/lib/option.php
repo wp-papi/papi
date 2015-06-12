@@ -42,6 +42,35 @@ function papi_option( $name, $default = null ) {
 }
 
 /**
+ * Shortcode for `papi_option` function.
+ *
+ * [papi_option name="field_name" default="Default value"][/papi_option]
+ *
+ * @param array $atts
+ *
+ * @return mixed
+ */
+
+function papi_option_shortcode( $atts ) {
+	$default = isset( $atts['default'] ) ? $atts['default'] : '';
+	$value   = null;
+
+	if ( empty( $atts['name'] ) ) {
+		$value = $default;
+	} else {
+		$value = papi_option( $atts['name'], $default );
+	}
+
+	if ( is_array( $value ) ) {
+		$value = implode( ', ', $value );
+	}
+
+	return $value;
+}
+
+add_shortcode( 'papi_option', 'papi_option_shortcode' );
+
+/**
  * Echo the property value for property on a option page.
  *
  * @param string $name
@@ -52,7 +81,7 @@ function the_papi_option( $name = null, $default = null ) {
 	$value = papi_option( $name, $default );
 
 	if ( is_array( $value ) ) {
-		$value = implode( ',', $value );
+		$value = implode( ', ', $value );
 	}
 
 	echo $value;

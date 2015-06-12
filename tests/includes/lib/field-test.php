@@ -94,6 +94,17 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 			'name' => 'name'
 		] ) );
 
+		$this->assertEquals( '1, 2, 3', papi_option_shortcode( [
+			'name'    => 'numbers',
+			'default' => [1, 2, 3]
+		] ) );
+
+		$this->assertEquals( '1, 2, 3', papi_option_shortcode( [
+			'id'      => $this->post_id,
+			'name'    => 'numbers',
+			'default' => [1, 2, 3]
+		] ) );
+
 		global $post;
 
 		$post = get_post( $this->post_id );
@@ -110,7 +121,7 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/fredrik/' );
 
 		the_papi_field( $this->post_id, 'numbers', [ 1, 2, 3 ] );
-		$this->expectOutputRegex( '/1\,2\,3/' );
+		$this->expectOutputRegex( '/1\, 2\, 3/' );
 	}
 
 }

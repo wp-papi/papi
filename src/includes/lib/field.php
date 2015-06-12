@@ -135,15 +135,18 @@ function papi_field_shortcode( $atts ) {
 	}
 
 	$default = isset( $atts['default'] ) ? $atts['default'] : '';
-	$value   = null;
 
-	// Fetch value.
-	if ( ! empty( $atts['id'] ) ) {
+	if ( empty( $atts['id'] ) || empty( $atts['name'] ) ) {
+		$value = $default;
+	} else {
 		$value = papi_field( $atts['id'], $atts['name'], $default );
 	}
 
-	// Return empty string if null or the value.
-	return papi_is_empty( $value ) ? $default : $value;
+	if ( is_array( $value ) ) {
+		$value = implode( ', ', $value );
+	}
+
+	return $value;
 }
 
 add_shortcode( 'papi_field', 'papi_field_shortcode' );
@@ -195,7 +198,7 @@ function the_papi_field( $post_id = null, $name = null, $default = null ) {
 	$value = papi_field( $post_id, $name, $default );
 
 	if ( is_array( $value ) ) {
-		$value = implode( ',', $value );
+		$value = implode( ', ', $value );
 	}
 
 	echo $value;
