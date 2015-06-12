@@ -20,7 +20,7 @@ function papi_is_option_page() {
 	$parsed_url  = parse_url( $request_uri );
 
 	if ( ! isset( $parsed_url['query'] ) || empty ( $parsed_url['query'] ) ) {
-		return '';
+		return false;
 	}
 
 	$query = $parsed_url['query'];
@@ -53,7 +53,6 @@ function papi_option( $name, $default = null ) {
 
 function papi_option_shortcode( $atts ) {
 	$default = isset( $atts['default'] ) ? $atts['default'] : '';
-	$value   = null;
 
 	if ( empty( $atts['name'] ) ) {
 		$value = $default;
