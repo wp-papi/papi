@@ -126,15 +126,9 @@ function papi_fields( $post_id = 0 ) {
  */
 
 function papi_field_shortcode( $atts ) {
-	// Try to fetch to post id.
-	if ( empty( $atts['id'] ) ) {
-		global $post;
-		if ( isset( $post ) && isset( $post->ID ) ) {
-			$atts['id'] = $post->ID;
-		}
-	}
-
-	$default = isset( $atts['default'] ) ? $atts['default'] : '';
+	$atts['id'] = isset( $atts['id'] ) ? $atts['id'] : 0;
+	$atts['id'] = papi_get_post_id( $atts['id'] );
+	$default    = isset( $atts['default'] ) ? $atts['default'] : '';
 
 	if ( empty( $atts['id'] ) || empty( $atts['name'] ) ) {
 		$value = $default;
