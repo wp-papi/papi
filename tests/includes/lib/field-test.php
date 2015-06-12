@@ -94,12 +94,12 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 			'name' => 'name'
 		] ) );
 
-		$this->assertEquals( '1, 2, 3', papi_option_shortcode( [
+		$this->assertEquals( '1, 2, 3', papi_field_shortcode( [
 			'name'    => 'numbers',
 			'default' => [1, 2, 3]
 		] ) );
 
-		$this->assertEquals( '1, 2, 3', papi_option_shortcode( [
+		$this->assertEquals( '1, 2, 3', papi_field_shortcode( [
 			'id'      => $this->post_id,
 			'name'    => 'numbers',
 			'default' => [1, 2, 3]
