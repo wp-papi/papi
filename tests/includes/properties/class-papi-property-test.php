@@ -521,6 +521,36 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/class=\"papi\-hide\"/' );
 	}
 
+	public function test_render_with_lang() {
+		$property = Papi_Property::factory( [
+			'lang'  => 'dk',
+			'raw'   => true,
+			'slug'  => 'hidden_test_2',
+			'title' => 'Hidden test 2',
+			'type'  => 'hidden'
+		] );
+
+		$property->render();
+
+		$this->expectOutputRegex( '//' );
+
+		$property = Papi_Property::factory( [
+			'lang'  => 'dk',
+			'raw'   => true,
+			'slug'  => 'hidden_test_2',
+			'title' => 'Hidden test 2',
+			'type'  => 'hidden'
+		] );
+
+		$_GET['lang'] = 'dk';
+
+		$property->render();
+
+		$this->expectOutputRegex( '/class=\"papi\-hide\"/' );
+
+		unset( $_GET['lang'] );
+	}
+
 	public function test_set_option() {
 		$property = Papi_Property::create( [
 			'type'  => 'string',
