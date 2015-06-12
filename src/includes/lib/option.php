@@ -40,3 +40,20 @@ function papi_is_option_page() {
 function papi_option( $name, $default = null ) {
 	return papi_field( 0, $name, $default, 'option' );
 }
+
+/**
+ * Echo the property value for property on a option page.
+ *
+ * @param string $name
+ * @param mixed $default
+ */
+
+function the_papi_option( $name = null, $default = null ) {
+	$value = papi_option( $name, $default );
+
+	if ( is_array( $value ) ) {
+		$value = implode( ',', $value );
+	}
+
+	echo $value;
+}

@@ -87,7 +87,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 	public function test_papi_field_shortcode() {
 		update_post_meta( $this->post_id, 'name', 'fredrik' );
-		update_post_meta( $this->post_id, '_name_property', 'string' );
 
 		$this->assertEmpty( papi_field_shortcode( [] ) );
 		$this->assertEquals( 'fredrik', papi_field_shortcode( [
@@ -106,7 +105,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 	public function test_the_papi_field() {
 		update_post_meta( $this->post_id, 'name', 'fredrik' );
-		update_post_meta( $this->post_id, '_name_property', 'string' );
 
 		the_papi_field( $this->post_id, 'name' );
 		$this->expectOutputRegex( '/fredrik/' );
