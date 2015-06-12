@@ -21,6 +21,19 @@ class Papi_Option_Page extends Papi_Core_Page {
 	protected $type = 'option';
 
 	/**
+	 * The constructor.
+	 *
+	 * Create a new instance of the class.
+	 *
+	 * @param int $post_id
+	 */
+
+	public function __construct( $post_id = 0 ) {
+		// On option page this should always be equal to zero.
+		$this->id = 0;
+	}
+
+	/**
 	 * Load property from page type.
 	 *
 	 * @param string $slug

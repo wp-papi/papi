@@ -22,11 +22,11 @@ function papi_get_post_id( $post_id = null ) {
 		return $post_id->ID;
 	}
 
-	if ( is_numeric( $post_id ) && is_string( $post_id ) ) {
+	if ( is_numeric( $post_id ) && is_string( $post_id ) && $post_id !== '0' ) {
 		return intval( $post_id );
 	}
 
-	if ( is_null( $post_id ) ) {
+	if ( is_null( $post_id ) || intval( $post_id ) === 0 ) {
 		if ( get_post() ) {
 			return get_the_ID();
 		}
@@ -38,6 +38,8 @@ function papi_get_post_id( $post_id = null ) {
 		if ( $value = papi_get_qs( 'page_id' ) ) {
 			return intval( $value );
 		}
+
+		return intval( $post_id );
 	}
 
 	return intval( $post_id );
