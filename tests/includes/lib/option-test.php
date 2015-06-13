@@ -32,11 +32,11 @@ class Papi_Lib_Option_Test extends WP_UnitTestCase {
 
 		$this->assertEmpty( papi_option_shortcode( [] ) );
 		$this->assertEquals( 'fredrik', papi_option_shortcode( [
-			'name' => 'name'
+			'slug' => 'name'
 		] ) );
 
 		$this->assertEquals( '1, 2, 3', papi_option_shortcode( [
-			'name'    => 'numbers',
+			'slug'    => 'numbers',
 			'default' => [1, 2, 3]
 		] ) );
 	}

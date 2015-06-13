@@ -13,17 +13,17 @@ defined( 'ABSPATH' ) || exit;
  * Get property value for property on a page.
  *
  * @param int $post_id
- * @param string $name
+ * @param string $slug
  * @param mixed $default
  * @param string $type
  *
  * @return mixed
  */
 
-function papi_field( $post_id = null, $name = null, $default = null, $type = 'post' ) {
+function papi_field( $post_id = null, $slug = null, $default = null, $type = 'post' ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
-		$default = $name;
-		$name    = $post_id;
+		$default = $slug;
+		$slug    = $post_id;
 		$post_id = null;
 	}
 
@@ -34,18 +34,18 @@ function papi_field( $post_id = null, $name = null, $default = null, $type = 'po
 	}
 
 	// Return the default value if we don't have a name.
-	if ( empty( $name ) ) {
+	if ( empty( $slug ) ) {
 		return $default;
 	}
 
-	$cache_key = papi_get_cache_key( $name, $post_id );
+	$cache_key = papi_get_cache_key( $slug, $post_id );
 	$value     = wp_cache_get( $cache_key );
 
 	if ( $value === null || $value === false ) {
 		// Check for "dot" notation.
-		$names = explode( '.', $name );
-		$name  = $names[0];
-		$names = array_slice( $names, 1 );
+		$slugs = explode( '.', $slug );
+		$slug  = $slugs[0];
+		$slugs = array_slice( $slugs, 1 );
 
 		// Get the right page for right data type.
 		$data_page = papi_get_page( $post_id, $type );
@@ -55,7 +55,7 @@ function papi_field( $post_id = null, $name = null, $default = null, $type = 'po
 			return $default;
 		}
 
-		$value = papi_field_value( $names, $data_page->get_value( $name ), $default );
+		$value = papi_field_value( $slugs, $data_page->get_value( $slug ), $default );
 
 		if ( papi_is_empty( $value ) ) {
 			return $default;
@@ -118,7 +118,7 @@ function papi_fields( $post_id = 0 ) {
 /**
  * Shortcode for `papi_field` function.
  *
- * [papi_field id=1 name="field_name" default="Default value"][/papi_field]
+ * [papi_field id=1 slug="field_name" default="Default value"][/papi_field]
  *
  * @param array $atts
  *
@@ -130,10 +130,10 @@ function papi_field_shortcode( $atts ) {
 	$atts['id'] = papi_get_post_id( $atts['id'] );
 	$default    = isset( $atts['default'] ) ? $atts['default'] : '';
 
-	if ( empty( $atts['id'] ) || empty( $atts['name'] ) ) {
+	if ( empty( $atts['id'] ) || empty( $atts['slug'] ) ) {
 		$value = $default;
 	} else {
-		$value = papi_field( $atts['id'], $atts['name'], $default );
+		$value = papi_field( $atts['id'], $atts['slug'], $default );
 	}
 
 	if ( is_array( $value ) ) {
@@ -152,25 +152,25 @@ add_shortcode( 'papi_field', 'papi_field_shortcode' );
  *
  * "image.url" will get the url value in the array.
  *
- * @param array $names
+ * @param array $slugs
  * @param mixed $value
  * @param mixed $default
  *
  * @return mixed
  */
 
-function papi_field_value( $names, $value, $default = null ) {
+function papi_field_value( $slugs, $value, $default = null ) {
 	if ( empty( $value ) && is_null( $value ) ) {
 		return $default;
 	}
 
-	if ( ! empty( $names ) && ( is_object( $value ) || is_array( $value ) ) ) {
+	if ( ! empty( $slugs ) && ( is_object( $value ) || is_array( $value ) ) ) {
 
 		if ( is_object( $value ) ) {
 			$value = (array) $value;
 		}
 
-		foreach ( $names as $key ) {
+		foreach ( $slugs as $key ) {
 			if ( isset( $value[ $key ] ) ) {
 				$value = $value[ $key ];
 			}
@@ -184,12 +184,12 @@ function papi_field_value( $names, $value, $default = null ) {
  * Echo the property value for property on a page.
  *
  * @param int $post_id
- * @param string $name
+ * @param string $slug
  * @param mixed $default
  */
 
-function the_papi_field( $post_id = null, $name = null, $default = null ) {
-	$value = papi_field( $post_id, $name, $default );
+function the_papi_field( $post_id = null, $slug = null, $default = null ) {
+	$value = papi_field( $post_id, $slug, $default );
 
 	if ( is_array( $value ) ) {
 		$value = implode( ', ', $value );

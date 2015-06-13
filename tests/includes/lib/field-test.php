@@ -71,7 +71,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'empty-page-type' );
 		$this->flush_cache();
 		$this->assertEmpty( papi_fields() );
-
 	}
 
 	public function test_papi_field_value() {
@@ -91,17 +90,17 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_field_shortcode( [] ) );
 		$this->assertEquals( 'fredrik', papi_field_shortcode( [
 			'id'   => $this->post_id,
-			'name' => 'name'
+			'slug' => 'name'
 		] ) );
 
 		$this->assertEquals( '1, 2, 3', papi_field_shortcode( [
-			'name'    => 'numbers',
+			'slug'    => 'numbers',
 			'default' => [1, 2, 3]
 		] ) );
 
 		$this->assertEquals( '1, 2, 3', papi_field_shortcode( [
 			'id'      => $this->post_id,
-			'name'    => 'numbers',
+			'slug'    => 'numbers',
 			'default' => [1, 2, 3]
 		] ) );
 
@@ -110,7 +109,7 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		$post = get_post( $this->post_id );
 
 		$this->assertEquals( 'fredrik', papi_field_shortcode( [
-			'name' => 'name'
+			'slug' => 'name'
 		] ) );
 	}
 
