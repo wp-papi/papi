@@ -553,7 +553,6 @@ class Papi_Property_Repeater extends Papi_Property {
 				<?php foreach ( $properties as $property ): ?>
 					<th><?php echo $property->title; ?></th>
 				<?php endforeach; ?>
-			<?php endif; ?>
 				<th class="last"></th>
 			</tr>
 			<?php endif; ?>

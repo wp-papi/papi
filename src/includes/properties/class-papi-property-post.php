@@ -110,9 +110,9 @@ class Papi_Property_Post extends Papi_Property {
 					<?php endif; ?>
 
 					<?php foreach ( $items as $post ):
-							if ( papi_is_empty( $post->post_title ) ) {
-								continue;
-							}
+						if ( papi_is_empty( $post->post_title ) ) {
+							continue;
+						}
 					?>
 						<option value="<?php echo $post->ID; ?>" <?php echo $value == $post->ID ? 'selected="selected"' : ''; ?>>
 							<?php echo $post->post_title; ?>
