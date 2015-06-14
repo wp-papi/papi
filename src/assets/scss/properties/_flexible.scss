@@ -45,14 +45,14 @@
         color: #afafaf;
         padding: 5px 15px;
 
-        &.flexible-td-last {
-          border-right: 0;
-        }
-
         &:first-child {
           border-left: 0;
           font-weight: normal;
           width: auto;
+        }
+
+        &:last-child {
+          border-right: 0;
         }
       }
 
@@ -60,16 +60,15 @@
         border-top: 0;
         padding: 20px 15px 20px 19px;
 
-        &.flexible-td-last {
-          border-right: 0;
-          padding-left: 37px;
-        }
-
         &:first-child {
           background: none;
           border-left: 0;
           font-weight: normal;
           width: auto;
+        }
+
+        &:last-child {
+          border-right: 0;
         }
       }
     }
