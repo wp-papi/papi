@@ -34,4 +34,9 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'papi_post_test', $this->property->get_option( 'slug' ) );
 	}
 
+	public function test_property_settings() {
+		$settings = $this->property->get_settings();
+		$this->assertEmpty( $settings->placeholder );
+	}
+
 }

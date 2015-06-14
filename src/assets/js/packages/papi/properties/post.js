@@ -35,7 +35,7 @@ class Post {
 
     const $select = $(this).parent().find('select');
 
-    if ($select.hasClass('papi-vendor-select2') && typeof $select.select2 === 'function') {
+    if ($select.hasClass('papi-component-select2') && 'select2' in $.fn) {
       $select.select2();
     }
   }

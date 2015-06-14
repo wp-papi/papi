@@ -84,8 +84,7 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'title'    => 'Dropdown test 2',
 				'slug'     => 'dropdown_test_2',
 				'settings' => [
-					'include_blank' => false,
-					'blank_text'    => 'Pick one',
+					'placeholder'   => 'Pick one',
 					'items'         => [
 						'White' => '#ffffff',
 						'Black' => '#000000'

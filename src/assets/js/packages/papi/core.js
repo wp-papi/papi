@@ -25,7 +25,7 @@ class Core {
     $('[data-papi-href]').on('click touchstart', this.redirect);
 
     if ('select2' in $.fn) {
-      $('.inside .papi-table tr .papi-vendor-select2').select2();
+      $('.inside .papi-table tr .papi-component-select2').select2();
     }
   }
 

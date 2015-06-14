@@ -29,11 +29,9 @@ class Papi_Property_Post extends Papi_Property {
 
 	public function get_default_settings() {
 		return [
-			'blank_text'    => '',
-			'include_blank' => true,
+			'placeholder'   => '',
 			'post_type'     => 'post',
-			'query'         => [],
-			'text'          => __( 'Select post', 'papi' )
+			'query'         => []
 		];
 	}
 
@@ -75,17 +73,7 @@ class Papi_Property_Post extends Papi_Property {
 			$results[$obj->labels->menu_name][] = $post;
 		}
 
-		$posts = $results;
-
-		// The blank item
-		if ( $settings->include_blank ) {
-			$blank = new stdClass;
-			$blank->ID = 0;
-			$blank->post_title = papi_esc_html( $settings->blank_text );
-			$posts = array_merge( [[$blank]], $posts );
-		}
-
-		return $posts;
+		return $results;
 	}
 
 	/**
@@ -103,17 +91,17 @@ class Papi_Property_Post extends Papi_Property {
 		}
 
 		$posts = $this->get_posts( $settings );
-		$render_label = count( $posts ) > ($settings->include_blank ? 2 : 1);
-
+		$render_label = count( $posts ) > 1;
 		?>
 
 		<div class="papi-property-post">
-			<?php if ( ! empty( $settings->text ) ): ?>
-				<p>
-					<?php echo $settings->text; ?>
-				</p>
-			<?php endif; ?>
-			<select name="<?php echo $this->html_name(); ?>" class="papi-vendor-select2 papi-fullwidth">
+			<select
+				name="<?php echo $this->html_name(); ?>"
+				class="papi-component-select2 papi-fullwidth"
+				data-allow-clear="true"
+				data-placeholder="<?php echo $settings->placeholder; ?>">
+
+				<option value=""></option>
 
 				<?php foreach ( $posts as $label => $items ) : ?>
 
@@ -121,7 +109,11 @@ class Papi_Property_Post extends Papi_Property {
 						<optgroup label="<?php echo $label; ?>">
 					<?php endif; ?>
 
-					<?php foreach ( $items as $post ): ?>
+					<?php foreach ( $items as $post ):
+							if ( papi_is_empty( $post->post_title ) ) {
+								continue;
+							}
+					?>
 						<option value="<?php echo $post->ID; ?>" <?php echo $value == $post->ID ? 'selected="selected"' : ''; ?>>
 							<?php echo $post->post_title; ?>
 						</option>

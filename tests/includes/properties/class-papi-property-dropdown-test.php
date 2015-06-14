@@ -40,14 +40,12 @@ class Papi_Property_Dropdown_Test extends Papi_Property_Test_Case {
 
 	public function test_property_settings() {
 		$settings = $this->property->get_settings();
-		$this->assertTrue( $settings->include_blank );
-		$this->assertEmpty( $settings->blank_text );
+		$this->assertEmpty( $settings->placeholder );
 		$this->assertEquals( '#ffffff', $settings->items['White'] );
 		$this->assertEquals( '#000000', $settings->items['Black'] );
 
 		$settings = $this->property2->get_settings();
-		$this->assertFalse( $settings->include_blank );
-		$this->assertEquals( 'Pick one', $settings->blank_text );
+		$this->assertEquals( 'Pick one', $settings->placeholder );
 		$this->assertEquals( '#ffffff', $settings->items['White'] );
 		$this->assertEquals( '#000000', $settings->items['Black'] );
 	}
