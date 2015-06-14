@@ -106,8 +106,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		return [
 			'items'     => [],
 			'layout'    => 'table',
-			'limit'     => -1,
-			'row_title' => __( 'Items', 'papi' )
+			'limit'     => -1
 		];
 	}
 
@@ -548,17 +547,16 @@ class Papi_Property_Repeater extends Papi_Property {
 		$properties = $this->get_settings_properties();
 		?>
 		<thead>
+			<?php if ( ! $this->layout( 'row' ) ): ?>
 			<tr>
 				<th></th>
-				<?php if ( $this->layout( 'row' ) ): ?>
-					<th><?php echo $this->get_setting( 'row_title' ); ?></th>
-				<?php else: ?>
-					<?php foreach ( $properties as $property ): ?>
-						<th><?php echo $property->title; ?></th>
-					<?php endforeach; ?>
-				<?php endif; ?>
+				<?php foreach ( $properties as $property ): ?>
+					<th><?php echo $property->title; ?></th>
+				<?php endforeach; ?>
+			<?php endif; ?>
 				<th class="last"></th>
 			</tr>
+			<?php endif; ?>
 		</thead>
 		<?php
 	}
