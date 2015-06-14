@@ -79,9 +79,8 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 
 	if ( empty( $page_type ) ):
 	?>
-		<h3><?php _e( 'Overview of page type', 'papi' ); ?></h3>
+		<h3><?php _e( 'Cannot find the page type', 'papi' );?></h3>
 		<p>
-			<?php _e( 'Cannot find page type', 'papi' );?> -
 			<a href="tools.php?page=papi"><?php esc_html_e( 'Back to list' , 'papi' ); ?></a>
 		</p>
 	<?php
