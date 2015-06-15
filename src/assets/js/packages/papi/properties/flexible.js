@@ -121,9 +121,7 @@ class Flexible extends Repeater {
 
   remove($this) {
     const $tbody = $this.closest('.papi-property-flexible').find('.repeater-tbody');
-
     $this.closest('tr').remove();
-
     this.updateRowNumber($tbody);
   }
 
