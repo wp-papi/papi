@@ -36,7 +36,7 @@ class Papi_Admin_Menu {
 	 */
 
 	private function get_page_type() {
-		$page_type_id = papi_get_qs( 'page_type' );
+		$page_type_id = papi_get_page_type_id();
 
 		if ( ! is_string( $page_type_id ) ) {
 			return;
