@@ -72,11 +72,7 @@ class Repeater {
     });
 
     $row.appendTo($tbody);
-
-    // Trigger the property that we just added
-    $row
-      .find('[name*="_property"]')
-      .trigger('papi/property/repeater/added');
+    $row.find('[name*="_property"]').trigger('papi/property/repeater/added');
 
     this.scrollDownTable($tbody);
     this.updateDatabaseRowNumber($tbody);
@@ -179,10 +175,9 @@ class Repeater {
    */
 
   scrollDownTable($tbody) {
-    $('html, body')
-      .animate({
-        scrollTop: $('> tr:last', $tbody).offset().top
-      });
+    $('html, body').animate({
+      scrollTop: $('> tr:last', $tbody).offset().top
+    });
   }
 
   /**
