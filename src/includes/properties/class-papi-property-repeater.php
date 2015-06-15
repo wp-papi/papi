@@ -654,8 +654,8 @@ class Papi_Property_Repeater extends Papi_Property {
 		$rows       = 0;
 
 		if ( isset( $_POST[$rows_key] ) ) {
-			$rows     = $_POST[$rows_key];
-			$rows     = intval( $rows );
+			$rows = $_POST[$rows_key];
+			$rows = intval( $rows );
 		}
 
 		if ( ! is_array( $values ) ) {
