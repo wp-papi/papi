@@ -44,19 +44,16 @@
         background: #f9f9f9;
         border: 1px solid #eaeaea;
         border-left: 0;
-        color: #afafaf;
-        font-weight: normal;
+        color: #444;
         padding: 5px 15px;
 
         &:first-child {
           border-left: 0;
-          font-weight: normal;
           width: auto;
         }
 
         &:last-child {
           border-right: 0;
-          font-weight: normal;
         }
       }
 
