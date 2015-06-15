@@ -175,8 +175,9 @@ class Repeater {
    */
 
   scrollDownTable($tbody) {
+    const $tr = $('> tr:last', $tbody);
     $('html, body').animate({
-      scrollTop: $('> tr:last', $tbody).offset().top
+      scrollTop: $tr.offset().top - $tr.height()
     });
   }
 
