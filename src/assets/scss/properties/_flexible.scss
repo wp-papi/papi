@@ -3,7 +3,7 @@
     border-right: 1px solid #eaeaea;
   }
 
-  .papi-table .flexible-td {
+  .papi-table .flexible-column {
     padding: 0;
 
     &.flexible-layout-table {
@@ -16,6 +16,7 @@
       > .papi-table {
         border-bottom: 0;
         margin: 0;
+        table-layout: fixed;
 
         tr td {
           border-right: 0;
@@ -32,17 +33,19 @@
     .flexible-table {
       border-spacing: 0;
       margin: -1px 0;
+      table-layout: fixed;
       width: 100%;
 
       .wp-editor-tools {
         margin-bottom: -4px !important;
       }
 
-      thead td {
+      thead th {
         background: #f9f9f9;
         border: 1px solid #eaeaea;
         border-left: 0;
         color: #afafaf;
+        font-weight: normal;
         padding: 5px 15px;
 
         &:first-child {
@@ -53,12 +56,13 @@
 
         &:last-child {
           border-right: 0;
+          font-weight: normal;
         }
       }
 
       tbody td {
         border-top: 0;
-        padding: 20px 15px 20px 19px;
+        padding: 0;
 
         &:first-child {
           background: none;

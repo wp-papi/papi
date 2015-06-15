@@ -9,6 +9,7 @@
   .papi-table {
     border-bottom: 1px solid #eaeaea;
     margin: -11px 0 -13px -15px;
+    table-layout: fixed;
 
     tr {
       background: #fff;
@@ -50,6 +51,12 @@
 
       td {
         border-right: 1px solid #eaeaea;
+        padding: 0;
+
+        .repeater-content {
+          max-width: 100%;
+          padding: 20px 15px 20px 18px;
+        }
 
         &:first-child {
           cursor: move;

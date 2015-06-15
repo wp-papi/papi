@@ -490,10 +490,14 @@ class Papi_Property_Repeater extends Papi_Property {
 			$render_property->raw   = $layout === 'table';
 
 			if ( $layout === 'table' ) {
-				echo '<td>';
+				echo '<td class="repeater-column">';
 			}
 
+			echo '<div class="repeater-content">';
+
 			papi_render_property( $render_property );
+
+			echo '</div>';
 
 			if ( $layout === 'table' ) {
 				echo '</td>';
@@ -551,7 +555,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			<tr>
 				<th></th>
 				<?php foreach ( $properties as $property ): ?>
-					<th><?php echo $property->title; ?></th>
+					<th class="repeater-column"><?php echo $property->title; ?></th>
 				<?php endforeach; ?>
 				<th class="last"></th>
 			</tr>

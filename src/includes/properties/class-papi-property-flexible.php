@@ -466,15 +466,15 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		}
 
 		?>
-			<td class="flexible-td <?php echo $layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
+			<td class="flexible-column <?php echo $layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
 				<table class="<?php echo $layout === 'table' ? 'flexible-table' : 'papi-table'; ?>">
 					<?php
 					if ( $layout === 'table' ):
 						echo '<thead>';
 						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
-							echo '<td>';
+							echo '<th>';
 							echo $row[$i]->title;
-							echo '</td>';
+							echo '</th>';
 						}
 						echo '</thead>';
 					endif;
@@ -500,9 +500,13 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 							echo '<td>';
 						}
 
+						echo '<div class="repeater-content">';
+
 						$flexible_layout = isset( $flexible_layout ) ? $flexible_layout : $value[$this->layout_key];
 						$this->render_layout_input( $value_slug, $flexible_layout );
 						papi_render_property( $render_property );
+
+						echo '</div>';
 
 						if ( $layout === 'table' ) {
 							echo '</td>';
@@ -531,7 +535,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		?>
 		<div class="papi-property-flexible papi-property-repeater-top" data-flexible-limit="<?php echo $this->get_setting( 'limit' ); ?>">
 			<table class="papi-table">
-				<tbody class="repeater-tbody">
+				<tbody class="repeater-tbody flexible-tbody">
 					<?php $this->render_repeater_row(); ?>
 				</tbody>
 			</table>
