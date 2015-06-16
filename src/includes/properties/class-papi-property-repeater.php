@@ -41,7 +41,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @var array
 	 */
 
-	protected $exclude_properties = ['repeater'];
+	protected $exclude_properties = ['flexible', 'repeater'];
 
 	/**
 	 * Format the value of the property before it's returned to the theme.
@@ -366,9 +366,11 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	protected function prepare_properties( $items ) {
+		$key   = isset( $this->layout_key ) && $this->layout_key === '_layout' ?  'flexible' : 'repeater';
+		$items = array_map( 'papi_get_property_options', $items );
+
 		$exclude_properties = $this->exclude_properties;
-		$exclude_properties = array_merge( $exclude_properties, apply_filters( 'papi/property/repeater/exclude', [] ) );
-		$items       = array_map( 'papi_get_property_options', $items );
+		$exclude_properties = array_merge( $exclude_properties, apply_filters( 'papi/property/' . $key . '/exclude', [] ) );
 
 		return array_filter( $items, function ( $item ) use ( $exclude_properties ) {
 
