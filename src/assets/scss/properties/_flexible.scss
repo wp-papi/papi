@@ -20,6 +20,8 @@
 
         tr td {
           border-right: 0;
+          max-width: 100%;
+          padding: 20px 15px 20px 18px;
 
           &:first-child {
             border-right: 1px solid #eaeaea;
@@ -59,7 +61,7 @@
 
       tbody td {
         border-top: 0;
-        padding: 0;
+        padding: 20px 15px 20px 18px;
 
         &:first-child {
           background: none;

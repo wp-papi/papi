@@ -99,7 +99,8 @@ class Papi_Property_Post extends Papi_Property {
 				name="<?php echo $this->html_name(); ?>"
 				class="papi-component-select2 papi-fullwidth"
 				data-allow-clear="true"
-				data-placeholder="<?php echo $settings->placeholder; ?>">
+				data-placeholder="<?php echo $settings->placeholder; ?>"
+				data-width="100%">
 
 				<option value=""></option>
 

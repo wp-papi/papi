@@ -51,12 +51,7 @@
 
       td {
         border-right: 1px solid #eaeaea;
-        padding: 0;
-
-        .repeater-content {
-          max-width: 100%;
-          padding: 20px 15px 20px 18px;
-        }
+        padding: 20px 15px 20px 18px;
 
         &:first-child {
           cursor: move;
@@ -92,13 +87,17 @@
         &.repeater-layout-row {
           padding-left: 0;
           padding-right: 0;
+          padding: 10px 0;
 
           .papi-table {
             margin-bottom: -11px;
             margin-left: 0;
+            table-layout: fixed;
 
             tr td {
               border-right: 0;
+              max-width: 100%;
+              padding: 20px 15px 20px 18px;
 
               &:first-child {
                 border-right: 1px solid #eaeaea;

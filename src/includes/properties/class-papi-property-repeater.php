@@ -495,11 +495,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				echo '<td class="repeater-column">';
 			}
 
-			echo '<div class="repeater-content">';
-
 			papi_render_property( $render_property );
-
-			echo '</div>';
 
 			if ( $layout === 'table' ) {
 				echo '</td>';

@@ -500,13 +500,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 							echo '<td>';
 						}
 
-						echo '<div class="repeater-content">';
-
 						$flexible_layout = isset( $flexible_layout ) ? $flexible_layout : $value[$this->layout_key];
 						$this->render_layout_input( $value_slug, $flexible_layout );
 						papi_render_property( $render_property );
-
-						echo '</div>';
 
 						if ( $layout === 'table' ) {
 							echo '</td>';

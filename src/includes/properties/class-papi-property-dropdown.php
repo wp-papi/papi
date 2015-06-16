@@ -44,7 +44,8 @@ class Papi_Property_Dropdown extends Papi_Property {
 			class="papi-component-select2 papi-fullwidth"
 			name="<?php echo $this->html_name(); ?>"
 			data-allow-clear="true"
-			data-placeholder="<?php echo $settings->placeholder; ?>">
+			data-placeholder="<?php echo $settings->placeholder; ?>"
+			data-width="100%">
 
 			<option value=""></option>
 
