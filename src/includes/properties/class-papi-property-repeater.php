@@ -517,7 +517,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	protected function render_repeater( $options ) {
 		?>
-		<div class="papi-property-repeater papi-property-repeater-top" data-repeater-limit="<?php echo $this->get_setting( 'limit' ); ?>">
+		<div class="papi-property-repeater papi-property-repeater-top" data-limit="<?php echo $this->get_setting( 'limit' ); ?>">
 			<table class="papi-table">
 				<?php $this->render_repeater_head(); ?>
 

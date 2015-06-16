@@ -166,7 +166,7 @@ class Papi_Property_Relationship extends Papi_Property {
 							if ( ! empty( $post->post_title ) ):
 								?>
 								<li>
-									<input type="hidden" data-name="<?php echo $slug; ?>[]"
+									<input type="hidden"
 									       value="<?php echo $post->ID; ?>"/>
 									<a href="#"><?php echo $post->post_title; ?></a>
 									<span class="icon plus"></span>
@@ -177,7 +177,7 @@ class Papi_Property_Relationship extends Papi_Property {
 						?>
 					</ul>
 				</div>
-				<div class="relationship-right" data-relationship-limit="<?php echo $settings->limit; ?>">
+				<div class="relationship-right" data-limit="<?php echo $settings->limit; ?>">
 					<ul>
 						<?php foreach ( $value as $post ): ?>
 							<li>

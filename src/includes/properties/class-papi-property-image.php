@@ -131,7 +131,7 @@ class Papi_Property_Image extends Papi_Property {
 						$url = wp_get_attachment_thumb_url( $image->id );
 						?>
 						<div class="attachment">
-							<a class="check" href="#" data-papi-options='{"id":"<%= id %>"}'>X</a>
+							<a class="check" href="#">X</a>
 							<div class="attachment-preview">
 								<div class="thumbnail">
 									<div class="centered">
@@ -160,7 +160,7 @@ class Papi_Property_Image extends Papi_Property {
 	public function render_image_template() {
 		?>
 		<script type="text/template" id="tmpl-papi-property-image">
-			<a class="check" href="#" data-papi-options='{"id":"<%= id %>"}'>X</a>
+			<a class="check" href="#">X</a>
 			<div class="attachment-preview">
 				<div class="thumbnail">
 					<div class="centered">

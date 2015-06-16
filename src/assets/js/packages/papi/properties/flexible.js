@@ -33,8 +33,8 @@ class Flexible extends Repeater {
     const $tbody         = $repeater.find('.repeater-tbody');
     const counter        = $tbody.children().length;
     const jsonText       = this.getJSON($this);
-    const flexibleLayout = $this.data().flexibleLayout;
-    const limit          = $repeater.data().flexibleLimit;
+    const layout         = $this.data().layout;
+    const limit          = $repeater.data().limit;
     const append         = limit === undefined || limit === -1 || $tbody.find('> tr').length < limit;
 
     if (!jsonText.length || !append) {
@@ -44,7 +44,7 @@ class Flexible extends Repeater {
     let properties = $.parseJSON(jsonText);
 
     const self = this;
-    this.fetch(properties, counter, flexibleLayout, function (res) {
+    this.fetch(properties, counter, layout, function (res) {
       self.addRow($tbody, counter, res);
     });
   }

@@ -27,7 +27,7 @@ class Relationship {
     const $li    = $this.clone();
     const $right = $this.closest('.papi-property-relationship').find('.relationship-right');
     const $list  = $right.find('ul');
-    const limit  = $right.data().relationshipLimit;
+    const limit  = $right.data().limit;
     const append = limit === undefined || limit === -1 || $list.find('li').length < limit;
 
     if (append) {

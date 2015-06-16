@@ -529,7 +529,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected function render_repeater( $options ) {
 		$layouts = $this->get_settings_layouts();
 		?>
-		<div class="papi-property-flexible papi-property-repeater-top" data-flexible-limit="<?php echo $this->get_setting( 'limit' ); ?>">
+		<div class="papi-property-flexible papi-property-repeater-top" data-limit="<?php echo $this->get_setting( 'limit' ); ?>">
 			<table class="papi-table">
 				<tbody class="repeater-tbody flexible-tbody">
 					<?php $this->render_repeater_row(); ?>
@@ -542,7 +542,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						<div class="flexible-layouts-arrow"></div>
 						<ul>
 							<?php foreach ( $layouts as $layout ): ?>
-								<li data-flexible-layout="<?php esc_attr_e( $layout['slug'] ); ?>" data-papi-json="<?php echo $options->slug; ?>_repeater_json">
+								<li data-layout="<?php esc_attr_e( $layout['slug'] ); ?>" data-papi-json="<?php echo $options->slug; ?>_repeater_json">
 									<?php echo $layout['title']; ?>
 								</li>
 							<?php endforeach; ?>
