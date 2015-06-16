@@ -466,56 +466,67 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		}
 
 		?>
-			<td class="flexible-column <?php echo $layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
-				<table class="<?php echo $layout === 'table' ? 'flexible-table' : 'papi-table'; ?>">
-					<?php
-					if ( $layout === 'table' ):
-						echo '<thead>';
+			<td class="repeater-column flexible-column <?php echo $layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
+				<div class="repeater-content-open">
+					<table class="<?php echo $layout === 'table' ? 'flexible-table' : 'papi-table'; ?>">
+						<?php
+						if ( $layout === 'table' ):
+							echo '<thead>';
+							for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
+								echo '<th>';
+								echo $row[$i]->title;
+								echo '</th>';
+							}
+							echo '</thead>';
+						endif;
+
+						echo '<tbody>';
+
+						if ( $layout === 'table' ):
+							echo '<tr>';
+						endif;
+
 						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
-							echo '<th>';
+							$render_property = clone $row[$i]->get_options();
+							$value_slug      = papi_remove_papi( $render_property->slug );
+
+							if ( $has_value && array_key_exists( $value_slug, $value ) ) {
+								$render_property->value = $value[$value_slug];
+							}
+
+							$render_property->slug  = $this->html_name( $render_property, $this->counter );
+							$render_property->raw   = $layout === 'table';
+
+							if ( $layout === 'table' ) {
+								echo '<td>';
+							}
+
+							$flexible_layout = isset( $flexible_layout ) ? $flexible_layout : $value[$this->layout_key];
+							$this->render_layout_input( $value_slug, $flexible_layout );
+							papi_render_property( $render_property );
+
+							if ( $layout === 'table' ) {
+								echo '</td>';
+							}
+						}
+
+						if ( $layout === 'table' ):
+							echo '</tr>';
+						endif;
+
+						echo '</tbody>';
+						?>
+					</table>
+				</div>
+				<div class="repeater-content-closed">
+					<?php
+						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
+							echo '<span>';
 							echo $row[$i]->title;
-							echo '</th>';
+							echo '</span>';
 						}
-						echo '</thead>';
-					endif;
-
-					echo '<tbody>';
-
-					if ( $layout === 'table' ):
-						echo '<tr>';
-					endif;
-
-					for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
-						$render_property = clone $row[$i]->get_options();
-						$value_slug      = papi_remove_papi( $render_property->slug );
-
-						if ( $has_value && array_key_exists( $value_slug, $value ) ) {
-							$render_property->value = $value[$value_slug];
-						}
-
-						$render_property->slug  = $this->html_name( $render_property, $this->counter );
-						$render_property->raw   = $layout === 'table';
-
-						if ( $layout === 'table' ) {
-							echo '<td>';
-						}
-
-						$flexible_layout = isset( $flexible_layout ) ? $flexible_layout : $value[$this->layout_key];
-						$this->render_layout_input( $value_slug, $flexible_layout );
-						papi_render_property( $render_property );
-
-						if ( $layout === 'table' ) {
-							echo '</td>';
-						}
-					}
-
-					if ( $layout === 'table' ):
-						echo '</tr>';
-					endif;
-
-					echo '</tbody>';
 					?>
-				</table>
+				</div>
 			</td>
 		<?php
 	}
@@ -601,7 +612,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 			<tr>
 				<td class="handle">
-					<span><?php echo $this->counter + 1; ?></span>
+					<span class="toggle"></span>
+					<span class="count"><?php echo $this->counter + 1; ?></span>
 				</td>
 				<?php
 				foreach ( $layouts as $layout ) {
@@ -636,7 +648,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		<script type="text/template" id="tmpl-papi-property-flexible-row">
 			<tr>
 				<td class="handle">
-					<span><%= counter + 1 %></span>
+					<span class="toggle"></span>
+					<span class="count"><%= counter + 1 %></span>
 				</td>
 				<%= columns %>
 				<td class="last">

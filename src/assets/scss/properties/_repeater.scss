@@ -14,6 +14,53 @@
     tr {
       background: #fff;
 
+      &.closed {
+        .handle {
+          height: 0px;
+
+          .count {
+            top: 75%;
+          }
+
+          .toggle {
+            margin-top: -5px;
+            padding-top: 3px;
+            padding-bottom: 0;
+
+            &:before {
+              content: '\f140';
+            }
+          }
+        }
+
+        .repeater-column {
+          background: #f9f9f9;
+          border-bottom: 0;
+          border-top: 1px solid #eaeaea;
+          text-align: center;
+        }
+
+        .repeater-content-open {
+          display: none;
+          height: 15px;
+        }
+
+        .repeater-content-closed {
+          display: table;
+          width: 100%;
+          table-layout:fixed;
+          span {
+            color: #afafaf;
+            display: table-cell;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.4em;
+            padding-top: 10px;
+            width: 100%;
+          }
+        }
+      }
+
       th {
         background: #f9f9f9;
         border: 1px solid #eaeaea;
@@ -67,9 +114,9 @@
           position: relative;
           width: 5%;
 
-          > span {
+          span {
             color: #afafaf;
-            margin-top: -.5em;
+            margin-top: -10px;
             overflow: hidden;
             position: absolute;
             text-align: center;
@@ -77,6 +124,20 @@
             top: 50%;
             white-space: nowrap;
             width: 100%;
+
+            &.toggle {
+              cursor: pointer;
+              border-bottom: 1px #f9f9f9 solid;
+              font: normal 20px/1 'dashicons';
+              margin-top: 4px;
+              padding-bottom: 4px;
+              top: 0%;
+
+              &:before {
+                content: '\f142';
+                margin-left: -2px;
+              }
+            }
           }
         }
 
@@ -107,6 +168,10 @@
             }
           }
         }
+      }
+
+      .repeater-content-closed {
+        display: none;
       }
 
       .repeater-remove-item {

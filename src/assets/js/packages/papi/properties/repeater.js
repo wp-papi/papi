@@ -105,6 +105,12 @@ class Repeater {
       self.add($(this));
     });
 
+    $(document).on('click', '.repeater-tbody span.toggle', function (e) {
+      e.preventDefault();
+      // e.stopPropagation();
+      self.toggle($(this));
+    });
+
     $(document).on('click', '.papi-property-repeater .repeater-remove-item', function (e) {
       e.preventDefault();
       self.remove($(this));
@@ -179,6 +185,16 @@ class Repeater {
     $('html, body').animate({
       scrollTop: $tr.offset().top - $tr.height()
     });
+  }
+
+  /**
+   * Toggle the row content.
+   *
+   * @param {object} $this
+   */
+
+  toggle($this) {
+    $this.closest('tr').toggleClass('closed');
   }
 
   /**
