@@ -167,6 +167,24 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	}
 
 	/**
+	 * Get layout by slug.
+	 *
+	 * @param string $slug
+	 *
+	 * @return
+	 */
+
+	protected function get_layout( $slug ) {
+		$layouts = $this->get_settings_layouts();
+
+		foreach ( $layouts as $layout ) {
+			if ( $layout['slug'] === $slug ) {
+				return $layout;
+			}
+		}
+	}
+
+	/**
 	 * Get layout value.
 	 *
 	 * @param string $prefix
@@ -457,20 +475,16 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 
 	protected function render_properties( $row, $value ) {
-		$layout    = $this->get_setting( 'layout' );
-		$has_value = $value !== false;
-
-		if ( isset( $row['items'] ) ) {
-			$flexible_layout = $row['slug'];
-			$row = $row['items'];
-		}
-
+		$has_value     = $value !== false;
+		$layout_slug   = isset( $row['slug'] ) ? $row['slug'] : $value['_layout'];
+		$render_layout = $this->get_setting( 'layout' );
+		$row           = isset( $row['items'] ) ? $row['items'] : $row;
 		?>
-			<td class="repeater-column flexible-column <?php echo $layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
+			<td class="repeater-column flexible-column <?php echo $render_layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
 				<div class="repeater-content-open">
-					<table class="<?php echo $layout === 'table' ? 'flexible-table' : 'papi-table'; ?>">
+					<table class="<?php echo $render_layout === 'table' ? 'flexible-table' : 'papi-table'; ?>">
 						<?php
-						if ( $layout === 'table' ):
+						if ( $render_layout === 'table' ):
 							echo '<thead>';
 							for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
 								echo '<th>';
@@ -482,7 +496,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 						echo '<tbody>';
 
-						if ( $layout === 'table' ):
+						if ( $render_layout === 'table' ):
 							echo '<tr>';
 						endif;
 
@@ -495,22 +509,22 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 							}
 
 							$render_property->slug  = $this->html_name( $render_property, $this->counter );
-							$render_property->raw   = $layout === 'table';
+							$render_property->raw   = $render_layout === 'table';
 
-							if ( $layout === 'table' ) {
+							if ( $render_layout === 'table' ) {
 								echo '<td>';
 							}
 
-							$flexible_layout = isset( $flexible_layout ) ? $flexible_layout : $value[$this->layout_key];
-							$this->render_layout_input( $value_slug, $flexible_layout );
+							$layout_value = isset( $layout_slug ) ? $layout_slug : $value[$this->layout_key];
+							$this->render_layout_input( $value_slug, $layout_value );
 							papi_render_property( $render_property );
 
-							if ( $layout === 'table' ) {
+							if ( $render_layout === 'table' ) {
 								echo '</td>';
 							}
 						}
 
-						if ( $layout === 'table' ):
+						if ( $render_layout === 'table' ):
 							echo '</tr>';
 						endif;
 
@@ -520,10 +534,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				</div>
 				<div class="repeater-content-closed">
 					<?php
-						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
-							echo '<span>';
-							echo $row[$i]->title;
-							echo '</span>';
+						if ( $layout = $this->get_layout( $layout_slug ) ) {
+							echo $layout['title'];
 						}
 					?>
 				</div>

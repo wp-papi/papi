@@ -207,7 +207,7 @@ class Repeater {
     $tbody.find('> tr').each((i, el) => {
       let $el = $(el);
 
-      $el.find('> td:first-child span').text(i + 1);
+      $el.find('> td:first-child .count').text(i + 1);
 
       $el.find('[name*="papi_"]').each(function () {
         let $input = $(this);
