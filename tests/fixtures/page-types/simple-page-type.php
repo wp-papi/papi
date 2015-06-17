@@ -119,10 +119,10 @@ class Simple_Page_Type extends Papi_Page_Type {
 
 		// Test default value.
 		$this->box( 'Hello', papi_property( [
-			'default' => 'Fredrik',
-			'slug'    => 'name_default',
-			'type'    => 'string',
-			'title'   => 'Name'
+			'slug'  => 'name_default',
+			'type'  => 'string',
+			'title' => 'Name',
+			'value' => 'Fredrik'
 		] ) );
 	}
 

@@ -215,14 +215,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( 'hello value', $property->get_value() );
 
-		$property->set_options( [
-			'default' => 'hello default',
-			'type'    => 'string',
-			'slug'    => 'name'
-		] );
-
-		$this->assertEquals( 'hello default', $property->get_value() );
-
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 
 		$page_type = papi_get_page_type_by_id( 'simple-page-type' );

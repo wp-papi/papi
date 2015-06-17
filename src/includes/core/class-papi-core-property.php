@@ -27,7 +27,6 @@ class Papi_Core_Property {
 
 	protected $default_options = [
 		'capabilities' => [],
-		'default'      => '',
 		'description'  => '',
 		'disabled'     => false,
 		'lang'         => false,
@@ -449,10 +448,6 @@ class Papi_Core_Property {
 		}
 
 		$value = $this->prepare_value( $value );
-
-		if ( papi_is_empty( $value ) && ! papi_is_empty( $this->get_option( 'default' ) ) ) {
-			return $this->get_option( 'default' );
-		}
 
 		return $value;
 	}
