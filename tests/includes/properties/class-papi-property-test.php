@@ -14,8 +14,11 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->post_id = $this->factory->post->create();
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
 
+		$this->post_id = $this->factory->post->create();
 		$_GET['post'] = $this->post_id;
 	}
 
@@ -25,10 +28,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_converter() {
-		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
-		} );
-
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
 
 		$page_type = papi_get_page_type_by_id( 'properties-page-type' );
@@ -211,10 +210,25 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$property->set_options( [
 			'type'  => 'string',
 			'slug'  => 'name',
-			'value' => 'hello world'
+			'value' => 'hello value'
 		] );
 
-		$this->assertEquals( 'hello world', $property->get_value() );
+		$this->assertEquals( 'hello value', $property->get_value() );
+
+		$property->set_options( [
+			'default' => 'hello default',
+			'type'    => 'string',
+			'slug'    => 'name'
+		] );
+
+		$this->assertEquals( 'hello default', $property->get_value() );
+
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+
+		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$property  = $page_type->get_property( 'name_default' );
+
+		$this->assertEquals( 'Fredrik', $property->get_value() );
 	}
 
 	public function test_get_option() {

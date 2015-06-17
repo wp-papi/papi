@@ -116,6 +116,14 @@ class Simple_Page_Type extends Papi_Page_Type {
 		] );
 
 		$this->box( 'Content box broken', [ [ $this, 'content_box_broken' ] ] );
+
+		// Test default value.
+		$this->box( 'Hello', papi_property( [
+			'default' => 'Fredrik',
+			'slug'    => 'name_default',
+			'type'    => 'string',
+			'title'   => 'Name'
+		] ) );
 	}
 
 	public function content_box() {
