@@ -516,7 +516,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Render repeater html.
 	 *
-	 * @param object $options
+	 * @param stdClass $options
 	 */
 
 	protected function render_repeater( $options ) {
