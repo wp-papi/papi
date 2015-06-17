@@ -254,9 +254,6 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 		return false;
 	}
 
-	$cache_key = papi_get_cache_key( $slug, $post_id );
-	wp_cache_set( $cache_key, false );
-
 	papi_delete_field( $post_id, $slug, $type );
 
 	return papi_property_update_meta( [
@@ -267,7 +264,7 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 }
 
 /**
- * Echo the property value for property on a page.
+ * Echo the value for property on a page.
  *
  * @param int $post_id
  * @param string $slug
