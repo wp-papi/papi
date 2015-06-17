@@ -271,12 +271,14 @@ class Papi_Core_Property {
 			papi()->bind( $class_name, new $class_name() );
 		}
 
-		$property = clone papi()->make( $class_name );
+		$class = papi()->make( $class_name );
 
-		if ( $property instanceof Papi_Core_Property === false ) {
-			papi()->remove( $class_name );
-			return;
+		if ( ! is_object( $class ) || $class instanceof Papi_Core_Property === false ) {
+			$class = new $class_name();
+			papi()->bind( $class_name, $class );
 		}
+
+		$property = clone $class;
 
 		if ( is_object( $options ) ) {
 			$property->set_options( $options );

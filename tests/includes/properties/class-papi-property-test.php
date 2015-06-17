@@ -159,14 +159,25 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 1000, $default_options['sort_order'] );
 	}
 
-	public function test_factory() {
+	public function test_factory_fake() {
 		require_once PAPI_FIXTURE_DIR . '/properties/class-papi-property-fake.php';
 
 		$this->assertNull( Papi_Property::factory( null ) );
 		$this->assertNull( Papi_Property::factory( '' ) );
 		$this->assertNull( Papi_Property::factory( 'fake' ) );
+	}
 
-		$this->assertTrue( is_object( Papi_Property::factory( 'string' ) ) );
+	public function test_factory_bad_value() {
+		papi()->bind( 'Papi_Property_String', '' );
+		$this->assertTrue( Papi_Property::factory( 'string' ) instanceof Papi_Property );
+	}
+
+	public function test_factory_property() {
+		$property = Papi_Property::create( [
+			'type'  => 'string',
+			'title' => 'Hello'
+		] );
+		$this->assertTrue( Papi_Property::factory( $property ) instanceof Papi_Property );
 	}
 
 	public function test_format_value() {
