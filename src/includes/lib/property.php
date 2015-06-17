@@ -480,7 +480,6 @@ function papi_property_update_meta( array $meta = [] ) {
 		} else {
 			return delete_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ) );
 		}
-		return;
 	}
 
 	$result = true;
