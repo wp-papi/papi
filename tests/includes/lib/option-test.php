@@ -13,10 +13,24 @@ class Papi_Lib_Option_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
+		$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/options/header-option-type';
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
+	}
+
+	public function tearDown() {
+		parent::tearDown();
+		$_SERVER['REQUEST_URI'] = '';
+	}
+
+	public function test_papi_delete_option() {
+		$this->assertFalse( papi_delete_option( 'fake_slug' ) );
+		update_option( 'name', 'Kalle' );
+		$this->assertEquals( 'Kalle', papi_option( 'name' ) );
+		$this->assertTrue( papi_delete_option( 'name' ) );
+		$this->assertNull( papi_option( 'name' ) );
 	}
 
 	public function test_papi_option() {
@@ -39,6 +53,15 @@ class Papi_Lib_Option_Test extends WP_UnitTestCase {
 			'slug'    => 'numbers',
 			'default' => [1, 2, 3]
 		] ) );
+	}
+
+	public function test_papi_update_option() {
+		$this->assertFalse( papi_update_option( 0, 'fake_slug' ) );
+		$this->assertFalse( papi_update_option( 'fake_slug' ) );
+		$this->assertFalse( papi_update_option( 93099, 'fake_slug' ) );
+		$this->assertFalse( papi_update_option( 'fake_slug' ) );
+		$this->assertTrue( papi_update_option( 'name', 'Kalle' ) );
+		$this->assertEquals( 'Kalle', papi_option( 'name' ) );
 	}
 
 	public function test_the_papi_field() {

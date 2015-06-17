@@ -10,6 +10,18 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Delete value in the database.
+ *
+ * @param string $slug
+ *
+ * @return bool
+ */
+
+function papi_delete_option( $slug ) {
+	return papi_delete_field( 0, $slug, 'option' );
+}
+
+/**
  * Check if it's a option page url.
  *
  * @return bool
@@ -68,6 +80,19 @@ function papi_option_shortcode( $atts ) {
 }
 
 add_shortcode( 'papi_option', 'papi_option_shortcode' );
+
+/**
+ * Update field with new value. The old value will be deleted.
+ *
+ * @param string $slug
+ * @param string $type
+ *
+ * @return bool
+ */
+
+function papi_update_option( $slug, $value = null ) {
+	return papi_update_field( 0, $slug, $value, 'option' );
+}
 
 /**
  * Echo the property value for property on a option page.
