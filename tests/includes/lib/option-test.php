@@ -41,7 +41,7 @@ class Papi_Lib_Option_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'fredrik', papi_option( 'name' ) );
 	}
 
-	public function test_papi_field_shortcode() {
+	public function test_papi_option_shortcode() {
 		update_option( 'name', 'fredrik' );
 
 		$this->assertEmpty( papi_option_shortcode( [] ) );
@@ -64,7 +64,7 @@ class Papi_Lib_Option_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Kalle', papi_option( 'name' ) );
 	}
 
-	public function test_the_papi_field() {
+	public function test_the_papi_option() {
 		update_option( 'name', 'fredrik' );
 
 		the_papi_option( 'name' );

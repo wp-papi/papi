@@ -95,7 +95,7 @@ function papi_update_option( $slug, $value = null ) {
 }
 
 /**
- * Echo the property value for property on a option page.
+ * Echo the value for property on a option page.
  *
  * @param string $slug
  * @param mixed $default
