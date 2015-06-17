@@ -102,10 +102,7 @@ class Papi_Property_Reference extends Papi_Property {
 				</p>
 			<?php
 			endif;
-
-			ksort( $values );
-
-			foreach ( $values as $title => $val ):
+			ksort( $values ); foreach ( $values as $title => $val ):
 				$post_type = get_post_type_object( $title );
 				?>
 				<li>
@@ -122,9 +119,11 @@ class Papi_Property_Reference extends Papi_Property {
 								</li>
 								<li>
 									<div class="box">
-										<?php $i = 0; foreach ( $posts as $post ): ?>
+										<?php $i = 0;
+										foreach ( $posts as $post ): ?>
 											<a href="<?php echo get_edit_post_link( $post->ID ); ?>"><?php echo $post->post_title; ?></a>
-										<?php $i++; endforeach; ?>
+										<?php $i++;
+										endforeach; ?>
 										<div class="clear"></div>
 									</div>
 								</li>
