@@ -174,7 +174,6 @@ class Papi_Property_Repeater extends Papi_Property {
 		$values[$repeater_slug] = $value;
 
 		for ( $i = 0; $i < $value; $i++ ) {
-
 			$no_trash = [];
 
 			if ( ! isset( $no_trash[$i] ) ) {
@@ -537,10 +536,6 @@ class Papi_Property_Repeater extends Papi_Property {
 			<?php /* Default repeater value */ ?>
 
 			<input type="hidden" name="<?php echo $options->slug; ?>[]" />
-
-			<?php $values = $this->get_value(); ?>
-
-			<input type="hidden" name="__<?php echo $options->slug; ?>_rows" value="<?php echo count( $values ); ?>" class="papi-property-repeater-rows" />
 		</div>
 		<?php
 	}
@@ -654,13 +649,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function update_value( $values, $repeater_slug, $post_id ) {
-		$rows_key   = papi_ff( papify( $repeater_slug ) . '_rows' );
-		$rows       = 0;
-
-		if ( isset( $_POST[$rows_key] ) ) {
-			$rows = $_POST[$rows_key];
-			$rows = intval( $rows );
-		}
+		$rows = intval( get_post_meta( $post_id, $repeater_slug, true ) );
 
 		if ( ! is_array( $values ) ) {
 			$values = [];

@@ -579,11 +579,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			<?php /* Default repeater value */ ?>
 
 			<input type="hidden" name="<?php echo $this->get_slug(); ?>[]" />
-
-			<?php $values = $this->get_value(); ?>
-
-			<input type="hidden" name="__<?php echo $this->get_slug(); ?>_rows" value="<?php echo count( $values ); ?>" class="papi-property-repeater-rows" />
-
 		</div>
 		<?php
 	}
