@@ -342,7 +342,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Change value after it's loaded from the database
 	 * and populate every property in the repeater with the right property type.
 	 *
-	 * @param mixed $value
+	 * @param int $value
 	 * @param string $repeater_slug
 	 * @param int $post_id
 	 */
