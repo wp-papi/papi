@@ -36,14 +36,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	private $types = ['option', 'post'];
 
 	/**
-	 * The constructor.
-	 */
-
-	public function __construct( $post_id = 0 ) {
-		$this->id = intval( $post_id );
-	}
-
-	/**
 	 * Get Papi property value.
 	 *
 	 * @param string $slug
