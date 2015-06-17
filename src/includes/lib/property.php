@@ -453,6 +453,8 @@ function papi_populate_properties( $properties ) {
  * or update property values on the option page.
  *
  * @param array $meta
+ *
+ * @return bool
  */
 
 function papi_property_update_meta( array $meta = [] ) {
@@ -474,12 +476,14 @@ function papi_property_update_meta( array $meta = [] ) {
 
 	if ( papi_is_empty( $meta->value ) ) {
 		if ( $option ) {
-			delete_option( papi_remove_papi( $meta->slug ) );
+			return delete_option( papi_remove_papi( $meta->slug ) );
 		} else {
-			delete_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ) );
+			return delete_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ) );
 		}
 		return;
 	}
+
+	$result = true;
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
 		if ( ! is_array( $value ) ) {
@@ -488,9 +492,11 @@ function papi_property_update_meta( array $meta = [] ) {
 			}
 
 			if ( $option ) {
-				update_option( papi_remove_papi( $meta->slug ), $value );
+				$out = update_option( papi_remove_papi( $meta->slug ), $value );
+				$result = $out ? $result : $out;
 			} else {
-				update_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ), $value );
+				$out = update_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ), $value );
+				$result = $out ? $result : $out;
 			}
 
 			continue;
@@ -504,6 +510,8 @@ function papi_property_update_meta( array $meta = [] ) {
 			}
 		}
 	}
+
+	return $result;
 }
 
 /**

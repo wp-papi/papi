@@ -206,6 +206,23 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Delete value from the database.
+	 *
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return bool
+	 */
+
+	public function delete_value(  $slug, $post_id ) {
+		if ( $this->is_option_page() ) {
+			return delete_option( $slug );
+		}
+
+		return delete_post_meta( $post_id, $slug );
+	}
+
+	/**
 	 * Create a new instance of the given type.
 	 *
 	 * @param mixed $type

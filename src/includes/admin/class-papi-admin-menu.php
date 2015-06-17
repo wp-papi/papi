@@ -46,13 +46,13 @@ class Papi_Admin_Menu {
 			return $page_type;
 		}
 
-		$data_page = papi_get_page();
+		$page = papi_get_page();
 
-		if ( is_null( $data_page ) || ! $data_page->is( 'post' ) ) {
+		if ( is_null( $page ) || ! $page->is( 'post' ) ) {
 			return;
 		}
 
-		return $data_page->get_page_type();
+		return $page->get_page_type();
 	}
 
 	/**

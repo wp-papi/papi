@@ -60,6 +60,36 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	private $layout_prefix_regex = '/^\_flexible\_layout\_/';
 
 	/**
+	 * Delete value from the database.
+	 *
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return bool
+	 */
+
+	public function delete_value( $slug, $post_id ) {
+		$rows   = intval( get_post_meta( $post_id, $slug, true ) );
+		$option = $this->is_option_page();
+		$value  = $this->load_value( $rows, $slug, $post_id );
+		$value  = papi_to_property_array_slugs( $value, $slug );
+		$result = true;
+
+		foreach ( $value as $key => $value ) {
+			if ( $option ) {
+				$out    = delete_option( $key );
+				$result = $out ? $result : $out;
+				continue;
+			}
+
+			$out    = delete_post_meta( $post_id, $key );
+			$result = $out ? $result : $out;
+		}
+
+		return $result;
+	}
+
+	/**
 	 * Format the value of the property before we output it to the application.
 	 *
 	 * @param mixed $values
@@ -341,10 +371,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		// Will not need this array.
 		unset( $trash );
 
-		$results   = papi_from_property_array_slugs( $results, papi_remove_papi( $repeater_slug ) );
-		$data_page = $this->get_page();
+		$results = papi_from_property_array_slugs( $results, papi_remove_papi( $repeater_slug ) );
+		$page    = $this->get_page();
 
-		if ( empty( $data_page ) ) {
+		if ( is_null( $page ) ) {
 			return $this->default_value;
 		}
 
@@ -354,7 +384,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					continue;
 				}
 
-				if ( $property = $data_page->get_property( $repeater_slug, $slug ) ) {
+				if ( $property = $page->get_property( $repeater_slug, $slug ) ) {
 					$type_key = papi_get_property_type_key_f( $slug );
 					$results[$index][$type_key] = $property;
 				}

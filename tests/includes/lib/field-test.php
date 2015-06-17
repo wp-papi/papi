@@ -30,6 +30,23 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		unset( $_GET, $this->post_id );
 	}
 
+	public function test_papi_delete_field() {
+		$this->assertFalse( papi_delete_field( 0, 'fake_slug' ) );
+		$this->assertFalse( papi_delete_field( 'fake_slug' ) );
+		$this->assertFalse( papi_delete_field( 93099, 'fake_slug' ) );
+
+		update_post_meta( $this->post_id, 'name', 'brunnsgatan' );
+		$this->assertTrue( papi_delete_field( $this->post_id, 'name' ) );
+
+		$_GET['page_id'] = $this->post_id;
+		update_post_meta( $this->post_id, 'name', 'brunnsgatan' );
+		$this->assertTrue( papi_delete_field( 'name' ) );
+		unset( $_GET['page_id'] );
+
+		$this->assertFalse( papi_delete_field( $this->post_id, 'fake' ) );
+		$this->assertFalse( papi_delete_field( 0, 'fake' ) );
+	}
+
 	public function test_papi_field() {
 		update_post_meta( $this->post_id, 'name', 'fredrik' );
 
@@ -110,6 +127,14 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'fredrik', papi_field_shortcode( [
 			'slug' => 'name'
 		] ) );
+	}
+
+	public function test_papi_update_field() {
+		$this->assertFalse( papi_update_field( 0, 'fake_slug' ) );
+		$this->assertFalse( papi_update_field( 'fake_slug' ) );
+		$this->assertFalse( papi_update_field( 93099, 'fake_slug' ) );
+		$this->assertTrue( papi_update_field( $this->post_id, 'name', 'Kalle' ) );
+		$this->assertEquals( 'Kalle', papi_field( $this->post_id, 'name' ) );
 	}
 
 	public function test_the_papi_field() {

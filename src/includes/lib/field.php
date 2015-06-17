@@ -10,7 +10,47 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Get property value for a property on a page.
+ * Delete value in the database.
+ *
+ * @param int $post_id
+ * @param string $slug
+ * @param string $type
+ *
+ * @return bool
+ */
+
+function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
+	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
+		$slug    = $post_id;
+		$post_id = null;
+	}
+
+	$post_id = papi_get_post_id( $post_id );
+
+	if ( $post_id === 0 && $type === 'post' ) {
+		return false;
+	}
+
+	$page = papi_get_page( $post_id, $type );
+
+	if ( is_null( $page ) ) {
+		return false;
+	}
+
+	$property = $page->get_property( $slug );
+
+	if ( ! papi_is_property( $property ) ) {
+		return false;
+	}
+
+	$cache_key = papi_get_cache_key( $slug, $post_id );
+	wp_cache_set( $cache_key, false );
+
+	return $property->delete_value( $slug, $post_id );
+}
+
+/**
+ * Get value for a property on a page.
  *
  * @param int $post_id
  * @param string $slug
@@ -48,14 +88,14 @@ function papi_field( $post_id = null, $slug = null, $default = null, $type = 'po
 		$slugs = array_slice( $slugs, 1 );
 
 		// Get the right page for right data type.
-		$data_page = papi_get_page( $post_id, $type );
+		$page = papi_get_page( $post_id, $type );
 
 		// Return the default value if we don't have a valid page.
-		if ( is_null( $data_page ) ) {
+		if ( is_null( $page ) ) {
 			return $default;
 		}
 
-		$value = papi_field_value( $slugs, $data_page->get_value( $slug ), $default );
+		$value = papi_field_value( $slugs, $page->get_value( $slug ), $default );
 
 		if ( papi_is_empty( $value ) ) {
 			return $default;
@@ -178,6 +218,52 @@ function papi_field_value( $slugs, $value, $default = null ) {
 	}
 
 	return $value;
+}
+
+/**
+ * Update field with new value. The old value will be deleted.
+ *
+ * @param int $post_id
+ * @param string $slug
+ * @param string $type
+ *
+ * @return bool
+ */
+
+function papi_update_field( $post_id = null, $slug = null, $value = null, $type = 'post' ) {
+	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
+		$slug    = $post_id;
+		$post_id = null;
+	}
+
+	$post_id = papi_get_post_id( $post_id );
+
+	if ( $post_id === 0 && $type === 'post' ) {
+		return false;
+	}
+
+	$page = papi_get_page( $post_id, $type );
+
+	if ( is_null( $page ) ) {
+		return false;
+	}
+
+	$property = $page->get_property( $slug );
+
+	if ( ! papi_is_property( $property ) ) {
+		return false;
+	}
+
+	$cache_key = papi_get_cache_key( $slug, $post_id );
+	wp_cache_set( $cache_key, false );
+
+	papi_delete_field( $post_id, $slug, $type );
+
+	return papi_property_update_meta( [
+		'post_id'       => $post_id,
+		'slug'          => $slug,
+		'value'         => $property->update_value( $value, $slug, $post_id )
+	] );
 }
 
 /**

@@ -405,45 +405,45 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_property_update_meta() {
-		$this->assertEmpty( papi_property_update_meta( [
+		$this->assertTrue( papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'name',
 			'value'         => 'Fredrik'
 		] ) );
 
-		papi_property_update_meta( [
+		$this->assertFalse( papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'name',
 			'value'         => 'Fredrik'
-		] );
+		] ) );
 
 		$this->assertEquals( 'Fredrik', get_post_meta( $this->post_id, 'name', true ) );
 
-		papi_property_update_meta( [
+		$this->assertTrue( papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'name',
 			'value'         => ''
-		] );
+		] ) );
 
 		$this->assertEmpty( get_post_meta( $this->post_id, 'name', true ) );
 
-		papi_property_update_meta( [
+		$this->assertTrue( papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'what',
 			'value'         => [
 				'firstname' => 'Fredrik'
 			]
-		] );
+		] ) );
 
 		$this->assertEquals( 'Fredrik', get_post_meta( $this->post_id, 'firstname', true ) );
 
-		papi_property_update_meta( [
+		$this->assertTrue( papi_property_update_meta( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'what',
 			'value'         => [
 				'Fredrik'
 			]
-		] );
+		] ) );
 
 		$this->assertEquals( ['Fredrik'], get_post_meta( $this->post_id, 'what', true ) );
 	}
