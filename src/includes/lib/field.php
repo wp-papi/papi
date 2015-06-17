@@ -232,8 +232,13 @@ function papi_field_value( $slugs, $value, $default = null ) {
 
 function papi_update_field( $post_id = null, $slug = null, $value = null, $type = 'post' ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
+		$value   = $slug;
 		$slug    = $post_id;
 		$post_id = null;
+	}
+
+	if ( papi_is_empty( $value ) ) {
+		return false;
 	}
 
 	$post_id = papi_get_post_id( $post_id );

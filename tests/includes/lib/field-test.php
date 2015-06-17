@@ -131,9 +131,10 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 	public function test_papi_update_field() {
 		$this->assertFalse( papi_update_field( 0, 'fake_slug' ) );
-		$this->assertFalse( papi_update_field( 'fake_slug' ) );
-		$this->assertFalse( papi_update_field( 93099, 'fake_slug' ) );
-		$this->assertFalse( papi_update_field( $this->post_id, 'fake_slug' ) );
+		$this->assertFalse( papi_update_field( 0, 'fake_slug', 'value' ) );
+		$this->assertFalse( papi_update_field( 'fake_slug', 'value' ) );
+		$this->assertFalse( papi_update_field( 93099, 'fake_slug', 'value' ) );
+		$this->assertFalse( papi_update_field( $this->post_id, 'fake_slug', 'value' ) );
 		$this->assertTrue( papi_update_field( $this->post_id, 'name', 'Kalle' ) );
 		$this->assertEquals( 'Kalle', papi_field( $this->post_id, 'name' ) );
 	}
