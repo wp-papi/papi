@@ -66,11 +66,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	public function get_value( $slug ) {
 		$slug  = papi_remove_papi( $slug );
 		$value = papi_property_get_meta( $this->id, $slug, $this->type );
-
-		if ( papi_is_empty( $value ) ) {
-			return;
-		}
-
 		return $this->convert( $slug, $value );
 	}
 
@@ -88,6 +83,13 @@ abstract class Papi_Core_Page extends Papi_Container {
 
 		// If no property type is found, just return null.
 		if ( ! papi_is_property( $property ) ) {
+			return;
+		}
+
+		if ( papi_is_empty( $value ) ) {
+			if ( ! papi_is_empty( $property->get_option( 'default' ) ) ) {
+				return $property->get_option( 'default' );
+			}
 			return;
 		}
 

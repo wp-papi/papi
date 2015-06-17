@@ -38,7 +38,7 @@ class Papi_Core_Property {
 		'slug'         => '',
 		'sort_order'   => -1,
 		'title'        => '',
-		'type'         => '',
+		'type'         => 'string',
 		'value'        => ''
 	];
 
@@ -448,7 +448,13 @@ class Papi_Core_Property {
 			}
 		}
 
-		return $this->prepare_value( $value );
+		$value = $this->prepare_value( $value );
+
+		if ( papi_is_empty( $value ) && ! papi_is_empty( $this->get_option( 'default' ) ) ) {
+			return $this->get_option( 'default' );
+		}
+
+		return $value;
 	}
 
 	/**
@@ -528,61 +534,6 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Setup options.
-	 *
-	 * @param array|object $options
-	 */
-
-	private function setup_options( $options ) {
-		if ( ! is_array( $options ) ) {
-			return $options;
-		}
-
-		$options = array_merge( $this->default_options, $options );
-		$options = (object) $options;
-
-		if ( $options->sort_order === -1 ) {
-			$options->sort_order = papi_filter_settings_sort_order();
-		}
-
-		$options->capabilities = papi_to_array( $options->capabilities );
-
-		// Generate random slug if we don't have a title or slug.
-		if ( empty( $options->title ) && empty( $options->slug ) ) {
-			if ( empty( $options->type ) ) {
-				$options->slug = papi_slugify( uniqid() );
-			} else {
-				$options->slug = papi_slugify( $options->type );
-			}
-		}
-
-		// Generate slug from title.
-		if ( empty( $options->slug ) ) {
-			$options->slug = papi_slugify( $options->title );
-		}
-
-		// Generate a vaild Papi meta name for slug.
-		$options->slug = papi_html_name( $options->slug );
-
-		$type_class = self::factory( $options->type );
-
-		if ( is_object( $type_class ) ) {
-			$options->settings = array_merge( (array) $type_class->get_default_settings(), (array) $options->settings );
-		}
-
-		$options->settings = (object) $this->convert_settings( $options->settings );
-
-		$options = papi_esc_html( $options, ['html'] );
-
-		// Add default value if database value is empty.
-		if ( papi_is_empty( $options->value ) ) {
-			$options->value = $options->default;
-		}
-
-		return $options;
-	}
-
-	/**
 	 * Set the page that the property is on.
 	 *
 	 * @param Papi_Core_Page $page
@@ -636,14 +587,63 @@ class Papi_Core_Property {
 	 * Setup actions.
 	 */
 
-	protected function setup_actions() {
-	}
+	protected function setup_actions() {}
 
 	/**
 	 * Setup filters.
 	 */
 
-	protected function setup_filters() {
+	protected function setup_filters() {}
+
+	/**
+	 * Setup options.
+	 *
+	 * @param array|object $options
+	 *
+	 * @return mixed
+	 */
+
+	private function setup_options( $options ) {
+		if ( ! is_array( $options ) ) {
+			return $options;
+		}
+
+		if ( empty( $options ) ) {
+			return new stdClass;
+		}
+
+		$options = array_merge( $this->default_options, $options );
+		$options = (object) $options;
+
+		if ( $options->sort_order === -1 ) {
+			$options->sort_order = papi_filter_settings_sort_order();
+		}
+
+		$options->capabilities = papi_to_array( $options->capabilities );
+
+		// Generate slug from title or type.
+		if ( empty( $options->slug ) ) {
+			if ( empty( $options->title ) ) {
+				$options->slug = papi_slugify( $options->type );
+			} else {
+				$options->slug = papi_slugify( $options->title );
+			}
+		}
+
+		// Generate a vaild Papi meta name for slug.
+		$options->slug = papi_html_name( $options->slug );
+
+		$property_class = self::factory( $options->type );
+
+		if ( papi_is_property( $property_class ) ) {
+			$options->settings = array_merge( (array) $property_class->get_default_settings(), (array) $options->settings );
+		}
+
+		$options->settings = (object) $this->convert_settings( $options->settings );
+
+		$options = papi_esc_html( $options, ['html'] );
+
+		return $options;
 	}
 
 	/**

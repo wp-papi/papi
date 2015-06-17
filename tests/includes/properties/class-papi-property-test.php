@@ -154,7 +154,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$default_options = Papi_Property::default_options();
 		$this->assertTrue( is_array( $default_options ) );
 		$this->assertEmpty( $default_options['title'] );
-		$this->assertEmpty( $default_options['type'] );
+		$this->assertEquals( 'string', $default_options['type'] );
 		$this->assertEmpty( $default_options['slug'] );
 		$this->assertEquals( 1000, $default_options['sort_order'] );
 	}
@@ -308,12 +308,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEmpty( $property->get_slug() );
 
-		$property = Papi_Property::create();
-
-		// this will not be empty since a property without a slug will get a generated uniq id.
-		$this->assertRegExp( '/papi\_\w+/', $property->get_slug() );
-
-		$property->set_options( [
+		$property = Papi_Property::create( [
 			'type'  => 'string',
 			'slug'  => 'name',
 			'value' => 'Fredrik'
@@ -378,8 +373,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	public function test_html_name() {
 		$property = Papi_Property::create();
-		// this will not be empty since a property without a slug will get a generated uniq id.
-		$this->assertRegExp( '/papi\_\w+/', $property->html_name() );
 
 		$property->set_options( [
 			'type'  => 'string',
@@ -588,7 +581,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
 
 		$property = Papi_Property::create( [
-			'type'     => 'string'
+			'type' => 'string'
 		] );
 
 		$this->assertEquals( 'papi_string', $property->get_option( 'slug' ) );
