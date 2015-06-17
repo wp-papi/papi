@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Get property value for property on a page.
+ * Get property value for a property on a page.
  *
  * @param int $post_id
  * @param string $slug
