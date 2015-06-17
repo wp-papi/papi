@@ -85,7 +85,7 @@ add_shortcode( 'papi_option', 'papi_option_shortcode' );
  * Update field with new value. The old value will be deleted.
  *
  * @param string $slug
- * @param string $type
+ * @param mixed $value
  *
  * @return bool
  */

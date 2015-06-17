@@ -412,7 +412,7 @@ function papi_is_metod( $method ) {
 		return false;
 	}
 
-	return $_SERVER ['REQUEST_METHOD'] == strtoupper( $method );
+	return $_SERVER ['REQUEST_METHOD'] === strtoupper( $method );
 }
 
 /**

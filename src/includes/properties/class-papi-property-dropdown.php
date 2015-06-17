@@ -59,7 +59,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 				}
 				?>
 				<option
-					value="<?php echo $value; ?>" <?php echo $key == $settings->selected ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
+					value="<?php echo $value; ?>" <?php echo $key === $settings->selected ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
 			<?php endforeach; ?>
 		</select>
 	<?php

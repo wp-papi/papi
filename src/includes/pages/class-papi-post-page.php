@@ -123,7 +123,7 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 */
 
 	public function valid() {
-		return $this->post != null;
+		return ! is_null( $this->post );
 	}
 
 }

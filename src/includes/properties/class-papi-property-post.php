@@ -115,7 +115,7 @@ class Papi_Property_Post extends Papi_Property {
 							continue;
 						}
 					?>
-						<option value="<?php echo $post->ID; ?>" <?php echo $value == $post->ID ? 'selected="selected"' : ''; ?>>
+						<option value="<?php echo $post->ID; ?>" <?php echo $value === $post->ID ? 'selected="selected"' : ''; ?>>
 							<?php echo $post->post_title; ?>
 						</option>
 					<?php endforeach; ?>

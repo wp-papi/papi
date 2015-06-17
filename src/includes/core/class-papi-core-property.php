@@ -214,7 +214,7 @@ class Papi_Core_Property {
 	 * @return bool
 	 */
 
-	public function delete_value(  $slug, $post_id ) {
+	public function delete_value( $slug, $post_id ) {
 		if ( $this->is_option_page() ) {
 			return delete_option( $slug );
 		}

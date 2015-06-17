@@ -96,17 +96,18 @@ class Papi_Property_Reference extends Papi_Property {
 
 		?>
 		<ul class="papi-property-reference">
-			<?php
-			if ( empty( $values ) ) {
-				?>
+			<?php if ( empty( $values ) ): ?>
 				<p>
 					<?php _e( 'No references exists', 'papi' ); ?>
-					</p>
-					<?php
-			}
+				</p>
+			<?php
+			endif;
 
-				ksort( $values ); foreach ( $values as $title => $val ): ?>
-				<?php $post_type = get_post_type_object( $title ); ?>
+			ksort( $values );
+
+			foreach ( $values as $title => $val ):
+				$post_type = get_post_type_object( $title );
+				?>
 				<li>
 					<h3><?php echo $post_type->labels->name; ?></h3>
 					<div class="handlediv" title="Click to toggle"><br></div>

@@ -151,7 +151,7 @@ class Papi_Property_Relationship extends Papi_Property {
 						<strong><?php _e( 'Sort by', 'papi' ); ?></strong>
 						<select name="_<?php echo $slug; ?>_sort_option">
 							<?php foreach ( static::get_sort_options() as $key => $v ): ?>
-								<option value="<?php echo $key; ?>" <?php echo $key == $sort_option ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
+								<option value="<?php echo $key; ?>" <?php echo $key === $sort_option ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
 							<?php endforeach; ?>
 						</select>
 					<?php endif; ?>

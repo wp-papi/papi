@@ -62,7 +62,7 @@ class Papi_Admin_Meta_Box_Tabs {
 
 				foreach ( $this->tabs as $tab ):
 					?>
-					<li class="<?php echo $this->tabs[0] == $tab ? 'active' : ''; ?>">
+					<li class="<?php echo $this->tabs[0] === $tab ? 'active' : ''; ?>">
 						<a href="#" data-papi-tab="<?php echo $tab->options->_name; ?>">
 							<?php if ( ! empty( $tab->options->icon ) ): ?>
 								<img src="<?php echo $tab->options->icon; ?>" alt="<?php echo $tab->options->title; ?>"/>
@@ -78,7 +78,7 @@ class Papi_Admin_Meta_Box_Tabs {
 				<?php
 				foreach ( $this->tabs as $tab ):
 					?>
-					<div class="<?php echo $this->tabs[0] == $tab ? 'active' : ''; ?>"
+					<div class="<?php echo $this->tabs[0] === $tab ? 'active' : ''; ?>"
 					     data-papi-tab="<?php echo $tab->options->_name; ?>">
 						<?php
 

@@ -38,7 +38,7 @@ class Papi_Property_Number extends Papi_Property_String {
 	 */
 
 	public function format_value( $value, $slug, $post_id ) {
-		if ( floatval( $value ) && intval( $value ) != floatval( $value ) ) {
+		if ( floatval( $value ) && intval( $value ) !== floatval( $value ) ) {
 			return floatval( $value );
 		} else {
 			return intval( $value );

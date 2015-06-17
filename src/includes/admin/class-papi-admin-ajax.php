@@ -87,7 +87,7 @@ class Papi_Admin_Ajax {
 
 		$action = $wp_query->get( 'papi_action' );
 
-		if ( is_user_logged_in() && has_action( $this->action_prefix . $action ) != false ) {
+		if ( is_user_logged_in() && has_action( $this->action_prefix . $action ) !== false ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {
 				define( 'DOING_AJAX', true );
 			}
