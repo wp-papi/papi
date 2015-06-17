@@ -534,9 +534,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				</div>
 				<div class="repeater-content-closed">
 					<?php
-						if ( $layout = $this->get_layout( $layout_slug ) ) {
-							echo $layout['title'];
-						}
+					if ( $layout = $this->get_layout( $layout_slug ) ) {
+						echo $layout['title'];
+					}
 					?>
 				</div>
 			</td>
