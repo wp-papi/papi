@@ -105,6 +105,12 @@ class Repeater {
       self.add($(this));
     });
 
+    $(document).on('click', '.repeater-tbody span.toggle', function (e) {
+      e.preventDefault();
+      // e.stopPropagation();
+      self.toggle($(this));
+    });
+
     $(document).on('click', '.papi-property-repeater .repeater-remove-item', function (e) {
       e.preventDefault();
       self.remove($(this));
@@ -182,6 +188,16 @@ class Repeater {
   }
 
   /**
+   * Toggle the row content.
+   *
+   * @param {object} $this
+   */
+
+  toggle($this) {
+    $this.closest('tr').toggleClass('closed');
+  }
+
+  /**
    * Update table row number.
    *
    * @param {object} $tbody
@@ -191,7 +207,7 @@ class Repeater {
     $tbody.find('> tr').each((i, el) => {
       let $el = $(el);
 
-      $el.find('> td:first-child span').text(i + 1);
+      $el.find('> td:first-child .count').text(i + 1);
 
       $el.find('[name*="papi_"]').each(function () {
         let $input = $(this);

@@ -470,8 +470,9 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		if ( $layout === 'row' ): ?>
 		<td class="repeater-layout-row">
-			<table class="papi-table">
-				<tbody>
+			<div class="repeater-content-open">
+				<table class="papi-table">
+					<tbody>
 		<?php endif;
 
 		$has_value = $value !== false;
@@ -493,18 +494,21 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			if ( $layout === 'table' ) {
 				echo '<td class="repeater-column">';
+					echo '<div class="repeater-content-open">';
 			}
 
 			papi_render_property( $render_property );
 
 			if ( $layout === 'table' ) {
+					echo '</div>';
 				echo '</td>';
 			}
 		}
 
 		if ( $layout === 'row' ): ?>
-				</tbody>
-			</table>
+					</tbody>
+				</table>
+			</div>
 		</td>
 		<?php endif;
 	}
@@ -593,7 +597,8 @@ class Papi_Property_Repeater extends Papi_Property {
 			?>
 			<tr>
 				<td class="handle">
-					<span><?php echo $this->counter + 1; ?></span>
+					<span class="toggle"></span>
+					<span class="count"><?php echo $this->counter + 1; ?></span>
 				</td>
 				<?php
 					$this->render_properties( $items, $row );
@@ -618,7 +623,8 @@ class Papi_Property_Repeater extends Papi_Property {
 		<script type="text/template" id="tmpl-papi-property-repeater-row">
 			<tr>
 				<td class="handle">
-					<span><%= counter + 1 %></span>
+					<span class="toggle"></span>
+					<span class="counter"><%= counter + 1 %></span>
 				</td>
 				<%= columns %>
 				<td class="last">

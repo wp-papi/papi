@@ -1,7 +1,3 @@
-.papi-property-repeater-templates {
-  display: none;
-}
-
 .papi-property-repeater,
 .papi-property-flexible {
   margin-right: -31px;
@@ -14,11 +10,59 @@
     tr {
       background: #fff;
 
+      &.closed {
+        .handle {
+          .count {
+            top: 68%;
+          }
+
+          .toggle {
+            margin-top: 0;
+            padding: 0;
+
+            &:before {
+              content: '\f140';
+            }
+          }
+        }
+
+        .repeater-column {
+          background: #f9f9f9;
+          border-bottom: 0;
+          border-top: 1px solid #eaeaea;
+          text-align: center;
+        }
+
+        .repeater-content-open {
+          display: none;
+        }
+
+        .repeater-content-closed {
+          color: #afafaf;
+          display: block;
+          font-size: 12px;
+          font-weight: 700;
+          line-height: 1.4em;
+          padding-top: 12px;
+          text-align: center;
+          width: 100%;
+        }
+
+        .repeater-layout-row {
+          background: #f9f9f9;
+          border-bottom: 0;
+          border-top: 1px solid #eaeaea;
+          padding: 0;
+          text-align: center;
+        }
+      }
+
       th {
         background: #f9f9f9;
         border: 1px solid #eaeaea;
         border-bottom: 0;
         border-left: 0;
+        font-size: 12px;
         padding: 10px 15px;
 
         &:first-child,
@@ -33,7 +77,6 @@
           width: 5%;
 
           > span {
-            margin-top: -.5em;
             overflow: hidden;
             position: absolute;
             text-align: center;
@@ -45,7 +88,7 @@
         }
 
         &.last {
-          border-right: 0;
+          border-right: 1px solid #eaeaea;
         }
       }
 
@@ -53,8 +96,22 @@
         border-right: 1px solid #eaeaea;
         padding: 20px 15px 20px 18px;
 
-        &:first-child {
+        &.handle {
           cursor: move;
+
+          .toggle {
+            cursor: pointer;
+            border-bottom: 1px #f9f9f9 solid;
+            font: normal 20px/1 'dashicons';
+            margin-top: 2px;
+            padding-bottom: 4px;
+            top: 0%;
+
+            &:before {
+              content: '\f142';
+              margin-left: -2px;
+            }
+          }
         }
 
         &:first-child,
@@ -69,7 +126,7 @@
 
           > span {
             color: #afafaf;
-            margin-top: -.5em;
+            margin-top: -10px;
             overflow: hidden;
             position: absolute;
             text-align: center;
@@ -80,8 +137,13 @@
           }
         }
 
-        &.last {
-          border-right: 0;
+        .repeater-content-closed {
+          display: none;
+        }
+
+        .repeater-remove-item {
+          color: #afafaf;
+          text-decoration: none;
         }
 
         &.repeater-layout-row {
@@ -107,11 +169,6 @@
             }
           }
         }
-      }
-
-      .repeater-remove-item {
-        color: #afafaf;
-        text-decoration: none;
       }
     }
   }
