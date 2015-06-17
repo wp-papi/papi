@@ -1,12 +1,14 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress-Isotop">
-	<description>Sniffs for the coding standards of the Isotop-mu plugin</description>
+<ruleset name="Papi">
+	<description>Sniffs for the coding standards of the Papi plugin</description>
 
 	<exclude-pattern>node_modules</exclude-pattern>
 	<exclude-pattern>tests</exclude-pattern>
 	<exclude-pattern>vendor</exclude-pattern>
 
-	<rule ref="WordPress-Extra">
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+
+	<rule ref="WordPress-Core">
 		<exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions" />
 		<exclude name="WordPress.Arrays.ArrayDeclaration" />
 		<exclude name="WordPress.PHP.YodaConditions" />
@@ -16,15 +18,5 @@
 		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis" />
 		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
 		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword" />
-		<exclude name="WordPress.XSS.EscapeOutput" />
-	</rule>
-
-	<rule ref="Generic.Arrays.DisallowLongArraySyntax" />
-	<rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
-		<properties>
-			<property name="equalsSpacing" value="1" />
-			<property name="requiredSpacesBeforeClose" value="1" />
-			<property name="requiredSpacesAfterOpen" value="1" />
-		</properties>
 	</rule>
 </ruleset>
