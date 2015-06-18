@@ -82,18 +82,18 @@ class Papi_Admin_Ajax {
 		}
 
 		if ( ! empty( $_GET['action'] ) ) {
-			$wp_query->set( 'papi_action', sanitize_text_field( $_GET['action'] ) );
+			$wp_query->set( 'papi_ajax_action', sanitize_text_field( $_GET['action'] ) );
 		}
 
-		$action = $wp_query->get( 'papi_action' );
+		$ajax_action = $wp_query->get( 'papi_ajax_action' );
 
-		if ( is_user_logged_in() && has_action( $this->action_prefix . $action ) !== false ) {
+		if ( is_user_logged_in() && has_action( $this->action_prefix . $ajax_action ) !== false ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {
 				define( 'DOING_AJAX', true );
 			}
 
-			do_action( $this->action_prefix . sanitize_text_field( $action ) );
-			die;
+			do_action( $this->action_prefix . sanitize_text_field( $ajax_action ) );
+			wp_die();
 		}
 	}
 
