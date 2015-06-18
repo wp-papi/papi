@@ -46,6 +46,8 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
 	$cache_key = papi_get_cache_key( $slug, $post_id );
 	wp_cache_set( $cache_key, false );
 
+	papi_action_delete_value( $type, $slug, $post_id );
+
 	return $property->delete_value( $slug, $post_id );
 }
 
@@ -261,10 +263,13 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 
 	papi_delete_field( $post_id, $slug, $type );
 
+	$value = $property->update_value( $value, $slug, $post_id );
+	$value = papi_filter_update_value( $property->get_option( 'type' ), $value, $slug, $post_id );
+
 	return papi_property_update_meta( [
 		'post_id'       => $post_id,
 		'slug'          => $slug,
-		'value'         => $property->update_value( $value, $slug, $post_id )
+		'value'         => $value
 	] );
 }
 
