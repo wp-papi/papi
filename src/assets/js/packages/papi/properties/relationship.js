@@ -66,7 +66,6 @@ class Relationship {
 
   remove(e) {
     e.preventDefault();
-
     $(this).remove();
   }
 
