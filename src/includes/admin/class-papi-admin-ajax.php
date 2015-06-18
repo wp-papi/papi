@@ -77,10 +77,6 @@ class Papi_Admin_Ajax {
 			return;
 		}
 
-		if ( ! defined( 'DOING_PAPI_AJAX' ) ) {
-			define( 'DOING_PAPI_AJAX', true );
-		}
-
 		if ( ! empty( $_GET['action'] ) ) {
 			$wp_query->set( 'papi_ajax_action', sanitize_text_field( $_GET['action'] ) );
 		}
@@ -90,6 +86,10 @@ class Papi_Admin_Ajax {
 		if ( is_user_logged_in() && has_action( $this->action_prefix . $ajax_action ) !== false ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {
 				define( 'DOING_AJAX', true );
+			}
+
+			if ( ! defined( 'DOING_PAPI_AJAX' ) ) {
+				define( 'DOING_PAPI_AJAX', true );
 			}
 
 			do_action( $this->action_prefix . sanitize_text_field( $ajax_action ) );
