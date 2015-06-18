@@ -47,7 +47,9 @@ class Papi_Property_Dropdown extends Papi_Property {
 			data-placeholder="<?php echo $settings->placeholder; ?>"
 			data-width="100%">
 
-			<option value=""></option>
+			<?php if ( ! empty( $settings->placeholder ) ): ?>
+				<option value=""></option>
+			<?php endif; ?>
 
 			<?php foreach ( $settings->items as $key => $value ):
 				if ( is_numeric( $key ) ) {

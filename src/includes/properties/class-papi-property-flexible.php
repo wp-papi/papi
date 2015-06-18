@@ -170,20 +170,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	}
 
 	/**
-	 * Get default settings.
-	 *
-	 * @return array
-	 */
-
-	public function get_default_settings() {
-		return [
-			'items'  => [],
-			'layout' => 'table',
-			'limit'  => -1
-		];
-	}
-
-	/**
 	 * Generate layout slug.
 	 *
 	 * @param string $key
@@ -437,7 +423,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$items   = null;
 		$layouts = $this->get_settings_layouts();
 
-		if ( defined( 'PAPI_AJAX' ) && PAPI_AJAX ) {
+		if ( defined( 'DOING_PAPI_AJAX' ) && DOING_PAPI_AJAX ) {
 			$counter = papi_get_qs( 'counter' );
 			$this->counter  = intval( $counter );
 			$flexible_layout = papi_get_qs( 'flexible_layout' );
@@ -643,11 +629,12 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		}
 
 		$values = array_filter( $values );
+		$closed_rows = $this->get_setting( 'closed_rows', true );
 
 		foreach ( $values as $index => $row ):
 			?>
 
-			<tr>
+			<tr <?php echo $closed_rows ? 'class="closed"' : ''; ?>>
 				<td class="handle">
 					<span class="toggle"></span>
 					<span class="count"><?php echo $this->counter + 1; ?></span>

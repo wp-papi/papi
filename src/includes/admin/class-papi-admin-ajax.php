@@ -77,26 +77,23 @@ class Papi_Admin_Ajax {
 			return;
 		}
 
-		if ( ! defined( 'PAPI_AJAX' ) ) {
-			define( 'PAPI_AJAX', true );
-		}
-
 		if ( ! empty( $_GET['action'] ) ) {
-			$wp_query->set( 'papi_action', sanitize_text_field( $_GET['action'] ) );
+			$wp_query->set( 'papi_ajax_action', sanitize_text_field( $_GET['action'] ) );
 		}
 
-		$action = $wp_query->get( 'papi_action' );
+		$ajax_action = $wp_query->get( 'papi_ajax_action' );
 
-		if ( is_user_logged_in() && has_action( $this->action_prefix . $action ) !== false ) {
+		if ( is_user_logged_in() && has_action( $this->action_prefix . $ajax_action ) !== false ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {
 				define( 'DOING_AJAX', true );
 			}
 
-			header( 'Cache-Control: no-cache, must-revalidate' );
-			header( 'Content-type: application/json' );
+			if ( ! defined( 'DOING_PAPI_AJAX' ) ) {
+				define( 'DOING_PAPI_AJAX', true );
+			}
 
-			do_action( $this->action_prefix . sanitize_text_field( $action ) );
-			die;
+			do_action( $this->action_prefix . sanitize_text_field( $ajax_action ) );
+			wp_die();
 		}
 	}
 
@@ -116,13 +113,9 @@ class Papi_Admin_Ajax {
 
 			$html = ob_get_clean();
 
-			if ( empty( $html ) ) {
-				$this->render_error( 'No property found' );
-			} else {
-				$this->render( [
-					'html' => utf8_encode( $html )
-				] );
-			}
+			wp_send_json( [
+				'html' => utf8_encode( $html )
+			] );
 		} else {
 			$this->render_error( 'No property found' );
 		}
@@ -135,14 +128,14 @@ class Papi_Admin_Ajax {
 	public function get_properties() {
 		if ( ! isset( $_POST['properties'] ) ) {
 			$this->render_error( 'No properties found' );
-			exit;
+			return;
 		}
 
 		$items = json_decode( stripslashes( $_POST['properties'] ), true );
 
 		if ( empty( $items ) || ! is_array( $items ) ) {
 			$this->render_error( 'No properties found' );
-			exit;
+			return;
 		}
 
 		foreach ( $items as $key => $item ) {
@@ -165,20 +158,10 @@ class Papi_Admin_Ajax {
 		if ( empty( $items ) ) {
 			$this->render_error( 'No properties found' );
 		} else {
-			$this->render( [
+			wp_send_json( [
 				'html' => $items
 			] );
 		}
-	}
-
-	/**
-	 * Render json.
-	 *
-	 * @param mixed $obj
-	 */
-
-	public function render( $obj ) {
-		echo json_encode( $obj );
 	}
 
 	/**
@@ -188,7 +171,7 @@ class Papi_Admin_Ajax {
 	 */
 
 	public function render_error( $message ) {
-		echo json_encode( [
+		wp_send_json( [
 			'error' => $message
 		] );
 	}

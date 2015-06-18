@@ -134,9 +134,10 @@ class Papi_Property_Repeater extends Papi_Property {
 
 	public function get_default_settings() {
 		return [
-			'items'     => [],
-			'layout'    => 'table',
-			'limit'     => -1
+			'closed_rows' => false,
+			'items'       => [],
+			'layout'      => 'table',
+			'limit'       => -1
 		];
 	}
 
@@ -456,7 +457,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	public function render_ajax_request() {
 		$items = $this->get_settings_properties();
 
-		if ( defined( 'PAPI_AJAX' ) && PAPI_AJAX ) {
+		if ( defined( 'DOING_PAPI_AJAX' ) && DOING_PAPI_AJAX ) {
 			$counter = papi_get_qs( 'counter' );
 			$this->counter = intval( $counter );
 		}
@@ -617,10 +618,11 @@ class Papi_Property_Repeater extends Papi_Property {
 		}
 
 		$values = array_filter( $values );
+		$closed_rows = $this->get_setting( 'closed_rows', true );
 
 		foreach ( $values as $row ):
 			?>
-			<tr>
+			<tr <?php echo $closed_rows ? 'class="closed"' : ''; ?>>
 				<td class="handle">
 					<span class="toggle"></span>
 					<span class="count"><?php echo $this->counter + 1; ?></span>
