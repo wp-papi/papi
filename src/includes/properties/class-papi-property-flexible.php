@@ -177,9 +177,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 	public function get_default_settings() {
 		return [
-			'items'  => [],
-			'layout' => 'table',
-			'limit'  => -1
+			'closed_rows' => false,
+			'items'       => [],
+			'layout'      => 'table',
+			'limit'       => -1
 		];
 	}
 
@@ -643,11 +644,12 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		}
 
 		$values = array_filter( $values );
+		$closed_rows = $this->get_setting( 'closed_rows', true );
 
 		foreach ( $values as $index => $row ):
 			?>
 
-			<tr>
+			<tr <?php echo $closed_rows ? 'class="closed"' : ''; ?>>
 				<td class="handle">
 					<span class="toggle"></span>
 					<span class="count"><?php echo $this->counter + 1; ?></span>
