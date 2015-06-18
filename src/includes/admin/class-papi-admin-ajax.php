@@ -113,13 +113,9 @@ class Papi_Admin_Ajax {
 
 			$html = ob_get_clean();
 
-			if ( empty( $html ) ) {
-				$this->render_error( 'No property found' );
-			} else {
-				wp_send_json( [
-					'html' => utf8_encode( $html )
-				] );
-			}
+			wp_send_json( [
+				'html' => utf8_encode( $html )
+			] );
 		} else {
 			$this->render_error( 'No property found' );
 		}
@@ -132,14 +128,14 @@ class Papi_Admin_Ajax {
 	public function get_properties() {
 		if ( ! isset( $_POST['properties'] ) ) {
 			$this->render_error( 'No properties found' );
-			exit;
+			return;
 		}
 
 		$items = json_decode( stripslashes( $_POST['properties'] ), true );
 
 		if ( empty( $items ) || ! is_array( $items ) ) {
 			$this->render_error( 'No properties found' );
-			exit;
+			return;
 		}
 
 		foreach ( $items as $key => $item ) {

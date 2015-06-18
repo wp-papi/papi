@@ -127,6 +127,26 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/\{\"error\"\:\"No properties found\"\}/' );
 	}
 
+	public function test_get_properties_fail_2() {
+		$_POST = [];
+
+		do_action( 'papi/ajax/get_properties' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No properties found\"\}/' );
+	}
+
+	public function test_get_properties_fail_3() {
+		$_POST = [
+			'properties' => json_encode( [] )
+		];
+
+		do_action( 'papi/ajax/get_properties' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No properties found\"\}/' );
+	}
+
 	public function test_render_error() {
 		$this->ajax->render_error( 'No property found' );
 		$this->expectOutputString( '{"error":"No property found"}' );
