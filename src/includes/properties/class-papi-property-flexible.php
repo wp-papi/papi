@@ -170,21 +170,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	}
 
 	/**
-	 * Get default settings.
-	 *
-	 * @return array
-	 */
-
-	public function get_default_settings() {
-		return [
-			'closed_rows' => false,
-			'items'       => [],
-			'layout'      => 'table',
-			'limit'       => -1
-		];
-	}
-
-	/**
 	 * Generate layout slug.
 	 *
 	 * @param string $key
