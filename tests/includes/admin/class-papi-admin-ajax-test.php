@@ -16,11 +16,27 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$_GET  = [];
 		$_POST = [];
 		$this->ajax = new Papi_Admin_Ajax();
+
+		tests_add_filter( 'wp_die_ajax_handler', function () {
+			return $this->get_die_handler();
+		}, 1, 1 );
+
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
 	}
 
 	public function tearDown() {
 		parent::tearDown();
 		unset( $_GET, $_POST, $this->ajax );
+	}
+
+	public function get_die_handler() {
+		return [$this, 'die_handler'];
+	}
+
+	public function die_handler() {
+
 	}
 
 	public function test_actions() {
@@ -109,13 +125,6 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 
 		$this->expectOutputRegex( '/.*\S.*/' );
 		$this->expectOutputRegex( '/\{\"error\"\:\"No properties found\"\}/' );
-	}
-
-	public function test_render() {
-		$this->ajax->render( [
-			'line' => 'Hello, world!'
-		] );
-		$this->expectOutputString( '{"line":"Hello, world!"}' );
 	}
 
 	public function test_render_error() {

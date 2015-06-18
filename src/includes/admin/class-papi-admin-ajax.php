@@ -92,9 +92,6 @@ class Papi_Admin_Ajax {
 				define( 'DOING_AJAX', true );
 			}
 
-			header( 'Cache-Control: no-cache, must-revalidate' );
-			header( 'Content-type: application/json' );
-
 			do_action( $this->action_prefix . sanitize_text_field( $action ) );
 			die;
 		}
@@ -119,7 +116,7 @@ class Papi_Admin_Ajax {
 			if ( empty( $html ) ) {
 				$this->render_error( 'No property found' );
 			} else {
-				$this->render( [
+				wp_send_json( [
 					'html' => utf8_encode( $html )
 				] );
 			}
@@ -165,20 +162,10 @@ class Papi_Admin_Ajax {
 		if ( empty( $items ) ) {
 			$this->render_error( 'No properties found' );
 		} else {
-			$this->render( [
+			wp_send_json( [
 				'html' => $items
 			] );
 		}
-	}
-
-	/**
-	 * Render json.
-	 *
-	 * @param mixed $obj
-	 */
-
-	public function render( $obj ) {
-		echo json_encode( $obj );
 	}
 
 	/**
@@ -188,7 +175,7 @@ class Papi_Admin_Ajax {
 	 */
 
 	public function render_error( $message ) {
-		echo json_encode( [
+		wp_send_json( [
 			'error' => $message
 		] );
 	}
