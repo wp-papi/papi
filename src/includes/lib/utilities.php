@@ -130,7 +130,7 @@ function papi_f( $str = '', $len = 1 ) {
 
 	$prefix = '';
 
-	for ($i = 0; $i < $len; $i++) {
+	for ( $i = 0; $i < $len; $i++ ) {
 		$prefix .= '_';
 	}
 
@@ -138,7 +138,7 @@ function papi_f( $str = '', $len = 1 ) {
 		return $str;
 	}
 
-	return $prefix . preg_replace('/^\_/', '', $str);
+	return $prefix . preg_replace( '/^\_/', '', $str );
 }
 
 /**
