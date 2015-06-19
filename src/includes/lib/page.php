@@ -332,10 +332,6 @@ function papi_get_post_types() {
 /**
  * Get the Page type name.
  *
- * Example:
- *
- * `papi_get_page_type_name()` will return page type name.
- *
  * @param int $post_id
  *
  * @return string
@@ -365,10 +361,6 @@ function papi_get_page_type_name( $post_id = null ) {
 
 /**
  * Echo the Page type name.
- *
- * Example:
- *
- * `the_papi_page_type_name()` will echo the page type name.
  *
  * @param int $post_id
  *
