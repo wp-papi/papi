@@ -27,12 +27,14 @@ function current_page() {
 /**
  * Get value for a property on a page.
  *
+ * You should use papi_get_field() instead.
+ *
  * @param int $post_id
  * @param string $slug
  * @param mixed $default
  * @param string $type
  *
- * @deprecated deprecated for papi_get_field since version 2.0.0.
+ * @deprecated deprecatedd since version 2.0.0.
  *
  * @return mixed
  */
