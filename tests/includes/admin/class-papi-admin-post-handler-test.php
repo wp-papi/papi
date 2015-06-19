@@ -62,7 +62,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		$this->handler->save_meta_boxes( $this->post_id, get_post( $this->post_id ) );
 		wp_set_current_user( 0 );
 
-		$this->assertEquals( 'Hello, world!', papi_field( $this->post_id, $property->slug ) );
+		$this->assertEquals( 'Hello, world!', papi_get_field( $this->post_id, $property->slug ) );
 	}
 
 	public function test_save_meta_boxes_fail_1() {
@@ -84,7 +84,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		wp_set_current_user( 0 );
 
 		// wrong nonce
-		$this->assertNull( papi_field( $this->post_id, $property->slug ) );
+		$this->assertNull( papi_get_field( $this->post_id, $property->slug ) );
 	}
 
 	public function test_save_meta_boxes_fail_2() {
@@ -105,7 +105,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		wp_set_current_user( 0 );
 
 		// wrong post id
-		$this->assertNull( papi_field( $this->post_id, $property->slug ) );
+		$this->assertNull( papi_get_field( $this->post_id, $property->slug ) );
 	}
 
 	public function test_save_meta_boxes_fail_3() {
@@ -129,7 +129,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		wp_set_current_user( 0 );
 
 		// doing autosave is true
-		$this->assertNull( papi_field( $this->post_id, $property->slug ) );
+		$this->assertNull( papi_get_field( $this->post_id, $property->slug ) );
 	}
 
 	public function test_save_meta_boxes_fail_4() {
@@ -151,7 +151,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		wp_set_current_user( 0 );
 
 		// wrong capability
-		$this->assertNull( papi_field( $this->post_id, $property->slug ) );
+		$this->assertNull( papi_get_field( $this->post_id, $property->slug ) );
 	}
 
 	public function test_save_property() {
@@ -164,7 +164,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 
 		$this->handler->save_property( $this->post_id );
 
-		$value = papi_field( $this->post_id, $property->slug );
+		$value = papi_get_field( $this->post_id, $property->slug );
 
 		$this->assertEquals( 'Hello, world!', $value );
 
@@ -177,7 +177,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 
 		$this->handler->save_property( 0 );
 
-		$value = papi_field( 0, $property->slug );
+		$value = papi_get_field( 0, $property->slug );
 
 		$this->assertNull( $value );
 	}

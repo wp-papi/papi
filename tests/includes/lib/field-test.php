@@ -47,20 +47,20 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_delete_field( 0, 'fake' ) );
 	}
 
-	public function test_papi_field() {
+	public function test_papi_get_field() {
 		update_post_meta( $this->post_id, 'name', 'fredrik' );
 
-		$this->assertNull( papi_field( '' ) );
-		$this->assertNull( papi_field( $this->post_id, '' ) );
+		$this->assertNull( papi_get_field( '' ) );
+		$this->assertNull( papi_get_field( $this->post_id, '' ) );
 
-		$this->assertEquals( 'fredrik', papi_field( $this->post_id, 'name' ) );
-		$this->assertEquals( 'fredrik', papi_field( $this->post_id, 'name', '', 'post' ) );
+		$this->assertEquals( 'fredrik', papi_get_field( $this->post_id, 'name' ) );
+		$this->assertEquals( 'fredrik', papi_get_field( $this->post_id, 'name', '', 'post' ) );
 
-		$this->assertEquals( 'world', papi_field( $this->post_id, 'hello', 'world' ) );
+		$this->assertEquals( 'world', papi_get_field( $this->post_id, 'hello', 'world' ) );
 
 		$_GET['post_id'] = $this->post_id;
-		$this->assertNull( papi_field( 'name' ) );
-		$this->assertEquals( 'fredrik', papi_field( '', 'fredrik' ) );
+		$this->assertNull( papi_get_field( 'name' ) );
+		$this->assertEquals( 'fredrik', papi_get_field( '', 'fredrik' ) );
 	}
 
 	public function test_papi_fields() {
@@ -136,7 +136,7 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_update_field( 93099, 'fake_slug', 'value' ) );
 		$this->assertFalse( papi_update_field( $this->post_id, 'fake_slug', 'value' ) );
 		$this->assertTrue( papi_update_field( $this->post_id, 'name', 'Kalle' ) );
-		$this->assertEquals( 'Kalle', papi_field( $this->post_id, 'name' ) );
+		$this->assertEquals( 'Kalle', papi_get_field( $this->post_id, 'name' ) );
 	}
 
 	public function test_the_papi_field() {

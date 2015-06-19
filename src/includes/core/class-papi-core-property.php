@@ -441,9 +441,9 @@ class Papi_Core_Property {
 			$slug = papi_remove_papi( $this->get_slug() );
 
 			if ( papi_is_option_page() ) {
-				$value = papi_option( $slug );
+				$value = papi_get_option( $slug );
 			} else {
-				$value = papi_field( $this->get_post_id(), $slug );
+				$value = papi_get_field( $this->get_post_id(), $slug );
 			}
 		}
 

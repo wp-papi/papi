@@ -49,7 +49,7 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 
 		new Papi_Admin_Option_Handler;
 
-		$value = papi_option( $this->property->slug );
+		$value = papi_get_option( $this->property->slug );
 
 		$_SERVER['REQUEST_URI'] = $old_request_uri;
 
@@ -70,7 +70,7 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 
 		new Papi_Admin_Option_Handler;
 
-		$value = papi_option( $this->property->slug );
+		$value = papi_get_option( $this->property->slug );
 
 		$_SERVER['REQUEST_URI'] = $old_request_uri;
 

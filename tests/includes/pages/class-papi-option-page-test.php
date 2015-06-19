@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Unit tests covering `Papi_Post_Page` class.
+ * Unit tests covering `Papi_Option_Page` class.
  *
  * @package Papi
  */

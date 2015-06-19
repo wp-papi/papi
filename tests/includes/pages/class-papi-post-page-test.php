@@ -93,11 +93,11 @@ class Papi_Post_Page_Test extends WP_UnitTestCase {
 
 		$handler->save_property( $this->post_id );
 
-		$actual = papi_field( $this->post_id, $property->get_option( 'slug' ) );
+		$actual = papi_get_field( $this->post_id, $property->get_option( 'slug' ) );
 		$this->assertEquals( 'Fredrik', $actual );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
-		$this->assertEquals( 'Fredrik', papi_field( $this->post_id, 'name_default' ) );
+		$this->assertEquals( 'Fredrik', papi_get_field( $this->post_id, 'name_default' ) );
 	}
 
 	public function test__get() {

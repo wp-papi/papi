@@ -49,14 +49,14 @@ function papi_is_option_page() {
  * @return mixed
  */
 
-function papi_option( $slug, $default = null ) {
-	return papi_field( 0, $slug, $default, 'option' );
+function papi_get_option( $slug, $default = null ) {
+	return papi_get_field( 0, $slug, $default, 'option' );
 }
 
 /**
- * Shortcode for `papi_option` function.
+ * Shortcode for `papi_get_option` function.
  *
- * [papi_option slug="field_name" default="Default value"][/papi_option]
+ * [papi_get_option slug="field_name" default="Default value"][/papi_get_option]
  *
  * @param array $atts
  *
@@ -69,7 +69,7 @@ function papi_option_shortcode( $atts ) {
 	if ( empty( $atts['slug'] ) ) {
 		$value = $default;
 	} else {
-		$value = papi_option( $atts['slug'], $default );
+		$value = papi_get_option( $atts['slug'], $default );
 	}
 
 	if ( is_array( $value ) ) {
@@ -79,7 +79,7 @@ function papi_option_shortcode( $atts ) {
 	return $value;
 }
 
-add_shortcode( 'papi_option', 'papi_option_shortcode' );
+add_shortcode( 'papi_get_option', 'papi_get_option_shortcode' );
 
 /**
  * Update field with new value. The old value will be deleted.
@@ -102,7 +102,7 @@ function papi_update_option( $slug, $value = null ) {
  */
 
 function the_papi_option( $slug = null, $default = null ) {
-	$value = papi_option( $slug, $default );
+	$value = papi_get_option( $slug, $default );
 
 	if ( is_array( $value ) ) {
 		$value = implode( ', ', $value );

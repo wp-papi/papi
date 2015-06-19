@@ -115,24 +115,34 @@ final class Papi_Loader extends Papi_Container {
 		$path   = __DIR__ . '/../languages/' . $domain . '-' . get_locale() . '.mo';
 		load_textdomain( $domain, $path );
 
-		// Load the autoload class.
+		// Require the autoload class.
 		require_once __DIR__ . '/includes/core/class-papi-core-autoload.php';
 
-		// Load function files.
-		require_once __DIR__ . '/includes/lib/utilities.php';
-		require_once __DIR__ . '/includes/lib/actions.php';
-		require_once __DIR__ . '/includes/lib/filters.php';
-		require_once __DIR__ . '/includes/lib/url.php';
-		require_once __DIR__ . '/includes/lib/post.php';
-		require_once __DIR__ . '/includes/lib/page.php';
-		require_once __DIR__ . '/includes/lib/property.php';
-		require_once __DIR__ . '/includes/lib/tabs.php';
-		require_once __DIR__ . '/includes/lib/io.php';
-		require_once __DIR__ . '/includes/lib/field.php';
-		require_once __DIR__ . '/includes/lib/template.php';
-		require_once __DIR__ . '/includes/lib/option.php';
+		$lib_path     = __DIR__ . '/includes/lib/';
+		$lib_includes = [
+			'utilities.php',
+			'actions.php',
+			'filters.php',
+			'url.php',
+			'post.php',
+			'page.php',
+			'property.php',
+			'tabs.php',
+			'io.php',
+			'field.php',
+			'template.php',
+			'option.php',
+			'deprecated.php'
+		];
 
-		// Load admin class.
+		// Require function files.
+		foreach ( $lib_includes as $file ) {
+			if ( file_exists( $lib_path . $file ) ) {
+				require_once $lib_path . $file;
+			}
+		}
+
+		// Require admin class.
 		require_once __DIR__ . '/includes/admin/class-papi-admin.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-menu.php';
 
