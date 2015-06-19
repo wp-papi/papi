@@ -352,24 +352,6 @@ function papi_is_empty( $obj ) {
 }
 
 /**
- * Check if string has a extension.
- *
- * @param string $str
- * @param string $ext
- *
- * @return bool
- */
-
-function papi_is_ext( $str, $ext ) {
-	if ( is_string( $str ) ) {
-		$arr = explode( '.', $str );
-		return end( $arr ) === $ext;
-	}
-
-	return false;
-}
-
-/**
  * Check which http method it is.
  *
  * @param string $method

@@ -202,16 +202,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_empty( "0" ) );
 	}
 
-	public function test_papi_is_ext() {
-		$this->assertTrue( papi_is_ext( 'index.php', 'php' ) );
-		$this->assertFalse( papi_is_ext( null, 'php' ) );
-		$this->assertFalse( papi_is_ext( true, 'php' ) );
-		$this->assertFalse( papi_is_ext( false, 'php' ) );
-		$this->assertFalse( papi_is_ext( 1, 'php' ) );
-		$this->assertFalse( papi_is_ext( [], 'php' ) );
-		$this->assertFalse( papi_is_ext( new stdClass(), 'php' ) );
-	}
-
 	public function test_papi_is_metod() {
 		unset( $_SERVER['REQUEST_METHOD'] );
 		$this->assertFalse( papi_is_metod( 'POST' ) );

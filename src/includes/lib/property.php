@@ -126,7 +126,7 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 		// If it's a template we need to load it the right way
 		// and add all properties the right way.
 
-		if ( papi_is_ext( $file_or_options, 'php' ) ) {
+		if ( preg_match( '/\.php$/', $file_or_options ) === 1 ) {
 			$values = $properties;
 			$template = papi_template( $file_or_options, $values );
 
