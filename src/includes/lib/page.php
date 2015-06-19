@@ -344,14 +344,14 @@ function papi_get_post_types() {
  *
  * Example:
  *
- * `papi_page_type_name()` will return page type name.
+ * `papi_get_page_type_name()` will return page type name.
  *
  * @param int $post_id
  *
  * @return string
  */
 
-function papi_page_type_name( $post_id = null ) {
+function papi_get_page_type_name( $post_id = null ) {
 	$post_id = papi_get_post_id( $post_id );
 
 	if ( empty( $post_id ) ) {
@@ -386,5 +386,5 @@ function papi_page_type_name( $post_id = null ) {
  */
 
 function the_papi_page_type_name( $post_id = null ) {
-	echo papi_page_type_name( $post_id );
+	echo papi_get_page_type_name( $post_id );
 }
