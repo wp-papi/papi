@@ -102,7 +102,7 @@ function papi_fields( $post_id = 0 ) {
 /**
  * Shortcode for `papi_get_field` function.
  *
- * [papi_get_field id=1 slug="field_name" default="Default value"][/papi_get_field]
+ * [papi_field id=1 slug="field_name" default="Default value"][/papi_field]
  *
  * @param array $atts
  *
@@ -127,7 +127,7 @@ function papi_field_shortcode( $atts ) {
 	return $value;
 }
 
-add_shortcode( 'papi_get_field', 'papi_get_field_shortcode' );
+add_shortcode( 'papi_field', 'papi_field_shortcode' );
 
 /**
  * Get field value by keys.

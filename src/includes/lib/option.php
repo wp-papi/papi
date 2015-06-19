@@ -56,7 +56,7 @@ function papi_get_option( $slug, $default = null ) {
 /**
  * Shortcode for `papi_get_option` function.
  *
- * [papi_get_option slug="field_name" default="Default value"][/papi_get_option]
+ * [papi_option slug="field_name" default="Default value"][/papi_option]
  *
  * @param array $atts
  *
@@ -79,7 +79,7 @@ function papi_option_shortcode( $atts ) {
 	return $value;
 }
 
-add_shortcode( 'papi_get_option', 'papi_get_option_shortcode' );
+add_shortcode( 'papi_option', 'papi_option_shortcode' );
 
 /**
  * Update field with new value. The old value will be deleted.
