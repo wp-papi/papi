@@ -6,7 +6,6 @@
  * Where functions come to die.
  *
  * @package Papi
- * @category Deprecated
  */
 
 // Exit if accessed directly
@@ -33,7 +32,7 @@ function current_page() {
  * @param mixed $default
  * @param string $type
  *
- * @deprecated deprecated since version 2.0.0
+ * @deprecated deprecated for papi_get_field since version 2.0.0.
  *
  * @return mixed
  */
