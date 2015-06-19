@@ -18,7 +18,6 @@ defined( 'ABSPATH' ) || exit;
  */
 
 function papi_get_tab_options( $options ) {
-
 	if ( ! is_array( $options ) && ! is_object( $options ) ) {
 		return;
 	}
