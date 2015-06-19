@@ -115,47 +115,30 @@ function papi_esc_html( $obj, $keys = [] ) {
 }
 
 /**
- * Add a underscore at the start of the string.
+ * Add underscores at the start of the string.
  *
  * @param string $str
+ * @param int $len
  *
  * @return string
  */
 
-function papi_f( $str = '' ) {
+function papi_f( $str = '', $len = 1 ) {
 	if ( ! is_string( $str ) ) {
 		return '';
 	}
 
-	if ( strpos( $str, '_' ) === 0 ) {
+	$prefix = '';
+
+	for ($i = 0; $i < $len; $i++) {
+		$prefix .= '_';
+	}
+
+	if ( strpos( $str, $prefix ) === 0 ) {
 		return $str;
 	}
 
-	return '_' . $str;
-}
-
-/**
- * Add two underscores at the start of the string.
- *
- * @param string $str
- *
- * @return string
- */
-
-function papi_ff( $str = '' ) {
-	if ( ! is_string( $str ) ) {
-		return '';
-	}
-
-	if ( substr( $str, 0, 1 ) === '_' ) {
-		if ( substr( $str, 1, 1 ) === '_' ) {
-			return $str;
-		}
-
-		return '_' . $str;
-	}
-
-	return '__' . $str;
+	return $prefix . preg_replace('/^\_/', '', $str);
 }
 
 /**

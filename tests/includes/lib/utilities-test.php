@@ -83,18 +83,9 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_f( 1 ) );
 		$this->assertEmpty( papi_f( [] ) );
 		$this->assertEmpty( papi_f( new stdClass() ) );
-	}
-
-	public function test_papi_ff() {
-		$this->assertEquals( '__page', papi_ff( 'page' ) );
-		$this->assertEquals( '__page', papi_ff( '_page' ) );
-		$this->assertEquals( '__page', papi_ff( '__page' ) );
-		$this->assertEmpty( papi_ff( null ) );
-		$this->assertEmpty( papi_ff( true ) );
-		$this->assertEmpty( papi_ff( false ) );
-		$this->assertEmpty( papi_ff( 1 ) );
-		$this->assertEmpty( papi_ff( [] ) );
-		$this->assertEmpty( papi_ff( new stdClass() ) );
+		$this->assertEquals( '__page', papi_f( 'page', 2 ) );
+		$this->assertEquals( '__page', papi_f( '_page', 2 ) );
+		$this->assertEquals( '__page', papi_f( '__page', 2 ) );
 	}
 
 	public function test_papi_dashify() {
