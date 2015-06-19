@@ -304,19 +304,6 @@ function papi_get_sanitized_post( $key ) {
 }
 
 /**
- * Check if $obj is set and if not return null or default.
- *
- * @param mixed $obj The value to check if it is empty or not.
- * @param mixed $default The value to return if var is not set.
- *
- * @return mixed
- */
-
-function papi_h( $obj, $default = null ) {
-	return empty( $obj ) ? $default : $obj;
-}
-
-/**
  * Get a php friendly name.
  *
  * @param string $name

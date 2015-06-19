@@ -276,7 +276,7 @@ function papi_get_page_type_id( $post_id = null ) {
 
 	if ( $post_id !== 0 ) {
 		$meta_value = get_post_meta( $post_id, $key, true );
-		$page_type  = papi_h( $meta_value, '' );
+		$page_type  = empty( $meta_value ) ? '' : $meta_value;
 	}
 
 	if ( empty( $page_type ) ) {
@@ -302,7 +302,7 @@ function papi_get_page_type_id( $post_id = null ) {
 		}
 
 		$meta_value = get_post_meta( $from_post, $key, true );
-		$page_type  = papi_h( $meta_value, '' );
+		$page_type  = empty( $meta_value ) ? '' : $meta_value;
 	}
 
 	return $page_type;

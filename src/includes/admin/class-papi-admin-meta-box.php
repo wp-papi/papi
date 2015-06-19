@@ -215,7 +215,7 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private function setup_options( $options ) {
-		$options                  = papi_h( $options, [] );
+		$options                  = empty( $options ) ? [] : $options;
 		$options                  = array_merge( $this->default_options, $options );
 		$this->options            = (object) $options;
 		$this->options->title     = ucfirst( $this->options->title );

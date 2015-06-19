@@ -178,11 +178,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		unset( $_POST['tag'] );
 	}
 
-	public function test_papi_h() {
-		$this->assertEmpty( papi_h( '', '' ) );
-		$this->assertEquals( 'papi', papi_h( 'papi', '' ) );
-	}
-
 	public function test_papi_html_name() {
 		$this->assertEquals( 'papi_hello_world_aao', papi_html_name( 'hello world åäö' ) );
 		$this->assertEquals( 'papi_hello', papi_html_name( 'papi_hello' ) );
