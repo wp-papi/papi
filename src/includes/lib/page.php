@@ -10,16 +10,6 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Get the current page. Like in EPiServer.
- *
- * @return Papi_Page|null
- */
-
-function current_page() {
-	return papi_get_page();
-}
-
-/**
  * Check if the page type should be displayed or not.
  *
  * @param string|object $page_type

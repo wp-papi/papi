@@ -21,10 +21,6 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		unset( $this->post_id );
 	}
 
-	public function test_current_page() {
-		$this->assertNull( current_page() );
-	}
-
 	public function test_papi_display_page_type() {
 		$this->assertFalse( papi_display_page_type( 'fake-page-type1' ) );
 

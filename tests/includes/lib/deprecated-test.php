@@ -35,6 +35,14 @@ class Papi_Lib_Deprecated_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * `current_page` is deprecated since 2.0.0
+	 */
+
+	public function test_current_page() {
+		$this->assertNull( current_page() );
+	}
+
+	/**
 	 * `papi_field` is deprecated since 2.0.0
 	 */
 

@@ -6,10 +6,24 @@
  * Where functions come to die.
  *
  * @package Papi
+ * @category Deprecated
  */
 
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
+
+/**
+ * Get the current page. Like in EPiServer.
+ *
+ * @deprecated deprecated since version 2.0.0
+ *
+ * @return Papi_Page|null
+ */
+
+function current_page() {
+	_deprecated_function( __FUNCTION__, '2.0.0' );
+	return papi_get_page();
+}
 
 /**
  * Get value for a property on a page.
