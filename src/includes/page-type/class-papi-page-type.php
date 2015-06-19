@@ -223,11 +223,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			foreach ( $properties as $property ) {
 				$property = papi_get_property_type( $property );
 
-				if ( ! papi_is_property( $property ) ) {
-					continue;
-				}
-
-				if ( $property->match_slug( $slug ) ) {
+				if ( papi_is_property( $property ) && $property->match_slug( $slug ) ) {
 					if ( empty( $child_slug ) ) {
 						return $property;
 					}
