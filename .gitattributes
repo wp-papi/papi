@@ -1,6 +1,5 @@
 * text=auto
 
-/build export-ignore
 /tests export-ignore
 .coveralls.yml export-ignore
 .eslintignore export-ignore
