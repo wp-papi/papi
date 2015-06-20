@@ -12,4 +12,6 @@
 .travis.yml export-ignore
 Gulpfile.js export-ignore
 package.json export-ignore
-phpunit.xml export-ignore
+phpcs.ruleset.xml export-ignore
+phpunit.xml.dist export-ignore
+Vagrantfile export-ignore
