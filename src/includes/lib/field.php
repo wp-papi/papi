@@ -52,54 +52,6 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
 }
 
 /**
- * Get boxes with properties slug for a page.
- *
- * @param int $post_id
- *
- * @return array
- */
-
-function papi_fields( $post_id = 0 ) {
-	$page = papi_get_page( $post_id );
-
-	if ( empty( $page ) ) {
-		return [];
-	}
-
-	$cache_key = papi_get_cache_key( 'page', $page->id );
-	$value     = wp_cache_get( $cache_key );
-
-	if ( $value === false ) {
-		$page_type = $page->get_page_type();
-
-		if ( empty( $page_type ) ) {
-			return [];
-		}
-
-		$value = [];
-		$boxes = $page_type->get_boxes();
-
-		foreach ( $boxes as $box ) {
-			if ( count( $box ) < 2 || empty( $box[0]['title'] ) || ! is_array( $box[1] ) ) {
-				continue;
-			}
-
-			if ( ! isset( $value[$box[0]['title']] ) ) {
-				$value[$box[0]['title']] = [];
-			}
-
-			foreach ( $box[1] as $property ) {
-				$value[$box[0]['title']][] = $property->get_slug( true );
-			}
-		}
-
-		wp_cache_set( $cache_key, $value );
-	}
-
-	return $value;
-}
-
-/**
  * Shortcode for `papi_get_field` function.
  *
  * [papi_field id=1 slug="field_name" default="Default value"][/papi_field]

@@ -108,19 +108,6 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 }
 
 /**
- * Get the data page.
- *
- * @param int $post_id
- * @param string $type
- *
- * @return mixed
- */
-
-function papi_get_page( $post_id = 0, $type = 'post' ) {
-	return Papi_Core_Page::factory( $post_id, $type );
-}
-
-/**
  * Get data from page type file.
  *
  * @param int|string $post_id Post id or page type
@@ -177,6 +164,19 @@ function papi_get_number_of_pages( $page_type ) {
 	}
 
 	return $value;
+}
+
+/**
+ * Get the data page.
+ *
+ * @param int $post_id
+ * @param string $type
+ *
+ * @return mixed
+ */
+
+function papi_get_page( $post_id = 0, $type = 'post' ) {
+	return Papi_Core_Page::factory( $post_id, $type );
 }
 
 /**
@@ -357,6 +357,54 @@ function papi_get_page_type_name( $post_id = null ) {
 	}
 
 	return $page_type->name;
+}
+
+/**
+ * Get boxes with properties slug for a page.
+ *
+ * @param int $post_id
+ *
+ * @return array
+ */
+
+function papi_get_slugs( $post_id = 0 ) {
+	$page = papi_get_page( $post_id );
+
+	if ( empty( $page ) ) {
+		return [];
+	}
+
+	$cache_key = papi_get_cache_key( 'page', $page->id );
+	$value     = wp_cache_get( $cache_key );
+
+	if ( $value === false ) {
+		$page_type = $page->get_page_type();
+
+		if ( empty( $page_type ) ) {
+			return [];
+		}
+
+		$value = [];
+		$boxes = $page_type->get_boxes();
+
+		foreach ( $boxes as $box ) {
+			if ( count( $box ) < 2 || empty( $box[0]['title'] ) || ! is_array( $box[1] ) ) {
+				continue;
+			}
+
+			if ( ! isset( $value[$box[0]['title']] ) ) {
+				$value[$box[0]['title']] = [];
+			}
+
+			foreach ( $box[1] as $property ) {
+				$value[$box[0]['title']][] = $property->get_slug( true );
+			}
+		}
+
+		wp_cache_set( $cache_key, $value );
+	}
+
+	return $value;
 }
 
 /**

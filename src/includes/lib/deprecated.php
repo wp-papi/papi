@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Get the current page. Like in EPiServer.
  *
- * @deprecated deprecated since version 2.0.0
+ * @deprecated deprecated since version 2.0.0.
  *
  * @return Papi_Page|null
  */
@@ -34,7 +34,7 @@ function current_page() {
  * @param mixed $default
  * @param string $type
  *
- * @deprecated deprecatedd since version 2.0.0.
+ * @deprecated deprecated since version 2.0.0.
  *
  * @return mixed
  */
@@ -42,4 +42,21 @@ function current_page() {
 function papi_field( $post_id = null, $slug = null, $default = null, $type = 'post' ) {
 	_deprecated_function( __FUNCTION__, '2.0.0', 'papi_get_field' );
 	return papi_get_field( $post_id, $slug, $default, $type );
+}
+
+/**
+ * Get boxes with properties slug for a page.
+ *
+ * You should use papi_get_slugs() instead.
+ *
+ * @param int $post_id
+ *
+ * @deprecated deprecated since version 2.0.0.
+ *
+ * @return array
+ */
+
+function papi_fields( $post_id = 0 ) {
+	_deprecated_function( __FUNCTION__, '2.0.0', 'papi_get_slugs' );
+	return papi_get_slugs( $post_id );
 }

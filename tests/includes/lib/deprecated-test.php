@@ -35,7 +35,7 @@ class Papi_Lib_Deprecated_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * `current_page` is deprecated since 2.0.0
+	 * `current_page` is deprecated since 2.0.0.
 	 */
 
 	public function test_current_page() {
@@ -43,7 +43,7 @@ class Papi_Lib_Deprecated_Test extends WP_UnitTestCase {
 	}
 
 	/**
-	 * `papi_field` is deprecated since 2.0.0
+	 * `papi_field` is deprecated since 2.0.0.
 	 */
 
 	public function test_papi_field() {
@@ -60,5 +60,35 @@ class Papi_Lib_Deprecated_Test extends WP_UnitTestCase {
 		$_GET['post_id'] = $this->post_id;
 		$this->assertNull( papi_field( 'name' ) );
 		$this->assertEquals( 'fredrik', papi_field( '', 'fredrik' ) );
+	}
+
+	/**
+	 * `papi_fields` is deprecated since 2.0.0.
+	 */
+
+	public function test_papi_fields() {
+		$this->assertEmpty( papi_fields() );
+
+		global $post;
+
+		$post = get_post( $this->post_id );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		$actual = papi_fields( $this->post_id );
+
+		$this->assertTrue( ! empty( $actual ) );
+		$this->assertTrue( is_array( $actual ) );
+
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, '' );
+		$this->flush_cache();
+		$this->assertEmpty( papi_fields() );
+
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'empty-page-type' );
+		$this->flush_cache();
+		$this->assertEmpty( papi_fields() );
 	}
 }
