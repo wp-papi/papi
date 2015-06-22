@@ -76,6 +76,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_page_type_by_post_id() {
+		$this->assertNull( papi_get_page_type_by_post_id( 0 ) );
 		$this->assertNull( papi_get_page_type_by_post_id( [] ) );
 		$this->assertNull( papi_get_page_type_by_post_id( (object) [] ) );
 		$this->assertNull( papi_get_page_type_by_post_id( true ) );
@@ -142,6 +143,12 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_page_type_by_id() {
+		$this->assertNull( papi_get_page_type_by_id( 0 ) );
+		$this->assertNull( papi_get_page_type_by_id( [] ) );
+		$this->assertNull( papi_get_page_type_by_id( (object) [] ) );
+		$this->assertNull( papi_get_page_type_by_id( true ) );
+		$this->assertNull( papi_get_page_type_by_id( false ) );
+		$this->assertNull( papi_get_page_type_by_id( null ) );
 		$this->assertNull( papi_get_page_type_by_id( 'page' ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
