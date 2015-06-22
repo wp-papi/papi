@@ -35,6 +35,13 @@ class Papi_Lib_Option_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_option() {
 		$this->assertNull( papi_get_option( 'site' ) );
+		$this->assertNull( papi_get_option( 1 ) );
+		$this->assertNull( papi_get_option( null ) );
+		$this->assertNull( papi_get_option( true ) );
+		$this->assertNull( papi_get_option( false ) );
+		$this->assertNull( papi_get_option( [] ) );
+		$this->assertNull( papi_get_option( (object) [] ) );
+		$this->assertNull( papi_get_option( '' ) );
 
 		update_option( 'name', 'fredrik' );
 

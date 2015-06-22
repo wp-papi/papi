@@ -43,6 +43,7 @@ class Papi_Lib_IO_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_file_path() {
 		$this->assertNull( papi_get_file_path( 1 ) );
+		$this->assertNull( papi_get_file_path( null ) );
 		$this->assertNull( papi_get_file_path( true ) );
 		$this->assertNull( papi_get_file_path( false ) );
 		$this->assertNull( papi_get_file_path( [] ) );

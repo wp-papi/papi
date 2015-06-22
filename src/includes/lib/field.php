@@ -134,14 +134,13 @@ function papi_get_field( $post_id = null, $slug = null, $default = null, $type =
 		$post_id = null;
 	}
 
-	$post_id = papi_get_post_id( $post_id );
-
-	if ( $post_id === 0 && $type === 'post' ) {
+	if ( ! is_string( $slug ) || empty( $slug ) ) {
 		return $default;
 	}
 
-	// Return the default value if we don't have a name.
-	if ( empty( $slug ) ) {
+	$post_id = papi_get_post_id( $post_id );
+
+	if ( $post_id === 0 && $type === 'post' ) {
 		return $default;
 	}
 

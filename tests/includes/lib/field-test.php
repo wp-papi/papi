@@ -51,6 +51,13 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, 'name', 'fredrik' );
 
 		$this->assertNull( papi_get_field( '' ) );
+		$this->assertNull( papi_get_field( 1 ) );
+		$this->assertNull( papi_get_field( null ) );
+		$this->assertNull( papi_get_field( true ) );
+		$this->assertNull( papi_get_field( false ) );
+		$this->assertNull( papi_get_field( [] ) );
+		$this->assertNull( papi_get_field( (object) [] ) );
+		$this->assertNull( papi_get_field( '' ) );
 		$this->assertNull( papi_get_field( $this->post_id, '' ) );
 
 		$this->assertEquals( 'fredrik', papi_get_field( $this->post_id, 'name' ) );
