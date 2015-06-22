@@ -45,6 +45,13 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_current_user_is_allowed() {
+		$this->assertTrue( papi_current_user_is_allowed( null ) );
+		$this->assertTrue( papi_current_user_is_allowed( true ) );
+		$this->assertTrue( papi_current_user_is_allowed( false ) );
+		$this->assertTrue( papi_current_user_is_allowed( 1 ) );
+		$this->assertTrue( papi_current_user_is_allowed( new stdClass() ) );
+		$this->assertTrue( papi_current_user_is_allowed( [] ) );
+		$this->assertTrue( papi_current_user_is_allowed( '' ) );
 		$this->assertTrue( papi_current_user_is_allowed() );
 
 		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );

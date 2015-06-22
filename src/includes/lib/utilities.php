@@ -18,7 +18,11 @@ defined( 'ABSPATH' ) || exit;
  * @return string
  */
 
-function papi_get_cache_key( $key, $suffix = null ) {
+function papi_get_cache_key( $key, $suffix ) {
+	if ( ! is_string( $key ) ) {
+		return;
+	}
+
 	$key    = papify( $key );
 	$suffix = papi_convert_to_string( $suffix );
 	$suffix = papi_html_name( $suffix );
@@ -53,12 +57,16 @@ function papi_convert_to_string( $obj ) {
 /**
  * Check if current is allowed the given capabilities.
  *
- * @param array $capabilities
+ * @param array|string $capabilities
  *
  * @return bool
  */
 
 function papi_current_user_is_allowed( $capabilities = [] ) {
+	if ( ! is_array( $capabilities ) && ! is_string( $capabilities ) || empty( $capabilities ) ) {
+		return true;
+	}
+
 	$capabilities = papi_to_array( $capabilities );
 
 	foreach ( papi_to_array( $capabilities ) as $capability ) {
@@ -213,7 +221,7 @@ function papi_get_class_name( $file ) {
  * @return array
  */
 
-function papi_get_only_objects( $arr ) {
+function papi_get_only_objects( array $arr ) {
 	return array_filter( papi_to_array( $arr ), function ( $item ) {
 		return is_object( $item );
 	} );

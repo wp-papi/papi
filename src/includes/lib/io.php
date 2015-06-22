@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 function papi_get_all_files_in_directory( $directory = '' ) {
 	$result = [];
 
-	if ( empty( $directory ) ) {
+	if ( empty( $directory ) || ! is_string( $directory ) ) {
 		return $result;
 	}
 
@@ -67,6 +67,10 @@ function papi_get_all_page_type_files() {
  */
 
 function papi_get_file_path( $file ) {
+	if ( empty( $file ) || ! is_string( $file ) ) {
+		return;
+	}
+
 	$directories = papi_filter_settings_directories();
 	$file        = '/' . papi_dashify( $file );
 
@@ -90,11 +94,11 @@ function papi_get_file_path( $file ) {
  */
 
 function papi_get_page_type_base_path( $file ) {
-	$directories = papi_filter_settings_directories();
-
 	if ( empty( $file ) || ! is_string( $file ) ) {
 		return;
 	}
+
+	$directories = papi_filter_settings_directories();
 
 	foreach ( $directories as $directory ) {
 		if ( strpos( $file, $directory ) !== false ) {
