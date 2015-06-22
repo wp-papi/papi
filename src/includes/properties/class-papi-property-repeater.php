@@ -651,7 +651,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			<tr>
 				<td class="handle">
 					<span class="toggle"></span>
-					<span class="counter"><%= counter + 1 %></span>
+					<span class="count"><%= counter + 1 %></span>
 				</td>
 				<%= columns %>
 				<td class="last">

@@ -172,12 +172,22 @@ class Editor {
 
     $(selectors.visualTab).removeAttr('onclick').on('click', function(e) {
       e.preventDefault();
-      window.switchEditors.switchto(this);
+
+      if ( typeof window.switchEditors.switchto === 'function' ) {
+        window.switchEditors.switchto(this);
+      } else {
+        window.switchEditors.go(id, 'tmce');
+      }
     });
 
     $(selectors.htmlTab).removeAttr('onclick').on('click', function(e) {
       e.preventDefault();
-      window.switchEditors.switchto(this);
+
+      if ( typeof window.switchEditors.switchto === 'function' ) {
+        window.switchEditors.switchto(this);
+      } else {
+        window.switchEditors.go(id, 'html');
+      }
     });
 
     elements.$dom.addClass(selectors.wrap, 'tmce-active');
