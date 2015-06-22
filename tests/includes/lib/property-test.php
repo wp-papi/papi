@@ -65,14 +65,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( 'Name', $actual[0]->title );
 		$this->assertEquals( 'string', $actual[0]->type );
-
-		$this->assertEmpty( papi_get_box_property( null ) );
-		$this->assertEmpty( papi_get_box_property( 1 ) );
-		$this->assertEmpty( papi_get_box_property( true ) );
-		$this->assertEmpty( papi_get_box_property( false ) );
-		$this->assertEmpty( papi_get_box_property( '' ) );
-		$this->assertEmpty( papi_get_box_property( [] ) );
-		$this->assertEmpty( papi_get_box_property( (object) [] ) );
 	}
 
 	public function test_papi_property_get_meta() {
@@ -167,6 +159,11 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( new stdClass(), papi_get_property_options( new stdClass() ) );
 		$this->assertEmpty( papi_get_property_options( null ) );
+		$this->assertEmpty( papi_get_property_options( null ) );
+		$this->assertEmpty( papi_get_property_options( 1 ) );
+		$this->assertEmpty( papi_get_property_options( true ) );
+		$this->assertEmpty( papi_get_property_options( false ) );
+		$this->assertEmpty( papi_get_property_options( '' ) );
 	}
 
 	public function test_papi_get_property_class_name() {
@@ -285,8 +282,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_render_properties() {
-		$this->assertEmpty( papi_render_properties( null ) );
-
 		$tab = papi_tab( 'Content', [] );
 		papi_render_properties( [ $tab ] );
 		$this->expectOutputRegex( '/class\=\"papi\-tabs\-wrapper\"/' );
@@ -320,6 +315,15 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_populate_properties() {
+		$this->assertEmpty( papi_populate_properties( [] ) );
+		$this->assertEmpty( papi_populate_properties( null ) );
+		$this->assertEmpty( papi_populate_properties( true ) );
+		$this->assertEmpty( papi_populate_properties( false ) );
+		$this->assertEmpty( papi_populate_properties( 1 ) );
+
+		$actual = papi_populate_properties( new stdClass() );
+		$this->assertTrue( is_object( $actual[0] ) );
+
 		$actual = papi_populate_properties( [
 			'type'  => 'string',
 			'title' => 'Name'

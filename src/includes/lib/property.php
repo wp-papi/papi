@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  * @return array
  */
 
-function papi_from_property_array_slugs( $values, $slug ) {
+function papi_from_property_array_slugs( array $values, $slug ) {
 	$results = [];
 
 	if ( empty( $values ) ) {
@@ -61,11 +61,7 @@ function papi_is_property( $value ) {
  * @return array
  */
 
-function papi_get_box_property( $properties ) {
-	if ( ! is_array( $properties ) ) {
-		return [];
-	}
-
+function papi_get_box_property( array $properties ) {
 	$box_property = array_filter( $properties, function ( $property ) {
 		return ! is_object( $property );
 	} );
@@ -341,9 +337,8 @@ function papi_render_property( $property ) {
  * @param array $properties
  */
 
-function papi_render_properties( $properties ) {
-	// Don't proceed without any properties
-	if ( ! is_array( $properties ) || empty( $properties ) ) {
+function papi_render_properties( array $properties ) {
+	if ( empty( $properties ) ) {
 		return;
 	}
 
@@ -410,7 +405,10 @@ function papi_required_html( $property, $text = false ) {
  */
 
 function papi_populate_properties( $properties ) {
-	// If $properties is a object we can just return it in a array.
+	if ( ! is_array( $properties ) && ! is_object( $properties ) || empty( $properties ) ) {
+		return [];
+	}
+
 	if ( is_object( $properties )  ) {
 		return [$properties];
 	}
@@ -523,7 +521,7 @@ function papi_property_update_meta( array $meta = [] ) {
  * @return array
  */
 
-function papi_to_property_array_slugs( $value, $slug ) {
+function papi_to_property_array_slugs( array $value, $slug ) {
 	$results = [];
 	$counter = [];
 
