@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 
 function papi_get_cache_key( $key, $suffix ) {
 	if ( ! is_string( $key ) ) {
-		return;
+		return '';
 	}
 
 	$key    = papify( $key );

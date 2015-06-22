@@ -24,6 +24,13 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_cache_key() {
+		$this->assertEmpty( papi_get_cache_key( 0, 1 ) );
+		$this->assertEmpty( papi_get_cache_key( [], 'hello' ) );
+		$this->assertEmpty( papi_get_cache_key( (object) [], 230 ) );
+		$this->assertEmpty( papi_get_cache_key( true, 'false' ) );
+		$this->assertEmpty( papi_get_cache_key( false, 'true' ) );
+		$this->assertEmpty( papi_get_cache_key( null, 2 ) );
+
 		global $post;
 		$post_id = $this->factory->post->create();
 		$post = get_post( $post_id );
