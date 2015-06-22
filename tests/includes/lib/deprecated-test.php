@@ -91,4 +91,39 @@ class Papi_Lib_Deprecated_Test extends WP_UnitTestCase {
 		$this->flush_cache();
 		$this->assertEmpty( papi_fields() );
 	}
+
+	/**
+	 * `papi_get_page_type_meta_value` is deprecated since 2.0.0.
+	 */
+
+	public function test_papi_get_page_type_meta_value() {
+		$this->assertEmpty( papi_get_page_type_meta_value() );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		$this->assertEquals( 'simple-page-type', papi_get_page_type_meta_value( $this->post_id ) );
+
+		$_GET['page_type'] = 'simple-page-type';
+		$this->assertEquals( 'simple-page-type', papi_get_page_type_meta_value() );
+		unset( $_GET['page_type'] );
+
+		$_POST[PAPI_PAGE_TYPE_KEY] = 'simple-page-type';
+		$this->assertEquals( 'simple-page-type', papi_get_page_type_meta_value() );
+		unset( $_POST[PAPI_PAGE_TYPE_KEY] );
+
+		$from_post = papi_filter_settings_page_type_from_post_qs();
+		$_GET[$from_post] = $this->post_id;
+		$this->assertEquals( 'simple-page-type', papi_get_page_type_meta_value() );
+		unset( $_GET[$from_post] );
+
+		tests_add_filter( 'papi/settings/page_type_from_post_qs', function () {
+			return '';
+		} );
+
+		$this->assertEmpty( papi_get_page_type_meta_value() );
+
+	}
 }

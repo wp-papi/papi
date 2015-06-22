@@ -60,3 +60,16 @@ function papi_fields( $post_id = 0 ) {
 	_deprecated_function( __FUNCTION__, '2.0.0', 'papi_get_slugs' );
 	return papi_get_slugs( $post_id );
 }
+
+/**
+ * Get page type id.
+ *
+ * @param int $post_id
+ *
+ * @return string
+ */
+
+function papi_get_page_type_meta_value( $post_id = 0 ) {
+	_deprecated_function( __FUNCTION__, '2.0.0', 'papi_get_page_type_id' );
+	return papi_get_page_type_id( $post_id );
+}
