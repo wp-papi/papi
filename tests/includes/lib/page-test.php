@@ -75,8 +75,12 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertNull( $page );
 	}
 
-	public function test_papi_get_file_data() {
-		$this->assertNull( papi_get_file_data( null ) );
+	public function test_papi_get_page_type_by_post_id() {
+		$this->assertNull( papi_get_page_type_by_post_id( [] ) );
+		$this->assertNull( papi_get_page_type_by_post_id( (object) [] ) );
+		$this->assertNull( papi_get_page_type_by_post_id( true ) );
+		$this->assertNull( papi_get_page_type_by_post_id( false ) );
+		$this->assertNull( papi_get_page_type_by_post_id( null ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
@@ -84,7 +88,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 
-		$this->assertTrue( is_object( papi_get_file_data( $this->post_id ) ) );
+		$this->assertTrue( is_object( papi_get_page_type_by_post_id( $this->post_id ) ) );
 	}
 
 	public function test_papi_get_number_of_pages() {

@@ -253,7 +253,7 @@ final class Papi_Admin {
 
 	public function manage_page_type_posts_custom_column( $column_name, $post_id ) {
 		if ( $column_name === 'page_type' ) {
-			$page_type = papi_get_file_data( $post_id );
+			$page_type = papi_get_page_type_by_post_id( $post_id );
 			if ( ! is_null( $page_type ) ) {
 				esc_html_e( $page_type->name );
 			} else {

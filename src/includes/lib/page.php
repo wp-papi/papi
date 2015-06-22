@@ -108,25 +108,6 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 }
 
 /**
- * Get data from page type file.
- *
- * @param int|string $post_id Post id or page type
- *
- * @return Papi_Page_Type
- */
-
-function papi_get_file_data( $post_id ) {
-	$post_id   = papi_get_post_id( $post_id );
-	$page_type = papi_get_page_type_id( $post_id );
-
-	// Check so the page type isn't null or empty before we
-	// trying to get the page type meta data.
-	if ( ! empty( $page_type ) ) {
-		return papi_get_page_type_by_id( $page_type );
-	}
-}
-
-/**
  * Get number of how many pages uses the given page type.
  * This will also work with only page type.
  *
@@ -177,22 +158,6 @@ function papi_get_number_of_pages( $page_type ) {
 
 function papi_get_page( $post_id = 0, $type = 'post' ) {
 	return Papi_Core_Page::factory( $post_id, $type );
-}
-
-/**
- * Get template file from post id.
- *
- * @param int|string $post_id
- *
- * @return null|string
- */
-
-function papi_get_page_type_template( $post_id ) {
-	$data = papi_get_file_data( $post_id );
-
-	if ( isset( $data ) && isset( $data->template ) ) {
-		return $data->template;
-	}
 }
 
 /**
@@ -262,6 +227,29 @@ function papi_get_page_type_by_id( $id ) {
 }
 
 /**
+ * Get page type from post id.
+ *
+ * @param int $post_id
+ *
+ * @return Papi_Page_Type
+ */
+
+function papi_get_page_type_by_post_id( $post_id ) {
+	if ( ! is_numeric( $post_id ) ) {
+		return;
+	}
+
+	$post_id   = papi_get_post_id( $post_id );
+	$page_type = papi_get_page_type_id( $post_id );
+
+	// Check so the page type isn't null or empty before we
+	// trying to get the page type meta data.
+	if ( ! empty( $page_type ) ) {
+		return papi_get_page_type_by_id( $page_type );
+	}
+}
+
+/**
  * Get page type id.
  *
  * @param int $post_id
@@ -309,27 +297,6 @@ function papi_get_page_type_id( $post_id = 0 ) {
 }
 
 /**
- * Get all post types Papi should work with.
- *
- * @return array
- */
-
-function papi_get_post_types() {
-	$page_types = papi_get_all_page_types( true );
-	$post_types = [];
-
-	foreach ( $page_types as $page_type ) {
-		$post_types = array_merge( $post_types, $page_type->post_type );
-	}
-
-	if ( empty( $post_types ) ) {
-		return ['page'];
-	}
-
-	return array_unique( $post_types );
-}
-
-/**
  * Get the Page type name.
  *
  * @param int $post_id
@@ -357,6 +324,43 @@ function papi_get_page_type_name( $post_id = null ) {
 	}
 
 	return $page_type->name;
+}
+
+/**
+ * Get template file from post id.
+ *
+ * @param int|string $post_id
+ *
+ * @return null|string
+ */
+
+function papi_get_page_type_template( $post_id ) {
+	$data = papi_get_page_type_by_post_id( $post_id );
+
+	if ( isset( $data ) && isset( $data->template ) ) {
+		return $data->template;
+	}
+}
+
+/**
+ * Get all post types Papi should work with.
+ *
+ * @return array
+ */
+
+function papi_get_post_types() {
+	$page_types = papi_get_all_page_types( true );
+	$post_types = [];
+
+	foreach ( $page_types as $page_type ) {
+		$post_types = array_merge( $post_types, $page_type->post_type );
+	}
+
+	if ( empty( $post_types ) ) {
+		return ['page'];
+	}
+
+	return array_unique( $post_types );
 }
 
 /**
