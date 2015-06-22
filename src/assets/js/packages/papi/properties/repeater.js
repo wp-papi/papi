@@ -63,7 +63,9 @@ class Repeater {
     let columns = [];
 
     for (var i = 0, l = res.html.length; i < l; i++) {
-      columns.push(res.html[i]);
+      if (typeof res.html[i] === 'string') {
+        columns.push(res.html[i]);
+      }
     }
 
     let $row = this.getHtml({
