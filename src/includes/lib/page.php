@@ -234,7 +234,7 @@ function papi_get_page_type_by_id( $id ) {
  * @return Papi_Page_Type
  */
 
-function papi_get_page_type_by_post_id( $post_id ) {
+function papi_get_page_type_by_post_id( $post_id = 0 ) {
 	if ( ! is_numeric( $post_id ) ) {
 		return;
 	}
