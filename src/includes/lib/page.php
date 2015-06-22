@@ -307,7 +307,7 @@ function papi_get_page_type_id( $post_id = 0 ) {
  * @return string
  */
 
-function papi_get_page_type_name( $post_id = null ) {
+function papi_get_page_type_name( $post_id = 0 ) {
 	$post_id = papi_get_post_id( $post_id );
 
 	if ( empty( $post_id ) ) {
@@ -337,7 +337,7 @@ function papi_get_page_type_name( $post_id = null ) {
  * @return null|string
  */
 
-function papi_get_page_type_template( $post_id ) {
+function papi_get_page_type_template( $post_id = 0 ) {
 	$data = papi_get_page_type_by_post_id( $post_id );
 
 	if ( isset( $data ) && isset( $data->template ) ) {
@@ -422,6 +422,6 @@ function papi_get_slugs( $post_id = 0 ) {
  * @return string
  */
 
-function the_papi_page_type_name( $post_id = null ) {
+function the_papi_page_type_name( $post_id = 0 ) {
 	echo papi_get_page_type_name( $post_id );
 }

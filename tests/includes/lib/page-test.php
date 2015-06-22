@@ -119,6 +119,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_page_type_template() {
+		$this->assertNull( papi_get_page_type_template() );
 		$this->assertNull( papi_get_page_type_template( 0 ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
@@ -129,6 +130,10 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 		$actual = papi_get_page_type_template( $this->post_id );
 		$this->assertEquals( 'pages/simple-page.php', $actual );
+
+		$_GET['page_id'] = $this->post_id;
+		$this->assertEquals( 'pages/simple-page.php', papi_get_page_type_template() );
+		unset( $_GET['page_id'] );
 	}
 
 	public function test_papi_get_page_type() {
