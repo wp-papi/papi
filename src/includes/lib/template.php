@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  * @return array
  */
 
-function papi_body_class( $classes ) {
+function papi_body_class( array $classes ) {
 	global $post;
 
 	// Check so we only change template on single and page posts.
@@ -52,7 +52,7 @@ add_filter( 'body_class', 'papi_body_class' );
  */
 
 function papi_include_template( $file, $vars = [] ) {
-	if ( ! is_string( $file ) ) {
+	if ( ! is_string( $file ) || empty( $file ) ) {
 		return;
 	}
 
@@ -75,7 +75,7 @@ function papi_include_template( $file, $vars = [] ) {
  */
 
 function papi_template( $file, $values = [], $convert_to_object = false ) {
-	if ( ! is_string( $file ) ) {
+	if ( ! is_string( $file ) || empty( $file ) ) {
 		return [];
 	}
 

@@ -40,6 +40,7 @@ class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 		$this->assertEquals( $tab->options['title'], $options->options['title'] );
 		$this->assertEquals( 1000, $options->sort_order );
 
+		$this->assertNull( papi_get_tab_options( [] ) );
 		$this->assertNull( papi_get_tab_options( null ) );
 		$this->assertNull( papi_get_tab_options( 1 ) );
 		$this->assertNull( papi_get_tab_options( true ) );

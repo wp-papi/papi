@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  */
 
 function papi_get_tab_options( $options ) {
-	if ( ! is_array( $options ) && ! is_object( $options ) ) {
+	if ( ! is_array( $options ) && ! is_object( $options ) || empty( $options ) ) {
 		return;
 	}
 
@@ -47,7 +47,7 @@ function papi_get_tab_options( $options ) {
  * @return array
  */
 
-function papi_setup_tabs( $tabs ) {
+function papi_setup_tabs( array $tabs ) {
 	$_tabs = [];
 
 	foreach ( $tabs as $tab ) {

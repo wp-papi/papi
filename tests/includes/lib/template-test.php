@@ -40,6 +40,8 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_include_template() {
+		$this->assertEmpty( papi_include_template( '' ) );
+		$this->assertEmpty( papi_include_template( 1 ) );
 		$this->assertEmpty( papi_include_template( null ) );
 		$this->assertEmpty( papi_include_template( [] ) );
 		$this->assertEmpty( papi_include_template( new stdClass ) );
@@ -63,6 +65,7 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'se', $template->lang );
 		$this->assertEquals( 'se', $template->get_option( 'lang' ) );
 
+		$this->assertEmpty( papi_template( '' ) );
 		$this->assertEmpty( papi_template( null ) );
 		$this->assertEmpty( papi_template( true ) );
 		$this->assertEmpty( papi_template( false ) );
