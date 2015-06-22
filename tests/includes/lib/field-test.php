@@ -31,6 +31,13 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_delete_field() {
+		$this->assertFalse( papi_delete_field( 1 ) );
+		$this->assertFalse( papi_delete_field( null ) );
+		$this->assertFalse( papi_delete_field( true ) );
+		$this->assertFalse( papi_delete_field( false ) );
+		$this->assertFalse( papi_delete_field( [] ) );
+		$this->assertFalse( papi_delete_field( (object) [] ) );
+		$this->assertFalse( papi_delete_field( '' ) );
 		$this->assertFalse( papi_delete_field( 0, 'fake_slug' ) );
 		$this->assertFalse( papi_delete_field( 'fake_slug' ) );
 		$this->assertFalse( papi_delete_field( 93099, 'fake_slug' ) );
@@ -50,7 +57,6 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 	public function test_papi_get_field() {
 		update_post_meta( $this->post_id, 'name', 'fredrik' );
 
-		$this->assertNull( papi_get_field( '' ) );
 		$this->assertNull( papi_get_field( 1 ) );
 		$this->assertNull( papi_get_field( null ) );
 		$this->assertNull( papi_get_field( true ) );
@@ -111,6 +117,13 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_update_field() {
+		$this->assertFalse( papi_update_field( 1 ) );
+		$this->assertFalse( papi_update_field( null ) );
+		$this->assertFalse( papi_update_field( true ) );
+		$this->assertFalse( papi_update_field( false ) );
+		$this->assertFalse( papi_update_field( [] ) );
+		$this->assertFalse( papi_update_field( (object) [] ) );
+		$this->assertFalse( papi_update_field( '' ) );
 		$this->assertFalse( papi_update_field( 0, 'fake_slug' ) );
 		$this->assertFalse( papi_update_field( 0, 'fake_slug', 'value' ) );
 		$this->assertFalse( papi_update_field( 'fake_slug', 'value' ) );

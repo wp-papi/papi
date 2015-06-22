@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  */
 
 function papi_get_post_id( $post_id = null ) {
-	if ( is_object( $post_id ) ) {
+	if ( is_object( $post_id ) && isset( $post_id->ID ) ) {
 		return $post_id->ID;
 	}
 

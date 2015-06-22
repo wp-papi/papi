@@ -25,6 +25,10 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
 		$post_id = null;
 	}
 
+	if ( ! is_string( $slug ) || empty( $slug ) ) {
+		return false;
+	}
+
 	$post_id = papi_get_post_id( $post_id );
 
 	if ( $post_id === 0 && $type === 'post' ) {
@@ -188,6 +192,10 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 		$value   = $slug;
 		$slug    = $post_id;
 		$post_id = null;
+	}
+
+	if ( ! is_string( $slug ) || empty( $slug ) ) {
+		return false;
 	}
 
 	if ( papi_is_empty( $value ) ) {

@@ -26,6 +26,13 @@ class Papi_Lib_Option_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_delete_option() {
+		$this->assertFalse( papi_delete_option( 1 ) );
+		$this->assertFalse( papi_delete_option( null ) );
+		$this->assertFalse( papi_delete_option( true ) );
+		$this->assertFalse( papi_delete_option( false ) );
+		$this->assertFalse( papi_delete_option( [] ) );
+		$this->assertFalse( papi_delete_option( (object) [] ) );
+		$this->assertFalse( papi_delete_option( '' ) );
 		$this->assertFalse( papi_delete_option( 'fake_slug' ) );
 		update_option( 'name', 'Kalle' );
 		$this->assertEquals( 'Kalle', papi_get_option( 'name' ) );
@@ -63,10 +70,18 @@ class Papi_Lib_Option_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_update_option() {
+		$this->assertFalse( papi_update_option( 1 ) );
+		$this->assertFalse( papi_update_option( null ) );
+		$this->assertFalse( papi_update_option( true ) );
+		$this->assertFalse( papi_update_option( false ) );
+		$this->assertFalse( papi_update_option( [] ) );
+		$this->assertFalse( papi_update_option( (object) [] ) );
+		$this->assertFalse( papi_update_option( '' ) );
 		$this->assertFalse( papi_update_option( 0, 'fake_slug' ) );
 		$this->assertFalse( papi_update_option( 'fake_slug' ) );
 		$this->assertFalse( papi_update_option( 93099, 'fake_slug' ) );
 		$this->assertFalse( papi_update_option( 'fake_slug' ) );
+
 		$this->assertTrue( papi_update_option( 'name', 'Kalle' ) );
 		$this->assertEquals( 'Kalle', papi_get_option( 'name' ) );
 	}
