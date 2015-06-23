@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-06-23 10:33+0100\n"
-"PO-Revision-Date: 2015-06-23 10:35+0100\n"
+"POT-Creation-Date: 2015-06-23 10:40+0100\n"
+"PO-Revision-Date: 2015-06-23 10:40+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-KeywordsList: _e;__;esc_html__;esc_html_e\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
 #: ../src/includes/admin/class-papi-admin-menu.php:161
@@ -83,9 +83,18 @@ msgstr "Adress"
 msgid "Cannot find the page type"
 msgstr "Kan inte hitta sidtypen"
 
+#: ../src/includes/admin/views/management-page-type.php:84
+#: ../src/includes/admin/views/management-page-type.php:92
+msgid "Back to list"
+msgstr "Tillbaka till listan"
+
 #: ../src/includes/admin/views/management-page-type.php:89
 msgid "Overview of page type"
 msgstr "Översikt över sidtyper"
+
+#: ../src/includes/admin/views/management-page-type.php:100
+msgid "No meta boxes exists."
+msgstr "Inga meta boxar existerar."
 
 #: ../src/includes/admin/views/management-page-type.php:109
 msgid "Tabs"
@@ -137,6 +146,10 @@ msgstr "%s med Wordpress standardfält"
 #, php-format
 msgid "Standard %s"
 msgstr "Standard %s"
+
+#: ../src/includes/lib/property.php:379
+msgid "(required field)"
+msgstr "(obligatoriskt fält)"
 
 #: ../src/includes/page-type/class-papi-page-type-meta.php:138
 msgid "Edit"
