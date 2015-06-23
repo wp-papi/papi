@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
 "POT-Creation-Date: 2015-06-23 10:33+0100\n"
-"PO-Revision-Date: 2015-06-23 10:34+0100\n"
+"PO-Revision-Date: 2015-06-23 10:35+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -218,47 +218,3 @@ msgid ""
 msgstr ""
 "Wordpress 4.0 och högre krävs för att köra Papi! Tillägget har nu "
 "inaktiverat sig själv."
-
-#~ msgid "Items"
-#~ msgstr "Rader"
-
-#~ msgid "Overview of page types"
-#~ msgstr "Översikt över sidtyper"
-
-#~ msgid "Just the normal WordPress page"
-#~ msgstr "Vanliga WordPress sidan"
-
-#~ msgid "Select post"
-#~ msgstr "Välj inlägg"
-
-#~ msgid "Back to list"
-#~ msgstr "Tillbaka till listan"
-
-#~ msgid "No meta boxes exists."
-#~ msgstr "Ingen meta box existerar."
-
-#~ msgid "(required field)"
-#~ msgstr "(obligatoriskt fält)"
-
-#~ msgid "Standard page"
-#~ msgstr "Standard sida"
-
-#~ msgid "Cannot determine address at this location."
-#~ msgstr "Kan inte avgöra adress på den här platsen."
-
-#~ msgid "Search for address..."
-#~ msgstr "Sök efter adress..."
-
-#~ msgid "Select the type of page to create from the list or search"
-#~ msgstr "Välj den typ av sida att skapa från listan eller sök"
-
-#, fuzzy
-#~ msgid "The Standard Page"
-#~ msgstr "Standard sida"
-
-#, fuzzy
-#~ msgid "Add New2"
-#~ msgstr "Skapa nytt"
-
-#~ msgid "Normal page"
-#~ msgstr "Standard Sida"
