@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-06-18 20:20+0100\n"
-"PO-Revision-Date: 2015-06-18 20:20+0100\n"
+"POT-Creation-Date: 2015-06-23 10:33+0100\n"
+"PO-Revision-Date: 2015-06-23 10:34+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.7.3\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -28,10 +28,10 @@ msgid "Cheatin&#8217; huh?"
 msgstr "Fuskar du?"
 
 #: ../src/includes/admin/class-papi-admin.php:130
-#: ../src/includes/properties/class-papi-property-flexible.php:670
-#: ../src/includes/properties/class-papi-property-flexible.php:694
-#: ../src/includes/properties/class-papi-property-repeater.php:634
-#: ../src/includes/properties/class-papi-property-repeater.php:657
+#: ../src/includes/properties/class-papi-property-flexible.php:657
+#: ../src/includes/properties/class-papi-property-flexible.php:681
+#: ../src/includes/properties/class-papi-property-repeater.php:636
+#: ../src/includes/properties/class-papi-property-repeater.php:659
 msgid "Remove"
 msgstr "Ta bort"
 
@@ -146,8 +146,8 @@ msgstr "Redigera"
 msgid "View"
 msgstr "Vy"
 
-#: ../src/includes/properties/class-papi-property-flexible.php:605
-#: ../src/includes/properties/class-papi-property-repeater.php:563
+#: ../src/includes/properties/class-papi-property-flexible.php:591
+#: ../src/includes/properties/class-papi-property-repeater.php:564
 msgid "Add new row"
 msgstr "Lägg till ny rad"
 
@@ -211,7 +211,7 @@ msgstr "Sortera efter"
 msgid "Select file"
 msgstr "Välj fil"
 
-#: ../src/papi-loader.php:163
+#: ../src/papi-loader.php:173
 msgid ""
 "WordPress 4.0 and higher required to run Papi! The plugin has now disabled "
 "itself."
