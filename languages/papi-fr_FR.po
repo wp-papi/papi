@@ -1,19 +1,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-06-18 20:20+0100\n"
-"PO-Revision-Date: 2015-06-23 09:59+0100\n"
+"POT-Creation-Date: 2015-06-23 11:28+0100\n"
+"PO-Revision-Date: 2015-06-23 11:28+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.7.3\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;__;esc_html__;esc_html_e\n"
-"Language: fr_FR\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
 #: ../src/includes/admin/class-papi-admin-menu.php:161
@@ -28,10 +28,10 @@ msgid "Cheatin&#8217; huh?"
 msgstr "Alors, on triche ?"
 
 #: ../src/includes/admin/class-papi-admin.php:130
-#: ../src/includes/properties/class-papi-property-flexible.php:670
-#: ../src/includes/properties/class-papi-property-flexible.php:694
-#: ../src/includes/properties/class-papi-property-repeater.php:634
-#: ../src/includes/properties/class-papi-property-repeater.php:657
+#: ../src/includes/properties/class-papi-property-flexible.php:657
+#: ../src/includes/properties/class-papi-property-flexible.php:681
+#: ../src/includes/properties/class-papi-property-repeater.php:636
+#: ../src/includes/properties/class-papi-property-repeater.php:659
 msgid "Remove"
 msgstr "Supprimer"
 
@@ -83,9 +83,18 @@ msgstr "Alias"
 msgid "Cannot find the page type"
 msgstr "Le type de page n’a pas été trouvé"
 
+#: ../src/includes/admin/views/management-page-type.php:84
+#: ../src/includes/admin/views/management-page-type.php:92
+msgid "Back to list"
+msgstr "Retour à la liste"
+
 #: ../src/includes/admin/views/management-page-type.php:89
 msgid "Overview of page type"
 msgstr "Vue d’ensemble du type de page"
+
+#: ../src/includes/admin/views/management-page-type.php:100
+msgid "No meta boxes exists."
+msgstr "Aucune metaboxes existante."
 
 #: ../src/includes/admin/views/management-page-type.php:109
 msgid "Tabs"
@@ -138,6 +147,10 @@ msgstr "%s avec les champs standard WordPress"
 msgid "Standard %s"
 msgstr "Standard %s"
 
+#: ../src/includes/lib/property.php:379
+msgid "(required field)"
+msgstr "(champ obligatoire)"
+
 #: ../src/includes/page-type/class-papi-page-type-meta.php:138
 msgid "Edit"
 msgstr "Modifier"
@@ -146,8 +159,8 @@ msgstr "Modifier"
 msgid "View"
 msgstr "Voir"
 
-#: ../src/includes/properties/class-papi-property-flexible.php:605
-#: ../src/includes/properties/class-papi-property-repeater.php:563
+#: ../src/includes/properties/class-papi-property-flexible.php:591
+#: ../src/includes/properties/class-papi-property-repeater.php:564
 msgid "Add new row"
 msgstr "Ajouter une nouvelle ligne"
 
@@ -211,19 +224,10 @@ msgstr "Trier par"
 msgid "Select file"
 msgstr "Sélectionnez un fichier"
 
-#: ../src/papi-loader.php:163
+#: ../src/papi-loader.php:173
 msgid ""
 "WordPress 4.0 and higher required to run Papi! The plugin has now disabled "
 "itself."
 msgstr ""
 "WordPress 4.0 et supérieur est requis pour exécuter Papi ! Le plugin s’est "
 "maintenant désactivé."
-
-msgid "Back to list"
-msgstr "Retour à la liste"
-
-msgid "No meta boxes exists."
-msgstr "Aucune metaboxes existante."
-
-msgid "(required field)"
-msgstr "(champ obligatoire)"
