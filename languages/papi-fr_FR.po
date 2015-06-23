@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-06-23 11:28+0100\n"
-"PO-Revision-Date: 2015-06-23 11:28+0100\n"
+"POT-Creation-Date: 2015-06-23 17:27+0100\n"
+"PO-Revision-Date: 2015-06-23 17:28+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -53,12 +53,12 @@ msgid "Search page types"
 msgstr "Recherche dans les types de page"
 
 #: ../src/includes/admin/views/management-page-type.php:20
-msgid "Tab title"
+msgid "Tab Title"
 msgstr "Title de l’onglet"
 
 #: ../src/includes/admin/views/management-page-type.php:21
 #: ../src/includes/admin/views/management-page-type.php:27
-msgid "Sort order"
+msgid "Sort Order"
 msgstr "Ordre de tri"
 
 #: ../src/includes/admin/views/management-page-type.php:22
@@ -101,7 +101,7 @@ msgid "Tabs"
 msgstr "Onglets"
 
 #: ../src/includes/admin/views/management-start.php:7
-msgid "Page types"
+msgid "Page Types"
 msgstr "Types de page"
 
 #: ../src/includes/admin/views/management-start.php:12
@@ -109,15 +109,15 @@ msgid "Name"
 msgstr "Nom"
 
 #: ../src/includes/admin/views/management-start.php:15
-msgid "Page type"
-msgstr "Type de page"
+msgid "Page Type ID"
+msgstr "Type de page ID"
 
 #: ../src/includes/admin/views/management-start.php:18
 msgid "Template"
 msgstr "Gabarit"
 
 #: ../src/includes/admin/views/management-start.php:21
-msgid "Number of pages"
+msgid "Page Count"
 msgstr "Nombre de pages"
 
 #: ../src/includes/admin/views/management-start.php:46

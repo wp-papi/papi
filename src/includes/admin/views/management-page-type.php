@@ -17,14 +17,14 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 			<thead>
 				<tr>
 					<?php if ( $tab ): ?>
-						<th><?php _e( 'Tab title', 'papi' ); ?></th>
-						<th><?php _e( 'Sort order', 'papi' ); ?></th>
+						<th><?php _e( 'Tab Title', 'papi' ); ?></th>
+						<th><?php _e( 'Sort Order', 'papi' ); ?></th>
 						<th><?php _e( 'Properties', 'papi' ); ?></th>
 					<?php else: ?>
 						<th><?php _e( 'Title', 'papi' ); ?></th>
 						<th><?php _e( 'Type', 'papi' ); ?></th>
 						<th><?php _e( 'Slug', 'papi' ); ?></th>
-						<th><?php _e( 'Sort order', 'papi' ); ?></th>
+						<th><?php _e( 'Sort Order', 'papi' ); ?></th>
 					<?php endif; ?>
 				</tr>
 			</thead>

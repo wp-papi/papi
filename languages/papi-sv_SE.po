@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-06-23 10:40+0100\n"
-"PO-Revision-Date: 2015-06-23 10:40+0100\n"
+"POT-Creation-Date: 2015-06-23 17:26+0100\n"
+"PO-Revision-Date: 2015-06-23 17:27+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -53,12 +53,12 @@ msgid "Search page types"
 msgstr "Sök sidtyper"
 
 #: ../src/includes/admin/views/management-page-type.php:20
-msgid "Tab title"
-msgstr "Flik rubrik"
+msgid "Tab Title"
+msgstr "Flikens rubrik"
 
 #: ../src/includes/admin/views/management-page-type.php:21
 #: ../src/includes/admin/views/management-page-type.php:27
-msgid "Sort order"
+msgid "Sort Order"
 msgstr "Sorteringsordning"
 
 #: ../src/includes/admin/views/management-page-type.php:22
@@ -101,7 +101,7 @@ msgid "Tabs"
 msgstr "Tabbar"
 
 #: ../src/includes/admin/views/management-start.php:7
-msgid "Page types"
+msgid "Page Types"
 msgstr "Sidtyper"
 
 #: ../src/includes/admin/views/management-start.php:12
@@ -109,15 +109,15 @@ msgid "Name"
 msgstr "Namn"
 
 #: ../src/includes/admin/views/management-start.php:15
-msgid "Page type"
-msgstr "Sidtyp"
+msgid "Page Type ID"
+msgstr "Sidtyp ID"
 
 #: ../src/includes/admin/views/management-start.php:18
 msgid "Template"
 msgstr "Mall"
 
 #: ../src/includes/admin/views/management-start.php:21
-msgid "Number of pages"
+msgid "Page Count"
 msgstr "Antal sidor"
 
 #: ../src/includes/admin/views/management-start.php:46

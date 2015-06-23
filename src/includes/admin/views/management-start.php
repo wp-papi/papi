@@ -4,7 +4,7 @@
 
 	<br/>
 
-	<h3><?php _e( 'Page types', 'papi' ); ?></h3>
+	<h3><?php _e( 'Page Types', 'papi' ); ?></h3>
 	<table class="wp-list-table widefat papi-options-table">
 		<thead>
 		<tr>
@@ -12,13 +12,13 @@
 				<strong><?php _e( 'Name', 'papi' ); ?></strong>
 			</th>
 			<th>
-				<strong><?php _e( 'Page type', 'papi' ); ?></strong>
+				<strong><?php _e( 'Page Type ID', 'papi' ); ?></strong>
 			</th>
 			<th>
 				<strong><?php _e( 'Template', 'papi' ); ?></strong>
 			</th>
 			<th>
-				<strong><?php _e( 'Number of pages', 'papi' ); ?></strong>
+				<strong><?php _e( 'Page Count', 'papi' ); ?></strong>
 			</th>
 		</tr>
 		</thead>
