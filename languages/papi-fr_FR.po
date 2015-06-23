@@ -12,7 +12,7 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-KeywordsList: _e;__;esc_html__;esc_html_e\n"
 "Language: fr_FR\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
@@ -219,18 +219,6 @@ msgstr ""
 "WordPress 4.0 et supérieur est requis pour exécuter Papi ! Le plugin s’est "
 "maintenant désactivé."
 
-msgid "Items"
-msgstr "Items"
-
-msgid "Overview of page types"
-msgstr "Toutes les types de page"
-
-msgid "Just the normal WordPress page"
-msgstr "Juste la page WordPress normale"
-
-msgid "Select post"
-msgstr "Sélectionner un article"
-
 msgid "Back to list"
 msgstr "Retour à la liste"
 
@@ -239,25 +227,3 @@ msgstr "Aucune metaboxes existante."
 
 msgid "(required field)"
 msgstr "(champ obligatoire)"
-
-msgid "Standard page"
-msgstr "Page standard"
-
-msgid "Cannot determine address at this location."
-msgstr "Impossible de déterminer l’adresse à cet endroit."
-
-msgid "Search for address..."
-msgstr "Recherche d’adresse…"
-
-msgid "Select the type of page to create from the list or search"
-msgstr ""
-"Sélectionnez le type de page à créer à partir de la liste ou la recherche"
-
-msgid "The Standard Page"
-msgstr "La page standard"
-
-msgid "Add New2"
-msgstr "Ajouter nouveau"
-
-msgid "Normal page"
-msgstr "Page normale"
