@@ -1,0 +1,263 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Papi\n"
+"POT-Creation-Date: 2015-06-18 20:20+0100\n"
+"PO-Revision-Date: 2015-06-23 09:59+0100\n"
+"Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.1\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"Language: fr_FR\n"
+"X-Poedit-SearchPath-0: ../src\n"
+
+#: ../src/includes/admin/class-papi-admin-menu.php:161
+#: ../src/includes/page-type/class-papi-page-type-meta.php:137
+msgid "Add New"
+msgstr "Ajouter nouveau"
+
+#: ../src/includes/admin/class-papi-admin.php:75
+#: ../src/includes/admin/class-papi-admin.php:83 ../src/papi-loader.php:64
+#: ../src/papi-loader.php:72
+msgid "Cheatin&#8217; huh?"
+msgstr "Alors, on triche ?"
+
+#: ../src/includes/admin/class-papi-admin.php:130
+#: ../src/includes/properties/class-papi-property-flexible.php:670
+#: ../src/includes/properties/class-papi-property-flexible.php:694
+#: ../src/includes/properties/class-papi-property-repeater.php:634
+#: ../src/includes/properties/class-papi-property-repeater.php:657
+msgid "Remove"
+msgstr "Supprimer"
+
+#: ../src/includes/admin/class-papi-admin.php:131
+msgid "This fields are required:"
+msgstr "Ces champs sont obligatoires :"
+
+#: ../src/includes/admin/class-papi-admin.php:322
+msgid "Show all page types"
+msgstr "Voir tous les types de pages"
+
+#: ../src/includes/admin/views/add-new-page.php:3
+msgid "Add new page type"
+msgstr "Ajouter une nouvelle page"
+
+#: ../src/includes/admin/views/add-new-page.php:6
+#: ../src/includes/admin/views/add-new-page.php:9
+msgid "Search page types"
+msgstr "Recherche dans les types de page"
+
+#: ../src/includes/admin/views/management-page-type.php:20
+msgid "Tab title"
+msgstr "Title de l’onglet"
+
+#: ../src/includes/admin/views/management-page-type.php:21
+#: ../src/includes/admin/views/management-page-type.php:27
+msgid "Sort order"
+msgstr "Ordre de tri"
+
+#: ../src/includes/admin/views/management-page-type.php:22
+#: ../src/includes/admin/views/management-page-type.php:46
+#: ../src/includes/admin/views/management-page-type.php:106
+msgid "Properties"
+msgstr "Propriétés"
+
+#: ../src/includes/admin/views/management-page-type.php:24
+msgid "Title"
+msgstr "Titre"
+
+#: ../src/includes/admin/views/management-page-type.php:25
+msgid "Type"
+msgstr "Type"
+
+#: ../src/includes/admin/views/management-page-type.php:26
+msgid "Slug"
+msgstr "Alias"
+
+#: ../src/includes/admin/views/management-page-type.php:82
+msgid "Cannot find the page type"
+msgstr "Le type de page n’a pas été trouvé"
+
+#: ../src/includes/admin/views/management-page-type.php:89
+msgid "Overview of page type"
+msgstr "Vue d’ensemble du type de page"
+
+#: ../src/includes/admin/views/management-page-type.php:109
+msgid "Tabs"
+msgstr "Onglets"
+
+#: ../src/includes/admin/views/management-start.php:7
+msgid "Page types"
+msgstr "Types de page"
+
+#: ../src/includes/admin/views/management-start.php:12
+msgid "Name"
+msgstr "Nom"
+
+#: ../src/includes/admin/views/management-start.php:15
+msgid "Page type"
+msgstr "Type de page"
+
+#: ../src/includes/admin/views/management-start.php:18
+msgid "Template"
+msgstr "Gabarit"
+
+#: ../src/includes/admin/views/management-start.php:21
+msgid "Number of pages"
+msgstr "Nombre de pages"
+
+#: ../src/includes/admin/views/management-start.php:46
+msgid "Page Type has no template file"
+msgstr "Le type de page n’a pas de fichier de gabarit"
+
+#: ../src/includes/admin/views/management-start.php:53
+msgid "Template file does not exist"
+msgstr "Le fichier de gabarit n’existe pas"
+
+#: ../src/includes/admin/views/partials/add-new-item.php:15
+#: ../src/includes/properties/class-papi-property-relationship.php:69
+msgid "Select"
+msgstr "Sélectionner"
+
+#: ../src/includes/lib/filters.php:91
+msgid "Page Type"
+msgstr "Type de page"
+
+#: ../src/includes/lib/filters.php:147
+#, php-format
+msgid "%s with WordPress standard fields"
+msgstr "%s avec les champs standard WordPress"
+
+#: ../src/includes/lib/filters.php:166
+#, php-format
+msgid "Standard %s"
+msgstr "Standard %s"
+
+#: ../src/includes/page-type/class-papi-page-type-meta.php:138
+msgid "Edit"
+msgstr "Modifier"
+
+#: ../src/includes/page-type/class-papi-page-type-meta.php:139
+msgid "View"
+msgstr "Voir"
+
+#: ../src/includes/properties/class-papi-property-flexible.php:605
+#: ../src/includes/properties/class-papi-property-repeater.php:563
+msgid "Add new row"
+msgstr "Ajouter une nouvelle ligne"
+
+#: ../src/includes/properties/class-papi-property-image.php:120
+msgid "No image selected"
+msgstr "Aucune image sélectionnée"
+
+#: ../src/includes/properties/class-papi-property-image.php:125
+msgid "Add image"
+msgstr "Ajouter image"
+
+#: ../src/includes/properties/class-papi-property-reference.php:101
+msgid "No references exists"
+msgstr "Aucune référence existe"
+
+#: ../src/includes/properties/class-papi-property-relationship.php:71
+msgid "Name (alphabetically)"
+msgstr "Nom (alphabétiquement)"
+
+#: ../src/includes/properties/class-papi-property-relationship.php:75
+msgid "Post created date (ascending)"
+msgstr "Article par date de création (croissant)"
+
+#: ../src/includes/properties/class-papi-property-relationship.php:79
+msgid "Post created date (descending)"
+msgstr "Article par date de création (décroissant)"
+
+#: ../src/includes/properties/class-papi-property-relationship.php:83
+msgid "Post id (ascending)"
+msgstr "ID article (croissant)"
+
+#: ../src/includes/properties/class-papi-property-relationship.php:87
+msgid "Post id (descending)"
+msgstr "ID article (décroissant)"
+
+#: ../src/includes/properties/class-papi-property-relationship.php:91
+msgid "Post order value (ascending)"
+msgstr "Article par champ ordre (croissant)"
+
+#: ../src/includes/properties/class-papi-property-relationship.php:95
+msgid "Post order value (descending)"
+msgstr "Article par champ ordre (décroissant)"
+
+#: ../src/includes/properties/class-papi-property-relationship.php:99
+msgid "Post modified date (ascending)"
+msgstr "Article par date de modification (croissant)"
+
+#: ../src/includes/properties/class-papi-property-relationship.php:103
+msgid "Post modified date (descending)"
+msgstr "Article par date de modification (décroissant)"
+
+#: ../src/includes/properties/class-papi-property-relationship.php:146
+msgid "Search"
+msgstr "Recherche"
+
+#: ../src/includes/properties/class-papi-property-relationship.php:151
+msgid "Sort by"
+msgstr "Trier par"
+
+#: ../src/includes/properties/class-papi-property-url.php:38
+msgid "Select file"
+msgstr "Sélectionnez un fichier"
+
+#: ../src/papi-loader.php:163
+msgid ""
+"WordPress 4.0 and higher required to run Papi! The plugin has now disabled "
+"itself."
+msgstr ""
+"WordPress 4.0 et supérieur est requis pour exécuter Papi ! Le plugin s’est "
+"maintenant désactivé."
+
+msgid "Items"
+msgstr "Items"
+
+msgid "Overview of page types"
+msgstr "Toutes les types de page"
+
+msgid "Just the normal WordPress page"
+msgstr "Juste la page WordPress normale"
+
+msgid "Select post"
+msgstr "Sélectionner un article"
+
+msgid "Back to list"
+msgstr "Retour à la liste"
+
+msgid "No meta boxes exists."
+msgstr "Aucune metaboxes existante."
+
+msgid "(required field)"
+msgstr "(champ obligatoire)"
+
+msgid "Standard page"
+msgstr "Page standard"
+
+msgid "Cannot determine address at this location."
+msgstr "Impossible de déterminer l’adresse à cet endroit."
+
+msgid "Search for address..."
+msgstr "Recherche d’adresse…"
+
+msgid "Select the type of page to create from the list or search"
+msgstr ""
+"Sélectionnez le type de page à créer à partir de la liste ou la recherche"
+
+msgid "The Standard Page"
+msgstr "La page standard"
+
+msgid "Add New2"
+msgstr "Ajouter nouveau"
+
+msgid "Normal page"
+msgstr "Page normale"
