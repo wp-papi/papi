@@ -74,7 +74,7 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 				continue;
 			}
 
-			if ( ! is_subclass_of( $page_type, 'Papi_Page_Type' ) ) {
+			if ( $page_type instanceof Papi_Page_Type === false ) {
 				continue;
 			}
 
@@ -82,6 +82,8 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 				if ( isset( $page_type->post_type[0] ) && ! post_type_exists( $page_type->post_type[0] ) ) {
 					$page_types[] = $page_type;
 				}
+				continue;
+			} else if ( $page_type instanceof Papi_Option_Type ) {
 				continue;
 			}
 

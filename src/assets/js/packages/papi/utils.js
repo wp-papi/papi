@@ -13,16 +13,6 @@ class Utils {
   }
 
   /**
-   * Check if given string is a image via regex.
-   *
-   * @param {string} url
-   */
-
-  static isImage(url) {
-    return /\.(jpeg|jpg|gif|png)$/.test(url.toLowerCase());
-  }
-
-  /**
    * Open WordPress media editor.
    *
    * @param {object} options
@@ -41,7 +31,7 @@ class Utils {
             continue;
           }
 
-          Utils.wpMediaFrame.trigger('insert', attachments[i], Utils.isImage(attachments[i].url));
+          Utils.wpMediaFrame.trigger('insert', attachments[i]);
         }
       });
 
