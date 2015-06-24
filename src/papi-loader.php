@@ -44,6 +44,7 @@ final class Papi_Loader extends Papi_Container {
 			self::$instance = new self;
 			self::$instance->constants();
 			self::$instance->setup_actions();
+			self::$instance->setup_filters();
 			self::$instance->require_files();
 		}
 
@@ -179,6 +180,18 @@ final class Papi_Loader extends Papi_Container {
 
 	private function setup_actions() {
 		add_action( 'after_setup_theme', 'papi_action_include' );
+	}
+
+	/**
+	 *  Setup filters.
+	 */
+
+	private function setup_filters() {
+		if ( defined( 'PAPI_DIR' ) && is_string( PAPI_DIR ) ) {
+			add_filter( 'papi/settings/directories', function () {
+				return PAPI_DIR;
+			} );
+		}
 	}
 }
 
