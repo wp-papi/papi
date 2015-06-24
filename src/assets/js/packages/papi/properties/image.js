@@ -67,13 +67,15 @@ class Image {
         type: 'image'
       },
       multiple: multiple
-    }).on('insert', (attachment, isImage) => {
-      if (!isImage) {
-        return;
+    }).on('insert', (attachment) => {
+      let url = attachment.url;
+
+      if (attachment.sizes !== undefined && attachment.sizes.thumbnail !== undefined) {
+        url = attachment.sizes.thumbnail.url;
       }
 
       self.render($target, {
-        image: attachment.sizes.thumbnail !== undefined ? attachment.sizes.thumbnail.url : attachment.url,
+        image: url,
         id: attachment.id,
         slug: slug
       });
@@ -154,14 +156,14 @@ class Image {
 
       attachment.fetch();
       selection.add(attachment ? [attachment] : []);
-    }).on('insert', (attachment, isImage) => {
-      if (!isImage) {
-        return;
+    }).on('insert', (attachment) => {
+      let url = attachment.url;
+
+      if (attachment.sizes !== undefined && attachment.sizes.thumbnail !== undefined) {
+        url = attachment.sizes.thumbnail.url;
       }
 
-      attachment.sizes.thumbnail = attachment.sizes.thumbnail.url || attachment.url;
-      $img.attr('src', attachment.sizes.thumbnail);
-
+      $img.attr('src', url);
       $input.val(attachment.id);
     }).open();
   }
