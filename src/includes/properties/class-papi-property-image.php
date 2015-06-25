@@ -58,7 +58,6 @@ class Papi_Property_Image extends Papi_Property {
 
 				return (object) array_merge( $meta, $mine );
 			} else {
-				$data = get_post_meta( $value, '_wp_attached_file', true );
 				return $value;
 			}
 		} else if ( is_array( $value ) ) {
