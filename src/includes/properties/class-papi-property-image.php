@@ -52,8 +52,13 @@ class Papi_Property_Image extends Papi_Property {
 					'url'         => wp_get_attachment_url( $value ),
 				];
 
+				if ( ! is_array( $meta ) ) {
+					$meta = [];
+				}
+
 				return (object) array_merge( $meta, $mine );
 			} else {
+				$data = get_post_meta( $value, '_wp_attached_file', true );
 				return $value;
 			}
 		} else if ( is_array( $value ) ) {
@@ -180,4 +185,30 @@ class Papi_Property_Image extends Papi_Property {
 	protected function setup_actions() {
 		add_action( 'admin_head', [$this, 'render_image_template'] );
 	}
+
+	/**
+	 * Setup filters.
+	 */
+
+	protected function setup_filters() {
+		add_action( 'wp_get_attachment_metadata', [$this, 'wp_get_attachment_metadata'], 10, 2 );
+	}
+
+	/**
+	 * Get attachment metadata.
+	 *
+	 * @param mixed $data
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+
+	public function wp_get_attachment_metadata( $data, $post_id ) {
+		if ( papi_is_empty( $data ) ) {
+			return get_post_meta( $post_id, '_wp_attached_file', true );
+		}
+
+		return $data;
+	}
+
 }
