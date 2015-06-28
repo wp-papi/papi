@@ -28,41 +28,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	public $default_value = [];
 
 	/**
-	 * Format the value of the property before it's returned to the theme.
-	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
-	 *
-	 * @return array
-	 */
-
-	public function format_value( $value, $slug, $post_id ) {
-		if ( is_array( $value ) ) {
-
-			// Switch blog if multisite is activated.
-			$this->switch_blog();
-
-			$value = array_map( function ( $id ) {
-				$post = get_post( $id );
-
-				if ( empty( $post ) ) {
-					return $id;
-				}
-
-				return $post;
-			}, array_filter( $value ) );
-
-			// Restore current blog if multisite is activated.
-			$this->restore_current_blog();
-
-			return $this->sort_value( $value, $slug, $post_id );
-		} else {
-			return $this->default_value;
-		}
-	}
-
-	/**
 	 * Get default settings.
 	 *
 	 * @return array
@@ -70,47 +35,11 @@ class Papi_Property_Relationship extends Papi_Property {
 
 	public function get_default_settings() {
 		return [
-			'blog_id'      => 1,
 			'limit'        => -1,
 			'post_type'    => 'page',
 			'query'        => [],
 			'show_sort_by' => true
 		];
-	}
-
-	/**
-	 * Get posts.
-	 *
-	 * @param object $settings
-	 *
-	 * @return array
-	 */
-
-	protected function get_posts( $settings ) {
-		// By default we add posts per page key with the value -1 (all).
-		if ( ! isset( $settings->query['posts_per_page'] ) ) {
-			$settings->query['posts_per_page'] = -1;
-		}
-
-		// Switch blog if multisite is activated.
-		$this->switch_blog();
-
-		// Prepare arguments for WP_Query.
-		$args = array_merge( $settings->query, [
-			'post_type'              => papi_to_array( $settings->post_type ),
-			'no_found_rows'          => true,
-			'update_post_meta_cache' => false,
-			'update_post_term_cache' => false
-		] );
-
-		$query = new WP_Query( $args );
-		$posts = $query->get_posts();
-
-		// Restore current blog if multisite is activated.
-		$this->restore_current_blog();
-
-		// Keep only objects.
-		return papi_get_only_objects( $posts );
 	}
 
 	/**
@@ -124,6 +53,7 @@ class Papi_Property_Relationship extends Papi_Property {
 
 	public function get_sort_option( $post_id, $slug ) {
 		$slug = papi_f( papify( $slug ) . '_sort_option' );
+
 		return get_post_meta( $post_id, $slug, true );
 	}
 
@@ -188,7 +118,25 @@ class Papi_Property_Relationship extends Papi_Property {
 		$settings    = $this->get_settings();
 		$sort_option = $this->get_sort_option( $post_id, $slug );
 		$value       = $this->get_value();
-		$posts       = $this->get_posts( $settings );
+
+		// By default we add posts per page key with the value -1 (all).
+		if ( ! isset( $settings->query['posts_per_page'] ) ) {
+			$settings->query['posts_per_page'] = -1;
+		}
+
+		// Prepare arguments for WP_Query.
+		$args = array_merge( $settings->query, [
+			'post_type'              => papi_to_array( $settings->post_type ),
+			'no_found_rows'          => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false
+		] );
+
+		$query = new WP_Query( $args );
+		$posts = $query->get_posts();
+
+		// Keep only objects.
+		$posts = papi_get_only_objects( $posts );
 
 		?>
 		<div class="papi-property-relationship">
@@ -269,6 +217,33 @@ class Papi_Property_Relationship extends Papi_Property {
 		usort( $value, $sort_options[$sort_option] );
 
 		return $value;
+	}
+
+	/**
+	 * Format the value of the property before it's returned to the theme.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return array
+	 */
+
+	public function format_value( $value, $slug, $post_id ) {
+		if ( is_array( $value ) ) {
+			$value = array_map( function ( $id ) {
+				$post = get_post( $id );
+
+				if ( empty( $post ) ) {
+					return $id;
+				}
+
+				return $post;
+			}, array_filter( $value ) );
+			return $this->sort_value( $value, $slug, $post_id );
+		} else {
+			return $this->default_value;
+		}
 	}
 
 	/**
