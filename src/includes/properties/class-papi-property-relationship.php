@@ -40,8 +40,8 @@ class Papi_Property_Relationship extends Papi_Property {
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_array( $value ) ) {
 
-			// Switch site if multisite is activated.
-			$this->switch_site();
+			// Switch blog if multisite is activated.
+			$this->switch_blog();
 
 			$value = array_map( function ( $id ) {
 				$post = get_post( $id );
@@ -53,8 +53,8 @@ class Papi_Property_Relationship extends Papi_Property {
 				return $post;
 			}, array_filter( $value ) );
 
-			// Restore site if multisite is activated.
-			$this->restore_site();
+			// Restore current blog if multisite is activated.
+			$this->restore_current_blog();
 
 			return $this->sort_value( $value, $slug, $post_id );
 		} else {
@@ -92,8 +92,8 @@ class Papi_Property_Relationship extends Papi_Property {
 			$settings->query['posts_per_page'] = -1;
 		}
 
-		// Switch site if multisite is activated.
-		$this->switch_site();
+		// Switch blog if multisite is activated.
+		$this->switch_blog();
 
 		// Prepare arguments for WP_Query.
 		$args = array_merge( $settings->query, [
@@ -106,8 +106,8 @@ class Papi_Property_Relationship extends Papi_Property {
 		$query = new WP_Query( $args );
 		$posts = $query->get_posts();
 
-		// Restore site if multisite is activated.
-		$this->restore_site();
+		// Restore current blog if multisite is activated.
+		$this->restore_current_blog();
 
 		// Keep only objects.
 		return papi_get_only_objects( $posts );

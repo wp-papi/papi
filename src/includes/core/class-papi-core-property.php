@@ -529,10 +529,10 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Restore the current site.
+	 * Restore the current blog.
 	 */
 
-	protected function restore_site() {
+	protected function restore_current_blog() {
 		if ( ! is_multisite() ) {
 			return;
 		}
@@ -654,12 +654,12 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Switch site if multisite is active.
+	 * Switch blog if multisite is active.
 	 *
 	 * @param int $blog_id
 	 */
 
-	protected function switch_site( $blog_id = 0 ) {
+	protected function switch_blog( $blog_id = 0 ) {
 		if ( ! is_multisite() ) {
 			return;
 		}

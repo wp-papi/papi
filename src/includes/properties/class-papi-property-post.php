@@ -31,13 +31,13 @@ class Papi_Property_Post extends Papi_Property {
 
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
-			// Switch site if multisite is activated.
-			$this->switch_site();
+			// Switch blog if multisite is activated.
+			$this->switch_blog();
 
 			$post = get_post( $value );
 
-			// Restore site if multisite is activated.
-			$this->restore_site();
+			// Restore current blog if multisite is activated.
+			$this->restore_current_blog();
 
 			return $post;
 		}
@@ -76,8 +76,8 @@ class Papi_Property_Post extends Papi_Property {
 			$settings->query['posts_per_page'] = -1;
 		}
 
-		// Switch site if multisite is activated.
-		$this->switch_site();
+		// Switch blog if multisite is activated.
+		$this->switch_blog();
 
 		// Prepare arguments for WP_Query.
 		$args = array_merge( $settings->query, [
@@ -103,8 +103,8 @@ class Papi_Property_Post extends Papi_Property {
 			$results[$obj->labels->menu_name][] = $post;
 		}
 
-		// Restore site if multisite is activated.
-		$this->restore_site();
+		// Restore current blog if multisite is activated.
+		$this->restore_current_blog();
 
 		return $results;
 	}
