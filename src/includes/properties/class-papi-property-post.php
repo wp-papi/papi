@@ -20,6 +20,32 @@ class Papi_Property_Post extends Papi_Property {
 	public $convert_type = 'object';
 
 	/**
+	 * Format the value of the property before it's returned to the theme.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return array
+	 */
+
+	public function format_value( $value, $slug, $post_id ) {
+		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
+			// Switch site if multisite is activated.
+			$this->switch_site();
+
+			$post = get_post( $value );
+
+			// Restore site if multisite is activated.
+			$this->restore_site();
+
+			return $post;
+		}
+
+		return $this->default_value;
+	}
+
+	/**
 	 * Get default settings.
 	 *
 	 * @var array
@@ -29,6 +55,7 @@ class Papi_Property_Post extends Papi_Property {
 
 	public function get_default_settings() {
 		return [
+			'blog_id'       => 1,
 			'placeholder'   => '',
 			'post_type'     => 'post',
 			'query'         => []
@@ -48,6 +75,9 @@ class Papi_Property_Post extends Papi_Property {
 		if ( ! isset( $settings->query['posts_per_page'] ) ) {
 			$settings->query['posts_per_page'] = -1;
 		}
+
+		// Switch site if multisite is activated.
+		$this->switch_site();
 
 		// Prepare arguments for WP_Query.
 		$args = array_merge( $settings->query, [
@@ -72,6 +102,9 @@ class Papi_Property_Post extends Papi_Property {
 			}
 			$results[$obj->labels->menu_name][] = $post;
 		}
+
+		// Restore site if multisite is activated.
+		$this->restore_site();
 
 		return $results;
 	}
@@ -131,24 +164,6 @@ class Papi_Property_Post extends Papi_Property {
 			</select>
 		</div>
 		<?php
-	}
-
-	/**
-	 * Format the value of the property before it's returned to the theme.
-	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
-	 *
-	 * @return array
-	 */
-
-	public function format_value( $value, $slug, $post_id ) {
-		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
-			return get_post( $value );
-		}
-
-		return $this->default_value;
 	}
 
 }

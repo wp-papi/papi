@@ -485,7 +485,7 @@ class Papi_Core_Property {
 			$value = papi_convert_to_string( $value );
 		}
 
-		if ( ! $this->get_setting( 'allow_html' ) ) {
+		if ( ! (bool) $this->get_setting( 'allow_html' ) ) {
 			$value = papi_santize_data( $value );
 		}
 
@@ -526,6 +526,18 @@ class Papi_Core_Property {
 
 	public function render_ajax_request() {
 		papi_render_property( $this );
+	}
+
+	/**
+	 * Restore the current site.
+	 */
+
+	protected function restore_site() {
+		if ( ! is_multisite() ) {
+			return;
+		}
+
+		restore_current_blog();
 	}
 
 	/**
@@ -639,6 +651,24 @@ class Papi_Core_Property {
 		$options = papi_esc_html( $options, ['html'] );
 
 		return $options;
+	}
+
+	/**
+	 * Switch site if multisite is active.
+	 *
+	 * @param int $blog_id
+	 */
+
+	protected function switch_site( $blog_id = 0 ) {
+		if ( ! is_multisite() ) {
+			return;
+		}
+
+		if ( $blog_id === 0 ) {
+			$blog_id = $this->get_setting( 'blog_id', 1 );
+		}
+
+		switch_to_blog( (int) $blog_id );
 	}
 
 	/**
