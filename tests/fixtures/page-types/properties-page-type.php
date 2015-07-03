@@ -257,6 +257,16 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'type'  => 'url',
 				'title' => 'Url test',
 				'slug'  => 'url_test'
+			] ),
+
+			// User
+			papi_property( [
+				'type'     => 'user',
+				'title'    => 'User test',
+				'slug'     => 'user_test',
+				'settings' => [
+					'placeholder' => 'Select user'
+				]
 			] )
 		] );
 
