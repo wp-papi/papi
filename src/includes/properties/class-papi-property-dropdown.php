@@ -26,6 +26,16 @@ class Papi_Property_Dropdown extends Papi_Property {
 	}
 
 	/**
+	 * Get dropdown items.
+	 *
+	 * @return array
+	 */
+
+	protected function get_items() {
+		return $this->get_setting( 'items', [] );
+	}
+
+	/**
 	 * Display property html.
 	 */
 
@@ -51,7 +61,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 				<option value=""></option>
 			<?php endif; ?>
 
-			<?php foreach ( $settings->items as $key => $value ):
+			<?php foreach ( $this->get_items() as $key => $value ):
 				if ( is_numeric( $key ) ) {
 					$key = $value;
 				}
