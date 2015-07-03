@@ -32,7 +32,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 	 */
 
 	protected function get_items() {
-		return $this->get_setting( 'items', [] );
+		return papi_to_array( $this->get_setting( 'items', [] ) );
 	}
 
 	/**
