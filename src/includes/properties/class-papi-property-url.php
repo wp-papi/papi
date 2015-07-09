@@ -51,9 +51,7 @@ class Papi_Property_Url extends Papi_Property {
 	 */
 
 	public function load_value( $value, $slug, $post_id ) {
-		if ( filter_var( $value, FILTER_VALIDATE_URL ) ) {
-			return $value;
-		}
+		$this->update_value( $value, $slug, $post_id );
 	}
 
 	/**
@@ -67,7 +65,17 @@ class Papi_Property_Url extends Papi_Property {
 	 */
 
 	public function update_value( $value, $slug, $post_id ) {
-		if ( filter_var( $value, FILTER_VALIDATE_URL ) ) {
+		$test_value = $value;
+
+		if ( $parts = parse_url( $value ) ) {
+			if ( isset( $parts['path'] ) && $ext = pathinfo( $parts['path'], PATHINFO_EXTENSION ) ) {
+				$file = basename( $parts['path'] );
+				$file = str_replace( '.' . $ext, '', $file );
+				$test_value = str_replace( $file, papi_slugify( $file ), $value );
+			}
+		}
+
+		if ( filter_var( $test_value, FILTER_VALIDATE_URL ) ) {
 			return $value;
 		}
 	}
