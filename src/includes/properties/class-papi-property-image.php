@@ -56,6 +56,10 @@ class Papi_Property_Image extends Papi_Property {
 					$meta = [];
 				}
 
+				if ( isset( $meta['image_meta'] ) ) {
+					unset( $meta['image_meta'] );
+				}
+
 				return (object) array_merge( $meta, $mine );
 			} else {
 				return $value;
