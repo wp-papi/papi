@@ -135,7 +135,13 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					continue;
 				}
 
+				// Format the value from the property class.
 				$values[$index][$slug] = $property_type->format_value( $value, $slug, $post_id );
+
+				if ( ! is_admin() ) {
+					$values[$index][$slug] = papi_filter_format_value( $property_type->type, $values[$index][$slug], $slug, $post_id );
+				}
+
 				$values[$index][$property_type_slug] = $property_type_value;
 			}
 		}
