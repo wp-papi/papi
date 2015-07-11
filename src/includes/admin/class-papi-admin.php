@@ -36,7 +36,7 @@ final class Papi_Admin {
 	private $post_type;
 
 	/**
-	 * The instance of Papi Core.
+	 * The instance of this class.
 	 *
 	 * @var object
 	 */
@@ -44,7 +44,7 @@ final class Papi_Admin {
 	private static $instance;
 
 	/**
-	 * Papi Admin instance.
+	 * Get the instance of this class.
 	 *
 	 * @return object
 	 */
