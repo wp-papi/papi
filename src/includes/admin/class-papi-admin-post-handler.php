@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Admin Post Handler.
+ * Papi Admin Post Handler class.
  *
  * @package Papi
  */

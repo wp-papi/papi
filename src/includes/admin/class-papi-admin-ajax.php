@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Admin Ajax.
+ * Papi Admin Ajax class.
  *
  * @package Papi
  */
