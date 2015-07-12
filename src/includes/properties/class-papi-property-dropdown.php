@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Dropdown.
+ * Papi Property Dropdown class.
  *
  * @package Papi
  */

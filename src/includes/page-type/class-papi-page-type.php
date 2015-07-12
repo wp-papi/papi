@@ -6,8 +6,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Papi Page Type class.
  *
- * All page types in the WordPress theme will
- * extend this class.
+ * All page types in the should extend this class.
  *
  * @package Papi
  */

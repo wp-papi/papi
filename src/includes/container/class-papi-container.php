@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Container.
+ * Papi Container class.
  *
  * @package Papi
  */

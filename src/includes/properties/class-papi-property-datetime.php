@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Datetime.
+ * Papi Property Datetime class.
  *
  * @package Papi
  */

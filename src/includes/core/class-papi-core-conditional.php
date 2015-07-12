@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Core Conditional.
+ * Papi Core Conditional class.
  *
  * @package Papi
  */
