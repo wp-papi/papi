@@ -86,10 +86,21 @@ class Papi_Property extends Papi_Core_Property {
 			$render = $this->get_option( 'lang' ) === false && papi_is_empty( papi_get_qs( 'lang' ) );
 		}
 
-		if ( $render && $this->get_option( 'disabled' ) === false ) {
-			$this->render_row_html();
-			$this->render_hidden_html();
+		$render = $this->get_option( 'disabled' ) === false;
+
+		if ( ! $render ) {
+			return;
 		}
+
+		$render = $this->render_is_allowed_by_rules();
+
+		if ( ! $render ) {
+			return;
+		}
+
+		$this->render_row_html();
+		$this->render_hidden_html();
+		$this->render_rules_json();
 	}
 
 	/**
@@ -100,7 +111,6 @@ class Papi_Property extends Papi_Core_Property {
 		if ( papi_is_empty( $this->get_option( 'description' ) ) ) {
 			return;
 		}
-
 		?>
 		<p><?php echo papi_nl2br( $this->get_option( 'description' ) ); ?></p>
 	<?php
@@ -179,5 +189,22 @@ class Papi_Property extends Papi_Core_Property {
 				echo '</div>';
 			endif;
 		endif;
+	}
+
+	/**
+	 * Render Conditional rules as JSON.
+	 */
+
+	public function render_rules_json() {
+		$rules = $this->get_rules();
+
+		if ( empty( $rules ) ) {
+			return;
+		}
+		?>
+		<script type="application/json" data-papi-json="<?php echo $this->html_name(); ?>_rules">
+			<?php echo json_encode( $rules ); ?>
+		</script>
+		<?php
 	}
 }

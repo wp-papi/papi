@@ -12,6 +12,14 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Core_Property {
 
 	/**
+	 * The conditional class.
+	 *
+	 * @var Papi_Core_Conditional
+	 */
+
+	protected $conditional;
+
+	/**
 	 * The convert type.
 	 *
 	 * @var string
@@ -32,6 +40,7 @@ class Papi_Core_Property {
 		'lang'         => false,
 		'raw'          => false,
 		'required'     => false,
+		'rules'        => [],
 		'settings'     => [],
 		'sidebar'      => true,
 		'slug'         => '',
@@ -79,6 +88,7 @@ class Papi_Core_Property {
 
 	public function __construct() {
 		$this->setup_actions();
+		$this->setup_conditional();
 		$this->setup_filters();
 	}
 
@@ -115,6 +125,18 @@ class Papi_Core_Property {
 
 	public function __set( $key, $value ) {
 		$this->set_option( $key, $value );
+	}
+
+	/**
+	 * Check if the property is allowed
+	 * to render by the conditional rules.
+	 *
+	 * @return bool
+	 */
+
+	public function render_is_allowed_by_rules() {
+		$rules = $this->get_rules();
+		return $this->conditional->display( $rules, $this );
 	}
 
 	/**
@@ -383,6 +405,16 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Get conditional rules.
+	 *
+	 * @return array
+	 */
+
+	public function get_rules() {
+		return $this->get_option( 'rules', [] );
+	}
+
+	/**
 	 * Get setting value.
 	 *
 	 * @param string $key
@@ -438,7 +470,7 @@ class Papi_Core_Property {
 		$value = $this->get_option( 'value' );
 
 		if ( papi_is_empty( $value ) ) {
-			$slug = papi_remove_papi( $this->get_slug() );
+			$slug = $this->get_slug( true );
 
 			if ( papi_is_option_page() ) {
 				$value = papi_get_option( $slug );
@@ -582,13 +614,23 @@ class Papi_Core_Property {
 	 * Setup actions.
 	 */
 
-	protected function setup_actions() {}
+	protected function setup_actions() {
+	}
+
+	/**
+	 * Setup conditional class.
+	 */
+
+	protected function setup_conditional() {
+		$this->conditional = new Papi_Core_Conditional();
+	}
 
 	/**
 	 * Setup filters.
 	 */
 
-	protected function setup_filters() {}
+	protected function setup_filters() {
+	}
 
 	/**
 	 * Setup options.
