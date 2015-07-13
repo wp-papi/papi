@@ -379,7 +379,7 @@ function papi_get_post_types() {
 function papi_get_slugs( $post_id = 0 ) {
 	$page = papi_get_page( $post_id );
 
-	if ( empty( $page ) ) {
+	if ( $page instanceof Papi_Post_Page === false ) {
 		return [];
 	}
 
