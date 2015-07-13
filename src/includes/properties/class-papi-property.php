@@ -160,9 +160,13 @@ class Papi_Property extends Papi_Core_Property {
 	 */
 
 	public function render_row_html() {
+		$display_class = $this->display ? '' : ' papi-hide';
+		$rules_class   = papi_is_empty( $this->get_rules() ) ? '' : ' papi-rules-exists';
+		$css_class     = $display_class . $rules_class;
+
 		if ( ! $this->get_option( 'raw' ) ):
 			?>
-			<tr class="<?php echo $this->display ? '' : 'papi-hide'; ?>">
+			<tr class="<?php echo $css_class; ?>">
 				<?php if ( $this->get_option( 'sidebar' ) ): ?>
 					<td>
 						<?php
@@ -177,15 +181,9 @@ class Papi_Property extends Papi_Core_Property {
 			</tr>
 		<?php
 		else:
-			if ( ! $this->display ):
-				echo '<div class="papi-hide">';
-			endif;
-
+			echo sprintf( '<div class="%s">', $css_class );
 			$this->html();
-
-			if ( ! $this->display ):
-				echo '</div>';
-			endif;
+			echo '</div>';
 		endif;
 	}
 
