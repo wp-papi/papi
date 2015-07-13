@@ -7,7 +7,7 @@ class Core {
    */
 
   static init() {
-    let core = new Core();
+    const core = new Core();
 
     core.binds();
     core.setEqualBoxHeights();
