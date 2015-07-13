@@ -21,13 +21,12 @@ class Rules {
     const $target   = $('[name="' + slug + '"]');
     const $source   = $('[name="' + rule.slug + '"]');
     const self      = this;
-    const ev        = $source.prop('tagName').toLowerCase() === 'select' ? 'change' : 'keyup';
     let typingTimer;
 
-    $source.on(ev, function (e) {
+    $source.on('keyup change', function (e) {
       let $this = $(this);
       let attr  = {
-        slug:    slug,
+        slug:    rule.slug,
         $target: $target,
         val:     $this.val()
       };
@@ -92,7 +91,7 @@ class Rules {
 
   display(options) {
     this.fetch(options.slug, options.val, function (res) {
-      options.$target.closest('tr')[res.render ? 'removeClass' : 'addClass']('papi-hide');
+      options.$target.closest('.papi-rules-exists')[res.render ? 'removeClass' : 'addClass']('papi-hide');
     });
   }
 
@@ -114,9 +113,9 @@ class Rules {
     };
 
     $.ajax({
-      type: 'GET',
+      type:     'GET',
       dataType: 'json',
-      url: papi.ajaxUrl + '?' + $.param(params)
+      url:      papi.ajaxUrl + '?' + $.param(params)
     }).success(callback);
   }
 
