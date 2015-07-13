@@ -120,7 +120,7 @@ class Papi_Conditional_Rules {
 			$result    = papi_get_qs( [ 'page_type', 'slug', 'value'], true );
 			$page_type = papi_get_page_type_by_post_id();
 
-			if ( ! empty( $result ) && $page_type instanceof Papi_Page_Type === false ) {
+			if ( ! empty( $result ) && $page_type instanceof Papi_Page_Type !== false ) {
 				$prop_slug  = $result['slug'];
 				$prop_value = $result['value'];
 
@@ -128,6 +128,7 @@ class Papi_Conditional_Rules {
 					$post_id = papi_get_post_id();
 					$prop_value = $property->format_value( $prop_value, $prop_slug, $post_id );
 					$value = papi_filter_format_value( $property->type, $prop_value, $prop_slug, $post_id );
+					return $this->get_deep_value( $rule->slug, $value );
 				}
 			}
 		}
@@ -248,13 +249,13 @@ class Papi_Conditional_Rules {
 	 */
 
 	public function rule_in( Papi_Core_Conditional_Rule $rule ) {
-		$arr = $rule->value;
+		list( $value, $rule_value ) = $this->get_converted_value( $rule );
 
-		if ( ! is_array( $arr ) ) {
+		if ( ! is_array( $rule_value ) ) {
 			return false;
 		}
 
-		return in_array( $this->get_value( $rule ), $arr );
+		return in_array( $value, $rule_value );
 	}
 
 	/**
@@ -266,13 +267,13 @@ class Papi_Conditional_Rules {
 	 */
 
 	public function rule_not_in( Papi_Core_Conditional_Rule $rule ) {
-		$arr = $rule->value;
+		list( $value, $rule_value ) = $this->get_converted_value( $rule );
 
-		if ( ! is_array( $arr ) ) {
+		if ( ! is_array( $rule_value ) ) {
 			return false;
 		}
 
-		return ! in_array( $this->get_value( $rule ), $arr );
+		return ! in_array( $value, $rule_value );
 	}
 
 	/**

@@ -92,10 +92,8 @@ class Papi_Property extends Papi_Core_Property {
 			return;
 		}
 
-		$render = $this->render_is_allowed_by_rules();
-
-		if ( ! $render ) {
-			return;
+		if ( $this->display ) {
+			$this->display = $this->render_is_allowed_by_rules();
 		}
 
 		$this->render_row_html();
@@ -201,8 +199,10 @@ class Papi_Property extends Papi_Core_Property {
 		if ( empty( $rules ) ) {
 			return;
 		}
+
+		$rules = $this->conditional->prepare_rules( $rules );
 		?>
-		<script type="application/json" data-papi-json="<?php echo $this->html_name(); ?>_rules">
+		<script type="application/json" data-papi-rules="true" data-papi-slug="<?php echo $this->html_name(); ?>">
 			<?php echo json_encode( $rules ); ?>
 		</script>
 		<?php

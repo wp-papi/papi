@@ -35,7 +35,7 @@ class Papi_Core_Conditional {
 			return true;
 		}
 
-		$rules = self::prepare_rules( $rules );
+		$rules = $this->prepare_rules( $rules );
 
 		if ( in_array( $rules['relation'], $this->relations ) ) {
 			return $this->display_by_relation( $rules );
@@ -100,7 +100,7 @@ class Papi_Core_Conditional {
 	 * @return array
 	 */
 
-	public static function prepare_rules( array $rules ) {
+	public function prepare_rules( array $rules ) {
 		if ( ! isset( $rules['relation'] ) ) {
 			$rules['relation'] = 'OR';
 		} else {
@@ -113,7 +113,7 @@ class Papi_Core_Conditional {
 			}
 
 			if ( is_array( $value ) && isset( $value['slug'] ) ) {
-				$value['slug'] = papify( $value['slug'] );
+				$rules[$index]['slug'] = papify( $value['slug'] );
 			}
 		}
 
