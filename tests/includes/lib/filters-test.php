@@ -31,6 +31,15 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'change-format', papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
 	}
 
+	public function test_papi_filter_conditional_rule_allowed() {
+		$this->assertFalse( papi_filter_conditional_rule_allowed( true ) );
+		$this->assertFalse( papi_filter_conditional_rule_allowed( false ) );
+		$this->assertFalse( papi_filter_conditional_rule_allowed( null ) );
+		$this->assertFalse( papi_filter_conditional_rule_allowed( 1 ) );
+		$this->assertFalse( papi_filter_conditional_rule_allowed( '' ) );
+		$this->assertFalse( papi_filter_conditional_rule_allowed( (object) [] ) );
+	}
+
 	public function test_papi_filter_load_value() {
 		$this->assertEquals( 'hello', papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
 

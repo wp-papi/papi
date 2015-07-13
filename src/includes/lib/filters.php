@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Format the value of the property before it's returned to the theme.
+ * Format the value of the property before it's returned to the application.
  *
  * @param string $type
  * @param mixed $value
@@ -22,6 +22,29 @@ defined( 'ABSPATH' ) || exit;
 
 function papi_filter_format_value( $type, $value, $slug, $post_id ) {
 	return apply_filters( 'papi/format_value/' . $type, $value, $slug, $post_id );
+}
+
+/**
+ * Get conditional rule value.
+ *
+ * @param array $rule
+ *
+ * @return bool
+ */
+
+function papi_filter_conditional_rule_allowed( $rule ) {
+	if ( ! is_array( $rule ) ) {
+		return false;
+	}
+
+	$rule   = new Papi_Core_Conditional_Rule( $rule );
+	$result =  apply_filters( 'papi/conditional/rule/' . strtoupper( $rule->operator ), $rule );
+
+	if ( $result === true || $result === false ) {
+		return $result;
+	}
+
+	return false;
 }
 
 /**

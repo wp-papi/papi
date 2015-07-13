@@ -23,7 +23,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 		$_GET = [];
 		$_GET['post'] = $this->post_id;
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'rule-page-type' );
 	}
 
 	public function tearDown() {
@@ -32,25 +32,6 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			$this->post_id,
 			$_GET
 		);
-	}
-
-	private function call_rule( $rule ) {
-		$rule   = $this->get_rule( $rule );
-		$result =  apply_filters( 'papi/conditional/rule/' . strtoupper( $rule->operator ), $rule );
-
-		if ( $result === true || $result === false ) {
-			return $result;
-		}
-
-		return false;
-	}
-
-	private function get_rule( $rule ) {
-		if ( ! is_array( $rule ) ) {
-			return;
-		}
-
-		return new Papi_Core_Conditional_Rule( $rule );
 	}
 
 	private function save_property( $property ) {
@@ -65,6 +46,38 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 		$handler->save_property( $this->post_id );
 	}
 
+	public function test_rule_equal_option() {
+		$old_request_uri = $_SERVER['REQUEST_URI'];
+		$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/options/header-option-type';
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT EXISTS',
+			'slug'     => 'name'
+		] );
+
+		$this->assertTrue( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '=',
+			'slug'     => 'name',
+			'value'    => ''
+		] );
+
+		$this->assertFalse( $result );
+
+		update_option( 'name', 'Fredrik' );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '=',
+			'slug'     => 'name',
+			'value'    => 'Fredrik'
+		] );
+
+		$this->assertTrue( $result );
+
+		$_SERVER['REQUEST_URI'] = $old_request_uri;
+	}
+
 	public function test_rule_equal() {
 		$property = papi_property( [
 			'title' => 'Name',
@@ -74,7 +87,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->save_property( $property );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '=',
 			'slug'     => 'name',
 			'value'    => ''
@@ -82,14 +95,104 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->assertFalse( $result );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '=',
 			'slug'     => 'name',
 			'value'    => 'Fredrik'
 		] );
 
 		$this->assertTrue( $result );
+
+		$property = papi_property( [
+			'title' => 'Number',
+			'type'  => 'number',
+			'slug'  => 'number',
+			'value' => 1.1
+		] );
+
+		$this->save_property( $property );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '=',
+			'slug'     => 'number',
+			'value'    => 1.1
+		] );
+
+		$this->assertTrue( $result );
 	}
+
+	public function test_rule_equal_bool_true() {
+		$property = papi_property( [
+			'title' => 'Name',
+			'type'  => 'string',
+			'value' => 'true'
+		] );
+
+		$this->save_property( $property );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '=',
+			'slug'     => 'name',
+			'value'    => true
+		] );
+
+		$this->assertTrue( $result );
+	}
+
+	public function test_rule_equal_bool_false() {
+		$property = papi_property( [
+			'title' => 'Name',
+			'type'  => 'string',
+			'value' => 'false'
+		] );
+
+		$this->save_property( $property );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '=',
+			'slug'     => 'name',
+			'value'    => false
+		] );
+
+		$this->assertTrue( $result );
+	}
+/*
+	public function test_rule_equal_query_string() {
+		if ( ! defined( 'DOING_PAPI_AJAX' ) ) {
+			define( 'DOING_PAPI_AJAX', true );
+		}
+
+		$_GET['rule_value'] = '42';
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '=',
+			'slug'     => 'name',
+			'value'    => 42
+		] );
+
+		$this->assertTrue( $result );
+
+		$_GET['rule_value'] = 'true';
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '=',
+			'slug'     => 'name',
+			'value'    => true
+		] );
+
+		$this->assertTrue( $result );
+
+		$_GET['rule_value'] = 'false';
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '=',
+			'slug'     => 'name',
+			'value'    => false
+		] );
+
+		$this->assertTrue( $result );
+	}
+*/
 
 	public function test_rule_not_equal() {
 		$property = papi_property( [
@@ -101,7 +204,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->save_property( $property );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '!=',
 			'slug'     => 'name',
 			'value'    => 'Fredrik'
@@ -109,10 +212,46 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->assertFalse( $result );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '!=',
 			'slug'     => 'name',
 			'value'    => ''
+		] );
+
+		$this->assertTrue( $result );
+	}
+
+	public function test_rule_not_equal_bool_true() {
+		$property = papi_property( [
+			'title' => 'Name',
+			'type'  => 'string',
+			'value' => 'false'
+		] );
+
+		$this->save_property( $property );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '!=',
+			'slug'     => 'name',
+			'value'    => true
+		] );
+
+		$this->assertTrue( $result );
+	}
+
+	public function test_rule_not_equal_bool_false() {
+		$property = papi_property( [
+			'title' => 'Name',
+			'type'  => 'string',
+			'value' => 'true'
+		] );
+
+		$this->save_property( $property );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '!=',
+			'slug'     => 'name',
+			'value'    => false
 		] );
 
 		$this->assertTrue( $result );
@@ -128,7 +267,15 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->save_property( $property );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '>',
+			'slug'     => 'fake',
+			'value'    => 1
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '>',
 			'slug'     => 'number',
 			'value'    => 1
@@ -136,10 +283,26 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->assertFalse( $result );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '>',
+			'slug'     => 'number',
+			'value'    => '1.1'
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '>',
 			'slug'     => 'number',
 			'value'    => 0
+		] );
+
+		$this->assertTrue( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '>',
+			'slug'     => 'number',
+			'value'    => '0.9'
 		] );
 
 		$this->assertTrue( $result );
@@ -155,7 +318,15 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->save_property( $property );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '>=',
+			'slug'     => 'fake',
+			'value'    => 1
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '>=',
 			'slug'     => 'number',
 			'value'    => 1
@@ -163,10 +334,18 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->assertTrue( $result );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '>=',
 			'slug'     => 'number',
 			'value'    => 0
+		] );
+
+		$this->assertTrue( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '>=',
+			'slug'     => 'number',
+			'value'    => '0'
 		] );
 
 		$this->assertTrue( $result );
@@ -182,7 +361,15 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->save_property( $property );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '<',
+			'slug'     => 'fake',
+			'value'    => 1
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '<',
 			'slug'     => 'number',
 			'value'    => 1
@@ -190,7 +377,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->assertFalse( $result );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '<',
 			'slug'     => 'number',
 			'value'    => 2
@@ -209,7 +396,15 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->save_property( $property );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '<=',
+			'slug'     => 'fake',
+			'value'    => 1
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '<=',
 			'slug'     => 'number',
 			'value'    => 1
@@ -217,7 +412,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->assertTrue( $result );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '<=',
 			'slug'     => 'number',
 			'value'    => 2
@@ -236,18 +431,77 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->save_property( $property );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'IN',
 			'slug'     => 'number',
-			'value'    => array( 10, 20 )
+			'value'    => 10
 		] );
 
 		$this->assertFalse( $result );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'IN',
 			'slug'     => 'number',
-			'value'    => array( 1, 2 )
+			'value'    => [10, 20]
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'IN',
+			'slug'     => 'number',
+			'value'    => [1, 2]
+		] );
+
+		$this->assertTrue( $result );
+	}
+
+	public function test_rule_not_in() {
+		$property = papi_property( [
+			'title' => 'Number',
+			'type'  => 'number',
+			'slug'  => 'number',
+			'value' => 1
+		] );
+
+		$this->save_property( $property );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT IN',
+			'slug'     => 'number',
+			'value'    => 10
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT IN',
+			'slug'     => 'number',
+			'value'    => [1, 2]
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT IN',
+			'slug'     => 'number',
+			'value'    => [1, null]
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT IN',
+			'slug'     => 'number',
+			'value'    => [10, 20]
+		] );
+
+		$this->assertTrue( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT IN',
+			'slug'     => 'number',
+			'value'    => ['10', '20']
 		] );
 
 		$this->assertTrue( $result );
@@ -263,7 +517,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->save_property( $property );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'LIKE',
 			'slug'     => 'name',
 			'value'    => 'Elli'
@@ -271,7 +525,15 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->assertFalse( $result );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'LIKE',
+			'slug'     => 'number',
+			'value'    => ''
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'LIKE',
 			'slug'     => 'name',
 			'value'    => 'rik'
@@ -288,7 +550,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->save_property( $property );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'LIKE',
 			'slug'     => 'name2',
 			'value'    => 1
@@ -307,29 +569,66 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->save_property( $property );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'BETWEEN',
 			'slug'     => 'number',
-			'value'    => array( 10, 20 )
+			'value'    => ''
 		] );
 
 		$this->assertFalse( $result );
 
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'BETWEEN',
 			'slug'     => 'number',
-			'value'    => array( 0, 2 )
+			'value'    => [10, 20]
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'BETWEEN',
+			'slug'     => 'number',
+			'value'    => ['10', '20']
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'BETWEEN',
+			'slug'     => 'number',
+			'value'    => [1, null]
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'BETWEEN',
+			'slug'     => 'number',
+			'value'    => [0, 2]
+		] );
+
+		$this->assertTrue( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'BETWEEN',
+			'slug'     => 'number',
+			'value'    => ['0', '2']
 		] );
 
 		$this->assertTrue( $result );
 	}
 
 	public function test_rule_not_exists() {
-		$result = $this->call_rule( [
+		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'NOT EXISTS',
 			'slug'     => 'fake'
 		] );
 
 		$this->assertTrue( $result );
+	}
+
+	public function test_setup_filters() {
+		$rules = new Papi_Conditional_Rules();
+		$this->assertNull( $rules->setup_filters() );
 	}
 }

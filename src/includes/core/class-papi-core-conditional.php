@@ -35,33 +35,13 @@ class Papi_Core_Conditional {
 			return true;
 		}
 
-		if ( ! isset( $rules['relation'] ) ) {
-			$rules['relation'] = 'OR';
-		} else {
-			$rules['relation'] = strtoupper( $rules['relation'] );
-		}
+		$rules = self::prepare_rules( $rules );
 
 		if ( in_array( $rules['relation'], $this->relations ) ) {
 			return $this->display_by_relation( $rules );
 		}
 
 		return true;
-	}
-
-	/**
-	 * Get rule class.
-	 *
-	 * @param array $rule
-	 *
-	 * @return Papi_Core_Conditional_Rule|null
-	 */
-
-	private function get_rule( $rule ) {
-		if ( ! is_array( $rule ) ) {
-			return;
-		}
-
-		return new Papi_Core_Conditional_Rule( $rule );
 	}
 
 	/**
@@ -81,45 +61,62 @@ class Papi_Core_Conditional {
 					break;
 				}
 
-				if ( $rule = $this->get_rule( $rule ) ) {
-					if ( $result = $this->call_rule( $rule ) ) {
-						$display = true;
-					}
-				}
-			}
-
-			return $display;
-		} else if ( $rules['relation'] === 'OR' ) {
-			$display = true;
-
-			foreach ( $rules as $rule ) {
-				if ( $rule = $this->get_rule( $rule ) ) {
-					$result = $this->call_rule( $rule );
-					$display = $display ? $result : $display;
+				if ( is_array( $rule ) ) {
+					$display = papi_filter_conditional_rule_allowed( $rule );
 				}
 			}
 
 			return $display;
 		}
 
-		return false;
+		$empty = array_filter( $rules, function ( $rule ) {
+			return is_array( $rule ) ? true : null;
+		} );
+
+		if ( empty( $empty ) ) {
+			return true;
+		}
+
+		$result = [];
+
+		foreach ( $rules as $rule ) {
+			if ( is_array( $rule ) ) {
+				$result[] = papi_filter_conditional_rule_allowed( $rule );
+			}
+		}
+
+		$result = array_filter( $result, function ( $res ) {
+			return $res === true ? true : null;
+		} );
+
+		return ! empty( $result );
 	}
 
 	/**
-	 * Call rule.
+	 * Prepare rules.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param array $rules
 	 *
-	 * @return bool
+	 * @return array
 	 */
 
-	private function call_rule( $rule ) {
-		$result =  apply_filters( 'papi/conditional/rule/' . strtoupper( $rule->operator ), $rule );
-
-		if ( $result === true || $result === false ) {
-			return $result;
+	public static function prepare_rules( array $rules ) {
+		if ( ! isset( $rules['relation'] ) ) {
+			$rules['relation'] = 'OR';
+		} else {
+			$rules['relation'] = strtoupper( $rules['relation'] );
 		}
 
-		return false;
+		foreach ( $rules as $index => $value ) {
+			if ( is_string( $index ) ) {
+				continue;
+			}
+
+			if ( is_array( $value ) && isset( $value['slug'] ) ) {
+				$value['slug'] = papify( $value['slug'] );
+			}
+		}
+
+		return $rules;
 	}
 }

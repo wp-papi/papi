@@ -36,8 +36,10 @@ class Papi_Admin_Ajax {
 		add_action( 'parse_query', [$this, 'handle_papi_ajax'] );
 		add_action( 'admin_enqueue_scripts', [$this, 'ajax_url'], 10 );
 
+		// Ajax actions.
 		add_action( $this->action_prefix . 'get_property', [$this, 'get_property'] );
 		add_action( $this->action_prefix . 'get_properties', [$this, 'get_properties'] );
+		add_action( $this->action_prefix . 'get_rules_result', [$this, 'get_rules_result'] );
 	}
 
 	/**
@@ -161,6 +163,32 @@ class Papi_Admin_Ajax {
 			wp_send_json( [
 				'html' => $items
 			] );
+		}
+	}
+
+	/**
+	 * Get rules result via GET.
+	 */
+
+	public function get_rules_result() {
+		if ( ! isset( $_GET['slug'] ) || ! isset( $_GET['page_type'] ) ) {
+			$this->render_error( 'No property found' );
+			return;
+		}
+
+		$page_type = papi_get_page_type_by_post_id();
+
+		if ( $page_type instanceof Papi_Page_Type === false ) {
+			$this->render_error( 'No property found' );
+			return;
+		}
+
+		if ( $property  = $page_type->get_property( $_GET['slug'] ) ) {
+			wp_send_json( [
+				'render' => $property->render_is_allowed_by_rules()
+			] );
+		} else {
+			$this->render_error( 'No property found' );
 		}
 	}
 

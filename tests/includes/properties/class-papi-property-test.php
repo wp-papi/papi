@@ -590,6 +590,36 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/\{/' );
 	}
 
+	public function test_render_fail() {
+		$property = Papi_Property::factory( [
+			'disabled' => true,
+			'slug'     => 'render_fail',
+			'type'     => 'string',
+			'title'    => 'Render fail'
+		] );
+
+		$property->render();
+
+		$this->expectOutputRegex( '//' );
+
+		$property = Papi_Property::factory( [
+			'rules' => [
+				[
+					'operator' => '=',
+					'slug'     => 'render_fail',
+					'value'	   => 'Fredrik'
+				]
+			],
+			'slug'  => 'render_fail',
+			'type'  => 'string',
+			'title' => 'Render fail'
+		] );
+
+		$property->render();
+
+		$this->expectOutputRegex( '//' );
+	}
+
 	public function test_set_option() {
 		$property = Papi_Property::create( [
 			'type'  => 'string',
