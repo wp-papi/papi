@@ -61,7 +61,7 @@ class Papi_Core_Conditional {
 					break;
 				}
 
-				if ( is_array( $rule ) ) {
+				if ( $rule instanceof Papi_Core_Conditional_Rule ) {
 					$display = papi_filter_conditional_rule_allowed( $rule );
 				}
 			}
@@ -70,7 +70,7 @@ class Papi_Core_Conditional {
 		}
 
 		$empty = array_filter( $rules, function ( $rule ) {
-			return is_array( $rule ) ? true : null;
+			return $rule instanceof Papi_Core_Conditional_Rule ? true : null;
 		} );
 
 		if ( empty( $empty ) ) {
@@ -80,7 +80,7 @@ class Papi_Core_Conditional {
 		$result = [];
 
 		foreach ( $rules as $rule ) {
-			if ( is_array( $rule ) ) {
+			if ( $rule instanceof Papi_Core_Conditional_Rule ) {
 				$result[] = papi_filter_conditional_rule_allowed( $rule );
 			}
 		}
@@ -113,8 +113,10 @@ class Papi_Core_Conditional {
 			}
 
 			if ( is_array( $value ) && isset( $value['slug'] ) ) {
-				$rules[$index]['slug'] = papify( $value['slug'] );
+				$value['slug'] = papify( $value['slug'] );
 			}
+
+			$rules[$index] = new Papi_Core_Conditional_Rule( $value );
 		}
 
 		return $rules;

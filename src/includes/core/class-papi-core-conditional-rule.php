@@ -33,7 +33,7 @@ class Papi_Core_Conditional_Rule {
 	 * @var mixed
 	 */
 
-	private $source;
+	public $source;
 
 	/**
 	 * The value.

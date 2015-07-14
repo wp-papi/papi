@@ -27,18 +27,21 @@ function papi_filter_format_value( $type, $value, $slug, $post_id ) {
 /**
  * Get conditional rule value.
  *
- * @param array $rule
+ * @param array|Papi_Core_Conditional_Rule $rule
  *
  * @return bool
  */
 
 function papi_filter_conditional_rule_allowed( $rule ) {
-	if ( ! is_array( $rule ) ) {
+	if ( ! is_array( $rule ) || $rule instanceof Papi_Core_Conditional_Rule === false ) {
 		return false;
 	}
 
-	$rule   = new Papi_Core_Conditional_Rule( $rule );
-	$result =  apply_filters( 'papi/conditional/rule/' . strtoupper( $rule->operator ), $rule );
+	if ( is_array( $rule ) ) {
+		$rule   = new Papi_Core_Conditional_Rule( $rule );
+	}
+
+	$result =  apply_filters( 'papi/conditional/rule/' . $rule->operator, $rule );
 
 	if ( $result === true || $result === false ) {
 		return $result;
