@@ -49,32 +49,6 @@ class Simple_Page_Type extends Papi_Page_Type {
 			'slug'  => 'number'
 		] ) );
 
-		$this->box( 'Rules', [
-			papi_property( [
-				'type'  => 'number',
-				'title' => 'Rules 1',
-				'slug'  => 'rules_1',
-				'rules' => [
-					[
-						'operator' => '=',
-						'slug'     => 'rules1',
-						'value'	   => 123
-					]
-				]
-			] ),
-			papi_property( [
-				'type'  => 'number',
-				'title' => 'Rules 2',
-				'slug'  => 'rules_2',
-				'rules' => [
-					[
-						'operator' => 'NOT EXISTS',
-						'slug'     => 'rules2'
-					]
-				]
-			] )
-		] );
-
 		// Will not work.
 		$this->box( 1 );
 

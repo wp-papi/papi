@@ -47,7 +47,6 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 	}
 
 	public function test_rule_equal_option() {
-		$old_request_uri = $_SERVER['REQUEST_URI'];
 		$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/options/header-option-type';
 
 		$result = papi_filter_conditional_rule_allowed( [
@@ -75,7 +74,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->assertTrue( $result );
 
-		$_SERVER['REQUEST_URI'] = $old_request_uri;
+		$_SERVER['REQUEST_URI'] = '';
 	}
 
 	public function test_rule_equal() {

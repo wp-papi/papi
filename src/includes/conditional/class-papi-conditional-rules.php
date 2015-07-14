@@ -118,14 +118,14 @@ class Papi_Conditional_Rules {
 	private function get_value( Papi_Core_Conditional_Rule $rule ) {
 		if ( defined( 'DOING_PAPI_AJAX' ) && DOING_PAPI_AJAX ) {
 			$result    = papi_get_qs( [ 'page_type', 'slug', 'value'], true );
-			$page_type = papi_get_page_type_by_post_id();
+			$post_id   = papi_get_post_id();
+			$page_type = papi_get_page_type_by_post_id( $post_id );
 
 			if ( ! empty( $result ) && $page_type instanceof Papi_Page_Type !== false ) {
-				$value    = $result['value'];
+				$value    = isset( $result['value'] ) ? $result['value'] : null;
 				$property = $page_type->get_property( $result['slug'] );
 
-				if ( papi_is_property( $source_prop ) ) {
-					$post_id = papi_get_post_id();
+				if ( papi_is_property( $property ) && ! is_null( $value ) ) {
 					$value = $property->format_value( $value, $property->slug, $post_id );
 					$value = papi_filter_format_value( $property->type, $value, $property->slug, $post_id );
 					return $this->get_deep_value( $rule->slug, $value );
