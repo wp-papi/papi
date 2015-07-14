@@ -61,7 +61,7 @@ class Papi_Conditional_Rules {
 			if ( papi_is_property( $property ) ) {
 				$prop_value = $property->format_value( $value, $property->slug, $post_id );
 				$prop_value = papi_filter_format_value( $property->type, $prop_value, $property->slug, $post_id );
-				return $this->get_deep_value( $rule->slug, $prop_value );
+				$prop_value = $this->get_deep_value( $rule->slug, $prop_value );
 
 				if ( gettype( $prop_value ) === gettype( $rule->value ) ) {
 					return $prop_value;
@@ -149,7 +149,7 @@ class Papi_Conditional_Rules {
 
 	private function get_value( Papi_Core_Conditional_Rule $rule ) {
 		if ( defined( 'DOING_PAPI_AJAX' ) && DOING_PAPI_AJAX ) {
-			$value     = papi_get_qs( 'value' );
+			$value     = $rule->source;
 			$post_id   = papi_get_post_id();
 			$page_type = papi_get_page_type_by_post_id( $post_id );
 

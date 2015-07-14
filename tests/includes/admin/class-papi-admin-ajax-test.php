@@ -196,9 +196,21 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 
 	public function test_get_rules_result_success() {
 		$_GET = [
-			'slug'      => 'rules_1',
 			'page_type' => 'rule-page-type',
 			'post'      => $this->factory->post->create()
+		];
+		$_POST = [
+			'data' => json_encode( [
+				'rules' => [
+					[
+						'operator' => '=',
+						'slug'     => 'rules1',
+						'source'   => '',
+						'value'	   => 123
+						]
+					],
+				'slug'  => 'rules_1'
+			] )
 		];
 
 		tests_add_filter( 'papi/settings/directories', function () {
@@ -213,9 +225,20 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 
 	public function test_get_rules_result_success_2() {
 		$_GET = [
-			'slug'      => 'rules_2',
 			'page_type' => 'rule-page-type',
 			'post'      => $this->factory->post->create()
+		];
+		$_POST = [
+			'data' => json_encode( [
+				'rules' => [
+					[
+						'operator' => 'NOT EXISTS',
+						'slug'     => 'rules1',
+						'source'   => ''
+					]
+				],
+				'slug'  => 'rules_2'
+			] )
 		];
 
 		tests_add_filter( 'papi/settings/directories', function () {
@@ -236,7 +259,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		do_action( 'papi/ajax/get_rules_result' );
 
 		$this->expectOutputRegex( '/.*\S.*/' );
-		$this->expectOutputRegex( '/\{\"error\"\:\"No property found\"\}/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No rule found\"\}/' );
 	}
 
 	public function test_get_rules_result_fail_2() {
@@ -247,7 +270,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		do_action( 'papi/ajax/get_rules_result' );
 
 		$this->expectOutputRegex( '/.*\S.*/' );
-		$this->expectOutputRegex( '/\{\"error\"\:\"No property found\"\}/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No rule found\"\}/' );
 	}
 
 	public function test_get_rules_result_fail_3() {
@@ -259,7 +282,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		do_action( 'papi/ajax/get_rules_result' );
 
 		$this->expectOutputRegex( '/.*\S.*/' );
-		$this->expectOutputRegex( '/\{\"error\"\:\"No property found\"\}/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No rule found\"\}/' );
 	}
 
 	public function test_get_rules_result_fail_4() {
@@ -271,7 +294,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		do_action( 'papi/ajax/get_rules_result' );
 
 		$this->expectOutputRegex( '/.*\S.*/' );
-		$this->expectOutputRegex( '/\{\"error\"\:\"No property found\"\}/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No rule found\"\}/' );
 	}
 
 	public function test_render_error() {

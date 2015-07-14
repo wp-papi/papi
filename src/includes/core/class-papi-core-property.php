@@ -131,11 +131,16 @@ class Papi_Core_Property {
 	 * Check if the property is allowed
 	 * to render by the conditional rules.
 	 *
+	 * @param array $rules
+	 *
 	 * @return bool
 	 */
 
-	public function render_is_allowed_by_rules() {
-		$rules = $this->get_rules();
+	public function render_is_allowed_by_rules( array $rules = [] ) {
+		if ( empty( $rules ) ) {
+			$rules = $this->get_rules();
+		}
+
 		return $this->conditional->display( $rules, $this );
 	}
 

@@ -28,6 +28,14 @@ class Papi_Core_Conditional_Rule {
 	public $slug;
 
 	/**
+	 * The source value.
+	 *
+	 * @var mixed
+	 */
+
+	public $source;
+
+	/**
 	 * The value.
 	 *
 	 * @var mixed

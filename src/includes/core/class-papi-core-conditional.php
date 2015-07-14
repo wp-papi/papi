@@ -69,12 +69,6 @@ class Papi_Core_Conditional {
 			return $display;
 		}
 
-		$rule = papi_get_qs( 'rule' );
-
-		if ( ! empty( $rule ) && is_array( $rule ) ) {
-			$rules = [$rule];
-		}
-
 		$empty = array_filter( $rules, function ( $rule ) {
 			return is_array( $rule ) ? true : null;
 		} );
