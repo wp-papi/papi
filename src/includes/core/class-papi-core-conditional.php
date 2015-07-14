@@ -77,8 +77,6 @@ class Papi_Core_Conditional {
 			return true;
 		}
 
-	#	var_dump($rules);exit;
-
 		$result = [];
 
 		foreach ( $rules as $rule ) {
