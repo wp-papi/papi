@@ -15,36 +15,34 @@ class Rules {
    *
    * @param {string} slug
    * @param {object} rule
+   * @param {string} relation
    */
 
-  bindRule(slug, rule) {
+  bindRule(slug, rule, rules) {
     const $target   = $('[name="' + slug + '"]');
     const selector  = '[name="' + rule.slug + '"], [data-papi-rule="' + rule.slug + '"]';
     const self      = this;
     let typingTimer;
 
     $('body').on('keyup change', selector, function(e) {
-      let $this = $(this);
-      let val   = $this.data('papi-rule-value');
+      let $this  = $(this);
+      let val    = self.getValue(rule.slug);
+      let values = {};
 
-      if (val === undefined) {
-        val = $this.val();
-      }
+      for (let key in rules) {
+        let rule = rules[key];
 
-      console.log($this, val);
+        if ($.type(rule) !== 'object') {
+          continue;
+        }
 
-      switch ($this.attr('type')) {
-        case 'checkbox':
-          val = $this.is(':checked');
-          break;
-        default:
-          break;
+        values[key] = rule;
+        values[key].source = self.getValue(rule.slug);
       }
 
       let attr = {
-        rule:    rule,
-        $target: $target,
-        value:   val
+        rules:    values,
+        $target:  $target
       };
 
       if (e.type === 'change') {
@@ -122,17 +120,50 @@ class Rules {
     const params = {
       'action':   'get_rules_result',
       'page_type': 'pages/article-page-type',
-      'post':      $('#post_ID').val(),
-      'rule':      options.rule,
-      'slug':      options.$target.attr('name'),
-      'value':     options.value
+      'post':      $('#post_ID').val()
+    };
+    const data   = {
+      'rules':     options.rules,
+      'slug':      options.$target.attr('name')
     };
 
     $.ajax({
-      type:     'GET',
+      type:     'POST',
+      data:     {
+        data: JSON.stringify(data)
+      },
       dataType: 'json',
       url:      papi.ajaxUrl + '?' + $.param(params)
     }).success(callback);
+  }
+
+  /**
+   * Get value from field.
+   *
+   * @param {string} slug
+   */
+
+  getValue(slug) {
+    const selector  = '[data-papi-rule="' + slug + '"], [name="' + slug + '"]';
+    const $prop     = $(selector).filter(function () {
+      let $this = $(this);
+      return $this.data('papi-rule-value') || $(this).val();
+    });
+    let   val       = $prop.data('papi-rule-value');
+
+    if (val === undefined) {
+      val = $prop.val();
+    }
+
+    switch ($prop.attr('type')) {
+      case 'checkbox':
+        val = $prop.is(':checked') ? 'true' : 'false';
+        break;
+      default:
+        break;
+    }
+
+    return val;
   }
 
   /**
@@ -145,9 +176,6 @@ class Rules {
     const self     = this;
     const slug     = $this.data().papiSlug;
     const rules    = $.parseJSON($this.text());
-    const relation = rules.relation;
-
-    delete rules.relation;
 
     for (let key in rules) {
       let rule = rules[key];
@@ -156,7 +184,7 @@ class Rules {
         continue;
       }
 
-      this.bindRule(slug, rule);
+      this.bindRule(slug, rule, rules);
     }
   }
 

@@ -107,7 +107,7 @@ class Relationship {
 
   triggerRule($prop) {
     let $list = $prop.find('.relationship-right ul');
-    console.log($prop);
+
     $prop
       .find('[data-papi-rule]')
       .data('papi-rule-value', $list.children().length)
