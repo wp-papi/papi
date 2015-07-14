@@ -10,27 +10,6 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Get Papi cache key.
- *
- * @param string $key
- * @param mixed $suffix
- *
- * @return string
- */
-
-function papi_get_cache_key( $key, $suffix ) {
-	if ( ! is_string( $key ) ) {
-		return '';
-	}
-
-	$key    = papify( $key );
-	$suffix = papi_convert_to_string( $suffix );
-	$suffix = papi_html_name( $suffix );
-	$suffix = papi_remove_papi( $suffix );
-	return sprintf( '%s_%s', $key, $suffix );
-}
-
-/**
  * Try convert to string if is possible else return empty string.
  *
  * @param mixed $obj
@@ -55,16 +34,6 @@ function papi_convert_to_string( $obj ) {
 }
 
 /**
- * Check if Papi is doing a AJAX request or not.
- *
- * @return bool
- */
-
-function papi_doing_ajax() {
-	return defined( 'DOING_PAPI_AJAX' ) && DOING_PAPI_AJAX;
-}
-
-/**
  * Check if current is allowed the given capabilities.
  *
  * @param array|string $capabilities
@@ -86,6 +55,16 @@ function papi_current_user_is_allowed( $capabilities = [] ) {
 	}
 
 	return true;
+}
+
+/**
+ * Check if Papi is doing a AJAX request or not.
+ *
+ * @return bool
+ */
+
+function papi_doing_ajax() {
+	return defined( 'DOING_PAPI_AJAX' ) && DOING_PAPI_AJAX;
 }
 
 /**
@@ -174,6 +153,27 @@ function papi_dashify( $str ) {
 	}
 
 	return str_replace( ' ', '-', str_replace( '_', '-', $str ) );
+}
+
+/**
+ * Get Papi cache key.
+ *
+ * @param string $key
+ * @param mixed $suffix
+ *
+ * @return string
+ */
+
+function papi_get_cache_key( $key, $suffix ) {
+	if ( ! is_string( $key ) ) {
+		return '';
+	}
+
+	$key    = papify( $key );
+	$suffix = papi_convert_to_string( $suffix );
+	$suffix = papi_html_name( $suffix );
+	$suffix = papi_remove_papi( $suffix );
+	return sprintf( '%s_%s', $key, $suffix );
 }
 
 /**
