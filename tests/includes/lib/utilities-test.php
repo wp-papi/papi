@@ -50,6 +50,10 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertNotEmpty( papi_convert_to_string( new ReflectionClass( 'ReflectionClass' ) ) );
 		$this->assertEmpty( papi_convert_to_string( Papi_Loader::instance() ) );
 	}
+	
+	public function test_papi_doing_ajax() {
+		$this->assertFalse( papi_doing_ajax() );
+	}
 
 	public function test_papi_current_user_is_allowed() {
 		$this->assertTrue( papi_current_user_is_allowed( null ) );

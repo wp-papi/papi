@@ -55,6 +55,16 @@ function papi_convert_to_string( $obj ) {
 }
 
 /**
+ * Check if Papi is doing a AJAX request or not.
+ *
+ * @return bool
+ */
+
+function papi_doing_ajax() {
+	return defined( 'DOING_PAPI_AJAX' ) && DOING_PAPI_AJAX;
+}
+
+/**
  * Check if current is allowed the given capabilities.
  *
  * @param array|string $capabilities
@@ -342,9 +352,8 @@ function papi_html_name( $name ) {
 }
 
 /**
- * Check if $obj is empty or not.
- * Values like "0", 0 and false
- * should not return true.
+ * Check if the given object is empty or not.
+ * Values like "0", 0 and false should not return true.
  *
  * @param mixed $obj
  *
