@@ -52,7 +52,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_doing_ajax() {
-		$this->assertFalse( papi_doing_ajax() );
+		$this->assertTrue( papi_doing_ajax() );
 	}
 
 	public function test_papi_esc_html() {
