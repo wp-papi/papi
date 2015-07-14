@@ -16,6 +16,7 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 		$this->rule = new Papi_Core_Conditional_Rule( [
 			'operator' => '=',
 			'slug'     => 'name',
+			'source'   => [1, 2],
 			'value'    => 'Fredrik'
 		] );
 	}
@@ -31,6 +32,10 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 
 	public function test_slug() {
 		$this->assertEquals( 'name', $this->rule->slug );
+	}
+
+	public function test_source() {
+		$this->assertEquals( [1, 2], $this->rule->source );
 	}
 
 	public function test_value() {

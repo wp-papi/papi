@@ -69,6 +69,18 @@ class Rule_Page_Type extends Papi_Page_Type {
 						'slug'     => 'rules2'
 					]
 				]
+			] ),
+			papi_property( [
+				'type'  => 'string',
+				'title' => 'Rules 3',
+				'slug'  => 'rules_3',
+				'rules' => [
+					[
+						'operator' => '=',
+						'slug'     => 'rules_3',
+						'value'    => 'hello'
+					]
+				]
 			] )
 		] );
 	}

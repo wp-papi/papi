@@ -155,43 +155,6 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->assertTrue( $result );
 	}
-/*
-	public function test_rule_equal_query_string() {
-		if ( ! defined( 'DOING_PAPI_AJAX' ) ) {
-			define( 'DOING_PAPI_AJAX', true );
-		}
-
-		$_GET['rule_value'] = '42';
-
-		$result = papi_filter_conditional_rule_allowed( [
-			'operator' => '=',
-			'slug'     => 'name',
-			'value'    => 42
-		] );
-
-		$this->assertTrue( $result );
-
-		$_GET['rule_value'] = 'true';
-
-		$result = papi_filter_conditional_rule_allowed( [
-			'operator' => '=',
-			'slug'     => 'name',
-			'value'    => true
-		] );
-
-		$this->assertTrue( $result );
-
-		$_GET['rule_value'] = 'false';
-
-		$result = papi_filter_conditional_rule_allowed( [
-			'operator' => '=',
-			'slug'     => 'name',
-			'value'    => false
-		] );
-
-		$this->assertTrue( $result );
-	}
-*/
 
 	public function test_rule_not_equal() {
 		$property = papi_property( [
@@ -305,6 +268,15 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 		] );
 
 		$this->assertTrue( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '>',
+			'slug'     => 'number',
+			'source'   => [1, 2],
+			'value'    => 1
+		] );
+
+		$this->assertTrue( $result );
 	}
 
 	public function test_rule_greater_then_or_equal() {
@@ -348,6 +320,15 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 		] );
 
 		$this->assertTrue( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '>=',
+			'slug'     => 'number',
+			'source'   => [1, 2],
+			'value'    => 2
+		] );
+
+		$this->assertTrue( $result );
 	}
 
 	public function test_rule_less_then() {
@@ -383,6 +364,15 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 		] );
 
 		$this->assertTrue( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '<',
+			'slug'     => 'number',
+			'source'   => [1, 2],
+			'value'    => 3
+		] );
+
+		$this->assertTrue( $result );
 	}
 
 	public function test_rule_less_then_or_equal() {
@@ -414,6 +404,15 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '<=',
 			'slug'     => 'number',
+			'value'    => 2
+		] );
+
+		$this->assertTrue( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => '<=',
+			'slug'     => 'number',
+			'source'   => [1, 2],
 			'value'    => 2
 		] );
 

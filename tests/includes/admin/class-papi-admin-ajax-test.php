@@ -233,7 +233,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 				'rules' => [
 					[
 						'operator' => 'NOT EXISTS',
-						'slug'     => 'rules1',
+						'slug'     => 'rules2',
 						'source'   => ''
 					]
 				],
@@ -244,6 +244,39 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
+
+		do_action( 'papi/ajax/get_rules_result' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"render\"\:true\}/' );
+	}
+
+	public function test_get_rules_result_success_3() {
+		$_GET = [
+			'page_type' => 'rule-page-type',
+			'post'      => $this->factory->post->create()
+		];
+		$_POST = [
+			'data' => json_encode( [
+				'rules' => [
+					[
+						'operator' => '=',
+						'slug'     => 'rules_3',
+						'source'   => 'hello',
+						'value'    => 'hello'
+					]
+				],
+				'slug'  => 'rules_3'
+			] )
+		];
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		if ( ! defined( 'DOING_PAPI_AJAX' ) ) {
+			define( 'DOING_PAPI_AJAX', true );
+		}
 
 		do_action( 'papi/ajax/get_rules_result' );
 
