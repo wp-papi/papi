@@ -38,13 +38,13 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_filter_conditional_rule_allowed( 1 ) );
 		$this->assertFalse( papi_filter_conditional_rule_allowed( '' ) );
 		$this->assertFalse( papi_filter_conditional_rule_allowed( (object) [] ) );
-		$this->assertFalse( papi_filter_conditional_rule_allowed( new Papi_Core_Conditional_Rule( [
+		$this->assertTrue( papi_filter_conditional_rule_allowed( new Papi_Core_Conditional_Rule( [
 			'operator' => '=',
 			'slug'     => 'fake',
 			'source'   => 'hello',
 			'value'    => 'hello'
 		] ) ) );
-		$this->assertFalse( papi_filter_conditional_rule_allowed( [
+		$this->assertTrue( papi_filter_conditional_rule_allowed( [
 			'operator' => '=',
 			'slug'     => 'fake',
 			'source'   => 'hello',

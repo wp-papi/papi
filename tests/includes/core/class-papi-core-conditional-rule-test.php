@@ -31,7 +31,7 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 	}
 
 	public function test_slug() {
-		$this->assertEquals( 'name', $this->rule->slug );
+		$this->assertEquals( 'papi_name', $this->rule->slug );
 	}
 
 	public function test_source() {
@@ -73,7 +73,7 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 			'operator' => '=',
 			'slug'     => 'numbers',
 			'source'   => function ( $slug ) {
-				if ( $slug === 'numbers' ) {
+				if ( $slug === 'papi_numbers' ) {
 					return [1, 2];
 				} else {
 					return 'Fredrik';
@@ -84,7 +84,7 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 	}
 
 	public function source_callable( $slug ) {
-		if ( $slug === 'numbers' ) {
+		if ( $slug === 'papi_numbers' ) {
 			return [1, 2];
 		} else {
 			return 'Fredrik';
@@ -98,7 +98,7 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 }
 
 function source_callable( $slug ) {
-	if ( $slug === 'numbers' ) {
+	if ( $slug === 'papi_numbers' ) {
 		return [1, 2];
 	} else {
 		return 'Fredrik';

@@ -39,7 +39,7 @@ function papi_filter_conditional_rule_allowed( $rule ) {
 		return false;
 	}
 
-	$result =  apply_filters( 'papi/conditional/rule/' . $rule->operator, $rule );
+	$result = apply_filters( 'papi/conditional/rule/' . $rule->operator, $rule );
 
 	if ( $result === true || $result === false ) {
 		return $result;

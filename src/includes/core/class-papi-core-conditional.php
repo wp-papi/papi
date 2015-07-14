@@ -77,6 +77,8 @@ class Papi_Core_Conditional {
 			return true;
 		}
 
+	#	var_dump($rules);exit;
+
 		$result = [];
 
 		foreach ( $rules as $rule ) {
@@ -112,11 +114,9 @@ class Papi_Core_Conditional {
 				continue;
 			}
 
-			if ( is_array( $value ) && isset( $value['slug'] ) ) {
-				$value['slug'] = papify( $value['slug'] );
+			if ( is_array( $value ) ) {
+				$rules[$index] = new Papi_Core_Conditional_Rule( $value );
 			}
-
-			$rules[$index] = new Papi_Core_Conditional_Rule( $value );
 		}
 
 		return $rules;

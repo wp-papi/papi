@@ -114,7 +114,12 @@ class Papi_Core_Conditional_Rule {
 	private function setup( array $rule ) {
 		foreach ( $rule as $key => $value ) {
 			if ( $key === 'operator' ) {
+				$value = strtoupper( $value );
 				$value = html_entity_decode( $value );
+			}
+
+			if ( $key === 'slug' ) {
+				$value = papify( $value );
 			}
 
 			if ( $key === 'source' ) {
