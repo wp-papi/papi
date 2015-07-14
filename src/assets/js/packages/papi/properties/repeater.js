@@ -200,6 +200,18 @@ class Repeater {
   }
 
   /**
+   * Trigger conditional rule.
+   *
+   * @param {object} $prop
+   */
+
+  triggerRule($tbody, counter) {
+    const $top  = $tbody.closest('.papi-property-repeater-top');
+    let name    = $top.find('.bottom').next().attr('name').replace('[]', '');
+    $('[data-papi-rule="' + name + '"]').data('papi-rule-value', counter).trigger('change');
+  }
+
+  /**
    * Update table row number.
    *
    * @param {object} $tbody
@@ -228,10 +240,14 @@ class Repeater {
    */
 
   updateDatabaseRowNumber($tbody) {
+    let counter = $tbody.find('tr').length;
+
     $tbody
       .closest('.papi-property-repeater-top')
       .find('.papi-property-repeater-rows')
-      .val($tbody.find('tr').length);
+      .val();
+
+    this.triggerRule($tbody, counter);
   }
 
 }

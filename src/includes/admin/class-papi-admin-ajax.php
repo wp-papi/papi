@@ -171,24 +171,26 @@ class Papi_Admin_Ajax {
 	 */
 
 	public function get_rules_result() {
-		if ( ! isset( $_GET['slug'] ) || ! isset( $_GET['page_type'] ) ) {
-			$this->render_error( 'No property found' );
+		$result = papi_get_qs( ['page_type', 'post', 'rule', 'slug', 'value'], true );
+
+		if ( ! isset( $result['page_type'] ) || ! isset( $result['post'] ) || ! isset( $result['rule'] ) || ! isset( $result['value'] ) ) {
+			$this->render_error( 'No rule found' );
 			return;
 		}
 
 		$page_type = papi_get_page_type_by_post_id();
 
 		if ( $page_type instanceof Papi_Page_Type === false ) {
-			$this->render_error( 'No property found' );
+			$this->render_error( 'No rule found' );
 			return;
 		}
 
-		if ( $property  = $page_type->get_property( $_GET['slug'] ) ) {
+		if ( $property  = $page_type->get_property( $result['slug'] ) ) {
 			wp_send_json( [
 				'render' => $property->render_is_allowed_by_rules()
 			] );
 		} else {
-			$this->render_error( 'No property found' );
+			$this->render_error( 'No rule found' );
 		}
 	}
 

@@ -140,7 +140,7 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		?>
 		<div class="papi-property-relationship">
-			<input type="hidden" name="<?php echo $slug; ?>[]" />
+			<input type="hidden" name="<?php echo $slug; ?>[]" data-papi-rule="<?php echo $slug; ?>" />
 			<div class="relationship-inner">
 				<div class="relationship-top-left">
 					<strong><?php _e( 'Search', 'papi' ); ?></strong>

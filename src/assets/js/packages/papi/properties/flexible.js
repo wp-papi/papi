@@ -132,10 +132,14 @@ class Flexible extends Repeater {
    */
 
   updateDatabaseRowNumber($tbody) {
+    let counter = $tbody.find('tr tbody tr').length;
+
     $tbody
       .closest('.papi-property-repeater-top')
       .find('.papi-property-repeater-rows')
       .val($tbody.find('tr tbody tr').length);
+
+    this.triggerRule($tbody, counter);
   }
 
 }

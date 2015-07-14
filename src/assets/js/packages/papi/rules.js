@@ -19,22 +19,38 @@ class Rules {
 
   bindRule(slug, rule) {
     const $target   = $('[name="' + slug + '"]');
-    const $source   = $('[name="' + rule.slug + '"]');
+    const selector  = '[name="' + rule.slug + '"], [data-papi-rule="' + rule.slug + '"]';
     const self      = this;
     let typingTimer;
 
-    $source.on('keyup change', function (e) {
+    $('body').on('keyup change', selector, function(e) {
       let $this = $(this);
-      let attr  = {
-        slug:    rule.slug,
+      let val   = $this.data('papi-rule-value');
+
+      if (val === undefined) {
+        val = $this.val();
+      }
+
+      console.log($this, val);
+
+      switch ($this.attr('type')) {
+        case 'checkbox':
+          val = $this.is(':checked');
+          break;
+        default:
+          break;
+      }
+
+      let attr = {
+        rule:    rule,
         $target: $target,
-        val:     $this.val()
+        value:   val
       };
 
       if (e.type === 'change') {
         self.display(attr);
       } else {
-        self.debounce(function () {
+        self.debounce(function() {
           self.display(attr);
         }, 200);
       }
@@ -47,7 +63,7 @@ class Rules {
 
   binds() {
     const self = this;
-    $('[data-papi-rules="true"]').each(function () {
+    $('[data-papi-rules="true"]').each(function() {
       self.setupRules($(this));
     });
   }
@@ -63,24 +79,24 @@ class Rules {
 
   debounce(fn, wait, immediate) {
     let timeout;
-  	(function() {
-  		const context = this;
+    (function() {
+      const context = this;
       const args    = arguments;
-  		const later   = function() {
-  			timeout = null;
-  			if (!immediate) {
+      const later   = function() {
+        timeout = null;
+        if (!immediate) {
           fn.apply(context, args);
         }
-  		};
-  		const callNow = immediate && !timeout;
+      };
+      const callNow = immediate && !timeout;
 
-  		clearTimeout(timeout);
-  		timeout = setTimeout(later, wait);
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
 
-  		if (callNow) {
+      if (callNow) {
         fn.apply(context, args);
       }
-  	})();
+    })();
   }
 
   /**
@@ -90,7 +106,7 @@ class Rules {
    */
 
   display(options) {
-    this.fetch(options.slug, options.val, function (res) {
+    this.fetch(options, function(res) {
       options.$target.closest('.papi-rules-exists')[res.render ? 'removeClass' : 'addClass']('papi-hide');
     });
   }
@@ -98,18 +114,18 @@ class Rules {
   /**
    * Fetch rule result from Papi ajax.
    *
-   * @param {string} slug
-   * @param {mixed} value
+   * @param {object} options
    * @param {function} callback
    */
 
-  fetch(slug, value, callback) {
+  fetch(options, callback) {
     const params = {
-      'action':    'get_rules_result',
+      'action':   'get_rules_result',
       'page_type': 'pages/article-page-type',
-      'page_id':   $('#post_ID').val(),
-      'slug':      slug,
-      'value':     value
+      'post':      $('#post_ID').val(),
+      'rule':      options.rule,
+      'slug':      options.$target.attr('name'),
+      'value':     options.value
     };
 
     $.ajax({

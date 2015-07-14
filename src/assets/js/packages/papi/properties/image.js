@@ -109,13 +109,19 @@ class Image {
     e.preventDefault();
 
     const $this = $(this);
+    const $prop = $this.closest('.papi-property-image');
 
-    $this.closest('.papi-property-image')
+    $prop
       .find('.papi-image-select')
       .removeClass('papi-hide');
 
     $this.closest('.attachment')
       .remove();
+
+    // Trigger conditional rule.
+    $prop
+      .find('input[type=hidden]')
+      .trigger('change');
   }
 
   /**
@@ -129,6 +135,9 @@ class Image {
     let template = this.template;
     template = window._.template(template());
     $el.append('<div class="attachment">' + template(data) + '</div>');
+
+    // Trigger conditional rule.
+    $el.find('input[type=hidden]').trigger('change');
   }
 
   /**
@@ -164,7 +173,11 @@ class Image {
       }
 
       $img.attr('src', url);
+
       $input.val(attachment.id);
+
+      // Trigger conditional rule.
+      $input.trigger('change');
     }).open();
   }
 

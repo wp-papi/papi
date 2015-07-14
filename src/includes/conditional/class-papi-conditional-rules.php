@@ -43,6 +43,38 @@ class Papi_Conditional_Rules {
 	}
 
 	/**
+	 * Convert value from a property.
+	 *
+	 * @param mixed $value
+	 * @param Papi_Core_Conditional_Rule $rule
+	 *
+	 * @return mixed
+	 */
+
+	private function convert_prop( $value, Papi_Core_Conditional_Rule $rule ) {
+		$post_id   = papi_get_post_id();
+		$page_type = papi_get_page_type_by_post_id( $post_id );
+
+		if ( ! papi_is_empty( $value ) && $page_type instanceof Papi_Page_Type !== false ) {
+			$property = $page_type->get_property( $rule->slug );
+
+			if ( papi_is_property( $property ) ) {
+				$prop_value = $property->format_value( $value, $property->slug, $post_id );
+				$prop_value = papi_filter_format_value( $property->type, $prop_value, $property->slug, $post_id );
+				return $this->get_deep_value( $rule->slug, $prop_value );
+
+				if ( gettype( $prop_value ) === gettype( $rule->value ) ) {
+					return $prop_value;
+				}
+			}
+
+			return $value;
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Convert string number to int or float.
 	 *
 	 * @param string $str
@@ -81,15 +113,15 @@ class Papi_Conditional_Rules {
 			];
 		}
 
-		// Convert bool value.
-		if ( $rule->value === true || $rule->value === false ) {
-			return [
-				$this->convert_bool( $value ),
-				$rule->value
-			];
-		}
+		// Convert bool value if it a string bool or return value.
+		$value       = $this->convert_bool( $value );
+		$rule->value = $this->convert_bool( $rule->value );
 
-		return [$value, $rule->value];
+		// Try to convert the property to the same value as the rule value.
+		return [
+			$this->convert_prop( $value, $rule ),
+			$rule->value
+		];
 	}
 
 	/**
@@ -117,17 +149,14 @@ class Papi_Conditional_Rules {
 
 	private function get_value( Papi_Core_Conditional_Rule $rule ) {
 		if ( defined( 'DOING_PAPI_AJAX' ) && DOING_PAPI_AJAX ) {
-			$result    = papi_get_qs( [ 'page_type', 'slug', 'value'], true );
+			$value     = papi_get_qs( 'value' );
 			$post_id   = papi_get_post_id();
 			$page_type = papi_get_page_type_by_post_id( $post_id );
 
-			if ( ! empty( $result ) && $page_type instanceof Papi_Page_Type !== false ) {
-				$value    = isset( $result['value'] ) ? $result['value'] : null;
-				$property = $page_type->get_property( $result['slug'] );
+			if ( ! papi_is_empty( $value ) && $page_type instanceof Papi_Page_Type !== false ) {
+				$property = $page_type->get_property( $rule->slug );
 
-				if ( papi_is_property( $property ) && ! is_null( $value ) ) {
-					$value = $property->format_value( $value, $property->slug, $post_id );
-					$value = papi_filter_format_value( $property->type, $value, $property->slug, $post_id );
+				if ( papi_is_property( $property ) ) {
 					return $this->get_deep_value( $rule->slug, $value );
 				}
 			}
@@ -179,9 +208,14 @@ class Papi_Conditional_Rules {
 	public function rule_greater_then( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
 
+		if ( is_array( $value ) ) {
+			$value = count( $value );
+		}
+
 		if ( ! is_numeric( $value ) || ! is_numeric( $rule->value ) ) {
 			return false;
 		}
+
 
 		return $this->convert_number( $value ) > $this->convert_number( $rule->value );
 	}
@@ -196,6 +230,10 @@ class Papi_Conditional_Rules {
 
 	public function rule_greater_then_or_equal( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
+
+		if ( is_array( $value ) ) {
+			$value = count( $value );
+		}
 
 		if ( ! is_numeric( $value ) || ! is_numeric( $rule->value ) ) {
 			return false;
@@ -215,6 +253,10 @@ class Papi_Conditional_Rules {
 	public function rule_less_then( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
 
+		if ( is_array( $value ) ) {
+			$value = count( $value );
+		}
+
 		if ( ! is_numeric( $value ) || ! is_numeric( $rule->value ) ) {
 			return false;
 		}
@@ -232,6 +274,10 @@ class Papi_Conditional_Rules {
 
 	public function rule_less_then_or_equal( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
+
+		if ( is_array( $value ) ) {
+			$value = count( $value );
+		}
 
 		if ( ! is_numeric( $value ) || ! is_numeric( $rule->value ) ) {
 			return false;

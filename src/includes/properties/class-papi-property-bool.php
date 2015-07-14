@@ -57,7 +57,7 @@ class Papi_Property_Bool extends Papi_Property {
 			return false;
 		}
 
-		return  is_string( $value ) && ( $value === 'true' || $value === '1' ) || $value === true;
+		return  is_string( $value ) && ( $value === 'true' || $value === 'on' || $value === '1' ) || $value === true;
 	}
 
 	/**

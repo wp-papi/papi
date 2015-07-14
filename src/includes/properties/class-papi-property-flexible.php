@@ -600,7 +600,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 			<?php /* Default repeater value */ ?>
 
-			<input type="hidden" name="<?php echo $this->get_slug(); ?>[]" />
+			<input type="hidden" data-papi-rule="<?php echo $options->slug; ?>" name="<?php echo $this->get_slug(); ?>[]" />
 		</div>
 		<?php
 	}
