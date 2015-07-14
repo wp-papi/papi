@@ -33,12 +33,10 @@ function papi_filter_format_value( $type, $value, $slug, $post_id ) {
  */
 
 function papi_filter_conditional_rule_allowed( $rule ) {
-	if ( ! is_array( $rule ) || $rule instanceof Papi_Core_Conditional_Rule === false ) {
-		return false;
-	}
+	$rule = papi_rule( $rule );
 
-	if ( is_array( $rule ) ) {
-		$rule   = new Papi_Core_Conditional_Rule( $rule );
+	if ( ! papi_is_rule( $rule ) ) {
+		return false;
 	}
 
 	$result =  apply_filters( 'papi/conditional/rule/' . $rule->operator, $rule );

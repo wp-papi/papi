@@ -219,7 +219,6 @@ class Papi_Conditional_Rules {
 			return false;
 		}
 
-
 		return $this->convert_number( $value ) > $this->convert_number( $rule->value );
 	}
 

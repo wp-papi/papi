@@ -132,7 +132,8 @@ final class Papi_Loader extends Papi_Container {
 			'field.php',
 			'template.php',
 			'option.php',
-			'deprecated.php'
+			'deprecated.php',
+			'conditional.php'
 		];
 
 		// Require function files.
