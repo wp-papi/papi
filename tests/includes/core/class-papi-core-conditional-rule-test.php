@@ -16,7 +16,7 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 		$this->rule = new Papi_Core_Conditional_Rule( [
 			'operator' => '=',
 			'slug'     => 'name',
-			'source'   => [1, 2],
+			'source'   => 'Elli',
 			'value'    => 'Fredrik'
 		] );
 	}
@@ -35,11 +35,72 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 	}
 
 	public function test_source() {
-		$this->assertEquals( [1, 2], $this->rule->source );
+		$this->assertEquals( 'Elli', $this->rule->get_source() );
+	}
+
+	public function test_source_callable() {
+		$rule = new Papi_Core_Conditional_Rule( [
+			'operator' => '=',
+			'slug'     => 'numbers',
+			'source'   => [$this, 'source_callable']
+		] );
+		$this->assertEquals( [1, 2], $rule->get_source() );
+
+		$rule = new Papi_Core_Conditional_Rule( [
+			'operator' => '=',
+			'slug'     => 'name',
+			'source'   => [$this, 'source_callable']
+		] );
+		$this->assertEquals( 'Fredrik', $rule->get_source() );
+
+		$rule = new Papi_Core_Conditional_Rule( [
+			'operator' => '=',
+			'slug'     => 'numbers',
+			'source'   => 'source_callable'
+		] );
+		$this->assertEquals( [1, 2], $rule->get_source() );
+
+		$rule = new Papi_Core_Conditional_Rule( [
+			'operator' => '=',
+			'slug'     => 'name',
+			'source'   => 'source_callable'
+		] );
+		$this->assertEquals( 'Fredrik', $rule->get_source() );
+	}
+
+	public function test_source_closure() {
+		$rule = new Papi_Core_Conditional_Rule( [
+			'operator' => '=',
+			'slug'     => 'numbers',
+			'source'   => function ( $slug ) {
+				if ( $slug === 'numbers' ) {
+					return [1, 2];
+				} else {
+					return 'Fredrik';
+				}
+			}
+		] );
+		$this->assertEmpty( $rule->get_source() );
+	}
+
+	public function source_callable( $slug ) {
+		if ( $slug === 'numbers' ) {
+			return [1, 2];
+		} else {
+			return 'Fredrik';
+		}
 	}
 
 	public function test_value() {
 		$this->assertEquals( 'Fredrik', $this->rule->value );
 	}
 
+}
+
+function source_callable( $slug ) {
+	if ( $slug === 'numbers' ) {
+		return [1, 2];
+	} else {
+		return 'Fredrik';
+	}
 }

@@ -149,19 +149,20 @@ class Papi_Conditional_Rules {
 
 	private function get_value( Papi_Core_Conditional_Rule $rule ) {
 		if ( defined( 'DOING_PAPI_AJAX' ) && DOING_PAPI_AJAX ) {
-			$value     = $rule->source;
+			$source    = $rule->get_source();
 			$post_id   = papi_get_post_id();
 			$page_type = papi_get_page_type_by_post_id( $post_id );
 
-			if ( ! papi_is_empty( $value ) && $page_type instanceof Papi_Page_Type !== false ) {
+			if ( ! papi_is_empty( $source ) && $page_type instanceof Papi_Page_Type !== false ) {
 				if ( $property = $page_type->get_property( $rule->slug ) ) {
-					return $this->get_deep_value( $rule->slug, $value );
+					$rules = $property->get_rules();
+					return $this->get_deep_value( $rule->slug, $source );
 				}
 			}
 		}
 
-		if ( ! papi_is_empty( $rule->source ) ) {
-			return $this->get_deep_value( $rule->slug, $rule->source );
+		if ( ! papi_is_empty( $rule->get_source() ) ) {
+			return $this->get_deep_value( $rule->slug, $rule->get_source() );
 		}
 
 		if ( papi_is_option_page() ) {

@@ -33,7 +33,7 @@ class Papi_Core_Conditional_Rule {
 	 * @var mixed
 	 */
 
-	public $source;
+	private $source;
 
 	/**
 	 * The value.
@@ -54,6 +54,58 @@ class Papi_Core_Conditional_Rule {
 	}
 
 	/**
+	 * Get the source value.
+	 *
+	 * @return mixed
+	 */
+
+	public function get_source() {
+		if ( is_callable( $this->source ) ) {
+			$source = $this->source;
+
+			return call_user_func_array( $this->source, [$this->slug] );
+		}
+
+		if ( is_string( $this->source ) && strpos( $this->source, '#' ) !== false ) {
+			$source = explode( '#', $this->source );
+
+			if ( count( $source ) === 2 && class_exists( $source[0] ) ) {
+				$source[0] = new $source[0]();
+				return call_user_func_array( $source, [$this->slug] );
+			}
+		}
+
+		return $this->source;
+	}
+
+	/**
+	 * Setup source callable.
+	 *
+	 * @param string $value
+	 *
+	 * @return string
+	 */
+
+	public function setup_source( $value ) {
+		if ( is_array( $value ) && count( $value ) === 2 && is_object( $value[0] ) && is_string( $value[1] ) ) {
+			if ( $class = get_class( $value[0] ) ) {
+				return sprintf( '%s#%s', $class, $value[1] );
+			}
+		}
+
+		if ( is_string( $value ) && is_callable( $value ) ) {
+			return $value;
+		}
+
+		// No support for closure.
+		if ( is_object( $value ) && $value instanceof Closure ) {
+			return '';
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Setup the rule and assign properties with values.
 	 *
 	 * @param  array  $rule
@@ -64,6 +116,11 @@ class Papi_Core_Conditional_Rule {
 			if ( $key === 'operator' ) {
 				$value = html_entity_decode( $value );
 			}
+
+			if ( $key === 'source' ) {
+				$value = $this->setup_source( $value );
+			}
+
 			$this->$key = $value;
 		}
 	}
