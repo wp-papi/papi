@@ -68,7 +68,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		}
 
 		// Add post type to the options array.
-		$options['post_type'] = $post_type;
+		$options['_post_type'] = $post_type;
 
 		if ( isset( $options['sort_order'] ) ) {
 			$sort_order = intval( $options['sort_order'] );
