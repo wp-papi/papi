@@ -37,7 +37,10 @@ class Rules {
         }
 
         values[key] = rule;
-        values[key].source = self.getValue(rule.slug);
+
+        if (values[key].source == null) {
+          values[key].source = self.getValue(rule.slug);
+        }
       }
 
       let attr = {
