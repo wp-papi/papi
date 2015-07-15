@@ -30,7 +30,10 @@ class Papi_Property_Url extends Papi_Property {
 	public function html() {
 		$settings = $this->get_settings();
 		?>
-		<input type="url" name="<?php echo $this->html_name(); ?>" value="<?php echo $this->get_value(); ?>"
+		<input type="url"
+			   id="<?php echo $this->html_name(); ?>"
+			   name="<?php echo $this->html_name(); ?>"
+			   value="<?php echo $this->get_value(); ?>"
 		       class="<?php echo $settings->mediauploader ? 'papi-url-media-input' : ''; ?>"/>
 
 		<?php if ( $settings->mediauploader ): ?>

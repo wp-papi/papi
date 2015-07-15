@@ -38,8 +38,11 @@ class Papi_Property_String extends Papi_Property {
 	public function html() {
 		$value   = $this->get_value();
 		?>
-		<input type="<?php echo $this->input_type; ?>" name="<?php echo $this->html_name(); ?>"
-		       value="<?php echo $value; ?>" />
+		<input
+			type="<?php echo $this->input_type; ?>"
+			id="<?php echo $this->html_name(); ?>"
+			name="<?php echo $this->html_name(); ?>"
+			value="<?php echo $value; ?>" />
 	<?php
 	}
 

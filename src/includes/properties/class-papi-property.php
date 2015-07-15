@@ -138,7 +138,7 @@ class Papi_Property extends Papi_Core_Property {
 	public function render_label_html() {
 		$title = $this->get_option( 'title' );
 		?>
-		<label for="<?php echo $this->get_option( 'slug' ); ?>" title="<?php echo $title . ' ' . papi_require_text( $this->get_options() ); ?>">
+		<label for="<?php echo $this->get_option( 'slug' ); ?>" title="<?php echo trim( $title . ' ' . papi_require_text( $this->get_options() ) ); ?>">
 			<?php
 			echo $title;
 			echo papi_required_html( $this->get_options() );

@@ -96,6 +96,7 @@ class Papi_Property_Post extends Papi_Property {
 
 		<div class="papi-property-post">
 			<select
+				id="<?php echo $this->html_name(); ?>"
 				name="<?php echo $this->html_name(); ?>"
 				class="papi-component-select2 papi-fullwidth"
 				data-allow-clear="true"

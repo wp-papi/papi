@@ -30,7 +30,8 @@ class Papi_Property_Text extends Papi_Property {
 	public function html() {
 		$value = $this->get_value();
 		?>
-		<textarea name="<?php echo $this->html_name(); ?>"
+		<textarea id="<?php echo $this->html_name(); ?>"
+				  name="<?php echo $this->html_name(); ?>"
 		          class="papi-property-text"><?php echo sanitize_text_field( $value ); ?></textarea>
 		<?php
 	}
