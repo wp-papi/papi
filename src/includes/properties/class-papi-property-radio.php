@@ -45,10 +45,12 @@ class Papi_Property_Radio extends Papi_Property {
 			}
 
 			?>
-			<input type="radio" value="<?php echo $value ?>"
+			<input id="<?php echo $this->html_id( $key ); ?>"
+				   type="radio" value="<?php echo $value ?>"
 			       name="<?php echo $this->html_name(); ?>" <?php echo $value === $settings->selected ? 'checked="checked"' : ''; ?> />
+			<label for="<?php echo $this->html_id( $key ); ?>"><?php echo $key; ?></label>
+			<br />
 			<?php
-			echo $key . '<br />';
 		}
 	}
 }

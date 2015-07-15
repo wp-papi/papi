@@ -63,10 +63,12 @@ class Papi_Property_Checkbox extends Papi_Property {
 			}
 
 			?>
-			<input type="checkbox" value="<?php echo $value; ?>"
+			<input id="<?php echo $this->html_id( $key ); ?>"
+				   type="checkbox" value="<?php echo $value; ?>"
 			       name="<?php echo $this->html_name(); ?>[]" <?php echo in_array( $value, $settings->selected ) ? 'checked="checked"' : ''; ?> />
+		    <label for="<?php echo $this->html_id( $key ); ?>"><?php echo $key; ?></label>
+			<br />
 			<?php
-			echo $key . '<br />';
 		}
 	}
 

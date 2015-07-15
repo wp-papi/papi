@@ -48,6 +48,7 @@ class Papi_Property extends Papi_Core_Property {
 
 	public function html_id( $suffix = '' ) {
 		$suffix = empty( $suffix ) || ! is_string( $suffix ) ? '' : '_' . $suffix;
+		$suffix = papi_underscorify( papi_slugify( $suffix ) );
 		return sprintf( '_%s%s', $this->html_name(), $suffix );
 	}
 

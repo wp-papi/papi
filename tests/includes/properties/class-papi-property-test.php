@@ -386,6 +386,9 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		] );
 
 		$this->assertEquals( '_papi_name', $property->html_id() );
+		$this->assertEquals( '_papi_name_suffix', $property->html_id( 'suffix' ) );
+		$this->assertEquals( '_papi_name_black', $property->html_id( 'Black' ) );
+		$this->assertEquals( '_papi_name_lank', $property->html_id( 'Länk' ) );
 	}
 
 	public function test_html_name() {
