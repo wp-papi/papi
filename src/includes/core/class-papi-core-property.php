@@ -141,7 +141,7 @@ class Papi_Core_Property {
 			$rules = $this->get_rules();
 		}
 
-		return $this->conditional->display( $rules );
+		return $this->conditional->display( $rules, $this );
 	}
 
 	/**

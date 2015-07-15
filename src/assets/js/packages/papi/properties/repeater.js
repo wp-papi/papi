@@ -75,6 +75,7 @@ class Repeater {
 
     $row.appendTo($tbody);
     $row.find('[name*="_property"]').trigger('papi/property/repeater/added');
+    $row.find('[data-papi-rules="true"]').trigger('init');
 
     this.scrollDownTable($tbody);
     this.updateDatabaseRowNumber($tbody);

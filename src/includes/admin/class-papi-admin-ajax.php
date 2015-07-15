@@ -152,7 +152,7 @@ class Papi_Admin_Ajax {
 
 			$property->render_ajax_request();
 
-			$items[$key] = ob_get_clean();
+			$items[$key] = trim( ob_get_clean() );
 		}
 
 		$items = array_filter( $items );

@@ -212,6 +212,24 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	public function get_property( $slug, $child_slug = '' ) {
 		$boxes = $this->get_boxes();
+		$parts = preg_split( '/\[\d+\]/', $slug );
+		$parts = array_map( function ( $part ) {
+			return preg_replace( '/(\[|\])/', '', $part );
+		}, $parts );
+
+		if ( count( $parts ) > 1 ) {
+			$property = null;
+
+			for ( $i = 0, $l = count( $parts ); $i < $l; $i++ ) {
+				$child    = isset( $parts[$i+1] ) ? $parts[$i+1] : '';
+				$property = $this->get_property( $parts[$i], $child );
+				if ( isset( $parts[$i+1] ) ) {
+					$i++;
+				}
+			}
+
+			return $property;
+		}
 
 		if ( empty( $boxes ) ) {
 			return;

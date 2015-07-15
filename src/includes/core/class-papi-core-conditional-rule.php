@@ -54,6 +54,22 @@ class Papi_Core_Conditional_Rule {
 	}
 
 	/**
+	 * Get field slug.
+	 *
+	 * @return string
+	 */
+
+	public function get_field_slug() {
+		if ( preg_match( '/\[|\]/', $this->slug ) ) {
+			$slug = preg_replace( '/\[|\]/', '.', $this->slug );
+			$slug = str_replace( '..', '.', $slug );
+			return substr( $slug, 0, -1 );
+		}
+
+		return $this->slug;
+	}
+
+	/**
 	 * Get the source value.
 	 *
 	 * @return mixed

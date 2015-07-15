@@ -15,19 +15,26 @@ class Rules {
    *
    * @param {string} slug
    * @param {object} rule
-   * @param {string} relation
    */
 
-  bindRule(slug, rule, rules) {
+  bindRule(slug, rule) {
+    const ruleSlug  = this.getRuleSlug(slug, rule);
     const $target   = $('[name="' + slug + '"]');
-    const selector  = '[name="' + rule.slug + '"], [data-papi-rule="' + rule.slug + '"]';
+    const selector  = '[name="' + ruleSlug + '"], [data-papi-rule="' + ruleSlug + '"]';
     const self      = this;
     let typingTimer;
 
     $('body').on('keyup change', selector, function(e) {
-      let $this  = $(this);
-      let val    = self.getValue(rule.slug);
-      let values = {};
+      let $this    = $(this);
+      const source = $('[data-papi-rule-source-slug="' + slug + '"]').text();
+      let val      = self.getValue(rule.slug);
+      let values   = {};
+
+      if (!source.length) {
+        return;
+      }
+
+      const rules = $.parseJSON(source);
 
       for (let key in rules) {
         let rule = rules[key];
@@ -36,7 +43,8 @@ class Rules {
           continue;
         }
 
-        values[key] = rule;
+        values[key]      = rule;
+        values[key].slug = ruleSlug;
 
         if (values[key].source == null) {
           values[key].source = self.getValue(rule.slug);
@@ -64,9 +72,12 @@ class Rules {
 
   binds() {
     const self = this;
-    $('[data-papi-rules="true"]').each(function() {
-      self.setupRules($(this));
+    $('body').on('init', '[data-papi-rules="true"]', function() {
+      $('[data-papi-rules="true"]').each(function() {
+        self.setupRules($(this));
+      });
     });
+    $('[data-papi-rules="true"]').trigger('init');
   }
 
   /**
@@ -141,6 +152,33 @@ class Rules {
   }
 
   /**
+   * Get rule slug.
+   *
+   * @param {string} slug
+   * @param {object} rule
+   *
+   * @return string
+   */
+
+  getRuleSlug(slug, rule) {
+    const arrReg  = /\[\d+\](\[\w+\])$/;
+    const papiReg = /^papi\_/;
+
+    if (rule.slug.indexOf('.') !== -1) {
+      rule.slug = rule.slug.split('.')[0];
+    }
+
+    if (arrReg.test(slug)) {
+      slug = slug.replace(arrReg.exec(slug)[1], '[' + rule.slug.replace(papiReg, '') + ']');
+      if ($('[name="' + slug + '"]').length) {
+        rule.slug = slug;
+      }
+    }
+
+    return rule.slug;
+  }
+
+  /**
    * Get value from field.
    *
    * @param {string} slug
@@ -148,11 +186,21 @@ class Rules {
 
   getValue(slug) {
     const selector  = '[data-papi-rule="' + slug + '"], [name="' + slug + '"]';
-    const $prop     = $(selector).filter(function () {
+    let   $prop     = $(selector).filter(function () {
       let $this = $(this);
+      if ($this.attr('type') === 'hidden') {
+        return false;
+      }
       return $this.data('papi-rule-value') || $(this).val();
     });
-    let   val       = $prop.data('papi-rule-value');
+
+    if (!$prop.length) {
+      $prop = $(selector).filter(function () {
+        return $(this).attr('type') === 'hidden';
+      });
+    }
+
+    let val = $prop.data('papi-rule-value');
 
     if (val === undefined) {
       val = $prop.val();
@@ -177,8 +225,8 @@ class Rules {
 
   setupRules($this) {
     const self     = this;
-    const slug     = $this.data().papiSlug;
     const rules    = $.parseJSON($this.text());
+    let slug       = $this.data().papiRuleSourceSlug;
 
     for (let key in rules) {
       let rule = rules[key];
@@ -189,6 +237,8 @@ class Rules {
 
       this.bindRule(slug, rule, rules);
     }
+
+    $this.removeAttr('data-papi-rules');
   }
 
 }

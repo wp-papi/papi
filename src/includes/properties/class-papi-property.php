@@ -198,9 +198,9 @@ class Papi_Property extends Papi_Core_Property {
 			return;
 		}
 
-		$rules = $this->conditional->prepare_rules( $rules );
+		$rules = $this->conditional->prepare_rules( $rules, $this );
 		?>
-		<script type="application/json" data-papi-rules="true" data-papi-slug="<?php echo $this->html_name(); ?>">
+		<script type="application/json" data-papi-rules="true" data-papi-rule-source-slug="<?php echo $this->html_name(); ?>">
 			<?php echo json_encode( $rules ); ?>
 		</script>
 		<?php

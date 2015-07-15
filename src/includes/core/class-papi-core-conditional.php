@@ -26,16 +26,17 @@ class Papi_Core_Conditional {
 	 * Check if the property should be displayed by the rules.
 	 *
 	 * @param  array $rules
+	 * @param Papi_Core_Property $property
 	 *
 	 * @return bool
 	 */
 
-	public function display( array $rules ) {
+	public function display( array $rules, $property = null ) {
 		if ( empty( $rules ) ) {
 			return true;
 		}
 
-		$rules = $this->prepare_rules( $rules );
+		$rules  = $this->prepare_rules( $rules, $property );
 
 		if ( in_array( $rules['relation'], $this->relations ) ) {
 			return $this->display_by_relation( $rules );
@@ -93,14 +94,45 @@ class Papi_Core_Conditional {
 	}
 
 	/**
+	 * Get rule slug.
+	 *
+	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param Papi_Core_Property $property
+	 *
+	 * @return string
+	 */
+
+	private function get_rule_slug( $rule, $property ) {
+		$arrReg = '/\[\d+\](\[\w+\])$/';
+		$slug   = $property->get_slug();
+
+		$page_type = papi_get_page_type_by_post_id();
+
+		if ( $page_type instanceof Papi_Page_Type === false ) {
+			return $rule->slug;
+		}
+
+		if ( preg_match( $arrReg, $slug, $out ) ) {
+			$slug = str_replace( $out[1], '[' . papi_remove_papi( $rule->slug ) . ']', $slug );
+
+			if ( $property = $page_type->get_property( $slug ) ) {
+				return $slug;
+			}
+		}
+
+		return $rule->slug;
+	}
+
+	/**
 	 * Prepare rules.
 	 *
 	 * @param array $rules
+	 * @param Papi_Core_Property $property
 	 *
 	 * @return array
 	 */
 
-	public function prepare_rules( array $rules ) {
+	public function prepare_rules( array $rules, $property = null ) {
 		if ( ! isset( $rules['relation'] ) ) {
 			$rules['relation'] = 'OR';
 		} else {
@@ -114,6 +146,10 @@ class Papi_Core_Conditional {
 
 			if ( is_array( $value ) ) {
 				$rules[$index] = new Papi_Core_Conditional_Rule( $value );
+
+				if ( strpos( $rules[$index]->slug, '.' ) === false && papi_is_property( $property ) ) {
+				 	$rules[$index]->slug = $this->get_rule_slug( $rules[$index], $property );
+				}
 			}
 		}
 
