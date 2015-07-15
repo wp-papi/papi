@@ -529,6 +529,11 @@ class Papi_Property_Repeater extends Papi_Property {
 			if ( $layout === 'table' ) {
 				echo '<td class="repeater-column">';
 					echo '<div class="repeater-content-open">';
+						echo sprintf(
+							'<label for="%s" class="papi-visually-hidden">%s</label>',
+							$this->html_id( $property, $this->counter ),
+							$property->title
+						);
 			}
 
 			papi_render_property( $render_property );
