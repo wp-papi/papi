@@ -143,13 +143,13 @@ class Papi_Property_Relationship extends Papi_Property {
 			<input type="hidden" name="<?php echo $slug; ?>[]" />
 			<div class="relationship-inner">
 				<div class="relationship-top-left">
-					<strong><?php _e( 'Search', 'papi' ); ?></strong>
-					<input type="search" />
+					<label for="<?php echo sprintf('_%s_search', $slug); ?>"><?php _e( 'Search', 'papi' ); ?></label>
+					<input id="<?php echo sprintf('_%s_search', $slug); ?>" type="search" />
 				</div>
 				<div class="relationship-top-right">
 					<?php if ( $settings->show_sort_by ): ?>
-						<strong><?php _e( 'Sort by', 'papi' ); ?></strong>
-						<select name="_<?php echo $slug; ?>_sort_option">
+						<label for="<?php echo sprintf('_%s_sort_option', $slug); ?>"><?php _e( 'Sort by', 'papi' ); ?></label>
+						<select id="<?php echo sprintf('_%s_sort_option', $slug); ?>" name="<?php echo sprintf('_%s_sort_option', $slug); ?>">
 							<?php foreach ( static::get_sort_options() as $key => $v ): ?>
 								<option value="<?php echo $key; ?>" <?php echo $key === $sort_option ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
 							<?php endforeach; ?>

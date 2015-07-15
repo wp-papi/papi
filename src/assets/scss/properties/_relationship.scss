@@ -12,6 +12,7 @@
       width: 49%;
 
       input[type="search"] {
+        margin-top: 5px;
         padding: 5px;
         width: 100%;
       }
@@ -23,6 +24,10 @@
       max-width: 49%;
       padding: 10px 0;
       width: 49%;
+
+      select {
+        margin-top: 5px;
+      }
     }
 
     .relationship-left {
