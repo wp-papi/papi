@@ -91,7 +91,7 @@ class Papi_Admin_Meta_Box {
 	 */
 
 	private function get_meta_box_id( $slug ) {
-		$slug = papi_underscorify( $this->options->slug );
+		$slug = papi_underscorify( $slug );
 		return papify( $slug. uniqid() );
 	}
 
