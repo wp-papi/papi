@@ -510,7 +510,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 							echo '<thead>';
 							for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
 								echo '<th>';
-								echo $row[$i]->title;
+								echo sprintf( '<label for="%s">%s</label>', $row[$i]->html_id( $row[$i], $this->counter ), $row[$i]->title );
 								echo '</th>';
 							}
 							echo '</thead>';

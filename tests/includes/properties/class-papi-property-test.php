@@ -389,6 +389,14 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( '_papi_name_suffix', $property->html_id( 'suffix' ) );
 		$this->assertEquals( '_papi_name_black', $property->html_id( 'Black' ) );
 		$this->assertEquals( '_papi_name_lank', $property->html_id( 'Länk' ) );
+
+		$sub_property = Papi_Property::create( [
+			'type' => 'number',
+			'slug' => 'age'
+		] );
+
+		$this->assertEquals( '_papi_name[age]', $property->html_id( $sub_property ) );
+		$this->assertEquals( '_papi_name[0][age]', $property->html_id( $sub_property, 0 ) );
 	}
 
 	public function test_html_name() {

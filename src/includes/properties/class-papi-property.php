@@ -41,14 +41,20 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Get the html id attribute value.
 	 *
-	 * @param string $suffix
+	 * @param object|string $suffix
+	 * @param int $row
 	 *
 	 * @return string
 	 */
 
-	public function html_id( $suffix = '' ) {
-		$suffix = empty( $suffix ) || ! is_string( $suffix ) ? '' : '_' . $suffix;
-		$suffix = papi_underscorify( papi_slugify( $suffix ) );
+	public function html_id( $suffix = '', $row = null ) {
+		if ( papi_is_property( $suffix ) ) {
+			return '_' . $this->html_name( $suffix, $row );
+		} else {
+			$suffix = empty( $suffix ) || ! is_string( $suffix ) ? '' : '_' . $suffix;
+			$suffix = papi_underscorify( papi_slugify( $suffix ) );
+		}
+
 		return sprintf( '_%s%s', $this->html_name(), $suffix );
 	}
 
