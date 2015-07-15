@@ -129,8 +129,7 @@ class Papi_Property_Image extends Papi_Property {
 				}
 				?>
 				<input type="hidden" value="" name="<?php echo $slug; ?>"/>
-				<button class="button"
-				        data-slug="<?php echo $slug; ?>"><?php _e( 'Add image', 'papi' ); ?></button>
+				<button type="button" class="button" data-slug="<?php echo $slug; ?>"><?php _e( 'Add image', 'papi' ); ?></button>
 			</p>
 			<div class="attachments">
 				<?php

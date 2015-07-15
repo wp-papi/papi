@@ -565,7 +565,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			</table>
 
 			<div class="bottom">
-				<a href="#" class="button button-primary" data-papi-json="<?php echo $options->slug; ?>_repeater_json"><?php _e( 'Add new row', 'papi' ); ?></a>
+				<button type="button" class="button button-primary" data-papi-json="<?php echo $options->slug; ?>_repeater_json"><?php _e( 'Add new row', 'papi' ); ?></button>
 			</div>
 
 			<?php /* Default repeater value */ ?>

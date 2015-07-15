@@ -594,7 +594,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						</ul>
 					</div>
 
-					<a href="#" class="button button-primary"><?php _e( 'Add new row', 'papi' ); ?></a>
+					<button type="button" class="button button-primary"><?php _e( 'Add new row', 'papi' ); ?></button>
 				</div>
 			</div>
 

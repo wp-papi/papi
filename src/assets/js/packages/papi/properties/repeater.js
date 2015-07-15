@@ -102,7 +102,7 @@ class Repeater {
       }
     });
 
-    $(document).on('click', '.papi-property-repeater .bottom a.button', function (e) {
+    $(document).on('click', '.papi-property-repeater .bottom button[type=button]', function (e) {
       e.preventDefault();
       self.add($(this));
     });
