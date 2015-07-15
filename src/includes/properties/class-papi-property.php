@@ -48,7 +48,7 @@ class Papi_Property extends Papi_Core_Property {
 	 */
 
 	public function html_id( $suffix = '', $row = null ) {
-		if ( papi_is_property( $suffix ) ) {
+		if ( is_array( $suffix ) || is_object( $suffix ) ) {
 			return '_' . $this->html_name( $suffix, $row );
 		} else {
 			$suffix = empty( $suffix ) || ! is_string( $suffix ) ? '' : '_' . $suffix;
