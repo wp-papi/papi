@@ -32,10 +32,23 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
-	 * Get the html to display from the property.
+	 * Display the html to display from the property.
 	 */
 
 	public function html() {
+	}
+
+	/**
+	 * Get the html id attribute value.
+	 *
+	 * @param string $suffix
+	 *
+	 * @return string
+	 */
+
+	public function html_id( $suffix = '' ) {
+		$suffix = empty( $suffix ) || ! is_string( $suffix ) ? '' : '_' . $suffix;
+		return sprintf( '_%s%s', $this->html_name(), $suffix );
 	}
 
 	/**
@@ -138,7 +151,7 @@ class Papi_Property extends Papi_Core_Property {
 	public function render_label_html() {
 		$title = $this->get_option( 'title' );
 		?>
-		<label for="<?php echo $this->get_option( 'slug' ); ?>" title="<?php echo trim( $title . ' ' . papi_require_text( $this->get_options() ) ); ?>">
+		<label for="<?php echo $this->html_id(); ?>" title="<?php echo trim( $title . ' ' . papi_require_text( $this->get_options() ) ); ?>">
 			<?php
 			echo $title;
 			echo papi_required_html( $this->get_options() );

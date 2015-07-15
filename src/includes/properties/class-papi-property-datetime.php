@@ -46,7 +46,7 @@ class Papi_Property_Datetime extends Papi_Property {
 		?>
 		<input
 			type="text"
-			id="<?php echo $this->html_name(); ?>"
+			id="<?php echo $this->html_id(); ?>"
 			name="<?php echo $this->html_name(); ?>"
 			value="<?php echo $value; ?>"
 			class="papi-property-datetime"

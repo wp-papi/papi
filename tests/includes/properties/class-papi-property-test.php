@@ -377,6 +377,17 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $property->html() );
 	}
 
+	public function test_html_id() {
+		$property = Papi_Property::create();
+
+		$property->set_options( [
+			'type'  => 'string',
+			'slug'  => 'name'
+		] );
+
+		$this->assertEquals( '_papi_name', $property->html_id() );
+	}
+
 	public function test_html_name() {
 		$property = Papi_Property::create();
 

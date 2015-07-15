@@ -143,13 +143,13 @@ class Papi_Property_Relationship extends Papi_Property {
 			<input type="hidden" name="<?php echo $slug; ?>[]" />
 			<div class="relationship-inner">
 				<div class="relationship-top-left">
-					<label for="<?php echo sprintf('_%s_search', $slug); ?>"><?php _e( 'Search', 'papi' ); ?></label>
-					<input id="<?php echo sprintf('_%s_search', $slug); ?>" type="search" />
+					<label for="<?php echo $this->html_id( 'search' ); ?>"><?php _e( 'Search', 'papi' ); ?></label>
+					<input id="<?php echo $this->html_id( 'search' ); ?>" type="search" />
 				</div>
 				<div class="relationship-top-right">
 					<?php if ( $settings->show_sort_by ): ?>
-						<label for="<?php echo sprintf('_%s_sort_option', $slug); ?>"><?php _e( 'Sort by', 'papi' ); ?></label>
-						<select id="<?php echo sprintf('_%s_sort_option', $slug); ?>" name="<?php echo sprintf('_%s_sort_option', $slug); ?>">
+						<label for="<?php echo $this->html_id( 'sort_option' ); ?>"><?php _e( 'Sort by', 'papi' ); ?></label>
+						<select id="<?php echo $this->html_id( 'sort_option' ); ?>" name="<?php echo $this->html_id( 'sort_option' ); ?>">
 							<?php foreach ( static::get_sort_options() as $key => $v ): ?>
 								<option value="<?php echo $key; ?>" <?php echo $key === $sort_option ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
 							<?php endforeach; ?>

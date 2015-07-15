@@ -40,7 +40,7 @@ class Papi_Property_String extends Papi_Property {
 		?>
 		<input
 			type="<?php echo $this->input_type; ?>"
-			id="<?php echo $this->html_name(); ?>"
+			id="<?php echo $this->html_id(); ?>"
 			name="<?php echo $this->html_name(); ?>"
 			value="<?php echo $value; ?>" />
 	<?php
