@@ -83,6 +83,19 @@ class Papi_Admin_Meta_Box {
 	}
 
 	/**
+	 * Get meta box id.
+	 *
+	 * @param string $slug
+	 *
+	 * @return string
+	 */
+
+	private function get_meta_box_id( $slug ) {
+		$slug = papi_underscorify( $this->options->slug );
+		return papify( $slug. uniqid() );
+	}
+
+	/**
 	 * Add css classes to meta box.
 	 *
 	 * @param array $classes
@@ -220,7 +233,7 @@ class Papi_Admin_Meta_Box {
 		$this->options            = (object) $options;
 		$this->options->title     = ucfirst( $this->options->title );
 		$this->options->slug      = papi_slugify( $this->options->title );
-		$this->options->_id       = papi_underscorify( papify( $this->options->slug ) );
 		$this->options->post_type = $this->populate_post_type( $this->options->post_type );
+		$this->options->_id       = $this->get_meta_box_id( $this->options->slug );
 	}
 }
