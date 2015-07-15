@@ -75,9 +75,10 @@ class Image {
       }
 
       self.render($target, {
+        alt:   attachment.alt,
+        id:    attachment.id,
         image: url,
-        id: attachment.id,
-        slug: slug
+        slug:  slug
       });
 
       if (!multiple) {
@@ -163,7 +164,7 @@ class Image {
         url = attachment.sizes.thumbnail.url;
       }
 
-      $img.attr('src', url);
+      $img.attr('src', url).attr('alt', attachment.alt);
       $input.val(attachment.id);
     }).open();
   }

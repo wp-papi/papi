@@ -143,7 +143,7 @@ class Papi_Property_Image extends Papi_Property {
 							<div class="attachment-preview">
 								<div class="thumbnail">
 									<div class="centered">
-										<img src="<?php echo $url; ?>"/>
+										<img src="<?php echo $url; ?>" alt="<?php echo $image->alt; ?>"/>
 										<input type="hidden" value="<?php echo $image->id; ?>" name="<?php echo $slug; ?>"/>
 									</div>
 								</div>
@@ -172,7 +172,7 @@ class Papi_Property_Image extends Papi_Property {
 			<div class="attachment-preview">
 				<div class="thumbnail">
 					<div class="centered">
-						<img src="<%= image %>"/>
+						<img src="<%= image %>" alt="<%= alt %>"/>
 						<input type="hidden" value="<%= id %>" name="<%= slug %>"/>
 					</div>
 				</div>
