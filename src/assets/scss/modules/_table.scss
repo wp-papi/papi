@@ -63,8 +63,17 @@
         width: 99.5%;
       }
 
+      input[type="radio"] {
+        margin-top: 0px;
+      }
+
       input[type="radio"],
       input[type="checkbox"] {
+        + label {
+            font-weight: normal;
+            padding: 0;
+        }
+
         width: auto;
       }
     }
