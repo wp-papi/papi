@@ -590,11 +590,17 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					<div class="flexible-layouts papi-hide">
 						<div class="flexible-layouts-arrow"></div>
 						<ul>
-							<?php foreach ( $layouts as $layout ): ?>
-								<li data-layout="<?php esc_attr_e( $layout['slug'] ); ?>" data-papi-json="<?php echo $options->slug; ?>_repeater_json">
-									<?php echo $layout['title']; ?>
-								</li>
-							<?php endforeach; ?>
+							<?php
+							foreach ( $layouts as $layout ) {
+								papi_render_html_tag( 'li', [
+									'data-layout'    => $layout['slug'],
+									'data-papi-json' => sprintf( '%s_repeater_json', $options->slug ),
+									'role'           => 'button',
+									'tabindex'       => 0,
+									$layout['title']
+								] );
+							}
+							?>
 						</ul>
 					</div>
 
