@@ -21,7 +21,8 @@ class Papi_Property_Dropdown extends Papi_Property {
 		return [
 			'placeholder' => '',
 			'items'       => [],
-			'selected'    => []
+			'selected'    => [],
+			'select2'     => true
 		];
 	}
 
@@ -49,9 +50,14 @@ class Papi_Property_Dropdown extends Papi_Property {
 			$settings->selected = $value;
 		}
 
+		$classes = 'papi-fullwidth';
+
+		if ( $settings->select2 ) {
+			$classes = ' papi-component-select2';
+		}
 		?>
 		<select
-			class="papi-component-select2 papi-fullwidth"
+			class="<?php echo $classes; ?>"
 			id="<?php echo $this->html_id(); ?>"
 			name="<?php echo $this->html_name(); ?>"
 			data-allow-clear="true"

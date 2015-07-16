@@ -31,6 +31,7 @@ class Papi_Property_Post extends Papi_Property {
 		return [
 			'placeholder'   => '',
 			'post_type'     => 'post',
+			'select2'       => true,
 			'query'         => []
 		];
 	}
@@ -90,15 +91,20 @@ class Papi_Property_Post extends Papi_Property {
 			$value = 0;
 		}
 
-		$posts = $this->get_posts( $settings );
+		$posts        = $this->get_posts( $settings );
 		$render_label = count( $posts ) > 1;
+		$classes      = 'papi-fullwidth';
+
+		if ( $settings->select2 ) {
+			$classes = ' papi-component-select2';
+		}
 		?>
 
 		<div class="papi-property-post">
 			<select
 				id="<?php echo $this->html_id(); ?>"
 				name="<?php echo $this->html_name(); ?>"
-				class="papi-component-select2 papi-fullwidth"
+				class="<?php echo $classes; ?>"
 				data-allow-clear="true"
 				data-placeholder="<?php echo $settings->placeholder; ?>"
 				data-width="100%">
