@@ -23,6 +23,7 @@ class Core {
     $('.papi-box-list > li > p').on('click', this.redirect);
     $('input[name="add-new-page-search"]').on('keyup', this.search);
     $('[data-papi-href]').on('click touchstart', this.redirect);
+    $(window).resize(this.setEqualBoxHeights);
 
     if ('select2' in $.fn) {
       $('.inside .papi-table tr .papi-component-select2').select2();
@@ -88,7 +89,7 @@ class Core {
     let boxItems = $('.papi-post-type-info');
     let boxMaxHeight = 0;
 
-    boxItems.each(function () {
+    boxItems.removeAttr('style').each(function () {
       let height = $(this).height();
       boxMaxHeight = height > boxMaxHeight ? height : boxMaxHeight;
     });
