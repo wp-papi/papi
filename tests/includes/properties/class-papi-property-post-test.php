@@ -37,6 +37,7 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 	public function test_property_settings() {
 		$settings = $this->property->get_settings();
 		$this->assertEmpty( $settings->placeholder );
+		$this->assertTrue( $settings->select2 );
 	}
 
 }

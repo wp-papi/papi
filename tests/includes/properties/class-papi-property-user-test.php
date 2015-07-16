@@ -31,6 +31,7 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 	public function test_property_settings() {
 		$settings = $this->property->get_settings();
 		$this->assertEquals( 'Select user', $settings->placeholder );
+		$this->assertTrue( $settings->select2 );
 	}
 
 }
