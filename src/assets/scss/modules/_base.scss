@@ -84,11 +84,11 @@
     }
 
     .papi-post-type-screenshot {
-      display: block;
-      overflow: hidden;
-      position: relative;
-      -webkit-transition: opacity .2s ease-in-out;
-      transition: opacity .2s ease-in-out;
+        background-size: 100%;
+        border-bottom: 1px #eaeaea solid;
+        display: inline-block;
+        height: 200px;
+        width: 100%;
     }
 
     img {

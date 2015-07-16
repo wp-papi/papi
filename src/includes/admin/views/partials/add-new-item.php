@@ -1,11 +1,10 @@
 <div class="papi-box-item">
+	<?php if ( ! empty( $vars['thumbnail'] ) ): ?>
 	<div class="papi-post-type">
-		<div class="papi-post-type-screenshot">
-			<?php if ( ! empty( $vars['thumbnail'] ) ): ?>
-				<img src="<?php echo $vars['thumbnail']; ?>">
-			<?php endif; ?>
+		<div class="papi-post-type-screenshot" style="background-image:url(<?php echo $vars['thumbnail']; ?>)">
 		</div>
 	</div>
+	<?php endif; ?>
 	<div class="papi-post-type-info">
 		<h3><?php echo $vars['title']; ?></h3>
 
