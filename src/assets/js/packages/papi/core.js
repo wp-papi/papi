@@ -86,15 +86,45 @@ class Core {
    */
 
   setEqualBoxHeights() {
-    let boxItems = $('.papi-post-type-info');
+    let $boxItems  = $('.papi-box-item');
+    let thumbnails = $boxItems.find('.papi-post-type-screenshot').length > 0;
     let boxMaxHeight = 0;
 
-    boxItems.removeAttr('style').each(function () {
-      let height = $(this).height();
+    if (!thumbnails) {
+      $boxItems = $('.papi-post-type-info');
+    }
+
+    $boxItems.each(function () {
+      let $this  = $(this);
+
+      if (thumbnails) {
+        $this.find('.papi-post-type-info').removeAttr('style');
+      } else {
+        $this.removeAttr('style');
+      }
+
+      let height = $this.height();
       boxMaxHeight = height > boxMaxHeight ? height : boxMaxHeight;
     });
 
-    boxItems.height(boxMaxHeight);
+    $boxItems.each(function () {
+      let $this  = $(this);
+      let height = boxMaxHeight;
+
+      if (thumbnails) {
+        let $thumb = $this.find('.papi-post-type-screenshot');
+
+        if ($thumb.length) {
+          height = height - $thumb.height();
+        } else {
+          height += 5;
+        }
+
+        $this.find('.papi-post-type-info').height(height);
+      } else {
+        $this.height(height);
+      }
+    });
   }
 
   /**
