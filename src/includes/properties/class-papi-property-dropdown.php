@@ -41,8 +41,9 @@ class Papi_Property_Dropdown extends Papi_Property {
 	 */
 
 	public function html() {
-		$settings = $this->get_settings();
-		$value    = $this->get_value();
+		$settings     = $this->get_settings();
+		$value        = $this->get_value();
+		$options_html = [];
 
 		// Override selected setting with
 		// database value if not empty.
@@ -55,33 +56,40 @@ class Papi_Property_Dropdown extends Papi_Property {
 		if ( $settings->select2 ) {
 			$classes = ' papi-component-select2';
 		}
-		?>
-		<select
-			class="<?php echo $classes; ?>"
-			id="<?php echo $this->html_id(); ?>"
-			name="<?php echo $this->html_name(); ?>"
-			data-allow-clear="true"
-			data-placeholder="<?php echo $settings->placeholder; ?>"
-			data-width="100%">
 
-			<?php if ( ! empty( $settings->placeholder ) ): ?>
-				<option value=""></option>
-			<?php endif; ?>
 
-			<?php foreach ( $this->get_items() as $key => $value ):
-				if ( is_numeric( $key ) ) {
-					$key = $value;
-				}
+		if ( ! empty( $settings->placeholder ) ) {
+			$options_html[] = papi_html_tag( 'option', [
+				'value' => ''
+			] );
+		}
 
-				if ( papi_is_empty( $key ) ) {
-					continue;
-				}
-				?>
-				<option
-					value="<?php echo $value; ?>" <?php echo $value === $settings->selected ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
-			<?php endforeach; ?>
-		</select>
-	<?php
+		// Create option html tags for all items.
+		foreach ( $this->get_items() as $key => $value ) {
+			if ( is_numeric( $key ) ) {
+				$key = $value;
+			}
+
+			if ( papi_is_empty( $key ) ) {
+				continue;
+			}
+
+			$options_html[] = papi_html_tag( 'option', [
+				'selected' => $value === $settings->selected ? 'selected' : null,
+				'value'    => $value,
+				$key
+			] );
+		}
+
+		papi_render_html_tag( 'select', [
+			'class'            => $classes,
+			'data-allow-clear' => true,
+			'data-placeholder' => $settings->placeholder,
+			'data-width'       => '100%',
+			'id'               => $this->html_id(),
+			'name'             => $this->html_name(),
+			$options_html
+		] );
 	}
 
 }

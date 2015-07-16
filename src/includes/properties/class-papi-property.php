@@ -121,9 +121,9 @@ class Papi_Property extends Papi_Core_Property {
 			return;
 		}
 
-		?>
-		<p><?php echo papi_nl2br( $this->get_option( 'description' ) ); ?></p>
-	<?php
+		papi_render_html_tag( 'p', [
+			papi_nl2br( $this->get_option( 'description' ) )
+		] );
 	}
 
 	/**
@@ -146,9 +146,12 @@ class Papi_Property extends Papi_Core_Property {
 		$options = $this->get_options();
 		$property_serialized = base64_encode( serialize( $options ) );
 
-		?>
-		<input type="hidden" value="<?php echo $property_serialized; ?>" name="<?php echo $slug; ?>"  data-property="<?php echo $this->get_option( 'type' ); ?>" />
-	<?php
+		papi_render_html_tag( 'input', [
+			'data-property' => $this->get_option( 'type' ),
+			'name'          => $slug,
+			'type'          => 'hidden',
+			'value'         => $property_serialized
+		] );
 	}
 
 	/**
@@ -157,14 +160,13 @@ class Papi_Property extends Papi_Core_Property {
 
 	public function render_label_html() {
 		$title = $this->get_option( 'title' );
-		?>
-		<label for="<?php echo $this->html_id(); ?>" title="<?php echo trim( $title . ' ' . papi_require_text( $this->get_options() ) ); ?>">
-			<?php
-			echo $title;
-			echo papi_required_html( $this->get_options() );
-			?>
-		</label>
-	<?php
+
+		papi_render_html_tag( 'label', [
+			'for'   => $this->html_id(),
+			'title' => trim( $title . ' ' . papi_require_text( $this->get_options() ) ),
+			$title,
+			papi_required_html( $this->get_options() )
+		] );
 	}
 
 	/**

@@ -123,6 +123,23 @@ function papi_esc_html( $obj, $keys = [] ) {
 }
 
 /**
+ * Dashify the given string.
+ * Replacing whitespace and underscore with a dash.
+ *
+ * @param string $str
+ *
+ * @return string
+ */
+
+function papi_dashify( $str ) {
+	if ( ! is_string( $str ) ) {
+		return '';
+	}
+
+	return str_replace( ' ', '-', str_replace( '_', '-', $str ) );
+}
+
+/**
  * Add underscores at the start of the string.
  *
  * @param string $str
@@ -147,23 +164,6 @@ function papi_f( $str = '', $len = 1 ) {
 	}
 
 	return $prefix . preg_replace( '/^\_/', '', $str );
-}
-
-/**
- * Dashify the given string.
- * Replacing whitespace and underscore with a dash.
- *
- * @param string $str
- *
- * @return string
- */
-
-function papi_dashify( $str ) {
-	if ( ! is_string( $str ) ) {
-		return '';
-	}
-
-	return str_replace( ' ', '-', str_replace( '_', '-', $str ) );
 }
 
 /**
@@ -338,6 +338,59 @@ function papi_html_name( $name ) {
 }
 
 /**
+ * Get html tag from tag name and array of attributes.
+ *
+ * @param string $tag
+ * @param array $attr
+ * @param string $text
+ *
+ * @return string
+ */
+
+function papi_html_tag( $tag, $attr = [] ) {
+	$attributes = [];
+	$text       = [];
+
+	if ( ! is_array( $attr ) ) {
+		$attr = [$attr];
+	}
+
+	foreach ( $attr as $key => $value ) {
+		if ( is_numeric( $key ) ) {
+			if ( is_array( $value ) ) {
+				$text[] = implode( ' ', $value );
+			} else {
+				$text[] = $value;
+			}
+
+			continue;
+		}
+
+		if ( is_array( $value ) || is_object( $value ) ) {
+			$value = json_encode( $value );
+		} else if ( is_bool( $value ) ) {
+			$value = $value ? 'true' : 'false';
+		} else if ( is_string( $value ) ) {
+			$value = trim( $value );
+		}
+
+		if ( is_null( $value ) ) {
+			continue;
+		}
+
+		$attributes[] = sprintf( '%s="%s"', $key, esc_attr( $value ) );
+	}
+
+	if ( papi_is_empty( $text ) ) {
+		$end = '/>';
+	} else {
+		$end = sprintf( '>%s</%s>', implode( ' ', $text ), $tag );
+	}
+
+	return sprintf( '<%s %s%s', $tag, implode( ' ', $attributes ), $end );
+}
+
+/**
  * Check if $obj is empty or not.
  * Values like "0", 0 and false
  * should not return true.
@@ -418,6 +471,20 @@ function papi_remove_trailing_quotes( $str ) {
 	}
 
 	return str_replace( "\'", "'", str_replace( '\"', '"', $str ) );
+}
+
+/**
+ * Render html tag from tag name and array of attributes.
+ *
+ * @param string $tag
+ * @param array $attr
+ * @param string $text
+ *
+ * @return string
+ */
+
+function papi_render_html_tag( $tag, $attr = [] ) {
+	echo papi_html_tag( $tag, $attr );
 }
 
 /**

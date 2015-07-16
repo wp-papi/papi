@@ -33,14 +33,19 @@ class Papi_Property_Bool extends Papi_Property {
 
 	public function html() {
 		$value = $this->get_value();
-		?>
-		<input type="hidden"
-			name="<?php echo $this->html_name(); ?>" value="false" />
 
-		<input type="checkbox"
-			id="<?php echo $this->html_id(); ?>"
-			name="<?php echo $this->html_name(); ?>" <?php echo empty( $value ) ? '' : 'checked="checked"'; ?> />
-		<?php
+		papi_render_html_tag( 'input', [
+			'type'  => 'hidden',
+			'name'  => $this->html_name(),
+			'value' => false
+		] );
+
+		papi_render_html_tag( 'input', [
+			'checked' => empty( $value ) ? null : 'checked',
+			'id'      => $this->html_id(),
+			'name'    => $this->html_name(),
+			'type'    => 'checkbox'
+		] );
 	}
 
 	/**

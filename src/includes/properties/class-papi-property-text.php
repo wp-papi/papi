@@ -28,11 +28,11 @@ class Papi_Property_Text extends Papi_Property {
 	 */
 
 	public function html() {
-		$value = $this->get_value();
-		?>
-		<textarea id="<?php echo $this->html_id(); ?>"
-				  name="<?php echo $this->html_name(); ?>"
-		          class="papi-property-text"><?php echo sanitize_text_field( $value ); ?></textarea>
-		<?php
+		papi_render_html_tag( 'textarea', [
+			'class' => 'papi-property-text',
+			'id'    => $this->html_id(),
+			'name'  => $this->html_name(),
+			sanitize_text_field( $this->get_value() )
+		] );
 	}
 }

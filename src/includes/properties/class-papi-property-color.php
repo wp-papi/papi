@@ -31,14 +31,18 @@ class Papi_Property_Color extends Papi_Property {
 	public function html() {
 		$settings = $this->get_settings();
 		$value    = $this->get_value();
-		?>
-			<div class="papi-property-color-picker">
-				<input
-					type="<?php echo $settings->show_input === true ? 'text' : 'hidden'; ?>"
-					id="<?php echo $this->html_id(); ?>"
-					value="<?php echo $value; ?>" data-palettes='<?php echo json_encode( $settings->palettes ); ?>'
-					name="<?php echo $this->html_name(); ?>" />
-			</div>
-		<?php
+
+		papi_render_html_tag( 'div', [
+			'class' => 'papi-property-color-picker',
+
+			papi_html_tag( 'input', [
+				'data-palettes' => $settings->palettes,
+				'id'            => $this->html_id(),
+				'name'          => $this->html_name(),
+				'type'          => $settings->show_input === true ? 'text' : 'hidden',
+				'value'         => $value,
+			] )
+
+		] );
 	}
 }
