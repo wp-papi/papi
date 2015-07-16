@@ -342,7 +342,6 @@ function papi_html_name( $name ) {
  *
  * @param string $tag
  * @param array $attr
- * @param string $text
  *
  * @return string
  */
@@ -478,7 +477,6 @@ function papi_remove_trailing_quotes( $str ) {
  *
  * @param string $tag
  * @param array $attr
- * @param string $text
  *
  * @return string
  */

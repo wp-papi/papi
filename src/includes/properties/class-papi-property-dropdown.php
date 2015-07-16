@@ -57,7 +57,6 @@ class Papi_Property_Dropdown extends Papi_Property {
 			$classes = ' papi-component-select2';
 		}
 
-
 		if ( ! empty( $settings->placeholder ) ) {
 			$options_html[] = papi_html_tag( 'option', [
 				'value' => ''
