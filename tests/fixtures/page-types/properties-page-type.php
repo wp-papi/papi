@@ -252,6 +252,13 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'slug'  => 'string_test'
 			] ),
 
+			// Text
+			papi_property( [
+				'type'  => 'text',
+				'title' => 'Text test',
+				'slug'  => 'text_test'
+			] ),
+
 			// Url
 			papi_property( [
 				'type'  => 'url',
