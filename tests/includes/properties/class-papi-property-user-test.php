@@ -22,6 +22,11 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'int', $this->property->convert_type );
 	}
 
+	public function test_format_value() {
+		$this->assertEquals( new WP_User( 1 ), $this->property->format_value( '1', '', 0 ) );
+		$this->assertEquals( new WP_User( 1 ), $this->property->format_value( 1, '', 0 ) );
+	}
+
 	public function test_property_options() {
 		$this->assertEquals( 'user', $this->property->get_option( 'type' ) );
 		$this->assertEquals( 'User test', $this->property->get_option( 'title' ) );
