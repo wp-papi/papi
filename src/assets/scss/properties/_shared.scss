@@ -1,8 +1,9 @@
 .papi-property-divider {
   h3 {
-    border-bottom: none !important;
+    border-bottom: none;
     margin-bottom: -8px;
     padding-top: 0 !important;
+    padding-bottom: 2px !important;
     width: 100%;
 
     span {
@@ -15,8 +16,7 @@
     font-size: 12px;
     font-style: normal;
     line-height: 16px;
-    margin-top: -5px !important;
-    margin-bottom: 0;
+    margin: 2px 0 0;
   }
 }
 
