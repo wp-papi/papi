@@ -55,6 +55,11 @@
         line-height: 1.5;
         padding-top: 4px;
         word-break: break-word;
+
+        &.light {
+            font-weight: normal;
+            padding: 0;
+        }
       }
 
       input,
@@ -69,11 +74,6 @@
 
       input[type="radio"],
       input[type="checkbox"] {
-        + label {
-            font-weight: normal;
-            padding: 0;
-        }
-
         width: auto;
       }
     }
