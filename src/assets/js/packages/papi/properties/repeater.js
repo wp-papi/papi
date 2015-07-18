@@ -78,6 +78,8 @@ class Repeater {
 
     this.scrollDownTable($tbody);
     this.updateDatabaseRowNumber($tbody);
+
+    $tbody.closest('.papi-property-repeater-top').trigger('change');
   }
 
   /**
