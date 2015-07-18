@@ -44,8 +44,7 @@ class File {
 
     $(document).on('mouseenter mouseleave', '.papi-property-file .attachment', this.hover);
     $(document).on('click', '.papi-property-file .attachment a', this.remove);
-    $(document).on('papi/property/repeater/added', '[data-property="file"]', this.update);
-    $(document).on('papi/property/repeater/added', '[data-property="image"]', this.update);
+    $(document).on('change', '.papi-property-repeater-top', this.update);
     $(document).on('click', '.papi-property-file .attachment', this.replace);
   }
 
@@ -201,7 +200,8 @@ class File {
   update(e) {
     e.preventDefault();
 
-    $(this).prev()
+    $(this)
+      .find('tr').last()
       .find('.attachments')
       .sortable({
         revert: true
