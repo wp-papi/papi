@@ -157,8 +157,18 @@ class Papi_Property_File extends Papi_Property {
 							<div class="attachment-preview">
 								<div class="thumbnail">
 									<div class="centered">
-										<img src="<?php echo $url; ?>" alt="<?php echo $file->alt; ?>"/>
-										<input type="hidden" value="<?php echo $file->id; ?>" name="<?php echo $slug; ?>"/>
+										<?php
+											papi_render_html_tag( 'img', [
+												'alt' => isset( $file->alt ) ? $file->alt : '',
+												'src' => $url
+											] );
+
+											papi_render_html_tag( 'input', [
+												'name'  => $slug,
+												'type'  => 'hidden',
+												'value' => $file->id
+											] );
+										?>
 									</div>
 									<?php if ( $this->file_type === 'file' ): ?>
 										<div class="filename">
