@@ -51,6 +51,7 @@ class Papi_Property_File extends Papi_Property {
 			if ( isset( $meta ) && ! empty( $meta ) ) {
 				$att  = get_post( $value );
 				$mine = [
+					'alt'         => trim( strip_tags( get_post_meta( $value, '_wp_attachment_image_alt', true ) ) ),
 					'caption'     => trim( strip_tags( $att->post_excerpt ) ),
 					'description' => trim( strip_tags( $att->post_content ) ),
 					'id'          => intval( $value ),
@@ -159,7 +160,7 @@ class Papi_Property_File extends Papi_Property {
 									<div class="centered">
 										<?php
 											papi_render_html_tag( 'img', [
-												'alt' => isset( $file->alt ) ? $file->alt : '',
+												'alt' => $file->alt,
 												'src' => $url
 											] );
 
