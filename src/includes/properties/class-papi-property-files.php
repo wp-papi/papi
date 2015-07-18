@@ -4,12 +4,12 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Gallery.
+ * Papi Property Files.
  *
  * @package Papi
  */
 
-class Papi_Property_Gallery extends Papi_Property_Image {
+class Papi_Property_Files extends Papi_Property_File {
 
 	/**
 	 * The convert type.

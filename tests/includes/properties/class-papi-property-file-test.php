@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Unit tests covering property image.
+ * Unit tests covering property file.
  *
  * @package Papi
  */
 
-class Papi_Property_Image_Test extends Papi_Property_Test_Case {
+class Papi_Property_File_Test extends Papi_Property_Test_Case {
 
-	public $slug = 'image_test';
+	public $slug = 'file_test';
 
 	public function test_convert_type() {
 		$this->assertEquals( 'object', $this->property->convert_type );
@@ -27,9 +27,9 @@ class Papi_Property_Image_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'image', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Image test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_image_test', $this->property->get_option( 'slug' ) );
+		$this->assertEquals( 'file', $this->property->get_option( 'type' ) );
+		$this->assertEquals( 'File test', $this->property->get_option( 'title' ) );
+		$this->assertEquals( 'papi_file_test', $this->property->get_option( 'slug' ) );
 	}
 
 	public function test_property_settings() {

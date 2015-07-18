@@ -1,0 +1,240 @@
+<?php
+
+// Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Papi Property File.
+ *
+ * @package Papi
+ */
+
+class Papi_Property_File extends Papi_Property {
+
+	/**
+	 * The convert type.
+	 *
+	 * @var string
+	 */
+
+	public $convert_type = 'object';
+
+	/**
+	 * The default value.
+	 *
+	 * @var array
+	 */
+
+	public $default_value = [];
+
+	/**
+	 * File type.
+	 *
+	 * @var string
+	 */
+
+	protected $file_type  = 'file';
+
+	/**
+	 * Format the value of the property before it's returned to the theme.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+
+	public function format_value( $value, $slug, $post_id ) {
+		if ( is_numeric( $value ) ) {
+			$meta = wp_get_attachment_metadata( $value );
+			if ( isset( $meta ) && ! empty( $meta ) ) {
+				$att  = get_post( $value );
+				$mine = [
+					'caption'     => trim( strip_tags( $att->post_excerpt ) ),
+					'description' => trim( strip_tags( $att->post_content ) ),
+					'id'          => intval( $value ),
+					'is_image'    => wp_attachment_is_image( $value ),
+					'title'       => $att->post_title,
+					'url'         => wp_get_attachment_url( $value ),
+				];
+
+				if ( ! is_array( $meta ) ) {
+					$meta = [
+						'file' => $meta
+					];
+				}
+
+				return (object) array_merge( $meta, $mine );
+			} else {
+				return $value;
+			}
+		} else if ( is_array( $value ) ) {
+			foreach ( $value as $k => $v ) {
+				$value[$k] = $this->format_value( $v, $slug, $post_id );
+			}
+
+			return $value;
+		} else if ( is_object( $value ) && ! isset( $value->url ) ) {
+			return;
+		} else {
+			return $value;
+		}
+	}
+
+	/**
+	 * Get default settings.
+	 *
+	 * @return array
+	 */
+
+	public function get_default_settings() {
+		return [
+			'multiple' => false
+		];
+	}
+
+	/**
+	 * Get labels.
+	 *
+	 * @return array
+	 */
+
+	public function get_labels() {
+		return [
+			'add'     => __( 'Add file', 'papi' ),
+			'no_file' => __( 'No file selected', 'papi' )
+		];
+	}
+
+	/**
+	 * Display property html.
+	 */
+
+	public function html() {
+		$css_classes = '';
+		$labels      = $this->get_labels();
+		$settings    = $this->get_settings();
+		$slug        = $this->html_name();
+		$value       = papi_to_array( $this->get_value() );
+
+		// Keep only valid objects.
+		$value = array_filter( $value, function ( $item ) {
+			return is_object( $item ) && isset( $item->id ) && ! empty( $item->id );
+		} );
+
+		$show_button = empty( $value );
+
+		if ( $settings->multiple ) {
+			$css_classes .= ' multiple ';
+			$slug .= '[]';
+			$show_button = true;
+		}
+		?>
+
+		<div class="papi-property-file <?php echo $css_classes; ?>" data-file-type="<?php echo esc_attr( $this->file_type ); ?>">
+			<p class="papi-file-select <?php echo $show_button ? '' : 'papi-hide'; ?>">
+				<?php
+				if ( ! $settings->multiple ) {
+					echo $labels['no_file'];
+				}
+				?>
+				<input type="hidden" value="" name="<?php echo $slug; ?>"/>
+				<button type="button" class="button" data-slug="<?php echo $slug; ?>"><?php echo $labels['add'] ?></button>
+			</p>
+			<div class="attachments">
+				<?php
+				if ( is_array( $value ) ):
+					foreach ( $value as $key => $file ):
+						$url = wp_get_attachment_thumb_url( $file->id );
+
+						if ( empty( $url ) ) {
+							$url = wp_mime_type_icon( $file->id );
+						}
+						?>
+						<div class="attachment">
+							<a class="check" href="#">X</a>
+							<div class="attachment-preview">
+								<div class="thumbnail">
+									<div class="centered">
+										<img src="<?php echo $url; ?>" alt="<?php echo $file->alt; ?>"/>
+										<input type="hidden" value="<?php echo $file->id; ?>" name="<?php echo $slug; ?>"/>
+									</div>
+									<?php if ( $this->file_type === 'file' ): ?>
+										<div class="filename">
+											<div><?php echo basename( $file->file ); ?></div>
+										</div>
+									<?php endif; ?>
+								</div>
+							</div>
+						</div>
+					<?php
+					endforeach;
+				endif;
+				?>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+	<?php
+	}
+
+	/**
+	 * Render file template.
+	 */
+
+	public function render_file_template() {
+		?>
+		<script type="text/template" id="tmpl-papi-property-file">
+			<a class="check" href="#">X</a>
+			<div class="attachment-preview">
+				<div class="thumbnail">
+					<div class="centered">
+						<img src="<%= url %>" alt="<%= alt %>"/>
+						<input type="hidden" value="<%= id %>" name="<%= slug %>"/>
+					</div>
+					<% if (typeof filename !== "undefined") { %>
+					<div class="filename">
+						<div><%= filename %></div>
+					</div>
+					<% } %>
+				</div>
+			</div>
+		</script>
+		<?php
+	}
+
+	/**
+	 * Setup actions.
+	 */
+
+	protected function setup_actions() {
+		add_action( 'admin_head', [$this, 'render_file_template'] );
+	}
+
+	/**
+	 * Setup filters.
+	 */
+
+	protected function setup_filters() {
+		add_action( 'wp_get_attachment_metadata', [$this, 'wp_get_attachment_metadata'], 10, 2 );
+	}
+
+	/**
+	 * Get attachment metadata.
+	 *
+	 * @param mixed $data
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+
+	public function wp_get_attachment_metadata( $data, $post_id ) {
+		if ( papi_is_empty( $data ) ) {
+			return get_post_meta( $post_id, '_wp_attached_file', true );
+		}
+
+		return $data;
+	}
+
+}

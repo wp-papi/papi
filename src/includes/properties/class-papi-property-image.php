@@ -9,23 +9,15 @@ defined( 'ABSPATH' ) || exit;
  * @package Papi
  */
 
-class Papi_Property_Image extends Papi_Property {
+class Papi_Property_Image extends Papi_Property_File {
 
 	/**
-	 * The convert type.
+	 * File type.
 	 *
 	 * @var string
 	 */
 
-	public $convert_type = 'object';
-
-	/**
-	 * The default value.
-	 *
-	 * @var array
-	 */
-
-	public $default_value = [];
+	protected $file_type  = 'image';
 
 	/**
 	 * Format the value of the property before it's returned to the theme.
@@ -38,179 +30,26 @@ class Papi_Property_Image extends Papi_Property {
 	 */
 
 	public function format_value( $value, $slug, $post_id ) {
-		if ( is_numeric( $value ) ) {
-			$meta = wp_get_attachment_metadata( $value );
-			if ( isset( $meta ) && ! empty( $meta ) ) {
-				$att = get_post( $value );
-				$mine = [
-					'alt'         => trim( strip_tags( get_post_meta( $value, '_wp_attachment_image_alt', true ) ) ),
-					'caption'     => trim( strip_tags( $att->post_excerpt ) ),
-					'description' => trim( strip_tags( $att->post_content ) ),
-					'id'          => intval( $value ),
-					'is_image'    => wp_attachment_is_image( $value ),
-					'title'       => $att->post_title,
-					'url'         => wp_get_attachment_url( $value ),
-				];
+		$value = parent::format_value( $value, $slug, $post_id );
 
-				if ( ! is_array( $meta ) ) {
-					$meta = [];
-				}
-
-				if ( isset( $meta['image_meta'] ) ) {
-					unset( $meta['image_meta'] );
-				}
-
-				return (object) array_merge( $meta, $mine );
-			} else {
-				return $value;
-			}
-		} else if ( is_array( $value ) ) {
-			foreach ( $value as $k => $v ) {
-				$value[$k] = $this->format_value( $v, $slug, $post_id );
-			}
-
-			return $value;
-		} else if ( is_object( $value ) && ! isset( $value->url ) ) {
-			return;
-		} else {
-			return $value;
+		if ( is_object( $value ) ) {
+			$value->alt = trim( strip_tags( get_post_meta( $value, '_wp_attachment_image_alt', true ) ) );
 		}
+
+		return $value;
 	}
 
 	/**
-	 * Get convert value.
-	 *
-	 * @return object
-	 */
-
-	public function get_convert_value() {
-		return new stdClass;
-	}
-
-	/**
-	 * Get default settings.
-	 *
-	 * Display property html.
+	 * Get labels.
 	 *
 	 * @return array
 	 */
 
-	public function get_default_settings() {
+	public function get_labels() {
 		return [
-			'gallery' => false
+			'add'     => __( 'Add image', 'papi' ),
+			'no_file' => __( 'No image selected', 'papi' )
 		];
-	}
-
-	public function html() {
-		$settings = $this->get_settings();
-		$value    = papi_to_array( $this->get_value() );
-
-		// Keep only valid objects.
-		$value = array_filter( $value, function ( $item ) {
-			return is_object( $item ) && isset( $item->id ) && ! empty( $item->id );
-		} );
-
-		$slug        = $this->html_name();
-		$show_button = empty( $value );
-		$css_classes = '';
-
-		if ( $settings->gallery ) {
-			$css_classes .= ' gallery ';
-			$slug .= '[]';
-			$show_button = true;
-		}
-		?>
-
-		<div class="papi-property-image <?php echo $css_classes; ?>">
-			<p class="papi-image-select <?php echo $show_button ? '' : 'papi-hide'; ?>">
-				<?php
-				if ( ! $settings->gallery ) {
-					_e( 'No image selected', 'papi' );
-				}
-				?>
-				<input type="hidden" value="" name="<?php echo $slug; ?>"/>
-				<button type="button" class="button" data-slug="<?php echo $slug; ?>"><?php _e( 'Add image', 'papi' ); ?></button>
-			</p>
-			<div class="attachments">
-				<?php
-				if ( is_array( $value ) ):
-					foreach ( $value as $key => $image ):
-						$url = wp_get_attachment_thumb_url( $image->id );
-						?>
-						<div class="attachment">
-							<a class="check" href="#">X</a>
-							<div class="attachment-preview">
-								<div class="thumbnail">
-									<div class="centered">
-										<img src="<?php echo $url; ?>" alt="<?php echo $image->alt; ?>"/>
-										<input type="hidden" value="<?php echo $image->id; ?>" name="<?php echo $slug; ?>"/>
-									</div>
-								</div>
-							</div>
-						</div>
-					<?php
-					endforeach;
-				endif;
-				?>
-			</div>
-			<div class="clear"></div>
-		</div>
-
-	<?php
-	}
-
-	/**
-	 * Render image template.
-	 * that will be used in image backbone view.
-	 */
-
-	public function render_image_template() {
-		?>
-		<script type="text/template" id="tmpl-papi-property-image">
-			<a class="check" href="#">X</a>
-			<div class="attachment-preview">
-				<div class="thumbnail">
-					<div class="centered">
-						<img src="<%= image %>" alt="<%= alt %>"/>
-						<input type="hidden" value="<%= id %>" name="<%= slug %>"/>
-					</div>
-				</div>
-			</div>
-		</script>
-		<?php
-	}
-
-	/**
-	 * Setup actions.
-	 */
-
-	protected function setup_actions() {
-		add_action( 'admin_head', [$this, 'render_image_template'] );
-	}
-
-	/**
-	 * Setup filters.
-	 */
-
-	protected function setup_filters() {
-		add_action( 'wp_get_attachment_metadata', [$this, 'wp_get_attachment_metadata'], 10, 2 );
-	}
-
-	/**
-	 * Get attachment metadata.
-	 *
-	 * @param mixed $data
-	 * @param int $post_id
-	 *
-	 * @return mixed
-	 */
-
-	public function wp_get_attachment_metadata( $data, $post_id ) {
-		if ( papi_is_empty( $data ) ) {
-			return get_post_meta( $post_id, '_wp_attached_file', true );
-		}
-
-		return $data;
 	}
 
 }

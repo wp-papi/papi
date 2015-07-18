@@ -147,7 +147,7 @@ class Papi_Property extends Papi_Core_Property {
 		$property_serialized = base64_encode( serialize( $options ) );
 
 		papi_render_html_tag( 'input', [
-			'data-property' => $this->get_option( 'type' ),
+			'data-property' => strtolower( $this->get_option( 'type' ) ),
 			'name'          => $slug,
 			'type'          => 'hidden',
 			'value'         => $property_serialized

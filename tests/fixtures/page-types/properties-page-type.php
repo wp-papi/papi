@@ -106,6 +106,20 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'slug'  => 'email_test'
 			] ),
 
+			// File
+			papi_property( [
+				'type'  => 'file',
+				'title' => 'File test',
+				'slug'  => 'file_test'
+			] ),
+
+			// Files
+			papi_property( [
+				'type'  => 'files',
+				'title' => 'Files test',
+				'slug'  => 'files_test'
+			] ),
+
 			// Flexible
 			papi_property( [
 				'type'     => 'flexible',
