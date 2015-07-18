@@ -47,7 +47,7 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 		return [
 			'capabilities' => [],
 			'placeholder'  => '',
-			'select2'     => true
+			'select2'      => true
 		];
 	}
 
