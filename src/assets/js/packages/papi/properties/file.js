@@ -140,7 +140,7 @@ class File {
 
   render($el, data) {
     let template = this.template;
-    template = window._.template(template());
+    template = window._.template($.trim(template()));
     $el.append('<div class="attachment">' + template(data) + '</div>');
   }
 

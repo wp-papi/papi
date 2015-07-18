@@ -162,7 +162,7 @@ class Repeater {
 
   getHtml(data) {
     let template = this.template;
-    template = window._.template(template());
+    template = window._.template($.trim(template()));
     return $(template(data));
   }
 
