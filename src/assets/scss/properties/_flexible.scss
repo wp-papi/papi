@@ -124,16 +124,22 @@
 
       li {
         border-top: 1px #32373c solid;
-        cursor: pointer;
-        padding: 3px 8px 0;
+        padding: 5px 8px 0;
 
         &:first-child {
           border-top: 0;
-          margin-top: -3px;
+          margin-top: -5px;
         }
 
-        &:hover {
-          color: #00b9eb;
+        a {
+          color: white;
+          display: block;
+          float: none;
+          text-decoration: none;
+
+          &:hover {
+            color: #00b9eb;
+          }
         }
       }
     }
