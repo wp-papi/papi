@@ -240,7 +240,13 @@ final class Papi_Admin {
 	 */
 
 	public function manage_page_type_posts_columns( $defaults ) {
-		$defaults['page_type'] = papi_filter_settings_page_type_column_title( $this->post_type );
+		$post_type  = papi_get_post_type();
+		$post_types = papi_get_post_types();
+
+		if ( in_array( $post_type, $post_types ) ) {
+			$defaults['page_type'] = papi_filter_settings_page_type_column_title( $this->post_type );
+		}
+
 		return $defaults;
 	}
 
