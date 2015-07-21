@@ -106,10 +106,19 @@ class Papi_Property extends Papi_Core_Property {
 			$render = $this->get_option( 'lang' ) === false && papi_is_empty( papi_get_qs( 'lang' ) );
 		}
 
-		if ( $render && $this->get_option( 'disabled' ) === false ) {
-			$this->render_row_html();
-			$this->render_hidden_html();
+		$render = $this->get_option( 'disabled' ) === false;
+
+		if ( ! $render ) {
+			return;
 		}
+
+		if ( $this->display ) {
+			$this->display = $this->render_is_allowed_by_rules();
+		}
+
+		$this->render_row_html();
+		$this->render_hidden_html();
+		$this->render_rules_json();
 	}
 
 	/**
@@ -174,9 +183,13 @@ class Papi_Property extends Papi_Core_Property {
 	 */
 
 	public function render_row_html() {
+		$display_class = $this->display ? '' : ' papi-hide';
+		$rules_class   = papi_is_empty( $this->get_rules() ) ? '' : ' papi-rules-exists';
+		$css_class     = trim( $display_class . $rules_class );
+
 		if ( ! $this->get_option( 'raw' ) ):
 			?>
-			<tr class="<?php echo $this->display ? '' : 'papi-hide'; ?>">
+			<tr class="<?php echo $css_class; ?>">
 				<?php if ( $this->get_option( 'sidebar' ) ): ?>
 					<td>
 						<?php
@@ -191,15 +204,28 @@ class Papi_Property extends Papi_Core_Property {
 			</tr>
 		<?php
 		else:
-			if ( ! $this->display ):
-				echo '<div class="papi-hide">';
-			endif;
-
+			echo sprintf( '<div class="%s">', $css_class );
 			$this->html();
-
-			if ( ! $this->display ):
-				echo '</div>';
-			endif;
+			echo '</div>';
 		endif;
+	}
+
+	/**
+	 * Render Conditional rules as JSON.
+	 */
+
+	public function render_rules_json() {
+		$rules = $this->get_rules();
+
+		if ( empty( $rules ) ) {
+			return;
+		}
+
+		$rules = $this->conditional->prepare_rules( $rules, $this );
+		?>
+		<script type="application/json" data-papi-rules="true" data-papi-rule-source-slug="<?php echo $this->html_name(); ?>">
+			<?php echo json_encode( $rules ); ?>
+		</script>
+		<?php
 	}
 }

@@ -129,6 +129,11 @@ class File {
 
     $this.closest('.attachment')
       .remove();
+
+    // Trigger conditional rule.
+    $prop
+      .find('input[type=hidden]')
+      .trigger('change');
   }
 
   /**
@@ -142,6 +147,9 @@ class File {
     let template = this.template;
     template = window._.template($.trim(template()));
     $el.append('<div class="attachment">' + template(data) + '</div>');
+
+    // Trigger conditional rule.
+    $el.find('input[type=hidden]').trigger('change');
   }
 
   /**
@@ -190,6 +198,9 @@ class File {
 
       $img.attr('src', url).attr('alt', attachment.alt);
       $input.val(attachment.id);
+
+      // Trigger conditional rule.
+      $input.trigger('change');
     }).open();
   }
 

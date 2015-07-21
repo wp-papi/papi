@@ -4,10 +4,9 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Option Type.
+ * Papi Option Type class.
  *
- * All option types in the WordPress theme will
- * extend this class.
+ * All option types should extend this class.
  *
  * @package Papi
  */

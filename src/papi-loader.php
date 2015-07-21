@@ -132,7 +132,8 @@ final class Papi_Loader extends Papi_Container {
 			'field.php',
 			'template.php',
 			'option.php',
-			'deprecated.php'
+			'deprecated.php',
+			'conditional.php'
 		];
 
 		// Require function files.
@@ -142,9 +143,12 @@ final class Papi_Loader extends Papi_Container {
 			}
 		}
 
-		// Require admin class.
+		// Require admin classes.
 		require_once __DIR__ . '/includes/admin/class-papi-admin.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-menu.php';
+
+		// Require conditional rules.
+		require_once __DIR__ . '/includes/conditional/class-papi-conditional-rules.php';
 
 		// Include plugins or properties.
 		papi_action_include();

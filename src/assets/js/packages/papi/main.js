@@ -1,6 +1,7 @@
 // Papi core
 import Core from 'papi/core';
 import Required from 'papi/required';
+import Rules from 'papi/rules';
 import Tabs from 'papi/tabs';
 
 // Properties
@@ -24,6 +25,7 @@ export function init() {
   // Papi core
   Core.init();
   Required.init();
+  Rules.init();
   Tabs.init();
 
   // Properties

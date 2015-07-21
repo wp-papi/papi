@@ -7,7 +7,7 @@ class Core {
    */
 
   static init() {
-    let core = new Core();
+    const core = new Core();
 
     core.binds();
     core.setEqualBoxHeights();
@@ -75,7 +75,7 @@ class Core {
     let $list = $('.papi-box-list');
     let val   = $this.val();
 
-    $list.find('.papi-box-item').each(function () {
+    $list.find('.papi-box-item').each(function() {
       let $item = $(this);
       $item[$item.text().toLowerCase().indexOf(val) === -1 ? 'addClass' : 'removeClass']('papi-hide');
     });

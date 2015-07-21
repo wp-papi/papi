@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Checkbox.
+ * Papi Property Checkbox class.
  *
  * @package Papi
  */

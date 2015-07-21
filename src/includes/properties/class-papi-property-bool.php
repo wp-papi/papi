@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Bool.
+ * Papi Property Bool class.
  *
  * @package Papi
  */
@@ -49,6 +49,20 @@ class Papi_Property_Bool extends Papi_Property {
 	}
 
 	/**
+	 * Change value after it's loaded from the database.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+
+	public function load_value( $value, $slug, $post_id ) {
+		return is_string( $value ) && $value === '1' || $value;
+	}
+
+	/**
 	 * Format the value of the property before it's returned to the theme.
 	 *
 	 * @param mixed $value
@@ -63,7 +77,7 @@ class Papi_Property_Bool extends Papi_Property {
 			return false;
 		}
 
-		return  is_string( $value ) && ( $value === 'true' || $value === '1' ) || $value === true;
+		return  is_string( $value ) && ( $value === 'true' || $value === 'on' ) || $value === true;
 	}
 
 	/**

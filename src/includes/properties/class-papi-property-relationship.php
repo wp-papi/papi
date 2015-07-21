@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Relationship.
+ * Papi Property Relationship class.
  *
  * @package Papi
  */
@@ -140,7 +140,7 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		?>
 		<div class="papi-property-relationship">
-			<input type="hidden" name="<?php echo $slug; ?>[]" />
+			<input type="hidden" name="<?php echo $slug; ?>[]" data-papi-rule="<?php echo $slug; ?>" />
 			<div class="relationship-inner">
 				<div class="relationship-top-left">
 					<label for="<?php echo $this->html_id( 'search' ); ?>"><?php _e( 'Search', 'papi' ); ?></label>

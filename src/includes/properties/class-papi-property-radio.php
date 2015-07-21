@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Radio.
+ * Papi Property Radio class.
  *
  * @package Papi
  */

@@ -23,22 +23,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$_POST = [];
 	}
 
-	public function test_papi_get_cache_key() {
-		$this->assertEmpty( papi_get_cache_key( 0, 1 ) );
-		$this->assertEmpty( papi_get_cache_key( [], 'hello' ) );
-		$this->assertEmpty( papi_get_cache_key( (object) [], 230 ) );
-		$this->assertEmpty( papi_get_cache_key( true, 'false' ) );
-		$this->assertEmpty( papi_get_cache_key( false, 'true' ) );
-		$this->assertEmpty( papi_get_cache_key( null, 2 ) );
-
-		global $post;
-		$post_id = $this->factory->post->create();
-		$post = get_post( $post_id );
-		$this->assertEquals( 'papi_page_' . $post_id, papi_get_cache_key( 'page', $post_id ) );
-		$this->assertEquals( 'papi_page_920', papi_get_cache_key( 'page', 920 ) );
-		unset( $post );
-	}
-
 	public function test_papi_convert_to_string() {
 		$this->assertEquals( 'false', papi_convert_to_string( false ) );
 		$this->assertEquals( 'true', papi_convert_to_string( true ) );
@@ -65,6 +49,10 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		wp_set_current_user( $user_id );
 		$this->assertTrue( papi_current_user_is_allowed( 'administrator' ) );
 		$this->assertFalse( papi_current_user_is_allowed( 'administrator2' ) );
+	}
+
+	public function test_papi_doing_ajax() {
+		$this->assertTrue( papi_doing_ajax() );
 	}
 
 	public function test_papi_esc_html() {
@@ -110,6 +98,22 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_dashify( 1 ) );
 		$this->assertEmpty( papi_dashify( [] ) );
 		$this->assertEmpty( papi_dashify( new stdClass() ) );
+	}
+
+	public function test_papi_get_cache_key() {
+		$this->assertEmpty( papi_get_cache_key( 0, 1 ) );
+		$this->assertEmpty( papi_get_cache_key( [], 'hello' ) );
+		$this->assertEmpty( papi_get_cache_key( (object) [], 230 ) );
+		$this->assertEmpty( papi_get_cache_key( true, 'false' ) );
+		$this->assertEmpty( papi_get_cache_key( false, 'true' ) );
+		$this->assertEmpty( papi_get_cache_key( null, 2 ) );
+
+		global $post;
+		$post_id = $this->factory->post->create();
+		$post = get_post( $post_id );
+		$this->assertEquals( 'papi_page_' . $post_id, papi_get_cache_key( 'page', $post_id ) );
+		$this->assertEquals( 'papi_page_920', papi_get_cache_key( 'page', 920 ) );
+		unset( $post );
 	}
 
 	public function test_papi_get_class_name() {

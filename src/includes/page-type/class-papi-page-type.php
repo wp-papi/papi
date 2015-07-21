@@ -6,8 +6,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Papi Page Type class.
  *
- * All page types in the WordPress theme will
- * extend this class.
+ * All page types in the should extend this class.
  *
  * @package Papi
  */
@@ -69,7 +68,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		}
 
 		// Add post type to the options array.
-		$options['post_type'] = $post_type;
+		$options['_post_type'] = $post_type;
 
 		if ( isset( $options['sort_order'] ) ) {
 			$sort_order = intval( $options['sort_order'] );
@@ -213,6 +212,24 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	public function get_property( $slug, $child_slug = '' ) {
 		$boxes = $this->get_boxes();
+		$parts = preg_split( '/\[\d+\]/', $slug );
+		$parts = array_map( function ( $part ) {
+			return preg_replace( '/(\[|\])/', '', $part );
+		}, $parts );
+
+		if ( count( $parts ) > 1 ) {
+			$property = null;
+
+			for ( $i = 0, $l = count( $parts ); $i < $l; $i++ ) {
+				$child    = isset( $parts[$i+1] ) ? $parts[$i+1] : '';
+				$property = $this->get_property( $parts[$i], $child );
+				if ( isset( $parts[$i+1] ) ) {
+					$i++;
+				}
+			}
+
+			return $property;
+		}
 
 		if ( empty( $boxes ) ) {
 			return;

@@ -7,9 +7,7 @@ class Utils {
    */
 
   static init() {
-    let utils = new Utils();
-
-    utils.binds();
+    new Utils().binds();
   }
 
   /**

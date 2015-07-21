@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Repeater.
+ * Papi Property Repeater class.
  *
  * @package Papi
  */
@@ -109,8 +109,12 @@ class Papi_Property_Repeater extends Papi_Property {
 				continue;
 			}
 
+			// Load the value.
+			$values[$slug] = $property_type->load_value( $value, $slug, $post_id );
+			$values[$slug] = papi_filter_load_value( $property_type->type, $values[$slug], $slug, $post_id );
+
 			// Format the value from the property class.
-			$values[$slug] = $property_type->format_value( $value, $slug, $post_id );
+			$values[$slug] = $property_type->format_value( $values[$slug], $slug, $post_id );
 
 			if ( ! is_admin() ) {
 				$values[$slug] = papi_filter_format_value( $property_type->type, $values[$slug], $slug, $post_id );
@@ -575,7 +579,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			<?php /* Default repeater value */ ?>
 
-			<input type="hidden" name="<?php echo $options->slug; ?>[]" />
+			<input type="hidden" data-papi-rule="<?php echo $options->slug; ?>" name="<?php echo $options->slug; ?>[]" />
 		</div>
 		<?php
 	}

@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Admin Meta Box Tabs.
+ * Papi Admin Meta Box Tabs class.
  *
  * @package Papi
  */

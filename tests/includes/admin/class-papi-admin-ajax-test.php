@@ -194,6 +194,142 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/\{\"error\"\:\"No properties found\"\}/' );
 	}
 
+	public function test_get_rules_result_success() {
+		$_GET = [
+			'page_type' => 'rule-page-type',
+			'post'      => $this->factory->post->create()
+		];
+		$_POST = [
+			'data' => json_encode( [
+				'rules' => [
+					[
+						'operator' => '=',
+						'slug'     => 'rules1',
+						'source'   => '',
+						'value'	   => 123
+						]
+					],
+				'slug'  => 'rules_1'
+			] )
+		];
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		do_action( 'papi/ajax/get_rules_result' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"render\"\:false\}/' );
+	}
+
+	public function test_get_rules_result_success_2() {
+		$_GET = [
+			'page_type' => 'rule-page-type',
+			'post'      => $this->factory->post->create()
+		];
+		$_POST = [
+			'data' => json_encode( [
+				'rules' => [
+					[
+						'operator' => 'NOT EXISTS',
+						'slug'     => 'rules2',
+						'source'   => ''
+					]
+				],
+				'slug'  => 'rules_2'
+			] )
+		];
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		do_action( 'papi/ajax/get_rules_result' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"render\"\:true\}/' );
+	}
+
+	public function test_get_rules_result_success_3() {
+		$_GET = [
+			'page_type' => 'rule-page-type',
+			'post'      => $this->factory->post->create()
+		];
+		$_POST = [
+			'data' => json_encode( [
+				'rules' => [
+					[
+						'operator' => '=',
+						'slug'     => 'rules_3',
+						'source'   => 'hello',
+						'value'    => 'hello'
+					]
+				],
+				'slug'  => 'rules_3'
+			] )
+		];
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		if ( ! defined( 'DOING_PAPI_AJAX' ) ) {
+			define( 'DOING_PAPI_AJAX', true );
+		}
+
+		do_action( 'papi/ajax/get_rules_result' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"render\"\:true\}/' );
+	}
+
+	public function test_get_rules_result_fail() {
+		$_GET = [
+			'slug' => 'name'
+		];
+
+		do_action( 'papi/ajax/get_rules_result' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No rule found\"\}/' );
+	}
+
+	public function test_get_rules_result_fail_2() {
+		$_GET = [
+			'page_type' => 'name'
+		];
+
+		do_action( 'papi/ajax/get_rules_result' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No rule found\"\}/' );
+	}
+
+	public function test_get_rules_result_fail_3() {
+		$_GET = [
+			'slug'      => 'name',
+			'page_type' => 'fake'
+		];
+
+		do_action( 'papi/ajax/get_rules_result' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No rule found\"\}/' );
+	}
+
+	public function test_get_rules_result_fail_4() {
+		$_GET = [
+			'slug'      => 'fake',
+			'page_type' => 'simple-page-type'
+		];
+
+		do_action( 'papi/ajax/get_rules_result' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No rule found\"\}/' );
+	}
+
 	public function test_render_error() {
 		if ( ! defined( 'DOING_AJAX' ) ) {
 			define( 'DOING_AJAX', true );
