@@ -113,9 +113,10 @@ class Papi_Core_Conditional {
 		}
 
 		if ( preg_match( $arrReg, $slug, $out ) ) {
-			$slug = str_replace( $out[1], '[' . papi_remove_papi( $rule->slug ) . ']', $slug );
+			$slug     = str_replace( $out[1], '[' . papi_remove_papi( $rule->slug ) . ']', $slug );
+			$property = $page_type->get_property( $slug );
 
-			if ( $property = $page_type->get_property( $slug ) ) {
+			if ( papi_is_property( $property ) ) {
 				return $slug;
 			}
 		}

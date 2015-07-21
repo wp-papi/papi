@@ -142,7 +142,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Get property value.
 	 *
-	 * @param Papi_Core_Conditional_Rule $slug
+	 * @param Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return mixed
 	 */
@@ -155,7 +155,6 @@ class Papi_Conditional_Rules {
 
 			if ( ! papi_is_empty( $source ) && $page_type instanceof Papi_Page_Type !== false ) {
 				if ( $property = $page_type->get_property( $rule->slug ) ) {
-					$rules = $property->get_rules();
 					return $this->get_deep_value( $rule->slug, $source );
 				}
 			}

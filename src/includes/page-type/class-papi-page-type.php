@@ -221,9 +221,10 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			$property = null;
 
 			for ( $i = 0, $l = count( $parts ); $i < $l; $i++ ) {
-				$child    = isset( $parts[$i+1] ) ? $parts[$i+1] : '';
+				$child    = isset( $parts[$i + 1] ) ? $parts[$i + 1] : '';
 				$property = $this->get_property( $parts[$i], $child );
-				if ( isset( $parts[$i+1] ) ) {
+
+				if ( isset( $parts[$i + 1] ) ) {
 					$i++;
 				}
 			}

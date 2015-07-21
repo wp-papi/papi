@@ -416,7 +416,7 @@ class Papi_Core_Property {
 	 */
 
 	public function get_rules() {
-		return $this->get_option( 'rules', [] );
+		return $this->get_option( 'rules' );
 	}
 
 	/**

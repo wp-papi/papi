@@ -77,8 +77,6 @@ class Papi_Core_Conditional_Rule {
 
 	public function get_source() {
 		if ( is_callable( $this->source ) ) {
-			$source = $this->source;
-
 			return call_user_func_array( $this->source, [$this->slug] );
 		}
 
