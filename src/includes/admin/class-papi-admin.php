@@ -240,13 +240,7 @@ final class Papi_Admin {
 	 */
 
 	public function manage_page_type_posts_columns( $defaults ) {
-		$post_type  = papi_get_post_type();
-		$post_types = papi_get_post_types();
-
-		if ( in_array( $post_type, $post_types ) ) {
-			$defaults['page_type'] = papi_filter_settings_page_type_column_title( $this->post_type );
-		}
-
+		$defaults['page_type'] = papi_filter_settings_page_type_column_title( $this->post_type );
 		return $defaults;
 	}
 
@@ -260,6 +254,7 @@ final class Papi_Admin {
 	public function manage_page_type_posts_custom_column( $column_name, $post_id ) {
 		if ( $column_name === 'page_type' ) {
 			$page_type = papi_get_page_type_by_post_id( $post_id );
+
 			if ( ! is_null( $page_type ) ) {
 				esc_html_e( $page_type->name );
 			} else {
@@ -389,8 +384,15 @@ final class Papi_Admin {
 			add_filter( 'admin_body_class', [$this, 'admin_body_class'] );
 			add_filter( 'pre_get_posts', [$this, 'pre_get_posts'] );
 
-			// Add post type columns to eavery post types that is used.
-			add_filter( 'manage_' . $this->post_type . '_posts_columns', [$this, 'manage_page_type_posts_columns'] );
+			if ( ! in_array( $this->post_type, papi_get_post_types() ) ) {
+				return;
+			}
+
+			add_filter( 'manage_' . $this->post_type . '_posts_columns', [
+				$this,
+				'manage_page_type_posts_columns'
+			] );
+
 			add_action( 'manage_' . $this->post_type . '_posts_custom_column', [
 				$this,
 				'manage_page_type_posts_custom_column'
