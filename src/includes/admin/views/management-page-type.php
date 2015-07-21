@@ -121,7 +121,7 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 				</div>
 				<h3 class="hndle">
 					<span><?php echo esc_html( $box['title'] ); ?></span>
-					<span class="papi-pull-right"><?php echo esc_html( $top_right_text . ': ' ) . esc_html( strval( $counter ) ); ?></span>
+					<span class="papi-pull-right"><?php echo esc_html( $top_right_text . ': ' ) . strval( $counter ); ?></span>
 				</h3>
 				<div class="inside">
 					<?php papi_management_page_type_render_box( $box[1], $tab ); ?>
