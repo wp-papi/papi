@@ -256,9 +256,9 @@ final class Papi_Admin {
 			$page_type = papi_get_page_type_by_post_id( $post_id );
 
 			if ( ! is_null( $page_type ) ) {
-				esc_html_e( $page_type->name );
+				echo esc_html( $page_type->name );
 			} else {
-				esc_html_e( papi_filter_settings_standard_page_name( papi_get_post_type() ) );
+				echo esc_html( papi_filter_settings_standard_page_name( papi_get_post_type() ) );
 			}
 		}
 	}

@@ -62,7 +62,7 @@ class Papi_Option_Type extends Papi_Page_Type {
 	public function render() {
 		?>
 		<div class="wrap">
-			<h2><?php esc_html_e( $this->name ); ?></h2>
+			<h2><?php echo esc_html( $this->name ); ?></h2>
 			<form id="post" method="post" name="post">
 				<div id="papi-hidden-editor" class="hide-if-js">
 					<?php wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' ); ?>

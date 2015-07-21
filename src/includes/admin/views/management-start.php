@@ -31,12 +31,12 @@
 			}
 			?>
 			<tr>
-				<td><a href="<?php echo sanitize_text_field( $_SERVER['REQUEST_URI'] ); ?>&view=management-page-type&page_type=<?php echo esc_attr( $page_type->get_id() ); ?>"><?php esc_html_e( $page_type->name ); ?></a></td>
-				<td><?php esc_html_e( $page_type->get_id() ); ?></td>
+				<td><a href="<?php echo sanitize_text_field( $_SERVER['REQUEST_URI'] ); ?>&view=management-page-type&page_type=<?php echo esc_attr( $page_type->get_id() ); ?>"><?php echo esc_html( $page_type->name ); ?></a></td>
+				<td><?php echo esc_html( $page_type->get_id() ); ?></td>
 				<td>
 					<?php
 					if ( ! current_user_can( 'edit_themes' ) || defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
-							esc_html_e( $page_type->template );
+							echo esc_html( $page_type->template );
 					} else {
 						$theme_dir  = get_template_directory();
 						$theme_name = basename( $theme_dir );
@@ -47,7 +47,7 @@
 						} else {
 							if ( file_exists( $theme_dir . '/' . $page_type->template ) ) :
 								?>
-								<a href="<?php echo esc_attr( $url ); ?>"><?php esc_html_e( $page_type->template ); ?></a>
+								<a href="<?php echo esc_attr( $url ); ?>"><?php echo esc_html( $page_type->template ); ?></a>
 							<?php
 							else :
 								_e( 'Template file does not exist', 'papi' );
@@ -56,7 +56,7 @@
 					}
 					?>
 				</td>
-				<td><?php esc_html_e( papi_get_number_of_pages( $page_type->get_id() ) ); ?></td>
+				<td><?php echo esc_html( papi_get_number_of_pages( $page_type->get_id() ) ); ?></td>
 			</tr>
 		<?php
 		}
