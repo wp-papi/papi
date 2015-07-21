@@ -47,6 +47,10 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 	public function test_manage_page_type_posts_columns() {
 		$arr = $this->admin->manage_page_type_posts_columns( [] );
+		$this->assertEmpty( $arr );
+
+		$_GET['post_type'] = 'page';
+		$arr = $this->admin->manage_page_type_posts_columns( [] );
 		$this->assertEquals( ['page_type' => 'Page Type'], $arr );
 	}
 
