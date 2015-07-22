@@ -416,6 +416,18 @@ class Papi_Conditional_Rules {
 	}
 
 	/**
+	 * Exists conditional rule.
+	 *
+	 * @param Papi_Core_Conditional_Rule $rule
+	 *
+	 * @return bool
+	 */
+
+	public function rule_exists( Papi_Core_Conditional_Rule $rule ) {
+		return $this->get_value( $rule ) !== null;
+	}
+
+	/**
 	 * Not exists conditional rule.
 	 *
 	 * @param Papi_Core_Conditional_Rule $rule
@@ -443,6 +455,7 @@ class Papi_Conditional_Rules {
 		add_filter( 'papi/conditional/rule/LIKE', [$this, 'rule_like'] );
 		add_filter( 'papi/conditional/rule/BETWEEN', [$this, 'rule_between'] );
 		add_filter( 'papi/conditional/rule/NOT BETWEEN', [$this, 'rule_not_between'] );
+		add_filter( 'papi/conditional/rule/EXISTS', [$this, 'rule_exists'] );
 		add_filter( 'papi/conditional/rule/NOT EXISTS', [$this, 'rule_not_exists'] );
 	}
 }

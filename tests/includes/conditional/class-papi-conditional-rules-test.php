@@ -683,7 +683,48 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 		$this->assertTrue( $result );
 	}
 
+	public function test_rule_exists() {
+		$property = papi_property( [
+			'title' => 'Number',
+			'type'  => 'number',
+			'slug'  => 'number',
+			'value' => 1
+		] );
+
+		$this->save_property( $property );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'EXISTS',
+			'slug'     => 'fake'
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'EXISTS',
+			'slug'     => 'number'
+		] );
+
+		$this->assertTrue( $result );
+	}
+
 	public function test_rule_not_exists() {
+		$property = papi_property( [
+			'title' => 'Number',
+			'type'  => 'number',
+			'slug'  => 'number',
+			'value' => 1
+		] );
+
+		$this->save_property( $property );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT EXISTS',
+			'slug'     => 'number'
+		] );
+
+		$this->assertFalse( $result );
+
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'NOT EXISTS',
 			'slug'     => 'fake'
