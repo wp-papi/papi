@@ -348,18 +348,18 @@ class Papi_Conditional_Rules {
 	}
 
 	/**
-	 * Between conditional rule.
+	 * Get between values.
 	 *
 	 * @param Papi_Core_Conditional_Rule $rule
 	 *
-	 * @return bool
+	 * @return array
 	 */
 
-	public function rule_between( Papi_Core_Conditional_Rule $rule ) {
+	private function get_between_values( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
 
 		if ( ! is_array( $rule->value ) ) {
-			return false;
+			return [$rule, false];
 		}
 
 		foreach ( $rule->value as $index => $v ) {
@@ -373,12 +373,46 @@ class Papi_Conditional_Rules {
 		}
 
 		if ( ! is_numeric( $value ) || count( $rule->value ) !== 2 ) {
+			return [$rule, false];
+		}
+
+		return [$rule, $this->convert_number( $value )];
+	}
+
+	/**
+	 * Between conditional rule.
+	 *
+	 * @param Papi_Core_Conditional_Rule $rule
+	 *
+	 * @return bool
+	 */
+
+	public function rule_between( Papi_Core_Conditional_Rule $rule ) {
+		list( $rule, $value ) = $this->get_between_values( $rule );
+
+		if ( $value === false ) {
 			return false;
 		}
 
-		$value = $this->convert_number( $value );
-
 		return $rule->value[0] <= $value && $value <= $rule->value[1];
+	}
+
+	/**
+	 * Not between conditional rule.
+	 *
+	 * @param Papi_Core_Conditional_Rule $rule
+	 *
+	 * @return bool
+	 */
+
+	public function rule_not_between( Papi_Core_Conditional_Rule $rule ) {
+		list( $rule, $value ) = $this->get_between_values( $rule );
+
+		if ( $value === false ) {
+			return false;
+		}
+
+		return ! ( $rule->value[0] <= $value && $value <= $rule->value[1] );
 	}
 
 	/**
@@ -408,6 +442,7 @@ class Papi_Conditional_Rules {
 		add_filter( 'papi/conditional/rule/NOT IN', [$this, 'rule_not_in'] );
 		add_filter( 'papi/conditional/rule/LIKE', [$this, 'rule_like'] );
 		add_filter( 'papi/conditional/rule/BETWEEN', [$this, 'rule_between'] );
+		add_filter( 'papi/conditional/rule/NOT BETWEEN', [$this, 'rule_not_between'] );
 		add_filter( 'papi/conditional/rule/NOT EXISTS', [$this, 'rule_not_exists'] );
 	}
 }

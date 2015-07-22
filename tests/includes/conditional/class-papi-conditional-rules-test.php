@@ -616,6 +616,73 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 		$this->assertTrue( $result );
 	}
 
+	public function test_rule_not_between() {
+		$property = papi_property( [
+			'title' => 'Number',
+			'type'  => 'number',
+			'slug'  => 'number',
+			'value' => 1
+		] );
+
+		$this->save_property( $property );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT BETWEEN',
+			'slug'     => 'number',
+			'value'    => ''
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT BETWEEN',
+			'slug'     => 'number',
+			'value'    => [1, 2]
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT BETWEEN',
+			'slug'     => 'number',
+			'value'    => ['0', '2']
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT BETWEEN',
+			'slug'     => 'number',
+			'value'    => [1, null]
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT BETWEEN',
+			'slug'     => 'number',
+			'value'    => [0, 2]
+		] );
+
+		$this->assertFalse( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT BETWEEN',
+			'slug'     => 'number',
+			'value'    => ['10', '20']
+		] );
+
+		$this->assertTrue( $result );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT BETWEEN',
+			'slug'     => 'number',
+			'value'    => [10, 20]
+		] );
+
+		$this->assertTrue( $result );
+	}
+
 	public function test_rule_not_exists() {
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'NOT EXISTS',
