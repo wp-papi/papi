@@ -31,7 +31,7 @@ function papi_is_option_page() {
 	$request_uri = $_SERVER['REQUEST_URI'];
 	$parsed_url  = parse_url( $request_uri );
 
-	if ( ! isset( $parsed_url['query'] ) || empty ( $parsed_url['query'] ) ) {
+	if ( ! isset( $parsed_url['query'] ) || empty( $parsed_url['query'] ) ) {
 		return false;
 	}
 

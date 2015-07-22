@@ -340,7 +340,7 @@ class Papi_Conditional_Rules {
 			$value = papi_convert_to_string( $value );
 		}
 
-		if ( papi_is_empty ( $value ) ) {
+		if ( papi_is_empty( $value ) ) {
 			return false;
 		}
 

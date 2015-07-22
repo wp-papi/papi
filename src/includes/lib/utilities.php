@@ -547,7 +547,7 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 			} else if ( isset( $value->options->$key ) ) {
 				$sorter[$k] = $value->options->$key;
 			}
-		} else if ( is_array( $value ) && isset ( $value[$key] ) ) {
+		} else if ( is_array( $value ) && isset( $value[$key] ) ) {
 			$sorter[$k] = $value[$key];
 		}
 	}
