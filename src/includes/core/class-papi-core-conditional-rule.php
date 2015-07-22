@@ -17,7 +17,7 @@ class Papi_Core_Conditional_Rule {
 	 * @var string
 	 */
 
-	public $operator;
+	public $operator = '=';
 
 	/**
 	 * The slug.
