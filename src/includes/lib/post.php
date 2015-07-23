@@ -32,7 +32,7 @@ function papi_get_post_id( $post_id = null ) {
 		}
 
 		if ( $value = papi_get_qs( 'post' ) ) {
-			return intval( $value );
+			return is_array( $value ) ? 0 : intval( $value );
 		}
 
 		if ( $value = papi_get_qs( 'page_id' ) ) {
