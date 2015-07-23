@@ -32,6 +32,11 @@ class Papi_Lib_Post_Test extends WP_UnitTestCase {
 
 		$_GET = ['post' => $post_id];
 		$this->assertEquals( $post_id, papi_get_post_id() );
+		unset( $_GET );
+
+		$_GET = ['post' => [1, 2, 3]];
+		$this->assertEquals( 0, papi_get_post_id() );
+		unset( $_GET );
 
 		$_GET = ['page_id' => $post_id];
 		$this->assertEquals( $post_id, papi_get_post_id() );
