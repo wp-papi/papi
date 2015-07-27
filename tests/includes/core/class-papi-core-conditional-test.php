@@ -13,12 +13,13 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
+		$_GET = [];
 		$this->conditional = new Papi_Core_Conditional();
 	}
 
 	public function tearDown() {
 		parent::tearDown();
-		unset( $this->conditional );
+		unset( $this->conditional, $_GET );
 	}
 
 	public function test_failed_display() {
@@ -134,6 +135,63 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 		$this->assertFalse( $result );
 	}
 
+	public function test_display_with_simple_slug() {
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$post_id = $this->factory->post->create();
+		$_GET['post'] = $post_id;
+
+		update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+
+		$result = $this->conditional->display( [
+			[
+				'operator' => 'NOT EXISTS',
+				'slug'     => 'name',
+				'value'    => ''
+			]
+		] );
+
+		$this->assertTrue( $result );
+
+		$property = papi_property( [
+			'title' => 'Name',
+			'type'  => 'string',
+			'value' => 'Fredrik'
+		] );
+
+		$handler = new Papi_Admin_Post_Handler();
+
+		$_POST = papi_test_create_property_post_data( [
+			'slug'  => $property->slug,
+			'type'  => $property,
+			'value' => $property->value
+		], $_POST );
+
+		$handler->save_property( $post_id );
+
+		$result = $this->conditional->display( [
+			[
+				'operator' => 'EXISTS',
+				'slug'     => 'name',
+				'value'    => ''
+			]
+		] );
+
+		$this->assertTrue( $result );
+
+		$result = $this->conditional->display( [
+			[
+				'operator' => '=',
+				'slug'     => 'name',
+				'value'    => 'Fredrik'
+			]
+		] );
+
+		$this->assertTrue( $result );
+	}
+
 	public function test_display_with_array_slug() {
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
@@ -157,7 +215,27 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 				'slug'     => 'title',
 				'value'    => ''
 			]
+		], $title_prop );
+
+		$this->assertTrue( $result );
+
+		$result = $this->conditional->display( [
+			[
+				'operator' => 'NOT EXISTS',
+				'slug'     => 'title',
+				'value'    => ''
+			]
 		], $title_prop2 );
+
+		$this->assertTrue( $result );
+
+		$result = $this->conditional->display( [
+			[
+				'operator' => 'NOT EXISTS',
+				'slug'     => 'sections.0.title',
+				'value'    => ''
+			]
+		] );
 
 		$this->assertTrue( $result );
 
@@ -185,6 +263,26 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 				'value'    => ''
 			]
 		], $title_prop2 );
+
+		$this->assertTrue( $result );
+
+		$result = $this->conditional->display( [
+			[
+				'operator' => 'EXISTS',
+				'slug'     => 'sections.0.title',
+				'value'    => ''
+			]
+		] );
+
+		$this->assertTrue( $result );
+
+		$result = $this->conditional->display( [
+			[
+				'operator' => '=',
+				'slug'     => 'sections.0.title',
+				'value'    => 'Hello, world!'
+			]
+		] );
 
 		$this->assertTrue( $result );
 	}
