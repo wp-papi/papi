@@ -117,7 +117,7 @@ class Papi_Property_Relationship extends Papi_Property {
 		$slug        = $this->html_name();
 		$settings    = $this->get_settings();
 		$sort_option = $this->get_sort_option( $post_id, $slug );
-		$value       = $this->get_value();
+		$values       = $this->get_value();
 
 		// By default we add posts per page key with the value -1 (all).
 		if ( ! isset( $settings->query['posts_per_page'] ) ) {
@@ -180,7 +180,7 @@ class Papi_Property_Relationship extends Papi_Property {
 				</div>
 				<div class="relationship-right" data-limit="<?php echo $settings->limit; ?>">
 					<ul>
-						<?php foreach ( $value as $post ): ?>
+						<?php foreach ( $values as $post ): ?>
 							<li>
 								<input type="hidden" name="<?php echo $slug; ?>[]"
 								       value="<?php echo $post->ID; ?>"/>
@@ -199,39 +199,39 @@ class Papi_Property_Relationship extends Papi_Property {
 	/**
 	 * Sort the values.
 	 *
-	 * @param array $value
+	 * @param array $values
 	 * @param string $slug
 	 * @param int $post_id
 	 *
 	 * @return array
 	 */
 
-	public function sort_value( $value, $slug, $post_id ) {
+	public function sort_value( $values, $slug, $post_id ) {
 		$sort_option  = $this->get_sort_option( $post_id, $slug );
 		$sort_options = static::get_sort_options();
 
 		if ( empty( $sort_option ) || ! isset( $sort_options[$sort_option] ) || is_null( $sort_options[$sort_option] ) ) {
-			return $value;
+			return $values;
 		}
 
-		usort( $value, $sort_options[$sort_option] );
+		usort( $values, $sort_options[$sort_option] );
 
-		return $value;
+		return $values;
 	}
 
 	/**
 	 * Format the value of the property before it's returned to the application.
 	 *
-	 * @param mixed $value
+	 * @param mixed $values
 	 * @param string $slug
 	 * @param int $post_id
 	 *
 	 * @return array
 	 */
 
-	public function format_value( $value, $slug, $post_id ) {
-		if ( is_array( $value ) ) {
-			$value = array_map( function ( $id ) {
+	public function format_value( $values, $slug, $post_id ) {
+		if ( is_array( $values ) ) {
+			$values = array_map( function ( $id ) {
 				$post = get_post( $id );
 
 				if ( empty( $post ) ) {
@@ -239,8 +239,8 @@ class Papi_Property_Relationship extends Papi_Property {
 				}
 
 				return $post;
-			}, array_filter( $value ) );
-			return $this->sort_value( $value, $slug, $post_id );
+			}, array_filter( $values ) );
+			return $this->sort_value( $values, $slug, $post_id );
 		} else {
 			return $this->default_value;
 		}
@@ -249,15 +249,15 @@ class Papi_Property_Relationship extends Papi_Property {
 	/**
 	 * Sort the values on update.
 	 *
-	 * @param mixed $value
+	 * @param mixed $values
 	 * @param string $slug
 	 * @param int $post_id
 	 *
 	 * @return array
 	 */
 
-	public function update_value( $value, $slug, $post_id ) {
-		$value = $this->format_value( $value, $slug, $post_id );
-		return wp_list_pluck( $value, 'ID' );
+	public function update_value( $values, $slug, $post_id ) {
+		$values = $this->format_value( $values, $slug, $post_id );
+		return wp_list_pluck( $values, 'ID' );
 	}
 }
