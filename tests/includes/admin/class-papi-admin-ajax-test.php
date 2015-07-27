@@ -336,7 +336,8 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		}
 
 		$this->ajax->render_error( 'No property found' );
-		$this->expectOutputString( '{"error":"No property found"}' );
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No property found\"\}/' );
 	}
 
 }
