@@ -612,10 +612,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected function render_repeater_rows() {
 		$items  = $this->get_settings_properties();
 		$values = $this->get_value();
-
-		$slugs = array_map( function ( $item ) {
-			return papi_remove_papi( $item->slug );
-		}, $items );
+		$slugs  = wp_list_pluck( $items, 'slug' );
 
 		// Remove values that don't exists in the slugs array.
 		foreach ( $values as $index => $value ) {
