@@ -206,8 +206,12 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 		$sections_prop     = $simple_page_type->get_property( 'sections' );
 		$title_prop        = $simple_page_type->get_property( 'sections[0][title]' );
 		$title_prop2       = clone $title_prop->get_options();
+		$title_prop3       = clone $title_prop->get_options();
 		$title_prop2       = Papi_Property::factory( $title_prop2 );
 		$title_prop2->slug = $sections_prop->html_name( $title_prop, 0 );
+		$title_prop3       = Papi_Property::factory( $title_prop3 );
+		$title_prop3->slug = $sections_prop->html_name( $title_prop, 0 );
+		$title_prop3->slug = str_replace( 'title', 'name', $title_prop3->slug );
 
 		$result = $this->conditional->display( [
 			[
@@ -236,6 +240,16 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 				'value'    => ''
 			]
 		] );
+
+		$this->assertTrue( $result );
+
+		$result = $this->conditional->display( [
+			[
+				'operator' => 'NOT EXISTS',
+				'slug'     => 'name',
+				'value'    => ''
+			]
+		], $title_prop3 );
 
 		$this->assertTrue( $result );
 
