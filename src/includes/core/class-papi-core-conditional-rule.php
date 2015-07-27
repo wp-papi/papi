@@ -82,11 +82,13 @@ class Papi_Core_Conditional_Rule {
 
 		if ( is_string( $this->source ) && strpos( $this->source, '#' ) !== false ) {
 			$source = explode( '#', $this->source );
+			$source[0] = new $source[0]();
 
-			if ( count( $source ) === 2 && class_exists( $source[0] ) ) {
-				$source[0] = new $source[0]();
+			if ( method_exists( $source[0], $source[1] ) ) {
 				return call_user_func_array( $source, [$this->slug] );
 			}
+
+			return;
 		}
 
 		return $this->source;
@@ -102,9 +104,7 @@ class Papi_Core_Conditional_Rule {
 
 	public function setup_source( $value ) {
 		if ( is_array( $value ) && count( $value ) === 2 && is_object( $value[0] ) && is_string( $value[1] ) ) {
-			if ( $class = get_class( $value[0] ) ) {
-				return sprintf( '%s#%s', $class, $value[1] );
-			}
+			return sprintf( '%s#%s', get_class( $value[0] ), $value[1] );
 		}
 
 		if ( is_string( $value ) && is_callable( $value ) ) {
