@@ -154,7 +154,7 @@ class Papi_Conditional_Rules {
 			$page_type = papi_get_page_type_by_post_id( $post_id );
 
 			if ( ! papi_is_empty( $source ) && $page_type instanceof Papi_Page_Type !== false ) {
-				if ( $property = $page_type->get_property( $rule->slug ) ) {
+				if ( papi_is_property( $page_type->get_property( $rule->slug ) ) ) {
 					return $this->get_deep_value( $rule->slug, $source );
 				}
 			}
