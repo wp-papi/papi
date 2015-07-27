@@ -31,8 +31,8 @@ matrix:
       env: WP_VERSION=4.0 WP_MULTISITE=0
     - php: hhvm
       env: WP_VERSION=latest WP_MULTISITE=1
-    - php: nightly
+    - php: 7.0
       env: WP_VERSION=4.3-beta4 WP_MULTISITE=0
   allow_failures:
-    - php: nightly
+    - php: 7.0
   fast_finish: true
