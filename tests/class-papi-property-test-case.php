@@ -17,8 +17,17 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
 
 		$this->page_type = papi_get_page_type_by_id( 'properties-page-type' );
-		$this->property  = $this->page_type->get_property( $this->slug );
 
+		if ( isset( $this->slug ) && is_string( $this->slug ) ) {
+			$this->property   = $this->page_type->get_property( $this->slug );
+			$this->properties = [$this->property];
+		} else {
+			$slugs = $this->slugs;
+			$this->properties = [];
+			foreach ( $slugs as $slug ) {
+				$this->properties[] = $this->page_type->get_property( $slug );
+			}
+		}
 	}
 
 	public function tearDown() {
@@ -33,40 +42,56 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	}
 
 	public function test_convert_type() {
-		$this->assertEquals( 'string', $this->property->convert_type );
+		foreach ( $this->properties as $property ) {
+			$this->assertEquals( 'string', $property->convert_type );
+		}
 	}
 
 	public function test_default_value() {
-		$this->assertNull( $this->property->default_value );
+		foreach ( $this->properties as $property ) {
+			$this->assertNull( $property->default_value );
+		}
 	}
 
 	public function test_output() {
-		papi_render_property( $this->property );
-		$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $this->property->get_option( 'slug' ) ) . '\"' );
-		$this->expectOutputRegex( '/data\-property=\"' . $this->property->get_option( 'type' ) . '\"/' );
+		foreach ( $this->properties as $property ) {
+			papi_render_property( $property );
+			$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $property->get_option( 'slug' ) ) . '\"' );
+			$this->expectOutputRegex( '/data\-property=\"' . $property->get_option( 'type' ) . '\"/' );
+		}
 	}
 
 	public function test_save_property_value() {
-		$value = $this->get_value();
+		foreach ( $this->properties as $prop ) {
+			$this->save_property_value( $prop );
+		}
+	}
+
+	public function save_property_value( $property = null ) {
+		if ( is_null( $property ) ) {
+
+		}
+
+		$value = $this->get_value( $property->get_slug( true ) );
 
 		if ( is_null( $value ) ) {
-			$this->assertNull( papi_get_field( $this->post_id, $this->property->slug ) );
+			$this->assertNull( papi_get_field( $this->post_id, $property->slug ) );
 			return;
 		}
 
 		$handler = new Papi_Admin_Post_Handler();
 
 		$_POST = papi_test_create_property_post_data( [
-			'slug'  => $this->property->slug,
-			'type'  => $this->property,
+			'slug'  => $property->slug,
+			'type'  => $property,
 			'value' => $value
 		], $_POST );
 
 		$handler->save_property( $this->post_id );
 
-		$actual = papi_get_field( $this->post_id, $this->property->slug );
+		$actual = papi_get_field( $this->post_id, $property->slug );
 
-		$expected = $this->get_expected();
+		$expected = $this->get_expected( $property->get_slug( true ) );
 
 		$this->assertEquals( $expected, $actual );
 	}
@@ -76,5 +101,4 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	abstract public function get_value();
 
 	abstract public function get_expected();
-
 }

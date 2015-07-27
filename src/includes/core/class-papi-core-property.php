@@ -522,11 +522,7 @@ class Papi_Core_Property {
 			$value = papi_convert_to_string( $value );
 		}
 
-		if ( ! $this->get_setting( 'allow_html' ) ) {
-			$value = papi_santize_data( $value );
-		}
-
-		return $value;
+		return papi_santize_data( $value );
 	}
 
 	/**
