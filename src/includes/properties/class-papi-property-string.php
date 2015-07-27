@@ -20,6 +20,24 @@ class Papi_Property_String extends Papi_Property {
 	public $input_type = 'text';
 
 	/**
+	 * Format the value of the property before it's returned to the application.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return array
+	 */
+
+	public function format_value( $value, $slug, $post_id ) {
+		if ( ! $this->get_setting( 'allow_html' ) && $this->input_type === 'text' ) {
+			$value = sanitize_text_field( $value );
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Get default settings.
 	 *
 	 * @return array
@@ -53,24 +71,6 @@ class Papi_Property_String extends Papi_Property {
 			'type'    => $this->input_type,
 			'value'   => $this->get_value()
 		] );
-	}
-
-	/**
-	 * Format the value of the property before it's returned to the application.
-	 *
-	 * @param mixed $values
-	 * @param string $repeater_slug
-	 * @param int $post_id
-	 *
-	 * @return array
-	 */
-
-	public function format_value( $value, $slug, $post_id ) {
-		if ( ! $this->get_setting( 'allow_html' ) && $this->input_type === 'text' ) {
-			$value = sanitize_text_field( $value );
-		}
-
-		return $value;
 	}
 
 }
