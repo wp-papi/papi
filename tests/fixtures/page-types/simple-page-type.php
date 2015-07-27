@@ -141,19 +141,9 @@ class Simple_Page_Type extends Papi_Page_Type {
 				'settings' => [
 					'items' => [
 						[
-							'type'     => 'image',
-							'title'    => 'Logo',
-							'slug'     => 'logo'
-						],
-						[
 							'type'  => 'string',
 							'title' => 'Title',
 							'slug'  => 'title'
-						],
-						[
-							'type'  => 'url',
-							'title' => 'Link',
-							'slug'  => 'url'
 						]
 					]
 				]
