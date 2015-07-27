@@ -330,6 +330,39 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/\{\"error\"\:\"No rule found\"\}/' );
 	}
 
+	public function test_get_rules_result_fail_5() {
+		$_GET = [
+			'page_type' => 'rule-page-type',
+			'post'      => $this->factory->post->create()
+		];
+		$_POST = [
+			'data' => json_encode( [
+				'rules' => [
+					[
+						'operator' => '=',
+						'slug'     => 'rules_3',
+						'source'   => '',
+						'value'    => 'hello'
+					]
+				],
+				'slug'  => 'rules_3'
+			] )
+		];
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		if ( ! defined( 'DOING_PAPI_AJAX' ) ) {
+			define( 'DOING_PAPI_AJAX', true );
+		}
+
+		do_action( 'papi/ajax/get_rules_result' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"render\"\:false\}/' );
+	}
+
 	public function test_render_error() {
 		if ( ! defined( 'DOING_AJAX' ) ) {
 			define( 'DOING_AJAX', true );
