@@ -130,6 +130,36 @@ class Simple_Page_Type extends Papi_Page_Type {
 			'title' => 'Name',
 			'value' => 'Fredrik'
 		] ) );
+
+		$this->box( 'Sections', [
+
+			papi_property( [
+				'type'     => 'repeater',
+				'title'    => 'Sections',
+				'slug'     => 'sections',
+				'sidebar'  => false,
+				'settings' => [
+					'items' => [
+						[
+							'type'     => 'image',
+							'title'    => 'Logo',
+							'slug'     => 'logo'
+						],
+						[
+							'type'  => 'string',
+							'title' => 'Titel',
+							'slug'  => 'title'
+						],
+						[
+							'type'  => 'url',
+							'title' => 'Link',
+							'slug'  => 'url'
+						]
+					]
+				]
+			] )
+
+		] );
 	}
 
 	public function content_box() {
