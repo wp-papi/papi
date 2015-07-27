@@ -340,8 +340,8 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 				'rules' => [
 					[
 						'operator' => '=',
-						'slug'     => 'rules_3',
-						'source'   => '',
+						'slug'     => 'rules_4',
+						'source'   => 'fredrik',
 						'value'    => 'hello'
 					]
 				],
