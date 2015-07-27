@@ -74,7 +74,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
-	 * Format the value of the property before it's returned to the theme.
+	 * Format the value of the property before it's returned to the application.
 	 *
 	 * @param mixed $values
 	 * @param string $repeater_slug

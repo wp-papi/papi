@@ -20,7 +20,7 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	public $convert_type = 'int';
 
 	/**
-	 * Format the value of the property before it's returned to the theme.
+	 * Format the value of the property before it's returned to the application.
 	 *
 	 * @param mixed $value
 	 * @param string $slug
