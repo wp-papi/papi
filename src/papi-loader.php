@@ -54,7 +54,8 @@ final class Papi_Loader extends Papi_Container {
 	 * The constructor.
 	 */
 
-	private function __construct() {}
+	private function __construct() {
+	}
 
 	/**
 	 * Cloning is forbidden.
