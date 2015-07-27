@@ -400,7 +400,13 @@ function papi_html_tag( $tag, $attr = [] ) {
 		$end = sprintf( '>%s</%s>', implode( ' ', $text ), $tag );
 	}
 
-	return sprintf( '<%s %s%s', $tag, implode( ' ', $attributes ), $end );
+	if ( ! empty( $attributes ) ) {
+		$attributes = ' ' . implode( ' ', $attributes );
+	} else {
+		$attributes = '';
+	}
+
+	return sprintf( '<%s%s%s', $tag, $attributes, $end );
 }
 
 /**

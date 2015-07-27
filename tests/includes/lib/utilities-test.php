@@ -234,6 +234,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEquals( '<label for="{}"/>', papi_html_tag( 'label', [
 			'for' => (object) []
 		] ) );
+		$this->assertEquals( '<label>Hello</label>', papi_html_tag( 'label', 'Hello' ) );
 	}
 
 	public function test_papi_render_html_tag() {
