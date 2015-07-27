@@ -147,7 +147,7 @@ class Simple_Page_Type extends Papi_Page_Type {
 						],
 						[
 							'type'  => 'string',
-							'title' => 'Titel',
+							'title' => 'Title',
 							'slug'  => 'title'
 						],
 						[
