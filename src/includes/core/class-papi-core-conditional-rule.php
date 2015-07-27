@@ -130,13 +130,9 @@ class Papi_Core_Conditional_Rule {
 			if ( $key === 'operator' ) {
 				$value = strtoupper( $value );
 				$value = html_entity_decode( $value );
-			}
-
-			if ( $key === 'slug' ) {
+			} else if ( $key === 'slug' ) {
 				$value = papify( $value );
-			}
-
-			if ( $key === 'source' ) {
+			} else if ( $key === 'source' ) {
 				$value = $this->setup_source( $value );
 			}
 
