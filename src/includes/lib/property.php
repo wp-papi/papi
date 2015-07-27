@@ -163,7 +163,7 @@ function papi_get_property_class_name( $type ) {
 }
 
 /**
- * Get value.
+ * Get property value from database.
  *
  * @param int $post_id
  * @param string $slug
