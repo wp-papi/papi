@@ -10,6 +10,24 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Delete property value from database.
+ * If it's on a option page it will fetch the value from the
+ * option table instead of the postmeta table.
+ *
+ * @param int $post_id
+ * @param string $slug
+ * @param string $type
+ */
+
+function papi_delete_property_meta_value( $post_id, $slug, $type = 'post' ) {
+	if ( $type === Papi_Core_Page::TYPE_OPTION || papi_is_option_page() ) {
+		return delete_option( $slug );
+	}
+
+	return delete_post_meta( $post_id, $slug );
+}
+
+/**
  * Convert array of slugs to array with arrays in.
  *
  * @param array $values
@@ -172,8 +190,8 @@ function papi_get_property_class_name( $type ) {
  * @param string $type
  */
 
-function papi_property_get_meta_value( $post_id, $slug, $type = 'post' ) {
-	if ( $type === 'option' || papi_is_option_page() ) {
+function papi_get_property_meta_value( $post_id, $slug, $type = 'post' ) {
+	if ( $type === Papi_Core_Page::TYPE_OPTION || papi_is_option_page() ) {
 		$value = get_option( $slug, null );
 	} else {
 		$value = get_post_meta( $post_id, $slug, true );

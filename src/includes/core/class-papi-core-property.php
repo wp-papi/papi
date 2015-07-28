@@ -236,12 +236,13 @@ class Papi_Core_Property {
 	 *
 	 * @param string $slug
 	 * @param int $post_id
+	 * @param string $type
 	 *
 	 * @return bool
 	 */
 
-	public function delete_value( $slug, $post_id ) {
-		if ( $this->is_option_page() ) {
+	public function delete_value( $slug, $post_id, $type ) {
+		if ( $type === Papi_Core_Page::TYPE_OPTION || $this->is_option_page() ) {
 			return delete_option( $slug );
 		}
 
@@ -477,7 +478,7 @@ class Papi_Core_Property {
 		if ( papi_is_empty( $value ) ) {
 			$slug = $this->get_slug( true );
 
-			if ( papi_is_option_page() ) {
+			if ( $this->is_option_page() ) {
 				$value = papi_get_option( $slug );
 			} else {
 				$value = papi_get_field( $this->get_post_id(), $slug );
@@ -536,7 +537,7 @@ class Papi_Core_Property {
 			return false;
 		}
 
-		return $this->page->is( 'option' );
+		return $this->page->is( Papi_Core_Page::TYPE_OPTION );
 	}
 
 	/**

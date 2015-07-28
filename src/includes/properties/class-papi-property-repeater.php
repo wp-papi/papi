@@ -48,25 +48,19 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @param string $slug
 	 * @param int $post_id
+	 * @param string $type
 	 *
 	 * @return bool
 	 */
 
-	public function delete_value( $slug, $post_id ) {
-		$rows   = intval( get_post_meta( $post_id, $slug, true ) );
-		$option = $this->is_option_page();
+	public function delete_value( $slug, $post_id, $type ) {
+		$rows   = intval( papi_get_property_meta_value( $post_id, $slug ) );
 		$value  = $this->load_value( $rows, $slug, $post_id );
 		$value  = papi_to_property_array_slugs( $value, $slug );
 		$result = true;
 
 		foreach ( $value as $key => $value ) {
-			if ( $option ) {
-				$out    = delete_option( $key );
-				$result = $out ? $result : $out;
-				continue;
-			}
-
-			$out    = delete_post_meta( $post_id, $key );
+			$out    = papi_delete_property_meta_value( $post_id, $key, $type );
 			$result = $out ? $result : $out;
 		}
 
@@ -451,10 +445,12 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		foreach ( $results as $res ) {
 			if ( $option_page ) {
-				delete_option( $res->option_name );
+				$key = $res->option_name;
 			} else {
-				delete_post_meta( $post_id, $res->meta_key );
+				$key = $res->meta_key;
 			}
+
+			papi_delete_property_meta_value( $post_id, $key );
 		}
 	}
 
@@ -691,7 +687,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 
 	public function update_value( $values, $repeater_slug, $post_id ) {
-		$rows = intval( get_post_meta( $post_id, $repeater_slug, true ) );
+		$rows = intval( papi_get_property_meta_value( $post_id, $repeater_slug ) );
 
 		if ( ! is_array( $values ) ) {
 			$values = [];
@@ -701,7 +697,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		// Delete trash values.
 		foreach ( $trash as $index => $meta ) {
-			delete_post_meta( $post_id, $meta->meta_key );
+			papi_delete_property_meta_value( $post_id, $meta->meta_key );
 		}
 
 		$values = papi_to_property_array_slugs( $values, $repeater_slug );
@@ -739,7 +735,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		// Delete trash values.
 		foreach ( $trash as $trash_key => $trash_value ) {
-			delete_post_meta( $post_id, $trash_key );
+			papi_delete_property_meta_value( $post_id, $trash_key );
 		}
 
 		// Keep this method before the return statement.

@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  */
 
 function papi_delete_option( $slug ) {
-	return papi_delete_field( 0, $slug, 'option' );
+	return papi_delete_field( 0, $slug, Papi_Core_Page::TYPE_OPTION );
 }
 
 /**
@@ -50,7 +50,7 @@ function papi_is_option_page() {
  */
 
 function papi_get_option( $slug, $default = null ) {
-	return papi_get_field( 0, $slug, $default, 'option' );
+	return papi_get_field( 0, $slug, $default, Papi_Core_Page::TYPE_OPTION );
 }
 
 /**
@@ -91,7 +91,7 @@ add_shortcode( 'papi_option', 'papi_option_shortcode' );
  */
 
 function papi_update_option( $slug, $value = null ) {
-	return papi_update_field( 0, $slug, $value, 'option' );
+	return papi_update_field( 0, $slug, $value, Papi_Core_Page::TYPE_OPTION );
 }
 
 /**

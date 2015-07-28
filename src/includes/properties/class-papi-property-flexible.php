@@ -64,25 +64,19 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @param string $slug
 	 * @param int $post_id
+	 * @param string $type
 	 *
 	 * @return bool
 	 */
 
-	public function delete_value( $slug, $post_id ) {
-		$rows   = intval( get_post_meta( $post_id, $slug, true ) );
-		$option = $this->is_option_page();
+	public function delete_value( $slug, $post_id, $type ) {
+		$rows   = intval( papi_get_property_meta_value( $post_id, $slug ) );
 		$value  = $this->load_value( $rows, $slug, $post_id );
 		$value  = papi_to_property_array_slugs( $value, $slug );
 		$result = true;
 
 		foreach ( $value as $key => $value ) {
-			if ( $option ) {
-				$out    = delete_option( $key );
-				$result = $out ? $result : $out;
-				continue;
-			}
-
-			$out    = delete_post_meta( $post_id, $key );
+			$out    = papi_delete_property_meta_value( $post_id, $key, $type );
 			$result = $out ? $result : $out;
 		}
 
@@ -294,7 +288,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 				// Get property type key and value.
 				$property_type_key   = papi_get_property_type_key_f( $meta->meta_key );
-				$property_type_value = papi_property_get_meta_value( $post_id, $property_type_key );
+				$property_type_value = papi_get_property_meta_value( $post_id, $property_type_key );
 
 				// Serialize value if needed.
 				$meta->meta_value = maybe_unserialize( $meta->meta_value );

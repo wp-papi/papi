@@ -48,13 +48,12 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @param int $post_id
 	 * @param string $slug
 	 *
-	 * @return string|null
+	 * @return null|string
 	 */
 
 	public function get_sort_option( $post_id, $slug ) {
 		$slug = papi_f( papify( $slug ) . '_sort_option' );
-
-		return get_post_meta( $post_id, $slug, true );
+		return papi_get_property_meta_value( $post_id, $slug );
 	}
 
 	/**

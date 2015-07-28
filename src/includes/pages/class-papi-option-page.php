@@ -18,7 +18,7 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 * @var string
 	 */
 
-	protected $type = 'option';
+	protected $type = self::TYPE_OPTION;
 
 	/**
 	 * The constructor.
