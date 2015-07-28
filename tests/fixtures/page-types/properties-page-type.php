@@ -293,6 +293,16 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'slug'  => 'url_test'
 			] ),
 
+			// Url mediauploader
+			papi_property( [
+				'type'     => 'url',
+				'title'    => 'Url mediauploader test',
+				'slug'     => 'url_mediauploader_test',
+				'settings' => [
+					'mediauploader' => true	
+				]
+			] ),
+
 			// User
 			papi_property( [
 				'type'     => 'user',

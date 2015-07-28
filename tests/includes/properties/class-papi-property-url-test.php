@@ -8,7 +8,7 @@
 
 class Papi_Property_Url_Test extends Papi_Property_Test_Case {
 
-	public $slug = 'url_test';
+	public $slugs = ['url_test', 'url_mediauploader_test'];
 
 	public function get_value() {
 		return 'http://github.com';
@@ -19,21 +19,38 @@ class Papi_Property_Url_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_load_value() {
-		$this->assertEquals( 'http://wordpress.org', $this->property->load_value( 'http://wordpress.org', '', 0 ) );
-		$this->assertNull( $this->property->load_value( 'hello', '', 0 ) );
-		$this->assertNull( $this->property->load_value( null, '', 0 ) );
+		$this->assertEquals( 'http://wordpress.org', $this->properties[0]->load_value( 'http://wordpress.org', '', 0 ) );
+		$this->assertNull( $this->properties[0]->load_value( 'hello', '', 0 ) );
+		$this->assertNull( $this->properties[0]->load_value( null, '', 0 ) );
+
+		$this->assertEquals( 'http://wordpress.org', $this->properties[1]->load_value( 'http://wordpress.org', '', 0 ) );
+		$this->assertNull( $this->properties[1]->load_value( 'hello', '', 0 ) );
+		$this->assertNull( $this->properties[1]->load_value( null, '', 0 ) );
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'url', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Url test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_url_test', $this->property->get_option( 'slug' ) );
+		$this->assertEquals( 'url', $this->properties[0]->get_option( 'type' ) );
+		$this->assertEquals( 'Url test', $this->properties[0]->get_option( 'title' ) );
+		$this->assertEquals( 'papi_url_test', $this->properties[0]->get_option( 'slug' ) );
+
+		$this->assertEquals( 'url', $this->properties[1]->get_option( 'type' ) );
+		$this->assertEquals( 'Url mediauploader test', $this->properties[1]->get_option( 'title' ) );
+		$this->assertEquals( 'papi_url_mediauploader_test', $this->properties[1]->get_option( 'slug' ) );
+	}
+
+	public function test_property_output() {
+		parent::test_property_output();
+		$this->expectOutputRegex('/class\=\"button papi-url-media-button\"/');
 	}
 
 	public function test_property_update_value() {
-		$this->assertEquals( 'http://wordpress.org', $this->property->update_value( 'http://wordpress.org', '', 0 ) );
-		$this->assertNull( $this->property->update_value( 'hello', '', 0 ) );
-		$this->assertNull( $this->property->update_value( null, '', 0 ) );
+		$this->assertEquals( 'http://wordpress.org', $this->properties[0]->update_value( 'http://wordpress.org', '', 0 ) );
+		$this->assertNull( $this->properties[0]->update_value( 'hello', '', 0 ) );
+		$this->assertNull( $this->properties[0]->update_value( null, '', 0 ) );
+
+		$this->assertEquals( 'http://wordpress.org', $this->properties[1]->update_value( 'http://wordpress.org', '', 0 ) );
+		$this->assertNull( $this->properties[1]->update_value( 'hello', '', 0 ) );
+		$this->assertNull( $this->properties[1]->update_value( null, '', 0 ) );
 	}
 
 }
