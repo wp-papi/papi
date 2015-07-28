@@ -67,9 +67,13 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'string', $actual[0]->type );
 	}
 
-	public function test_papi_property_get_meta() {
-		$this->assertNull( papi_property_get_meta( $this->post_id, 'random322-page-type', 'option' ) );
-		$this->assertNull( papi_property_get_meta( $this->post_id, 'random322-page-type' ) );
+	public function test_papi_property_get_meta_value() {
+		$this->assertNull( papi_property_get_meta_value( $this->post_id, 'random322-page-type' ) );
+		$this->assertNull( papi_property_get_meta_value( $this->post_id, 'random322-page-type', 'option' ) );
+		update_post_meta( $this->post_id, 'random322-page-type', 'post' );
+		update_option( 'random322-page-type', 'option' );
+		$this->assertEquals( 'post', papi_property_get_meta_value( $this->post_id, 'random322-page-type' ) );
+		$this->assertEquals( 'option', papi_property_get_meta_value( $this->post_id, 'random322-page-type', 'option' ) );
 	}
 
 	public function test_papi_get_options_and_properties() {

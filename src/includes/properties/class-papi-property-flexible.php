@@ -293,13 +293,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$no_trash[$slug] = $meta;
 
 				// Get property type key and value.
-				$property_type_key = papi_get_property_type_key_f( $meta->meta_key );
-
-				if ( $option_page ) {
-					$property_type_value = get_option( $property_type_key );
-				} else {
-					$property_type_value = get_post_meta( $post_id, $property_type_key, true );
-				}
+				$property_type_key   = papi_get_property_type_key_f( $meta->meta_key );
+				$property_type_value = papi_property_get_meta_value( $post_id, $property_type_key );
 
 				// Serialize value if needed.
 				$meta->meta_value = maybe_unserialize( $meta->meta_value );

@@ -164,20 +164,19 @@ function papi_get_property_class_name( $type ) {
 
 /**
  * Get property value from database.
+ * If it's on a option page it will fetch the value from the
+ * option table instead of the postmeta table.
  *
  * @param int $post_id
  * @param string $slug
  * @param string $type
  */
 
-function papi_property_get_meta( $post_id, $slug, $type = 'post' ) {
-	switch ( $type ) {
-		case 'option':
-			$value = get_option( $slug, null );
-			break;
-		default:
-			$value = get_post_meta( $post_id, $slug, true );
-			break;
+function papi_property_get_meta_value( $post_id, $slug, $type = 'post' ) {
+	if ( $type === 'option' || papi_is_option_page() ) {
+		$value = get_option( $slug, null );
+	} else {
+		$value = get_post_meta( $post_id, $slug, true );
 	}
 
 	if ( papi_is_empty( $value ) ) {
