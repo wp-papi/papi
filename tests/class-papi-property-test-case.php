@@ -41,33 +41,9 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		);
 	}
 
-	public function test_property_convert_type() {
-		foreach ( $this->properties as $property ) {
-			$this->assertEquals( 'string', $property->convert_type );
-		}
-	}
+	abstract public function get_value();
 
-	public function test_property_default_value() {
-		foreach ( $this->properties as $property ) {
-			$this->assertNull( $property->default_value );
-		}
-	}
-
-	abstract public function test_property_options();
-
-	public function test_property_output() {
-		foreach ( $this->properties as $property ) {
-			papi_render_property( $property );
-			$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $property->get_option( 'slug' ) ) . '\"' );
-			$this->expectOutputRegex( '/data\-property=\"' . $property->get_option( 'type' ) . '\"/' );
-		}
-	}
-
-	public function test_save_property_value() {
-		foreach ( $this->properties as $prop ) {
-			$this->save_property_value( $prop );
-		}
-	}
+	abstract public function get_expected();
 
 	public function save_property( $property, $value = null ) {
 		if ( is_null( $value ) ) {
@@ -102,7 +78,32 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		$this->assertEquals( $expected, $actual );
 	}
 
-	abstract public function get_value();
+	public function test_property_convert_type() {
+		foreach ( $this->properties as $property ) {
+			$this->assertEquals( 'string', $property->convert_type );
+		}
+	}
 
-	abstract public function get_expected();
+	public function test_property_default_value() {
+		foreach ( $this->properties as $property ) {
+			$this->assertNull( $property->default_value );
+		}
+	}
+
+	abstract public function test_property_options();
+
+	public function test_property_output() {
+		foreach ( $this->properties as $property ) {
+			papi_render_property( $property );
+			$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $property->get_option( 'slug' ) ) . '\"' );
+			$this->expectOutputRegex( '/data\-property=\"' . $property->get_option( 'type' ) . '\"/' );
+		}
+	}
+
+	public function test_save_property_value() {
+		foreach ( $this->properties as $prop ) {
+			$this->save_property_value( $prop );
+		}
+	}
+
 }
