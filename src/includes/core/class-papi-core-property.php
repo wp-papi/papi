@@ -534,7 +534,7 @@ class Papi_Core_Property {
 
 	public function is_option_page() {
 		if ( $this->page === null ) {
-			return false;
+			return papi_is_option_page();
 		}
 
 		return $this->page->is( Papi_Core_Page::TYPE_OPTION );
