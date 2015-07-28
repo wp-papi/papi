@@ -48,7 +48,7 @@ class Papi_Admin_Menu {
 
 		$page = papi_get_page();
 
-		if ( is_null( $page ) || ! $page->is( 'post' ) ) {
+		if ( is_null( $page ) || ! $page->is( Papi_Core_Page::TYPE_POST ) ) {
 			return;
 		}
 
