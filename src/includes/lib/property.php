@@ -472,7 +472,7 @@ function papi_populate_properties( $properties ) {
  * @return bool
  */
 
-function papi_property_update_meta( array $meta = [] ) {
+function papi_update_property_meta_value( array $meta = [] ) {
 	$meta = (object) $meta;
 
 	$option     = papi_is_option_page();

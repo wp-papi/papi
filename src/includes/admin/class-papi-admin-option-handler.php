@@ -35,7 +35,7 @@ class Papi_Admin_Option_Handler extends Papi_Admin_Data_Handler {
 		$data = $this->prepare_properties_data( $data, 0 );
 
 		foreach ( $data as $key => $value ) {
-			papi_property_update_meta( [
+			papi_update_property_meta_value( [
 				'post_id'       => 0,
 				'slug'          => $key,
 				'value'         => $value
