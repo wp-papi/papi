@@ -18,13 +18,20 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 		return new WP_User( 1 );
 	}
 
-	public function test_convert_type() {
+	public function test_property_convert_type() {
 		$this->assertEquals( 'int', $this->property->convert_type );
 	}
 
-	public function test_format_value() {
+	public function test_property_format_value() {
 		$this->assertEquals( new WP_User( 1 ), $this->property->format_value( '1', '', 0 ) );
 		$this->assertEquals( new WP_User( 1 ), $this->property->format_value( 1, '', 0 ) );
+	}
+
+	public function test_property_get_value() {
+		$this->assertEquals( 0, $this->property->get_value() );
+		$this->save_property( $this->property );
+		$user = $this->get_expected();
+		$this->assertEquals( $user->ID, $this->property->get_value() );
 	}
 
 	public function test_property_options() {

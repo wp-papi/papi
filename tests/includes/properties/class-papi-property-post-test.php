@@ -10,10 +10,6 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'post_test';
 
-	public function test_convert_type() {
-		$this->assertEquals( 'object', $this->property->convert_type );
-	}
-
 	public function get_value() {
 		return $this->post_id;
 	}
@@ -22,7 +18,11 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 		return get_post( $this->post_id );
 	}
 
-	public function test_format_value() {
+	public function test_property_convert_type() {
+		$this->assertEquals( 'object', $this->property->convert_type );
+	}
+
+	public function test_property_format_value() {
 		$this->assertEquals( get_post( $this->post_id ), $this->property->format_value( $this->post_id, '', 0 ) );
 		$this->assertNull( $this->property->format_value( 'hello', '', 0 ) );
 		$this->assertNull( $this->property->format_value( null, '', 0 ) );

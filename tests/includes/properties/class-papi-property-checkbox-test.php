@@ -10,23 +10,23 @@ class Papi_Property_Checkbox_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'checkbox_test';
 
-	public function test_convert_type() {
-		$this->assertEquals( 'array', $this->property->convert_type );
-	}
-
-	public function test_default_value() {
-		$this->assertEquals( [], $this->property->default_value );
-	}
-
 	public function get_value() {
 		return '#ffffff';
 	}
 
 	public function get_expected() {
-		return [ '#ffffff' ];
+		return ['#ffffff'];
 	}
 
-	public function test_format_value() {
+	public function test_property_convert_type() {
+		$this->assertEquals( 'array', $this->property->convert_type );
+	}
+
+	public function test_property_default_value() {
+		$this->assertEquals( [], $this->property->default_value );
+	}
+
+	public function test_property_format_value() {
 		$this->assertEquals( [ 'hello' ], $this->property->format_value( 'hello', '', 0 ) );
 		$this->assertEquals( [ 'hello' ], $this->property->format_value( [ 'hello' ], '', 0 ) );
 		$this->assertEmpty( $this->property->format_value( null, '', 0 ) );

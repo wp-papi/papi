@@ -10,20 +10,20 @@ class Papi_Property_Gallery_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'gallery_test';
 
-	public function test_convert_type() {
-		$this->assertEquals( 'array', $this->property->convert_type );
-	}
-
-	public function test_default_value() {
-		$this->assertEquals( [], $this->property->default_value );
-	}
-
 	public function get_value() {
 		return [23];
 	}
 
 	public function get_expected() {
 		return [23];
+	}
+
+	public function test_property_convert_type() {
+		$this->assertEquals( 'array', $this->property->convert_type );
+	}
+
+	public function test_property_default_value() {
+		$this->assertEquals( [], $this->property->default_value );
 	}
 
 	public function test_property_options() {

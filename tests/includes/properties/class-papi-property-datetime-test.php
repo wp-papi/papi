@@ -18,7 +18,7 @@ class Papi_Property_Datetime_Test extends Papi_Property_Test_Case {
 		return '2014-11-23';
 	}
 
-	public function test_format_value() {
+	public function test_property_format_value() {
 		$this->assertEquals( '2014-11-23', $this->property->format_value( '2014-11-23', '', 0 ) );
 		$this->assertEquals( '2014-11-24', $this->property->format_value( '2014-11-24', '', 0 ) );
 		$this->assertEmpty( $this->property->format_value( null, '', 0 ) );

@@ -10,14 +10,6 @@ class Papi_Property_Bool_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'bool_test';
 
-	public function test_convert_type() {
-		$this->assertEquals( 'bool', $this->property->convert_type );
-	}
-
-	public function test_default_value() {
-		$this->assertFalse( $this->property->default_value );
-	}
-
 	public function get_value() {
 		return true;
 	}
@@ -26,7 +18,15 @@ class Papi_Property_Bool_Test extends Papi_Property_Test_Case {
 		return true;
 	}
 
-	public function test_format_value() {
+	public function test_property_convert_type() {
+		$this->assertEquals( 'bool', $this->property->convert_type );
+	}
+
+	public function test_property_default_value() {
+		$this->assertFalse( $this->property->default_value );
+	}
+
+	public function test_property_format_value() {
 		$this->assertFalse( $this->property->format_value( 'false', '', 0 ) );
 		$this->assertFalse( $this->property->format_value( '', '', 0 ) );
 		$this->assertFalse( $this->property->format_value( null, '', 0 ) );

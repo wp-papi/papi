@@ -41,19 +41,21 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		);
 	}
 
-	public function test_convert_type() {
+	public function test_property_convert_type() {
 		foreach ( $this->properties as $property ) {
 			$this->assertEquals( 'string', $property->convert_type );
 		}
 	}
 
-	public function test_default_value() {
+	public function test_property_default_value() {
 		foreach ( $this->properties as $property ) {
 			$this->assertNull( $property->default_value );
 		}
 	}
 
-	public function test_output() {
+	abstract public function test_property_options();
+
+	public function test_property_output() {
 		foreach ( $this->properties as $property ) {
 			papi_render_property( $property );
 			$this->expectOutputRegex( '/name=\"' . papi_get_property_type_key( $property->get_option( 'slug' ) ) . '\"' );
@@ -67,16 +69,9 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		}
 	}
 
-	public function save_property_value( $property = null ) {
-		if ( is_null( $property ) ) {
-
-		}
-
-		$value = $this->get_value( $property->get_slug( true ) );
-
+	public function save_property( $property, $value = null ) {
 		if ( is_null( $value ) ) {
-			$this->assertNull( papi_get_field( $this->post_id, $property->slug ) );
-			return;
+			$value = $this->get_value( $property->get_slug( true ) );
 		}
 
 		$handler = new Papi_Admin_Post_Handler();
@@ -88,6 +83,17 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		], $_POST );
 
 		$handler->save_property( $this->post_id );
+	}
+
+	public function save_property_value( $property = null ) {
+		$value = $this->get_value( $property->get_slug( true ) );
+
+		if ( is_null( $value ) ) {
+			$this->assertNull( papi_get_field( $this->post_id, $property->slug ) );
+			return;
+		}
+
+		$this->save_property( $property, $value );
 
 		$actual = papi_get_field( $this->post_id, $property->slug );
 
@@ -95,8 +101,6 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$this->assertEquals( $expected, $actual );
 	}
-
-	abstract public function test_property_options();
 
 	abstract public function get_value();
 
