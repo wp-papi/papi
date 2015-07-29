@@ -57,24 +57,6 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 	public function test_admin_bar_menu_2() {
 		global $wp_post_types;
 		$_GET = [];
-		$post_type = 'page';
-		$labels = $wp_post_types[$post_type]->labels;
-
-		$post_id = $this->factory->post->create();
-		$_GET['post'] = $post_id;
-		update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'faq-page-type' );
-
-		$_GET['post_type'] = $post_type;
-		$this->menu->admin_bar_menu();
-		$this->assertEquals( 'Add New FAQ page', $labels->add_new_item );
-		$this->assertEquals( 'Edit FAQ page', $labels->edit_item );
-		$this->assertEquals( 'View FAQ page', $labels->view_item );
-		$_GET = [];
-	}
-
-	public function test_admin_bar_menu_3() {
-		global $wp_post_types;
-		$_GET = [];
 		$post_type = 'post';
 		$labels = $wp_post_types[$post_type]->labels;
 		$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/options/header-option-type';

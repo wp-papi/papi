@@ -45,14 +45,6 @@ class Papi_Admin_Menu {
 		if ( $page_type = papi_get_page_type_by_id( $page_type_id ) ) {
 			return $page_type;
 		}
-
-		$page = papi_get_page();
-
-		if ( is_null( $page ) || ! $page->is( Papi_Core_Page::TYPE_POST ) ) {
-			return;
-		}
-
-		return $page->get_page_type();
 	}
 
 	/**
