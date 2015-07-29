@@ -178,7 +178,7 @@ class Papi_Admin_Ajax {
 
 		$data = json_decode( stripslashes( $_POST['data'] ), true );
 
-		if ( empty( $data ) || ! is_array( $data ) ) {
+		if ( empty( $data ) || ! is_array( $data ) || ! isset( $data['slug'] ) ) {
 			$this->render_error( 'No rule found' );
 			return;
 		}
@@ -188,6 +188,10 @@ class Papi_Admin_Ajax {
 		if ( $page_type instanceof Papi_Page_Type === false ) {
 			$this->render_error( 'No rule found' );
 			return;
+		}
+
+		if ( preg_match( '/\[\]$/', $data['slug'] ) ) {
+			$data['slug'] = preg_replace( '/\[\]$/', '', $data['slug'] );
 		}
 
 		if ( $property  = $page_type->get_property( $data['slug'] ) ) {
