@@ -122,8 +122,9 @@ class File {
     e.preventDefault();
 
     const $this = $(this);
+    const $prop = $this.closest('.papi-property-file');
 
-    $this.closest('.papi-property-file')
+    $prop
       .find('.papi-file-select')
       .removeClass('papi-hide');
 
