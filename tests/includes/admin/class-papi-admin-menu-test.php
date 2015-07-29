@@ -17,6 +17,10 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 		$_GET  = [];
 		$_POST = [];
 		$this->menu = new Papi_Admin_Menu();
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
 	}
 
 	public function tearDown() {
@@ -24,7 +28,43 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 		unset( $_GET, $_POST, $this->menu );
 	}
 
-	public function test_actions_admin() {
+	public function test_admin_bar_menu() {
+		global $wp_post_types;
+		$post_type = 'page';
+		$labels = $wp_post_types[$post_type]->labels;
+
+		$_GET['page_type'] = 'faq-page-type';
+		$this->menu->admin_bar_menu();
+		$this->assertEquals( 'Add New Page', $labels->add_new_item );
+		$this->assertEquals( 'Edit Page', $labels->edit_item );
+		$this->assertEquals( 'View Page', $labels->view_item );
+
+		$_GET['post_type'] = $post_type;
+		$this->menu->admin_bar_menu();
+		$this->assertEquals( 'Add New FAQ page', $labels->add_new_item );
+		$this->assertEquals( 'Edit FAQ page', $labels->edit_item );
+		$this->assertEquals( 'View FAQ page', $labels->view_item );
+	}
+
+	public function test_page_items_menu() {
+		$this->assertNull( $this->menu->page_items_menu() );
+	}
+
+	public function test_post_types_menu() {
+		$this->assertNull( $this->menu->post_types_menu() );
+	}
+
+	public function test_render_view() {
+		$_GET['page'] = '';
+		$this->menu->render_view();
+		$this->expectOutputRegex( '/\<h2\>Papi\s\-\s404\<\/h2\>/' );
+
+		$_GET['page'] = 'papi-add-new-page,page';
+		$this->menu->render_view();
+		$this->expectOutputRegex( '/Add new page type/' );
+	}
+
+	public function test_setup_actions_admin() {
 		global $current_screen;
 
 		$this->assertNull( $current_screen );
@@ -40,17 +80,7 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 		$current_screen = null;
 	}
 
-	public function test_actions() {
+	public function test_setup_actions() {
 		$this->assertEquals( 10, has_action( 'admin_bar_menu', [$this->menu, 'admin_bar_menu'] ) );
-	}
-
-	public function test_render_view() {
-		$_GET['page'] = '';
-		$this->menu->render_view();
-		$this->expectOutputRegex( '/\<h2\>Papi\s\-\s404\<\/h2\>/' );
-
-		$_GET['page'] = 'papi-add-new-page,page';
-		$this->menu->render_view();
-		$this->expectOutputRegex( '/Add new page type/' );
 	}
 }

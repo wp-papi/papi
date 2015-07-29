@@ -133,11 +133,11 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 			return [];
 		}
 
-		return [
+		return array_merge( $this->labels, [
 			'add_new_item' => sprintf( '%s %s', __( 'Add New', 'papi' ), $this->name ),
 			'edit_item' => sprintf( '%s %s', __( 'Edit', 'papi' ), $this->name ),
 			'view_item' => sprintf( '%s %s', __( 'View', 'papi' ), $this->name )
-		];
+		] );
 	}
 
 	/**

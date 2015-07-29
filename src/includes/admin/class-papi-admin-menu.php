@@ -64,10 +64,6 @@ class Papi_Admin_Menu {
 	private function override_labels( Papi_Page_Type $page_type ) {
 		global $wp_post_types;
 
-		if ( empty( $page_type ) ) {
-			return;
-		}
-
 		$post_type = papi_get_post_type();
 
 		if ( empty( $post_type ) || ! isset( $wp_post_types[$post_type] ) ) {
