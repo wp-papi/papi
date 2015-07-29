@@ -22,7 +22,6 @@ class Rules {
     const $target   = $('[name="' + slug + '"]');
     const selector  = '[name="' + ruleSlug + '"], [data-papi-rule="' + ruleSlug + '"]';
     const self      = this;
-    let typingTimer;
 
     $('body').on('keyup change', selector, function(e) {
       let $this    = $(this);
@@ -170,6 +169,7 @@ class Rules {
 
     if (arrReg.test(slug)) {
       slug = slug.replace(arrReg.exec(slug)[1], '[' + rule.slug.replace(papiReg, '') + ']');
+
       if ($('[name="' + slug + '"]').length) {
         rule.slug = slug;
       }
