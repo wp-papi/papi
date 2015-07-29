@@ -11,8 +11,41 @@ defined( 'ABSPATH' ) || exit;
 
 class Papi_Admin_Meta_Box_Test extends WP_UnitTestCase {
 
+    public function test_add_property() {
+        $class = new Papi_Admin_Meta_Box();
+        $property = papi_property( [
+            'type'  => 'string',
+            'title' => 'Name'
+        ] );
+        $class->add_property( $property );
+        $properties = function ( Papi_Admin_Meta_Box $box ) {
+            return $box->properties;
+        };
+        $properties = Closure::bind( $properties, null, $class );
+        $this->assertEquals( [$property], $properties( $class ) );
+    }
+
+    public function test_after_title() {
+        $class = new Papi_Admin_Meta_Box( [
+            'title'   => 'Content'
+        ] );
+        $this->assertFalse( has_action( 'edit_form_after_title', [$class, 'move_meta_box_after_title'] ) );
+        $class = new Papi_Admin_Meta_Box( [
+            'context'    => 'after_title',
+            'title'      => 'Content',
+            '_post_type' => 'page'
+        ] );
+        $this->assertEquals( 10, has_action( 'edit_form_after_title', [$class, 'move_meta_box_after_title'] ) );
+    }
+
 	public function test_construct() {
 		$class = new Papi_Admin_Meta_Box();
+
+        $user_id = $this->factory->user->create( ['role'=>'read'] );
+        $class = new Papi_Admin_Meta_Box( [
+            'capabilities' => 'super',
+            'title'        => 'Content'
+        ] );
 
         $class = new Papi_Admin_Meta_Box( [
             'title' => 'Content'
@@ -31,23 +64,23 @@ class Papi_Admin_Meta_Box_Test extends WP_UnitTestCase {
         $this->expectOutputRegex( '//' );
 	}
 
+    public function test_move_meta_box_after_title() {
+        global $post, $wp_meta_boxes, $pagenow;
+        $pagenow = 'post-new.php';
+        $post_id = $this->factory->post->create( [ 'post_type' => 'page' ] );
+        $post    = get_post( $post_id );
+    	$class   = new Papi_Admin_Meta_Box( [
+            'title' => 'Content'
+        ] );
+        set_current_screen( $pagenow );
+        $class->move_meta_box_after_title();
+        $this->assertFalse( isset( $wp_meta_boxes['page']['normal'] ) );
+		$this->expectOutputRegex( '/.*\S.*/' );
+    }
+
     public function test_meta_box_css_classes() {
 		$class = new Papi_Admin_Meta_Box();
         $this->assertEquals( ['papi-box'], $class->meta_box_css_classes( [] ) );
-    }
-
-    public function test_add_property() {
-        $class = new Papi_Admin_Meta_Box();
-        $property = papi_property( [
-            'type'  => 'string',
-            'title' => 'Name'
-        ] );
-        $class->add_property( $property );
-        $properties = function ( Papi_Admin_Meta_Box $box ) {
-            return $box->properties;
-        };
-        $properties = Closure::bind( $properties, null, $class );
-        $this->assertEquals( [$property], $properties( $class ) );
     }
 
     public function test_render_meta_box() {
