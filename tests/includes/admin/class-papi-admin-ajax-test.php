@@ -320,9 +320,22 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 
 	public function test_get_rules_result_fail_4() {
 		$_GET = [
-			'slug'      => 'fake',
 			'page_type' => 'simple-page-type'
 		];
+
+		$_POST = [
+			'data' => json_encode( [
+				'slug' => 'fake'
+			] )
+		];
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		if ( ! defined( 'DOING_PAPI_AJAX' ) ) {
+			define( 'DOING_PAPI_AJAX', true );
+		}
 
 		do_action( 'papi/ajax/get_rules_result' );
 
@@ -331,6 +344,29 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_rules_result_fail_5() {
+		$_GET = [
+			'page_type' => 'simple-page-type'
+		];
+
+		$_POST = [
+			'data' => json_encode( [] )
+		];
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		if ( ! defined( 'DOING_PAPI_AJAX' ) ) {
+			define( 'DOING_PAPI_AJAX', true );
+		}
+
+		do_action( 'papi/ajax/get_rules_result' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"error\"\:\"No rule found\"\}/' );
+	}
+
+	public function test_get_rules_result_fail_6() {
 		$_GET = [
 			'page_type' => 'rule-page-type',
 			'post'      => $this->factory->post->create()
@@ -341,6 +377,39 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 					[
 						'operator' => '=',
 						'slug'     => 'rules_4',
+						'source'   => 'fredrik',
+						'value'    => 'hello'
+					]
+				],
+				'slug'  => 'rules_3'
+			] )
+		];
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		if ( ! defined( 'DOING_PAPI_AJAX' ) ) {
+			define( 'DOING_PAPI_AJAX', true );
+		}
+
+		do_action( 'papi/ajax/get_rules_result' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\{\"render\"\:false\}/' );
+	}
+
+	public function test_get_rules_result_fail_7() {
+		$_GET = [
+			'page_type' => 'rule-page-type',
+			'post'      => $this->factory->post->create()
+		];
+		$_POST = [
+			'data' => json_encode( [
+				'rules' => [
+					[
+						'operator' => '=',
+						'slug'     => 'rules_4[]',
 						'source'   => 'fredrik',
 						'value'    => 'hello'
 					]
