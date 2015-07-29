@@ -118,8 +118,8 @@ class Papi_Admin_Data_Handler {
 		foreach ( $data as $key => $item ) {
 			$property = papi_get_property_type( $item['type'] );
 
-			// Remove data if property type is null.
-			if ( is_null( $property ) ) {
+			// Remove the property if it's not a real property.
+			if ( ! papi_is_property( $property ) ) {
 				unset( $data[ $key ] );
 				continue;
 			}
