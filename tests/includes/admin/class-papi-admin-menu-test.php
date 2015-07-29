@@ -71,7 +71,73 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 	}
 
 	public function test_post_types_menu() {
+		global $submenu;
+		$submenu = [];
+		$submenu['edit.php'] = [
+			5  => [
+				'All Posts',
+				'edit_posts',
+				'edit.php'
+			],
+			10 => [
+				'Add New',
+				'edit_posts',
+				'post-new.php'
+			]
+		];
+		$submenu['edit.php?post_type=page'] = [
+			5  => [
+				'All Pages',
+				'edit_pages',
+				'edit.php?post_type=page'
+			],
+			10 => [
+				'Add New',
+				'edit_pages',
+				'post-new.php?post_type=page'
+			]
+		];
+
 		$this->assertNull( $this->menu->post_types_menu() );
+		$this->assertEquals( 'edit.php?page=papi-add-new-page,post', $submenu['edit.php'][10][2] );
+		$this->assertEquals( 'edit.php?post_type=page&page=papi-add-new-page,page', $submenu['edit.php?post_type=page'][10][2] );
+	}
+
+	public function test_post_types_menu_2() {
+		global $submenu;
+		$submenu = [];
+		$submenu['edit.php'] = [
+			5  => [
+				'All Posts',
+				'edit_posts',
+				'edit.php'
+			],
+			10 => [
+				'Add New',
+				'edit_posts',
+				'post-new.php'
+			]
+		];
+		$submenu['edit.php?post_type=page'] = [
+			5  => [
+				'All Pages',
+				'edit_pages',
+				'edit.php?post_type=page'
+			],
+			10 => [
+				'Add New',
+				'edit_pages',
+				'post-new.php?post_type=page'
+			]
+		];
+
+		tests_add_filter( 'papi/settings/only_page_type_post', function () {
+			return 'post-page-type';
+		} );
+
+		$this->assertNull( $this->menu->post_types_menu() );
+		$this->assertEquals( 'post-new.php?page_type=post-page-type&post_type=post', $submenu['edit.php'][10][2] );
+		$this->assertEquals( 'edit.php?post_type=page&page=papi-add-new-page,page', $submenu['edit.php?post_type=page'][10][2] );
 	}
 
 	public function test_render_view() {
