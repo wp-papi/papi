@@ -116,11 +116,6 @@ class Papi_Admin_Data_Handler {
 		}
 
 		foreach ( $data as $key => $item ) {
-			if ( ! is_array( $item ) || ! isset( $item['type'] ) ) {
-				continue;
-			}
-
-			// Get the property, will only make the instance once.
 			$property = papi_get_property_type( $item['type'] );
 
 			// Remove data if property type is null.
