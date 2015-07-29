@@ -140,7 +140,7 @@ class Papi_Admin_Data_Handler {
 	}
 
 	/**
-	 * Pre save page template and page type.
+	 * Get pre data that should be saved before all properties data.
 	 */
 
 	protected function get_pre_data() {
