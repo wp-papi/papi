@@ -76,6 +76,7 @@ class Papi_Admin_Meta_Box_Test extends WP_UnitTestCase {
         $class->move_meta_box_after_title();
         $this->assertFalse( isset( $wp_meta_boxes['page']['normal'] ) );
 		$this->expectOutputRegex( '/.*\S.*/' );
+        $GLOBALS['current_screen'] = null;
     }
 
     public function test_meta_box_css_classes() {
