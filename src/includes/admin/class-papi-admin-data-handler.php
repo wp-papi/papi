@@ -118,17 +118,15 @@ class Papi_Admin_Data_Handler {
 		foreach ( $data as $key => $item ) {
 			$property = papi_get_property_type( $item['type'] );
 
-			// Remove the property if it's not a real property.
-			if ( ! papi_is_property( $property ) ) {
-				unset( $data[ $key ] );
-				continue;
+			unset( $data[ $key ] );
+
+			if ( papi_is_property( $property ) ) {
+				// Run `update_value` method on the property class.
+				$data[$key] = $property->update_value( $item['value'], papi_remove_papi( $key ), $post_id );
+
+				// Apply `update_value` filter so this can be changed from the theme for specified property type.
+				$data[$key] = papi_filter_update_value( $item['type']->type, $data[$key], papi_remove_papi( $key ), $post_id );
 			}
-
-			// Run `update_value` method on the property class.
-			$data[$key] = $property->update_value( $item['value'], papi_remove_papi( $key ), $post_id );
-
-			// Apply `update_value` filter so this can be changed from the theme for specified property type.
-			$data[$key] = papi_filter_update_value( $item['type']->type, $data[$key], papi_remove_papi( $key ), $post_id );
 		}
 
 		return $data;
