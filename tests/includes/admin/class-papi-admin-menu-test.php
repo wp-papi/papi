@@ -30,6 +30,7 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 
 	public function test_admin_bar_menu() {
 		global $wp_post_types;
+		$_GET = [];
 		$post_type = 'page';
 		$labels = $wp_post_types[$post_type]->labels;
 
@@ -50,10 +51,12 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Add New FAQ page', $labels->add_new_item );
 		$this->assertEquals( 'Edit FAQ page', $labels->edit_item );
 		$this->assertEquals( 'View FAQ page', $labels->view_item );
+		$_GET = [];
 	}
 
 	public function test_admin_bar_menu_2() {
 		global $wp_post_types;
+		$_GET = [];
 		$post_type = 'page';
 		$labels = $wp_post_types[$post_type]->labels;
 
@@ -66,19 +69,22 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Add New FAQ page', $labels->add_new_item );
 		$this->assertEquals( 'Edit FAQ page', $labels->edit_item );
 		$this->assertEquals( 'View FAQ page', $labels->view_item );
+		$_GET = [];
 	}
 
 	public function test_admin_bar_menu_3() {
 		global $wp_post_types;
-		$post_type = 'page';
+		$_GET = [];
+		$post_type = 'post';
 		$labels = $wp_post_types[$post_type]->labels;
 		$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/options/header-option-type';
 
 		$_GET['post_type'] = $post_type;
 		$this->menu->admin_bar_menu();
-		$this->assertEquals( 'Add New Page', $labels->add_new_item );
-		$this->assertEquals( 'Edit Page', $labels->edit_item );
-		$this->assertEquals( 'View Page', $labels->view_item );
+		$this->assertEquals( 'Add New Post', $labels->add_new_item );
+		$this->assertEquals( 'Edit Post', $labels->edit_item );
+		$this->assertEquals( 'View Post', $labels->view_item );
+		$_GET = [];
 	}
 
 	public function test_page_items_menu() {
