@@ -90,6 +90,18 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/Add new page type/' );
 	}
 
+	public function test_restrict_page_types() {
+		$_GET['post_type'] = '';
+		$this->admin->restrict_page_types();
+		$this->expectOutputRegex( '//' );
+	}
+
+	public function test_restrict_page_types_2() {
+		$_GET['post_type'] = 'page';
+		$this->admin->restrict_page_types();
+		$this->expectOutputRegex( '/.*\S.*/' );
+	}
+
 	public function test_setup_papi() {
 		$this->assertFalse( $this->admin->setup_papi() );
 		$_GET['post_type'] = 'revision';
