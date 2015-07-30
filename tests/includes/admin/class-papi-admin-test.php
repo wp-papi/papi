@@ -13,7 +13,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->admin = Papi_Admin::instance();
+		$this->admin = new Papi_Admin;
 		$this->post_id = $this->factory->post->create();
 
 		tests_add_filter( 'papi/settings/directories', function () {
@@ -43,6 +43,24 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	public function test_hidden_meta_box_editor() {
 		$this->admin->hidden_meta_box_editor();
 		$this->expectOutputRegex( '/wp\-editor\-wrap/' );
+	}
+
+	public function test_load_post_new() {
+		$_GET['post_type'] = '';
+		$admin = new Papi_Admin;
+		$admin->load_post_new();
+		$this->expectOutputRegex( '//' );
+	}
+
+	public function test_load_post_new_2() {
+		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=page';
+		tests_add_filter( 'wp_redirect', function( $location ) {
+			$this->assertEquals( 'edit.php?post_type=page&page=papi-add-new-page,page', $location );
+			return false;
+		} );
+		$_GET['post_type'] = 'page';
+    	$admin = new Papi_Admin;
+		$admin->load_post_new();
 	}
 
 	public function test_manage_page_type_posts_columns() {
@@ -92,13 +110,15 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 	public function test_restrict_page_types() {
 		$_GET['post_type'] = '';
-		$this->admin->restrict_page_types();
+		$admin = new Papi_Admin;
+		$admin->restrict_page_types();
 		$this->expectOutputRegex( '//' );
 	}
 
 	public function test_restrict_page_types_2() {
 		$_GET['post_type'] = 'page';
-		$this->admin->restrict_page_types();
+		$admin = new Papi_Admin;
+		$admin->restrict_page_types();
 		$this->expectOutputRegex( '/.*\S.*/' );
 	}
 
