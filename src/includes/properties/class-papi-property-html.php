@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Html extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Html extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'html' => ''
@@ -26,7 +24,6 @@ class Papi_Property_Html extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$settings = $this->get_settings();
 

@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Option_Page extends Papi_Core_Page {
 
 	/**
@@ -17,7 +16,6 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 *
 	 * @var string
 	 */
-
 	protected $type = self::TYPE_OPTION;
 
 	/**
@@ -27,7 +25,6 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 *
 	 * @param int $post_id
 	 */
-
 	public function __construct( $post_id = 0 ) {
 		// On option page this should always be equal to zero.
 		$this->id = 0;
@@ -41,7 +38,6 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 *
 	 * @return object
 	 */
-
 	public function get_property( $slug, $child_slug = '' ) {
 		$page_type_id = str_replace( 'papi/', '', papi_get_qs( 'page' ) );
 
@@ -76,7 +72,6 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 *
 	 * @return bool
 	 */
-
 	public function valid() {
 		return $this->id === 0 && $this->valid_type();
 	}

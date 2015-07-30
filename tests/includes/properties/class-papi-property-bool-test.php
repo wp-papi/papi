@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 class Papi_Property_Bool_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'bool_test';

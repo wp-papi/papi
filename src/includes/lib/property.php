@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
@@ -18,7 +17,6 @@ defined( 'ABSPATH' ) || exit;
  * @param string $slug
  * @param string $type
  */
-
 function papi_delete_property_meta_value( $post_id, $slug, $type = Papi_Core_Page::TYPE_POST ) {
 	if ( $type === Papi_Core_Page::TYPE_OPTION || papi_is_option_page() ) {
 		return delete_option( $slug );
@@ -35,7 +33,6 @@ function papi_delete_property_meta_value( $post_id, $slug, $type = Papi_Core_Pag
  *
  * @return array
  */
-
 function papi_from_property_array_slugs( array $values, $slug ) {
 	$results = [];
 
@@ -66,7 +63,6 @@ function papi_from_property_array_slugs( array $values, $slug ) {
  *
  * @return bool
  */
-
 function papi_is_property( $value ) {
 	return $value instanceof Papi_Property;
 }
@@ -78,7 +74,6 @@ function papi_is_property( $value ) {
  *
  * @return array
  */
-
 function papi_get_box_property( array $properties ) {
 	$box_property = array_filter( $properties, function ( $property ) {
 		return ! is_object( $property );
@@ -103,7 +98,6 @@ function papi_get_box_property( array $properties ) {
  *
  * @return array
  */
-
 function papi_get_options_and_properties( $file_or_options = [], $properties = [], $is_box = true ) {
 	$options = [];
 
@@ -171,7 +165,6 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
  *
  * @return string
  */
-
 function papi_get_property_class_name( $type ) {
 	if ( ! is_string( $type ) || empty( $type ) ) {
 		return;
@@ -189,7 +182,6 @@ function papi_get_property_class_name( $type ) {
  * @param string $slug
  * @param string $type
  */
-
 function papi_get_property_meta_value( $post_id, $slug, $type = Papi_Core_Page::TYPE_POST ) {
 	if ( $type === Papi_Core_Page::TYPE_OPTION || papi_is_option_page() ) {
 		$value = get_option( $slug, null );
@@ -211,7 +203,6 @@ function papi_get_property_meta_value( $post_id, $slug, $type = Papi_Core_Page::
  *
  * @return stdClass
  */
-
 function papi_get_property_options( $options ) {
 	if ( ! is_array( $options ) ) {
 		if ( is_object( $options ) ) {
@@ -232,7 +223,6 @@ function papi_get_property_options( $options ) {
  *
  * @return Papi_Property
  */
-
 function papi_get_property_type( $type ) {
 	return Papi_Property::factory( $type );
 }
@@ -244,7 +234,6 @@ function papi_get_property_type( $type ) {
  *
  * @return string
  */
-
 function papi_get_property_type_from_base64( $str ) {
 	if ( is_string( $str ) && preg_match( '/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $str ) ) {
 		$str = base64_decode( $str );
@@ -262,7 +251,6 @@ function papi_get_property_type_from_base64( $str ) {
  *
  * @return string
  */
-
 function papi_get_property_type_key( $str = '' ) {
 	$suffix = '_property';
 
@@ -287,7 +275,6 @@ function papi_get_property_type_key( $str = '' ) {
  *
  * @return string
  */
-
 function papi_get_property_type_key_f( $str ) {
 	return papi_f( papi_get_property_type_key( $str ) );
 }
@@ -299,7 +286,6 @@ function papi_get_property_type_key_f( $str ) {
  *
  * @return boolean
  */
-
 function papi_is_property_type_key( $str = '' ) {
 	$pattern = '_property';
 	$pattern = str_replace( '_', '\_', $pattern );
@@ -317,7 +303,6 @@ function papi_is_property_type_key( $str = '' ) {
  *
  * @return Papi_Property
  */
-
 function papi_property( $file_or_options, $values = [] ) {
 	if ( is_array( $file_or_options ) ) {
 		$file_or_options = papi_get_property_options( $file_or_options );
@@ -337,7 +322,6 @@ function papi_property( $file_or_options, $values = [] ) {
  *
  * @param Papi_Property $property
  */
-
 function papi_render_property( $property ) {
 	$property = Papi_Property::factory( $property );
 
@@ -353,7 +337,6 @@ function papi_render_property( $property ) {
  *
  * @param array $properties
  */
-
 function papi_render_properties( array $properties ) {
 	if ( empty( $properties ) ) {
 		return;
@@ -387,7 +370,6 @@ function papi_render_properties( array $properties ) {
  *
  * @return string
  */
-
 function papi_require_text( $property ) {
 	if ( ! is_object( $property ) || ! $property->required ) {
 		return '';
@@ -404,7 +386,6 @@ function papi_require_text( $property ) {
  *
  * @return string
  */
-
 function papi_required_html( $property, $text = false ) {
 	if ( ! is_object( $property ) || ! $property->required ) {
 		return '';
@@ -420,7 +401,6 @@ function papi_required_html( $property, $text = false ) {
  *
  * @return array
  */
-
 function papi_populate_properties( $properties ) {
 	if ( ! is_array( $properties ) && ! is_object( $properties ) || empty( $properties ) ) {
 		return [];
@@ -471,7 +451,6 @@ function papi_populate_properties( $properties ) {
  *
  * @return bool
  */
-
 function papi_update_property_meta_value( array $meta = [] ) {
 	$meta       = (object) $meta;
 	$option     = papi_is_option_page();
@@ -536,7 +515,6 @@ function papi_update_property_meta_value( array $meta = [] ) {
  *
  * @return array
  */
-
 function papi_to_property_array_slugs( array $value, $slug ) {
 	$results = [];
 	$counter = [];

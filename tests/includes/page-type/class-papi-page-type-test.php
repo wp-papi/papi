@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 	public function setUp() {

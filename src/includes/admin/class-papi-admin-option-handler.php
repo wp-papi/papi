@@ -8,13 +8,11 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Admin_Option_Handler extends Papi_Admin_Data_Handler {
 
 	/**
 	 * The constructor.
 	 */
-
 	public function __construct() {
 		if ( papi_is_metod( 'post' ) && papi_is_option_page() ) {
 			$this->save_options();
@@ -24,7 +22,6 @@ class Papi_Admin_Option_Handler extends Papi_Admin_Data_Handler {
 	/**
 	 * Save options with a post id of zero.
 	 */
-
 	private function save_options() {
 		// Check if our nonce is vailed.
 		if ( ! wp_verify_nonce( papi_get_sanitized_post( 'papi_meta_nonce' ), 'papi_save_data' ) ) {

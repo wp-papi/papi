@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Lib_Deprecated_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -37,7 +36,6 @@ class Papi_Lib_Deprecated_Test extends WP_UnitTestCase {
 	/**
 	 * `current_page` is deprecated since 2.0.0.
 	 */
-
 	public function test_current_page() {
 		$this->assertNull( current_page() );
 	}
@@ -45,7 +43,6 @@ class Papi_Lib_Deprecated_Test extends WP_UnitTestCase {
 	/**
 	 * `papi_field` is deprecated since 2.0.0.
 	 */
-
 	public function test_papi_field() {
 		update_post_meta( $this->post_id, 'name', 'fredrik' );
 
@@ -65,7 +62,6 @@ class Papi_Lib_Deprecated_Test extends WP_UnitTestCase {
 	/**
 	 * `papi_fields` is deprecated since 2.0.0.
 	 */
-
 	public function test_papi_fields() {
 		$this->assertEmpty( papi_fields() );
 
@@ -95,7 +91,6 @@ class Papi_Lib_Deprecated_Test extends WP_UnitTestCase {
 	/**
 	 * `papi_get_page_type_meta_value` is deprecated since 2.0.0.
 	 */
-
 	public function test_papi_get_page_type_meta_value() {
 		$this->assertEmpty( papi_get_page_type_meta_value() );
 

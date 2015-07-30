@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Admin_Meta_Box {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Admin_Meta_Box {
 	 *
 	 * @var array
 	 */
-
 	private $default_options = [
 		'capabilities' => [],
 		'context'      => 'normal',
@@ -36,7 +34,6 @@ class Papi_Admin_Meta_Box {
 	 *
 	 * @var object
 	 */
-
 	private $options;
 
 	/**
@@ -44,7 +41,6 @@ class Papi_Admin_Meta_Box {
 	 *
 	 * @var array
 	 */
-
 	private $properties = [];
 
 	/**
@@ -53,7 +49,6 @@ class Papi_Admin_Meta_Box {
 	 * @param array $options
 	 * @param array $properties
 	 */
-
 	public function __construct( $options = [], $properties = [] ) {
 		if ( empty( $options ) ) {
 			return;
@@ -76,7 +71,6 @@ class Papi_Admin_Meta_Box {
 	 *
 	 * @param object $property
 	 */
-
 	public function add_property( $property ) {
 		$this->properties[] = $property;
 	}
@@ -88,7 +82,6 @@ class Papi_Admin_Meta_Box {
 	 *
 	 * @return string
 	 */
-
 	private function get_meta_box_id( $slug ) {
 		return papi_f( papi_underscorify( papify( $slug ) ) );
 	}
@@ -100,7 +93,6 @@ class Papi_Admin_Meta_Box {
 	 *
 	 * @return string[]
 	 */
-
 	public function meta_box_css_classes( $classes ) {
 		$classes[] = 'papi-box';
 		return $classes;
@@ -109,7 +101,6 @@ class Papi_Admin_Meta_Box {
 	/**
 	 * Move meta boxes after title.
 	 */
-
 	public function move_meta_box_after_title() {
 		global $post, $wp_meta_boxes;
 		do_meta_boxes( get_current_screen(), $this->options->context, $post );
@@ -123,7 +114,6 @@ class Papi_Admin_Meta_Box {
 	 *
 	 * @return string
 	 */
-
 	private function populate_post_type( $post_type ) {
 		$post_id = papi_get_post_id();
 
@@ -153,7 +143,6 @@ class Papi_Admin_Meta_Box {
 	 *
 	 * @param array $properties
 	 */
-
 	private function populate_properties( $properties ) {
 		$this->properties = papi_populate_properties( $properties );
 
@@ -168,7 +157,6 @@ class Papi_Admin_Meta_Box {
 	 * @param array $post
 	 * @param array $args
 	 */
-
 	public function render_meta_box( $post, $args ) {
 		if ( ! is_array( $args ) || ! isset( $args['args'] ) ) {
 			return;
@@ -181,7 +169,6 @@ class Papi_Admin_Meta_Box {
 	/**
 	 * Setup actions.
 	 */
-
 	private function setup_actions() {
 		if ( post_type_exists( $this->options->_post_type ) ) {
 			add_action( 'add_meta_boxes', [$this, 'setup_meta_box'] );
@@ -200,7 +187,6 @@ class Papi_Admin_Meta_Box {
 	/**
 	 * Setup meta box.
 	 */
-
 	public function setup_meta_box() {
 		$this->options->title = papi_remove_papi( $this->options->title );
 
@@ -224,7 +210,6 @@ class Papi_Admin_Meta_Box {
 	 *
 	 * @param array $options
 	 */
-
 	private function setup_options( $options ) {
 		$options                   = empty( $options ) ? [] : $options;
 		$options                   = array_merge( $this->default_options, $options );

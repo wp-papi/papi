@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Core_Conditional {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Core_Conditional {
 	 *
 	 * @var array
 	 */
-
 	private $relations = [
 		'AND',
 		'OR'
@@ -30,7 +28,6 @@ class Papi_Core_Conditional {
 	 *
 	 * @return bool
 	 */
-
 	public function display( array $rules, $property = null ) {
 		if ( empty( $rules ) ) {
 			return true;
@@ -52,7 +49,6 @@ class Papi_Core_Conditional {
 	 *
 	 * @return bool
 	 */
-
 	private function display_by_relation( array $rules ) {
 		if ( $rules['relation'] === 'AND' ) {
 			$display = true;
@@ -101,7 +97,6 @@ class Papi_Core_Conditional {
 	 *
 	 * @return string
 	 */
-
 	private function get_rule_slug( $rule, $property ) {
 		$arrReg = '/\[\d+\](\[\w+\])$/';
 		$slug   = $property->get_slug();
@@ -132,7 +127,6 @@ class Papi_Core_Conditional {
 	 *
 	 * @return array
 	 */
-
 	public function prepare_rules( array $rules, $property = null ) {
 		if ( ! isset( $rules['relation'] ) ) {
 			$rules['relation'] = 'OR';

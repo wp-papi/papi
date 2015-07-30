@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Editor extends Papi_Property {
 
 	/**
@@ -18,7 +17,6 @@ class Papi_Property_Editor extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function format_value( $value, $slug, $post_id ) {
 		return apply_filters( 'the_content', $value );
 	}
@@ -26,7 +24,6 @@ class Papi_Property_Editor extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$value = $this->get_value();
 		$id    = str_replace( '[', '', str_replace( ']', '', $this->html_name() ) ) . '-' . uniqid();

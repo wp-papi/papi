@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Lib_Conditional_Test extends WP_UnitTestCase {
 
 	public function test_papi_is_rule() {

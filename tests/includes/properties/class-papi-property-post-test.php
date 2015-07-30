@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'post_test';

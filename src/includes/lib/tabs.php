@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
@@ -16,7 +15,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return stdClass
  */
-
 function papi_get_tab_options( $options ) {
 	if ( ! is_array( $options ) && ! is_object( $options ) || empty( $options ) ) {
 		return;
@@ -46,7 +44,6 @@ function papi_get_tab_options( $options ) {
  *
  * @return array
  */
-
 function papi_setup_tabs( array $tabs ) {
 	$_tabs = [];
 
@@ -83,7 +80,6 @@ function papi_setup_tabs( array $tabs ) {
  *
  * @return array
  */
-
 function papi_tab( $file_or_options, $properties = [] ) {
 	list( $options, $properties ) = papi_get_options_and_properties( $file_or_options, $properties, false );
 

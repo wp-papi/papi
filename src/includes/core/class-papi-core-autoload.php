@@ -5,13 +5,11 @@
  *
  * @package Papi
  */
-
 class Papi_Core_Autoload {
 
 	/**
 	 * The Constructor.
 	 */
-
 	public function __construct() {
 		spl_autoload_register( [$this, 'autoload'] );
 	}
@@ -21,7 +19,6 @@ class Papi_Core_Autoload {
 	 *
 	 * @param string $class
 	 */
-
 	public function autoload( $class ) {
 		$class = strtolower( $class );
 		$file  = 'class-' . str_replace( '_', '-', strtolower( $class ) ) . '.php';

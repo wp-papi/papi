@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
@@ -16,7 +15,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return array
  */
-
 function papi_body_class( array $classes ) {
 	global $post;
 
@@ -50,7 +48,6 @@ add_filter( 'body_class', 'papi_body_class' );
  * @param string $file
  * @param array $vars
  */
-
 function papi_include_template( $file, $vars = [] ) {
 	if ( ! is_string( $file ) || empty( $file ) ) {
 		return;
@@ -73,7 +70,6 @@ function papi_include_template( $file, $vars = [] ) {
  *
  * @return array
  */
-
 function papi_template( $file, $values = [], $convert_to_object = false ) {
 	if ( ! is_string( $file ) || empty( $file ) ) {
 		return [];
@@ -115,7 +111,6 @@ function papi_template( $file, $values = [], $convert_to_object = false ) {
  *
  * @return string
  */
-
 function papi_template_include( $original_template ) {
 	global $post;
 

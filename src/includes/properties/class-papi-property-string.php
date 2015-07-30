@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_String extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_String extends Papi_Property {
 	 *
 	 * @var string
 	 */
-
 	public $input_type = 'text';
 
 	/**
@@ -28,7 +26,6 @@ class Papi_Property_String extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function format_value( $value, $slug, $post_id ) {
 		if ( ! $this->get_setting( 'allow_html' ) && $this->input_type === 'text' ) {
 			$value = sanitize_text_field( $value );
@@ -42,7 +39,6 @@ class Papi_Property_String extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'allow_html' => false
@@ -54,7 +50,6 @@ class Papi_Property_String extends Papi_Property {
 	 *
 	 * @return string
 	 */
-
 	public function get_value() {
 		$value = parent::get_value();
 		return $this->format_value( $value, $this->get_slug(), papi_get_post_id() );
@@ -63,7 +58,6 @@ class Papi_Property_String extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		papi_render_html_tag( 'input', [
 			'id'      => $this->html_id(),

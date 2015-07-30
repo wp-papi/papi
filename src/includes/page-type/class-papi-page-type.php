@@ -10,7 +10,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	/**
@@ -18,7 +17,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @var array
 	 */
-
 	protected $boxes = [];
 
 	/**
@@ -26,7 +24,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @var bool
 	 */
-
 	private $load_boxes = false;
 
 	/**
@@ -35,7 +32,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @var array
 	 */
-
 	private $post_type_supports = ['custom-fields'];
 
 	/**
@@ -43,7 +39,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @var array
 	 */
-
 	private $remove_meta_boxes = [];
 
 	/**
@@ -52,7 +47,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @param mixed $file_or_options
 	 * @param array $properties
 	 */
-
 	protected function box( $file_or_options = [], $properties = [] ) {
 		if ( ! is_string( $file_or_options ) && ! is_array( $file_or_options ) && ! is_object( $file_or_options ) ) {
 			return;
@@ -95,7 +89,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @return array
 	 */
-
 	private function convert_properties( $properties ) {
 		if ( is_array( $properties ) ) {
 			if ( isset( $properties['type'] ) ) {
@@ -135,7 +128,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @return bool
 	 */
-
 	public function display( $post_type ) {
 		return true;
 	}
@@ -145,7 +137,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @return array
 	 */
-
 	public function get_boxes() {
 		if ( empty( $this->boxes ) && $this->load_boxes === false ) {
 			if ( ! method_exists( $this, 'register' ) ) {
@@ -165,7 +156,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @return string
 	 */
-
 	public function get_post_type() {
 		return papi_get_post_type();
 	}
@@ -178,7 +168,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @return object
 	 */
-
 	protected function get_child_property( $items, $slug ) {
 		$result = null;
 
@@ -209,7 +198,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @return null|Papi_Property
 	 */
-
 	public function get_property( $slug, $child_slug = '' ) {
 		$boxes = $this->get_boxes();
 		$parts = preg_split( '/\[\d+\]/', $slug );
@@ -259,7 +247,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * This function will setup all meta boxes.
 	 */
-
 	public function setup() {
 		if ( ! method_exists( $this, 'register' ) ) {
 			return;
@@ -287,7 +274,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @return null|Papi_Property
 	 */
-
 	protected function property( $file_or_options = [], $values = [] ) {
 		return papi_property( $file_or_options, $values );
 	}
@@ -297,7 +283,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @param array $post_type_supports
 	 */
-
 	protected function remove( $post_type_supports = [] ) {
 		$this->post_type_supports = array_merge( $this->post_type_supports, papi_to_array( $post_type_supports ) );
 	}
@@ -305,7 +290,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Remove post type support action.
 	 */
-
 	public function remove_post_type_support() {
 		global $_wp_post_type_features;
 
@@ -340,7 +324,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Remove meta boxes.
 	 */
-
 	public function remove_meta_boxes() {
 		$post_type = $this->get_post_type();
 
@@ -361,7 +344,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @return array
 	 */
-
 	protected function tab( $file_or_options = [], $properties = [] ) {
 		if ( ! is_string( $file_or_options ) && ! is_array( $file_or_options ) ) {
 			return;
@@ -392,7 +374,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @return array
 	 */
-
 	protected function template( $file, $values = [] ) {
 		return papi_template( $file, $values );
 	}

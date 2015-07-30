@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_File extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_File extends Papi_Property {
 	 *
 	 * @var string
 	 */
-
 	public $convert_type = 'object';
 
 	/**
@@ -24,7 +22,6 @@ class Papi_Property_File extends Papi_Property {
 	 *
 	 * @var array
 	 */
-
 	public $default_value = [];
 
 	/**
@@ -32,7 +29,6 @@ class Papi_Property_File extends Papi_Property {
 	 *
 	 * @var string
 	 */
-
 	protected $file_type  = 'file';
 
 	/**
@@ -44,7 +40,6 @@ class Papi_Property_File extends Papi_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_numeric( $value ) ) {
 			$meta = wp_get_attachment_metadata( $value );
@@ -88,7 +83,6 @@ class Papi_Property_File extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'multiple' => false
@@ -100,7 +94,6 @@ class Papi_Property_File extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_labels() {
 		return [
 			'add'     => __( 'Add file', 'papi' ),
@@ -111,7 +104,6 @@ class Papi_Property_File extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$css_classes = '';
 		$labels      = $this->get_labels();
@@ -193,7 +185,6 @@ class Papi_Property_File extends Papi_Property {
 	/**
 	 * Render file template.
 	 */
-
 	public function render_file_template() {
 		?>
 		<script type="text/template" id="tmpl-papi-property-file">
@@ -218,7 +209,6 @@ class Papi_Property_File extends Papi_Property {
 	/**
 	 * Setup actions.
 	 */
-
 	protected function setup_actions() {
 		add_action( 'admin_head', [$this, 'render_file_template'] );
 	}
@@ -226,7 +216,6 @@ class Papi_Property_File extends Papi_Property {
 	/**
 	 * Setup filters.
 	 */
-
 	protected function setup_filters() {
 		add_action( 'wp_get_attachment_metadata', [$this, 'wp_get_attachment_metadata'], 10, 2 );
 	}
@@ -239,7 +228,6 @@ class Papi_Property_File extends Papi_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function wp_get_attachment_metadata( $data, $post_id ) {
 		if ( papi_is_empty( $data ) ) {
 			return get_post_meta( $post_id, '_wp_attached_file', true );

@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Core_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Core_Property {
 	 *
 	 * @var Papi_Core_Conditional
 	 */
-
 	protected $conditional;
 
 	/**
@@ -24,7 +22,6 @@ class Papi_Core_Property {
 	 *
 	 * @var string
 	 */
-
 	public $convert_type = 'string';
 
 	/**
@@ -32,7 +29,6 @@ class Papi_Core_Property {
 	 *
 	 * @var array
 	 */
-
 	protected $default_options = [
 		'capabilities' => [],
 		'description'  => '',
@@ -55,7 +51,6 @@ class Papi_Core_Property {
 	 *
 	 * @var null
 	 */
-
 	public $default_value;
 
 	/**
@@ -63,7 +58,6 @@ class Papi_Core_Property {
 	 *
 	 * @var bool
 	 */
-
 	protected $display = true;
 
 	/**
@@ -71,7 +65,6 @@ class Papi_Core_Property {
 	 *
 	 * @var stdClass
 	 */
-
 	private $options;
 
 	/**
@@ -79,13 +72,11 @@ class Papi_Core_Property {
 	 *
 	 * @var Papi_Core_Page
 	 */
-
 	private $page;
 
 	/**
 	 * The constructor.
 	 */
-
 	public function __construct() {
 		$this->setup_actions();
 		$this->setup_conditional();
@@ -99,7 +90,6 @@ class Papi_Core_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function __get( $key ) {
 		return $this->get_option( $key );
 	}
@@ -111,7 +101,6 @@ class Papi_Core_Property {
 	 *
 	 * @return bool
 	 */
-
 	public function __isset( $key ) {
 		return $this->get_option( $key ) !== null;
 	}
@@ -122,7 +111,6 @@ class Papi_Core_Property {
 	 * @param string $key
 	 * @param mixed $value
 	 */
-
 	public function __set( $key, $value ) {
 		$this->set_option( $key, $value );
 	}
@@ -135,7 +123,6 @@ class Papi_Core_Property {
 	 *
 	 * @return bool
 	 */
-
 	public function render_is_allowed_by_rules( array $rules = [] ) {
 		if ( empty( $rules ) ) {
 			$rules = $this->get_rules();
@@ -151,7 +138,6 @@ class Papi_Core_Property {
 	 *
 	 * @return Papi_Property
 	 */
-
 	public static function create( $options = [] ) {
 		$property = new static;
 		$property->set_options( $options );
@@ -165,7 +151,6 @@ class Papi_Core_Property {
 	 *
 	 * @return array
 	 */
-
 	private function convert_settings( $settings ) {
 		foreach ( $settings as $key => $value ) {
 			if ( ! is_array( $value ) ) {
@@ -185,7 +170,6 @@ class Papi_Core_Property {
 	 *
 	 * @return array
 	 */
-
 	private function convert_items_array( $items ) {
 		foreach ( $items as $index => $item ) {
 			if ( is_array( $item ) && ! isset( $item['type'] ) ) {
@@ -240,7 +224,6 @@ class Papi_Core_Property {
 	 *
 	 * @return bool
 	 */
-
 	public function delete_value( $slug, $post_id, $type ) {
 		if ( $type === Papi_Core_Page::TYPE_OPTION || $this->is_option_page() ) {
 			return delete_option( $slug );
@@ -256,7 +239,6 @@ class Papi_Core_Property {
 	 *
 	 * @return object
 	 */
-
 	public static function factory( $type ) {
 		if ( is_array( $type ) ) {
 			$prop = self::create( $type );
@@ -323,7 +305,6 @@ class Papi_Core_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function format_value( $value, $slug, $post_id ) {
 		return $value;
 	}
@@ -333,7 +314,6 @@ class Papi_Core_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_child_properties() {
 		return $this->get_setting( 'items', [] );
 	}
@@ -343,7 +323,6 @@ class Papi_Core_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [];
 	}
@@ -355,7 +334,6 @@ class Papi_Core_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function get_option( $key ) {
 		if ( isset( $this->options->$key ) ) {
 			return $this->options->$key;
@@ -377,7 +355,6 @@ class Papi_Core_Property {
 	 *
 	 * @return stdClass
 	 */
-
 	public function get_options() {
 		return $this->options;
 	}
@@ -387,7 +364,6 @@ class Papi_Core_Property {
 	 *
 	 * @return Papi_Core_Page
 	 */
-
 	public function get_page() {
 		if ( $this->page instanceof Papi_Core_Page ) {
 			return $this->page;
@@ -401,7 +377,6 @@ class Papi_Core_Property {
 	 *
 	 * @return int
 	 */
-
 	public function get_post_id() {
 		if ( $this->page instanceof Papi_Core_Page ) {
 			return $this->page->id;
@@ -415,7 +390,6 @@ class Papi_Core_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_rules() {
 		return $this->get_option( 'rules' );
 	}
@@ -428,7 +402,6 @@ class Papi_Core_Property {
 	 *
 	 * @return stdClass
 	 */
-
 	public function get_setting( $key, $default = null ) {
 		$settings = $this->get_settings();
 
@@ -444,7 +417,6 @@ class Papi_Core_Property {
 	 *
 	 * @return stdClass
 	 */
-
 	public function get_settings() {
 		$settings = wp_parse_args( $this->get_option( 'settings' ), $this->get_default_settings() );
 		return (object) $this->convert_settings( $settings );
@@ -457,7 +429,6 @@ class Papi_Core_Property {
 	 *
 	 * @return string
 	 */
-
 	public function get_slug( $remove_prefix = false ) {
 		if ( $remove_prefix ) {
 			return papi_remove_papi( $this->get_option( 'slug' ) );
@@ -471,7 +442,6 @@ class Papi_Core_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function get_value() {
 		$value = $this->get_option( 'value' );
 
@@ -497,7 +467,6 @@ class Papi_Core_Property {
 	 *
 	 * @return bool
 	 */
-
 	public function match_slug( $slug ) {
 		if ( ! is_string( $slug ) ) {
 			$slug = '';
@@ -513,7 +482,6 @@ class Papi_Core_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function prepare_value( $value ) {
 		if ( papi_is_empty( $value ) ) {
 			return $this->default_value;
@@ -531,7 +499,6 @@ class Papi_Core_Property {
 	 *
 	 * @return bool
 	 */
-
 	public function is_option_page() {
 		if ( $this->page === null ) {
 			return papi_is_option_page();
@@ -549,7 +516,6 @@ class Papi_Core_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function load_value( $value, $slug, $post_id ) {
 		return $value;
 	}
@@ -557,7 +523,6 @@ class Papi_Core_Property {
 	/**
 	 * Render AJAX request.
 	 */
-
 	public function render_ajax_request() {
 		papi_render_property( $this );
 	}
@@ -567,7 +532,6 @@ class Papi_Core_Property {
 	 *
 	 * @param Papi_Core_Page $page
 	 */
-
 	public function set_page( Papi_Core_Page $page ) {
 		$this->page = $page;
 	}
@@ -577,7 +541,6 @@ class Papi_Core_Property {
 	 *
 	 * @param array|object $options
 	 */
-
 	public function set_options( $options ) {
 		$this->options = $this->setup_options( $options );
 	}
@@ -588,7 +551,6 @@ class Papi_Core_Property {
 	 * @param string $key
 	 * @param mixed $value
 	 */
-
 	public function set_option( $key, $value ) {
 		if ( ! is_object( $this->options ) ) {
 			$this->options = (object) $this->default_options;
@@ -605,7 +567,6 @@ class Papi_Core_Property {
 	 * @param string $key
 	 * @param mixed $value
 	 */
-
 	public function set_setting( $key, $value ) {
 		if ( isset( $this->options->settings ) && isset( $this->options->settings->$key ) ) {
 			$this->options->settings->$key = $value;
@@ -615,14 +576,12 @@ class Papi_Core_Property {
 	/**
 	 * Setup actions.
 	 */
-
 	protected function setup_actions() {
 	}
 
 	/**
 	 * Setup conditional class.
 	 */
-
 	protected function setup_conditional() {
 		$this->conditional = new Papi_Core_Conditional();
 	}
@@ -630,7 +589,6 @@ class Papi_Core_Property {
 	/**
 	 * Setup filters.
 	 */
-
 	protected function setup_filters() {
 	}
 
@@ -641,7 +599,6 @@ class Papi_Core_Property {
 	 *
 	 * @return mixed
 	 */
-
 	private function setup_options( $options ) {
 		if ( ! is_array( $options ) ) {
 			return $options;
@@ -694,7 +651,6 @@ class Papi_Core_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function update_value( $value, $slug, $post_id ) {
 		return $value;
 	}

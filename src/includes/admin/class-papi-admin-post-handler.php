@@ -8,13 +8,11 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 
 	/**
 	 * The constructor.
 	 */
-
 	public function __construct() {
 		$this->setup_actions();
 	}
@@ -24,7 +22,6 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 	 *
 	 * @todo Try to get this working
 	 */
-
 	private function setup_actions() {
 		add_action( 'save_post', [$this, 'save_meta_boxes'], 1, 2 );
 	}
@@ -34,7 +31,6 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 	 *
 	 * @param int $post_id
 	 */
-
 	private function pre_save( $post_id ) {
 		// Can't proceed without a post id.
 		if ( empty( $post_id ) ) {
@@ -58,7 +54,6 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 	 * @param int $post_id
 	 * @param object $post
 	 */
-
 	public function save_meta_boxes( $post_id, $post ) {
 		// Can't proceed without a post id or post.
 		if ( empty( $post_id ) || empty( $post ) ) {
@@ -93,7 +88,6 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 	 *
 	 * @param int $post_id
 	 */
-
 	public function save_property( $post_id ) {
 		// Pre save page template, page type and some others dynamic values.
 		$this->pre_save( $post_id );

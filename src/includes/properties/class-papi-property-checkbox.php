@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Checkbox extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 *
 	 * @var string
 	 */
-
 	public $convert_type = 'array';
 
 	/**
@@ -24,7 +22,6 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 *
 	 * @var array
 	 */
-
 	public $default_value = [];
 
 	/**
@@ -32,7 +29,6 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'items'    => [],
@@ -43,7 +39,6 @@ class Papi_Property_Checkbox extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$settings = $this->get_settings();
 		$value    = $this->get_value();
@@ -90,7 +85,6 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_string( $value ) && ! papi_is_empty( $value ) ) {
 			return [$value];

@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Admin_Ajax {
 
 	/**
@@ -16,13 +15,11 @@ class Papi_Admin_Ajax {
 	 *
 	 * @var string
 	 */
-
 	private $action_prefix = 'papi/ajax/';
 
 	/**
 	 * The constructor.
 	 */
-
 	public function __construct() {
 		$this->setup_actions();
 	}
@@ -30,7 +27,6 @@ class Papi_Admin_Ajax {
 	/**
 	 * Setup actions.
 	 */
-
 	private function setup_actions() {
 		add_action( 'init', [$this, 'add_endpoint'] );
 		add_action( 'parse_query', [$this, 'handle_papi_ajax'] );
@@ -45,7 +41,6 @@ class Papi_Admin_Ajax {
 	/**
 	 * Add ajax endpoint.
 	 */
-
 	public function add_endpoint() {
 		add_rewrite_tag( '%action%', '([^/]*)' );
 		add_rewrite_rule( 'papi-ajax/([^/]*)/?', 'index.php?action=$matches[1]', 'top' );
@@ -54,7 +49,6 @@ class Papi_Admin_Ajax {
 	/**
 	 * Add ajax url to Papi JavaScript object.
 	 */
-
 	public function ajax_url() {
 		?>
 		<script type="text/javascript">
@@ -67,7 +61,6 @@ class Papi_Admin_Ajax {
 	/**
 	 * Handle Papi ajax.
 	 */
-
 	public function handle_papi_ajax() {
 		global $wp_query;
 
@@ -102,7 +95,6 @@ class Papi_Admin_Ajax {
 	/**
 	 * Get property html via GET.
 	 */
-
 	public function get_property() {
 		$default_options = Papi_Property::default_options();
 		$keys = array_keys( $default_options );
@@ -126,7 +118,6 @@ class Papi_Admin_Ajax {
 	/**
 	 * Get properties via POST.
 	 */
-
 	public function get_properties() {
 		if ( ! isset( $_POST['properties'] ) ) {
 			$this->render_error( 'No properties found' );
@@ -169,7 +160,6 @@ class Papi_Admin_Ajax {
 	/**
 	 * Get rules result via GET.
 	 */
-
 	public function get_rules_result() {
 		if ( ! isset( $_POST['data'] ) ) {
 			$this->render_error( 'No rule found' );
@@ -208,7 +198,6 @@ class Papi_Admin_Ajax {
 	 *
 	 * @param string $message
 	 */
-
 	public function render_error( $message ) {
 		wp_send_json( [
 			'error' => $message

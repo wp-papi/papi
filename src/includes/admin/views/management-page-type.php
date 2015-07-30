@@ -10,7 +10,6 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 	 *
 	 * @package Papi
 	 */
-
 	function papi_management_page_type_render_box( $properties, $tab = false ) {
 		?>
 		<table class="papi-table">

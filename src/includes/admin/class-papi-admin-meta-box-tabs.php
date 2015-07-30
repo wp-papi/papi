@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Admin_Meta_Box_Tabs {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Admin_Meta_Box_Tabs {
 	 *
 	 * @var array
 	 */
-
 	private $tabs = [];
 
 	/**
@@ -25,7 +23,6 @@ class Papi_Admin_Meta_Box_Tabs {
 	 * @param array $tabs
 	 * @param bool $render
 	 */
-
 	public function __construct( $tabs = [], $render = true ) {
 		if ( empty( $tabs ) ) {
 			return;
@@ -43,7 +40,6 @@ class Papi_Admin_Meta_Box_Tabs {
 	 *
 	 * @return array
 	 */
-
 	public function get_tabs() {
 		return $this->tabs;
 	}
@@ -51,7 +47,6 @@ class Papi_Admin_Meta_Box_Tabs {
 	/**
 	 * Generate html for tabs and properties.
 	 */
-
 	private function html() {
 		?>
 		<div class="papi-tabs-wrapper">

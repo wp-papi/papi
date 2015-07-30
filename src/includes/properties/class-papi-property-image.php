@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Image extends Papi_Property_File {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Image extends Papi_Property_File {
 	 *
 	 * @var string
 	 */
-
 	protected $file_type  = 'image';
 
 	/**
@@ -24,7 +22,6 @@ class Papi_Property_Image extends Papi_Property_File {
 	 *
 	 * @return array
 	 */
-
 	public function get_labels() {
 		return [
 			'add'     => __( 'Add image', 'papi' ),

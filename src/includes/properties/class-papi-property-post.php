@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Post extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Post extends Papi_Property {
 	 *
 	 * @var string
 	 */
-
 	public $convert_type = 'object';
 
 	/**
@@ -26,7 +24,6 @@ class Papi_Property_Post extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'placeholder'   => '',
@@ -43,7 +40,6 @@ class Papi_Property_Post extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	protected function get_posts( $settings ) {
 		// By default we add posts per page key with the value -1 (all).
 		if ( ! isset( $settings->query['posts_per_page'] ) ) {
@@ -80,7 +76,6 @@ class Papi_Property_Post extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$settings   = $this->get_settings();
 		$value      = $this->get_value();
@@ -149,7 +144,6 @@ class Papi_Property_Post extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
 			return get_post( $value );

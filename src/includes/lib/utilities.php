@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
@@ -16,7 +15,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return string
  */
-
 function papi_convert_to_string( $obj ) {
 	if ( $obj === true ) {
 		return 'true';
@@ -40,7 +38,6 @@ function papi_convert_to_string( $obj ) {
  *
  * @return bool
  */
-
 function papi_current_user_is_allowed( $capabilities = [] ) {
 	if ( ! is_array( $capabilities ) && ! is_string( $capabilities ) || empty( $capabilities ) ) {
 		return true;
@@ -62,7 +59,6 @@ function papi_current_user_is_allowed( $capabilities = [] ) {
  *
  * @return bool
  */
-
 function papi_doing_ajax() {
 	return defined( 'DOING_PAPI_AJAX' ) && DOING_PAPI_AJAX;
 }
@@ -75,7 +71,6 @@ function papi_doing_ajax() {
  *
  * @return mixed
  */
-
 function papi_esc_html( $obj, $keys = [] ) {
 	$object = is_object( $obj ) && get_class( $obj ) === 'stdClass';
 
@@ -119,7 +114,6 @@ function papi_esc_html( $obj, $keys = [] ) {
  *
  * @return string
  */
-
 function papi_dashify( $str ) {
 	if ( ! is_string( $str ) ) {
 		return '';
@@ -136,7 +130,6 @@ function papi_dashify( $str ) {
  *
  * @return string
  */
-
 function papi_f( $str = '', $len = 1 ) {
 	if ( ! is_string( $str ) ) {
 		return '';
@@ -163,7 +156,6 @@ function papi_f( $str = '', $len = 1 ) {
  *
  * @return string
  */
-
 function papi_get_cache_key( $key, $suffix ) {
 	if ( ! is_string( $key ) ) {
 		return '';
@@ -183,7 +175,6 @@ function papi_get_cache_key( $key, $suffix ) {
  *
  * @return null|string
  */
-
 function papi_get_class_name( $file ) {
 	if ( ! is_string( $file ) ) {
 		return '';
@@ -230,7 +221,6 @@ function papi_get_class_name( $file ) {
  *
  * @return array
  */
-
 function papi_get_only_objects( array $arr ) {
 	return array_filter( papi_to_array( $arr ), function ( $item ) {
 		return is_object( $item );
@@ -244,7 +234,6 @@ function papi_get_only_objects( array $arr ) {
  *
  * @return string
  */
-
 function papi_get_or_post( $key ) {
 	if ( ! is_string( $key ) ) {
 		return;
@@ -266,7 +255,6 @@ function papi_get_or_post( $key ) {
  *
  * @return array|string
  */
-
 function papi_get_qs( $qs, $keep_keys = false ) {
 	if ( ! is_string( $qs ) && ! is_array( $qs ) ) {
 		return;
@@ -316,7 +304,6 @@ function papi_get_qs( $qs, $keep_keys = false ) {
  *
  * @return string
  */
-
 function papi_get_sanitized_post( $key ) {
 	if ( ! isset( $_POST[$key] ) ) {
 		return;
@@ -332,7 +319,6 @@ function papi_get_sanitized_post( $key ) {
  *
  * @return string
  */
-
 function papi_html_name( $name ) {
 	if ( ! is_string( $name ) ) {
 		return '';
@@ -359,7 +345,6 @@ function papi_html_name( $name ) {
  *
  * @return string
  */
-
 function papi_html_tag( $tag, $attr = [] ) {
 	$attributes = [];
 	$text       = [];
@@ -417,7 +402,6 @@ function papi_html_tag( $tag, $attr = [] ) {
  *
  * @return bool
  */
-
 function papi_is_empty( $obj ) {
 	if ( is_string( $obj ) ) {
 		return empty( $obj ) && ! is_numeric( $obj );
@@ -437,7 +421,6 @@ function papi_is_empty( $obj ) {
  *
  * @return bool
  */
-
 function papi_is_metod( $method ) {
 	if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || ! is_string( $method ) ) {
 		return false;
@@ -453,7 +436,6 @@ function papi_is_metod( $method ) {
  *
  * @return string
  */
-
 function papi_nl2br( $str ) {
 	return str_replace( '\n', '<br />', nl2br( $str ) );
 }
@@ -465,7 +447,6 @@ function papi_nl2br( $str ) {
  *
  * @return string
  */
-
 function papi_remove_papi( $str ) {
 	if ( ! is_string( $str ) ) {
 		return '';
@@ -482,7 +463,6 @@ function papi_remove_papi( $str ) {
  *
  * @return string
  */
-
 function papi_remove_trailing_quotes( $str ) {
 	if ( ! is_string( $str ) ) {
 		return '';
@@ -499,7 +479,6 @@ function papi_remove_trailing_quotes( $str ) {
  *
  * @return string
  */
-
 function papi_render_html_tag( $tag, $attr = [] ) {
 	echo papi_html_tag( $tag, $attr );
 }
@@ -511,7 +490,6 @@ function papi_render_html_tag( $tag, $attr = [] ) {
  *
  * @return mixed
  */
-
 function papi_santize_data( $obj ) {
 	if ( is_array( $obj ) ) {
 		foreach ( $obj as $k => $v ) {
@@ -534,7 +512,6 @@ function papi_santize_data( $obj ) {
  *
  * @return array
  */
-
 function papi_sort_order( $array, $key = 'sort_order' ) {
 	if ( empty( $array ) || ! is_array( $array ) && ! is_object( $array ) ) {
 		return [];
@@ -601,7 +578,6 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
  *
  * @return string
  */
-
 function papi_slugify( $str, $replace = [], $delimiter = '-' ) {
 	if ( ! is_string( $str ) ) {
 		return '';
@@ -628,7 +604,6 @@ function papi_slugify( $str, $replace = [], $delimiter = '-' ) {
  *
  * @return array
  */
-
 function papi_to_array( $obj ) {
 	if ( ! is_array( $obj ) ) {
 		$obj = [$obj];
@@ -645,7 +620,6 @@ function papi_to_array( $obj ) {
  *
  * @return string
  */
-
 function papi_underscorify( $str ) {
 	if ( ! is_string( $str ) ) {
 		return '';
@@ -661,7 +635,6 @@ function papi_underscorify( $str ) {
  *
  * @return string
  */
-
 function papify( $str = '' ) {
 	if ( ! is_string( $str ) ) {
 		return '';

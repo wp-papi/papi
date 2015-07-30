@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
@@ -18,7 +17,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return bool
  */
-
 function papi_delete_field( $post_id = null, $slug = null, $type = Papi_Core_Page::TYPE_POST ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$slug    = $post_id;
@@ -64,7 +62,6 @@ function papi_delete_field( $post_id = null, $slug = null, $type = Papi_Core_Pag
  *
  * @return mixed
  */
-
 function papi_field_shortcode( $atts ) {
 	$atts['id'] = isset( $atts['id'] ) ? $atts['id'] : 0;
 	$atts['id'] = papi_get_post_id( $atts['id'] );
@@ -98,7 +95,6 @@ add_shortcode( 'papi_field', 'papi_field_shortcode' );
  *
  * @return mixed
  */
-
 function papi_field_value( $slugs, $value, $default = null ) {
 	if ( empty( $value ) && is_null( $value ) ) {
 		return $default;
@@ -130,7 +126,6 @@ function papi_field_value( $slugs, $value, $default = null ) {
  *
  * @return mixed
  */
-
 function papi_get_field( $post_id = null, $slug = null, $default = null, $type = Papi_Core_Page::TYPE_POST ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$default = $slug;
@@ -186,7 +181,6 @@ function papi_get_field( $post_id = null, $slug = null, $default = null, $type =
  *
  * @return bool
  */
-
 function papi_update_field( $post_id = null, $slug = null, $value = null, $type = Papi_Core_Page::TYPE_POST ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$value   = $slug;
@@ -239,7 +233,6 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
  * @param string $slug
  * @param mixed $default
  */
-
 function the_papi_field( $post_id = null, $slug = null, $default = null ) {
 	$value = papi_get_field( $post_id, $slug, $default );
 

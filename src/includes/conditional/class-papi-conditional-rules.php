@@ -8,13 +8,11 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Conditional_Rules {
 
 	/**
 	 * The constructor.
 	 */
-
 	public function __construct() {
 		$this->setup_filters();
 	}
@@ -26,7 +24,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return mixed
 	 */
-
 	private function convert_bool( $str ) {
 		if ( ! is_string( $str ) ) {
 			return $str;
@@ -50,7 +47,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return mixed
 	 */
-
 	private function convert_prop( $value, Papi_Core_Conditional_Rule $rule ) {
 		$post_id   = papi_get_post_id();
 		$page_type = papi_get_page_type_by_post_id( $post_id );
@@ -81,7 +77,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return float|int
 	 */
-
 	private function convert_number( $str ) {
 		if ( is_numeric( $str ) && ! is_string( $str ) || ! is_numeric( $str ) ) {
 			return $str;
@@ -101,7 +96,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return array
 	 */
-
 	private function get_converted_value( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
 
@@ -132,7 +126,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return mixed
 	 */
-
 	private function get_deep_value( $slug, $value ) {
 		$slugs = explode( '.', $slug );
 		array_shift( $slugs );
@@ -146,7 +139,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return mixed
 	 */
-
 	private function get_value( Papi_Core_Conditional_Rule $rule ) {
 		if ( papi_doing_ajax() ) {
 			$source    = $rule->get_source();
@@ -182,7 +174,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return bool
 	 */
-
 	public function rule_equal( Papi_Core_Conditional_Rule $rule ) {
 		list( $value, $rule_value ) = $this->get_converted_value( $rule );
 		return $value === $rule_value;
@@ -195,7 +186,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return bool
 	 */
-
 	public function rule_not_equal( Papi_Core_Conditional_Rule $rule ) {
 		list( $value, $rule_value ) = $this->get_converted_value( $rule );
 		return $value !== $rule_value;
@@ -208,7 +198,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return bool
 	 */
-
 	public function rule_greater_then( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
 
@@ -230,7 +219,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return bool
 	 */
-
 	public function rule_greater_then_or_equal( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
 
@@ -252,7 +240,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return bool
 	 */
-
 	public function rule_less_then( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
 
@@ -274,7 +261,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return bool
 	 */
-
 	public function rule_less_then_or_equal( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
 
@@ -296,7 +282,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return bool
 	 */
-
 	public function rule_in( Papi_Core_Conditional_Rule $rule ) {
 		list( $value, $rule_value ) = $this->get_converted_value( $rule );
 
@@ -314,7 +299,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return bool
 	 */
-
 	public function rule_not_in( Papi_Core_Conditional_Rule $rule ) {
 		list( $value, $rule_value ) = $this->get_converted_value( $rule );
 
@@ -332,7 +316,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return bool
 	 */
-
 	public function rule_like( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
 
@@ -354,7 +337,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return array
 	 */
-
 	private function get_between_values( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
 
@@ -386,7 +368,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return bool
 	 */
-
 	public function rule_between( Papi_Core_Conditional_Rule $rule ) {
 		list( $rule, $value ) = $this->get_between_values( $rule );
 
@@ -404,7 +385,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return bool
 	 */
-
 	public function rule_not_between( Papi_Core_Conditional_Rule $rule ) {
 		list( $rule, $value ) = $this->get_between_values( $rule );
 
@@ -422,7 +402,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return bool
 	 */
-
 	public function rule_exists( Papi_Core_Conditional_Rule $rule ) {
 		return $this->get_value( $rule ) !== null;
 	}
@@ -434,7 +413,6 @@ class Papi_Conditional_Rules {
 	 *
 	 * @return bool
 	 */
-
 	public function rule_not_exists( Papi_Core_Conditional_Rule $rule ) {
 		return $this->get_value( $rule ) === null;
 	}
@@ -442,7 +420,6 @@ class Papi_Conditional_Rules {
 	/**
 	 * Setup filters.
 	 */
-
 	public function setup_filters() {
 		add_filter( 'papi/conditional/rule/=', [$this, 'rule_equal'] );
 		add_filter( 'papi/conditional/rule/!=', [$this, 'rule_not_equal'] );

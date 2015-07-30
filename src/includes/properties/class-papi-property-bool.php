@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Bool extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Bool extends Papi_Property {
 	 *
 	 * @var string
 	 */
-
 	public $convert_type = 'bool';
 
 	/**
@@ -24,13 +22,11 @@ class Papi_Property_Bool extends Papi_Property {
 	 *
 	 * @var bool
 	 */
-
 	public $default_value = false;
 
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$value = $this->get_value();
 
@@ -57,7 +53,6 @@ class Papi_Property_Bool extends Papi_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function load_value( $value, $slug, $post_id ) {
 		return is_string( $value ) && $value === '1' || $value;
 	}
@@ -71,7 +66,6 @@ class Papi_Property_Bool extends Papi_Property {
 	 *
 	 * @return boolean
 	 */
-
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_string( $value ) && $value === 'false' || $value === false ) {
 			return false;
@@ -89,7 +83,6 @@ class Papi_Property_Bool extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function update_value( $value, $slug, $post_id ) {
 		return $this->format_value( $value, $slug, $post_id );
 	}

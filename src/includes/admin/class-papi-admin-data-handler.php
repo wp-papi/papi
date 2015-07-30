@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Admin_Data_Handler {
 
 	/**
@@ -17,7 +16,6 @@ class Papi_Admin_Data_Handler {
 	 * @param string $key
 	 * @param string $value
 	 */
-
 	protected function decode_property( $key, $value ) {
 		if ( papi_is_property_type_key( $key ) && is_string( $value ) ) {
 			$value = base64_decode( $value );
@@ -34,7 +32,6 @@ class Papi_Admin_Data_Handler {
 	 *
 	 * @return array
 	 */
-
 	protected function get_post_data( $pattern = '/^papi\_.*/' ) {
 		$data = [];
 		$keys = preg_grep( $pattern, array_keys( $_POST ) );
@@ -65,7 +62,6 @@ class Papi_Admin_Data_Handler {
 	 *
 	 * @return mixed
 	 */
-
 	protected function prepare_post_data( $data ) {
 		if ( ! is_array( $data ) ) {
 			return $data;
@@ -90,7 +86,6 @@ class Papi_Admin_Data_Handler {
 	 *
 	 * @return array
 	 */
-
 	protected function prepare_properties_data( array $data = [], $post_id = 0 ) {
 		// Since we are storing witch property it is in the $data array
 		// we need to remove that and set the property type to the property
@@ -135,7 +130,6 @@ class Papi_Admin_Data_Handler {
 	/**
 	 * Get pre data that should be saved before all properties data.
 	 */
-
 	protected function get_pre_data() {
 		return $this->get_post_data( '/^\_papi\_.*/' );
 	}

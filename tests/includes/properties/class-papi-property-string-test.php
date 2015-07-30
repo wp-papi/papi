@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 class Papi_Property_String_Test extends Papi_Property_Test_Case {
 
 	public $slugs = ['string_test', 'string_html_test'];

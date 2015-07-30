@@ -8,13 +8,11 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Admin_Menu {
 
 	/**
 	 * The construct.
 	 */
-
 	public function __construct() {
 		$this->setup_actions();
 	}
@@ -22,7 +20,6 @@ class Papi_Admin_Menu {
 	/**
 	 * Fill labels on admin bar.
 	 */
-
 	public function admin_bar_menu() {
 		if ( $page_type = $this->get_page_type() ) {
 			$this->override_labels( $page_type );
@@ -34,7 +31,6 @@ class Papi_Admin_Menu {
 	 *
 	 * @return Papi_Page_Type
 	 */
-
 	private function get_page_type() {
 		$page_type_id = papi_get_page_type_id();
 
@@ -52,7 +48,6 @@ class Papi_Admin_Menu {
 	 *
 	 * @param Papi_Page_Type $page_type
 	 */
-
 	private function override_labels( Papi_Page_Type $page_type ) {
 		global $wp_post_types;
 
@@ -77,7 +72,6 @@ class Papi_Admin_Menu {
 	 * This function will register all page types
 	 * that has a fake post type. Like option types.
 	 */
-
 	public function page_items_menu() {
 		$page_types = papi_get_all_page_types( false, null, true );
 
@@ -108,7 +102,6 @@ class Papi_Admin_Menu {
 	/**
 	 * Setup menu items for real post types.
 	 */
-
 	public function post_types_menu() {
 		global $submenu;
 
@@ -154,7 +147,6 @@ class Papi_Admin_Menu {
 	/**
 	 * Menu callback that loads right view depending on what the `page` query string says.
 	 */
-
 	public function render_view() {
 		if ( strpos( papi_get_qs( 'page' ), 'papi' ) !== false ) {
 			$page = str_replace( 'papi-', '', papi_get_qs( 'page' ) );
@@ -180,7 +172,6 @@ class Papi_Admin_Menu {
 	/**
 	 * Setup actions.
 	 */
-
 	private function setup_actions() {
 		if ( is_admin() ) {
 			add_action( 'admin_init', [$this, 'admin_bar_menu'] );

@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Repeater extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @var string
 	 */
-
 	public $convert_type = 'array';
 
 	/**
@@ -24,7 +22,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @var int
 	 */
-
 	protected $counter = 0;
 
 	/**
@@ -32,7 +29,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @var array
 	 */
-
 	public $default_value = [];
 
 	/**
@@ -40,7 +36,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @var array
 	 */
-
 	protected $exclude_properties = ['flexible', 'repeater'];
 
 	/**
@@ -52,7 +47,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @return bool
 	 */
-
 	public function delete_value( $slug, $post_id, $type ) {
 		$rows   = intval( papi_get_property_meta_value( $post_id, $slug ) );
 		$value  = $this->load_value( $rows, $slug, $post_id );
@@ -76,7 +70,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function format_value( $values, $repeater_slug, $post_id ) {
 		if ( ! is_array( $values ) ) {
 			return [];
@@ -133,7 +126,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'closed_rows' => false,
@@ -148,7 +140,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @return object
 	 */
-
 	protected function get_json_property( $property ) {
 		$property = papi_get_property_type( $property );
 
@@ -174,7 +165,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	protected function get_results( $value, $repeater_slug, $post_id ) {
 		global $wpdb;
 
@@ -261,7 +251,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	protected function get_row_results( $dbresults ) {
 		$results     = [];
 		$option_page = $this->is_option_page();
@@ -301,7 +290,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	protected function get_settings_properties() {
 		$settings = $this->get_settings();
 
@@ -315,7 +303,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$options = $this->get_options();
 
@@ -336,7 +323,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @return bool
 	 */
-
 	protected function layout( $layout ) {
 		return $this->get_setting( 'layout' ) === $layout;
 	}
@@ -349,7 +335,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param string $repeater_slug
 	 * @param int $post_id
 	 */
-
 	public function load_value( $value, $repeater_slug, $post_id ) {
 		if ( is_array( $value ) ) {
 			return $value;
@@ -396,7 +381,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	protected function prepare_properties( $items ) {
 		$key   = isset( $this->layout_key ) && $this->layout_key === '_layout' ?  'flexible' : 'repeater';
 		$items = array_map( 'papi_get_property_options', $items );
@@ -424,7 +408,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param int $post_id
 	 * @param string $repeater_slug
 	 */
-
 	protected function remove_repeater_rows( $post_id, $repeater_slug ) {
 		global $wpdb;
 
@@ -457,7 +440,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Render AJAX request.
 	 */
-
 	public function render_ajax_request() {
 		$items = $this->get_settings_properties();
 
@@ -474,7 +456,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @param string $slug
 	 */
-
 	protected function render_json_template( $slug ) {
 		$options = $this->get_options();
 
@@ -498,7 +479,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param array $row
 	 * @param array|bool $value
 	 */
-
 	protected function render_properties( $row, $value ) {
 		$layout = $this->get_setting( 'layout' );
 
@@ -557,7 +537,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @param stdClass $options
 	 */
-
 	protected function render_repeater( $options ) {
 		?>
 		<div class="papi-property-repeater papi-property-repeater-top" data-limit="<?php echo $this->get_setting( 'limit' ); ?>">
@@ -583,7 +562,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Render repeater head.
 	 */
-
 	protected function render_repeater_head() {
 		$properties = $this->get_settings_properties();
 		?>
@@ -604,7 +582,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Render repeater rows.
 	 */
-
 	protected function render_repeater_rows() {
 		$items  = $this->get_settings_properties();
 		$values = $this->get_value();
@@ -650,7 +627,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Render repeater row template.
 	 */
-
 	public function render_repeater_rows_template() {
 		?>
 		<script type="text/template" id="tmpl-papi-property-repeater-row">
@@ -673,7 +649,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Setup actions.
 	 */
-
 	protected function setup_actions() {
 		add_action( 'admin_head', [$this, 'render_repeater_rows_template'] );
 	}
@@ -685,7 +660,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param string $repeater_slug
 	 * @param int $post_id
 	 */
-
 	public function update_value( $values, $repeater_slug, $post_id ) {
 		$rows = intval( papi_get_property_meta_value( $post_id, $repeater_slug ) );
 

@@ -15,7 +15,6 @@
  *
  * @return array
  */
-
 function papi_test_create_property_post_data( $values, $post = null ) {
 	$property_type_slug = papi_html_name( papi_get_property_type_key( $values['slug'] ) );
 

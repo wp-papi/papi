@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Dropdown extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Dropdown extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'placeholder' => '',
@@ -31,7 +29,6 @@ class Papi_Property_Dropdown extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	protected function get_items() {
 		return papi_to_array( $this->get_setting( 'items', [] ) );
 	}
@@ -39,7 +36,6 @@ class Papi_Property_Dropdown extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$settings     = $this->get_settings();
 		$value        = $this->get_value();

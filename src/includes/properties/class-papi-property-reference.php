@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Reference extends Papi_Property {
 
 	/**
@@ -18,7 +17,6 @@ class Papi_Property_Reference extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'slug'      => [],
@@ -29,7 +27,6 @@ class Papi_Property_Reference extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$post_id  = papi_get_post_id();
 		$settings = $this->get_settings();

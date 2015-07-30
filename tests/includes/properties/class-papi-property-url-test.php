@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 class Papi_Property_Url_Test extends Papi_Property_Test_Case {
 
 	public $slugs = ['url_test', 'url_mediauploader_test'];

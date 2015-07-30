@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_User extends Papi_Property_Dropdown {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	 *
 	 * @var string
 	 */
-
 	public $convert_type = 'int';
 
 	/**
@@ -28,7 +26,6 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	 *
 	 * @return array
 	 */
-
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_numeric( $value ) ) {
 			return new WP_User( (int) $value );
@@ -42,7 +39,6 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'capabilities' => [],
@@ -56,7 +52,6 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	 *
 	 * @return int
 	 */
-
 	public function get_value() {
 		$user = parent::get_value();
 
@@ -72,7 +67,6 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	 *
 	 * @return array
 	 */
-
 	public function get_items() {
 		$capabilities = papi_to_array( $this->get_setting( 'capabilities' ) );
 		$users        = get_users();

@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Core_Conditional_Rule {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Core_Conditional_Rule {
 	 *
 	 * @var string
 	 */
-
 	public $operator = '=';
 
 	/**
@@ -24,7 +22,6 @@ class Papi_Core_Conditional_Rule {
 	 *
 	 * @var string
 	 */
-
 	public $slug;
 
 	/**
@@ -32,7 +29,6 @@ class Papi_Core_Conditional_Rule {
 	 *
 	 * @var mixed
 	 */
-
 	public $source;
 
 	/**
@@ -40,7 +36,6 @@ class Papi_Core_Conditional_Rule {
 	 *
 	 * @var mixed
 	 */
-
 	public $value;
 
 	/**
@@ -48,7 +43,6 @@ class Papi_Core_Conditional_Rule {
 	 *
 	 * @param array $rule
 	 */
-
 	public function __construct( array $rule ) {
 		$this->setup( $rule );
 	}
@@ -58,7 +52,6 @@ class Papi_Core_Conditional_Rule {
 	 *
 	 * @return string
 	 */
-
 	public function get_field_slug() {
 		if ( preg_match( '/\[|\]/', $this->slug ) ) {
 			$slug = preg_replace( '/\[|\]/', '.', $this->slug );
@@ -74,7 +67,6 @@ class Papi_Core_Conditional_Rule {
 	 *
 	 * @return mixed
 	 */
-
 	public function get_source() {
 		if ( is_callable( $this->source ) ) {
 			return call_user_func_array( $this->source, [$this->slug] );
@@ -101,7 +93,6 @@ class Papi_Core_Conditional_Rule {
 	 *
 	 * @return string
 	 */
-
 	public function setup_source( $value ) {
 		if ( is_array( $value ) && count( $value ) === 2 && is_object( $value[0] ) && is_string( $value[1] ) ) {
 			return sprintf( '%s#%s', get_class( $value[0] ), $value[1] );
@@ -124,7 +115,6 @@ class Papi_Core_Conditional_Rule {
 	 *
 	 * @param  array  $rule
 	 */
-
 	private function setup( array $rule ) {
 		foreach ( $rule as $key => $value ) {
 			if ( $key === 'operator' ) {

@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Container implements \ArrayAccess {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Container implements \ArrayAccess {
 	 *
 	 * @var array
 	 */
-
 	protected $keys = [];
 
 	/**
@@ -24,7 +22,6 @@ class Papi_Container implements \ArrayAccess {
 	 *
 	 * @var array
 	 */
-
 	protected $values = [];
 
 	/**
@@ -33,7 +30,6 @@ class Papi_Container implements \ArrayAccess {
 	 * @param string $id
 	 * @param mixed $value
 	 */
-
 	public function bind( $id, $value ) {
 		if ( ! $value instanceof Closure ) {
 			$value = function() use ( $value ) {
@@ -52,7 +48,6 @@ class Papi_Container implements \ArrayAccess {
 	 *
 	 * @return bool
 	 */
-
 	public function exists( $id ) {
 		return isset( $this->keys[$id] );
 	}
@@ -63,7 +58,6 @@ class Papi_Container implements \ArrayAccess {
 	 *
 	 * @return mixed
 	 */
-
 	public function make( $id ) {
 		if ( ! isset( $this->keys[$id] ) ) {
 			throw new \InvalidArgumentException( sprintf( 'Identifier [%s] is not defined', $id ) );
@@ -77,7 +71,6 @@ class Papi_Container implements \ArrayAccess {
 	 *
 	 * @param string $id
 	 */
-
 	public function remove( $id ) {
 		unset( $this->keys[$id], $this->values[$id] );
 	}
@@ -89,7 +82,6 @@ class Papi_Container implements \ArrayAccess {
 	 *
 	 * @return bool
 	 */
-
 	// @codingStandardsIgnoreStart
 	public function offsetExists( $id ) {
 	// @codingStandardsIgnoreEnd
@@ -103,7 +95,6 @@ class Papi_Container implements \ArrayAccess {
 	 *
 	 * @return mixed
 	 */
-
 	// @codingStandardsIgnoreStart
 	public function offsetGet( $id ) {
 	// @codingStandardsIgnoreEnd
@@ -116,7 +107,6 @@ class Papi_Container implements \ArrayAccess {
 	 * @param string $id
 	 * @param mixed $value
 	 */
-
 	// @codingStandardsIgnoreStart
 	public function offsetSet( $id, $value ) {
 	// @codingStandardsIgnoreEnd
@@ -128,7 +118,6 @@ class Papi_Container implements \ArrayAccess {
 	 *
 	 * @param string $id
 	 */
-
 	// @codingStandardsIgnoreStart
 	public function offsetUnset( $id ) {
 	// @codingStandardsIgnoreEnd

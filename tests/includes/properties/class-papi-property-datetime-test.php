@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 class Papi_Property_Datetime_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'datetime_test';

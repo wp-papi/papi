@@ -8,13 +8,11 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Divider extends Papi_Property {
 
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$options = $this->get_options();
 		?>
@@ -33,7 +31,6 @@ class Papi_Property_Divider extends Papi_Property {
 	/**
 	 * Render the final html that is displayed in the table.
 	 */
-
 	public function render_row_html() {
 		if ( ! $this->get_option( 'raw' ) ):
 			?>

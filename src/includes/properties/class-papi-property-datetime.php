@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Datetime extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Datetime extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'format'       => 'YYYY-MM-DD hh:mm:ss',
@@ -29,7 +27,6 @@ class Papi_Property_Datetime extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$settings = $this->get_settings();
 		$value    = $this->get_value();

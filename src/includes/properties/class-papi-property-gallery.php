@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Gallery extends Papi_Property_Image {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Gallery extends Papi_Property_Image {
 	 *
 	 * @var string
 	 */
-
 	public $convert_type = 'array';
 
 	/**
@@ -24,7 +22,6 @@ class Papi_Property_Gallery extends Papi_Property_Image {
 	 *
 	 * @var array
 	 */
-
 	public $default_value = [];
 
 	/**
@@ -32,7 +29,6 @@ class Papi_Property_Gallery extends Papi_Property_Image {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'multiple' => true

@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
@@ -16,7 +15,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return bool
  */
-
 function papi_is_rule( $rule ) {
 	return $rule instanceof Papi_Core_Conditional_Rule;
 }
@@ -28,7 +26,6 @@ function papi_is_rule( $rule ) {
  *
  * @return Papi_Page|null
  */
-
 function papi_rule( $rule ) {
 	if ( is_array( $rule ) && ! empty( $rule ) ) {
 		return new Papi_Core_Conditional_Rule( $rule );

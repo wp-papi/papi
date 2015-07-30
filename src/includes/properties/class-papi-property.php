@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property extends Papi_Core_Property {
 
 	/**
@@ -19,7 +18,6 @@ class Papi_Property extends Papi_Core_Property {
 	 *
 	 * @return array
 	 */
-
 	public static function default_options() {
 		$property = new static;
 		$default_options = $property->default_options;
@@ -34,7 +32,6 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Display the html to display from the property.
 	 */
-
 	public function html() {
 	}
 
@@ -46,7 +43,6 @@ class Papi_Property extends Papi_Core_Property {
 	 *
 	 * @return string
 	 */
-
 	public function html_id( $suffix = '', $row = null ) {
 		if ( is_array( $suffix ) || is_object( $suffix ) ) {
 			return '_' . $this->html_name( $suffix, $row );
@@ -66,7 +62,6 @@ class Papi_Property extends Papi_Core_Property {
 	 *
 	 * @return string
 	 */
-
 	public function html_name( $sub_property = null, $row = null ) {
 		$base_slug = $this->get_option( 'slug' );
 
@@ -92,7 +87,6 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Render the property.
 	 */
-
 	public function render() {
 		// Check so the property has a type and capabilities on the property.
 		if ( ! papi_current_user_is_allowed( $this->get_option( 'capabilities' ) ) ) {
@@ -122,7 +116,6 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Render the property description.
 	 */
-
 	public function render_description_html() {
 		if ( papi_is_empty( $this->get_option( 'description' ) ) ) {
 			return;
@@ -136,7 +129,6 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Output hidden input field that cointains which property is used.
 	 */
-
 	public function render_hidden_html() {
 		$slug = $this->get_option( 'slug' );
 
@@ -164,7 +156,6 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Get label for the property.
 	 */
-
 	public function render_label_html() {
 		$title = $this->get_option( 'title' );
 
@@ -179,7 +170,6 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Render the final html that is displayed in the table.
 	 */
-
 	public function render_row_html() {
 		$display_class = $this->display ? '' : ' papi-hide';
 		$rules_class   = papi_is_empty( $this->get_rules() ) ? '' : ' papi-rules-exists';
@@ -211,7 +201,6 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Render Conditional rules as JSON.
 	 */
-
 	public function render_rules_json() {
 		$rules = $this->get_rules();
 

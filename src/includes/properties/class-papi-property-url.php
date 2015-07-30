@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Url extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Url extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'mediauploader' => false
@@ -26,7 +24,6 @@ class Papi_Property_Url extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$settings = $this->get_settings();
 
@@ -61,7 +58,6 @@ class Papi_Property_Url extends Papi_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function load_value( $value, $slug, $post_id ) {
 		if ( filter_var( $value, FILTER_VALIDATE_URL ) ) {
 			return $value;
@@ -77,7 +73,6 @@ class Papi_Property_Url extends Papi_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function update_value( $value, $slug, $post_id ) {
 		if ( filter_var( $value, FILTER_VALIDATE_URL ) ) {
 			return $value;

@@ -8,13 +8,11 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Lib_Post_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test `papi_from_property_array_slugs` function.
 	 */
-
 	public function test_papi_get_post_id() {
 		global $post;
 
@@ -46,7 +44,6 @@ class Papi_Lib_Post_Test extends WP_UnitTestCase {
 	/**
 	 * Test `papi_get_post_type` function.
 	 */
-
 	public function test_papi_get_post_type() {
 		global $post;
 

@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 abstract class Papi_Core_Page extends Papi_Container {
 
 	/**
@@ -16,7 +15,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @var string
 	 */
-
 	const TYPE_POST = 'post';
 
 	/**
@@ -24,7 +22,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @var string
 	 */
-
 	const TYPE_OPTION = 'option';
 
 	/**
@@ -32,7 +29,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @var int
 	 */
-
 	public $id;
 
 	/**
@@ -40,7 +36,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @var string
 	 */
-
 	protected $type;
 
 	/**
@@ -50,7 +45,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return mixed
 	 */
-
 	public function __get( $slug ) {
 		return $this->get_value( $slug );
 	}
@@ -62,7 +56,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return mixed
 	 */
-
 	public function get_value( $slug ) {
 		$slug  = papi_remove_papi( $slug );
 		$value = papi_get_property_meta_value( $this->id, $slug, $this->type );
@@ -77,7 +70,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return mixed
 	 */
-
 	protected function convert( $slug, $value ) {
 		$property = $this->get_property( $slug );
 
@@ -124,7 +116,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return bool
 	 */
-
 	public function is( $type ) {
 		return $this->type === $type;
 	}
@@ -137,7 +128,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return mixed
 	 */
-
 	public static function factory( $post_id, $type = self::TYPE_POST ) {
 		if ( papi_is_option_page() ) {
 			$type = self::TYPE_OPTION;
@@ -169,7 +159,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return Papi_Property
 	 */
-
 	abstract public function get_property( $slug, $child_slug = '' );
 
 	/**
@@ -177,7 +166,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @param string $type
 	 */
-
 	public function set_type( $type ) {
 		$this->type = $type;
 	}
@@ -187,7 +175,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return bool
 	 */
-
 	abstract public function valid();
 
 	/**
@@ -195,7 +182,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return bool
 	 */
-
 	protected function valid_type() {
 		$type = strtoupper( $this->type );
 		return defined( "self::TYPE_$type" );

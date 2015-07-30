@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Relationship extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	 *
 	 * @var string
 	 */
-
 	public $convert_type = 'array';
 
 	/**
@@ -24,7 +22,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	 *
 	 * @var array
 	 */
-
 	public $default_value = [];
 
 	/**
@@ -32,7 +29,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'limit'        => -1,
@@ -50,7 +46,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	 *
 	 * @return null|string
 	 */
-
 	public function get_sort_option( $post_id, $slug ) {
 		$slug = papi_f( papify( $slug ) . '_sort_option' );
 		return papi_get_property_meta_value( $post_id, $slug );
@@ -61,7 +56,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public static function get_sort_options() {
 		$sort_options = [];
 
@@ -110,7 +104,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$post_id     = papi_get_post_id();
 		$slug        = $this->html_name();
@@ -204,7 +197,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function sort_value( $values, $slug, $post_id ) {
 		$sort_option  = $this->get_sort_option( $post_id, $slug );
 		$sort_options = static::get_sort_options();
@@ -227,7 +219,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function format_value( $values, $slug, $post_id ) {
 		if ( is_array( $values ) ) {
 			$values = array_map( function ( $id ) {
@@ -254,7 +245,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function update_value( $values, $slug, $post_id ) {
 		$values = $this->format_value( $values, $slug, $post_id );
 		return wp_list_pluck( $values, 'ID' );
