@@ -1,6 +1,6 @@
 <?php
 
-// Load Composer autoloader.
+// Load Composer autoload.
 require dirname( __DIR__ ) . '/vendor/autoload.php';
 
 // Define fixtures directory constant
