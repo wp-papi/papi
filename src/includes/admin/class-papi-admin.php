@@ -298,12 +298,11 @@ final class Papi_Admin {
 	 */
 
 	public function restrict_page_types() {
-		global $typenow;
-
+		$post_type  = papi_get_post_type();
 		$post_types = papi_get_post_types();
 
-		if ( in_array( $typenow, $post_types ) ) {
-			$page_types = papi_get_all_page_types( false, $typenow );
+		if ( in_array( $post_type, $post_types ) ) {
+			$page_types = papi_get_all_page_types( false, $post_type );
 
 			$page_types = array_map( function ( $page_type ) {
 				return [
