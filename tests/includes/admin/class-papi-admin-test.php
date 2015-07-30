@@ -92,6 +92,15 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 	public function test_setup_papi() {
 		$this->assertFalse( $this->admin->setup_papi() );
+		$_GET['post_type'] = 'revision';
+		$this->assertFalse( $this->admin->setup_papi() );
+		$_GET['post_type'] = 'nav_menu_item';
+		$this->assertFalse( $this->admin->setup_papi() );
+
+		$_GET['post'] = $this->factory->post->create();
+		$_GET['post_type'] = 'page';
+		$_GET['page'] = 'papi/simple-page-type';
+		$this->assertTrue( $this->admin->setup_papi() );
 	}
 
 }

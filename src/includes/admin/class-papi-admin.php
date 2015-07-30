@@ -445,7 +445,7 @@ final class Papi_Admin {
 		$this->page_type = papi_get_page_type_by_id( $this->page_type_id );
 
 		// Do a last check so we can be sure that we have a page type object.
-		return ! empty( $this->page_type ) && is_object( $this->page_type );
+		return $this->page_type instanceof Papi_Page_Type;
 	}
 }
 
