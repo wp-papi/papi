@@ -45,6 +45,8 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * The constructor.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	private function __construct() {
 	}
