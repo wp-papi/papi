@@ -207,8 +207,8 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_action( 'admin_head', [$admin, 'admin_head'] ) );
 		$this->assertEquals( 10, has_action( 'edit_form_after_title', [$admin, 'edit_form_after_title'] ) );
 		$this->assertEquals( 10, has_action( 'load-post-new.php', [$admin, 'load_post_new'] ) );
-		// $this->assertEquals( 10, has_action( 'restrict_manage_posts', [$admin, 'restrict_manage_posts'] ) );
-		// $this->assertEquals( 10, has_action( 'hidden_meta_boxes', [$admin, 'hidden_meta_boxes'] ) );
+		$this->assertEquals( 10, has_action( 'restrict_manage_posts', [$admin, 'restrict_page_types'] ) );
+		$this->assertEquals( 10, has_action( 'add_meta_boxes', [$admin, 'hidden_meta_boxes'] ) );
 
 		$current_screen = null;
 	}
@@ -235,7 +235,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->assertEquals( 10, has_filter( 'admin_body_class', [$admin, 'admin_body_class'] ) );
 		$this->assertEquals( 10, has_filter( 'pre_get_posts', [$admin, 'pre_get_posts'] ) );
 		$this->assertEquals( 10, has_filter( 'manage_page_posts_columns', [$admin, 'manage_page_type_posts_columns'] ) );
-		// $this->assertEquals( 10, has_filter( 'manage_page_posts_custom_columns', [$admin, 'manage_page_type_posts_custom_column'] ) );
+		$this->assertEquals( 10, has_filter( 'manage_page_posts_custom_column', [$admin, 'manage_page_type_posts_custom_column'] ) );
 
 		$current_screen = null;
 	}
