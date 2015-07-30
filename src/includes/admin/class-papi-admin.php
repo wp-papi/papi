@@ -36,36 +36,15 @@ final class Papi_Admin {
 	private $post_type;
 
 	/**
-	 * The instance of this class.
-	 *
-	 * @var object
-	 */
-
-	private static $instance;
-
-	/**
-	 * Get the instance of this class.
-	 *
-	 * @return object
-	 */
-
-	public static function instance() {
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self;
-			self::$instance->load_files();
-			self::$instance->setup_globals();
-			self::$instance->setup_actions();
-			self::$instance->setup_filters();
-		}
-
-		return self::$instance;
-	}
-
-	/**
 	 * The constructor.
 	 */
 
-	private function __construct() {}
+	public function __construct() {
+		$this->load_files();
+		$this->setup_globals();
+		$this->setup_actions();
+		$this->setup_filters();
+	}
 
 	/**
 	 * Cloning is forbidden.
@@ -210,20 +189,19 @@ final class Papi_Admin {
 	public function load_post_new() {
 		$request_uri = $_SERVER['REQUEST_URI'];
 		$post_types = papi_get_post_types();
-		$post_type  = papi_get_post_type();
 
-		if ( in_array( $post_type, $post_types ) && strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
+		if ( in_array( $this->post_type, $post_types ) && strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
 			$parsed_url = parse_url( $request_uri );
 
-			$only_page_type = papi_filter_settings_only_page_type( $post_type );
+			$only_page_type = papi_filter_settings_only_page_type( $this->post_type );
 
 			// Check if we should show one post type or not and create the right url for that.
 			if ( ! empty( $only_page_type ) ) {
 				$url = papi_get_page_new_url( $only_page_type, false );
 			} else {
-				$page = 'page=papi-add-new-page,' . $post_type;
+				$page = 'page=papi-add-new-page,' . $this->post_type;
 
-				if ( $post_type !== 'post' ) {
+				if ( $this->post_type !== 'post' ) {
 					$page = '&' . $page;
 				}
 
@@ -231,7 +209,7 @@ final class Papi_Admin {
 			}
 
 			wp_safe_redirect( $url );
-			exit;
+			is_admin() && exit;
 		}
 	}
 
@@ -298,11 +276,10 @@ final class Papi_Admin {
 	 */
 
 	public function restrict_page_types() {
-		$post_type  = papi_get_post_type();
 		$post_types = papi_get_post_types();
 
-		if ( in_array( $post_type, $post_types ) ) {
-			$page_types = papi_get_all_page_types( false, $post_type );
+		if ( in_array( $this->post_type, $post_types ) ) {
+			$page_types = papi_get_all_page_types( false, $this->post_type );
 
 			$page_types = array_map( function ( $page_type ) {
 				return [
@@ -448,4 +425,4 @@ final class Papi_Admin {
 	}
 }
 
-Papi_Admin::instance();
+new Papi_Admin;
