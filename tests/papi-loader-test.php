@@ -32,6 +32,10 @@ class Papi_Loader_Test extends WP_UnitTestCase {
 		$this->assertEquals( '_papi_page_type', PAPI_PAGE_TYPE_KEY );
 	}
 
+	public function test_instance() {
+		$this->assertClassHasStaticAttribute( 'instance', 'Papi_Loader' );
+	}
+
 	public function test_plugin_activated() {
 		$this->assertTrue( class_exists( 'Papi_Loader' ) && class_exists( 'Papi_Admin' ) );
 	}
