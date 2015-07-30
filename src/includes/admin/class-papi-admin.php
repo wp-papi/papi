@@ -48,6 +48,8 @@ final class Papi_Admin {
 
 	/**
 	 * Cloning is forbidden.
+	 *
+	 * @codeCoverageIgnore
 	 */
 
 	public function __clone() {
@@ -56,6 +58,8 @@ final class Papi_Admin {
 
 	/**
 	 * Unserializing instances of this class is forbidden.
+	 *
+	 * @codeCoverageIgnore
 	 */
 
 	public function __wakeup() {

@@ -59,6 +59,8 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * Cloning is forbidden.
+	 *
+	 * @codeCoverageIgnore
 	 */
 
 	public function __clone() {
@@ -67,6 +69,8 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * Unserializing instances of this class is forbidden.
+	 *
+	 * @codeCoverageIgnore
 	 */
 
 	public function __wakeup() {
