@@ -26,18 +26,78 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		unset( $this->admin, $this->post_id );
 	}
 
+	public function register_template_paths( $new_templates ) {
+        $cache_key = 'page_templates-' . md5( get_theme_root() . '/' . get_stylesheet() );
+
+        $templates = wp_get_theme()->get_page_templates();
+        if ( empty( $templates ) ) {
+            $templates = array();
+        }
+
+        wp_cache_delete( $cache_key , 'themes' );
+        $templates = array_merge( $templates, $new_templates );
+        wp_cache_add( $cache_key, $templates, 'themes', 1800 );
+
+        return $new_templates;
+	}
+
 	public function test_admin_body_class() {
-		$classes = $this->admin->admin_body_class( [] );
+		$classes = $this->admin->admin_body_class( '' );
 		$this->assertEmpty( $classes );
 	}
 
+	public function test_admin_body_class_2() {
+		$this->register_template_paths( [
+			'test.php' => 'Test'
+		] );
+		$_GET['post_type'] = 'page';
+		$classes = $this->admin->admin_body_class( '' );
+		$this->assertEquals( 'papi-hide-cpt', $classes );
+	}
+
+	public function test_admin_enqueue_scripts() {
+		$_SERVER['REQUEST_URI'] = 'plugins.php';
+		$this->assertNull( $this->admin->admin_enqueue_scripts() );
+		$_SERVER['REQUEST_URI'] = '';
+		$this->assertNull( $this->admin->admin_enqueue_scripts() );
+	}
+
 	public function test_admin_init() {
-		$this->assertNull( $this->admin->admin_init() );
+		$admin = new Papi_Admin;
+		$this->assertNull( $admin->admin_init() );
+
+		$_GET['post'] = $this->factory->post->create();
+		$_GET['post_type'] = 'page';
+		$_GET['page'] = 'papi/simple-page-type';
+		$admin = new Papi_Admin;
+		$admin->admin_init();
+	}
+
+	public function test_admin_head() {
+		$this->assertNull( $this->admin->admin_head() );
 	}
 
 	public function test_edit_form_after_title() {
 		$this->admin->edit_form_after_title();
 		$this->expectOutputRegex( '/papi\_meta\_nonce/' );
+	}
+
+	public function test_hidden_meta_boxes() {
+		global $wp_meta_boxes;
+		$_GET['post_type'] = 'page';
+		$admin = new Papi_Admin;
+		$this->assertNull( $admin->hidden_meta_boxes() );
+		do_meta_boxes('papi-hidden-editor', 'normal', null);
+		$this->expectOutputRegex( '/.*\S.*/' );
+	}
+
+	public function test_hidden_meta_boxes_2() {
+		global $wp_meta_boxes;
+		$_GET['post_type'] = 'fake';
+		$admin = new Papi_Admin;
+		$this->assertNull( $admin->hidden_meta_boxes() );
+		do_meta_boxes('papi-hidden-editor', 'normal', null);
+		$this->expectOutputRegex( '//' );
 	}
 
 	public function test_hidden_meta_box_editor() {
