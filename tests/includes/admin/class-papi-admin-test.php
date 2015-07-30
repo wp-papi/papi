@@ -87,7 +87,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin;
 		$this->assertNull( $admin->hidden_meta_boxes() );
-		do_meta_boxes('papi-hidden-editor', 'normal', null);
+		do_meta_boxes( 'papi-hidden-editor', 'normal', null );
 		$this->expectOutputRegex( '/.*\S.*/' );
 	}
 
@@ -96,7 +96,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$_GET['post_type'] = 'fake';
 		$admin = new Papi_Admin;
 		$this->assertNull( $admin->hidden_meta_boxes() );
-		do_meta_boxes('papi-hidden-editor', 'normal', null);
+		do_meta_boxes( 'papi-hidden-editor', 'normal', null );
 		$this->expectOutputRegex( '//' );
 	}
 
@@ -194,6 +194,79 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin;
 		$admin->restrict_page_types();
 		$this->expectOutputRegex( '/.*\S.*/' );
+	}
+
+	public function test_setup_actions() {
+		global $current_screen;
+
+	    $current_screen = WP_Screen::get( 'admin_init' );
+
+		$admin = new Papi_Admin;
+
+		$this->assertEquals( 10, has_action( 'admin_init', [$admin, 'admin_init'] ) );
+		$this->assertEquals( 10, has_action( 'admin_head', [$admin, 'admin_head'] ) );
+		$this->assertEquals( 10, has_action( 'edit_form_after_title', [$admin, 'edit_form_after_title'] ) );
+		$this->assertEquals( 10, has_action( 'load-post-new.php', [$admin, 'load_post_new'] ) );
+		// $this->assertEquals( 10, has_action( 'restrict_manage_posts', [$admin, 'restrict_manage_posts'] ) );
+		// $this->assertEquals( 10, has_action( 'hidden_meta_boxes', [$admin, 'hidden_meta_boxes'] ) );
+
+		$current_screen = null;
+	}
+
+	public function test_setup_filters() {
+		global $current_screen;
+
+	    $current_screen = WP_Screen::get( 'admin_init' );
+		$admin = new Papi_Admin;
+
+		$this->assertEquals( 10, has_filter( 'admin_body_class', [$admin, 'admin_body_class'] ) );
+		$this->assertEquals( 10, has_filter( 'pre_get_posts', [$admin, 'pre_get_posts'] ) );
+
+		$current_screen = null;
+	}
+
+	public function test_setup_filters_2() {
+		global $current_screen;
+
+	    $current_screen = WP_Screen::get( 'admin_init' );
+		$_GET['post_type'] = 'page';
+		$admin = new Papi_Admin;
+
+		$this->assertEquals( 10, has_filter( 'admin_body_class', [$admin, 'admin_body_class'] ) );
+		$this->assertEquals( 10, has_filter( 'pre_get_posts', [$admin, 'pre_get_posts'] ) );
+		$this->assertEquals( 10, has_filter( 'manage_page_posts_columns', [$admin, 'manage_page_type_posts_columns'] ) );
+		// $this->assertEquals( 10, has_filter( 'manage_page_posts_custom_columns', [$admin, 'manage_page_type_posts_custom_column'] ) );
+
+		$current_screen = null;
+	}
+
+	public function test_setup_globals() {
+		$_GET['post_type'] = 'page';
+		$admin = new Papi_Admin;
+
+        $post_type = function ( Papi_Admin $class ) {
+            return $class->post_type;
+        };
+        $post_type = Closure::bind( $post_type, null, $admin );
+		$this->assertEquals( 'page', $post_type( $admin ) );
+	}
+
+	public function test_setup_globals_2() {
+		global $current_screen;
+
+	    $current_screen = WP_Screen::get( 'admin_init' );
+		$_GET['post_type'] = 'page';
+		$_GET['page_type'] = 'simple-page-type';
+		$admin = new Papi_Admin;
+
+        $page_type_id = function ( Papi_Admin $class ) {
+            return $class->page_type_id;
+        };
+        $page_type_id = Closure::bind( $page_type_id, null, $admin );
+
+		$this->assertEquals( 'simple-page-type', $page_type_id( $admin ) );
+
+		$current_screen = null;
 	}
 
 	public function test_setup_papi() {
