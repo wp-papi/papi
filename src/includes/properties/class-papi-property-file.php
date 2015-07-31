@@ -50,7 +50,7 @@ class Papi_Property_File extends Papi_Property {
 					'caption'     => trim( strip_tags( $att->post_excerpt ) ),
 					'description' => trim( strip_tags( $att->post_content ) ),
 					'id'          => intval( $value ),
-					'is_image'    => wp_attachment_is_image( $value ),
+					'is_image'    => (bool) wp_attachment_is_image( $value ),
 					'title'       => $att->post_title,
 					'url'         => wp_get_attachment_url( $value ),
 				];
