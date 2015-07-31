@@ -53,6 +53,7 @@ class Rules {
 
       let attr = {
         rules:    values,
+        slug:     slug,
         $target:  $target
       };
 
@@ -130,7 +131,7 @@ class Rules {
    * @param {function} callback
    */
 
-  fetch(options, callback) {
+  fetch(options, callback) { console.log(options.slug);
     const params = {
       'action':   'get_rules_result',
       'page_type': this.getPageTypeId(),
@@ -220,6 +221,11 @@ class Rules {
 
     if (!$target.length && slug.substr(-1) !== ']') {
       $target = $('[name="' + slug + '[]"]');
+    }
+
+    if (!$target.length) {
+      $target = $('[data-papi-rule="' + slug + '"]');
+      $target.attr('name', slug);
     }
 
     return $target;
