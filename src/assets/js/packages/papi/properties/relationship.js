@@ -110,7 +110,6 @@ class Relationship {
 
     $prop
       .find('[data-papi-rule]')
-      .data('papi-rule-value', $list.children().length)
       .trigger('change');
   }
 
