@@ -204,7 +204,7 @@ class Rules {
    */
 
   getSelector(ruleSlug) {
-    return '[name="' + ruleSlug + '"], [name="' + ruleSlug + '[]"], [data-papi-rule="' + ruleSlug + '"]';
+    return '[name="' + ruleSlug + '[]"], [name="' + ruleSlug + '"], [data-papi-rule="' + ruleSlug + '"]';
   }
 
   /**
@@ -233,49 +233,68 @@ class Rules {
 
   getValue(slug) {
     const selector  = this.getSelector(slug);
-    let   $prop     = $(selector).filter(function () {
-      let $this = $(this);
-      if ($this.attr('type') === 'hidden') {
-        return false;
-      }
-      return $this.data('papi-rule-value') || $(this).val() !== '';
-    });
-    let val;
-
-    if (!$prop.length) {
-      $prop = $(selector).filter(function () {
-        let $this = $(this);
-        return $this.attr('type') === 'hidden' ||
-          $this.data('papi-rule-value') ||
-          $(this).val() !== '';
-      });
-    }
+    let   $prop     = $('[name="' + slug + '[]"]');
+    let   val;
 
     if ($prop.length) {
-      $prop.each(function () {
-          let $this = $(this);
-          if (val == null) {
-            let prv = $this.data('papi-rule-value');
-            if (prv !== undefined) {
-              val = prv;
-            } else {
-              let v = $this.val();
-              if (v !== '') {
-                val = v;
-              }
-            }
-          }
+      val = [];
+    } else {
+      $prop = $(selector).filter(function () {
+        let $this = $(this);
+        if ($this.attr('type') === 'hidden') {
+          return false;
+        }
+        return $this.data('papi-rule-value') || $(this).val() !== '';
       });
-      console.log(val);
+
+      if (!$prop.length) {
+        $prop = $(selector).filter(function () {
+          let $this = $(this);
+          return $this.attr('type') === 'hidden' ||
+            $this.data('papi-rule-value') ||
+            $(this).val() !== '';
+        });
+      }
     }
 
-    switch ($prop.attr('type')) {
-      case 'checkbox':
-        val = $prop.is(':checked') ? 'true' : 'false';
-        break;
-      default:
-        break;
+    if (!$prop.length) {
+      return;
     }
+
+    $prop.each(function () {
+      let $this = $(this);
+
+      switch ($this.attr('type')) {
+        case 'checkbox':
+        case 'radio':
+          if (!$this.is(':checked')) {
+            return;
+          }
+          break;
+        default:
+          break;
+      }
+
+      if (val == null || val instanceof Array) {
+        let prv = $this.data('papi-rule-value');
+        if (prv !== undefined) {
+          if (val instanceof Array) {
+            val.push(prv);
+          } else {
+            val = prv;
+          }
+        } else {
+          let v = $this.val();
+          if (v !== '') {
+            if (val instanceof Array) {
+              val.push(v);
+            } else {
+              val = v;
+            }
+          }
+        }
+      }
+    });
 
     return val;
   }
