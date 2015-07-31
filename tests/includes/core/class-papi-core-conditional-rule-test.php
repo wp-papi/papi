@@ -51,6 +51,13 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 			'source'   => [$this, 'fake']
 		] );
 		$this->assertEmpty( $rule->get_source() );
+
+		$rule = new Papi_Core_Conditional_Rule( [
+			'operator' => '=',
+			'slug'     => 'numbers',
+			'source'   => '#source_callable'
+		] );
+		$this->assertEquals( '#source_callable', $rule->get_source() );
 	}
 
 	public function test_source_callable() {
