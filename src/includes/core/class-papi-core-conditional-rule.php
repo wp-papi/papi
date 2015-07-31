@@ -74,6 +74,11 @@ class Papi_Core_Conditional_Rule {
 
 		if ( is_string( $this->source ) && strpos( $this->source, '#' ) !== false ) {
 			$source = explode( '#', $this->source );
+
+			if ( empty( $source[0] ) || empty( $source[1] ) ) {
+				return $this->source;
+			}
+
 			$source[0] = new $source[0]();
 
 			if ( method_exists( $source[0], $source[1] ) ) {
