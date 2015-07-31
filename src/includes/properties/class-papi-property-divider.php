@@ -16,7 +16,7 @@ class Papi_Property_Divider extends Papi_Property {
 	public function html() {
 		$options = $this->get_options();
 		?>
-		<div class="papi-property-divider">
+		<div class="papi-property-divider" data-papi-rule="<?php echo $this->html_name(); ?>">
 			<h3>
 				<span><?php echo $options->title; ?></span>
 			</h3>

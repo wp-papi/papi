@@ -92,7 +92,7 @@ class Papi_Property_Reference extends Papi_Property {
 		}
 
 		?>
-		<ul class="papi-property-reference">
+		<ul class="papi-property-reference" data-papi-rule="<?php echo $this->html_name(); ?>">
 			<?php if ( empty( $values ) ): ?>
 				<p>
 					<?php _e( 'No references exists', 'papi' ); ?>
