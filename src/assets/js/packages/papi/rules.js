@@ -131,7 +131,7 @@ class Rules {
    * @param {function} callback
    */
 
-  fetch(options, callback) { console.log(options.slug);
+  fetch(options, callback) {
     const params = {
       'action':   'get_rules_result',
       'page_type': this.getPageTypeId(),
