@@ -403,7 +403,7 @@ class Papi_Conditional_Rules {
 	 * @return bool
 	 */
 	public function rule_exists( Papi_Core_Conditional_Rule $rule ) {
-		return $this->get_value( $rule ) !== null;
+		return ! in_array( $this->get_value( $rule ), [null, []] );
 	}
 
 	/**
@@ -414,7 +414,29 @@ class Papi_Conditional_Rules {
 	 * @return bool
 	 */
 	public function rule_not_exists( Papi_Core_Conditional_Rule $rule ) {
-		return $this->get_value( $rule ) === null;
+		return in_array( $this->get_value( $rule ), [null, []] );
+	}
+
+	/**
+	 * Empty conditional rule.
+	 *
+	 * @param Papi_Core_Conditional_Rule $rule
+	 *
+	 * @return bool
+	 */
+	public function rule_empty( Papi_Core_Conditional_Rule $rule ) {
+		return papi_is_empty( $this->get_value( $rule ) );
+	}
+
+	/**
+	 * Empty conditional rule.
+	 *
+	 * @param Papi_Core_Conditional_Rule $rule
+	 *
+	 * @return bool
+	 */
+	public function rule_not_empty( Papi_Core_Conditional_Rule $rule ) {
+		return ! papi_is_empty( $this->get_value( $rule ) );
 	}
 
 	/**
@@ -434,6 +456,8 @@ class Papi_Conditional_Rules {
 		add_filter( 'papi/conditional/rule/NOT BETWEEN', [$this, 'rule_not_between'] );
 		add_filter( 'papi/conditional/rule/EXISTS', [$this, 'rule_exists'] );
 		add_filter( 'papi/conditional/rule/NOT EXISTS', [$this, 'rule_not_exists'] );
+		add_filter( 'papi/conditional/rule/EMPTY', [$this, 'rule_empty'] );
+		add_filter( 'papi/conditional/rule/NOT EMPTY', [$this, 'rule_not_empty'] );
 	}
 }
 

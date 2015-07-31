@@ -732,6 +732,56 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 		$this->assertTrue( $result );
 	}
 
+	public function test_rule_empty() {
+		$property = papi_property( [
+			'title' => 'Number',
+			'type'  => 'number',
+			'slug'  => 'number',
+			'value' => 1
+		] );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'EMPTY',
+			'slug'     => 'number'
+		] );
+
+		$this->assertTrue( $result );
+
+		$this->save_property( $property );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'EMPTY',
+			'slug'     => 'number'
+		] );
+
+		$this->assertFalse( $result );
+	}
+
+	public function test_rule_not_empty() {
+		$property = papi_property( [
+			'title' => 'Number',
+			'type'  => 'number',
+			'slug'  => 'number',
+			'value' => 1
+		] );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT EMPTY',
+			'slug'     => 'number'
+		] );
+
+		$this->assertFalse( $result );
+
+		$this->save_property( $property );
+
+		$result = papi_filter_conditional_rule_allowed( [
+			'operator' => 'NOT EMPTY',
+			'slug'     => 'number'
+		] );
+
+		$this->assertTrue( $result );
+	}
+
 	public function test_setup_filters() {
 		$rules = new Papi_Conditional_Rules();
 		$this->assertNull( $rules->setup_filters() );
