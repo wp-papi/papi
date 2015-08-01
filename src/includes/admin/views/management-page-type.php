@@ -68,7 +68,7 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 ?>
 <div class="wrap">
 	<div class="papi-options-logo"></div>
-	<h2><?php echo papi()->name; ?></h2>
+	<h1><?php echo papi()->name; ?></h1>
 
 	<br/>
 

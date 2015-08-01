@@ -1,6 +1,6 @@
 <div class="wrap">
 	<div class="papi-options-logo"></div>
-	<h2><?php echo papi()->name; ?></h2>
+	<h1><?php echo papi()->name; ?></h1>
 
 	<br/>
 
