@@ -252,7 +252,7 @@ final class Papi_Admin {
 			$view = new Papi_Admin_View;
 			$view->render( $page_view );
 		} else {
-			echo '<h2>Papi - 404</h2>';
+			echo '<h1>Papi - 404</h1>';
 		}
 	}
 
