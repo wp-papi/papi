@@ -182,7 +182,7 @@ function papi_get_field( $post_id = null, $slug = null, $default = null, $type =
  *
  * @return bool
  */
-function papi_update_field( $post_id = null, $slug = null, $value = null, $type = Papi_Core_Page::TYPE_POST ) {
+function papi_update_field( $post_id = null, $slug = null, $value = null, $type = 'post' ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$value   = $slug;
 		$slug    = $post_id;
