@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Email.
+ * Papi Property Email class.
  *
  * @package Papi
  */
-
 class Papi_Property_Email extends Papi_Property_String {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Email extends Papi_Property_String {
 	 *
 	 * @var string
 	 */
-
 	public $input_type = 'email';
 
 }

@@ -3,10 +3,7 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Load Papi Container.
- */
-
+// Load Papi Container.
 require_once __DIR__ . '/includes/container/class-papi-container.php';
 
 /**
@@ -14,7 +11,6 @@ require_once __DIR__ . '/includes/container/class-papi-container.php';
  *
  * @package Papi
  */
-
 final class Papi_Loader extends Papi_Container {
 
 	/**
@@ -22,7 +18,6 @@ final class Papi_Loader extends Papi_Container {
 	 *
 	 * @var Papi_Loader
 	 */
-
 	private static $instance;
 
 	/**
@@ -30,7 +25,6 @@ final class Papi_Loader extends Papi_Container {
 	 *
 	 * @var string
 	 */
-
 	public $name = 'Papi';
 
 	/**
@@ -38,7 +32,6 @@ final class Papi_Loader extends Papi_Container {
 	 *
 	 * @return Papi_Loader
 	 */
-
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self;
@@ -52,22 +45,26 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * The constructor.
+	 *
+	 * @codeCoverageIgnore
 	 */
-
-	private function __construct() {}
+	private function __construct() {
+	}
 
 	/**
 	 * Cloning is forbidden.
+	 *
+	 * @codeCoverageIgnore
 	 */
-
 	public function __clone() {
 		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
 	}
 
 	/**
 	 * Unserializing instances of this class is forbidden.
+	 *
+	 * @codeCoverageIgnore
 	 */
-
 	public function __wakeup() {
 		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
 	}
@@ -75,7 +72,6 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Bootstrap constants
 	 */
-
 	private function constants() {
 		// Path to Papi plugin directory
 		if ( ! defined( 'PAPI_PLUGIN_DIR' ) ) {
@@ -108,7 +104,6 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Require files.
 	 */
-
 	private function require_files() {
 		// Load languages.
 		$domain = 'papi';
@@ -132,7 +127,8 @@ final class Papi_Loader extends Papi_Container {
 			'field.php',
 			'template.php',
 			'option.php',
-			'deprecated.php'
+			'deprecated.php',
+			'conditional.php'
 		];
 
 		// Require function files.
@@ -142,9 +138,12 @@ final class Papi_Loader extends Papi_Container {
 			}
 		}
 
-		// Require admin class.
+		// Require admin classes.
 		require_once __DIR__ . '/includes/admin/class-papi-admin.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-menu.php';
+
+		// Require conditional rules.
+		require_once __DIR__ . '/includes/conditional/class-papi-conditional-rules.php';
 
 		// Include plugins or properties.
 		papi_action_include();
@@ -153,7 +152,6 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Deactivate Papi if the WordPress version is lower then 3.8.
 	 */
-
 	public static function deactivate() {
 		// Remove Papi from plugins_loaded action.
 		remove_action( 'plugins_loaded', 'papi' );
@@ -176,7 +174,6 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Setup actions.
 	 */
-
 	private function setup_actions() {
 		add_action( 'after_setup_theme', 'papi_action_include' );
 	}
@@ -189,7 +186,6 @@ final class Papi_Loader extends Papi_Container {
  *
  * @return Papi_Loader
  */
-
 function papi() {
 	if ( version_compare( get_bloginfo( 'version' ), '4.0', '<' ) ) {
 		Papi_Loader::deactivate();

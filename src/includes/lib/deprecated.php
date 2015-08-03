@@ -18,7 +18,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return Papi_Page|null
  */
-
 function current_page() {
 	_deprecated_function( __FUNCTION__, '2.0.0' );
 	return papi_get_page();
@@ -38,8 +37,7 @@ function current_page() {
  *
  * @return mixed
  */
-
-function papi_field( $post_id = null, $slug = null, $default = null, $type = 'post' ) {
+function papi_field( $post_id = null, $slug = null, $default = null, $type = Papi_Core_Page::TYPE_POST ) {
 	_deprecated_function( __FUNCTION__, '2.0.0', 'papi_get_field' );
 	return papi_get_field( $post_id, $slug, $default, $type );
 }
@@ -55,7 +53,6 @@ function papi_field( $post_id = null, $slug = null, $default = null, $type = 'po
  *
  * @return array
  */
-
 function papi_fields( $post_id = 0 ) {
 	_deprecated_function( __FUNCTION__, '2.0.0', 'papi_get_slugs' );
 	return papi_get_slugs( $post_id );
@@ -68,7 +65,6 @@ function papi_fields( $post_id = 0 ) {
  *
  * @return string
  */
-
 function papi_get_page_type_meta_value( $post_id = 0 ) {
 	_deprecated_function( __FUNCTION__, '2.0.0', 'papi_get_page_type_id' );
 	return papi_get_page_type_id( $post_id );

@@ -19,7 +19,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return string
  */
-
 function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type = null, $exclude = [] ) {
 	$admin_url = $append_admin_url ? get_admin_url() : '';
 
@@ -40,12 +39,11 @@ function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type
  *
  * @return string
  */
-
 function papi_get_page_query_strings( $first_char = '&', $exclude = [] ) {
 	$request_uri = $_SERVER['REQUEST_URI'];
 	$parsed_url  = parse_url( $request_uri );
 
-	if ( ! isset( $parsed_url['query'] ) || empty ( $parsed_url['query'] ) ) {
+	if ( ! isset( $parsed_url['query'] ) || empty( $parsed_url['query'] ) ) {
 		return '';
 	}
 
@@ -90,7 +88,6 @@ function papi_get_page_query_strings( $first_char = '&', $exclude = [] ) {
  *
  * @return string
  */
-
 function papi_append_post_type_query( $url, $post_type_arg = null ) {
 	if ( strpos( $url, 'post_type=' ) !== false ) {
 		return $url;

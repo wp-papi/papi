@@ -7,9 +7,7 @@ class Tabs {
    */
 
   static init() {
-    let tabs = new Tabs();
-
-    tabs.binds();
+    new Tabs().binds();
   }
 
   /**

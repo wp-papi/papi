@@ -5,7 +5,7 @@
  * Description: Page Type API
  * Author: Fredrik Forsmo
  * Author URI: http://forsmo.me
- * Version: 2.1.1
+ * Version: 2.2.0
  * Plugin URI: https://wp-papi.github.io
  * Textdomain: papi
  */

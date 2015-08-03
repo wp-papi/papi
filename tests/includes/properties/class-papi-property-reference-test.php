@@ -5,17 +5,16 @@
  *
  * @package Papi
  */
-
 class Papi_Property_Reference_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'reference_test';
 
 	public function get_value() {
-		return null;
+		return;
 	}
 
 	public function get_expected() {
-		return null;
+		return;
 	}
 
 	public function test_property_options() {

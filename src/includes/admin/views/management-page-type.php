@@ -10,7 +10,6 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 	 *
 	 * @package Papi
 	 */
-
 	function papi_management_page_type_render_box( $properties, $tab = false ) {
 		?>
 		<table class="papi-table">
@@ -40,22 +39,22 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 					<tr>
 						<?php if ( isset( $property->options ) && isset( $property->options->title ) ): ?>
 							<td>
-								<?php esc_html_e( $property->options->title ); ?>
+								<?php echo esc_html( $property->options->title ); ?>
 								<br />
 								<br />
 								<?php echo __( 'Properties', 'papi' ) . ': ' . strval( count( $property->properties ) ); ?>
 							</td>
 							<td>
-								<?php esc_html_e( $property->options->sort_order ); ?>
+								<?php echo esc_html( $property->options->sort_order ); ?>
 							</td>
 							<td>
 								<?php papi_management_page_type_render_box( $property->properties ); ?>
 							</td>
 						<?php else: ?>
-							<td><?php esc_html_e( $property->title ); ?></td>
-							<td><?php esc_html_e( $property->type ); ?></td>
-							<td><?php esc_html_e( $property->get_slug( true ) ); ?></td>
-							<td><?php esc_html_e( $property->sort_order ); ?></td>
+							<td><?php echo esc_html( $property->title ); ?></td>
+							<td><?php echo esc_html( $property->type ); ?></td>
+							<td><?php echo esc_html( $property->get_slug( true ) ); ?></td>
+							<td><?php echo esc_html( $property->sort_order ); ?></td>
 						<?php endif; ?>
 					</tr>
 				<?php endforeach; ?>
@@ -69,7 +68,7 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 ?>
 <div class="wrap">
 	<div class="papi-options-logo"></div>
-	<h2><?php echo papi()->name; ?></h2>
+	<h1><?php echo papi()->name; ?></h1>
 
 	<br/>
 
@@ -81,15 +80,15 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 	?>
 		<h3><?php _e( 'Cannot find the page type', 'papi' );?></h3>
 		<p>
-			<a href="tools.php?page=papi"><?php esc_html_e( 'Back to list' , 'papi' ); ?></a>
+			<a href="tools.php?page=papi"><?php echo esc_html( 'Back to list' , 'papi' ); ?></a>
 		</p>
 	<?php
 		else:
 	?>
-		<h3><?php _e( 'Overview of page type', 'papi' ); ?>: <?php esc_html_e( $page_type->name ); ?></h3>
+		<h3><?php _e( 'Overview of page type', 'papi' ); ?>: <?php echo esc_html( $page_type->name ); ?></h3>
 
 		<p>
-			<a href="tools.php?page=papi"><?php esc_html_e( 'Back to list' , 'papi' ); ?></a>
+			<a href="tools.php?page=papi"><?php echo esc_html( 'Back to list' , 'papi' ); ?></a>
 		</p>
 
 		<?php
@@ -120,8 +119,8 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 					<br>
 				</div>
 				<h3 class="hndle">
-					<span><?php esc_html_e( $box['title'] ); ?></span>
-					<span class="papi-pull-right"><?php esc_html( $top_right_text . ': ' ) . esc_html_e( strval( $counter ) ); ?></span>
+					<span><?php echo esc_html( $box['title'] ); ?></span>
+					<span class="papi-pull-right"><?php echo esc_html( $top_right_text . ': ' ) . strval( $counter ); ?></span>
 				</h3>
 				<div class="inside">
 					<?php papi_management_page_type_render_box( $box[1], $tab ); ?>

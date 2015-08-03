@@ -70,12 +70,12 @@ class Flexible extends Repeater {
       }
     });
 
-    $(document).on('click', '.papi-property-flexible .bottom a.button', function (e) {
+    $(document).on('click', '.papi-property-flexible .bottom button[type=button]', function (e) {
       e.preventDefault();
       $(this).prev().removeClass('papi-hide');
     });
 
-    $(document).on('click', '.papi-property-flexible .flexible-layouts li', function (e) {
+    $(document).on('click', '.papi-property-flexible .flexible-layouts li a', function (e) {
       e.preventDefault();
       $(this).closest('.flexible-layouts').addClass('papi-hide');
       self.add($(this));
@@ -132,10 +132,14 @@ class Flexible extends Repeater {
    */
 
   updateDatabaseRowNumber($tbody) {
+    let counter = $tbody.find('tr tbody tr').length;
+
     $tbody
       .closest('.papi-property-repeater-top')
       .find('.papi-property-repeater-rows')
       .val($tbody.find('tr tbody tr').length);
+
+    this.triggerRule($tbody, counter);
   }
 
 }

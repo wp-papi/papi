@@ -16,7 +16,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return bool
  */
-
 function papi_display_page_type( $page_type ) {
 	$post_type = papi_get_post_type();
 
@@ -55,7 +54,6 @@ function papi_display_page_type( $page_type ) {
  *
  * @return array
  */
-
 function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_types = false ) {
 	if ( empty( $post_type ) ) {
 		$post_type  = papi_get_post_type();
@@ -117,7 +115,6 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
  *
  * @return int
  */
-
 function papi_get_number_of_pages( $page_type ) {
 	global $wpdb;
 
@@ -155,8 +152,7 @@ function papi_get_number_of_pages( $page_type ) {
  *
  * @return mixed
  */
-
-function papi_get_page( $post_id = 0, $type = 'post' ) {
+function papi_get_page( $post_id = 0, $type = Papi_Core_Page::TYPE_POST ) {
 	return Papi_Core_Page::factory( $post_id, $type );
 }
 
@@ -167,7 +163,6 @@ function papi_get_page( $post_id = 0, $type = 'post' ) {
  *
  * @return Papi_Page_Type
  */
-
 function papi_get_page_type( $file_path ) {
 	if ( ! is_file( $file_path ) || ! is_string( $file_path ) ) {
 		return;
@@ -206,7 +201,6 @@ function papi_get_page_type( $file_path ) {
  *
  * @return Papi_Page_Type
  */
-
 function papi_get_page_type_by_id( $id ) {
 	if ( ! is_string( $id ) || empty( $id ) ) {
 		return;
@@ -237,7 +231,6 @@ function papi_get_page_type_by_id( $id ) {
  *
  * @return Papi_Page_Type
  */
-
 function papi_get_page_type_by_post_id( $post_id = 0 ) {
 	if ( ! is_numeric( $post_id ) ) {
 		return;
@@ -261,7 +254,6 @@ function papi_get_page_type_by_post_id( $post_id = 0 ) {
  *
  * @return string
  */
-
 function papi_get_page_type_id( $post_id = 0 ) {
 	$post_id   = papi_get_post_id( $post_id );
 	$key       = PAPI_PAGE_TYPE_KEY;
@@ -308,7 +300,6 @@ function papi_get_page_type_id( $post_id = 0 ) {
  *
  * @return string
  */
-
 function papi_get_page_type_name( $post_id = 0 ) {
 	$post_id = papi_get_post_id( $post_id );
 
@@ -338,7 +329,6 @@ function papi_get_page_type_name( $post_id = 0 ) {
  *
  * @return null|string
  */
-
 function papi_get_page_type_template( $post_id = 0 ) {
 	$data = papi_get_page_type_by_post_id( $post_id );
 
@@ -352,7 +342,6 @@ function papi_get_page_type_template( $post_id = 0 ) {
  *
  * @return array
  */
-
 function papi_get_post_types() {
 	$page_types = papi_get_all_page_types( true );
 	$post_types = [];
@@ -375,11 +364,10 @@ function papi_get_post_types() {
  *
  * @return array
  */
-
 function papi_get_slugs( $post_id = 0 ) {
 	$page = papi_get_page( $post_id );
 
-	if ( empty( $page ) ) {
+	if ( $page instanceof Papi_Post_Page === false ) {
 		return [];
 	}
 
@@ -395,6 +383,10 @@ function papi_get_slugs( $post_id = 0 ) {
 
 		$value = [];
 		$boxes = $page_type->get_boxes();
+
+		if ( ! is_array( $boxes ) ) {
+			return [];
+		}
 
 		foreach ( $boxes as $box ) {
 			if ( count( $box ) < 2 || empty( $box[0]['title'] ) || ! is_array( $box[1] ) ) {
@@ -423,7 +415,6 @@ function papi_get_slugs( $post_id = 0 ) {
  *
  * @return string
  */
-
 function the_papi_page_type_name( $post_id = 0 ) {
 	echo papi_get_page_type_name( $post_id );
 }

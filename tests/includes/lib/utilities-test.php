@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -21,22 +20,6 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		parent::tearDown();
 		$_GET = [];
 		$_POST = [];
-	}
-
-	public function test_papi_get_cache_key() {
-		$this->assertEmpty( papi_get_cache_key( 0, 1 ) );
-		$this->assertEmpty( papi_get_cache_key( [], 'hello' ) );
-		$this->assertEmpty( papi_get_cache_key( (object) [], 230 ) );
-		$this->assertEmpty( papi_get_cache_key( true, 'false' ) );
-		$this->assertEmpty( papi_get_cache_key( false, 'true' ) );
-		$this->assertEmpty( papi_get_cache_key( null, 2 ) );
-
-		global $post;
-		$post_id = $this->factory->post->create();
-		$post = get_post( $post_id );
-		$this->assertEquals( 'papi_page_' . $post_id, papi_get_cache_key( 'page', $post_id ) );
-		$this->assertEquals( 'papi_page_920', papi_get_cache_key( 'page', 920 ) );
-		unset( $post );
 	}
 
 	public function test_papi_convert_to_string() {
@@ -65,6 +48,10 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		wp_set_current_user( $user_id );
 		$this->assertTrue( papi_current_user_is_allowed( 'administrator' ) );
 		$this->assertFalse( papi_current_user_is_allowed( 'administrator2' ) );
+	}
+
+	public function test_papi_doing_ajax() {
+		$this->assertTrue( papi_doing_ajax() );
 	}
 
 	public function test_papi_esc_html() {
@@ -110,6 +97,22 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_dashify( 1 ) );
 		$this->assertEmpty( papi_dashify( [] ) );
 		$this->assertEmpty( papi_dashify( new stdClass() ) );
+	}
+
+	public function test_papi_get_cache_key() {
+		$this->assertEmpty( papi_get_cache_key( 0, 1 ) );
+		$this->assertEmpty( papi_get_cache_key( [], 'hello' ) );
+		$this->assertEmpty( papi_get_cache_key( (object) [], 230 ) );
+		$this->assertEmpty( papi_get_cache_key( true, 'false' ) );
+		$this->assertEmpty( papi_get_cache_key( false, 'true' ) );
+		$this->assertEmpty( papi_get_cache_key( null, 2 ) );
+
+		global $post;
+		$post_id = $this->factory->post->create();
+		$post = get_post( $post_id );
+		$this->assertEquals( 'papi_page_' . $post_id, papi_get_cache_key( 'page', $post_id ) );
+		$this->assertEquals( 'papi_page_920', papi_get_cache_key( 'page', 920 ) );
+		unset( $post );
 	}
 
 	public function test_papi_get_class_name() {
@@ -204,6 +207,70 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_html_name( 1 ) );
 		$this->assertEmpty( papi_html_name( [] ) );
 		$this->assertEmpty( papi_html_name( new stdClass() ) );
+	}
+
+	public function test_papi_html_tag() {
+		$this->assertEquals( '<label for="test">hello</label>', papi_html_tag( 'label', [
+			'for' => 'test',
+			'hello'
+		] ) );
+		$this->assertEquals( '<label for="{}">hello</label>', papi_html_tag( 'label', [
+			'for' => (object) [],
+			'hello'
+		] ) );
+		$this->assertEquals( '<label for="true">hello</label>', papi_html_tag( 'label', [
+			'for' => 'true',
+			'hello'
+		] ) );
+		$this->assertEquals( '<label for="false">hello</label>', papi_html_tag( 'label', [
+			'for' => false,
+			'hello'
+		] ) );
+		$this->assertEquals( '<label for="{}">hello world</label>', papi_html_tag( 'label', [
+			'for' => (object) [],
+			['hello', 'world']
+		] ) );
+		$this->assertEquals( '<label for="{}"/>', papi_html_tag( 'label', [
+			'for' => (object) []
+		] ) );
+		$this->assertEquals( '<label>Hello</label>', papi_html_tag( 'label', 'Hello' ) );
+	}
+
+	public function test_papi_render_html_tag() {
+		papi_render_html_tag( 'label', [
+			'for' => 'test',
+			'hello'
+		] );
+
+		$this->expectOutputRegex( '/\<label for\=\"test\"\>hello\<\/label\>/' );
+
+		papi_render_html_tag( 'label', [
+			'for' => (object) [],
+			'hello'
+		] );
+
+		$this->expectOutputRegex( '/\<label for\=\"\{\}\"\>hello\<\/label\>/' );
+
+		papi_html_tag( 'label', [
+			'for' => 'true',
+			'hello'
+		] );
+
+		$this->expectOutputRegex( '/\<label for\=\"true\"\>hello\<\/label\>/' );
+
+		papi_render_html_tag( 'label', [
+			'for' => false,
+			'hello'
+		] );
+
+		$this->expectOutputRegex( '/\<label for\=\"false\"\>hello\<\/label\>/' );
+
+		papi_render_html_tag( 'label', [
+			'for' => (object) [],
+			['hello', 'world']
+		] );
+
+		$this->expectOutputRegex( '/\<label for\=\"\{\}\"\>hello world\<\/label\>/' );
 	}
 
 	public function test_papi_is_empty() {

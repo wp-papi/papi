@@ -16,9 +16,8 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return bool
  */
-
 function papi_delete_option( $slug ) {
-	return papi_delete_field( 0, $slug, 'option' );
+	return papi_delete_field( 0, $slug, Papi_Core_Page::TYPE_OPTION );
 }
 
 /**
@@ -26,12 +25,11 @@ function papi_delete_option( $slug ) {
  *
  * @return bool
  */
-
 function papi_is_option_page() {
 	$request_uri = $_SERVER['REQUEST_URI'];
 	$parsed_url  = parse_url( $request_uri );
 
-	if ( ! isset( $parsed_url['query'] ) || empty ( $parsed_url['query'] ) ) {
+	if ( ! isset( $parsed_url['query'] ) || empty( $parsed_url['query'] ) ) {
 		return false;
 	}
 
@@ -48,9 +46,8 @@ function papi_is_option_page() {
  *
  * @return mixed
  */
-
 function papi_get_option( $slug, $default = null ) {
-	return papi_get_field( 0, $slug, $default, 'option' );
+	return papi_get_field( 0, $slug, $default, Papi_Core_Page::TYPE_OPTION );
 }
 
 /**
@@ -62,7 +59,6 @@ function papi_get_option( $slug, $default = null ) {
  *
  * @return mixed
  */
-
 function papi_option_shortcode( $atts ) {
 	$default = isset( $atts['default'] ) ? $atts['default'] : '';
 
@@ -89,9 +85,8 @@ add_shortcode( 'papi_option', 'papi_option_shortcode' );
  *
  * @return bool
  */
-
 function papi_update_option( $slug, $value = null ) {
-	return papi_update_field( 0, $slug, $value, 'option' );
+	return papi_update_field( 0, $slug, $value, Papi_Core_Page::TYPE_OPTION );
 }
 
 /**
@@ -100,7 +95,6 @@ function papi_update_option( $slug, $value = null ) {
  * @param string $slug
  * @param mixed $default
  */
-
 function the_papi_option( $slug = null, $default = null ) {
 	$value = papi_get_option( $slug, $default );
 

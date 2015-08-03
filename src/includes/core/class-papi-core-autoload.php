@@ -5,13 +5,11 @@
  *
  * @package Papi
  */
-
 class Papi_Core_Autoload {
 
 	/**
 	 * The Constructor.
 	 */
-
 	public function __construct() {
 		spl_autoload_register( [$this, 'autoload'] );
 	}
@@ -21,7 +19,6 @@ class Papi_Core_Autoload {
 	 *
 	 * @param string $class
 	 */
-
 	public function autoload( $class ) {
 		$class = strtolower( $class );
 		$file  = 'class-' . str_replace( '_', '-', strtolower( $class ) ) . '.php';
@@ -29,6 +26,8 @@ class Papi_Core_Autoload {
 
 		if ( strpos( $class, 'papi_admin' ) === 0 ) {
 			$path .= 'admin/';
+		} else if ( strpos( $class, 'papi_conditional_' ) === 0 ) {
+			$path .= 'conditional/';
 		} else if ( strpos( $class, 'papi_core_' ) === 0 ) {
 			$path .= 'core/';
 		} else if ( strpos( $class, 'papi_property' ) === 0 ) {

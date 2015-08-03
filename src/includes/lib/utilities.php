@@ -10,34 +10,12 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Get Papi cache key.
- *
- * @param string $key
- * @param mixed $suffix
- *
- * @return string
- */
-
-function papi_get_cache_key( $key, $suffix ) {
-	if ( ! is_string( $key ) ) {
-		return '';
-	}
-
-	$key    = papify( $key );
-	$suffix = papi_convert_to_string( $suffix );
-	$suffix = papi_html_name( $suffix );
-	$suffix = papi_remove_papi( $suffix );
-	return sprintf( '%s_%s', $key, $suffix );
-}
-
-/**
  * Try convert to string if is possible else return empty string.
  *
  * @param mixed $obj
  *
  * @return string
  */
-
 function papi_convert_to_string( $obj ) {
 	if ( $obj === true ) {
 		return 'true';
@@ -61,7 +39,6 @@ function papi_convert_to_string( $obj ) {
  *
  * @return bool
  */
-
 function papi_current_user_is_allowed( $capabilities = [] ) {
 	if ( ! is_array( $capabilities ) && ! is_string( $capabilities ) || empty( $capabilities ) ) {
 		return true;
@@ -79,6 +56,15 @@ function papi_current_user_is_allowed( $capabilities = [] ) {
 }
 
 /**
+ * Check if Papi is doing a AJAX request or not.
+ *
+ * @return bool
+ */
+function papi_doing_ajax() {
+	return defined( 'DOING_PAPI_AJAX' ) && DOING_PAPI_AJAX;
+}
+
+/**
  * Papi escape html.
  *
  * @param mixed $obj
@@ -86,7 +72,6 @@ function papi_current_user_is_allowed( $capabilities = [] ) {
  *
  * @return mixed
  */
-
 function papi_esc_html( $obj, $keys = [] ) {
 	$object = is_object( $obj ) && get_class( $obj ) === 'stdClass';
 
@@ -123,6 +108,22 @@ function papi_esc_html( $obj, $keys = [] ) {
 }
 
 /**
+ * Dashify the given string.
+ * Replacing whitespace and underscore with a dash.
+ *
+ * @param string $str
+ *
+ * @return string
+ */
+function papi_dashify( $str ) {
+	if ( ! is_string( $str ) ) {
+		return '';
+	}
+
+	return str_replace( ' ', '-', str_replace( '_', '-', $str ) );
+}
+
+/**
  * Add underscores at the start of the string.
  *
  * @param string $str
@@ -130,7 +131,6 @@ function papi_esc_html( $obj, $keys = [] ) {
  *
  * @return string
  */
-
 function papi_f( $str = '', $len = 1 ) {
 	if ( ! is_string( $str ) ) {
 		return '';
@@ -150,20 +150,23 @@ function papi_f( $str = '', $len = 1 ) {
 }
 
 /**
- * Dashify the given string.
- * Replacing whitespace and underscore with a dash.
+ * Get Papi cache key.
  *
- * @param string $str
+ * @param string $key
+ * @param mixed $suffix
  *
  * @return string
  */
-
-function papi_dashify( $str ) {
-	if ( ! is_string( $str ) ) {
+function papi_get_cache_key( $key, $suffix ) {
+	if ( ! is_string( $key ) ) {
 		return '';
 	}
 
-	return str_replace( ' ', '-', str_replace( '_', '-', $str ) );
+	$key    = papify( $key );
+	$suffix = papi_convert_to_string( $suffix );
+	$suffix = papi_html_name( $suffix );
+	$suffix = papi_remove_papi( $suffix );
+	return sprintf( '%s_%s', $key, $suffix );
 }
 
 /**
@@ -173,7 +176,6 @@ function papi_dashify( $str ) {
  *
  * @return null|string
  */
-
 function papi_get_class_name( $file ) {
 	if ( ! is_string( $file ) ) {
 		return '';
@@ -220,7 +222,6 @@ function papi_get_class_name( $file ) {
  *
  * @return array
  */
-
 function papi_get_only_objects( array $arr ) {
 	return array_filter( papi_to_array( $arr ), function ( $item ) {
 		return is_object( $item );
@@ -234,7 +235,6 @@ function papi_get_only_objects( array $arr ) {
  *
  * @return string
  */
-
 function papi_get_or_post( $key ) {
 	if ( ! is_string( $key ) ) {
 		return;
@@ -256,7 +256,6 @@ function papi_get_or_post( $key ) {
  *
  * @return array|string
  */
-
 function papi_get_qs( $qs, $keep_keys = false ) {
 	if ( ! is_string( $qs ) && ! is_array( $qs ) ) {
 		return;
@@ -280,8 +279,12 @@ function papi_get_qs( $qs, $keep_keys = false ) {
 		}
 	}
 
-	if ( isset( $_GET[ $qs ] ) && ! empty( $_GET[ $qs ] ) ) {
-		$value = sanitize_text_field( $_GET[ $qs ] );
+	if ( isset( $_GET[$qs] ) && ! empty( $_GET[$qs] ) ) {
+		$value = $_GET[$qs];
+
+		if ( is_string( $value ) ) {
+			$value = sanitize_text_field( $value );
+		}
 
 		if ( $value === 'false' ) {
 			$value = false;
@@ -302,7 +305,6 @@ function papi_get_qs( $qs, $keep_keys = false ) {
  *
  * @return string
  */
-
 function papi_get_sanitized_post( $key ) {
 	if ( ! isset( $_POST[$key] ) ) {
 		return;
@@ -318,7 +320,6 @@ function papi_get_sanitized_post( $key ) {
  *
  * @return string
  */
-
 function papi_html_name( $name ) {
 	if ( ! is_string( $name ) ) {
 		return '';
@@ -338,15 +339,70 @@ function papi_html_name( $name ) {
 }
 
 /**
- * Check if $obj is empty or not.
- * Values like "0", 0 and false
- * should not return true.
+ * Get html tag from tag name and array of attributes.
+ *
+ * @param string $tag
+ * @param array $attr
+ *
+ * @return string
+ */
+function papi_html_tag( $tag, $attr = [] ) {
+	$attributes = [];
+	$text       = [];
+
+	if ( ! is_array( $attr ) ) {
+		$attr = [$attr];
+	}
+
+	foreach ( $attr as $key => $value ) {
+		if ( is_numeric( $key ) ) {
+			if ( is_array( $value ) ) {
+				$text[] = implode( ' ', $value );
+			} else {
+				$text[] = $value;
+			}
+
+			continue;
+		}
+
+		if ( is_array( $value ) || is_object( $value ) ) {
+			$value = json_encode( $value );
+		} else if ( is_bool( $value ) ) {
+			$value = $value ? 'true' : 'false';
+		} else if ( is_string( $value ) ) {
+			$value = trim( $value );
+		}
+
+		if ( is_null( $value ) ) {
+			continue;
+		}
+
+		$attributes[] = sprintf( '%s="%s"', $key, esc_attr( $value ) );
+	}
+
+	if ( papi_is_empty( $text ) ) {
+		$end = '/>';
+	} else {
+		$end = sprintf( '>%s</%s>', implode( ' ', $text ), $tag );
+	}
+
+	if ( ! empty( $attributes ) ) {
+		$attributes = ' ' . implode( ' ', $attributes );
+	} else {
+		$attributes = '';
+	}
+
+	return sprintf( '<%s%s%s', $tag, $attributes, $end );
+}
+
+/**
+ * Check if the given object is empty or not.
+ * Values like "0", 0 and false should not return true.
  *
  * @param mixed $obj
  *
  * @return bool
  */
-
 function papi_is_empty( $obj ) {
 	if ( is_string( $obj ) ) {
 		return empty( $obj ) && ! is_numeric( $obj );
@@ -366,7 +422,6 @@ function papi_is_empty( $obj ) {
  *
  * @return bool
  */
-
 function papi_is_metod( $method ) {
 	if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || ! is_string( $method ) ) {
 		return false;
@@ -382,7 +437,6 @@ function papi_is_metod( $method ) {
  *
  * @return string
  */
-
 function papi_nl2br( $str ) {
 	return str_replace( '\n', '<br />', nl2br( $str ) );
 }
@@ -394,7 +448,6 @@ function papi_nl2br( $str ) {
  *
  * @return string
  */
-
 function papi_remove_papi( $str ) {
 	if ( ! is_string( $str ) ) {
 		return '';
@@ -411,7 +464,6 @@ function papi_remove_papi( $str ) {
  *
  * @return string
  */
-
 function papi_remove_trailing_quotes( $str ) {
 	if ( ! is_string( $str ) ) {
 		return '';
@@ -421,13 +473,24 @@ function papi_remove_trailing_quotes( $str ) {
 }
 
 /**
+ * Render html tag from tag name and array of attributes.
+ *
+ * @param string $tag
+ * @param array $attr
+ *
+ * @return string
+ */
+function papi_render_html_tag( $tag, $attr = [] ) {
+	echo papi_html_tag( $tag, $attr );
+}
+
+/**
  * Santize data.
  *
  * @param mixed $obj
  *
  * @return mixed
  */
-
 function papi_santize_data( $obj ) {
 	if ( is_array( $obj ) ) {
 		foreach ( $obj as $k => $v ) {
@@ -450,7 +513,6 @@ function papi_santize_data( $obj ) {
  *
  * @return array
  */
-
 function papi_sort_order( $array, $key = 'sort_order' ) {
 	if ( empty( $array ) || ! is_array( $array ) && ! is_object( $array ) ) {
 		return [];
@@ -469,7 +531,7 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 			} else if ( isset( $value->options->$key ) ) {
 				$sorter[$k] = $value->options->$key;
 			}
-		} else if ( is_array( $value ) && isset ( $value[$key] ) ) {
+		} else if ( is_array( $value ) && isset( $value[$key] ) ) {
 			$sorter[$k] = $value[$key];
 		}
 	}
@@ -517,7 +579,6 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
  *
  * @return string
  */
-
 function papi_slugify( $str, $replace = [], $delimiter = '-' ) {
 	if ( ! is_string( $str ) ) {
 		return '';
@@ -544,7 +605,6 @@ function papi_slugify( $str, $replace = [], $delimiter = '-' ) {
  *
  * @return array
  */
-
 function papi_to_array( $obj ) {
 	if ( ! is_array( $obj ) ) {
 		$obj = [$obj];
@@ -561,7 +621,6 @@ function papi_to_array( $obj ) {
  *
  * @return string
  */
-
 function papi_underscorify( $str ) {
 	if ( ! is_string( $str ) ) {
 		return '';
@@ -577,7 +636,6 @@ function papi_underscorify( $str ) {
  *
  * @return string
  */
-
 function papify( $str = '' ) {
 	if ( ! is_string( $str ) ) {
 		return '';

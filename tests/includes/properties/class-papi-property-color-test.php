@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 class Papi_Property_Color_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'color_test';
@@ -18,7 +17,7 @@ class Papi_Property_Color_Test extends Papi_Property_Test_Case {
 		return '#000000';
 	}
 
-	public function test_format_value() {
+	public function test_property_format_value() {
 		$this->assertEquals( '#000000', $this->property->format_value( '#000000', '', 0 ) );
 		$this->assertEquals( '#ffffff', $this->property->format_value( '#ffffff', '', 0 ) );
 		$this->assertEmpty( $this->property->format_value( null, '', 0 ) );

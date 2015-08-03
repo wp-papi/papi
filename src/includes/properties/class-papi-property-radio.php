@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Radio.
+ * Papi Property Radio class.
  *
  * @package Papi
  */
-
 class Papi_Property_Radio extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Radio extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'items'    => [],
@@ -27,7 +25,6 @@ class Papi_Property_Radio extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$settings = $this->get_settings();
 		$value    = $this->get_value();
@@ -44,11 +41,22 @@ class Papi_Property_Radio extends Papi_Property {
 				$key = $value;
 			}
 
-			?>
-			<input type="radio" value="<?php echo $value ?>"
-			       name="<?php echo $this->html_name(); ?>" <?php echo $value === $settings->selected ? 'checked="checked"' : ''; ?> />
-			<?php
-			echo $key . '<br />';
+			papi_render_html_tag( 'label', [
+				'class' => 'light',
+				'for'   => $this->html_id( $key ),
+
+				papi_render_html_tag( 'input', [
+					'id'      => $this->html_id( $key ),
+					'name'    => $this->html_name(),
+					'type'    => 'radio',
+					'checked' => $value === $settings->selected ? 'checked' : null,
+					'value'   => $value
+				] ),
+
+				$key
+			] );
+
+			papi_render_html_tag( 'br' );
 		}
 	}
 }

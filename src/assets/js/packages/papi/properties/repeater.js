@@ -75,9 +75,12 @@ class Repeater {
 
     $row.appendTo($tbody);
     $row.find('[name*="_property"]').trigger('papi/property/repeater/added');
+    $row.find('[data-papi-rules="true"]').trigger('init');
 
     this.scrollDownTable($tbody);
     this.updateDatabaseRowNumber($tbody);
+
+    $tbody.closest('.papi-property-repeater-top').trigger('change');
   }
 
   /**
@@ -102,7 +105,7 @@ class Repeater {
       }
     });
 
-    $(document).on('click', '.papi-property-repeater .bottom a.button', function (e) {
+    $(document).on('click', '.papi-property-repeater .bottom button[type=button]', function (e) {
       e.preventDefault();
       self.add($(this));
     });
@@ -129,11 +132,11 @@ class Repeater {
 
   fetch(properties, counter, callback) {
     $.ajax({
-      type: 'POST',
-      data: {
+      type:     'POST',
+      data:     {
         properties: JSON.stringify(properties)
       },
-      url: papi.ajaxUrl + '?action=get_properties&counter=' + counter,
+      url:      papi.ajaxUrl + '?action=get_properties&counter=' + counter,
       dataType: 'json'
     }).success(callback);
   }
@@ -160,7 +163,7 @@ class Repeater {
 
   getHtml(data) {
     let template = this.template;
-    template = window._.template(template());
+    template = window._.template($.trim(template()));
     return $(template(data));
   }
 
@@ -200,6 +203,18 @@ class Repeater {
   }
 
   /**
+   * Trigger conditional rule.
+   *
+   * @param {object} $prop
+   */
+
+  triggerRule($tbody, counter) {
+    const $top  = $tbody.closest('.papi-property-repeater-top');
+    let name    = $top.find('.bottom').next().attr('name').replace('[]', '');
+    $('[data-papi-rule="' + name + '"]').data('papi-rule-value', counter).trigger('change');
+  }
+
+  /**
    * Update table row number.
    *
    * @param {object} $tbody
@@ -228,10 +243,14 @@ class Repeater {
    */
 
   updateDatabaseRowNumber($tbody) {
+    let counter = $tbody.find('tr').length;
+
     $tbody
       .closest('.papi-property-repeater-top')
       .find('.papi-property-repeater-rows')
-      .val($tbody.find('tr').length);
+      .val();
+
+    this.triggerRule($tbody, counter);
   }
 
 }

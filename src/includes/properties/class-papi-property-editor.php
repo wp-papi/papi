@@ -4,21 +4,19 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Editor.
+ * Papi Property Editor class.
  *
  * @package Papi
  */
-
 class Papi_Property_Editor extends Papi_Property {
 
 	/**
-	 * Format the value of the property before it's returned to the theme.
+	 * Format the value of the property before it's returned to the application.
 	 *
 	 * @param mixed $value
 	 *
 	 * @return array
 	 */
-
 	public function format_value( $value, $slug, $post_id ) {
 		return apply_filters( 'the_content', $value );
 	}
@@ -26,7 +24,6 @@ class Papi_Property_Editor extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$value = $this->get_value();
 		$id    = str_replace( '[', '', str_replace( ']', '', $this->html_name() ) ) . '-' . uniqid();

@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Post.
+ * Papi Property Post class.
  *
  * @package Papi
  */
-
 class Papi_Property_Post extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Post extends Papi_Property {
 	 *
 	 * @var string
 	 */
-
 	public $convert_type = 'object';
 
 	/**
@@ -26,11 +24,11 @@ class Papi_Property_Post extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'placeholder'   => '',
 			'post_type'     => 'post',
+			'select2'       => true,
 			'query'         => []
 		];
 	}
@@ -42,7 +40,6 @@ class Papi_Property_Post extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	protected function get_posts( $settings ) {
 		// By default we add posts per page key with the value -1 (all).
 		if ( ! isset( $settings->query['posts_per_page'] ) ) {
@@ -79,7 +76,6 @@ class Papi_Property_Post extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$settings   = $this->get_settings();
 		$value      = $this->get_value();
@@ -90,14 +86,20 @@ class Papi_Property_Post extends Papi_Property {
 			$value = 0;
 		}
 
-		$posts = $this->get_posts( $settings );
+		$posts        = $this->get_posts( $settings );
 		$render_label = count( $posts ) > 1;
+		$classes      = 'papi-fullwidth';
+
+		if ( $settings->select2 ) {
+			$classes = ' papi-component-select2';
+		}
 		?>
 
 		<div class="papi-property-post">
 			<select
+				id="<?php echo $this->html_id(); ?>"
 				name="<?php echo $this->html_name(); ?>"
-				class="papi-component-select2 papi-fullwidth"
+				class="<?php echo $classes; ?>"
 				data-allow-clear="true"
 				data-placeholder="<?php echo $settings->placeholder; ?>"
 				data-width="100%">
@@ -134,7 +136,7 @@ class Papi_Property_Post extends Papi_Property {
 	}
 
 	/**
-	 * Format the value of the property before it's returned to the theme.
+	 * Format the value of the property before it's returned to the application.
 	 *
 	 * @param mixed $value
 	 * @param string $slug
@@ -142,7 +144,6 @@ class Papi_Property_Post extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
 			return get_post( $value );

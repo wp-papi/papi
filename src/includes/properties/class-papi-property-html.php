@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Html.
+ * Papi Property Html class.
  *
  * @package Papi
  */
-
 class Papi_Property_Html extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Html extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'html' => ''
@@ -26,15 +24,18 @@ class Papi_Property_Html extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$settings = $this->get_settings();
+
+		echo '<div class="property-html" data-papi-rule="' . $this->html_name() . '">';
 
 		if ( is_callable( $settings->html ) ) {
 			call_user_func( $settings->html );
 		} else {
 			echo papi_convert_to_string( $settings->html );
 		}
+
+		echo '</div>';
 	}
 
 }

@@ -8,15 +8,27 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 abstract class Papi_Core_Page extends Papi_Container {
+
+	/**
+	 * Type post.
+	 *
+	 * @var string
+	 */
+	const TYPE_POST = 'post';
+
+	/**
+	 * Type option.
+	 *
+	 * @var string
+	 */
+	const TYPE_OPTION = 'option';
 
 	/**
 	 * The WordPress post id if it exists.
 	 *
 	 * @var int
 	 */
-
 	public $id;
 
 	/**
@@ -24,16 +36,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @var string
 	 */
-
 	protected $type;
-
-	/**
-	 * Allowed page types.
-	 *
-	 * @var array
-	 */
-
-	private $types = ['option', 'post'];
 
 	/**
 	 * Get Papi property value.
@@ -42,7 +45,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return mixed
 	 */
-
 	public function __get( $slug ) {
 		return $this->get_value( $slug );
 	}
@@ -54,10 +56,9 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return mixed
 	 */
-
 	public function get_value( $slug ) {
 		$slug  = papi_remove_papi( $slug );
-		$value = papi_property_get_meta( $this->id, $slug, $this->type );
+		$value = papi_get_property_meta_value( $this->id, $slug, $this->type );
 		return $this->convert( $slug, $value );
 	}
 
@@ -69,7 +70,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return mixed
 	 */
-
 	protected function convert( $slug, $value ) {
 		$property = $this->get_property( $slug );
 
@@ -91,14 +91,14 @@ abstract class Papi_Core_Page extends Papi_Container {
 		// Run load value method right after the value has been loaded from the database.
 		$value = $property->load_value( $value, $slug, $this->id );
 
-		if ( $this->type !== 'option' ) {
+		if ( $this->type !== self::TYPE_OPTION ) {
 			$value = papi_filter_load_value( $property->type, $value, $slug, $this->id );
 		}
 
 		// Format the value from the property class.
 		$value = $property->format_value( $value, $slug, $this->id );
 
-		if ( ! is_admin() || $this->type !== 'option' ) {
+		if ( ! is_admin() || $this->type !== self::TYPE_OPTION ) {
 			$value = papi_filter_format_value( $property->type, $value, $slug, $this->id );
 		}
 
@@ -116,7 +116,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return bool
 	 */
-
 	public function is( $type ) {
 		return $this->type === $type;
 	}
@@ -129,10 +128,9 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return mixed
 	 */
-
-	public static function factory( $post_id, $type = 'post' ) {
+	public static function factory( $post_id, $type = self::TYPE_POST ) {
 		if ( papi_is_option_page() ) {
-			$type = 'option';
+			$type = self::TYPE_OPTION;
 		}
 
 		$class_suffix = '_' . ucfirst( $type ) . '_Page';
@@ -161,7 +159,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return Papi_Property
 	 */
-
 	abstract public function get_property( $slug, $child_slug = '' );
 
 	/**
@@ -169,7 +166,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @param string $type
 	 */
-
 	public function set_type( $type ) {
 		$this->type = $type;
 	}
@@ -179,7 +175,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return bool
 	 */
-
 	abstract public function valid();
 
 	/**
@@ -187,9 +182,9 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return bool
 	 */
-
 	protected function valid_type() {
-		return in_array( $this->type, $this->types );
+		$type = strtoupper( $this->type );
+		return defined( "self::TYPE_$type" );
 	}
 
 }

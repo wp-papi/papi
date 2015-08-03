@@ -4,21 +4,19 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Divider.
+ * Papi Property Divider class.
  *
  * @package Papi
  */
-
 class Papi_Property_Divider extends Papi_Property {
 
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$options = $this->get_options();
 		?>
-		<div class="papi-property-divider">
+		<div class="papi-property-divider" data-papi-rule="<?php echo $this->html_name(); ?>">
 			<h3>
 				<span><?php echo $options->title; ?></span>
 			</h3>
@@ -33,7 +31,6 @@ class Papi_Property_Divider extends Papi_Property {
 	/**
 	 * Render the final html that is displayed in the table.
 	 */
-
 	public function render_row_html() {
 		if ( ! $this->get_option( 'raw' ) ):
 			?>

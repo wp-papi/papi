@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Lib_IO_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_all_files_in_directory() {

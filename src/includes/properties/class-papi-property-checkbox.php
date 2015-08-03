@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Checkbox.
+ * Papi Property Checkbox class.
  *
  * @package Papi
  */
-
 class Papi_Property_Checkbox extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 *
 	 * @var string
 	 */
-
 	public $convert_type = 'array';
 
 	/**
@@ -24,7 +22,6 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 *
 	 * @var array
 	 */
-
 	public $default_value = [];
 
 	/**
@@ -32,7 +29,6 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'items'    => [],
@@ -43,7 +39,6 @@ class Papi_Property_Checkbox extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$settings = $this->get_settings();
 		$value    = $this->get_value();
@@ -62,16 +57,27 @@ class Papi_Property_Checkbox extends Papi_Property {
 				$key = $value;
 			}
 
-			?>
-			<input type="checkbox" value="<?php echo $value; ?>"
-			       name="<?php echo $this->html_name(); ?>[]" <?php echo in_array( $value, $settings->selected ) ? 'checked="checked"' : ''; ?> />
-			<?php
-			echo $key . '<br />';
+			papi_render_html_tag( 'label', [
+				'class' => 'light',
+				'for'   => $this->html_id( $key ),
+
+				papi_html_tag( 'input', [
+					'checked' => in_array( $value, $settings->selected ) ? 'checked' : null,
+					'id'      => $this->html_id( $key ),
+					'name'    => $this->html_name() . '[]',
+					'type'    => 'checkbox',
+					'value'   => $value
+				] ),
+
+				$key
+			] );
+
+			papi_render_html_tag( 'br' );
 		}
 	}
 
 	/**
-	 * Format the value of the property before it's returned to the theme.
+	 * Format the value of the property before it's returned to the application.
 	 *
 	 * @param mixed $value
 	 * @param string $slug
@@ -79,7 +85,6 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_string( $value ) && ! papi_is_empty( $value ) ) {
 			return [$value];

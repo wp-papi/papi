@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Reference.
+ * Papi Property Reference class.
  *
  * @package Papi
  */
-
 class Papi_Property_Reference extends Papi_Property {
 
 	/**
@@ -18,7 +17,6 @@ class Papi_Property_Reference extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'slug'      => [],
@@ -29,7 +27,6 @@ class Papi_Property_Reference extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$post_id  = papi_get_post_id();
 		$settings = $this->get_settings();
@@ -95,7 +92,7 @@ class Papi_Property_Reference extends Papi_Property {
 		}
 
 		?>
-		<ul class="papi-property-reference">
+		<ul class="papi-property-reference" data-papi-rule="<?php echo $this->html_name(); ?>">
 			<?php if ( empty( $values ) ): ?>
 				<p>
 					<?php _e( 'No references exists', 'papi' ); ?>

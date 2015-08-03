@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -377,6 +376,41 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $property->html() );
 	}
 
+	public function test_html_id() {
+		$property = Papi_Property::create();
+
+		$property->set_options( [
+			'type'  => 'string',
+			'slug'  => 'name'
+		] );
+
+		$this->assertEquals( '_papi_name', $property->html_id() );
+		$this->assertEquals( '_papi_name_suffix', $property->html_id( 'suffix' ) );
+		$this->assertEquals( '_papi_name_black', $property->html_id( 'Black' ) );
+		$this->assertEquals( '_papi_name_lank', $property->html_id( 'Länk' ) );
+
+		$sub_property = Papi_Property::create( [
+			'type' => 'number',
+			'slug' => 'age'
+		] );
+
+		$this->assertEquals( '_papi_name[age]', $property->html_id( $sub_property ) );
+		$this->assertEquals( '_papi_name[0][age]', $property->html_id( $sub_property, 0 ) );
+
+		$sub_property = (object) array(
+			'type' => 'number',
+			'slug' => 'age'
+		);
+
+		$this->assertEquals( '_papi_name[age]', $property->html_id( $sub_property ) );
+		$this->assertEquals( '_papi_name[0][age]', $property->html_id( $sub_property, 0 ) );
+
+		$sub_property = 'non array or object';
+
+		$this->assertEquals( '_papi_name_non_array_or_object', $property->html_id( $sub_property ) );
+		$this->assertEquals( '_papi_name_non_array_or_object', $property->html_id( $sub_property, 0 ) );
+	}
+
 	public function test_html_name() {
 		$property = Papi_Property::create();
 
@@ -559,6 +593,65 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/class=\"papi\-hide\"/' );
 
 		unset( $_GET['lang'] );
+	}
+
+	public function test_render_rules_json() {
+		$property = Papi_Property::factory( [
+			'slug'  => 'rules_test',
+			'title' => 'Rules test',
+			'type'  => 'string'
+		] );
+
+		$property->render_rules_json();
+
+		$this->expectOutputRegex( '//' );
+
+		$property = Papi_Property::factory( [
+			'rules' => [
+				[
+					'operator' => '=',
+					'slug'     => 'name',
+					'value'    => ''
+				]
+			],
+			'slug'  => 'rules_test',
+			'title' => 'Rules test',
+			'type'  => 'string'
+		] );
+
+		$property->render_rules_json();
+
+		$this->expectOutputRegex( '/\{/' );
+	}
+
+	public function test_render_fail() {
+		$property = Papi_Property::factory( [
+			'disabled' => true,
+			'slug'     => 'render_fail',
+			'type'     => 'string',
+			'title'    => 'Render fail'
+		] );
+
+		$property->render();
+
+		$this->expectOutputRegex( '//' );
+
+		$property = Papi_Property::factory( [
+			'rules' => [
+				[
+					'operator' => '=',
+					'slug'     => 'render_fail',
+					'value'	   => 'Fredrik'
+				]
+			],
+			'slug'  => 'render_fail',
+			'type'  => 'string',
+			'title' => 'Render fail'
+		] );
+
+		$property->render();
+
+		$this->expectOutputRegex( '//' );
 	}
 
 	public function test_set_option() {

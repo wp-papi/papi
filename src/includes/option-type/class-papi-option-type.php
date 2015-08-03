@@ -4,14 +4,12 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Option Type.
+ * Papi Option Type class.
  *
- * All option types in the WordPress theme will
- * extend this class.
+ * All option types should extend this class.
  *
  * @package Papi
  */
-
 class Papi_Option_Type extends Papi_Page_Type {
 
 	/**
@@ -19,7 +17,6 @@ class Papi_Option_Type extends Papi_Page_Type {
 	 *
 	 * @var string
 	 */
-
 	public $_meta_method = 'option_type';
 
 	/**
@@ -27,7 +24,6 @@ class Papi_Option_Type extends Papi_Page_Type {
 	 *
 	 * @var string
 	 */
-
 	public $menu = '';
 
 	/**
@@ -35,7 +31,6 @@ class Papi_Option_Type extends Papi_Page_Type {
 	 *
 	 * @var string
 	 */
-
 	public $name = '';
 
 	/**
@@ -43,7 +38,6 @@ class Papi_Option_Type extends Papi_Page_Type {
 	 *
 	 * @var string
 	 */
-
 	public $post_type = '_papi_option_type';
 
 	/**
@@ -51,7 +45,6 @@ class Papi_Option_Type extends Papi_Page_Type {
 	 *
 	 * @return string
 	 */
-
 	public function get_post_type() {
 		return $this->post_type[0];
 	}
@@ -59,11 +52,10 @@ class Papi_Option_Type extends Papi_Page_Type {
 	/**
 	 * Render option page type.
 	 */
-
 	public function render() {
 		?>
 		<div class="wrap">
-			<h2><?php esc_html_e( $this->name ); ?></h2>
+			<h2><?php echo esc_html( $this->name ); ?></h2>
 			<form id="post" method="post" name="post">
 				<div id="papi-hidden-editor" class="hide-if-js">
 					<?php wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' ); ?>

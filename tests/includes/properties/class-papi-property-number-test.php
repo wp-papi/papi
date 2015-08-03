@@ -5,14 +5,9 @@
  *
  * @package Papi
  */
-
 class Papi_Property_Number_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'number_test';
-
-	public function test_convert_type() {
-		$this->assertEquals( 'int', $this->property->convert_type );
-	}
 
 	public function get_value() {
 		return 42;
@@ -22,7 +17,11 @@ class Papi_Property_Number_Test extends Papi_Property_Test_Case {
 		return 42;
 	}
 
-	public function test_format_value() {
+	public function test_property_convert_type() {
+		$this->assertEquals( 'int', $this->property->convert_type );
+	}
+
+	public function test_property_format_value() {
 		$this->assertEquals( 42, $this->property->format_value( '42', '', 0 ) );
 		$this->assertEquals( 0, $this->property->format_value( 'hello', '', 0 ) );
 		$this->assertEquals( 0, $this->property->format_value( null, '', 0 ) );

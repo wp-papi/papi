@@ -43,6 +43,12 @@ class Simple_Page_Type extends Papi_Page_Type {
 			'slug'  => 'siffran'
 		] ) );
 
+		$this->box( 'Number', papi_property( [
+			'type'  => 'number',
+			'title' => 'Number',
+			'slug'  => 'number'
+		] ) );
+
 		// Will not work.
 		$this->box( 1 );
 
@@ -124,6 +130,26 @@ class Simple_Page_Type extends Papi_Page_Type {
 			'title' => 'Name',
 			'value' => 'Fredrik'
 		] ) );
+
+		$this->box( 'Sections', [
+
+			papi_property( [
+				'type'     => 'repeater',
+				'title'    => 'Sections',
+				'slug'     => 'sections',
+				'sidebar'  => false,
+				'settings' => [
+					'items' => [
+						[
+							'type'  => 'string',
+							'title' => 'Title',
+							'slug'  => 'title'
+						]
+					]
+				]
+			] )
+
+		] );
 	}
 
 	public function content_box() {

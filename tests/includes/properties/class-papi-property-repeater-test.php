@@ -5,18 +5,9 @@
  *
  * @package Papi
  */
-
 class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'repeater_test';
-
-	public function test_convert_type() {
-		$this->assertEquals( 'array', $this->property->convert_type );
-	}
-
-	public function test_default_value() {
-		$this->assertEquals( [], $this->property->default_value );
-	}
 
 	public function get_value() {
 		$items = $this->property->get_setting( 'items' );
@@ -40,7 +31,15 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 		];
 	}
 
-	public function test_format_value() {
+	public function test_property_convert_type() {
+		$this->assertEquals( 'array', $this->property->convert_type );
+	}
+
+	public function test_property_default_value() {
+		$this->assertEquals( [], $this->property->default_value );
+	}
+
+	public function test_property_format_value() {
 		$actual = $this->property->format_value( $this->get_value(), $this->slug, $this->post_id );
 		$this->assertEquals( $this->get_expected(), $actual );
 		$this->assertEmpty( $this->property->format_value( '', $this->slug, $this->post_id ) );

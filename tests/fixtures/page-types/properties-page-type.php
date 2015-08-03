@@ -106,6 +106,13 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'slug'  => 'email_test'
 			] ),
 
+			// File
+			papi_property( [
+				'type'  => 'file',
+				'title' => 'File test',
+				'slug'  => 'file_test'
+			] ),
+
 			// Flexible
 			papi_property( [
 				'type'     => 'flexible',
@@ -252,11 +259,58 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'slug'  => 'string_test'
 			] ),
 
+			// String html
+			papi_property( [
+				'type'     => 'string',
+				'title'    => 'String html test',
+				'slug'     => 'string_html_test',
+				'settings' => [
+					'allow_html' => true
+				]
+			] ),
+
+			// Text
+			papi_property( [
+				'type'  => 'text',
+				'title' => 'Text test',
+				'slug'  => 'text_test'
+			] ),
+
+			// Text html
+			papi_property( [
+				'type'     => 'text',
+				'title'    => 'Text html test',
+				'slug'     => 'text_html_test',
+				'settings' => [
+					'allow_html' => true
+				]
+			] ),
+
 			// Url
 			papi_property( [
 				'type'  => 'url',
 				'title' => 'Url test',
 				'slug'  => 'url_test'
+			] ),
+
+			// Url mediauploader
+			papi_property( [
+				'type'     => 'url',
+				'title'    => 'Url mediauploader test',
+				'slug'     => 'url_mediauploader_test',
+				'settings' => [
+					'mediauploader' => true	
+				]
+			] ),
+
+			// User
+			papi_property( [
+				'type'     => 'user',
+				'title'    => 'User test',
+				'slug'     => 'user_test',
+				'settings' => [
+					'placeholder' => 'Select user'
+				]
 			] )
 		] );
 

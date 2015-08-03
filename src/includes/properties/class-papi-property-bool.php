@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Bool.
+ * Papi Property Bool class.
  *
  * @package Papi
  */
-
 class Papi_Property_Bool extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Bool extends Papi_Property {
 	 *
 	 * @var string
 	 */
-
 	public $convert_type = 'bool';
 
 	/**
@@ -24,26 +22,43 @@ class Papi_Property_Bool extends Papi_Property {
 	 *
 	 * @var bool
 	 */
-
 	public $default_value = false;
 
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$value = $this->get_value();
-		?>
-		<input type="hidden"
-			name="<?php echo $this->html_name(); ?>" value="false" />
 
-		<input type="checkbox"
-			name="<?php echo $this->html_name(); ?>" <?php echo empty( $value ) ? '' : 'checked="checked"'; ?> />
-		<?php
+		papi_render_html_tag( 'input', [
+			'type'  => 'hidden',
+			'name'  => $this->html_name(),
+			'value' => false
+		] );
+
+		papi_render_html_tag( 'input', [
+			'checked' => empty( $value ) ? null : 'checked',
+			'id'      => $this->html_id(),
+			'name'    => $this->html_name(),
+			'type'    => 'checkbox'
+		] );
 	}
 
 	/**
-	 * Format the value of the property before it's returned to the theme.
+	 * Change value after it's loaded from the database.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+	public function load_value( $value, $slug, $post_id ) {
+		return is_string( $value ) && $value === '1' || $value;
+	}
+
+	/**
+	 * Format the value of the property before it's returned to the application.
 	 *
 	 * @param mixed $value
 	 * @param string $slug
@@ -51,13 +66,12 @@ class Papi_Property_Bool extends Papi_Property {
 	 *
 	 * @return boolean
 	 */
-
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_string( $value ) && $value === 'false' || $value === false ) {
 			return false;
 		}
 
-		return  is_string( $value ) && ( $value === 'true' || $value === '1' ) || $value === true;
+		return  is_string( $value ) && ( $value === 'true' || $value === 'on' ) || $value === true;
 	}
 
 	/**
@@ -69,7 +83,6 @@ class Papi_Property_Bool extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function update_value( $value, $slug, $post_id ) {
 		return $this->format_value( $value, $slug, $post_id );
 	}

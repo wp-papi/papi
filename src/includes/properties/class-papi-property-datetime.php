@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Datetime.
+ * Papi Property Datetime class.
  *
  * @package Papi
  */
-
 class Papi_Property_Datetime extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Datetime extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'format'       => 'YYYY-MM-DD hh:mm:ss',
@@ -29,7 +27,6 @@ class Papi_Property_Datetime extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$settings = $this->get_settings();
 		$value    = $this->get_value();
@@ -41,11 +38,14 @@ class Papi_Property_Datetime extends Papi_Property {
 			'use24hour'   => $settings->use_24_hours
 		];
 
-		$settings_json = json_encode( (object) $settings_json );
-
-		?>
-		<input type="text" name="<?php echo $this->html_name(); ?>" value="<?php echo $value; ?>" class="papi-property-datetime" data-settings='<?php echo $settings_json; ?>'/>
-	<?php
+		papi_render_html_tag( 'input', [
+			'class'         => 'papi-property-datetime',
+			'data-settings' => (object) $settings_json,
+			'id'            => $this->html_id(),
+			'name'          => $this->html_name(),
+			'type'          => 'text',
+			'value'         => $value
+		] );
 	}
 
 }

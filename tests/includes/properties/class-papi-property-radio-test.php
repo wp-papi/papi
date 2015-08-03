@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 class Papi_Property_Radio_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'radio_test';

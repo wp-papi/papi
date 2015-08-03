@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Data Handler.
+ * Papi Data Handler class.
  *
  * @package Papi
  */
-
 class Papi_Admin_Data_Handler {
 
 	/**
@@ -17,7 +16,6 @@ class Papi_Admin_Data_Handler {
 	 * @param string $key
 	 * @param string $value
 	 */
-
 	protected function decode_property( $key, $value ) {
 		if ( papi_is_property_type_key( $key ) && is_string( $value ) ) {
 			$value = base64_decode( $value );
@@ -34,7 +32,6 @@ class Papi_Admin_Data_Handler {
 	 *
 	 * @return array
 	 */
-
 	protected function get_post_data( $pattern = '/^papi\_.*/' ) {
 		$data = [];
 		$keys = preg_grep( $pattern, array_keys( $_POST ) );
@@ -65,7 +62,6 @@ class Papi_Admin_Data_Handler {
 	 *
 	 * @return mixed
 	 */
-
 	protected function prepare_post_data( $data ) {
 		if ( ! is_array( $data ) ) {
 			return $data;
@@ -90,7 +86,6 @@ class Papi_Admin_Data_Handler {
 	 *
 	 * @return array
 	 */
-
 	protected function prepare_properties_data( array $data = [], $post_id = 0 ) {
 		// Since we are storing witch property it is in the $data array
 		// we need to remove that and set the property type to the property
@@ -116,33 +111,25 @@ class Papi_Admin_Data_Handler {
 		}
 
 		foreach ( $data as $key => $item ) {
-			if ( ! is_array( $item ) || ! isset( $item['type'] ) ) {
-				continue;
-			}
-
-			// Get the property, will only make the instance once.
 			$property = papi_get_property_type( $item['type'] );
 
-			// Remove data if property type is null.
-			if ( is_null( $property ) ) {
-				unset( $data[ $key ] );
-				continue;
+			unset( $data[ $key ] );
+
+			if ( papi_is_property( $property ) ) {
+				// Run `update_value` method on the property class.
+				$data[$key] = $property->update_value( $item['value'], papi_remove_papi( $key ), $post_id );
+
+				// Apply `update_value` filter so this can be changed from the theme for specified property type.
+				$data[$key] = papi_filter_update_value( $item['type']->type, $data[$key], papi_remove_papi( $key ), $post_id );
 			}
-
-			// Run `update_value` method on the property class.
-			$data[$key] = $property->update_value( $item['value'], papi_remove_papi( $key ), $post_id );
-
-			// Apply `update_value` filter so this can be changed from the theme for specified property type.
-			$data[$key] = papi_filter_update_value( $item['type']->type, $data[$key], papi_remove_papi( $key ), $post_id );
 		}
 
 		return $data;
 	}
 
 	/**
-	 * Pre save page template and page type.
+	 * Get pre data that should be saved before all properties data.
 	 */
-
 	protected function get_pre_data() {
 		return $this->get_post_data( '/^\_papi\_.*/' );
 	}

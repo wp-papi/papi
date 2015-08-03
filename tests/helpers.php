@@ -15,14 +15,18 @@
  *
  * @return array
  */
-
 function papi_test_create_property_post_data( $values, $post = null ) {
 	$property_type_slug = papi_html_name( papi_get_property_type_key( $values['slug'] ) );
 
 	$data = [];
 	$data[$values['slug']] = $values['value'];
 
-	$property_type_options = $values['type']->get_options();
+	if ( is_object( $values['type'] ) ) {
+		$property_type_options = $values['type']->get_options();
+	} else {
+		$property_type_options = $values['type'];
+	}
+
 	$data[$property_type_slug] = base64_encode( serialize( $property_type_options ) );
 
 	if ( ! is_null( $post ) ) {

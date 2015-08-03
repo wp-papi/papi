@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -50,7 +49,8 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 		$this->assertEquals( [
 			'add_new_item' => 'Add New FAQ page',
 			'edit_item'    => 'Edit FAQ page',
-			'view_item'    => 'View FAQ page'
+			'view_item'    => 'View FAQ page',
+			'nan_item'     => 'Not a number item'
 		], $this->faq_page_type->get_labels() );
 	}
 

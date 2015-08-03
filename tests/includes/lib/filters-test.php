@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -29,6 +28,27 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 		} );
 
 		$this->assertEquals( 'change-format', papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
+	}
+
+	public function test_papi_filter_conditional_rule_allowed() {
+		$this->assertFalse( papi_filter_conditional_rule_allowed( true ) );
+		$this->assertFalse( papi_filter_conditional_rule_allowed( false ) );
+		$this->assertFalse( papi_filter_conditional_rule_allowed( null ) );
+		$this->assertFalse( papi_filter_conditional_rule_allowed( 1 ) );
+		$this->assertFalse( papi_filter_conditional_rule_allowed( '' ) );
+		$this->assertFalse( papi_filter_conditional_rule_allowed( (object) [] ) );
+		$this->assertTrue( papi_filter_conditional_rule_allowed( new Papi_Core_Conditional_Rule( [
+			'operator' => '=',
+			'slug'     => 'fake',
+			'source'   => 'hello',
+			'value'    => 'hello'
+		] ) ) );
+		$this->assertTrue( papi_filter_conditional_rule_allowed( [
+			'operator' => '=',
+			'slug'     => 'fake',
+			'source'   => 'hello',
+			'value'    => 'hello'
+		] ) );
 	}
 
 	public function test_papi_filter_load_value() {

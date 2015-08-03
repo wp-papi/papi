@@ -16,7 +16,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return string
  */
-
 function papi_get_all_files_in_directory( $directory = '' ) {
 	$result = [];
 
@@ -46,7 +45,6 @@ function papi_get_all_files_in_directory( $directory = '' ) {
  *
  * @return array
  */
-
 function papi_get_all_page_type_files() {
 	$directories = papi_filter_settings_directories();
 	$result      = [];
@@ -65,7 +63,6 @@ function papi_get_all_page_type_files() {
  *
  * @return null|string
  */
-
 function papi_get_file_path( $file ) {
 	if ( empty( $file ) || ! is_string( $file ) ) {
 		return;
@@ -92,7 +89,6 @@ function papi_get_file_path( $file ) {
  *
  * @return null|string
  */
-
 function papi_get_page_type_base_path( $file ) {
 	if ( empty( $file ) || ! is_string( $file ) ) {
 		return;

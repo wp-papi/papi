@@ -38,6 +38,7 @@
           color: #899194;
           font-size: 12px;
           font-style: normal;
+          font-weight: normal;
           line-height: 16px;
           margin: 3px 0 0 !important;
           padding: 0 !important;
@@ -52,14 +53,23 @@
         font-size: 13px;
         font-weight: 600;
         line-height: 1.5;
-        padding-top: 4px !important;
+        padding-top: 4px;
         word-break: break-word;
+
+        &.light {
+            font-weight: normal;
+            padding: 0;
+        }
       }
 
       input,
       select,
       textarea {
         width: 99.5%;
+      }
+
+      input[type="radio"] {
+        margin-top: 0px;
       }
 
       input[type="radio"],

@@ -18,8 +18,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return bool
  */
-
-function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
+function papi_delete_field( $post_id = null, $slug = null, $type = Papi_Core_Page::TYPE_POST ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$slug    = $post_id;
 		$post_id = null;
@@ -31,7 +30,7 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
 
 	$post_id = papi_get_post_id( $post_id );
 
-	if ( $post_id === 0 && $type === 'post' ) {
+	if ( $post_id === 0 && $type === Papi_Core_Page::TYPE_POST ) {
 		return false;
 	}
 
@@ -52,7 +51,7 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
 
 	papi_action_delete_value( $type, $slug, $post_id );
 
-	return $property->delete_value( $slug, $post_id );
+	return $property->delete_value( $slug, $post_id, $type );
 }
 
 /**
@@ -64,7 +63,6 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
  *
  * @return mixed
  */
-
 function papi_field_shortcode( $atts ) {
 	$atts['id'] = isset( $atts['id'] ) ? $atts['id'] : 0;
 	$atts['id'] = papi_get_post_id( $atts['id'] );
@@ -98,7 +96,6 @@ add_shortcode( 'papi_field', 'papi_field_shortcode' );
  *
  * @return mixed
  */
-
 function papi_field_value( $slugs, $value, $default = null ) {
 	if ( empty( $value ) && is_null( $value ) ) {
 		return $default;
@@ -130,8 +127,7 @@ function papi_field_value( $slugs, $value, $default = null ) {
  *
  * @return mixed
  */
-
-function papi_get_field( $post_id = null, $slug = null, $default = null, $type = 'post' ) {
+function papi_get_field( $post_id = null, $slug = null, $default = null, $type = Papi_Core_Page::TYPE_POST ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$default = $slug;
 		$slug    = $post_id;
@@ -144,7 +140,7 @@ function papi_get_field( $post_id = null, $slug = null, $default = null, $type =
 
 	$post_id = papi_get_post_id( $post_id );
 
-	if ( $post_id === 0 && $type === 'post' ) {
+	if ( $post_id === 0 && $type === Papi_Core_Page::TYPE_POST ) {
 		return $default;
 	}
 
@@ -186,8 +182,7 @@ function papi_get_field( $post_id = null, $slug = null, $default = null, $type =
  *
  * @return bool
  */
-
-function papi_update_field( $post_id = null, $slug = null, $value = null, $type = 'post' ) {
+function papi_update_field( $post_id = null, $slug = null, $value = null, $type = Papi_Core_Page::TYPE_POST ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$value   = $slug;
 		$slug    = $post_id;
@@ -204,7 +199,7 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 
 	$post_id = papi_get_post_id( $post_id );
 
-	if ( $post_id === 0 && $type === 'post' ) {
+	if ( $post_id === 0 && $type === Papi_Core_Page::TYPE_POST ) {
 		return false;
 	}
 
@@ -225,7 +220,7 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 	$value = $property->update_value( $value, $slug, $post_id );
 	$value = papi_filter_update_value( $property->get_option( 'type' ), $value, $slug, $post_id );
 
-	return papi_property_update_meta( [
+	return papi_update_property_meta_value( [
 		'post_id'       => $post_id,
 		'slug'          => $slug,
 		'value'         => $value
@@ -239,7 +234,6 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
  * @param string $slug
  * @param mixed $default
  */
-
 function the_papi_field( $post_id = null, $slug = null, $default = null ) {
 	$value = papi_get_field( $post_id, $slug, $default );
 

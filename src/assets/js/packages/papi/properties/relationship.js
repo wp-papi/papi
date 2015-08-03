@@ -17,15 +17,13 @@ class Relationship {
   /**
    * Add new page to the list.
    *
-   * @param {object} e
+   * @param {object} $this
    */
 
-  add(e) {
-    e.preventDefault();
-
-    const $this  = $(this);
+  add($this) {
     const $li    = $this.clone();
-    const $right = $this.closest('.papi-property-relationship').find('.relationship-right');
+    const $prop  = $this.closest('.papi-property-relationship');
+    const $right = $prop.find('.relationship-right');
     const $list  = $right.find('ul');
     const limit  = $right.data().limit;
     const append = limit === undefined || limit === -1 || $list.find('li').length < limit;
@@ -35,6 +33,7 @@ class Relationship {
       $li.find('input').attr('name', $li.find('input').data().name);
 
       $li.appendTo($list);
+      this.triggerRule($prop);
     }
   }
 
@@ -43,6 +42,7 @@ class Relationship {
    */
 
   binds() {
+    const self = this;
     $('.relationship-right > ul').sortable({
       placeholder: 'ui-state-highlight',
       start: function (e, ui) {
@@ -52,8 +52,14 @@ class Relationship {
         ui.item.removeClass('sortable');
       }
     }).disableSelection();
-    $(document).on('click', '.papi-property-relationship .relationship-left li', this.add);
-    $(document).on('click', '.papi-property-relationship .relationship-right li', this.remove);
+    $(document).on('click', '.papi-property-relationship .relationship-left li', function (e) {
+      e.preventDefault();
+      self.add($(this));
+    });
+    $(document).on('click', '.papi-property-relationship .relationship-right li', function (e) {
+      e.preventDefault();
+      self.remove($(this));
+    });
     $(document).on('keyup', '.papi-property-relationship input[type=search]', this.search);
     $(document).on('papi/property/repeater/added', '[data-property="relationship"]', this.update);
   }
@@ -61,18 +67,19 @@ class Relationship {
   /**
    * Remove the selected page.
    *
-   * @parma {object} e
+   * @param {object} $this
    */
 
-  remove(e) {
-    e.preventDefault();
-    $(this).remove();
+  remove($this) {
+    const $prop = $this.closest('.papi-property-relationship');
+    $this.remove();
+    this.triggerRule($prop);
   }
 
   /**
    * Search for a page in the list.
    *
-   * @parma {object} e
+   * @param {object} e
    */
 
   search(e) {
@@ -93,9 +100,23 @@ class Relationship {
   }
 
   /**
+   * Trigger conditional rule.
+   *
+   * @param {object} $prop
+   */
+
+  triggerRule($prop) {
+    let $list = $prop.find('.relationship-right ul');
+
+    $prop
+      .find('[data-papi-rule]')
+      .trigger('change');
+  }
+
+  /**
    * Fix name attribute when added to a repeater.
    *
-   * @parma {object} e
+   * @param {object} e
    */
 
   update(e) {

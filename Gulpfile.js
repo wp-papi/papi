@@ -23,6 +23,7 @@ var browserify   = require('browserify');
 var babelify     = require('babelify');
 var source       = require('vinyl-source-stream');
 var phpcs        = require('gulp-phpcs');
+var phpcpd       = require('gulp-phpcpd');
 var buffer       = require('vinyl-buffer');
 var merge        = require('merge-stream');
 var collapse     = require('bundle-collapser/plugin');
@@ -36,7 +37,7 @@ Config
 var src = './src/assets/';
 var dist = './dist/';
 var config = {
-  phpcs: {
+  php: {
     src: 'src/**/*.php'
   },
   sass: {
@@ -152,12 +153,18 @@ gulp.task('lint', function () {
 
 // PHP Code Sniffer.
 gulp.task('phpcs', function () {
-  return gulp.src(config.phpcs.src)
+  return gulp.src(config.php.src)
     .pipe(phpcs({
       bin: 'vendor/bin/phpcs',
       standard: 'phpcs.ruleset.xml'
     }))
     .pipe(phpcs.reporter('log'));
+});
+
+// PHP Copy/Paste Detector (PHPCPD).
+gulp.task('phpcpd', function () {
+  return gulp.src(config.php.src)
+    .pipe(phpcpd());
 });
 
 // Watch

@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var array
 	 */
-
 	public $capabilities = [];
 
 	/**
@@ -24,7 +22,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var string
 	 */
-
 	public $description = '';
 
 	/**
@@ -32,7 +29,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var bool
 	 */
-
 	public $fill_labels = false;
 
 	/**
@@ -40,7 +36,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var array
 	 */
-
 	public $labels = [];
 
 	/**
@@ -48,7 +43,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var string
 	 */
-
 	public $name = '';
 
 	/**
@@ -56,7 +50,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var array
 	 */
-
 	public $page_types = [];
 
 	/**
@@ -64,7 +57,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var array
 	 */
-
 	public $post_type = ['page'];
 
 	/**
@@ -72,7 +64,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var int
 	 */
-
 	public $sort_order = 0;
 
 	/**
@@ -80,7 +71,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var string
 	 */
-
 	public $template = '';
 
 	/**
@@ -88,7 +78,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var string
 	 */
-
 	public $thumbnail = '';
 
 	/**
@@ -98,7 +87,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @param string $file_path
 	 */
-
 	public function __construct( $file_path = '' ) {
 		parent::__construct( $file_path );
 		$this->setup_page_type();
@@ -110,7 +98,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @return bool
 	 */
-
 	public function current_user_is_allowed() {
 		foreach ( $this->capabilities as $capability ) {
 			if ( ! current_user_can( $capability ) ) {
@@ -127,17 +114,16 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @return array
 	 */
-
 	public function get_labels() {
 		if ( ! $this->fill_labels ) {
 			return [];
 		}
 
-		return [
+		return array_merge( $this->labels, [
 			'add_new_item' => sprintf( '%s %s', __( 'Add New', 'papi' ), $this->name ),
 			'edit_item' => sprintf( '%s %s', __( 'Edit', 'papi' ), $this->name ),
 			'view_item' => sprintf( '%s %s', __( 'View', 'papi' ), $this->name )
-		];
+		] );
 	}
 
 	/**
@@ -145,7 +131,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @return string
 	 */
-
 	public function get_thumbnail() {
 		if ( empty( $this->thumbnail ) ) {
 			return '';
@@ -159,7 +144,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @return bool
 	 */
-
 	public function has_name() {
 		return ! empty( $this->name );
 	}
@@ -171,7 +155,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @return bool
 	 */
-
 	public function has_post_type( $post_type ) {
 		return in_array( $post_type, $this->post_type );
 	}
@@ -179,7 +162,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	/**
 	 * Setup page type variables.
 	 */
-
 	private function setup_page_type() {
 		$this->sort_order = papi_filter_settings_sort_order();
 	}
@@ -187,7 +169,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	/**
 	 * Setup post types array.
 	 */
-
 	private function setup_post_types() {
 		$this->post_type = papi_to_array( $this->post_type );
 

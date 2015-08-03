@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property number.
+ * Papi Property Number class.
  *
  * @package Papi
  */
-
 class Papi_Property_Number extends Papi_Property_String {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Number extends Papi_Property_String {
 	 *
 	 * @var string
 	 */
-
 	public $convert_type = 'int';
 
 	/**
@@ -24,11 +22,10 @@ class Papi_Property_Number extends Papi_Property_String {
 	 *
 	 * @var string
 	 */
-
 	public $input_type = 'number';
 
 	/**
-	 * Format the value of the property before it's returned to the theme.
+	 * Format the value of the property before it's returned to the application.
 	 *
 	 * @param mixed $value
 	 * @param string $slug
@@ -36,7 +33,6 @@ class Papi_Property_Number extends Papi_Property_String {
 	 *
 	 * @return array
 	 */
-
 	public function format_value( $value, $slug, $post_id ) {
 		if ( floatval( $value ) && intval( $value ) !== floatval( $value ) ) {
 			return floatval( $value );

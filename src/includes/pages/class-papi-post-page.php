@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Post Page.
+ * Papi Post Page class.
  *
  * @package Papi
  */
-
 class Papi_Post_Page extends Papi_Core_Page {
 
 	/**
@@ -17,15 +16,13 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 *
 	 * @var string
 	 */
-
-	protected $type = 'post';
+	protected $type = self::TYPE_POST;
 
 	/**
 	 * The WordPress post.
 	 *
 	 * @var object
 	 */
-
 	private $post;
 
 	/**
@@ -33,7 +30,6 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 *
 	 * @var Papi_Page_Type
 	 */
-
 	private $page_type;
 
 	/**
@@ -43,7 +39,6 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 *
 	 * @param int $post_id
 	 */
-
 	public function __construct( $post_id = 0 ) {
 		if ( $post_id === 0 ) {
 			$this->id = papi_get_post_id();
@@ -61,7 +56,6 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 *
 	 * @return Papi_Page_Type
 	 */
-
 	public function get_page_type() {
 		return $this->page_type;
 	}
@@ -71,7 +65,6 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 *
 	 * @return string
 	 */
-
 	public function get_permalink() {
 		return get_permalink( $this->id );
 	}
@@ -81,7 +74,6 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 *
 	 * @return WP_Post
 	 */
-
 	public function get_post() {
 		return $this->post;
 	}
@@ -91,7 +83,6 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 *
 	 * @return string
 	 */
-
 	public function get_status() {
 		return get_post_status( $this->id );
 	}
@@ -104,7 +95,6 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 *
 	 * @return object
 	 */
-
 	public function get_property( $slug, $child_slug = '' ) {
 		$page_type_id = papi_get_page_type_id( $this->id );
 		$page_type    = papi_get_page_type_by_id( $page_type_id );
@@ -121,7 +111,6 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 *
 	 * @return bool
 	 */
-
 	public function valid() {
 		return ! is_null( $this->post );
 	}

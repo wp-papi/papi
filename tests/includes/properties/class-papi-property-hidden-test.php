@@ -5,7 +5,6 @@
  *
  * @package Papi
  */
-
 class Papi_Property_Hidden_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'hidden_test';

@@ -16,7 +16,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return int
  */
-
 function papi_get_post_id( $post_id = null ) {
 	if ( is_object( $post_id ) && isset( $post_id->ID ) ) {
 		return $post_id->ID;
@@ -32,7 +31,7 @@ function papi_get_post_id( $post_id = null ) {
 		}
 
 		if ( $value = papi_get_qs( 'post' ) ) {
-			return intval( $value );
+			return is_array( $value ) ? 0 : intval( $value );
 		}
 
 		if ( $value = papi_get_qs( 'page_id' ) ) {
@@ -50,7 +49,6 @@ function papi_get_post_id( $post_id = null ) {
  *
  * @return string
  */
-
 function papi_get_post_type() {
 	if ( $post_type = papi_get_or_post( 'post_type' ) ) {
 		return $post_type;

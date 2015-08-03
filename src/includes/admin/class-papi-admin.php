@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Admin.
+ * Papi Admin class.
  *
  * @package Papi
  */
-
 final class Papi_Admin {
 
 	/**
@@ -16,7 +15,6 @@ final class Papi_Admin {
 	 *
 	 * @var Papi_Page_Type
 	 */
-
 	private $page_type;
 
 	/**
@@ -24,7 +22,6 @@ final class Papi_Admin {
 	 *
 	 * @var string
 	 */
-
 	private $page_type_id;
 
 	/**
@@ -32,53 +29,32 @@ final class Papi_Admin {
 	 *
 	 * @var string
 	 */
-
 	private $post_type;
-
-	/**
-	 * The instance of Papi Core.
-	 *
-	 * @var object
-	 */
-
-	private static $instance;
-
-	/**
-	 * Papi Admin instance.
-	 *
-	 * @return object
-	 */
-
-	public static function instance() {
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new self;
-			self::$instance->load_files();
-			self::$instance->setup_globals();
-			self::$instance->setup_actions();
-			self::$instance->setup_filters();
-		}
-
-		return self::$instance;
-	}
 
 	/**
 	 * The constructor.
 	 */
-
-	private function __construct() {}
+	public function __construct() {
+		$this->load_files();
+		$this->setup_globals();
+		$this->setup_actions();
+		$this->setup_filters();
+	}
 
 	/**
 	 * Cloning is forbidden.
+	 *
+	 * @codeCoverageIgnore
 	 */
-
 	public function __clone() {
 		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
 	}
 
 	/**
 	 * Unserializing instances of this class is forbidden.
+	 *
+	 * @codeCoverageIgnore
 	 */
-
 	public function __wakeup() {
 		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
 	}
@@ -88,7 +64,6 @@ final class Papi_Admin {
 	 *
 	 * Setup the page type.
 	 */
-
 	public function admin_init() {
 		if ( ! $this->setup_papi() ) {
 			return;
@@ -100,7 +75,6 @@ final class Papi_Admin {
 	/**
 	 * Add style to admin head.
 	 */
-
 	public function admin_head() {
 		wp_enqueue_media();
 		wp_enqueue_style( 'wp-color-picker' );
@@ -110,7 +84,6 @@ final class Papi_Admin {
 	/**
 	 * Enqueue script into admin footer.
 	 */
-
 	public function admin_enqueue_scripts() {
 		// WordPress will override window.papi on plugins page,
 		// so don't include Papi JavaScript on plugins page.
@@ -139,7 +112,6 @@ final class Papi_Admin {
 	 *
 	 * @return string
 	 */
-
 	public function admin_body_class( $classes ) {
 		$post_type = papi_get_post_type();
 
@@ -159,18 +131,20 @@ final class Papi_Admin {
 	 *
 	 * This will only output on a post type page.
 	 */
-
 	public function edit_form_after_title() {
 		wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' );
-		?>
-		<input type="hidden" name="<?php esc_attr_e( PAPI_PAGE_TYPE_KEY ); ?>" value="<?php esc_attr_e( papi_get_page_type_id() ); ?>"/>
-		<?php
+
+		papi_render_html_tag( 'input', [
+			'data-papi-page-type-key' => true,
+			'name'                    => esc_attr( PAPI_PAGE_TYPE_KEY ),
+			'type'                    => 'hidden',
+			'value'                   => esc_attr( papi_get_page_type_id() )
+		] );
 	}
 
 	/**
 	 * Output hidden meta boxes.
 	 */
-
 	public function hidden_meta_boxes() {
 		global $_wp_post_type_features;
 		if ( ! isset( $_wp_post_type_features[$this->post_type]['editor'] ) ) {
@@ -181,7 +155,6 @@ final class Papi_Admin {
 	/**
 	 * Output hidden WordPress editor.
 	 */
-
 	public function hidden_meta_box_editor() {
 		wp_editor( '', 'papiHiddenEditor' );
 	}
@@ -189,7 +162,6 @@ final class Papi_Admin {
 	/**
 	 * Load admin files that are not loaded by the autoload.
 	 */
-
 	private function load_files() {
 		require_once __DIR__ . '/class-papi-admin-ajax.php';
 		require_once __DIR__ . '/class-papi-admin-data-handler.php';
@@ -202,24 +174,22 @@ final class Papi_Admin {
 	 * Load post new action
 	 * Redirect to right url if no page type is set.
 	 */
-
 	public function load_post_new() {
 		$request_uri = $_SERVER['REQUEST_URI'];
 		$post_types = papi_get_post_types();
-		$post_type  = papi_get_post_type();
 
-		if ( in_array( $post_type, $post_types ) && strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
+		if ( in_array( $this->post_type, $post_types ) && strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
 			$parsed_url = parse_url( $request_uri );
 
-			$only_page_type = papi_filter_settings_only_page_type( $post_type );
+			$only_page_type = papi_filter_settings_only_page_type( $this->post_type );
 
 			// Check if we should show one post type or not and create the right url for that.
 			if ( ! empty( $only_page_type ) ) {
 				$url = papi_get_page_new_url( $only_page_type, false );
 			} else {
-				$page = 'page=papi-add-new-page,' . $post_type;
+				$page = 'page=papi-add-new-page,' . $this->post_type;
 
-				if ( $post_type !== 'post' ) {
+				if ( $this->post_type !== 'post' ) {
 					$page = '&' . $page;
 				}
 
@@ -227,7 +197,7 @@ final class Papi_Admin {
 			}
 
 			wp_safe_redirect( $url );
-			exit;
+			is_admin() && exit;
 		}
 	}
 
@@ -238,7 +208,6 @@ final class Papi_Admin {
 	 *
 	 * @return array
 	 */
-
 	public function manage_page_type_posts_columns( $defaults ) {
 		$defaults['page_type'] = papi_filter_settings_page_type_column_title( $this->post_type );
 		return $defaults;
@@ -250,14 +219,14 @@ final class Papi_Admin {
 	 * @param string $column_name
 	 * @param int $post_id
 	 */
-
 	public function manage_page_type_posts_custom_column( $column_name, $post_id ) {
 		if ( $column_name === 'page_type' ) {
 			$page_type = papi_get_page_type_by_post_id( $post_id );
+
 			if ( ! is_null( $page_type ) ) {
-				esc_html_e( $page_type->name );
+				echo esc_html( $page_type->name );
 			} else {
-				esc_html_e( papi_filter_settings_standard_page_name( papi_get_post_type() ) );
+				echo esc_html( papi_filter_settings_standard_page_name( papi_get_post_type() ) );
 			}
 		}
 	}
@@ -265,7 +234,6 @@ final class Papi_Admin {
 	/**
 	 * Menu callback that loads right view depending on what the `page` query string says.
 	 */
-
 	public function render_view() {
 		if ( strpos( papi_get_qs( 'page' ), 'papi' ) !== false ) {
 			$page = str_replace( 'papi-', '', papi_get_qs( 'page' ) );
@@ -284,21 +252,18 @@ final class Papi_Admin {
 			$view = new Papi_Admin_View;
 			$view->render( $page_view );
 		} else {
-			echo '<h2>Papi - 404</h2>';
+			echo '<h1>Papi - 404</h1>';
 		}
 	}
 
 	/**
 	 * Filter page types in post type list.
 	 */
-
 	public function restrict_page_types() {
-		global $typenow;
-
 		$post_types = papi_get_post_types();
 
-		if ( in_array( $typenow, $post_types ) ) {
-			$page_types = papi_get_all_page_types( false, $typenow );
+		if ( in_array( $this->post_type, $post_types ) ) {
+			$page_types = papi_get_all_page_types( false, $this->post_type );
 
 			$page_types = array_map( function ( $page_type ) {
 				return [
@@ -337,7 +302,6 @@ final class Papi_Admin {
 	 *
 	 * @return WP_Query
 	 */
-
 	public function pre_get_posts( $query ) {
 		global $pagenow;
 
@@ -361,7 +325,6 @@ final class Papi_Admin {
 	/**
 	 * Setup actions.
 	 */
-
 	private function setup_actions() {
 		if ( is_admin() ) {
 			add_action( 'admin_init', [$this, 'admin_init'] );
@@ -377,14 +340,20 @@ final class Papi_Admin {
 	/**
 	 * Setup filters.
 	 */
-
 	private function setup_filters() {
 		if ( is_admin() ) {
 			add_filter( 'admin_body_class', [$this, 'admin_body_class'] );
 			add_filter( 'pre_get_posts', [$this, 'pre_get_posts'] );
 
-			// Add post type columns to eavery post types that is used.
-			add_filter( 'manage_' . $this->post_type . '_posts_columns', [$this, 'manage_page_type_posts_columns'] );
+			if ( ! in_array( $this->post_type, papi_get_post_types() ) ) {
+				return;
+			}
+
+			add_filter( 'manage_' . $this->post_type . '_posts_columns', [
+				$this,
+				'manage_page_type_posts_columns'
+			] );
+
 			add_action( 'manage_' . $this->post_type . '_posts_custom_column', [
 				$this,
 				'manage_page_type_posts_custom_column'
@@ -395,7 +364,6 @@ final class Papi_Admin {
 	/**
 	 * Setup globals.
 	 */
-
 	private function setup_globals() {
 		$this->post_type = papi_get_post_type();
 
@@ -409,7 +377,6 @@ final class Papi_Admin {
 	 *
 	 * @return bool
 	 */
-
 	public function setup_papi() {
 		// If the post type isn't in the post types array we can't proceed.
 		if ( in_array( $this->post_type, ['revision', 'nav_menu_item'] ) ) {
@@ -433,8 +400,8 @@ final class Papi_Admin {
 		$this->page_type = papi_get_page_type_by_id( $this->page_type_id );
 
 		// Do a last check so we can be sure that we have a page type object.
-		return ! empty( $this->page_type ) && is_object( $this->page_type );
+		return $this->page_type instanceof Papi_Page_Type;
 	}
 }
 
-Papi_Admin::instance();
+new Papi_Admin;

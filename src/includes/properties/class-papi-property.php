@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Property extends Papi_Core_Property {
 
 	/**
@@ -19,7 +18,6 @@ class Papi_Property extends Papi_Core_Property {
 	 *
 	 * @return array
 	 */
-
 	public static function default_options() {
 		$property = new static;
 		$default_options = $property->default_options;
@@ -32,10 +30,28 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
-	 * Get the html to display from the property.
+	 * Display the html to display from the property.
 	 */
-
 	public function html() {
+	}
+
+	/**
+	 * Get the html id attribute value.
+	 *
+	 * @param object|string $suffix
+	 * @param int $row
+	 *
+	 * @return string
+	 */
+	public function html_id( $suffix = '', $row = null ) {
+		if ( is_array( $suffix ) || is_object( $suffix ) ) {
+			return '_' . $this->html_name( $suffix, $row );
+		} else {
+			$suffix = empty( $suffix ) || ! is_string( $suffix ) ? '' : '_' . $suffix;
+			$suffix = papi_underscorify( papi_slugify( $suffix ) );
+		}
+
+		return sprintf( '_%s%s', $this->html_name(), $suffix );
 	}
 
 	/**
@@ -46,7 +62,6 @@ class Papi_Property extends Papi_Core_Property {
 	 *
 	 * @return string
 	 */
-
 	public function html_name( $sub_property = null, $row = null ) {
 		$base_slug = $this->get_option( 'slug' );
 
@@ -72,10 +87,13 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Render the property.
 	 */
-
 	public function render() {
 		// Check so the property has a type and capabilities on the property.
 		if ( ! papi_current_user_is_allowed( $this->get_option( 'capabilities' ) ) ) {
+			return;
+		}
+
+		if ( $this->get_option( 'disabled' ) ) {
 			return;
 		}
 
@@ -86,30 +104,31 @@ class Papi_Property extends Papi_Core_Property {
 			$render = $this->get_option( 'lang' ) === false && papi_is_empty( papi_get_qs( 'lang' ) );
 		}
 
-		if ( $render && $this->get_option( 'disabled' ) === false ) {
-			$this->render_row_html();
-			$this->render_hidden_html();
+		if ( $this->display ) {
+			$this->display = $this->render_is_allowed_by_rules();
 		}
+
+		$this->render_row_html();
+		$this->render_hidden_html();
+		$this->render_rules_json();
 	}
 
 	/**
 	 * Render the property description.
 	 */
-
 	public function render_description_html() {
 		if ( papi_is_empty( $this->get_option( 'description' ) ) ) {
 			return;
 		}
 
-		?>
-		<p><?php echo papi_nl2br( $this->get_option( 'description' ) ); ?></p>
-	<?php
+		papi_render_html_tag( 'p', [
+			papi_nl2br( $this->get_option( 'description' ) )
+		] );
 	}
 
 	/**
 	 * Output hidden input field that cointains which property is used.
 	 */
-
 	public function render_hidden_html() {
 		$slug = $this->get_option( 'slug' );
 
@@ -126,35 +145,39 @@ class Papi_Property extends Papi_Core_Property {
 		$options = $this->get_options();
 		$property_serialized = base64_encode( serialize( $options ) );
 
-		?>
-		<input type="hidden" value="<?php echo $property_serialized; ?>" name="<?php echo $slug; ?>"  data-property="<?php echo $this->get_option( 'type' ); ?>" />
-	<?php
+		papi_render_html_tag( 'input', [
+			'data-property' => strtolower( $this->get_option( 'type' ) ),
+			'name'          => $slug,
+			'type'          => 'hidden',
+			'value'         => $property_serialized
+		] );
 	}
 
 	/**
 	 * Get label for the property.
 	 */
-
 	public function render_label_html() {
 		$title = $this->get_option( 'title' );
-		?>
-		<label for="<?php echo $this->get_option( 'slug' ); ?>" title="<?php echo $title . ' ' . papi_require_text( $this->get_options() ); ?>">
-			<?php
-			echo $title;
-			echo papi_required_html( $this->get_options() );
-			?>
-		</label>
-	<?php
+
+		papi_render_html_tag( 'label', [
+			'for'   => $this->html_id(),
+			'title' => trim( $title . ' ' . papi_require_text( $this->get_options() ) ),
+			$title,
+			papi_required_html( $this->get_options() )
+		] );
 	}
 
 	/**
 	 * Render the final html that is displayed in the table.
 	 */
-
 	public function render_row_html() {
+		$display_class = $this->display ? '' : ' papi-hide';
+		$rules_class   = papi_is_empty( $this->get_rules() ) ? '' : ' papi-rules-exists';
+		$css_class     = trim( $display_class . $rules_class );
+
 		if ( ! $this->get_option( 'raw' ) ):
 			?>
-			<tr class="<?php echo $this->display ? '' : 'papi-hide'; ?>">
+			<tr class="<?php echo $css_class; ?>">
 				<?php if ( $this->get_option( 'sidebar' ) ): ?>
 					<td>
 						<?php
@@ -169,15 +192,27 @@ class Papi_Property extends Papi_Core_Property {
 			</tr>
 		<?php
 		else:
-			if ( ! $this->display ):
-				echo '<div class="papi-hide">';
-			endif;
-
+			echo sprintf( '<div class="%s">', $css_class );
 			$this->html();
-
-			if ( ! $this->display ):
-				echo '</div>';
-			endif;
+			echo '</div>';
 		endif;
+	}
+
+	/**
+	 * Render Conditional rules as JSON.
+	 */
+	public function render_rules_json() {
+		$rules = $this->get_rules();
+
+		if ( empty( $rules ) ) {
+			return;
+		}
+
+		$rules = $this->conditional->prepare_rules( $rules, $this );
+		?>
+		<script type="application/json" data-papi-rules="true" data-papi-rule-source-slug="<?php echo $this->html_name(); ?>">
+			<?php echo json_encode( $rules ); ?>
+		</script>
+		<?php
 	}
 }

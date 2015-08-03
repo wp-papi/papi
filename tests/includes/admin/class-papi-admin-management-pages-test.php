@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Admin_Management_Pages_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -29,6 +28,16 @@ class Papi_Admin_Management_Pages_Test extends WP_UnitTestCase {
 
 	public function test_actions() {
 		$this->assertEquals( 10, has_action( 'admin_menu', [$this->management_pages, 'admin_menu'] ) );
+	}
+
+	public function test_admin_menu() {
+		global $_wp_submenu_nopriv;
+		$this->assertFalse( isset( $_wp_submenu_nopriv['tools.php'] ) );
+		$this->assertFalse( isset( $_wp_submenu_nopriv['tools.php']['papi'] ) );
+		$this->management_pages->admin_menu();
+		$this->assertTrue( isset( $_wp_submenu_nopriv['tools.php'] ) );
+		$this->assertTrue( isset( $_wp_submenu_nopriv['tools.php']['papi'] ) );
+		$this->assertTrue( $_wp_submenu_nopriv['tools.php']['papi'] );
 	}
 
 	public function test_render_view() {

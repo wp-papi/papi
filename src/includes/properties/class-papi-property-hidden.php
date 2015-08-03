@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Hidden.
+ * Papi Property Hidden class.
  *
  * @package Papi
  */
-
 class Papi_Property_Hidden extends Papi_Property_String {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Hidden extends Papi_Property_String {
 	 *
 	 * @var bool
 	 */
-
 	protected $display = false;
 
 	/**
@@ -24,7 +22,6 @@ class Papi_Property_Hidden extends Papi_Property_String {
 	 *
 	 * @var string
 	 */
-
 	public $input_type = 'hidden';
 
 }

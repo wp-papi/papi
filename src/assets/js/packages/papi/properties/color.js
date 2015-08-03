@@ -27,6 +27,9 @@ class Color {
 
       $el.wpColorPicker({
         color: true,
+        change: function () {
+          $el.trigger('change');
+        },
         palettes: palettes === undefined ? false : palettes
       });
     });

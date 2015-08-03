@@ -5,10 +5,9 @@
  *
  * @package Papi
  */
-
 class Papi_Property_Html_Test extends Papi_Property_Test_Case {
 
-	public $slug = 'html_test';
+	public $slugs = ['html_test', 'html_test_2'];
 
 	public function get_value() {
 		return;
@@ -19,23 +18,23 @@ class Papi_Property_Html_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'html', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Html test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_html_test', $this->property->get_option( 'slug' ) );
-		$this->assertEquals( '<p>Hello, world!</p>', $this->property->get_setting( 'html' ) );
+		$this->assertEquals( 'html', $this->properties[0]->get_option( 'type' ) );
+		$this->assertEquals( 'Html test', $this->properties[0]->get_option( 'title' ) );
+		$this->assertEquals( 'papi_html_test', $this->properties[0]->get_option( 'slug' ) );
+		$this->assertEquals( '<p>Hello, world!</p>', $this->properties[0]->get_setting( 'html' ) );
 
-		$property2 = $this->page_type->get_property( 'html_test_2' );
-		$this->assertEquals( 'html', $property2->get_option( 'type' ) );
-		$this->assertEquals( 'Html test 2', $property2->get_option( 'title' ) );
-		$this->assertEquals( 'papi_html_test_2', $property2->get_option( 'slug' ) );
+		$this->assertEquals( 'html', $this->properties[1]->get_option( 'type' ) );
+		$this->assertEquals( 'Html test 2', $this->properties[1]->get_option( 'title' ) );
+		$this->assertEquals( 'papi_html_test_2', $this->properties[1]->get_option( 'slug' ) );
 	}
 
-	public function test_html_output() {
-		papi_render_property( $this->property );
+	public function test_property_output() {
+		parent::test_property_output();
+
+		papi_render_property( $this->properties[0] );
 		$this->expectOutputRegex( '/\<p\>Hello, world!\<\/p\>/' );
 
-		$property2 = $this->page_type->get_property( 'html_test_2' );
-		papi_render_property( $property2 );
+		papi_render_property( $this->properties[1] );
 		$this->expectOutputRegex( '/\<p\>Hello, callable!\<\/p\>/' );
 	}
 

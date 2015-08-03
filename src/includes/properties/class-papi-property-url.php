@@ -4,11 +4,10 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Property Url.
+ * Papi Property Url class.
  *
  * @package Papi
  */
-
 class Papi_Property_Url extends Papi_Property {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Property_Url extends Papi_Property {
 	 *
 	 * @return array
 	 */
-
 	public function get_default_settings() {
 		return [
 			'mediauploader' => false
@@ -26,18 +24,29 @@ class Papi_Property_Url extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-
 	public function html() {
 		$settings = $this->get_settings();
-		?>
-		<input type="url" name="<?php echo $this->html_name(); ?>" value="<?php echo $this->get_value(); ?>"
-		       class="<?php echo $settings->mediauploader ? 'papi-url-media-input' : ''; ?>"/>
 
-		<?php if ( $settings->mediauploader ): ?>
-			&nbsp; <input type="submit" name="<?php echo $this->html_name(); ?>_button"
-			              value="<?php echo __( 'Select file', 'papi' ); ?>" class="button papi-url-media-button"
-			              data-papi-action="mediauploader"/>
-		<?php endif;
+		papi_render_html_tag( 'input', [
+			'class'   => $settings->mediauploader ? 'papi-url-media-input' : null,
+			'id'      => $this->html_id(),
+			'name'    => $this->html_name(),
+			'type'    => 'url',
+			'value'   => $this->get_value()
+		] );
+
+		if ( $settings->mediauploader ) {
+			echo '&nbsp;';
+
+			papi_render_html_tag( 'input', [
+				'class'            => 'button papi-url-media-button',
+				'data-papi-action' => 'mediauploader',
+				'id'               => $this->html_id(),
+				'name'             => $this->html_name() . '_button',
+				'type'             => 'button',
+				'value'            => __( 'Select file', 'papi' )
+			] );
+		}
 	}
 
 	/**
@@ -49,7 +58,6 @@ class Papi_Property_Url extends Papi_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function load_value( $value, $slug, $post_id ) {
 		if ( filter_var( $value, FILTER_VALIDATE_URL ) ) {
 			return $value;
@@ -65,7 +73,6 @@ class Papi_Property_Url extends Papi_Property {
 	 *
 	 * @return mixed
 	 */
-
 	public function update_value( $value, $slug, $post_id ) {
 		if ( filter_var( $value, FILTER_VALIDATE_URL ) ) {
 			return $value;

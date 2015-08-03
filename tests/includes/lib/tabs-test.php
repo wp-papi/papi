@@ -8,13 +8,11 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test papi_get_tab_options.
 	 */
-
 	public function test_papi_get_tab_options() {
 		$tab = papi_tab( [
 			'title' => 'Content'
@@ -51,7 +49,6 @@ class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 	/**
 	 * Test papi_setup_tabs.
 	 */
-
 	public function test_papi_setup_tabs() {
 		$tab  = papi_tab( 'Content' );
 		$tabs = papi_setup_tabs( [$tab] );
@@ -69,7 +66,6 @@ class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 	/**
 	 * Test papi_tab.
 	 */
-
 	public function test_papi_tab() {
 		$actual = papi_tab( 'Content', [
 			papi_property( [

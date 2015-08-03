@@ -8,7 +8,6 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-
 class Papi_Page_Type_Base {
 
 	/**
@@ -16,7 +15,6 @@ class Papi_Page_Type_Base {
 	 *
 	 * @var string
 	 */
-
 	public $_meta_method = 'page_type';
 
 	/**
@@ -24,7 +22,6 @@ class Papi_Page_Type_Base {
 	 *
 	 * @var string
 	 */
-
 	private $_class_name = '';
 
 	/**
@@ -32,7 +29,6 @@ class Papi_Page_Type_Base {
 	 *
 	 * @var string
 	 */
-
 	private $_file_name = '';
 
 	/**
@@ -40,7 +36,6 @@ class Papi_Page_Type_Base {
 	 *
 	 * @var string
 	 */
-
 	private $_file_path = '';
 
 	/**
@@ -48,7 +43,6 @@ class Papi_Page_Type_Base {
 	 *
 	 * @var string
 	 */
-
 	private $id = '';
 
 	/**
@@ -58,7 +52,6 @@ class Papi_Page_Type_Base {
 	 *
 	 * @param string $file_path
 	 */
-
 	public function __construct( $file_path ) {
 		// Try to load the file if the file path is empty.
 		if ( empty( $file_path ) ) {
@@ -77,7 +70,6 @@ class Papi_Page_Type_Base {
 	 *
 	 * @return string
 	 */
-
 	public function get_class_name() {
 		return $this->_class_name;
 	}
@@ -87,7 +79,6 @@ class Papi_Page_Type_Base {
 	 *
 	 * @return string
 	 */
-
 	public function get_file_path() {
 		return $this->_file_path;
 	}
@@ -97,7 +88,6 @@ class Papi_Page_Type_Base {
 	 *
 	 * @return string
 	 */
-
 	public function get_id() {
 		if ( ! empty( $this->id ) ) {
 			return $this->id;
@@ -113,7 +103,6 @@ class Papi_Page_Type_Base {
 	 *
 	 * @return bool
 	 */
-
 	public function match_id( $id ) {
 		if ( strpos( $id, 'papi/' ) === 0 ) {
 			$id = preg_replace( '/^papi\//', '', $id );
@@ -127,7 +116,6 @@ class Papi_Page_Type_Base {
 	 *
 	 * @return object
 	 */
-
 	public function new_class() {
 		if ( empty( $this->_file_path ) ) {
 			return;
@@ -141,7 +129,6 @@ class Papi_Page_Type_Base {
 	 *
 	 * @param string $file_path
 	 */
-
 	private function setup_file( $file_path ) {
 		$this->_file_path = $file_path;
 		$this->_file_name = papi_get_page_type_base_path( $this->_file_path );
@@ -153,7 +140,6 @@ class Papi_Page_Type_Base {
 	/**
 	 * Setup page type meta data.
 	 */
-
 	private function setup_meta_data() {
 		if ( ! method_exists( $this->_class_name, $this->_meta_method ) ) {
 			return;
