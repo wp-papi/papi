@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  * @param string $slug
  * @param string $type
  */
-function papi_delete_property_meta_value( $post_id, $slug, $type = Papi_Core_Page::TYPE_POST ) {
+function papi_delete_property_meta_value( $post_id, $slug, $type = 'post' ) {
 	if ( $type === Papi_Core_Page::TYPE_OPTION || papi_is_option_page() ) {
 		return delete_option( $slug );
 	}
@@ -183,7 +183,7 @@ function papi_get_property_class_name( $type ) {
  * @param string $slug
  * @param string $type
  */
-function papi_get_property_meta_value( $post_id, $slug, $type = Papi_Core_Page::TYPE_POST ) {
+function papi_get_property_meta_value( $post_id, $slug, $type = 'post' ) {
 	if ( $type === Papi_Core_Page::TYPE_OPTION || papi_is_option_page() ) {
 		$value = get_option( $slug, null );
 	} else {

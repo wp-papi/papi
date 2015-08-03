@@ -152,7 +152,7 @@ function papi_get_number_of_pages( $page_type ) {
  *
  * @return mixed
  */
-function papi_get_page( $post_id = 0, $type = Papi_Core_Page::TYPE_POST ) {
+function papi_get_page( $post_id = 0, $type = 'post' ) {
 	return Papi_Core_Page::factory( $post_id, $type );
 }
 

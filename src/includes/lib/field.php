@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @return bool
  */
-function papi_delete_field( $post_id = null, $slug = null, $type = Papi_Core_Page::TYPE_POST ) {
+function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$slug    = $post_id;
 		$post_id = null;
