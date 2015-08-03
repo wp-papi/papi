@@ -127,7 +127,7 @@ function papi_field_value( $slugs, $value, $default = null ) {
  *
  * @return mixed
  */
-function papi_get_field( $post_id = null, $slug = null, $default = null, $type = Papi_Core_Page::TYPE_POST ) {
+function papi_get_field( $post_id = null, $slug = null, $default = null, $type = 'post' ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$default = $slug;
 		$slug    = $post_id;
