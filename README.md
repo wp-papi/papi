@@ -1,5 +1,7 @@
 # Papi
 
+![Papi](https://cloud.githubusercontent.com/assets/14610/9073902/16a6d906-3b05-11e5-9287-5644a96e9a82.png)
+
 [![Build Status](https://travis-ci.org/wp-papi/papi.svg?branch=master)](https://travis-ci.org/wp-papi/papi) [![Join the chat at https://gitter.im/wp-papi/papi](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wp-papi/papi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 > `master` is unsafe. `2.x` is the stable branch.
