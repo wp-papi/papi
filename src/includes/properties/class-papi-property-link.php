@@ -25,6 +25,31 @@ class Papi_Property_Link extends Papi_Property {
 	public $default_value = [];
 
 	/**
+	 * Delete value from the database.
+	 *
+	 * @param string $slug
+	 * @param int $post_id
+	 * @param string $type
+	 *
+	 * @return bool
+	 */
+	public function delete_value( $slug, $post_id, $type ) {
+		$values = $this->load_value( null, $slug, $post_id );
+		$result = true;
+
+		foreach ( $values as $key => $val ) {
+			$out    = delete_post_meta( $post_id, $slug . '_' . $key );
+			$result = $out ? $result : $out;
+		}
+
+		if ( $result ) {
+			$result = delete_post_meta( $post_id, $slug );
+		}
+
+		return $result;
+	}
+
+	/**
 	 * Format the value of the property before it's returned to the application.
 	 *
 	 * @param mixed $value
