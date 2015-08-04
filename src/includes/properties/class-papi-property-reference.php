@@ -34,8 +34,8 @@ class Papi_Property_Reference extends Papi_Property {
 		// Create query array for every page type.
 		$page_types = array_map( function ( $page_type ) {
 			return [
-				'key' => PAPI_PAGE_TYPE_KEY,
-				'value' => $page_type,
+				'key'     => papi_get_page_type_key(),
+				'value'   => $page_type,
 				'compare' => 'LIKE'
 			];
 		}, papi_to_array( $settings->page_type ) );

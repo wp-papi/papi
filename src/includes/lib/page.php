@@ -294,6 +294,15 @@ function papi_get_page_type_id( $post_id = 0 ) {
 }
 
 /**
+ * Get the page type key that is used for each post.
+ *
+ * @return string
+ */
+function papi_get_page_type_key() {
+	return defined( 'PAPI_PAGE_TYPE_KEY' ) ? PAPI_PAGE_TYPE_KEY : '_papi_page_type';
+}
+
+/**
  * Get the Page type name.
  *
  * @param int $post_id
@@ -307,7 +316,7 @@ function papi_get_page_type_name( $post_id = 0 ) {
 		return '';
 	}
 
-	$page_type_id = get_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, true );
+	$page_type_id = get_post_meta( $post_id, papi_get_page_type_key(), true );
 
 	if ( empty( $page_type_id ) ) {
 		return '';

@@ -309,12 +309,12 @@ final class Papi_Admin {
 			if ( papi_get_qs( 'page_type' ) === 'papi-standard-page' ) {
 				$query->set( 'meta_query', [
 					[
-						'key' => PAPI_PAGE_TYPE_KEY,
+						'key'     => papi_get_page_type_key(),
 						'compare' => 'NOT EXISTS'
 					]
 				] );
 			} else {
-				$query->set( 'meta_key', PAPI_PAGE_TYPE_KEY );
+				$query->set( 'meta_key', papi_get_page_type_key() );
 				$query->set( 'meta_value', papi_get_qs( 'page_type' ) );
 			}
 		}

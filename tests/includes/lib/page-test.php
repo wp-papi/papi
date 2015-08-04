@@ -214,6 +214,10 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertTrue( in_array( 'page', $post_types ) );
 	}
 
+	public function test_papi_get_page_type_key() {
+		$this->assertEquals( '_papi_page_type', papi_get_page_type_key() );
+	}
+
 	public function test_papi_get_page_type_name() {
 		$this->assertEmpty( papi_get_page_type_name() );
 		$this->assertEmpty( papi_get_page_type_name( null ) );
