@@ -98,51 +98,51 @@ class Papi_Property_Link extends Papi_Property {
 	/**
 	 * Display property html.
 	 */
-    public function html() {
-        $value = $this->get_value();
+	public function html() {
+		$value = $this->get_value();
 
 		if ( ! is_array( $value ) && ! is_object( $value ) ) {
 			$value = [];
 		}
 
 		$value = (object) $value;
-        ?>
+		?>
 
-        <div class="papi-property-link" data-slug="<?php echo $this->html_name(); ?>">
-            <?php if ( isset( $value->url ) ): ?>
-                <table class="papi-table link-table">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <?php _e( 'URL', 'papi' ); ?>
-                            </td>
-                            <td>
-                                <a href="<?php echo $value->url; ?>" target="_blank"><?php echo $value->url; ?></a>
-	                            <input type="hidden" value="<?php echo $value->title . ' - ' . $value->url; ?>" data-papi-rule="<?php echo $this->html_name(); ?>">
+		<div class="papi-property-link" data-slug="<?php echo $this->html_name(); ?>">
+			<?php if ( isset( $value->url ) ): ?>
+				<table class="papi-table link-table">
+					<tbody>
+						<tr>
+							<td>
+								<?php _e( 'URL', 'papi' ); ?>
+							</td>
+							<td>
+								<a href="<?php echo $value->url; ?>" target="_blank"><?php echo $value->url; ?></a>
+								<input type="hidden" value="<?php echo $value->title . ' - ' . $value->url; ?>" data-papi-rule="<?php echo $this->html_name(); ?>">
 								<input class="wp-link-url" type="hidden" value="<?php echo $value->url; ?>" name="<?php echo $this->html_name(); ?>[url]">
 							</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <?php _e( 'Title', 'papi' ); ?>
-                            </td>
-                            <td>
+						</tr>
+						<tr>
+							<td>
+								<?php _e( 'Title', 'papi' ); ?>
+							</td>
+							<td>
 								<?php echo $value->title; ?>
 								<input class="wp-link-text" type="hidden" value="<?php echo $value->title; ?>" name="<?php echo $this->html_name(); ?>[title]">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <?php _e( 'Target', 'papi' ); ?>
-                            </td>
-                            <td>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<?php _e( 'Target', 'papi' ); ?>
+							</td>
+							<td>
 								<?php echo $value->target === '_blank' ? __( 'New window', 'papi' ) : __( 'Same window', 'papi' ); ?>
-                    			<input class="wp-link-target" type="hidden" value="<?php echo $value->target; ?>" name="<?php echo $this->html_name(); ?>[target]">
-					        </td>
-                        </tr>
-                    </tbody>
-                </table>
-            <?php endif; ?>
+								<input class="wp-link-target" type="hidden" value="<?php echo $value->target; ?>" name="<?php echo $this->html_name(); ?>[target]">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			<?php endif; ?>
 			<p class="papi-file-select">
 				<span class="<?php echo isset( $value->url ) ? 'papi-hide' : ''; ?>">
 					<?php _e( 'No link selected', 'papi' ); ?>
@@ -153,54 +153,54 @@ class Papi_Property_Link extends Papi_Property {
 					<button class="button" data-link-action="remove"><?php _e( 'Remove link', 'papi' ); ?></button>
 				</span>
 			</p>
-        </div>
+		</div>
 
 
 
-        <?php
-    }
+		<?php
+	}
 
-    /**
-     * Render link template.
-     */
-    public function render_link_template() {
-        ?>
-        <script type="text/template" id="tmpl-papi-property-link">
-            <table class="papi-table link-table">
-                <tbody>
-                    <tr>
-                        <td>
-                            <?php _e( 'URL', 'papi' ); ?>
-                        </td>
-                        <td>
-                            <%= link %>
-                            <input type="hidden" value="<%= title %> - <%= href %>" data-papi-rule="<%= slug %>">
-                            <input class="wp-link-url" type="hidden" value="<%= href %>" name="<%= slug %>[url]">
-                        </td>
+	/**
+	 * Render link template.
+	 */
+	public function render_link_template() {
+		?>
+		<script type="text/template" id="tmpl-papi-property-link">
+			<table class="papi-table link-table">
+				<tbody>
+					<tr>
+						<td>
+							<?php _e( 'URL', 'papi' ); ?>
+						</td>
+						<td>
+							<%= link %>
+							<input type="hidden" value="<%= title %> - <%= href %>" data-papi-rule="<%= slug %>">
+							<input class="wp-link-url" type="hidden" value="<%= href %>" name="<%= slug %>[url]">
+						</td>
 					</tr>
 					<tr>
-                        <td>
-                            <?php _e( 'Title', 'papi' ); ?>
-                        </td>
-                        <td>
-                            <%= title %>
-                            <input class="wp-link-text" type="hidden" value="<%= title %>" name="<%= slug %>[title]">
-                        </td>
+						<td>
+							<?php _e( 'Title', 'papi' ); ?>
+						</td>
+						<td>
+							<%= title %>
+							<input class="wp-link-text" type="hidden" value="<%= title %>" name="<%= slug %>[title]">
+						</td>
 					</tr>
 					<tr>
-                        <td>
-                            <?php _e( 'Target', 'papi' ); ?>
-                        </td>
-                        <td>
+						<td>
+							<?php _e( 'Target', 'papi' ); ?>
+						</td>
+						<td>
 							<input class="wp-link-target" type="hidden" value="<%= target %>" name="<%= slug %>[target]">
-                            <%= target === '_blank' ? '<?php _e( 'New window', 'papi' ) ?>' : '<?php _e( 'Same window', 'papi' ); ?>' %>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </script>
-        <?php
-    }
+							<%= target === '_blank' ? '<?php _e( 'New window', 'papi' ) ?>' : '<?php _e( 'Same window', 'papi' ); ?>' %>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</script>
+		<?php
+	}
 
 	/**
 	 * Prepare value for the database.
