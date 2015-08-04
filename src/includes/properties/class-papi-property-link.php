@@ -146,11 +146,11 @@ class Papi_Property_Link extends Papi_Property {
 			<p class="papi-file-select">
 				<span class="<?php echo isset( $value->url ) ? 'papi-hide' : ''; ?>">
 					<?php _e( 'No link selected', 'papi' ); ?>
-					<button class="button" data-link-action="add">Add link</button>
+					<button class="button" data-link-action="add"><?php _e( 'Add link', 'papi' ); ?></button>
 				</span>
 				<span class="<?php echo isset( $value->url ) ? '' : 'papi-hide'; ?>">
-					<button class="button" data-link-action="edit">Edit link</button>
-					<button class="button" data-link-action="remove">Remove link</button>
+					<button class="button" data-link-action="edit"><?php _e( 'Edit link', 'papi' ); ?></button>
+					<button class="button" data-link-action="remove"><?php _e( 'Remove link', 'papi' ); ?></button>
 				</span>
 			</p>
         </div>
