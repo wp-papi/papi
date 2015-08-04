@@ -119,7 +119,7 @@ class Papi_Property_Link extends Papi_Property {
                             <td>
                                 <a href="<?php echo $value->url; ?>" target="_blank"><?php echo $value->url; ?></a>
 	                            <input type="hidden" value="<?php echo $value->title . ' - ' . $value->url; ?>" data-papi-rule="<?php echo $this->html_name(); ?>">
-								<input type="hidden" value="<?php echo $value->url; ?>" name="<?php echo $this->html_name(); ?>[url]">
+								<input class="wp-link-url" type="hidden" value="<?php echo $value->url; ?>" name="<?php echo $this->html_name(); ?>[url]">
 							</td>
                         </tr>
                         <tr>
@@ -128,7 +128,7 @@ class Papi_Property_Link extends Papi_Property {
                             </td>
                             <td>
 								<?php echo $value->title; ?>
-								<input type="hidden" value="<?php echo $value->url; ?>" name="<?php echo $this->html_name(); ?>[url]">
+								<input class="wp-link-text" type="hidden" value="<?php echo $value->title; ?>" name="<?php echo $this->html_name(); ?>[title]">
                             </td>
                         </tr>
                         <tr>
@@ -137,7 +137,8 @@ class Papi_Property_Link extends Papi_Property {
                             </td>
                             <td>
 								<?php echo $value->target === '_blank' ? __( 'New window', 'papi' ) : __( 'Same window', 'papi' ); ?>
-                            </td>
+                    			<input class="wp-link-target" type="hidden" value="<?php echo $value->target; ?>" name="<?php echo $this->html_name(); ?>[target]">
+					        </td>
                         </tr>
                     </tbody>
                 </table>
@@ -174,7 +175,7 @@ class Papi_Property_Link extends Papi_Property {
                         <td>
                             <%= link %>
                             <input type="hidden" value="<%= title %> - <%= href %>" data-papi-rule="<%= slug %>">
-                            <input type="hidden" value="<%= href %>" name="<%= slug %>[url]">
+                            <input class="wp-link-url" type="hidden" value="<%= href %>" name="<%= slug %>[url]">
                         </td>
 					</tr>
 					<tr>
@@ -183,7 +184,7 @@ class Papi_Property_Link extends Papi_Property {
                         </td>
                         <td>
                             <%= title %>
-                            <input type="hidden" value="<%= title %>" name="<%= slug %>[title]">
+                            <input class="wp-link-text" type="hidden" value="<%= title %>" name="<%= slug %>[title]">
                         </td>
 					</tr>
 					<tr>
@@ -191,7 +192,7 @@ class Papi_Property_Link extends Papi_Property {
                             <?php _e( 'Target', 'papi' ); ?>
                         </td>
                         <td>
-							<input type="hidden" value="<%= target === '_blank' %>" name="<%= slug %>[target]">
+							<input class="wp-link-target" type="hidden" value="<%= target %>" name="<%= slug %>[target]">
                             <%= target === '_blank' ? '<?php _e( 'New window', 'papi' ) ?>' : '<?php _e( 'Same window', 'papi' ); ?>' %>
                         </td>
                     </tr>
@@ -212,9 +213,6 @@ class Papi_Property_Link extends Papi_Property {
 	 */
 	public function update_value( $values, $slug, $post_id ) {
 		foreach ( $values as $key => $val ) {
-			if ( $key === 'target' ) {
-				$val = $val === true ? '_blank' : '';
-			}
 			$values[$slug . '_' . $key] = $val;
 			unset( $values[$key] );
 		}

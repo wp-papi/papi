@@ -41,13 +41,13 @@ class Link {
     $(document).on('click', '#wp-link-submit', function (e) {
       e.preventDefault();
       if (self.$el !== undefined) {
-        self.render(wpLink.getAttrs());
+        self.render(window.wpLink.getAttrs());
       }
     });
 
     $(document).on('click', '.papi-property-link button[data-link-action="edit"]', function (e) {
       e.preventDefault();
-      self.add($(this));
+      self.edit($(this));
     });
 
     $(document).on('click', '.papi-property-link button[data-link-action="remove"]', function (e) {
@@ -59,19 +59,42 @@ class Link {
   /**
    * Add new link.
    *
-   * @param {object} e
+   * @param {object} $this
    */
 
   add($this) {
     this.$el = $this.closest('.papi-property-link');
     this.$p  = this.$el.find('p');
-    wpLink.open();
+    window.wpLink.open();
+  }
+
+  /**
+   * Add new link.
+   *
+   * @param {object} $this
+   */
+
+  edit($this) {
+    this.$el = $this.closest('.papi-property-link');
+    this.$p  = this.$el.find('p');
+
+    window.wpLink.open();
+
+    const url  = this.$el.find('.wp-link-url').val();
+    const text = this.$el.find('.wp-link-text').val();
+
+    $('#wp-link-url').val($.trim(url));
+    $('#wp-link-text').val($.trim(text));
+
+    if ($.trim(this.$el.find('.wp-link-target').val()) === '_blank') {
+      $('#wp-link-target').attr('checked', 'checked');
+    }
   }
 
   /**
    * Remove a link.
    *
-   * @param {object} e
+   * @param {object} $this
    */
 
   remove($this) {
