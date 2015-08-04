@@ -13,7 +13,7 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 		return [
             'url'    => 'http://example.org',
             'title'  => 'Example site',
-            'target' => true
+            'target' => '_blank'
         ];
 	}
 
