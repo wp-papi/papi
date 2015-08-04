@@ -143,6 +143,7 @@ class Papi_Property_Link extends Papi_Property {
 					</tbody>
 				</table>
 			<?php endif; ?>
+
 			<p class="papi-file-select">
 				<span class="<?php echo isset( $value->url ) ? 'papi-hide' : ''; ?>">
 					<?php _e( 'No link selected', 'papi' ); ?>
