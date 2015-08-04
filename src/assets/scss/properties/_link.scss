@@ -1,0 +1,19 @@
+.papi-property-link {
+  .link-table {
+    td {
+      &:first-child {
+        font-weight: bold;
+        border-left: 1px #eaeaea solid;
+        border-right: 0 !important;
+      }
+      &:last-child {
+        border-right: 1px #eaeaea solid;
+      }
+      border-left: 1px #eaeaea solid;
+    }
+    tr {
+      border-bottom: 1px #eaeaea solid !important;
+    }
+    border-bottom: 1px #eaeaea solid;
+  }
+}

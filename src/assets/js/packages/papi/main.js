@@ -11,6 +11,7 @@ import Dropdown from 'papi/properties/dropdown';
 import Editor from 'papi/properties/editor';
 import File from 'papi/properties/File';
 import Flexible from 'papi/properties/flexible';
+import Link from 'papi/properties/link';
 import Post from 'papi/properties/post';
 import Reference from 'papi/properties/post';
 import Relationship from 'papi/properties/relationship';
@@ -35,6 +36,7 @@ export function init() {
   Editor.init();
   File.init();
   Flexible.init();
+  Link.init();
   Post.init();
   Reference.init();
   Relationship.init();
