@@ -154,9 +154,6 @@ class Papi_Property_Link extends Papi_Property {
 				</span>
 			</p>
 		</div>
-
-
-
 		<?php
 	}
 
