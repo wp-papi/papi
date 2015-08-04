@@ -203,7 +203,7 @@ class Papi_Property_Link extends Papi_Property {
 	/**
 	 * Prepare value for the database.
 	 *
-	 * @param mixed $value
+	 * @param mixed $values
 	 * @param string $slug
 	 * @param int $post_id
 	 *
