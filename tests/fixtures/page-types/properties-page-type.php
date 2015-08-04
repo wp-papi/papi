@@ -149,6 +149,13 @@ class Properties_Page_Type extends Papi_Page_Type {
 				]
 			] ),
 
+			// Link
+			papi_property( [
+				'type'  => 'link',
+				'title' => 'Link test',
+				'slug'  => 'link_test'
+			] ),
+
 			// Gallery
 			papi_property( [
 				'type'  => 'gallery',
@@ -299,7 +306,7 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'title'    => 'Url mediauploader test',
 				'slug'     => 'url_mediauploader_test',
 				'settings' => [
-					'mediauploader' => true	
+					'mediauploader' => true
 				]
 			] ),
 

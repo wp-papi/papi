@@ -34,9 +34,7 @@ class Papi_Property_Link extends Papi_Property {
 	 * @return mixed
 	 */
 	public function format_value( $value, $slug, $post_id ) {
-		$values = $this->load_value( $value, $slug, $post_id );
-		$values->target = $values->target === true ? '_blank' : '';
-		return $values;
+		return $this->load_value( $value, $slug, $post_id );
 	}
 
 	/**
@@ -187,15 +185,18 @@ class Papi_Property_Link extends Papi_Property {
 	 *
 	 * @return array
 	 */
-	public function update_value( $value, $slug, $post_id ) {
-		foreach ( $value as $key => $val ) {
-			$value[$slug . '_' . $key] = $val;
-			unset( $value[$key] );
+	public function update_value( $values, $slug, $post_id ) {
+		foreach ( $values as $key => $val ) {
+			if ( $key === 'target' ) {
+				$val = $val === true ? '_blank' : '';
+			}
+			$values[$slug . '_' . $key] = $val;
+			unset( $values[$key] );
 		}
 
-		$value[$slug] = 1;
+		$values[$slug] = 1;
 
-		return $value;
+		return $values;
 	}
 
 	/**
