@@ -344,6 +344,7 @@ final class Papi_Admin {
 		if ( is_admin() ) {
 			add_filter( 'admin_body_class', [$this, 'admin_body_class'] );
 			add_filter( 'pre_get_posts', [$this, 'pre_get_posts'] );
+			add_filter( 'wp_link_query', [$this, 'wp_link_query'] );
 
 			if ( ! in_array( $this->post_type, papi_get_post_types() ) ) {
 				return;
@@ -401,6 +402,28 @@ final class Papi_Admin {
 
 		// Do a last check so we can be sure that we have a page type object.
 		return $this->page_type instanceof Papi_Page_Type;
+	}
+
+	/**
+	 * Filter the link query results.
+	 *
+	 * @param array $results
+	 *
+	 * @return array
+	 */
+	public function wp_link_query( $results ) {
+		$post_type = papi_get_post_type();
+
+		foreach ( $results as $index => $value ) {
+			$name = papi_get_page_type_name( $value['ID'] );
+
+			if ( empty( $name ) ) {
+				$name = esc_html( papi_filter_settings_standard_page_name( $post_type ) );
+			}
+
+			$results[$index]['info'] = $name;
+		}
+		return $results;
 	}
 }
 

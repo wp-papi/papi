@@ -285,4 +285,32 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->assertTrue( $admin->setup_papi() );
 	}
 
+	public function test_wp_link_query() {
+		$admin = new Papi_Admin;
+		$post  = [
+			'ID'   => $this->post_id,
+			'info' => 'Page'
+		];
+		$post2 = [
+			'ID'   => $this->post_id,
+			'info' => 'Standard Page'
+		];
+		$results = $admin->wp_link_query( [$post] );
+		$this->assertEquals( [$post2], $results );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+
+		$post3 = [
+			'ID'   => $this->post_id,
+			'info' => 'Simple page'
+		];
+		$results = $admin->wp_link_query( [$post] );
+		$this->assertEquals( [$post3], $results );
+
+	}
+
 }
