@@ -1,4 +1,4 @@
- <?php
+<?php
 
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
@@ -120,8 +120,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					continue;
 				}
 
-                // Get property child slug.
-                $child_slug = $this->get_child_slug( $repeater_slug, $slug );
+				// Get property child slug.
+				$child_slug = $this->get_child_slug( $repeater_slug, $slug );
 
 				// Load the value.
 				$values[$index][$slug] = $property_type->load_value( $value, $child_slug, $post_id );
@@ -250,7 +250,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			return count( $row ) / 2;
 		}, $rows );
 
-        $rows = array_values( $rows );
+		$rows = array_values( $rows );
 
 		// Add repeater slug with number of rows to the values array.
 		$values[$repeater_slug] = $value;
@@ -270,11 +270,11 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 				// Do not deal with layout meta object here since the property meta object will deal with it later.
 				if ( is_string( $meta->meta_value ) && preg_match( $this->layout_prefix_regex, $meta->meta_value ) ) {
-                    if ( ! isset( $values[$slug] ) ) {
-                        $values[$slug] = $meta->meta_value;
-                    }
+					if ( ! isset( $values[$slug] ) ) {
+						$values[$slug] = $meta->meta_value;
+					}
 
-                    continue;
+					continue;
 				}
 
 				// Add meta object to the no trash array.
@@ -294,7 +294,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 				// Add the flexible layout for the property.
 				if ( ! preg_match( '/\_layout$/', $slug ) && is_string( $rows[$i][$slug]->meta_value ) && ! preg_match( $this->layout_prefix_regex, $rows[$i][$slug]->meta_value ) ) {
-        			$slug .= '_layout';
+					$slug .= '_layout';
 				}
 
 				if ( isset( $rows[$i][$slug] ) ) {
@@ -369,7 +369,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 		}
 
-        return $results;
+		return $results;
 	}
 
 	/**
@@ -641,7 +641,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				foreach ( $layouts as $layout ) {
 					// Don't render layouts that don't have a valid value in the database.
 					if ( ! isset( $row[$this->layout_key] ) || $layout['slug'] !== $row[$this->layout_key] ) {
-                        continue;
+						continue;
 					}
 
 					// Render all properties in the layout
