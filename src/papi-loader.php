@@ -3,15 +3,14 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-// Load Papi Container.
-require_once __DIR__ . '/includes/container/class-papi-container.php';
+use Tank\Container;
 
 /**
  * Papi loader class.
  *
  * @package Papi
  */
-final class Papi_Loader extends Papi_Container {
+final class Papi_Loader extends Container {
 
 	/**
 	 * The instance of Papi loader class.

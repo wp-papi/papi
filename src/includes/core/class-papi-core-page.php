@@ -3,12 +3,14 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
+use Tank\Container;
+
 /**
  * Papi Core Page class.
  *
  * @package Papi
  */
-abstract class Papi_Core_Page extends Papi_Container {
+abstract class Papi_Core_Page extends Container {
 
 	/**
 	 * Type post.
