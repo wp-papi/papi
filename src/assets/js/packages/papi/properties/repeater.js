@@ -226,9 +226,13 @@ class Repeater {
 
       $el.find('> td:first-child .count').text(i + 1);
 
+      $el.find('[data-replace-slug="true"]').each(function () {
+        let $prop = $(this);
+        $prop.attr('data-slug', $prop.attr('data-slug').replace(/(\[\d+\])/, '[' + i + ']'));
+      });
+
       $el.find('[name*="papi_"]').each(function () {
         let $input = $(this);
-
         $input.attr('name', $input.attr('name').replace(/(\[\d+\])/, '[' + i + ']'));
       });
     });

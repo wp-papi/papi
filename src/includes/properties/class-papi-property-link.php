@@ -87,12 +87,28 @@ class Papi_Property_Link extends Papi_Property {
 			'target'
 		];
 
-		foreach ( $values as $index => $key ) {
-			$values[$key] = get_post_meta( $post_id, $slug . '_' . $key, true );
-			unset( $values[$index] );
+		if ( is_array( $value ) || is_object( $value ) ) {
+			$values = (array) $value;
+
+			foreach ( $values as $key => $val ) {
+				unset( $values[$key] );
+				$key = preg_replace( '/^' . $slug . '\_/', '', $key );
+				$values[$key] = $val;
+			}
+		} else {
+			foreach ( $values as $index => $key ) {
+				$values[$key] = get_post_meta( $post_id, $slug . '_' . $key, true );
+				unset( $values[$index] );
+			}
 		}
 
-		return (object) $values;
+		$values = (object) $values;
+
+		if ( isset( $values->$slug ) ) {
+			unset( $values->$slug );
+		}
+
+		return $values;
 	}
 
 	/**
@@ -108,7 +124,7 @@ class Papi_Property_Link extends Papi_Property {
 		$value = (object) $value;
 		?>
 
-		<div class="papi-property-link" data-slug="<?php echo $this->html_name(); ?>">
+		<div class="papi-property-link" data-replace-slug="true" data-slug="<?php echo $this->html_name(); ?>">
 			<?php if ( isset( $value->url ) ): ?>
 				<table class="papi-table link-table">
 					<tbody>

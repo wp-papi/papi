@@ -96,15 +96,18 @@ class Papi_Property_Repeater extends Papi_Property {
 				continue;
 			}
 
+			// Get property child slug.
+			$child_slug = $this->get_child_slug( $repeater_slug, $slug );
+
 			// Load the value.
-			$values[$slug] = $property_type->load_value( $value, $slug, $post_id );
-			$values[$slug] = papi_filter_load_value( $property_type->type, $values[$slug], $slug, $post_id );
+			$values[$slug] = $property_type->load_value( $value, $child_slug, $post_id );
+			$values[$slug] = papi_filter_load_value( $property_type->type, $values[$slug], $child_slug, $post_id );
 
 			// Format the value from the property class.
-			$values[$slug] = $property_type->format_value( $values[$slug], $slug, $post_id );
+			$values[$slug] = $property_type->format_value( $values[$slug], $child_slug, $post_id );
 
 			if ( ! is_admin() ) {
-				$values[$slug] = papi_filter_format_value( $property_type->type, $values[$slug], $slug, $post_id );
+				$values[$slug] = papi_filter_format_value( $property_type->type, $values[$slug], $child_slug, $post_id );
 			}
 
 			$values[$property_type_slug] = $property_type_value;
@@ -119,6 +122,18 @@ class Papi_Property_Repeater extends Papi_Property {
 		}
 
 		return papi_from_property_array_slugs( $values, $repeater_slug );
+	}
+
+	/**
+	 * Get child slug from the repeater slug.
+	 *
+	 * @param string $repeater_slug
+	 * @param string $child_slug
+	 *
+	 * @return string
+	 */
+	protected function get_child_slug( $repeater_slug, $child_slug ) {
+		return preg_replace( '/^\_/', '', preg_replace( '/\_\d+\_/', '', str_replace( $repeater_slug, '', $child_slug ) ) );
 	}
 
 	/**
@@ -191,7 +206,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$trash   = [];
 
 		// Get row results.
-		$rows = $this->get_row_results( $dbresults );
+		$rows = array_values( $this->get_row_results( $dbresults ) );
 
 		// Add repeater slug with number of rows to the values array.
 		$values[$repeater_slug] = $value;
@@ -688,17 +703,28 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 
 			// Get real property slug
-			$property_slug = substr( str_replace( $repeater_slug, '', $slug ), 4 );
+			$property_slug = $this->get_child_slug( $repeater_slug, $slug );
 
 			// Get property type
 			$property_type_value = $values[$property_type_slug]->type;
 			$property_type = papi_get_property_type( $property_type_value );
+
+			// Unserialize if needed.
+			$value = maybe_unserialize( $value );
 
 			// Run update value on each property type class.
 			$value = $property_type->update_value( $value, $property_slug, $post_id );
 
 			// Run update value on each property type filter.
 			$values[$slug] = papi_filter_update_value( $property_type_value, $value, $property_slug, $post_id );
+
+			if ( is_array( $values[$slug] ) ) {
+				foreach ( $values[$slug] as $key => $val ) {
+					unset( $values[$slug][$key] );
+					$key = preg_replace( '/^\_/', '', $key );
+					$values[$slug][$key] = $val;
+				}
+			}
 
 			if ( isset( $values[$property_type_slug] ) ) {
 				unset( $values[$property_type_slug] );
