@@ -306,7 +306,7 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function format_value( $value, $slug, $post_id ) {
-		return $value;
+		return maybe_unserialize( $value );
 	}
 
 	/**
@@ -517,7 +517,7 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function load_value( $value, $slug, $post_id ) {
-		return $value;
+		return maybe_unserialize( $value );
 	}
 
 	/**
@@ -652,7 +652,7 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function update_value( $value, $slug, $post_id ) {
-		return $value;
+		return maybe_serialize( $value );
 	}
 
 }

@@ -711,4 +711,20 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Fredrik', $actual );
 	}
 
+	public function test_value_serialize() {
+		$property = Papi_Property::create( [
+			'type'  => 'string',
+			'title' => 'Name'
+		] );
+
+		$value = $property->update_value( [1, 2, 3], '', 0 );
+		$this->assertTrue( is_string( $value ) );
+
+		$value1 = $property->load_value( $value, '', 0 );
+		$this->assertEquals( [1, 2, 3], $value1 );
+
+		$value2 = $property->format_value( $value, '', 0 );
+		$this->assertEquals( [1, 2, 3], $value2 );
+	}
+
 }
