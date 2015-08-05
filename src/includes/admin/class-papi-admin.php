@@ -418,10 +418,10 @@ final class Papi_Admin {
 			$name = papi_get_page_type_name( $value['ID'] );
 
 			if ( empty( $name ) ) {
-				$name = esc_html( papi_filter_settings_standard_page_name( $post_type ) );
+				$name = papi_filter_settings_standard_page_name( $post_type );
 			}
 
-			$results[$index]['info'] = $name;
+			$results[$index]['info'] = esc_html( $name );
 		}
 		return $results;
 	}
