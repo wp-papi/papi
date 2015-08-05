@@ -720,6 +720,10 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			if ( is_array( $values[$slug] ) ) {
 				foreach ( $values[$slug] as $key => $val ) {
+					if ( ! is_string( $key ) ) {
+						continue;
+					}
+
 					unset( $values[$slug][$key] );
 					$key = preg_replace( '/^\_/', '', $key );
 					$values[$slug][$key] = $val;
