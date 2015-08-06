@@ -192,7 +192,42 @@ class Papi_Property_File extends Papi_Property {
 	 * @return mixed
 	 */
 	public function import_value( $value, $slug, $post_id ) {
-		return is_object( $value ) ? $value->id : $value;
+		if ( $this->get_setting( 'multiple' ) ) {
+			$values = [];
+
+			foreach ( papi_to_array( $value ) as $item ) {
+				if ( is_object( $item ) && $this->is_attachment( $item->id ) ) {
+					$values[] = $item->id;
+				} else if ( is_numeric( $item ) ) {
+					if ( $this->is_attachment( $item ) ) {
+						$values[] = $item;
+					}
+				}
+			}
+
+			return $values;
+		}
+
+		if ( is_object( $item ) && $this->is_attachment( $item->id ) ) {
+			return $item->id;
+		}
+
+		if ( is_numeric( $item ) && $this->is_attachment( (int) $item ) ) {
+			return (int) $item;
+		}
+
+		return 0;
+	}
+
+	/**
+	 * Check if the given id is a attachment post type or not.
+	 *
+	 * @param int $id
+	 *
+	 * @return bool
+	 */
+	protected function is_attachment( $id ) {
+		return get_post_type( (int) $id ) === 'attachment';
 	}
 
 	/**

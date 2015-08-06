@@ -50,6 +50,19 @@ class Papi_Property_Url extends Papi_Property {
 	}
 
 	/**
+	 * Import value to the property.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+	public function import_value( $value, $slug, $post_id ) {
+		return $this->load_value( $value, $slug, $post_id );
+	}
+
+	/**
 	 * Change value after it's loaded from the database.
 	 *
 	 * @param mixed $value
@@ -74,9 +87,7 @@ class Papi_Property_Url extends Papi_Property {
 	 * @return mixed
 	 */
 	public function update_value( $value, $slug, $post_id ) {
-		if ( filter_var( $value, FILTER_VALIDATE_URL ) ) {
-			return $value;
-		}
+		return $this->load_value( $value, $slug, $post_id );
 	}
 
 }

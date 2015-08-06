@@ -37,6 +37,7 @@ final class Papi_Loader extends Container {
 			self::$instance->constants();
 			self::$instance->setup_actions();
 			self::$instance->require_files();
+			self::$instance->setup_container();
 		}
 
 		return self::$instance;
@@ -98,6 +99,15 @@ final class Papi_Loader extends Container {
 		if ( ! defined( 'PAPI_PAGE_TYPE_KEY' ) ) {
 			define( 'PAPI_PAGE_TYPE_KEY', '_papi_page_type' );
 		}
+	}
+
+	/**
+	 * Get the porter.
+	 *
+	 * @return Papi_Core_Porter
+	 */
+	public function porter() {
+		return $this->make( 'porter' );
 	}
 
 	/**
@@ -178,6 +188,13 @@ final class Papi_Loader extends Container {
 	 */
 	private function setup_actions() {
 		add_action( 'after_setup_theme', 'papi_action_include' );
+	}
+
+	/**
+	 * Setup container.
+	 */
+	private function setup_container() {
+		$this->singleton( 'porter', new Papi_Porter );
 	}
 }
 

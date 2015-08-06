@@ -149,13 +149,6 @@ class Properties_Page_Type extends Papi_Page_Type {
 				]
 			] ),
 
-			// Link
-			papi_property( [
-				'type'  => 'link',
-				'title' => 'Link test',
-				'slug'  => 'link_test'
-			] ),
-
 			// Gallery
 			papi_property( [
 				'type'  => 'gallery',
@@ -195,6 +188,13 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'type'  => 'image',
 				'title' => 'Image test',
 				'slug'  => 'image_test'
+			] ),
+
+			// Link
+			papi_property( [
+				'type'  => 'link',
+				'title' => 'Link test',
+				'slug'  => 'link_test'
 			] ),
 
 			// Number

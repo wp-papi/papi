@@ -25,6 +25,32 @@ class Papi_Property_Relationship extends Papi_Property {
 	public $default_value = [];
 
 	/**
+	 * Format the value of the property before it's returned to the application.
+	 *
+	 * @param mixed $values
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return array
+	 */
+	public function format_value( $values, $slug, $post_id ) {
+		if ( is_array( $values ) ) {
+			$values = array_map( function ( $id ) {
+				$post = get_post( $id );
+
+				if ( empty( $post ) ) {
+					return $id;
+				}
+
+				return $post;
+			}, array_filter( $values ) );
+			return $this->sort_value( $values, $slug, $post_id );
+		} else {
+			return $this->default_value;
+		}
+	}
+
+	/**
 	 * Get default settings.
 	 *
 	 * @return array
@@ -198,13 +224,13 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @return mixed
 	 */
 	public function import_value( $value, $slug, $post_id ) {
-		if ( ! is_array( $value ) ) {
+		if ( ! is_array( $value ) && ! is_object( $value ) && ! is_numeric( $value ) ) {
 			return;
 		}
 
 		$values = [];
 
-		foreach ( $value as $index => $val ) {
+		foreach ( papi_to_array( $value ) as $index => $val ) {
 			if ( $value instanceof WP_Post ) {
 				$values[] = $value->ID;
 			}
@@ -237,32 +263,6 @@ class Papi_Property_Relationship extends Papi_Property {
 		usort( $values, $sort_options[$sort_option] );
 
 		return $values;
-	}
-
-	/**
-	 * Format the value of the property before it's returned to the application.
-	 *
-	 * @param mixed $values
-	 * @param string $slug
-	 * @param int $post_id
-	 *
-	 * @return array
-	 */
-	public function format_value( $values, $slug, $post_id ) {
-		if ( is_array( $values ) ) {
-			$values = array_map( function ( $id ) {
-				$post = get_post( $id );
-
-				if ( empty( $post ) ) {
-					return $id;
-				}
-
-				return $post;
-			}, array_filter( $values ) );
-			return $this->sort_value( $values, $slug, $post_id );
-		} else {
-			return $this->default_value;
-		}
 	}
 
 	/**

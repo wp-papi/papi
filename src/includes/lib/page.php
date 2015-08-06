@@ -188,7 +188,7 @@ function papi_get_page_type( $file_path ) {
 			return;
 		}
 
-		papi()->bind( $class_name, $page_type );
+		papi()->singleton( $page_type );
 	}
 
 	return papi()->make( $class_name );
