@@ -25,6 +25,27 @@ class Papi_Property_Checkbox extends Papi_Property {
 	public $default_value = [];
 
 	/**
+	 * Format the value of the property before it's returned to the application.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return array
+	 */
+	public function format_value( $value, $slug, $post_id ) {
+		if ( is_string( $value ) && ! papi_is_empty( $value ) ) {
+			return [$value];
+		}
+
+		if ( ! is_array( $value ) ) {
+			return $this->default_value;
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Get default settings.
 	 *
 	 * @return array
@@ -77,21 +98,21 @@ class Papi_Property_Checkbox extends Papi_Property {
 	}
 
 	/**
-	 * Format the value of the property before it's returned to the application.
+	 * Import value to the property.
 	 *
 	 * @param mixed $value
 	 * @param string $slug
 	 * @param int $post_id
 	 *
-	 * @return array
+	 * @return mixed
 	 */
-	public function format_value( $value, $slug, $post_id ) {
+	public function import_value( $value, $slug, $post_id ) {
 		if ( is_string( $value ) && ! papi_is_empty( $value ) ) {
 			return [$value];
 		}
 
 		if ( ! is_array( $value ) ) {
-			return $this->default_value;
+			return;
 		}
 
 		return $value;

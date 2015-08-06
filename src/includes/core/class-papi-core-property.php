@@ -495,6 +495,19 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Import value to the property.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+	public function import_value( $value, $slug, $post_id ) {
+		return maybe_unserialize( $value );
+	}
+
+	/**
 	 * Check if it's a option page or not.
 	 *
 	 * @return bool

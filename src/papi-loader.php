@@ -127,7 +127,8 @@ final class Papi_Loader extends Container {
 			'template.php',
 			'option.php',
 			'deprecated.php',
-			'conditional.php'
+			'conditional.php',
+			'porter.php'
 		];
 
 		// Require function files.
@@ -136,6 +137,8 @@ final class Papi_Loader extends Container {
 				require_once $lib_path . $file;
 			}
 		}
+
+		unset( $file );
 
 		// Require admin classes.
 		require_once __DIR__ . '/includes/admin/class-papi-admin.php';

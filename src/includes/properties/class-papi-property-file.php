@@ -183,6 +183,19 @@ class Papi_Property_File extends Papi_Property {
 	}
 
 	/**
+	 * Import value to the property.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+	public function import_value( $value, $slug, $post_id ) {
+		return is_object( $value ) ? $value->id : $value;
+	}
+
+	/**
 	 * Render file template.
 	 */
 	public function render_file_template() {

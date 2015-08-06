@@ -189,6 +189,35 @@ class Papi_Property_Relationship extends Papi_Property {
 	}
 
 	/**
+	 * Import value to the property.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+	public function import_value( $value, $slug, $post_id ) {
+		if ( ! is_array( $value ) ) {
+			return;
+		}
+
+		$values = [];
+
+		foreach ( $value as $index => $val ) {
+			if ( $value instanceof WP_Post ) {
+				$values[] = $value->ID;
+			}
+
+			if ( is_numeric( $value ) ) {
+				$values[] = (int) $value;
+			}
+		}
+
+		return $values;
+	}
+
+	/**
 	 * Sort the values.
 	 *
 	 * @param array $values
