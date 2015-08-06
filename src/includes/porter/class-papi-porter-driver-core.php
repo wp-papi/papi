@@ -26,7 +26,6 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
         $property = $options['property'];
         $slug     = $options['slug'];
 
-
         $value = $this->call_value( $options['value'] );
         $value = $property->import_value( $value, $slug, $post_id );
 
