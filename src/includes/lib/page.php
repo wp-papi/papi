@@ -418,6 +418,28 @@ function papi_get_slugs( $post_id = 0 ) {
 }
 
 /**
+ * Check if `$obj` is a instanceof `Papi_Option_Type`.
+ *
+ * @param mixed $obj
+ *
+ * @return bool
+ */
+function papi_is_option_type( $obj ) {
+	return $obj instanceof Papi_Option_Type && $obj->get_post_type() === '_papi_option_type';
+}
+
+/**
+ * Check if `$obj` is a instanceof `Papi_Page_Type`.
+ *
+ * @param mixed $obj
+ *
+ * @return bool
+ */
+function papi_is_page_type( $obj ) {
+	return $obj instanceof Papi_Page_Type && ! papi_is_option_type( $obj );
+}
+
+/**
  * Echo the Page type name.
  *
  * @param int $post_id
