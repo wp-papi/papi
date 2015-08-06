@@ -37,7 +37,6 @@ final class Papi_Loader extends Container {
 			self::$instance->constants();
 			self::$instance->setup_actions();
 			self::$instance->require_files();
-			self::$instance->setup_container();
 		}
 
 		return self::$instance;
@@ -156,6 +155,9 @@ final class Papi_Loader extends Container {
 
 		// Require conditional rules.
 		require_once __DIR__ . '/includes/conditional/class-papi-conditional-rules.php';
+
+		// Setup container.
+		$this->setup_container();
 
 		// Include plugins or properties.
 		papi_action_include();
