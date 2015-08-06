@@ -64,7 +64,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var int
 	 */
-	public $sort_order = 0;
+	public $sort_order = null;
 
 	/**
 	 * The template of the page type.
@@ -163,7 +163,9 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * Setup page type variables.
 	 */
 	private function setup_page_type() {
-		$this->sort_order = papi_filter_settings_sort_order();
+		if ( is_null( $this->sort_order ) ) {
+			$this->sort_order = papi_filter_settings_sort_order();
+		}
 	}
 
 	/**
