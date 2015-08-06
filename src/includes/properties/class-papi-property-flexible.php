@@ -509,14 +509,14 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
 							$render_property = clone $row[$i]->get_options();
-							$value_slug      = $property->get_slug( true );
+							$value_slug      = $row[$i]->get_slug( true );
 
 							if ( $has_value ) {
 								if ( array_key_exists( $value_slug, $value ) ) {
 									$render_property->value = $value[$value_slug];
 								} else {
-									if ( array_key_exists( $property->get_slug(), $value ) ) {
-										$render_property->value = $property->default_value;
+									if ( array_key_exists( $row[$i]->get_slug(), $value ) ) {
+										$render_property->value = $row[$i]->default_value;
 									} else {
 										continue;
 									}
