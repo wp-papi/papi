@@ -160,7 +160,7 @@ final class Papi_Loader extends Container {
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
-		$plugin_path = plugin_basename( dirname( __DIR__ ) . '/' . basename( __FILE__ ) );
+		$plugin_path = plugin_basename( __DIR__ . '/../' . basename( __FILE__ ) );
 
 		// If the plugin is active then deactivate it.
 		if ( is_plugin_active( $plugin_path ) ) {
