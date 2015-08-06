@@ -59,7 +59,8 @@ abstract class Papi_Porter_Driver {
     /**
      * Bootstrap the driver.
      */
-    abstract public function bootstrap();
+    public function bootstrap() {
+    }
 
     /**
      * Get the driver name.

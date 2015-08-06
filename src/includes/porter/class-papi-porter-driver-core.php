@@ -15,12 +15,6 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
     protected $name = 'core';
 
     /**
-     * Bootstrap the driver.
-     */
-    public function bootstrap() {
-    }
-
-    /**
      * Get value that should be saved.
      *
      * @param array $options
