@@ -276,18 +276,17 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_is_page_type() {
-		$this->assertTrue( papi_is_option_type( new Papi_Papi_Type ) );
-		$this->assertFalse( papi_is_option_type( new Papi_Option_Type ) );
-		$this->assertFalse( papi_is_option_type( true ) );
-		$this->assertFalse( papi_is_option_type( false ) );
-		$this->assertFalse( papi_is_option_type( null ) );
-		$this->assertFalse( papi_is_option_type( 1 ) );
-		$this->assertFalse( papi_is_option_type( 0 ) );
-		$this->assertFalse( papi_is_option_type( '' ) );
-		$this->assertFalse( papi_is_option_type( [] ) );
-		$this->assertFalse( papi_is_option_type( (object) [] ) );
+		$this->assertTrue( papi_is_page_type( new Papi_Page_Type ) );
+		$this->assertFalse( papi_is_page_type( new Papi_Option_Type ) );
+		$this->assertFalse( papi_is_page_type( true ) );
+		$this->assertFalse( papi_is_page_type( false ) );
+		$this->assertFalse( papi_is_page_type( null ) );
+		$this->assertFalse( papi_is_page_type( 1 ) );
+		$this->assertFalse( papi_is_page_type( 0 ) );
+		$this->assertFalse( papi_is_page_type( '' ) );
+		$this->assertFalse( papi_is_page_type( [] ) );
+		$this->assertFalse( papi_is_page_type( (object) [] ) );
 	}
-
 
 	public function test_the_papi_page_type_name() {
 		the_papi_page_type_name();

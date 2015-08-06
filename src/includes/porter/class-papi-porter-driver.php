@@ -36,7 +36,9 @@ abstract class Papi_Porter_Driver {
     protected $post_id;
 
     /**
-     * Create a new driver instance.
+     * The constructor.
+     *
+     * @codeCoverageIgnore
      */
     public function __construct() {
     }
@@ -76,7 +78,7 @@ abstract class Papi_Porter_Driver {
      *
      * @return array
      */
-    protected function get_options() {
+    public function get_options() {
         return $this->options;
     }
 
@@ -157,7 +159,6 @@ abstract class Papi_Porter_Driver {
      *
      * @return obj
      */
-
     protected function with( $obj ) {
         return $obj;
     }
