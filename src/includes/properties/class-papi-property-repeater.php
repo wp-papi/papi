@@ -511,11 +511,15 @@ class Papi_Property_Repeater extends Papi_Property {
 			$value_slug      = $property->get_slug( true );
 
 			if ( $has_value ) {
-				if ( ! array_key_exists( $value_slug, $value ) ) {
-					continue;
+				if ( array_key_exists( $value_slug, $value ) ) {
+					$render_property->value = $value[$value_slug];
+				} else {
+					if ( array_key_exists( $property->get_slug(), $value ) ) {
+						$render_property->value = $property->default_value;
+					} else {
+						continue;
+					}
 				}
-
-				$render_property->value = $value[$value_slug];
 			}
 
 			$render_property->slug  = $this->html_name( $property, $this->counter );
