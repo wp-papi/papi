@@ -14,7 +14,9 @@ So we though why don’t use the same approach in WordPress? Papi is today runni
 
 ## Installation
 
-If you're using Composer to manage WordPress, add Papi to your project's dependencies. Run:
+Papi should be install with Composer as of 2.3.0 since it depends on [Tank](https://github.com/frozzare/tank).
+
+Install it by running:
 
 ```sh
 composer require wp-papi/papi
