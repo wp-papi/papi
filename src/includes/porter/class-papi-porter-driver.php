@@ -65,6 +65,22 @@ abstract class Papi_Porter_Driver {
     }
 
     /**
+     * Get filter key.
+     *
+     * @param string $type
+     * @param string $filter
+     *
+     * @return string
+     */
+    public function filter( $type, $filter ) {
+        if ( ! is_string( $filter ) ) {
+            $filter = '';
+        }
+
+        return sprintf( 'papi/porter/driver/%s/%s/%s', $this->name, $type, $filter );
+    }
+
+    /**
      * Get the driver name.
      *
      * @return string

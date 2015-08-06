@@ -38,6 +38,36 @@ class Papi_Porter extends Container {
     }
 
     /**
+     * Add after filter.
+     *
+     * @param string $filter
+     * @param Closure $closure
+     * @param int $priority
+     * @param int $accepted_args
+     *
+     * @return bool
+     */
+    public function after( $filter, Closure $closure, $priority = 10, $accepted_args = 2 ) {
+        $filter = $this->driver->filter( 'after', $filter );
+        return add_filter( $filter, $closure, $priority, $accepted_args );
+    }
+
+    /**
+     * Add before filter.
+     *
+     * @param string $filter
+     * @param Closure $closure
+     * @param int $priority
+     * @param int $accepted_args
+     *
+     * @return bool
+     */
+    public function before( $filter, Closure $closure, $priority = 10, $accepted_args = 2 ) {
+        $filter = $this->driver->filter( 'before', $filter );
+        return add_filter( $filter, $closure, $priority, $accepted_args );
+    }
+
+    /**
      * Export data from Papi. With or without all property options.
      *
      * @param mixed $post_id
@@ -117,6 +147,42 @@ class Papi_Porter extends Container {
         $this->driver->bootstrap();
 
         return $this;
+    }
+
+    /**
+     * Fire filter.
+     *
+     * @param array $options
+     *
+     * @throws Exception if `filter` is missing from options array.
+     * @throws Exception if `value` is missing from options array.
+     *
+     * @return mixed
+     */
+    protected function fire_filter( array $options ) {
+        if ( ! isset( $options['type'] ) ) {
+            $options['type'] = 'after';
+        }
+
+        if ( ! isset( $options['filter'] ) ) {
+            throw new Exception( 'Missing `filter` in options array' );
+        }
+
+        if ( ! isset( $options['value'] ) ) {
+            throw new Exception( 'Missing `value` in options array' );
+        }
+
+        $arguments = [
+            $this->driver->filter( $options['type'], $options['filter'] ),
+        ];
+
+        $value = $options['value'];
+
+        foreach ( papi_to_array( $value ) as $val ) {
+            $arguments[] = $val;
+        }
+
+        return call_user_func_array( 'apply_filters', $arguments );
     }
 
     /**
@@ -208,11 +274,29 @@ class Papi_Porter extends Container {
                 continue;
             }
 
+            $value = $this->fire_filter( [
+                'filter' => 'driver:value',
+                'type'   => 'before',
+                'value'  => [
+                    $value,
+                    $slug
+                ]
+            ] );
+
             $value = $this->get_value( [
                 'post_id'  => $post_id,
                 'property' => $property,
                 'slug'     => $slug,
                 'value'    => $value
+            ] );
+
+            $value = $this->fire_filter( [
+                'filter' => 'driver:value',
+                'type'   => 'after',
+                'value'  => [
+                    $value,
+                    $slug
+                ]
             ] );
 
             $out = papi_update_property_meta_value( [
