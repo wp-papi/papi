@@ -75,6 +75,19 @@ class Papi_Property_Bool extends Papi_Property {
 	}
 
 	/**
+	 * Import value to the property.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+	public function import_value( $value, $slug, $post_id ) {
+		return $this->format_value( $value, $slug, $post_id );
+	}
+
+	/**
 	 * Fix the database value on update.
 	 *
 	 * @param mixed $value
