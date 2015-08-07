@@ -221,9 +221,9 @@ final class Papi_Porter extends Container {
         $post_id   = $options['post_id'];
         $page_type = $options['page_type'];
 
-        if ( $update_arrays = $options['update_arrays'] ) {
+        if ( isset( $options['update_arrays'] ) ) {
             $this->driver->set_options( [
-                'update_array' => $update_arrays
+                'update_array' => $options['update_arrays']
             ] );
         }
 

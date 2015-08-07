@@ -151,10 +151,23 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 
         update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
 
-        $output  = $this->porter->import( $post_id, [
+        $output = $this->porter->import( $post_id, [
             'fake_slug' => true,
             null
         ] );
+
+        $this->assertFalse( $output );
+
+        $post_id = $this->factory->post->create();
+
+        $output = $this->porter->import( [
+            'post_id'   => $post_id,
+            'page_type' => 'Fake_Page_Type'
+        ], [
+            'bool_test' => true
+        ] );
+
+        $this->assertFalse( $output );
     }
 
     public function test_use_driver() {
