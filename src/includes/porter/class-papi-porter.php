@@ -118,15 +118,19 @@ final class Papi_Porter extends Container {
                 } else {
                     $page = papi_get_page( $post_id );
 
+                    // @codeCoverageIgnoreStart
                     if ( is_null( $page ) ) {
                         continue;
                     }
+                    // @codeCoverageIgnoreEnd
 
                     $property = $page->get_property( $slug );
 
+                    // @codeCoverageIgnoreStart
                     if ( ! papi_is_property( $property ) ) {
                         continue;
                     }
+                    // @codeCoverageIgnoreEnd
 
                     $options = clone $property->get_options();
                     $options->value = $value;
