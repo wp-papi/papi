@@ -349,9 +349,32 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param string $slug
 	 * @param int $post_id
 	 *
-	 * @return mixed
+	 * @return array
 	 */
 	public function import_value( $value, $slug, $post_id ) {
+		if ( ! is_array( $value ) ) {
+			return [];
+		}
+
+		// If the import value isn't array in array then fix it.
+		$extras = array_filter( $value, function ( $value ) {
+			return ! is_array( $value );
+		} );
+
+		if ( ! empty( $extras ) ) {
+			$extra = [];
+
+			foreach ( $extras as $key => $val ) {
+				if ( isset( $value[$key] ) ) {
+					unset( $value[$key] );
+				}
+
+				$extra[$key] = $val;
+			}
+
+			$value[] = $extra;
+		}
+
 		return $this->update_value( $value, $slug, $post_id );
 	}
 
