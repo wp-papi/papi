@@ -280,9 +280,10 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_if_or() {
+		$this->assertNull( papi_if_or( null, [] ) );
 		$this->assertEquals( [], papi_if_or( 'is_array', [], null ) );
 		$this->assertEquals( null, papi_if_or( 'is_string', [], null ) );
-		$this->assertEquals( [], papi_if_or( ['is_array', 'is_object'], [], null ) );
+		$this->assertEquals( [], papi_if_or( ['is_array', 'is_object', null], [], null ) );
 		$this->assertEquals( 'hello', papi_if_or( ['!is_array', '!is_object'], 'hello', null ) );
 	}
 

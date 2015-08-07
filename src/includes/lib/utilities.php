@@ -407,7 +407,7 @@ function papi_html_tag( $tag, $attr = [] ) {
  */
 function papi_if_or( $args, $value1, $value2 = null ) {
 	if ( ! is_array( $args ) && ! is_string( $args ) ) {
-		return $default;
+		return $value2;
 	}
 
 	$results = [];
