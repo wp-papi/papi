@@ -110,11 +110,10 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			$properties = [$properties];
 		}
 
-		if ( ! is_array( $properties ) ) {
-			$properties = [];
-		}
-
-		$properties = array_map( 'papi_get_property_type', $properties );
+		$properties = array_map(
+			'papi_get_property_type',
+			is_array( $properties ) ? $properties : []
+		);
 
 		return array_filter( $properties, function ( $property ) {
 			return papi_is_property( $property );
