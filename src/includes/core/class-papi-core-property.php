@@ -481,11 +481,7 @@ class Papi_Core_Property {
 
 		$settings = $this->import_settings();
 
-		if ( isset( $settings->$key ) ) {
-			return $settings->$key;
-		}
-
-		return $default;
+		return isset( $settings->$key ) ? $settings->$key : $default;
 	}
 
 	/**
