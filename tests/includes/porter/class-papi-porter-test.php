@@ -22,6 +22,10 @@ class Papi_Porter_Test extends WP_UnitTestCase {
         if ( ! class_exists( 'Papi_Porter_Driver_Core2' ) ) {
             require_once PAPI_FIXTURE_DIR . '/porter/class-papi-porter-driver-core2.php';
         }
+
+        if ( ! class_exists( 'Papi_Porter_Driver_Fail' ) ) {
+            require_once PAPI_FIXTURE_DIR . '/porter/class-papi-porter-driver-fail.php';
+        }
     }
 
     public function tearDown() {
@@ -50,6 +54,14 @@ class Papi_Porter_Test extends WP_UnitTestCase {
             ) );
         } catch ( Exception $e ) {
             $this->assertEquals( '`core2` driver exists.', $e->getMessage() );
+        }
+
+        try {
+            $this->assertEquals( $this->porter, $this->porter->add_driver(
+                new Papi_Porter_Driver_Fail
+            ) );
+        } catch ( Exception $e ) {
+            $this->assertEquals( 'Driver name is empty or not a string.', $e->getMessage() );
         }
     }
 
