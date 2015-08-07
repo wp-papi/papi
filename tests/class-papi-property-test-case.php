@@ -90,6 +90,14 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		}
 	}
 
+	public function test_property_format_value() {
+		$this->assertEquals( $this->get_expected(), $this->property->format_value( $this->get_value(), '', 0 ) );
+	}
+
+	public function test_property_import_value() {
+		$this->assertEquals( $this->get_expected(), $this->property->import_value( $this->get_value(), '', 0 ) );
+	}
+
 	abstract public function test_property_options();
 
 	public function test_property_output() {

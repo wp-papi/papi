@@ -152,6 +152,8 @@ class Papi_Property_Post extends Papi_Property {
 		if ( is_numeric( $value ) ) {
 			return (int) $value;
 		}
+
+		return $this->default_value;
 	}
 
 	/**

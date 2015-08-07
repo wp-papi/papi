@@ -231,12 +231,12 @@ class Papi_Property_Relationship extends Papi_Property {
 		$values = [];
 
 		foreach ( papi_to_array( $value ) as $index => $val ) {
-			if ( $value instanceof WP_Post ) {
-				$values[] = $value->ID;
+			if ( $val instanceof WP_Post ) {
+				$values[] = $val->ID;
 			}
 
-			if ( is_numeric( $value ) ) {
-				$values[] = (int) $value;
+			if ( is_numeric( $val ) ) {
+				$values[] = (int) $val;
 			}
 		}
 

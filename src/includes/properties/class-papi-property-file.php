@@ -205,15 +205,17 @@ class Papi_Property_File extends Papi_Property {
 				}
 			}
 
-			return $values;
+			return array_filter( $values, function ( $val ) {
+				return ! empty( $val );
+			} );
 		}
 
-		if ( is_object( $item ) && $this->is_attachment( $item->id ) ) {
-			return $item->id;
+		if ( is_object( $value ) && $this->is_attachment( $value->id ) ) {
+			return $value->id;
 		}
 
-		if ( is_numeric( $item ) && $this->is_attachment( (int) $item ) ) {
-			return (int) $item;
+		if ( is_numeric( $value ) && $this->is_attachment( (int) $value ) ) {
+			return (int) $value;
 		}
 
 		return 0;

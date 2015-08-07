@@ -60,6 +60,11 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 		$this->assertEmpty( $this->property->format_value( false, $this->slug, $this->post_id ) );
 	}
 
+	public function test_property_import_value() {
+		// todo
+		$this->assertTrue( true );
+	}
+
 	public function test_property_options() {
 		$this->assertEquals( 'flexible', $this->property->get_option( 'type' ) );
 		$this->assertEquals( 'Flexible test', $this->property->get_option( 'title' ) );

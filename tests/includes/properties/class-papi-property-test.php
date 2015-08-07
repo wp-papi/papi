@@ -443,6 +443,15 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'papi_name[0]', $property->html_name( $sub_property, 0 ) );
 	}
 
+	public function test_property_import_value() {
+		$property = Papi_Property::create( [
+			'type' => 'number',
+			'slug' => 'age'
+		] );
+
+		$this->assertEquals( 'test', $property->import_value( 'test', '', 0 ) );
+	}
+
 	public function test_load_value() {
 		$property = Papi_Property::create( [
 			'type'  => 'string',
