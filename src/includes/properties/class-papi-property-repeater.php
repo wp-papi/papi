@@ -151,6 +151,17 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
+	 * Get import settings.
+	 *
+	 * @return array
+	 */
+	public function get_import_settings() {
+		return [
+			'update_value_when_on_update_array' => false
+		];
+	}
+
+	/**
 	 * Get JSON property that is used when adding new row.
 	 *
 	 * @return object
@@ -329,6 +340,19 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		// Render JSON template that is used for Papi ajax.
 		$this->render_json_template( $options->slug );
+	}
+
+	/**
+	 * Import value to the property.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+	public function import_value( $value, $slug, $post_id ) {
+		return $this->update_value( $value, $slug, $post_id );
 	}
 
 	/**

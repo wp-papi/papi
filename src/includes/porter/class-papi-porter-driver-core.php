@@ -27,11 +27,12 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
         $slug     = $options['slug'];
 
         $value = $this->call_value( $options['value'] );
-        $value = $property->import_value( $value, $slug, $post_id );
 
         // todo make so flexible + repeater works
         if ( $this->should_update_array( $slug ) ) {
             $value = $this->update_array_value( $property, $value, $slug, $post_id );
+        } else {
+            $value = $property->import_value( $value, $slug, $post_id );
         }
 
         return $value;
@@ -48,8 +49,13 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
      * @return array
      */
     protected function update_array_value( $property, $value, $slug, $post_id ) {
-        $old   = papi_get_field( $post_id, $slug, [] );
-        $value = array_merge( $old, $value );
+        $old      = papi_get_field( $post_id, $slug, [] );
+        $value    = array_merge( $old, $value );
+        $value    = $property->import_value( $value, $slug, $post_id );
+
+        if ( $property->import_setting( 'update_value_when_on_update_array' ) === false ) {
+            return $value;
+        }
 
         return $property->update_value( $value, $slug, $post_id );
     }
