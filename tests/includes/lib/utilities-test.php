@@ -279,6 +279,13 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/\<label for\=\"\{\}\"\>hello world\<\/label\>/' );
 	}
 
+	public function test_papi_if_or() {
+		$this->assertEquals( [], papi_if_or( 'is_array', [], null ) );
+		$this->assertEquals( null, papi_if_or( 'is_string', [], null ) );
+		$this->assertEquals( null, papi_if_or( ['is_array', 'is_object'], [], null ) );
+		$this->assertEquals( 'hello', papi_if_or( ['!is_array', '!is_object'], 'hello', null ) );
+	}
+
 	public function test_papi_is_empty() {
 		$this->assertTrue( papi_is_empty( null ) );
 		$this->assertFalse( papi_is_empty( 'false' ) );
