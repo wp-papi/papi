@@ -410,7 +410,7 @@ function papi_if_or( $args, $value1, $value2 = null ) {
 		return $default;
 	}
 
-	$result = true;
+	$results = [];
 
 	foreach ( papi_to_array( $args ) as $conditional ) {
 		if ( ! is_string( $conditional ) ) {
@@ -421,10 +421,32 @@ function papi_if_or( $args, $value1, $value2 = null ) {
 		$conditional = preg_replace( '/^\!/', '', $conditional );
 		$out         = $conditional( $value1 );
 		$out         = $negative ? ! $out : $out;
-		$result      = $out ? $result : $out;
+		$results[]   = $out;
 	}
 
-	return $result ? $value1 : $value2;
+	if ( count( $args ) === 1 ) {
+		return $results[0] === true ? $value1 : $value2;
+	}
+
+	$failed = array_filter( $results, function( $item ) {
+		return $item === false;
+	} );
+
+	if ( count( $failed ) === count( $args ) ) {
+		return $value2;
+	}
+
+	$success = array_filter( $results, function ( $item ) {
+		return $item === true;
+	} );
+
+	if ( count( $success ) === count( $args ) ) {
+		return $value1;
+	}
+
+	return in_array( true, $results ) &&
+		in_array( false, $results ) ?
+			$value1 : $value2;
 }
 
 /**
