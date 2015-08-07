@@ -14,6 +14,13 @@ abstract class Papi_Porter_Driver {
      */
      protected $name = '';
 
+     /**
+      * Alias for driver name.
+      *
+      * @var array|string
+      */
+     protected $alias = [];
+
     /**
      * Options per property.
      *
@@ -114,6 +121,17 @@ abstract class Papi_Porter_Driver {
     abstract public function get_value( array $options );
 
     /**
+     * Set driver alias.
+     */
+    protected function set_driver_alias() {
+        foreach ( papi_to_array( $this->alias ) as $alias ) {
+            if ( is_string( $alias ) && ! $this->porter->exists( 'driver.' . $alias ) ) {
+                $this->set_driver_name( $alias );
+            }
+        }
+    }
+
+    /**
      * Set driver name.
      *
      * @param string $name
@@ -148,6 +166,7 @@ abstract class Papi_Porter_Driver {
     public function set_porter( Papi_Porter $porter ) {
         $this->porter = $porter;
         $this->set_driver_name( $this->name );
+        $this->set_driver_alias();
     }
 
     /**

@@ -53,6 +53,27 @@ class Papi_Porter_Test extends WP_UnitTestCase {
         }
     }
 
+    public function test_export() {
+        $post_id = $this->factory->post->create();
+        update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
+
+        $this->assertEmpty( $this->porter->export( 0 ) );
+        $output = $this->porter->export( $post_id );
+        $this->assertEquals( 'bool', $output['Properties']['bool_test']->type );
+        $output = $this->porter->export( $post_id, true );
+        $this->assertFalse( is_object( $output['Properties']['bool_test'] ) );
+        $this->assertNull( $output['Properties']['bool_test'] );
+
+        papi_update_field( $post_id, 'checkbox_test', ['#000000'] );
+        $this->assertEquals( ['#000000'], papi_get_field( $post_id, 'checkbox_test' ) );
+
+        $output = $this->porter->export( $post_id );
+        $this->assertEquals( ['#000000'], $output['Properties']['checkbox_test']->value );
+        $output = $this->porter->export( $post_id, true );
+        $this->assertFalse( is_object( $output['Properties']['checkbox_test'] ) );
+        $this->assertEquals( ['#000000'], $output['Properties']['checkbox_test'] );
+    }
+
     public function test_filters() {
         $this->porter->before( 'driver:value', function ( $value, $slug ) {
             $this->assertEquals( 'bool_test', $slug );
@@ -119,7 +140,7 @@ class Papi_Porter_Test extends WP_UnitTestCase {
         $this->assertFalse( $this->porter->import( $post_id, [] ) );
         $this->assertFalse( $this->porter->import( [
             'post_id'       => $post_id,
-            'page_type'     => papi_get_page_type_by_id( 'options/header-option-type' ),
+            'page_type'     => 'options/header-option-type',
             'update_arrays' => true
         ] ) );
 
@@ -144,6 +165,12 @@ class Papi_Porter_Test extends WP_UnitTestCase {
             $this->assertEquals( '`hello` driver does not exist.', $e->getMessage() );
         }
 
+        try {
+            $this->porter->driver( 'hello' );
+        } catch ( Exception $e ) {
+            $this->assertEquals( '`hello` driver does not exist.', $e->getMessage() );
+        }
+
         $post_id = $this->factory->post->create();
         update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
 
@@ -154,6 +181,16 @@ class Papi_Porter_Test extends WP_UnitTestCase {
         }
 
         $output = $this->porter->use_driver( 'core2' )->import( $post_id, [
+            'bool_test' => true
+        ] );
+
+        $this->assertTrue( $output );
+        $this->assertTrue( papi_get_field( $post_id, 'bool_test' ) );
+
+        $post_id = $this->factory->post->create();
+        update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
+
+        $output = $this->porter->driver( 'papi' )->import( $post_id, [
             'bool_test' => true
         ] );
 

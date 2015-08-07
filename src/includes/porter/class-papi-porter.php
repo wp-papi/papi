@@ -68,6 +68,17 @@ final class Papi_Porter extends Container {
     }
 
     /**
+     * Alias for `use_driver` method.
+     *
+     * @param string $driver
+     *
+     * @return Papi_Porter
+     */
+    public function driver( $driver ) {
+        return $this->use_driver( $driver );
+    }
+
+    /**
      * Check if a driver exists or not.
      *
      * @param string $driver

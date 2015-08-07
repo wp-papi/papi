@@ -15,6 +15,13 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
     protected $name = 'core';
 
     /**
+     * Alias for driver name.
+     *
+     * @var array|string
+     */
+    protected $alias = 'papi';
+
+    /**
      * Get value that should be saved.
      *
      * @param array $options
