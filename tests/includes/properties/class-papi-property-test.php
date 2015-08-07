@@ -374,7 +374,9 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	public function test_import_setting() {
 		$property = new Papi_Property();
-		$this->assertNull( $property->import_setting( null ) );
+		$this->assertEquals( [
+			'property_array_slugs' => false
+		], $property->import_setting( null ) );
 	}
 
 	public function test_import_settings() {
