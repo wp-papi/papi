@@ -19,7 +19,13 @@ abstract class Papi_Porter_Driver {
      *
      * @var array
      */
-    protected $options = [];
+    protected $options = [
+        'custom'   => [],
+        'post_id'  => 0,
+        'property' => null,
+        'slug'     => '',
+        'value'    => null
+    ];
 
     /**
      * Papi Porter instance.
@@ -165,7 +171,9 @@ abstract class Papi_Porter_Driver {
             return false;
         }
 
-        return isset( $this->options[$slug] ) && $this->options[$slug]['update_array'];
+        return isset( $this->options['custom'] ) &&
+            isset( $this->options['custom'][$slug] ) &&
+            $this->options['custom'][$slug]['update_array'];
     }
 
     /**

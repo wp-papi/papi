@@ -469,9 +469,12 @@ class Papi_Core_Property {
 	/**
 	 * Get the import settings.
 	 *
+	 * @param string $key
+	 * @param mixed $default
+	 *
 	 * @return mixed
 	 */
-	public function import_setting( $key ) {
+	public function import_setting( $key, $default = null ) {
 		if ( ! is_string( $key ) ) {
 			return $default;
 		}

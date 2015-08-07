@@ -319,7 +319,9 @@ class Papi_Porter extends Container {
      * @return Papi_Porter
      */
     public function options( array $options = [] ) {
-        $this->driver->set_options( $options );
+        $this->driver->set_options( [
+            'custom' => $options
+        ] );
         return $this;
     }
 
