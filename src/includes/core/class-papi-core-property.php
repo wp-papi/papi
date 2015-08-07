@@ -25,6 +25,15 @@ class Papi_Core_Property {
 	public $convert_type = 'string';
 
 	/**
+	 * Default import settings.
+	 *
+	 * @var array
+	 */
+	private $default_import_settings = [
+		'update_value_when_on_update_array' => true
+	];
+
+	/**
 	 * Default options.
 	 *
 	 * @var array
@@ -113,22 +122,6 @@ class Papi_Core_Property {
 	 */
 	public function __set( $key, $value ) {
 		$this->set_option( $key, $value );
-	}
-
-	/**
-	 * Check if the property is allowed
-	 * to render by the conditional rules.
-	 *
-	 * @param array $rules
-	 *
-	 * @return bool
-	 */
-	public function render_is_allowed_by_rules( array $rules = [] ) {
-		if ( empty( $rules ) ) {
-			$rules = $this->get_rules();
-		}
-
-		return $this->conditional->display( $rules, $this );
 	}
 
 	/**
@@ -328,6 +321,15 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Get import settings.
+	 *
+	 * @return array
+	 */
+	public function get_import_settings() {
+		return [];
+	}
+
+	/**
 	 * Get option value.
 	 *
 	 * @param string $key
@@ -403,6 +405,10 @@ class Papi_Core_Property {
 	 * @return stdClass
 	 */
 	public function get_setting( $key, $default = null ) {
+		if ( ! is_string( $key ) ) {
+			return $default;
+		}
+
 		$settings = $this->get_settings();
 
 		if ( isset( $settings->$key ) ) {
@@ -461,37 +467,37 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Match property slug with given slug value.
-	 *
-	 * @param string $slug
-	 *
-	 * @return bool
-	 */
-	public function match_slug( $slug ) {
-		if ( ! is_string( $slug ) ) {
-			$slug = '';
-		}
-
-		return $this->get_slug( ! preg_match( '/^papi\_/', $slug ) ) === $slug;
-	}
-
-	/**
-	 * Prepare property value.
-	 *
-	 * @param mixed $value
+	 * Get the import settings.
 	 *
 	 * @return mixed
 	 */
-	public function prepare_value( $value ) {
-		if ( papi_is_empty( $value ) ) {
-			return $this->default_value;
+	public function import_setting( $key ) {
+		if ( ! is_string( $key ) ) {
+			return $default;
 		}
 
-		if ( $this->convert_type === 'string' ) {
-			$value = papi_convert_to_string( $value );
+		$settings = $this->import_settings();
+
+		if ( isset( $settings->$key ) ) {
+			return $settings->$key;
 		}
 
-		return papi_santize_data( $value );
+		return $default;
+	}
+
+	/**
+	 * Get the import settings.
+	 *
+	 * @return object
+	 */
+	public function import_settings() {
+		$settings = $this->get_import_settings();
+
+		if ( is_array( $settings ) || is_object( $settings ) ) {
+			return (object) $settings;
+		}
+
+		return (object) $this->default_import_settings;
 	}
 
 	/**
@@ -534,10 +540,60 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Match property slug with given slug value.
+	 *
+	 * @param string $slug
+	 *
+	 * @return bool
+	 */
+	public function match_slug( $slug ) {
+		if ( ! is_string( $slug ) ) {
+			$slug = '';
+		}
+
+		return $this->get_slug( ! preg_match( '/^papi\_/', $slug ) ) === $slug;
+	}
+
+	/**
+	 * Prepare property value.
+	 *
+	 * @param mixed $value
+	 *
+	 * @return mixed
+	 */
+	public function prepare_value( $value ) {
+		if ( papi_is_empty( $value ) ) {
+			return $this->default_value;
+		}
+
+		if ( $this->convert_type === 'string' ) {
+			$value = papi_convert_to_string( $value );
+		}
+
+		return papi_santize_data( $value );
+	}
+
+	/**
 	 * Render AJAX request.
 	 */
 	public function render_ajax_request() {
 		papi_render_property( $this );
+	}
+
+	/**
+	 * Check if the property is allowed
+	 * to render by the conditional rules.
+	 *
+	 * @param array $rules
+	 *
+	 * @return bool
+	 */
+	public function render_is_allowed_by_rules( array $rules = [] ) {
+		if ( empty( $rules ) ) {
+			$rules = $this->get_rules();
+		}
+
+		return $this->conditional->display( $rules, $this );
 	}
 
 	/**
