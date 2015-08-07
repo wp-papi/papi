@@ -129,7 +129,7 @@ class Papi_Porter_Test extends WP_UnitTestCase {
         }, 10, 2 );
 
         $this->porter->fire_filter( [
-            'filter' => '',
+            'filter' => [],
             'value'  => [
                 true,
                 'bool_test'

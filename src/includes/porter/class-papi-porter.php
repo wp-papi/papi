@@ -127,6 +127,10 @@ final class Papi_Porter extends Container {
                     if ( ! papi_is_property( $property ) ) {
                         continue;
                     }
+
+                    $options = clone $property->get_options();
+                    $options->value = $value;
+                    $slugs[$key][$slug] = $options;
                 }
             }
         }
@@ -315,9 +319,9 @@ final class Papi_Porter extends Container {
      * @return Papi_Porter
      */
     public function use_driver( $driver ) {
-		if ( ! is_string( $driver ) ) {
-			throw new InvalidArgumentException( 'Invalid argument. Must be string.' );
-		}
+        if ( ! is_string( $driver ) ) {
+            throw new InvalidArgumentException( 'Invalid argument. Must be string.' );
+        }
 
         $driver = strtolower( $driver );
 
