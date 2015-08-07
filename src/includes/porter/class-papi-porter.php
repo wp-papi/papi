@@ -7,7 +7,7 @@ use Tank\Container;
  *
  * @package Papi
  */
-class Papi_Porter extends Container {
+final class Papi_Porter extends Container {
 
     /**
      * The driver that should be used.
@@ -21,7 +21,7 @@ class Papi_Porter extends Container {
      */
     public function __construct() {
         $this->add_driver( new Papi_Porter_Driver_Core );
-        $this->driver( 'core' );
+        $this->use_driver( 'core' );
         $this->driver->bootstrap();
     }
 
@@ -65,6 +65,17 @@ class Papi_Porter extends Container {
     public function before( $filter, Closure $closure, $priority = 10, $accepted_args = 2 ) {
         $filter = $this->driver->filter( 'before', $filter );
         return add_filter( $filter, $closure, $priority, $accepted_args );
+    }
+
+    /**
+     * Check if a driver exists or not.
+     *
+     * @param string $driver
+     *
+     * @return false
+     */
+    public function driver_exists( $driver ) {
+        return is_string( $driver ) && $this->exists( 'driver.' . $driver );
     }
 
     /**
@@ -116,40 +127,6 @@ class Papi_Porter extends Container {
     }
 
     /**
-     * Change porter driver.
-     *
-     * @param  Papi_Porter_Driver $driver
-     *
-     * @throws InvalidArgumentException if an argument is not of the expected type.
-     * @throws Exception if driver name does not exist.
-     * @throws Exception if driver class does not exist.
-     *
-     * @return Papi_Porter
-     */
-    public function driver( $driver ) {
-		if ( ! is_string( $driver ) ) {
-			throw new InvalidArgumentException( 'Invalid argument. Must be string.' );
-		}
-
-        $driver = strtolower( $driver );
-
-        if ( ! $this->exists( 'driver.' . $driver ) ) {
-            throw new Exception( sprintf( '`%s` driver does not exist.', $driver ) );
-        }
-
-        $class = $this->make( 'driver.' . $driver );
-
-        if ( ! class_exists( $class ) ) {
-            throw new Exception( sprintf( '`%s` driver class does not exist.', $class ) );
-        }
-
-        $this->driver = new $class( $this );
-        $this->driver->bootstrap();
-
-        return $this;
-    }
-
-    /**
      * Fire filter.
      *
      * @param array $options
@@ -159,17 +136,17 @@ class Papi_Porter extends Container {
      *
      * @return mixed
      */
-    protected function fire_filter( array $options ) {
+    public function fire_filter( array $options ) {
         if ( ! isset( $options['type'] ) ) {
             $options['type'] = 'after';
         }
 
         if ( ! isset( $options['filter'] ) ) {
-            throw new Exception( 'Missing `filter` in options array' );
+            throw new Exception( 'Missing `filter` in options array.' );
         }
 
         if ( ! isset( $options['value'] ) ) {
-            throw new Exception( 'Missing `value` in options array' );
+            throw new Exception( 'Missing `value` in options array.' );
         }
 
         $arguments = [
@@ -216,13 +193,7 @@ class Papi_Porter extends Container {
      * @return mixed
      */
     protected function get_value( array $options ) {
-        $value = $this->driver->get_value( $options );
-
-        if ( $this->exists( $slug ) ) {
-            $value = $this->make( $slug, [$value] );
-        }
-
-        return $value;
+        return $this->driver->get_value( $options );
     }
 
     /**
@@ -238,9 +209,9 @@ class Papi_Porter extends Container {
         $post_id   = $options['post_id'];
         $page_type = $options['page_type'];
 
-        if ( $updated_all_arrays = $options['update_all_arrays'] ) {
+        if ( $update_arrays = $options['update_arrays'] ) {
             $this->driver->set_options( [
-                'update_array' => $update_all_arrays
+                'update_array' => $update_arrays
             ] );
         }
 
@@ -263,7 +234,7 @@ class Papi_Porter extends Container {
         $result = true;
 
         foreach ( $fields as $slug => $value ) {
-            if ( ! is_string( $slug ) || is_null( $value ) ) {
+            if ( ! is_string( $slug ) || papi_is_empty( $value ) ) {
                 continue;
             }
 
@@ -326,13 +297,34 @@ class Papi_Porter extends Container {
     }
 
     /**
-     * Add special cases for field.
+     * Change Porter driver.
      *
-     * @param string $slug
-     * @param Closure $closure
+     * @param Papi_Porter_Driver $driver
+     *
+     * @throws InvalidArgumentException if an argument is not of the expected type.
+     * @throws Exception if driver name does not exist.
+     *
+     * @return Papi_Porter
      */
-    public function with( $slug, $closure ) {
-        return $this->bind( $slug, $closure );
+    public function use_driver( $driver ) {
+		if ( ! is_string( $driver ) ) {
+			throw new InvalidArgumentException( 'Invalid argument. Must be string.' );
+		}
+
+        $driver = strtolower( $driver );
+
+        if ( ! $this->exists( 'driver.' . $driver ) ) {
+            throw new Exception( sprintf( '`%s` driver does not exist.', $driver ) );
+        }
+
+        $class = $this->make( 'driver.' . $driver );
+
+        if ( class_exists( $class ) ) {
+            $this->driver = new $class( $this );
+            $this->driver->bootstrap();
+        }
+
+        return $this;
     }
 
 }

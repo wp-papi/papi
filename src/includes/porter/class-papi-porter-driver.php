@@ -134,7 +134,7 @@ abstract class Papi_Porter_Driver {
         $name = strtolower( $name );
 
         if ( $this->porter->exists( 'driver.' . $name ) ) {
-            throw new Exception( sprintf( '`%s` exists.', $name ) );
+            throw new Exception( sprintf( '`%s` driver exists.', $name ) );
         }
 
         $this->porter->singleton( 'driver.' . $name, get_class( $this ) );
