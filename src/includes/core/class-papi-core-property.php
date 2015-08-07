@@ -496,11 +496,11 @@ class Papi_Core_Property {
 	public function import_settings() {
 		$settings = $this->get_import_settings();
 
-		if ( is_array( $settings ) || is_object( $settings ) ) {
-			return (object) $settings;
+		if ( ! is_array( $settings ) && ! is_object( $settings ) ) {
+			$settings = [];
 		}
 
-		return (object) $this->default_import_settings;
+		return (object) array_merge( $this->default_import_settings, (array) $settings );
 	}
 
 	/**

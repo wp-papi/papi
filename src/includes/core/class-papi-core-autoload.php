@@ -9,6 +9,8 @@ class Papi_Core_Autoload {
 
 	/**
 	 * The Constructor.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function __construct() {
 		spl_autoload_register( [$this, 'autoload'] );
@@ -16,6 +18,8 @@ class Papi_Core_Autoload {
 
 	/**
 	 * Autoload Papi classes.
+	 *
+	 * @codeCoverageIgnore
 	 *
 	 * @param string $class
 	 */

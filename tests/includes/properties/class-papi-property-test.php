@@ -276,6 +276,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	public function test_get_setting() {
 		$property = new Papi_Property();
+		$this->assertNull( $property->get_setting( null ) );
 		$this->assertNull( $property->get_setting( 'length' ) );
 
 		$property = Papi_Property::create( [
@@ -369,6 +370,16 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Fredrik', $property->get_value() );
 
 		$_SERVER['REQUEST_URI'] = $old_request_uri;
+	}
+
+	public function test_import_setting() {
+		$property = new Papi_Property();
+		$this->assertNull( $property->import_setting( null ) );
+	}
+
+	public function test_import_settings() {
+		$property = new Papi_Property();
+		$this->assertNull( $property->import_settings() );
 	}
 
 	public function test_html() {
