@@ -432,7 +432,7 @@ function papi_if_or( $args, $value1, $value2 = null ) {
 		return $item === false;
 	} );
 
-	if ( count( $failed ) === count( $args ) ) {
+	if ( count( $failed ) === count( $results ) ) {
 		return $value2;
 	}
 
@@ -440,7 +440,7 @@ function papi_if_or( $args, $value1, $value2 = null ) {
 		return $item === true;
 	} );
 
-	if ( count( $success ) === count( $args ) ) {
+	if ( count( $success ) === count( $results ) ) {
 		return $value1;
 	}
 
