@@ -25,6 +25,23 @@ class Papi_Property_Bool extends Papi_Property {
 	public $default_value = false;
 
 	/**
+	 * Format the value of the property before it's returned to the application.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return boolean
+	 */
+	public function format_value( $value, $slug, $post_id ) {
+		if ( is_string( $value ) && $value === 'false' || $value === false ) {
+			return false;
+		}
+
+		return  is_string( $value ) && ( $value === 'true' || $value === 'on' ) || $value === true;
+	}
+
+	/**
 	 * Display property html.
 	 */
 	public function html() {
@@ -45,36 +62,6 @@ class Papi_Property_Bool extends Papi_Property {
 	}
 
 	/**
-	 * Change value after it's loaded from the database.
-	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
-	 *
-	 * @return mixed
-	 */
-	public function load_value( $value, $slug, $post_id ) {
-		return is_string( $value ) && $value === '1' || $value;
-	}
-
-	/**
-	 * Format the value of the property before it's returned to the application.
-	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
-	 *
-	 * @return boolean
-	 */
-	public function format_value( $value, $slug, $post_id ) {
-		if ( is_string( $value ) && $value === 'false' || $value === false ) {
-			return false;
-		}
-
-		return  is_string( $value ) && ( $value === 'true' || $value === 'on' ) || $value === true;
-	}
-
-	/**
 	 * Import value to the property.
 	 *
 	 * @param mixed $value
@@ -85,6 +72,19 @@ class Papi_Property_Bool extends Papi_Property {
 	 */
 	public function import_value( $value, $slug, $post_id ) {
 		return $this->format_value( $value, $slug, $post_id );
+	}
+
+	/**
+	 * Change value after it's loaded from the database.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+	public function load_value( $value, $slug, $post_id ) {
+		return is_string( $value ) && $value === '1' || $value;
 	}
 
 	/**
