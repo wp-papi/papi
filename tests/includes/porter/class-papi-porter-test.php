@@ -123,8 +123,13 @@ class Papi_Porter_Test extends WP_UnitTestCase {
             $this->assertEquals( 'bool_test', $slug );
         }, 10, 2 );
 
+        tests_add_filter( 'papi/porter/driver/after/', function ( $value, $slug ) {
+            $this->assertTrue( $value );
+            $this->assertEquals( 'bool_test', $slug );
+        }, 10, 2 );
+
         $this->porter->fire_filter( [
-            'filter' => 'driver:value',
+            'filter' => '',
             'value'  => [
                 true,
                 'bool_test'

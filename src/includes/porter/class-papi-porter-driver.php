@@ -136,17 +136,12 @@ abstract class Papi_Porter_Driver {
      *
      * @param string $name
      *
-     * @throws InvalidArgumentException if an argument is not of the expected type.
-     * @throws Exception if driver name is empty.
+     * @throws InvalidArgumentException if driver name is empty or not a string.
      * @throws Exception if driver name exists.
      */
     protected function set_driver_name( $name ) {
-		if ( ! is_string( $name ) ) {
-			throw new InvalidArgumentException( 'Invalid argument. Must be string.' );
-		}
-
-        if ( empty( $name ) ) {
-            throw new Exception( 'Driver name is empty.' );
+        if ( empty( $name ) || ! is_string( $name ) ) {
+            throw new InvalidArgumentException( 'Driver name is empty or not a string.' );
         }
 
         $name = strtolower( $name );
@@ -186,11 +181,8 @@ abstract class Papi_Porter_Driver {
      * @return bool
      */
     protected function should_update_array( $slug ) {
-        if ( ! is_string( $slug ) ) {
-            return false;
-        }
-
-        return isset( $this->options['custom'] ) &&
+        return is_string( $slug ) &&
+            isset( $this->options['custom'] ) &&
             isset( $this->options['custom'][$slug] ) &&
             $this->options['custom'][$slug]['update_array'];
     }
