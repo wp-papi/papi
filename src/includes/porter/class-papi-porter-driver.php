@@ -190,6 +190,8 @@ abstract class Papi_Porter_Driver {
     /**
      * Return the given object. Useful for chaining.
      *
+     * @codeCoverageIgnore
+     *
      * @param mixed $obj
      *
      * @return obj

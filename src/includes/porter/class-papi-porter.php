@@ -68,14 +68,16 @@ final class Papi_Porter extends Container {
     }
 
     /**
-     * Alias for `use_driver` method.
+     * Alias for `add_driver` or `use_driver` method.
      *
-     * @param string $driver
+     * @param string|Papi_Porter_Driver $driver
      *
      * @return Papi_Porter
      */
     public function driver( $driver ) {
-        return $this->use_driver( $driver );
+        return $driver instanceof Papi_Porter_Driver ?
+            $this->add_driver( $driver ) :
+            $this->use_driver( $driver );
     }
 
     /**
@@ -116,20 +118,15 @@ final class Papi_Porter extends Container {
                 } else {
                     $page = papi_get_page( $post_id );
 
-                	if ( is_null( $page ) ) {
-                		continue;
-                	}
+                    if ( is_null( $page ) ) {
+                        continue;
+                    }
 
-                	$property = $page->get_property( $slug );
+                    $property = $page->get_property( $slug );
 
-                	if ( ! papi_is_property( $property ) ) {
-                		continue;
-                	}
-
-                    $options = clone $property->get_options();
-                    $options->value = $value;
-
-                    $slugs[$key][$slug] = $options;
+                    if ( ! papi_is_property( $property ) ) {
+                        continue;
+                    }
                 }
             }
         }
