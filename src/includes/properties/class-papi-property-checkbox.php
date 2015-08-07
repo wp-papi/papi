@@ -108,7 +108,7 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 */
 	public function import_value( $value, $slug, $post_id ) {
 		if ( is_string( $value ) && ! papi_is_empty( $value ) ) {
-			return [$value];
+			return serialize( [$value] );
 		}
 
 		if ( ! is_array( $value ) ) {
