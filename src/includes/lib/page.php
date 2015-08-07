@@ -396,10 +396,6 @@ function papi_get_slugs( $post_id = 0 ) {
 		$value = [];
 		$boxes = $page_type->get_boxes();
 
-		if ( ! is_array( $boxes ) ) {
-			return [];
-		}
-
 		foreach ( $boxes as $box ) {
 			if ( count( $box ) < 2 || empty( $box[0]['title'] ) || ! is_array( $box[1] ) ) {
 				continue;
