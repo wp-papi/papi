@@ -157,7 +157,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 	public function get_import_settings() {
 		return [
-			'update_value_when_on_update_array' => false
+			'property_array_slugs' => true
 		];
 	}
 

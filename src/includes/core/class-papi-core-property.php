@@ -30,7 +30,7 @@ class Papi_Core_Property {
 	 * @var array
 	 */
 	private $default_import_settings = [
-		'update_value_when_on_update_array' => true
+		'property_array_slugs' => false
 	];
 
 	/**

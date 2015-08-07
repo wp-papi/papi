@@ -63,8 +63,8 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
         $value = array_merge( $old, $value );
         $value = $property->import_value( $value, $slug, $post_id );
 
-        if ( $property->import_setting( 'update_value_when_on_update_array' ) === false ) {
-            return $value;
+        if ( $property->import_setting( 'property_array_slugs' ) ) {
+            return papi_from_property_array_slugs( $value, $slug );
         }
 
         return $property->update_value( $value, $slug, $post_id );

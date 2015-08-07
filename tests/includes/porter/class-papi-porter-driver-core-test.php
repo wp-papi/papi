@@ -136,7 +136,54 @@ class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 
         $this->assertEquals( ['#000000', '#ffffff'], $output );
         papi_update_field( $this->post_id, 'checkbox_test',  $output );
+
         $this->assertEquals( ['#000000', '#ffffff'], papi_get_field( $this->post_id, 'checkbox_test' ) );
+    }
+
+    public function test_get_value_with_repeater_and_array() {
+        $expected = [
+            [
+                'book_name' => 'Core',
+                'is_open'   => true
+            ]
+        ];
+
+        papi_update_field( $this->post_id, 'repeater_test', $expected );
+        $this->assertEquals( $expected, papi_get_field( $this->post_id, 'repeater_test' ) );
+
+        $this->driver->set_options( [
+            'custom' => [
+                'repeater_test' => [
+                    'update_array' => true
+                ]
+            ]
+        ] );
+
+        $output = $this->driver->get_value( [
+            'post_id'  => $this->post_id,
+            'property' => $this->page_type->get_property( 'repeater_test' ),
+            'value'    => [
+                'book_name' => 'Core2',
+                'is_open'   => false
+            ]
+        ] );
+
+        $expected = [
+            [
+                'book_name' => 'Core',
+                'is_open'   => true
+            ],
+            [
+                'book_name' => 'Core2',
+                'is_open'   => false
+            ]
+        ];
+
+        $this->assertEquals( $expected, $output );
+
+        papi_update_field( $this->post_id, 'repeater_test',  $output );
+
+        $this->assertEquals( $expected, papi_get_field( $this->post_id, 'repeater_test' ) );
     }
 
     public function test_set_options() {
