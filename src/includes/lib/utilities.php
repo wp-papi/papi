@@ -396,60 +396,6 @@ function papi_html_tag( $tag, $attr = [] ) {
 }
 
 /**
- * Papi if all conditional args returns true the `$out` value will be returned,
- * if not true then the `$default` will be returned.
- *
- * @param array|string $args
- * @param mixed $value1
- * @param mixed $value2
- *
- * @return mixed
- */
-function papi_if_or( $args, $value1, $value2 = null ) {
-	if ( ! is_array( $args ) && ! is_string( $args ) ) {
-		return $value2;
-	}
-
-	$results = [];
-
-	foreach ( papi_to_array( $args ) as $conditional ) {
-		if ( ! is_string( $conditional ) ) {
-			continue;
-		}
-
-		$negative    = strpos( $conditional, '!' ) === 0;
-		$conditional = preg_replace( '/^\!/', '', $conditional );
-		$out         = $conditional( $value1 );
-		$out         = $negative ? ! $out : $out;
-		$results[]   = $out;
-	}
-
-	if ( count( $args ) === 1 ) {
-		return $results[0] === true ? $value1 : $value2;
-	}
-
-	$failed = array_filter( $results, function( $item ) {
-		return $item === false;
-	} );
-
-	if ( count( $failed ) === count( $results ) ) {
-		return $value2;
-	}
-
-	$success = array_filter( $results, function ( $item ) {
-		return $item === true;
-	} );
-
-	if ( count( $success ) === count( $results ) ) {
-		return $value1;
-	}
-
-	return in_array( true, $results ) &&
-		in_array( false, $results ) ?
-			$value1 : $value2;
-}
-
-/**
  * Check if the given object is empty or not.
  * Values like "0", 0 and false should not return true.
  *

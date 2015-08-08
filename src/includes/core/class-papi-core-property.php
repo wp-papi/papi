@@ -491,7 +491,11 @@ class Papi_Core_Property {
 	 */
 	public function import_settings() {
 		$settings = $this->get_import_settings();
-		$settings = papi_if_or( ['!is_array', '!is_object'], $settings, [] );
+
+		if ( ! is_array( $settings ) || ! is_object( $settings ) ) {
+			$settings = [];
+		}
+
 		return (object) array_merge( $this->default_import_settings, (array) $settings );
 	}
 
