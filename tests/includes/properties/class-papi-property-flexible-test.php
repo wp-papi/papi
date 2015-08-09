@@ -100,7 +100,6 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 		];
 
 		$output = $this->property->import_value( $value, $this->slug, $this->post_id );
-
 		$this->assertEquals( $expected, $output );
 	}
 
