@@ -37,7 +37,7 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_boxes() {
-		$this->assertNull( $this->empty_option_type->get_boxes() );
+		$this->assertEmpty( $this->empty_option_type->get_boxes() );
 
 		$this->assertTrue( is_array( $this->header_option_type->get_boxes() ) );
 
