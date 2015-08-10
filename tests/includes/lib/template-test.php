@@ -49,7 +49,7 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_include_template( 'path/to/fake/file.php' ) );
 
 		papi_include_template( 'includes/admin/views/add-new-page.php' );
-		$this->expectOutputRegex( '/Add\snew\spage/' );
+		$this->expectOutputRegex( '/Add New Page/' );
 	}
 
 	public function test_papi_template() {
