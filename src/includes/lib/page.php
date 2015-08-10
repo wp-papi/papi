@@ -176,9 +176,12 @@ function papi_get_page_type( $file_path ) {
 
 	// Try to add the page type to the container.
 	if ( ! papi()->exists( $class_name ) ) {
+
+		// @codeCoverageIgnoreStart
 		if ( ! class_exists( $class_name ) ) {
 			require_once $file_path;
 		}
+		// @codeCoverageIgnoreEnd
 
 		$rc         = new ReflectionClass( $class_name );
 		$page_type  = $rc->newInstanceArgs( [$file_path] );
@@ -188,7 +191,7 @@ function papi_get_page_type( $file_path ) {
 			return;
 		}
 
-		papi()->bind( $class_name, $page_type );
+		papi()->singleton( $page_type );
 	}
 
 	return papi()->make( $class_name );
@@ -393,10 +396,6 @@ function papi_get_slugs( $post_id = 0 ) {
 		$value = [];
 		$boxes = $page_type->get_boxes();
 
-		if ( ! is_array( $boxes ) ) {
-			return [];
-		}
-
 		foreach ( $boxes as $box ) {
 			if ( count( $box ) < 2 || empty( $box[0]['title'] ) || ! is_array( $box[1] ) ) {
 				continue;
@@ -415,6 +414,28 @@ function papi_get_slugs( $post_id = 0 ) {
 	}
 
 	return $value;
+}
+
+/**
+ * Check if `$obj` is a instanceof `Papi_Option_Type`.
+ *
+ * @param mixed $obj
+ *
+ * @return bool
+ */
+function papi_is_option_type( $obj ) {
+	return $obj instanceof Papi_Option_Type && $obj->get_post_type() === '_papi_option_type';
+}
+
+/**
+ * Check if `$obj` is a instanceof `Papi_Page_Type`.
+ *
+ * @param mixed $obj
+ *
+ * @return bool
+ */
+function papi_is_page_type( $obj ) {
+	return $obj instanceof Papi_Page_Type && ! papi_is_option_type( $obj );
 }
 
 /**

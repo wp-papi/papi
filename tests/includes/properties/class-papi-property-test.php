@@ -276,6 +276,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	public function test_get_setting() {
 		$property = new Papi_Property();
+		$this->assertNull( $property->get_setting( null ) );
 		$this->assertNull( $property->get_setting( 'length' ) );
 
 		$property = Papi_Property::create( [
@@ -371,6 +372,19 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$_SERVER['REQUEST_URI'] = $old_request_uri;
 	}
 
+	public function test_import_setting() {
+		$property = new Papi_Property();
+		$this->assertNull( $property->import_setting( null ) );
+	}
+
+	public function test_import_settings() {
+		$property = new Papi_Property();
+		$output   = $property->import_settings();
+		$this->assertEquals( (object) [
+			'property_array_slugs' => false
+		], $output );
+	}
+
 	public function test_html() {
 		$property = Papi_Property::create();
 		$this->assertEmpty( $property->html() );
@@ -441,6 +455,15 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( 'papi_name', $property->html_name( $sub_property ) );
 		$this->assertEquals( 'papi_name[0]', $property->html_name( $sub_property, 0 ) );
+	}
+
+	public function test_property_import_value() {
+		$property = Papi_Property::create( [
+			'type' => 'number',
+			'slug' => 'age'
+		] );
+
+		$this->assertEquals( 'test', $property->import_value( 'test', '', 0 ) );
 	}
 
 	public function test_load_value() {

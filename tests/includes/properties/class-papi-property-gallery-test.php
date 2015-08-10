@@ -25,6 +25,10 @@ class Papi_Property_Gallery_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( [], $this->property->default_value );
 	}
 
+	public function test_property_import_value() {
+		$this->assertEmpty( $this->property->import_value( $this->get_value(), '', 0 ) );
+	}
+
 	public function test_property_options() {
 		$this->assertEquals( 'gallery', $this->property->get_option( 'type' ) );
 		$this->assertEquals( 'Gallery test', $this->property->get_option( 'title' ) );

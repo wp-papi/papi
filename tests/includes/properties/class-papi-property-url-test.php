@@ -17,6 +17,16 @@ class Papi_Property_Url_Test extends Papi_Property_Test_Case {
 		return 'http://github.com';
 	}
 
+	public function test_property_format_value() {
+		$this->assertEquals( $this->get_expected( 'url_test' ), $this->properties[0]->format_value( $this->get_value( 'url_test' ), '', 0 ) );
+		$this->assertEquals( $this->get_expected( 'url_mediauploader_test' ), $this->properties[1]->format_value( $this->get_value( 'url_mediauploader_test' ), '', 0 ) );
+	}
+
+	public function test_property_import_value() {
+		$this->assertEquals( $this->get_expected( 'url_test' ), $this->properties[0]->import_value( $this->get_value( 'url_test' ), '', 0 ) );
+		$this->assertEquals( $this->get_expected( 'url_mediauploader_test' ), $this->properties[1]->import_value( $this->get_value( 'url_mediauploader_test' ), '', 0 ) );
+	}
+
 	public function test_property_load_value() {
 		$this->assertEquals( 'http://wordpress.org', $this->properties[0]->load_value( 'http://wordpress.org', '', 0 ) );
 		$this->assertNull( $this->properties[0]->load_value( 'hello', '', 0 ) );

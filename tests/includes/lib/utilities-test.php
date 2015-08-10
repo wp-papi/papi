@@ -51,7 +51,13 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_doing_ajax() {
-		$this->assertTrue( papi_doing_ajax() );
+		$out = papi_doing_ajax();
+
+		if ( $out ) {
+			$this->assertTrue( $out );
+		} else {
+			$this->assertFalse( $out );
+		}
 	}
 
 	public function test_papi_esc_html() {
@@ -403,6 +409,11 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papify( 1 ) );
 		$this->assertEmpty( papify( [] ) );
 		$this->assertEmpty( papify( new stdClass() ) );
+	}
+
+	public function test_papi_with() {
+		require_once PAPI_FIXTURE_DIR . '/classes/class-say.php';
+		$this->assertEquals( 'Hello Fredrik!', papi_with( new \Say )->hello( 'Fredrik' ) );
 	}
 
 }

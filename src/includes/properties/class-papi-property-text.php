@@ -21,6 +21,12 @@ class Papi_Property_Text extends Papi_Property {
 	 */
 	public function format_value( $value, $slug, $post_id ) {
 		if ( ! $this->get_setting( 'allow_html' ) ) {
+			$value = maybe_unserialize( $value );
+
+			if ( ! is_string( $value ) ) {
+				$value = '';
+			}
+
 			$value = sanitize_text_field( $value );
 		}
 

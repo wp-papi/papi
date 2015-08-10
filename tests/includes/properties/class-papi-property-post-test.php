@@ -23,8 +23,25 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 
 	public function test_property_format_value() {
 		$this->assertEquals( get_post( $this->post_id ), $this->property->format_value( $this->post_id, '', 0 ) );
+		$this->assertEquals( get_post( $this->post_id ), $this->property->format_value( strval( $this->post_id ), '', 0 ) );
 		$this->assertNull( $this->property->format_value( 'hello', '', 0 ) );
 		$this->assertNull( $this->property->format_value( null, '', 0 ) );
+		$this->assertNull( $this->property->format_value( true, '', 0 ) );
+		$this->assertNull( $this->property->format_value( false, '', 0 ) );
+		$this->assertNull( $this->property->format_value( [], '', 0 ) );
+		$this->assertNull( $this->property->format_value( (object) [], '', 0 ) );
+	}
+
+	public function test_property_import_value() {
+		$this->assertEquals( $this->post_id, $this->property->import_value( $this->post_id, '', 0 ) );
+		$this->assertEquals( $this->post_id, $this->property->import_value( strval( $this->post_id ), '', 0 ) );
+		$this->assertEquals( $this->post_id, $this->property->import_value( get_post( $this->post_id ), '', 0 ) );
+		$this->assertNull( $this->property->import_value( 'hello', '', 0 ) );
+		$this->assertNull( $this->property->import_value( null, '', 0 ) );
+		$this->assertNull( $this->property->import_value( true, '', 0 ) );
+		$this->assertNull( $this->property->import_value( false, '', 0 ) );
+		$this->assertNull( $this->property->import_value( [], '', 0 ) );
+		$this->assertNull( $this->property->import_value( (object) [], '', 0 ) );
 	}
 
 	public function test_property_options() {

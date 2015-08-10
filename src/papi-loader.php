@@ -101,6 +101,15 @@ final class Papi_Loader extends Container {
 	}
 
 	/**
+	 * Get the porter.
+	 *
+	 * @return Papi_Core_Porter
+	 */
+	public function porter() {
+		return $this->make( 'porter' );
+	}
+
+	/**
 	 * Require files.
 	 */
 	private function require_files() {
@@ -127,7 +136,8 @@ final class Papi_Loader extends Container {
 			'template.php',
 			'option.php',
 			'deprecated.php',
-			'conditional.php'
+			'conditional.php',
+			'porter.php'
 		];
 
 		// Require function files.
@@ -137,12 +147,17 @@ final class Papi_Loader extends Container {
 			}
 		}
 
+		unset( $file );
+
 		// Require admin classes.
 		require_once __DIR__ . '/includes/admin/class-papi-admin.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-menu.php';
 
 		// Require conditional rules.
 		require_once __DIR__ . '/includes/conditional/class-papi-conditional-rules.php';
+
+		// Setup container.
+		$this->setup_container();
 
 		// Include plugins or properties.
 		papi_action_include();
@@ -175,6 +190,13 @@ final class Papi_Loader extends Container {
 	 */
 	private function setup_actions() {
 		add_action( 'after_setup_theme', 'papi_action_include' );
+	}
+
+	/**
+	 * Setup container.
+	 */
+	private function setup_container() {
+		$this->singleton( 'porter', new Papi_Porter );
 	}
 }
 
