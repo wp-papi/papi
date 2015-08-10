@@ -315,7 +315,7 @@ final class Papi_Porter extends Container {
 	/**
 	 * Change Porter driver.
 	 *
-	 * @param Papi_Porter_Driver $driver
+	 * @param string $driver
 	 *
 	 * @throws InvalidArgumentException if an argument is not of the expected type.
 	 * @throws Exception if driver name does not exist.
