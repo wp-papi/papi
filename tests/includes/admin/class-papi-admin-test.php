@@ -178,7 +178,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 		$_GET['page'] = 'papi-add-new-page,page';
 		$this->admin->render_view();
-		$this->expectOutputRegex( '/Add new page type/' );
+		$this->expectOutputRegex( '/Add New Page/' );
 	}
 
 	public function test_restrict_page_types() {

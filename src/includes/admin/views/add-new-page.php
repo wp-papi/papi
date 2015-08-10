@@ -1,12 +1,16 @@
+<?php
+$post_type_name = papi_get_post_type();
+$post_type      = get_post_type_object( $post_type_name );
+?>
 <div class="wrap">
 	<h2>
-		<?php _e( 'Add new page type', 'papi' ); ?>
+		<?php echo sprintf( __( 'Add New %s', 'papi' ), $post_type->labels->singular_name ); ?>
 
 		<label class="screen-reader-text" for="add-new-page-search">
-			<?php _e( 'Search page types', 'papi' ); ?>
+			<?php echo $post_type->labels->search_items; ?>
 		</label>
 
-		<input placeholder="<?php _e( 'Search page types', 'papi' ); ?>..." type="search" name="add-new-page-search"
+		<input placeholder="<?php echo $post_type->labels->search_items; ?>..." type="search" name="add-new-page-search"
 		       id="add-new-page-search" class="papi-search">
 	</h2>
 
@@ -27,16 +31,13 @@
 			] );
 		}
 
-		$post_type = papi_get_post_type();
-
-		if ( papi_filter_settings_show_standard_page_type( $post_type ) ) {
+		if ( papi_filter_settings_show_standard_page_type( $post_type_name ) ) {
 			papi_include_template( 'includes/admin/views/partials/add-new-item.php', [
-				'title'       => papi_filter_settings_standard_page_name( $post_type ),
-				'description' => papi_filter_settings_standard_page_description( $post_type ),
-				'thumbnail'   => papi_filter_settings_standard_page_thumbnail( $post_type ),
+				'title'       => papi_filter_settings_standard_page_name( $post_type_name ),
+				'description' => papi_filter_settings_standard_page_description( $post_type_name ),
+				'thumbnail'   => papi_filter_settings_standard_page_thumbnail( $post_type_name ),
 				'url'         => 'post-new.php' . papi_get_page_query_strings( '?' ) . '&papi-bypass=true'
 			] );
-
 		}
 		?>
 	</div>
