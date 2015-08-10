@@ -3,7 +3,7 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-use Tank\Container;
+use Frozzare\Tank\Container;
 
 /**
  * Papi loader class.
