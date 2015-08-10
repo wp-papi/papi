@@ -137,7 +137,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	public function get_boxes() {
 		if ( empty( $this->boxes ) && $this->load_boxes === false ) {
 			if ( ! method_exists( $this, 'register' ) ) {
-				return;
+				return [];
 			}
 
 			$this->load_boxes = true;
