@@ -1,6 +1,7 @@
 <?php
 $post_type_name = papi_get_post_type();
 $post_type      = get_post_type_object( $post_type_name );
+$post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_type;
 ?>
 <div class="wrap">
 	<h2>
