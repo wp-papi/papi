@@ -164,7 +164,7 @@ final class Papi_Loader extends Container {
 	}
 
 	/**
-	 * Deactivate Papi if the WordPress version is lower then 3.8.
+	 * Deactivate Papi if the WordPress version is lower then 4.0.
 	 */
 	public static function deactivate() {
 		// Remove Papi from plugins_loaded action.
