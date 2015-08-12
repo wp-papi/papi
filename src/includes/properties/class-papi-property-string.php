@@ -28,7 +28,7 @@ class Papi_Property_String extends Papi_Property {
 	 */
 	public function format_value( $value, $slug, $post_id ) {
 		if ( ! $this->get_setting( 'allow_html' ) && $this->input_type === 'text' ) {
-			$value = sanitize_text_field( $value );
+			$value = wp_strip_all_tags( $value );
 		}
 
 		return $value;
