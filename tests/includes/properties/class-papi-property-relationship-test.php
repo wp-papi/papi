@@ -25,6 +25,28 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( [], $this->property->default_value );
 	}
 
+	public function test_property_import_value() {
+		$output = $this->property->import_value( [], '', 0 );
+		$this->assertEmpty( $output );
+
+		$output = $this->property->import_value( (object) [], '', 0 );
+		$this->assertEmpty( $output );
+
+		$output = $this->property->import_value( $this->post_id, '', 0 );
+		$this->assertEquals( $this->get_value(), $output );
+
+		$output = $this->property->import_value( $this->get_value(), '', 0 );
+		$this->assertEquals( $this->get_value(), $output );
+
+		$output = $this->property->import_value( $this->get_expected(), '', 0 );
+		$this->assertEquals( $this->get_value(), $output );
+
+		$this->assertNull( $this->property->import_value( 'hello', '', 0 ) );
+		$this->assertNull( $this->property->import_value( null, '', 0 ) );
+		$this->assertNull( $this->property->import_value( true, '', 0 ) );
+		$this->assertNull( $this->property->import_value( false, '', 0 ) );
+	}
+
 	public function test_property_options() {
 		$this->assertEquals( 'relationship', $this->property->get_option( 'type' ) );
 		$this->assertEquals( 'Relationship test', $this->property->get_option( 'title' ) );

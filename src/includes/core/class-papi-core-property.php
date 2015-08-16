@@ -25,6 +25,15 @@ class Papi_Core_Property {
 	public $convert_type = 'string';
 
 	/**
+	 * Default import settings.
+	 *
+	 * @var array
+	 */
+	private $default_import_settings = [
+		'property_array_slugs' => false
+	];
+
+	/**
 	 * Default options.
 	 *
 	 * @var array
@@ -113,22 +122,6 @@ class Papi_Core_Property {
 	 */
 	public function __set( $key, $value ) {
 		$this->set_option( $key, $value );
-	}
-
-	/**
-	 * Check if the property is allowed
-	 * to render by the conditional rules.
-	 *
-	 * @param array $rules
-	 *
-	 * @return bool
-	 */
-	public function render_is_allowed_by_rules( array $rules = [] ) {
-		if ( empty( $rules ) ) {
-			$rules = $this->get_rules();
-		}
-
-		return $this->conditional->display( $rules, $this );
 	}
 
 	/**
@@ -328,6 +321,15 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Get import settings.
+	 *
+	 * @return array
+	 */
+	public function get_import_settings() {
+		return [];
+	}
+
+	/**
 	 * Get option value.
 	 *
 	 * @param string $key
@@ -403,6 +405,10 @@ class Papi_Core_Property {
 	 * @return stdClass
 	 */
 	public function get_setting( $key, $default = null ) {
+		if ( ! is_string( $key ) ) {
+			return $default;
+		}
+
 		$settings = $this->get_settings();
 
 		if ( isset( $settings->$key ) ) {
@@ -461,6 +467,78 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Get the import settings.
+	 *
+	 * @param string $key
+	 * @param mixed $default
+	 *
+	 * @return mixed
+	 */
+	public function import_setting( $key, $default = null ) {
+		if ( ! is_string( $key ) ) {
+			return $default;
+		}
+
+		$settings = $this->import_settings();
+
+		return isset( $settings->$key ) ? $settings->$key : $default;
+	}
+
+	/**
+	 * Get the import settings.
+	 *
+	 * @return object
+	 */
+	public function import_settings() {
+		$settings = $this->get_import_settings();
+
+		if ( ! is_array( $settings ) && ! is_object( $settings ) ) {
+			$settings = [];
+		}
+
+		return (object) array_merge( $this->default_import_settings, (array) $settings );
+	}
+
+	/**
+	 * Import value to the property.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+	public function import_value( $value, $slug, $post_id ) {
+		return maybe_unserialize( $value );
+	}
+
+	/**
+	 * Check if it's a option page or not.
+	 *
+	 * @return bool
+	 */
+	public function is_option_page() {
+		if ( $this->page === null ) {
+			return papi_is_option_page();
+		}
+
+		return $this->page->is( Papi_Core_Page::TYPE_OPTION );
+	}
+
+	/**
+	 * Change value after it's loaded from the database.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+	public function load_value( $value, $slug, $post_id ) {
+		return maybe_unserialize( $value );
+	}
+
+	/**
 	 * Match property slug with given slug value.
 	 *
 	 * @param string $slug
@@ -495,36 +573,26 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Check if it's a option page or not.
-	 *
-	 * @return bool
-	 */
-	public function is_option_page() {
-		if ( $this->page === null ) {
-			return papi_is_option_page();
-		}
-
-		return $this->page->is( Papi_Core_Page::TYPE_OPTION );
-	}
-
-	/**
-	 * Change value after it's loaded from the database.
-	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
-	 *
-	 * @return mixed
-	 */
-	public function load_value( $value, $slug, $post_id ) {
-		return maybe_unserialize( $value );
-	}
-
-	/**
 	 * Render AJAX request.
 	 */
 	public function render_ajax_request() {
 		papi_render_property( $this );
+	}
+
+	/**
+	 * Check if the property is allowed
+	 * to render by the conditional rules.
+	 *
+	 * @param array $rules
+	 *
+	 * @return bool
+	 */
+	public function render_is_allowed_by_rules( array $rules = [] ) {
+		if ( empty( $rules ) ) {
+			$rules = $this->get_rules();
+		}
+
+		return $this->conditional->display( $rules, $this );
 	}
 
 	/**

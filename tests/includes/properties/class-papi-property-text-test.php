@@ -29,6 +29,16 @@ class Papi_Property_Text_Test extends Papi_Property_Test_Case {
 		}
 	}
 
+	public function test_property_format_value() {
+		$this->assertEquals( $this->get_expected( 'text_test' ), $this->properties[0]->format_value( $this->get_value( 'text_test' ), '', 0 ) );
+		$this->assertEquals( $this->get_expected( 'text_html_test' ), $this->properties[1]->format_value( $this->get_value( 'text_html_test' ), '', 0 ) );
+	}
+
+	public function test_property_import_value() {
+		$this->assertEquals( $this->get_expected( 'text_test' ), $this->properties[0]->import_value( $this->get_value( 'text_test' ), '', 0 ) );
+		$this->assertEquals( $this->get_expected( 'text_html_test' ), $this->properties[1]->import_value( $this->get_value( 'text_html_test' ), '', 0 ) );
+	}
+
 	public function test_property_options() {
 		$this->assertEquals( 'text', $this->properties[0]->get_option( 'type' ) );
 		$this->assertEquals( 'Text test', $this->properties[0]->get_option( 'title' ) );

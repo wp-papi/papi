@@ -2,7 +2,9 @@
 
 ![Papi](https://cloud.githubusercontent.com/assets/14610/9073902/16a6d906-3b05-11e5-9287-5644a96e9a82.png)
 
-[![Build Status](https://travis-ci.org/wp-papi/papi.svg?branch=master)](https://travis-ci.org/wp-papi/papi) [![Join the chat at https://gitter.im/wp-papi/papi](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wp-papi/papi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/wp-papi/papi.svg?branch=master)](https://travis-ci.org/wp-papi/papi)
+[![Join the chat at https://gitter.im/wp-papi/papi](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wp-papi/papi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![License](https://img.shields.io/packagist/l/wp-papi/papi.svg)](https://packagist.org/packages/wp-papi/papi)
 
 > `master` is unsafe. `2.x` is the stable branch.
 
@@ -14,7 +16,9 @@ So we though why don’t use the same approach in WordPress? Papi is today runni
 
 ## Installation
 
-If you're using Composer to manage WordPress, add Papi to your project's dependencies. Run:
+Papi should be install with Composer as of 2.3.0 since it has [dependencies](https://github.com/wp-papi/papi/blob/master/composer.json).
+
+Install it by running:
 
 ```sh
 composer require wp-papi/papi

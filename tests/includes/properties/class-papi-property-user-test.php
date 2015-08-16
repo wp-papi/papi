@@ -26,6 +26,17 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( new WP_User( 1 ), $this->property->format_value( 1, '', 0 ) );
 	}
 
+	public function test_property_import_value() {
+		$this->assertEquals( 1, $this->property->import_value( $this->get_value(), '', 0 ) );
+		$this->assertEquals( 1, $this->property->import_value( 1, '', 0 ) );
+		$this->assertEquals( 1, $this->property->import_value( '1', '', 0 ) );
+		$this->assertNull( $this->property->import_value( null, '', 0 ) );
+		$this->assertNull( $this->property->import_value( true, '', 0 ) );
+		$this->assertNull( $this->property->import_value( false, '', 0 ) );
+		$this->assertNull( $this->property->import_value( [], '', 0 ) );
+		$this->assertNull( $this->property->import_value( (object)[], '', 0 ) );
+	}
+
 	public function test_property_get_value() {
 		$this->assertEquals( 0, $this->property->get_value() );
 		$this->save_property( $this->property );

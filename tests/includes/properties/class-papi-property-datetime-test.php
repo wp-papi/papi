@@ -23,6 +23,12 @@ class Papi_Property_Datetime_Test extends Papi_Property_Test_Case {
 		$this->assertEmpty( $this->property->format_value( null, '', 0 ) );
 	}
 
+	public function test_property_import_value() {
+		$this->assertEquals( '2014-11-23', $this->property->import_value( '2014-11-23', '', 0 ) );
+		$this->assertEquals( '2014-11-24', $this->property->import_value( '2014-11-24', '', 0 ) );
+		$this->assertEmpty( $this->property->import_value( null, '', 0 ) );
+	}
+
 	public function test_property_options() {
 		$this->assertEquals( 'datetime', $this->property->get_option( 'type' ) );
 		$this->assertEquals( 'Datetime test', $this->property->get_option( 'title' ) );

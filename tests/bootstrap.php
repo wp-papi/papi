@@ -1,13 +1,13 @@
 <?php
 
 // Load Composer autoload.
-require dirname( __DIR__ ) . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 // Define fixtures directory constant
 define( 'PAPI_FIXTURE_DIR', __DIR__ . '/fixtures' );
 
 // Load Papi loader file as plugin.
-WP_Test_Suite::load_plugins( dirname( __DIR__ ) . '/papi-loader.php' );
+WP_Test_Suite::load_plugins( __DIR__ . '/../papi-loader.php' );
 
 // Load our helpers file.
 WP_Test_Suite::load_files( [

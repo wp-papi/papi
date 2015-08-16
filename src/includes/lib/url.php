@@ -77,7 +77,14 @@ function papi_get_page_query_strings( $first_char = '&', $exclude = [] ) {
 		$query = '';
 	}
 
-	return papi_append_post_type_query( $query );
+	$empty_query = empty( $query );
+	$query = papi_append_post_type_query( $query );
+
+	if ( $empty_query ) {
+		return $first_char . substr( $query, 1 );
+	}
+
+	return $query;
 }
 
 /**
@@ -103,6 +110,10 @@ function papi_append_post_type_query( $url, $post_type_arg = null ) {
 
 	if ( ! empty( $post_type_arg ) && empty( $post_type ) ) {
 		$post_type = $post_type_arg;
+	}
+
+	if ( empty( $post_type ) ) {
+		$post_type = 'post';
 	}
 
 	if ( ! empty( $post_type ) ) {

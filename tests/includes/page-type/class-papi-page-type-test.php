@@ -60,7 +60,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( 'Content', $boxes[0][0]['title'] );
 
-		$this->assertNull( $this->empty_page_type->get_boxes() );
+		$this->assertEmpty( $this->empty_page_type->get_boxes() );
 	}
 
 	public function test_get_property() {

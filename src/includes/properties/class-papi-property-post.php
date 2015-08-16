@@ -136,6 +136,27 @@ class Papi_Property_Post extends Papi_Property {
 	}
 
 	/**
+	 * Import value to the property.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+	public function import_value( $value, $slug, $post_id ) {
+		if ( $value instanceof WP_Post ) {
+			return $value->ID;
+		}
+
+		if ( is_numeric( $value ) ) {
+			return (int) $value;
+		}
+
+		return $this->default_value;
+	}
+
+	/**
 	 * Format the value of the property before it's returned to the application.
 	 *
 	 * @param mixed $value

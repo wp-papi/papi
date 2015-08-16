@@ -151,6 +151,17 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
+	 * Get import settings.
+	 *
+	 * @return array
+	 */
+	public function get_import_settings() {
+		return [
+			'property_array_slugs' => true
+		];
+	}
+
+	/**
 	 * Get JSON property that is used when adding new row.
 	 *
 	 * @return object
@@ -329,6 +340,42 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		// Render JSON template that is used for Papi ajax.
 		$this->render_json_template( $options->slug );
+	}
+
+	/**
+	 * Import value to the property.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return array
+	 */
+	public function import_value( $value, $slug, $post_id ) {
+		if ( ! is_array( $value ) ) {
+			return [];
+		}
+
+		// If the import value isn't array in array then fix it.
+		$extras = array_filter( $value, function ( $value ) {
+			return ! is_array( $value );
+		} );
+
+		if ( ! empty( $extras ) ) {
+			$extra = [];
+
+			foreach ( $extras as $key => $val ) {
+				if ( isset( $value[$key] ) ) {
+					unset( $value[$key] );
+				}
+
+				$extra[$key] = $val;
+			}
+
+			$value[] = $extra;
+		}
+
+		return $this->update_value( $value, $slug, $post_id );
 	}
 
 	/**
@@ -511,11 +558,15 @@ class Papi_Property_Repeater extends Papi_Property {
 			$value_slug      = $property->get_slug( true );
 
 			if ( $has_value ) {
-				if ( ! array_key_exists( $value_slug, $value ) ) {
-					continue;
+				if ( array_key_exists( $value_slug, $value ) ) {
+					$render_property->value = $value[$value_slug];
+				} else {
+					if ( array_key_exists( $property->get_slug(), $value ) ) {
+						$render_property->value = $property->default_value;
+					} else {
+						continue;
+					}
 				}
-
-				$render_property->value = $value[$value_slug];
 			}
 
 			$render_property->slug  = $this->html_name( $property, $this->counter );
@@ -748,4 +799,5 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		return $values;
 	}
+
 }

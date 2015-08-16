@@ -83,4 +83,25 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 		return $items;
 	}
 
+	/**
+	 * Import value to the property.
+	 *
+	 * @param mixed $value
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return mixed
+	 */
+	public function import_value( $value, $slug, $post_id ) {
+		if ( $value instanceof WP_User ) {
+			return $value->ID;
+		}
+
+		if ( is_numeric( $value ) ) {
+			return (int) $value;
+		}
+
+		return $this->default_value;
+	}
+
 }

@@ -9,6 +9,8 @@ class Papi_Core_Autoload {
 
 	/**
 	 * The Constructor.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function __construct() {
 		spl_autoload_register( [$this, 'autoload'] );
@@ -16,6 +18,8 @@ class Papi_Core_Autoload {
 
 	/**
 	 * Autoload Papi classes.
+	 *
+	 * @codeCoverageIgnore
 	 *
 	 * @param string $class
 	 */
@@ -30,6 +34,8 @@ class Papi_Core_Autoload {
 			$path .= 'conditional/';
 		} else if ( strpos( $class, 'papi_core_' ) === 0 ) {
 			$path .= 'core/';
+		} else if ( strpos( $class, 'papi_porter' ) === 0 ) {
+			$path .= 'porter/';
 		} else if ( strpos( $class, 'papi_property' ) === 0 ) {
 			$path .= 'properties/';
 		} else if ( strpos( $class, 'papi_page_type' ) === 0 ) {

@@ -3,7 +3,7 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-use Tank\Container;
+use Frozzare\Tank\Container;
 
 /**
  * Papi loader class.
@@ -101,6 +101,15 @@ final class Papi_Loader extends Container {
 	}
 
 	/**
+	 * Get the porter.
+	 *
+	 * @return Papi_Core_Porter
+	 */
+	public function porter() {
+		return $this->make( 'porter' );
+	}
+
+	/**
 	 * Require files.
 	 */
 	private function require_files() {
@@ -127,7 +136,8 @@ final class Papi_Loader extends Container {
 			'template.php',
 			'option.php',
 			'deprecated.php',
-			'conditional.php'
+			'conditional.php',
+			'porter.php'
 		];
 
 		// Require function files.
@@ -137,6 +147,8 @@ final class Papi_Loader extends Container {
 			}
 		}
 
+		unset( $file );
+
 		// Require admin classes.
 		require_once __DIR__ . '/includes/admin/class-papi-admin.php';
 		require_once __DIR__ . '/includes/admin/class-papi-admin-menu.php';
@@ -144,12 +156,15 @@ final class Papi_Loader extends Container {
 		// Require conditional rules.
 		require_once __DIR__ . '/includes/conditional/class-papi-conditional-rules.php';
 
+		// Setup container.
+		$this->setup_container();
+
 		// Include plugins or properties.
 		papi_action_include();
 	}
 
 	/**
-	 * Deactivate Papi if the WordPress version is lower then 3.8.
+	 * Deactivate Papi if the WordPress version is lower then 4.0.
 	 */
 	public static function deactivate() {
 		// Remove Papi from plugins_loaded action.
@@ -160,7 +175,7 @@ final class Papi_Loader extends Container {
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
-		$plugin_path = plugin_basename( dirname( __DIR__ ) . '/' . basename( __FILE__ ) );
+		$plugin_path = plugin_basename( __DIR__ . '/../' . basename( __FILE__ ) );
 
 		// If the plugin is active then deactivate it.
 		if ( is_plugin_active( $plugin_path ) ) {
@@ -175,6 +190,13 @@ final class Papi_Loader extends Container {
 	 */
 	private function setup_actions() {
 		add_action( 'after_setup_theme', 'papi_action_include' );
+	}
+
+	/**
+	 * Setup container.
+	 */
+	private function setup_container() {
+		$this->singleton( 'porter', new Papi_Porter );
 	}
 }
 
