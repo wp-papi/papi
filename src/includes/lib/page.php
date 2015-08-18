@@ -345,7 +345,18 @@ function papi_get_page_type_template( $post_id = 0 ) {
 	$data = papi_get_page_type_by_post_id( $post_id );
 
 	if ( isset( $data ) && isset( $data->template ) ) {
-		return $data->template;
+		$template  = $data->template;
+		$extension = '.php';
+		$ext_reg   = '/(' . $extension . ')+$/';
+
+		if ( preg_match( '/\.\w+$/', $template, $matches ) && preg_match( $ext_reg, $matches[0] ) ) {
+            return str_replace( '.', '/', preg_replace( '/' . $matches[0] . '$/', '', $template ) ) . $matches[0];
+        }
+
+		$template = str_replace( '.', '/', $template );
+
+		return substr( $template, -strlen( $extension ) ) === $extension
+            ? $template : $template . $extension;
 	}
 }
 
