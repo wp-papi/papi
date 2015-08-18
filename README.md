@@ -51,7 +51,7 @@ $ gulp phpcs
 
 // or
 
-$ vendor/bin/phpcs -s --extensions=php --standard=ruleset.xml src/
+$ vendor/bin/phpcs -s --extensions=php --standard=phpcs.xml src/
 ```
 
 ## Contributing

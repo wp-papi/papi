@@ -156,7 +156,7 @@ gulp.task('phpcs', function () {
   return gulp.src(config.php.src)
     .pipe(phpcs({
       bin: 'vendor/bin/phpcs',
-      standard: 'phpcs.ruleset.xml'
+      standard: 'phpcs.xml'
     }))
     .pipe(phpcs.reporter('log'));
 });
