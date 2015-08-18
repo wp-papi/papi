@@ -137,6 +137,7 @@ class Core {
 
     if (!$adminmenu.find('li.current > a.current').length) {
       href = href.substr(href.lastIndexOf('/') + 1);
+      href = href.replace('/\%2F/g', '/');
       $('a[href="' + href + '"]', $adminmenu).addClass('current').parent().addClass('current');
     }
   }
