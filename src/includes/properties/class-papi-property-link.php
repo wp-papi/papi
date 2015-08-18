@@ -27,9 +27,9 @@ class Papi_Property_Link extends Papi_Property {
 	/**
 	 * Delete value from the database.
 	 *
-	 * @param  mixed  $value
 	 * @param  string $slug
 	 * @param  int    $post_id
+	 * @param  string $type
 	 *
 	 * @return bool
 	 */
@@ -177,15 +177,15 @@ class Papi_Property_Link extends Papi_Property {
 	/**
 	 * Import value to the property.
 	 *
-	 * @param  mixed  $value
+	 * @param  mixed  $values
 	 * @param  string $slug
 	 * @param  int    $post_id
 	 *
 	 * @return mixed
 	 */
-	public function import_value( $value, $slug, $post_id ) {
+	public function import_value( $values, $slug, $post_id ) {
 		if ( is_array( $value ) || is_object( $value ) ) {
-			return $this->update_value( (array) $value, $slug, $post_id );
+			return $this->update_value( (array) $values, $slug, $post_id );
 		}
 	}
 
@@ -234,7 +234,7 @@ class Papi_Property_Link extends Papi_Property {
 	/**
 	 * Prepare value for the database.
 	 *
-	 * @param  mixed  $value
+	 * @param  mixed  $values
 	 * @param  string $slug
 	 * @param  int    $post_id
 	 *
