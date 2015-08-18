@@ -39,8 +39,8 @@ class Link {
     });
 
     $(document).on('click', '#wp-link-submit', function (e) {
-      e.preventDefault();
       if (self.$el !== undefined) {
+        e.preventDefault();
         self.render(window.wpLink.getAttrs());
       }
     });
@@ -65,6 +65,14 @@ class Link {
   add($this) {
     this.$el = $this.closest('.papi-property-link');
     this.$p  = this.$el.find('p');
+
+    // Create a new window.wpLink.update that only
+    // close the wpLink window. Save the old to later.
+    this.oldLinkUpdate = window.wpLink.update;
+    window.wpLink.update = function () {
+      wpLink.close();
+    };
+
     window.wpLink.open();
   }
 
@@ -137,7 +145,10 @@ class Link {
       .find('data-papi-rule')
       .trigger('change');
 
-    this.$el = this.$p = undefined;
+    // Restore window.wpLink.update
+    window.wpLink.update = this.oldLinkUpdate;
+
+    this.wpLink = this.$el = this.$p = undefined;
   }
 
 }
