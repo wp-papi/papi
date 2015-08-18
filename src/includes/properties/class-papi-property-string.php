@@ -20,9 +20,9 @@ class Papi_Property_String extends Papi_Property {
 	/**
 	 * Format the value of the property before it's returned to the application.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return array
 	 */

@@ -12,10 +12,10 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Format the value of the property before it's returned to the application.
  *
- * @param string $type
- * @param mixed $value
- * @param string $slug
- * @param int $post_id
+ * @param  string $type
+ * @param  mixed  $value
+ * @param  string $slug
+ * @param  int    $post_id
  *
  * @return mixed
  */
@@ -26,7 +26,7 @@ function papi_filter_format_value( $type, $value, $slug, $post_id ) {
 /**
  * Get conditional rule value.
  *
- * @param array|Papi_Core_Conditional_Rule $rule
+ * @param  array|Papi_Core_Conditional_Rule $rule
  *
  * @return bool
  */
@@ -49,10 +49,10 @@ function papi_filter_conditional_rule_allowed( $rule ) {
 /**
  * This filter is applied after the value is loaded in the database.
  *
- * @param string $type
- * @param mixed $value
- * @param string $slug
- * @param int $post_id
+ * @param  string $type
+ * @param  mixed  $value
+ * @param  string $slug
+ * @param  int    $post_id
  *
  * @return mixed
  */
@@ -84,7 +84,7 @@ function papi_filter_settings_directories() {
 /**
  * Get the only page type that will be used for the given post type.
  *
- * @param string $post_type
+ * @param  string $post_type
  *
  * @return string
  */
@@ -101,7 +101,7 @@ function papi_filter_settings_only_page_type( $post_type ) {
 /**
  * Change column title for page type column.
  *
- * @param string $post_type
+ * @param  string $post_type
  *
  * @return string
  */
@@ -121,7 +121,7 @@ function papi_filter_settings_page_type_from_post_qs() {
 /**
  * Show page type in add new page view for the given post type.
  *
- * @param string $post_type
+ * @param string        $post_type
  * @param string|object $page_type
  *
  * @return bool
@@ -147,7 +147,7 @@ function papi_filter_settings_show_page_type( $post_type, $page_type ) {
 /**
  * Get standard page description for the given post type.
  *
- * @param string $post_type
+ * @param  string $post_type
  *
  * @return string
  */
@@ -165,7 +165,7 @@ function papi_filter_settings_standard_page_description( $post_type ) {
 /**
  * Get standard page name for the given post type.
  *
- * @param string $post_type
+ * @param  string $post_type
  *
  * @return string
  */
@@ -183,7 +183,7 @@ function papi_filter_settings_standard_page_name( $post_type ) {
 /**
  * Show standard page type on the given post type.
  *
- * @param string $post_type
+ * @param  string $post_type
  *
  * @return bool
  */
@@ -194,7 +194,7 @@ function papi_filter_settings_show_standard_page_type( $post_type ) {
 /**
  * Get standard page thumbnail for the given post type.
  *
- * @param string $post_type
+ * @param  string $post_type
  *
  * @return string
  */
@@ -214,10 +214,10 @@ function papi_filter_settings_sort_order() {
 /**
  * This filter is applied before the value is saved in the database.
  *
- * @param string $type
- * @param mixed $value
- * @param string $slug
- * @param int $post_id
+ * @param  string $type
+ * @param  mixed  $value
+ * @param  string $slug
+ * @param  int    $post_id
  *
  * @return mixed
  */

@@ -28,7 +28,7 @@ final class Papi_Porter extends Container {
 	/**
 	 * Add Porter Driver.
 	 *
-	 * @param Papi_Porter_Driver $driver
+	 * @param  Papi_Porter_Driver $driver
 	 *
 	 * @return Papi_Porter
 	 */
@@ -40,10 +40,10 @@ final class Papi_Porter extends Container {
 	/**
 	 * Add after filter.
 	 *
-	 * @param string $filter
-	 * @param Closure $closure
-	 * @param int $priority
-	 * @param int $accepted_args
+	 * @param  string  $filter
+	 * @param  Closure $closure
+	 * @param  int     $priority
+	 * @param  int     $accepted_args
 	 *
 	 * @return bool
 	 */
@@ -55,10 +55,10 @@ final class Papi_Porter extends Container {
 	/**
 	 * Add before filter.
 	 *
-	 * @param string $filter
-	 * @param Closure $closure
-	 * @param int $priority
-	 * @param int $accepted_args
+	 * @param  string  $filter
+	 * @param  Closure $closure
+	 * @param  int     $priority
+	 * @param  int     $accepted_args
 	 *
 	 * @return bool
 	 */
@@ -70,7 +70,7 @@ final class Papi_Porter extends Container {
 	/**
 	 * Alias for `add_driver` or `use_driver` method.
 	 *
-	 * @param string|Papi_Porter_Driver $driver
+	 * @param  string|Papi_Porter_Driver $driver
 	 *
 	 * @return Papi_Porter
 	 */
@@ -83,9 +83,9 @@ final class Papi_Porter extends Container {
 	/**
 	 * Check if a driver exists or not.
 	 *
-	 * @param string $driver
+	 * @param  string $driver
 	 *
-	 * @return false
+	 * @return bool
 	 */
 	public function driver_exists( $driver ) {
 		return is_string( $driver ) && $this->exists( 'driver.' . $driver );
@@ -94,8 +94,8 @@ final class Papi_Porter extends Container {
 	/**
 	 * Export data from Papi. With or without all property options.
 	 *
-	 * @param mixed $post_id
-	 * @param bool $only_values
+	 * @param  mixed $post_id
+	 * @param  bool  $only_values
 	 *
 	 * @return array
 	 */
@@ -145,7 +145,7 @@ final class Papi_Porter extends Container {
 	/**
 	 * Fire filter.
 	 *
-	 * @param array $options
+	 * @param  array $options
 	 *
 	 * @throws Exception if `filter` is missing from options array.
 	 * @throws Exception if `value` is missing from options array.
@@ -181,7 +181,7 @@ final class Papi_Porter extends Container {
 	/**
 	 * Get import options.
 	 *
-	 * @param mixed $options
+	 * @param  mixed $options
 	 *
 	 * @return array
 	 */
@@ -204,7 +204,7 @@ final class Papi_Porter extends Container {
 	/**
 	 * Get value that should be saved.
 	 *
-	 * @param array $options
+	 * @param  array $options
 	 *
 	 * @return mixed
 	 */
@@ -215,8 +215,8 @@ final class Papi_Porter extends Container {
 	/**
 	 * Import data to Papi.
 	 *
-	 * @param array $options
-	 * @param array $fields
+	 * @param  array $options
+	 * @param  array $fields
 	 *
 	 * @return bool
 	 */
@@ -301,7 +301,7 @@ final class Papi_Porter extends Container {
 	/**
 	 * Add options per property.
 	 *
-	 * @param array $options
+	 * @param  array $options
 	 *
 	 * @return Papi_Porter
 	 */
@@ -315,7 +315,7 @@ final class Papi_Porter extends Container {
 	/**
 	 * Change Porter driver.
 	 *
-	 * @param string $driver
+	 * @param  string $driver
 	 *
 	 * @throws InvalidArgumentException if an argument is not of the expected type.
 	 * @throws Exception if driver name does not exist.

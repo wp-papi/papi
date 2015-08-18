@@ -108,7 +108,7 @@ final class Papi_Admin {
 	/**
 	 * Add custom body class when it's a page type.
 	 *
-	 * @param string $classes
+	 * @param  string $classes
 	 *
 	 * @return string
 	 */
@@ -204,7 +204,7 @@ final class Papi_Admin {
 	/**
 	 * Add custom table header to page type.
 	 *
-	 * @param array $defaults
+	 * @param  array $defaults
 	 *
 	 * @return array
 	 */
@@ -217,7 +217,7 @@ final class Papi_Admin {
 	 * Add custom table column to page type.
 	 *
 	 * @param string $column_name
-	 * @param int $post_id
+	 * @param int    $post_id
 	 */
 	public function manage_page_type_posts_custom_column( $column_name, $post_id ) {
 		if ( $column_name === 'page_type' ) {
@@ -298,7 +298,7 @@ final class Papi_Admin {
 	/**
 	 * Filter posts on load if `page_type` query string is set.
 	 *
-	 * @param WP_Query $query
+	 * @param  WP_Query $query
 	 *
 	 * @return WP_Query
 	 */
@@ -407,7 +407,7 @@ final class Papi_Admin {
 	/**
 	 * Filter the link query results.
 	 *
-	 * @param array $results
+	 * @param  array $results
 	 *
 	 * @return array
 	 */

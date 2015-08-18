@@ -28,9 +28,9 @@ function current_page() {
  *
  * You should use papi_get_field() instead.
  *
- * @param int $post_id
+ * @param int    $post_id
  * @param string $slug
- * @param mixed $default
+ * @param mixed  $default
  * @param string $type
  *
  * @deprecated deprecated since version 2.0.0.
@@ -62,6 +62,8 @@ function papi_fields( $post_id = 0 ) {
  * Get page type id.
  *
  * @param int $post_id
+ *
+ * @deprecated deprecated since version 2.0.0.
  *
  * @return string
  */

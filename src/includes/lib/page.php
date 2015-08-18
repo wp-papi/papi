@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Check if the page type should be displayed or not.
  *
- * @param string|object $page_type
+ * @param  string|object $page_type
  *
  * @return bool
  */
@@ -48,9 +48,9 @@ function papi_display_page_type( $page_type ) {
 /**
  * Get all page types that exists.
  *
- * @param bool $all
- * @param string $post_type
- * @param bool $fake_post_types
+ * @param  bool   $all
+ * @param  string $post_type
+ * @param  bool   $fake_post_types
  *
  * @return array
  */
@@ -111,7 +111,7 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
  * Get number of how many pages uses the given page type.
  * This will also work with only page type.
  *
- * @param string|object $page_type
+ * @param  string|object $page_type
  *
  * @return int
  */
@@ -147,8 +147,8 @@ function papi_get_number_of_pages( $page_type ) {
 /**
  * Get the data page.
  *
- * @param int $post_id
- * @param string $type
+ * @param  int    $post_id
+ * @param  string $type
  *
  * @return mixed
  */
@@ -159,7 +159,7 @@ function papi_get_page( $post_id = 0, $type = 'post' ) {
 /**
  * Get a page type by file path.
  *
- * @param string $file_path
+ * @param  string $file_path
  *
  * @return Papi_Page_Type
  */
@@ -200,7 +200,7 @@ function papi_get_page_type( $file_path ) {
 /**
  * Get page type by identifier.
  *
- * @param string $id
+ * @param  string $id
  *
  * @return Papi_Page_Type
  */
@@ -230,7 +230,7 @@ function papi_get_page_type_by_id( $id ) {
 /**
  * Get page type from post id.
  *
- * @param int $post_id
+ * @param  int $post_id
  *
  * @return Papi_Page_Type
  */
@@ -253,7 +253,7 @@ function papi_get_page_type_by_post_id( $post_id = 0 ) {
 /**
  * Get page type id.
  *
- * @param int $post_id
+ * @param  int $post_id
  *
  * @return string
  */
@@ -308,7 +308,7 @@ function papi_get_page_type_key() {
 /**
  * Get the Page type name.
  *
- * @param int $post_id
+ * @param  int $post_id
  *
  * @return string
  */
@@ -337,7 +337,7 @@ function papi_get_page_type_name( $post_id = 0 ) {
 /**
  * Get template file from post id.
  *
- * @param int|string $post_id
+ * @param  int|string $post_id
  *
  * @return null|string
  */
@@ -383,7 +383,7 @@ function papi_get_post_types() {
 /**
  * Get boxes with properties slug for a page.
  *
- * @param int $post_id
+ * @param  int $post_id
  *
  * @return array
  */
@@ -430,7 +430,7 @@ function papi_get_slugs( $post_id = 0 ) {
 /**
  * Check if `$obj` is a instanceof `Papi_Option_Type`.
  *
- * @param Papi_Page_Type $obj
+ * @param  Papi_Page_Type $obj
  *
  * @return bool
  */
@@ -441,7 +441,7 @@ function papi_is_option_type( $obj ) {
 /**
  * Check if `$obj` is a instanceof `Papi_Page_Type`.
  *
- * @param Papi_Page_Type $obj
+ * @param  Papi_Page_Type $obj
  *
  * @return bool
  */
@@ -452,7 +452,7 @@ function papi_is_page_type( $obj ) {
 /**
  * Echo the Page type name.
  *
- * @param int $post_id
+ * @param  int $post_id
  *
  * @return string
  */

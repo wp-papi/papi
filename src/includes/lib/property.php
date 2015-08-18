@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  * If it's on a option page it will fetch the value from the
  * option table instead of the postmeta table.
  *
- * @param int $post_id
+ * @param int    $post_id
  * @param string $slug
  * @param string $type
  */
@@ -29,8 +29,8 @@ function papi_delete_property_meta_value( $post_id, $slug, $type = 'post' ) {
 /**
  * Convert array of slugs to array with arrays in.
  *
- * @param array $values
- * @param string $slug
+ * @param  array  $values
+ * @param  string $slug
  *
  * @return array
  */
@@ -60,7 +60,7 @@ function papi_from_property_array_slugs( array $values, $slug ) {
 /**
  * Check if the given value is a instance of a property or not.
  *
- * @param mixed $value
+ * @param  mixed $value
  *
  * @return bool
  */
@@ -71,7 +71,7 @@ function papi_is_property( $value ) {
 /**
  * Get box property.
  *
- * @param array $properties
+ * @param  array $properties
  *
  * @return array
  */
@@ -93,9 +93,9 @@ function papi_get_box_property( array $properties ) {
 /**
  * Get options and properties.
  *
- * @param mixed $file_or_options
- * @param array $properties
- * @param bool $is_box
+ * @param  mixed $file_or_options
+ * @param  array $properties
+ * @param  bool  $is_box
  *
  * @return array
  */
@@ -162,7 +162,7 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 /**
  * Get property class name.
  *
- * @param string $type
+ * @param  string $type
  *
  * @return string
  */
@@ -179,7 +179,7 @@ function papi_get_property_class_name( $type ) {
  * If it's on a option page it will fetch the value from the
  * option table instead of the postmeta table.
  *
- * @param int $post_id
+ * @param int    $post_id
  * @param string $slug
  * @param string $type
  */
@@ -200,7 +200,7 @@ function papi_get_property_meta_value( $post_id, $slug, $type = 'post' ) {
 /**
  * Get property options.
  *
- * @param array $options
+ * @param  array $options
  *
  * @return stdClass
  */
@@ -220,7 +220,7 @@ function papi_get_property_options( $options ) {
 /**
  * Get property type by the given type.
  *
- * @param object|string $type
+ * @param  object|string $type
  *
  * @return Papi_Property
  */
@@ -231,7 +231,7 @@ function papi_get_property_type( $type ) {
 /**
  * Get property type key from base64 string.
  *
- * @param string $str
+ * @param  string $str
  *
  * @return string
  */
@@ -248,7 +248,7 @@ function papi_get_property_type_from_base64( $str ) {
 /**
  * Get the right key for a property type.
  *
- * @param string $str
+ * @param  string $str
  *
  * @return string
  */
@@ -272,7 +272,7 @@ function papi_get_property_type_key( $str = '' ) {
 /**
  * Get the right key for a property type with a underscore as the first character.
  *
- * @param string $str
+ * @param  string $str
  *
  * @return string
  */
@@ -283,9 +283,9 @@ function papi_get_property_type_key_f( $str ) {
 /**
  * Check if it's ends with '_property'.
  *
- * @param string $str
+ * @param  string $str
  *
- * @return boolean
+ * @return bool
  */
 function papi_is_property_type_key( $str = '' ) {
 	$pattern = '_property';
@@ -299,8 +299,8 @@ function papi_is_property_type_key( $str = '' ) {
 /**
  * Create a new property array or rendering a template property file.
  *
- * @param mixed $file_or_options
- * @param array $values
+ * @param  mixed $file_or_options
+ * @param  array $values
  *
  * @return Papi_Property
  */
@@ -367,7 +367,7 @@ function papi_render_properties( array $properties ) {
 /**
  * Get require text for property.
  *
- * @param Papi_Property $property
+ * @param  Papi_Property $property
  *
  * @return string
  */
@@ -382,8 +382,8 @@ function papi_require_text( $property ) {
 /**
  * Get require tag for property.
  *
- * @param Papi_Property $property
- * @param bool $text
+ * @param  Papi_Property $property
+ * @param  bool $text
  *
  * @return string
  */
@@ -398,7 +398,7 @@ function papi_required_html( $property, $text = false ) {
 /**
  * Populate properties array.
  *
- * @param array|object $properties
+ * @param  array|object $properties
  *
  * @return array
  */
@@ -448,7 +448,7 @@ function papi_populate_properties( $properties ) {
  * Update property values on the post with the given post id
  * or update property values on the option page.
  *
- * @param array $meta
+ * @param  array $meta
  *
  * @return bool
  */
@@ -511,8 +511,8 @@ function papi_update_property_meta_value( array $meta = [] ) {
  * Convert array of arrays to array of slugs.
  * The given slug will match a key with the number of properties.
  *
- * @param array $value
- * @param string $slug
+ * @param  array  $value
+ * @param  string $slug
  *
  * @return array
  */

@@ -28,7 +28,7 @@ class Papi_Admin_Data_Handler {
 	/**
 	 * Get post data.
 	 *
-	 * @param string $pattern
+	 * @param  string $pattern
 	 *
 	 * @return array
 	 */
@@ -58,7 +58,7 @@ class Papi_Admin_Data_Handler {
 	 * Prepare post data.
 	 * Will decode property options recursive.
 	 *
-	 * @param mixed $data
+	 * @param  mixed $data
 	 *
 	 * @return mixed
 	 */
@@ -81,8 +81,8 @@ class Papi_Admin_Data_Handler {
 	/**
 	 * Prepare properties data for saving.
 	 *
-	 * @param array $data
-	 * @param int $post_id
+	 * @param  array $data
+	 * @param  int   $post_id
 	 *
 	 * @return array
 	 */

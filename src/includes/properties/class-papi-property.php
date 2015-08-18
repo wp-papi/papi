@@ -38,8 +38,8 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Get the html id attribute value.
 	 *
-	 * @param object|string $suffix
-	 * @param int $row
+	 * @param  object|string $suffix
+	 * @param  int $row
 	 *
 	 * @return string
 	 */
@@ -57,8 +57,8 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Get html name for property with or without sub property and row number.
 	 *
-	 * @param array|object $sub_property
-	 * @param int $row
+	 * @param  array|object $sub_property
+	 * @param  int $row
 	 *
 	 * @return string
 	 */

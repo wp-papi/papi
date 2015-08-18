@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Add page type class name as a css class on body.
  *
- * @param array $classes
+ * @param  array $classes
  *
  * @return array
  */
@@ -65,9 +65,9 @@ function papi_include_template( $file, $vars = [] ) {
 /**
  * Load a template array file and merge values with it.
  *
- * @param string $file
- * @param array $values
- * @param bool $convert_to_object
+ * @param  string $file
+ * @param  array $values
+ * @param  bool $convert_to_object
  *
  * @return array
  */
@@ -108,7 +108,7 @@ function papi_template( $file, $values = [], $convert_to_object = false ) {
 /**
  * Include template files from Papis custom page template meta field.
  *
- * @param string $original_template
+ * @param  string $original_template
  *
  * @return string
  */

@@ -94,7 +94,7 @@ class Papi_Core_Conditional_Rule {
 	/**
 	 * Setup source callable.
 	 *
-	 * @param string $value
+	 * @param  string $value
 	 *
 	 * @return string
 	 */
@@ -118,7 +118,7 @@ class Papi_Core_Conditional_Rule {
 	/**
 	 * Setup the rule and assign properties with values.
 	 *
-	 * @param  array  $rule
+	 * @param array  $rule
 	 */
 	private function setup( array $rule ) {
 		foreach ( $rule as $key => $value ) {

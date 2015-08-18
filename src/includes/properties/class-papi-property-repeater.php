@@ -41,9 +41,9 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Delete value from the database.
 	 *
-	 * @param string $slug
-	 * @param int $post_id
-	 * @param string $type
+	 * @param  string $slug
+	 * @param  int    $post_id
+	 * @param  string $type
 	 *
 	 * @return bool
 	 */
@@ -64,9 +64,9 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Format the value of the property before it's returned to the application.
 	 *
-	 * @param mixed $values
-	 * @param string $repeater_slug
-	 * @param int $post_id
+	 * @param  mixed  $values
+	 * @param  string $repeater_slug
+	 * @param  int    $post_id
 	 *
 	 * @return array
 	 */
@@ -127,8 +127,8 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Get child slug from the repeater slug.
 	 *
-	 * @param string $repeater_slug
-	 * @param string $child_slug
+	 * @param  string $repeater_slug
+	 * @param  string $child_slug
 	 *
 	 * @return string
 	 */
@@ -184,10 +184,9 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Get results from the database.
 	 *
-	 * @param int $value
-	 * @param int $post_id
-	 * @param string $repeater_slug
-	 * @param integer $post_id
+	 * @param  int    $value
+	 * @param  string $repeater_slug
+	 * @param  int    $post_id
 	 *
 	 * @return array
 	 */
@@ -273,7 +272,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Get row results.
 	 *
-	 * @param array $dbresults
+	 * @param  array $dbresults
 	 *
 	 * @return array
 	 */
@@ -345,9 +344,9 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Import value to the property.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return array
 	 */
@@ -381,7 +380,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Check if the given layout is the layouted used.
 	 *
-	 * @param string $layout
+	 * @param  string $layout
 	 *
 	 * @return bool
 	 */
@@ -393,9 +392,9 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Change value after it's loaded from the database
 	 * and populate every property in the repeater with the right property type.
 	 *
-	 * @param int $value
+	 * @param int    $value
 	 * @param string $repeater_slug
-	 * @param int $post_id
+	 * @param int    $post_id
 	 */
 	public function load_value( $value, $repeater_slug, $post_id ) {
 		if ( is_array( $value ) ) {
@@ -439,7 +438,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * Prepare properties, get properties options object,
 	 * check which properties that are allowed to use.
 	 *
-	 * @param $items
+	 * @param  array $items
 	 *
 	 * @return array
 	 */
@@ -467,7 +466,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Remove all repeater rows from the database.
 	 *
-	 * @param int $post_id
+	 * @param int    $post_id
 	 * @param string $repeater_slug
 	 */
 	protected function remove_repeater_rows( $post_id, $repeater_slug ) {
@@ -722,9 +721,9 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Update value before it's saved to the database.
 	 *
-	 * @param mixed $values
+	 * @param mixed  $values
 	 * @param string $repeater_slug
-	 * @param int $post_id
+	 * @param int    $post_id
 	 */
 	public function update_value( $values, $repeater_slug, $post_id ) {
 		$rows = intval( papi_get_property_meta_value( $post_id, $repeater_slug ) );

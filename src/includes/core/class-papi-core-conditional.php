@@ -24,7 +24,7 @@ class Papi_Core_Conditional {
 	 * Check if the property should be displayed by the rules.
 	 *
 	 * @param  array $rules
-	 * @param Papi_Core_Property $property
+	 * @param  Papi_Core_Property $property
 	 *
 	 * @return bool
 	 */
@@ -45,7 +45,7 @@ class Papi_Core_Conditional {
 	/**
 	 * Get the display by relation.
 	 *
-	 * @param array $rules
+	 * @param  array $rules
 	 *
 	 * @return bool
 	 */
@@ -92,8 +92,8 @@ class Papi_Core_Conditional {
 	/**
 	 * Get rule slug.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
-	 * @param Papi_Core_Property $property
+	 * @param  Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Property $property
 	 *
 	 * @return string
 	 */
@@ -122,8 +122,8 @@ class Papi_Core_Conditional {
 	/**
 	 * Prepare rules.
 	 *
-	 * @param array $rules
-	 * @param Papi_Core_Property $property
+	 * @param  array $rules
+	 * @param  Papi_Core_Property $property
 	 *
 	 * @return array
 	 */

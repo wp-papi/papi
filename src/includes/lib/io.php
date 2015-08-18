@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Get all files in directory.
  *
- * @param string $directory
+ * @param  string $directory
  *
  * @return string
  */
@@ -59,7 +59,7 @@ function papi_get_all_page_type_files() {
 /**
  * Get page type file from page type query.
  *
- * @param string $file
+ * @param  string $file
  *
  * @return null|string
  */
@@ -85,7 +85,7 @@ function papi_get_file_path( $file ) {
 /**
  * Get page type base path.
  *
- * @param string $file
+ * @param  string $file
  *
  * @return null|string
  */

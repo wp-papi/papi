@@ -51,7 +51,7 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 	/**
 	 * Save meta boxes.
 	 *
-	 * @param int $post_id
+	 * @param int    $post_id
 	 * @param object $post
 	 */
 	public function save_meta_boxes( $post_id, $post ) {

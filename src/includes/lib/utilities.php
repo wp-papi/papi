@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Try convert to string if is possible else return empty string.
  *
- * @param mixed $obj
+ * @param  mixed $obj
  *
  * @return string
  */
@@ -35,7 +35,7 @@ function papi_convert_to_string( $obj ) {
 /**
  * Check if current is allowed the given capabilities.
  *
- * @param array|string $capabilities
+ * @param  array|string $capabilities
  *
  * @return bool
  */
@@ -67,8 +67,8 @@ function papi_doing_ajax() {
 /**
  * Papi escape html.
  *
- * @param mixed $obj
- * @param array $keys
+ * @param  mixed $obj
+ * @param  array $keys
  *
  * @return mixed
  */
@@ -111,7 +111,7 @@ function papi_esc_html( $obj, $keys = [] ) {
  * Dashify the given string.
  * Replacing whitespace and underscore with a dash.
  *
- * @param string $str
+ * @param  string $str
  *
  * @return string
  */
@@ -126,8 +126,8 @@ function papi_dashify( $str ) {
 /**
  * Add underscores at the start of the string.
  *
- * @param string $str
- * @param int $len
+ * @param  string $str
+ * @param  int    $len
  *
  * @return string
  */
@@ -152,8 +152,8 @@ function papi_f( $str = '', $len = 1 ) {
 /**
  * Get Papi cache key.
  *
- * @param string $key
- * @param mixed $suffix
+ * @param  string $key
+ * @param  mixed  $suffix
  *
  * @return string
  */
@@ -172,7 +172,7 @@ function papi_get_cache_key( $key, $suffix ) {
 /**
  * Get namespace name and/or class name from page type file.
  *
- * @param string $file
+ * @param  string $file
  *
  * @return null|string
  */
@@ -218,7 +218,7 @@ function papi_get_class_name( $file ) {
 /**
  * Get only objects from $arr.
  *
- * @param array $arr
+ * @param  array $arr
  *
  * @return array
  */
@@ -231,7 +231,7 @@ function papi_get_only_objects( array $arr ) {
 /**
  * Get value from $_GET or $_POST with the given key.
  *
- * @param string $key
+ * @param  string $key
  *
  * @return string
  */
@@ -252,7 +252,7 @@ function papi_get_or_post( $key ) {
 /**
  * Get query string if it exists and is not empty.
  *
- * @param array|string $qs
+ * @param  array|string $qs
  *
  * @return array|string
  */
@@ -301,7 +301,7 @@ function papi_get_qs( $qs, $keep_keys = false ) {
 /**
  * Get sanitized value from global `$_POST`.
  *
- * @param string $key
+ * @param  string $key
  *
  * @return string
  */
@@ -316,7 +316,7 @@ function papi_get_sanitized_post( $key ) {
 /**
  * Get a php friendly name.
  *
- * @param string $name
+ * @param  string $name
  *
  * @return string
  */
@@ -341,8 +341,8 @@ function papi_html_name( $name ) {
 /**
  * Get html tag from tag name and array of attributes.
  *
- * @param string $tag
- * @param array $attr
+ * @param  string $tag
+ * @param  array  $attr
  *
  * @return string
  */
@@ -399,7 +399,7 @@ function papi_html_tag( $tag, $attr = [] ) {
  * Check if the given object is empty or not.
  * Values like "0", 0 and false should not return true.
  *
- * @param mixed $obj
+ * @param  mixed $obj
  *
  * @return bool
  */
@@ -418,7 +418,7 @@ function papi_is_empty( $obj ) {
 /**
  * Check which http method it is.
  *
- * @param string $method
+ * @param  string $method
  *
  * @return bool
  */
@@ -433,7 +433,7 @@ function papi_is_metod( $method ) {
 /**
  * Replace '\n' with '<br />'.
  *
- * @param string $str
+ * @param  string $str
  *
  * @return string
  */
@@ -444,7 +444,7 @@ function papi_nl2br( $str ) {
 /**
  * Remove `papi-` or `papi_` from the given string.
  *
- * @param string $str
+ * @param  string $str
  *
  * @return string
  */
@@ -460,7 +460,7 @@ function papi_remove_papi( $str ) {
  * Remove trailing dobule quote.
  * PHP's $_POST object adds this automatic.
  *
- * @param string $str The string to check.
+ * @param  string $str The string to check.
  *
  * @return string
  */
@@ -475,8 +475,8 @@ function papi_remove_trailing_quotes( $str ) {
 /**
  * Render html tag from tag name and array of attributes.
  *
- * @param string $tag
- * @param array $attr
+ * @param  string $tag
+ * @param  array  $attr
  *
  * @return string
  */
@@ -487,7 +487,7 @@ function papi_render_html_tag( $tag, $attr = [] ) {
 /**
  * Santize data.
  *
- * @param mixed $obj
+ * @param  mixed $obj
  *
  * @return mixed
  */
@@ -508,8 +508,8 @@ function papi_santize_data( $obj ) {
 /**
  * Sort array based on given key and numeric value.
  *
- * @param array $array
- * @param string $key
+ * @param  array  $array
+ * @param  string $key
  *
  * @return array
  */
@@ -573,9 +573,9 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 /**
  * Slugify the given string.
  *
- * @param string $str
- * @param array $replace
- * @param string $delimiter
+ * @param  string $str
+ * @param  array  $replace
+ * @param  string $delimiter
  *
  * @return string
  */
@@ -601,7 +601,7 @@ function papi_slugify( $str, $replace = [], $delimiter = '-' ) {
 /**
  * Get a array of $obj.
  *
- * @param mixed $obj
+ * @param  mixed $obj
  *
  * @return array
  */
@@ -617,7 +617,7 @@ function papi_to_array( $obj ) {
  * Underscorify the given string.
  * Replacing whitespace and dash with a underscore.
  *
- * @param string $str
+ * @param  string $str
  *
  * @return string
  */
@@ -632,7 +632,7 @@ function papi_underscorify( $str ) {
 /**
  * Add `papi_` to the given string ad the start of the string.
  *
- * @param string $str
+ * @param  string $str
  *
  * @return string
  */
@@ -655,7 +655,7 @@ function papify( $str = '' ) {
 /**
  * Return the given object. Useful for chaining.
  *
- * @param mixed $obj
+ * @param  mixed $obj
  *
  * @return mixed
  */

@@ -55,9 +55,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Delete value from the database.
 	 *
-	 * @param string $slug
-	 * @param int $post_id
-	 * @param string $type
+	 * @param  string $slug
+	 * @param  int    $post_id
+	 * @param  string $type
 	 *
 	 * @return bool
 	 */
@@ -78,9 +78,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Format the value of the property before we output it to the application.
 	 *
-	 * @param mixed $values
-	 * @param string $repeater_slug
-	 * @param int $post_id
+	 * @param  mixed  $values
+	 * @param  string $repeater_slug
+	 * @param  int    $post_id
 	 *
 	 * @return array
 	 */
@@ -158,7 +158,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Check if the given key is a valid layout key.
 	 *
-	 * @param string $key
+	 * @param  string $key
 	 *
 	 * @return bool
 	 */
@@ -169,8 +169,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Generate layout slug.
 	 *
-	 * @param string $key
-	 * @param string $extra
+	 * @param  string $key
+	 * @param  string $extra
 	 *
 	 * @return string
 	 */
@@ -181,9 +181,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Get layout by slug.
 	 *
-	 * @param string $slug
+	 * @param  string $slug
 	 *
-	 * @return
+	 * @return string
 	 */
 	protected function get_layout( $slug ) {
 		$layouts = $this->get_settings_layouts();
@@ -198,8 +198,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Get layout value.
 	 *
-	 * @param string $prefix
-	 * @param string $name
+	 * @param  string $prefix
+	 * @param  string $name
 	 *
 	 * @return string
 	 */
@@ -210,10 +210,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Get results from the database.
 	 *
-	 * @param int $value
-	 * @param int $post_id
-	 * @param string $repeater_slug
-	 * @param integer $post_id
+	 * @param  int    $value
+	 * @param  string $repeater_slug
+	 * @param  int    $post_id
 	 *
 	 * @return array
 	 */
@@ -335,9 +334,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * Change value after it's loaded from the database
 	 * and populate every property in the flexible with the right property type.
 	 *
-	 * @param mixed $value
+	 * @param mixed  $value
 	 * @param string $repeater_slug
-	 * @param int $post_id
+	 * @param int    $post_id
 	 */
 	public function load_value( $value, $repeater_slug, $post_id ) {
 		if ( is_array( $value ) ) {
@@ -378,7 +377,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * Not the best name for this function, but since
 	 * property repeater using this we can't rename it.
 	 *
-	 * @param array $layouts
+	 * @param  array $layouts
 	 *
 	 * @return array
 	 */

@@ -85,7 +85,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Convert properties to properties objects.
 	 *
-	 * @param array|object $properties
+	 * @param  array|object $properties
 	 *
 	 * @return array
 	 */
@@ -121,7 +121,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Should the Page Type be displayed in WordPress admin or not?
 	 *
-	 * @param string $post_type
+	 * @param  string $post_type
 	 *
 	 * @return bool
 	 */
@@ -160,8 +160,8 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Get child property.
 	 *
-	 * @param array $items
-	 * @param string $slug
+	 * @param  array  $items
+	 * @param  string $slug
 	 *
 	 * @return object
 	 */
@@ -190,8 +190,8 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Get property from page type.
 	 *
-	 * @param string $slug
-	 * @param string $child_slug
+	 * @param  string $slug
+	 * @param  string $child_slug
 	 *
 	 * @return null|Papi_Property
 	 */
@@ -266,8 +266,8 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Add new property to the page using array or rendering property template file.
 	 *
-	 * @param array|string $file_or_options
-	 * @param array $values
+	 * @param  array|string $file_or_options
+	 * @param  array $values
 	 *
 	 * @return null|Papi_Property
 	 */
@@ -336,8 +336,8 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Add a new tab.
 	 *
-	 * @param mixed $file_or_options
-	 * @param array $properties
+	 * @param  mixed $file_or_options
+	 * @param  array $properties
 	 *
 	 * @return array
 	 */
@@ -366,8 +366,8 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Load template file.
 	 *
-	 * @param string $file
-	 * @param array $values
+	 * @param  string $file
+	 * @param  array  $values
 	 *
 	 * @return array
 	 */

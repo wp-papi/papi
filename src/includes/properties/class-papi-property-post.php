@@ -20,8 +20,6 @@ class Papi_Property_Post extends Papi_Property {
 	/**
 	 * Get default settings.
 	 *
-	 * @var array
-	 *
 	 * @return array
 	 */
 	public function get_default_settings() {
@@ -36,7 +34,7 @@ class Papi_Property_Post extends Papi_Property {
 	/**
 	 * Get posts.
 	 *
-	 * @param object $settings
+	 * @param  object $settings
 	 *
 	 * @return array
 	 */
@@ -143,9 +141,9 @@ class Papi_Property_Post extends Papi_Property {
 	/**
 	 * Import value to the property.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return mixed
 	 */
@@ -164,9 +162,9 @@ class Papi_Property_Post extends Papi_Property {
 	/**
 	 * Format the value of the property before it's returned to the application.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return array
 	 */

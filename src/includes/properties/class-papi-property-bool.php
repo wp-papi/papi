@@ -27,11 +27,11 @@ class Papi_Property_Bool extends Papi_Property {
 	/**
 	 * Format the value of the property before it's returned to the application.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_string( $value ) && $value === 'false' || $value === false ) {
@@ -64,9 +64,9 @@ class Papi_Property_Bool extends Papi_Property {
 	/**
 	 * Import value to the property.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return mixed
 	 */
@@ -77,9 +77,9 @@ class Papi_Property_Bool extends Papi_Property {
 	/**
 	 * Change value after it's loaded from the database.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return mixed
 	 */
@@ -90,9 +90,9 @@ class Papi_Property_Bool extends Papi_Property {
 	/**
 	 * Fix the database value on update.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return array
 	 */

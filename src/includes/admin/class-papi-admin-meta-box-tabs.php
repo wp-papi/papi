@@ -21,7 +21,7 @@ class Papi_Admin_Meta_Box_Tabs {
 	 * The constructor.
 	 *
 	 * @param array $tabs
-	 * @param bool $render
+	 * @param bool  $render
 	 */
 	public function __construct( $tabs = [], $render = true ) {
 		if ( empty( $tabs ) ) {

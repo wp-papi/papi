@@ -95,7 +95,7 @@ class Papi_Core_Property {
 	/**
 	 * Get option value dynamic.
 	 *
-	 * @param string $key
+	 * @param  string $key
 	 *
 	 * @return mixed
 	 */
@@ -106,7 +106,7 @@ class Papi_Core_Property {
 	/**
 	 * Check if options value exists or not.
 	 *
-	 * @param string $key
+	 * @param  string $key
 	 *
 	 * @return bool
 	 */
@@ -118,7 +118,7 @@ class Papi_Core_Property {
 	 * Set options value dynamic.
 	 *
 	 * @param string $key
-	 * @param mixed $value
+	 * @param mixed  $value
 	 */
 	public function __set( $key, $value ) {
 		$this->set_option( $key, $value );
@@ -127,7 +127,7 @@ class Papi_Core_Property {
 	/**
 	 * Create a property from options.
 	 *
-	 * @param array|object $options
+	 * @param  array|object $options
 	 *
 	 * @return Papi_Property
 	 */
@@ -140,7 +140,7 @@ class Papi_Core_Property {
 	/**
 	 * Convert settings items to properties if they are a property.
 	 *
-	 * @param array $settings
+	 * @param  array $settings
 	 *
 	 * @return array
 	 */
@@ -159,7 +159,7 @@ class Papi_Core_Property {
 	/**
 	 * Convert all arrays that has a valid property type.
 	 *
-	 * @param array $items
+	 * @param  array $items
 	 *
 	 * @return array
 	 */
@@ -211,9 +211,9 @@ class Papi_Core_Property {
 	/**
 	 * Delete value from the database.
 	 *
-	 * @param string $slug
-	 * @param int $post_id
-	 * @param string $type
+	 * @param  string $slug
+	 * @param  int    $post_id
+	 * @param  string $type
 	 *
 	 * @return bool
 	 */
@@ -228,7 +228,7 @@ class Papi_Core_Property {
 	/**
 	 * Create a new instance of the given type.
 	 *
-	 * @param mixed $type
+	 * @param  mixed $type
 	 *
 	 * @return object
 	 */
@@ -292,9 +292,9 @@ class Papi_Core_Property {
 	/**
 	 * Format the value of the property before we output it to the application.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return mixed
 	 */
@@ -332,7 +332,7 @@ class Papi_Core_Property {
 	/**
 	 * Get option value.
 	 *
-	 * @param string $key
+	 * @param  string $key
 	 *
 	 * @return mixed
 	 */
@@ -399,8 +399,8 @@ class Papi_Core_Property {
 	/**
 	 * Get setting value.
 	 *
-	 * @param string $key
-	 * @param mixed $default
+	 * @param  string $key
+	 * @param  mixed  $default
 	 *
 	 * @return stdClass
 	 */
@@ -431,7 +431,7 @@ class Papi_Core_Property {
 	/**
 	 * Get property slug.
 	 *
-	 * @param bool $remove_prefix
+	 * @param  bool $remove_prefix
 	 *
 	 * @return string
 	 */
@@ -469,8 +469,8 @@ class Papi_Core_Property {
 	/**
 	 * Get the import settings.
 	 *
-	 * @param string $key
-	 * @param mixed $default
+	 * @param  string $key
+	 * @param  mixed  $default
 	 *
 	 * @return mixed
 	 */
@@ -502,9 +502,9 @@ class Papi_Core_Property {
 	/**
 	 * Import value to the property.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return mixed
 	 */
@@ -528,9 +528,9 @@ class Papi_Core_Property {
 	/**
 	 * Change value after it's loaded from the database.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return mixed
 	 */
@@ -541,7 +541,7 @@ class Papi_Core_Property {
 	/**
 	 * Match property slug with given slug value.
 	 *
-	 * @param string $slug
+	 * @param  string $slug
 	 *
 	 * @return bool
 	 */
@@ -556,7 +556,7 @@ class Papi_Core_Property {
 	/**
 	 * Prepare property value.
 	 *
-	 * @param mixed $value
+	 * @param  mixed $value
 	 *
 	 * @return mixed
 	 */
@@ -583,7 +583,7 @@ class Papi_Core_Property {
 	 * Check if the property is allowed
 	 * to render by the conditional rules.
 	 *
-	 * @param array $rules
+	 * @param  array $rules
 	 *
 	 * @return bool
 	 */
@@ -617,7 +617,7 @@ class Papi_Core_Property {
 	 * Set property option value.
 	 *
 	 * @param string $key
-	 * @param mixed $value
+	 * @param mixed  $value
 	 */
 	public function set_option( $key, $value ) {
 		if ( ! is_object( $this->options ) ) {
@@ -633,7 +633,7 @@ class Papi_Core_Property {
 	 * Set property setting value.
 	 *
 	 * @param string $key
-	 * @param mixed $value
+	 * @param mixed  $value
 	 */
 	public function set_setting( $key, $value ) {
 		if ( isset( $this->options->settings ) && isset( $this->options->settings->$key ) ) {
@@ -663,7 +663,7 @@ class Papi_Core_Property {
 	/**
 	 * Setup options.
 	 *
-	 * @param array|object $options
+	 * @param  array|object $options
 	 *
 	 * @return mixed
 	 */
@@ -713,9 +713,9 @@ class Papi_Core_Property {
 	/**
 	 * Update value before it's saved to the database.
 	 *
-	 * @param mixed $value
+	 * @param mixed  $value
 	 * @param string $slug
-	 * @param int $post_id
+	 * @param int    $post_id
 	 *
 	 * @return mixed
 	 */

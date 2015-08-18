@@ -27,9 +27,9 @@ class Papi_Property_Link extends Papi_Property {
 	/**
 	 * Delete value from the database.
 	 *
-	 * @param string $slug
-	 * @param int $post_id
-	 * @param string $type
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return bool
 	 */
@@ -52,9 +52,9 @@ class Papi_Property_Link extends Papi_Property {
 	/**
 	 * Format the value of the property before it's returned to the application.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return mixed
 	 */
@@ -74,9 +74,9 @@ class Papi_Property_Link extends Papi_Property {
 	/**
 	 * Unserialize value from database.
 	 *
-	 * @param string $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return array
 	 */
@@ -177,9 +177,9 @@ class Papi_Property_Link extends Papi_Property {
 	/**
 	 * Import value to the property.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return mixed
 	 */
@@ -234,9 +234,9 @@ class Papi_Property_Link extends Papi_Property {
 	/**
 	 * Prepare value for the database.
 	 *
-	 * @param mixed $values
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return array
 	 */

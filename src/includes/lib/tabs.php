@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Get tabs options.
  *
- * @param array|object $options
+ * @param  array|object $options
  *
  * @return stdClass
  */
@@ -41,7 +41,7 @@ function papi_get_tab_options( $options ) {
 /**
  * Setup tabs.
  *
- * @param array $tabs
+ * @param  array $tabs
  *
  * @return array
  */
@@ -76,8 +76,8 @@ function papi_setup_tabs( array $tabs ) {
 /**
  * Create a new tab array or rendering a template tab file.
  *
- * @param string|array $file_or_options
- * @param array $properties
+ * @param  string|array $file_or_options
+ * @param  array $properties
  *
  * @return array
  */

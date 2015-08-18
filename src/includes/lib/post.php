@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Get post or page id from a object.
  *
- * @param mixed $post_id
+ * @param  mixed $post_id
  *
  * @return int
  */

@@ -24,7 +24,7 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
 	/**
 	 * Get value that should be saved.
 	 *
-	 * @param array $options
+	 * @param  array $options
 	 *
 	 * @return mixed
 	 */
@@ -54,10 +54,10 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
 	/**
 	 * Update value.
 	 *
-	 * @param Papi_Core_Property $property
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  Papi_Core_Property $property
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return array
 	 */

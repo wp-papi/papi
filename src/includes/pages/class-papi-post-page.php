@@ -90,8 +90,8 @@ class Papi_Post_Page extends Papi_Core_Page {
 	/**
 	 * Load property from page type.
 	 *
-	 * @param string $slug
-	 * @param string $child_slug
+	 * @param  string $slug
+	 * @param  string $child_slug
 	 *
 	 * @return object
 	 */

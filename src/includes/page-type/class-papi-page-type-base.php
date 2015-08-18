@@ -99,7 +99,7 @@ class Papi_Page_Type_Base {
 	/**
 	 * Check if the the given identifier match the page type identifier.
 	 *
-	 * @param string $id
+	 * @param  string $id
 	 *
 	 * @return bool
 	 */

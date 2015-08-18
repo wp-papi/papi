@@ -43,7 +43,7 @@ abstract class Papi_Core_Page extends Container {
 	/**
 	 * Get Papi property value.
 	 *
-	 * @param string $slug
+	 * @param  string $slug
 	 *
 	 * @return mixed
 	 */
@@ -54,7 +54,7 @@ abstract class Papi_Core_Page extends Container {
 	/**
 	 * Get value from property.
 	 *
-	 * @param string $slug
+	 * @param  string $slug
 	 *
 	 * @return mixed
 	 */
@@ -67,8 +67,8 @@ abstract class Papi_Core_Page extends Container {
 	/**
 	 * Convert property value with the property type converter.
 	 *
-	 * @param string $slug
-	 * @param mixed $value
+	 * @param  string $slug
+	 * @param  mixed  $value
 	 *
 	 * @return mixed
 	 */
@@ -114,7 +114,7 @@ abstract class Papi_Core_Page extends Container {
 	/**
 	 * Check if the `$type` match the page type.
 	 *
-	 * @param string $type
+	 * @param  string $type
 	 *
 	 * @return bool
 	 */
@@ -125,8 +125,8 @@ abstract class Papi_Core_Page extends Container {
 	/**
 	 * Get page from factory.
 	 *
-	 * @param int $post_id
-	 * @param string $type
+	 * @param  int    $post_id
+	 * @param  string $type
 	 *
 	 * @return mixed
 	 */
@@ -156,8 +156,8 @@ abstract class Papi_Core_Page extends Container {
 	/**
 	 * Get property from page type.
 	 *
-	 * @param string $slug
-	 * @param string $child_slug
+	 * @param  string $slug
+	 * @param  string $child_slug
 	 *
 	 * @return Papi_Property
 	 */

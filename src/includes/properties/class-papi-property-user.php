@@ -20,9 +20,9 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	/**
 	 * Format the value of the property before it's returned to the application.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return array
 	 */
@@ -86,9 +86,9 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	/**
 	 * Import value to the property.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return mixed
 	 */

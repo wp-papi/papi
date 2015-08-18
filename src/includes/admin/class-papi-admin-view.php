@@ -29,7 +29,7 @@ class Papi_Admin_View {
 	/**
 	 * Check if file exists.
 	 *
-	 * @param string $file
+	 * @param  string $file
 	 *
 	 * @return bool
 	 */
@@ -40,7 +40,7 @@ class Papi_Admin_View {
 	/**
 	 * Render file.
 	 *
-	 * @param string $file
+	 * @param  string $file
 	 *
 	 * @return string
 	 */
@@ -53,7 +53,7 @@ class Papi_Admin_View {
 	/**
 	 * Get full path to file with php exstention.
 	 *
-	 * @param string $file
+	 * @param  string $file
 	 *
 	 * @return string
 	 */

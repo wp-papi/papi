@@ -59,7 +59,7 @@ abstract class Papi_Porter_Driver {
 	/**
 	 * Call closure value if any.
 	 *
-	 * @param mixed $value
+	 * @param  mixed $value
 	 *
 	 * @return mixed
 	 */
@@ -80,8 +80,8 @@ abstract class Papi_Porter_Driver {
 	/**
 	 * Get filter key.
 	 *
-	 * @param string $type
-	 * @param string $filter
+	 * @param  string $type
+	 * @param  string $filter
 	 *
 	 * @return string
 	 */
@@ -134,7 +134,7 @@ abstract class Papi_Porter_Driver {
 	/**
 	 * Set driver name.
 	 *
-	 * @param string $name
+	 * @param  string $name
 	 *
 	 * @throws InvalidArgumentException if driver name is empty or not a string.
 	 * @throws Exception if driver name exists.
@@ -176,7 +176,7 @@ abstract class Papi_Porter_Driver {
 	/**
 	 * Determine if a property should update existing array or not.
 	 *
-	 * @param string $slug
+	 * @param  string $slug
 	 *
 	 * @return bool
 	 */
@@ -192,9 +192,9 @@ abstract class Papi_Porter_Driver {
 	 *
 	 * @codeCoverageIgnore
 	 *
-	 * @param mixed $obj
+	 * @param  mixed $obj
 	 *
-	 * @return obj
+	 * @return mixed
 	 */
 	protected function with( $obj ) {
 		return $obj;

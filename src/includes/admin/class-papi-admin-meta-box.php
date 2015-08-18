@@ -89,7 +89,7 @@ class Papi_Admin_Meta_Box {
 	/**
 	 * Add css classes to meta box.
 	 *
-	 * @param array $classes
+	 * @param  array $classes
 	 *
 	 * @return string[]
 	 */
@@ -110,7 +110,7 @@ class Papi_Admin_Meta_Box {
 	/**
 	 * Populate post type.
 	 *
-	 * @param array|string $post_type
+	 * @param  array|string $post_type
 	 *
 	 * @return string
 	 */

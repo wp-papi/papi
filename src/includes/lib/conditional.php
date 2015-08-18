@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Check if the given value is a instance of the rule class.
  *
- * @param mixed $rule
+ * @param  mixed $rule
  *
  * @return bool
  */
@@ -23,7 +23,7 @@ function papi_is_rule( $rule ) {
 /**
  * Get conditional rule.
  *
- * @param array|Papi_Core_Conditional_Rule $rule
+ * @param  array|Papi_Core_Conditional_Rule $rule
  *
  * @return Papi_Page|null
  */

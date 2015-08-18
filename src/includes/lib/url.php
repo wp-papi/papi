@@ -12,10 +12,10 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Get the url to 'post-new.php' with query string of the page type to load.
  *
- * @param string $page_type
- * @param bool $append_admin_url
- * @param string $post_type
- * @param array $exclude
+ * @param  string $page_type
+ * @param  bool   $append_admin_url
+ * @param  string $post_type
+ * @param  array  $exclude
  *
  * @return string
  */
@@ -34,8 +34,8 @@ function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type
 /**
  * Get page query strings.
  *
- * @param string $first_char
- * @param array $exclude
+ * @param  string $first_char
+ * @param  array  $exclude
  *
  * @return string
  */
@@ -90,8 +90,8 @@ function papi_get_page_query_strings( $first_char = '&', $exclude = [] ) {
 /**
  * Append post type query string.
  *
- * @param string $url
- * @param string $post_type_arg
+ * @param  string $url
+ * @param  string $post_type_arg
  *
  * @return string
  */

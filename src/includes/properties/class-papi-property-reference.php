@@ -13,8 +13,6 @@ class Papi_Property_Reference extends Papi_Property {
 	/**
 	 * Get default settings.
 	 *
-	 * @var array
-	 *
 	 * @return array
 	 */
 	public function get_default_settings() {

@@ -20,7 +20,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Convert string bool to bool.
 	 *
-	 * @param mixed $str
+	 * @param  mixed $str
 	 *
 	 * @return mixed
 	 */
@@ -42,8 +42,8 @@ class Papi_Conditional_Rules {
 	/**
 	 * Convert value from a property.
 	 *
-	 * @param mixed $value
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  mixed $value
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return mixed
 	 */
@@ -73,7 +73,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Convert string number to int or float.
 	 *
-	 * @param string $str
+	 * @param  string $str
 	 *
 	 * @return float|int
 	 */
@@ -92,7 +92,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Get converted value.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return array
 	 */
@@ -121,8 +121,8 @@ class Papi_Conditional_Rules {
 	/**
 	 * Get deep value.
 	 *
-	 * @param string $slug
-	 * @param mixed $value
+	 * @param  string $slug
+	 * @param  mixed $value
 	 *
 	 * @return mixed
 	 */
@@ -135,7 +135,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Get property value.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return mixed
 	 */
@@ -170,7 +170,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Equal conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -182,7 +182,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Not equal conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -194,7 +194,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Greater then conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -215,7 +215,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Greater then or equal conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -236,7 +236,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Less then conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -257,7 +257,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Less then or equal conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -278,7 +278,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * In array conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -295,7 +295,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Not in array conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -312,7 +312,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Like conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -333,7 +333,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Get between values.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return array
 	 */
@@ -364,7 +364,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Between conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -381,7 +381,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Not between conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -398,7 +398,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Exists conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -409,7 +409,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Not exists conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -420,7 +420,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Empty conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */
@@ -431,7 +431,7 @@ class Papi_Conditional_Rules {
 	/**
 	 * Empty conditional rule.
 	 *
-	 * @param Papi_Core_Conditional_Rule $rule
+	 * @param  Papi_Core_Conditional_Rule $rule
 	 *
 	 * @return bool
 	 */

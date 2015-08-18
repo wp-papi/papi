@@ -34,9 +34,9 @@ class Papi_Property_File extends Papi_Property {
 	/**
 	 * Format the value of the property before it's returned to the application.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return mixed
 	 */
@@ -185,9 +185,9 @@ class Papi_Property_File extends Papi_Property {
 	/**
 	 * Import value to the property.
 	 *
-	 * @param mixed $value
-	 * @param string $slug
-	 * @param int $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return mixed
 	 */
@@ -224,7 +224,7 @@ class Papi_Property_File extends Papi_Property {
 	/**
 	 * Check if the given id is a attachment post type or not.
 	 *
-	 * @param int $id
+	 * @param  int $id
 	 *
 	 * @return bool
 	 */
@@ -273,8 +273,8 @@ class Papi_Property_File extends Papi_Property {
 	/**
 	 * Get attachment metadata.
 	 *
-	 * @param mixed $data
-	 * @param int $post_id
+	 * @param  mixed $data
+	 * @param  int   $post_id
 	 *
 	 * @return mixed
 	 */

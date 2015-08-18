@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Delete value in the database.
  *
- * @param string $slug
+ * @param  string $slug
  *
  * @return bool
  */
@@ -41,8 +41,8 @@ function papi_is_option_page() {
 /**
  * Get property value for property on a option page.
  *
- * @param string $slug
- * @param mixed $default
+ * @param  string $slug
+ * @param  mixed  $default
  *
  * @return mixed
  */
@@ -55,7 +55,7 @@ function papi_get_option( $slug, $default = null ) {
  *
  * [papi_option slug="field_name" default="Default value"][/papi_option]
  *
- * @param array $atts
+ * @param  array $atts
  *
  * @return mixed
  */
@@ -80,8 +80,8 @@ add_shortcode( 'papi_option', 'papi_option_shortcode' );
 /**
  * Update field with new value. The old value will be deleted.
  *
- * @param string $slug
- * @param mixed $value
+ * @param  string $slug
+ * @param  mixed  $value
  *
  * @return bool
  */
@@ -93,7 +93,7 @@ function papi_update_option( $slug, $value = null ) {
  * Echo the value for property on a option page.
  *
  * @param string $slug
- * @param mixed $default
+ * @param mixed  $default
  */
 function the_papi_option( $slug = null, $default = null ) {
 	$value = papi_get_option( $slug, $default );

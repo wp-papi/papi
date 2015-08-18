@@ -12,9 +12,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Delete value in the database.
  *
- * @param int $post_id
- * @param string $slug
- * @param string $type
+ * @param  int    $post_id
+ * @param  string $slug
+ * @param  string $type
  *
  * @return bool
  */
@@ -59,7 +59,7 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
  *
  * [papi_field id=1 slug="field_name" default="Default value"][/papi_field]
  *
- * @param array $atts
+ * @param  array $atts
  *
  * @return mixed
  */
@@ -90,9 +90,9 @@ add_shortcode( 'papi_field', 'papi_field_shortcode' );
  *
  * "image.url" will get the url value in the array.
  *
- * @param array $slugs
- * @param mixed $value
- * @param mixed $default
+ * @param  array $slugs
+ * @param  mixed $value
+ * @param  mixed $default
  *
  * @return mixed
  */
@@ -120,10 +120,10 @@ function papi_field_value( $slugs, $value, $default = null ) {
 /**
  * Get value for a property on a page.
  *
- * @param int $post_id
- * @param string $slug
- * @param mixed $default
- * @param string $type
+ * @param  int    $post_id
+ * @param  string $slug
+ * @param  mixed  $default
+ * @param  string $type
  *
  * @return mixed
  */
@@ -176,9 +176,9 @@ function papi_get_field( $post_id = null, $slug = null, $default = null, $type =
 /**
  * Update field with new value. The old value will be deleted.
  *
- * @param int $post_id
- * @param string $slug
- * @param string $type
+ * @param  int    $post_id
+ * @param  string $slug
+ * @param  string $type
  *
  * @return bool
  */
@@ -230,9 +230,9 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 /**
  * Echo the value for property on a page.
  *
- * @param int $post_id
+ * @param int    $post_id
  * @param string $slug
- * @param mixed $default
+ * @param mixed  $default
  */
 function the_papi_field( $post_id = null, $slug = null, $default = null ) {
 	$value = papi_get_field( $post_id, $slug, $default );
