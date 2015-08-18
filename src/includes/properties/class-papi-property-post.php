@@ -114,15 +114,20 @@ class Papi_Property_Post extends Papi_Property {
 						<optgroup label="<?php echo $label; ?>">
 					<?php endif; ?>
 
-					<?php foreach ( $items as $post ):
+					<?php
+					foreach ( $items as $post ) {
 						if ( papi_is_empty( $post->post_title ) ) {
-							continue;
+								continue;
 						}
+
+						papi_render_html_tag( 'option', [
+							'value'  => $post->ID,
+							'select' => $value === $post->ID ? 'selected="selected"' : null,
+
+							$post->post_title
+						] );
+					}
 					?>
-						<option value="<?php echo $post->ID; ?>" <?php echo $value === $post->ID ? 'selected="selected"' : ''; ?>>
-							<?php echo $post->post_title; ?>
-						</option>
-					<?php endforeach; ?>
 
 					<?php if ( $render_label ): ?>
 						</optgroup>
