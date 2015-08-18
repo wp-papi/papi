@@ -17,6 +17,7 @@
   <testsuites>
     <testsuite name="Papi Test Suite">
       <directory suffix=".php">./tests/</directory>
+      <exclude>./tests/fixtures</exclude>
     </testsuite>
   </testsuites>
   <filter>
