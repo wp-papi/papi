@@ -27,7 +27,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	/**
 	 * Format the value of the property before it's returned to the application.
 	 *
-	 * @param  mixed  $value
+	 * @param  mixed  $values
 	 * @param  string $slug
 	 * @param  int    $post_id
 	 *
@@ -268,7 +268,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	/**
 	 * Sort the values on update.
 	 *
-	 * @param  mixed  $value
+	 * @param  mixed  $values
 	 * @param  string $slug
 	 * @param  int    $post_id
 	 *
