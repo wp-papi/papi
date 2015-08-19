@@ -35,23 +35,22 @@
 				<td><?php echo esc_html( $page_type->get_id() ); ?></td>
 				<td>
 					<?php
-					if ( ! current_user_can( 'edit_themes' ) || defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
-							echo esc_html( $page_type->template );
+					if ( empty( $page_type->template ) ) {
+						_e( 'Page Type has no template file', 'papi' );
+					} else if ( ! current_user_can( 'edit_themes' ) || defined( 'DISALLOW_FILE_EDIT' ) && DISALLOW_FILE_EDIT ) {
+						echo esc_html( $page_type->template );
 					} else {
 						$theme_dir  = get_template_directory();
 						$theme_name = basename( $theme_dir );
-						$url        = site_url() . '/wp-admin/theme-editor.php?file=' . $page_type->template . '&theme=' . $theme_name;
+						$url        = admin_url( 'theme-editor.php?file=' . $page_type->template . '&theme=' . $theme_name );
 
-						if ( empty( $page_type->template ) ) {
-							_e( 'Page Type has no template file', 'papi' );
+						if ( file_exists( $theme_dir . '/' . $page_type->template ) ) {
+							papi_render_html_tag( 'a', [
+								'href' => esc_attr( $url ),
+								esc_html( $page_type->template )
+							] );
 						} else {
-							if ( file_exists( $theme_dir . '/' . $page_type->template ) ) :
-								?>
-								<a href="<?php echo esc_attr( $url ); ?>"><?php echo esc_html( $page_type->template ); ?></a>
-							<?php
-							else :
-								_e( 'Template file does not exist', 'papi' );
-							endif;
+							_e( 'Template file does not exist', 'papi' );
 						}
 					}
 					?>
