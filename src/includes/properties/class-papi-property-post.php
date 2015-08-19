@@ -119,8 +119,8 @@ class Papi_Property_Post extends Papi_Property {
 						}
 
 						papi_render_html_tag( 'option', [
-							'value'  => $post->ID,
-							'select' => $value === $post->ID ? 'selected="selected"' : null,
+							'value'    => $post->ID,
+							'selected' => $value === $post->ID ? 'selected' : null,
 
 							$post->post_title
 						] );
