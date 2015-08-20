@@ -13,7 +13,7 @@
 CONTRIBUTING.md export-ignore
 Gulpfile.js export-ignore
 package.json export-ignore
-phpcs.ruleset.xml export-ignore
+phpcs.xml export-ignore
 phpunit.xml.dist export-ignore
 tmp export-ignore
 Vagrantfile export-ignore
