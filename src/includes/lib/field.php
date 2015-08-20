@@ -194,7 +194,7 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 	}
 
 	if ( papi_is_empty( $value ) ) {
-		return false;
+		return papi_delete_field( $post_id, $slug, $type );
 	}
 
 	$post_id = papi_get_post_id( $post_id );
