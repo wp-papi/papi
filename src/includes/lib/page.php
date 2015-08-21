@@ -424,7 +424,7 @@ function papi_get_slugs( $post_id = 0 ) {
 /**
  * Check if `$obj` is a instanceof `Papi_Option_Type`.
  *
- * @param  Papi_Page_Type $obj
+ * @param  mixed $obj
  *
  * @return bool
  */
@@ -435,7 +435,7 @@ function papi_is_option_type( $obj ) {
 /**
  * Check if `$obj` is a instanceof `Papi_Page_Type`.
  *
- * @param  Papi_Page_Type $obj
+ * @param  mixed $obj
  *
  * @return bool
  */
