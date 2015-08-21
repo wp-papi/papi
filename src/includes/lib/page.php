@@ -41,6 +41,12 @@ function papi_display_page_type( $page_type ) {
 		return false;
 	}
 
+	$parent_page_type = papi_get_page_type_by_post_id( papi_get_parent_post_id() );
+
+	if ( papi_is_page_type( $parent_page_type ) ) {
+		return $parent_page_type->match_id( $page_type->child_of );
+	}
+
 	// Run show page type filter.
 	return papi_filter_settings_show_page_type( $post_type, $page_type );
 }
@@ -277,7 +283,7 @@ function papi_get_page_type_id( $post_id = 0 ) {
 
 	// Load right page type from a post query string
 	if ( empty( $page_type ) ) {
-		$meta_value = get_post_meta( papi_get_post_parent_id(), $key, true );
+		$meta_value = get_post_meta( papi_get_parent_post_id(), $key, true );
 		$page_type  = empty( $meta_value ) ? '' : $meta_value;
 	}
 

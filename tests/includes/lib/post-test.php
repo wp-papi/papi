@@ -38,10 +38,10 @@ class Papi_Lib_Post_Test extends WP_UnitTestCase {
 		unset( $_GET );
 	}
 
-	public function test_papi_get_post_parent_id() {
-		$this->assertEmpty( papi_get_post_parent_id() );
+	public function test_papi_get_parent_post_id() {
+		$this->assertEmpty( papi_get_parent_post_id() );
 		$_GET['post_parent'] = 7;
-		$this->assertEquals( 7, papi_get_post_parent_id() );
+		$this->assertEquals( 7, papi_get_parent_post_id() );
 		unset( $_GET );
 	}
 

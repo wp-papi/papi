@@ -43,6 +43,10 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 		$this->assertFalse( $this->faq_page_type->current_user_is_allowed() );
 	}
 
+	public function test_get_child_page_types() {
+		$this->assertEmpty( $this->simple_page_type->get_child_page_types() );
+	}
+
 	public function test_get_labels() {
 		$this->assertEmpty( $this->simple_page_type->get_labels() );
 		$this->assertEmpty( $this->empty_page_type->get_labels() );
@@ -52,10 +56,6 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 			'view_item'    => 'View FAQ page',
 			'nan_item'     => 'Not a number item'
 		], $this->faq_page_type->get_labels() );
-	}
-
-	public function test_get_page_types() {
-		$this->assertEmpty( $this->simple_page_type->get_page_types() );
 	}
 
 	public function test_get_thumbnail() {
@@ -72,6 +72,8 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 
 	public function test_meta_info() {
 		$this->assertEquals( [], $this->empty_page_type->capabilities );
+		$this->assertEquals( '', $this->empty_page_type->child_of );
+		$this->assertEquals( [], $this->empty_page_type->child_page_types );
 		$this->assertEquals( '', $this->empty_page_type->description );
 		$this->assertFalse( $this->empty_page_type->fill_labels );
 		$this->assertEquals( '', $this->empty_page_type->name );
@@ -81,6 +83,8 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 		$this->assertEquals( '', $this->simple_page_type->thumbnail );
 
 		$this->assertEquals( [ 'kvack' ], $this->faq_page_type->capabilities );
+		$this->assertEquals( [], $this->faq_page_type->child_page_types );
+		$this->assertEquals( '', $this->faq_page_type->child_of );
 		$this->assertEquals( 'This is a faq page', $this->faq_page_type->description );
 		$this->assertTrue( $this->faq_page_type->fill_labels );
 		$this->assertEquals( 'FAQ page', $this->faq_page_type->name );
@@ -90,6 +94,8 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'faq.png', $this->faq_page_type->thumbnail );
 
 		$this->assertEquals( [], $this->simple_page_type->capabilities );
+		$this->assertEquals( [], $this->simple_page_type->child_page_types );
+		$this->assertEquals( '', $this->simple_page_type->child_of );
 		$this->assertEquals( 'This is a simple page', $this->simple_page_type->description );
 		$this->assertFalse( $this->simple_page_type->fill_labels );
 		$this->assertEquals( 'Simple page', $this->simple_page_type->name );

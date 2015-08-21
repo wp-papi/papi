@@ -17,13 +17,15 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 
 	<div class="papi-box-list">
 		<?php
-		$page_types = papi_get_all_page_types();
+		$parent_page_type = papi_get_page_type_by_id( papi_get_page_type_id() );
+		$page_types       = papi_get_all_page_types();
+		$show_standard    = papi_filter_settings_show_standard_page_type( $post_type_name );
 
-		if ( $parent_post_id = papi_get_post_parent_id() ) {
-			$page_type  = papi_get_page_type_by_post_id();
+		if ( papi_is_page_type( $parent_page_type ) ) {
+			$page_types = $parent_page_type->get_child_page_types();
 
-			if ( papi_is_page_type( $page_type ) ) {
-				$page_types = $page_type->get_page_types();
+			if ( $show_standard ) {
+				$show_standard = $parent_page_type->standard_page_type;
 			}
 		}
 
@@ -40,7 +42,7 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 			] );
 		}
 
-		if ( papi_filter_settings_show_standard_page_type( $post_type_name ) ) {
+		if ( $show_standard ) {
 			papi_include_template( 'includes/admin/views/partials/add-new-item.php', [
 				'title'       => papi_filter_settings_standard_page_name( $post_type_name ),
 				'description' => papi_filter_settings_standard_page_description( $post_type_name ),

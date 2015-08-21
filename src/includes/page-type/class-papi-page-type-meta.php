@@ -18,6 +18,20 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	public $capabilities = [];
 
 	/**
+	 * Child of page type.
+	 *
+	 * @var string
+	 */
+	public $child_of = '';
+
+	/**
+	 * The page types that lives under this page type.
+	 *
+	 * @var array
+	 */
+	public $child_page_types = [];
+
+	/**
 	 * The description of the page type.
 	 *
 	 * @var string
@@ -46,13 +60,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	public $name = '';
 
 	/**
-	 * The page types that lives under this page type.
-	 *
-	 * @var array
-	 */
-	public $page_types = [];
-
-	/**
 	 * The post types to register the page type with.
 	 *
 	 * @var array
@@ -65,6 +72,13 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * @var int
 	 */
 	public $sort_order = null;
+
+	/**
+	 * Show standard page type or not.
+	 *
+	 * @var bool
+	 */
+	public $standard_page_type = true;
 
 	/**
 	 * The template of the page type.
@@ -109,6 +123,17 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	}
 
 	/**
+	 * Get child page types that lives under the current page type.
+	 *
+	 * @return array
+	 */
+	public function get_child_page_types() {
+		return array_map( function ( $id ) {
+			return papi_get_page_type_by_id( $id );
+		}, $this->child_page_types );
+	}
+
+	/**
 	 * Get labels that should be changed
 	 * when using `fill_labels` option.
 	 *
@@ -124,15 +149,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 			'edit_item' => sprintf( '%s %s', __( 'Edit', 'papi' ), $this->name ),
 			'view_item' => sprintf( '%s %s', __( 'View', 'papi' ), $this->name )
 		] );
-	}
-
-	/**
-	 * Get page types that lives under the current page type.
-	 *
-	 * @return array
-	 */
-	public function get_page_types() {
-		return $this->page_types;
 	}
 
 	/**
