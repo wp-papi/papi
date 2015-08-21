@@ -102,4 +102,9 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 		$this->assertEquals( '', $this->simple_page_type->thumbnail );
 	}
 
+	public function test_get_child_page_types() {
+		$child_page_type = $this->faq_page_type->get_child_page_types();
+		$this->assertEquals( is_object( $child_page_type[0] ) );
+	}
+
 }
