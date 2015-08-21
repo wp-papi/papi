@@ -81,8 +81,8 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 		$this->assertEquals( '', $this->empty_page_type->template );
 		$this->assertEquals( '', $this->simple_page_type->thumbnail );
 
-		$this->assertEquals( [ 'kvack' ], $this->faq_page_type->capabilities );
-		$this->assertEquals( [], $this->faq_page_type->child_page_types );
+		$this->assertEquals( ['kvack'], $this->faq_page_type->capabilities );
+		$this->assertEquals( ['simple-page-type'], $this->faq_page_type->child_page_types );
 		$this->assertEquals( 'This is a faq page', $this->faq_page_type->description );
 		$this->assertTrue( $this->faq_page_type->fill_labels );
 		$this->assertEquals( 'FAQ page', $this->faq_page_type->name );

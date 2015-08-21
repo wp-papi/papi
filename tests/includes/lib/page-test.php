@@ -51,6 +51,12 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 		$page_type = papi_get_page_type_by_id( 'faq-page-type' );
 		$this->assertFalse( papi_display_page_type( $page_type ) );
+
+		$post_id = $this->factory->post->create();
+		update_post_meta( $post_id, papi_get_page_type_key(), 'faq-page-type' );
+		$_GET['post_parent'] = $post_id;
+		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$this->assertTrue( papi_display_page_type( $page_type ) );
 	}
 
 	public function test_papi_get_all_page_types() {
