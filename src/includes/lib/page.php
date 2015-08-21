@@ -44,7 +44,7 @@ function papi_display_page_type( $page_type ) {
 	$parent_page_type = papi_get_page_type_by_post_id( papi_get_parent_post_id() );
 
 	if ( papi_is_page_type( $parent_page_type ) ) {
-		return $parent_page_type->match_id( $page_type->child_of );
+		return in_array( $page_type->get_id(), $parent_page_type->get_child_page_types() );
 	}
 
 	// Run show page type filter.

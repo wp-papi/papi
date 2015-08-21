@@ -18,13 +18,6 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	public $capabilities = [];
 
 	/**
-	 * Child of page type.
-	 *
-	 * @var string
-	 */
-	public $child_of = '';
-
-	/**
 	 * The page types that lives under this page type.
 	 *
 	 * @var array
