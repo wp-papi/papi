@@ -259,7 +259,7 @@ function papi_get_page_type_by_post_id( $post_id = 0 ) {
  */
 function papi_get_page_type_id( $post_id = 0 ) {
 	$post_id   = papi_get_post_id( $post_id );
-	$key       = PAPI_PAGE_TYPE_KEY;
+	$key       = papi_get_page_type_key();
 	$page_type = '';
 
 	if ( $post_id !== 0 ) {
@@ -277,19 +277,7 @@ function papi_get_page_type_id( $post_id = 0 ) {
 
 	// Load right page type from a post query string
 	if ( empty( $page_type ) ) {
-		$from_post = papi_filter_settings_page_type_from_post_qs();
-
-		if ( empty( $from_post ) ) {
-			return $page_type;
-		}
-
-		$from_post = papi_get_qs( $from_post );
-
-		if ( empty( $from_post ) ) {
-			return $page_type;
-		}
-
-		$meta_value = get_post_meta( $from_post, $key, true );
+		$meta_value = get_post_meta( papi_get_post_parent_id(), $key, true );
 		$page_type  = empty( $meta_value ) ? '' : $meta_value;
 	}
 

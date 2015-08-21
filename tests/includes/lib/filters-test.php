@@ -102,16 +102,6 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_filter_settings_directories() );
 	}
 
-	public function test_papi_filter_settings_page_type_from_post_qs() {
-		$this->assertEquals( 'from_post', papi_filter_settings_page_type_from_post_qs() );
-
-		tests_add_filter( 'papi/settings/page_type_from_post_qs', function () {
-			return 'parent_post';
-		} );
-
-		$this->assertEquals( 'parent_post', papi_filter_settings_page_type_from_post_qs() );
-	}
-
 	public function test_papi_filter_settings_only_page_type() {
 		$this->assertEquals( '', papi_filter_settings_only_page_type( 'post' ) );
 

@@ -191,14 +191,10 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'simple-page-type', papi_get_page_type_id() );
 		unset( $_POST[PAPI_PAGE_TYPE_KEY] );
 
-		$from_post = papi_filter_settings_page_type_from_post_qs();
-		$_GET[$from_post] = $this->post_id;
+		$post_parent = 'post_parent';
+		$_GET[$post_parent] = $this->post_id;
 		$this->assertEquals( 'simple-page-type', papi_get_page_type_id() );
-		unset( $_GET[$from_post] );
-
-		tests_add_filter( 'papi/settings/page_type_from_post_qs', function () {
-			return '';
-		} );
+		unset( $_GET[$post_parent] );
 
 		$this->assertEmpty( papi_get_page_type_id() );
 

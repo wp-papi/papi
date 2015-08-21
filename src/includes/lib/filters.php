@@ -110,15 +110,6 @@ function papi_filter_settings_page_type_column_title( $post_type ) {
 }
 
 /**
- * Load page type from post query string.
- *
- * @return string
- */
-function papi_filter_settings_page_type_from_post_qs() {
-	return apply_filters( 'papi/settings/page_type_from_post_qs', 'from_post' );
-}
-
-/**
  * Show page type in add new page view for the given post type.
  *
  * @param string        $post_type

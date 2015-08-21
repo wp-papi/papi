@@ -45,6 +45,15 @@ function papi_get_post_id( $post_id = null ) {
 }
 
 /**
+ * Get post parent id.
+ *
+ * @return int
+ */
+function papi_get_post_parent_id() {
+	return intval( papi_get_qs( 'post_parent' ) );
+}
+
+/**
  * Get WordPress post type in various ways
  *
  * @return string

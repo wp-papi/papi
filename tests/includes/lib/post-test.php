@@ -10,9 +10,6 @@ defined( 'ABSPATH' ) || exit;
  */
 class Papi_Lib_Post_Test extends WP_UnitTestCase {
 
-	/**
-	 * Test `papi_from_property_array_slugs` function.
-	 */
 	public function test_papi_get_post_id() {
 		global $post;
 
@@ -41,9 +38,13 @@ class Papi_Lib_Post_Test extends WP_UnitTestCase {
 		unset( $_GET );
 	}
 
-	/**
-	 * Test `papi_get_post_type` function.
-	 */
+	public function test_papi_get_post_parent_id() {
+		$this->assertEmpty( papi_get_post_parent_id() );
+		$_GET['post_parent'] = 7;
+		$this->assertEquals( 7, papi_get_post_parent_id() );
+		unset( $_GET );
+	}
+
 	public function test_papi_get_post_type() {
 		global $post;
 
