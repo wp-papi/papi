@@ -127,6 +127,15 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	}
 
 	/**
+	 * Get page types that lives under the current page type.
+	 *
+	 * @return array
+	 */
+	public function get_page_types() {
+		return $this->page_types;
+	}
+
+	/**
 	 * Get page type image thumbnail.
 	 *
 	 * @return string

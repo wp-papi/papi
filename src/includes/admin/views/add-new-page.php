@@ -19,6 +19,14 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 		<?php
 		$page_types = papi_get_all_page_types();
 
+		if ( $parent_post_id = papi_get_post_parent_id() ) {
+			$page_type  = papi_get_page_type_by_post_id();
+
+			if ( papi_is_page_type( $page_type ) ) {
+				$page_types = $page_type->get_page_types();
+			}
+		}
+
 		foreach ( $page_types as $key => $page_type ) {
 			if ( ! papi_display_page_type( $page_type ) ) {
 				continue;
