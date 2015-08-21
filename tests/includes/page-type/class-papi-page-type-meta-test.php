@@ -45,6 +45,8 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 
 	public function test_get_child_page_types() {
 		$this->assertEmpty( $this->simple_page_type->get_child_page_types() );
+		$child_page_types = $this->faq_page_type->get_child_page_types();
+		$this->assertTrue( is_object( $child_page_types[0] ) );
 	}
 
 	public function test_get_labels() {
@@ -82,7 +84,7 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 		$this->assertEquals( '', $this->simple_page_type->thumbnail );
 
 		$this->assertEquals( ['kvack'], $this->faq_page_type->capabilities );
-		$this->assertEquals( ['simple-page-type'], $this->faq_page_type->child_page_types );
+		$this->assertEquals( ['simple-page-type', null, 'fake'], $this->faq_page_type->child_page_types );
 		$this->assertEquals( 'This is a faq page', $this->faq_page_type->description );
 		$this->assertTrue( $this->faq_page_type->fill_labels );
 		$this->assertEquals( 'FAQ page', $this->faq_page_type->name );
@@ -100,11 +102,6 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 		$this->assertEquals( 1000, $this->simple_page_type->sort_order );
 		$this->assertEquals( 'pages/simple-page.php', $this->simple_page_type->template );
 		$this->assertEquals( '', $this->simple_page_type->thumbnail );
-	}
-
-	public function test_get_child_page_types() {
-		$child_page_type = $this->faq_page_type->get_child_page_types();
-		$this->assertEquals( is_object( $child_page_type[0] ) );
 	}
 
 }

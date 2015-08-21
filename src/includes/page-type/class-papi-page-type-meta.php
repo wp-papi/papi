@@ -121,9 +121,17 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 * @return array
 	 */
 	public function get_child_page_types() {
-		return array_map( function ( $id ) {
-			return papi_get_page_type_by_id( $id );
-		}, $this->child_page_types );
+		$child_page_types = [];
+
+		foreach ( papi_to_array( $this->child_page_types ) as $id ) {
+			$child_page_type = papi_get_page_type_by_id( $id );
+
+			if ( papi_is_page_type( $child_page_type ) ) {
+				$child_page_types[] = $child_page_type;
+			}
+		}
+
+		return $child_page_types;
 	}
 
 	/**

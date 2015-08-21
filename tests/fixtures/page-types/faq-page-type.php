@@ -22,7 +22,9 @@ class FAQ_Page_Type extends Papi_Page_Type {
 				'nan_item' => 'Not a number item'
 			],
 			'child_page_types' => [
-				'simple-page-type'
+				'simple-page-type',
+				null,
+				'fake'
 			]
 		];
 	}
