@@ -72,7 +72,6 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 
 	public function test_meta_info() {
 		$this->assertEquals( [], $this->empty_page_type->capabilities );
-		$this->assertEquals( '', $this->empty_page_type->child_of );
 		$this->assertEquals( [], $this->empty_page_type->child_page_types );
 		$this->assertEquals( '', $this->empty_page_type->description );
 		$this->assertFalse( $this->empty_page_type->fill_labels );
@@ -84,7 +83,6 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( [ 'kvack' ], $this->faq_page_type->capabilities );
 		$this->assertEquals( [], $this->faq_page_type->child_page_types );
-		$this->assertEquals( '', $this->faq_page_type->child_of );
 		$this->assertEquals( 'This is a faq page', $this->faq_page_type->description );
 		$this->assertTrue( $this->faq_page_type->fill_labels );
 		$this->assertEquals( 'FAQ page', $this->faq_page_type->name );
@@ -95,7 +93,6 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( [], $this->simple_page_type->capabilities );
 		$this->assertEquals( [], $this->simple_page_type->child_page_types );
-		$this->assertEquals( '', $this->simple_page_type->child_of );
 		$this->assertEquals( 'This is a simple page', $this->simple_page_type->description );
 		$this->assertFalse( $this->simple_page_type->fill_labels );
 		$this->assertEquals( 'Simple page', $this->simple_page_type->name );
