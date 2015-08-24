@@ -43,7 +43,7 @@ Or manually add it to your `composer.json`:
 
 ## Coding style
 
-Papi has a `phpcs.xml` so you can check the source code coding style.
+You can check if your contribution passes the styleguide by installing [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and running the following in your project directory:
 
 ```
 $ gulp phpcs
