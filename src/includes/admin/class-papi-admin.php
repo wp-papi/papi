@@ -273,10 +273,12 @@ final class Papi_Admin {
 			}, $page_types );
 
 			// Add the standard page that isn't a real page type.
-			$page_types[] = [
-				'name' => papi_filter_settings_standard_page_name( papi_get_post_type() ),
-				'value' => 'papi-standard-page'
-			];
+			if ( papi_filter_settings_show_standard_page_type( $this->post_type ) ) {
+				$page_types[] = [
+					'name' => papi_filter_settings_standard_page_name( papi_get_post_type() ),
+					'value' => 'papi-standard-page'
+				];
+			}
 
 			usort( $page_types, function ( $a, $b ) {
 				return strcmp( strtolower( $a['name'] ), strtolower( $b['name'] ) );
