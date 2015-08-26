@@ -15,6 +15,9 @@
 				<strong><?php _e( 'Page Type ID', 'papi' ); ?></strong>
 			</th>
 			<th>
+				<strong><?php _e( 'Post types', 'papi' ); ?></strong>
+			</th>
+			<th>
 				<strong><?php _e( 'Template', 'papi' ); ?></strong>
 			</th>
 			<th>
@@ -31,8 +34,21 @@
 			}
 			?>
 			<tr>
-				<td><a href="<?php echo sanitize_text_field( $_SERVER['REQUEST_URI'] ); ?>&view=management-page-type&page_type=<?php echo esc_attr( $page_type->get_id() ); ?>"><?php echo esc_html( $page_type->name ); ?></a></td>
-				<td><?php echo esc_html( $page_type->get_id() ); ?></td>
+				<td>
+					<a href="<?php echo sanitize_text_field( $_SERVER['REQUEST_URI'] ); ?>&view=management-page-type&page_type=<?php echo esc_attr( $page_type->get_id() ); ?>">
+						<?php echo esc_html( $page_type->name ); ?>
+					</a>
+				</td>
+				<td>
+					<?php echo esc_html( $page_type->get_id() ); ?>
+				</td>
+				<td>
+					<?php
+					$post_types = $page_type->post_type;
+					asort( $post_types );
+					echo esc_html( implode( ', ', $post_types ) );
+					?>
+				</td>
 				<td>
 					<?php
 					if ( empty( $page_type->template ) ) {
@@ -55,7 +71,9 @@
 					}
 					?>
 				</td>
-				<td><?php echo esc_html( papi_get_number_of_pages( $page_type->get_id() ) ); ?></td>
+				<td>
+					<?php echo esc_html( papi_get_number_of_pages( $page_type->get_id() ) ); ?>
+				</td>
 			</tr>
 		<?php
 		}

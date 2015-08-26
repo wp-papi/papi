@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-08-10 14:44+0100\n"
-"PO-Revision-Date: 2015-08-10 14:44+0100\n"
+"POT-Creation-Date: 2015-08-26 16:06+0100\n"
+"PO-Revision-Date: 2015-08-26 16:06+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: ../src\n"
 
 #: ../src/includes/admin/class-papi-admin-menu.php:142
-#: ../src/includes/page-type/class-papi-page-type-meta.php:123
+#: ../src/includes/page-type/class-papi-page-type-meta.php:149
 msgid "Add New"
 msgstr "Skapa ny"
 
@@ -28,10 +28,10 @@ msgid "Cheatin&#8217; huh?"
 msgstr "Fuskar du?"
 
 #: ../src/includes/admin/class-papi-admin.php:103
-#: ../src/includes/properties/class-papi-property-flexible.php:663
-#: ../src/includes/properties/class-papi-property-flexible.php:686
-#: ../src/includes/properties/class-papi-property-repeater.php:685
-#: ../src/includes/properties/class-papi-property-repeater.php:707
+#: ../src/includes/properties/class-papi-property-flexible.php:662
+#: ../src/includes/properties/class-papi-property-flexible.php:685
+#: ../src/includes/properties/class-papi-property-repeater.php:684
+#: ../src/includes/properties/class-papi-property-repeater.php:706
 msgid "Remove"
 msgstr "Ta bort"
 
@@ -39,11 +39,11 @@ msgstr "Ta bort"
 msgid "This fields are required:"
 msgstr "Dessa fält är obligatoriska:"
 
-#: ../src/includes/admin/class-papi-admin.php:287
+#: ../src/includes/admin/class-papi-admin.php:289
 msgid "Show all page types"
 msgstr "Visa alla sidtyper"
 
-#: ../src/includes/admin/views/add-new-page.php:7
+#: ../src/includes/admin/views/add-new-page.php:8
 #, php-format
 msgid "Add New %s"
 msgstr "Lägg till ny %s"
@@ -106,18 +106,22 @@ msgid "Page Type ID"
 msgstr "Sidtyp ID"
 
 #: ../src/includes/admin/views/management-start.php:18
+msgid "Post types"
+msgstr "Post typer"
+
+#: ../src/includes/admin/views/management-start.php:21
 msgid "Template"
 msgstr "Mall"
 
-#: ../src/includes/admin/views/management-start.php:21
+#: ../src/includes/admin/views/management-start.php:24
 msgid "Page Count"
 msgstr "Antal sidor"
 
-#: ../src/includes/admin/views/management-start.php:46
+#: ../src/includes/admin/views/management-start.php:51
 msgid "Page Type has no template file"
 msgstr "Sidtypen har ingen mallfil"
 
-#: ../src/includes/admin/views/management-start.php:53
+#: ../src/includes/admin/views/management-start.php:65
 msgid "Template file does not exist"
 msgstr "Mallfilen finns inte"
 
@@ -130,12 +134,12 @@ msgstr "Välj"
 msgid "Page Type"
 msgstr "Sidtyp"
 
-#: ../src/includes/lib/filters.php:162
+#: ../src/includes/lib/filters.php:153
 #, php-format
 msgid "%s with WordPress standard fields"
 msgstr "%s med Wordpress standardfält"
 
-#: ../src/includes/lib/filters.php:180
+#: ../src/includes/lib/filters.php:171
 #, php-format
 msgid "Standard %s"
 msgstr "Standard %s"
@@ -144,11 +148,11 @@ msgstr "Standard %s"
 msgid "(required field)"
 msgstr "(obligatoriskt fält)"
 
-#: ../src/includes/page-type/class-papi-page-type-meta.php:124
+#: ../src/includes/page-type/class-papi-page-type-meta.php:150
 msgid "Edit"
 msgstr "Redigera"
 
-#: ../src/includes/page-type/class-papi-page-type-meta.php:125
+#: ../src/includes/page-type/class-papi-page-type-meta.php:151
 msgid "View"
 msgstr "Vy"
 
@@ -160,8 +164,8 @@ msgstr "Lägg till fil"
 msgid "No file selected"
 msgstr "Ingen fil vald"
 
-#: ../src/includes/properties/class-papi-property-flexible.php:598
-#: ../src/includes/properties/class-papi-property-repeater.php:618
+#: ../src/includes/properties/class-papi-property-flexible.php:597
+#: ../src/includes/properties/class-papi-property-repeater.php:617
 msgid "Add new row"
 msgstr "Lägg till ny rad"
 
@@ -207,7 +211,7 @@ msgstr "Ändra länk"
 msgid "Remove link"
 msgstr "Ta bort länk"
 
-#: ../src/includes/properties/class-papi-property-reference.php:98
+#: ../src/includes/properties/class-papi-property-reference.php:96
 msgid "No references exists"
 msgstr "Inga referenser finns"
 
