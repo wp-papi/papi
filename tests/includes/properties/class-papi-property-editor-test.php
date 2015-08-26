@@ -30,5 +30,4 @@ class Papi_Property_Editor_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'Editor test', $this->property->get_option( 'title' ) );
 		$this->assertEquals( 'papi_editor_test', $this->property->get_option( 'slug' ) );
 	}
-
 }

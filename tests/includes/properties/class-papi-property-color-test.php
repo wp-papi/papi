@@ -34,5 +34,4 @@ class Papi_Property_Color_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'Color test', $this->property->get_option( 'title' ) );
 		$this->assertEquals( 'papi_color_test', $this->property->get_option( 'slug' ) );
 	}
-
 }

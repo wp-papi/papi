@@ -116,7 +116,6 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 	public function test_value() {
 		$this->assertEquals( 'Fredrik', $this->rule->value );
 	}
-
 }
 
 function source_callable( $slug ) {

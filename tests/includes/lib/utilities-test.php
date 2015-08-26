@@ -186,8 +186,8 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 
 		$_GET['good'] = 'true';
 		$_GET['bad'] = 'false';
-		$qs = papi_get_qs( array( 'good', 'bad' ), true );
-		$qs2 = array( 'good' => true, 'bad' => false );
+		$qs = papi_get_qs( [ 'good', 'bad' ], true );
+		$qs2 = [ 'good' => true, 'bad' => false ];
 		$this->assertEquals( $qs, $qs2 );
 	}
 
@@ -286,7 +286,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_empty( false ) );
 		$this->assertFalse( papi_is_empty( 0 ) );
 		$this->assertFalse( papi_is_empty( 0.0 ) );
-		$this->assertFalse( papi_is_empty( "0" ) );
+		$this->assertFalse( papi_is_empty( '0' ) );
 	}
 
 	public function test_papi_is_metod() {
@@ -356,9 +356,9 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		] ) );
 		$this->assertEquals( $order[0]->sort_order, 1000 );
 
-		$order = (object) array(
+		$order = (object) [
 			'options' => $order[0]
-		);
+		];
 		$order = papi_sort_order( $order );
 		$this->assertEquals( $order[0]->options->sort_order, 1000 );
 
@@ -415,5 +415,4 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		require_once PAPI_FIXTURE_DIR . '/classes/class-say.php';
 		$this->assertEquals( 'Hello Fredrik!', papi_with( new \Say )->hello( 'Fredrik' ) );
 	}
-
 }

@@ -76,5 +76,4 @@ class Header_Option_Type extends Papi_Option_Type {
 	public function display( $post_type ) {
 		return false;
 	}
-
 }

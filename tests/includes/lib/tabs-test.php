@@ -79,5 +79,4 @@ class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Name', $actual->properties[0]->title );
 		$this->assertEquals( 'string', $actual->properties[0]->type );
 	}
-
 }

@@ -38,5 +38,4 @@ class Papi_Property_Gallery_Test extends Papi_Property_Test_Case {
 	public function test_property_settings() {
 		$this->assertTrue( $this->property->get_setting( 'multiple' ) );
 	}
-
 }

@@ -27,5 +27,4 @@ class Papi_Admin_View_Test extends WP_UnitTestCase {
 		$this->view->render( 'add-new-page' );
 		$this->expectOutputRegex( '/.*\S.*/' );
 	}
-
 }

@@ -27,5 +27,4 @@ class Papi_Property_Reference_Test extends Papi_Property_Test_Case {
 		$this->assertTrue( is_array( $this->property->get_setting( 'slug' ) ) );
 		$this->assertTrue( is_array( $this->property->get_setting( 'page_type' ) ) );
 	}
-
 }

@@ -65,5 +65,4 @@ class Papi_Property_Bool_Test extends Papi_Property_Test_Case {
 		$this->assertTrue( $this->property->update_value( 'true', '', 0 ) );
 		$this->assertTrue( $this->property->update_value( true, '', 0 ) );
 	}
-
 }

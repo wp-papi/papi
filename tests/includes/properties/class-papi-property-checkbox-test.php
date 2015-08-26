@@ -50,5 +50,4 @@ class Papi_Property_Checkbox_Test extends Papi_Property_Test_Case {
 	public function test_property_settings() {
 		$this->assertNotEmpty( $this->property->get_setting( 'items' ) );
 	}
-
 }

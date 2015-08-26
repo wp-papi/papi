@@ -80,5 +80,4 @@ class Papi_Lib_IO_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_page_type_base_path( '' ) );
 		$this->assertNull( papi_get_page_type_base_path( null ) );
 	}
-
 }

@@ -13,7 +13,7 @@ class Post_Page_Type extends Papi_Page_Type {
 			'name'        => 'Post page',
 			'description' => 'This is a post page',
 			'template'    => 'pages/post-page.php',
-            'post_type'   => ['post', 'item', 'attachment']
+			'post_type'   => ['post', 'item', 'attachment']
 		];
 	}
 

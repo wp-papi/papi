@@ -113,5 +113,4 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 			$this->save_property_value( $prop );
 		}
 	}
-
 }

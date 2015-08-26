@@ -141,5 +141,4 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		the_papi_field( $this->post_id, 'numbers', [ 1, 2, 3 ] );
 		$this->expectOutputRegex( '/1\, 2\, 3/' );
 	}
-
 }

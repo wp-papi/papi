@@ -529,5 +529,4 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( $expected, $actual );
 	}
-
 }

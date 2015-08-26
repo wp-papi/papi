@@ -21,5 +21,4 @@ class Papi_Lib_Actions_Test extends WP_UnitTestCase {
 		papi_action_delete_value( 'number', 'name' );
 		$this->assertNotFalse( did_action( 'papi/delete_value/number' ) );
 	}
-
 }

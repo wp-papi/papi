@@ -26,18 +26,18 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	}
 
 	public function register_template_paths( $new_templates ) {
-        $cache_key = 'page_templates-' . md5( get_theme_root() . '/' . get_stylesheet() );
+		$cache_key = 'page_templates-' . md5( get_theme_root() . '/' . get_stylesheet() );
 
-        $templates = wp_get_theme()->get_page_templates();
-        if ( empty( $templates ) ) {
-            $templates = array();
-        }
+		$templates = wp_get_theme()->get_page_templates();
+		if ( empty( $templates ) ) {
+			$templates = [];
+		}
 
-        wp_cache_delete( $cache_key , 'themes' );
-        $templates = array_merge( $templates, $new_templates );
-        wp_cache_add( $cache_key, $templates, 'themes', 1800 );
+		wp_cache_delete( $cache_key , 'themes' );
+		$templates = array_merge( $templates, $new_templates );
+		wp_cache_add( $cache_key, $templates, 'themes', 1800 );
 
-        return $new_templates;
+		return $new_templates;
 	}
 
 	public function test_admin_body_class() {
@@ -118,7 +118,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 			return false;
 		} );
 		$_GET['post_type'] = 'page';
-    	$admin = new Papi_Admin;
+		$admin = new Papi_Admin;
 		$admin->load_post_new();
 	}
 
@@ -132,7 +132,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 			return 'simple-page-type';
 		} );
 		$_GET['post_type'] = 'page';
-    	$admin = new Papi_Admin;
+		$admin = new Papi_Admin;
 		$admin->load_post_new();
 	}
 
@@ -243,10 +243,10 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin;
 
-        $post_type = function ( Papi_Admin $class ) {
-            return $class->post_type;
-        };
-        $post_type = Closure::bind( $post_type, null, $admin );
+		$post_type = function ( Papi_Admin $class ) {
+			return $class->post_type;
+		};
+		$post_type = Closure::bind( $post_type, null, $admin );
 		$this->assertEquals( 'page', $post_type( $admin ) );
 	}
 
@@ -258,10 +258,10 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$_GET['page_type'] = 'simple-page-type';
 		$admin = new Papi_Admin;
 
-        $page_type_id = function ( Papi_Admin $class ) {
-            return $class->page_type_id;
-        };
-        $page_type_id = Closure::bind( $page_type_id, null, $admin );
+		$page_type_id = function ( Papi_Admin $class ) {
+			return $class->page_type_id;
+		};
+		$page_type_id = Closure::bind( $page_type_id, null, $admin );
 
 		$this->assertEquals( 'simple-page-type', $page_type_id( $admin ) );
 
@@ -312,5 +312,4 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->assertEquals( [$post3], $results );
 
 	}
-
 }

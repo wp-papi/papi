@@ -1,7 +1,7 @@
 <?php
 
 class Say {
-    public function hello( $name ) {
-        return 'Hello ' . $name . '!';
-    }
+	public function hello( $name ) {
+		return 'Hello ' . $name . '!';
+	}
 }

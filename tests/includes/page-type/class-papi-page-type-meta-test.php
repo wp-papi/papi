@@ -103,5 +103,4 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'pages/simple-page.php', $this->simple_page_type->template );
 		$this->assertEquals( '', $this->simple_page_type->thumbnail );
 	}
-
 }

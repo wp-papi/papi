@@ -34,7 +34,7 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 		$this->assertNull( $this->property->import_value( true, '', 0 ) );
 		$this->assertNull( $this->property->import_value( false, '', 0 ) );
 		$this->assertNull( $this->property->import_value( [], '', 0 ) );
-		$this->assertNull( $this->property->import_value( (object)[], '', 0 ) );
+		$this->assertNull( $this->property->import_value( (object) [], '', 0 ) );
 	}
 
 	public function test_property_get_value() {
@@ -55,5 +55,4 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'Select user', $settings->placeholder );
 		$this->assertTrue( $settings->select2 );
 	}
-
 }

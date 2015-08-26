@@ -299,5 +299,4 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 
 		$this->assertTrue( $result );
 	}
-
 }

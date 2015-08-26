@@ -55,5 +55,4 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 		$this->assertEmpty( $settings->placeholder );
 		$this->assertTrue( $settings->select2 );
 	}
-
 }

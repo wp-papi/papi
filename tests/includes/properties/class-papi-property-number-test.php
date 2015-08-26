@@ -32,5 +32,4 @@ class Papi_Property_Number_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'Number test', $this->property->get_option( 'title' ) );
 		$this->assertEquals( 'papi_number_test', $this->property->get_option( 'slug' ) );
 	}
-
 }

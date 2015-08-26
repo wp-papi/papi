@@ -54,5 +54,4 @@ class Papi_Property_Dropdown_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( '#000000', $settings->items['Black'] );
 		$this->assertTrue( $settings->select2 );
 	}
-
 }

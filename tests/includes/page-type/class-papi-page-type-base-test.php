@@ -61,7 +61,7 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 		);
 
 		$this->assertEquals(
-				PAPI_FIXTURE_DIR . '/page-types/faq-page-type.php',
+			PAPI_FIXTURE_DIR . '/page-types/faq-page-type.php',
 			$this->faq_page_type->get_file_path()
 		);
 	}
@@ -85,5 +85,4 @@ class Papi_Page_Type_Base_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $this->empty_page_type->new_class() );
 		$this->assertEquals( new Simple_Page_Type(), $this->simple_page_type->new_class() );
 	}
-
 }

@@ -56,16 +56,15 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 		global $post;
 
 		$url = papi_append_post_type_query( 'http://wordpress/?post_parent=1', 'post' );
-		$this->assertEquals( 'http://wordpress/?post_parent=1&post_type=post', $url  );
+		$this->assertEquals( 'http://wordpress/?post_parent=1&post_type=post', $url );
 
 		$post = get_post( $this->post_id );
 		$url = papi_append_post_type_query( 'http://wordpress/?post_parent=1' );
-		$this->assertEquals( 'http://wordpress/?post_parent=1&post_type=post', $url  );
+		$this->assertEquals( 'http://wordpress/?post_parent=1&post_type=post', $url );
 	}
 
 	public function test_papi_append_post_type_query_fail() {
 		$url = papi_append_post_type_query( 'http://wordpress/?post_parent=1' );
-		$this->assertEquals( 'http://wordpress/?post_parent=1&post_type=post', $url  );
+		$this->assertEquals( 'http://wordpress/?post_parent=1&post_type=post', $url );
 	}
-
 }

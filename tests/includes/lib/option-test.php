@@ -94,5 +94,4 @@ class Papi_Lib_Option_Test extends WP_UnitTestCase {
 		the_papi_option( 'numbers', [1, 2, 3] );
 		$this->expectOutputRegex( '/1\, 2\, 3/' );
 	}
-
 }

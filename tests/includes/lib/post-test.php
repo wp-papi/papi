@@ -87,5 +87,4 @@ class Papi_Lib_Post_Test extends WP_UnitTestCase {
 		$post = get_post( $post_id );
 		$this->assertEquals( 'post', papi_get_post_type() );
 	}
-
 }

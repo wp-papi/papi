@@ -3,12 +3,12 @@
 class Flex_Page_Type extends Papi_Page_Type {
 
 	public function page_type() {
-		return array(
+		return [
 			'description' => 'Vel adipisicing dapibus nostra. Lectus malesuada volutpat aliquet',
 			'fill_labels' => true,
 			'name'        => 'Flex page',
 			'template'    => 'pages/flex-page.php'
-		);
+		];
 	}
 
 	public function register() {
@@ -70,5 +70,4 @@ class Flex_Page_Type extends Papi_Page_Type {
 	public function display( $post_type ) {
 		return false;
 	}
-
 }

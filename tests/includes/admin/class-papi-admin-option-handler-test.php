@@ -75,5 +75,4 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 
 		$this->assertNull( $value );
 	}
-
 }

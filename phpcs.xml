@@ -3,7 +3,6 @@
   <description>Papi rules for PHP_CodeSniffer</description>
 
   <exclude-pattern>node_modules/*</exclude-pattern>
-  <exclude-pattern>tests/*</exclude-pattern>
   <exclude-pattern>vendor/*</exclude-pattern>
 
   <rule ref="Generic.Arrays.DisallowLongArraySyntax" />

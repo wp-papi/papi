@@ -47,5 +47,4 @@ class Papi_Property_Html_Test extends Papi_Property_Test_Case {
 		papi_render_property( $this->properties[1] );
 		$this->expectOutputRegex( '/\<p\>Hello, callable!\<\/p\>/' );
 	}
-
 }

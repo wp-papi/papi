@@ -49,7 +49,7 @@ class Papi_Property_Url_Test extends Papi_Property_Test_Case {
 
 	public function test_property_output() {
 		parent::test_property_output();
-		$this->expectOutputRegex('/class\=\"button papi-url-media-button\"/');
+		$this->expectOutputRegex( '/class\=\"button papi-url-media-button\"/' );
 	}
 
 	public function test_property_update_value() {
@@ -61,5 +61,4 @@ class Papi_Property_Url_Test extends Papi_Property_Test_Case {
 		$this->assertNull( $this->properties[1]->update_value( 'hello', '', 0 ) );
 		$this->assertNull( $this->properties[1]->update_value( null, '', 0 ) );
 	}
-
 }

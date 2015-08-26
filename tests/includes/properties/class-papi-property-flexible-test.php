@@ -74,7 +74,6 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 		$output = $this->property->import_value( [], $this->slug, $this->post_id );
 		$this->assertEquals( $expected, $output );
 
-
 		$value = [
 			'twitter_name' => 'Kod',
 			'_layout'      => 'twitter'
@@ -126,5 +125,4 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'papi_post_two', $items['posts']['items'][1]->slug );
 		$this->assertEquals( 'Post two', $items['posts']['items'][1]->title );
 	}
-
 }

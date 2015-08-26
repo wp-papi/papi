@@ -70,5 +70,4 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 	public function test_valid() {
 		$this->assertTrue( $this->page->valid() );
 	}
-
 }

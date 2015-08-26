@@ -11,18 +11,18 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 
 	public function get_value() {
 		return [
-            'url'    => 'http://example.org',
-            'title'  => 'Example site',
-            'target' => '_blank'
-        ];
+			'url'    => 'http://example.org',
+			'title'  => 'Example site',
+			'target' => '_blank'
+		];
 	}
 
 	public function get_expected() {
 		return (object) [
-            'url'    => 'http://example.org',
-            'title'  => 'Example site',
-            'target' => '_blank'
-        ];
+			'url'    => 'http://example.org',
+			'title'  => 'Example site',
+			'target' => '_blank'
+		];
 	}
 
 	public function test_property_convert_type() {
@@ -55,5 +55,4 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'Link test', $this->property->get_option( 'title' ) );
 		$this->assertEquals( 'papi_link_test', $this->property->get_option( 'slug' ) );
 	}
-
 }

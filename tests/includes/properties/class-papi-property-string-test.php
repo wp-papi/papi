@@ -48,5 +48,4 @@ class Papi_Property_String_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'String html test', $this->properties[1]->get_option( 'title' ) );
 		$this->assertEquals( 'papi_string_html_test', $this->properties[1]->get_option( 'slug' ) );
 	}
-
 }

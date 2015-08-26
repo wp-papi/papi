@@ -53,5 +53,4 @@ class Papi_Admin_Management_Pages_Test extends WP_UnitTestCase {
 		$this->management_pages->render_view();
 		$this->expectOutputRegex( '/\<h3\>Overview of page type: Simple page\<\/h3\>/' );
 	}
-
 }

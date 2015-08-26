@@ -411,10 +411,10 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( '_papi_name[age]', $property->html_id( $sub_property ) );
 		$this->assertEquals( '_papi_name[0][age]', $property->html_id( $sub_property, 0 ) );
 
-		$sub_property = (object) array(
+		$sub_property = (object) [
 			'type' => 'number',
 			'slug' => 'age'
-		);
+		];
 
 		$this->assertEquals( '_papi_name[age]', $property->html_id( $sub_property ) );
 		$this->assertEquals( '_papi_name[0][age]', $property->html_id( $sub_property, 0 ) );
@@ -443,10 +443,10 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'papi_name[age]', $property->html_name( $sub_property ) );
 		$this->assertEquals( 'papi_name[0][age]', $property->html_name( $sub_property, 0 ) );
 
-		$sub_property = (object) array(
+		$sub_property = (object) [
 			'type' => 'number',
 			'slug' => 'age'
-		);
+		];
 
 		$this->assertEquals( 'papi_name[age]', $property->html_name( $sub_property ) );
 		$this->assertEquals( 'papi_name[0][age]', $property->html_name( $sub_property, 0 ) );
@@ -749,5 +749,4 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$value2 = $property->format_value( $value, '', 0 );
 		$this->assertEquals( [1, 2, 3], $value2 );
 	}
-
 }

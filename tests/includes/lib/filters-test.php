@@ -83,7 +83,7 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 
 	public function test_papi_filter_page_type_directories() {
 		tests_add_filter( 'papi/settings/directories', function () {
-			return array();
+			return [];
 		} );
 
 		$this->assertEmpty( papi_filter_settings_directories() );
@@ -205,5 +205,4 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( 'change-update', papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
 	}
-
 }

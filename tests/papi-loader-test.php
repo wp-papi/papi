@@ -42,5 +42,4 @@ class Papi_Loader_Test extends WP_UnitTestCase {
 	public function test_name() {
 		$this->assertEquals( 'Papi', $this->papi->name );
 	}
-
 }

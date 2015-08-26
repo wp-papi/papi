@@ -29,13 +29,13 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 		$post = get_post( $this->post_id );
 		$this->go_to( get_permalink( $this->post_id ) );
-		$this->assertEmpty(  papi_body_class( [] ) );
+		$this->assertEmpty( papi_body_class( [] ) );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, '/' );
 		$this->assertEmpty( papi_body_class( [] ) );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
-		$this->assertEquals( [ 'simple-page-type' ], papi_body_class( [] )  );
+		$this->assertEquals( [ 'simple-page-type' ], papi_body_class( [] ) );
 	}
 
 	public function test_papi_include_template() {
@@ -78,7 +78,7 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Name', $template->title );
 		$this->assertEquals( 'string', $template->type );
 
-		$this->assertEmpty( papi_template( 'hello' )  );
+		$this->assertEmpty( papi_template( 'hello' ) );
 	}
 
 	public function test_papi_template_include() {
@@ -106,5 +106,4 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertNotFalse( strpos( $path, 'functions.php' ) );
 
 	}
-
 }

@@ -154,7 +154,7 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 
 		$this->assertNull( $current_screen );
 
-        $current_screen = WP_Screen::get( 'admin_init' );
+		$current_screen = WP_Screen::get( 'admin_init' );
 
 		$menu = new Papi_Admin_Menu();
 

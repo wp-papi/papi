@@ -473,5 +473,4 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/.*\S.*/' );
 		$this->expectOutputRegex( '/\{\"error\"\:\"No property found\"\}/' );
 	}
-
 }
