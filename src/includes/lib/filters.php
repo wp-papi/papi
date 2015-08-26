@@ -183,6 +183,17 @@ function papi_filter_settings_show_standard_page_type( $post_type ) {
 }
 
 /**
+ * Show standard page type in filter dropdown on the given post type.
+ *
+ * @param  string $post_type
+ *
+ * @return bool
+ */
+function papi_filter_settings_show_standard_page_type_in_filter( $post_type ) {
+	return apply_filters( 'papi/settings/show_standard_page_type_in_filter_' . $post_type, true ) === true;
+}
+
+/**
  * Get standard page thumbnail for the given post type.
  *
  * @param  string $post_type
