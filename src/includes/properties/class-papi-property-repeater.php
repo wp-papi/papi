@@ -798,5 +798,4 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		return $values;
 	}
-
 }

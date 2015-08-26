@@ -47,5 +47,4 @@ class Papi_Property_Datetime extends Papi_Property {
 			'value'         => $value
 		] );
 	}
-
 }

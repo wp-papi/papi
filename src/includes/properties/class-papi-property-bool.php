@@ -99,5 +99,4 @@ class Papi_Property_Bool extends Papi_Property {
 	public function update_value( $value, $slug, $post_id ) {
 		return $this->format_value( $value, $slug, $post_id );
 	}
-
 }

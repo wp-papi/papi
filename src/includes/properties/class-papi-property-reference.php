@@ -131,5 +131,4 @@ class Papi_Property_Reference extends Papi_Property {
 		</ul>
 		<?php
 	}
-
 }

@@ -39,7 +39,6 @@ class Papi_Admin_Option_Handler extends Papi_Admin_Data_Handler {
 			] );
 		}
 	}
-
 }
 
 if ( is_admin() ) {

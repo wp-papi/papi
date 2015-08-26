@@ -175,5 +175,4 @@ class Papi_Property_Post extends Papi_Property {
 
 		return $this->default_value;
 	}
-
 }

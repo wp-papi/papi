@@ -59,7 +59,6 @@ class Papi_Admin_Management_Pages {
 
 		$this->view->render( $page_view );
 	}
-
 }
 
 if ( is_admin() ) {

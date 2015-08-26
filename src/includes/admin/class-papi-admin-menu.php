@@ -181,7 +181,6 @@ class Papi_Admin_Menu {
 			add_action( 'admin_bar_menu', [$this, 'admin_bar_menu'] );
 		}
 	}
-
 }
 
 new Papi_Admin_Menu;

@@ -257,5 +257,4 @@ class Papi_Property_Link extends Papi_Property {
 	protected function setup_actions() {
 		add_action( 'admin_head', [$this, 'render_link_template'] );
 	}
-
 }

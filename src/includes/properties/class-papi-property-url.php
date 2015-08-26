@@ -89,5 +89,4 @@ class Papi_Property_Url extends Papi_Property {
 	public function update_value( $value, $slug, $post_id ) {
 		return $this->load_value( $value, $slug, $post_id );
 	}
-
 }

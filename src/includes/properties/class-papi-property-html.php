@@ -37,5 +37,4 @@ class Papi_Property_Html extends Papi_Property {
 
 		echo '</div>';
 	}
-
 }

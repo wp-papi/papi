@@ -103,5 +103,4 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 
 		return $this->default_value;
 	}
-
 }

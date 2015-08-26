@@ -60,5 +60,4 @@ class Papi_Admin_View {
 	private function file( $file ) {
 		return $this->path . $file . '.php';
 	}
-
 }

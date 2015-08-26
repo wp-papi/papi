@@ -117,5 +117,4 @@ class Papi_Property_Checkbox extends Papi_Property {
 
 		return $value;
 	}
-
 }

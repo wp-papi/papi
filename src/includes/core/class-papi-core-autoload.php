@@ -50,7 +50,6 @@ class Papi_Core_Autoload {
 			require_once $path . $file;
 		}
 	}
-
 }
 
 new Papi_Core_Autoload();

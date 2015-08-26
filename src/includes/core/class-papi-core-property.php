@@ -722,5 +722,4 @@ class Papi_Core_Property {
 	public function update_value( $value, $slug, $post_id ) {
 		return maybe_serialize( $value );
 	}
-
 }

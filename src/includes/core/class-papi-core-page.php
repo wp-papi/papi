@@ -3,7 +3,7 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-use Frozzare\Tank\Container;
+use Frozzare \Tank\Container;
 
 /**
  * Papi Core Page class.
@@ -188,5 +188,4 @@ abstract class Papi_Core_Page extends Container {
 		$type = strtoupper( $this->type );
 		return defined( "self::TYPE_$type" );
 	}
-
 }

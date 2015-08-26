@@ -1,6 +1,6 @@
 <?php
 
-use Frozzare\Tank\Container;
+use Frozzare \Tank\Container;
 
 /**
  * Papi Porter class.
@@ -342,5 +342,4 @@ final class Papi_Porter extends Container {
 
 		return $this;
 	}
-
 }

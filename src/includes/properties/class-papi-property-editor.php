@@ -39,5 +39,4 @@ class Papi_Property_Editor extends Papi_Property {
 			add_filter( 'mce_external_plugins', '__return_empty_array' );
 		}
 	}
-
 }

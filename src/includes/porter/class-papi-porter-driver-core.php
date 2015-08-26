@@ -76,5 +76,4 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
 
 		return $property->update_value( $value, $slug, $post_id );
 	}
-
 }

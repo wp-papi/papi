@@ -28,5 +28,4 @@ class Papi_Property_Image extends Papi_Property_File {
 			'no_file' => __( 'No image selected', 'papi' )
 		];
 	}
-
 }

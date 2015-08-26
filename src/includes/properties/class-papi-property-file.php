@@ -285,5 +285,4 @@ class Papi_Property_File extends Papi_Property {
 
 		return $data;
 	}
-
 }

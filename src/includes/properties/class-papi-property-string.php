@@ -72,5 +72,4 @@ class Papi_Property_String extends Papi_Property {
 			'value'   => $this->get_value()
 		] );
 	}
-
 }

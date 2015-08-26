@@ -44,5 +44,4 @@ class Papi_Property_Divider extends Papi_Property {
 			parent::render_row_html();
 		endif;
 	}
-
 }
