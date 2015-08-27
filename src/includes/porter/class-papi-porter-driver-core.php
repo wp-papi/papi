@@ -25,6 +25,8 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
 	 * Get value that should be saved.
 	 *
 	 * @param  array $options
+	 * 
+	 * @throws InvalidArgumentException when option values not matching the expected value.
 	 *
 	 * @return mixed
 	 */
