@@ -99,7 +99,7 @@ final class Papi_Porter extends Container {
 	 *
 	 * @return array
 	 */
-	public function export( $post_id = null, $only_values = false ) {
+	public function export( $post_id, $only_values = false ) {
 		$post_id = papi_get_post_id( $post_id );
 
 		if ( empty( $post_id ) ) {
