@@ -33,7 +33,7 @@ class Papi_Property extends Papi_Core_Property {
 	 * Display the `before_html` option.
 	 */
 	public function before_html() {
-		$html = $this->get_option( 'before_html', '' );
+		$html = $this->get_option( 'before_html' );
 
 		echo sprintf(
 			'<div class="papi-before-html" data-property="%s">',
@@ -59,7 +59,7 @@ class Papi_Property extends Papi_Core_Property {
 	 * Display the `after_html` option.
 	 */
 	public function after_html() {
-		$html = $this->get_option( 'after_html', '' );
+		$html = $this->get_option( 'after_html' );
 
 		echo sprintf(
 			'<div class="papi-after-html" data-property="%s">',
