@@ -1,6 +1,6 @@
 <?php
 
-use Frozzare \Tank\Container;
+use Frozzare\Tank\Container;
 
 /**
  * Papi Porter class.
