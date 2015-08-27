@@ -39,6 +39,8 @@ class Papi_Core_Property {
 	 * @var array
 	 */
 	protected $default_options = [
+		'after_html'   => '',
+		'before_html'  => '',
 		'capabilities' => [],
 		'description'  => '',
 		'disabled'     => false,
