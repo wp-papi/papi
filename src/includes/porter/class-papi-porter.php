@@ -215,7 +215,7 @@ final class Papi_Porter extends Container {
 	/**
 	 * Import data to Papi.
 	 *
-	 * @param  array $options
+	 * @param  mixed $options
 	 * @param  array $fields
 	 *
 	 * @return bool
