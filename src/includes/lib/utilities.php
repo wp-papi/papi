@@ -174,7 +174,7 @@ function papi_get_cache_key( $key, $suffix ) {
  *
  * @param  string $file
  *
- * @return null|string
+ * @return string
  */
 function papi_get_class_name( $file ) {
 	if ( ! is_string( $file ) ) {
@@ -206,6 +206,10 @@ function papi_get_class_name( $file ) {
 				}
 			}
 		}
+	}
+
+	if ( empty( $class_name ) ) {
+		return '';
 	}
 
 	if ( empty( $namespace_name ) ) {
