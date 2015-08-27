@@ -85,7 +85,7 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 		$result = $this->conditional->display( ['hello'] );
 		$this->assertTrue( $result );
 
-		$result = $this->conditional->display( [(object) []] );
+		$result = $this->conditional->display( [ (object) []] );
 		$this->assertTrue( $result );
 
 		$result = $this->conditional->display( [

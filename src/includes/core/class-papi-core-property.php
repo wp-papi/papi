@@ -705,7 +705,7 @@ class Papi_Core_Property {
 
 		$options->settings = (object) $this->convert_settings( $options->settings );
 
-		$options = papi_esc_html( $options, ['html'] );
+		$options = papi_esc_html( $options, ['before_html', 'html', 'after_html'] );
 
 		return $options;
 	}

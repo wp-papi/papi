@@ -30,9 +30,49 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
+	 * Display the `before_html` setting.
+	 */
+	public function before_html() {
+		$html = $this->get_setting( 'before_html', '' );
+
+		echo sprintf(
+			'<div class="papi-before-html" data-property="%s">',
+			$this->get_option( 'type' )
+		);
+
+		if ( is_callable( $html ) ) {
+			call_user_func( $html );
+		} else {
+			echo papi_convert_to_string( $html );
+		}
+
+		echo '</div>';
+	}
+
+	/**
 	 * Display the html to display from the property.
 	 */
 	public function html() {
+	}
+
+	/**
+	 * Display the `after_html` setting.
+	 */
+	public function after_html() {
+		$html = $this->get_setting( 'after_html', '' );
+
+		echo sprintf(
+			'<div class="papi-after-html" data-property="%s">',
+			$this->get_option( 'type' )
+		);
+
+		if ( is_callable( $html ) ) {
+			call_user_func( $html );
+		} else {
+			echo papi_convert_to_string( $html );
+		}
+
+		echo '</div>';
 	}
 
 	/**

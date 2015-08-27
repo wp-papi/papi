@@ -385,9 +385,23 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		], $output );
 	}
 
+	public function test_before_html() {
+		$property = Papi_Property::create();
+		$property->before_html();
+
+		$this->expectOutputRegex( '/class=\"papi\-before\-html\"/' );
+	}
+
 	public function test_html() {
 		$property = Papi_Property::create();
 		$this->assertEmpty( $property->html() );
+	}
+
+	public function test_after_html() {
+		$property = Papi_Property::create();
+		$property->after_html();
+
+		$this->expectOutputRegex( '/class=\"papi\-after\-html\"/' );
 	}
 
 	public function test_html_id() {
