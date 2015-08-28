@@ -618,6 +618,28 @@ function papi_to_array( $obj ) {
 }
 
 /**
+ * Translate array keys.
+ *
+ * @param  array  $arr
+ * @param  array $domain
+ *
+ * @return array
+ */
+function papi_translate_keys( array $arr, $domain ) {
+	foreach ( $arr as $key => $value ) {
+		if ( ! is_string( $key ) ) {
+			continue;
+		}
+
+		unset( $arr[$key] );
+		$key = __( $key, $domain );
+		$arr[$key] = $value;
+	}
+
+	return $arr;
+}
+
+/**
  * Underscorify the given string.
  * Replacing whitespace and dash with a underscore.
  *

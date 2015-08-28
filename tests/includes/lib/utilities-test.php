@@ -390,6 +390,14 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEquals( [ new stdClass() ], papi_to_array( new stdClass() ) );
 	}
 
+	public function test_papi_translate_keys() {
+		$arr = [
+			'out',
+			'All' => 'what'
+		];
+		$this->assertEquals( $arr, papi_translate_keys( $arr, 'wi' ) );
+	}
+
 	public function test_papi_underscorify() {
 		$this->assertEquals( 'hello_world_it', papi_underscorify( 'hello world-it' ) );
 		$this->assertEmpty( papi_underscorify( null ) );
