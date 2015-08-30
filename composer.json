@@ -2,7 +2,7 @@
   "name": "wp-papi/papi",
   "type": "wordpress-plugin",
   "license": "MIT",
-  "description": "Page Type API with custom fields",
+  "description": "WordPress Page Type API with custom fields",
   "homepage": "https://wp-papi.github.io",
   "authors": [
     {
