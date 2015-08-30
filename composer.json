@@ -12,7 +12,10 @@
     }
   ],
   "keywords": [
-    "wordpress"
+    "wordpress",
+    "custom fields",
+    "page type",
+    "page"
   ],
   "support": {
     "issues": "https://github.com/wp-papi/papi/issues"
