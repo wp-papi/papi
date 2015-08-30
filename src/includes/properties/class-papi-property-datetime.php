@@ -17,10 +17,11 @@ class Papi_Property_Datetime extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'format'       => 'YYYY-MM-DD hh:mm:ss',
-			'show_seconds' => false,
-			'show_time'    => true,
-			'use_24_hours' => get_locale() === 'sv_SE'
+			'format'           => 'YYYY-MM-DD hh:mm:ss',
+			'show_seconds'     => false,
+			'show_time'        => true,
+			'show_week_number' => false,
+			'use_24_hours'     => get_locale() === 'sv_SE'
 		];
 	}
 
@@ -32,8 +33,7 @@ class Papi_Property_Datetime extends Papi_Property {
 		$value    = $this->get_value();
 
 		$settings_json = [
-			'format'      => $settings->format,
-			'i18n'        => [
+			'i18n' => [
 				'previousMonth' => __( 'Previous Month', 'papi' ),
 				'nextMonth'     => __( 'Next Month', 'papi' ),
 				'midnight'      => __( 'Midnight', 'papi' ),
@@ -70,11 +70,29 @@ class Papi_Property_Datetime extends Papi_Property {
 					__( 'Fri', 'papi' ),
 					__( 'Sat', 'papi' )
 				]
-			],
-			'showTime'    => $settings->show_time,
-			'showSeconds' => $settings->show_seconds,
-			'use24hour'   => $settings->use_24_hours,
+			]
 		];
+
+		// Remove i18n setting if it exists.
+		if ( isset( $settings->i18n ) ) {
+			unset( $settings->i18n );
+		}
+
+		// Convert all sneak case key to camel case.
+		foreach ( $settings as $key => $value ) {
+			if ( ! is_string( $key ) ) {
+				continue;
+			}
+
+			$settings_json[papi_camel_case( $key )] = $value;
+		}
+
+		// Papi has `use24Hours` as key and Pikaday has `use24hour`.
+		// This will fix it.
+		if ( isset( $settings_json['use24Hours'] ) ) {
+			$settings_json['use24hour'] = $settings_json['use24Hours'];
+			unset( $settings_json['use24Hours'] );
+		}
 
 		papi_render_html_tag( 'input', [
 			'class'         => 'papi-property-datetime',

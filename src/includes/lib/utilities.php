@@ -10,6 +10,23 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Convert a value to camel case.
+ *
+ * @param  string $str
+ *
+ * @throws InvalidArgumentException if an argument is not of the expected type.
+ *
+ * @return string
+ */
+function papi_camel_case( $str ) {
+	if ( ! is_string( $str ) ) {
+		throw new InvalidArgumentException( 'Invalid argument. Must be string.' );
+	}
+
+	return lcfirst( str_replace( ' ', '', ucwords( str_replace( ['-', '_'], ' ', $str ) ) ) );
+}
+
+/**
  * Try convert to string if is possible else return empty string.
  *
  * @param  mixed $obj

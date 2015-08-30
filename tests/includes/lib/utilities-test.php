@@ -22,6 +22,18 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$_POST = [];
 	}
 
+	public function test_papi_camel_case() {
+		$this->assertEquals( 'fooBar', papi_camel_case( 'foo-bar' ) );
+		$this->assertEquals( 'fooBar', papi_camel_case( 'foo bar' ) );
+		$this->assertEquals( 'fooBar', papi_camel_case( 'foo_bar' ) );
+
+		try {
+			papi_camel_case( null );
+		} catch ( Exception $e ) {
+			$this->assertEquals( 'Invalid argument. Must be string.', $e->getMessage() );
+		}
+	}
+
 	public function test_papi_convert_to_string() {
 		$this->assertEquals( 'false', papi_convert_to_string( false ) );
 		$this->assertEquals( 'true', papi_convert_to_string( true ) );
