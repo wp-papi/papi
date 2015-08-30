@@ -13,10 +13,8 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-// Load Composer autoload if it exists and
-// the Container class isn't loaded.
-if ( file_exists( __DIR__ . '/vendor/autoload.php' ) &&
-	! class_exists( '\\Frozzare\\Tank\\Container' ) ) {
+// Load Composer autoload if it exists.
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
 
