@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-08-26 16:06+0100\n"
-"PO-Revision-Date: 2015-08-26 16:06+0100\n"
+"POT-Creation-Date: 2015-08-30 21:57+0100\n"
+"PO-Revision-Date: 2015-08-30 21:58+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -117,11 +117,11 @@ msgstr "Mall"
 msgid "Page Count"
 msgstr "Antal sidor"
 
-#: ../src/includes/admin/views/management-start.php:51
+#: ../src/includes/admin/views/management-start.php:55
 msgid "Page Type has no template file"
 msgstr "Sidtypen har ingen mallfil"
 
-#: ../src/includes/admin/views/management-start.php:65
+#: ../src/includes/admin/views/management-start.php:69
 msgid "Template file does not exist"
 msgstr "Mallfilen finns inte"
 
@@ -155,6 +155,126 @@ msgstr "Redigera"
 #: ../src/includes/page-type/class-papi-page-type-meta.php:151
 msgid "View"
 msgstr "Vy"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:37
+msgid "Previous Month"
+msgstr "Föregående månad"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:38
+msgid "Next Month"
+msgstr "Nästa månad"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:39
+msgid "Midnight"
+msgstr "Midnatt"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:41
+msgid "January"
+msgstr "Januari"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:42
+msgid "February"
+msgstr "Februari"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:43
+msgid "March"
+msgstr "Mars"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:44
+msgid "April"
+msgstr "April"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:45
+msgid "May"
+msgstr "Maj"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:46
+msgid "June"
+msgstr "Juni"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:47
+msgid "July"
+msgstr "Juli"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:48
+msgid "August"
+msgstr "Augusti"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:49
+msgid "September"
+msgstr "September"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:50
+msgid "October"
+msgstr "Oktober"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:51
+msgid "November"
+msgstr "November"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:52
+msgid "December"
+msgstr "December"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:54
+msgid "Noon"
+msgstr "Eftermiddag"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:56
+msgid "Sunday"
+msgstr "Söndag"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:57
+msgid "Monday"
+msgstr "Måndag"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:58
+msgid "Tuesday"
+msgstr "Tisdag"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:59
+msgid "Wednesday"
+msgstr "Onsdag"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:60
+msgid "Thursday"
+msgstr "Torsdag"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:61
+msgid "Friday"
+msgstr "Fredag"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:62
+msgid "Saturday"
+msgstr "Lördag"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:65
+msgid "Sun"
+msgstr "Sön"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:66
+msgid "Mon"
+msgstr "Mån"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:67
+msgid "Tue"
+msgstr "Tis"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:68
+msgid "Wed"
+msgstr "Ons"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:69
+msgid "Thu"
+msgstr "Tor"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:70
+msgid "Fri"
+msgstr "Fre"
+
+#: ../src/includes/properties/class-papi-property-datetime.php:71
+msgid "Sat"
+msgstr "Lör"
 
 #: ../src/includes/properties/class-papi-property-file.php:99
 msgid "Add file"
