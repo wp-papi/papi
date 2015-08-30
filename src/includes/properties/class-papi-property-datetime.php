@@ -20,7 +20,7 @@ class Papi_Property_Datetime extends Papi_Property {
 			'format'       => 'YYYY-MM-DD hh:mm:ss',
 			'show_seconds' => false,
 			'show_time'    => true,
-			'use_24_hours' => false
+			'use_24_hours' => get_locale() === 'sv_SE'
 		];
 	}
 
@@ -73,7 +73,7 @@ class Papi_Property_Datetime extends Papi_Property {
 			],
 			'showTime'    => $settings->show_time,
 			'showSeconds' => $settings->show_seconds,
-			'use24hour'   => $this->use_24_hours(),
+			'use24hour'   => $settings->use_24_hours,
 		];
 
 		papi_render_html_tag( 'input', [
@@ -84,14 +84,5 @@ class Papi_Property_Datetime extends Papi_Property {
 			'type'          => 'text',
 			'value'         => $value
 		] );
-	}
-
-	/**
-	 * Check if 24 hours should be used or not.
-	 *
-	 * @return bool
-	 */
-	protected function use_24_hours() {
-		return get_locale() === 'sv_SE' || $this->get_setting( 'use_24_hours' );
 	}
 }
