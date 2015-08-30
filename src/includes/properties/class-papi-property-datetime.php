@@ -79,7 +79,7 @@ class Papi_Property_Datetime extends Papi_Property {
 		}
 
 		// Convert all sneak case key to camel case.
-		foreach ( $settings as $key => $value ) {
+		foreach ( (array) $settings as $key => $value ) {
 			if ( ! is_string( $key ) ) {
 				continue;
 			}
