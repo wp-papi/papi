@@ -46,10 +46,6 @@ Or manually add it to your `composer.json`:
 You can check if your contribution passes the styleguide by installing [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and running the following in your project directory:
 
 ```
-$ gulp phpcs
-
-// or
-
 $ vendor/bin/phpcs -s --extensions=php --standard=phpcs.xml src/
 ```
 
