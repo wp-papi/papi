@@ -33,6 +33,11 @@
     "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs",
     "post-update-cmd" : "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs"
   },
-	"minimum-stability": "dev",
-	"prefer-stable": true
+  "extra": {
+      "branch-alias": {
+          "dev-master": "2.3-dev"
+      }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
