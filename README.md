@@ -3,6 +3,9 @@
 ![Papi](https://cloud.githubusercontent.com/assets/14610/9073902/16a6d906-3b05-11e5-9287-5644a96e9a82.png)
 
 [![Build Status](https://travis-ci.org/wp-papi/papi.svg?branch=master)](https://travis-ci.org/wp-papi/papi)
+[![Coverage Status](https://img.shields.io/codecov/c/github/wp-papi/papi.svg?style=flat)](https://codecov.io/github/wp-papi/papi)
+[![Quality Score](https://img.shields.io/scrutinizer/g/wp-papi/papi.svg?style=flat)](https://scrutinizer-ci.com/g/wp-papi/papi)
+[![Latest Version](https://img.shields.io/github/release/wp-papi/papi.svg?style=flat)](https://github.com/wp-papi/papi/releases)
 [![License](https://img.shields.io/packagist/l/wp-papi/papi.svg)](https://packagist.org/packages/wp-papi/papi)
 
 > `master` is unsafe. `2.x` is the stable branch.
@@ -11,7 +14,7 @@ Papi has a different approach on how to work with fields and page types in WordP
 
 So we though why don’t use the same approach in WordPress? Papi is today running in production and has been easy to work with when it came to add new fields. Papi don’t have any admin user interface where should add all fields, we use classes in PHP, where one class represents one page type and in your class you add all fields you need. It’s that easy!
 
-[Visit Papi’s project page](http://wp-papi.github.io/)
+[Visit Papi’s project page](https://wp-papi.github.io/)
 
 ## Installation
 
