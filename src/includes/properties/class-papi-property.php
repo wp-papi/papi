@@ -47,7 +47,8 @@ class Papi_Property extends Papi_Core_Property {
 		if ( is_array( $suffix ) || is_object( $suffix ) ) {
 			return '_' . $this->html_name( $suffix, $row );
 		} else {
-			$suffix = empty( $suffix ) || ! is_string( $suffix ) ? '' : '_' . $suffix;
+			$suffix = empty( $suffix ) ||
+				! is_string( $suffix ) ? '' : '_' . $suffix;
 			$suffix = papi_underscorify( papi_slugify( $suffix ) );
 		}
 
@@ -81,7 +82,11 @@ class Papi_Property extends Papi_Core_Property {
 			}
 		}
 
-		return sprintf( '%s[%s]', $base_slug, papi_remove_papi( $sub_property->get_slug() ) );
+		return sprintf(
+			'%s[%s]',
+			$base_slug,
+			papi_remove_papi( $sub_property->get_slug() )
+		);
 	}
 
 	/**
@@ -101,7 +106,8 @@ class Papi_Property extends Papi_Core_Property {
 		if ( $this->get_option( 'lang' ) === strtolower( papi_get_qs( 'lang' ) ) ) {
 			$render = true;
 		} else {
-			$render = $this->get_option( 'lang' ) === false && papi_is_empty( papi_get_qs( 'lang' ) );
+			$render = $this->get_option( 'lang' ) === false &&
+				papi_is_empty( papi_get_qs( 'lang' ) );
 		}
 
 		if ( $this->display ) {
@@ -201,7 +207,9 @@ class Papi_Property extends Papi_Core_Property {
 
 		papi_render_html_tag( 'label', [
 			'for'   => $this->html_id(),
-			'title' => trim( $title . ' ' . papi_require_text( $this->get_options() ) ),
+			'title' => trim(
+				$title . ' ' . papi_require_text( $this->get_options() )
+			),
 			$title,
 			papi_required_html( $this->get_options() )
 		] );
@@ -248,7 +256,7 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
-	 * Render Conditional rules as JSON.
+	 * Render Conditional rules as script tag with JSON.
 	 */
 	private function render_rules_json() {
 		$rules = $this->get_rules();
@@ -258,10 +266,12 @@ class Papi_Property extends Papi_Core_Property {
 		}
 
 		$rules = $this->conditional->prepare_rules( $rules, $this );
-		?>
-		<script type="application/json" data-papi-rules="true" data-papi-rule-source-slug="<?php echo $this->html_name(); ?>">
-			<?php echo json_encode( $rules ); ?>
-		</script>
-		<?php
+
+		papi_render_html_tag( 'script', [
+			'data-papi-rule-source-slug' => $this->html_name(),
+			'data-papi-rules'            => 'true',
+			'type'                       => 'application/json',
+			json_encode( $rules )
+		] );
 	}
 }
