@@ -385,23 +385,9 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		], $output );
 	}
 
-	public function test_before_html() {
-		$property = Papi_Property::create();
-		$property->before_html();
-
-		$this->expectOutputRegex( '/class=\"papi\-before\-html\"/' );
-	}
-
 	public function test_html() {
 		$property = Papi_Property::create();
 		$this->assertEmpty( $property->html() );
-	}
-
-	public function test_after_html() {
-		$property = Papi_Property::create();
-		$property->after_html();
-
-		$this->expectOutputRegex( '/class=\"papi\-after\-html\"/' );
 	}
 
 	public function test_html_id() {
@@ -513,95 +499,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertFalse( $property->match_slug( '' ) );
 	}
 
-	public function test_render_description_html() {
-		$property = new Papi_Property();
-
-		$this->assertNull( $property->render_description_html() );
-
-		$property->set_options( [
-			'description' => 'A simple description'
-		] );
-
-		$property->render_description_html();
-
-		$this->expectOutputRegex( '/A\ssimple\sdescription/' );
-	}
-
-	public function test_render_hidden_html() {
-		$property = new Papi_Property();
-
-		$this->assertNull( $property->render_hidden_html() );
-
-		$property->set_options( papi_get_property_options( [
-			'type' => 'string',
-			'slug' => 'hello_world'
-		] ) );
-
-		$property->render_hidden_html();
-
-		$this->expectOutputRegex( '/papi\_hello\_world\_property/' );
-
-		$property->set_options( [
-			'type' => 'string',
-			'slug' => 'hello_world[name]'
-		] );
-
-		$property->render_hidden_html();
-
-		$this->expectOutputRegex( '/papi\_hello\_world\[name\_property\]/' );
-	}
-
-	public function test_render_label_html() {
-		$property = new Papi_Property();
-
-		$this->assertNull( $property->render_label_html() );
-
-		$property->set_options( [
-			'slug'  => 'kvack',
-			'title' => 'A simple label'
-		] );
-
-		$property->render_label_html();
-
-		$this->expectOutputRegex( '/A\ssimple\slabel/' );
-		$this->expectOutputRegex( '/papi\_kvack/' );
-	}
-
-	public function test_render_row_html() {
-		$property = new Papi_Property();
-
-		$this->assertNull( $property->render_row_html() );
-
-		$property->set_options( [
-			'title' 	  => 'A simple label',
-			'description' => 'A simple description'
-		] );
-
-		$property->render_row_html();
-
-		$this->expectOutputRegex( '/A\ssimple\sdescription/' );
-		$this->expectOutputRegex( '/A\ssimple\slabel/' );
-
-		$property->set_options( [
-			'raw' => true
-		] );
-
-		$property->render_row_html();
-	}
-
-	public function test_render_row_html_hidden() {
-		$property = Papi_Property::factory( [
-			'raw'   => true,
-			'slug'  => 'hidden_test_2',
-			'title' => 'Hidden test 2',
-			'type'  => 'hidden'
-		] );
-
-		$property->render_row_html();
-
-		$this->expectOutputRegex( '/class=\"papi\-hide\"/' );
-	}
-
 	public function test_render_with_lang() {
 		$property = Papi_Property::factory( [
 			'lang'  => 'dk',
@@ -630,35 +527,6 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/class=\"papi\-hide\"/' );
 
 		unset( $_GET['lang'] );
-	}
-
-	public function test_render_rules_json() {
-		$property = Papi_Property::factory( [
-			'slug'  => 'rules_test',
-			'title' => 'Rules test',
-			'type'  => 'string'
-		] );
-
-		$property->render_rules_json();
-
-		$this->expectOutputRegex( '//' );
-
-		$property = Papi_Property::factory( [
-			'rules' => [
-				[
-					'operator' => '=',
-					'slug'     => 'name',
-					'value'    => ''
-				]
-			],
-			'slug'  => 'rules_test',
-			'title' => 'Rules test',
-			'type'  => 'string'
-		] );
-
-		$property->render_rules_json();
-
-		$this->expectOutputRegex( '/\{/' );
 	}
 
 	public function test_render_fail() {

@@ -30,49 +30,9 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
-	 * Display the `before_html` option.
-	 */
-	public function before_html() {
-		$html = $this->get_option( 'before_html' );
-
-		echo sprintf(
-			'<div class="papi-before-html" data-property="%s">',
-			$this->get_option( 'type' )
-		);
-
-		if ( is_callable( $html ) ) {
-			call_user_func( $html );
-		} else {
-			echo papi_convert_to_string( $html );
-		}
-
-		echo '</div>';
-	}
-
-	/**
 	 * Display the html to display from the property.
 	 */
 	public function html() {
-	}
-
-	/**
-	 * Display the `after_html` option.
-	 */
-	public function after_html() {
-		$html = $this->get_option( 'after_html' );
-
-		echo sprintf(
-			'<div class="papi-after-html" data-property="%s">',
-			$this->get_option( 'type' )
-		);
-
-		if ( is_callable( $html ) ) {
-			call_user_func( $html );
-		} else {
-			echo papi_convert_to_string( $html );
-		}
-
-		echo '</div>';
 	}
 
 	/**
@@ -154,9 +114,49 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
+	 * Render after html.
+	 */
+	private function render_after_html() {
+		$html = $this->get_option( 'after_html' );
+
+		echo sprintf(
+			'<div class="papi-after-html" data-property="%s">',
+			$this->get_option( 'type' )
+		);
+
+		if ( is_callable( $html ) ) {
+			call_user_func( $html );
+		} else {
+			echo papi_convert_to_string( $html );
+		}
+
+		echo '</div>';
+	}
+
+	/**
+	 * Render before html.
+	 */
+	private function render_before_html() {
+		$html = $this->get_option( 'before_html' );
+
+		echo sprintf(
+			'<div class="papi-before-html" data-property="%s">',
+			$this->get_option( 'type' )
+		);
+
+		if ( is_callable( $html ) ) {
+			call_user_func( $html );
+		} else {
+			echo papi_convert_to_string( $html );
+		}
+
+		echo '</div>';
+	}
+
+	/**
 	 * Render the property description.
 	 */
-	public function render_description_html() {
+	private function render_description_html() {
 		if ( papi_is_empty( $this->get_option( 'description' ) ) ) {
 			return;
 		}
@@ -169,7 +169,7 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Output hidden input field that cointains which property is used.
 	 */
-	public function render_hidden_html() {
+	private function render_hidden_html() {
 		$slug = $this->get_option( 'slug' );
 
 		if ( substr( $slug, - 1 ) === ']' ) {
@@ -196,7 +196,7 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Get label for the property.
 	 */
-	public function render_label_html() {
+	private function render_label_html() {
 		$title = $this->get_option( 'title' );
 
 		papi_render_html_tag( 'label', [
@@ -208,9 +208,18 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
+	 * Render property html.
+	 */
+	private function render_property_html() {
+		$this->render_before_html();
+		$this->html();
+		$this->render_after_html();
+	}
+
+	/**
 	 * Render the final html that is displayed in the table.
 	 */
-	public function render_row_html() {
+	private function render_row_html() {
 		$display_class = $this->display ? '' : ' papi-hide';
 		$rules_class   = papi_is_empty( $this->get_rules() ) ? '' : ' papi-rules-exists';
 		$css_class     = trim( $display_class . $rules_class );
@@ -227,19 +236,13 @@ class Papi_Property extends Papi_Core_Property {
 					</td>
 				<?php endif; ?>
 				<td <?php echo $this->get_option( 'sidebar' ) ? '' : 'colspan="2"'; ?>>
-					<?php
-					$this->before_html();
-					$this->html();
-					$this->after_html();
-					?>
+					<?php $this->render_property_html(); ?>
 				</td>
 			</tr>
 		<?php
 		else:
 			echo sprintf( '<div class="%s">', $css_class );
-			$this->before_html();
-			$this->html();
-			$this->after_html();
+			$this->render_property_html();
 			echo '</div>';
 		endif;
 	}
@@ -247,7 +250,7 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Render Conditional rules as JSON.
 	 */
-	public function render_rules_json() {
+	private function render_rules_json() {
 		$rules = $this->get_rules();
 
 		if ( empty( $rules ) ) {
