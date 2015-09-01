@@ -665,7 +665,7 @@ class Papi_Core_Property {
 	/**
 	 * Setup options.
 	 *
-	 * @param  array|object $options
+	 * @param  mixed $options
 	 *
 	 * @return mixed
 	 */
