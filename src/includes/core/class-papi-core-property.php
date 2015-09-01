@@ -689,10 +689,6 @@ class Papi_Core_Property {
 		$options->slug         = $this->setup_options_slug( $options );
 		$options->settings     = $this->setup_options_settings( $options );
 
-		// Escape all html except
-		// - before_html
-		// - html
-		// - after_html
 		return papi_esc_html( $options, ['before_html', 'html', 'after_html'] );
 	}
 
