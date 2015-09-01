@@ -663,7 +663,7 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Setup options.
+	 * Setup property options.
 	 *
 	 * @param  mixed $options
 	 *
@@ -686,30 +686,55 @@ class Papi_Core_Property {
 		}
 
 		$options->capabilities = papi_to_array( $options->capabilities );
+		$options->slug         = $this->setup_options_slug( $options );
+		$options->settings     = $this->setup_options_settings( $options );
 
-		// Generate slug from title or type.
-		if ( empty( $options->slug ) ) {
+		// Escape all html except
+		// - before_html
+		// - html
+		// - after_html
+		return papi_esc_html( $options, ['before_html', 'html', 'after_html'] );
+	}
+
+	/**
+	 * Setup options slug.
+	 *
+	 * @param  stdClass $options
+	 *
+	 * @return string
+	 */
+	private function setup_options_slug( $options ) {
+		$slug = $options->slug;
+
+		if ( empty( $slug ) ) {
 			if ( empty( $options->title ) ) {
-				$options->slug = papi_slugify( $options->type );
+				$slug = papi_slugify( $options->type );
 			} else {
-				$options->slug = papi_slugify( $options->title );
+				$slug = papi_slugify( $options->title );
 			}
 		}
 
-		// Generate a vaild Papi meta name for slug.
-		$options->slug = papi_html_name( $options->slug );
+		return papi_html_name( $slug );
+	}
 
+	/**
+	 * Setup options settings.
+	 *
+	 * @param  stdClass $options
+	 *
+	 * @return stdClass
+	 */
+	private function setup_options_settings( $options ) {
 		$property_class = self::factory( $options->type );
 
 		if ( papi_is_property( $property_class ) ) {
-			$options->settings = array_merge( (array) $property_class->get_default_settings(), (array) $options->settings );
+			$options->settings = array_merge(
+				(array) $property_class->get_default_settings(),
+				(array) $options->settings
+			);
 		}
 
-		$options->settings = (object) $this->convert_settings( $options->settings );
-
-		$options = papi_esc_html( $options, ['before_html', 'html', 'after_html'] );
-
-		return $options;
+		return (object) $this->convert_settings( $options->settings );
 	}
 
 	/**
