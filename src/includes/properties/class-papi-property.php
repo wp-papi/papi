@@ -120,46 +120,6 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
-	 * Render after html.
-	 */
-	private function render_after_html() {
-		$html = $this->get_option( 'after_html' );
-
-		echo sprintf(
-			'<div class="papi-after-html" data-property="%s">',
-			$this->get_option( 'type' )
-		);
-
-		if ( is_callable( $html ) ) {
-			call_user_func( $html );
-		} else {
-			echo papi_convert_to_string( $html );
-		}
-
-		echo '</div>';
-	}
-
-	/**
-	 * Render before html.
-	 */
-	private function render_before_html() {
-		$html = $this->get_option( 'before_html' );
-
-		echo sprintf(
-			'<div class="papi-before-html" data-property="%s">',
-			$this->get_option( 'type' )
-		);
-
-		if ( is_callable( $html ) ) {
-			call_user_func( $html );
-		} else {
-			echo papi_convert_to_string( $html );
-		}
-
-		echo '</div>';
-	}
-
-	/**
 	 * Render the property description.
 	 */
 	private function render_description_html() {
@@ -219,9 +179,19 @@ class Papi_Property extends Papi_Core_Property {
 	 * Render property html.
 	 */
 	private function render_property_html() {
-		$this->render_before_html();
+		papi_render_html_tag( 'div', [
+			'class'         => 'papi-before-html',
+			'data-property' => $this->get_option( 'type' ),
+			$this->get_option( 'before_html' )
+		] );
+
 		$this->html();
-		$this->render_after_html();
+
+		papi_render_html_tag( 'div', [
+			'class'         => 'papi-after-html',
+			'data-property' => $this->get_option( 'type' ),
+			$this->get_option( 'after_html' )
+		] );
 	}
 
 	/**
