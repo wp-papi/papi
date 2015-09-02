@@ -79,12 +79,12 @@ class Papi_Property_Datetime extends Papi_Property {
 		}
 
 		// Convert all sneak case key to camel case.
-		foreach ( (array) $settings as $key => $value ) {
+		foreach ( (array) $settings as $key => $val ) {
 			if ( ! is_string( $key ) ) {
 				continue;
 			}
 
-			$settings_json[papi_camel_case( $key )] = $value;
+			$settings_json[papi_camel_case( $key )] = $val;
 		}
 
 		// Papi has `use24Hours` as key and Pikaday has `use24hour`.
