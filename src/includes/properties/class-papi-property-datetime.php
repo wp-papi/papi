@@ -93,7 +93,7 @@ class Papi_Property_Datetime extends Papi_Property {
 		}
 
 		// Papi has `use24Hours` as key and Pikaday has `use24hour`.
-		// This will fix it.
+		// This code will fix it.
 		if ( isset( $settings_json['use24Hours'] ) ) {
 			$settings_json['use24hour'] = $settings_json['use24Hours'];
 			unset( $settings_json['use24Hours'] );
