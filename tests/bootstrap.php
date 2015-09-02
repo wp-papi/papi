@@ -11,6 +11,7 @@ WP_Test_Suite::load_plugins( __DIR__ . '/../papi-loader.php' );
 
 // Load our helpers file.
 WP_Test_Suite::load_files( [
+	__DIR__ . '/fixtures/functions.php',
 	__DIR__ . '/helpers.php',
 	__DIR__	. '/class-papi-property-test-case.php'
 ] );

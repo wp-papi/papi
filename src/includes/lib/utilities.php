@@ -369,7 +369,7 @@ function papi_html_name( $name ) {
  */
 function papi_html_tag( $tag, $attr = [] ) {
 	$attributes = [];
-	$text       = [];
+	$content    = [];
 
 	if ( ! is_array( $attr ) ) {
 		$attr = [$attr];
@@ -377,10 +377,18 @@ function papi_html_tag( $tag, $attr = [] ) {
 
 	foreach ( $attr as $key => $value ) {
 		if ( is_numeric( $key ) ) {
-			if ( is_array( $value ) ) {
-				$text[] = implode( ' ', $value );
+			if ( is_callable( $value ) ) {
+				$ob_level = ob_get_level();
+
+				ob_start();
+
+				call_user_func( $value );
+
+				$content[] = ltrim( ob_get_clean() );
+			} else if ( is_array( $value ) ) {
+				$content[] = implode( ' ', $value );
 			} else {
-				$text[] = $value;
+				$content[] = $value;
 			}
 
 			continue;
@@ -401,10 +409,10 @@ function papi_html_tag( $tag, $attr = [] ) {
 		$attributes[] = sprintf( '%s="%s"', $key, esc_attr( $value ) );
 	}
 
-	if ( papi_is_empty( $text ) ) {
+	if ( papi_is_empty( $content ) ) {
 		$end = '/>';
 	} else {
-		$end = sprintf( '>%s</%s>', implode( ' ', $text ), $tag );
+		$end = sprintf( '>%s</%s>', implode( ' ', $content ), $tag );
 	}
 
 	if ( ! empty( $attributes ) ) {
