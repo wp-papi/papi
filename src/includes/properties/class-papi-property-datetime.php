@@ -78,17 +78,22 @@ class Papi_Property_Datetime extends Papi_Property {
 			unset( $settings->i18n );
 		}
 
+		// Remove default time format if show time is false.
+		if ( isset( $settings->show_time ) && ! $settings->show_time && isset( $settings->format ) ) {
+			$settings->format = trim( str_replace( 'hh:mm:ss', '', $settings->format ) );
+		}
+
 		// Convert all sneak case key to camel case.
-		foreach ( (array) $settings as $key => $value ) {
+		foreach ( (array) $settings as $key => $val ) {
 			if ( ! is_string( $key ) ) {
 				continue;
 			}
 
-			$settings_json[papi_camel_case( $key )] = $value;
+			$settings_json[papi_camel_case( $key )] = $val;
 		}
 
 		// Papi has `use24Hours` as key and Pikaday has `use24hour`.
-		// This will fix it.
+		// This code will fix it.
 		if ( isset( $settings_json['use24Hours'] ) ) {
 			$settings_json['use24hour'] = $settings_json['use24Hours'];
 			unset( $settings_json['use24Hours'] );
