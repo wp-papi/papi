@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-08-30 21:57+0100\n"
-"PO-Revision-Date: 2015-08-30 21:58+0100\n"
+"POT-Creation-Date: 2015-09-03 13:04+0100\n"
+"PO-Revision-Date: 2015-09-03 13:04+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -22,8 +22,8 @@ msgid "Add New"
 msgstr "Skapa ny"
 
 #: ../src/includes/admin/class-papi-admin.php:50
-#: ../src/includes/admin/class-papi-admin.php:59 ../src/papi-loader.php:59
-#: ../src/papi-loader.php:68
+#: ../src/includes/admin/class-papi-admin.php:59 ../src/papi-loader.php:60
+#: ../src/papi-loader.php:69
 msgid "Cheatin&#8217; huh?"
 msgstr "Fuskar du?"
 
@@ -39,9 +39,10 @@ msgstr "Ta bort"
 msgid "This fields are required:"
 msgstr "Dessa fält är obligatoriska:"
 
-#: ../src/includes/admin/class-papi-admin.php:289
-msgid "Show all page types"
-msgstr "Visa alla sidtyper"
+#: ../src/includes/admin/class-papi-admin.php:296
+#, php-format
+msgid "Show all %s types"
+msgstr "Visa alla %styper"
 
 #: ../src/includes/admin/views/add-new-page.php:8
 #, php-format
@@ -383,13 +384,16 @@ msgstr "Sortera efter"
 msgid "Select file"
 msgstr "Välj fil"
 
-#: ../src/papi-loader.php:185
+#: ../src/papi-loader.php:186
 msgid ""
 "WordPress 4.0 and higher required to run Papi! The plugin has now disabled "
 "itself."
 msgstr ""
 "Wordpress 4.0 och högre krävs för att köra Papi! Tillägget har nu "
 "inaktiverat sig själv."
+
+#~ msgid "Show all page types"
+#~ msgstr "Visa alla sidtyper"
 
 #~ msgid "Add new page type"
 #~ msgstr "Lägg till en ny sidtyp"
