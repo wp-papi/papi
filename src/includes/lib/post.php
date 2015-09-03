@@ -93,3 +93,26 @@ function papi_get_post_type() {
 
 	return '';
 }
+
+/**
+ * Get post type label.
+ *
+ * @param  string $post_type
+ * @param  string $label
+ * @param  string $default
+ *
+ * @return string
+ */
+function papi_get_post_type_label( $post_type, $label, $default = '' ) {
+	if ( ! post_type_exists( $post_type ) ) {
+		return $default;
+	}
+
+	$post_type_obj = get_post_type_object( $post_type );
+
+	if ( ! isset( $post_type_obj->labels->$label ) ) {
+		return $default;
+	}
+
+	return $post_type_obj->labels->$label;
+}

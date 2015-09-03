@@ -106,7 +106,7 @@ function papi_filter_settings_only_page_type( $post_type ) {
  * @return string
  */
 function papi_filter_settings_page_type_column_title( $post_type ) {
-	return apply_filters( 'papi/settings/column_title_' . $post_type, __( 'Page Type', 'papi' ) );
+	return apply_filters( 'papi/settings/column_title_' . $post_type, __( 'Type', 'papi' ) );
 }
 
 /**
@@ -143,13 +143,7 @@ function papi_filter_settings_show_page_type( $post_type, $page_type ) {
  * @return string
  */
 function papi_filter_settings_standard_page_description( $post_type ) {
-	$post_type_obj = get_post_type_object( $post_type );
-	$name          = 'Page';
-
-	if ( ! is_null( $post_type_obj ) && isset( $post_type_obj->labels ) ) {
-		$name = $post_type_obj->labels->singular_name;
-	}
-
+	$name = papi_get_post_type_label( $post_type, 'singular_name', 'Page' );
 	return apply_filters( 'papi/settings/standard_page_description_' . $post_type, sprintf( __( '%s with WordPress standard fields', 'papi' ), $name ) );
 }
 
@@ -161,13 +155,7 @@ function papi_filter_settings_standard_page_description( $post_type ) {
  * @return string
  */
 function papi_filter_settings_standard_page_name( $post_type ) {
-	$post_type_obj = get_post_type_object( $post_type );
-	$name          = 'Page';
-
-	if ( ! is_null( $post_type_obj ) && isset( $post_type_obj->labels ) ) {
-		$name = $post_type_obj->labels->singular_name;
-	}
-
+	$name = papi_get_post_type_label( $post_type, 'singular_name', 'Page' );
 	return apply_filters( 'papi/settings/standard_page_name_' . $post_type, sprintf( __( 'Standard %s', 'papi' ), $name ) );
 }
 

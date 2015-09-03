@@ -283,17 +283,9 @@ final class Papi_Admin {
 			usort( $page_types, function ( $a, $b ) {
 				return strcmp( strtolower( $a['name'] ), strtolower( $b['name'] ) );
 			} );
-
-			$post_type_obj = get_post_type_object( $this->post_type );
-
-			if ( ! is_object( $post_type_obj ) ) {
-				return;
-			}
-
-			$name = strtolower( $post_type_obj->labels->singular_name );
 			?>
 			<select name="page_type" class="postform">
-				<option value="0" selected><?php echo sprintf( __( 'Show all %s types', 'papi' ), $name ); ?></option>
+				<option value="0" selected><?php _e( 'Show all types', 'papi' ); ?></option>
 				<?php
 				foreach ( $page_types as $page_type ) {
 					printf( '<option value="%s" %s>%s</option>', $page_type['value'], ( papi_get_qs( 'page_type' ) === $page_type['value'] ? ' selected' : '' ), $page_type['name'] );
