@@ -1,8 +1,5 @@
 <?php
 
-// Load Papi Container.
-require_once __DIR__ . '/../container/class-papi-container.php';
-
 /**
  * Papi Porter class.
  *
