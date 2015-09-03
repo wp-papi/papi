@@ -22,4 +22,11 @@ class Papi_Property_Radio_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'Radio test', $this->property->get_option( 'title' ) );
 		$this->assertEquals( 'papi_radio_test', $this->property->get_option( 'slug' ) );
 	}
+
+	public function test_property_format_value() {
+		$this->assertEquals( 2014, $this->property->format_value( '2014', '', 0 ) );
+		$this->assertEquals( 12.3, $this->property->format_value( '12.3', '', 0 ) );
+		$this->assertEquals( true, $this->property->format_value( 'true', '', 0 ) );
+		$this->assertEquals( false, $this->property->format_value( 'false', '', 0 ) );
+	}
 }

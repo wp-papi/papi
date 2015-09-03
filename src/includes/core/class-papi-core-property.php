@@ -463,9 +463,7 @@ class Papi_Core_Property {
 			}
 		}
 
-		$value = $this->prepare_value( $value );
-
-		return $value;
+		return $this->prepare_value( $value );
 	}
 
 	/**

@@ -11,6 +11,19 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Dropdown extends Papi_Property {
 
 	/**
+	 * Format the value of the property before it's returned to the application.
+	 *
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
+	 *
+	 * @return mixed
+	 */
+	public function format_value( $value, $slug, $post_id ) {
+		return papi_cast_string_value( $value );
+	}
+
+	/**
 	 * Get default settings.
 	 *
 	 * @return array
@@ -38,7 +51,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 	 */
 	public function html() {
 		$settings     = $this->get_settings();
-		$value        = $this->get_value();
+		$value        = papi_cast_string_value( $this->get_value() );
 		$options_html = [];
 
 		// Override selected setting with
@@ -55,7 +68,8 @@ class Papi_Property_Dropdown extends Papi_Property {
 
 		if ( ! empty( $settings->placeholder ) ) {
 			$options_html[] = papi_html_tag( 'option', [
-				'value' => ''
+				'value' => '',
+				$settings->placeholder
 			] );
 		}
 
@@ -72,7 +86,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 			$options_html[] = papi_html_tag( 'option', [
 				'selected' => $value === $settings->selected ? 'selected' : null,
 				'value'    => $value,
-				$key
+				papi_convert_to_string( $key )
 			] );
 		}
 

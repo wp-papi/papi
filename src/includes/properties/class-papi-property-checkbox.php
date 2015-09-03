@@ -35,14 +35,14 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 */
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_string( $value ) && ! papi_is_empty( $value ) ) {
-			return [$value];
+			return [papi_cast_string_value( $value )];
 		}
 
 		if ( ! is_array( $value ) ) {
 			return $this->default_value;
 		}
 
-		return $value;
+		return array_map( 'papi_cast_string_value', $value );
 	}
 
 	/**
@@ -62,7 +62,7 @@ class Papi_Property_Checkbox extends Papi_Property {
 	 */
 	public function html() {
 		$settings = $this->get_settings();
-		$value    = $this->get_value();
+		$value    = papi_cast_string_value( $this->get_value() );
 
 		// Override selected setting with
 		// database value if not empty.
@@ -90,7 +90,7 @@ class Papi_Property_Checkbox extends Papi_Property {
 					'value'   => $value
 				] ),
 
-				$key
+				papi_convert_to_string( $key )
 			] );
 
 			papi_render_html_tag( 'br' );

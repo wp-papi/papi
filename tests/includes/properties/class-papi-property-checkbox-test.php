@@ -28,6 +28,14 @@ class Papi_Property_Checkbox_Test extends Papi_Property_Test_Case {
 	public function test_property_format_value() {
 		$this->assertEquals( [ 'hello' ], $this->property->format_value( 'hello', '', 0 ) );
 		$this->assertEquals( [ 'hello' ], $this->property->format_value( [ 'hello' ], '', 0 ) );
+		$this->assertEquals( [2014], $this->property->format_value( ['2014'], '', 0 ) );
+		$this->assertEquals( [12.3], $this->property->format_value( ['12.3'], '', 0 ) );
+		$this->assertEquals( [true], $this->property->format_value( ['true'], '', 0 ) );
+		$this->assertEquals( [false], $this->property->format_value( ['false'], '', 0 ) );
+		$this->assertEquals( [2014], $this->property->format_value( '2014', '', 0 ) );
+		$this->assertEquals( [12.3], $this->property->format_value( '12.3', '', 0 ) );
+		$this->assertEquals( [true], $this->property->format_value( 'true', '', 0 ) );
+		$this->assertEquals( [false], $this->property->format_value( 'false', '', 0 ) );
 		$this->assertEmpty( $this->property->format_value( null, '', 0 ) );
 	}
 

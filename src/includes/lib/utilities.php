@@ -27,6 +27,29 @@ function papi_camel_case( $str ) {
 }
 
 /**
+ * Cast string value to right value type.
+ *
+ * @param  string $str
+ *
+ * @return mixed
+ */
+function papi_cast_string_value( $str ) {
+	if ( ! is_string( $str ) ) {
+		return $str;
+	}
+
+	if ( is_numeric( $str ) ) {
+		return $str == (int) $str ? (int) $str : (float) $str;
+	}
+
+	if ( $str === 'true' || $str === 'false' ) {
+		return $str === 'true';
+	}
+
+	return maybe_unserialize( $str );
+}
+
+/**
  * Try convert to string if is possible else return empty string.
  *
  * @param  mixed $obj

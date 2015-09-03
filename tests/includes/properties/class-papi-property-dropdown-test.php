@@ -20,6 +20,10 @@ class Papi_Property_Dropdown_Test extends Papi_Property_Test_Case {
 	public function test_property_format_value() {
 		$this->assertEquals( '#ffffff', $this->properties[0]->format_value( '#ffffff', '', 0 ) );
 		$this->assertEquals( '#000000', $this->properties[1]->format_value( '#000000', '', 0 ) );
+		$this->assertEquals( 2014, $this->properties[1]->format_value( '2014', '', 0 ) );
+		$this->assertEquals( 12.3, $this->properties[1]->format_value( '12.3', '', 0 ) );
+		$this->assertEquals( true, $this->properties[1]->format_value( 'true', '', 0 ) );
+		$this->assertEquals( false, $this->properties[1]->format_value( 'false', '', 0 ) );
 		$this->assertEmpty( $this->properties[0]->format_value( null, '', 0 ) );
 		$this->assertEmpty( $this->properties[1]->format_value( null, '', 0 ) );
 	}
