@@ -290,7 +290,7 @@ final class Papi_Admin {
 				return;
 			}
 
-			$name = strtolower( $post_type_obj->labels->name );
+			$name = strtolower( $post_type_obj->labels->singular_name );
 			?>
 			<select name="page_type" class="postform">
 				<option value="0" selected><?php echo sprintf( __( 'Show all %s types', 'papi' ), $name ); ?></option>
