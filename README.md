@@ -18,9 +18,7 @@ So we though why don’t use the same approach in WordPress? Papi is today runni
 
 ## Installation
 
-Papi should be install with Composer as of 2.3.0 since it has [dependencies](https://github.com/wp-papi/papi/blob/master/composer.json).
-
-Install it by running:
+If you're using Composer to manage WordPress, add Papi to your project's dependencies. Run:
 
 ```sh
 composer require wp-papi/papi
