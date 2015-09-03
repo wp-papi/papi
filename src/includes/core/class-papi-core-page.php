@@ -3,14 +3,12 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-use Frozzare \Tank\Container;
-
 /**
  * Papi Core Page class.
  *
  * @package Papi
  */
-abstract class Papi_Core_Page extends Container {
+abstract class Papi_Core_Page extends Papi_Container {
 
 	/**
 	 * Type post.

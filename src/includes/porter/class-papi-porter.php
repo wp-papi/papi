@@ -1,13 +1,14 @@
 <?php
 
-use Frozzare\Tank\Container;
+// Load Papi Container.
+require_once __DIR__ . '/../container/class-papi-container.php';
 
 /**
  * Papi Porter class.
  *
  * @package Papi
  */
-final class Papi_Porter extends Container {
+final class Papi_Porter extends Papi_Container {
 
 	/**
 	 * The driver that should be used.
