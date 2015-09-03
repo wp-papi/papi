@@ -124,9 +124,31 @@ class Papi_Admin_Menu {
 			}
 
 			$only_page_type = papi_filter_settings_only_page_type( $post_type );
+			$page_types     = papi_get_all_page_types( false, $post_type );
+			$show_standard  = false;
 
-			if ( ! empty( $only_page_type ) ) {
-				$submenu[$edit_url][10][2] = papi_get_page_new_url( $only_page_type, false, $post_type, [ 'action', 'message', 'page_type', 'post', 'post_type' ] );
+			if ( count( $page_types ) === 1 && empty( $only_page_type ) ) {
+				$show_standard  = $page_types[0]->standard_page_type;
+				$show_standard  = $show_standard ?
+					papi_filter_settings_show_standard_page_type( $post_type ) :
+					$show_standard;
+
+				$only_page_type = $show_standard ? '' : $page_types[0]->get_id();
+			}
+
+			if ( ! empty( $only_page_type ) && ! $show_standard ) {
+				$submenu[$edit_url][10][2] = papi_get_page_new_url(
+					$only_page_type,
+					false,
+					$post_type,
+					[
+						'action',
+						'message',
+						'page_type',
+						'post',
+						'post_type'
+					]
+				);
 			} else {
 				$page = 'papi-add-new-page,' . $post_type;
 
@@ -136,10 +158,22 @@ class Papi_Admin_Menu {
 					$start = '&';
 				}
 
-				$submenu[$edit_url][10][2] = $edit_url . $start . 'page=' . $page;
+				$submenu[$edit_url][10][2] = sprintf(
+					'%s%spage=%s',
+					$edit_url,
+					$start,
+					$page
+				);
 
-				// Hidden menu item.
-				add_submenu_page( null, __( 'Add New', 'papi' ), __( 'Add New', 'papi' ), 'read', $page, [ $this, 'render_view' ] );
+				// Add a hidden menu item.
+				add_submenu_page(
+					null,
+					__( 'Add New', 'papi' ),
+					__( 'Add New', 'papi' ),
+					'read',
+					$page,
+					[$this, 'render_view']
+				);
 			}
 		}
 	}
