@@ -364,7 +364,10 @@ function papi_get_post_types() {
 	$post_types = [];
 
 	foreach ( $page_types as $page_type ) {
-		$post_types = array_merge( $post_types, $page_type->post_type );
+		$post_types = array_merge(
+			$post_types,
+			papi_to_array( $page_type->post_type )
+		);
 	}
 
 	if ( empty( $post_types ) ) {

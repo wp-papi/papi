@@ -10,8 +10,10 @@ function say_hello_stub() {
 /**
  * Register a book post type.
  */
-add_action( 'init', function () {
-    $labels = [
+function papi_test_register_book_post_type() {
+    global $wp_post_types;
+
+	$labels = [
         'name'               => _x( 'Books', 'post type general name', 'papi-tests' ),
         'singular_name'      => _x( 'Book', 'post type singular name', 'papi-tests' ),
         'menu_name'          => _x( 'Books', 'admin menu', 'papi-tests' ),
@@ -43,5 +45,9 @@ add_action( 'init', function () {
         'supports'           => ['title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments']
     ];
 
-    register_post_type( 'book', $args );
-} );
+    $out = register_post_type( 'book', $args );
+
+	if ( ! isset( $wp_post_types['book'] ) ) {
+		$wp_post_types['book'] = $out;
+	}
+}

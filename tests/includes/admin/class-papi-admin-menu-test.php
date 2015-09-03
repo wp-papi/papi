@@ -146,6 +146,8 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 			return 'post-page-type';
 		} );
 
+		papi_test_register_book_post_type();
+
 		$this->assertNull( $this->menu->post_types_menu() );
 		$this->assertEquals( 'post-new.php?page_type=post-page-type&post_type=post', $submenu['edit.php'][10][2] );
 		$this->assertEquals( 'edit.php?post_type=page&page=papi-add-new-page,page', $submenu['edit.php?post_type=page'][10][2] );
