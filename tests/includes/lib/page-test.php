@@ -307,6 +307,27 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_page_type( (object) [] ) );
 	}
 
+	public function test_papi_page_type_exists() {
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$this->assertFalse( papi_page_type_exists( 'hello' ) );
+		$this->assertTrue( papi_page_type_exists( 'empty-page-type' ) );
+	}
+
+	public function test_papi_set_page_type_id() {
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$this->assertFalse( papi_set_page_type_id( 0, 'hello' ) );
+		$post_id = $this->factory->post->create();
+		$this->assertFalse( papi_set_page_type_id( $post_id, 'hello' ) );
+		$this->assertNotFalse( papi_set_page_type_id( $post_id, 'empty-page-type' ) );
+		$this->assertEquals( 'empty-page-type', papi_get_page_type_id( $post_id ) );
+	}
+
 	public function test_the_papi_page_type_name() {
 		the_papi_page_type_name();
 		$this->expectOutputRegex( '//' );

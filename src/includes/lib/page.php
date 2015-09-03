@@ -444,6 +444,43 @@ function papi_is_page_type( $obj ) {
 }
 
 /**
+ * Check if page type exists.
+ *
+ * @param  string $id
+ *
+ * @return bool
+ */
+function papi_page_type_exists( $id ) {
+	$exists     = false;
+	$page_types = papi_get_all_page_types( true );
+
+	foreach ( $page_types as $page_type ) {
+		if ( $page_type->match_id( $id ) ) {
+			$exists = true;
+			break;
+		}
+	}
+
+	return $exists;
+}
+
+/**
+ * Set page type to a post.
+ *
+ * @param  mixed $post_id
+ * @param  string $page_type
+ *
+ * @return bool
+ */
+function papi_set_page_type_id( $post_id, $page_type ) {
+	return papi_page_type_exists( $page_type ) && update_post_meta(
+		papi_get_post_id( $post_id ),
+		papi_get_page_type_key(),
+		$page_type
+	);
+}
+
+/**
  * Echo the Page type name.
  *
  * @param  int $post_id
