@@ -2,7 +2,7 @@
   "name": "papi",
   "version": "2.3.0-dev",
   "repository": "wp-papi/papi",
-  "description": "Papi has a different approach on how to work with fields and page types in WordPress.",
+  "description": "Page Type API with custom fields",
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
   "license": "MIT",
   "devDependencies": {
