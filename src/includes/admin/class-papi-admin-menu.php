@@ -32,13 +32,7 @@ class Papi_Admin_Menu {
 	 * @return Papi_Page_Type
 	 */
 	private function get_page_type() {
-		$page_type_id = papi_get_page_type_id();
-
-		if ( ! is_string( $page_type_id ) ) {
-			return;
-		}
-
-		if ( $page_type = papi_get_page_type_by_id( $page_type_id ) ) {
+		if ( $page_type = papi_get_page_type_by_id( papi_get_page_type_id() ) ) {
 			return $page_type;
 		}
 	}
