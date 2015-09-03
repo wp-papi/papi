@@ -68,6 +68,16 @@ class Papi_Lib_Option_Test extends WP_UnitTestCase {
 		] ) );
 	}
 
+	public function test_papi_option_type_exists() {
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$this->assertFalse( papi_option_type_exists( 'hello' ) );
+		$this->assertFalse( papi_option_type_exists( 'empty-page-type' ) );
+		$this->assertTrue( papi_option_type_exists( 'options/header-option-type' ) );
+	}
+
 	public function test_papi_update_option() {
 		$this->assertFalse( papi_update_option( 1 ) );
 		$this->assertFalse( papi_update_option( null ) );

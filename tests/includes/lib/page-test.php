@@ -314,6 +314,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 		$this->assertFalse( papi_page_type_exists( 'hello' ) );
 		$this->assertTrue( papi_page_type_exists( 'empty-page-type' ) );
+		$this->assertFalse( papi_page_type_exists( 'options/header-option-type' ) );
 	}
 
 	public function test_papi_set_page_type_id() {

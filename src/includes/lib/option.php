@@ -78,6 +78,27 @@ function papi_option_shortcode( $atts ) {
 add_shortcode( 'papi_option', 'papi_option_shortcode' );
 
 /**
+ * Check if option type exists.
+ *
+ * @param  string $id
+ *
+ * @return bool
+ */
+function papi_option_type_exists( $id ) {
+	$exists       = false;
+	$option_types = papi_get_all_page_types( false, null, true );
+
+	foreach ( $option_types as $option_type ) {
+		if ( $option_type->match_id( $id ) ) {
+			$exists = true;
+			break;
+		}
+	}
+
+	return $exists;
+}
+
+/**
  * Update field with new value. The old value will be deleted.
  *
  * @param  string $slug
