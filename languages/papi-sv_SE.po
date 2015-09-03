@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-09-03 13:44+0100\n"
-"PO-Revision-Date: 2015-09-03 13:44+0100\n"
+"POT-Creation-Date: 2015-09-03 13:55+0100\n"
+"PO-Revision-Date: 2015-09-03 13:55+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -40,8 +40,8 @@ msgid "This fields are required:"
 msgstr "Dessa fält är obligatoriska:"
 
 #: ../src/includes/admin/class-papi-admin.php:288
-msgid "Show all types"
-msgstr "Visa alla typer"
+msgid "All types"
+msgstr "Alla typer"
 
 #: ../src/includes/admin/views/add-new-page.php:8
 #, php-format
@@ -387,21 +387,3 @@ msgid ""
 msgstr ""
 "Wordpress 4.0 och högre krävs för att köra Papi! Tillägget har nu "
 "inaktiverat sig själv."
-
-#~ msgid "Show all %s types"
-#~ msgstr "Visa alla %styper"
-
-#~ msgid "Page Type"
-#~ msgstr "Sidtyp"
-
-#~ msgid "Show all page types"
-#~ msgstr "Visa alla sidtyper"
-
-#~ msgid "Add new page type"
-#~ msgstr "Lägg till en ny sidtyp"
-
-#~ msgid "Search page types"
-#~ msgstr "Sök sidtyper"
-
-#~ msgid "Back to list"
-#~ msgstr "Tillbaka till listan"

@@ -285,7 +285,7 @@ final class Papi_Admin {
 			} );
 			?>
 			<select name="page_type" class="postform">
-				<option value="0" selected><?php _e( 'Show all types', 'papi' ); ?></option>
+				<option value="0" selected><?php _e( 'All types', 'papi' ); ?></option>
 				<?php
 				foreach ( $page_types as $page_type ) {
 					printf( '<option value="%s" %s>%s</option>', $page_type['value'], ( papi_get_qs( 'page_type' ) === $page_type['value'] ? ' selected' : '' ), $page_type['name'] );
