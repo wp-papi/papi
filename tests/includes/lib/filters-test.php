@@ -62,13 +62,13 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_filter_settings_page_type_column_title() {
-		$this->assertEquals( 'Page Type', papi_filter_settings_page_type_column_title( 'page' ) );
+		$this->assertEquals( 'Type', papi_filter_settings_page_type_column_title( 'page' ) );
 
 		add_filter( 'papi/settings/column_title_page', function () {
-			return 'Sidtyp';
+			return 'Typ';
 		} );
 
-		$this->assertEquals( 'Sidtyp', papi_filter_settings_page_type_column_title( 'page' ) );
+		$this->assertEquals( 'Typ', papi_filter_settings_page_type_column_title( 'page' ) );
 	}
 
 	public function test_papi_filter_settings_default_sort_order() {
