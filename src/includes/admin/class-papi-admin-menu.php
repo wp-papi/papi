@@ -122,7 +122,7 @@ class Papi_Admin_Menu {
 			$show_standard  = false;
 
 			if ( count( $page_types ) === 1 && empty( $only_page_type ) ) {
-				$show_standard  = $page_types[0]->standard_page_type;
+				$show_standard  = $page_types[0]->standard_type;
 				$show_standard  = $show_standard ?
 					papi_filter_settings_show_standard_page_type( $post_type ) :
 					$show_standard;

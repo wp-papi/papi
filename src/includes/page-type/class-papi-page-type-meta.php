@@ -22,7 +22,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var array
 	 */
-	public $child_page_types = [];
+	public $child_types = [];
 
 	/**
 	 * The description of the page type.
@@ -71,7 +71,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var bool
 	 */
-	public $standard_page_type = true;
+	public $standard_type = true;
 
 	/**
 	 * The template of the page type.
@@ -120,18 +120,18 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @return array
 	 */
-	public function get_child_page_types() {
-		$child_page_types = [];
+	public function get_child_types() {
+		$child_types = [];
 
-		foreach ( papi_to_array( $this->child_page_types ) as $id ) {
-			$child_page_type = papi_get_page_type_by_id( $id );
+		foreach ( papi_to_array( $this->child_types ) as $id ) {
+			$child_type = papi_get_page_type_by_id( $id );
 
-			if ( papi_is_page_type( $child_page_type ) ) {
-				$child_page_types[] = $child_page_type;
+			if ( papi_is_page_type( $child_type ) ) {
+				$child_types[] = $child_type;
 			}
 		}
 
-		return $child_page_types;
+		return $child_types;
 	}
 
 	/**

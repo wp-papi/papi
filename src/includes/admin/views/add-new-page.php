@@ -22,10 +22,10 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 		$show_standard    = papi_filter_settings_show_standard_page_type( $post_type_name );
 
 		if ( papi_is_page_type( $parent_page_type ) ) {
-			$page_types = $parent_page_type->get_child_page_types();
+			$page_types = $parent_page_type->get_child_types();
 
 			if ( $show_standard ) {
-				$show_standard = $parent_page_type->standard_page_type;
+				$show_standard = $parent_page_type->standard_type;
 			}
 		}
 
