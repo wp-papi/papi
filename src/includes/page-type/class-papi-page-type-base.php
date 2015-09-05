@@ -125,7 +125,7 @@ class Papi_Page_Type_Base {
 	}
 
 	/**
-	 * Load the file and setup page type meta data.
+	 * Load the file and setup file path, file name and class name properties.
 	 *
 	 * @param string $file_path
 	 */
