@@ -27,14 +27,10 @@ class Papi_Property_Html extends Papi_Property {
 	public function html() {
 		$settings = $this->get_settings();
 
-		echo '<div class="property-html" data-papi-rule="' . $this->html_name() . '">';
-
-		if ( is_callable( $settings->html ) ) {
-			call_user_func( $settings->html );
-		} else {
-			echo papi_convert_to_string( $settings->html );
-		}
-
-		echo '</div>';
+		papi_render_html_tag( 'div', [
+			'data-papi-rule' => $this->html_name(),
+			'class'          => 'property-html',
+			$settings->html
+		] );
 	}
 }

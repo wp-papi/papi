@@ -28,7 +28,11 @@ class Papi_Property_Editor extends Papi_Property {
 	 */
 	public function html() {
 		$value = $this->get_value();
-		$id    = str_replace( '[', '', str_replace( ']', '', $this->html_name() ) ) . '-' . uniqid();
+		$id    = str_replace(
+			'[',
+			'',
+			str_replace( ']', '', $this->html_name() )
+		) . '-' . uniqid();
 
 		wp_editor( $value, $id, [
 			'textarea_name' => $this->html_name(),

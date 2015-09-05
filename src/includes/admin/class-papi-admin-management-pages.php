@@ -44,7 +44,13 @@ class Papi_Admin_Management_Pages {
 	 */
 	public function admin_menu() {
 		$papi = papi();
-		add_management_page( $papi->name, $papi->name, 'manage_options', 'papi', [$this, 'render_view'] );
+		add_management_page(
+			$papi->name,
+			$papi->name,
+			'manage_options',
+			'papi',
+			[$this, 'render_view']
+		);
 	}
 
 	/**

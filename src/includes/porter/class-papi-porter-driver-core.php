@@ -32,11 +32,15 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
 	 */
 	public function get_value( array $options = [] ) {
 		if ( ! isset( $options['post_id'] ) || ! is_int( $options['post_id'] ) ) {
-			throw new InvalidArgumentException( 'Missing `post_id` option. Should be int.' );
+			throw new InvalidArgumentException(
+				'Missing `post_id` option. Should be int.'
+			);
 		}
 
 		if ( ! isset( $options['property'] ) || $options['property'] instanceof Papi_Core_Property === false ) {
-			throw new InvalidArgumentException( 'Missing `property` option. Should be instance of `Papi_Core_Property`.' );
+			throw new InvalidArgumentException(
+				'Missing `property` option. Should be instance of `Papi_Core_Property`.'
+			);
 		}
 
 		if ( ! isset( $options['slug'] ) || empty( $options['slug'] ) ) {
@@ -48,7 +52,12 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
 		}
 
 		$value = $this->call_value( $options['value'] );
-		$value = $this->update_value( $options['property'], $value, $options['slug'], $options['post_id'] );
+		$value = $this->update_value(
+			$options['property'],
+			$value,
+			$options['slug'],
+			$options['post_id']
+		);
 
 		return maybe_unserialize( $value );
 	}

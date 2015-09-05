@@ -57,7 +57,11 @@ final class Papi_Loader extends Papi_Container {
 	 * @codeCoverageIgnore
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
+		_doing_it_wrong(
+			__FUNCTION__,
+			__( 'Cheatin&#8217; huh?', 'papi' ),
+			'1.0.0'
+		);
 	}
 
 	/**
@@ -66,7 +70,11 @@ final class Papi_Loader extends Papi_Container {
 	 * @codeCoverageIgnore
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
+		_doing_it_wrong(
+			__FUNCTION__,
+			__( 'Cheatin&#8217; huh?', 'papi' ),
+			'1.0.0'
+		);
 	}
 
 	/**
@@ -75,7 +83,10 @@ final class Papi_Loader extends Papi_Container {
 	private function constants() {
 		// Path to Papi plugin directory
 		if ( ! defined( 'PAPI_PLUGIN_DIR' ) ) {
-			$mu_dir = trailingslashit( WPMU_PLUGIN_DIR . '/' . basename( dirname( __DIR__ ) ) . '/src' );
+			$mu_dir = trailingslashit( sprintf( '%s/%s/src',
+				WPMU_PLUGIN_DIR,
+				basename( dirname( __DIR__ ) )
+			) );
 
 			if ( is_dir( $mu_dir ) ) {
 				define( 'PAPI_PLUGIN_DIR', $mu_dir );
@@ -116,8 +127,12 @@ final class Papi_Loader extends Papi_Container {
 	private function require_files() {
 		// Load languages.
 		$domain = 'papi';
-		$path   = __DIR__ . '/../languages/' . $domain . '-' . get_locale() . '.mo';
-		load_textdomain( $domain, $path );
+		load_textdomain( sprintf(
+			'%s/../languages/%s-%s.mo',
+			__DIR__,
+			$domain,
+			get_locale()
+		), $domain );
 
 		// Require the autoload class.
 		require_once __DIR__ . '/includes/core/class-papi-core-autoload.php';
@@ -183,7 +198,10 @@ final class Papi_Loader extends Papi_Container {
 			deactivate_plugins( $plugin_path );
 		}
 
-		wp_die( __( 'WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
+		wp_die( __(
+			'WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself.',
+			'papi'
+		) );
 	}
 
 	/**

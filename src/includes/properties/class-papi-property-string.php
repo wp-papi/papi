@@ -57,8 +57,11 @@ class Papi_Property_String extends Papi_Property {
 	 * @return string
 	 */
 	public function get_value() {
-		$value = parent::get_value();
-		return $this->format_value( $value, $this->get_slug(), papi_get_post_id() );
+		return $this->format_value(
+			parent::get_value(),
+			$this->get_slug(),
+			papi_get_post_id()
+		);
 	}
 
 	/**

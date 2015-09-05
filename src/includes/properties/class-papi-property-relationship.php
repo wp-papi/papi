@@ -88,7 +88,10 @@ class Papi_Property_Relationship extends Papi_Property {
 		$sort_options[__( 'Select', 'papi' )] = null;
 
 		$sort_options[__( 'Name (alphabetically)', 'papi' )] = function ( $a, $b ) {
-			return strcmp( strtolower( $a->post_title ), strtolower( $b->post_title ) );
+			return strcmp(
+				strtolower( $a->post_title ),
+				strtolower( $b->post_title )
+			);
 		};
 
 		$sort_options[__( 'Post created date (ascending)', 'papi' )] = function ( $a, $b ) {
@@ -116,15 +119,19 @@ class Papi_Property_Relationship extends Papi_Property {
 		};
 
 		$sort_options[__( 'Post modified date (ascending)', 'papi' )] = function ( $a, $b ) {
-			return strtotime( $a->post_modified ) > strtotime( $b->post_modified );
+			return strtotime( $a->post_modified ) >
+				strtotime( $b->post_modified );
 		};
 
 		$sort_options[__( 'Post modified date (descending)', 'papi' )] = function ( $a, $b ) {
-			return strtotime( $a->post_modified ) < strtotime( $b->post_modified );
+			return strtotime( $a->post_modified ) <
+				strtotime( $b->post_modified );
 		};
 
-		$sort_options = apply_filters( 'papi/property/relationship/sort_options', $sort_options );
-		return $sort_options;
+		return apply_filters(
+			'papi/property/relationship/sort_options',
+			$sort_options
+		);
 	}
 
 	/**

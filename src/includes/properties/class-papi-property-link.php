@@ -97,7 +97,11 @@ class Papi_Property_Link extends Papi_Property {
 			}
 		} else {
 			foreach ( $values as $index => $key ) {
-				$values[$key] = get_post_meta( $post_id, $slug . '_' . $key, true );
+				$values[$key] = get_post_meta(
+					$post_id,
+					sprintf( '%s_%s', $slug, $key ),
+					true
+				);
 				unset( $values[$index] );
 			}
 		}

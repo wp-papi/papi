@@ -52,7 +52,9 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			return;
 		}
 
-		list( $options, $properties ) = papi_get_options_and_properties( $file_or_options, $properties, true );
+		list( $options, $properties ) = papi_get_options_and_properties(
+			$file_or_options, $properties, true
+		);
 
 		$post_type = $this->get_post_type();
 
@@ -77,9 +79,16 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		// Check and convert all non properties objects to properties objects.
 		$properties = $this->convert_properties( $properties );
 
-		$options['title'] = papi_esc_html( isset( $options['title'] ) ? $options['title'] : '' );
+		$options['title'] = papi_esc_html(
+			isset( $options['title'] ) ? $options['title'] : ''
+		);
 
-		array_push( $this->boxes, [$options, $properties, 'sort_order' => $sort_order, 'title' => $options['title']] );
+		array_push( $this->boxes, [
+			$options,
+			$properties,
+			'sort_order' => $sort_order,
+			'title' => $options['title']
+		] );
 	}
 
 	/**
@@ -95,7 +104,10 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 				$properties = [$properties];
 			} else if ( isset( $properties[0]->tab ) && $properties[0]->tab ) {
 				foreach ( $properties as $index => $items ) {
-					$items->properties = array_map( 'papi_get_property_type', $items->properties );
+					$items->properties = array_map(
+						'papi_get_property_type',
+						$items->properties
+					);
 				}
 
 				return $properties;
@@ -231,7 +243,10 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 						return $property;
 					}
 
-					$result = $this->get_child_property( $property->get_child_properties(), $child_slug );
+					$result = $this->get_child_property(
+						$property->get_child_properties(),
+						$child_slug
+					);
 
 					if ( is_object( $result ) ) {
 						return papi_get_property_type( $result );

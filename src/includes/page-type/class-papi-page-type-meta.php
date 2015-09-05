@@ -146,9 +146,21 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 		}
 
 		return array_merge( $this->labels, [
-			'add_new_item' => sprintf( '%s %s', __( 'Add New', 'papi' ), $this->name ),
-			'edit_item' => sprintf( '%s %s', __( 'Edit', 'papi' ), $this->name ),
-			'view_item' => sprintf( '%s %s', __( 'View', 'papi' ), $this->name )
+			'add_new_item' => sprintf(
+				'%s %s',
+				__( 'Add New', 'papi' ),
+				$this->name
+			),
+			'edit_item' => sprintf(
+				'%s %s',
+				__( 'Edit', 'papi' ),
+				$this->name
+			),
+			'view_item' => sprintf(
+				'%s %s',
+				__( 'View', 'papi' ),
+				$this->name
+			)
 		] );
 	}
 
@@ -200,7 +212,8 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	private function setup_post_types() {
 		$this->post_type = papi_to_array( $this->post_type );
 
-		// Set a default value to post types array if we don't have a array or a empty array.
+		// Set a default value to post types array
+		// if we don't have a array or a empty array.
 		if ( empty( $this->post_type ) ) {
 			$this->post_type = ['page'];
 		}

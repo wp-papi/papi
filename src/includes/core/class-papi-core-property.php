@@ -426,7 +426,11 @@ class Papi_Core_Property {
 	 * @return stdClass
 	 */
 	public function get_settings() {
-		$settings = wp_parse_args( $this->get_option( 'settings' ), $this->get_default_settings() );
+		$settings = wp_parse_args(
+			$this->get_option( 'settings' ),
+			$this->get_default_settings()
+		);
+
 		return (object) $this->convert_settings( $settings );
 	}
 
@@ -496,7 +500,10 @@ class Papi_Core_Property {
 			$settings = [];
 		}
 
-		return (object) array_merge( $this->default_import_settings, (array) $settings );
+		return (object) array_merge(
+			$this->default_import_settings,
+			(array) $settings
+		);
 	}
 
 	/**

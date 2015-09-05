@@ -131,9 +131,21 @@ class Papi_Property_File extends Papi_Property {
 				if ( ! $settings->multiple ) {
 					echo $labels['no_file'];
 				}
+
+				papi_render_html_tag( 'input', [
+					'name'  => $slug,
+					'type'  => 'hidden',
+					'value' => ''
+				] );
+
+				papi_render_html_tag( 'button', [
+					'data-slug' => $slug,
+					'class'     => 'button',
+					'type'      => 'button',
+
+					$labels['add']
+				] );
 				?>
-				<input type="hidden" value="" name="<?php echo $slug; ?>"/>
-				<button type="button" class="button" data-slug="<?php echo $slug; ?>"><?php echo $labels['add'] ?></button>
 			</p>
 			<div class="attachments">
 				<?php
@@ -151,16 +163,16 @@ class Papi_Property_File extends Papi_Property {
 								<div class="thumbnail">
 									<div class="centered">
 										<?php
-											papi_render_html_tag( 'img', [
-												'alt' => $file->alt,
-												'src' => $url
-											] );
+										papi_render_html_tag( 'img', [
+											'alt' => $file->alt,
+											'src' => $url
+										] );
 
-											papi_render_html_tag( 'input', [
-												'name'  => $slug,
-												'type'  => 'hidden',
-												'value' => $file->id
-											] );
+										papi_render_html_tag( 'input', [
+											'name'  => $slug,
+											'type'  => 'hidden',
+											'value' => $file->id
+										] );
 										?>
 									</div>
 									<?php if ( $this->file_type === 'file' ): ?>
@@ -267,7 +279,12 @@ class Papi_Property_File extends Papi_Property {
 	 * Setup filters.
 	 */
 	protected function setup_filters() {
-		add_action( 'wp_get_attachment_metadata', [$this, 'wp_get_attachment_metadata'], 10, 2 );
+		add_action(
+			'wp_get_attachment_metadata',
+			[$this, 'wp_get_attachment_metadata'],
+			10,
+			2
+		);
 	}
 
 	/**

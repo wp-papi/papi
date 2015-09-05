@@ -92,14 +92,24 @@ abstract class Papi_Core_Page extends Papi_Container {
 		$value = $property->load_value( $value, $slug, $this->id );
 
 		if ( $this->type !== self::TYPE_OPTION ) {
-			$value = papi_filter_load_value( $property->type, $value, $slug, $this->id );
+			$value = papi_filter_load_value(
+				$property->type,
+				$value,
+				$slug,
+				$this->id
+			);
 		}
 
 		// Format the value from the property class.
 		$value = $property->format_value( $value, $slug, $this->id );
 
 		if ( ! is_admin() || $this->type !== self::TYPE_OPTION ) {
-			$value = papi_filter_format_value( $property->type, $value, $slug, $this->id );
+			$value = papi_filter_format_value(
+				$property->type,
+				$value,
+				$slug,
+				$this->id
+			);
 		}
 
 		if ( is_array( $value ) ) {

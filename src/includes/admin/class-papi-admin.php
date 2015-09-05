@@ -47,7 +47,11 @@ final class Papi_Admin {
 	 * @codeCoverageIgnore
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
+		_doing_it_wrong(
+			__FUNCTION__,
+			__( 'Cheatin&#8217; huh?', 'papi' ),
+			'1.0.0'
+		);
 	}
 
 	/**
@@ -56,7 +60,11 @@ final class Papi_Admin {
 	 * @codeCoverageIgnore
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '1.0.0' );
+		_doing_it_wrong(
+			__FUNCTION__,
+			__( 'Cheatin&#8217; huh?', 'papi' ),
+			'1.0.0'
+		);
 	}
 
 	/**
@@ -78,7 +86,12 @@ final class Papi_Admin {
 	public function admin_head() {
 		wp_enqueue_media();
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style( 'papi-main', dirname( PAPI_PLUGIN_URL ) . '/dist/css/style.min.css', false, null );
+		wp_enqueue_style(
+			'papi-main',
+			dirname( PAPI_PLUGIN_URL ) . '/dist/css/style.min.css',
+			false,
+			null
+		);
 	}
 
 	/**
@@ -91,13 +104,19 @@ final class Papi_Admin {
 			return;
 		}
 
-		wp_enqueue_script( 'papi-main', dirname( PAPI_PLUGIN_URL ) . '/dist/js/main.min.js', [
-			'json2',
-			'jquery',
-			'jquery-ui-core',
-			'jquery-ui-sortable',
-			'wp-color-picker'
-		], '', true );
+		wp_enqueue_script(
+			'papi-main',
+			dirname( PAPI_PLUGIN_URL ) . '/dist/js/main.min.js',
+			[
+				'json2',
+				'jquery',
+				'jquery-ui-core',
+				'jquery-ui-sortable',
+				'wp-color-picker'
+			],
+			'',
+			true
+		);
 
 		wp_localize_script( 'papi-main', 'papiL10n', [
 			'remove'        => __( 'Remove', 'papi' ),
@@ -148,7 +167,12 @@ final class Papi_Admin {
 	public function hidden_meta_boxes() {
 		global $_wp_post_type_features;
 		if ( ! isset( $_wp_post_type_features[$this->post_type]['editor'] ) ) {
-			add_meta_box( 'papi-hidden-editor', 'Papi hidden editor', [ $this, 'hidden_meta_box_editor' ], $this->post_type );
+			add_meta_box(
+				'papi-hidden-editor',
+				'Papi hidden editor',
+				[$this, 'hidden_meta_box_editor'],
+				$this->post_type
+			);
 		}
 	}
 
@@ -181,9 +205,12 @@ final class Papi_Admin {
 		if ( in_array( $this->post_type, $post_types ) && strpos( $request_uri, 'page_type=' ) === false ) {
 			$parsed_url = parse_url( $request_uri );
 
-			$only_page_type = papi_filter_settings_only_page_type( $this->post_type );
+			$only_page_type = papi_filter_settings_only_page_type(
+				$this->post_type
+			);
 
-			// Check if we should show one post type or not and create the right url for that.
+			// Check if we should show one post type or not and
+			// create the right url for that.
 			if ( ! empty( $only_page_type ) ) {
 				$url = papi_get_page_new_url( $only_page_type, false );
 			} else {
@@ -209,7 +236,10 @@ final class Papi_Admin {
 	 * @return array
 	 */
 	public function manage_page_type_posts_columns( $defaults ) {
-		$defaults['page_type'] = papi_filter_settings_page_type_column_title( $this->post_type );
+		$defaults['page_type'] = papi_filter_settings_page_type_column_title(
+			$this->post_type
+		);
+
 		return $defaults;
 	}
 
@@ -226,13 +256,16 @@ final class Papi_Admin {
 			if ( ! is_null( $page_type ) ) {
 				echo esc_html( $page_type->name );
 			} else {
-				echo esc_html( papi_filter_settings_standard_page_name( papi_get_post_type() ) );
+				echo esc_html( papi_filter_settings_standard_page_name(
+					papi_get_post_type()
+				) );
 			}
 		}
 	}
 
 	/**
-	 * Menu callback that loads right view depending on what the `page` query string says.
+	 * Menu callback that loads right view depending on what the
+	 * `page` query string says.
 	 */
 	public function render_view() {
 		if ( strpos( papi_get_qs( 'page' ), 'papi' ) !== false ) {
@@ -275,20 +308,30 @@ final class Papi_Admin {
 			// Add the standard page that isn't a real page type.
 			if ( papi_filter_settings_show_standard_page_type_in_filter( $this->post_type ) ) {
 				$page_types[] = [
-					'name' => papi_filter_settings_standard_page_name( papi_get_post_type() ),
+					'name' => papi_filter_settings_standard_page_name(
+						papi_get_post_type()
+					),
 					'value' => 'papi-standard-page'
 				];
 			}
 
 			usort( $page_types, function ( $a, $b ) {
-				return strcmp( strtolower( $a['name'] ), strtolower( $b['name'] ) );
+				return strcmp(
+					strtolower( $a['name'] ),
+					strtolower( $b['name'] )
+				);
 			} );
 			?>
 			<select name="page_type" class="postform">
 				<option value="0" selected><?php _e( 'All types', 'papi' ); ?></option>
 				<?php
 				foreach ( $page_types as $page_type ) {
-					printf( '<option value="%s" %s>%s</option>', $page_type['value'], ( papi_get_qs( 'page_type' ) === $page_type['value'] ? ' selected' : '' ), $page_type['name'] );
+					printf(
+						'<option value="%s" %s>%s</option>',
+						$page_type['value'],
+						papi_get_qs( 'page_type' ) === $page_type['value'] ? ' selected' : '',
+						$page_type['name']
+					);
 				}
 				?>
 			</select>
@@ -387,11 +430,17 @@ final class Papi_Admin {
 
 		if ( empty( $this->page_type_id ) ) {
 			// If only page type is used, override the page type value.
-			$this->page_type_id = papi_filter_settings_only_page_type( $this->post_type );
+			$this->page_type_id = papi_filter_settings_only_page_type(
+				$this->post_type
+			);
 
 			if ( empty( $this->page_type_id ) ) {
 				// Load page types that don't have any real post type.
-				$this->page_type_id = str_replace( 'papi/', '', papi_get_qs( 'page' ) );
+				$this->page_type_id = str_replace(
+					'papi/',
+					'',
+					papi_get_qs( 'page' )
+				);
 			}
 		}
 
@@ -401,7 +450,7 @@ final class Papi_Admin {
 
 		$this->page_type = papi_get_page_type_by_id( $this->page_type_id );
 
-		// Do a last check so we can be sure that we have a page type object.
+		// Do a last check so we can be sure that we have a page type instance.
 		return $this->page_type instanceof Papi_Page_Type;
 	}
 
@@ -424,6 +473,7 @@ final class Papi_Admin {
 
 			$results[$index]['info'] = esc_html( $name );
 		}
+
 		return $results;
 	}
 }

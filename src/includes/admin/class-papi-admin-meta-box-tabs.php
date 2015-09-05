@@ -76,17 +76,16 @@ class Papi_Admin_Meta_Box_Tabs {
 					<div class="<?php echo $this->tabs[0] === $tab ? 'active' : ''; ?>"
 					     data-papi-tab="<?php echo $tab->options->_name; ?>">
 						<?php
+						$properties = papi_populate_properties( $tab->properties );
 
-							$properties = papi_populate_properties( $tab->properties );
+						$properties = array_map( function ( $property ) {
+							// While in a tab the sidebar is required.
+							$property->sidebar = true;
 
-							$properties = array_map( function ( $property ) {
-								// While in a tab the sidebar is required.
-								$property->sidebar = true;
+							return $property;
+						}, $properties );
 
-								return $property;
-							}, $properties );
-
-							papi_render_properties( $properties );
+						papi_render_properties( $properties );
 						?>
 					</div>
 				<?php

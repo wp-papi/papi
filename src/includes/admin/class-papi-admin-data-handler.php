@@ -117,10 +117,19 @@ class Papi_Admin_Data_Handler {
 
 			if ( papi_is_property( $property ) ) {
 				// Run `update_value` method on the property class.
-				$data[$key] = $property->update_value( $item['value'], papi_remove_papi( $key ), $post_id );
+				$data[$key] = $property->update_value(
+					$item['value'],
+					papi_remove_papi( $key ),
+					$post_id
+				);
 
 				// Apply `update_value` filter so this can be changed from the theme for specified property type.
-				$data[$key] = papi_filter_update_value( $item['type']->type, $data[$key], papi_remove_papi( $key ), $post_id );
+				$data[$key] = papi_filter_update_value(
+					$item['type']->type,
+					$data[$key],
+					papi_remove_papi( $key ),
+					$post_id
+				);
 			}
 		}
 

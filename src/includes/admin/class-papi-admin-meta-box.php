@@ -94,8 +94,9 @@ class Papi_Admin_Meta_Box {
 	 * @return string[]
 	 */
 	public function meta_box_css_classes( $classes ) {
-		$classes[] = 'papi-box';
-		return $classes;
+		return array_merge( $classes, [
+			'papi-box'
+		] );
 	}
 
 	/**
@@ -128,7 +129,10 @@ class Papi_Admin_Meta_Box {
 				return true;
 			}
 
-			return ! empty( $post_type ) && strtolower( $post_type ) === strtolower( papi_get_or_post( 'post_type' ) );
+			return ! empty( $post_type ) &&
+				strtolower( $post_type ) === strtolower(
+					papi_get_or_post( 'post_type' )
+				);
 		} );
 
 		if ( ! empty( $post_type ) ) {
@@ -147,7 +151,8 @@ class Papi_Admin_Meta_Box {
 		$this->properties = papi_populate_properties( $properties );
 
 		if ( ! empty( $this->properties ) ) {
-			$this->options->_tab_box = isset( $this->properties[0]->tab ) && $this->properties[0]->tab;
+			$this->options->_tab_box = isset( $this->properties[0]->tab ) &&
+				$this->properties[0]->tab;
 		}
 	}
 
@@ -180,8 +185,16 @@ class Papi_Admin_Meta_Box {
 			$this->setup_meta_box();
 		}
 
-		// Will be called on when you call do_meta_boxes even without a real post type.
-		add_action( 'postbox_classes_' . $this->options->_post_type . '_' . $this->options->_id, [$this, 'meta_box_css_classes'] );
+		// Will be called on when you call do_meta_boxes
+		// even without a real post type.
+		add_action(
+			sprintf(
+				'postbox_classes_%s_%s',
+				$this->options->_post_type,
+				$this->options->_id
+			),
+			[$this, 'meta_box_css_classes']
+		);
 	}
 
 	/**
@@ -191,7 +204,10 @@ class Papi_Admin_Meta_Box {
 		$this->options->title = papi_remove_papi( $this->options->title );
 
 		if ( $this->options->_required ) {
-			$this->options->title .= papi_required_html( $this->properties[0], true );
+			$this->options->title .= papi_required_html(
+				$this->properties[0],
+				true
+			);
 		}
 
 		add_meta_box(
@@ -215,8 +231,12 @@ class Papi_Admin_Meta_Box {
 		$options                   = array_merge( $this->default_options, $options );
 		$this->options             = (object) $options;
 		$this->options->title      = ucfirst( $this->options->title );
-		$this->options->slug       = papi_slugify( $this->options->title );
-		$this->options->_id        = $this->get_meta_box_id( $this->options->slug );
-		$this->options->_post_type = $this->populate_post_type( $this->options->_post_type );
+		$this->options->slug       = papi_slugify($this->options->title );
+		$this->options->_id        = $this->get_meta_box_id(
+			$this->options->slug
+		);
+		$this->options->_post_type = $this->populate_post_type(
+			$this->options->_post_type
+		);
 	}
 }

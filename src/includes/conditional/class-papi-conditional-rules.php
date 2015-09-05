@@ -55,9 +55,23 @@ class Papi_Conditional_Rules {
 			$property = $page_type->get_property( $rule->slug );
 
 			if ( papi_is_property( $property ) ) {
-				$prop_value = $property->format_value( $value, $property->slug, $post_id );
-				$prop_value = papi_filter_format_value( $property->type, $prop_value, $property->slug, $post_id );
-				$prop_value = $this->get_deep_value( $rule->slug, $prop_value );
+				$prop_value = $property->format_value(
+					$value,
+					$property->slug,
+					$post_id
+				);
+
+				$prop_value = papi_filter_format_value(
+					$property->type,
+					$prop_value,
+					$property->slug,
+					$post_id
+				);
+
+				$prop_value = $this->get_deep_value(
+					$rule->slug,
+					$prop_value
+				);
 
 				if ( gettype( $prop_value ) === gettype( $rule->value ) ) {
 					return $prop_value;
@@ -209,7 +223,8 @@ class Papi_Conditional_Rules {
 			return false;
 		}
 
-		return $this->convert_number( $value ) > $this->convert_number( $rule->value );
+		return $this->convert_number( $value ) >
+			$this->convert_number( $rule->value );
 	}
 
 	/**
@@ -230,7 +245,8 @@ class Papi_Conditional_Rules {
 			return false;
 		}
 
-		return $this->convert_number( $value ) >= $this->convert_number( $rule->value );
+		return $this->convert_number( $value ) >=
+			$this->convert_number( $rule->value );
 	}
 
 	/**
@@ -251,7 +267,8 @@ class Papi_Conditional_Rules {
 			return false;
 		}
 
-		return $this->convert_number( $value ) < $this->convert_number( $rule->value );
+		return $this->convert_number( $value ) <
+			$this->convert_number( $rule->value );
 	}
 
 	/**
@@ -272,7 +289,8 @@ class Papi_Conditional_Rules {
 			return false;
 		}
 
-		return $this->convert_number( $value ) <= $this->convert_number( $rule->value );
+		return $this->convert_number( $value ) <=
+			$this->convert_number( $rule->value );
 	}
 
 	/**
@@ -327,7 +345,10 @@ class Papi_Conditional_Rules {
 			return false;
 		}
 
-		return strpos( strtolower( $value ), strtolower( $rule->value ) ) !== false;
+		return strpos(
+			strtolower( $value ),
+			strtolower( $rule->value )
+		) !== false;
 	}
 
 	/**

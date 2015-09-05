@@ -63,7 +63,13 @@ class Papi_Option_Type extends Papi_Page_Type {
 				</div>
 				<div id="poststuff">
 					<div id="post-body">
-						<?php do_meta_boxes( $this->post_type[0], 'normal', null ); ?>
+						<?php
+						do_meta_boxes(
+							$this->post_type[0],
+							'normal',
+							null
+						);
+						?>
 						<?php submit_button(); ?>
 					</div>
 				</div>

@@ -197,10 +197,16 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		if ( $option_page ) {
 			$table = $wpdb->prefix . 'options';
-			$query = $wpdb->prepare( "SELECT * FROM `$table` WHERE `option_name` LIKE '%s' ORDER BY `option_id` ASC", $repeater_slug . '_%' );
+			$query = $wpdb->prepare(
+				"SELECT * FROM `$table` WHERE `option_name` LIKE '%s' ORDER BY `option_id` ASC",
+				$repeater_slug . '_%'
+			);
 		} else {
 			$table = $wpdb->prefix . 'postmeta';
-			$query = $wpdb->prepare( "SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%', $post_id );
+			$query = $wpdb->prepare(
+				"SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%',
+				$post_id
+			);
 		}
 
 		$dbresults = $wpdb->get_results( $query );
@@ -406,9 +412,12 @@ class Papi_Property_Repeater extends Papi_Property {
 		// Will not need this array.
 		unset( $trash );
 
-		$results   = papi_from_property_array_slugs( $results, papi_remove_papi( $repeater_slug ) );
-		$page = $this->get_page();
-		$types     = [];
+		$page    = $this->get_page();
+		$types   = [];
+		$results = papi_from_property_array_slugs(
+			$results,
+			papi_remove_papi( $repeater_slug )
+		);
 
 		if ( empty( $page ) || empty( $results ) ) {
 			return $this->default_value;
@@ -443,11 +452,15 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @return array
 	 */
 	protected function prepare_properties( $items ) {
-		$key   = isset( $this->layout_key ) && $this->layout_key === '_layout' ?  'flexible' : 'repeater';
+		$key   = isset( $this->layout_key ) &&
+			$this->layout_key === '_layout' ?  'flexible' : 'repeater';
 		$items = array_map( 'papi_get_property_options', $items );
 
 		$exclude_properties = $this->exclude_properties;
-		$exclude_properties = array_merge( $exclude_properties, apply_filters( 'papi/property/' . $key . '/exclude', [] ) );
+		$exclude_properties = array_merge(
+			$exclude_properties,
+			apply_filters( 'papi/property/' . $key . '/exclude', [] )
+		);
 
 		return array_filter( $items, function ( $item ) use ( $exclude_properties ) {
 
@@ -478,11 +491,22 @@ class Papi_Property_Repeater extends Papi_Property {
 		if ( $option_page ) {
 			$table = $wpdb->prefix . 'options';
 			$sql   = "SELECT * FROM $table WHERE (`option_name` LIKE %s OR `option_name` LIKE %s AND NOT `option_name` = %s)";
-			$query = $wpdb->prepare( $sql, $repeater_slug, papi_f( $repeater_slug ), papi_get_property_type_key_f( $repeater_slug ) );
+			$query = $wpdb->prepare(
+				$sql,
+				$repeater_slug,
+				papi_f( $repeater_slug ),
+				papi_get_property_type_key_f( $repeater_slug )
+			);
 		} else {
 			$table = $wpdb->prefix . 'postmeta';
 			$sql   = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
-			$query = $wpdb->prepare( $sql, $post_id, $repeater_slug, papi_f( $repeater_slug ), papi_get_property_type_key_f( $repeater_slug ) );
+			$query = $wpdb->prepare(
+				$sql,
+				$post_id,
+				$repeater_slug,
+				papi_f( $repeater_slug ),
+				papi_get_property_type_key_f( $repeater_slug )
+			);
 		}
 
 		$results = $wpdb->get_results( $query );
@@ -527,11 +551,12 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 			$options->settings->items[$key] = clone $value->get_options();
 		}
-		?>
-		<script type="application/json" data-papi-json="<?php echo $slug; ?>_repeater_json">
-			<?php echo json_encode( [$options] ); ?>
-		</script>
-		<?php
+
+		papi_render_html_tag( 'script', [
+			'data-papi-json' => sprintf( '%s_repeater_json', $slug ),
+			'type'           => 'application/json',
+			json_encode( [$options] )
+		] );
 	}
 
 	/**
@@ -568,8 +593,8 @@ class Papi_Property_Repeater extends Papi_Property {
 				}
 			}
 
-			$render_property->slug  = $this->html_name( $property, $this->counter );
-			$render_property->raw   = $layout === 'table';
+			$render_property->slug = $this->html_name( $property, $this->counter );
+			$render_property->raw  = $layout === 'table';
 
 			if ( $layout === 'table' ) {
 				echo '<td class="repeater-column">';
@@ -726,7 +751,10 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param int    $post_id
 	 */
 	public function update_value( $values, $repeater_slug, $post_id ) {
-		$rows = intval( papi_get_property_meta_value( $post_id, $repeater_slug ) );
+		$rows = intval( papi_get_property_meta_value(
+			$post_id,
+			$repeater_slug
+		) );
 
 		if ( ! is_array( $values ) ) {
 			$values = [];
@@ -763,10 +791,19 @@ class Papi_Property_Repeater extends Papi_Property {
 			$value = maybe_unserialize( $value );
 
 			// Run update value on each property type class.
-			$value = $property_type->update_value( $value, $property_slug, $post_id );
+			$value = $property_type->update_value(
+				$value,
+				$property_slug,
+				$post_id
+			);
 
 			// Run update value on each property type filter.
-			$values[$slug] = papi_filter_update_value( $property_type_value, $value, $property_slug, $post_id );
+			$values[$slug] = papi_filter_update_value(
+				$property_type_value,
+				$value,
+				$property_slug,
+				$post_id
+			);
 
 			if ( is_array( $values[$slug] ) ) {
 				foreach ( $values[$slug] as $key => $val ) {
@@ -785,7 +822,10 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 		}
 
-		$trash  = array_diff( array_keys( papi_to_array( $results ) ), array_keys( papi_to_array( $values ) ) );
+		$trash = array_diff(
+			array_keys( papi_to_array( $results ) ),
+			array_keys( papi_to_array( $values ) )
+		);
 
 		// Delete trash values.
 		foreach ( $trash as $trash_key => $trash_value ) {

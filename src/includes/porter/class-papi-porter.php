@@ -322,13 +322,18 @@ final class Papi_Porter extends Papi_Container {
 	 */
 	public function use_driver( $driver ) {
 		if ( ! is_string( $driver ) ) {
-			throw new InvalidArgumentException( 'Invalid argument. Must be string.' );
+			throw new InvalidArgumentException(
+				'Invalid argument. Must be string.'
+			);
 		}
 
 		$driver = strtolower( $driver );
 
 		if ( ! $this->exists( 'driver.' . $driver ) ) {
-			throw new Exception( sprintf( '`%s` driver does not exist.', $driver ) );
+			throw new Exception( sprintf(
+				'`%s` driver does not exist.',
+				$driver
+			) );
 		}
 
 		$class = $this->make( 'driver.' . $driver );

@@ -42,7 +42,10 @@ class Papi_Container implements ArrayAccess {
 	 */
 	public function bind( $id, $value = null, $singleton = false ) {
 		if ( is_string( $id ) && $this->is_singleton( $id ) ) {
-			throw new Exception( sprintf( 'Identifier `%s` is a singleton and cannot be rebind', $id ) );
+			throw new Exception( sprintf(
+				'Identifier `%s` is a singleton and cannot be rebind',
+				$id
+			) );
 		}
 
 		if ( is_object( $id ) && get_class( $id ) !== false ) {
@@ -101,7 +104,10 @@ class Papi_Container implements ArrayAccess {
 				$parameters = array_merge( $parameters, $params );
 			}
 
-			return $this->call_closure( call_user_func_array( $closure, $parameters ), $parameters );
+			return $this->call_closure(
+				call_user_func_array( $closure, $parameters ),
+				$parameters
+			);
 		}
 
 		return $closure;
@@ -185,7 +191,10 @@ class Papi_Container implements ArrayAccess {
 	 */
 	public function make( $id, array $parameters = [] ) {
 		if ( ! $this->exists( $id ) ) {
-			throw new InvalidArgumentException( sprintf( 'Identifier `%s` is not defined', $id ) );
+			throw new InvalidArgumentException( sprintf(
+				'Identifier `%s` is not defined',
+				$id
+			) );
 		}
 
 		$id      = $this->get_class_prefix( $id );

@@ -90,7 +90,12 @@ abstract class Papi_Porter_Driver {
 			$filter = '';
 		}
 
-		return sprintf( 'papi/porter/driver/%s/%s/%s', $this->name, $type, $filter );
+		return sprintf(
+			'papi/porter/driver/%s/%s/%s',
+			$this->name,
+			$type,
+			$filter
+		);
 	}
 
 	/**
@@ -141,7 +146,9 @@ abstract class Papi_Porter_Driver {
 	 */
 	protected function set_driver_name( $name ) {
 		if ( empty( $name ) || ! is_string( $name ) ) {
-			throw new InvalidArgumentException( 'Driver name is empty or not a string.' );
+			throw new InvalidArgumentException(
+				'Driver name is empty or not a string.'
+			);
 		}
 
 		$name = strtolower( $name );
