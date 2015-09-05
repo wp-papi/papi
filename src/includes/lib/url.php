@@ -97,7 +97,7 @@ function papi_get_page_query_strings( $first_char = '&', $exclude = [] ) {
  */
 function papi_append_post_type_query( $url, $post_type_arg = null ) {
 	if ( strpos( $url, 'post_type=' ) !== false ) {
-		return $url;
+		return preg_replace( '/&%.+/', '', $url );
 	}
 
 	$post_id = papi_get_post_id();

@@ -178,7 +178,7 @@ final class Papi_Admin {
 		$request_uri = $_SERVER['REQUEST_URI'];
 		$post_types = papi_get_post_types();
 
-		if ( in_array( $this->post_type, $post_types ) && strpos( $request_uri, 'page_type=' ) === false && strpos( $request_uri, 'papi-bypass=true' ) === false ) {
+		if ( in_array( $this->post_type, $post_types ) && strpos( $request_uri, 'page_type=' ) === false ) {
 			$parsed_url = parse_url( $request_uri );
 
 			$only_page_type = papi_filter_settings_only_page_type( $this->post_type );

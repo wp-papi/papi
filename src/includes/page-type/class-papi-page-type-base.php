@@ -43,7 +43,7 @@ class Papi_Page_Type_Base {
 	 *
 	 * @var string
 	 */
-	private $id = '';
+	public $id = '';
 
 	/**
 	 * The constructor.
