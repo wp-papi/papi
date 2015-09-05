@@ -24,8 +24,7 @@ class Papi_Admin_View {
 	 */
 	public function __construct( $path = '' ) {
 		$this->path = empty( $path ) ?
-			PAPI_PLUGIN_DIR . 'includes/admin/views/' :
-			$path;
+			PAPI_PLUGIN_DIR . 'includes/admin/views/' : $path;
 	}
 
 	/**
