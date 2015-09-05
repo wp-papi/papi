@@ -130,10 +130,8 @@ class Papi_Page_Type_Base {
 	 * @param string $file_path
 	 */
 	private function setup_file( $file_path ) {
-		$this->_file_path = $file_path;
-		$this->_file_name = papi_get_page_type_base_path( $this->_file_path );
-
-		// Get the class name of the file.
+		$this->_file_path  = $file_path;
+		$this->_file_name  = papi_get_page_type_base_path( $this->_file_path );
 		$this->_class_name = papi_get_class_name( $this->_file_path );
 	}
 
