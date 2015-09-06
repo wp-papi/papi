@@ -29,7 +29,7 @@
 		<?php
 		$page_types = papi_get_all_page_types( true );
 		foreach ( $page_types as $key => $page_type ) {
-			if ( ! method_exists( $page_type, 'get_boxes' ) ) {
+			if ( ! papi_is_page_type( $page_type ) ) {
 				continue;
 			}
 			?>
