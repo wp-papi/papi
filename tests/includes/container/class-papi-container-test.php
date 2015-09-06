@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-class Papi_Container_Test extends WP_UnitTestCase {
+class Container_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -52,8 +52,11 @@ class Papi_Container_Test extends WP_UnitTestCase {
 		} );
 		$this->assertEquals( 123, $this->container->make( 'num2' ) );
 		$this->assertEquals( 124, $this->container->make( 'num3', [1] ) );
-		$this->container->bind( new Container_Test_Stub );
-		$this->container->bind( 'test-class', function ( Container_Test_Stub $test ) {
+
+		require_once PAPI_FIXTURE_DIR . '/container/class-container-test-stub.php';
+
+		$this->container->bind( new \Papi\Tests\Fixtures\Container\Container_Test_Stub );
+		$this->container->bind( 'test-class', function ( \Papi\Tests\Fixtures\Container\Container_Test_Stub $test ) {
 			return $test->value();
 		} );
 		$this->assertEquals( 'Test class', $this->container->make( 'test-class' ) );
@@ -115,11 +118,5 @@ class Papi_Container_Test extends WP_UnitTestCase {
 		$this->container['plugin'] = 'Papi';
 		unset( $this->container['plugin'] );
 		$this->assertFalse( isset( $this->container['plugin'] ) );
-	}
-}
-
-class Container_Test_Stub {
-	public function value() {
-		return 'Test class';
 	}
 }
