@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import Utils from 'papi/utils';
+import Utils from 'utils';
 
 class Rules {
 

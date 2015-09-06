@@ -4,6 +4,7 @@
  * Autoprefixer, Sass, Uglify, Header, Cssmin etc
  */
 
+import del from 'del';
 import gulp from 'gulp';
 import sass from 'gulp-sass';
 import sourcemaps from 'gulp-sourcemaps';
@@ -15,10 +16,11 @@ import autoprefixer from 'gulp-autoprefixer';
 import eslint from 'gulp-eslint';
 import phpcs from 'gulp-phpcs';
 import phpcd from 'gulp-phpcpd';
-// import source from 'vinyl-source-stream';
-// import buffer from 'vinyl-buffer';
-// import merge from 'merge-stream';
+import plumber from 'gulp-plumber';
 import pkg from './package.json';
+import runSequence from 'run-sequence';
+import webpack from 'webpack-stream';
+import webpackconfig from './webpack.config.js';
 
 /**
  * Config.
@@ -65,6 +67,15 @@ const banner = [
   ' */',
   '\n'
 ].join('');
+
+/**
+ * Clean task for [./dist/css, ./dist/js]
+ */
+gulp.task('clean:before', cb => del([ `${dist}js/`, `${dist}css/` ], {
+  read: false,
+  dot: true,
+  force: true
+}, cb));
 
 /**
  * Lint task using ESLint.
@@ -114,21 +125,36 @@ gulp.task('sass', () => {
 });
 
 /**
+ * Webpack
+ */
+gulp.task('webpack', () => {
+  gulp.src([config.scripts.entry])
+    .pipe(plumber())
+    .pipe(webpack(webpackconfig))
+    .pipe(header(banner, {
+      package: pkg
+    }))
+    .pipe(gulp.dest(`${dist}js`));
+});
+
+/**
  * Watch task.
  */
 gulp.task('watch', () => {
   gulp.watch(config.sass.src, ['sass']);
-  gulp.watch(config.scripts.src, ['scripts']);
+  gulp.watch(config.scripts.lint, ['webpack']);
+});
+
+/**
+ * Default task.
+ */
+gulp.task('default', ['clean:before'], cb => {
+  runSequence('sass', 'webpack', 'watch', cb);
 });
 
 /**
  * Build task.
  */
-gulp.task('build', () => {
-  gulp.start('sass', 'scripts');
+gulp.task('build', ['clean:before'], cb => {
+  runSequence('sass', 'webpack', cb);
 });
-
-/**
- * Keep on kicking ass Fredik! ;)
- * – The Crip
- */
