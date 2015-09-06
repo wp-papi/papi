@@ -1,4 +1,5 @@
-import $ from 'jquery';
+import $ from 'jquery/jquery.js';
+
 import Utils from 'papi/utils';
 
 /**
