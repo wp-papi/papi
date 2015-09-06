@@ -5,7 +5,10 @@
   "description": "Page Type API with custom fields",
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
   "contributors": [
-    { "name": "Johnie Hjelm", "email": "johnie@hjelm.im" }
+    {
+      "name": "Johnie Hjelm",
+      "email": "johnie@hjelm.im"
+    }
   ],
   "license": "MIT",
   "devDependencies": {
