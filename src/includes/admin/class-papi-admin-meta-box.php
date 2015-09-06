@@ -231,7 +231,7 @@ class Papi_Admin_Meta_Box {
 		$options                   = array_merge( $this->default_options, $options );
 		$this->options             = (object) $options;
 		$this->options->title      = ucfirst( $this->options->title );
-		$this->options->slug       = papi_slugify($this->options->title );
+		$this->options->slug       = papi_slugify( $this->options->title );
 		$this->options->_id        = $this->get_meta_box_id(
 			$this->options->slug
 		);
