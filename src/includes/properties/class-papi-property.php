@@ -202,7 +202,11 @@ class Papi_Property extends Papi_Core_Property {
 		$rules_class   = papi_is_empty( $this->get_rules() ) ? '' : ' papi-rules-exists';
 		$css_class     = trim( $display_class . $rules_class );
 
-		if ( ! $this->get_option( 'raw' ) ):
+		if ( $this->get_option( 'raw' ) ) {
+			echo sprintf( '<div class="%s">', $css_class );
+			$this->render_property_html();
+			echo '</div>';
+		} else {
 			?>
 			<tr class="<?php echo $css_class; ?>">
 				<?php if ( $this->get_option( 'sidebar' ) ): ?>
@@ -217,12 +221,8 @@ class Papi_Property extends Papi_Core_Property {
 					<?php $this->render_property_html(); ?>
 				</td>
 			</tr>
-		<?php
-		else:
-			echo sprintf( '<div class="%s">', $css_class );
-			$this->render_property_html();
-			echo '</div>';
-		endif;
+			<?php
+		}
 	}
 
 	/**
