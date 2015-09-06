@@ -101,6 +101,8 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Get property html via GET.
+	 *
+	 * GET /papi-ajax/?action=get_property
 	 */
 	public function get_property() {
 		$default_options = Papi_Property::default_options();
@@ -124,6 +126,8 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Get properties via POST.
+	 *
+	 * POST /papi-ajax/?action=get_properties
 	 */
 	public function get_properties() {
 		if ( ! isset( $_POST['properties'] ) ) {
@@ -169,6 +173,8 @@ class Papi_Admin_Ajax {
 
 	/**
 	 * Get rules result via GET.
+	 *
+	 * GET /papi-ajax/?action=get_rules_result
 	 */
 	public function get_rules_result() {
 		if ( ! isset( $_POST['data'] ) ) {
