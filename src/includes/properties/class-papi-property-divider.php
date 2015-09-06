@@ -30,17 +30,17 @@ class Papi_Property_Divider extends Papi_Property {
 	/**
 	 * Render the final html that is displayed in the table.
 	 */
-	public function render_row_html() {
+	protected function render_row_html() {
 		if ( $this->get_option( 'raw' ) ) {
 			parent::render_row_html();
 		} else {
-			papi_render_html_tag( 'tr', [
-				'class' => $this->display ? '' : 'papi-hide',
-				papi_html_tag( 'td', [
-					'colspan' => 2,
-					$this->render_property_html()
-				] )
-			] );
+			?>
+			<tr class="<?php echo $this->display ? '' : 'papi-hide'; ?>">
+				<td colspan="2">
+					<?php $this->render_property_html(); ?>
+				</td>
+			</tr>
+			<?php
 		}
 	}
 }

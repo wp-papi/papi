@@ -122,7 +122,7 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Render the property description.
 	 */
-	private function render_description_html() {
+	protected function render_description_html() {
 		if ( papi_is_empty( $this->get_option( 'description' ) ) ) {
 			return;
 		}
@@ -135,7 +135,7 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Output hidden input field that cointains which property is used.
 	 */
-	private function render_hidden_html() {
+	protected function render_hidden_html() {
 		$slug = $this->get_option( 'slug' );
 
 		if ( substr( $slug, - 1 ) === ']' ) {
@@ -162,7 +162,7 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Get label for the property.
 	 */
-	private function render_label_html() {
+	protected function render_label_html() {
 		$title = $this->get_option( 'title' );
 
 		papi_render_html_tag( 'label', [
@@ -178,7 +178,7 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Render property html.
 	 */
-	private function render_property_html() {
+	protected function render_property_html() {
 		papi_render_html_tag( 'div', [
 			'class'         => 'papi-before-html',
 			'data-property' => $this->get_option( 'type' ),
@@ -197,7 +197,7 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Render the final html that is displayed in the table.
 	 */
-	private function render_row_html() {
+	protected function render_row_html() {
 		$display_class = $this->display ? '' : ' papi-hide';
 		$rules_class   = papi_is_empty( $this->get_rules() ) ? '' : ' papi-rules-exists';
 		$css_class     = trim( $display_class . $rules_class );
@@ -228,7 +228,7 @@ class Papi_Property extends Papi_Core_Property {
 	/**
 	 * Render Conditional rules as script tag with JSON.
 	 */
-	private function render_rules_json() {
+	protected function render_rules_json() {
 		$rules = $this->get_rules();
 
 		if ( empty( $rules ) ) {
