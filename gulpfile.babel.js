@@ -23,9 +23,9 @@ import pkg from './package.json';
 /**
  * Config.
  */
+const dist   = './dist/';
 const src    = './src/';
 const assets = src + 'assets/';
-const dist   = './dist/';
 const config = {
   php: {
     src: src + '/**/*.php'
