@@ -1,6 +1,6 @@
 import $ from 'jquery/jquery.js';
 
-import Utils from 'utils';
+import Utils from 'papi/utils';
 
 class Rules {
 
