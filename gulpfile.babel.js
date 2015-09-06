@@ -14,7 +14,7 @@ import header from 'gulp-header';
 import autoprefixer from 'gulp-autoprefixer';
 import eslint from 'gulp-eslint';
 import phpcs from 'gulp-phpcs';
-import phpcd from 'gulp-phpcpd';
+import phpcpd from 'gulp-phpcpd';
 // import source from 'vinyl-source-stream';
 // import buffer from 'vinyl-buffer';
 // import merge from 'merge-stream';
@@ -93,7 +93,9 @@ gulp.task('phpcs', () => {
  */
 gulp.task('phpcpd', () => {
   gulp.src(config.php.src)
-    .pipe(phpcpd());
+    .pipe(phpcpd({
+      bin: 'vendor/bin/phpcpd'
+    }));
 });
 
 /**

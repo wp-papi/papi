@@ -26,7 +26,8 @@
   },
   "require-dev": {
     "frozzare/wp-test-suite": "~1.0",
-    "wp-coding-standards/wpcs": "dev-develop"
+    "wp-coding-standards/wpcs": "dev-develop",
+    "sebastian/phpcpd": "~2.0@dev"
   },
   "scripts": {
     "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs",
