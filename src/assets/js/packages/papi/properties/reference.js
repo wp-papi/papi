@@ -1,16 +1,13 @@
-import $ from 'jquery/jquery.js';
-
+import $ from 'jquery/jquery';
 
 /**
  * Property Reference.
  */
-
 class Reference {
 
   /**
    * Initialize Property Reference.
    */
-
   static init() {
     new Reference().binds();
   }
@@ -18,7 +15,6 @@ class Reference {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     $(document).on('click', '.papi-property-reference .handlediv', this.toggle);
   }
@@ -28,7 +24,6 @@ class Reference {
    *
    * @parma {object} e
    */
-
   toggle(e) {
     e.preventDefault();
 

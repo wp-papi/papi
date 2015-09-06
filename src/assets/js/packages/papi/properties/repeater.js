@@ -1,10 +1,8 @@
-import $ from 'jquery/jquery.js';
-
+import $ from 'jquery/jquery';
 
 /**
  * Property Repeater.
  */
-
 class Repeater {
 
   /**
@@ -12,7 +10,6 @@ class Repeater {
    *
    * @var {function}
    */
-
   get template() {
     return window.wp.template('papi-property-repeater-row');
   }
@@ -20,7 +17,6 @@ class Repeater {
   /**
    * Initialize Property Repeater.
    */
-
   static init() {
     new Repeater().binds();
   }
@@ -31,7 +27,6 @@ class Repeater {
    *
    * @param {object} $this
    */
-
   add($this) {
     const $repeater = $this.closest('.papi-property-repeater-top');
     const $tbody    = $repeater.find('.repeater-tbody');
@@ -59,7 +54,6 @@ class Repeater {
    * @param {int} counter
    * @param {array} items
    */
-
   addRow($tbody, counter, res) {
     let columns = [];
 
@@ -87,7 +81,6 @@ class Repeater {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     const self = this;
 
@@ -130,7 +123,6 @@ class Repeater {
    * @param {int} counter
    * @param {function} callback
    */
-
   fetch(properties, counter, callback) {
     $.ajax({
       type:     'POST',
@@ -149,7 +141,6 @@ class Repeater {
    *
    * @return {string}
    */
-
   getJSON($this) {
     return $('script[data-papi-json="' + $this.data().papiJson + '"]').first().text();
   }
@@ -161,7 +152,6 @@ class Repeater {
    *
    * @return {object}
    */
-
   getHtml(data) {
     let template = this.template;
     template = window._.template($.trim(template()));
@@ -173,7 +163,6 @@ class Repeater {
    *
    * @param {object} e
    */
-
   remove($this) {
     const $tbody = $this.closest('.papi-property-repeater-top').find('.repeater-tbody');
     $this.closest('tr').remove();
@@ -185,7 +174,6 @@ class Repeater {
    *
    * @param {object} $tbody
    */
-
   scrollDownTable($tbody) {
     const $tr = $('> tr:last', $tbody);
     $('html, body').animate({
@@ -198,7 +186,6 @@ class Repeater {
    *
    * @param {object} $this
    */
-
   toggle($this) {
     $this.closest('tr').toggleClass('closed');
   }
@@ -208,7 +195,6 @@ class Repeater {
    *
    * @param {object} $prop
    */
-
   triggerRule($tbody, counter) {
     const $top  = $tbody.closest('.papi-property-repeater-top');
     let name    = $top.find('.bottom').next().attr('name').replace('[]', '');
@@ -220,7 +206,6 @@ class Repeater {
    *
    * @param {object} $tbody
    */
-
   updateRowNumber($tbody) {
     $tbody.find('> tr').each((i, el) => {
       let $el = $(el);
@@ -246,7 +231,6 @@ class Repeater {
    *
    * @param {object} $el
    */
-
   updateDatabaseRowNumber($tbody) {
     let counter = $tbody.find('tr').length;
 

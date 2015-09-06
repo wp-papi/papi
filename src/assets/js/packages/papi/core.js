@@ -1,11 +1,10 @@
-import $ from 'jquery/jquery.js';
+import $ from 'jquery/jquery';
 
 class Core {
 
   /**
    * Initialize Papi core class.
    */
-
   static init() {
     const core = new Core();
 
@@ -18,7 +17,6 @@ class Core {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     $('.papi-box-list > li > p').on('click', this.redirect);
     $('input[name="add-new-page-search"]').on('keyup', this.search);
@@ -33,7 +31,6 @@ class Core {
   /**
    * Add current class to menu item.
    */
-
   addCurrentClassToMenuItem() {
     let $submenu = $('.wp-has-current-submenu .wp-submenu');
     let $menuitem = $submenu.find('a[href*="papi-add-new-page"]').parent();
@@ -49,7 +46,6 @@ class Core {
    *
    * @param {object} e
    */
-
   redirect(e) {
     e.preventDefault();
     let $this    = $(this);
@@ -67,7 +63,6 @@ class Core {
    *
    * @param {object} e
    */
-
   search(e) {
     e.preventDefault();
 
@@ -84,7 +79,6 @@ class Core {
   /**
    * Set equal height on page type boxes.
    */
-
   setEqualBoxHeights() {
     let $boxItems  = $('.papi-box-item');
     let thumbnails = $boxItems.find('.papi-post-type-screenshot').length > 0;
@@ -130,7 +124,6 @@ class Core {
   /**
    * Set selected menu item if it isn't selected.
    */
-
   setSelectedMenuItem() {
     let href = typeof window.location === 'string' ? window.location : window.location.href;
     let $adminmenu = $('#adminmenu');

@@ -1,5 +1,4 @@
-import $ from 'jquery/jquery.js';
-
+import $ from 'jquery/jquery';
 import Utils from 'papi/utils';
 
 /**
@@ -7,7 +6,6 @@ import Utils from 'papi/utils';
  *
  * Using the build in media management in WordPress.
  */
-
 class File {
 
   /**
@@ -15,7 +13,6 @@ class File {
    *
    * @return {function}
    */
-
   get template() {
     return window.wp.template('papi-property-file');
   }
@@ -23,7 +20,6 @@ class File {
   /**
    * Initialize Property Image.
    */
-
   static init() {
     new File().binds();
   }
@@ -31,7 +27,6 @@ class File {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     $('.inside .papi-table > tbody .papi-property-file.multiple .attachments').sortable({
       revert: true
@@ -54,7 +49,6 @@ class File {
    *
    * @param {object} e
    */
-
   add($this) {
     const $prop    = $this.closest('.papi-property-file');
     const $select  = $this.closest('p');
@@ -105,7 +99,6 @@ class File {
    *
    * @param {object} e
    */
-
   hover(e) {
     e.preventDefault();
 
@@ -117,7 +110,6 @@ class File {
    *
    * @param {object} e
    */
-
   remove(e) {
     e.stopPropagation();
     e.preventDefault();
@@ -144,7 +136,6 @@ class File {
    * @param {object} $el
    * @param {object} data
    */
-
   render($el, data) {
     let template = this.template;
     template = window._.template($.trim(template()));
@@ -159,7 +150,6 @@ class File {
    *
    * @param {object} e
    */
-
   replace(e) {
     e.preventDefault();
 
@@ -209,7 +199,6 @@ class File {
   /**
    * Update when added to repeater.
    */
-
   update(e) {
     e.preventDefault();
 

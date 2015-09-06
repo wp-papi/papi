@@ -1,27 +1,26 @@
 // Papi core
-import Core from 'papi/core.js';
-import Required from 'papi/required.js';
-import Rules from 'papi/rules.js';
-import Tabs from 'papi/tabs.js';
+import Core from 'papi/core';
+import Required from 'papi/required';
+import Rules from 'papi/rules';
+import Tabs from 'papi/tabs';
 
 // Properties
-import Color from 'papi/properties/color.js';
-import Datetime from 'papi/properties/datetime.js';
-import Dropdown from 'papi/properties/dropdown.js';
-import Editor from 'papi/properties/editor.js';
-import File from 'papi/properties/File.js';
-import Flexible from 'papi/properties/flexible.js';
-import Link from 'papi/properties/link.js';
-import Post from 'papi/properties/post.js';
-import Reference from 'papi/properties/post.js';
-import Relationship from 'papi/properties/relationship.js';
-import Repeater from 'papi/properties/repeater.js';
-import Url from 'papi/properties/url.js';
+import Color from 'papi/properties/color';
+import Datetime from 'papi/properties/datetime';
+import Dropdown from 'papi/properties/dropdown';
+import Editor from 'papi/properties/editor';
+import File from 'papi/properties/File';
+import Flexible from 'papi/properties/flexible';
+import Link from 'papi/properties/link';
+import Post from 'papi/properties/post';
+import Reference from 'papi/properties/post';
+import Relationship from 'papi/properties/relationship';
+import Repeater from 'papi/properties/repeater';
+import Url from 'papi/properties/url';
 
 /**
  * Initialize all imported classes.
  */
-
 export function init() {
   // Papi core
   Core.init();

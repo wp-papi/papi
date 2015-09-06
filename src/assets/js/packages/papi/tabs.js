@@ -1,12 +1,10 @@
-import $ from 'jquery/jquery.js';
-
+import $ from 'jquery/jquery';
 
 class Tabs {
 
   /**
    * Initialize Papi tabs class.
    */
-
   static init() {
     new Tabs().binds();
   }
@@ -14,7 +12,6 @@ class Tabs {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     $('a[data-papi-tab]').on('click', this.changeTab);
   }
@@ -24,7 +21,6 @@ class Tabs {
    *
    * @param {object} e
    */
-
   changeTab(e) {
     e.preventDefault();
 

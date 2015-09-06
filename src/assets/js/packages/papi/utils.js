@@ -5,7 +5,6 @@ class Utils {
   /**
    * Initialize Papi core class.
    */
-
   static init() {
     new Utils().binds();
   }
@@ -17,7 +16,6 @@ class Utils {
    *
    * @return {mixed}
    */
-
   static getParameterByName(name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
@@ -30,7 +28,6 @@ class Utils {
    *
    * @param {object} options
    */
-
   static wpMediaEditor(options) {
     if (Utils.wpMediaFrame !== undefined) {
       Utils.wpMediaFrame.dispose();
@@ -56,7 +53,6 @@ class Utils {
    *
    * @return {object}
    */
-
   static get wpMediaFrame() {
     return this._wpMediaFrame;
   }
@@ -66,7 +62,6 @@ class Utils {
    *
    * @param {object} obj
    */
-
   static set wpMediaFrame(obj) {
     this._wpMediaFrame = obj;
   }

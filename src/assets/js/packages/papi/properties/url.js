@@ -1,17 +1,14 @@
-import $ from 'jquery/jquery.js';
-
+import $ from 'jquery/jquery';
 import Utils from 'papi/utils';
 
 /**
  * Property Url.
  */
-
 class Url {
 
   /**
    * Initialize Property Url.
    */
-
   static init() {
     new Url().binds();
   }
@@ -21,7 +18,6 @@ class Url {
    *
    * @param {object} e
    */
-
   add(e) {
     e.preventDefault();
 
@@ -35,7 +31,6 @@ class Url {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     $(document).on('click', '.papi-url-media-button', this.add);
   }
