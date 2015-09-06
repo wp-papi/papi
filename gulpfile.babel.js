@@ -18,6 +18,9 @@ import phpcs from 'gulp-phpcs';
 import phpcd from 'gulp-phpcpd';
 import plumber from 'gulp-plumber';
 import pkg from './package.json';
+import merge from 'merge-stream';
+import buffer from 'vinyl-buffer';
+import source from 'vinyl-source-stream';
 import runSequence from 'run-sequence';
 import webpack from 'webpack-stream';
 import webpackconfig from './webpack.config.js';
@@ -48,8 +51,12 @@ const config = {
     src: assets + 'scss/**/*.scss'
   },
   scripts: {
+    components: [
+      src + 'js/components/*.js'
+    ],
     entry: assets + 'js/main.js',
-    lint: assets + 'js/**/*.js'
+    dist: dist + 'js/main.min.js',
+    lint: assets + 'js/**/*.js',
   }
 };
 
@@ -130,13 +137,21 @@ gulp.task('sass', () => {
  * Webpack
  */
 gulp.task('webpack', () => {
-  gulp.src([config.scripts.entry])
+  const papi = gulp.src([config.scripts.entry])
     .pipe(plumber())
     .pipe(webpack(webpackconfig))
     .pipe(header(banner, {
       package: pkg
     }))
-    .pipe(gulp.dest(`${dist}js`));
+    .bundle()
+    .pipe(source('main.min.js'))
+    .pipe(buffer());
+
+  const components = gulp.src(config.scripts.components);
+
+  return merge(components, papi)
+    .pipe(concat('main.min.js'))
+    .pipe(gulp.dest(config.scripts.dist));
 });
 
 /**
