@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $ from 'jquery/jquery';
 import Utils from 'papi/utils';
 
 /**
@@ -6,7 +6,6 @@ import Utils from 'papi/utils';
  *
  * Using the build in link manager in WordPress.
  */
-
 class Link {
 
   /**
@@ -14,7 +13,6 @@ class Link {
    *
    * @return {function}
    */
-
   get template() {
     return window.wp.template('papi-property-link');
   }
@@ -22,7 +20,6 @@ class Link {
   /**
    * Initialize Property Link.
    */
-
   static init() {
     new Link().binds();
   }
@@ -30,7 +27,6 @@ class Link {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     const self = this;
     $(document).on('click', '.papi-property-link button[data-link-action="add"]', function (e) {
@@ -61,7 +57,6 @@ class Link {
    *
    * @param {object} $this
    */
-
   add($this) {
     this.$el = $this.closest('.papi-property-link');
     this.$p  = this.$el.find('p');
@@ -81,7 +76,6 @@ class Link {
    *
    * @param {object} $this
    */
-
   edit($this) {
     this.$el = $this.closest('.papi-property-link');
     this.$p  = this.$el.find('p');
@@ -104,7 +98,6 @@ class Link {
    *
    * @param {object} $this
    */
-
   remove($this) {
     const $prop = $this.closest('.papi-property-link');
     $prop.find('.link-table').remove();
@@ -124,7 +117,6 @@ class Link {
    *
    * @param {object} data
    */
-
   render(data) {
     let template = this.template;
     template = window._.template($.trim(template()));

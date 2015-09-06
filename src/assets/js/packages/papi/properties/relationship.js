@@ -1,9 +1,8 @@
-import $ from 'jquery';
+import $ from 'jquery/jquery';
 
 /**
  * Property Relationship.
  */
-
 class Relationship {
 
   /**
@@ -13,13 +12,11 @@ class Relationship {
   static init() {
     new Relationship().binds();
   }
-
   /**
    * Add new page to the list.
    *
    * @param {object} $this
    */
-
   add($this) {
     const $li    = $this.clone();
     const $prop  = $this.closest('.papi-property-relationship');
@@ -40,7 +37,6 @@ class Relationship {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     const self = this;
     $('.relationship-right > ul').sortable({
@@ -69,7 +65,6 @@ class Relationship {
    *
    * @param {object} $this
    */
-
   remove($this) {
     const $prop = $this.closest('.papi-property-relationship');
     $this.remove();
@@ -81,7 +76,6 @@ class Relationship {
    *
    * @param {object} e
    */
-
   search(e) {
     e.preventDefault();
 
@@ -104,10 +98,7 @@ class Relationship {
    *
    * @param {object} $prop
    */
-
   triggerRule($prop) {
-    let $list = $prop.find('.relationship-right ul');
-
     $prop
       .find('[data-papi-rule]')
       .trigger('change');
@@ -118,7 +109,6 @@ class Relationship {
    *
    * @param {object} e
    */
-
   update(e) {
     e.preventDefault();
 

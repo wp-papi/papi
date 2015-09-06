@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $ from 'jquery/jquery';
 import Utils from 'papi/utils';
 
 class Rules {
@@ -6,7 +6,6 @@ class Rules {
   /**
    * Initialize Papi rules class.
    */
-
   static init() {
     new Rules().binds();
   }
@@ -17,7 +16,6 @@ class Rules {
    * @param {string} slug
    * @param {object} rule
    */
-
   bindRule(slug, rule) {
     const ruleSlug  = this.getRuleSlug(slug, rule);
     const $target   = this.getTarget(slug);
@@ -25,9 +23,7 @@ class Rules {
     const self      = this;
 
     $('body').on('keyup change', selector, function(e) {
-      let $this    = $(this);
       const source = $('[data-papi-rule-source-slug="' + slug + '"]').text();
-      let val      = self.getValue(rule.slug);
       let values   = {};
 
       if (!source.length) {
@@ -70,7 +66,6 @@ class Rules {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     const self = this;
     $('body').on('init', '[data-papi-rules="true"]', function() {
@@ -89,7 +84,6 @@ class Rules {
    * @param {int} wait
    * @param {bool} immediate
    */
-
   debounce(fn, wait, immediate) {
     let timeout;
     (function() {
@@ -117,7 +111,6 @@ class Rules {
    *
    * @param {object} options
    */
-
   display(options) {
     this.fetch(options, function(res) {
       options.$target.closest('.papi-rules-exists')[res.render ? 'removeClass' : 'addClass']('papi-hide');
@@ -310,9 +303,7 @@ class Rules {
    *
    * @param {object} $this
    */
-
   setupRules($this) {
-    const self     = this;
     const rules    = $.parseJSON($this.text());
     let slug       = $this.data('papi-rule-source-slug');
 

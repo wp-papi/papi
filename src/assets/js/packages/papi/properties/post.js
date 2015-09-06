@@ -1,17 +1,15 @@
-import $ from 'jquery';
+import $ from 'jquery/jquery';
 
 /**
  * Property Post.
  *
  * Using Select2.
  */
-
 class Post {
 
   /**
    * Initialize Property Post.
    */
-
   static init() {
     new Post().binds();
   }
@@ -19,7 +17,6 @@ class Post {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     $(document).on('papi/property/repeater/added', '[data-property="post"]', this.update);
   }
@@ -29,7 +26,6 @@ class Post {
    *
    * @param {object} e
    */
-
   update(e) {
     e.preventDefault();
 
@@ -39,6 +35,7 @@ class Post {
       $select.select2();
     }
   }
+
 }
 
 export default Post;

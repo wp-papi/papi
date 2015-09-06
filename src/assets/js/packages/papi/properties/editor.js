@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $ from 'jquery/jquery';
 
 /* global tinymce, tinyMCE, tinyMCEPreInit, QTags */
 
@@ -9,7 +9,6 @@ class Editor {
    *
    * @var {object}
    */
-
   get customTinyMCESettings() {
     return {
       elements: [],
@@ -23,7 +22,6 @@ class Editor {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     const self = this;
 
@@ -40,7 +38,6 @@ class Editor {
    *
    * @return {object}
    */
-
   createTinyMceEditor(id) {
       let mceInit;
 
@@ -65,7 +62,6 @@ class Editor {
    *
    * @param {object} $iframe
    */
-
   closeAllQTags($iframe) {
     if (typeof QTags === undefined || $iframe.canvas === undefined) {
       return;
@@ -81,7 +77,6 @@ class Editor {
    *
    * @return {object}
    */
-
   getElements(selectors) {
     return {
       $dom: tinyMCE.DOM,
@@ -96,7 +91,6 @@ class Editor {
    *
    * @return {string}
    */
-
   getId(id) {
     return id.replace('wp-', '').replace('-wrap', '');
   }
@@ -108,7 +102,6 @@ class Editor {
    *
    * @return {object}
    */
-
   getSelectors(id) {
     return {
       id: id,
@@ -122,7 +115,6 @@ class Editor {
   /**
    * Fix so visual tab is visible at page load.
    */
-
   static init() {
     new Editor().binds();
   }
@@ -132,7 +124,6 @@ class Editor {
    *
    * @param {string} id
    */
-
   qtInit(id) {
     const qtContent = tinyMCEPreInit.qtInit.content === undefined ?
       tinyMCEPreInit.qtInit.papiHiddenEditor : tinyMCEPreInit.qtInit.content;
@@ -155,7 +146,6 @@ class Editor {
    *
    * @param {object} $this
    */
-
   update($this) {
     const id = this.getId($this.parent().find('div[id]').attr('id'));
 

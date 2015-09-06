@@ -1,17 +1,15 @@
-import $ from 'jquery';
+import $ from 'jquery/jquery';
 
 /**
  * Property Color.
  *
  * Uses the build in color picker in WordPress.
  */
-
 class Color {
 
   /**
    * Initialize Property Color.
    */
-
   static init() {
     new Color().binds();
   }
@@ -19,7 +17,6 @@ class Color {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     $('.papi-property-color-picker input').each(function () {
       const $el = $(this);

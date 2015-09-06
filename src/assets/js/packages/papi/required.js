@@ -1,11 +1,10 @@
-import $ from 'jquery';
+import $ from 'jquery/jquery';
 
 class Required {
 
   /**
    * Initialize Papi core class.
    */
-
   static init() {
     new Required().binds();
   }
@@ -13,7 +12,6 @@ class Required {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     $('body').on('click', '.papi-rq-link', this.requiredLink);
     $('#publish').on('click', this.publishPost);
@@ -24,7 +22,6 @@ class Required {
    *
    * @param {object} e
    */
-
   requiredLink(e) {
     $('html, body').animate({
       scrollTop: $('[for=' + $(this).attr('href').replace('#', '') + ']').offset().top - 45
@@ -37,7 +34,6 @@ class Required {
    *
    * @param {object} e
    */
-
   publishPost(e) {
     const $button  = $(this);
     const $fields  = $('.papi-rq');

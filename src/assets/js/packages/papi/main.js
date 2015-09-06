@@ -21,7 +21,6 @@ import Url from 'papi/properties/url';
 /**
  * Initialize all imported classes.
  */
-
 export function init() {
   // Papi core
   Core.init();

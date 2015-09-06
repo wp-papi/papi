@@ -1,17 +1,15 @@
-import $ from 'jquery';
+import $ from 'jquery/jquery';
 
 /**
  * Property Datetime.
  *
  * Using Pikaday with time fields and some custom fixes.
  */
-
 class Datetime {
 
   /**
    * Initialize Property Datetime.
    */
-
   static init() {
     new Datetime().binds();
   }
@@ -19,7 +17,6 @@ class Datetime {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     this.pikaday($('.inside > .papi-table > tbody > tr > td > input.papi-property-datetime'));
     this.pikaday($('.papi-table .papi-table input.papi-property-datetime'));
@@ -32,7 +29,6 @@ class Datetime {
    *
    * @param {object} $prop
    */
-
   pikaday($props) {
     // Don't proceed if Pikaday is undefined.
     if (window.Pikaday === undefined) {
@@ -65,10 +61,8 @@ class Datetime {
    *
    * @param {object} e
    */
-
    updateSelect(e) {
      e.preventDefault();
-
      this.pikaday($(this).prev());
   }
 }

@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $ from 'jquery/jquery';
 import Repeater from 'papi/properties/repeater';
 
 class Flexible extends Repeater {
@@ -8,7 +8,6 @@ class Flexible extends Repeater {
    *
    * @var {function}
    */
-
   get template() {
     return window.wp.template('papi-property-flexible-row');
   }
@@ -16,7 +15,6 @@ class Flexible extends Repeater {
   /**
    * Initialize Property Flexible.
    */
-
   static init() {
     new Flexible().binds();
   }
@@ -27,7 +25,6 @@ class Flexible extends Repeater {
    *
    * @param {object} $this
    */
-
   add($this) {
     const $repeater      = $this.closest('.papi-property-repeater-top');
     const $tbody         = $repeater.find('.repeater-tbody');
@@ -52,7 +49,6 @@ class Flexible extends Repeater {
   /**
    * Bind elements with functions.
    */
-
   binds() {
     const self = this;
 
@@ -101,7 +97,6 @@ class Flexible extends Repeater {
    * @param {int} counter
    * @param {function} callback
    */
-
   fetch(properties, counter, flexibleLayout, callback) {
     $.ajax({
       type: 'POST',
@@ -118,7 +113,6 @@ class Flexible extends Repeater {
    *
    * @param {object} e
    */
-
   remove($this) {
     const $tbody = $this.closest('.papi-property-flexible').find('.repeater-tbody');
     $this.closest('tr').remove();
@@ -130,7 +124,6 @@ class Flexible extends Repeater {
    *
    * @param {object} $el
    */
-
   updateDatabaseRowNumber($tbody) {
     let counter = $tbody.find('tr tbody tr').length;
 
