@@ -6,6 +6,7 @@
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel": "^5.8.23",
     "babel-eslint": "^3.0",
     "babelify": "^6.0",
     "browserify": "^10.1",
