@@ -3,9 +3,9 @@
  */
 
 var path        = require('path');
+var webpack     = require('webpack');
 var assetsPath  = path.join('src', 'assets', 'js');
 var modulesPath = path.join('src', 'assets', 'js', 'packages');
-var webpack     = require('webpack');
 
 module.exports = {
   context: path.resolve(assetsPath),
