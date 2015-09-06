@@ -590,6 +590,12 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		] );
 
 		$this->assertEquals( 'papi_string', $property->get_option( 'slug' ) );
+
+		$property = Papi_Property::create( [
+			'description' => 'test'
+		] );
+
+		$this->assertEquals( 'test', $property->get_option( 'description' ) );
 	}
 
 	public function test_set_settings() {
