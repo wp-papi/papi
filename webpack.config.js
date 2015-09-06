@@ -7,6 +7,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var assets_path = path.join('src', 'assets', 'js');
+var modules_path = path.join('src', 'assets', 'js', 'packages');
 
 module.exports = {
   context: path.resolve(assets_path),
@@ -17,7 +18,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js'],
-    root: path.resolve(assets_path)
+    root: path.resolve(modules_path)
   },
   module: {
     loaders: [
