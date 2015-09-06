@@ -479,9 +479,10 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 	public function test_match_slug() {
 		$property = Papi_Property::create( [
-			'type'  => 'string',
-			'slug'  => 'name',
-			'value' => 'Fredrik'
+			'description' => 'Test',
+			'type'        => 'string',
+			'slug'        => 'name',
+			'value'       => 'Fredrik'
 		] );
 
 		$this->assertTrue( $property->match_slug( 'name' ) );
