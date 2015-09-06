@@ -9,3 +9,5 @@ coverage/
 coverage2/
 vendor
 composer.lock
+dist/js/components.js
+dist/js/webpack.js

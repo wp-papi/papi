@@ -13,7 +13,7 @@ module.exports = {
   context: path.resolve(assets_path),
   entry: './main.js',
   output: {
-    filename: './main.min.js',
+    filename: './webpack.js',
     path: path.resolve(assets_path)
   },
   resolve: {

@@ -48,6 +48,9 @@ const config = {
     src: assets + 'scss/**/*.scss'
   },
   scripts: {
+    components: [
+      assets + 'js/components/*.js'
+    ],
     entry: assets + 'js/main.js',
     lint: assets + 'js/**/*.js'
   }
@@ -76,6 +79,16 @@ gulp.task('clean:before', cb => del([ `${dist}js/`, `${dist}css/` ], {
   dot: true,
   force: true
 }, cb));
+
+/**
+ * Component task.
+ */
+gulp.task('components', () => {
+  gulp.src(config.scripts.components)
+    .pipe(concat('components.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest(`${dist}js`));
+});
 
 /**
  * Lint task using ESLint.
@@ -127,15 +140,25 @@ gulp.task('sass', () => {
 });
 
 /**
- * Webpack
+ * Scripts task.
  */
-gulp.task('webpack', () => {
-  gulp.src([config.scripts.entry])
-    .pipe(plumber())
-    .pipe(webpack(webpackconfig))
+gulp.task('scripts', ['components', 'webpack'], cb => {
+  gulp.src([`${dist}js/*.js`])
+    .pipe(concat('main.min.js'))
     .pipe(header(banner, {
       package: pkg
     }))
+    .pipe(gulp.dest(`${dist}js`));
+    cb();
+});
+
+/**
+ * Webpack task.
+ */
+gulp.task('webpack', ['components'], () => {
+  gulp.src([config.scripts.entry])
+    .pipe(plumber())
+    .pipe(webpack(webpackconfig))
     .pipe(gulp.dest(`${dist}js`));
 });
 
@@ -151,12 +174,12 @@ gulp.task('watch', () => {
  * Default task.
  */
 gulp.task('default', ['clean:before'], cb => {
-  runSequence('sass', 'webpack', 'watch', cb);
+  runSequence('sass', 'scripts', 'watch', cb);
 });
 
 /**
  * Build task.
  */
 gulp.task('build', ['clean:before'], cb => {
-  runSequence('sass', 'webpack', cb);
+  runSequence('sass', 'scripts', cb);
 });
