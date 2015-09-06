@@ -7,7 +7,6 @@ class Broken_Page_Type extends Papi_Page_Type {
 	 *
 	 * @var string
 	 */
-
 	public $_meta_method = 'page_type_meta';
 
 	/**
@@ -15,7 +14,6 @@ class Broken_Page_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-
 	public function page_type() {
 		return [
 			'id'          => 'custom-page-type-id',
@@ -23,5 +21,11 @@ class Broken_Page_Type extends Papi_Page_Type {
 			'description' => 'This is a identifier page',
 			'template'    => 'pages/identifier-page.php'
 		];
+	}
+
+	/**
+	 * Define our properties.
+	 */
+	public function register() {
 	}
 }

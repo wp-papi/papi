@@ -7,7 +7,6 @@ class Display_Not_Page_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-
 	public function page_type() {
 		return [
 			'name'         => 'Display not page',
@@ -21,14 +20,14 @@ class Display_Not_Page_Type extends Papi_Page_Type {
 	/**
 	 * Define our properties.
 	 */
-
 	public function register() {
 	}
 
 	/**
 	 * Do not display this page type.
+	 *
+	 * @return string
 	 */
-
 	public function display( $post_type ) {
 		return 'hello';
 	}

@@ -7,7 +7,6 @@ class Properties_Page_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-
 	public function page_type() {
 		return [
 			'name'        => 'Properties page type',
@@ -19,7 +18,6 @@ class Properties_Page_Type extends Papi_Page_Type {
 	/**
 	 * Define our properties.
 	 */
-
 	public function register() {
 
 		$this->box( 'Properties', [

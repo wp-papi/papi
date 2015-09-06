@@ -7,7 +7,6 @@ class Identifier_Page_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-
 	public function page_type() {
 		return [
 			'id'          => 'custom-page-type-id',
@@ -20,7 +19,6 @@ class Identifier_Page_Type extends Papi_Page_Type {
 	/**
 	 * Define our properties.
 	 */
-
 	public function register() {
 	}
 }

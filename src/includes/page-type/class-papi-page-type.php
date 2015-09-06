@@ -53,7 +53,9 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		}
 
 		list( $options, $properties ) = papi_get_options_and_properties(
-			$file_or_options, $properties, true
+			$file_or_options,
+			$properties,
+			true
 		);
 
 		$post_type = $this->get_post_type();

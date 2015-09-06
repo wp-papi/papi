@@ -7,7 +7,6 @@ class Rule_Page_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-
 	public function page_type() {
 		return [
 			'name'        => 'Rule page',
@@ -20,7 +19,6 @@ class Rule_Page_Type extends Papi_Page_Type {
 	/**
 	 * Define our properties.
 	 */
-
 	public function register() {
 		// Test box property.
 		$this->box( 'Hello', papi_property( [
