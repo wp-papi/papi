@@ -58,7 +58,7 @@ class Papi_Property_Checkbox extends Papi_Property {
 	}
 
 	/**
-	 * Display property html.
+	 * Render property html.
 	 */
 	public function html() {
 		$settings = $this->get_settings();

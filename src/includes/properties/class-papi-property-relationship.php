@@ -135,7 +135,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	}
 
 	/**
-	 * Display property html.
+	 * Render property html.
 	 */
 	public function html() {
 		$post_id     = papi_get_post_id();

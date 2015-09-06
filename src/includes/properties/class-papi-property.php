@@ -30,7 +30,7 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
-	 * Display the html to display from the property.
+	 * Render property html.
 	 */
 	public function html() {
 	}

@@ -24,7 +24,7 @@ class Papi_Property_Editor extends Papi_Property {
 	}
 
 	/**
-	 * Display property html.
+	 * Render property html.
 	 */
 	public function html() {
 		$value = $this->get_value();

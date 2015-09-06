@@ -36,7 +36,7 @@ class Papi_Property_Radio extends Papi_Property {
 	}
 
 	/**
-	 * Display property html.
+	 * Render property html.
 	 */
 	public function html() {
 		$settings = $this->get_settings();

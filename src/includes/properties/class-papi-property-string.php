@@ -65,7 +65,7 @@ class Papi_Property_String extends Papi_Property {
 	}
 
 	/**
-	 * Display property html.
+	 * Render property html.
 	 */
 	public function html() {
 		papi_render_html_tag( 'input', [

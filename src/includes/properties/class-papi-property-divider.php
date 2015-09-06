@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Property_Divider extends Papi_Property {
 
 	/**
-	 * Display property html.
+	 * Render property html.
 	 */
 	public function html() {
 		$options = $this->get_options();

@@ -102,7 +102,7 @@ class Papi_Property_File extends Papi_Property {
 	}
 
 	/**
-	 * Display property html.
+	 * Render property html.
 	 */
 	public function html() {
 		$css_classes = '';

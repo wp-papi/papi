@@ -332,7 +332,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
-	 * Display property html.
+	 * Render property html.
 	 */
 	public function html() {
 		$options = $this->get_options();

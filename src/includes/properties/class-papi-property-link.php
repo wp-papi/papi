@@ -116,7 +116,7 @@ class Papi_Property_Link extends Papi_Property {
 	}
 
 	/**
-	 * Display property html.
+	 * Render property html.
 	 */
 	public function html() {
 		$value = $this->get_value();

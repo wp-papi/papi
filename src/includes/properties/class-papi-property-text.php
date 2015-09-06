@@ -58,7 +58,7 @@ class Papi_Property_Text extends Papi_Property {
 	}
 
 	/**
-	 * Display property html.
+	 * Render property html.
 	 */
 	public function html() {
 		papi_render_html_tag( 'textarea', [
