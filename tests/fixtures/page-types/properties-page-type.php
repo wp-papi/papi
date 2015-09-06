@@ -58,9 +58,10 @@ class Properties_Page_Type extends Papi_Page_Type {
 
 			// Divider
 			papi_property( [
-				'type'  => 'divider',
-				'title' => 'Divider test',
-				'slug'  => 'divider_test'
+				'description' => 'Some information here',
+				'type'        => 'divider',
+				'title'       => 'Divider test',
+				'slug'        => 'divider_test'
 			] ),
 
 			// Dropdown
