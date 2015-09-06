@@ -1,24 +1,22 @@
-/*------------------------------------*\
+/**
+ * Webpack config.
+ */
 
-  WEBPACK CONFIG
-
-\*------------------------------------*/
-
-var webpack = require('webpack');
-var path = require('path');
-var assets_path = path.join('src', 'assets', 'js');
-var modules_path = path.join('src', 'assets', 'js', 'packages');
+var path        = require('path');
+var assetsPath  = path.join('src', 'assets', 'js');
+var modulesPath = path.join('src', 'assets', 'js', 'packages');
+var webpack     = require('webpack');
 
 module.exports = {
-  context: path.resolve(assets_path),
+  context: path.resolve(assetsPath),
   entry: './main.js',
   output: {
     filename: './webpack.js',
-    path: path.resolve(assets_path)
+    path: path.resolve(assetsPath)
   },
   resolve: {
     extensions: ['', '.js'],
-    root: path.resolve(modules_path)
+    root: path.resolve(modulesPath)
   },
   module: {
     loaders: [
