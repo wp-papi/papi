@@ -133,6 +133,11 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		unset( $post );
 	}
 
+	public function test_papi_get_callable_value() {
+		$this->assertEquals( 'Hello', papi_get_callable_value( 'say_hello_stub' ) );
+		$this->assertEquals( false, papi_get_callable_value( false ) );
+	}
+
 	public function test_papi_get_class_name() {
 		$actual = papi_get_class_name( PAPI_FIXTURE_DIR . '/page-types/simple-page-type.php' );
 		$this->assertEquals( 'Simple_Page_Type', $actual );
@@ -259,7 +264,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( '<label>Hello</label>', papi_html_tag( 'label', 'Hello' ) );
 
-		$this->assertEquals( '<label>Hello</label>', papi_html_tag( 'label', 'say_hello_stub' ) );
+		$this->assertEquals( '<label>Hello</label>', papi_html_tag( 'label', papi_get_callable_value( 'say_hello_stub' ) ) );
 	}
 
 	public function test_papi_render_html_tag() {
@@ -300,7 +305,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 
 		papi_render_html_tag( 'label', [
 			'for' => (object) [],
-			'say_hello_stub'
+			papi_get_callable_value( 'say_hello_stub' )
 		] );
 
 		$this->expectOutputRegex( '/\<label for\=\"\{\}\"\>Hello\<\/label\>/' );

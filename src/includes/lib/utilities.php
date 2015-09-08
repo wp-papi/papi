@@ -210,6 +210,31 @@ function papi_get_cache_key( $key, $suffix ) {
 }
 
 /**
+ * Papi get callable value if is it callable.
+ *
+ * @param  mixed $callable
+ *
+ * @return mixed
+ */
+function papi_get_callable_value( $callable ) {
+	if ( is_callable( $callable ) ) {
+		try {
+			$ob_level = ob_get_level();
+
+			ob_start();
+
+			call_user_func( $value );
+
+			return ltrim( ob_get_clean() );
+		} catch ( Exception $e ) {
+			return $callable;
+		}
+	}
+
+	return $callabe;
+}
+
+/**
  * Get namespace name and/or class name from page type file.
  *
  * @param  string $file
@@ -400,15 +425,7 @@ function papi_html_tag( $tag, $attr = [] ) {
 
 	foreach ( $attr as $key => $value ) {
 		if ( is_numeric( $key ) ) {
-			if ( is_callable( $value ) ) {
-				$ob_level = ob_get_level();
-
-				ob_start();
-
-				call_user_func( $value );
-
-				$content[] = ltrim( ob_get_clean() );
-			} else if ( is_array( $value ) ) {
+			if ( is_array( $value ) ) {
 				$content[] = implode( ' ', $value );
 			} else {
 				$content[] = $value;

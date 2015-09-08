@@ -182,7 +182,7 @@ class Papi_Property extends Papi_Core_Property {
 		papi_render_html_tag( 'div', [
 			'class'         => 'papi-before-html',
 			'data-property' => $this->get_option( 'type' ),
-			$this->get_option( 'before_html' )
+			papi_get_callable_value( $this->get_option( 'before_html' ) )
 		] );
 
 		$this->html();
@@ -190,7 +190,7 @@ class Papi_Property extends Papi_Core_Property {
 		papi_render_html_tag( 'div', [
 			'class'         => 'papi-after-html',
 			'data-property' => $this->get_option( 'type' ),
-			$this->get_option( 'after_html' )
+			papi_get_callable_value( $this->get_option( 'after_html' ) )
 		] );
 	}
 
