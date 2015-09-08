@@ -218,20 +218,24 @@ function papi_get_cache_key( $key, $suffix ) {
  */
 function papi_get_callable_value( $callable ) {
 	if ( is_callable( $callable ) ) {
+		$ob_level = ob_get_level();
+
+		ob_start();
+
 		try {
-			$ob_level = ob_get_level();
-
-			ob_start();
-
-			call_user_func( $value );
-
-			return ltrim( ob_get_clean() );
+			call_user_func( $callable );
 		} catch ( Exception $e ) {
+			while ( ob_get_level() > $ob_level ) {
+				ob_end_clean();
+			}
+
 			return $callable;
 		}
+
+		return ltrim( ob_get_clean() );
 	}
 
-	return $callabe;
+	return $callable;
 }
 
 /**

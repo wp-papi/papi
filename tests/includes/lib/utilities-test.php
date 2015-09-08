@@ -135,6 +135,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_callable_value() {
 		$this->assertEquals( 'Hello', papi_get_callable_value( 'say_hello_stub' ) );
+		$this->assertEquals( 'file', papi_get_callable_value( 'file' ) );
 		$this->assertEquals( false, papi_get_callable_value( false ) );
 	}
 
