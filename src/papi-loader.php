@@ -60,7 +60,7 @@ final class Papi_Loader extends Papi_Container {
 		_doing_it_wrong(
 			__FUNCTION__,
 			__( 'Cheatin&#8217; huh?', 'papi' ),
-			'1.0.0'
+			'2.3.0'
 		);
 	}
 
@@ -73,7 +73,7 @@ final class Papi_Loader extends Papi_Container {
 		_doing_it_wrong(
 			__FUNCTION__,
 			__( 'Cheatin&#8217; huh?', 'papi' ),
-			'1.0.0'
+			'2.3.0'
 		);
 	}
 
