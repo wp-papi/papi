@@ -30,7 +30,7 @@ class Papi_Property_Html extends Papi_Property {
 		papi_render_html_tag( 'div', [
 			'data-papi-rule' => $this->html_name(),
 			'class'          => 'property-html',
-			papi_get_callable_value( $settings->html )
+			papi_maybe_get_callable_value( $settings->html )
 		] );
 	}
 }

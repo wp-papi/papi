@@ -210,35 +210,6 @@ function papi_get_cache_key( $key, $suffix ) {
 }
 
 /**
- * Papi get callable value if is it callable.
- *
- * @param  mixed $callable
- *
- * @return mixed
- */
-function papi_get_callable_value( $callable ) {
-	if ( is_callable( $callable ) ) {
-		$ob_level = ob_get_level();
-
-		ob_start();
-
-		try {
-			call_user_func( $callable );
-		} catch ( Exception $e ) {
-			while ( ob_get_level() > $ob_level ) {
-				ob_end_clean();
-			}
-
-			return $callable;
-		}
-
-		return ltrim( ob_get_clean() );
-	}
-
-	return $callable;
-}
-
-/**
  * Get namespace name and/or class name from page type file.
  *
  * @param  string $file
@@ -501,6 +472,35 @@ function papi_is_metod( $method ) {
 	}
 
 	return $_SERVER ['REQUEST_METHOD'] === strtoupper( $method );
+}
+
+/**
+ * Papi get callable value if is it callable.
+ *
+ * @param  mixed $callable
+ *
+ * @return mixed
+ */
+function papi_maybe_get_callable_value( $callable ) {
+	if ( is_callable( $callable ) ) {
+		$ob_level = ob_get_level();
+
+		ob_start();
+
+		try {
+			call_user_func( $callable );
+		} catch ( Exception $e ) {
+			while ( ob_get_level() > $ob_level ) {
+				ob_end_clean();
+			}
+
+			return $callable;
+		}
+
+		return ltrim( ob_get_clean() );
+	}
+
+	return $callable;
 }
 
 /**
