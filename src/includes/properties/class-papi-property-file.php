@@ -129,7 +129,7 @@ class Papi_Property_File extends Papi_Property {
 			<p class="papi-file-select <?php echo $show_button ? '' : 'papi-hide'; ?>">
 				<?php
 				if ( ! $settings->multiple ) {
-					echo $labels['no_file'];
+					echo $labels['no_file'] . '&nbsp;';
 				}
 
 				papi_render_html_tag( 'input', [
