@@ -142,6 +142,10 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin;
 		$arr = $admin->manage_page_type_posts_columns( [] );
 		$this->assertEquals( ['page_type' => 'Type'], $arr );
+		$_GET['post_type'] = 'fake';
+		$admin = new Papi_Admin;
+		$arr = $admin->manage_page_type_posts_columns( [] );
+		$this->assertEmpty( $arr );
 	}
 
 	public function test_manage_page_type_posts_custom_column() {
@@ -153,6 +157,12 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 		$admin->manage_page_type_posts_custom_column( 'page_type', $this->post_id );
 		$this->expectOutputRegex( '/Simple page/' );
+
+		$post_id = $this->factory->post->create();
+		$_GET['post_type'] = 'fake';
+		$admin = new Papi_Admin;
+		$admin->manage_page_type_posts_custom_column( 'page_type', $post_id );
+		$this->expectOutputRegex( '//' );
 	}
 
 	public function test_pre_get_posts() {
