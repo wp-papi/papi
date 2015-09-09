@@ -46,11 +46,12 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	}
 
 	public function test_admin_body_class_2() {
+		$_GET['post_type'] = 'page';
+		$admin = new Papi_Admin;
 		$this->register_template_paths( [
 			'test.php' => 'Test'
 		] );
-		$_GET['post_type'] = 'page';
-		$classes = $this->admin->admin_body_class( '' );
+		$classes = $admin->admin_body_class( '' );
 		$this->assertEquals( 'papi-hide-cpt', $classes );
 	}
 
@@ -137,16 +138,20 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	}
 
 	public function test_manage_page_type_posts_columns() {
-		$arr = $this->admin->manage_page_type_posts_columns( [] );
+		$_GET['post_type'] = 'page';
+		$admin = new Papi_Admin;
+		$arr = $admin->manage_page_type_posts_columns( [] );
 		$this->assertEquals( ['page_type' => 'Type'], $arr );
 	}
 
 	public function test_manage_page_type_posts_custom_column() {
-		$this->admin->manage_page_type_posts_custom_column( 'page_type', $this->post_id );
+		$_GET['post_type'] = 'page';
+		$admin = new Papi_Admin;
+		$admin->manage_page_type_posts_custom_column( 'page_type', $this->post_id );
 		$this->expectOutputRegex( '/Standard Page/' );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
-		$this->admin->manage_page_type_posts_custom_column( 'page_type', $this->post_id );
+		$admin->manage_page_type_posts_custom_column( 'page_type', $this->post_id );
 		$this->expectOutputRegex( '/Simple page/' );
 	}
 
