@@ -142,7 +142,7 @@ class Papi_Property_Relationship extends Papi_Property {
 		$slug        = $this->html_name();
 		$settings    = $this->get_settings();
 		$sort_option = $this->get_sort_option( $post_id, $slug );
-		$values       = $this->get_value();
+		$values   = $this->get_value();
 
 		// By default we add posts per page key with the value -1 (all).
 		if ( ! isset( $settings->query['posts_per_page'] ) ) {
