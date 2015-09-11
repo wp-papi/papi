@@ -397,6 +397,8 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param int    $value
 	 * @param string $repeater_slug
 	 * @param int    $post_id
+     *
+     * @return array
 	 */
 	public function load_value( $value, $repeater_slug, $post_id ) {
 		if ( is_array( $value ) ) {
@@ -745,6 +747,8 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @param mixed  $values
 	 * @param string $repeater_slug
 	 * @param int    $post_id
+     *
+     * @return array
 	 */
 	public function update_value( $values, $repeater_slug, $post_id ) {
 		$rows = intval( papi_get_property_meta_value(

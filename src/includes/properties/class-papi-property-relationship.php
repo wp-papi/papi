@@ -253,7 +253,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	/**
 	 * Change value after it's loaded from the database.
 	 *
-	 * @param  mixed  $value
+	 * @param  mixed  $values
 	 * @param  string $slug
 	 * @param  int    $post_id
 	 *

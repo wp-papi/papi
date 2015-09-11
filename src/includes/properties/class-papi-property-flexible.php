@@ -377,6 +377,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @param mixed  $value
 	 * @param string $repeater_slug
 	 * @param int    $post_id
+     *
+     * @return array
 	 */
 	public function load_value( $value, $repeater_slug, $post_id ) {
 		if ( is_array( $value ) ) {
