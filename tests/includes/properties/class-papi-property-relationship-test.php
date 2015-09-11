@@ -47,6 +47,13 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 		$this->assertNull( $this->property->import_value( false, '', 0 ) );
 	}
 
+	public function test_property_load_value() {
+		$this->assertEquals( ['yes' => true], $this->property->load_value( '{"yes":true}', '', 0 ) );
+		$this->assertEquals( [], $this->property->load_value( '{}', '', 0 ) );
+		$this->assertEquals( [1, 2, 3], $this->property->load_value( '[1, 2, 3]', '', 0 ) );
+		$this->assertEquals( [], $this->property->load_value( '[]', '', 0 ) );
+	}
+
 	public function test_property_options() {
 		$this->assertEquals( 'relationship', $this->property->get_option( 'type' ) );
 		$this->assertEquals( 'Relationship test', $this->property->get_option( 'title' ) );

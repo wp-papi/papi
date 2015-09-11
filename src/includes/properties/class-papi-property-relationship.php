@@ -251,6 +251,19 @@ class Papi_Property_Relationship extends Papi_Property {
 	}
 
 	/**
+	 * Change value after it's loaded from the database.
+	 *
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
+	 *
+	 * @return mixed
+	 */
+	public function load_value( $values, $slug, $post_id ) {
+		return papi_maybe_json_decode( maybe_unserialize( $values ), true );
+	}
+
+	/**
 	 * Sort the values.
 	 *
 	 * @param  array  $values
@@ -283,6 +296,6 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 	public function update_value( $values, $slug, $post_id ) {
 		$values = $this->format_value( $values, $slug, $post_id );
-		return wp_list_pluck( $values, 'ID' );
+		return json_encode( wp_list_pluck( $values, 'ID' ) );
 	}
 }
