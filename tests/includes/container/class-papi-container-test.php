@@ -21,7 +21,7 @@ class Container_Test extends WP_UnitTestCase {
 	}
 
 	public function test_make_not_defined() {
-		$this->setExpectedException( 'InvalidArgumentException', 'Identifier `fredrik` is not defined' );
+		$this->setExpectedException( 'Exception', 'Identifier `fredrik` is not defined' );
 		$this->container->make( 'fredrik' );
 	}
 
