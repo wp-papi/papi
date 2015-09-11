@@ -468,10 +468,7 @@ function papi_is_empty( $obj ) {
  */
 function papi_is_json( $obj ) {
 	return is_string( $obj )
-		&& (
-			is_object( json_decode( $obj ) ) ||
-			is_array( json_decode( $obj, true ) )
-		)
+		&& is_array( json_decode( $obj, true ) )
 		&& json_last_error() === JSON_ERROR_NONE;
 }
 
