@@ -72,7 +72,7 @@ class Papi_Property_Link extends Papi_Property {
 	}
 
 	/**
-	 * Unserialize value from database.
+	 * Load value from database.
 	 *
 	 * @param  mixed  $value
 	 * @param  string $slug

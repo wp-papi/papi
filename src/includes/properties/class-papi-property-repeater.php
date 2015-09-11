@@ -248,10 +248,12 @@ class Papi_Property_Repeater extends Papi_Property {
 				$no_trash[$slug] = $meta;
 
 				// Serialize value if needed.
-				$meta->meta_value = maybe_unserialize( $meta->meta_value );
+				$meta->meta_value = papi_maybe_json_decode(
+					maybe_unserialize( $meta->meta_value )
+				);
 
 				// Add property value and property type value.
-				$values[$meta->meta_key] = maybe_unserialize( $meta->meta_value );
+				$values[$meta->meta_key] = $meta->meta_value;
 
 				// Add the meta value.
 				$values[$meta->meta_key] = $rows[$i][$slug]->meta_value;
@@ -788,7 +790,9 @@ class Papi_Property_Repeater extends Papi_Property {
 			$property_type = papi_get_property_type( $property_type_value );
 
 			// Unserialize if needed.
-			$value = maybe_unserialize( $value );
+			$value = papi_maybe_json_decode(
+				maybe_unserialize( $value )
+			);
 
 			// Run update value on each property type class.
 			$value = $property_type->update_value(

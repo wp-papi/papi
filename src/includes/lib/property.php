@@ -229,23 +229,6 @@ function papi_get_property_type( $type ) {
 }
 
 /**
- * Get property type key from base64 string.
- *
- * @param  string $str
- *
- * @return string
- */
-function papi_get_property_type_from_base64( $str ) {
-	if ( is_string( $str ) && preg_match( '/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $str ) ) {
-		$str = base64_decode( $str );
-		$property = unserialize( $str );
-		if ( is_object( $property ) ) {
-			return $property->type;
-		}
-	}
-}
-
-/**
  * Get the right key for a property type.
  *
  * @param  string $str

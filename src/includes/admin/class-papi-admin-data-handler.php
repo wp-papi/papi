@@ -19,7 +19,7 @@ class Papi_Admin_Data_Handler {
 	protected function decode_property( $key, $value ) {
 		if ( papi_is_property_type_key( $key ) && is_string( $value ) ) {
 			$value = base64_decode( $value );
-			$value = unserialize( $value );
+			$value = papi_maybe_json_decode( $value );
 		}
 
 		return $value;

@@ -320,7 +320,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				);
 
 				// Serialize value if needed.
-				$meta->meta_value = maybe_unserialize( $meta->meta_value );
+				$meta->meta_value = papi_maybe_json_decode(
+					maybe_unserialize( $meta->meta_value )
+				);
 
 				// Add property value and property type value.
 				$values[$meta->meta_key] = $meta->meta_value;

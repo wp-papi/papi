@@ -27,7 +27,7 @@ function papi_test_create_property_post_data( $values, $post = null ) {
 		$property_type_options = $values['type'];
 	}
 
-	$data[$property_type_slug] = base64_encode( serialize( $property_type_options ) );
+	$data[$property_type_slug] = base64_encode( papi_maybe_json_encode( $property_type_options ) );
 
 	if ( ! is_null( $post ) ) {
 		return array_merge( $post, $data );

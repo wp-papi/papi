@@ -205,16 +205,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertTrue( papi_get_property_type( $options ) instanceof Papi_Property_String );
 	}
 
-	public function test_papi_get_property_type_from_base64() {
-		$this->assertNull( papi_get_property_type_from_base64( 'hello, world' ) );
-		$base64_str = 'Tzo4OiJzdGRDbGFzcyI6MTU6e3M6MTA6ImFsbG93X2h0bWwiO2I6MDtzOjEyOiJjYXBhYmlsaXRpZXMiO2E6MDp7fXM6NzoiZGVmYXVsdCI7czowOiIiO3M6MTE6ImRlc2NyaXB0aW9uIjtzOjA6IiI7czo4OiJkaXNhYmxlZCI7YjowO3M6NDoibGFuZyI7YjowO3M6MzoicmF3IjtiOjE7czo4OiJzZXR0aW5ncyI7Tzo4OiJzdGRDbGFzcyI6MTp7czoxMzoibWVkaWF1cGxvYWRlciI7YjowO31zOjc6InNpZGViYXIiO2I6MTtzOjQ6InNsdWciO3M6NDg6InBhcGlfY29sbGFib3JhdG9yc19yZXBlYXRlclswXVtjb2xsYWJvcmF0b3JfdXJsXSI7czoxMDoic29ydF9vcmRlciI7aToxMDAwO3M6ODoicmVxdWlyZWQiO2I6MDtzOjU6InRpdGxlIjtzOjQ6IkxpbmsiO3M6NDoidHlwZSI7czozOiJ1cmwiO3M6NToidmFsdWUiO3M6MDoiIjt9';
-		$actual = papi_get_property_type_from_base64( $base64_str );
-		$this->assertEquals( 'url', $actual );
-		$base64_str = 'YToxOntpOjA7czoxMToiaGVsbG8sd29ybGQiO30';
-		$actual = papi_get_property_type_from_base64( $base64_str );
-		$this->assertNull( $actual );
-	}
-
 	public function test_papi_get_property_type_custom() {
 		add_action( 'papi_include_properties', function() {
 			require_once PAPI_FIXTURE_DIR . '/properties/class-papi-property-kvack.php';

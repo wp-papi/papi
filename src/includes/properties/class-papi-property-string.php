@@ -28,7 +28,7 @@ class Papi_Property_String extends Papi_Property {
 	 */
 	public function format_value( $value, $slug, $post_id ) {
 		if ( ! $this->get_setting( 'allow_html' ) && $this->input_type === 'text' ) {
-			$value = maybe_unserialize( $value );
+			$value = papi_maybe_json_decode( maybe_unserialize( $value ) );
 
 			if ( ! is_string( $value ) ) {
 				$value = '';
