@@ -178,6 +178,7 @@ function papi_get_field( $post_id = null, $slug = null, $default = null, $type =
  *
  * @param  int    $post_id
  * @param  string $slug
+ * @param  mixed  $value
  * @param  string $type
  *
  * @return bool
