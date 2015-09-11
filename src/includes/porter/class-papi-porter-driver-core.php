@@ -59,7 +59,7 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
 			$options['post_id']
 		);
 
-		return maybe_unserialize( $value );
+		return papi_maybe_json_decode( maybe_unserialize( $value ) );
 	}
 
 	/**

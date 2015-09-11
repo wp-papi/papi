@@ -27,8 +27,12 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	 * @return array
 	 */
 	public function format_value( $value, $slug, $post_id ) {
+		if ( is_object( $value ) && isset( $value->ID ) ) {
+			$value = $value->ID;
+		}
+
 		if ( is_numeric( $value ) ) {
-			return new WP_User( (int) $value );
+			return new WP_User( $value );
 		}
 
 		return $value;
@@ -55,11 +59,11 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	public function get_value() {
 		$user = parent::get_value();
 
-		if ( $user instanceof WP_User === false ) {
-			return 0;
+		if ( is_object( $user ) && isset( $user->ID ) ) {
+			return $user->ID;
 		}
 
-		return $user->ID;
+		return 0;
 	}
 
 	/**
@@ -94,7 +98,7 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	 */
 	public function import_value( $value, $slug, $post_id ) {
 		if ( $value instanceof WP_User ) {
-			return $value->ID;
+			$value = $value->ID;
 		}
 
 		if ( is_numeric( $value ) ) {
@@ -102,5 +106,35 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 		}
 
 		return $this->default_value;
+	}
+
+	/**
+	 * Change value after it's loaded from the database.
+	 *
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
+	 *
+	 * @return mixed
+	 */
+	public function load_value( $value, $slug, $post_id ) {
+		return (int) $value;
+	}
+
+	/**
+	 * Update value before it's saved to the database.
+	 *
+	 * @param mixed  $value
+	 * @param string $slug
+	 * @param int    $post_id
+	 *
+	 * @return mixed
+	 */
+	public function update_value( $value, $slug, $post_id ) {
+		if ( $value instanceof WP_User ) {
+			$value = $value->ID;
+		}
+
+		return (int) $value;
 	}
 }

@@ -301,7 +301,10 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function format_value( $value, $slug, $post_id ) {
-		return maybe_unserialize( $value );
+		return papi_maybe_json_decode(
+			maybe_unserialize( $value ),
+			$this->convert_type === 'array'
+		);
 	}
 
 	/**
@@ -516,7 +519,10 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function import_value( $value, $slug, $post_id ) {
-		return maybe_unserialize( $value );
+		return papi_maybe_json_decode(
+			maybe_unserialize( $value ),
+			$this->convert_type === 'array'
+		);
 	}
 
 	/**
@@ -542,7 +548,10 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function load_value( $value, $slug, $post_id ) {
-		return maybe_unserialize( $value );
+		return papi_maybe_json_decode(
+			maybe_unserialize( $value ),
+			$this->convert_type === 'array'
+		);
 	}
 
 	/**
@@ -748,6 +757,6 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function update_value( $value, $slug, $post_id ) {
-		return maybe_serialize( $value );
+		return papi_maybe_json_encode( $value );
 	}
 }

@@ -366,6 +366,18 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEquals( (object) [], papi_maybe_json_decode( (object) [] ) );
 	}
 
+	public function test_papi_maybe_json_encode() {
+		$this->assertTrue( is_string( papi_maybe_json_encode( (object) ['yes' => true] ) ) );
+		$this->assertTrue( is_string( papi_maybe_json_encode( (object) [] ) ) );
+		$this->assertTrue( is_string( papi_maybe_json_encode( [1, 2 , 3] ) ) );
+		$this->assertTrue( is_string( papi_maybe_json_encode( [] ) ) );
+		$this->assertFalse( is_string( papi_maybe_json_encode( 1 ) ) );
+		$this->assertFalse( is_string( papi_maybe_json_encode( 123.4 ) ) );
+		$this->assertFalse( is_string( papi_maybe_json_encode( true ) ) );
+		$this->assertFalse( is_string( papi_maybe_json_encode( false ) ) );
+		$this->assertFalse( is_string( papi_maybe_json_encode( null ) ) );
+	}
+
 	public function test_papi_nl2br() {
 		$this->assertEquals( papi_nl2br( 'Hello\nWorld' ), 'Hello<br />World' );
 		$this->assertEquals( papi_nl2br( "Hello\nWorld" ), "Hello<br />\nWorld" );
