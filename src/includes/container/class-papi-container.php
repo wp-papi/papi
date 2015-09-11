@@ -37,6 +37,8 @@ class Papi_Container implements ArrayAccess {
 	 * @param string $id
 	 * @param mixed $value
 	 * @param bool $singleton
+     *
+     * @throws Exception when singleton cannot be rebind.
 	 *
 	 * @return mixed
 	 */
@@ -70,6 +72,7 @@ class Papi_Container implements ArrayAccess {
 	 * Call closure.
 	 *
 	 * @param mixed $closure
+     * @param array $parameters
 	 *
 	 * @return mixed
 	 */
@@ -141,8 +144,8 @@ class Papi_Container implements ArrayAccess {
 	/**
 	 * Get class prefix.
 	 *
-	 * @param string $class
-	 * @param bool $check
+	 * @param string $id
+	 * @param bool   $check
 	 *
 	 * @return string
 	 */
@@ -164,6 +167,8 @@ class Papi_Container implements ArrayAccess {
 	 * Determine if a given type is a singleton or not.
 	 *
 	 * @param string $id
+     *
+     * @throws InvalidArgumentException if argument is not string.
 	 *
 	 * @return bool
 	 */
@@ -186,12 +191,14 @@ class Papi_Container implements ArrayAccess {
 	 *
 	 * @param string $id
 	 * @param array $parameters
+     *
+     * @throws Exception if identifier is not defined.
 	 *
 	 * @return mixed
 	 */
 	public function make( $id, array $parameters = [] ) {
 		if ( ! $this->exists( $id ) ) {
-			throw new InvalidArgumentException( sprintf(
+			throw new Exception( sprintf(
 				'Identifier `%s` is not defined',
 				$id
 			) );
@@ -228,50 +235,50 @@ class Papi_Container implements ArrayAccess {
 
 	/**
 	 * Check if identifier is set or not.
+     *
+     * @codeCoverageIgnore
 	 *
 	 * @param string $id
 	 *
 	 * @return bool
 	 */
-	// @codingStandardsIgnoreStart
 	public function offsetExists( $id ) {
-	// @codingStandardsIgnoreEnd
 		return $this->exists( $id );
 	}
 
 	/**
 	 * Get value by identifier.
+     *
+     * @codeCoverageIgnore
 	 *
 	 * @param string $id
 	 *
 	 * @return mixed
 	 */
-	// @codingStandardsIgnoreStart
 	public function offsetGet( $id ) {
-	// @codingStandardsIgnoreEnd
 		return $this->make( $id );
 	}
 
 	/**
 	 * Set a parameter or an object.
+     *
+     * @codeCoverageIgnore
 	 *
 	 * @param string $id
 	 * @param mixed $value
 	 */
-	// @codingStandardsIgnoreStart
 	public function offsetSet( $id, $value ) {
-	// @codingStandardsIgnoreEnd
 		$this->bind( $id, $value );
 	}
 
 	/**
 	 * Unset value by identifier.
+     *
+     * @codeCoverageIgnore
 	 *
 	 * @param string $id
 	 */
-	// @codingStandardsIgnoreStart
 	public function offsetUnset( $id ) {
-	// @codingStandardsIgnoreEnd
 		$this->remove( $id );
 	}
 }
