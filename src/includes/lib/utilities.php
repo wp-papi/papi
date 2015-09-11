@@ -460,6 +460,22 @@ function papi_is_empty( $obj ) {
 }
 
 /**
+ * Test if given object is a JSON string or not.
+ *
+ * @param  mixed  $obj
+ *
+ * @return bool
+ */
+function papi_is_json( $obj ) {
+	return is_string( $obj )
+		&& (
+			is_object( json_decode( $obj ) ) ||
+			is_array( json_decode( $obj, true ) )
+		)
+		&& json_last_error() === JSON_ERROR_NONE;
+}
+
+/**
  * Check which http method it is.
  *
  * @param  string $method
@@ -472,6 +488,18 @@ function papi_is_metod( $method ) {
 	}
 
 	return $_SERVER ['REQUEST_METHOD'] === strtoupper( $method );
+}
+
+/**
+ * Maybe JSON decode the given string.
+ *
+ * @param  string $str
+ * @param  bool   $assoc
+ *
+ * @return mixed
+ */
+function papi_maybe_json_decode( $str, $assoc = false ) {
+	return papi_is_json( $str ) ? json_decode( $str, $assoc ) : $str;
 }
 
 /**

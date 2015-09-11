@@ -322,6 +322,21 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_empty( '0' ) );
 	}
 
+	public function test_papi_is_json() {
+		$this->assertTrue( papi_is_json( '{"yes":true}' ) );
+		$this->assertTrue( papi_is_json( '{}' ) );
+		$this->assertTrue( papi_is_json( '[1, 2, 3]' ) );
+		$this->assertTrue( papi_is_json( '[]' ) );
+		$this->assertFalse( papi_is_json( '12345' ) );
+		$this->assertFalse( papi_is_json( 12345 ) );
+		$this->assertFalse( papi_is_json( 123.45 ) );
+		$this->assertFalse( papi_is_json( true ) );
+		$this->assertFalse( papi_is_json( false ) );
+		$this->assertFalse( papi_is_json( null ) );
+		$this->assertFalse( papi_is_json( [] ) );
+		$this->assertFalse( papi_is_json( (object) [] ) );
+	}
+
 	public function test_papi_is_metod() {
 		unset( $_SERVER['REQUEST_METHOD'] );
 		$this->assertFalse( papi_is_metod( 'POST' ) );
@@ -334,6 +349,21 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_metod( [] ) );
 		$this->assertFalse( papi_is_metod( (object) [] ) );
 		$this->assertFalse( papi_is_metod( '' ) );
+	}
+
+	public function test_papi_maybe_json_decode() {
+		$this->assertEquals( (object) ['yes' => true], papi_maybe_json_decode( '{"yes":true}' ) );
+		$this->assertEquals( (object) [], papi_maybe_json_decode( '{}' ) );
+		$this->assertEquals( [1, 2, 3], papi_maybe_json_decode( '[1, 2, 3]', true ) );
+		$this->assertEquals( [], papi_maybe_json_decode( '[]', true ) );
+		$this->assertEquals( '12345', papi_maybe_json_decode( '12345' ) );
+		$this->assertEquals( 12345, papi_maybe_json_decode( 12345 ) );
+		$this->assertEquals( 123.45, papi_maybe_json_decode( 123.45 ) );
+		$this->assertEquals( true, papi_maybe_json_decode( true ) );
+		$this->assertEquals( false, papi_maybe_json_decode( false ) );
+		$this->assertEquals( null, papi_maybe_json_decode( null ) );
+		$this->assertEquals( [], papi_maybe_json_decode( [] ) );
+		$this->assertEquals( (object) [], papi_maybe_json_decode( (object) [] ) );
 	}
 
 	public function test_papi_nl2br() {
