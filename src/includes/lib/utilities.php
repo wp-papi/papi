@@ -84,8 +84,6 @@ function papi_current_user_is_allowed( $capabilities = [] ) {
 		return true;
 	}
 
-	$capabilities = papi_to_array( $capabilities );
-
 	foreach ( papi_to_array( $capabilities ) as $capability ) {
 		if ( ! current_user_can( $capability ) ) {
 			return false;
