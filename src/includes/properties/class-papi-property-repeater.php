@@ -247,16 +247,10 @@ class Papi_Property_Repeater extends Papi_Property {
 				// so it won't be deleted.
 				$no_trash[$slug] = $meta;
 
-				// Serialize value if needed.
-				$meta->meta_value = papi_maybe_json_decode(
+				// Add property value.
+				$values[$meta->meta_key] = papi_maybe_json_decode(
 					maybe_unserialize( $meta->meta_value )
 				);
-
-				// Add property value and property type value.
-				$values[$meta->meta_key] = $meta->meta_value;
-
-				// Add the meta value.
-				$values[$meta->meta_key] = $rows[$i][$slug]->meta_value;
 			}
 
 			// Get the meta keys to delete.
