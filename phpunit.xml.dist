@@ -24,9 +24,6 @@
     <whitelist addUncoveredFilesFromWhitelist="true">
       <directory suffix=".php">./src</directory>
     </whitelist>
-    <blacklist>
-      <directory>./src/includes/admin/views</directory>
-    </blacklist>
   </filter>
   <logging>
     <log type="coverage-clover" target="./tmp/clover.xml" charset="UTF-8" />
