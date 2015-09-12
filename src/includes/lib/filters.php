@@ -20,7 +20,12 @@ defined( 'ABSPATH' ) || exit;
  * @return mixed
  */
 function papi_filter_format_value( $type, $value, $slug, $post_id ) {
-	return apply_filters( 'papi/format_value/' . $type, $value, $slug, $post_id );
+	return apply_filters(
+		'papi/format_value/' . $type,
+		$value,
+		$slug,
+		$post_id
+	);
 }
 
 /**
@@ -37,7 +42,10 @@ function papi_filter_conditional_rule_allowed( $rule ) {
 		return false;
 	}
 
-	$result = apply_filters( 'papi/conditional/rule/' . $rule->operator, $rule );
+	$result = apply_filters(
+		'papi/conditional/rule/' . $rule->operator,
+		$rule
+	);
 
 	if ( $result === true || $result === false ) {
 		return $result;
@@ -57,7 +65,12 @@ function papi_filter_conditional_rule_allowed( $rule ) {
  * @return mixed
  */
 function papi_filter_load_value( $type, $value, $slug, $post_id ) {
-	return apply_filters( 'papi/load_value/' . $type, $value, $slug, $post_id );
+	return apply_filters(
+		'papi/load_value/' . $type,
+		$value,
+		$slug,
+		$post_id
+	);
 }
 
 /**
@@ -66,7 +79,10 @@ function papi_filter_load_value( $type, $value, $slug, $post_id ) {
  * @return array
  */
 function papi_filter_settings_directories() {
-	$directories = apply_filters( 'papi/settings/directories', [] );
+	$directories = apply_filters(
+		'papi/settings/directories',
+		[]
+	);
 
 	if ( is_string( $directories ) ) {
 		return [$directories];
@@ -89,7 +105,10 @@ function papi_filter_settings_directories() {
  * @return string
  */
 function papi_filter_settings_only_page_type( $post_type ) {
-	$page_type = apply_filters( 'papi/settings/only_page_type_' . $post_type, '' );
+	$page_type = apply_filters(
+		'papi/settings/only_page_type_' . $post_type,
+		''
+	);
 
 	if ( ! is_string( $page_type ) ) {
 		return '';
@@ -106,7 +125,10 @@ function papi_filter_settings_only_page_type( $post_type ) {
  * @return string
  */
 function papi_filter_settings_page_type_column_title( $post_type ) {
-	return apply_filters( 'papi/settings/column_title_' . $post_type, __( 'Type', 'papi' ) );
+	return apply_filters(
+		'papi/settings/column_title_' . $post_type,
+		__( 'Type', 'papi' )
+	);
 }
 
 /**
@@ -122,7 +144,10 @@ function papi_filter_settings_show_page_type( $post_type, $page_type ) {
 		$page_type = $page_type->get_id();
 	}
 
-	$value = apply_filters( 'papi/settings/show_page_type_' . $post_type, $page_type );
+	$value = apply_filters(
+		'papi/settings/show_page_type_' . $post_type,
+		$page_type
+	);
 
 	if ( $value === $page_type ) {
 		return true;
@@ -144,7 +169,11 @@ function papi_filter_settings_show_page_type( $post_type, $page_type ) {
  */
 function papi_filter_settings_standard_page_description( $post_type ) {
 	$name = papi_get_post_type_label( $post_type, 'singular_name', 'Page' );
-	return apply_filters( 'papi/settings/standard_page_description_' . $post_type, sprintf( __( '%s with WordPress standard fields', 'papi' ), $name ) );
+
+	return apply_filters(
+        'papi/settings/standard_page_description_' . $post_type,
+        sprintf( __( '%s with WordPress standard fields', 'papi' ), $name )
+    );
 }
 
 /**
@@ -156,7 +185,11 @@ function papi_filter_settings_standard_page_description( $post_type ) {
  */
 function papi_filter_settings_standard_page_name( $post_type ) {
 	$name = papi_get_post_type_label( $post_type, 'singular_name', 'Page' );
-	return apply_filters( 'papi/settings/standard_page_name_' . $post_type, sprintf( __( 'Standard %s', 'papi' ), $name ) );
+
+	return apply_filters(
+        'papi/settings/standard_page_name_' . $post_type,
+        sprintf( __( 'Standard %s', 'papi' ), $name )
+    );
 }
 
 /**
@@ -167,7 +200,10 @@ function papi_filter_settings_standard_page_name( $post_type ) {
  * @return bool
  */
 function papi_filter_settings_show_standard_page_type( $post_type ) {
-	return apply_filters( 'papi/settings/show_standard_page_type_' . $post_type, true ) === true;
+	return apply_filters(
+		'papi/settings/show_standard_page_type_' . $post_type,
+		true
+	) === true;
 }
 
 /**
@@ -178,7 +214,10 @@ function papi_filter_settings_show_standard_page_type( $post_type ) {
  * @return bool
  */
 function papi_filter_settings_show_standard_page_type_in_filter( $post_type ) {
-	return apply_filters( 'papi/settings/show_standard_page_type_in_filter_' . $post_type, true ) === true;
+	return apply_filters(
+		'papi/settings/show_standard_page_type_in_filter_' . $post_type,
+		true
+	) === true;
 }
 
 /**
@@ -189,7 +228,10 @@ function papi_filter_settings_show_standard_page_type_in_filter( $post_type ) {
  * @return string
  */
 function papi_filter_settings_standard_page_thumbnail( $post_type ) {
-	return apply_filters( 'papi/settings/standard_page_thumbnail_' . $post_type, '' );
+	return apply_filters(
+		'papi/settings/standard_page_thumbnail_' . $post_type,
+		''
+	);
 }
 
 /**
@@ -212,5 +254,10 @@ function papi_filter_settings_sort_order() {
  * @return mixed
  */
 function papi_filter_update_value( $type, $value, $slug, $post_id ) {
-	return apply_filters( 'papi/update_value/' . $type, $value, $slug, $post_id );
+	return apply_filters(
+		'papi/update_value/' . $type,
+		$value,
+		$slug,
+		$post_id
+	);
 }
