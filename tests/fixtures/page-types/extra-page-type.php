@@ -26,7 +26,7 @@ class Extra_Page_Type extends Papi_Page_Type {
 				'type'      => 'editor',
 				'title'     => 'Editor test',
 				'slug'      => 'post_content',
-                'overwrite' => true
+				'overwrite' => true
 			] )
 
         ] );
