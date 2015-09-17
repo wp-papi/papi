@@ -9,10 +9,11 @@ class Simple_Page_Type extends Papi_Page_Type {
 	 */
 	public function page_type() {
 		return [
-			'name'        => 'Simple page',
-			'description' => 'This is a simple page',
-			'template'    => 'pages/simple-page.php',
-			'post_type'   => []
+			'name'          => 'Simple page',
+			'description'   => 'This is a simple page',
+			'template'      => 'pages/simple-page.php',
+			'post_type'     => [],
+			'standard_type' => true
 		];
 	}
 

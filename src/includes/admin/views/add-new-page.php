@@ -25,14 +25,15 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 			$child_types = $parent_page_type->get_child_types();
 			$page_types = empty( $child_types ) ? $page_types : $child_types;
 
-			if ( $show_standard ) {
+			if ( ! $show_standard ) {
 				$show_standard = $parent_page_type->standard_type;
 			}
 		}
 
 		if ( $show_standard ) {
-			$page_type              = new Papi_Page_Type();
-			$page_type->id          = sprintf( 'papi-standard-%s-type', $post_type_name );
+			$id                     = sprintf( 'papi-standard-%s-type', $post_type_name );
+			$page_type              = new Papi_Page_Type( $id );
+			$page_type->id          = $id;
 			$page_type->name        = papi_filter_settings_standard_page_name( $post_type_name );
 			$page_type->description = papi_filter_settings_standard_page_description( $post_type_name );
 			$page_type->thumbnail   = papi_filter_settings_standard_page_thumbnail( $post_type_name );
@@ -47,7 +48,6 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 		$page_types = papi_sort_order( array_reverse( $page_types ) );
 
 		foreach ( $page_types as $key => $page_type ) {
-
 			if ( ! papi_display_page_type( $page_type ) ) {
 				continue;
 			}

@@ -41,6 +41,10 @@ function papi_display_page_type( $page_type ) {
 		return false;
 	}
 
+	if ( preg_match( '/papi\-standard\-\w+\-type/', $page_type->get_id() ) ) {
+		return true;
+	}
+
 	$parent_page_type = papi_get_page_type_by_post_id( papi_get_parent_post_id() );
 
 	if ( papi_is_page_type( $parent_page_type ) ) {

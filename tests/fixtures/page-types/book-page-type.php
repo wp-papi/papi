@@ -12,7 +12,7 @@ class Book_Page_Type extends Papi_Page_Type {
 			'name'               => 'Book page',
 			'description'        => 'This is a book page',
 			'template'           => 'pages/book-page.php',
-			'standard_type' => false,
+			'standard_type'      => false,
 			'post_type'          => 'book'
 		];
 	}

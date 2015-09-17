@@ -71,7 +71,7 @@ class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
 	 *
 	 * @var bool
 	 */
-	public $standard_type = true;
+	public $standard_type = false;
 
 	/**
 	 * The template of the page type.

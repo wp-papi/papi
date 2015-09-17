@@ -98,7 +98,7 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 		];
 
 		$this->assertNull( $this->menu->post_types_menu() );
-		$this->assertEquals( 'edit.php?page=papi-add-new-page,post', $submenu['edit.php'][10][2] );
+		$this->assertEquals( 'post-new.php?page_type=post-page-type&post_type=post', $submenu['edit.php'][10][2] );
 		$this->assertEquals( 'edit.php?post_type=page&page=papi-add-new-page,page', $submenu['edit.php?post_type=page'][10][2] );
 	}
 

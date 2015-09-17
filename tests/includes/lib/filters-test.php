@@ -171,19 +171,19 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_filter_settings_show_standard_page_type() {
-		$this->assertEquals( true, papi_filter_settings_show_standard_page_type( 'post' ) );
-
-		tests_add_filter( 'papi/settings/show_standard_page_type_post', '__return_false' );
-
 		$this->assertEquals( false, papi_filter_settings_show_standard_page_type( 'post' ) );
+
+		tests_add_filter( 'papi/settings/show_standard_page_type_post', '__return_true' );
+
+		$this->assertEquals( true, papi_filter_settings_show_standard_page_type( 'post' ) );
 	}
 
 	public function test_papi_filter_settings_show_standard_page_type_in_filter() {
-		$this->assertEquals( true, papi_filter_settings_show_standard_page_type_in_filter( 'post' ) );
-
-		tests_add_filter( 'papi/settings/show_standard_page_type_in_filter_post', '__return_false' );
-
 		$this->assertEquals( false, papi_filter_settings_show_standard_page_type_in_filter( 'post' ) );
+
+		tests_add_filter( 'papi/settings/show_standard_page_type_in_filter_post', '__return_true' );
+
+		$this->assertEquals( true, papi_filter_settings_show_standard_page_type_in_filter( 'post' ) );
 	}
 
 	public function test_papi_filter_settings_standard_page_thumbnail() {

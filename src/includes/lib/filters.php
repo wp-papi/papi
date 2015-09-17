@@ -200,10 +200,10 @@ function papi_filter_settings_standard_page_name( $post_type ) {
  * @return bool
  */
 function papi_filter_settings_show_standard_page_type( $post_type ) {
-	return apply_filters(
+	return ! apply_filters(
 		'papi/settings/show_standard_page_type_' . $post_type,
-		true
-	) === true;
+		false
+	) === false;
 }
 
 /**
@@ -214,10 +214,10 @@ function papi_filter_settings_show_standard_page_type( $post_type ) {
  * @return bool
  */
 function papi_filter_settings_show_standard_page_type_in_filter( $post_type ) {
-	return apply_filters(
+	return ! apply_filters(
 		'papi/settings/show_standard_page_type_in_filter_' . $post_type,
-		true
-	) === true;
+		papi_filter_settings_show_standard_page_type( $post_type )
+	) === false;
 }
 
 /**
