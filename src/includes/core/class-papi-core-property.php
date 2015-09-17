@@ -45,6 +45,7 @@ class Papi_Core_Property {
 		'description'  => '',
 		'disabled'     => false,
 		'lang'         => false,
+		'overwrite'    => false,
 		'raw'          => false,
 		'required'     => false,
 		'rules'        => [],

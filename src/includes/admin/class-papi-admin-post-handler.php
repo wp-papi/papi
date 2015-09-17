@@ -18,12 +18,18 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 	}
 
 	/**
-	 * Setup actions.
+	 * Overwrite post data in `posts` table.
 	 *
-	 * @todo Try to get this working
+	 * @param int $post_id
 	 */
-	private function setup_actions() {
-		add_action( 'save_post', [$this, 'save_meta_boxes'], 1, 2 );
+	private function overwrite_post_data( $post_id ) {
+		global $wpdb;
+
+		if ( empty( $post_id ) || empty( $this->overwrite ) ) {
+			return;
+		}
+
+		$wpdb->update( $wpdb->posts, $this->overwrite, ['ID' => $post_id] );
 	}
 
 	/**
@@ -32,7 +38,6 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 	 * @param int $post_id
 	 */
 	private function pre_save( $post_id ) {
-		// Can't proceed without a post id.
 		if ( empty( $post_id ) ) {
 			return;
 		}
@@ -98,6 +103,9 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 		// Prepare properties data.
 		$data = $this->prepare_properties_data( $data, $post_id );
 
+		// Overwrite post data if any.
+		$this->overwrite_post_data( $post_id );
+
 		// Save all properties value
 		foreach ( $data as $key => $value ) {
 			papi_update_property_meta_value( [
@@ -106,6 +114,13 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 				'value'         => $value
 			] );
 		}
+	}
+
+	/**
+	 * Setup actions.
+	 */
+	private function setup_actions() {
+		add_action( 'save_post', [$this, 'save_meta_boxes'], 1, 2 );
 	}
 }
 

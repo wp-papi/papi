@@ -11,6 +11,13 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Admin_Data_Handler {
 
 	/**
+	 * The fields that should be overwritten.
+	 *
+	 * @var array
+	 */
+	protected $overwrite = [];
+
+	/**
 	 * Decode property.
 	 *
 	 * @param string $key
@@ -132,6 +139,11 @@ class Papi_Admin_Data_Handler {
 					papi_remove_papi( $key ),
 					$post_id
 				);
+
+				if ( $item['type']->overwrite ) {
+					$slug = papi_remove_papi( $key );
+					$this->overwrite[$slug] = $data[$key];
+				}
 			}
 		}
 

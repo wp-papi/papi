@@ -25,7 +25,8 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
 
-		$this->page_type = papi_get_page_type_by_id( 'properties-page-type' );
+		$this->page_type       = papi_get_page_type_by_id( 'properties-page-type' );
+		$this->extra_page_type = papi_get_page_type_by_id( 'extra-page-type' );
 	}
 
 	public function tearDown() {
@@ -35,7 +36,8 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 			$_POST,
 			$this->handler,
 			$this->post_id,
-			$this->page_type
+			$this->page_type,
+			$this->extra_page_type
 		);
 	}
 
@@ -233,5 +235,26 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( 'Item 42', get_post_meta( $this->post_id, '_papi_item', true ) );
 		$this->assertEmpty( get_post_meta( $this->post_id, '_papi_item_2', true ) );
+	}
+
+	public function test_overwrite() {
+		$post_id  = $this->factory->post->create();
+		$property = $this->extra_page_type->get_property( 'post_content' );
+		$_POST    = papi_test_create_property_post_data( [
+			'slug'  => $property->slug,
+			'type'  => $property,
+			'value' => 'Hello, world!'
+		], $_POST );
+
+		$_GET['post'] = $post_id;
+		update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'extra-page-type' );
+		$this->handler->save_property( $post_id );
+
+		$value = papi_get_field( $post_id, $property->slug );
+		$this->assertEquals( '<p>Hello, world!</p>', trim( $value ) );
+
+		$this->flush_cache();
+		$post = get_post( $post_id );
+		$this->assertEquals( 'Hello, world!', trim( $post->post_content ) );
 	}
 }
