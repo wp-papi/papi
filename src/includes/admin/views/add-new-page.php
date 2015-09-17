@@ -22,7 +22,8 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 		$show_standard    = papi_filter_settings_show_standard_page_type( $post_type_name );
 
 		if ( papi_is_page_type( $parent_page_type ) ) {
-			$page_types = $parent_page_type->get_child_types();
+			$child_types = $parent_page_type->get_child_types();
+			$page_types = empty( $child_types ) ? $page_types : $child_types;
 
 			if ( $show_standard ) {
 				$show_standard = $parent_page_type->standard_type;
@@ -46,6 +47,7 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 		$page_types = papi_sort_order( array_reverse( $page_types ) );
 
 		foreach ( $page_types as $key => $page_type ) {
+
 			if ( ! papi_display_page_type( $page_type ) ) {
 				continue;
 			}
