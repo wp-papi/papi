@@ -465,6 +465,10 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_update_property_meta_value_option() {
+		global $current_screen;
+
+		$current_screen = WP_Screen::get( 'admin_init' );
+
 		$old_request_uri = $_SERVER['REQUEST_URI'];
 
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/options-general.php?page=papi%2Foptions%2Fheader-option-type';
@@ -502,6 +506,8 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( ['Fredrik'], get_option( 'name' ) );
 
 		$_SERVER['REQUEST_URI'] = $old_request_uri;
+
+		$current_screen = null;
 	}
 
 	public function test_papi_to_property_array_slugs() {
