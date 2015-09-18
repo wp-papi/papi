@@ -161,7 +161,8 @@ class Papi_Property_Relationship extends Papi_Property {
 		$posts = $query->get_posts();
 
 		// Keep only objects.
-		$posts = papi_get_only_objects( $posts );
+		$posts  = papi_get_only_objects( $posts );
+		$values = papi_get_only_objects( $values );
 
 		?>
 		<div class="papi-property-relationship">
