@@ -38,9 +38,9 @@ class Papi_Core_Autoload {
 			$path .= 'porter/';
 		} else if ( strpos( $class, 'papi_property' ) === 0 ) {
 			$path .= 'properties/';
-		} else if ( preg_match( '/papi\_\w+\_type/', $class ) ) {
+		} else if ( preg_match( '/^papi\_\w+\_type/', $class ) ) {
 			$path .= 'types/';
-		} else if ( strpos( $class, 'papi_' ) === 0 && preg_match( '/\_page$/', $class ) ) {
+		} else if ( preg_match( '/^papi\_\w+\_page$/', $class ) ) {
 			$path .= 'pages/';
 		}
 
