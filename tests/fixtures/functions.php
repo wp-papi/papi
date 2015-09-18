@@ -4,7 +4,16 @@
  * Say Hello!
  */
 function say_hello_stub() {
-	echo "Hello";
+	echo 'Hello';
+}
+
+/**
+ * Say Hello!
+ *
+ * @param string $name
+ */
+function say_hello_name_stub( $name ) {
+	echo "Hello $name";
 }
 
 /**

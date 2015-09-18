@@ -523,17 +523,18 @@ function papi_maybe_json_encode( $obj, $assoc = false ) {
  * Papi get callable value if is it callable.
  *
  * @param  mixed $callable
+ * @param  array $args
  *
  * @return mixed
  */
-function papi_maybe_get_callable_value( $callable ) {
+function papi_maybe_get_callable_value( $callable, $args = [] ) {
 	if ( is_callable( $callable ) ) {
 		$ob_level = ob_get_level();
 
 		ob_start();
 
 		try {
-			call_user_func( $callable );
+			call_user_func_array( $callable, papi_to_array( $args ) );
 		} catch ( Exception $e ) {
 			while ( ob_get_level() > $ob_level ) {
 				ob_end_clean();
