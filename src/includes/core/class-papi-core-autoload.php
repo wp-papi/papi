@@ -38,10 +38,8 @@ class Papi_Core_Autoload {
 			$path .= 'porter/';
 		} else if ( strpos( $class, 'papi_property' ) === 0 ) {
 			$path .= 'properties/';
-		} else if ( strpos( $class, 'papi_page_type' ) === 0 ) {
-			$path .= 'page-type/';
-		} else if ( strpos( $class, 'papi_option_type' ) === 0 ) {
-			$path .= 'option-type/';
+		} else if ( preg_match( '/papi\_\w+\_type/', $class ) ) {
+			$path .= 'types/';
 		} else if ( strpos( $class, 'papi_' ) === 0 && preg_match( '/\_page$/', $class ) ) {
 			$path .= 'pages/';
 		}
