@@ -34,14 +34,14 @@ class Papi_Core_Autoload {
 			$path .= 'conditional/';
 		} else if ( strpos( $class, 'papi_core_' ) === 0 ) {
 			$path .= 'core/';
+		} else if ( preg_match( '/^papi\_\w+\_page$/', $class ) ) {
+			$path .= 'pages/';
 		} else if ( strpos( $class, 'papi_porter' ) === 0 ) {
 			$path .= 'porter/';
 		} else if ( strpos( $class, 'papi_property' ) === 0 ) {
 			$path .= 'properties/';
 		} else if ( preg_match( '/^papi\_\w+\_type/', $class ) ) {
 			$path .= 'types/';
-		} else if ( preg_match( '/^papi\_\w+\_page$/', $class ) ) {
-			$path .= 'pages/';
 		}
 
 		if ( is_readable( $path . $file ) ) {
