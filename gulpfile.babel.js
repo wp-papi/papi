@@ -15,7 +15,7 @@ import header from 'gulp-header';
 import autoprefixer from 'gulp-autoprefixer';
 import eslint from 'gulp-eslint';
 import phpcs from 'gulp-phpcs';
-import phpcd from 'gulp-phpcpd';
+import phpcpd from 'gulp-phpcpd';
 import plumber from 'gulp-plumber';
 import pkg from './package.json';
 import runSequence from 'run-sequence';
