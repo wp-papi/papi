@@ -4,18 +4,18 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Papi Page Type Base class.
+ * Papi Core Type class.
  *
  * @package Papi
  */
-class Papi_Page_Type_Base {
+class Papi_Core_Type {
 
 	/**
 	 * The meta method to call.
 	 *
 	 * @var string
 	 */
-	public $_meta_method = 'page_type';
+	public $_meta_method = 'type';
 
 	/**
 	 * The page type class name.

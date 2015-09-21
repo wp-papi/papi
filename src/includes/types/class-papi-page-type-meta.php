@@ -8,7 +8,14 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-class Papi_Page_Type_Meta extends Papi_Page_Type_Base {
+class Papi_Page_Type_Meta extends Papi_Core_Type {
+
+	/**
+	 * The meta method to call.
+	 *
+	 * @var string
+	 */
+	public $_meta_method = 'page_type';
 
 	/**
 	 * Capabilities list.
