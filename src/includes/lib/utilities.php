@@ -505,11 +505,10 @@ function papi_maybe_json_decode( $str, $assoc = false ) {
  * Maybe JSON encode the given object.
  *
  * @param  mixed $obj
- * @param  bool  $assoc
  *
  * @return mixed
  */
-function papi_maybe_json_encode( $obj, $assoc = false ) {
+function papi_maybe_json_encode( $obj ) {
 	if ( is_array( $obj ) || is_object( $obj ) ) {
 		return function_exists( 'wp_json_encode' ) ?
 			wp_json_encode( $obj ) :
