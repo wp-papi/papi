@@ -45,7 +45,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 	abstract public function get_expected();
 
-	public function save_property( $property, $value = null ) {
+	public function save_properties( $property, $value = null ) {
 		if ( is_null( $value ) ) {
 			$value = $this->get_value( $property->get_slug( true ) );
 		}
@@ -58,10 +58,10 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 			'value' => $value
 		], $_POST );
 
-		$handler->save_property( $this->post_id );
+		$handler->save_properties( $this->post_id );
 	}
 
-	public function save_property_value( $property = null ) {
+	public function save_properties_value( $property = null ) {
 		$value = $this->get_value( $property->get_slug( true ) );
 
 		if ( is_null( $value ) ) {
@@ -69,7 +69,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 			return;
 		}
 
-		$this->save_property( $property, $value );
+		$this->save_properties( $property, $value );
 
 		$actual = papi_get_field( $this->post_id, $property->slug );
 
@@ -108,9 +108,9 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		}
 	}
 
-	public function test_save_property_value() {
+	public function test_save_properties_value() {
 		foreach ( $this->properties as $prop ) {
-			$this->save_property_value( $prop );
+			$this->save_properties_value( $prop );
 		}
 	}
 }

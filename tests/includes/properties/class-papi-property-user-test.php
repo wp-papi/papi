@@ -39,7 +39,7 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 
 	public function test_property_get_value() {
 		$this->assertEquals( 0, $this->property->get_value() );
-		$this->save_property( $this->property );
+		$this->save_properties( $this->property );
 		$user = $this->get_expected();
 		$this->assertEquals( $user->ID, $this->property->get_value() );
 	}

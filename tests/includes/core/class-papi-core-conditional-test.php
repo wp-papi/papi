@@ -168,7 +168,7 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 			'value' => $property->value
 		], $_POST );
 
-		$handler->save_property( $post_id );
+		$handler->save_properties( $post_id );
 
 		$result = $this->conditional->display( [
 			[
@@ -267,7 +267,7 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 			'value' => [$item]
 		], $_POST );
 
-		$handler->save_property( $post_id );
+		$handler->save_properties( $post_id );
 
 		$result = $this->conditional->display( [
 			[

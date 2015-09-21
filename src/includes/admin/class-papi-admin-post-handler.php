@@ -85,15 +85,15 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 			return;
 		}
 
-		$this->save_property( $post_id );
+		$this->save_properties( $post_id );
 	}
 
 	/**
-	 * Save property and property type.
+	 * Save properties.
 	 *
 	 * @param int $post_id
 	 */
-	public function save_property( $post_id ) {
+	public function save_properties( $post_id ) {
 		// Pre save page template, page type and some others dynamic values.
 		$this->pre_save( $post_id );
 

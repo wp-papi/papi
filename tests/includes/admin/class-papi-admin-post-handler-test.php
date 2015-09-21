@@ -197,7 +197,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_field( $this->post_id, $property->slug ) );
 	}
 
-	public function test_save_property() {
+	public function test_save_properties() {
 		$property = $this->page_type->get_property( 'string_test' );
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $property->slug,
@@ -205,7 +205,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 			'value' => 'Hello, world!'
 		], $_POST );
 
-		$this->handler->save_property( $this->post_id );
+		$this->handler->save_properties( $this->post_id );
 
 		$value = papi_get_field( $this->post_id, $property->slug );
 
@@ -218,7 +218,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 			'value' => 42
 		], $_POST );
 
-		$this->handler->save_property( 0 );
+		$this->handler->save_properties( 0 );
 
 		$value = papi_get_field( 0, $property->slug );
 
@@ -231,7 +231,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 			'_papi_item_2' => ''
 		];
 
-		$this->handler->save_property( $this->post_id );
+		$this->handler->save_properties( $this->post_id );
 
 		$this->assertEquals( 'Item 42', get_post_meta( $this->post_id, '_papi_item', true ) );
 		$this->assertEmpty( get_post_meta( $this->post_id, '_papi_item_2', true ) );
@@ -248,7 +248,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 
 		$_GET['post'] = $post_id;
 		update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'extra-page-type' );
-		$this->handler->save_property( $post_id );
+		$this->handler->save_properties( $post_id );
 
 		$value = papi_get_field( $post_id, $property->slug );
 		$this->assertEquals( '<p>Hello, world!</p>', trim( $value ) );

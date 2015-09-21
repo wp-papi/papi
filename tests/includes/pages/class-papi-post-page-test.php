@@ -90,7 +90,7 @@ class Papi_Post_Page_Test extends WP_UnitTestCase {
 			'value' => 'Fredrik'
 		], $_POST );
 
-		$handler->save_property( $this->post_id );
+		$handler->save_properties( $this->post_id );
 
 		$actual = papi_get_field( $this->post_id, $property->get_option( 'slug' ) );
 		$this->assertEquals( 'Fredrik', $actual );

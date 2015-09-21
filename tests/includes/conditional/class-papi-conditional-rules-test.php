@@ -33,7 +33,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 		);
 	}
 
-	private function save_property( $property ) {
+	private function save_properties( $property ) {
 		$handler = new Papi_Admin_Post_Handler();
 
 		$_POST = papi_test_create_property_post_data( [
@@ -42,7 +42,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => $property->value
 		], $_POST );
 
-		$handler->save_property( $this->post_id );
+		$handler->save_properties( $this->post_id );
 	}
 
 	public function test_rule_equal_option() {
@@ -83,7 +83,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 'Fredrik'
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '=',
@@ -108,7 +108,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 1.1
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '=',
@@ -126,7 +126,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 'true'
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '=',
@@ -144,7 +144,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 'false'
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '=',
@@ -163,7 +163,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 'Fredrik'
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '!=',
@@ -189,7 +189,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 'false'
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '!=',
@@ -207,7 +207,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 'true'
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '!=',
@@ -226,7 +226,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 1
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '>',
@@ -286,7 +286,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 1
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '>=',
@@ -338,7 +338,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 1
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '<',
@@ -382,7 +382,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 1
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => '<=',
@@ -426,7 +426,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 1
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'IN',
@@ -461,7 +461,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 1
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'NOT IN',
@@ -512,7 +512,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 'Fredrik'
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'LIKE',
@@ -545,7 +545,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 124
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'LIKE',
@@ -564,7 +564,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 1
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'BETWEEN',
@@ -623,7 +623,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 1
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'NOT BETWEEN',
@@ -690,7 +690,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 1
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'EXISTS',
@@ -715,7 +715,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 			'value' => 1
 		] );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'NOT EXISTS',
@@ -747,7 +747,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->assertTrue( $result );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'EMPTY',
@@ -772,7 +772,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 		$this->assertFalse( $result );
 
-		$this->save_property( $property );
+		$this->save_properties( $property );
 
 		$result = papi_filter_conditional_rule_allowed( [
 			'operator' => 'NOT EMPTY',

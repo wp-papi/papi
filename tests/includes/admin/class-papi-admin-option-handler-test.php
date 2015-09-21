@@ -32,7 +32,7 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 		);
 	}
 
-	public function test_save_property() {
+	public function test_save_properties() {
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $this->property->slug,
 			'type'  => $this->property,
@@ -55,7 +55,7 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'Hello, world!', $value );
 	}
 
-	public function test_save_property_fail() {
+	public function test_save_properties_fail() {
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $this->property->slug,
 			'type'  => $this->property,
