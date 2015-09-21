@@ -35,8 +35,8 @@ class Papi_Container implements ArrayAccess {
 	 * Set a parameter or an object.
 	 *
 	 * @param string $id
-	 * @param mixed $value
-	 * @param bool $singleton
+	 * @param mixed  $value
+	 * @param bool   $singleton
      *
      * @throws Exception when singleton cannot be rebind.
 	 *
@@ -74,7 +74,7 @@ class Papi_Container implements ArrayAccess {
 	 * @param mixed $closure
      * @param array $parameters
 	 *
-	 * @return mixed
+	 * @return Closure
 	 */
 	protected function call_closure( $closure, array $parameters = [] ) {
 		if ( $closure instanceof Closure ) {
