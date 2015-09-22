@@ -153,7 +153,7 @@ final class Papi_Admin {
 
 		papi_render_html_tag( 'input', [
 			'data-papi-page-type-key' => true,
-			'name'                    => esc_attr( PAPI_PAGE_TYPE_KEY ),
+			'name'                    => esc_attr( papi_get_page_type_key() ),
 			'type'                    => 'hidden',
 			'value'                   => esc_attr( papi_get_page_type_id() )
 		] );
