@@ -70,8 +70,9 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 			return;
 		}
 
-		// Check the post being saved has the same id as the post id. This will prevent other save post events.
-		if ( papi_get_sanitized_post( 'post_ID' ) !== strval( $post_id ) ) {
+		// Check the post being saved has the same id as the post id.
+		// This will prevent other save post events.
+		if ( $this->valid_post_id( $post_id ) ) {
 			return;
 		}
 
@@ -121,6 +122,21 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 	 */
 	private function setup_actions() {
 		add_action( 'save_post', [$this, 'save_meta_boxes'], 1, 2 );
+	}
+
+	/**
+	 * Check if post id is valid or not.
+	 *
+	 * @param  int $post_id
+	 *
+	 * @return bool
+	 */
+	private function valid_post_id( $post_id ) {
+		$key = papi_get_sanitized_post( 'action' ) === 'save-attachment-compat'
+			? 'id'
+			: 'post_ID';
+
+		return papi_get_sanitized_post( $key ) !== strval( $post_id );
 	}
 }
 
