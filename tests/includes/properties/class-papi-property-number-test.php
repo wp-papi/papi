@@ -17,6 +17,14 @@ class Papi_Property_Number_Test extends Papi_Property_Test_Case {
 		return 42;
 	}
 
+	public function test_property_get_default_settings() {
+		$settings = (object) $this->property->get_default_settings();
+		$this->assertEquals( '', $settings->max );
+		$this->assertEquals( '', $settings->min );
+		$this->assertEquals( '', $settings->step );
+		$this->assertEquals( 'number', $settings->type );
+	}
+
 	public function test_property_convert_type() {
 		$this->assertEquals( 'int', $this->property->convert_type );
 	}

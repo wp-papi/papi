@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package Papi
  */
-class Papi_Property_Number extends Papi_Property_String {
+class Papi_Property_Number extends Papi_Property {
 
 	/**
 	 * The convert type.
@@ -18,20 +18,13 @@ class Papi_Property_Number extends Papi_Property_String {
 	public $convert_type = 'int';
 
 	/**
-	 * The input type to use.
-	 *
-	 * @var string
-	 */
-	public $input_type = 'number';
-
-	/**
 	 * Format the value of the property before it's returned to the application.
 	 *
 	 * @param  mixed  $value
 	 * @param  string $slug
 	 * @param  int    $post_id
 	 *
-	 * @return array
+	 * @return float|int
 	 */
 	public function format_value( $value, $slug, $post_id ) {
 		if ( floatval( $value ) && intval( $value ) !== floatval( $value ) ) {
@@ -39,6 +32,65 @@ class Papi_Property_Number extends Papi_Property_String {
 		} else {
 			return intval( $value );
 		}
+	}
+
+	/**
+	 * Get default settings.
+	 *
+	 * @return array
+	 */
+	public function get_default_settings() {
+		return [
+			'max'  => '',
+			'min'  => '',
+			'step' => '',
+			'type' => 'number'
+		];
+	}
+
+	/**
+	 * Get value from the database.
+	 *
+	 * @return float|int
+	 */
+	public function get_value() {
+		return $this->format_value(
+			parent::get_value(),
+			$this->get_slug(),
+			papi_get_post_id()
+		);
+	}
+
+	/**
+	 * Render property html.
+	 */
+	public function html() {
+		$settings = $this->get_settings();
+		$value    = $this->get_value();
+
+		// If range type is used change the default values if empty.
+		if ( $settings->type === 'range' ) {
+			$settings->max  = papi_is_empty( $settings->max )
+				? 100 : $settings->max;
+			$settings->min  = papi_is_empty( $settings->min )
+				? 0 : $settings->min;
+			$settings->step = papi_is_empty( $settings->step )
+				? 1 : $settings->step;
+		}
+
+		if ( $value === 0 && $settings->min !== 0 ) {
+			$value = $settings->min;
+		}
+
+		papi_render_html_tag( 'input', [
+			'id'    => $this->html_id(),
+			'max'   => $settings->max,
+			'min'   => $settings->min,
+			'name'  => $this->html_name(),
+			'step'  => $settings->step,
+			'type'  => $settings->type,
+			'value' => $value
+		] );
 	}
 
 	/**
