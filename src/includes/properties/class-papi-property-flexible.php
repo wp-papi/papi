@@ -129,6 +129,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					$child_slug,
 					$post_id
 				);
+
 				$values[$index][$slug] = papi_filter_load_value(
 					$property_type->type,
 					$values[$index][$slug],
