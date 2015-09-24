@@ -471,10 +471,8 @@ class Papi_Core_Property {
 				$value = papi_get_field( $this->get_post_id(), $slug );
 			}
 
-			$default = $this->get_option( 'default' );
-
-			if ( papi_is_empty( $value ) && ! papi_is_empty( $default ) ) {
-				$value = $default;
+			if ( papi_is_empty( $value ) ) {
+				$value = $this->get_option( 'default' );
 			}
 		}
 
@@ -705,6 +703,10 @@ class Papi_Core_Property {
 
 		if ( $options->sort_order === -1 ) {
 			$options->sort_order = papi_filter_settings_sort_order();
+		}
+
+		if ( papi_is_empty( $options->default ) ) {
+			$options->default = $this->default_value;
 		}
 
 		$options->capabilities = papi_to_array( $options->capabilities );

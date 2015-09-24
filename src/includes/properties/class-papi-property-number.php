@@ -78,7 +78,7 @@ class Papi_Property_Number extends Papi_Property {
 				? 1 : $settings->step;
 		}
 
-		if ( $value === 0 && $settings->min !== 0 ) {
+		if ( $settings->min !== 0 && $value < $settings->min ) {
 			$value = $settings->min;
 		}
 
