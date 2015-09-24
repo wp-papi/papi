@@ -146,12 +146,30 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 			return 'post-page-type';
 		} );
 
+		tests_add_filter( 'papi/settings/show_standard_page_type_hidden', '__return_true' );
+
 		papi_test_register_book_post_type();
+		papi_test_register_hidden_post_type();
 
 		$this->assertNull( $this->menu->post_types_menu() );
 		$this->assertEquals( 'post-new.php?page_type=post-page-type&post_type=post', $submenu['edit.php'][10][2] );
 		$this->assertEquals( 'edit.php?post_type=page&page=papi-add-new-page,page', $submenu['edit.php?post_type=page'][10][2] );
 		$this->assertEquals( 'post-new.php?page_type=book-page-type&post_type=book', $submenu['edit.php?post_type=book'][10][2] );
+		$this->assertEquals( 'edit.php?post_type=hidden&page=papi-add-new-page,hidden', $submenu['edit.php?post_type=hidden'][10][2] );
+	}
+
+	public function test_post_types_menu_hidden_2() {
+		global $submenu;
+		$submenu = [];
+
+		tests_add_filter( 'papi/settings/only_page_type_hidden', function () {
+			return 'hidden2-page-type';
+		} );
+
+		tests_add_filter( 'papi/settings/show_standard_page_type_hidden', '__return_false' );
+
+		$this->assertNull( $this->menu->post_types_menu() );
+		$this->assertEquals( 'post-new.php?page_type=hidden2-page-type&post_type=hidden', $submenu['edit.php?post_type=hidden'][10][2] );
 	}
 
 	public function test_render_view() {

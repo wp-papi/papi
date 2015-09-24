@@ -60,3 +60,48 @@ function papi_test_register_book_post_type() {
 		$wp_post_types['book'] = $out;
 	}
 }
+
+/**
+ * Register a hidden post type.
+ */
+function papi_test_register_hidden_post_type() {
+    global $wp_post_types;
+
+	$labels = [
+        'name'               => _x( 'Hiddens', 'post type general name', 'papi-tests' ),
+        'singular_name'      => _x( 'Hidden', 'post type singular name', 'papi-tests' ),
+        'menu_name'          => _x( 'Hidden', 'admin menu', 'papi-tests' ),
+        'name_admin_bar'     => _x( 'Hidden', 'add new on admin bar', 'papi-tests' ),
+        'add_new'            => _x( 'Add New', 'hidden', 'papi-tests' ),
+        'add_new_item'       => __( 'Add New Hidden', 'papi-tests' ),
+        'new_item'           => __( 'New Hidden', 'papi-tests' ),
+        'edit_item'          => __( 'Edit Hidden', 'papi-tests' ),
+        'view_item'          => __( 'View Hidden', 'papi-tests' ),
+        'all_items'          => __( 'All Hiddens', 'papi-tests' ),
+        'search_items'       => __( 'Search Hidden', 'papi-tests' ),
+        'parent_item_colon'  => __( 'Parent Hiddens:', 'papi-tests' ),
+        'not_found'          => __( 'No hiddens found.', 'papi-tests' ),
+        'not_found_in_trash' => __( 'No hiddens found in Trash.', 'papi-tests' )
+    ];
+
+    $args = [
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => false,
+        'query_var'          => true,
+        'rewrite'            => ['slug' => 'hidden'],
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => null,
+        'supports'           => ['title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments']
+    ];
+
+    $out = register_post_type( 'hidden', $args );
+
+	if ( ! isset( $wp_post_types['hidden'] ) ) {
+		$wp_post_types['hidden'] = $out;
+	}
+}

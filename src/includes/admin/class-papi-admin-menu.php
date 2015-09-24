@@ -102,7 +102,6 @@ class Papi_Admin_Menu {
 		$post_types = papi_get_post_types();
 
 		foreach ( $post_types as $post_type ) {
-
 			if ( ! post_type_exists( $post_type ) ) {
 				continue;
 			}
@@ -114,7 +113,18 @@ class Papi_Admin_Menu {
 			}
 
 			if ( ! isset( $submenu[$edit_url] ) || ! isset( $submenu[$edit_url][10] ) || ! isset( $submenu[$edit_url][10][2] ) ) {
-				continue;
+				$post_type_object = get_post_type_object( $post_type );
+				if ( ! $post_type_object->show_in_menu ) {
+					$submenu[$edit_url] = [
+						10 => [
+							__( 'Add New', 'papi' ),
+							'edit_posts',
+							'post-new.php'
+						]
+					];
+				} else {
+					continue;
+				}
 			}
 
 			$only_page_type = papi_filter_settings_only_page_type( $post_type );
