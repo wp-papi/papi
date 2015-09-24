@@ -72,9 +72,18 @@ const banner = [
 ].join('');
 
 /**
- * Clean task for [./dist/css, ./dist/js]
+ * Clean task for [./dist/css]
  */
-gulp.task('clean:before', cb => del([ `${dist}js/`, `${dist}css/` ], {
+gulp.task('clean:before:css', cb => del([ `${dist}css/` ], {
+  read: false,
+  dot: true,
+  force: true
+}, cb));
+
+/**
+ * Clean task for [./dist/js]
+ */
+gulp.task('clean:before:js', cb => del([ `${dist}js/` ], {
   read: false,
   dot: true,
   force: true
@@ -142,7 +151,7 @@ gulp.task('sass', () => {
 /**
  * Scripts task.
  */
-gulp.task('scripts', ['components', 'webpack'], cb => {
+gulp.task('scripts', ['clean:before:js', 'components', 'webpack'], cb => {
   gulp.src([`${dist}js/*.js`])
     .pipe(concat('main.min.js'))
     .pipe(header(banner, {
@@ -173,13 +182,13 @@ gulp.task('watch', () => {
 /**
  * Default task.
  */
-gulp.task('default', ['clean:before'], cb => {
+gulp.task('default', ['clean:before:css', 'clean:before:js'], cb => {
   runSequence('sass', 'scripts', 'watch', cb);
 });
 
 /**
  * Build task.
  */
-gulp.task('build', ['clean:before'], cb => {
+gulp.task('build', ['clean:before:css', 'clean:before:js'], cb => {
   runSequence('sass', 'scripts', cb);
 });
