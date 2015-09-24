@@ -8,7 +8,6 @@ class Relationship {
   /**
    * Initialize Property Relationship.
    */
-
   static init() {
     new Relationship().binds();
   }
@@ -80,7 +79,7 @@ class Relationship {
     e.preventDefault();
 
     const $this = $(this);
-    const $list = $this.closest('.papi-property-relationship').find('.relationshio-left ul');
+    const $list = $this.closest('.papi-property-relationship').find('.relationship-left ul');
     const val   = $this.val().toLowerCase();
 
     $list.find('li').each(function () {
