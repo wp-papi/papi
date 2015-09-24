@@ -42,6 +42,7 @@ class Papi_Core_Property {
 		'after_html'   => '',
 		'before_html'  => '',
 		'capabilities' => [],
+		'default'      => '',
 		'description'  => '',
 		'disabled'     => false,
 		'lang'         => false,
@@ -468,6 +469,12 @@ class Papi_Core_Property {
 				$value = papi_get_option( $slug );
 			} else {
 				$value = papi_get_field( $this->get_post_id(), $slug );
+			}
+
+			$default = $this->get_option( 'default' );
+
+			if ( papi_is_empty( $value ) && ! papi_is_empty( $default ) ) {
+				$value = $default;
 			}
 		}
 

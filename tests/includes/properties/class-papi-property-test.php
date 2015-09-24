@@ -151,6 +151,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	public function test_default_options() {
 		$default_options = Papi_Property::default_options();
 		$this->assertTrue( is_array( $default_options ) );
+		$this->assertEmpty( $default_options['default'] );
 		$this->assertEmpty( $default_options['title'] );
 		$this->assertEquals( 'string', $default_options['type'] );
 		$this->assertEmpty( $default_options['slug'] );
@@ -205,6 +206,14 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		] );
 
 		$this->assertNull( $property->get_value() );
+
+		$property = Papi_Property::create( [
+			'default' => 'Hello',
+			'type'    => 'string',
+			'title'   => 'Hello'
+		] );
+
+		$this->assertEquals( 'Hello', $property->get_value() );
 
 		$property->set_options( [
 			'type'  => 'string',
