@@ -203,13 +203,22 @@ final class Papi_Admin {
 		if ( in_array( $this->post_type, $post_types ) && strpos( $request_uri, 'page_type=' ) === false ) {
 			$parsed_url = parse_url( $request_uri );
 
-			$only_page_type = papi_filter_settings_only_page_type(
-				$this->post_type
-			);
+			$only_page_type = papi_filter_settings_only_page_type( $post_type );
+			$page_types     = papi_get_all_page_types( false, $post_type );
+			$show_standard  = false;
+
+			if ( count( $page_types ) === 1 && empty( $only_page_type ) ) {
+				$show_standard  = $page_types[0]->standard_type;
+				$show_standard  = $show_standard ?
+					papi_filter_settings_show_standard_page_type( $post_type ) :
+					$show_standard;
+
+				$only_page_type = $show_standard ? '' : $page_types[0]->get_id();
+			}
 
 			// Check if we should show one post type or not and
 			// create the right url for that.
-			if ( ! empty( $only_page_type ) ) {
+			if ( ! empty( $only_page_type ) && ! $show_standard ) {
 				$url = papi_get_page_new_url( $only_page_type, false );
 			} else {
 				$page = 'page=papi-add-new-page,' . $this->post_type;
