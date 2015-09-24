@@ -49,6 +49,11 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 				continue;
 			}
 
+			if ( is_array( $value ) ) {
+				list( $keys, $value ) = $this->get_pre_deep_keys_value( $value );
+				$key = sprintf( '%s_%s', $key, implode( '_', $keys ) );
+			}
+
 			update_post_meta( $post_id, $key, $value );
 		}
 	}

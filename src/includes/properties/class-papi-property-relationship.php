@@ -34,7 +34,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @return array
 	 */
 	public function format_value( $values, $slug, $post_id ) {
-		if ( is_array( $values ) ) {
+		if ( is_array( $values ) || is_object( $values ) ) {
 			$values = array_map( function ( $id ) {
 				$post = get_post( $id );
 
@@ -43,7 +43,7 @@ class Papi_Property_Relationship extends Papi_Property {
 				}
 
 				return $post;
-			}, array_filter( $values ) );
+			}, array_filter( (array) $values ) );
 			return $this->sort_value( $values, $slug, $post_id );
 		} else {
 			return $this->default_value;
@@ -67,14 +67,18 @@ class Papi_Property_Relationship extends Papi_Property {
 	/**
 	 * Get sort option value.
 	 *
-	 * @param  int    $post_id
-	 * @param  string $slug
+	 * @param  int $post_id
 	 *
-	 * @return null|string
+	 * @return string
 	 */
-	public function get_sort_option( $post_id, $slug ) {
-		$slug = papi_f( papify( $slug ) . '_sort_option' );
-		return papi_get_property_meta_value( $post_id, $slug );
+	public function get_sort_option( $post_id ) {
+		return papi_get_property_meta_value(
+			$post_id,
+			str_replace( ']', '',
+				str_replace( '[', '_',
+					str_replace( '][', '_',
+						$this->html_id( 'sort_option' ) ) ) )
+		);
 	}
 
 	/**
@@ -141,8 +145,8 @@ class Papi_Property_Relationship extends Papi_Property {
 		$post_id     = papi_get_post_id();
 		$slug        = $this->html_name();
 		$settings    = $this->get_settings();
-		$sort_option = $this->get_sort_option( $post_id, $slug );
-		$values   = $this->get_value();
+		$sort_option = $this->get_sort_option( $post_id );
+		$values      = $this->get_value();
 
 		// By default we add posts per page key with the value -1 (all).
 		if ( ! isset( $settings->query['posts_per_page'] ) ) {
@@ -162,7 +166,6 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		// Keep only objects.
 		$posts = papi_get_only_objects( $posts );
-
 		?>
 		<div class="papi-property-relationship">
 			<input type="hidden" name="<?php echo $slug; ?>[]" data-papi-rule="<?php echo $slug; ?>" />
@@ -260,7 +263,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @return mixed
 	 */
 	public function load_value( $values, $slug, $post_id ) {
-		return papi_maybe_json_decode( maybe_unserialize( $values ), true );
+		return (array) papi_maybe_json_decode( maybe_unserialize( $values ), true );
 	}
 
 	/**
@@ -273,7 +276,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @return array
 	 */
 	public function sort_value( $values, $slug, $post_id ) {
-		$sort_option  = $this->get_sort_option( $post_id, $slug );
+		$sort_option  = $this->get_sort_option( $post_id );
 		$sort_options = static::get_sort_options();
 
 		if ( empty( $sort_option ) || ! isset( $sort_options[$sort_option] ) || is_null( $sort_options[$sort_option] ) ) {

@@ -64,6 +64,34 @@ class Papi_Admin_Data_Handler {
 	}
 
 	/**
+	 * Pre get deep keys and value.
+	 *
+	 * Used for saving pre data when properties are in a flexible or repeater.
+	 *
+	 * @param  array $arr
+	 *
+	 * @return array
+	 */
+	protected function get_pre_deep_keys_value( array $arr ) {
+		$keys  = [];
+		$value = null;
+
+		foreach ( $arr as $key => $v ) {
+			if ( is_array( $v ) ) {
+				$keys[] = $key;
+				list( $ks, $val ) = $this->get_pre_deep_keys_value( $v );
+				$keys   = array_merge( $keys, $ks );
+				$value  = $val;
+			} else {
+				$keys[] = $key;
+				$value  = $v;
+			}
+		}
+
+		return [$keys, $value];
+	}
+
+	/**
 	 * Prepare post data.
 	 * Will decode property options recursive.
 	 *
