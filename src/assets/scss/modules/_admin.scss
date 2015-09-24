@@ -1,5 +1,6 @@
 #papi-hidden-editor,
 #wp-papiHiddenEditor-wrap,
-label[for="papi-hidden-editor-hide"] {
+label[for="papi-hidden-editor-hide"],
+.compat-field-papi_meta_nonce {
   display: none !important;
 }
