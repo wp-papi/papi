@@ -516,6 +516,29 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertFalse( $property->match_slug( '' ) );
 	}
 
+	public function test_render_with_description() {
+		$property = Papi_Property::factory( [
+			'description' => 'Hello, world',
+			'slug'        => 'render_with_description_test',
+			'type'        => 'string'
+		] );
+
+		$property->render();
+
+		$this->expectOutputRegex( '/Hello\,\sworld/' );
+	}
+
+	public function test_render_with_html_array_slug() {
+		$property = Papi_Property::factory( [
+			'slug' => 'sections[0][render_with_description_test]',
+			'type' => 'string'
+		] );
+
+		$property->render();
+
+		$this->expectOutputRegex( '/papi\_sections\[0\]\[render\_with\_description\_test\_property\]/' );
+	}
+
 	public function test_render_with_lang() {
 		$property = Papi_Property::factory( [
 			'lang'  => 'dk',
