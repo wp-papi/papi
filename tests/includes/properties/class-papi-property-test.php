@@ -432,6 +432,13 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( '_papi_name_non_array_or_object', $property->html_id( $sub_property ) );
 		$this->assertEquals( '_papi_name_non_array_or_object', $property->html_id( $sub_property, 0 ) );
+
+		$property = Papi_Property::create( [
+			'type' => 'number',
+			'slug' => 'sections[0][age]'
+		] );
+
+		$this->assertEquals( '_papi_sections[0][age_sort_order]', $property->html_id( 'sort_order' ) );
 	}
 
 	public function test_html_name() {
