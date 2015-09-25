@@ -137,6 +137,25 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$admin->load_post_new();
 	}
 
+	public function test_load_post_new_4() {
+		papi_test_register_hidden_post_type();
+
+		tests_add_filter( 'papi/settings/only_page_type_hidden', function () {
+			return 'hidden2-page-type';
+		} );
+
+		tests_add_filter( 'papi/settings/show_standard_page_type_hidden', '__return_false' );
+
+		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=hidden';
+		tests_add_filter( 'wp_redirect', function( $location ) {
+			$this->assertEquals( 'post-new.php?page_type=hidden2-page-type&post_type=hidden', $location );
+			return false;
+		} );
+		$_GET['post_type'] = 'page';
+		$admin = new Papi_Admin;
+		$admin->load_post_new();
+	}
+
 	public function test_manage_page_type_posts_columns() {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin;
