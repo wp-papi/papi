@@ -224,6 +224,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 	public function test_restrict_page_types_2() {
 		$_GET['post_type'] = 'page';
+		tests_add_filter( 'papi/settings/show_standard_page_type_in_filter_page', '__return_true' );
 		$admin = new Papi_Admin;
 		$admin->restrict_page_types();
 		$this->expectOutputRegex( '/.*\S.*/' );
