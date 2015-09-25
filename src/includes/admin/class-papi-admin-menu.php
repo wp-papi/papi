@@ -154,13 +154,8 @@ class Papi_Admin_Menu {
 					]
 				);
 			} else {
-				$page = 'papi-add-new-page,' . $post_type;
-
-				if ( strpos( $edit_url, 'post_type' ) === false ) {
-					$start = '?';
-				} else {
-					$start = '&';
-				}
+				$page  = 'papi-add-new-page,' . $post_type;
+				$start = strpos( $edit_url, 'post_type' ) === false ? '?' : '&';
 
 				$submenu[$edit_url][10][2] = sprintf(
 					'%s%spage=%s',
