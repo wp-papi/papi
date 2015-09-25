@@ -151,7 +151,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 			$this->assertEquals( 'post-new.php?page_type=hidden2-page-type&post_type=hidden', $location );
 			return false;
 		} );
-		$_GET['post_type'] = 'page';
+		$_GET['post_type'] = 'hidden';
 		$admin = new Papi_Admin;
 		$admin->load_post_new();
 	}
