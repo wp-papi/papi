@@ -45,6 +45,14 @@ class Papi_Lib_Post_Test extends WP_UnitTestCase {
 		];
 		$this->assertEquals( $post_id, papi_get_post_id() );
 		unset( $_POST );
+
+
+		$_GET = ['post' => $post_id];
+		$_POST = [
+			'action' => 'query-attachments'
+		];
+		$this->assertEquals( $post_id, papi_get_post_id() );
+		unset( $_POST );
 	}
 
 	public function test_papi_get_parent_post_id() {
