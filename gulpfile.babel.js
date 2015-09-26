@@ -6,6 +6,7 @@
 
 import del from 'del';
 import gulp from 'gulp';
+import gutil from 'gulp-util';
 import sass from 'gulp-sass';
 import sourcemaps from 'gulp-sourcemaps';
 import cssmin from 'gulp-cssmin';
@@ -151,25 +152,37 @@ gulp.task('sass', () => {
 /**
  * Scripts task.
  */
-gulp.task('scripts', ['clean:before:js', 'webpack'], cb => {
-  setTimeout(() => {
-    gulp.src([`${dist}js/*.js`])
-      .pipe(concat('main.min.js'))
-      .pipe(header(banner, {
-        package: pkg
-      }))
-      .pipe(gulp.dest(`${dist}js`));
-      cb();
-  }, 5000);
-});
-
-/**
- * Webpack task.
- */
-gulp.task('webpack', ['components'], () => {
+gulp.task('scripts', ['components'], () => {
   gulp.src([config.scripts.entry])
     .pipe(plumber())
-    .pipe(webpack(webpackconfig))
+    .pipe(webpack(webpackconfig, null, (err, stats) => {
+      if (err) {
+        return;
+      }
+
+      gutil.log(stats.toString({
+        colors: gutil.colors.supportsColor,
+        hash: false,
+        timings: false,
+        chunks: false,
+        chunkModules: false,
+        modules: false,
+        children: true,
+        version: true,
+        cached: false,
+        cachedAssets: false,
+        reasons: false,
+        source: false,
+        errorDetails: false
+      }));
+
+      gulp.src([`${dist}js/*.js`])
+        .pipe(concat('main.min.js'))
+        .pipe(header(banner, {
+          package: pkg
+        }))
+        .pipe(gulp.dest(`${dist}js`));
+    }))
     .pipe(gulp.dest(`${dist}js`));
 });
 
@@ -178,7 +191,7 @@ gulp.task('webpack', ['components'], () => {
  */
 gulp.task('watch', () => {
   gulp.watch(config.sass.src, ['sass']);
-  gulp.watch(config.scripts.lint, ['webpack']);
+  gulp.watch(config.scripts.lint, ['scripts']);
 });
 
 /**
