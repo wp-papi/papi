@@ -151,14 +151,16 @@ gulp.task('sass', () => {
 /**
  * Scripts task.
  */
-gulp.task('scripts', ['clean:before:js', 'components', 'webpack'], cb => {
-  gulp.src([`${dist}js/*.js`])
-    .pipe(concat('main.min.js'))
-    .pipe(header(banner, {
-      package: pkg
-    }))
-    .pipe(gulp.dest(`${dist}js`));
-    cb();
+gulp.task('scripts', ['clean:before:js', 'webpack'], cb => {
+  setTimeout(() => {
+    gulp.src([`${dist}js/*.js`])
+      .pipe(concat('main.min.js'))
+      .pipe(header(banner, {
+        package: pkg
+      }))
+      .pipe(gulp.dest(`${dist}js`));
+      cb();
+  }, 5000);
 });
 
 /**
