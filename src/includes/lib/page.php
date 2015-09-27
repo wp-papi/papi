@@ -149,7 +149,7 @@ function papi_get_number_of_pages( $page_type ) {
 
 	if ( $value === false ) {
 		$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '%s' AND `meta_value` = '%s'";
-		$sql = $wpdb->prepare( $sql, PAPI_PAGE_TYPE_KEY, $page_type );
+		$sql = $wpdb->prepare( $sql, papi_get_page_type_key(), $page_type );
 
 		$value = intval( $wpdb->get_var( $sql ) );
 		wp_cache_set( $cache_key, $value );
@@ -286,7 +286,7 @@ function papi_get_page_type_id( $post_id = 0 ) {
 	}
 
 	if ( empty( $page_type ) ) {
-		$page_type = papi_get_sanitized_post( PAPI_PAGE_TYPE_KEY );
+		$page_type = papi_get_sanitized_post( papi_get_page_type_key() );
 	}
 
 	// Load right page type from a post query string
