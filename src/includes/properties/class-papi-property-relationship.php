@@ -58,6 +58,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	public function get_default_settings() {
 		return [
 			'limit'        => -1,
+			'only_once'    => true,
 			'post_type'    => 'page',
 			'query'        => [],
 			'show_sort_by' => true
@@ -166,8 +167,19 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		// Keep only objects.
 		$posts = papi_get_only_objects( $posts );
+
+		$settings_json = [];
+
+		// Convert all sneak case key to camel case.
+		foreach ( (array) $settings as $key => $val ) {
+			if ( ! is_string( $key ) || ! in_array( $key, ['only_once', 'limit'] ) ) {
+				continue;
+			}
+
+			$settings_json[papi_camel_case( $key )] = $val;
+		}
 		?>
-		<div class="papi-property-relationship">
+		<div class="papi-property-relationship" data-settings='<?php echo json_encode( $settings_json ); ?>'>
 			<input type="hidden" name="<?php echo $slug; ?>[]" data-papi-rule="<?php echo $slug; ?>" />
 			<div class="relationship-inner">
 				<div class="relationship-top-left">
@@ -206,7 +218,7 @@ class Papi_Property_Relationship extends Papi_Property {
 						?>
 					</ul>
 				</div>
-				<div class="relationship-right" data-limit="<?php echo $settings->limit; ?>">
+				<div class="relationship-right">
 					<ul>
 						<?php foreach ( $values as $post ): ?>
 							<li>

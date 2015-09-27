@@ -17,12 +17,13 @@ class Relationship {
    * @param {object} $this
    */
   add($this) {
-    const $li    = $this.clone();
-    const $prop  = $this.closest('.papi-property-relationship');
-    const $right = $prop.find('.relationship-right');
-    const $list  = $right.find('ul');
-    const limit  = $right.data().limit;
-    const append = limit === undefined || limit === -1 || $list.find('li').length < limit;
+    const $li      = $this.clone();
+    const $prop    = $this.closest('.papi-property-relationship');
+    const $right   = $prop.find('.relationship-right');
+    const $list    = $right.find('ul');
+    const settings = $prop.data().settings;
+    const limit    = settings.limit;
+    const append   = limit === undefined || limit === -1 || $list.find('li').length < limit;
 
     if (append) {
       $li.find('span.icon').removeClass('plus').addClass('minus');
@@ -30,6 +31,10 @@ class Relationship {
 
       $li.appendTo($list);
       this.triggerRule($prop);
+
+      if (settings.onlyOnce) {
+        $this.addClass('papi-hide');
+      }
     }
   }
 
@@ -65,7 +70,16 @@ class Relationship {
    * @param {object} $this
    */
   remove($this) {
-    const $prop = $this.closest('.papi-property-relationship');
+    const $prop    = $this.closest('.papi-property-relationship');
+    const settings = $prop.data().settings;
+
+    if (settings.onlyOnce) {
+      $prop
+        .find('.relationship-left input[value="' + $this.find('input[type=hidden]').val() + '"]')
+        .closest('li')
+        .removeClass('papi-hide');
+    }
+
     $this.remove();
     this.triggerRule($prop);
   }
