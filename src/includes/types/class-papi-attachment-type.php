@@ -18,16 +18,6 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	public $post_type = 'attachment';
 
 	/**
-	 * The constructor.
-	 *
-	 * @param string $file_path
-	 */
-	public function __construct( $file_path = '' ) {
-		parent::__construct( $file_path );
-		$this->setup_filters();
-	}
-
-	/**
 	 * Get post type.
 	 *
 	 * @return string
@@ -39,7 +29,7 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	/**
 	 * Setup filters.
 	 */
-	private function setup_filters() {
+	protected function setup_filters() {
 		// Don't add any filters on post.php page.
 		if ( ! isset( $_GET['post'] ) ) {
 			add_filter( 'attachment_fields_to_edit', [$this, 'edit_attachment'], 10, 2 );

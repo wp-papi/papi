@@ -75,18 +75,12 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 
 	$cache_key   = papi_get_cache_key( sprintf( '%s_%s', $all, $post_type ), $fake_post_types );
 	$page_types  = wp_cache_get( $cache_key );
-	$load_once   = [
-		'attachment' => true
-	];
+	$load_once   = ['attachment'];
 
 	if ( empty( $page_types ) ) {
 		$files = papi_get_all_page_type_files();
 
 		foreach ( $files as $file ) {
-			if ( papi()->exists( 'core.once.' . $post_type ) ) {
-				continue;
-			}
-
 			$page_type = papi_get_page_type( $file );
 
 			if ( is_null( $page_type ) ) {
@@ -97,12 +91,18 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 				continue;
 			}
 
-			if ( isset( $load_once[$page_type->get_post_type()] ) ) {
-				papi()->singleton( 'core.once.'.$post_type, true );
+			if ( papi()->exists( 'core.once.' . $page_type->get_post_type() ) ) {
+				continue;
+			} else if ( in_array( $page_type->get_post_type(), $load_once ) ) {
+				papi()->singleton( 'core.once.' . $page_type->get_post_type(), true );
 			}
 
 			if ( $fake_post_types ) {
 				if ( isset( $page_type->post_type[0] ) && ! post_type_exists( $page_type->post_type[0] ) ) {
+					// Boot page type.
+					$page_type->boot();
+
+					// Add it to the page types array.
 					$page_types[] = $page_type;
 				}
 				continue;
@@ -112,6 +112,10 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 
 			// Add the page type if the post types is allowed.
 			if ( ! is_null( $page_type ) && papi_current_user_is_allowed( $page_type->capabilities ) && ( $all || in_array( $post_type, $page_type->post_type ) ) ) {
+				// Boot page type.
+				$page_type->boot();
+
+				// Add it to the page types array.
 				$page_types[] = $page_type;
 			}
 		}

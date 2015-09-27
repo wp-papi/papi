@@ -66,6 +66,16 @@ class Papi_Core_Type {
 	}
 
 	/**
+	 * Boot page type.
+	 *
+	 * @codeCoverageIgnore
+	 */
+	public function boot() {
+		$this->setup_actions();
+		$this->setup_filters();
+	}
+
+	/**
 	 * Get the page type class name with namespace if exists.
 	 *
 	 * @return string
@@ -125,6 +135,14 @@ class Papi_Core_Type {
 	}
 
 	/**
+	 * Setup actions.
+	 *
+	 * @codeCoverageIgnore
+	 */
+	protected function setup_actions() {
+	}
+
+	/**
 	 * Load the file and setup file path, file name and class name properties.
 	 *
 	 * @param string $file_path
@@ -133,6 +151,14 @@ class Papi_Core_Type {
 		$this->_file_path  = $file_path;
 		$this->_file_name  = papi_get_page_type_base_path( $this->_file_path );
 		$this->_class_name = papi_get_class_name( $this->_file_path );
+	}
+
+	/**
+	 * Setup filters.
+	 *
+	 * @codeCoverageIgnore
+	 */
+	protected function setup_filters() {
 	}
 
 	/**

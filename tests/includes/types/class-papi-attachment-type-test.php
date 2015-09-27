@@ -32,6 +32,7 @@ class Papi_Attachment_Type_Test extends WP_UnitTestCase {
 
 	public function test_filters() {
 		$attachment_type = new Papi_Attachment_Type();
+		$attachment_type->boot();
 		$this->assertGreaterThan( 0, has_filter( 'attachment_fields_to_edit', [$attachment_type, 'edit_attachment'] ) );
 		$this->assertGreaterThan( 0, has_filter( 'attachment_fields_to_save', [$attachment_type, 'save_attachment'] ) );
 	}
