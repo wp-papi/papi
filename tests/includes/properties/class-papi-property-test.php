@@ -643,6 +643,10 @@ class Papi_Property_Test extends WP_UnitTestCase {
 			'title' => 'Hello'
 		] );
 
+		$property->set_post_id( null );
+
+		$this->assertNotEmpty( $property->get_post_id() );
+
 		$post_id = $this->factory->post->create();
 		$property->set_post_id( $post_id );
 
