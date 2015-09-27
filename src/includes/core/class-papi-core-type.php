@@ -46,6 +46,13 @@ class Papi_Core_Type {
 	public $id = '';
 
 	/**
+	 * Papi loader.
+	 *
+	 * @var Papi_Loader
+	 */
+	protected $papi;
+
+	/**
 	 * The constructor.
 	 *
 	 * Load a page type by the file.
@@ -63,6 +70,8 @@ class Papi_Core_Type {
 			$this->setup_file( $file_path );
 			$this->setup_meta_data();
 		}
+
+		$this->papi = papi();
 	}
 
 	/**
