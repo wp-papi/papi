@@ -1,5 +1,6 @@
 @import "modules/utils";
 @import "modules/admin";
+@import "modules/attachment";
 @import "modules/base";
 @import "modules/box";
 @import "modules/table";
@@ -9,6 +10,7 @@
 
 @import "properties/shared";
 @import "properties/color";
+@import "properties/dropdown";
 @import "properties/file";
 @import "properties/flexible";
 @import "properties/link";

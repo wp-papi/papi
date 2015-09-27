@@ -57,7 +57,11 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	 */
 	public function edit_attachment( $form_fields, $post ) {
 		foreach ( $this->get_boxes() as $box ) {
-			// @TODO add box title?
+			$form_fields['papi-media-title-' . uniqid()] = [
+				'label' => '',
+				'input' => 'html',
+				'html'  => '<h4 class="papi-media-title">' . $box[0]['title'] . '</h4>'
+			];
 
 			$properties = isset( $box[1][0]->properties ) ?
 				$box[1][0]->properties : $box[1];
