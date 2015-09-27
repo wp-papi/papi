@@ -25,13 +25,13 @@ function papi_get_post_id( $post_id = null ) {
 		return intval( $post_id );
 	}
 
-	if ( isset( $_POST['action'] ) ) {
-		if ( $_POST['action'] === 'query-attachments' && isset( $_POST['query']['item'] ) ) {
-			return intval( $_POST['query']['item'] );
-		}
-	}
-
 	if ( is_null( $post_id ) || intval( $post_id ) === 0 ) {
+		if ( isset( $_POST['action'] ) ) {
+			if ( $_POST['action'] === 'query-attachments' && isset( $_POST['query']['item'] ) ) {
+				return intval( $_POST['query']['item'] );
+			}
+		}
+
 		if ( get_post() ) {
 			return get_the_ID();
 		}

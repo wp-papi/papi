@@ -637,6 +637,18 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'test', $property->get_option( 'description' ) );
 	}
 
+	public function test_set_post_id() {
+		$property = Papi_Property::create( [
+			'type'  => 'string',
+			'title' => 'Hello'
+		] );
+
+		$post_id = $this->factory->post->create();
+		$property->set_post_id( $post_id );
+
+		$this->assertEquals( $post_id, $property->get_post_id() );
+	}
+
 	public function test_set_settings() {
 		$property = Papi_Property::create( [
 			'type'     => 'string',

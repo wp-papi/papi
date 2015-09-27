@@ -73,6 +73,11 @@ final class Papi_Admin {
 	 * Setup the page type.
 	 */
 	public function admin_init() {
+		// Preload all page types.
+		foreach ( papi_get_post_types() as $post_type ) {
+			papi_get_all_page_types( false, $post_type );
+		}
+
 		if ( ! $this->setup_papi() ) {
 			return;
 		}

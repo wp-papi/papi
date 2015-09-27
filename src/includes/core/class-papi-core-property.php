@@ -88,6 +88,13 @@ class Papi_Core_Property {
 	private $page;
 
 	/**
+	 * The post id.
+	 *
+	 * @var int
+	 */
+	private $post_id;
+
+	/**
 	 * The constructor.
 	 */
 	public function __construct() {
@@ -387,6 +394,10 @@ class Papi_Core_Property {
 	 * @return int
 	 */
 	public function get_post_id() {
+		if ( ! papi_is_empty( $this->post_id ) ) {
+			return $this->post_id;
+		}
+
 		if ( $this->page instanceof Papi_Core_Page ) {
 			return $this->page->id;
 		}
@@ -623,6 +634,19 @@ class Papi_Core_Property {
 	 */
 	public function set_page( Papi_Core_Page $page ) {
 		$this->page = $page;
+	}
+
+	/**
+	 * Set post id.
+	 *
+	 * @param int $post_id
+	 */
+	public function set_post_id( $post_id ) {
+		if ( ! is_numeric( $post_id ) ) {
+			return;
+		}
+
+		$this->post_id = (int) $post_id;
 	}
 
 	/**
