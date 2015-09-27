@@ -40,14 +40,11 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	 * Setup filters.
 	 */
 	private function setup_filters() {
-		if ( isset( $_GET['post'] ) || $this->papi->exists( 'core.type.attachment' ) ) {
-			return;
+		// Don't add any filters on post.php page.
+		if ( ! isset( $_GET['post'] ) ) {
+			add_filter( 'attachment_fields_to_edit', [$this, 'edit_attachment'], 10, 2 );
+			add_filter( 'attachment_fields_to_save', [$this, 'save_attachment'], 10, 2 );
 		}
-
-		add_filter( 'attachment_fields_to_edit', [$this, 'edit_attachment'], 10, 2 );
-		add_filter( 'attachment_fields_to_save', [$this, 'save_attachment'], 10, 2 );
-
-		$this->papi->singleton( 'core.type.attachment', $this );
 	}
 
 	/**
