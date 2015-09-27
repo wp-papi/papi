@@ -79,12 +79,6 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 						$prop
 					)
 				];
-
-				$form_fields['test'] = [
-					'label' => 'test',
-					'input' => 'text',
-					'value' => $post->ID
-				];
 			}
 		}
 
