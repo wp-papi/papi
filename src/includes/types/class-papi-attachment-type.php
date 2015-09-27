@@ -48,10 +48,6 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 		add_filter( 'attachment_fields_to_save', [$this, 'save_attachment'], 10, 2 );
 
 		$this->papi->singleton( 'core.type.attachment', $this );
-
-		echo '<pre>';
-		var_dump($this->papi);
-		exit;
 	}
 
 	/**
