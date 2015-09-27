@@ -152,38 +152,19 @@ gulp.task('sass', () => {
 /**
  * Scripts task.
  */
-gulp.task('scripts', ['components'], () => {
+gulp.task('scripts', ['clean:before:js', 'components'], () => {
   gulp.src([config.scripts.entry])
     .pipe(plumber())
-    .pipe(webpack(webpackconfig, null, (err, stats) => {
-      if (err) {
-        return;
-      }
-
-      gutil.log(stats.toString({
-        colors: gutil.colors.supportsColor,
-        hash: false,
-        timings: false,
-        chunks: false,
-        chunkModules: false,
-        modules: false,
-        children: true,
-        version: true,
-        cached: false,
-        cachedAssets: false,
-        reasons: false,
-        source: false,
-        errorDetails: false
-      }));
-
+    .pipe(webpack(webpackconfig))
+    .pipe(gulp.dest(`${dist}js`))
+    .on('end', function () {
       gulp.src([`${dist}js/*.js`])
         .pipe(concat('main.min.js'))
         .pipe(header(banner, {
           package: pkg
         }))
         .pipe(gulp.dest(`${dist}js`));
-    }))
-    .pipe(gulp.dest(`${dist}js`));
+    });
 });
 
 /**
