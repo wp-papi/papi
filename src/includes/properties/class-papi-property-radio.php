@@ -49,10 +49,7 @@ class Papi_Property_Radio extends Papi_Property {
 		}
 
 		foreach ( $settings->items as $key => $value ) {
-
-			if ( is_numeric( $key ) ) {
-				$key = $value;
-			}
+			$key = is_numeric( $key ) ? $value : $key;
 
 			papi_render_html_tag( 'label', [
 				'class' => 'light',

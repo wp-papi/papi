@@ -75,9 +75,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 
 		// Create option html tags for all items.
 		foreach ( $this->get_items() as $key => $value ) {
-			if ( is_numeric( $key ) ) {
-				$key = $value;
-			}
+			$key = is_numeric( $key ) ? $value : $key;
 
 			if ( papi_is_empty( $key ) ) {
 				continue;

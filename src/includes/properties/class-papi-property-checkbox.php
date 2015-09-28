@@ -73,10 +73,7 @@ class Papi_Property_Checkbox extends Papi_Property {
 		$settings->selected = papi_to_array( $settings->selected );
 
 		foreach ( $settings->items as $key => $value ) {
-
-			if ( is_numeric( $key ) ) {
-				$key = $value;
-			}
+			$key = is_numeric( $key ) ? $value : $key;
 
 			papi_render_html_tag( 'label', [
 				'class' => 'light',
