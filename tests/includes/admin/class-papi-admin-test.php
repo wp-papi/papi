@@ -318,6 +318,12 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$_GET['page'] = 'papi/simple-page-type';
 		$admin = new Papi_Admin;
 		$this->assertTrue( $admin->setup_papi() );
+
+		unset( $_GET['page'] );
+
+		$_GET['post_type'] = 'attachment';
+		$admin = new Papi_Admin;
+		$this->assertTrue( $admin->setup_papi() );
 	}
 
 	public function test_wp_link_query() {
