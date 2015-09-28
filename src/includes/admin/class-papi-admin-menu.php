@@ -165,14 +165,16 @@ class Papi_Admin_Menu {
 				);
 
 				// Add a hidden menu item.
-				add_submenu_page(
-					null,
+				add_menu_page(
 					__( 'Add New', 'papi' ),
 					__( 'Add New', 'papi' ),
 					'read',
 					$page,
 					[$this, 'render_view']
 				);
+
+				// Remove the hidden menu item.
+				remove_menu_page( $page );
 			}
 		}
 	}
