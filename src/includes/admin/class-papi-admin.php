@@ -455,10 +455,8 @@ final class Papi_Admin {
 				);
 			}
 
-			$load_once = papi_filter_core_load_one_type_on();
-
-			if ( empty( $this->page_type_id ) && in_array( $this->post_type, $load_once ) ) {
-				$this->page_type_id = papi()->make( 'core.type.' . $this->post_type );
+			if ( empty( $this->page_type_id ) ) {
+				$this->page_type_id = papi_get_page_type_id();
 			}
 		}
 
