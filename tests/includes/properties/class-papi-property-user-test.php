@@ -24,6 +24,9 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 	public function test_property_format_value() {
 		$this->assertEquals( new WP_User( 1 ), $this->property->format_value( '1', '', 0 ) );
 		$this->assertEquals( new WP_User( 1 ), $this->property->format_value( 1, '', 0 ) );
+		$this->assertEquals( new WP_User( 1 ), $this->property->format_value( (object) ['ID' => 1], '', 0 ) );
+		$this->assertEquals( new WP_User( 1 ), $this->property->format_value( new WP_User( 1 ), '', 0 ) );
+		$this->assertNull( $this->property->format_value( null, '', 0 ) );
 	}
 
 	public function test_property_import_value() {
