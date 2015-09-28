@@ -164,7 +164,7 @@ class Papi_Admin_Menu {
 					$page
 				);
 
-				// Add a hidden menu item.
+				// Add menu item.
 				add_menu_page(
 					__( 'Add New', 'papi' ),
 					__( 'Add New', 'papi' ),
@@ -173,7 +173,7 @@ class Papi_Admin_Menu {
 					[$this, 'render_view']
 				);
 
-				// Remove the hidden menu item.
+				// Remove the menu item so it's hidden.
 				remove_menu_page( $page );
 			}
 		}
