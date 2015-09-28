@@ -454,6 +454,12 @@ final class Papi_Admin {
 					papi_get_qs( 'page' )
 				);
 			}
+
+			$load_once = papi_filter_core_load_one_type_on();
+
+			if ( empty( $this->page_type_id ) && in_array( $this->post_type, $load_once ) ) {
+				$this->page_type_id = papi()->make( 'core.type.' . $this->post_type );
+			}
 		}
 
 		if ( empty( $this->page_type_id ) ) {

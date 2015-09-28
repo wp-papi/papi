@@ -20,6 +20,16 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 		unset( $this->post_id );
 	}
 
+	public function test_papi_filter_core_load_one_type_on() {
+		$this->assertEquals( ['attachment'], papi_filter_core_load_one_type_on() );
+
+		tests_add_filter( 'papi/core/load_one_type_on', function () {
+			return ['page', 'post'];
+		} );
+
+		$this->assertEquals( ['page', 'post'], papi_filter_core_load_one_type_on() );
+	}
+
 	public function test_papi_filter_format_value() {
 		$this->assertEquals( 'hello', papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
 

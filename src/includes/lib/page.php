@@ -75,7 +75,7 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 
 	$cache_key   = papi_get_cache_key( sprintf( '%s_%s', $all, $post_type ), $fake_post_types );
 	$page_types  = wp_cache_get( $cache_key );
-	$load_once   = ['attachment'];
+	$load_once   = papi_filter_core_load_one_type_on();
 
 	if ( empty( $page_types ) ) {
 		$files = papi_get_all_page_type_files();
@@ -91,10 +91,12 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 				continue;
 			}
 
-			if ( papi()->exists( 'core.once.' . $page_type->get_post_type() ) ) {
-				continue;
-			} else if ( in_array( $page_type->get_post_type(), $load_once ) ) {
-				papi()->singleton( 'core.once.' . $page_type->get_post_type(), true );
+			if ( papi()->exists( 'core.type.' . $page_type->post_type[0] ) ) {
+				if ( ! empty( $page_types ) ) {
+					continue;
+				}
+			} else if ( in_array( $page_type->post_type[0], $load_once ) ) {
+				papi()->singleton( 'core.type.' . $page_type->post_type[0], $page_type->get_id() );
 			}
 
 			if ( $fake_post_types ) {
