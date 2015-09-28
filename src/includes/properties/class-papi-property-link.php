@@ -38,12 +38,12 @@ class Papi_Property_Link extends Papi_Property {
 		$result = true;
 
 		foreach ( $values as $key => $val ) {
-			$out    = delete_post_meta( $post_id, $slug . '_' . $key );
+			$out    = papi_delete_property_meta_value( $post_id, $slug . '_' . $key );
 			$result = $out ? $result : $out;
 		}
 
 		if ( $result ) {
-			$result = delete_post_meta( $post_id, $slug );
+			$result = papi_delete_property_meta_value( $post_id, $slug );
 		}
 
 		return $result;

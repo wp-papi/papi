@@ -33,6 +33,12 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( [], $this->property->default_value );
 	}
 
+	public function test_property_delete_value() {
+		$this->save_properties_value( $this->property );
+		$result = $this->property->delete_value( $this->property->slug, $this->post_id, 'post' );
+		$this->assertTrue( $result );
+	}
+
 	public function test_property_import_value() {
 		$expected = [
 			'papi_link_test_url'    => 'http://example.org',
