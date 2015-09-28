@@ -149,7 +149,7 @@ class Papi_Page_Type_Meta extends Papi_Core_Type {
 	 */
 	public function get_labels() {
 		if ( ! $this->fill_labels ) {
-			return [];
+			return $this->labels;
 		}
 
 		return array_merge( $this->labels, [
