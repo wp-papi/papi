@@ -11,11 +11,23 @@ defined( 'ABSPATH' ) || exit;
 class Papi_Core_Type {
 
 	/**
-	 * The meta method to call.
+	 * The core meta method that can be used
+	 * instead of `$_meta_method`. If `$_meta_method` is
+	 * used the `$_core_meta_method` will not be used.
 	 *
 	 * @var string
 	 */
-	public $_meta_method = 'type';
+	private $_core_meta_method = 'meta';
+
+	/**
+	 * The meta method to call.
+	 *
+	 * @deprecated This will be removed in feature version
+	 * and should not be used with new types.
+	 *
+	 * @var string
+	 */
+	public $_meta_method = 'meta';
 
 	/**
 	 * The page type class name.
@@ -165,11 +177,14 @@ class Papi_Core_Type {
 	 * Setup page type meta data.
 	 */
 	private function setup_meta_data() {
-		if ( ! method_exists( $this->_class_name, $this->_meta_method ) ) {
+		$meta_method = method_exists( $this->_class_name, $this->_meta_method ) ?
+			$this->_meta_method : $this->_core_meta_method;
+
+		if ( ! method_exists( $this->_class_name, $meta_method ) ) {
 			return;
 		}
 
-		foreach ( call_user_func( [$this, $this->_meta_method] ) as $key => $value ) {
+		foreach ( call_user_func( [$this, $meta_method] ) as $key => $value ) {
 			if ( substr( $key, 0, 1 ) === '_' ) {
 				continue;
 			}
