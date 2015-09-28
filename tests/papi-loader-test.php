@@ -35,6 +35,11 @@ class Papi_Loader_Test extends WP_UnitTestCase {
 		$this->assertClassHasStaticAttribute( 'instance', 'Papi_Loader' );
 	}
 
+	public function test_porter() {
+		$porter = $this->papi->porter();
+		$this->assertTrue( $porter instanceof Papi_Porter );
+	}
+
 	public function test_plugin_activated() {
 		$this->assertTrue( class_exists( 'Papi_Loader' ) && class_exists( 'Papi_Admin' ) );
 	}
