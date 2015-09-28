@@ -20,10 +20,10 @@ defined( 'ABSPATH' ) || exit;
  */
 function papi_delete_property_meta_value( $post_id, $slug, $type = 'post' ) {
 	if ( $type === Papi_Core_Page::TYPE_OPTION || papi_is_option_page() ) {
-		return delete_option( $slug );
+		return delete_option( papi_remove_papi( $slug ) );
 	}
 
-	return delete_post_meta( $post_id, $slug );
+	return delete_post_meta( $post_id, papi_remove_papi( $slug ) );
 }
 
 /**

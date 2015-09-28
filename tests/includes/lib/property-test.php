@@ -28,10 +28,16 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	public function test_papi_delete_property_meta_value() {
 		$this->assertFalse( papi_delete_property_meta_value( $this->post_id, 'random223-page-type' ) );
 		$this->assertFalse( papi_delete_property_meta_value( $this->post_id, 'random223-page-type', Papi_Core_Page::TYPE_OPTION ) );
+
 		update_post_meta( $this->post_id, 'random223-page-type', 'post' );
 		update_option( 'random223-page-type', 'option' );
 		$this->assertTrue( papi_delete_property_meta_value( $this->post_id, 'random223-page-type' ) );
 		$this->assertTrue( papi_delete_property_meta_value( $this->post_id, 'random223-page-type', Papi_Core_Page::TYPE_OPTION ) );
+
+		update_post_meta( $this->post_id, 'random223-page-type', 'post' );
+		update_option( 'random223-page-type', 'option' );
+		$this->assertTrue( papi_delete_property_meta_value( $this->post_id, 'papi_random223-page-type' ) );
+		$this->assertTrue( papi_delete_property_meta_value( $this->post_id, 'papi-random223-page-type', Papi_Core_Page::TYPE_OPTION ) );
 	}
 
 	public function test_papi_from_property_array_slugs() {
