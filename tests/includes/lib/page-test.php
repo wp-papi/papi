@@ -164,6 +164,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 
+		$this->flush_cache();
 		$actual = papi_get_page_type_template( $this->post_id );
 		$this->assertEquals( 'pages/simple-page.php', $actual );
 
@@ -173,11 +174,13 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'dot-page-type' );
 
+		$this->flush_cache();
 		$actual = papi_get_page_type_template( $this->post_id );
 		$this->assertEquals( 'pages/dot.php', $actual );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'dot2-page-type' );
 
+		$this->flush_cache();
 		$actual = papi_get_page_type_template( $this->post_id );
 		$this->assertEquals( 'pages/dot2.php', $actual );
 	}

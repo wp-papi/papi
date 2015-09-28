@@ -98,6 +98,7 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertEmpty( apply_filters( 'template_include', '' ) );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'twenty-page-type' );
+		$this->flush_cache();
 
 		$path = get_template_directory();
 		$path = trailingslashit( $path );

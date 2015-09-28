@@ -379,6 +379,10 @@ function papi_get_page_type_name( $post_id = 0 ) {
  * @return null|string
  */
 function papi_get_page_type_template( $post_id = 0 ) {
+	if ( empty( $post_id ) && ! is_numeric( $post_id ) ) {
+		return;
+	}
+
 	$cache_key = papi_get_cache_key( 'page_type_template', $post_id );
 	$template  = wp_cache_get( $cache_key );
 
@@ -402,7 +406,7 @@ function papi_get_page_type_template( $post_id = 0 ) {
 		}
 	}
 
-	return $template;
+	return $template === false ? null : $template;
 }
 
 /**
