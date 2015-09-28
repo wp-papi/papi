@@ -138,20 +138,16 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	}
 
 	public function test_load_post_new_4() {
-		papi_test_register_hidden_post_type();
+		papi_test_register_book_post_type();
 
-		tests_add_filter( 'papi/settings/only_page_type_hidden', function () {
-			return 'hidden2-page-type';
-		} );
+		tests_add_filter( 'papi/settings/show_standard_page_type_book', '__return_false' );
 
-		tests_add_filter( 'papi/settings/show_standard_page_type_hidden', '__return_false' );
-
-		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=hidden';
+		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=book';
 		tests_add_filter( 'wp_redirect', function( $location ) {
-			$this->assertEquals( 'post-new.php?page_type=hidden2-page-type&post_type=hidden', $location );
+			$this->assertEquals( 'post-new.php?page_type=book-page-type&post_type=book', $location );
 			return false;
 		} );
-		$_GET['post_type'] = 'hidden';
+		$_GET['post_type'] = 'book';
 		$admin = new Papi_Admin;
 		$admin->load_post_new();
 	}
