@@ -61,4 +61,9 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'Link test', $this->property->get_option( 'title' ) );
 		$this->assertEquals( 'papi_link_test', $this->property->get_option( 'slug' ) );
 	}
+
+	public function test_render_link_template() {
+		$this->property->render_link_template();
+		$this->expectOutputRegex( '/.*\S.*/' );
+	}
 }
