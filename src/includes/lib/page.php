@@ -312,8 +312,8 @@ function papi_get_page_type_id( $post_id = 0 ) {
 		$page_type  = empty( $meta_value ) ? '' : $meta_value;
 	}
 
-	// Load page type id from the container if it exists.
-	// If it throws a error just ignore it.
+	// Load page type id from the container if it exists or
+	// load it from `papi_get_all_page_types`.
 	if ( empty( $page_type ) ) {
         $post_type      = papi_get_post_type();
     	$load_once      = papi_filter_core_load_one_type_on();
