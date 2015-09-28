@@ -356,7 +356,7 @@ function papi_get_page_type_name( $post_id = 0 ) {
 		return '';
 	}
 
-	$page_type_id = get_post_meta( $post_id, papi_get_page_type_key(), true );
+	$page_type_id = papi_get_page_type_id( $post_id );
 
 	if ( empty( $page_type_id ) ) {
 		return '';
