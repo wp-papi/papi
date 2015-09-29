@@ -10,25 +10,6 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Format the value of the property before it's returned to the application.
- *
- * @param  string $type
- * @param  mixed  $value
- * @param  string $slug
- * @param  int    $post_id
- *
- * @return mixed
- */
-function papi_filter_format_value( $type, $value, $slug, $post_id ) {
-	return apply_filters(
-		'papi/format_value/' . $type,
-		$value,
-		$slug,
-		$post_id
-	);
-}
-
-/**
  * Get conditional rule value.
  *
  * @param  array|Papi_Core_Conditional_Rule $rule
@@ -63,6 +44,25 @@ function papi_filter_core_load_one_type_on() {
 	return apply_filters(
 		'papi/core/load_one_type_on',
 		['attachment']
+	);
+}
+
+/**
+ * Format the value of the property before it's returned to the application.
+ *
+ * @param  string $type
+ * @param  mixed  $value
+ * @param  string $slug
+ * @param  int    $post_id
+ *
+ * @return mixed
+ */
+function papi_filter_format_value( $type, $value, $slug, $post_id ) {
+	return apply_filters(
+		'papi/format_value/' . $type,
+		$value,
+		$slug,
+		$post_id
 	);
 }
 
