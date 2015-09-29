@@ -70,25 +70,19 @@ class Papi_Admin_Menu {
 		$page_types = papi_get_all_page_types( false, null, true );
 
 		foreach ( $page_types as $page_type ) {
-			$meta = call_user_func( [$page_type, $page_type->_meta_method] );
-
-			if ( ! isset( $meta['menu'] ) || ! isset( $meta['name'] ) ) {
+			if ( empty( $page_type->menu ) || empty( $page_type->name ) ) {
 				continue;
 			}
 
-			$meta['slug'] = 'papi/' . $page_type->get_id();
-
-			if ( ! isset( $meta['capability'] ) ) {
-				$meta['capability'] = 'manage_options';
-			}
+			$slug = 'papi/' . $page_type->get_id();
 
 			add_submenu_page(
-				$meta['menu'],
-				$meta['name'],
-				$meta['name'],
-				$meta['capability'],
-				$meta['slug'],
-				[ $page_type, 'render' ]
+				$page_type->menu,
+				$page_type->name,
+				$page_type->name,
+				$page_type->capability,
+				$slug,
+				[$page_type, 'render']
 			);
 		}
 	}
