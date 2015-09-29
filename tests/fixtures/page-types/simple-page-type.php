@@ -59,7 +59,7 @@ class Simple_Page_Type extends Papi_Page_Type {
 				'type'  => 'string',
 				'title' => 'Country'
 			] )
-			] );
+		] );
 
 		// Test properties from another method.
 		$this->box( [
