@@ -157,6 +157,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	public function test_papi_get_page_type_template() {
 		$this->assertNull( papi_get_page_type_template() );
 		$this->assertNull( papi_get_page_type_template( 0 ) );
+		$this->assertNull( papi_get_page_type_template( null ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
