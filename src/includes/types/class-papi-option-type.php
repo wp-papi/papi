@@ -20,6 +20,13 @@ class Papi_Option_Type extends Papi_Page_Type {
 	public $_meta_method = 'option_type';
 
 	/**
+	 * Capability.
+	 *
+	 * @var array
+	 */
+	public $capability = 'manage_options';
+
+	/**
 	 * The menu to register the option type on.
 	 *
 	 * @var string
