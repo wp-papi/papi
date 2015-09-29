@@ -22,8 +22,8 @@ class Papi_Admin_Data_Handler {
 	 *
 	 * @param string $key
 	 * @param string $value
-     *
-     * @return mixed
+	 *
+	 * @return mixed
 	 */
 	protected function decode_property( $key, $value ) {
 		if ( papi_is_property_type_key( $key ) && is_string( $value ) ) {

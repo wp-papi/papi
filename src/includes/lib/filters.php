@@ -186,9 +186,9 @@ function papi_filter_settings_standard_page_description( $post_type ) {
 	$name = papi_get_post_type_label( $post_type, 'singular_name', 'Page' );
 
 	return apply_filters(
-        'papi/settings/standard_page_description_' . $post_type,
-        sprintf( __( '%s with WordPress standard fields', 'papi' ), $name )
-    );
+		'papi/settings/standard_page_description_' . $post_type,
+		sprintf( __( '%s with WordPress standard fields', 'papi' ), $name )
+	);
 }
 
 /**
@@ -202,9 +202,9 @@ function papi_filter_settings_standard_page_name( $post_type ) {
 	$name = papi_get_post_type_label( $post_type, 'singular_name', 'Page' );
 
 	return apply_filters(
-        'papi/settings/standard_page_name_' . $post_type,
-        sprintf( __( 'Standard %s', 'papi' ), $name )
-    );
+		'papi/settings/standard_page_name_' . $post_type,
+		sprintf( __( 'Standard %s', 'papi' ), $name )
+	);
 }
 
 /**

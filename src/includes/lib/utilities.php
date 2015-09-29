@@ -47,8 +47,8 @@ function papi_cast_string_value( $str ) {
 	}
 
 	return papi_maybe_json_decode(
-        maybe_unserialize( $str )
-    );
+		maybe_unserialize( $str )
+	);
 }
 
 /**

@@ -315,14 +315,14 @@ function papi_get_page_type_id( $post_id = 0 ) {
 	// Load page type id from the container if it exists or
 	// load it from `papi_get_all_page_types`.
 	if ( empty( $page_type ) ) {
-        $post_type      = papi_get_post_type();
-    	$load_once      = papi_filter_core_load_one_type_on();
+		$post_type      = papi_get_post_type();
+		$load_once      = papi_filter_core_load_one_type_on();
 		$collection_key = 'core.page_type.' . $post_type;
 
 		if ( in_array( $post_type, $load_once ) ) {
-	        if ( papi()->exists( $collection_key )  ) {
+			if ( papi()->exists( $collection_key )  ) {
 				return papi()->make( $collection_key );
-	        }
+			}
 
 			if ( $page_types = papi_get_all_page_types( false, $post_type ) ) {
 				return $page_types[0]->get_id();

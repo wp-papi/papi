@@ -37,8 +37,8 @@ class Papi_Container implements ArrayAccess {
 	 * @param string $id
 	 * @param mixed  $value
 	 * @param bool   $singleton
-     *
-     * @throws Exception when singleton cannot be rebind.
+	 *
+	 * @throws Exception when singleton cannot be rebind.
 	 *
 	 * @return mixed
 	 */
@@ -72,7 +72,7 @@ class Papi_Container implements ArrayAccess {
 	 * Call closure.
 	 *
 	 * @param mixed $closure
-     * @param array $parameters
+	 * @param array $parameters
 	 *
 	 * @return Closure
 	 */
@@ -136,7 +136,7 @@ class Papi_Container implements ArrayAccess {
 	 * @return mixed
 	 */
 	protected function get_closure( $value, $singleton = false ) {
-		return function() use( $value, $singleton ) {
+		return function () use ( $value, $singleton ) {
 			return $value;
 		};
 	}
@@ -167,8 +167,8 @@ class Papi_Container implements ArrayAccess {
 	 * Determine if a given type is a singleton or not.
 	 *
 	 * @param string $id
-     *
-     * @throws InvalidArgumentException if argument is not string.
+	 *
+	 * @throws InvalidArgumentException if argument is not string.
 	 *
 	 * @return bool
 	 */
@@ -191,8 +191,8 @@ class Papi_Container implements ArrayAccess {
 	 *
 	 * @param string $id
 	 * @param array $parameters
-     *
-     * @throws Exception if identifier is not defined.
+	 *
+	 * @throws Exception if identifier is not defined.
 	 *
 	 * @return mixed
 	 */
@@ -235,8 +235,8 @@ class Papi_Container implements ArrayAccess {
 
 	/**
 	 * Check if identifier is set or not.
-     *
-     * @codeCoverageIgnore
+	 *
+	 * @codeCoverageIgnore
 	 *
 	 * @param string $id
 	 *
@@ -248,8 +248,8 @@ class Papi_Container implements ArrayAccess {
 
 	/**
 	 * Get value by identifier.
-     *
-     * @codeCoverageIgnore
+	 *
+	 * @codeCoverageIgnore
 	 *
 	 * @param string $id
 	 *
@@ -261,8 +261,8 @@ class Papi_Container implements ArrayAccess {
 
 	/**
 	 * Set a parameter or an object.
-     *
-     * @codeCoverageIgnore
+	 *
+	 * @codeCoverageIgnore
 	 *
 	 * @param string $id
 	 * @param mixed $value
@@ -273,8 +273,8 @@ class Papi_Container implements ArrayAccess {
 
 	/**
 	 * Unset value by identifier.
-     *
-     * @codeCoverageIgnore
+	 *
+	 * @codeCoverageIgnore
 	 *
 	 * @param string $id
 	 */

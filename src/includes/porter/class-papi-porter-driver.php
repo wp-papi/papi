@@ -12,14 +12,14 @@ abstract class Papi_Porter_Driver {
 	 *
 	 * @var string
 	 */
-	 protected $name = '';
+	protected $name = '';
 
-	 /**
-	  * Alias for driver name.
-	  *
-	  * @var array|string
-	  */
-	 protected $alias = [];
+	/**
+	 * Alias for driver name.
+	 *
+	 * @var array|string
+	 */
+	protected $alias = [];
 
 	/**
 	 * Options per property.
