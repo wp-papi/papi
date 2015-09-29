@@ -41,10 +41,13 @@ function papi_filter_conditional_rule_allowed( $rule ) {
  * @return array
  */
 function papi_filter_core_load_one_type_on() {
-	return apply_filters(
+	$default = ['attachment'];
+	$result  = apply_filters(
 		'papi/core/load_one_type_on',
-		['attachment']
+		$default
 	);
+
+	return is_array( $result ) ? $result : $default;
 }
 
 /**
