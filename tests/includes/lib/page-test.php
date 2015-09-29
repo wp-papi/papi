@@ -238,13 +238,18 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 		$this->assertEmpty( papi_get_page_type_id() );
 
-		$_GET['post_type'] = 'attachment';
-		$this->assertEquals( 'others/attachment-type', papi_get_page_type_id( 0 ) );
+		tests_add_filter( 'papi/core/load_one_type_on', function ( $post_types ) {
+			$post_types[] = 'duck';
+			return $post_types;
+		} );
+
+		$_GET['post_type'] = 'duck';
+		$this->assertEquals( 'duck-page-type', papi_get_page_type_id( 0 ) );
 
 		tests_add_filter( 'papi/core/load_one_type_on', function ( $post_types ) {
 			$post_types[] = 'attachment_test';
 			return $post_types;
-		}, 10, 1 );
+		} );
 
 		$_GET['post_type'] = 'attachment_test';
 		papi()->bind( 'core.page_type.attachment_test', 'others/attachment-type' );
