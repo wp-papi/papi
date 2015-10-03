@@ -59,12 +59,14 @@ class Papi_Property_Post extends Papi_Property {
 		$posts   = papi_get_only_objects( $posts );
 		$results = [];
 
-		// Set labels
+		// Set labels.
 		foreach ( $posts as $post ) {
 			$obj = get_post_type_object( $post->post_type );
+
 			if ( ! isset( $results[$obj->labels->menu_name] ) ) {
 				$results[$obj->labels->menu_name] = [];
 			}
+
 			$results[$obj->labels->menu_name][] = $post;
 		}
 
