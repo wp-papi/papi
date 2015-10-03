@@ -55,16 +55,12 @@ class Papi_Property_File extends Papi_Property {
 					'url'         => wp_get_attachment_url( $value ),
 				];
 
-				if ( ! is_array( $meta ) ) {
-					$meta = [
-						'file' => $meta
-					];
-				}
+				$meta = is_array( $meta ) ? $meta : ['file' => $meta];
 
 				if ( isset( $meta['sizes'] ) ) {
 					foreach ( $meta['sizes'] as $size => $val ) {
 						if ( $src = wp_get_attachment_image_src( $value, $size, false ) ) {
-							$meta['sizes'][$size]['ur'] = $src[0];
+							$meta['sizes'][$size]['url'] = $src[0];
 						}
 					}
 				}
@@ -216,7 +212,7 @@ class Papi_Property_File extends Papi_Property {
 			$values = [];
 
 			foreach ( papi_to_array( $value ) as $item ) {
-				if ( is_object( $item ) && $this->is_attachment( $item->id ) ) {
+				if ( is_object( $item ) && isset( $item->id ) && $this->is_attachment( $item->id ) ) {
 					$values[] = $item->id;
 				} else if ( is_numeric( $item ) ) {
 					if ( $this->is_attachment( $item ) ) {
@@ -230,7 +226,7 @@ class Papi_Property_File extends Papi_Property {
 			} );
 		}
 
-		if ( is_object( $value ) && $this->is_attachment( $value->id ) ) {
+		if ( is_object( $value ) && isset( $value->id ) && $this->is_attachment( $value->id ) ) {
 			return $value->id;
 		}
 

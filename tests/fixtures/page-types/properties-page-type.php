@@ -112,6 +112,16 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'slug'  => 'file_test'
 			] ),
 
+			// File 2
+			papi_property( [
+				'type'     => 'file',
+				'title'    => 'File test 2',
+				'slug'     => 'file_test_2',
+				'settings' => [
+					'multiple' => true
+				]
+			] ),
+
 			// Flexible
 			papi_property( [
 				'type'     => 'flexible',
