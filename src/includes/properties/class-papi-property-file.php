@@ -43,6 +43,7 @@ class Papi_Property_File extends Papi_Property {
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_numeric( $value ) ) {
 			$meta = wp_get_attachment_metadata( $value );
+
 			if ( isset( $meta ) && ! empty( $meta ) ) {
 				$att  = get_post( $value );
 				$mine = [
@@ -66,20 +67,24 @@ class Papi_Property_File extends Papi_Property {
 				}
 
 				return (object) array_merge( $meta, $mine );
-			} else {
-				return $value;
 			}
-		} else if ( is_array( $value ) ) {
+
+			return $value;
+		}
+
+		if ( is_array( $value ) ) {
 			foreach ( $value as $k => $v ) {
 				$value[$k] = $this->format_value( $v, $slug, $post_id );
 			}
 
 			return $value;
-		} else if ( is_object( $value ) && ! isset( $value->url ) ) {
-			return;
-		} else {
-			return $value;
 		}
+
+		if ( is_object( $value ) && ! isset( $value->url ) ) {
+			return;
+		}
+
+		return $value;
 	}
 
 	/**
