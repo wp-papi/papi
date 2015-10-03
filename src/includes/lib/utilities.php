@@ -229,7 +229,7 @@ function papi_get_class_name( $file ) {
 	$i               = 0;
 	$len             = count( $tokens );
 
-	for ( ; $i < $len;$i++ ) {
+	for ( ; $i < $len; $i++ ) {
 		if ( $tokens[$i][0] === T_NAMESPACE ) {
 			for ( $j = $i + 1; $j < $len; $j++ ) {
 				if ( $tokens[$j][0] === T_STRING ) {
