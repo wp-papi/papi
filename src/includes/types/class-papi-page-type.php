@@ -89,7 +89,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			$options,
 			$properties,
 			'sort_order' => $sort_order,
-			'title' => $options['title']
+			'title'      => $options['title']
 		] );
 	}
 
