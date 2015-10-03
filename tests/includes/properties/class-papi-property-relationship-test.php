@@ -71,8 +71,8 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 	public function test_get_sort_options_post_created_date_ascending() {
 		$sort_options = Papi_Property_Relationship::get_sort_options();
 
-		$post_id  = $this->factory->post->create( ['post_title' => 'Alfa'] );
-		$post_id2 = $this->factory->post->create( ['post_title' => 'Beta'] );
+		$post_id  = $this->factory->post->create( ['post_title' => 'Alfa', 'post_created' => '2015-01-01 12:00', 'post_created_gmt' => '2015-01-01 12:00'] );
+		$post_id2 = $this->factory->post->create( ['post_title' => 'Beta', 'post_created' => '2015-01-01 15:00', 'post_created_gmt' => '2015-01-01 15:00'] );
 
 		$arr = [get_post( $post_id2 ), get_post( $post_id )];
 		$out = [get_post( $post_id ), get_post( $post_id2 )];
@@ -83,8 +83,8 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 	public function test_get_sort_options_post_created_date_descending() {
 		$sort_options = Papi_Property_Relationship::get_sort_options();
 
-		$post_id  = $this->factory->post->create( ['post_title' => 'Alfa'] );
-		$post_id2 = $this->factory->post->create( ['post_title' => 'Beta'] );
+		$post_id  = $this->factory->post->create( ['post_title' => 'Alfa', 'post_created' => '2015-01-01 12:00', 'post_created_gmt' => '2015-01-01 12:00'] );
+		$post_id2 = $this->factory->post->create( ['post_title' => 'Beta', 'post_created' => '2015-01-01 15:00', 'post_created_gmt' => '2015-01-01 15:00'] );
 
 		$arr = [get_post( $post_id ), get_post( $post_id2 )];
 		$out = [get_post( $post_id2 ), get_post( $post_id )];
@@ -143,8 +143,8 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 	public function test_get_sort_options_post_modified_date_ascending() {
 		$sort_options = Papi_Property_Relationship::get_sort_options();
 
-		$post_id  = $this->factory->post->create( ['post_title' => 'Alfa', 'post_modified' => '2015-01-01 12:00'] );
-		$post_id2 = $this->factory->post->create( ['post_title' => 'Beta', 'post_modified' => '2015-01-01 15:00'] );
+		$post_id  = $this->factory->post->create( ['post_title' => 'Alfa', 'post_modified' => '2015-01-01 12:00', 'post_modified_gmt' => '2015-01-01 12:00'] );
+		$post_id2 = $this->factory->post->create( ['post_title' => 'Beta', 'post_modified' => '2015-01-01 15:00', 'post_modified_gmt' => '2015-01-01 15:00'] );
 
 		$arr = [get_post( $post_id2 ), get_post( $post_id )];
 		$out = [get_post( $post_id ), get_post( $post_id2 )];
@@ -155,8 +155,8 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 	public function test_get_sort_options_post_modified_date_descending() {
 		$sort_options = Papi_Property_Relationship::get_sort_options();
 
-		$post_id  = $this->factory->post->create( ['post_title' => 'Alfa', 'post_modified' => '2015-01-01 12:00'] );
-		$post_id2 = $this->factory->post->create( ['post_title' => 'Beta', 'post_modified' => '2015-01-01 15:00'] );
+		$post_id  = $this->factory->post->create( ['post_title' => 'Alfa', 'post_modified' => '2015-01-01 12:00', 'post_modified_gmt' => '2015-01-01 12:00'] );
+		$post_id2 = $this->factory->post->create( ['post_title' => 'Beta', 'post_modified' => '2015-01-01 15:00', 'post_modified_gmt' => '2015-01-01 15:00'] );
 
 		$arr = [get_post( $post_id ), get_post( $post_id2 )];
 		$out = [get_post( $post_id2 ), get_post( $post_id )];
