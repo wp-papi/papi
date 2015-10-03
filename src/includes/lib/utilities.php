@@ -261,14 +261,14 @@ function papi_get_class_name( $file ) {
 }
 
 /**
- * Get only objects from $arr.
+ * Get only objects from the value.
  *
  * @param  array $arr
  *
  * @return array
  */
 function papi_get_only_objects( array $arr ) {
-	return array_filter( papi_to_array( $arr ), function ( $item ) {
+	return array_filter( $arr, function ( $item ) {
 		return is_object( $item );
 	} );
 }
