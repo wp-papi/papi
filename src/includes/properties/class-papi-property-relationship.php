@@ -73,13 +73,12 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @return string
 	 */
 	public function get_sort_option( $post_id ) {
-		return papi_get_property_meta_value(
-			$post_id,
-			str_replace( ']', '',
-				str_replace( '[', '_',
-					str_replace( '][', '_',
-						$this->html_id( 'sort_option' ) ) ) )
-		);
+		$slug = $this->html_id( 'sort_option' );
+		$slug = str_replace( '][', '_', $slug );
+		$slug = str_replace( '[', '_', $slug );
+		$slug = str_replace( ']', '', $slug );
+
+		return papi_get_property_meta_value( $post_id, $slug );
 	}
 
 	/**
