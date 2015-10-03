@@ -519,6 +519,28 @@ function papi_maybe_json_encode( $obj ) {
 }
 
 /**
+ * Maybe convert value to array if array or return the value.
+ *
+ * @param  mixed $obj
+ *
+ * @return mixed
+ */
+function papi_maybe_convert_to_array( $obj ) {
+	return is_object( $obj ) ? (array) $obj : $obj;
+}
+
+/**
+ * Maybe convert value to object if array or return the value.
+ *
+ * @param  mixed $obj
+ *
+ * @return mixed
+ */
+function papi_maybe_convert_to_object( $obj ) {
+	return is_array( $obj ) ? (object) $obj : $obj;
+}
+
+/**
  * Papi get callable value if is it callable.
  *
  * @param  mixed $callable
@@ -721,7 +743,7 @@ function papi_slugify( $str, $replace = [], $delimiter = '-' ) {
  *
  * @param  mixed $obj
  *
- * @return array
+ * @return mixed
  */
 function papi_to_array( $obj ) {
 	if ( ! is_array( $obj ) ) {

@@ -353,6 +353,26 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_metod( '' ) );
 	}
 
+	public function test_papi_maybe_convert_to_array() {
+		$this->assertEquals( [], papi_maybe_convert_to_array( (object) [] ) );
+		$this->assertEquals( true, papi_maybe_convert_to_array( true ) );
+		$this->assertEquals( false, papi_maybe_convert_to_array( false ) );
+		$this->assertEquals( null, papi_maybe_convert_to_array( null ) );
+		$this->assertEquals( [], papi_maybe_convert_to_array( [] ) );
+		$this->assertEquals( 1, papi_maybe_convert_to_array( 1 ) );
+		$this->assertEquals( 'hello', papi_maybe_convert_to_array( 'hello' ) );
+	}
+
+	public function test_papi_maybe_convert_to_object() {
+		$this->assertEquals( (object) [], papi_maybe_convert_to_object( [] ) );
+		$this->assertEquals( true, papi_maybe_convert_to_object( true ) );
+		$this->assertEquals( false, papi_maybe_convert_to_object( false ) );
+		$this->assertEquals( null, papi_maybe_convert_to_object( null ) );
+		$this->assertEquals( (object) [], papi_maybe_convert_to_object( (object) [] ) );
+		$this->assertEquals( 1, papi_maybe_convert_to_object( 1 ) );
+		$this->assertEquals( 'hello', papi_maybe_convert_to_object( 'hello' ) );
+	}
+
 	public function test_papi_maybe_json_decode() {
 		$this->assertEquals( (object) ['yes' => true], papi_maybe_json_decode( '{"yes":true}' ) );
 		$this->assertEquals( (object) [], papi_maybe_json_decode( '{}' ) );
