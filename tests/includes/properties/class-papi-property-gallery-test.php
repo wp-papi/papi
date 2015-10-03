@@ -26,7 +26,7 @@ class Papi_Property_Gallery_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_format_value() {
-		$post_id = $this->factory->post->create( ['post_type' => 'attachment'] );
+		$post_id = $this->factory->post->create( ['post_type' => 'attachment', 'post_mime_type' => 'image/jpeg'] );
 		$meta    = [
 			'width'      => 2900,
 			'height'     => 1559,
@@ -65,6 +65,10 @@ class Papi_Property_Gallery_Test extends Papi_Property_Test_Case {
 
 			return $image;
 		}, 10, 4 );
+
+		tests_add_filter( 'image_downsize', function( $image, $attachment_id, $size ) use ( $thumbnail_url ) {
+			return [$thumbnail_url, 150, 150, false];
+		}, 10, 3 );
 
 		$images = $this->property->format_value( [$post_id, $post_id], '', $post_id );
 
