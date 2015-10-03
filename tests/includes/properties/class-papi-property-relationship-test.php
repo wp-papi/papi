@@ -63,6 +63,9 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 		$output = $this->properties[0]->import_value( $this->post_id, '', 0 );
 		$this->assertEquals( $this->get_value( 'relationship_test' ), $output );
 
+		$output = $this->properties[0]->import_value( (object) ['id' => $this->post_id], '', 0 );
+		$this->assertEquals( $this->get_value( 'relationship_test' ), $output );
+
 		$output = $this->properties[0]->import_value( $this->get_value( 'relationship_test' ), '', 0 );
 		$this->assertEquals( $this->get_value( 'relationship_test' ), $output );
 
