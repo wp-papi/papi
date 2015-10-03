@@ -25,6 +25,15 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( [], $this->property->default_value );
 	}
 
+	public function test_property_format_value() {
+		$this->assertEmpty( $this->property->format_value( [], '', 0 ) );
+		$this->assertEmpty( $this->property->format_value( [09230], '', 0 ) );
+		$this->assertEmpty( $this->property->format_value( null, '', 0 ) );
+		$this->assertEmpty( $this->property->format_value( true, '', 0 ) );
+		$this->assertEmpty( $this->property->format_value( false, '', 0 ) );
+		$this->assertEmpty( $this->property->format_value( 'hello', '', 0 ) );
+	}
+
 	public function test_property_import_value() {
 		$output = $this->property->import_value( [], '', 0 );
 		$this->assertEmpty( $output );
