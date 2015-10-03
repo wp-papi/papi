@@ -7,53 +7,72 @@
  */
 class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 
-	public $slug = 'relationship_test';
+	public $slugs = ['relationship_test', 'relationship_test_2'];
 
 	public function get_value() {
-		return [$this->post_id];
+		$args = func_get_args();
+		switch ( $args[0] ) {
+			case 'relationship_test_2':
+				return [1];
+			default:
+				return [$this->post_id];
+		}
 	}
 
 	public function get_expected() {
-		return [get_post( $this->post_id )];
+		$args = func_get_args();
+		switch ( $args[0] ) {
+			case 'relationship_test_2':
+				return [
+					(object) [
+						'id'    => 1,
+						'title' => 'One'
+					]
+				];
+			default:
+				return [get_post( $this->post_id )];
+		}
 	}
 
 	public function test_property_convert_type() {
-		$this->assertEquals( 'array', $this->property->convert_type );
+		$this->assertEquals( 'array', $this->properties[0]->convert_type );
+		$this->assertEquals( 'array', $this->properties[1]->convert_type );
 	}
 
 	public function test_property_default_value() {
-		$this->assertEquals( [], $this->property->default_value );
+		$this->assertEquals( [], $this->properties[0]->default_value );
+		$this->assertEquals( [], $this->properties[1]->default_value );
 	}
 
 	public function test_property_format_value() {
-		$this->assertEquals( [9230], $this->property->format_value( [9230], '', 0 ) );
-		$this->assertEmpty( $this->property->format_value( [], '', 0 ) );
-		$this->assertEmpty( $this->property->format_value( null, '', 0 ) );
-		$this->assertEmpty( $this->property->format_value( true, '', 0 ) );
-		$this->assertEmpty( $this->property->format_value( false, '', 0 ) );
-		$this->assertEmpty( $this->property->format_value( 'hello', '', 0 ) );
+		$this->assertEmpty( $this->properties[0]->format_value( [9230], '', 0 ) );
+		$this->assertEmpty( $this->properties[0]->format_value( [], '', 0 ) );
+		$this->assertEmpty( $this->properties[0]->format_value( null, '', 0 ) );
+		$this->assertEmpty( $this->properties[0]->format_value( true, '', 0 ) );
+		$this->assertEmpty( $this->properties[0]->format_value( false, '', 0 ) );
+		$this->assertEmpty( $this->properties[0]->format_value( 'hello', '', 0 ) );
 	}
 
 	public function test_property_import_value() {
-		$output = $this->property->import_value( [], '', 0 );
+		$output = $this->properties[0]->import_value( [], '', 0 );
 		$this->assertEmpty( $output );
 
-		$output = $this->property->import_value( (object) [], '', 0 );
+		$output = $this->properties[0]->import_value( (object) [], '', 0 );
 		$this->assertEmpty( $output );
 
-		$output = $this->property->import_value( $this->post_id, '', 0 );
-		$this->assertEquals( $this->get_value(), $output );
+		$output = $this->properties[0]->import_value( $this->post_id, '', 0 );
+		$this->assertEquals( $this->get_value( 'relationship_test' ), $output );
 
-		$output = $this->property->import_value( $this->get_value(), '', 0 );
-		$this->assertEquals( $this->get_value(), $output );
+		$output = $this->properties[0]->import_value( $this->get_value( 'relationship_test' ), '', 0 );
+		$this->assertEquals( $this->get_value( 'relationship_test' ), $output );
 
-		$output = $this->property->import_value( $this->get_expected(), '', 0 );
-		$this->assertEquals( $this->get_value(), $output );
+		$output = $this->properties[0]->import_value( $this->get_expected( 'relationship_test' ), '', 0 );
+		$this->assertEquals( $this->get_value( 'relationship_test' ), $output );
 
-		$this->assertNull( $this->property->import_value( 'hello', '', 0 ) );
-		$this->assertNull( $this->property->import_value( null, '', 0 ) );
-		$this->assertNull( $this->property->import_value( true, '', 0 ) );
-		$this->assertNull( $this->property->import_value( false, '', 0 ) );
+		$this->assertNull( $this->properties[0]->import_value( 'hello', '', 0 ) );
+		$this->assertNull( $this->properties[0]->import_value( null, '', 0 ) );
+		$this->assertNull( $this->properties[0]->import_value( true, '', 0 ) );
+		$this->assertNull( $this->properties[0]->import_value( false, '', 0 ) );
 	}
 
 	public function test_get_sort_options_name_alphabetically() {
@@ -165,27 +184,44 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_load_value() {
-		$this->assertEquals( ['yes' => true], $this->property->load_value( '{"yes":true}', '', 0 ) );
-		$this->assertEquals( [], $this->property->load_value( '{}', '', 0 ) );
-		$this->assertEquals( [1, 2, 3], $this->property->load_value( '[1, 2, 3]', '', 0 ) );
-		$this->assertEquals( [], $this->property->load_value( '[]', '', 0 ) );
+		$this->assertEquals( ['yes' => true], $this->properties[0]->load_value( '{"yes":true}', '', 0 ) );
+		$this->assertEquals( [], $this->properties[0]->load_value( '{}', '', 0 ) );
+		$this->assertEquals( [1, 2, 3], $this->properties[0]->load_value( '[1, 2, 3]', '', 0 ) );
+		$this->assertEquals( [], $this->properties[0]->load_value( '[]', '', 0 ) );
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'relationship', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Relationship test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_relationship_test', $this->property->get_option( 'slug' ) );
+		$this->assertEquals( 'relationship', $this->properties[0]->get_option( 'type' ) );
+		$this->assertEquals( 'Relationship test', $this->properties[0]->get_option( 'title' ) );
+		$this->assertEquals( 'papi_relationship_test', $this->properties[0]->get_option( 'slug' ) );
+
+		$this->assertEquals( 'relationship', $this->properties[1]->get_option( 'type' ) );
+		$this->assertEquals( 'Relationship test 2', $this->properties[1]->get_option( 'title' ) );
+		$this->assertEquals( 'papi_relationship_test_2', $this->properties[1]->get_option( 'slug' ) );
 	}
 
 	public function test_property_sort_value() {
 		$post_id  = $this->factory->post->create( ['post_title' => 'Alfa'] );
 		$post_id2 = $this->factory->post->create( ['post_title' => 'Beta'] );
 
-		$slug = $this->property->html_id( 'sort_option' );
+		$slug = $this->properties[0]->html_id( 'sort_option' );
 		update_post_meta( $post_id, $slug, 'Name (alphabetically)' );
 
 		$arr = [get_post( $post_id2 ), get_post( $post_id )];
 		$out = [get_post( $post_id ), get_post( $post_id2 )];
-		$this->assertEquals( $out, $this->property->sort_value( $arr, '', $post_id ) );
+		$this->assertEquals( $out, $this->properties[0]->sort_value( $arr, '', $post_id ) );
+	}
+
+	public function test_property_sort_value_2() {
+		$post_id = $this->factory->post->create( ['post_title' => 'Alfa'] );
+		$slug    = $this->properties[1]->html_id( 'sort_option' );
+		update_post_meta( $post_id, $slug, 'Name (alphabetically)' );
+
+		$arr = $this->properties[1]->get_setting( 'items' );
+		$arr = array_map( function( $a ) {
+			return (object) $a;
+		}, $arr );
+		$out = array_reverse( $arr );
+		$this->assertEquals( $out, $this->properties[1]->sort_value( $arr, '', $post_id ) );
 	}
 }

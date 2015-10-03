@@ -25,6 +25,20 @@ class Papi_Property_Relationship extends Papi_Property {
 	public $default_value = [];
 
 	/**
+	 * Convert WordPress post object to a item object.
+	 *
+	 * @param  WP_Post $post
+	 *
+	 * @return object
+	 */
+	protected function convert_post_to_item( WP_Post $post ) {
+		return (object) [
+			'id'    => $post->ID,
+			'title' => $post->post_title
+		];
+	}
+
+	/**
 	 * Format the value of the property before it's returned to the application.
 	 *
 	 * @param  mixed  $values
@@ -35,19 +49,38 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 	public function format_value( $values, $slug, $post_id ) {
 		if ( is_array( $values ) || is_object( $values ) ) {
-			$values = array_map( function ( $id ) {
-				$post = get_post( $id );
+			$items  = $this->get_settings()->items;
+			$result = [];
 
-				if ( empty( $post ) ) {
-					return $id;
+			foreach ( $values as $key => $id ) {
+				// Backwards compatibility with array `id` and `id`.
+				$id  = is_array( $id ) ? $id['id'] : $id;
+
+				if ( empty( $id ) ) {
+					continue;
 				}
 
-				return $post;
-			}, array_filter( (array) $values ) );
-			return $this->sort_value( $values, $slug, $post_id );
-		} else {
-			return $this->default_value;
+				if ( papi_is_empty( $items ) ) {
+					$post = get_post( $id );
+
+					if ( empty( $post ) ) {
+						continue;
+					}
+
+					$result[] = $post;
+				} else {
+					$item = array_filter( $items, function ( $item ) use ( $id ) {
+						return wp_list_pluck( [$item], 'id' )[0] === (int) $id;
+					} );
+
+					$result[] = papi_maybe_convert_to_object( array_values( $item )[0] );
+				}
+			}
+
+			return $this->sort_value( $result, $slug, $post_id );
 		}
+
+		return $this->default_value;
 	}
 
 	/**
@@ -57,9 +90,11 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
+			'items'        => [],
 			'limit'        => -1,
-			'only_once'    => true,
+			'only_once'    => false,
 			'post_type'    => 'page',
+			'title'        => __( 'Post', 'papi' ),
 			'query'        => [],
 			'show_sort_by' => true
 		];
@@ -92,9 +127,10 @@ class Papi_Property_Relationship extends Papi_Property {
 		$sort_options[__( 'Select', 'papi' )] = null;
 
 		$sort_options[__( 'Name (alphabetically)', 'papi' )] = function ( $a, $b ) {
+			// Backwards compatibility with both `post_title` and `title`.
 			return strcmp(
-				strtolower( $a->post_title ),
-				strtolower( $b->post_title )
+				strtolower( isset( $a->post_title ) ? $a->post_title : $a->title ),
+				strtolower( isset( $b->post_title ) ? $b->post_title : $b->title )
 			);
 		};
 
@@ -107,11 +143,13 @@ class Papi_Property_Relationship extends Papi_Property {
 		};
 
 		$sort_options[__( 'Post id (ascending)', 'papi' )] = function ( $a, $b ) {
-			return $a->ID > $b->ID;
+			// Backwards compatibility with both `ID` and `id`.
+			return isset( $a->ID ) ? $a->ID > $b->ID : $a->id > $b->id;
 		};
 
 		$sort_options[__( 'Post id (descending)', 'papi' )] = function ( $a, $b ) {
-			return $a->ID < $b->ID;
+			// Backwards compatibility with both `ID` and `id`.
+			return isset( $a->ID ) ? $a->ID < $b->ID : $a->id < $b->id;
 		};
 
 		$sort_options[__( 'Post order value (ascending)', 'papi' )] = function ( $a, $b ) {
@@ -139,14 +177,25 @@ class Papi_Property_Relationship extends Papi_Property {
 	}
 
 	/**
-	 * Render property html.
+	 * Get items to display from settings.
+	 *
+	 * @param  array $settings
+	 *
+	 * @return array
 	 */
-	public function html() {
-		$post_id     = papi_get_post_id();
-		$slug        = $this->html_name();
-		$settings    = $this->get_settings();
-		$sort_option = $this->get_sort_option( $post_id );
-		$values      = $this->get_value();
+	protected function get_items( $settings ) {
+		if ( is_array( $settings->items ) && ! empty( $settings->items ) ) {
+			$mapping = function ( $item ) {
+				return is_array( $item ) ?
+					isset( $item['id'] ) && isset( $item['title'] ) :
+					isset( $item->id ) && isset( $item->title );
+			};
+
+			return array_map(
+				'papi_maybe_convert_to_object',
+				array_filter( $settings->items, $mapping )
+			);
+		}
 
 		// By default we add posts per page key with the value -1 (all).
 		if ( ! isset( $settings->query['posts_per_page'] ) ) {
@@ -162,12 +211,36 @@ class Papi_Property_Relationship extends Papi_Property {
 		] );
 
 		$query = new WP_Query( $args );
-		$posts = $query->get_posts();
+		$items = $query->get_posts();
 
-		// Keep only objects.
-		$posts = papi_get_only_objects( $posts );
+		return array_map(
+			[$this, 'convert_post_to_item'],
+			papi_get_only_objects( $items )
+		);
+	}
 
+	/**
+	 * Render property html.
+	 */
+	public function html() {
+		$post_id       = papi_get_post_id();
+		$slug          = $this->html_name();
+		$settings      = $this->get_settings();
 		$settings_json = [];
+		$sort_option   = $this->get_sort_option( $post_id );
+		$sort_options  = static::get_sort_options();
+		$values        = papi_get_only_objects( $this->get_value() );
+		$items         = $this->get_items( $settings );
+
+		if ( papi_is_empty( $settings->items ) ) {
+			$values = array_map( [$this, 'convert_post_to_item'], $values );
+		} else {
+			foreach ( $sort_options as $key => $sort ) {
+				if ( strpos( $key, 'Post' ) === 0 ) {
+					unset( $sort_options[$key] );
+				}
+			}
+		}
 
 		// Convert all sneak case key to camel case.
 		foreach ( (array) $settings as $key => $val ) {
@@ -189,7 +262,7 @@ class Papi_Property_Relationship extends Papi_Property {
 					<?php if ( $settings->show_sort_by ): ?>
 						<label for="<?php echo $this->html_id( 'sort_option' ); ?>"><?php _e( 'Sort by', 'papi' ); ?></label>
 						<select id="<?php echo $this->html_id( 'sort_option' ); ?>" name="<?php echo $this->html_id( 'sort_option' ); ?>">
-							<?php foreach ( static::get_sort_options() as $key => $v ): ?>
+							<?php foreach ( $sort_options as $key => $v ): ?>
 								<option value="<?php echo $key; ?>" <?php echo $key === $sort_option ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
 							<?php endforeach; ?>
 						</select>
@@ -201,14 +274,14 @@ class Papi_Property_Relationship extends Papi_Property {
 				<div class="relationship-left">
 					<ul>
 						<?php
-						foreach ( $posts as $post ):
-							if ( ! empty( $post->post_title ) ):
+						foreach ( $items as $item ):
+							if ( ! empty( $item->title ) ):
 								?>
 								<li>
 									<input type="hidden"
 										   data-name="<?php echo $slug; ?>[]"
-									       value="<?php echo $post->ID; ?>"/>
-									<a href="#"><?php echo $post->post_title; ?></a>
+									       value="<?php echo $item->id; ?>"/>
+									<a href="#"><?php echo $item->title; ?></a>
 									<span class="icon plus"></span>
 								</li>
 							<?php
@@ -219,11 +292,11 @@ class Papi_Property_Relationship extends Papi_Property {
 				</div>
 				<div class="relationship-right">
 					<ul>
-						<?php foreach ( $values as $post ): ?>
+						<?php foreach ( $values as $item ): ?>
 							<li>
 								<input type="hidden" name="<?php echo $slug; ?>[]"
-								       value="<?php echo $post->ID; ?>"/>
-								<a href="#"><?php echo $post->post_title; ?></a>
+								       value="<?php echo $item->id; ?>"/>
+								<a href="#"><?php echo $item->title; ?></a>
 								<span class="icon minus"></span>
 							</li>
 						<?php endforeach; ?>
@@ -254,6 +327,10 @@ class Papi_Property_Relationship extends Papi_Property {
 		foreach ( papi_to_array( $value ) as $index => $val ) {
 			if ( $val instanceof WP_Post ) {
 				$values[] = $val->ID;
+			}
+
+			if ( is_object( $val ) && isset( $val->id ) ) {
+				$values[] = (int) $val->id;
 			}
 
 			if ( is_numeric( $val ) ) {
@@ -310,6 +387,18 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 	public function update_value( $values, $slug, $post_id ) {
 		$values = $this->format_value( $values, $slug, $post_id );
-		return json_encode( wp_list_pluck( $values, 'ID' ) );
+		$values = array_map( function ( $item ) {
+			if ( $item instanceof WP_Post ) {
+				$item = $this->convert_post_to_item( $item );
+			}
+
+			if ( isset( $item->title ) ) {
+				unset( $item->title );
+			}
+
+			return $item;
+		}, $values );
+
+		return json_encode( $values );
 	}
 }

@@ -247,6 +247,25 @@ class Properties_Page_Type extends Papi_Page_Type {
 				'slug'  => 'relationship_test'
 			] ),
 
+			// Relationship 2
+			papi_property( [
+				'type'     => 'relationship',
+				'title'    => 'Relationship test 2',
+				'slug'     => 'relationship_test_2',
+				'settings' => [
+					'items' => [
+						[
+							'id'    => 2,
+							'title' => 'Two'
+						],
+						[
+							'id'    => 1,
+							'title'	=> 'One'
+						]
+					]
+				]
+			] ),
+
 			// Repeater
 			papi_property( [
 				'type'     => 'repeater',
