@@ -9,6 +9,10 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'user_test';
 
+	public function assert_values( $expected, $actual ) {
+		$this->assertSame( $expected->ID, $actual->ID );
+	}
+
 	public function get_value() {
 		return new WP_User( 1 );
 	}

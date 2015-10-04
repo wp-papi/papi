@@ -26,15 +26,15 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 	}
 
 	public function test_operator() {
-		$this->assertEquals( '=', $this->rule->operator );
+		$this->assertSame( '=', $this->rule->operator );
 	}
 
 	public function test_slug() {
-		$this->assertEquals( 'papi_name', $this->rule->slug );
+		$this->assertSame( 'papi_name', $this->rule->slug );
 	}
 
 	public function test_source() {
-		$this->assertEquals( 'Elli', $this->rule->get_source() );
+		$this->assertSame( 'Elli', $this->rule->get_source() );
 	}
 
 	public function test_source_callable_failied() {
@@ -57,7 +57,7 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 			'slug'     => 'numbers',
 			'source'   => '#source_callable'
 		] );
-		$this->assertEquals( '#source_callable', $rule->get_source() );
+		$this->assertSame( '#source_callable', $rule->get_source() );
 	}
 
 	public function test_source_callable() {
@@ -66,28 +66,28 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 			'slug'     => 'numbers',
 			'source'   => [$this, 'source_callable']
 		] );
-		$this->assertEquals( [1, 2], $rule->get_source() );
+		$this->assertSame( [1, 2], $rule->get_source() );
 
 		$rule = new Papi_Core_Conditional_Rule( [
 			'operator' => '=',
 			'slug'     => 'name',
 			'source'   => [$this, 'source_callable']
 		] );
-		$this->assertEquals( 'Fredrik', $rule->get_source() );
+		$this->assertSame( 'Fredrik', $rule->get_source() );
 
 		$rule = new Papi_Core_Conditional_Rule( [
 			'operator' => '=',
 			'slug'     => 'numbers',
 			'source'   => 'source_callable'
 		] );
-		$this->assertEquals( [1, 2], $rule->get_source() );
+		$this->assertSame( [1, 2], $rule->get_source() );
 
 		$rule = new Papi_Core_Conditional_Rule( [
 			'operator' => '=',
 			'slug'     => 'name',
 			'source'   => 'source_callable'
 		] );
-		$this->assertEquals( 'Fredrik', $rule->get_source() );
+		$this->assertSame( 'Fredrik', $rule->get_source() );
 	}
 
 	public function test_source_closure() {
@@ -114,7 +114,7 @@ class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 	}
 
 	public function test_value() {
-		$this->assertEquals( 'Fredrik', $this->rule->value );
+		$this->assertSame( 'Fredrik', $this->rule->value );
 	}
 }
 

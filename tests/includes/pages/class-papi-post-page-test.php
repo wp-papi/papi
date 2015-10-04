@@ -34,7 +34,7 @@ class Papi_Post_Page_Test extends WP_UnitTestCase {
 
 		$page = papi_get_page( $this->post_id );
 
-		$this->assertEquals( $page->get_page_type()->name, 'Simple page' );
+		$this->assertSame( $page->get_page_type()->name, 'Simple page' );
 	}
 
 	public function test_get_permalink() {
@@ -44,11 +44,11 @@ class Papi_Post_Page_Test extends WP_UnitTestCase {
 
 	public function test_get_post() {
 		$this->assertTrue( is_object( $this->page->get_post() ) );
-		$this->assertEquals( $this->post_id, $this->page->get_post()->ID );
+		$this->assertSame( $this->post_id, $this->page->get_post()->ID );
 	}
 
 	public function test_get_status() {
-		$this->assertEquals( 'publish', $this->page->get_status() );
+		$this->assertSame( 'publish', $this->page->get_status() );
 	}
 
 	public function test_get_value() {
@@ -57,11 +57,11 @@ class Papi_Post_Page_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 
 		update_post_meta( $this->post_id, 'name', 'Janni' );
-		$this->assertEquals( 'Janni', $this->page->get_value( 'name' ) );
+		$this->assertSame( 'Janni', $this->page->get_value( 'name' ) );
 
 		update_post_meta( $this->post_id, 'name', 'Fredrik' );
 
-		$this->assertEquals( 'Fredrik', $this->page->get_value( 'name' ) );
+		$this->assertSame( 'Fredrik', $this->page->get_value( 'name' ) );
 
 		$property = papi_property( [
 			'type'  => 'number',
@@ -69,9 +69,9 @@ class Papi_Post_Page_Test extends WP_UnitTestCase {
 			'slug'  => 'nummer'
 		] );
 
-		$this->assertEquals( 'number', $property->type );
-		$this->assertEquals( 'Nummer', $property->title );
-		$this->assertEquals( 'papi_nummer', $property->slug );
+		$this->assertSame( 'number', $property->type );
+		$this->assertSame( 'Nummer', $property->title );
+		$this->assertSame( 'papi_nummer', $property->slug );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
@@ -80,9 +80,9 @@ class Papi_Post_Page_Test extends WP_UnitTestCase {
 		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
 		$property  = $page_type->get_property( 'name' );
 
-		$this->assertEquals( 'string', $property->get_option( 'type' ) );
-		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_name', $property->get_option( 'slug' ) );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'Name', $property->get_option( 'title' ) );
+		$this->assertSame( 'papi_name', $property->get_option( 'slug' ) );
 
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $property->get_option( 'slug' ),
@@ -93,10 +93,10 @@ class Papi_Post_Page_Test extends WP_UnitTestCase {
 		$handler->save_properties( $this->post_id );
 
 		$actual = papi_get_field( $this->post_id, $property->get_option( 'slug' ) );
-		$this->assertEquals( 'Fredrik', $actual );
+		$this->assertSame( 'Fredrik', $actual );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
-		$this->assertEquals( 'Fredrik', papi_get_field( $this->post_id, 'name_default' ) );
+		$this->assertSame( 'Fredrik', papi_get_field( $this->post_id, 'name_default' ) );
 	}
 
 	public function test__get() {

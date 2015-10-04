@@ -35,22 +35,22 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 		$this->assertNull( $this->page->get_property( 'fake' ) );
 
 		$property = $this->page->get_property( 'name' );
-		$this->assertEquals( 'string', $property->get_option( 'type' ) );
-		$this->assertEquals( 'string', $property->type );
-		$this->assertEquals( 'papi_name', $property->slug );
-		$this->assertEquals( 'papi_name', $property->get_option( 'slug' ) );
-		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
-		$this->assertEquals( 'Name', $property->title );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
+		$this->assertSame( 'papi_name', $property->slug );
+		$this->assertSame( 'papi_name', $property->get_option( 'slug' ) );
+		$this->assertSame( 'Name', $property->get_option( 'title' ) );
+		$this->assertSame( 'Name', $property->title );
 
 		$_GET['page'] = 'papi/options/header-option-type';
 
 		$property = $this->page->get_property( 'name' );
-		$this->assertEquals( 'string', $property->get_option( 'type' ) );
-		$this->assertEquals( 'string', $property->type );
-		$this->assertEquals( 'papi_name', $property->slug );
-		$this->assertEquals( 'papi_name', $property->get_option( 'slug' ) );
-		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
-		$this->assertEquals( 'Name', $property->title );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
+		$this->assertSame( 'papi_name', $property->slug );
+		$this->assertSame( 'papi_name', $property->get_option( 'slug' ) );
+		$this->assertSame( 'Name', $property->get_option( 'title' ) );
+		$this->assertSame( 'Name', $property->title );
 
 		$_GET['page'] = 'papi/modules/top-module-type';
 		$this->assertNull( $this->page->get_property( 'name' ) );
@@ -61,7 +61,7 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $property->get_value() );
 
 		update_option( 'name', 'Fredrik' );
-		$this->assertEquals( 'Fredrik', $this->page->get_value( 'name' ) );
+		$this->assertSame( 'Fredrik', $this->page->get_value( 'name' ) );
 
 		update_option( 'hello', 'Fredrik' );
 		$this->assertNull( $this->page->get_value( 'hello' ) );

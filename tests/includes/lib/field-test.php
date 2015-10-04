@@ -65,22 +65,22 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_field( '' ) );
 		$this->assertNull( papi_get_field( $this->post_id, '' ) );
 
-		$this->assertEquals( 'fredrik', papi_get_field( $this->post_id, 'name' ) );
-		$this->assertEquals( 'fredrik', papi_get_field( $this->post_id, 'name', '', 'post' ) );
+		$this->assertSame( 'fredrik', papi_get_field( $this->post_id, 'name' ) );
+		$this->assertSame( 'fredrik', papi_get_field( $this->post_id, 'name', '', 'post' ) );
 
-		$this->assertEquals( 'world', papi_get_field( $this->post_id, 'hello', 'world' ) );
+		$this->assertSame( 'world', papi_get_field( $this->post_id, 'hello', 'world' ) );
 
 		$_GET['post_id'] = $this->post_id;
 		$this->assertNull( papi_get_field( 'name' ) );
-		$this->assertEquals( 'fredrik', papi_get_field( '', 'fredrik' ) );
+		$this->assertSame( 'fredrik', papi_get_field( '', 'fredrik' ) );
 	}
 
 	public function test_papi_field_value() {
-		$this->assertEquals( 'fredrik', papi_field_value(
+		$this->assertSame( 'fredrik', papi_field_value(
 			[ 'what', 'name' ],
 			[ 'what' => [ 'name' => 'fredrik' ] ]
 		) );
-		$this->assertEquals( 'fredrik', papi_field_value(
+		$this->assertSame( 'fredrik', papi_field_value(
 			[ 'what', 'name' ],
 			(object) [ 'what' => [ 'name' => 'fredrik' ] ]
 		) );
@@ -90,17 +90,17 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, 'name', 'fredrik' );
 
 		$this->assertEmpty( papi_field_shortcode( [] ) );
-		$this->assertEquals( 'fredrik', papi_field_shortcode( [
+		$this->assertSame( 'fredrik', papi_field_shortcode( [
 			'id'   => $this->post_id,
 			'slug' => 'name'
 		] ) );
 
-		$this->assertEquals( '1, 2, 3', papi_field_shortcode( [
+		$this->assertSame( '1, 2, 3', papi_field_shortcode( [
 			'slug'    => 'numbers',
 			'default' => [1, 2, 3]
 		] ) );
 
-		$this->assertEquals( '1, 2, 3', papi_field_shortcode( [
+		$this->assertSame( '1, 2, 3', papi_field_shortcode( [
 			'id'      => $this->post_id,
 			'slug'    => 'numbers',
 			'default' => [1, 2, 3]
@@ -110,7 +110,7 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 
 		$post = get_post( $this->post_id );
 
-		$this->assertEquals( 'fredrik', papi_field_shortcode( [
+		$this->assertSame( 'fredrik', papi_field_shortcode( [
 			'slug' => 'name'
 		] ) );
 	}
@@ -129,7 +129,7 @@ class Papi_Lib_Field_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_update_field( 93099, 'fake_slug', 'value' ) );
 		$this->assertFalse( papi_update_field( $this->post_id, 'fake_slug', 'value' ) );
 		$this->assertTrue( papi_update_field( $this->post_id, 'name', 'Kalle' ) );
-		$this->assertEquals( 'Kalle', papi_get_field( $this->post_id, 'name' ) );
+		$this->assertSame( 'Kalle', papi_get_field( $this->post_id, 'name' ) );
 	}
 
 	public function test_the_papi_field() {

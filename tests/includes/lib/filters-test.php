@@ -21,29 +21,29 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_filter_core_load_one_type_on() {
-		$this->assertEquals( ['attachment'], papi_filter_core_load_one_type_on() );
+		$this->assertSame( ['attachment'], papi_filter_core_load_one_type_on() );
 
 		tests_add_filter( 'papi/core/load_one_type_on', function () {
 			return ['page', 'post'];
 		} );
 
-		$this->assertEquals( ['page', 'post'], papi_filter_core_load_one_type_on() );
+		$this->assertSame( ['page', 'post'], papi_filter_core_load_one_type_on() );
 
 		tests_add_filter( 'papi/core/load_one_type_on', function () {
 			return false;
 		} );
 
-		$this->assertEquals( ['attachment'], papi_filter_core_load_one_type_on() );
+		$this->assertSame( ['attachment'], papi_filter_core_load_one_type_on() );
 	}
 
 	public function test_papi_filter_format_value() {
-		$this->assertEquals( 'hello', papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
+		$this->assertSame( 'hello', papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
 
 		tests_add_filter( 'papi/format_value/string', function () {
 			return 'change-format';
 		} );
 
-		$this->assertEquals( 'change-format', papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
+		$this->assertSame( 'change-format', papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
 	}
 
 	public function test_papi_filter_conditional_rule_allowed() {
@@ -68,33 +68,33 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_filter_load_value() {
-		$this->assertEquals( 'hello', papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
+		$this->assertSame( 'hello', papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
 
 		tests_add_filter( 'papi/load_value/string', function () {
 			return 'change-load';
 		} );
 
-		$this->assertEquals( 'change-load', papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
+		$this->assertSame( 'change-load', papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
 	}
 
 	public function test_papi_filter_settings_page_type_column_title() {
-		$this->assertEquals( 'Type', papi_filter_settings_page_type_column_title( 'page' ) );
+		$this->assertSame( 'Type', papi_filter_settings_page_type_column_title( 'page' ) );
 
 		add_filter( 'papi/settings/column_title_page', function () {
 			return 'Typ';
 		} );
 
-		$this->assertEquals( 'Typ', papi_filter_settings_page_type_column_title( 'page' ) );
+		$this->assertSame( 'Typ', papi_filter_settings_page_type_column_title( 'page' ) );
 	}
 
 	public function test_papi_filter_settings_default_sort_order() {
-		$this->assertEquals( 1000, papi_filter_settings_sort_order() );
+		$this->assertSame( 1000, papi_filter_settings_sort_order() );
 
 		tests_add_filter( 'papi/settings/sort_order', function () {
 			return 1;
 		} );
 
-		$this->assertEquals( 1, papi_filter_settings_sort_order() );
+		$this->assertSame( 1, papi_filter_settings_sort_order() );
 	}
 
 	public function test_papi_filter_page_type_directories() {
@@ -109,7 +109,7 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 		} );
 
 		$directories = papi_filter_settings_directories();
-		$this->assertEquals( 'path', $directories[0] );
+		$this->assertSame( 'path', $directories[0] );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return null;
@@ -119,13 +119,13 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_filter_settings_only_page_type() {
-		$this->assertEquals( '', papi_filter_settings_only_page_type( 'post' ) );
+		$this->assertSame( '', papi_filter_settings_only_page_type( 'post' ) );
 
 		tests_add_filter( 'papi/settings/only_page_type_post', function () {
 			return 'simple-page-type';
 		} );
 
-		$this->assertEquals( 'simple-page-type', papi_filter_settings_only_page_type( 'post' ) );
+		$this->assertSame( 'simple-page-type', papi_filter_settings_only_page_type( 'post' ) );
 
 		tests_add_filter( 'papi/settings/only_page_type_post', function () {
 			return false;
@@ -163,62 +163,62 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_filter_settings_standard_page_description() {
-		$this->assertEquals( 'Post with WordPress standard fields', papi_filter_settings_standard_page_description( 'post' ) );
-		$this->assertEquals( 'Page with WordPress standard fields', papi_filter_settings_standard_page_description( 'fake' ) );
-		$this->assertEquals( 'Page with WordPress standard fields', papi_filter_settings_standard_page_description( 'Page' ) );
+		$this->assertSame( 'Post with WordPress standard fields', papi_filter_settings_standard_page_description( 'post' ) );
+		$this->assertSame( 'Page with WordPress standard fields', papi_filter_settings_standard_page_description( 'fake' ) );
+		$this->assertSame( 'Page with WordPress standard fields', papi_filter_settings_standard_page_description( 'Page' ) );
 
 		tests_add_filter( 'papi/settings/standard_page_description_post', function () {
 			return 'Hello, world!';
 		} );
 
-		$this->assertEquals( 'Hello, world!', papi_filter_settings_standard_page_description( 'post' ) );
+		$this->assertSame( 'Hello, world!', papi_filter_settings_standard_page_description( 'post' ) );
 	}
 
 	public function test_papi_filter_settings_standard_page_name() {
-		$this->assertEquals( 'Standard Post', papi_filter_settings_standard_page_name( 'post' ) );
-		$this->assertEquals( 'Standard Page', papi_filter_settings_standard_page_name( 'fake' ) );
-		$this->assertEquals( 'Standard Page', papi_filter_settings_standard_page_name( 'page' ) );
+		$this->assertSame( 'Standard Post', papi_filter_settings_standard_page_name( 'post' ) );
+		$this->assertSame( 'Standard Page', papi_filter_settings_standard_page_name( 'fake' ) );
+		$this->assertSame( 'Standard Page', papi_filter_settings_standard_page_name( 'page' ) );
 
 		tests_add_filter( 'papi/settings/standard_page_name_post', function () {
 			return 'Hello, world!';
 		} );
 
-		$this->assertEquals( 'Hello, world!', papi_filter_settings_standard_page_name( 'post' ) );
+		$this->assertSame( 'Hello, world!', papi_filter_settings_standard_page_name( 'post' ) );
 	}
 
 	public function test_papi_filter_settings_show_standard_page_type() {
-		$this->assertEquals( false, papi_filter_settings_show_standard_page_type( 'post' ) );
+		$this->assertSame( false, papi_filter_settings_show_standard_page_type( 'post' ) );
 
 		tests_add_filter( 'papi/settings/show_standard_page_type_post', '__return_true' );
 
-		$this->assertEquals( true, papi_filter_settings_show_standard_page_type( 'post' ) );
+		$this->assertSame( true, papi_filter_settings_show_standard_page_type( 'post' ) );
 	}
 
 	public function test_papi_filter_settings_show_standard_page_type_in_filter() {
-		$this->assertEquals( false, papi_filter_settings_show_standard_page_type_in_filter( 'post' ) );
+		$this->assertSame( false, papi_filter_settings_show_standard_page_type_in_filter( 'post' ) );
 
 		tests_add_filter( 'papi/settings/show_standard_page_type_in_filter_post', '__return_true' );
 
-		$this->assertEquals( true, papi_filter_settings_show_standard_page_type_in_filter( 'post' ) );
+		$this->assertSame( true, papi_filter_settings_show_standard_page_type_in_filter( 'post' ) );
 	}
 
 	public function test_papi_filter_settings_standard_page_thumbnail() {
-		$this->assertEquals( '', papi_filter_settings_standard_page_thumbnail( 'post' ) );
+		$this->assertSame( '', papi_filter_settings_standard_page_thumbnail( 'post' ) );
 
 		tests_add_filter( 'papi/settings/standard_page_thumbnail_post', function () {
 			return 'Hello, world!';
 		} );
 
-		$this->assertEquals( 'Hello, world!', papi_filter_settings_standard_page_thumbnail( 'post' ) );
+		$this->assertSame( 'Hello, world!', papi_filter_settings_standard_page_thumbnail( 'post' ) );
 	}
 
 	public function test_papi_filter_update_value() {
-		$this->assertEquals( 'hello', papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
+		$this->assertSame( 'hello', papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
 
 		tests_add_filter( 'papi/update_value/string', function () {
 			return 'change-update';
 		} );
 
-		$this->assertEquals( 'change-update', papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
+		$this->assertSame( 'change-update', papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
 	}
 }

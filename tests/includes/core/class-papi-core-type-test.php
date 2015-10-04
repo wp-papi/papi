@@ -37,9 +37,9 @@ class Papi_Core_Type_Test extends WP_UnitTestCase {
 	}
 
 	public function test_meta_method() {
-		$this->assertEquals( 'page_type', $this->simple_page_type->_meta_method );
-		$this->assertEquals( 'page_type', $this->empty_page_type->_meta_method );
-		$this->assertEquals( 'page_type', $this->faq_page_type->_meta_method );
+		$this->assertSame( 'page_type', $this->simple_page_type->_meta_method );
+		$this->assertSame( 'page_type', $this->empty_page_type->_meta_method );
+		$this->assertSame( 'page_type', $this->faq_page_type->_meta_method );
 	}
 
 	public function test_broken_page_type() {
@@ -48,19 +48,19 @@ class Papi_Core_Type_Test extends WP_UnitTestCase {
 
 	public function test_get_class_name() {
 		$this->assertEmpty( $this->empty_page_type->get_class_name() );
-		$this->assertEquals( 'Simple_Page_Type', $this->simple_page_type->get_class_name() );
-		$this->assertEquals( 'FAQ_Page_Type', $this->faq_page_type->get_class_name() );
+		$this->assertSame( 'Simple_Page_Type', $this->simple_page_type->get_class_name() );
+		$this->assertSame( 'FAQ_Page_Type', $this->faq_page_type->get_class_name() );
 	}
 
 	public function test_get_file_path() {
 		$this->assertEmpty( $this->empty_page_type->get_file_path() );
 
-		$this->assertEquals(
+		$this->assertSame(
 			PAPI_FIXTURE_DIR . '/page-types/simple-page-type.php',
 			$this->simple_page_type->get_file_path()
 		);
 
-		$this->assertEquals(
+		$this->assertSame(
 			PAPI_FIXTURE_DIR . '/page-types/faq-page-type.php',
 			$this->faq_page_type->get_file_path()
 		);
@@ -68,10 +68,10 @@ class Papi_Core_Type_Test extends WP_UnitTestCase {
 
 	public function test_get_id() {
 		$this->assertEmpty( $this->empty_page_type->get_id() );
-		$this->assertEquals( 'simple-page-type', $this->simple_page_type->get_id() );
-		$this->assertEquals( 'faq-page-type', $this->faq_page_type->get_id() );
+		$this->assertSame( 'simple-page-type', $this->simple_page_type->get_id() );
+		$this->assertSame( 'faq-page-type', $this->faq_page_type->get_id() );
 		$identifier_page_type = papi_get_page_type_by_id( 'custom-page-type-id' );
-		$this->assertEquals( 'custom-page-type-id', $identifier_page_type->get_id() );
+		$this->assertSame( 'custom-page-type-id', $identifier_page_type->get_id() );
 	}
 
 	public function test_match_id() {

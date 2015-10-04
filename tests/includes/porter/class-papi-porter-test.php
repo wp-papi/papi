@@ -37,31 +37,31 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 
 	public function test_add_driver() {
 		try {
-			$this->assertEquals( $this->porter, $this->porter->add_driver(
+			$this->assertSame( $this->porter, $this->porter->add_driver(
 				new Papi_Porter_Driver_Core
 			) );
 		} catch ( Exception $e ) {
-			$this->assertEquals( '`core` driver exists.', $e->getMessage() );
+			$this->assertSame( '`core` driver exists.', $e->getMessage() );
 		}
 
-		$this->assertEquals( $this->porter, $this->porter->add_driver(
+		$this->assertSame( $this->porter, $this->porter->add_driver(
 			new Papi_Porter_Driver_Core2
 		) );
 
 		try {
-			$this->assertEquals( $this->porter, $this->porter->add_driver(
+			$this->assertSame( $this->porter, $this->porter->add_driver(
 				new Papi_Porter_Driver_Core2
 			) );
 		} catch ( Exception $e ) {
-			$this->assertEquals( '`core2` driver exists.', $e->getMessage() );
+			$this->assertSame( '`core2` driver exists.', $e->getMessage() );
 		}
 
 		try {
-			$this->assertEquals( $this->porter, $this->porter->add_driver(
+			$this->assertSame( $this->porter, $this->porter->add_driver(
 				new Papi_Porter_Driver_Fail
 			) );
 		} catch ( Exception $e ) {
-			$this->assertEquals( 'Driver name is empty or not a string.', $e->getMessage() );
+			$this->assertSame( 'Driver name is empty or not a string.', $e->getMessage() );
 		}
 	}
 
@@ -71,29 +71,29 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 
 		$this->assertEmpty( $this->porter->export( 0 ) );
 		$output = $this->porter->export( $post_id );
-		$this->assertEquals( 'bool', $output['Properties']['bool_test']->type );
+		$this->assertSame( 'bool', $output['Properties']['bool_test']->type );
 		$output = $this->porter->export( $post_id, true );
 		$this->assertFalse( is_object( $output['Properties']['bool_test'] ) );
 		$this->assertNull( $output['Properties']['bool_test'] );
 
 		papi_update_field( $post_id, 'checkbox_test', ['#000000'] );
-		$this->assertEquals( ['#000000'], papi_get_field( $post_id, 'checkbox_test' ) );
+		$this->assertSame( ['#000000'], papi_get_field( $post_id, 'checkbox_test' ) );
 
 		$output = $this->porter->export( $post_id );
-		$this->assertEquals( ['#000000'], $output['Properties']['checkbox_test']->value );
+		$this->assertSame( ['#000000'], $output['Properties']['checkbox_test']->value );
 		$output = $this->porter->export( $post_id, true );
 		$this->assertFalse( is_object( $output['Properties']['checkbox_test'] ) );
-		$this->assertEquals( ['#000000'], $output['Properties']['checkbox_test'] );
+		$this->assertSame( ['#000000'], $output['Properties']['checkbox_test'] );
 	}
 
 	public function test_filters() {
 		$this->porter->before( 'driver:value', function ( $value, $slug ) {
-			$this->assertEquals( 'bool_test', $slug );
+			$this->assertSame( 'bool_test', $slug );
 			return 'before';
 		} );
 
 		$this->porter->after( 'driver:value', function ( $value, $slug ) {
-			$this->assertEquals( 'bool_test', $slug );
+			$this->assertSame( 'bool_test', $slug );
 			$this->assertFalse( $value );
 			return true;
 		} );
@@ -119,7 +119,7 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 		try {
 			$this->porter->fire_filter( [] );
 		} catch ( Exception $e ) {
-			$this->assertEquals( 'Missing `filter` in options array.', $e->getMessage() );
+			$this->assertSame( 'Missing `filter` in options array.', $e->getMessage() );
 		}
 
 		try {
@@ -127,17 +127,17 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 				'filter' => 'driver:test'
 			] );
 		} catch ( Exception $e ) {
-			$this->assertEquals( 'Missing `value` in options array.', $e->getMessage() );
+			$this->assertSame( 'Missing `value` in options array.', $e->getMessage() );
 		}
 
 		tests_add_filter( 'papi/porter/driver/after/driver:test', function ( $value, $slug ) {
 			$this->assertTrue( $value );
-			$this->assertEquals( 'bool_test', $slug );
+			$this->assertSame( 'bool_test', $slug );
 		}, 10, 2 );
 
 		tests_add_filter( 'papi/porter/driver/after/', function ( $value, $slug ) {
 			$this->assertTrue( $value );
-			$this->assertEquals( 'bool_test', $slug );
+			$this->assertSame( 'bool_test', $slug );
 		}, 10, 2 );
 
 		$this->porter->fire_filter( [
@@ -186,26 +186,26 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 		try {
 			$this->porter->use_driver( [] );
 		} catch ( Exception $e ) {
-			$this->assertEquals( 'Invalid argument. Must be string.', $e->getMessage() );
+			$this->assertSame( 'Invalid argument. Must be string.', $e->getMessage() );
 		}
 
 		try {
 			$this->porter->use_driver( 'hello' );
 		} catch ( Exception $e ) {
-			$this->assertEquals( '`hello` driver does not exist.', $e->getMessage() );
+			$this->assertSame( '`hello` driver does not exist.', $e->getMessage() );
 		}
 
 		try {
 			$this->porter->driver( 'hello' );
 		} catch ( Exception $e ) {
-			$this->assertEquals( '`hello` driver does not exist.', $e->getMessage() );
+			$this->assertSame( '`hello` driver does not exist.', $e->getMessage() );
 		}
 
 		$post_id = $this->factory->post->create();
 		update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
 
 		if ( ! $this->porter->driver_exists( 'core2' ) ) {
-			$this->assertEquals( $this->porter, $this->porter->add_driver(
+			$this->assertSame( $this->porter, $this->porter->add_driver(
 				new Papi_Porter_Driver_Core2
 			) );
 		}

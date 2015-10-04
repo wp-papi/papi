@@ -68,14 +68,14 @@ class Papi_Lib_IO_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_page_type_base_path( [] ) );
 		$this->assertNull( papi_get_page_type_base_path( (object) [] ) );
 		$this->assertNull( papi_get_page_type_base_path( '' ) );
-		$this->assertEquals( 'simple-page-type', papi_get_page_type_base_path( 'simple-page-type' ) );
+		$this->assertSame( 'simple-page-type', papi_get_page_type_base_path( 'simple-page-type' ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		$path = papi_get_file_path( 'simple-page-type' );
-		$this->assertEquals( 'simple-page-type', papi_get_page_type_base_path( $path ) );
+		$this->assertSame( 'simple-page-type', papi_get_page_type_base_path( $path ) );
 
 		$this->assertNull( papi_get_page_type_base_path( '' ) );
 		$this->assertNull( papi_get_page_type_base_path( null ) );

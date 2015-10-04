@@ -34,21 +34,21 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 
 		$_GET['page_type'] = 1;
 		$this->menu->admin_bar_menu();
-		$this->assertEquals( 'Add New Page', $labels->add_new_item );
-		$this->assertEquals( 'Edit Page', $labels->edit_item );
-		$this->assertEquals( 'View Page', $labels->view_item );
+		$this->assertSame( 'Add New Page', $labels->add_new_item );
+		$this->assertSame( 'Edit Page', $labels->edit_item );
+		$this->assertSame( 'View Page', $labels->view_item );
 
 		$_GET['page_type'] = 'faq-page-type';
 		$this->menu->admin_bar_menu();
-		$this->assertEquals( 'Add New Page', $labels->add_new_item );
-		$this->assertEquals( 'Edit Page', $labels->edit_item );
-		$this->assertEquals( 'View Page', $labels->view_item );
+		$this->assertSame( 'Add New Page', $labels->add_new_item );
+		$this->assertSame( 'Edit Page', $labels->edit_item );
+		$this->assertSame( 'View Page', $labels->view_item );
 
 		$_GET['post_type'] = $post_type;
 		$this->menu->admin_bar_menu();
-		$this->assertEquals( 'Add New FAQ page', $labels->add_new_item );
-		$this->assertEquals( 'Edit FAQ page', $labels->edit_item );
-		$this->assertEquals( 'View FAQ page', $labels->view_item );
+		$this->assertSame( 'Add New FAQ page', $labels->add_new_item );
+		$this->assertSame( 'Edit FAQ page', $labels->edit_item );
+		$this->assertSame( 'View FAQ page', $labels->view_item );
 	}
 
 	public function test_admin_bar_menu_2() {
@@ -59,9 +59,9 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 
 		$_GET['post_type'] = $post_type;
 		$this->menu->admin_bar_menu();
-		$this->assertEquals( 'Add New Post', $labels->add_new_item );
-		$this->assertEquals( 'Edit Post', $labels->edit_item );
-		$this->assertEquals( 'View Post', $labels->view_item );
+		$this->assertSame( 'Add New Post', $labels->add_new_item );
+		$this->assertSame( 'Edit Post', $labels->edit_item );
+		$this->assertSame( 'View Post', $labels->view_item );
 		$_SERVER['REQUEST_URI'] = '';
 	}
 
@@ -98,8 +98,8 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 		];
 
 		$this->assertNull( $this->menu->post_types_menu() );
-		$this->assertEquals( 'post-new.php?page_type=post-page-type&post_type=post', $submenu['edit.php'][10][2] );
-		$this->assertEquals( 'edit.php?post_type=page&page=papi-add-new-page,page', $submenu['edit.php?post_type=page'][10][2] );
+		$this->assertSame( 'post-new.php?page_type=post-page-type&post_type=post', $submenu['edit.php'][10][2] );
+		$this->assertSame( 'edit.php?post_type=page&page=papi-add-new-page,page', $submenu['edit.php?post_type=page'][10][2] );
 	}
 
 	public function test_post_types_menu_2() {
@@ -152,10 +152,10 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 		papi_test_register_hidden_post_type();
 
 		$this->assertNull( $this->menu->post_types_menu() );
-		$this->assertEquals( 'post-new.php?page_type=post-page-type&post_type=post', $submenu['edit.php'][10][2] );
-		$this->assertEquals( 'edit.php?post_type=page&page=papi-add-new-page,page', $submenu['edit.php?post_type=page'][10][2] );
-		$this->assertEquals( 'post-new.php?page_type=book-page-type&post_type=book', $submenu['edit.php?post_type=book'][10][2] );
-		$this->assertEquals( 'edit.php?post_type=hidden&page=papi-add-new-page,hidden', $submenu['edit.php?post_type=hidden'][10][2] );
+		$this->assertSame( 'post-new.php?page_type=post-page-type&post_type=post', $submenu['edit.php'][10][2] );
+		$this->assertSame( 'edit.php?post_type=page&page=papi-add-new-page,page', $submenu['edit.php?post_type=page'][10][2] );
+		$this->assertSame( 'post-new.php?page_type=book-page-type&post_type=book', $submenu['edit.php?post_type=book'][10][2] );
+		$this->assertSame( 'edit.php?post_type=hidden&page=papi-add-new-page,hidden', $submenu['edit.php?post_type=hidden'][10][2] );
 	}
 
 	public function test_post_types_menu_hidden_2() {
@@ -169,7 +169,7 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 		tests_add_filter( 'papi/settings/show_standard_page_type_hidden', '__return_false' );
 
 		$this->assertNull( $this->menu->post_types_menu() );
-		$this->assertEquals( 'post-new.php?page_type=hidden2-page-type&post_type=hidden', $submenu['edit.php?post_type=hidden'][10][2] );
+		$this->assertSame( 'post-new.php?page_type=hidden2-page-type&post_type=hidden', $submenu['edit.php?post_type=hidden'][10][2] );
 	}
 
 	public function test_render_view() {
@@ -191,14 +191,14 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 
 		$menu = new Papi_Admin_Menu();
 
-		$this->assertEquals( 10, has_action( 'admin_init', [$menu, 'admin_bar_menu'] ) );
-		$this->assertEquals( 10, has_action( 'admin_menu', [$menu, 'page_items_menu'] ) );
-		$this->assertEquals( 10, has_action( 'admin_menu', [$menu, 'post_types_menu'] ) );
+		$this->assertSame( 10, has_action( 'admin_init', [$menu, 'admin_bar_menu'] ) );
+		$this->assertSame( 10, has_action( 'admin_menu', [$menu, 'page_items_menu'] ) );
+		$this->assertSame( 10, has_action( 'admin_menu', [$menu, 'post_types_menu'] ) );
 
 		$current_screen = null;
 	}
 
 	public function test_setup_actions() {
-		$this->assertEquals( 10, has_action( 'admin_bar_menu', [$this->menu, 'admin_bar_menu'] ) );
+		$this->assertSame( 10, has_action( 'admin_bar_menu', [$this->menu, 'admin_bar_menu'] ) );
 	}
 }

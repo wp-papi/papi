@@ -232,7 +232,7 @@ class Papi_Property_File extends Papi_Property {
 		}
 
 		if ( is_object( $value ) && isset( $value->id ) && $this->is_attachment( $value->id ) ) {
-			return $value->id;
+			return (int) $value->id;
 		}
 
 		if ( is_numeric( $value ) && $this->is_attachment( (int) $value ) ) {

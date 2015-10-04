@@ -9,6 +9,10 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'post_test';
 
+	public function assert_values( $expected, $actual ) {
+		$this->assertSame( $expected->ID, $actual->ID );
+	}
+
 	public function get_value() {
 		return $this->post_id;
 	}

@@ -52,7 +52,7 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 
 		$_SERVER['REQUEST_URI'] = $old_request_uri;
 
-		$this->assertEquals( 'Hello, world!', $value );
+		$this->assertSame( 'Hello, world!', $value );
 	}
 
 	public function test_save_properties_fail() {

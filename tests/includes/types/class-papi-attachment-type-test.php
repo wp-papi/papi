@@ -38,15 +38,15 @@ class Papi_Attachment_Type_Test extends WP_UnitTestCase {
 	}
 
     public function test_post_type() {
-        $this->assertEquals( 'attachment', $this->attachment_type->post_type[0] );
+        $this->assertSame( 'attachment', $this->attachment_type->post_type[0] );
     }
 
     public function test_get_post_type() {
-        $this->assertEquals( 'attachment', $this->attachment_type->get_post_type() );
+        $this->assertSame( 'attachment', $this->attachment_type->get_post_type() );
     }
 
     public function test_meta() {
-        $this->assertEquals( 'Attachment', $this->attachment_type->name );
+        $this->assertSame( 'Attachment', $this->attachment_type->name );
     }
 
     public function test_edit_attachment() {
@@ -78,8 +78,8 @@ class Papi_Attachment_Type_Test extends WP_UnitTestCase {
         $_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
         $_POST['id'] = $post_id;
 
-        $this->assertEquals( $post, $this->attachment_type->save_attachment( $post, null ) );
-        $this->assertEquals( 'Fredrik', papi_get_field( $post_id, 'name' ) );
+        $this->assertSame( $post, $this->attachment_type->save_attachment( $post, null ) );
+        $this->assertSame( 'Fredrik', papi_get_field( $post_id, 'name' ) );
 
     }
 }

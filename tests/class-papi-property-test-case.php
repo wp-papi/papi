@@ -2,6 +2,8 @@
 
 abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
+	protected $same = true;
+
 	public function setUp() {
 		parent::setUp();
 
@@ -41,6 +43,10 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		);
 	}
 
+	public function assert_values( $expected, $actual ) {
+		$this->assertSame( $expected, $actual );
+	}
+
 	abstract public function get_value();
 
 	abstract public function get_expected();
@@ -75,12 +81,16 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$expected = $this->get_expected( $property->get_slug( true ) );
 
-		$this->assertEquals( $expected, $actual );
+		if ( $this->same ) {
+			$this->assert_values( $expected, $actual );
+		} else {
+			$this->assertEquals( $expected, $actual );
+		}
 	}
 
 	public function test_property_convert_type() {
 		foreach ( $this->properties as $property ) {
-			$this->assertEquals( 'string', $property->convert_type );
+			$this->assertSame( 'string', $property->convert_type );
 		}
 	}
 
@@ -91,7 +101,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	}
 
 	public function test_property_format_value() {
-		$this->assertEquals( $this->get_expected(), $this->property->format_value( $this->get_value(), '', 0 ) );
+		$this->assertSame( $this->get_expected(), $this->property->format_value( $this->get_value(), '', 0 ) );
 	}
 
 	public function test_property_get_default_settings() {
@@ -101,7 +111,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	}
 
 	public function test_property_import_value() {
-		$this->assertEquals( $this->get_expected(), $this->property->import_value( $this->get_value(), '', 0 ) );
+		$this->assertSame( $this->get_expected(), $this->property->import_value( $this->get_value(), '', 0 ) );
 	}
 
 	abstract public function test_property_options();

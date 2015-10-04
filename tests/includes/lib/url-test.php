@@ -35,19 +35,19 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 		$old_request_uri = $_SERVER['REQUEST_URI'];
 
 		$_SERVER['REQUEST_URI'] = '/?page_id=63';
-		$this->assertEquals( '&page_id=63&post_type=post', papi_get_page_query_strings() );
+		$this->assertSame( '&page_id=63&post_type=post', papi_get_page_query_strings() );
 
 		$_SERVER['REQUEST_URI'] = 'http://wordpress/wp-admin/edit.php?post_type=page&page=papi-add-new-page,page';
-		$this->assertEquals( '&post_type=page', papi_get_page_query_strings() );
+		$this->assertSame( '&post_type=page', papi_get_page_query_strings() );
 
 		$_SERVER['REQUEST_URI'] = 'http://wordpress/wp-admin/edit.php?post_type=page&page';
-		$this->assertEquals( '&post_type=page&page', papi_get_page_query_strings() );
+		$this->assertSame( '&post_type=page&page', papi_get_page_query_strings() );
 
 		$_SERVER['REQUEST_URI'] = 'http://wordpress/wp-admin/edit.php?post_type=page&page_type=simple-page-type&&';
-		$this->assertEquals( '?page_type=simple-page-type', papi_get_page_query_strings( '?', ['post_type'] ) );
+		$this->assertSame( '?page_type=simple-page-type', papi_get_page_query_strings( '?', ['post_type'] ) );
 
 		$_SERVER['REQUEST_URI'] = 'http://wordpress/wp-admin/edit.php?&';
-		$this->assertEquals( '&post_type=post', papi_get_page_query_strings() );
+		$this->assertSame( '&post_type=post', papi_get_page_query_strings() );
 
 		$_SERVER['REQUEST_URI'] = $old_request_uri;
 	}
@@ -56,15 +56,15 @@ class Papi_Lib_Url_Test extends WP_UnitTestCase {
 		global $post;
 
 		$url = papi_append_post_type_query( 'http://wordpress/?post_parent=1', 'post' );
-		$this->assertEquals( 'http://wordpress/?post_parent=1&post_type=post', $url );
+		$this->assertSame( 'http://wordpress/?post_parent=1&post_type=post', $url );
 
 		$post = get_post( $this->post_id );
 		$url = papi_append_post_type_query( 'http://wordpress/?post_parent=1' );
-		$this->assertEquals( 'http://wordpress/?post_parent=1&post_type=post', $url );
+		$this->assertSame( 'http://wordpress/?post_parent=1&post_type=post', $url );
 	}
 
 	public function test_papi_append_post_type_query_fail() {
 		$url = papi_append_post_type_query( 'http://wordpress/?post_parent=1' );
-		$this->assertEquals( 'http://wordpress/?post_parent=1&post_type=post', $url );
+		$this->assertSame( 'http://wordpress/?post_parent=1&post_type=post', $url );
 	}
 }

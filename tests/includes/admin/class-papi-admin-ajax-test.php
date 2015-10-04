@@ -35,18 +35,18 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 	}
 
 	public function test_actions() {
-		$this->assertEquals( 10, has_action( 'init', [$this->ajax, 'add_endpoint'] ) );
-		$this->assertEquals( 10, has_action( 'parse_query', [$this->ajax, 'handle_papi_ajax'] ) );
-		$this->assertEquals( 10, has_action( 'admin_enqueue_scripts', [$this->ajax, 'ajax_url'] ) );
-		$this->assertEquals( 10, has_action( 'papi/ajax/get_property', [$this->ajax, 'get_property'] ) );
-		$this->assertEquals( 10, has_action( 'papi/ajax/get_properties', [$this->ajax, 'get_properties'] ) );
+		$this->assertSame( 10, has_action( 'init', [$this->ajax, 'add_endpoint'] ) );
+		$this->assertSame( 10, has_action( 'parse_query', [$this->ajax, 'handle_papi_ajax'] ) );
+		$this->assertSame( 10, has_action( 'admin_enqueue_scripts', [$this->ajax, 'ajax_url'] ) );
+		$this->assertSame( 10, has_action( 'papi/ajax/get_property', [$this->ajax, 'get_property'] ) );
+		$this->assertSame( 10, has_action( 'papi/ajax/get_properties', [$this->ajax, 'get_properties'] ) );
 	}
 
 	public function test_endpoint() {
 		$this->ajax->add_endpoint();
 		global $wp_rewrite;
 		$this->assertNotNull( $wp_rewrite->extra_rules_top['papi-ajax/([^/]*)/?'] );
-		$this->assertEquals( 'index.php?action=$matches[1]', $wp_rewrite->extra_rules_top['papi-ajax/([^/]*)/?'] );
+		$this->assertSame( 'index.php?action=$matches[1]', $wp_rewrite->extra_rules_top['papi-ajax/([^/]*)/?'] );
 	}
 
 	public function test_ajax_url() {

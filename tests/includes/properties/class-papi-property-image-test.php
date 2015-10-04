@@ -7,6 +7,8 @@
  */
 class Papi_Property_Image_Test extends Papi_Property_Test_Case {
 
+	protected $same = false;
+
 	public $slug = 'image_test';
 
 	public function get_value() {

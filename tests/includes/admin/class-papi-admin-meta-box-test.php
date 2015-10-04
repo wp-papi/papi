@@ -21,7 +21,7 @@ class Papi_Admin_Meta_Box_Test extends WP_UnitTestCase {
 			return $box->properties;
 		};
 		$properties = Closure::bind( $properties, null, $class );
-		$this->assertEquals( [$property], $properties( $class ) );
+		$this->assertSame( [$property], $properties( $class ) );
 	}
 
 	public function test_after_title() {
@@ -34,7 +34,7 @@ class Papi_Admin_Meta_Box_Test extends WP_UnitTestCase {
 			'title'      => 'Content',
 			'_post_type' => 'page'
 		] );
-		$this->assertEquals( 10, has_action( 'edit_form_after_title', [$class, 'move_meta_box_after_title'] ) );
+		$this->assertSame( 10, has_action( 'edit_form_after_title', [$class, 'move_meta_box_after_title'] ) );
 	}
 
 	public function test_construct() {
@@ -80,7 +80,7 @@ class Papi_Admin_Meta_Box_Test extends WP_UnitTestCase {
 
 	public function test_meta_box_css_classes() {
 		$class = new Papi_Admin_Meta_Box();
-		$this->assertEquals( ['papi-box'], $class->meta_box_css_classes( [] ) );
+		$this->assertSame( ['papi-box'], $class->meta_box_css_classes( [] ) );
 	}
 
 	public function test_render_meta_box() {
@@ -120,7 +120,7 @@ class Papi_Admin_Meta_Box_Test extends WP_UnitTestCase {
 			return $box->options->title;
 		};
 		$title = Closure::bind( $title, null, $class );
-		$this->assertEquals( sprintf(
+		$this->assertSame( sprintf(
 			'Content <span class="papi-rq" data-property-name="%s" data-property-id="%s">%s</span>',
 			$property->title,
 			$property->slug,

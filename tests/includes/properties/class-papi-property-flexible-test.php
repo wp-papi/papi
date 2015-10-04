@@ -9,6 +9,18 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'flexible_test';
 
+	public function assert_values( $expected, $actual ) {
+		for ( $i = 0, $l = count( $expected ); $i < $l; $i++ ) {
+			foreach ( $expected[$i] as $key => $value ) {
+				if ( $value instanceof WP_Post ) {
+					$this->assertSame( $expected[$i][$key]->ID, $actual[$i][$key]->ID );
+				} else {
+					$this->assertSame( $expected[$i][$key], $actual[$i][$key] );
+				}
+			}
+		}
+	}
+
 	public function get_value() {
 		$items = $this->property->get_setting( 'items' );
 

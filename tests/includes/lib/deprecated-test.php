@@ -49,14 +49,14 @@ class Papi_Lib_Deprecated_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_field( '' ) );
 		$this->assertNull( papi_field( $this->post_id, '' ) );
 
-		$this->assertEquals( 'fredrik', papi_field( $this->post_id, 'name' ) );
-		$this->assertEquals( 'fredrik', papi_field( $this->post_id, 'name', '', 'post' ) );
+		$this->assertSame( 'fredrik', papi_field( $this->post_id, 'name' ) );
+		$this->assertSame( 'fredrik', papi_field( $this->post_id, 'name', '', 'post' ) );
 
-		$this->assertEquals( 'world', papi_field( $this->post_id, 'hello', 'world' ) );
+		$this->assertSame( 'world', papi_field( $this->post_id, 'hello', 'world' ) );
 
 		$_GET['post_id'] = $this->post_id;
 		$this->assertNull( papi_field( 'name' ) );
-		$this->assertEquals( 'fredrik', papi_field( '', 'fredrik' ) );
+		$this->assertSame( 'fredrik', papi_field( '', 'fredrik' ) );
 	}
 
 	/**
@@ -99,19 +99,19 @@ class Papi_Lib_Deprecated_Test extends WP_UnitTestCase {
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
-		$this->assertEquals( 'simple-page-type', papi_get_page_type_meta_value( $this->post_id ) );
+		$this->assertSame( 'simple-page-type', papi_get_page_type_meta_value( $this->post_id ) );
 
 		$_GET['page_type'] = 'simple-page-type';
-		$this->assertEquals( 'simple-page-type', papi_get_page_type_meta_value() );
+		$this->assertSame( 'simple-page-type', papi_get_page_type_meta_value() );
 		unset( $_GET['page_type'] );
 
 		$_POST[PAPI_PAGE_TYPE_KEY] = 'simple-page-type';
-		$this->assertEquals( 'simple-page-type', papi_get_page_type_meta_value() );
+		$this->assertSame( 'simple-page-type', papi_get_page_type_meta_value() );
 		unset( $_POST[PAPI_PAGE_TYPE_KEY] );
 
 		$post_parent = 'post_parent';
 		$_GET[$post_parent] = $this->post_id;
-		$this->assertEquals( 'simple-page-type', papi_get_page_type_meta_value() );
+		$this->assertSame( 'simple-page-type', papi_get_page_type_meta_value() );
 		unset( $_GET[$post_parent] );
 
 		tests_add_filter( 'papi/settings/page_type_from_post_qs', function () {

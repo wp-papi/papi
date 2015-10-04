@@ -63,7 +63,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		$this->handler->save_meta_boxes( $this->post_id, get_post( $this->post_id ) );
 		wp_set_current_user( 0 );
 
-		$this->assertEquals( 'Hello, world!', papi_get_field( $this->post_id, $property->slug ) );
+		$this->assertSame( 'Hello, world!', papi_get_field( $this->post_id, $property->slug ) );
 	}
 
 	public function test_save_meta_boxes_2() {
@@ -208,7 +208,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 
 		$value = papi_get_field( $this->post_id, $property->slug );
 
-		$this->assertEquals( 'Hello, world!', $value );
+		$this->assertSame( 'Hello, world!', $value );
 
 		$property = $this->page_type->get_property( 'number_test' );
 		$_POST = papi_test_create_property_post_data( [
@@ -237,9 +237,9 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 
 		$this->handler->save_properties( $this->post_id );
 
-		$this->assertEquals( 'Item 42', get_post_meta( $this->post_id, '_papi_item', true ) );
+		$this->assertSame( 'Item 42', get_post_meta( $this->post_id, '_papi_item', true ) );
 		$this->assertEmpty( get_post_meta( $this->post_id, '_papi_item_2', true ) );
-		$this->assertEquals( 'down', get_post_meta( $this->post_id, '_papi_sections_0_sort_order', true ) );
+		$this->assertSame( 'down', get_post_meta( $this->post_id, '_papi_sections_0_sort_order', true ) );
 	}
 
 	public function test_overwrite() {
@@ -256,10 +256,10 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		$this->handler->save_properties( $post_id );
 
 		$value = papi_get_field( $post_id, $property->slug );
-		$this->assertEquals( '<p>Hello, world!</p>', trim( $value ) );
+		$this->assertSame( '<p>Hello, world!</p>', trim( $value ) );
 
 		$this->flush_cache();
 		$post = get_post( $post_id );
-		$this->assertEquals( 'Hello, world!', trim( $post->post_content ) );
+		$this->assertSame( 'Hello, world!', trim( $post->post_content ) );
 	}
 }

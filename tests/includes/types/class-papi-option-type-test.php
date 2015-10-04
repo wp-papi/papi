@@ -43,35 +43,35 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 
 		$boxes = $this->header_option_type->get_boxes();
 
-		$this->assertEquals( 'Options', $boxes[0][0]['title'] );
+		$this->assertSame( 'Options', $boxes[0][0]['title'] );
 	}
 
 	public function test_get_property() {
 		$this->assertNull( $this->header_option_type->get_property( 'fake' ) );
 
 		$property = $this->header_option_type->get_property( 'image' );
-		$this->assertEquals( 'image', $property->get_option( 'type' ) );
-		$this->assertEquals( 'image', $property->type );
-		$this->assertEquals( 'papi_image', $property->slug );
-		$this->assertEquals( 'papi_image', $property->get_option( 'slug' ) );
-		$this->assertEquals( 'Image', $property->get_option( 'title' ) );
-		$this->assertEquals( 'Image', $property->title );
+		$this->assertSame( 'image', $property->get_option( 'type' ) );
+		$this->assertSame( 'image', $property->type );
+		$this->assertSame( 'papi_image', $property->slug );
+		$this->assertSame( 'papi_image', $property->get_option( 'slug' ) );
+		$this->assertSame( 'Image', $property->get_option( 'title' ) );
+		$this->assertSame( 'Image', $property->title );
 
 		$property = $this->header_option_type->get_property( 'name' );
-		$this->assertEquals( 'string', $property->get_option( 'type' ) );
-		$this->assertEquals( 'string', $property->type );
-		$this->assertEquals( 'papi_name', $property->slug );
-		$this->assertEquals( 'papi_name', $property->get_option( 'slug' ) );
-		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
-		$this->assertEquals( 'Name', $property->title );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
+		$this->assertSame( 'papi_name', $property->slug );
+		$this->assertSame( 'papi_name', $property->get_option( 'slug' ) );
+		$this->assertSame( 'Name', $property->get_option( 'title' ) );
+		$this->assertSame( 'Name', $property->title );
 
 		$property = $this->header_option_type->get_property( 'name_levels_2', 'child_name_2' );
-		$this->assertEquals( 'Child name 2', $property->get_option( 'title' ) );
-		$this->assertEquals( 'Child name 2', $property->title );
-		$this->assertEquals( 'papi_child_name_2', $property->slug );
-		$this->assertEquals( 'papi_child_name_2', $property->get_option( 'slug' ) );
-		$this->assertEquals( 'string', $property->get_option( 'type' ) );
-		$this->assertEquals( 'string', $property->type );
+		$this->assertSame( 'Child name 2', $property->get_option( 'title' ) );
+		$this->assertSame( 'Child name 2', $property->title );
+		$this->assertSame( 'papi_child_name_2', $property->slug );
+		$this->assertSame( 'papi_child_name_2', $property->get_option( 'slug' ) );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
 	}
 
 	public function test_get_child_properties() {
@@ -79,10 +79,10 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 		$children1 = $property->get_child_properties();
 		$children2 = $children1[0]->get_child_properties();
 		$this->assertTrue( papi_is_property( $children2[0] ) );
-		$this->assertEquals( 'Child child name', $children2[0]->get_option( 'title' ) );
-		$this->assertEquals( 'Child child name', $children2[0]->title );
-		$this->assertEquals( 'string', $children2[0]->get_option( 'type' ) );
-		$this->assertEquals( 'string', $children2[0]->type );
+		$this->assertSame( 'Child child name', $children2[0]->get_option( 'title' ) );
+		$this->assertSame( 'Child child name', $children2[0]->title );
+		$this->assertSame( 'string', $children2[0]->get_option( 'type' ) );
+		$this->assertSame( 'string', $children2[0]->type );
 	}
 
 	public function test_has_post_type() {
@@ -91,25 +91,25 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 	}
 
 	public function test_meta_method() {
-		$this->assertEquals( 'option_type', $this->header_option_type->_meta_method );
-		$this->assertEquals( 'option_type', $this->empty_option_type->_meta_method );
+		$this->assertSame( 'option_type', $this->header_option_type->_meta_method );
+		$this->assertSame( 'option_type', $this->empty_option_type->_meta_method );
 	}
 
 	public function test_meta_info() {
 		$this->assertEmpty( $this->empty_option_type->name );
 		$this->assertEmpty( $this->empty_option_type->menu );
 
-		$this->assertEquals( 'Header', $this->header_option_type->name );
-		$this->assertEquals( 'options-general.php', $this->header_option_type->menu );
+		$this->assertSame( 'Header', $this->header_option_type->name );
+		$this->assertSame( 'options-general.php', $this->header_option_type->menu );
 	}
 
 	public function test_post_type() {
 		$this->assertTrue( is_array( $this->header_option_type->post_type ) );
-		$this->assertEquals( '_papi_option_type', $this->header_option_type->post_type[0] );
-		$this->assertEquals( '_papi_option_type', $this->header_option_type->get_post_type() );
+		$this->assertSame( '_papi_option_type', $this->header_option_type->post_type[0] );
+		$this->assertSame( '_papi_option_type', $this->header_option_type->get_post_type() );
 		$this->assertTrue( is_array( $this->empty_option_type->post_type ) );
-		$this->assertEquals( '_papi_option_type', $this->empty_option_type->post_type[0] );
-		$this->assertEquals( '_papi_option_type', $this->empty_option_type->get_post_type() );
+		$this->assertSame( '_papi_option_type', $this->empty_option_type->post_type[0] );
+		$this->assertSame( '_papi_option_type', $this->empty_option_type->get_post_type() );
 	}
 
 	public function test_render() {

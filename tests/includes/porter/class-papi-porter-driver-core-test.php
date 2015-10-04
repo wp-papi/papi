@@ -38,7 +38,7 @@ class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_driver_name() {
-		$this->assertEquals( 'core', $this->driver->get_driver_name() );
+		$this->assertSame( 'core', $this->driver->get_driver_name() );
 	}
 
 	public function test_get_options() {
@@ -50,14 +50,14 @@ class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 			'value'    => null
 		];
 
-		$this->assertEquals( $expected, $this->driver->get_options() );
+		$this->assertSame( $expected, $this->driver->get_options() );
 	}
 
 	public function test_get_value() {
 		try {
 			$this->driver->get_value( [] );
 		} catch ( InvalidArgumentException $e ) {
-			$this->assertEquals( 'Missing `post_id` option. Should be int.', $e->getMessage() );
+			$this->assertSame( 'Missing `post_id` option. Should be int.', $e->getMessage() );
 		}
 
 		try {
@@ -65,7 +65,7 @@ class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 				'post_id' => $this->post_id
 			] );
 		} catch ( InvalidArgumentException $e ) {
-			$this->assertEquals( 'Missing `property` option. Should be instance of `Papi_Core_Property`.', $e->getMessage() );
+			$this->assertSame( 'Missing `property` option. Should be instance of `Papi_Core_Property`.', $e->getMessage() );
 		}
 
 		try {
@@ -74,7 +74,7 @@ class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 				'property' => $this->page_type->get_property( 'bool_test' )
 			] );
 		} catch ( InvalidArgumentException $e ) {
-			$this->assertEquals( 'Missing `value` option.', $e->getMessage() );
+			$this->assertSame( 'Missing `value` option.', $e->getMessage() );
 		}
 
 		$output = $this->driver->get_value( [
@@ -116,7 +116,7 @@ class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 
 	public function test_get_value_with_array() {
 		papi_update_field( $this->post_id, 'checkbox_test', ['#000000'] );
-		$this->assertEquals( ['#000000'], papi_get_field( $this->post_id, 'checkbox_test' ) );
+		$this->assertSame( ['#000000'], papi_get_field( $this->post_id, 'checkbox_test' ) );
 
 		$this->driver->set_options( [
 			'custom' => [
@@ -134,10 +134,10 @@ class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 			]
 		] );
 
-		$this->assertEquals( ['#000000', '#ffffff'], $output );
+		$this->assertSame( ['#000000', '#ffffff'], $output );
 		papi_update_field( $this->post_id, 'checkbox_test',  $output );
 
-		$this->assertEquals( ['#000000', '#ffffff'], papi_get_field( $this->post_id, 'checkbox_test' ) );
+		$this->assertSame( ['#000000', '#ffffff'], papi_get_field( $this->post_id, 'checkbox_test' ) );
 	}
 
 	public function test_get_value_with_repeater_and_array() {
@@ -149,7 +149,7 @@ class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 		];
 
 		papi_update_field( $this->post_id, 'repeater_test', $expected );
-		$this->assertEquals( $expected, papi_get_field( $this->post_id, 'repeater_test' ) );
+		$this->assertSame( $expected, papi_get_field( $this->post_id, 'repeater_test' ) );
 
 		$this->driver->set_options( [
 			'custom' => [
@@ -179,11 +179,11 @@ class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 			]
 		];
 
-		$this->assertEquals( $expected, $output );
+		$this->assertSame( $expected, $output );
 
 		papi_update_field( $this->post_id, 'repeater_test',  $output );
 
-		$this->assertEquals( $expected, papi_get_field( $this->post_id, 'repeater_test' ) );
+		$this->assertSame( $expected, papi_get_field( $this->post_id, 'repeater_test' ) );
 	}
 
 	public function test_set_options() {

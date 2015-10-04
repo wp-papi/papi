@@ -27,7 +27,7 @@ class Papi_Admin_Management_Pages_Test extends WP_UnitTestCase {
 	}
 
 	public function test_actions() {
-		$this->assertEquals( 10, has_action( 'admin_menu', [$this->management_pages, 'admin_menu'] ) );
+		$this->assertSame( 10, has_action( 'admin_menu', [$this->management_pages, 'admin_menu'] ) );
 	}
 
 	public function test_admin_menu() {

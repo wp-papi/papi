@@ -35,7 +35,7 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_body_class( [] ) );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
-		$this->assertEquals( [ 'simple-page-type' ], papi_body_class( [] ) );
+		$this->assertSame( [ 'simple-page-type' ], papi_body_class( [] ) );
 	}
 
 	public function test_papi_include_template() {
@@ -57,12 +57,12 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 			'lang' => 'se'
 		] );
 
-		$this->assertEquals( 'Name', $template->title );
-		$this->assertEquals( 'Name', $template->get_option( 'title' ) );
-		$this->assertEquals( 'string', $template->type );
-		$this->assertEquals( 'string', $template->get_option( 'type' ) );
-		$this->assertEquals( 'se', $template->lang );
-		$this->assertEquals( 'se', $template->get_option( 'lang' ) );
+		$this->assertSame( 'Name', $template->title );
+		$this->assertSame( 'Name', $template->get_option( 'title' ) );
+		$this->assertSame( 'string', $template->type );
+		$this->assertSame( 'string', $template->get_option( 'type' ) );
+		$this->assertSame( 'se', $template->lang );
+		$this->assertSame( 'se', $template->get_option( 'lang' ) );
 
 		$this->assertEmpty( papi_template( '' ) );
 		$this->assertEmpty( papi_template( null ) );
@@ -75,8 +75,8 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 
 		$template = papi_template( PAPI_FIXTURE_DIR . '/properties/array.php', [], true );
 
-		$this->assertEquals( 'Name', $template->title );
-		$this->assertEquals( 'string', $template->type );
+		$this->assertSame( 'Name', $template->title );
+		$this->assertSame( 'string', $template->type );
 
 		$this->assertEmpty( papi_template( 'hello' ) );
 	}

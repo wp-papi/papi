@@ -32,9 +32,9 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 	}
 
 	public function test_meta_method() {
-		$this->assertEquals( 'page_type', $this->simple_page_type->_meta_method );
-		$this->assertEquals( 'page_type', $this->empty_page_type->_meta_method );
-		$this->assertEquals( 'page_type', $this->faq_page_type->_meta_method );
+		$this->assertSame( 'page_type', $this->simple_page_type->_meta_method );
+		$this->assertSame( 'page_type', $this->empty_page_type->_meta_method );
+		$this->assertSame( 'page_type', $this->faq_page_type->_meta_method );
 	}
 
 	public function test_current_user_is_allowed() {
@@ -61,9 +61,9 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_thumbnail() {
-		$this->assertEquals( '', $this->simple_page_type->get_thumbnail() );
-		$this->assertEquals( '', $this->empty_page_type->get_thumbnail() );
-		$this->assertEquals( 'faq.png', $this->faq_page_type->get_thumbnail() );
+		$this->assertSame( '', $this->simple_page_type->get_thumbnail() );
+		$this->assertSame( '', $this->empty_page_type->get_thumbnail() );
+		$this->assertSame( 'faq.png', $this->faq_page_type->get_thumbnail() );
 	}
 
 	public function test_has_post_type() {
@@ -73,37 +73,37 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 	}
 
 	public function test_meta_info() {
-		$this->assertEquals( [], $this->empty_page_type->capabilities );
-		$this->assertEquals( [], $this->empty_page_type->child_types );
-		$this->assertEquals( '', $this->empty_page_type->description );
+		$this->assertSame( [], $this->empty_page_type->capabilities );
+		$this->assertSame( [], $this->empty_page_type->child_types );
+		$this->assertSame( '', $this->empty_page_type->description );
 		$this->assertFalse( $this->empty_page_type->fill_labels );
-		$this->assertEquals( '', $this->empty_page_type->name );
-		$this->assertEquals( 'page', $this->empty_page_type->post_type[0] );
-		$this->assertEquals( 1000, $this->empty_page_type->sort_order );
+		$this->assertSame( '', $this->empty_page_type->name );
+		$this->assertSame( 'page', $this->empty_page_type->post_type[0] );
+		$this->assertSame( 1000, $this->empty_page_type->sort_order );
 		$this->assertFalse( $this->empty_page_type->standard_type );
-		$this->assertEquals( '', $this->empty_page_type->template );
-		$this->assertEquals( '', $this->simple_page_type->thumbnail );
+		$this->assertSame( '', $this->empty_page_type->template );
+		$this->assertSame( '', $this->simple_page_type->thumbnail );
 
-		$this->assertEquals( ['kvack'], $this->faq_page_type->capabilities );
-		$this->assertEquals( ['simple-page-type', null, 'fake'], $this->faq_page_type->child_types );
-		$this->assertEquals( 'This is a faq page', $this->faq_page_type->description );
+		$this->assertSame( ['kvack'], $this->faq_page_type->capabilities );
+		$this->assertSame( ['simple-page-type', null, 'fake'], $this->faq_page_type->child_types );
+		$this->assertSame( 'This is a faq page', $this->faq_page_type->description );
 		$this->assertTrue( $this->faq_page_type->fill_labels );
-		$this->assertEquals( 'FAQ page', $this->faq_page_type->name );
-		$this->assertEquals( 'faq', $this->faq_page_type->post_type[0] );
-		$this->assertEquals( 1000, $this->faq_page_type->sort_order );
+		$this->assertSame( 'FAQ page', $this->faq_page_type->name );
+		$this->assertSame( 'faq', $this->faq_page_type->post_type[0] );
+		$this->assertSame( 1000, $this->faq_page_type->sort_order );
 		$this->assertFalse( $this->faq_page_type->standard_type );
-		$this->assertEquals( 'pages/faq-page.php', $this->faq_page_type->template );
-		$this->assertEquals( 'faq.png', $this->faq_page_type->thumbnail );
+		$this->assertSame( 'pages/faq-page.php', $this->faq_page_type->template );
+		$this->assertSame( 'faq.png', $this->faq_page_type->thumbnail );
 
-		$this->assertEquals( [], $this->simple_page_type->capabilities );
-		$this->assertEquals( [], $this->simple_page_type->child_types );
-		$this->assertEquals( 'This is a simple page', $this->simple_page_type->description );
+		$this->assertSame( [], $this->simple_page_type->capabilities );
+		$this->assertSame( [], $this->simple_page_type->child_types );
+		$this->assertSame( 'This is a simple page', $this->simple_page_type->description );
 		$this->assertFalse( $this->simple_page_type->fill_labels );
-		$this->assertEquals( 'Simple page', $this->simple_page_type->name );
-		$this->assertEquals( 'page', $this->simple_page_type->post_type[0] );
-		$this->assertEquals( 1000, $this->simple_page_type->sort_order );
+		$this->assertSame( 'Simple page', $this->simple_page_type->name );
+		$this->assertSame( 'page', $this->simple_page_type->post_type[0] );
+		$this->assertSame( 1000, $this->simple_page_type->sort_order );
 		$this->assertTrue( $this->simple_page_type->standard_type );
-		$this->assertEquals( 'pages/simple-page.php', $this->simple_page_type->template );
-		$this->assertEquals( '', $this->simple_page_type->thumbnail );
+		$this->assertSame( 'pages/simple-page.php', $this->simple_page_type->template );
+		$this->assertSame( '', $this->simple_page_type->thumbnail );
 	}
 }

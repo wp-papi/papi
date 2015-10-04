@@ -7,6 +7,12 @@
  */
 class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 
+	public function assert_values( $expected, $actual ) {
+		$this->assertSame( $expected->target, $actual->target );
+		$this->assertSame( $expected->title, $actual->title );
+		$this->assertSame( $expected->url, $actual->url );
+	}
+
 	public $slug = 'link_test';
 
 	public function get_value() {

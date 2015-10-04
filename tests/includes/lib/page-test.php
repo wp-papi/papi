@@ -133,13 +133,13 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_number_of_pages() {
-		$this->assertEquals( 0, papi_get_number_of_pages( 'simple-page-type' ) );
-		$this->assertEquals( 0, papi_get_number_of_pages( null ) );
-		$this->assertEquals( 0, papi_get_number_of_pages( true ) );
-		$this->assertEquals( 0, papi_get_number_of_pages( false ) );
-		$this->assertEquals( 0, papi_get_number_of_pages( [] ) );
-		$this->assertEquals( 0, papi_get_number_of_pages( new stdClass() ) );
-		$this->assertEquals( 0, papi_get_number_of_pages( 1 ) );
+		$this->assertSame( 0, papi_get_number_of_pages( 'simple-page-type' ) );
+		$this->assertSame( 0, papi_get_number_of_pages( null ) );
+		$this->assertSame( 0, papi_get_number_of_pages( true ) );
+		$this->assertSame( 0, papi_get_number_of_pages( false ) );
+		$this->assertSame( 0, papi_get_number_of_pages( [] ) );
+		$this->assertSame( 0, papi_get_number_of_pages( new stdClass() ) );
+		$this->assertSame( 0, papi_get_number_of_pages( 1 ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
@@ -147,11 +147,11 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 		$this->flush_cache();
-		$this->assertEquals( 1, papi_get_number_of_pages( 'simple-page-type' ) );
+		$this->assertSame( 1, papi_get_number_of_pages( 'simple-page-type' ) );
 
 		$simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
 
-		$this->assertEquals( 1, papi_get_number_of_pages( $simple_page_type ) );
+		$this->assertSame( 1, papi_get_number_of_pages( $simple_page_type ) );
 	}
 
 	public function test_papi_get_page_type_template() {
@@ -167,23 +167,23 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 		$this->flush_cache();
 		$actual = papi_get_page_type_template( $this->post_id );
-		$this->assertEquals( 'pages/simple-page.php', $actual );
+		$this->assertSame( 'pages/simple-page.php', $actual );
 
 		$_GET['page_id'] = $this->post_id;
-		$this->assertEquals( 'pages/simple-page.php', papi_get_page_type_template() );
+		$this->assertSame( 'pages/simple-page.php', papi_get_page_type_template() );
 		unset( $_GET['page_id'] );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'dot-page-type' );
 
 		$this->flush_cache();
 		$actual = papi_get_page_type_template( $this->post_id );
-		$this->assertEquals( 'pages/dot.php', $actual );
+		$this->assertSame( 'pages/dot.php', $actual );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'dot2-page-type' );
 
 		$this->flush_cache();
 		$actual = papi_get_page_type_template( $this->post_id );
-		$this->assertEquals( 'pages/dot2.php', $actual );
+		$this->assertSame( 'pages/dot2.php', $actual );
 	}
 
 	public function test_papi_get_page_type() {
@@ -222,19 +222,19 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		} );
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
-		$this->assertEquals( 'simple-page-type', papi_get_page_type_id( $this->post_id ) );
+		$this->assertSame( 'simple-page-type', papi_get_page_type_id( $this->post_id ) );
 
 		$_GET['page_type'] = 'simple-page-type';
-		$this->assertEquals( 'simple-page-type', papi_get_page_type_id() );
+		$this->assertSame( 'simple-page-type', papi_get_page_type_id() );
 		unset( $_GET['page_type'] );
 
 		$_POST[PAPI_PAGE_TYPE_KEY] = 'simple-page-type';
-		$this->assertEquals( 'simple-page-type', papi_get_page_type_id() );
+		$this->assertSame( 'simple-page-type', papi_get_page_type_id() );
 		unset( $_POST[PAPI_PAGE_TYPE_KEY] );
 
 		$post_parent = 'post_parent';
 		$_GET[$post_parent] = $this->post_id;
-		$this->assertEquals( 'simple-page-type', papi_get_page_type_id() );
+		$this->assertSame( 'simple-page-type', papi_get_page_type_id() );
 		unset( $_GET[$post_parent] );
 
 		$this->assertEmpty( papi_get_page_type_id() );
@@ -245,7 +245,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		} );
 
 		$_GET['post_type'] = 'duck';
-		$this->assertEquals( 'duck-page-type', papi_get_page_type_id( 0 ) );
+		$this->assertSame( 'duck-page-type', papi_get_page_type_id( 0 ) );
 
 		tests_add_filter( 'papi/core/load_one_type_on', function ( $post_types ) {
 			$post_types[] = 'attachment_test';
@@ -254,7 +254,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 		$_GET['post_type'] = 'attachment_test';
 		papi()->bind( 'core.page_type.attachment_test', 'others/attachment-type' );
-		$this->assertEquals( 'others/attachment-type', papi_get_page_type_id( 0 ) );
+		$this->assertSame( 'others/attachment-type', papi_get_page_type_id( 0 ) );
 		papi()->remove( 'core.page_type.attachment_test' );
 
 		$_GET['post_type'] = 'duck2';
@@ -277,7 +277,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 			}
 		}
 
-		$this->assertEquals( ['page'], array_values( $actual ) );
+		$this->assertSame( ['page'], array_values( $actual ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
@@ -289,7 +289,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_page_type_key() {
-		$this->assertEquals( '_papi_page_type', papi_get_page_type_key() );
+		$this->assertSame( '_papi_page_type', papi_get_page_type_key() );
 	}
 
 	public function test_papi_get_page_type_name() {
@@ -306,8 +306,8 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		global $post;
 		$post = get_post( $this->post_id );
 
-		$this->assertEquals( 'Simple page', papi_get_page_type_name() );
-		$this->assertEquals( 'Simple page', papi_get_page_type_name( $this->post_id ) );
+		$this->assertSame( 'Simple page', papi_get_page_type_name() );
+		$this->assertSame( 'Simple page', papi_get_page_type_name( $this->post_id ) );
 	}
 
 	public function test_papi_get_slugs() {
@@ -381,7 +381,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		$post_id = $this->factory->post->create();
 		$this->assertFalse( papi_set_page_type_id( $post_id, 'hello' ) );
 		$this->assertNotFalse( papi_set_page_type_id( $post_id, 'empty-page-type' ) );
-		$this->assertEquals( 'empty-page-type', papi_get_page_type_id( $post_id ) );
+		$this->assertSame( 'empty-page-type', papi_get_page_type_id( $post_id ) );
 	}
 
 	public function test_the_papi_page_type_name() {

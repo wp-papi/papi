@@ -44,7 +44,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 	}
 
 	public function test_meta_method() {
-		$this->assertEquals( 'page_type', $this->empty_page_type->_meta_method );
+		$this->assertSame( 'page_type', $this->empty_page_type->_meta_method );
 	}
 
 	public function test_display() {
@@ -58,7 +58,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 		$boxes = $this->faq_page_type->get_boxes();
 
-		$this->assertEquals( 'Content', $boxes[0][0]['title'] );
+		$this->assertSame( 'Content', $boxes[0][0]['title'] );
 
 		$this->assertEmpty( $this->empty_page_type->get_boxes() );
 	}
@@ -68,84 +68,84 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->assertNull( $this->simple_page_type->get_property( 'fake' ) );
 
 		$property = $this->simple_page_type->get_property( 'name' );
-		$this->assertEquals( 'string', $property->get_option( 'type' ) );
-		$this->assertEquals( 'string', $property->type );
-		$this->assertEquals( 'papi_name', $property->slug );
-		$this->assertEquals( 'papi_name', $property->get_option( 'slug' ) );
-		$this->assertEquals( 'papi_name', $property->get_slug() );
-		$this->assertEquals( 'name', $property->get_slug( true ) );
-		$this->assertEquals( 'Name', $property->get_option( 'title' ) );
-		$this->assertEquals( 'Name', $property->title );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
+		$this->assertSame( 'papi_name', $property->slug );
+		$this->assertSame( 'papi_name', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_name', $property->get_slug() );
+		$this->assertSame( 'name', $property->get_slug( true ) );
+		$this->assertSame( 'Name', $property->get_option( 'title' ) );
+		$this->assertSame( 'Name', $property->title );
 
 		$property = $this->flex_page_type->get_property( 'sections' );
-		$this->assertEquals( 'flexible', $property->get_option( 'type' ) );
-		$this->assertEquals( 'flexible', $property->type );
-		$this->assertEquals( 'papi_sections', $property->slug );
-		$this->assertEquals( 'papi_sections', $property->get_option( 'slug' ) );
-		$this->assertEquals( 'papi_sections', $property->get_slug() );
-		$this->assertEquals( 'sections', $property->get_slug( true ) );
-		$this->assertEquals( 'Sections', $property->get_option( 'title' ) );
-		$this->assertEquals( 'Sections', $property->title );
+		$this->assertSame( 'flexible', $property->get_option( 'type' ) );
+		$this->assertSame( 'flexible', $property->type );
+		$this->assertSame( 'papi_sections', $property->slug );
+		$this->assertSame( 'papi_sections', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_sections', $property->get_slug() );
+		$this->assertSame( 'sections', $property->get_slug( true ) );
+		$this->assertSame( 'Sections', $property->get_option( 'title' ) );
+		$this->assertSame( 'Sections', $property->title );
 
 		$property = $this->properties_page_type->get_property( 'repeater_test', 'book_name' );
-		$this->assertEquals( 'Book name', $property->get_option( 'title' ) );
-		$this->assertEquals( 'Book name', $property->title );
-		$this->assertEquals( 'papi_book_name', $property->slug );
-		$this->assertEquals( 'papi_book_name', $property->get_option( 'slug' ) );
-		$this->assertEquals( 'papi_book_name', $property->get_slug() );
-		$this->assertEquals( 'book_name', $property->get_slug( true ) );
-		$this->assertEquals( 'string', $property->get_option( 'type' ) );
-		$this->assertEquals( 'string', $property->type );
+		$this->assertSame( 'Book name', $property->get_option( 'title' ) );
+		$this->assertSame( 'Book name', $property->title );
+		$this->assertSame( 'papi_book_name', $property->slug );
+		$this->assertSame( 'papi_book_name', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_book_name', $property->get_slug() );
+		$this->assertSame( 'book_name', $property->get_slug( true ) );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
 
 		$property = $this->properties_page_type->get_property( 'flexible_test', 'twitter_name' );
-		$this->assertEquals( 'Twitter name', $property->get_option( 'title' ) );
-		$this->assertEquals( 'Twitter name', $property->title );
-		$this->assertEquals( 'papi_twitter_name', $property->slug );
-		$this->assertEquals( 'papi_twitter_name', $property->get_option( 'slug' ) );
-		$this->assertEquals( 'papi_twitter_name', $property->get_slug() );
-		$this->assertEquals( 'twitter_name', $property->get_slug( true ) );
-		$this->assertEquals( 'string', $property->get_option( 'type' ) );
-		$this->assertEquals( 'string', $property->type );
+		$this->assertSame( 'Twitter name', $property->get_option( 'title' ) );
+		$this->assertSame( 'Twitter name', $property->title );
+		$this->assertSame( 'papi_twitter_name', $property->slug );
+		$this->assertSame( 'papi_twitter_name', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_twitter_name', $property->get_slug() );
+		$this->assertSame( 'twitter_name', $property->get_slug( true ) );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
 
 		$property = $this->simple_page_type->get_property( 'name_levels', 'child_name' );
-		$this->assertEquals( 'Child name', $property->get_option( 'title' ) );
-		$this->assertEquals( 'Child name', $property->title );
-		$this->assertEquals( 'papi_child_name', $property->slug );
-		$this->assertEquals( 'papi_child_name', $property->get_option( 'slug' ) );
-		$this->assertEquals( 'papi_child_name', $property->get_slug() );
-		$this->assertEquals( 'child_name', $property->get_slug( true ) );
-		$this->assertEquals( 'string', $property->get_option( 'type' ) );
-		$this->assertEquals( 'string', $property->type );
+		$this->assertSame( 'Child name', $property->get_option( 'title' ) );
+		$this->assertSame( 'Child name', $property->title );
+		$this->assertSame( 'papi_child_name', $property->slug );
+		$this->assertSame( 'papi_child_name', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_child_name', $property->get_slug() );
+		$this->assertSame( 'child_name', $property->get_slug( true ) );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
 
 		$property = $this->simple_page_type->get_property( 'name_levels_2', 'child_name_2' );
-		$this->assertEquals( 'Child name 2', $property->get_option( 'title' ) );
-		$this->assertEquals( 'Child name 2', $property->title );
-		$this->assertEquals( 'papi_child_name_2', $property->slug );
-		$this->assertEquals( 'papi_child_name_2', $property->get_option( 'slug' ) );
-		$this->assertEquals( 'papi_child_name_2', $property->get_slug() );
-		$this->assertEquals( 'child_name_2', $property->get_slug( true ) );
-		$this->assertEquals( 'string', $property->get_option( 'type' ) );
-		$this->assertEquals( 'string', $property->type );
+		$this->assertSame( 'Child name 2', $property->get_option( 'title' ) );
+		$this->assertSame( 'Child name 2', $property->title );
+		$this->assertSame( 'papi_child_name_2', $property->slug );
+		$this->assertSame( 'papi_child_name_2', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_child_name_2', $property->get_slug() );
+		$this->assertSame( 'child_name_2', $property->get_slug( true ) );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
 
 		$property = $this->tab_page_type->get_property( 'name_levels_2', 'child_name_2' );
-		$this->assertEquals( 'Child name 2', $property->get_option( 'title' ) );
-		$this->assertEquals( 'Child name 2', $property->title );
-		$this->assertEquals( 'papi_child_name_2', $property->slug );
-		$this->assertEquals( 'papi_child_name_2', $property->get_option( 'slug' ) );
-		$this->assertEquals( 'papi_child_name_2', $property->get_slug() );
-		$this->assertEquals( 'child_name_2', $property->get_slug( true ) );
-		$this->assertEquals( 'string', $property->get_option( 'type' ) );
-		$this->assertEquals( 'string', $property->type );
+		$this->assertSame( 'Child name 2', $property->get_option( 'title' ) );
+		$this->assertSame( 'Child name 2', $property->title );
+		$this->assertSame( 'papi_child_name_2', $property->slug );
+		$this->assertSame( 'papi_child_name_2', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_child_name_2', $property->get_slug() );
+		$this->assertSame( 'child_name_2', $property->get_slug( true ) );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
 
 		$property = $this->simple_page_type->get_property( 'sections[0][title]' );
-		$this->assertEquals( 'string', $property->get_option( 'type' ) );
-		$this->assertEquals( 'string', $property->type );
-		$this->assertEquals( 'papi_title', $property->slug );
-		$this->assertEquals( 'papi_title', $property->get_option( 'slug' ) );
-		$this->assertEquals( 'papi_title', $property->get_slug() );
-		$this->assertEquals( 'title', $property->get_slug( true ) );
-		$this->assertEquals( 'Title', $property->get_option( 'title' ) );
-		$this->assertEquals( 'Title', $property->title );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
+		$this->assertSame( 'papi_title', $property->slug );
+		$this->assertSame( 'papi_title', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_title', $property->get_slug() );
+		$this->assertSame( 'title', $property->get_slug( true ) );
+		$this->assertSame( 'Title', $property->get_option( 'title' ) );
+		$this->assertSame( 'Title', $property->title );
 	}
 
 	public function test_get_child_properties() {
@@ -153,14 +153,14 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$children1 = $property->get_child_properties();
 		$children2 = $children1[0]->get_child_properties();
 		$this->assertTrue( papi_is_property( $children2[0] ) );
-		$this->assertEquals( 'Child child name', $children2[0]->get_option( 'title' ) );
-		$this->assertEquals( 'Child child name', $children2[0]->title );
-		$this->assertEquals( 'papi_child_child_name', $children2[0]->slug );
-		$this->assertEquals( 'papi_child_child_name', $children2[0]->get_option( 'slug' ) );
-		$this->assertEquals( 'papi_child_child_name', $children2[0]->get_slug() );
-		$this->assertEquals( 'child_child_name', $children2[0]->get_slug( true ) );
-		$this->assertEquals( 'string', $children2[0]->get_option( 'type' ) );
-		$this->assertEquals( 'string', $children2[0]->type );
+		$this->assertSame( 'Child child name', $children2[0]->get_option( 'title' ) );
+		$this->assertSame( 'Child child name', $children2[0]->title );
+		$this->assertSame( 'papi_child_child_name', $children2[0]->slug );
+		$this->assertSame( 'papi_child_child_name', $children2[0]->get_option( 'slug' ) );
+		$this->assertSame( 'papi_child_child_name', $children2[0]->get_slug() );
+		$this->assertSame( 'child_child_name', $children2[0]->get_slug( true ) );
+		$this->assertSame( 'string', $children2[0]->get_option( 'type' ) );
+		$this->assertSame( 'string', $children2[0]->type );
 	}
 
 	public function test_remove_post_type_support() {

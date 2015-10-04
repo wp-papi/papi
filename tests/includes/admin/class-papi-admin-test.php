@@ -52,7 +52,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 			'test.php' => 'Test'
 		] );
 		$classes = $admin->admin_body_class( '' );
-		$this->assertEquals( 'papi-hide-cpt', $classes );
+		$this->assertSame( 'papi-hide-cpt', $classes );
 	}
 
 	public function test_admin_enqueue_scripts() {
@@ -115,7 +115,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	public function test_load_post_new_2() {
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=page';
 		tests_add_filter( 'wp_redirect', function( $location ) {
-			$this->assertEquals( 'edit.php?post_type=page&page=papi-add-new-page,page', $location );
+			$this->assertSame( 'edit.php?post_type=page&page=papi-add-new-page,page', $location );
 			return false;
 		} );
 		$_GET['post_type'] = 'page';
@@ -126,7 +126,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	public function test_load_post_new_3() {
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=page';
 		tests_add_filter( 'wp_redirect', function( $location ) {
-			$this->assertEquals( 'post-new.php?page_type=simple-page-type&post_type=page', $location );
+			$this->assertSame( 'post-new.php?page_type=simple-page-type&post_type=page', $location );
 			return false;
 		} );
 		tests_add_filter( 'papi/settings/only_page_type_page', function () {
@@ -144,7 +144,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=book';
 		tests_add_filter( 'wp_redirect', function( $location ) {
-			$this->assertEquals( 'post-new.php?page_type=book-page-type&post_type=book', $location );
+			$this->assertSame( 'post-new.php?page_type=book-page-type&post_type=book', $location );
 			return false;
 		} );
 		$_GET['post_type'] = 'book';
@@ -156,7 +156,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin;
 		$arr = $admin->manage_page_type_posts_columns( [] );
-		$this->assertEquals( ['page_type' => 'Type'], $arr );
+		$this->assertSame( ['page_type' => 'Type'], $arr );
 		$_GET['post_type'] = 'fake';
 		$admin = new Papi_Admin;
 		$arr = $admin->manage_page_type_posts_columns( [] );
@@ -186,14 +186,14 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 		$_GET['page_type'] = 'simple-page-type';
 		$query = $this->admin->pre_get_posts( new WP_Query() );
-		$this->assertEquals( [
+		$this->assertSame( [
 			'meta_key'   => PAPI_PAGE_TYPE_KEY,
 			'meta_value' => 'simple-page-type'
 		], $query->query_vars );
 
 		$_GET['page_type'] = 'papi-standard-page';
 		$query = $this->admin->pre_get_posts( new WP_Query() );
-		$this->assertEquals( [
+		$this->assertSame( [
 			[
 				'key'     => PAPI_PAGE_TYPE_KEY,
 				'compare' => 'NOT EXISTS'
@@ -233,12 +233,12 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 		$admin = new Papi_Admin;
 
-		$this->assertEquals( 10, has_action( 'admin_init', [$admin, 'admin_init'] ) );
-		$this->assertEquals( 10, has_action( 'admin_head', [$admin, 'admin_head'] ) );
-		$this->assertEquals( 10, has_action( 'edit_form_after_title', [$admin, 'edit_form_after_title'] ) );
-		$this->assertEquals( 10, has_action( 'load-post-new.php', [$admin, 'load_post_new'] ) );
-		$this->assertEquals( 10, has_action( 'restrict_manage_posts', [$admin, 'restrict_page_types'] ) );
-		$this->assertEquals( 10, has_action( 'add_meta_boxes', [$admin, 'hidden_meta_boxes'] ) );
+		$this->assertSame( 10, has_action( 'admin_init', [$admin, 'admin_init'] ) );
+		$this->assertSame( 10, has_action( 'admin_head', [$admin, 'admin_head'] ) );
+		$this->assertSame( 10, has_action( 'edit_form_after_title', [$admin, 'edit_form_after_title'] ) );
+		$this->assertSame( 10, has_action( 'load-post-new.php', [$admin, 'load_post_new'] ) );
+		$this->assertSame( 10, has_action( 'restrict_manage_posts', [$admin, 'restrict_page_types'] ) );
+		$this->assertSame( 10, has_action( 'add_meta_boxes', [$admin, 'hidden_meta_boxes'] ) );
 
 		$current_screen = null;
 	}
@@ -249,8 +249,8 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	    $current_screen = WP_Screen::get( 'admin_init' );
 		$admin = new Papi_Admin;
 
-		$this->assertEquals( 10, has_filter( 'admin_body_class', [$admin, 'admin_body_class'] ) );
-		$this->assertEquals( 10, has_filter( 'pre_get_posts', [$admin, 'pre_get_posts'] ) );
+		$this->assertSame( 10, has_filter( 'admin_body_class', [$admin, 'admin_body_class'] ) );
+		$this->assertSame( 10, has_filter( 'pre_get_posts', [$admin, 'pre_get_posts'] ) );
 
 		$current_screen = null;
 	}
@@ -262,10 +262,10 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin;
 
-		$this->assertEquals( 10, has_filter( 'admin_body_class', [$admin, 'admin_body_class'] ) );
-		$this->assertEquals( 10, has_filter( 'pre_get_posts', [$admin, 'pre_get_posts'] ) );
-		$this->assertEquals( 10, has_filter( 'manage_page_posts_columns', [$admin, 'manage_page_type_posts_columns'] ) );
-		$this->assertEquals( 10, has_filter( 'manage_page_posts_custom_column', [$admin, 'manage_page_type_posts_custom_column'] ) );
+		$this->assertSame( 10, has_filter( 'admin_body_class', [$admin, 'admin_body_class'] ) );
+		$this->assertSame( 10, has_filter( 'pre_get_posts', [$admin, 'pre_get_posts'] ) );
+		$this->assertSame( 10, has_filter( 'manage_page_posts_columns', [$admin, 'manage_page_type_posts_columns'] ) );
+		$this->assertSame( 10, has_filter( 'manage_page_posts_custom_column', [$admin, 'manage_page_type_posts_custom_column'] ) );
 
 		$current_screen = null;
 	}
@@ -278,7 +278,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 			return $class->post_type;
 		};
 		$post_type = Closure::bind( $post_type, null, $admin );
-		$this->assertEquals( 'page', $post_type( $admin ) );
+		$this->assertSame( 'page', $post_type( $admin ) );
 	}
 
 	public function test_setup_globals_2() {
@@ -294,7 +294,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		};
 		$page_type_id = Closure::bind( $page_type_id, null, $admin );
 
-		$this->assertEquals( 'simple-page-type', $page_type_id( $admin ) );
+		$this->assertSame( 'simple-page-type', $page_type_id( $admin ) );
 
 		$current_screen = null;
 	}
@@ -333,7 +333,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 			'info' => 'Standard Page'
 		];
 		$results = $admin->wp_link_query( [$post] );
-		$this->assertEquals( [$post2], $results );
+		$this->assertSame( [$post2], $results );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
@@ -346,7 +346,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 			'info' => 'Simple page'
 		];
 		$results = $admin->wp_link_query( [$post] );
-		$this->assertEquals( [$post3], $results );
+		$this->assertSame( [$post3], $results );
 
 	}
 }

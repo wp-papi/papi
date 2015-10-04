@@ -21,14 +21,14 @@ class Papi_Loader_Test extends WP_UnitTestCase {
 	}
 
 	public function test_after_setup_theme_action() {
-		$this->assertEquals( 10, has_action( 'plugins_loaded', 'papi' ) );
+		$this->assertSame( 10, has_action( 'plugins_loaded', 'papi' ) );
 	}
 
 	public function test_constants() {
 		$this->assertTrue( defined( 'PAPI_PLUGIN_DIR' ) );
 		$this->assertTrue( defined( 'PAPI_PLUGIN_URL' ) );
 		$this->assertTrue( defined( 'PAPI_PAGE_TYPE_KEY' ) );
-		$this->assertEquals( '_papi_page_type', PAPI_PAGE_TYPE_KEY );
+		$this->assertSame( '_papi_page_type', PAPI_PAGE_TYPE_KEY );
 	}
 
 	public function test_instance() {
@@ -45,6 +45,6 @@ class Papi_Loader_Test extends WP_UnitTestCase {
 	}
 
 	public function test_name() {
-		$this->assertEquals( 'Papi', $this->papi->name );
+		$this->assertSame( 'Papi', $this->papi->name );
 	}
 }
