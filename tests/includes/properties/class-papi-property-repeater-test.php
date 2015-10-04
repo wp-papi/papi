@@ -93,10 +93,24 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( $expected, $output );
 	}
 
+	public function test_property_load_value() {
+		$this->assertEquals( [], $this->property->load_value( [], '', 0 ) );
+	}
+
 	public function test_property_options() {
 		$this->assertEquals( 'repeater', $this->property->get_option( 'type' ) );
 		$this->assertEquals( 'Repeater test', $this->property->get_option( 'title' ) );
 		$this->assertEquals( 'papi_repeater_test', $this->property->get_option( 'slug' ) );
+	}
+
+	public function test_property_render_ajax_request() {
+		$this->property->render_ajax_request();
+		$this->expectOutputRegex( '/.*\S.*/' );
+	}
+
+	public function test_property_render_repeater_rows_template() {
+		$this->property->render_repeater_rows_template();
+		$this->expectOutputRegex( '/.*\S.*/' );
 	}
 
 	public function test_property_settings() {
