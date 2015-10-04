@@ -120,11 +120,7 @@ class Papi_Property_Link extends Papi_Property {
 	 */
 	public function html() {
 		$value = $this->get_value();
-
-		if ( ! is_array( $value ) && ! is_object( $value ) ) {
-			$value = [];
-		}
-
+		$value = is_array( $value ) || is_object( $value ) ? $value : [];
 		$value = (object) $value;
 		?>
 

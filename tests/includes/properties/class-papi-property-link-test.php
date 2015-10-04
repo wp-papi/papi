@@ -56,6 +56,12 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 		$this->assertNull( $this->property->import_value( 'test', '', 0 ) );
 	}
 
+	public function test_property_load_value() {
+		$this->assertEmpty( (array) $this->property->load_value( [
+			'test' => ''
+		], 'test', 0 ) );
+	}
+
 	public function test_property_options() {
 		$this->assertEquals( 'link', $this->property->get_option( 'type' ) );
 		$this->assertEquals( 'Link test', $this->property->get_option( 'title' ) );
