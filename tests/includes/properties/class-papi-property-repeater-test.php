@@ -32,16 +32,16 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_convert_type() {
-		$this->assertEquals( 'array', $this->property->convert_type );
+		$this->assertSame( 'array', $this->property->convert_type );
 	}
 
 	public function test_property_default_value() {
-		$this->assertEquals( [], $this->property->default_value );
+		$this->assertSame( [], $this->property->default_value );
 	}
 
 	public function test_property_format_value() {
 		$actual = $this->property->format_value( $this->get_value(), $this->slug, $this->post_id );
-		$this->assertEquals( $this->get_expected(), $actual );
+		$this->assertSame( $this->get_expected(), $actual );
 		$this->assertEmpty( $this->property->format_value( '', $this->slug, $this->post_id ) );
 		$this->assertEmpty( $this->property->format_value( (object) [], $this->slug, $this->post_id ) );
 		$this->assertEmpty( $this->property->format_value( 1, $this->slug, $this->post_id ) );
@@ -63,7 +63,7 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 			'repeater_test' => 0
 		];
 		$output = $this->property->import_value( [], $this->slug, $this->post_id );
-		$this->assertEquals( $expected, $output );
+		$this->assertSame( $expected, $output );
 
 		$value = [
 			'book_name' => 'Kod',
@@ -75,7 +75,7 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 			'repeater_test' => 1
 		];
 		$output = $this->property->import_value( $value, $this->slug, $this->post_id );
-		$this->assertEquals( $expected, $output );
+		$this->assertSame( $expected, $output );
 
 		$value = [
 			[
@@ -90,17 +90,17 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 		];
 
 		$output = $this->property->import_value( $value, $this->slug, $this->post_id );
-		$this->assertEquals( $expected, $output );
+		$this->assertSame( $expected, $output );
 	}
 
 	public function test_property_load_value() {
-		$this->assertEquals( [], $this->property->load_value( [], '', 0 ) );
+		$this->assertSame( [], $this->property->load_value( [], '', 0 ) );
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'repeater', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Repeater test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_repeater_test', $this->property->get_option( 'slug' ) );
+		$this->assertSame( 'repeater', $this->property->get_option( 'type' ) );
+		$this->assertSame( 'Repeater test', $this->property->get_option( 'title' ) );
+		$this->assertSame( 'papi_repeater_test', $this->property->get_option( 'slug' ) );
 	}
 
 	public function test_property_render_ajax_request() {
@@ -117,12 +117,28 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 		$items = $this->property->get_setting( 'items' );
 		$this->assertNotEmpty( $items );
 
-		$this->assertEquals( 'string', $items[0]->type );
-		$this->assertEquals( 'papi_book_name', $items[0]->slug );
-		$this->assertEquals( 'Book name', $items[0]->title );
+		$this->assertSame( 'string', $items[0]->type );
+		$this->assertSame( 'papi_book_name', $items[0]->slug );
+		$this->assertSame( 'Book name', $items[0]->title );
 
-		$this->assertEquals( 'bool', $items[1]->type );
-		$this->assertEquals( 'papi_is_open', $items[1]->slug );
-		$this->assertEquals( 'Is open?', $items[1]->title );
+		$this->assertSame( 'bool', $items[1]->type );
+		$this->assertSame( 'papi_is_open', $items[1]->slug );
+		$this->assertSame( 'Is open?', $items[1]->title );
+	}
+
+	public function test_property_update_value() {
+		$input    = [];
+		$output   = $this->property->update_value( $input, 'test', $this->post_id );
+		$expected = ['test' => 0];
+		$this->assertSame( $expected, $output );
+
+		$input    = $this->get_value();
+		$output   = $this->property->update_value( $input, 'test', $this->post_id );
+		$expected = [
+			'test_0_book_name' => 'Harry Potter',
+			'test_0_is_open'   => false,
+			'test'             => 1
+		];
+		$this->assertSame( $expected, $output );
 	}
 }
