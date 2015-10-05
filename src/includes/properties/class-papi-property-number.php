@@ -27,7 +27,7 @@ class Papi_Property_Number extends Papi_Property {
 	 * @return float|int
 	 */
 	public function format_value( $value, $slug, $post_id ) {
-		$value = is_string($value) && is_numeric($value) ? $value + 0 : $value;
+		$value = is_string( $value ) && is_numeric( $value ) ? $value + 0 : $value;
 
 		if ( is_float( $value ) ) {
 			return floatval( $value );
