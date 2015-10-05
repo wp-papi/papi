@@ -28,8 +28,14 @@ class Papi_Admin_Option_Handler extends Papi_Admin_Data_Handler {
 			return;
 		}
 
+		// Get properties data.
 		$data = $this->get_post_data();
+
+		// Prepare properties data.
 		$data = $this->prepare_properties_data( $data, 0 );
+
+		// Delete cache.
+		papi_cache_delete( 'page', 0 );
 
 		foreach ( $data as $key => $value ) {
 			papi_update_property_meta_value( [

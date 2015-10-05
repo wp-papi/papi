@@ -464,11 +464,17 @@ function papi_update_property_meta_value( array $meta = [] ) {
 		}
 	}
 
+	if ( ! isset( $meta->post_id ) ) {
+		$meta->post_id = 0;
+	}
+
 	if ( ! $save_value && is_array( $meta->value ) ) {
 		$meta->value = [$meta->value];
 	}
 
 	if ( papi_is_empty( $meta->value ) ) {
+		papi_cache_delete( $meta->slug, $meta->post_id );
+
 		if ( $option ) {
 			return delete_option( papi_remove_papi( $meta->slug ) );
 		} else {
@@ -483,6 +489,8 @@ function papi_update_property_meta_value( array $meta = [] ) {
 			if ( $save_value ) {
 				$value = $meta->value;
 			}
+
+			papi_cache_delete( $meta->slug, $meta->post_id );
 
 			if ( $option ) {
 				$out = update_option( papi_remove_papi( $meta->slug ), $value );

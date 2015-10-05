@@ -190,26 +190,6 @@ function papi_f( $str = '', $len = 1 ) {
 }
 
 /**
- * Get Papi cache key.
- *
- * @param  string $key
- * @param  mixed  $suffix
- *
- * @return string
- */
-function papi_get_cache_key( $key, $suffix ) {
-	if ( ! is_string( $key ) ) {
-		return '';
-	}
-
-	$key    = papify( $key );
-	$suffix = papi_convert_to_string( $suffix );
-	$suffix = papi_html_name( $suffix );
-	$suffix = papi_remove_papi( $suffix );
-	return sprintf( '%s_%s', $key, $suffix );
-}
-
-/**
  * Get namespace name and/or class name from page type file.
  *
  * @param  string $file

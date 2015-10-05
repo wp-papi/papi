@@ -141,6 +141,7 @@ final class Papi_Loader extends Papi_Container {
 		$lib_includes = [
 			'utilities.php',
 			'actions.php',
+			'cache.php',
 			'filters.php',
 			'url.php',
 			'post.php',

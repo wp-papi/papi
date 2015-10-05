@@ -46,8 +46,7 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
 		return false;
 	}
 
-	$cache_key = papi_get_cache_key( $slug, $post_id );
-	wp_cache_set( $cache_key, false );
+	papi_cache_delete( $slug, $post_id );
 
 	papi_action_delete_value( $type, $slug, $post_id );
 
@@ -144,8 +143,7 @@ function papi_get_field( $post_id = null, $slug = null, $default = null, $type =
 		return $default;
 	}
 
-	$cache_key = papi_get_cache_key( $slug, $post_id );
-	$value     = wp_cache_get( $cache_key );
+	$value = papi_cache_get( $slug, $post_id );
 
 	if ( $value === null || $value === false ) {
 		// Check for "dot" notation.
@@ -167,7 +165,7 @@ function papi_get_field( $post_id = null, $slug = null, $default = null, $type =
 			return $default;
 		}
 
-		wp_cache_set( $cache_key, $value );
+		papi_cache_set( $slug, $post_id, $value );
 	}
 
 	return $value;

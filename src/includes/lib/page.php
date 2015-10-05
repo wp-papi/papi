@@ -65,7 +65,7 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 		$post_type  = papi_get_post_type();
 	}
 
-	$cache_key   = papi_get_cache_key( sprintf( '%s_%s', $all, $post_type ), $fake_post_types );
+	$cache_key   = papi_cache_key( sprintf( '%s_%s', $all, $post_type ), $fake_post_types );
 	$page_types  = wp_cache_get( $cache_key );
 
 	if ( empty( $page_types ) ) {
@@ -136,15 +136,14 @@ function papi_get_number_of_pages( $page_type ) {
 		return 0;
 	}
 
-	$cache_key = papi_get_cache_key( 'page_type', $page_type );
-	$value = wp_cache_get( $cache_key );
+	$value = papi_cache_get( 'page_type', $page_type );
 
 	if ( $value === false ) {
 		$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '%s' AND `meta_value` = '%s'";
 		$sql = $wpdb->prepare( $sql, PAPI_PAGE_TYPE_KEY, $page_type );
 
 		$value = intval( $wpdb->get_var( $sql ) );
-		wp_cache_set( $cache_key, $value );
+		papi_cache_set( 'page_type', $page_type, $value );
 	}
 
 	return $value;
@@ -391,8 +390,7 @@ function papi_get_slugs( $post_id = 0 ) {
 		return [];
 	}
 
-	$cache_key = papi_get_cache_key( 'page', $page->id );
-	$value     = wp_cache_get( $cache_key );
+	$value = papi_cache_get( 'page', $post_id );
 
 	if ( $value === false ) {
 		$page_type = $page->get_page_type();
@@ -418,7 +416,7 @@ function papi_get_slugs( $post_id = 0 ) {
 			}
 		}
 
-		wp_cache_set( $cache_key, $value );
+		papi_cache_set( 'page', $post_id, $value );
 	}
 
 	return $value;

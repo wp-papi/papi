@@ -29,6 +29,11 @@ class Simple_Page_Type extends Papi_Page_Type {
 			'title' => 'Name'
 		] ) );
 
+		$this->box( 'Hello 2', papi_property( [
+			'type'  => 'string',
+			'title' => 'Namn'
+		] ) );
+
 		$this->box( 'Content', [
 			'type'  => 'string',
 			'title' => 'Name',
