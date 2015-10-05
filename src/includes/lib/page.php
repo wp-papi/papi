@@ -383,30 +383,21 @@ function papi_get_page_type_template( $post_id = 0 ) {
 		return;
 	}
 
-	$cache_key = papi_get_cache_key( 'page_type_template', $post_id );
-	$template  = wp_cache_get( $cache_key );
+	$data = papi_get_page_type_by_post_id( $post_id );
 
-	if ( $template === false ) {
-		$data = papi_get_page_type_by_post_id( $post_id );
+	if ( isset( $data ) && isset( $data->template ) ) {
+		$template  = $data->template;
+		$extension = '.php';
+		$ext_reg   = '/(' . $extension . ')+$/';
 
-		if ( isset( $data ) && isset( $data->template ) ) {
-			$template  = $data->template;
-			$extension = '.php';
-			$ext_reg   = '/(' . $extension . ')+$/';
-
-			if ( preg_match( '/\.\w+$/', $template, $matches ) && preg_match( $ext_reg, $matches[0] ) ) {
-				$template = str_replace( '.', '/', preg_replace( '/' . $matches[0] . '$/', '', $template ) ) . $matches[0];
-			} else {
-				$template = str_replace( '.', '/', $template );
-				$template = substr( $template, -strlen( $extension ) ) === $extension
-					? $template : $template . $extension;
-			}
-
-			wp_cache_set( $cache_key, $template );
+		if ( preg_match( '/\.\w+$/', $template, $matches ) && preg_match( $ext_reg, $matches[0] ) ) {
+			return str_replace( '.', '/', preg_replace( '/' . $matches[0] . '$/', '', $template ) ) . $matches[0];
+		} else {
+			$template = str_replace( '.', '/', $template );
+			return substr( $template, -strlen( $extension ) ) === $extension
+				? $template : $template . $extension;
 		}
 	}
-
-	return $template === false ? null : $template;
 }
 
 /**
