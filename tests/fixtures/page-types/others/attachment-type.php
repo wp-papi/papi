@@ -27,5 +27,4 @@ class Attachment_Type extends Papi_Attachment_Type {
 			] )
 		] );
 	}
-
 }

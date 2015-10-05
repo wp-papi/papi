@@ -12,7 +12,7 @@ class Hidden2_Page_Type extends Papi_Page_Type {
 			'name'          => 'Hidden2 page',
 			'description'   => 'This is a hidden2 page',
 			'template'      => 'pages/hidden2-page.php',
-            'post_type'     => 'hidden',
+			'post_type'     => 'hidden',
 			'standard_type' => false
 		];
 	}

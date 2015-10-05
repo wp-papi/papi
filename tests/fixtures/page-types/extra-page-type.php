@@ -29,7 +29,7 @@ class Extra_Page_Type extends Papi_Page_Type {
 				'overwrite' => true
 			] )
 
-        ] );
+		] );
 
 	}
 }

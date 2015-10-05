@@ -153,7 +153,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 	}
 
 	public function test_save_meta_boxes_fail_4() {
-		$post_id  = $this->factory->post->create(['post_type' => 'revision']);
+		$post_id  = $this->factory->post->create( ['post_type' => 'revision'] );
 		$property = $this->page_type->get_property( 'string_test' );
 
 		$_POST = papi_test_create_property_post_data( [

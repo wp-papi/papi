@@ -46,8 +46,9 @@ class Papi_Lib_Post_Test extends WP_UnitTestCase {
 		$this->assertSame( $post_id, papi_get_post_id() );
 		unset( $_POST );
 
-
-		$_GET = ['post' => $post_id];
+		$_GET  = [
+			'post' => $post_id
+		];
 		$_POST = [
 			'action' => 'query-attachments'
 		];

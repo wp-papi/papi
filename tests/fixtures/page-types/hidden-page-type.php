@@ -12,7 +12,7 @@ class Hidden_Page_Type extends Papi_Page_Type {
 			'name'          => 'Hidden page',
 			'description'   => 'This is a hidden page',
 			'template'      => 'pages/hidden-page.php',
-            'post_type'     => 'hidden',
+			'post_type'     => 'hidden',
 			'standard_type' => true
 		];
 	}

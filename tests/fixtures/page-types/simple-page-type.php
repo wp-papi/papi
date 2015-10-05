@@ -52,9 +52,7 @@ class Simple_Page_Type extends Papi_Page_Type {
 		$this->box( 1 );
 
 		// Box without a empty title.
-		$this->box( [
-			'title' => ''
-			], [
+		$this->box( ['title' => ''], [
 			papi_property( [
 				'type'  => 'string',
 				'title' => 'Country'
