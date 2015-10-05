@@ -98,9 +98,6 @@ class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 		// Prepare properties data.
 		$data = $this->prepare_properties_data( $data, $post_id );
 
-		// Delete cache.
-		papi_cache_delete( 'page', $post_id );
-
 		// Save all properties value
 		foreach ( $data as $key => $value ) {
 			papi_update_property_meta_value( [

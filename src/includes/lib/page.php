@@ -390,33 +390,27 @@ function papi_get_slugs( $post_id = 0 ) {
 		return [];
 	}
 
-	$value = papi_cache_get( 'page', $post_id );
+	$page_type = $page->get_page_type();
 
-	if ( $value === false ) {
-		$page_type = $page->get_page_type();
+	if ( empty( $page_type ) ) {
+		return [];
+	}
 
-		if ( empty( $page_type ) ) {
-			return [];
+	$value = [];
+	$boxes = $page_type->get_boxes();
+
+	foreach ( $boxes as $box ) {
+		if ( count( $box ) < 2 || empty( $box[0]['title'] ) || ! is_array( $box[1] ) ) {
+			continue;
 		}
 
-		$value = [];
-		$boxes = $page_type->get_boxes();
-
-		foreach ( $boxes as $box ) {
-			if ( count( $box ) < 2 || empty( $box[0]['title'] ) || ! is_array( $box[1] ) ) {
-				continue;
-			}
-
-			if ( ! isset( $value[$box[0]['title']] ) ) {
-				$value[$box[0]['title']] = [];
-			}
-
-			foreach ( $box[1] as $property ) {
-				$value[$box[0]['title']][] = $property->get_slug( true );
-			}
+		if ( ! isset( $value[$box[0]['title']] ) ) {
+			$value[$box[0]['title']] = [];
 		}
 
-		papi_cache_set( 'page', $post_id, $value );
+		foreach ( $box[1] as $property ) {
+			$value[$box[0]['title']][] = $property->get_slug( true );
+		}
 	}
 
 	return $value;
