@@ -34,7 +34,7 @@ class Papi_Property_String extends Papi_Property {
 				$value = '';
 			}
 
-			$value = sanitize_text_field( $value );
+			$value = wp_strip_all_tags( $value );
 		}
 
 		return $value;
