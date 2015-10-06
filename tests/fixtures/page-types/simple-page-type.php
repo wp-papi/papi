@@ -36,11 +36,17 @@ class Simple_Page_Type extends Papi_Page_Type {
 			'slug' => 'name2'
 		] );
 
-		$this->box( papi_property( [
-			'type'  => 'number',
-			'title' => 'Siffran',
-			'slug'  => 'siffran'
-		] ) );
+		$this->box( 'Siffror', [
+			papi_property( [
+				'type'         => 'number',
+				'title'        => 'Siffran',
+				'slug'         => 'siffran',
+				'before_html'  => 'En siffra',
+				'before_class' => 'en-siffra',
+				'after_html'   => 'Två siffra',
+				'after_class'  => 'tva-siffra'
+			] )
+		] );
 
 		$this->box( 'Number', papi_property( [
 			'type'  => 'number',
