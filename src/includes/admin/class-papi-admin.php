@@ -50,7 +50,7 @@ final class Papi_Admin {
 		_doing_it_wrong(
 			__FUNCTION__,
 			__( 'Cheatin&#8217; huh?', 'papi' ),
-			'2.3.4'
+			'2.3.5'
 		);
 	}
 
@@ -63,7 +63,7 @@ final class Papi_Admin {
 		_doing_it_wrong(
 			__FUNCTION__,
 			__( 'Cheatin&#8217; huh?', 'papi' ),
-			'2.3.4'
+			'2.3.5'
 		);
 	}
 
