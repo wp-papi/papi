@@ -43,9 +43,7 @@ class Papi_Property_Term extends Papi_Property {
 			'fields' => 'id=>name'
 		] );
 
-		$terms = get_terms( $settings->taxonomy, $args );
-
-		return $terms;
+		return get_terms( $settings->taxonomy, $args );
 	}
 
 	/**
