@@ -64,5 +64,5 @@ function papi_cache_key( $key, $suffix ) {
  * @return bool
  */
 function papi_cache_set( $key, $suffix, $value ) {
-    return wp_cache_set( papi_cache_key( $key, $suffix ), $value );
+	return wp_cache_set( papi_cache_key( $key, $suffix ), $value );
 }

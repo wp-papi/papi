@@ -303,8 +303,8 @@ class Papi_Core_Property {
 	}
 
 	/**
- 	 * Format the value of the property before it's returned
- 	 * to WordPress admin or the site.
+	 * Format the value of the property before it's returned
+	 * to WordPress admin or the site.
 	 *
 	 * @param  mixed  $value
 	 * @param  string $slug
