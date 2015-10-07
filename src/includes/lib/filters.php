@@ -51,7 +51,7 @@ function papi_filter_core_load_one_type_on() {
 }
 
 /**
- * Format the value of the property before it's returned to the application.
+ * Format the value of the property before it's returned to WordPress admin or the site.
  *
  * @param  string $type
  * @param  mixed  $value

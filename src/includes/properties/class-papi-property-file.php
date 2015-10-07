@@ -32,7 +32,8 @@ class Papi_Property_File extends Papi_Property {
 	protected $file_type  = 'file';
 
 	/**
-	 * Format the value of the property before it's returned to the application.
+	 * Format the value of the property before it's returned
+	 * to WordPress admin or the site.
 	 *
 	 * @param  mixed  $value
 	 * @param  string $slug

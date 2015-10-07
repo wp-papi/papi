@@ -25,7 +25,8 @@ class Papi_Property_Checkbox extends Papi_Property {
 	public $default_value = [];
 
 	/**
-	 * Format the value of the property before it's returned to the application.
+	 * Format the value of the property before it's returned
+	 * to WordPress admin or the site.
 	 *
 	 * @param  mixed  $value
 	 * @param  string $slug

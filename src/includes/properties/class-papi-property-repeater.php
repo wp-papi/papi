@@ -62,7 +62,8 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
-	 * Format the value of the property before it's returned to the application.
+	 * Format the value of the property before it's returned
+	 * to WordPress admin or the site.
 	 *
 	 * @param  mixed  $values
 	 * @param  string $repeater_slug

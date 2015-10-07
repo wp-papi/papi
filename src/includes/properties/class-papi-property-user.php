@@ -18,7 +18,8 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	public $convert_type = 'int';
 
 	/**
-	 * Format the value of the property before it's returned to the application.
+	 * Format the value of the property before it's returned
+	 * to WordPress admin or the site.
 	 *
 	 * @param  mixed  $value
 	 * @param  string $slug

@@ -18,7 +18,8 @@ class Papi_Property_String extends Papi_Property {
 	public $input_type = 'text';
 
 	/**
-	 * Format the value of the property before it's returned to the application.
+	 * Format the value of the property before it's returned
+	 * to WordPress admin or the site.
 	 *
 	 * @param  mixed  $value
 	 * @param  string $slug

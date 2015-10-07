@@ -18,6 +18,24 @@ class Papi_Property_Post extends Papi_Property {
 	public $convert_type = 'object';
 
 	/**
+	 * Format the value of the property before it's returned
+	 * to WordPress admin or the site.
+	 *
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
+	 *
+	 * @return array
+	 */
+	public function format_value( $value, $slug, $post_id ) {
+		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
+			return get_post( $value );
+		}
+
+		return $this->default_value;
+	}
+
+	/**
 	 * Get default settings.
 	 *
 	 * @return array
@@ -156,23 +174,6 @@ class Papi_Property_Post extends Papi_Property {
 
 		if ( is_numeric( $value ) ) {
 			return (int) $value;
-		}
-
-		return $this->default_value;
-	}
-
-	/**
-	 * Format the value of the property before it's returned to the application.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return array
-	 */
-	public function format_value( $value, $slug, $post_id ) {
-		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
-			return get_post( $value );
 		}
 
 		return $this->default_value;
