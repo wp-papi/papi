@@ -24,7 +24,7 @@ class Papi_Property_Term extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'taxonomy'     => '',
+			'taxonomy'      => '',
 			'select2'       => true,
 			'query'         => []
 		];
@@ -61,15 +61,18 @@ class Papi_Property_Term extends Papi_Property {
 			$value = 0;
 		}
 
-		$terms        = $this->get_terms( $settings );
 		$classes      = 'papi-fullwidth';
 
 		if ( $settings->select2 ) {
 			$classes = ' papi-component-select2';
 		}
 		?>
-
 		<div class="papi-property-term">
+		<?php if ( empty( $settings->taxonomy ) ): ?>
+			<p><?php _e( 'No taxonomy defined for term property', 'papi'); ?></p>
+		<?php else:
+			$terms = $this->get_terms( $settings );
+		?>
 			<select
 				id="<?php echo $this->html_id(); ?>"
 				name="<?php echo $this->html_name(); ?>"
@@ -93,6 +96,7 @@ class Papi_Property_Term extends Papi_Property {
 				<?php endforeach; ?>
 
 			</select>
+		<?php endif; ?>
 		</div>
 		<?php
 	}
