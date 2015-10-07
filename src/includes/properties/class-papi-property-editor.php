@@ -21,7 +21,7 @@ class Papi_Property_Editor extends Papi_Property {
 	 * @return array
 	 */
 	public function format_value( $value, $slug, $post_id ) {
-		return apply_filters( 'the_content', $value );
+		return is_admin() ? $value : apply_filters( 'the_content', $value );
 	}
 
 	/**

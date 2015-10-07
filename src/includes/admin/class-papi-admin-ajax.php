@@ -50,10 +50,11 @@ class Papi_Admin_Ajax {
 	 * Add ajax url to Papi JavaScript object.
 	 */
 	public function ajax_url() {
+		$url = esc_url( trailingslashit( get_bloginfo( 'url' ) ) . 'papi-ajax/' );
 		?>
 		<script type="text/javascript">
 			var papi = papi || {};
-			papi.ajaxUrl = '/papi-ajax/';
+			papi.ajaxUrl = '<?php echo $url; ?>';
 		</script>
 		<?php
 	}

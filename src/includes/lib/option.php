@@ -35,7 +35,9 @@ function papi_is_option_page() {
 
 	$query = $parsed_url['query'];
 
-	return ! preg_match( '/page\-type\=/', $query ) && preg_match( '/page\=/', $query );
+	return is_admin()
+		&&! preg_match( '/page\-type\=/', $query )
+		&& preg_match( '/page\=/', $query );
 }
 
 /**

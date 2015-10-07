@@ -60,7 +60,7 @@ final class Papi_Loader extends Papi_Container {
 		_doing_it_wrong(
 			__FUNCTION__,
 			__( 'Cheatin&#8217; huh?', 'papi' ),
-			'2.3.2'
+			'2.4.0-dev'
 		);
 	}
 
@@ -73,7 +73,7 @@ final class Papi_Loader extends Papi_Container {
 		_doing_it_wrong(
 			__FUNCTION__,
 			__( 'Cheatin&#8217; huh?', 'papi' ),
-			'2.3.2'
+			'2.4.0-dev'
 		);
 	}
 
@@ -141,6 +141,7 @@ final class Papi_Loader extends Papi_Container {
 		$lib_includes = [
 			'utilities.php',
 			'actions.php',
+			'cache.php',
 			'filters.php',
 			'url.php',
 			'post.php',

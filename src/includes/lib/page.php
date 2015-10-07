@@ -73,7 +73,7 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 		$post_type  = papi_get_post_type();
 	}
 
-	$cache_key   = papi_get_cache_key( sprintf( '%s_%s', $all, $post_type ), $fake_post_types );
+	$cache_key   = papi_cache_key( sprintf( '%s_%s', $all, $post_type ), $fake_post_types );
 	$page_types  = wp_cache_get( $cache_key );
 	$load_once   = papi_filter_core_load_one_type_on();
 
@@ -161,15 +161,14 @@ function papi_get_number_of_pages( $page_type ) {
 		return 0;
 	}
 
-	$cache_key = papi_get_cache_key( 'page_type', $page_type );
-	$value = wp_cache_get( $cache_key );
+	$value = papi_cache_get( 'page_type', $page_type );
 
 	if ( $value === false ) {
 		$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '%s' AND `meta_value` = '%s'";
 		$sql = $wpdb->prepare( $sql, papi_get_page_type_key(), $page_type );
 
 		$value = intval( $wpdb->get_var( $sql ) );
-		wp_cache_set( $cache_key, $value );
+		papi_cache_set( 'page_type', $page_type, $value );
 	}
 
 	return $value;
@@ -437,34 +436,27 @@ function papi_get_slugs( $post_id = 0 ) {
 		return [];
 	}
 
-	$cache_key = papi_get_cache_key( 'page', $page->id );
-	$value     = wp_cache_get( $cache_key );
+	$page_type = $page->get_page_type();
 
-	if ( $value === false ) {
-		$page_type = $page->get_page_type();
+	if ( empty( $page_type ) ) {
+		return [];
+	}
 
-		if ( empty( $page_type ) ) {
-			return [];
+	$value = [];
+	$boxes = $page_type->get_boxes();
+
+	foreach ( $boxes as $box ) {
+		if ( count( $box ) < 2 || empty( $box[0]['title'] ) || ! is_array( $box[1] ) ) {
+			continue;
 		}
 
-		$value = [];
-		$boxes = $page_type->get_boxes();
-
-		foreach ( $boxes as $box ) {
-			if ( count( $box ) < 2 || empty( $box[0]['title'] ) || ! is_array( $box[1] ) ) {
-				continue;
-			}
-
-			if ( ! isset( $value[$box[0]['title']] ) ) {
-				$value[$box[0]['title']] = [];
-			}
-
-			foreach ( $box[1] as $property ) {
-				$value[$box[0]['title']][] = $property->get_slug( true );
-			}
+		if ( ! isset( $value[$box[0]['title']] ) ) {
+			$value[$box[0]['title']] = [];
 		}
 
-		wp_cache_set( $cache_key, $value );
+		foreach ( $box[1] as $property ) {
+			$value[$box[0]['title']][] = $property->get_slug( true );
+		}
 	}
 
 	return $value;

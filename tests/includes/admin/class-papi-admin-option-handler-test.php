@@ -33,6 +33,10 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 	}
 
 	public function test_save_properties() {
+		global $current_screen;
+
+		$current_screen = WP_Screen::get( 'admin_init' );
+
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $this->property->slug,
 			'type'  => $this->property,
@@ -53,6 +57,9 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 		$_SERVER['REQUEST_URI'] = $old_request_uri;
 
 		$this->assertSame( 'Hello, world!', $value );
+		$this->assertEquals( 'Hello, world!', $value );
+
+		$current_screen = null;
 	}
 
 	public function test_save_properties_fail() {
