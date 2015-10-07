@@ -12,9 +12,15 @@ class Papi_Property_Term_Test extends Papi_Property_Test_Case {
 	public function setUp() {
 		parent::setUp();
 
-		register_taxonomy('test_taxonomy', 'post');
+		register_taxonomy( 'test_taxonomy', 'post' );
 
-		$this->term_id = $this->factory->term->create( ['taxonomy' => 'test_taxonomy']);
+		$this->term_id = $this->factory->term->create( ['taxonomy' => 'test_taxonomy'] );
+	}
+
+	public function tearDown() {
+		parent::tearDown();
+
+		unset( $this->term_id );
 	}
 
 	public function assert_values( $expected, $actual ) {
