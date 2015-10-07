@@ -1,24 +1,24 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-09-25 19:38+0100\n"
-"PO-Revision-Date: 2015-09-25 19:38+0100\n"
-"Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
+"POT-Creation-Date: 2015-10-07 21:26+0200\n"
+"PO-Revision-Date: 2015-10-07 21:27+0200\n"
+"Last-Translator: Rasmus Bengtsson <rasmus@isotop.se>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.3\n"
+"X-Generator: Poedit 1.8.5\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;__;esc_html__;esc_html_e\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: ../src/includes/admin/class-papi-admin-menu.php:120
-#: ../src/includes/admin/class-papi-admin-menu.php:170
-#: ../src/includes/admin/class-papi-admin-menu.php:171
+#: ../src/includes/admin/class-papi-admin-menu.php:114
+#: ../src/includes/admin/class-papi-admin-menu.php:163
+#: ../src/includes/admin/class-papi-admin-menu.php:164
 #: ../src/includes/types/class-papi-page-type-meta.php:158
 msgid "Add New"
 msgstr "Skapa ny"
@@ -29,7 +29,7 @@ msgstr "Skapa ny"
 msgid "Cheatin&#8217; huh?"
 msgstr "Fuskar du?"
 
-#: ../src/includes/admin/class-papi-admin.php:122
+#: ../src/includes/admin/class-papi-admin.php:127
 #: ../src/includes/properties/class-papi-property-flexible.php:725
 #: ../src/includes/properties/class-papi-property-flexible.php:748
 #: ../src/includes/properties/class-papi-property-repeater.php:707
@@ -37,11 +37,11 @@ msgstr "Fuskar du?"
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../src/includes/admin/class-papi-admin.php:123
+#: ../src/includes/admin/class-papi-admin.php:128
 msgid "This fields are required:"
 msgstr "Dessa fält är obligatoriska:"
 
-#: ../src/includes/admin/class-papi-admin.php:339
+#: ../src/includes/admin/class-papi-admin.php:344
 msgid "All types"
 msgstr "Alla typer"
 
@@ -66,13 +66,13 @@ msgid "Properties"
 msgstr "Egenskaper"
 
 #: ../src/includes/admin/views/management-page-type.php:23
-#: ../src/includes/properties/class-papi-property-link.php:147
-#: ../src/includes/properties/class-papi-property-link.php:216
+#: ../src/includes/properties/class-papi-property-link.php:143
+#: ../src/includes/properties/class-papi-property-link.php:212
 msgid "Title"
 msgstr "Rubrik"
 
 #: ../src/includes/admin/views/management-page-type.php:24
-#: ../src/includes/lib/filters.php:130
+#: ../src/includes/lib/filters.php:145
 msgid "Type"
 msgstr "Typ"
 
@@ -129,16 +129,16 @@ msgid "Template file does not exist"
 msgstr "Mallfilen finns inte"
 
 #: ../src/includes/admin/views/partials/add-new-item.php:14
-#: ../src/includes/properties/class-papi-property-relationship.php:92
+#: ../src/includes/properties/class-papi-property-relationship.php:127
 msgid "Select"
 msgstr "Välj"
 
-#: ../src/includes/lib/filters.php:175
+#: ../src/includes/lib/filters.php:190
 #, php-format
 msgid "%s with WordPress standard fields"
 msgstr "%s med Wordpress standardfält"
 
-#: ../src/includes/lib/filters.php:191
+#: ../src/includes/lib/filters.php:206
 #, php-format
 msgid "Standard %s"
 msgstr "Standard %s"
@@ -267,11 +267,11 @@ msgstr "Fre"
 msgid "Sat"
 msgstr "Lör"
 
-#: ../src/includes/properties/class-papi-property-file.php:99
+#: ../src/includes/properties/class-papi-property-file.php:108
 msgid "Add file"
 msgstr "Lägg till fil"
 
-#: ../src/includes/properties/class-papi-property-file.php:100
+#: ../src/includes/properties/class-papi-property-file.php:109
 msgid "No file selected"
 msgstr "Ingen fil vald"
 
@@ -288,37 +288,37 @@ msgstr "Lägg till bild"
 msgid "No image selected"
 msgstr "Ingen bild vald"
 
-#: ../src/includes/properties/class-papi-property-link.php:137
-#: ../src/includes/properties/class-papi-property-link.php:206
+#: ../src/includes/properties/class-papi-property-link.php:133
+#: ../src/includes/properties/class-papi-property-link.php:202
 msgid "URL"
 msgstr "URL"
 
-#: ../src/includes/properties/class-papi-property-link.php:156
-#: ../src/includes/properties/class-papi-property-link.php:225
+#: ../src/includes/properties/class-papi-property-link.php:152
+#: ../src/includes/properties/class-papi-property-link.php:221
 msgid "Target"
 msgstr "Mål"
 
-#: ../src/includes/properties/class-papi-property-link.php:159
+#: ../src/includes/properties/class-papi-property-link.php:155
 msgid "New window"
 msgstr "Nytt fönster"
 
-#: ../src/includes/properties/class-papi-property-link.php:159
+#: ../src/includes/properties/class-papi-property-link.php:155
 msgid "Same window"
 msgstr "Samma fönster"
 
-#: ../src/includes/properties/class-papi-property-link.php:169
+#: ../src/includes/properties/class-papi-property-link.php:165
 msgid "No link selected"
 msgstr "Ingen länk vald"
 
-#: ../src/includes/properties/class-papi-property-link.php:170
+#: ../src/includes/properties/class-papi-property-link.php:166
 msgid "Add link"
 msgstr "Lägg till länk"
 
-#: ../src/includes/properties/class-papi-property-link.php:173
+#: ../src/includes/properties/class-papi-property-link.php:169
 msgid "Edit link"
 msgstr "Ändra länk"
 
-#: ../src/includes/properties/class-papi-property-link.php:174
+#: ../src/includes/properties/class-papi-property-link.php:170
 msgid "Remove link"
 msgstr "Ta bort länk"
 
@@ -326,49 +326,57 @@ msgstr "Ta bort länk"
 msgid "No references exists"
 msgstr "Inga referenser finns"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:94
+#: ../src/includes/properties/class-papi-property-relationship.php:97
+msgid "Post"
+msgstr "Post"
+
+#: ../src/includes/properties/class-papi-property-relationship.php:129
 msgid "Name (alphabetically)"
 msgstr "Enligt namn (alfabetiskt)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:101
+#: ../src/includes/properties/class-papi-property-relationship.php:137
 msgid "Post created date (ascending)"
 msgstr "Enligt publiceringsdatum (stigande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:105
+#: ../src/includes/properties/class-papi-property-relationship.php:141
 msgid "Post created date (descending)"
 msgstr "Enligt publiceringsdatum (fallande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:109
+#: ../src/includes/properties/class-papi-property-relationship.php:145
 msgid "Post id (ascending)"
 msgstr "Enligt sidans id (stigande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:113
+#: ../src/includes/properties/class-papi-property-relationship.php:150
 msgid "Post id (descending)"
 msgstr "Enligt sidans id (fallande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:117
+#: ../src/includes/properties/class-papi-property-relationship.php:155
 msgid "Post order value (ascending)"
 msgstr "Post ordervärde (stigande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:121
+#: ../src/includes/properties/class-papi-property-relationship.php:159
 msgid "Post order value (descending)"
 msgstr "Post ordervärde (fallande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:125
+#: ../src/includes/properties/class-papi-property-relationship.php:163
 msgid "Post modified date (ascending)"
 msgstr "Enligt ändringsdatum (stigande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:130
+#: ../src/includes/properties/class-papi-property-relationship.php:168
 msgid "Post modified date (descending)"
 msgstr "Enligt ändringsdatum (fallande)"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:174
+#: ../src/includes/properties/class-papi-property-relationship.php:258
 msgid "Search"
 msgstr "Sök"
 
-#: ../src/includes/properties/class-papi-property-relationship.php:179
+#: ../src/includes/properties/class-papi-property-relationship.php:263
 msgid "Sort by"
 msgstr "Sortera efter"
+
+#: ../src/includes/properties/class-papi-property-term.php:70
+msgid "No taxonomy defined for term property"
+msgstr "Ingen taxonomi har definierats för term-egenskapen"
 
 #: ../src/includes/properties/class-papi-property-url.php:47
 msgid "Select file"
