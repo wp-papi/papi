@@ -304,6 +304,16 @@ class Properties_Page_Type extends Papi_Page_Type {
 				]
 			] ),
 
+			// Term
+			papi_property( [
+				'type'     => 'term',
+				'title'    => 'Term test',
+				'slug'     => 'term_test',
+				'settings' => [
+					'taxonomy' => 'test_taxonomy',
+				]
+			] ),
+
 			// Text
 			papi_property( [
 				'type'  => 'text',
