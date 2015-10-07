@@ -27,16 +27,16 @@ class Papi_Lib_Cache_Test extends WP_UnitTestCase {
 		unset( $this->post_id );
 	}
 
-    public function test_papi_cache_delete_1() {
-        papi_cache_set( 'test', $this->post_id, 'fredrik' );
-        $this->assertSame( 'fredrik', papi_cache_get( 'test', $this->post_id ) );
+	public function test_papi_cache_delete_1() {
+		papi_cache_set( 'test', $this->post_id, 'fredrik' );
+		$this->assertSame( 'fredrik', papi_cache_get( 'test', $this->post_id ) );
 
-        papi_cache_set( 'test', $this->post_id, 'elli' );
-        $this->assertSame( 'elli', papi_cache_get( 'test', $this->post_id ) );
+		papi_cache_set( 'test', $this->post_id, 'elli' );
+		$this->assertSame( 'elli', papi_cache_get( 'test', $this->post_id ) );
 
-        papi_cache_delete( 'test', $this->post_id );
-        $this->assertEmpty( papi_cache_get( 'test', $this->post_id ) );
-    }
+		papi_cache_delete( 'test', $this->post_id );
+		$this->assertEmpty( papi_cache_get( 'test', $this->post_id ) );
+	}
 
 	public function test_papi_cache_delete_2() {
 		papi_update_property_meta_value( [
@@ -54,10 +54,10 @@ class Papi_Lib_Cache_Test extends WP_UnitTestCase {
 		$this->assertEquals( 'elli', papi_get_field( $this->post_id, 'namn' ) );
 	}
 
-    public function test_papi_cache_get() {
-        papi_cache_set( 'get', $this->post_id, 'elli' );
-        $this->assertSame( 'elli', papi_cache_get( 'get', $this->post_id ) );
-    }
+	public function test_papi_cache_get() {
+		papi_cache_set( 'get', $this->post_id, 'elli' );
+		$this->assertSame( 'elli', papi_cache_get( 'get', $this->post_id ) );
+	}
 
 	public function test_papi_cache_key() {
 		$this->assertEmpty( papi_cache_key( 0, 1 ) );
@@ -75,9 +75,8 @@ class Papi_Lib_Cache_Test extends WP_UnitTestCase {
 		unset( $post );
 	}
 
-    public function test_papi_cache_set() {
-        papi_cache_set( 'set', $this->post_id, 'elli' );
-        $this->assertSame( 'elli', papi_cache_get( 'set', $this->post_id ) );
-    }
-
+	public function test_papi_cache_set() {
+		papi_cache_set( 'set', $this->post_id, 'elli' );
+		$this->assertSame( 'elli', papi_cache_get( 'set', $this->post_id ) );
+	}
 }
