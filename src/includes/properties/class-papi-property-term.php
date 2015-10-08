@@ -59,7 +59,7 @@ class Papi_Property_Term extends Papi_Property {
 			$value = 0;
 		}
 
-		$classes      = 'papi-fullwidth';
+		$classes = 'papi-fullwidth';
 
 		if ( $settings->select2 ) {
 			$classes = ' papi-component-select2';
