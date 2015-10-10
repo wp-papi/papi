@@ -1,17 +1,6 @@
 <?php
 
 /**
- * Papi deprecated functions.
- *
- * Where functions come to die.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Get the current page. Like in EPiServer.
  *
  * @deprecated deprecated since version 2.0.0.

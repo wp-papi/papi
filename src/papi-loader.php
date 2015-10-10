@@ -1,8 +1,5 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 // Load Papi Container.
 require_once __DIR__ . '/includes/container/class-papi-container.php';
 

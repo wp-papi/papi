@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi actions functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Delete the property value from the database.
  *
  * @param string $type

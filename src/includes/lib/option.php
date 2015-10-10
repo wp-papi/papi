@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi option functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Delete value in the database.
  *
  * @param  string $slug

@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi conditional functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Check if the given value is a instance of the rule class.
  *
  * @param  mixed $rule

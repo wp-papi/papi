@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi cache functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Delete value from cache.
  *
  * @param  string $key

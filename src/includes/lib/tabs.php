@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi tabs functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Get tabs options.
  *
  * @param  array|object $options

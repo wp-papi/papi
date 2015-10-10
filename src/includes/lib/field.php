@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi field functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Delete value in the database.
  *
  * @param  int    $post_id

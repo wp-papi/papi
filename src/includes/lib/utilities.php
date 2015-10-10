@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi utilities functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Convert a value to camel case.
  *
  * @param  string $str

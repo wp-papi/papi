@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi page functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Check if the page type should be displayed or not.
  *
  * @param  string|object $page_type

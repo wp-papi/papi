@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi template functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Add page type class name as a css class on body.
  *
  * @param  array $classes

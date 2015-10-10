@@ -10,9 +10,6 @@
  * Textdomain: papi
  */
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 // Load Composer autoload if it exists.
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
