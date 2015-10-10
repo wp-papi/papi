@@ -88,9 +88,9 @@ class Papi_Admin_Ajax {
 
 			status_header( 200 );
 
-			do_action(
-				$this->action_prefix . sanitize_text_field( $ajax_action )
-			);
+			$ajax_action = sanitize_text_field( $ajax_action );
+			do_action( $this->action_prefix . $ajax_action );
+
 			wp_die();
 		}
 	}
