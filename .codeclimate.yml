@@ -3,6 +3,6 @@ languages:
   PHP: true
 
 exclude_paths:
-  - "src/assets/css"
-  - "src/assets/js/components"
+  - "src/assets/css/*"
+  - "src/assets/js/components/*"
   - "tests/*"
