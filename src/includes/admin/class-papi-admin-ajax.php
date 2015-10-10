@@ -68,10 +68,10 @@ class Papi_Admin_Ajax {
 			return;
 		}
 
-		if ( ! empty( $_GET['action'] ) ) {
+		if ( ! papi_is_empty( papi_get_qs( 'action' ) ) ) {
 			$wp_query->set(
 				'papi_ajax_action',
-				sanitize_text_field( $_GET['action'] )
+				papi_get_qs( 'action' )
 			);
 		}
 
