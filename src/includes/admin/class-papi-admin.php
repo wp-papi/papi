@@ -271,32 +271,6 @@ final class Papi_Admin {
 	}
 
 	/**
-	 * Menu callback that loads right view depending on what the
-	 * `page` query string says.
-	 */
-	public function render_view() {
-		if ( strpos( papi_get_qs( 'page' ), 'papi' ) !== false ) {
-			$page = str_replace( 'papi-', '', papi_get_qs( 'page' ) );
-			$res = preg_replace( '/\,.*/', '', $page );
-
-			if ( is_string( $res ) ) {
-				$page_view = $res;
-			}
-		}
-
-		if ( ! isset( $page_view ) ) {
-			$page_view = null;
-		}
-
-		if ( ! is_null( $page_view ) ) {
-			$view = new Papi_Admin_View;
-			$view->render( $page_view );
-		} else {
-			echo '<h1>Papi - 404</h1>';
-		}
-	}
-
-	/**
 	 * Filter page types in post type list.
 	 */
 	public function restrict_page_types() {
