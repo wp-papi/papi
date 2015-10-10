@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering utilities functions.
- *
- * @package Papi
- */
 class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 
 	public function setUp() {

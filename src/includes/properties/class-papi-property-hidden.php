@@ -2,8 +2,6 @@
 
 /**
  * Papi Property Hidden class.
- *
- * @package Papi
  */
 class Papi_Property_Hidden extends Papi_Property_String {
 

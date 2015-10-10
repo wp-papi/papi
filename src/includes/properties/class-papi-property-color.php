@@ -2,8 +2,6 @@
 
 /**
  * Property Color class.
- *
- * @package Papi
  */
 class Papi_Property_Color extends Papi_Property {
 

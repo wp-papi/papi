@@ -2,8 +2,6 @@
 
 /**
  * Papi Porter class.
- *
- * @package Papi
  */
 final class Papi_Porter extends Papi_Container {
 

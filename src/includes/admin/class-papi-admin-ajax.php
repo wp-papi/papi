@@ -2,8 +2,6 @@
 
 /**
  * Papi Admin Ajax class.
- *
- * @package Papi
  */
 class Papi_Admin_Ajax {
 

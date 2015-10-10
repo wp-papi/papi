@@ -2,8 +2,6 @@
 
 /**
  * Papi Core Conditional class.
- *
- * @package Papi
  */
 class Papi_Core_Conditional {
 

@@ -2,8 +2,6 @@
 
 /**
  * Papi Conditional Rules class.
- *
- * @package Papi
  */
 class Papi_Conditional_Rules {
 

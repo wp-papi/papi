@@ -2,8 +2,6 @@
 
 /**
  * Papi Admin Meta Box class.
- *
- * @package Papi
  */
 class Papi_Admin_Meta_Box {
 

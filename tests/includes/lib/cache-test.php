@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering cache functions.
- *
- * @package Papi
- */
 class Papi_Lib_Cache_Test extends WP_UnitTestCase {
 
 	public function setUp() {

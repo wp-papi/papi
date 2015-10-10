@@ -2,8 +2,6 @@
 
 /**
  * Property Link class.
- *
- * @package Papi
  */
 class Papi_Property_Link extends Papi_Property {
 

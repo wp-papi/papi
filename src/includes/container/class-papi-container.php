@@ -2,8 +2,6 @@
 
 /**
  * Papi Container class.
- *
- * @package Papi
  */
 class Papi_Container implements ArrayAccess {
 

@@ -2,8 +2,6 @@
 
 /**
  * Papi Property Html class.
- *
- * @package Papi
  */
 class Papi_Property_Html extends Papi_Property {
 

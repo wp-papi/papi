@@ -2,8 +2,6 @@
 
 /**
  * Papi Property Checkbox class.
- *
- * @package Papi
  */
 class Papi_Property_Checkbox extends Papi_Property {
 

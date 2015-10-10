@@ -2,8 +2,6 @@
 
 /**
  * Papi Attachment Type class.
- *
- * @package Papi
  */
 class Papi_Attachment_Type extends Papi_Page_Type {
 

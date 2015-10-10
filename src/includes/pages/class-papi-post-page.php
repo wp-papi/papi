@@ -2,8 +2,6 @@
 
 /**
  * Papi Post Page class.
- *
- * @package Papi
  */
 class Papi_Post_Page extends Papi_Core_Page {
 

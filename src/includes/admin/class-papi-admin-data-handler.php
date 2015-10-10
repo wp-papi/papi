@@ -2,8 +2,6 @@
 
 /**
  * Papi Data Handler class.
- *
- * @package Papi
  */
 class Papi_Admin_Data_Handler {
 

@@ -4,8 +4,6 @@
  * Papi Page Type class.
  *
  * All page types in the should extend this class.
- *
- * @package Papi
  */
 class Papi_Page_Type extends Papi_Page_Type_Meta {
 

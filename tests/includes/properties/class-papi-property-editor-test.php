@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering property editor.
- *
- * @package Papi
- */
 class Papi_Property_Editor_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'editor_test';

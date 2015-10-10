@@ -2,8 +2,6 @@
 
 /**
  * Papi Property Dropdown class.
- *
- * @package Papi
  */
 class Papi_Property_Dropdown extends Papi_Property {
 

@@ -2,8 +2,6 @@
 
 /**
  * Papi Property Gallery class.
- *
- * @package Papi
  */
 class Papi_Property_Gallery extends Papi_Property_Image {
 

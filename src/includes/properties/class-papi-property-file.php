@@ -2,8 +2,6 @@
 
 /**
  * Papi Property File.
- *
- * @package Papi
  */
 class Papi_Property_File extends Papi_Property {
 

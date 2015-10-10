@@ -2,8 +2,6 @@
 
 /**
  * Papi Admin Management Pages class.
- *
- * @package Papi
  */
 class Papi_Admin_Management_Pages {
 

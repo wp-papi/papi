@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering actions functions.
- *
- * @package Papi
- */
 class Papi_Lib_Actions_Test extends WP_UnitTestCase {
 
 	public function test_papi_action_include() {

@@ -2,8 +2,6 @@
 
 /**
  * Papi Admin Post Handler class.
- *
- * @package Papi
  */
 class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 

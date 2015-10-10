@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering property checkbox.
- *
- * @package Papi
- */
 class Papi_Property_Checkbox_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'checkbox_test';

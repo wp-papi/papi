@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering property term.
- *
- * @package Papi
- */
 class Papi_Property_Term_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'term_test';

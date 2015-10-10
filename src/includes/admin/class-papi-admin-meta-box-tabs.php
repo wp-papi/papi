@@ -2,8 +2,6 @@
 
 /**
  * Papi Admin Meta Box Tabs class.
- *
- * @package Papi
  */
 class Papi_Admin_Meta_Box_Tabs {
 

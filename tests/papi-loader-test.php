@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering `Papi_Loader` class.
- *
- * @package Papi
- */
 class Papi_Loader_Test extends WP_UnitTestCase {
 
 	public function setUp() {

@@ -4,8 +4,6 @@
  * Papi Option Type class.
  *
  * All option types should extend this class.
- *
- * @package Papi
  */
 class Papi_Option_Type extends Papi_Page_Type {
 

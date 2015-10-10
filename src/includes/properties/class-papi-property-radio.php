@@ -2,8 +2,6 @@
 
 /**
  * Papi Property Radio class.
- *
- * @package Papi
  */
 class Papi_Property_Radio extends Papi_Property {
 

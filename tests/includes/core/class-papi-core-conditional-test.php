@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering `Papi_Core_Conditional` class.
- *
- * @package Papi
- */
 class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 
 	public function setUp() {

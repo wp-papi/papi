@@ -2,8 +2,6 @@
 
 /**
  * Papi Admin class.
- *
- * @package Papi
  */
 final class Papi_Admin {
 

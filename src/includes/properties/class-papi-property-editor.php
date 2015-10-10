@@ -2,8 +2,6 @@
 
 /**
  * Papi Property Editor class.
- *
- * @package Papi
  */
 class Papi_Property_Editor extends Papi_Property {
 

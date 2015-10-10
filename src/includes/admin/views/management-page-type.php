@@ -8,7 +8,7 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 	 * @param array $properties
 	 * @param bool $tab
 	 *
-	 * @package Papi
+	
 	 */
 	function papi_management_page_type_render_box( $properties, $tab = false ) {
 		?>

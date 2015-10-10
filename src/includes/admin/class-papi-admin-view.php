@@ -2,8 +2,6 @@
 
 /**
  * Papi Admin View class.
- *
- * @package Papi
  */
 class Papi_Admin_View {
 

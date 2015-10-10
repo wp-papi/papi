@@ -2,8 +2,6 @@
 
 /**
  * Papi Property Email class.
- *
- * @package Papi
  */
 class Papi_Property_Email extends Papi_Property_String {
 

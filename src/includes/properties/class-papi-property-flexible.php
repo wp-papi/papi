@@ -2,8 +2,6 @@
 
 /**
  * Property Flexible class
- *
- * @package Papi
  */
 class Papi_Property_Flexible extends Papi_Property_Repeater {
 

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering property color.
- *
- * @package Papi
- */
 class Papi_Property_Color_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'color_test';

@@ -2,8 +2,6 @@
 
 /**
  * Papi Core Property class.
- *
- * @package Papi
  */
 class Papi_Core_Property {
 

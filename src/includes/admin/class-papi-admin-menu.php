@@ -2,8 +2,6 @@
 
 /**
  * Papi Admin Menu class.
- *
- * @package Papi
  */
 class Papi_Admin_Menu {
 

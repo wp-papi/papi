@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering property relationship.
- *
- * @package Papi
- */
 class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 
 	public $slugs = ['relationship_test', 'relationship_test_2'];

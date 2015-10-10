@@ -2,8 +2,6 @@
 
 /**
  * Papi Property Url class.
- *
- * @package Papi
  */
 class Papi_Property_Url extends Papi_Property {
 

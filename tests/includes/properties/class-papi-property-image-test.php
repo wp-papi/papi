@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering property image.
- *
- * @package Papi
- */
 class Papi_Property_Image_Test extends Papi_Property_Test_Case {
 
 	protected $same = false;

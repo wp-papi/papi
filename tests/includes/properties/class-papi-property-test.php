@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering `Papi_Property` class.
- *
- * @package Papi
- */
 class Papi_Property_Test extends WP_UnitTestCase {
 
 	public function setUp() {

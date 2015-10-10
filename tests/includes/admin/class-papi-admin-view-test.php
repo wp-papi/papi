@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering `Papi_Admin_View` class.
- *
- * @package Papi
- */
 class Papi_Admin_View_Test extends WP_UnitTestCase {
 
 	public function setUp() {

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering tabs functions.
- *
- * @package Papi
- */
 class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
 
 	/**

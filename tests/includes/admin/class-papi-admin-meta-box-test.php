@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering `Papi_Admin_Meta_Box` class.
- *
- * @package Papi
- */
 class Papi_Admin_Meta_Box_Test extends WP_UnitTestCase {
 
 	public function test_add_property() {

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering `Papi_Option_Page` class.
- *
- * @package Papi
- */
 class Papi_Option_Page_Test extends WP_UnitTestCase {
 
 	public function setUp() {

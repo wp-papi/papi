@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering property file.
- *
- * @package Papi
- */
 class Papi_Property_File_Test extends Papi_Property_Test_Case {
 
 	protected $same = false;

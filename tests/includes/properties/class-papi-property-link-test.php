@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering property link.
- *
- * @package Papi
- */
 class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 
 	public function assert_values( $expected, $actual ) {

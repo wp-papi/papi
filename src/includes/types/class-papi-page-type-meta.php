@@ -2,8 +2,6 @@
 
 /**
  * Papi Page Type Meta class.
- *
- * @package Papi
  */
 class Papi_Page_Type_Meta extends Papi_Core_Type {
 

@@ -2,8 +2,6 @@
 
 /**
  * Papi Property Bool class.
- *
- * @package Papi
  */
 class Papi_Property_Bool extends Papi_Property {
 

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering property html.
- *
- * @package Papi
- */
 class Papi_Property_Html_Test extends Papi_Property_Test_Case {
 
 	public $slugs = ['html_test', 'html_test_2'];
