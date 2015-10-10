@@ -1,8 +1,0 @@
-languages:
-  JavaScript: true
-  PHP: true
-
-exclude_paths:
-  - "src/assets/css/*"
-  - "src/assets/js/components/*"
-  - "tests/*"
