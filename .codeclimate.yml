@@ -1,6 +1,6 @@
-engines:
-  eslint:
-    enabled: true
+languages:
+  JavaScript: true
+  PHP: true
 
 exclude_paths:
   - "src/assets/css"
