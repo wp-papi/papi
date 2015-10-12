@@ -17,6 +17,8 @@ import autoprefixer from 'gulp-autoprefixer';
 import eslint from 'gulp-eslint';
 import phpcs from 'gulp-phpcs';
 import phpcpd from 'gulp-phpcpd';
+import wpPot from 'gulp-wp-pot';
+import sort from 'gulp-sort';
 import plumber from 'gulp-plumber';
 import pkg from './package.json';
 import runSequence from 'run-sequence';
@@ -130,6 +132,17 @@ gulp.task('phpcpd', () => {
     .pipe(phpcpd({
       bin: 'vendor/bin/phpcpd'
     }));
+});
+
+gulp.task('pot', () => {
+  gulp.src(config.php.src)
+    .pipe(sort())
+    .pipe(wpPot( {
+        domain: 'papi',
+        destFile:'papi.pot',
+        package: 'papi'
+    } ))
+    .pipe(gulp.dest('languages'));
 });
 
 /**
