@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Property Color class.
- *
- * @package Papi
  */
 class Papi_Property_Color extends Papi_Property {
 

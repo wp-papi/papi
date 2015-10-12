@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Option Page class.
- *
- * @package Papi
  */
 class Papi_Option_Page extends Papi_Core_Page {
 

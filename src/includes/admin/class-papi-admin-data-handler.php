@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Data Handler class.
- *
- * @package Papi
  */
 class Papi_Admin_Data_Handler {
 

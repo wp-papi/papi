@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi property functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Delete property value from database.
  * If it's on a option page it will fetch the value from the
  * option table instead of the postmeta table.

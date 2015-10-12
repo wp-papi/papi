@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi post functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Get post or page id from a object.
  *
  * @param  mixed $post_id

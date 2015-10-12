@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering property link.
- *
- * @package Papi
- */
 class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 
 	public function assert_values( $expected, $actual ) {
@@ -76,6 +71,9 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'http://example.org', $output->url );
 
 		$output = $this->property->format_value( [ 'test' => ''], 'test', $post_id );
+		$this->assertNotEmpty( (array) $output );
+
+		$output = $this->property->format_value( [ 'test' => '1'], 'test', $post_id );
 		$this->assertEmpty( (array) $output );
 	}
 
@@ -127,6 +125,9 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( 'http://example.org', $output->url );
 
 		$output = $this->property->load_value( [ 'test' => ''], 'test', $post_id );
+		$this->assertNotEmpty( (array) $output );
+
+		$output = $this->property->load_value( [ 'test' => '1'], 'test', $post_id );
 		$this->assertEmpty( (array) $output );
 	}
 

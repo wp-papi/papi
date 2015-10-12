@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Property Post class.
- *
- * @package Papi
  */
 class Papi_Property_Post extends Papi_Property {
 

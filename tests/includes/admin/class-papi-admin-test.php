@@ -1,13 +1,5 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Unit tests covering `Papi_Admin` class.
- *
- * @package Papi
- */
 class Papi_Admin_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -199,16 +191,6 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 				'compare' => 'NOT EXISTS'
 			]
 		], $query->query_vars['meta_query'] );
-	}
-
-	public function test_render_view() {
-		$_GET['page'] = '';
-		$this->admin->render_view();
-		$this->expectOutputRegex( '/\<h1\>Papi\s\-\s404\<\/h1\>/' );
-
-		$_GET['page'] = 'papi-add-new-page,page';
-		$this->admin->render_view();
-		$this->expectOutputRegex( '/Add New Page/' );
 	}
 
 	public function test_restrict_page_types() {

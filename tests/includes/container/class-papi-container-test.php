@@ -1,13 +1,5 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Unit tests covering `Papi_Container` class.
- *
- * @package Papi
- */
 class Container_Test extends WP_UnitTestCase {
 
 	public function setUp() {

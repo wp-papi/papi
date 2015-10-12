@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi I/O functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Get all files in directory.
  *
  * @param  string $directory

@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Container class.
- *
- * @package Papi
  */
 class Papi_Container implements ArrayAccess {
 

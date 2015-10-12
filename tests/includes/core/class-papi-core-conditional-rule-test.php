@@ -1,13 +1,5 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Unit tests covering `Papi_Core_Conditional_Rule` class.
- *
- * @package Papi
- */
 class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 
 	public function setUp() {

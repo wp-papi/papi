@@ -1,13 +1,5 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Unit tests covering url functions.
- *
- * @package Papi
- */
 class Papi_Lib_Url_Test extends WP_UnitTestCase {
 
 	public function setUp() {

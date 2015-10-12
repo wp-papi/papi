@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Core Type class.
- *
- * @package Papi
  */
 class Papi_Core_Type {
 

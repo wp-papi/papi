@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering property dropdown.
- *
- * @package Papi
- */
 class Papi_Property_Dropdown_Test extends Papi_Property_Test_Case {
 
 	public $slugs = ['dropdown_test', 'dropdown_test_2'];

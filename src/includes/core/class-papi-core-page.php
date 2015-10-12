@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Core Page class.
- *
- * @package Papi
  */
 abstract class Papi_Core_Page extends Papi_Container {
 

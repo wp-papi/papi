@@ -1,13 +1,5 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Unit tests covering io functions.
- *
- * @package Papi
- */
 class Papi_Lib_IO_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_all_files_in_directory() {

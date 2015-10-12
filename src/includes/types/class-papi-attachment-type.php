@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Attachment Type class.
- *
- * @package Papi
  */
 class Papi_Attachment_Type extends Papi_Page_Type {
 

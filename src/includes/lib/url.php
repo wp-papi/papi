@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi url functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Get the url to 'post-new.php' with query string of the page type to load.
  *
  * @param  string $page_type

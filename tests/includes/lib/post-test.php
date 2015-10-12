@@ -1,13 +1,5 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Unit tests covering post functions.
- *
- * @package Papi
- */
 class Papi_Lib_Post_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_post_id() {

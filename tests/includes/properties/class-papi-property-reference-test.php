@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering property reference.
- *
- * @package Papi
- */
 class Papi_Property_Reference_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'reference_test';

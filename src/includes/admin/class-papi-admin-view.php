@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Admin View class.
- *
- * @package Papi
  */
 class Papi_Admin_View {
 

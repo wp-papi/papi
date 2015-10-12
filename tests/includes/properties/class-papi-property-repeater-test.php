@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Unit tests covering property repeater.
- *
- * @package Papi
- */
 class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'repeater_test';

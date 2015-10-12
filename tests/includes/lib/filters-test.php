@@ -1,13 +1,5 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Unit tests covering filters functions.
- *
- * @package Papi
- */
 class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 
 	public function setUp() {

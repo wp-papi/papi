@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi option functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Delete value in the database.
  *
  * @param  string $slug
@@ -36,7 +27,7 @@ function papi_is_option_page() {
 	$query = $parsed_url['query'];
 
 	return is_admin()
-		&&! preg_match( '/page\-type\=/', $query )
+		&& ! preg_match( '/page\-type\=/', $query )
 		&& preg_match( '/page\=/', $query );
 }
 

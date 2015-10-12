@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Admin Ajax class.
- *
- * @package Papi
  */
 class Papi_Admin_Ajax {
 
@@ -73,10 +68,10 @@ class Papi_Admin_Ajax {
 			return;
 		}
 
-		if ( ! empty( $_GET['action'] ) ) {
+		if ( ! papi_is_empty( papi_get_qs( 'action' ) ) ) {
 			$wp_query->set(
 				'papi_ajax_action',
-				sanitize_text_field( $_GET['action'] )
+				papi_get_qs( 'action' )
 			);
 		}
 
@@ -92,10 +87,7 @@ class Papi_Admin_Ajax {
 			}
 
 			status_header( 200 );
-
-			do_action(
-				$this->action_prefix . sanitize_text_field( $ajax_action )
-			);
+			do_action( $this->action_prefix . $ajax_action );
 			wp_die();
 		}
 	}
@@ -131,13 +123,13 @@ class Papi_Admin_Ajax {
 	 * POST /papi-ajax/?action=get_properties
 	 */
 	public function get_properties() {
-		if ( ! isset( $_POST['properties'] ) ) {
+		if ( ! papi_get_sanitized_post( 'properties' ) ) {
 			$this->render_error( 'No properties found' );
 			return;
 		}
 
 		$items = json_decode(
-			stripslashes( $_POST['properties'] ),
+			stripslashes( papi_get_sanitized_post( 'properties' ) ),
 			true
 		);
 
@@ -178,12 +170,15 @@ class Papi_Admin_Ajax {
 	 * GET /papi-ajax/?action=get_rules_result
 	 */
 	public function get_rules_result() {
-		if ( ! isset( $_POST['data'] ) ) {
+		if ( ! papi_get_sanitized_post( 'data' ) ) {
 			$this->render_error( 'No rule found' );
 			return;
 		}
 
-		$data = json_decode( stripslashes( $_POST['data'] ), true );
+		$data = json_decode(
+			stripslashes( papi_get_sanitized_post( 'data' ) ),
+			true
+		);
 
 		if ( empty( $data ) || ! is_array( $data ) || ! isset( $data['slug'] ) ) {
 			$this->render_error( 'No rule found' );

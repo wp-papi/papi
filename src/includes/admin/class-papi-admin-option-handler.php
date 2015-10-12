@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Admin Option Handler class.
- *
- * @package Papi
  */
 class Papi_Admin_Option_Handler extends Papi_Admin_Data_Handler {
 

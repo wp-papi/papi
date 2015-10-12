@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi utilities functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Convert a value to camel case.
  *
  * @param  string $str
@@ -298,7 +289,7 @@ function papi_get_or_post( $key ) {
  * Get query string if it exists and is not empty.
  *
  * @param  array|string $qs
- * @param  bool $keep_keys
+ * @param  bool         $keep_keys
  *
  * @return array|string
  */

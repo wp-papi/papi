@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Property Flexible class
- *
- * @package Papi
  */
 class Papi_Property_Flexible extends Papi_Property_Repeater {
 

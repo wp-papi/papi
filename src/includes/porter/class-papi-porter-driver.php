@@ -2,8 +2,6 @@
 
 /**
  * Papi Porter Driver class.
- *
- * @package Papi
  */
 abstract class Papi_Porter_Driver {
 

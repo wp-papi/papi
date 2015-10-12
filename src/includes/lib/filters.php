@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi filters functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Get conditional rule value.
  *
  * @param  array|Papi_Core_Conditional_Rule $rule

@@ -1,15 +1,6 @@
 <?php
 
 /**
- * Papi cache functions.
- *
- * @package Papi
- */
-
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
  * Delete value from cache.
  *
  * @param  string $key
@@ -64,5 +55,5 @@ function papi_cache_key( $key, $suffix ) {
  * @return bool
  */
 function papi_cache_set( $key, $suffix, $value ) {
-    return wp_cache_set( papi_cache_key( $key, $suffix ), $value );
+	return wp_cache_set( papi_cache_key( $key, $suffix ), $value );
 }

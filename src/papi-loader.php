@@ -1,15 +1,10 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 // Load Papi Container.
 require_once __DIR__ . '/includes/container/class-papi-container.php';
 
 /**
  * Papi loader class.
- *
- * @package Papi
  */
 final class Papi_Loader extends Papi_Container {
 
@@ -57,11 +52,7 @@ final class Papi_Loader extends Papi_Container {
 	 * @codeCoverageIgnore
 	 */
 	public function __clone() {
-		_doing_it_wrong(
-			__FUNCTION__,
-			__( 'Cheatin&#8217; huh?', 'papi' ),
-			'2.4.0-dev'
-		);
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.4.0-dev' );
 	}
 
 	/**
@@ -70,11 +61,7 @@ final class Papi_Loader extends Papi_Container {
 	 * @codeCoverageIgnore
 	 */
 	public function __wakeup() {
-		_doing_it_wrong(
-			__FUNCTION__,
-			__( 'Cheatin&#8217; huh?', 'papi' ),
-			'2.4.0-dev'
-		);
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.4.0-dev' );
 	}
 
 	/**
@@ -125,14 +112,10 @@ final class Papi_Loader extends Papi_Container {
 	 * Require files.
 	 */
 	private function require_files() {
-		// Load languages.
 		$domain = 'papi';
-		load_textdomain( sprintf(
-			'%s/../languages/%s-%s.mo',
-			__DIR__,
-			$domain,
-			get_locale()
-		), $domain );
+
+		// Load locales existing in the languages directory.
+		load_textdomain( sprintf( '%s/../languages/%s-%s.mo', __DIR__, $domain, get_locale() ), $domain );
 
 		// Require the autoload class.
 		require_once __DIR__ . '/includes/core/class-papi-core-autoload.php';
@@ -199,10 +182,7 @@ final class Papi_Loader extends Papi_Container {
 			deactivate_plugins( $plugin_path );
 		}
 
-		wp_die( __(
-			'WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself.',
-			'papi'
-		) );
+		wp_die( __( 'WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
 	}
 
 	/**
@@ -223,7 +203,7 @@ final class Papi_Loader extends Papi_Container {
 /**
  * Return the instance of Papi to everyone.
  *
- * @package Papi
+
  *
  * @return Papi_Loader
  */

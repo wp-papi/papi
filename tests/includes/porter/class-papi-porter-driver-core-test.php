@@ -1,13 +1,5 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Unit tests covering `Papi_Porter_Driver_Core` class.
- *
- * @package Papi
- */
 class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 
 	public function setUp() {

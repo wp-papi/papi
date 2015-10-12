@@ -2,8 +2,6 @@
 
 /**
  * Papi core autoload class.
- *
- * @package Papi
  */
 class Papi_Core_Autoload {
 

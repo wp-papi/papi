@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Property Gallery class.
- *
- * @package Papi
  */
 class Papi_Property_Gallery extends Papi_Property_Image {
 

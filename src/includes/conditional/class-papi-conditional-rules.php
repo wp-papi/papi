@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Conditional Rules class.
- *
- * @package Papi
  */
 class Papi_Conditional_Rules {
 

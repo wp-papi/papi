@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Property User class.
- *
- * @package Papi
  */
 class Papi_Property_User extends Papi_Property_Dropdown {
 

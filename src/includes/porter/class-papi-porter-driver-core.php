@@ -2,8 +2,6 @@
 
 /**
  * Papi Porter Driver Core.
- *
- * @package Papi
  */
 class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
 

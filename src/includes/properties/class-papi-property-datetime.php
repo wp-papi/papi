@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Property Datetime class.
- *
- * @package Papi
  */
 class Papi_Property_Datetime extends Papi_Property {
 

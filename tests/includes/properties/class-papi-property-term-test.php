@@ -1,19 +1,33 @@
 <?php
 
-class Papi_Property_Post_Test extends Papi_Property_Test_Case {
+class Papi_Property_Term_Test extends Papi_Property_Test_Case {
 
-	public $slug = 'post_test';
+	public $slug = 'term_test';
+
+	public function setUp() {
+		parent::setUp();
+
+		register_taxonomy( 'test_taxonomy', 'post' );
+
+		$this->term_id = $this->factory->term->create( ['taxonomy' => 'test_taxonomy'] );
+	}
+
+	public function tearDown() {
+		parent::tearDown();
+
+		unset( $this->term_id );
+	}
 
 	public function assert_values( $expected, $actual ) {
-		$this->assertSame( $expected->ID, $actual->ID );
+		$this->assertSame( $expected->term_id, $actual->term_id );
 	}
 
 	public function get_value() {
-		return $this->post_id;
+		return $this->term_id;
 	}
 
 	public function get_expected() {
-		return get_post( $this->post_id );
+		return get_term( $this->term_id, 'test_taxonomy' );
 	}
 
 	public function test_property_convert_type() {
@@ -21,8 +35,8 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_format_value() {
-		$this->assertEquals( get_post( $this->post_id ), $this->property->format_value( $this->post_id, '', 0 ) );
-		$this->assertEquals( get_post( $this->post_id ), $this->property->format_value( strval( $this->post_id ), '', 0 ) );
+		$this->assertEquals( get_term( $this->term_id, 'test_taxonomy' ), $this->property->format_value( $this->term_id, '', 0 ) );
+		$this->assertEquals( get_term( $this->term_id, 'test_taxonomy' ), $this->property->format_value( strval( $this->term_id ), '', 0 ) );
 		$this->assertNull( $this->property->format_value( 'hello', '', 0 ) );
 		$this->assertNull( $this->property->format_value( null, '', 0 ) );
 		$this->assertNull( $this->property->format_value( true, '', 0 ) );
@@ -32,9 +46,9 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_import_value() {
-		$this->assertEquals( $this->post_id, $this->property->import_value( $this->post_id, '', 0 ) );
-		$this->assertEquals( $this->post_id, $this->property->import_value( strval( $this->post_id ), '', 0 ) );
-		$this->assertEquals( $this->post_id, $this->property->import_value( get_post( $this->post_id ), '', 0 ) );
+		$this->assertEquals( $this->term_id, $this->property->import_value( $this->term_id, '', 0 ) );
+		$this->assertEquals( $this->term_id, $this->property->import_value( strval( $this->term_id ), '', 0 ) );
+		$this->assertEquals( $this->term_id, $this->property->import_value( get_term( $this->term_id, 'test_taxonomy' ), '', 0 ) );
 		$this->assertNull( $this->property->import_value( 'hello', '', 0 ) );
 		$this->assertNull( $this->property->import_value( null, '', 0 ) );
 		$this->assertNull( $this->property->import_value( true, '', 0 ) );
@@ -44,14 +58,13 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'post', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Post test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_post_test', $this->property->get_option( 'slug' ) );
+		$this->assertEquals( 'term', $this->property->get_option( 'type' ) );
+		$this->assertEquals( 'Term test', $this->property->get_option( 'title' ) );
+		$this->assertEquals( 'papi_term_test', $this->property->get_option( 'slug' ) );
 	}
 
 	public function test_property_settings() {
 		$settings = $this->property->get_settings();
-		$this->assertEmpty( $settings->placeholder );
 		$this->assertTrue( $settings->select2 );
 	}
 }

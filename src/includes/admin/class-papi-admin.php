@@ -1,12 +1,7 @@
 <?php
 
-// Exit if accessed directly
-defined( 'ABSPATH' ) || exit;
-
 /**
  * Papi Admin class.
- *
- * @package Papi
  */
 final class Papi_Admin {
 
@@ -47,11 +42,7 @@ final class Papi_Admin {
 	 * @codeCoverageIgnore
 	 */
 	public function __clone() {
-		_doing_it_wrong(
-			__FUNCTION__,
-			__( 'Cheatin&#8217; huh?', 'papi' ),
-			'2.4.0-dev'
-		);
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.4.0-dev' );
 	}
 
 	/**
@@ -60,11 +51,7 @@ final class Papi_Admin {
 	 * @codeCoverageIgnore
 	 */
 	public function __wakeup() {
-		_doing_it_wrong(
-			__FUNCTION__,
-			__( 'Cheatin&#8217; huh?', 'papi' ),
-			'2.4.0-dev'
-		);
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.4.0-dev' );
 	}
 
 	/**
@@ -280,32 +267,6 @@ final class Papi_Admin {
 					papi_get_post_type()
 				) );
 			}
-		}
-	}
-
-	/**
-	 * Menu callback that loads right view depending on what the
-	 * `page` query string says.
-	 */
-	public function render_view() {
-		if ( strpos( papi_get_qs( 'page' ), 'papi' ) !== false ) {
-			$page = str_replace( 'papi-', '', papi_get_qs( 'page' ) );
-			$res = preg_replace( '/\,.*/', '', $page );
-
-			if ( is_string( $res ) ) {
-				$page_view = $res;
-			}
-		}
-
-		if ( ! isset( $page_view ) ) {
-			$page_view = null;
-		}
-
-		if ( ! is_null( $page_view ) ) {
-			$view = new Papi_Admin_View;
-			$view->render( $page_view );
-		} else {
-			echo '<h1>Papi - 404</h1>';
 		}
 	}
 
