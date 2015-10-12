@@ -104,7 +104,7 @@ class Papi_Property_Link extends Papi_Property {
 
 		$values = (object) $values;
 
-		if ( isset( $values->$slug ) ) {
+		if ( isset( $values->$slug ) && is_numeric( $values->$slug ) ) {
 			unset( $values->$slug );
 		}
 
