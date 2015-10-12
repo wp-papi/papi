@@ -361,3 +361,7 @@ msgstr ""
 #: src/includes/types/class-papi-page-type-meta.php:168
 msgid "View"
 msgstr ""
+
+#: src/papi-loader.php:202
+msgid "WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself."
+msgstr ""
