@@ -38,6 +38,18 @@ A text code coverage summary can be displayed using the `--coverage-text` option
 $ vendor/bin/phpunit --coverage-text
 ```
 
+## Writing Tests
+
+* Each test file should roughly correspond to an associated source file, e.g `src/includes/admin/class-papi-admin-ajax.php` should have a test file named `tests/cases/includes/admin/class-papi-admin-ajax-test.php`.
+* Each test method should cover a single method or function with one or more assertions
+* A single method or function can have multiple associated test methods if it's a large or complex method
+* For code that cannot be tested or should not be tested use `// @codeCoverageIgnoreStart` and `// @codeCoverageIgnoreEnd` before and after the code.
+* In addition to covering each line of a method/function, make sure to test common input and edge cases. When resolving a issue you should create a test for it.
+* Prefer `assertsSame()` where possible as it tests both type & equality. When testing objects you should use `assertEquals()` since object's can be different but with same data.
+* Remember that only methods prefixed with `test` will be run.
+* Remember that files that test code should end with `-test.php` prefix.
+* Filters persist between test cases so be sure to remove them in your test method or in the `tearDown()` method.
+
 ## Automated Tests
 
 Tests are automatically run with [Travis-CI](https://travis-ci.org) for each commit and pull request. You can check the current test status [here](https://travis-ci.org/wp-papi/papi).
