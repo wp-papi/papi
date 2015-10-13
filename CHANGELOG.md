@@ -22,6 +22,7 @@
 * Fixed issue with link property when slug was same as a property name. See issue [#99](https://github.com/wp-papi/papi/issues/99).
 * Fixed issue with add new link when you have a post type on second menu level. See issue [#94](https://github.com/wp-papi/papi/issues/94).
 * Fixed issue with relationship property in flexible or repeater. See issue [#93](https://github.com/wp-papi/papi/issues/93).
+* Fixed embed issue when a embed link didn't embed as it should in custom editor.
 
 ## [2.3.5](https://github.com/wp-papi/papi/releases/edit/v2.3.5) - 2015-10-07
 
