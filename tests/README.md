@@ -26,6 +26,12 @@ You can run specific tests by providing the path and filename to the test class:
 $ vendor/bin/phpunit tests/includes/admin
 ```
 
+You can run specific test method by using `--filter`:
+
+```
+$ vendor/bin/phpunit --filter test_save_meta_boxes
+```
+
 A text code coverage summary can be displayed using the `--coverage-text` option:
 
 ```
