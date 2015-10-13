@@ -16,7 +16,7 @@ This guide will describe how to use [VVV](https://github.com/varying-vagrant-vag
 
 ## VVV tips
 
-If using VVV you can run `xdebug_on` to turn XDebug on so you can generate code coverage.
+If using VVV you can run `xdebug_on` to turn Xdebug on so you can generate code coverage.
 
 ## PHPUnit tips
 
