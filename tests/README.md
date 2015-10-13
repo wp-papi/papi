@@ -36,7 +36,9 @@ $ vendor/bin/phpunit --coverage-text
 
 Tests are automatically run with [Travis-CI](https://travis-ci.org) for each commit and pull request.
 
-This is the current build status for `master` branch: [![Build Status](https://travis-ci.org/wp-papi/papi.svg?branch=master)](https://travis-ci.org/wp-papi/papi)
+This is the current build status for `master` branch:
+
+[![Build Status](https://travis-ci.org/wp-papi/papi.svg?branch=master)](https://travis-ci.org/wp-papi/papi)
 
 ## Code Coverage
 
