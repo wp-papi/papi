@@ -49,3 +49,7 @@ This is the current build status for `master` branch:
 ## Code Coverage
 
 Code coverage is available on [Codecov](https://codecov.io/) which receives updated data after each Travis build. You can check the current code coverage [here](https://codecov.io/github/wp-papi/papi/).
+
+This is the current code coverage for `master` branch:
+
+[![Coverage Status](https://img.shields.io/codecov/c/github/wp-papi/papi.svg?style=flat)](https://codecov.io/github/wp-papi/papi)
