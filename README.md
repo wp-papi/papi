@@ -35,11 +35,7 @@ Or manually add it to your `composer.json`:
 
 ## Testing
 
-1. `$ vagrant up`
-2. Log in to the virtual machine with `$ vagrant ssh`
-3. Run `$ composer install`
-4. Run `$ phpunit`
-5. Done!
+Go to testing [readme](tests/readme).
 
 ## Coding style
 
