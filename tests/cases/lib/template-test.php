@@ -40,7 +40,7 @@ class Papi_Lib_Template_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_include_template( false ) );
 		$this->assertEmpty( papi_include_template( 'path/to/fake/file.php' ) );
 
-		papi_include_template( 'includes/admin/views/add-new-page.php' );
+		papi_include_template( 'admin/views/add-new-page.php' );
 		$this->expectOutputRegex( '/Add New Page/' );
 	}
 

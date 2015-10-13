@@ -24,7 +24,7 @@ class Papi_Core_Autoload {
 	public function autoload( $class ) {
 		$class = strtolower( $class );
 		$file  = 'class-' . str_replace( '_', '-', strtolower( $class ) ) . '.php';
-		$path  = PAPI_PLUGIN_DIR . 'includes/';
+		$path  = PAPI_PLUGIN_DIR;
 
 		if ( strpos( $class, 'papi_admin' ) === 0 ) {
 			$path .= 'admin/';

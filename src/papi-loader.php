@@ -1,7 +1,7 @@
 <?php
 
 // Load Papi Container.
-require_once __DIR__ . '/includes/container/class-papi-container.php';
+require_once __DIR__ . '/container/class-papi-container.php';
 
 /**
  * Papi loader class.
@@ -118,9 +118,9 @@ final class Papi_Loader extends Papi_Container {
 		load_textdomain( sprintf( '%s/../languages/%s-%s.mo', __DIR__, $domain, get_locale() ), $domain );
 
 		// Require the autoload class.
-		require_once __DIR__ . '/includes/core/class-papi-core-autoload.php';
+		require_once __DIR__ . '/core/class-papi-core-autoload.php';
 
-		$lib_path     = __DIR__ . '/includes/lib/';
+		$lib_path     = __DIR__ . '/lib/';
 		$lib_includes = [
 			'utilities.php',
 			'actions.php',
@@ -149,12 +149,12 @@ final class Papi_Loader extends Papi_Container {
 
 		unset( $file );
 
-		// Require admin classes.
-		require_once __DIR__ . '/includes/admin/class-papi-admin.php';
-		require_once __DIR__ . '/includes/admin/class-papi-admin-menu.php';
+		// Require admin classes that should not be loaded by the autoload.
+		require_once __DIR__ . '/admin/class-papi-admin.php';
+		require_once __DIR__ . '/admin/class-papi-admin-menu.php';
 
-		// Require conditional rules.
-		require_once __DIR__ . '/includes/conditional/class-papi-conditional-rules.php';
+		// Require conditional rules that should not be loaded by the autoload.
+		require_once __DIR__ . '/conditional/class-papi-conditional-rules.php';
 
 		// Setup container.
 		$this->setup_container();

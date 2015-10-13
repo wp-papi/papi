@@ -52,7 +52,7 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 				continue;
 			}
 
-			papi_include_template( 'includes/admin/views/partials/add-new-item.php', [
+			papi_include_template( 'admin/views/partials/add-new-item.php', [
 				'title'       => $page_type->name,
 				'description' => $page_type->description,
 				'thumbnail'   => $page_type->get_thumbnail(),
