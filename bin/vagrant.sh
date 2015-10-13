@@ -4,7 +4,7 @@ DB_USER=root
 DB_PASS=root
 
 mysql --user="$DB_USER" --password="$DB_PASS" -e"DROP DATABASE IF EXISTS wordpress_test"
-/tmp/wordpress/wp-content/plugins/papi/bin/install-wp-tests.sh wordpress_test $DB_USER $DB_PASS localhost latest
+/tmp/wordpress/wp-content/plugins/papi/vendor/frozzare/wp-test-suite/bin/install-wp-tests.sh wordpress_test $DB_USER $DB_PASS localhost latest
 
 cd /tmp/wordpress/wp-content/plugins/papi/
 mkdir /tmp/wordpress/wp-content/uploads
