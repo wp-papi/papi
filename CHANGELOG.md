@@ -2,6 +2,8 @@
 
 ## [2.4.0](https://github.com/wp-papi/papi/releases/tag/v2.4.0) - 2015-10-13
 
+### Added
+
 * Added items setting to relationship so you can add your own data source!
 * Added image urls to image sizes array.
 * Added `Papi_Attachment_Type`
@@ -11,7 +13,11 @@
 * Added `max`, `min` and `step` in number property. See issue [#91](https://github.com/wp-papi/papi/issues/91).
 * Added `after_class` and `before_class` to property option. So you can add your own css class to after and before div.
 
+### Changed
+
 * Changed so standard type is hidden by default instead of showed. This will effect all standard type filters.
+
+### Fixed
 
 * Fixed issue with link property when slug was same as a property name. See issue [#99](https://github.com/wp-papi/papi/issues/99).
 * Fixed issue with add new link when you have a post type on second menu level. See issue [#94](https://github.com/wp-papi/papi/issues/94).
@@ -42,6 +48,8 @@
 
 ## [2.3.0](https://github.com/wp-papi/papi/releases/tag/v2.3.0) - 2015-09-08
 
+### Added
+
 * Added `before_html` and `after_html` options that you can use to output html before property html and after property html.
 * Added `child_types` (old `page_types`).
 * Added `standard_type` for show/hide standard page type when having a page type in a parent post.
@@ -54,9 +62,13 @@
 * Added `papi_page_type_exists` function so you can check if a page type file exists.
 * Added `papi_option_type_exists` function so you can check if a option type file exists.
 
+### Changed
+
 * Changed `Add new page type` to `Add New Page` (`Page` is the post type name).
 * Changed filter title from `Show all page types` to `All types`
 * Changed column title from `Page Type` to `Type`
+
+### Fixed
 
 * Fixed so `wp-admin` is not hardcoded on the management page.
 * Fixed so `2%F` is replaced with `/` when setting the current menu item.
