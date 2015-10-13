@@ -29,6 +29,8 @@ class Editor {
       e.preventDefault();
       self.update($(this));
     });
+
+    $(this.loaded);
   }
 
   /**
@@ -42,7 +44,7 @@ class Editor {
       let mceInit;
 
       if (!tinyMCEPreInit.mceInit[id]) {
-        var obj = tinyMCEPreInit.mceInit.content === undefined ?
+        const obj = tinyMCEPreInit.mceInit.content === undefined ?
           tinyMCEPreInit.mceInit.papiHiddenEditor : tinyMCEPreInit.mceInit.content;
         mceInit = tinyMCEPreInit.mceInit[id] = $.extend({}, obj);
       } else {
@@ -117,6 +119,15 @@ class Editor {
    */
   static init() {
     new Editor().binds();
+  }
+
+  /**
+   * Change post id if zero when dom is loaded.
+   */
+  loaded() {
+    if (window.wp.media.view.settings.post.id === 0) {
+      window.wp.media.view.settings.post.id = parseInt($('#post_ID').val(), 10);
+    }
   }
 
   /**
