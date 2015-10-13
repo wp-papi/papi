@@ -35,7 +35,7 @@ Or manually add it to your `composer.json`:
 
 ## Testing
 
-Go to testing [readme](tests/readme).
+Go to testing [readme](tests/README.md).
 
 ## Coding style
 
