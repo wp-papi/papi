@@ -150,6 +150,16 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 1000, $default_options['sort_order'] );
 	}
 
+	public function test_display() {
+		$page_type = papi_get_page_type_by_id( 'properties-page-type' );
+		$property  = $page_type->get_property( 'string_test' );
+		$this->assertTrue( $property->display() );
+
+		$page_type2 = papi_get_page_type_by_id( 'faq-page-type' );
+		$property2  = $page_type2->get_property( 'type' );
+		$this->assertFalse( $property2->display() );
+	}
+
 	public function test_factory_fake() {
 		require_once PAPI_FIXTURE_DIR . '/properties/class-papi-property-fake.php';
 

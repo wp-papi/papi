@@ -32,7 +32,7 @@ class FAQ_Page_Type extends Papi_Page_Type {
 	 * Define our properties.
 	 */
 	public function register() {
-		$this->box('Content', [
+		$this->box( 'Content', [
 			papi_property( [
 				'type'  => 'string',
 				'title' => 'Question'
@@ -40,6 +40,11 @@ class FAQ_Page_Type extends Papi_Page_Type {
 			papi_property( [
 				'type'  => 'text',
 				'title' => 'Answer'
+			] ),
+			papi_property( [
+				'type'    => 'text',
+				'title'   => 'Type',
+				'display' => false
 			] )
 		] );
 	}

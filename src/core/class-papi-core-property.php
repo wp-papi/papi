@@ -42,6 +42,7 @@ class Papi_Core_Property {
 		'default'      => '',
 		'description'  => '',
 		'disabled'     => false,
+		'display'      => true,
 		'lang'         => false,
 		'overwrite'    => false,
 		'raw'          => false,
@@ -231,6 +232,15 @@ class Papi_Core_Property {
 		}
 
 		return delete_post_meta( $post_id, $slug );
+	}
+
+	/**
+	 * Determine if the property should be displayed.
+	 *
+	 * @return bool
+	 */
+	public function display() {
+		return $this->display ? $this->options->display : false;
 	}
 
 	/**

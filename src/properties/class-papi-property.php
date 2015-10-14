@@ -111,7 +111,7 @@ class Papi_Property extends Papi_Core_Property {
 				papi_is_empty( papi_get_qs( 'lang' ) );
 		}
 
-		if ( $this->display ) {
+		if ( $this->display() ) {
 			$this->display = $this->render_is_allowed_by_rules();
 		}
 
@@ -199,7 +199,7 @@ class Papi_Property extends Papi_Core_Property {
 	 * Render the final html that is displayed in the table.
 	 */
 	protected function render_row_html() {
-		$display_class = $this->display ? '' : ' papi-hide';
+		$display_class = $this->display() ? '' : ' papi-hide';
 		$rules_class   = papi_is_empty( $this->get_rules() ) ? '' : ' papi-rules-exists';
 		$css_class     = trim( $display_class . $rules_class );
 
