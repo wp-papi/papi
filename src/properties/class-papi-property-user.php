@@ -90,7 +90,7 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	 * @param  string $slug
 	 * @param  int    $post_id
 	 *
-	 * @return mixed
+	 * @return int|null
 	 */
 	public function import_value( $value, $slug, $post_id ) {
 		if ( $value instanceof WP_User ) {
@@ -111,7 +111,7 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	 * @param  string $slug
 	 * @param  int    $post_id
 	 *
-	 * @return mixed
+	 * @return int
 	 */
 	public function load_value( $value, $slug, $post_id ) {
 		return (int) $value;
@@ -124,7 +124,7 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	 * @param string $slug
 	 * @param int    $post_id
 	 *
-	 * @return mixed
+	 * @return int
 	 */
 	public function update_value( $value, $slug, $post_id ) {
 		if ( $value instanceof WP_User ) {

@@ -379,7 +379,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @param  string $slug
 	 * @param  int    $post_id
 	 *
-	 * @return array
+	 * @return string
 	 */
 	public function update_value( $values, $slug, $post_id ) {
 		$values = $this->format_value( $values, $slug, $post_id );

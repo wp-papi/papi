@@ -317,7 +317,7 @@ class Papi_Core_Property {
 	/**
 	 * Get child properties from `items` in the settings array.
 	 *
-	 * @return array
+	 * @return mixed
 	 */
 	public function get_child_properties() {
 		return $this->get_setting( 'items', [] );

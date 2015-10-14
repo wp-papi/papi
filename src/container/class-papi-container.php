@@ -128,7 +128,7 @@ class Papi_Container implements ArrayAccess {
 	 * @param mixed $value
 	 * @param bool $singleton
 	 *
-	 * @return mixed
+	 * @return Closure
 	 */
 	protected function get_closure( $value, $singleton = false ) {
 		return function () use ( $value, $singleton ) {
@@ -189,7 +189,7 @@ class Papi_Container implements ArrayAccess {
 	 *
 	 * @throws Exception if identifier is not defined.
 	 *
-	 * @return mixed
+	 * @return Closure
 	 */
 	public function make( $id, array $parameters = [] ) {
 		if ( ! $this->exists( $id ) ) {
