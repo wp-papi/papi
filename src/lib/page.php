@@ -171,7 +171,7 @@ function papi_get_number_of_pages( $page_type ) {
  * @param  int    $post_id
  * @param  string $type
  *
- * @return mixed
+ * @return Papi_Core_Page|null
  */
 function papi_get_page( $post_id = 0, $type = 'post' ) {
 	return Papi_Core_Page::factory( $post_id, $type );

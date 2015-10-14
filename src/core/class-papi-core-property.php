@@ -376,7 +376,7 @@ class Papi_Core_Property {
 	/**
 	 * Get the page that the property is on.
 	 *
-	 * @return Papi_Core_Page
+	 * @return Papi_Core_Page|null
 	 */
 	public function get_page() {
 		if ( $this->page instanceof Papi_Core_Page ) {
