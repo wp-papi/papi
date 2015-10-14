@@ -78,6 +78,7 @@ class Papi_Property_Link extends Papi_Property {
 	 */
 	public function load_value( $value, $slug, $post_id ) {
 		$values = [
+			'post_id',
 			'url',
 			'title',
 			'target'
@@ -108,7 +109,7 @@ class Papi_Property_Link extends Papi_Property {
 			unset( $values->$slug );
 		}
 
-		return $values;
+		return $this->prepare_link_array( $values );
 	}
 
 	/**
@@ -186,6 +187,36 @@ class Papi_Property_Link extends Papi_Property {
 	}
 
 	/**
+	 * Prepare link array with post id. If it gets a post id
+	 * bigger then zero it will use the permalink as url.
+	 *
+	 * @param array|object $values
+	 *
+	 * @return array|object
+	 */
+	protected function prepare_link_array( $values ) {
+		$array  = is_array( $values );
+		$values = (object) $values;
+
+		// Don't continue without a url.
+		if ( ! isset( $values->url ) || empty( $values->url ) ) {
+			return $array ? (array) $values : $values;
+		}
+
+		// Don't overwrite existing post id.
+		if ( ! isset( $values->post_id ) || empty( $values->post_id ) ) {
+			$values->post_id = url_to_postid( $values->url );
+		}
+
+		// Only replace url when post id is not zero.
+		if ( $values->post_id > 0 ) {
+			$values->url = get_permalink( $values->post_id );
+		}
+
+		return $array ? (array) $values : $values;
+	}
+
+	/**
 	 * Render link template.
 	 */
 	public function render_link_template() {
@@ -237,6 +268,8 @@ class Papi_Property_Link extends Papi_Property {
 	 * @return array
 	 */
 	public function update_value( $values, $slug, $post_id ) {
+		$values = $this->prepare_link_array( $values );
+
 		foreach ( $values as $key => $val ) {
 			$values[$slug . '_' . $key] = $val;
 			unset( $values[$key] );
