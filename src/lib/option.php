@@ -28,7 +28,7 @@ function papi_is_option_page() {
 
 	return is_admin()
 		&& ! preg_match( '/page\-type\=/', $query )
-		&& preg_match( '/page\=/', $query );
+		&& preg_match( '/page\=papi/', $query );
 }
 
 /**
