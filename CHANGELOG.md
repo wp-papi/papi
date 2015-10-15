@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [2.4.1](https://github.com/wp-papi/papi/releases/tag/v2.1.0) - 2015-10-15
+
+* Fixed issue with `papi_is_option_page` where it didn't check `page` query string right.
+
 ## [2.4.0](https://github.com/wp-papi/papi/releases/tag/v2.4.0) - 2015-10-15
 
 ### Added

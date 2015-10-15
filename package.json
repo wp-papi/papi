@@ -1,6 +1,6 @@
 {
   "name": "papi",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "repository": "wp-papi/papi",
   "description": "Page Type API with custom fields",
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
