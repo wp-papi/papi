@@ -13,6 +13,7 @@
 * Added `max`, `min` and `step` in number property. See issue [#91](https://github.com/wp-papi/papi/issues/91).
 * Added `after_class` and `before_class` to property option. So you can add your own css class to after and before div.
 * Added `display` option to properties. Flexible and repeater will hide the property and not the row.
+* Added `post_id` to link property output object if it's a internal link.
 
 ### Changed
 
