@@ -23,7 +23,7 @@ If using VVV you can run `xdebug_on` to turn Xdebug on so you can generate code 
 You can run specific tests by providing the path and filename to the test class:
 
 ```
-$ vendor/bin/phpunit tests/includes/admin
+$ vendor/bin/phpunit tests/cases/admin
 ```
 
 You can run specific test method by using `--filter`:
@@ -40,7 +40,7 @@ $ vendor/bin/phpunit --coverage-text
 
 ## Writing Tests
 
-* Each test file should roughly correspond to an associated source file, e.g `src/includes/admin/class-papi-admin-ajax.php` should have a test file named `tests/cases/includes/admin/class-papi-admin-ajax-test.php`
+* Each test file should roughly correspond to an associated source file, e.g `src/admin/class-papi-admin-ajax.php` should have a test file named `tests/cases/admin/class-papi-admin-ajax-test.php`
 * Each test method should cover a single method or function with one or more assertions
 * A single method or function can have multiple associated test methods if it's a large or complex method
 * For code that cannot be tested or should not be tested use `// @codeCoverageIgnoreStart` and `// @codeCoverageIgnoreEnd` before and after the code.

@@ -4,7 +4,7 @@ filter:
     - gui/*
     - languages/*
     - tests/*
-    - src/includes/admin/views/*
+    - src/admin/views/*
 
 checks:
   php:
