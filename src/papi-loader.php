@@ -119,7 +119,7 @@ final class Papi_Loader extends Papi_Container {
 	private function load_plugin_textdomain() {
 		$locale = apply_filters( 'plugin_locale', get_locale(), 'papi' );
 		load_textdomain( 'papi', WP_LANG_DIR . '/papi/papi-' . $locale . '.mo' );
-		load_plugin_textdomain( 'papi', false, plugin_basename( dirname( __FILE__ ) ) . '/../languages' );
+		load_textdomain( 'papi', PAPI_PLUGIN_DIR . '../languages/papi-' . $locale . '.mo' );
 	}
 
 	/**
