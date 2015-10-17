@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
 "POT-Creation-Date: 2015-10-13 22:23+0100\n"
-"PO-Revision-Date: 2015-10-13 22:23+0100\n"
+"PO-Revision-Date: 2015-10-17 12:26+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -334,7 +334,7 @@ msgstr "Inga referenser finns"
 
 #: ../src/properties/class-papi-property-relationship.php:93
 msgid "Post"
-msgstr "Post"
+msgstr "Inlägg"
 
 #: ../src/properties/class-papi-property-relationship.php:125
 msgid "Name (alphabetically)"
