@@ -8,6 +8,7 @@
  * Version: 2.5.0-dev
  * Plugin URI: https://wp-papi.github.io
  * Textdomain: papi
+ * Domain Path: /languages/
  */
 
 // Load Composer autoload if it exists.

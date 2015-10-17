@@ -30,9 +30,6 @@ final class Papi_Loader extends Papi_Container {
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self;
-			self::$instance->constants();
-			self::$instance->setup_actions();
-			self::$instance->require_files();
 		}
 
 		return self::$instance;
@@ -40,10 +37,11 @@ final class Papi_Loader extends Papi_Container {
 
 	/**
 	 * The constructor.
-	 *
-	 * @codeCoverageIgnore
 	 */
 	private function __construct() {
+		$this->constants();
+		$this->setup_actions();
+		$this->require_files();
 	}
 
 	/**
@@ -52,7 +50,7 @@ final class Papi_Loader extends Papi_Container {
 	 * @codeCoverageIgnore
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.4.1' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.5.0-dev' );
 	}
 
 	/**
@@ -61,7 +59,7 @@ final class Papi_Loader extends Papi_Container {
 	 * @codeCoverageIgnore
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.4.1' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.5.0-dev' );
 	}
 
 	/**
@@ -100,12 +98,16 @@ final class Papi_Loader extends Papi_Container {
 	}
 
 	/**
-	 * Get the porter.
+	 * Load Localisation files.
 	 *
-	 * @return Papi_Core_Porter
+	 * Locales found in:
+	 * - WP_LANG_DIR/papi/papi-LOCALE.mo
+	 * - WP_CONTENT_DIR/[mu-]plugins/papi/languages/papi-LOCALE.mo
 	 */
-	public function porter() {
-		return $this->make( 'porter' );
+	private function load_plugin_textdomain() {
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'papi' );
+		load_textdomain( 'papi', WP_LANG_DIR . '/papi/papi-' . $locale . '.mo' );
+		load_plugin_textdomain( 'papi', false, plugin_basename( dirname( __FILE__ ) ) . '/../languages' );
 	}
 
 	/**
@@ -114,8 +116,8 @@ final class Papi_Loader extends Papi_Container {
 	private function require_files() {
 		$domain = 'papi';
 
-		// Load locales existing in the languages directory.
-		load_textdomain( sprintf( '%s/../languages/%s-%s.mo', __DIR__, $domain, get_locale() ), $domain );
+		// Set up localisation.
+		$this->load_plugin_textdomain();
 
 		// Require the autoload class.
 		require_once __DIR__ . '/core/class-papi-core-autoload.php';
