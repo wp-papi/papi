@@ -36,6 +36,18 @@ final class Papi_Loader extends Papi_Container {
 	}
 
 	/**
+	 * Call function in the container.
+	 *
+	 * @param  string $name
+	 * @param  array  $arguments
+	 *
+	 * @return mixed
+	 */
+	public function __call( $name, $arguments ) {
+		return $this->make( $name, $arguments );
+	}
+
+	/**
 	 * The constructor.
 	 */
 	private function __construct() {
