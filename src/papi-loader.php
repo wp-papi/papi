@@ -54,6 +54,8 @@ final class Papi_Loader extends Papi_Container {
 		$this->constants();
 		$this->setup_actions();
 		$this->require_files();
+		$this->setup_container();
+		papi_action_include();
 	}
 
 	/**
@@ -169,12 +171,6 @@ final class Papi_Loader extends Papi_Container {
 
 		// Require conditional rules that should not be loaded by the autoload.
 		require_once __DIR__ . '/conditional/class-papi-conditional-rules.php';
-
-		// Setup container.
-		$this->setup_container();
-
-		// Include plugins or properties.
-		papi_action_include();
 	}
 
 	/**
