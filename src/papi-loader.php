@@ -128,8 +128,6 @@ final class Papi_Loader extends Papi_Container {
 	 * Require files.
 	 */
 	private function require_files() {
-		$domain = 'papi';
-
 		// Set up localisation.
 		$this->load_plugin_textdomain();
 
