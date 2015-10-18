@@ -99,6 +99,7 @@ class Papi_Core_Property {
 	public function __construct() {
 		$this->setup_actions();
 		$this->setup_conditional();
+		$this->setup_default_options();
 		$this->setup_filters();
 	}
 
@@ -243,7 +244,7 @@ class Papi_Core_Property {
 	public function disabled() {
 		// If the post type don't match the current one
 		// the property should not be rendered.
-		if ( ! empty( $this->post_type ) && $this->post_type !== papi_get_post_type() ) {
+		if ( ! empty( $this->post_type ) || $this->post_type !== papi_get_post_type() ) {
 			return true;
 		}
 
@@ -724,6 +725,24 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Setup default options values.
+	 * All default values can't be set in the `$default_options` array.
+	 */
+	private function setup_default_options() {
+		if ( $this->default_options['sort_order'] === -1 ) {
+			$this->default_options['sort_order'] = papi_filter_settings_sort_order();
+		}
+
+		if ( empty( $this->default_options['post_type'] ) ) {
+			$this->default_options['post_type'] = papi_get_post_type();
+		}
+
+		if ( papi_is_empty( $this->default_options['default'] ) ) {
+			$this->default_options['default'] = $this->default_value;
+		}
+	}
+
+	/**
 	 * Setup filters.
 	 */
 	protected function setup_filters() {
@@ -737,33 +756,35 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	private function setup_options( $options ) {
-		if ( ! is_array( $options ) ) {
+		// When a object is sent in, just return it.
+		if ( is_object( $options ) ) {
 			return $options;
 		}
 
-		if ( empty( $options ) ) {
+		// Empty options should return a new object.
+		if ( papi_is_empty( $options ) ) {
 			return new stdClass;
 		}
 
+		// Only arrays can be handled.
+		if ( ! is_array( $options ) ) {
+			$options = [];
+		}
+
+		// Merge default options with the given options array.
 		$options = array_merge( $this->default_options, $options );
 		$options = (object) $options;
 
-		if ( $options->sort_order === -1 ) {
-			$options->sort_order = papi_filter_settings_sort_order();
-		}
-
-		if ( empty( $options->post_type ) ) {
-			$options->post_type = papi_get_post_type();
-		}
-
-		if ( papi_is_empty( $options->default ) ) {
-			$options->default = $this->default_value;
-		}
-
+		// Capabilities should be a array.
 		$options->capabilities = papi_to_array( $options->capabilities );
-		$options->slug         = $this->setup_options_slug( $options );
-		$options->settings     = $this->setup_options_settings( $options );
 
+		// Setup property slug.
+		$options->slug = $this->setup_options_slug( $options );
+
+		// Setup property settings.
+		$options->settings = $this->setup_options_settings( $options );
+
+		// Escape all options except those that are send it as second argument.
 		return papi_esc_html( $options, ['before_html', 'html', 'after_html'] );
 	}
 
