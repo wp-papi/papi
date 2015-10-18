@@ -107,8 +107,7 @@ class Papi_Property extends Papi_Core_Property {
 		if ( $this->get_option( 'lang' ) === strtolower( papi_get_qs( 'lang' ) ) ) {
 			$render = true;
 		} else {
-			$render = $this->get_option( 'lang' ) === false &&
-				papi_is_empty( papi_get_qs( 'lang' ) );
+			$render = $this->get_option( 'lang' ) === false && papi_is_empty( papi_get_qs( 'lang' ) );
 		}
 
 		if ( $this->display() ) {
