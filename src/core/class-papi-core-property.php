@@ -244,7 +244,7 @@ class Papi_Core_Property {
 	public function disabled() {
 		// If the post type don't match the current one
 		// the property should not be rendered.
-		if ( ! empty( $this->post_type ) || $this->post_type !== papi_get_post_type() ) {
+		if ( ! empty( $this->post_type ) && $this->post_type !== papi_get_post_type() ) {
 			return true;
 		}
 
