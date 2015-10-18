@@ -34,17 +34,20 @@ class FAQ_Page_Type extends Papi_Page_Type {
 	public function register() {
 		$this->box( 'Content', [
 			papi_property( [
-				'type'  => 'string',
-				'title' => 'Question'
+				'post_type' => 'faq',
+				'type'      => 'string',
+				'title'     => 'Question'
 			] ),
 			papi_property( [
-				'type'  => 'text',
-				'title' => 'Answer'
+				'post_type' => 'faq',
+				'type'      => 'text',
+				'title'     => 'Answer'
 			] ),
 			papi_property( [
-				'type'    => 'text',
-				'title'   => 'Type',
-				'display' => false
+				'type'     => 'text',
+				'title'    => 'Type',
+				'disabled' => true,
+				'display'  => false
 			] )
 		] );
 	}

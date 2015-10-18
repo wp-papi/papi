@@ -150,6 +150,16 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( 1000, $default_options['sort_order'] );
 	}
 
+	public function test_disabled() {
+		$page_type = papi_get_page_type_by_id( 'properties-page-type' );
+		$property  = $page_type->get_property( 'string_test' );
+		$this->assertFalse( $property->disabled() );
+
+		$page_type2 = papi_get_page_type_by_id( 'faq-page-type' );
+		$property2  = $page_type2->get_property( 'type' );
+		$this->assertTrue( $property2->disabled() );
+	}
+
 	public function test_display() {
 		$page_type = papi_get_page_type_by_id( 'properties-page-type' );
 		$property  = $page_type->get_property( 'string_test' );
@@ -516,6 +526,19 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertFalse( $property->match_slug( [] ) );
 		$this->assertFalse( $property->match_slug( (object) [] ) );
 		$this->assertFalse( $property->match_slug( '' ) );
+	}
+
+	public function test_post_type_option() {
+		$_GET['post_type'] = 'faq';
+		$page_type2 = papi_get_page_type_by_id( 'faq-page-type' );
+		$property2  = $page_type2->get_property( 'question' );
+		$this->assertFalse( $property2->disabled() );
+
+		$_GET['post_type'] = 'page';
+		$page_type2 = papi_get_page_type_by_id( 'faq-page-type' );
+		$property2  = $page_type2->get_property( 'question' );
+		$this->assertTrue( $property2->disabled() );
+		unset( $_GET['post_type'] );
 	}
 
 	public function test_render_with_description() {

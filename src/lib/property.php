@@ -72,12 +72,14 @@ function papi_get_box_property( array $properties ) {
 	} );
 
 	if ( ! empty( $box_property ) && ! isset( $box_property[0] ) && ! isset( $box_property[0]['tab'] ) ) {
-		$property = papi_get_property_options( $properties );
-		if ( ! $property->disabled ) {
+		$property = papi_property( $properties );
+
+		if ( ! $property->disabled() ) {
 			$property->_box_property = true;
 			$properties = [$property];
 		}
 	}
+
 	return $properties;
 }
 
@@ -205,6 +207,7 @@ function papi_get_property_options( $options ) {
 	}
 
 	$property = Papi_Property::create( $options );
+
 	return $property->get_options();
 }
 

@@ -45,6 +45,7 @@ class Papi_Core_Property {
 		'display'      => true,
 		'lang'         => false,
 		'overwrite'    => false,
+		'post_type'    => '',
 		'raw'          => false,
 		'required'     => false,
 		'rules'        => [],
@@ -232,6 +233,21 @@ class Papi_Core_Property {
 		}
 
 		return delete_post_meta( $post_id, $slug );
+	}
+
+	/**
+	 * Determine if the property is disabled or not.
+	 *
+	 * @return bool
+	 */
+	public function disabled() {
+		// If the post type don't match the current one
+		// the property should not be displayed.
+		if ( $this->post_type !== papi_get_post_type() ) {
+			return true;
+		}
+
+		return $this->disabled;
 	}
 
 	/**
@@ -734,6 +750,10 @@ class Papi_Core_Property {
 
 		if ( $options->sort_order === -1 ) {
 			$options->sort_order = papi_filter_settings_sort_order();
+		}
+
+		if ( empty( $options->post_type ) ) {
+			$options->post_type = papi_get_post_type();
 		}
 
 		if ( papi_is_empty( $options->default ) ) {

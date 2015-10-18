@@ -99,7 +99,8 @@ class Papi_Property extends Papi_Core_Property {
 			return;
 		}
 
-		if ( $this->get_option( 'disabled' ) ) {
+		// A disabled property should be rendered.
+		if ( $this->disabled() ) {
 			return;
 		}
 
