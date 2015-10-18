@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group ajax
+ */
 class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 
 	public function setUp() {
