@@ -521,7 +521,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	public function render_ajax_request() {
 		$items = $this->get_settings_properties();
 
-		if ( defined( 'DOING_PAPI_AJAX' ) && DOING_PAPI_AJAX ) {
+		if ( papi_doing_ajax() ) {
 			$counter = papi_get_qs( 'counter' );
 			$this->counter = intval( $counter );
 		}
