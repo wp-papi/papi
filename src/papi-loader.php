@@ -210,8 +210,6 @@ final class Papi_Loader extends Papi_Container {
 /**
  * Return the instance of Papi to everyone.
  *
-
- *
  * @return Papi_Loader
  */
 function papi() {
