@@ -1,5 +1,12 @@
 # Papi Changelog
 
+## [2.5.0-dev] - 2015-XX-XX
+
+### Fixed
+
+* Fixed so `disabled` works in properties that are used in flexible and repeater. Disabled properties won't be rendered in flexible and repeater.
+* Fixed so `display` works in properties that are used in flexible and repeater. Table rows will be hidden when properties has `display => false`. You can show them but removing `.papi-hide` css class when you like to display them.
+
 ## [2.4.1](https://github.com/wp-papi/papi/releases/tag/v2.1.0) - 2015-10-15
 
 * Fixed issue with `papi_is_option_page` where it didn't check `page` query string right.
