@@ -76,6 +76,10 @@ class Papi_Property_Post extends Papi_Property {
 		foreach ( $posts as $post ) {
 			$obj = get_post_type_object( $post->post_type );
 
+			if ( empty( $obj ) ) {
+				continue;
+			}
+
 			if ( ! isset( $results[$obj->labels->menu_name] ) ) {
 				$results[$obj->labels->menu_name] = [];
 			}
