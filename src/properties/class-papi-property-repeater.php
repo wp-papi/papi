@@ -572,6 +572,11 @@ class Papi_Property_Repeater extends Papi_Property {
 		$has_value = $value !== false;
 
 		foreach ( $row as $property ) {
+			// Don't show the property if it's disabled.
+			if ( $property->disabled() ) {
+				continue;
+			}
+
 			$render_property = clone $property->get_options();
 			$value_slug      = $property->get_slug( true );
 
@@ -653,7 +658,13 @@ class Papi_Property_Repeater extends Papi_Property {
 			<?php if ( ! $this->layout( 'row' ) ): ?>
 			<tr>
 				<th></th>
-				<?php foreach ( $properties as $property ): ?>
+				<?php
+				foreach ( $properties as $property ):
+					// Don't show the property if it's disabled.
+					if ( $property->disabled() ) {
+						continue;
+					}
+				?>
 					<th class="repeater-column"><?php echo $property->title; ?></th>
 				<?php endforeach; ?>
 				<th class="last"></th>

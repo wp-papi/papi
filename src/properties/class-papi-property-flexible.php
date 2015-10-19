@@ -490,8 +490,13 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 
 			foreach ( $value['items'] as $index => $property ) {
-				$options->settings->items[$key]['items'][$index] =
-					clone $property->get_options();
+				// Don't show the property if it's disabled.
+				if ( $property->disabled() ) {
+					unset( $options->settings->items[$key]['items'][$index] );
+					continue;
+				}
+
+				$options->settings->items[$key]['items'][$index] = clone $property->get_options();
 			}
 		}
 		?>
@@ -537,6 +542,11 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						if ( $render_layout === 'table' ):
 							echo '<thead>';
 							for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
+								// Don't show the property if it's disabled.
+								if ( $row[$i]->disabled() ) {
+									continue;
+								}
+
 								echo '<th>';
 								echo sprintf(
 									'<label for="%s">%s</label>',
@@ -555,6 +565,11 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						endif;
 
 						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
+							// Don't show the property if it's disabled.
+							if ( $row[$i]->disabled() ) {
+								continue;
+							}
+
 							$render_property = clone $row[$i]->get_options();
 							$value_slug      = $row[$i]->get_slug( true );
 
