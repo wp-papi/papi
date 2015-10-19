@@ -123,7 +123,6 @@ class Rules {
    * @param {object} options
    * @param {function} callback
    */
-
   fetch(options, callback) {
     const params = {
       'action':   'get_rules_result',
@@ -150,7 +149,6 @@ class Rules {
    *
    * @return {string}
    */
-
   getPageTypeId() {
     let pageType = Utils.getParameterByName('page_type');
 
@@ -169,7 +167,6 @@ class Rules {
    *
    * @return string
    */
-
   getRuleSlug(slug, rule) {
     const arrReg  = /\[\d+\](\[\w+\])$/;
     const papiReg = /^papi\_/;
@@ -196,7 +193,6 @@ class Rules {
    *
    * @return {string}
    */
-
   getSelector(ruleSlug) {
     return '[name="' + ruleSlug + '[]"], [name="' + ruleSlug + '"], [data-papi-rule="' + ruleSlug + '"]';
   }
@@ -208,7 +204,6 @@ class Rules {
    *
    * @return {object}
    */
-
   getTarget(slug) {
     let $target = $('[name="' + slug + '"]');
 
@@ -229,7 +224,6 @@ class Rules {
    *
    * @param {string} slug
    */
-
   getValue(slug) {
     const selector  = this.getSelector(slug);
     let   $prop     = $('[name="' + slug + '[]"]');
