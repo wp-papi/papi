@@ -595,7 +595,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			$render_property->raw  = $layout === 'table';
 
 			if ( $layout === 'table' ) {
-				echo '<td class="repeater-column">';
+				echo '<td class="repeater-column ' . ( $property->display() ? '' : 'papi-hide' ) . '">';
 					echo '<div class="repeater-content-open">';
 						echo sprintf(
 							'<label for="%s" class="papi-visually-hidden">%s</label>',
@@ -664,7 +664,9 @@ class Papi_Property_Repeater extends Papi_Property {
 						continue;
 					}
 				?>
-					<th class="repeater-column"><?php echo $property->title; ?></th>
+					<th class="repeater-column <?php echo $property->display() ? '' : 'papi-hide'; ?>">
+						<?php echo $property->title; ?>
+					</th>
 				<?php endforeach; ?>
 				<th class="last"></th>
 			</tr>

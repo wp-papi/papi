@@ -547,7 +547,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 									continue;
 								}
 
-								echo '<th>';
+								echo '<th class="' . ( $row[$i]->display() ? '' : 'papi-hide' ) . '">';
 								echo sprintf(
 									'<label for="%s">%s</label>',
 									$this->html_id( $row[$i], $this->counter ),
@@ -592,7 +592,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 							$render_property->raw   = $render_layout === 'table';
 
 							if ( $render_layout === 'table' ) {
-								echo '<td>';
+								echo '<td class="' . ( $row[$i]->display() ? '' : 'papi-hide' ) . '">';
 							}
 
 							$layout_value = isset( $layout_slug ) ?
