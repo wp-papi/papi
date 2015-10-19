@@ -457,7 +457,6 @@ class Papi_Property_Repeater extends Papi_Property {
 		);
 
 		return array_filter( $items, function ( $item ) use ( $exclude_properties ) {
-
 			if ( ! is_object( $item ) ) {
 				return false;
 			}
