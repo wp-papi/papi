@@ -122,6 +122,11 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_update_value() {
+		$input    = null;
+		$output   = $this->property->update_value( $input, 'test', $this->post_id );
+		$expected = ['test' => 0];
+		$this->assertSame( $expected, $output );
+
 		$input    = [];
 		$output   = $this->property->update_value( $input, 'test', $this->post_id );
 		$expected = ['test' => 0];
