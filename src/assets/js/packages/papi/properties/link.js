@@ -58,7 +58,7 @@ class Link {
    */
   add($this) {
     this.$el = $this.closest('.papi-property-link');
-    this.$p  = this.$el.find('p');
+    this.$p = this.$el.find('p');
 
     // Create a new window.wpLink.update that only
     // close the wpLink window. Save the old to later.
@@ -77,7 +77,7 @@ class Link {
    */
   edit($this) {
     this.$el = $this.closest('.papi-property-link');
-    this.$p  = this.$el.find('p');
+    this.$p = this.$el.find('p');
 
     window.wpLink.open();
 
@@ -120,9 +120,9 @@ class Link {
     let template = this.template;
     template = window._.template($.trim(template()));
 
-    data.link  = '<a href="' + data.href + '" target="_blank">' + data.href + '</a>';
+    data.link = '<a href="' + data.href + '" target="_blank">' + data.href + '</a>';
     data.title = $('#wp-link-text').val();
-    data.slug  = this.$el.data('slug');
+    data.slug = this.$el.data('slug');
 
     this.$el.find('.link-table').remove();
     this.$p.before(template(data));

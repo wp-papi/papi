@@ -130,11 +130,11 @@ class Repeater {
       'post_type': $('#post_type').val()
     };
     $.ajax({
-      type:     'POST',
-      data:     {
+      type: 'POST',
+      data: {
         properties: JSON.stringify(properties)
       },
-      url:      papi.ajaxUrl + '?' + $.param(params),
+      url: papi.ajaxUrl + '?' + $.param(params),
       dataType: 'json'
     }).success(callback);
   }

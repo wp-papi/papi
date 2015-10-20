@@ -125,7 +125,7 @@ class Relationship {
   update(e) {
     e.preventDefault();
 
-    let   $this = $(this);
+    let $this   = $(this);
     const $prop = $this.prev();
 
     $prop.find('.relationship-left [name]').each(function () {

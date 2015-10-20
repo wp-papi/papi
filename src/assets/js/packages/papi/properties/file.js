@@ -57,7 +57,7 @@ class File {
     const multiple = $prop.hasClass('multiple');
     const slug     = $this.data().slug;
     const self     = this;
-    let   library  = {};
+    let library    = {};
 
     if (fileType === 'image') {
       library.type = 'image';
@@ -68,10 +68,10 @@ class File {
       multiple: multiple
     }).on('insert', (attachment) => {
       let data = {
-        alt:  attachment.alt,
-        id:   attachment.id,
+        alt: attachment.alt,
+        id: attachment.id,
         slug: slug,
-        url:  attachment.url
+        url: attachment.url
       };
 
       if (attachment.sizes !== undefined && attachment.sizes.thumbnail !== undefined) {
@@ -158,7 +158,7 @@ class File {
     const $img    = $this.find('img[src]');
     const $input  = $this.find('input[type=hidden]');
     const postId  = $input.val();
-    let   library = {};
+    let library   = {};
 
     if ($prop.data('file-type') === 'image') {
       library.type = 'image';
@@ -168,7 +168,7 @@ class File {
       library: library,
       multiple: false
     }).on('open', () => {
-      let   selection = Utils.wpMediaFrame.state().get('selection');
+      let selection    = Utils.wpMediaFrame.state().get('selection');
       const attachment = window.wp.media.attachment(postId);
 
       attachment.fetch();

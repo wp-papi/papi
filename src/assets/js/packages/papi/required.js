@@ -38,7 +38,7 @@ class Required {
     const $button  = $(this);
     const $fields  = $('.papi-rq');
     const $spinner = $('#publishing-action .spinner');
-    let   $errors  = [];
+    let $errors    = [];
 
     for (let i = 0, l = $fields.length; i < l; i++) {
       let $this = $($fields[i]);

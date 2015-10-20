@@ -39,7 +39,7 @@ class Rules {
           continue;
         }
 
-        values[key]      = rule;
+        values[key] = rule;
         values[key].slug = ruleSlug;
 
         if (values[key].source == null) {
@@ -48,9 +48,9 @@ class Rules {
       }
 
       let attr = {
-        rules:    values,
-        slug:     slug,
-        $target:  $target
+        rules: values,
+        slug: slug,
+        $target: $target
       };
 
       if (e.type === 'change') {
@@ -125,22 +125,22 @@ class Rules {
    */
   fetch(options, callback) {
     const params = {
-      'action':   'get_rules_result',
+      'action': 'get_rules_result',
       'page_type': this.getPageTypeId(),
-      'post':      $('#post_ID').val()
+      'post': $('#post_ID').val()
     };
-    const data   = {
-      'rules':     options.rules,
-      'slug':      options.$target.attr('name')
+    const data = {
+      'rules': options.rules,
+      'slug': options.$target.attr('name')
     };
 
     $.ajax({
-      type:     'POST',
-      data:     {
+      type: 'POST',
+      data: {
         data: JSON.stringify(data)
       },
       dataType: 'json',
-      url:      papi.ajaxUrl + '?' + $.param(params)
+      url: papi.ajaxUrl + '?' + $.param(params)
     }).success(callback);
   }
 
@@ -225,9 +225,9 @@ class Rules {
    * @param {string} slug
    */
   getValue(slug) {
-    const selector  = this.getSelector(slug);
-    let   $prop     = $('[name="' + slug + '[]"]');
-    let   val;
+    const selector = this.getSelector(slug);
+    let $prop = $('[name="' + slug + '[]"]');
+    let val;
 
     if ($prop.length) {
       val = [];
