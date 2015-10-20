@@ -542,6 +542,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				unset( $options->settings->items[$key] );
 				continue;
 			}
+
 			$options->settings->items[$key] = clone $value->get_options();
 		}
 
