@@ -83,7 +83,7 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_options_and_properties() {
-		$simple_box = PAPI_FIXTURE_DIR . '/boxes/simple.php';
+		$simple_box = PAPI_FIXTURE_DIR . '/page-types/boxes/simple.php';
 
 		$options = papi_get_options_and_properties( $simple_box, [
 			'test' => 'test'

@@ -1,6 +1,15 @@
 <?php
 
 /**
+ * Output html for properties tests.
+ */
+function properties_output_html() {
+	?>
+	<p>Hello, callable!</p>
+	<?php
+}
+
+/**
  * Say Hello!
  */
 function say_hello_stub() {

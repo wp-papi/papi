@@ -79,7 +79,7 @@ class Simple_Page_Type extends Papi_Page_Type {
 		// Load box from a template file.
 		$this->box(
 			$this->template(
-				dirname( __DIR__ ) . '/boxes/simple.php'
+				dirname( __DIR__ ) . '/page-types/boxes/simple.php'
 			)
 		);
 

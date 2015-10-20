@@ -51,12 +51,14 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 	abstract public function get_expected();
 
-	public function save_properties( $property, $value = null ) {
+	public function save_properties( $property, $value = null, $type = 'post' ) {
 		if ( is_null( $value ) ) {
 			$value = $this->get_value( $property->get_slug( true ) );
 		}
 
-		$handler = new Papi_Admin_Post_Handler();
+		if ( $type === 'post' ) {
+			$handler = new Papi_Admin_Post_Handler();
+		}
 
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $property->slug,
@@ -64,7 +66,15 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 			'value' => $value
 		], $_POST );
 
-		$handler->save_properties( $this->post_id );
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+
+		if ( $type === 'post' ) {
+			$handler->save_properties( $this->post_id );
+		} else {
+			$_SERVER['REQUEST_METHOD'] = 'POST';
+			$handler = new Papi_Admin_Option_Handler();
+			$_SERVER['REQUEST_METHOD'] = '';
+		}
 	}
 
 	public function save_properties_value( $property = null ) {
@@ -86,6 +96,38 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		} else {
 			$this->assertEquals( $expected, $actual );
 		}
+	}
+
+	public function save_properties_value_option( $property ) {
+		global $current_screen;
+
+		$current_screen = WP_Screen::get( 'admin_init' );
+
+		$_GET['page'] = 'papi/options/properties-option-type';
+		$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/options/properties-option-type';
+
+		$value = $this->get_value( $property->get_slug( true ) );
+
+		if ( is_null( $value ) ) {
+			$this->assertNull( papi_get_option( $property->slug ) );
+			return;
+		}
+
+		$this->save_properties( $property, $value, 'option' );
+
+		$actual = papi_get_option( $property->slug );
+
+		$expected = $this->get_expected( $property->get_slug( true ) );
+
+		if ( $this->same ) {
+			$this->assert_values( $expected, $actual );
+		} else {
+			$this->assertEquals( $expected, $actual );
+		}
+
+		unset( $_GET['page'] );
+		$_SERVER['REQUEST_URI'] = '';
+		$current_screen = null;
 	}
 
 	public function test_property_convert_type() {
@@ -127,6 +169,10 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	public function test_save_properties_value() {
 		foreach ( $this->properties as $prop ) {
 			$this->save_properties_value( $prop );
+			$this->save_properties_value_option( $prop );
 		}
+
+		// Required to clear request uri here instead of in `save_properties_value_option`.
+		$_SERVER['REQUEST_URI'] = '';
 	}
 }

@@ -180,7 +180,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_page_type() {
 		$this->assertNull( papi_get_page_type( 'hello.php' ) );
-		$path = PAPI_FIXTURE_DIR . '/boxes/simple.php';
+		$path = PAPI_FIXTURE_DIR . '/page-types/boxes/simple.php';
 		$this->assertNull( papi_get_page_type( $path ) );
 		$path = PAPI_FIXTURE_DIR . '/page-types/simple-page-type.php';
 		$this->assertNotEmpty( papi_get_page_type( $path ) );
