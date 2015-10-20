@@ -53,6 +53,7 @@ final class Papi_Loader extends Papi_Container {
 	private function __construct() {
 		$this->constants();
 		$this->setup_actions();
+		$this->load_textdomain();
 		$this->require_files();
 		$this->setup_container();
 		papi_action_include();
@@ -118,7 +119,7 @@ final class Papi_Loader extends Papi_Container {
 	 * - WP_LANG_DIR/papi/papi-LOCALE.mo
 	 * - WP_CONTENT_DIR/[mu-]plugins/papi/languages/papi-LOCALE.mo
 	 */
-	private function load_plugin_textdomain() {
+	private function load_textdomain() {
 		$locale = apply_filters( 'plugin_locale', get_locale(), 'papi' );
 		load_textdomain( 'papi', WP_LANG_DIR . '/papi/papi-' . $locale . '.mo' );
 		load_textdomain( 'papi', PAPI_PLUGIN_DIR . '../languages/papi-' . $locale . '.mo' );
@@ -128,9 +129,6 @@ final class Papi_Loader extends Papi_Container {
 	 * Require files.
 	 */
 	private function require_files() {
-		// Set up localisation.
-		$this->load_plugin_textdomain();
-
 		// Require the autoload class.
 		require_once __DIR__ . '/core/class-papi-core-autoload.php';
 
