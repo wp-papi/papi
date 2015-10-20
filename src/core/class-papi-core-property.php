@@ -257,6 +257,8 @@ class Papi_Core_Property {
 	 * @return bool
 	 */
 	public function display() {
+		// If the property display is true it can be changed with
+		// the display option.
 		return $this->display ? $this->options->display : false;
 	}
 
