@@ -124,12 +124,17 @@ class Repeater {
    * @param {function} callback
    */
   fetch(properties, counter, callback) {
+    const params = {
+      'action': 'get_properties',
+      'counter': counter,
+      'post_type': $('#post_type').val()
+    };
     $.ajax({
       type:     'POST',
       data:     {
         properties: JSON.stringify(properties)
       },
-      url:      papi.ajaxUrl + '?action=get_properties&counter=' + counter,
+      url:      papi.ajaxUrl + '?' + $.param(params),
       dataType: 'json'
     }).success(callback);
   }
