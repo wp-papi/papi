@@ -158,26 +158,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
-	 * Get JSON property that is used when adding new row.
-	 *
-	 * @return object
-	 */
-	protected function get_json_property( $property ) {
-		$property = papi_get_property_type( $property );
-
-		if ( ! papi_is_property( $property ) ) {
-			return (object) [];
-		}
-
-		$options = clone $property->get_options();
-		$options->raw   = true;
-		$options->slug  = $this->html_name( $options, $this->counter );
-		$options->value = '';
-
-		return $options;
-	}
-
-	/**
 	 * Get results from the database.
 	 *
 	 * @param  int    $value
