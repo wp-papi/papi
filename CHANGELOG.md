@@ -1,6 +1,6 @@
 # Papi Changelog
 
-## [2.5.0-dev] - 2015-XX-XX
+## 2.5.0-dev - 2015-XX-XX
 
 ### Added
 
