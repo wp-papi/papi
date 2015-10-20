@@ -2,6 +2,10 @@
 
 ## [2.5.0-dev] - 2015-XX-XX
 
+### Added
+
+* Added `post_type` option to properties. Useful when a page type is used for more then one post type but not all properties.
+
 ### Fixed
 
 * Fixed so `disabled` works in properties that are used in flexible and repeater. Disabled properties won't be rendered in flexible and repeater.
