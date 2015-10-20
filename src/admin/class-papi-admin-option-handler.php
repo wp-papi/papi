@@ -9,7 +9,7 @@ class Papi_Admin_Option_Handler extends Papi_Admin_Data_Handler {
 	 * The constructor.
 	 */
 	public function __construct() {
-		if ( papi_is_metod( 'post' ) && papi_is_option_page() ) {
+		if ( papi_is_method( 'post' ) && papi_is_option_page() ) {
 			$this->save_options();
 		}
 	}

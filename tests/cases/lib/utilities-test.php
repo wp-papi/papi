@@ -315,18 +315,18 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_json( (object) [] ) );
 	}
 
-	public function test_papi_is_metod() {
+	public function test_papi_is_method() {
 		unset( $_SERVER['REQUEST_METHOD'] );
-		$this->assertFalse( papi_is_metod( 'POST' ) );
+		$this->assertFalse( papi_is_method( 'POST' ) );
 		$_SERVER['REQUEST_METHOD'] = 'GET';
-		$this->assertTrue( papi_is_metod( 'GET' ) );
-		$this->assertFalse( papi_is_metod( 'POST' ) );
-		$this->assertFalse( papi_is_metod( 1 ) );
-		$this->assertFalse( papi_is_metod( true ) );
-		$this->assertFalse( papi_is_metod( false ) );
-		$this->assertFalse( papi_is_metod( [] ) );
-		$this->assertFalse( papi_is_metod( (object) [] ) );
-		$this->assertFalse( papi_is_metod( '' ) );
+		$this->assertTrue( papi_is_method( 'GET' ) );
+		$this->assertFalse( papi_is_method( 'POST' ) );
+		$this->assertFalse( papi_is_method( 1 ) );
+		$this->assertFalse( papi_is_method( true ) );
+		$this->assertFalse( papi_is_method( false ) );
+		$this->assertFalse( papi_is_method( [] ) );
+		$this->assertFalse( papi_is_method( (object) [] ) );
+		$this->assertFalse( papi_is_method( '' ) );
 	}
 
 	public function test_papi_maybe_convert_to_array() {

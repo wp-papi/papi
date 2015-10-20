@@ -451,7 +451,7 @@ function papi_is_json( $obj ) {
  *
  * @return bool
  */
-function papi_is_metod( $method ) {
+function papi_is_method( $method ) {
 	if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || ! is_string( $method ) ) {
 		return false;
 	}
