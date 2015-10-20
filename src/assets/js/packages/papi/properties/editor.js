@@ -25,7 +25,7 @@ class Editor {
   binds() {
     const self = this;
 
-    $(document).on('papi/property/repeater/added', '[data-property="editor"]',  function(e) {
+    $(document).on('papi/property/repeater/added', '[data-property="editor"]', function (e) {
       e.preventDefault();
       self.update($(this));
     });
@@ -41,22 +41,22 @@ class Editor {
    * @return {object}
    */
   createTinyMceEditor(id) {
-      let mceInit;
+    let mceInit;
 
-      if (!tinyMCEPreInit.mceInit[id]) {
-        const obj = tinyMCEPreInit.mceInit.content === undefined ?
-          tinyMCEPreInit.mceInit.papiHiddenEditor : tinyMCEPreInit.mceInit.content;
-        mceInit = tinyMCEPreInit.mceInit[id] = $.extend({}, obj);
-      } else {
-        mceInit = tinyMCEPreInit.mceInit[id];
-      }
+    if (!tinyMCEPreInit.mceInit[id]) {
+      const obj = tinyMCEPreInit.mceInit.content === undefined
+        ? tinyMCEPreInit.mceInit.papiHiddenEditor : tinyMCEPreInit.mceInit.content;
+      mceInit = tinyMCEPreInit.mceInit[id] = $.extend({}, obj);
+    } else {
+      mceInit = tinyMCEPreInit.mceInit[id];
+    }
 
-      mceInit = $.extend(mceInit, this.customTinyMCESettings, {
-        selector: '#' + id,
-        elements: id
-      });
+    mceInit = $.extend(mceInit, this.customTinyMCESettings, {
+      selector: '#' + id,
+      elements: id
+    });
 
-      tinymce.init(mceInit);
+    tinymce.init(mceInit);
   }
 
   /**
@@ -136,8 +136,8 @@ class Editor {
    * @param {string} id
    */
   qtInit(id) {
-    const qtContent = tinyMCEPreInit.qtInit.content === undefined ?
-      tinyMCEPreInit.qtInit.papiHiddenEditor : tinyMCEPreInit.qtInit.content;
+    const qtContent = tinyMCEPreInit.qtInit.content === undefined
+      ? tinyMCEPreInit.qtInit.papiHiddenEditor : tinyMCEPreInit.qtInit.content;
     const qtInit = tinyMCEPreInit.qtInit[id] = $.extend({}, qtContent, {
       id: id,
       buttons: qtContent.buttons.replace(',fullscreen', '')

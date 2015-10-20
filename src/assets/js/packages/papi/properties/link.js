@@ -1,5 +1,4 @@
 import $ from 'jquery/jquery';
-import Utils from 'papi/utils';
 
 /**
  * Property Link.
@@ -65,7 +64,7 @@ class Link {
     // close the wpLink window. Save the old to later.
     this.oldLinkUpdate = window.wpLink.update;
     window.wpLink.update = function () {
-      wpLink.close();
+      window.wpLink.close();
     };
 
     window.wpLink.open();

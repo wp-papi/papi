@@ -64,7 +64,7 @@ class Datetime {
    updateSelect(e) {
      e.preventDefault();
      this.pikaday($(this).prev());
-  }
+   }
 }
 
 export default Datetime;
