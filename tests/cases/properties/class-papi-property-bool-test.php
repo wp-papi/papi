@@ -52,11 +52,11 @@ class Papi_Property_Bool_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_update_value() {
-		$this->assertFalse( $this->property->update_value( 'false', '', 0 ) );
-		$this->assertFalse( $this->property->update_value( '', '', 0 ) );
-		$this->assertFalse( $this->property->update_value( null, '', 0 ) );
-		$this->assertFalse( $this->property->update_value( (object) [], '', 0 ) );
-		$this->assertFalse( $this->property->update_value( [], '', 0 ) );
+		$this->assertNull( $this->property->update_value( 'false', '', 0 ) );
+		$this->assertNull( $this->property->update_value( '', '', 0 ) );
+		$this->assertNull( $this->property->update_value( null, '', 0 ) );
+		$this->assertNull( $this->property->update_value( (object) [], '', 0 ) );
+		$this->assertNull( $this->property->update_value( [], '', 0 ) );
 		$this->assertTrue( $this->property->update_value( 'true', '', 0 ) );
 		$this->assertTrue( $this->property->update_value( true, '', 0 ) );
 	}
