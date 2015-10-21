@@ -10,6 +10,8 @@
 
 * Fixed so `disabled` works in properties that are used in flexible and repeater. Disabled properties won't be rendered in flexible and repeater.
 * Fixed so `display` works in properties that are used in flexible and repeater. Table rows will be hidden when properties has `display => false`. You can show them but removing `.papi-hide` css class when you like to display them.
+* Fixed so bool property can handle `false` as empty. See pull request [#103](https://github.com/wp-papi/papi/pull/103), thanks [@rasmusbe](https://github.com/rasmusbe)!
+* Fixed so `Add new page` view is only added when page types exists.
 
 ## [2.4.1](https://github.com/wp-papi/papi/releases/tag/v2.1.0) - 2015-10-15
 
