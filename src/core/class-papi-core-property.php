@@ -619,7 +619,7 @@ class Papi_Core_Property {
 	 *
 	 * @return mixed
 	 */
-	public function prepare_value( $value ) {
+	protected function prepare_value( $value ) {
 		if ( papi_is_empty( $value ) ) {
 			return $this->default_value;
 		}
