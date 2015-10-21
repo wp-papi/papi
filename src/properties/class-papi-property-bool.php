@@ -86,6 +86,23 @@ class Papi_Property_Bool extends Papi_Property {
 	}
 
 	/**
+	 * Prepare property value.
+	 *
+	 * @param  mixed $value
+	 *
+	 * @return mixed
+	 */
+	public function prepare_value( $value ) {
+		if ( is_string( $value ) &&
+			( $value === 'true' || $value === 'on' ) ||
+			$value === true ) {
+			return true;
+		}
+
+		return null;
+	}
+
+	/**
 	 * Fix the database value on update.
 	 *
 	 * @param  mixed  $value
@@ -95,6 +112,6 @@ class Papi_Property_Bool extends Papi_Property {
 	 * @return array
 	 */
 	public function update_value( $value, $slug, $post_id ) {
-		return $this->format_value( $value, $slug, $post_id );
+		return $this->prepare_value( $value );
 	}
 }

@@ -136,7 +136,7 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 		$output   = $this->property->update_value( $input, 'test', $this->post_id );
 		$expected = [
 			'test_0_book_name' => 'Harry Potter',
-			'test_0_is_open'   => false,
+			'test_0_is_open'   => null,
 			'test'             => 1
 		];
 		$this->assertSame( $expected, $output );
