@@ -1,6 +1,6 @@
 # Papi Changelog
 
-## 2.4.2-dev - 2015-XX-XX
+## [2.4.2-dev](https://github.com/wp-papi/papi/releases/tag/v2.4.2) - 2015-XX-XX
 
 ### Added
 
@@ -13,7 +13,7 @@
 * Fixed so bool property can handle `false` as empty. See pull request [#103](https://github.com/wp-papi/papi/pull/103), thanks [@rasmusbe](https://github.com/rasmusbe)!
 * Fixed so `Add new page` view is only added when page types exists.
 
-## [2.4.1](https://github.com/wp-papi/papi/releases/tag/v2.1.0) - 2015-10-15
+## [2.4.1](https://github.com/wp-papi/papi/releases/tag/v2.4.1) - 2015-10-15
 
 * Fixed issue with `papi_is_option_page` where it didn't check `page` query string right.
 
