@@ -461,12 +461,12 @@ function papi_update_property_meta_value( array $meta = [] ) {
 	$result = true;
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
+		papi_cache_delete( $meta->slug, $meta->post_id );
+
 		if ( ! is_array( $value ) ) {
 			if ( $save_value ) {
 				$value = $meta->value;
 			}
-
-			papi_cache_delete( $meta->slug, $meta->post_id );
 
 			if ( $option ) {
 				$out = update_option( papi_remove_papi( $meta->slug ), $value );
