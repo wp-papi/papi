@@ -428,9 +428,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_html_id() {
-		$property = Papi_Property::create();
-
-		$property->set_options( [
+		$property = Papi_Property::create( [
 			'type'  => 'string',
 			'slug'  => 'name'
 		] );
@@ -439,6 +437,13 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( '_papi_name_suffix', $property->html_id( 'suffix' ) );
 		$this->assertEquals( '_papi_name_black', $property->html_id( 'Black' ) );
 		$this->assertEquals( '_papi_name_lank', $property->html_id( 'Länk' ) );
+	}
+
+	public function test_html_id_array() {
+		$property = Papi_Property::create( [
+			'type'  => 'string',
+			'slug'  => 'name'
+		] );
 
 		$sub_property = Papi_Property::create( [
 			'type' => 'number',
@@ -470,14 +475,19 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_html_name() {
-		$property = Papi_Property::create();
-
-		$property->set_options( [
+		$property = Papi_Property::create( [
 			'type'  => 'string',
 			'slug'  => 'name'
 		] );
 
 		$this->assertEquals( 'papi_name', $property->html_name() );
+	}
+
+	public function test_html_name_array() {
+		$property = Papi_Property::create( [
+			'type'  => 'string',
+			'slug'  => 'name'
+		] );
 
 		$sub_property = Papi_Property::create( [
 			'type' => 'number',
