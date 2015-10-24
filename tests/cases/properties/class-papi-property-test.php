@@ -211,7 +211,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertEquals( [], $property->get_default_settings() );
 	}
 
-	public function test_get_default_value() {
+	public function test_get_default_value_fail() {
 		$property = Papi_Property::create( [
 			'type'  => 'string',
 			'title' => 'Hello'
@@ -225,22 +225,21 @@ class Papi_Property_Test extends WP_UnitTestCase {
 			'title'   => 'Hello'
 		] );
 
-		$this->assertEquals( 'Hello', $property->get_value() );
+		$this->assertNull( $property->get_value() );
+	}
 
-		$property->set_options( [
-			'type'  => 'string',
-			'slug'  => 'name',
-			'value' => 'hello value'
+	public function test_get_default_value_success() {
+		$_GET['post'] = 0;
+
+		$property = Papi_Property::create( [
+			'default' => 'Hello',
+			'type'    => 'string',
+			'title'   => 'Hello'
 		] );
 
-		$this->assertEquals( 'hello value', $property->get_value() );
+		$this->assertEquals( 'Hello', $property->get_value() );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
-
-		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
-		$property  = $page_type->get_property( 'name_default' );
-
-		$this->assertEquals( 'Fredrik', $property->get_value() );
+		unset( $_GET['post'] );
 	}
 
 	public function test_get_option() {
@@ -360,6 +359,23 @@ class Papi_Property_Test extends WP_UnitTestCase {
 			'slug'  => 'name',
 			'value' => 'Fredrik'
 		] );
+
+		$this->assertEquals( 'Fredrik', $property->get_value() );
+	}
+
+	public function test_get_value_hardcoded() {
+		$property = Papi_Property::create( [
+			'type'  => 'string',
+			'slug'  => 'name',
+			'value' => 'hello value'
+		] );
+
+		$this->assertEquals( 'hello value', $property->get_value() );
+
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+
+		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$property  = $page_type->get_property( 'name_default' );
 
 		$this->assertEquals( 'Fredrik', $property->get_value() );
 	}

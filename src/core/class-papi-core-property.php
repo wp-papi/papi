@@ -509,7 +509,9 @@ class Papi_Core_Property {
 				$value = papi_get_field( $this->get_post_id(), $slug );
 			}
 
-			if ( papi_is_empty( $value ) ) {
+			$post_status = get_post_status( $this->get_post_id() );
+
+			if ( papi_is_empty( $value ) && ( $post_status === false || $post_status === 'auto-draft' ) ) {
 				$value = $this->get_option( 'default' );
 			}
 		}
