@@ -121,9 +121,11 @@ final class Papi_Admin_Menu {
 			$show_standard  = false;
 
 			// Don't change menu item when no page types is found.
+			// @codeCoverageIgnoreStart
 			if ( empty( $page_types ) ) {
 				continue;
 			}
+			// @codeCoverageIgnoreEnd
 
 			if ( count( $page_types ) === 1 && empty( $only_page_type ) ) {
 				$show_standard  = $page_types[0]->standard_type;
