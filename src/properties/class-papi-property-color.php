@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Property Color class.
+ * Color property that implements WordPress color
+ * picker as a property.
  */
 class Papi_Property_Color extends Papi_Property {
 

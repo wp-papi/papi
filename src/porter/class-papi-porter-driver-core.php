@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Porter Driver Core.
+ * Papi core Porter driver.
  */
 class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
 

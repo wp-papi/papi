@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Porter Driver class.
+ * Abstract implementation of Papi Porter driver.
  */
 abstract class Papi_Porter_Driver {
 

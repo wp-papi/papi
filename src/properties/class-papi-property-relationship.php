@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Papi Property Relationship class.
+ * Relationship property that can handle
+ * more than one relationship between posts.
  */
 class Papi_Property_Relationship extends Papi_Property {
 

@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Papi Core Conditional class.
+ * Core class that handle if a conditional rule
+ * should display the property or not.
  */
 class Papi_Core_Conditional {
 

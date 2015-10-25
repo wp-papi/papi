@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Post Page class.
+ * Post page implementation of Papi page.
  */
 class Papi_Post_Page extends Papi_Core_Page {
 

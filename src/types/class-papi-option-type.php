@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Papi Option Type class.
- *
- * All option types should extend this class.
+ * Papi type that handle option, option data
+ * and rendering. All option types should extend this
+ * class.
  */
 class Papi_Option_Type extends Papi_Page_Type {
 

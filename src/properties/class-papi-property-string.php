@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property String class.
+ * HTML text input property.
  */
 class Papi_Property_String extends Papi_Property {
 

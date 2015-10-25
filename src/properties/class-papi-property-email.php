@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property Email class.
+ * HTML5 email input property.
  */
 class Papi_Property_Email extends Papi_Property_String {
 

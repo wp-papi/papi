@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Papi Page Type Meta class.
+ * Base Papi type implementation of meta data
+ * for a page type.
  */
 class Papi_Page_Type_Meta extends Papi_Core_Type {
 

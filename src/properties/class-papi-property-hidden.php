@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property Hidden class.
+ * HTML hidden input property.
  */
 class Papi_Property_Hidden extends Papi_Property_String {
 

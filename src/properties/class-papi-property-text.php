@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property Text class.
+ * HTML textarea property.
  */
 class Papi_Property_Text extends Papi_Property {
 

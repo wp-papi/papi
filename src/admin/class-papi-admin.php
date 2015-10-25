@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Papi Admin class.
+ * Admin class that handle loading of Papi types,
+ * columns and loading of posts.
  */
 final class Papi_Admin {
 

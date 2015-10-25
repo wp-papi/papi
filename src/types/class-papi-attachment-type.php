@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Papi Attachment Type class.
+ * Papi type that handle attachment post type, post data
+ * and rendering. All attachment types should extend this
+ * class.
  */
 class Papi_Attachment_Type extends Papi_Page_Type {
 

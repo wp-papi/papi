@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Admin Option Handler class.
+ * Admin class that handle option post data.
  */
 final class Papi_Admin_Option_Handler extends Papi_Admin_Data_Handler {
 

@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Property Flexible class
+ * Flexible repeater property that can repeat multiple properties
+ * with different properties per layout.
  */
 class Papi_Property_Flexible extends Papi_Property_Repeater {
 

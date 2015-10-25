@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property Bool class.
+ * Bool (true/false) property.
  */
 class Papi_Property_Bool extends Papi_Property {
 

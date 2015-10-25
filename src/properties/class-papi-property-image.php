@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property Image class.
+ * WordPress media image property.
  */
 class Papi_Property_Image extends Papi_Property_File {
 

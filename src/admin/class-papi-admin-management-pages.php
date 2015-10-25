@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Admin Management Pages class.
+ * Admin class that handle management pages.
  */
 final class Papi_Admin_Management_Pages {
 

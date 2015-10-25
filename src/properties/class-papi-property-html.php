@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property Html class.
+ * HTML property that can display html in the admin.
  */
 class Papi_Property_Html extends Papi_Property {
 

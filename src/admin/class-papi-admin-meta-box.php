@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Admin Meta Box class.
+ * Admin class that handles admin meta boxes.
  */
 final class Papi_Admin_Meta_Box {
 

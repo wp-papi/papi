@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Option Page class.
+ * Option page implementation of Papi page.
  */
 class Papi_Option_Page extends Papi_Core_Page {
 

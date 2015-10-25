@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property Number class.
+ * HTML5 number input property.
  */
 class Papi_Property_Number extends Papi_Property {
 

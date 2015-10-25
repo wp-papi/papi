@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property Url class.
+ * HTML5 url input property.
  */
 class Papi_Property_Url extends Papi_Property {
 

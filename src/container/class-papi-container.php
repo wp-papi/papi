@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Container class.
+ * Container class that implements a container.
  */
 class Papi_Container implements ArrayAccess {
 

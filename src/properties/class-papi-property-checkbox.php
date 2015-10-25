@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Papi Property Checkbox class.
+ * HTML checkbox property that can handle one or
+ * more checkboxes.
  */
 class Papi_Property_Checkbox extends Papi_Property {
 

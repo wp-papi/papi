@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property Editor class.
+ * WordPress editor property.
  */
 class Papi_Property_Editor extends Papi_Property {
 

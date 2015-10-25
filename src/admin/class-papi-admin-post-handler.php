@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Admin Post Handler class.
+ * Admin class that handle post data.
  */
 final class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
 

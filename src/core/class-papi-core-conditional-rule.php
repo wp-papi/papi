@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Core Conditional Rule class.
+ * Core class that implements a conditional rule.
  */
 class Papi_Core_Conditional_Rule {
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property Datetime class.
+ * Datetime property.
  */
 class Papi_Property_Datetime extends Papi_Property {
 

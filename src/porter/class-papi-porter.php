@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Papi Porter class.
+ * Papi Porter class that handle import and export
+ * of properties data.
  */
 final class Papi_Porter extends Papi_Container {
 

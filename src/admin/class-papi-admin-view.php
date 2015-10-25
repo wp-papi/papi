@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Admin View class.
+ * Admin class that handle admin view rendering.
  */
 final class Papi_Admin_View {
 

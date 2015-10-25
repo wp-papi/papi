@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Admin Menu class.
+ * Admin class that handles admin menus.
  */
 final class Papi_Admin_Menu {
 

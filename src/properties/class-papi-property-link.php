@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Property Link class.
+ * WordPress link manager property.
  */
 class Papi_Property_Link extends Papi_Property {
 

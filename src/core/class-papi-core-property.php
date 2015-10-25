@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Core Property class.
+ * Core class that implements a Papi property.
  */
 class Papi_Core_Property {
 

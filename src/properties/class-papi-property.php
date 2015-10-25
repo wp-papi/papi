@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Papi Property class.
+ * Base property that implements the rendering of
+ * a property in WordPress admin.
  */
 class Papi_Property extends Papi_Core_Property {
 

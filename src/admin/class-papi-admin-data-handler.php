@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Data Handler class.
+ * Admin class that handle core post data.
  */
 class Papi_Admin_Data_Handler {
 

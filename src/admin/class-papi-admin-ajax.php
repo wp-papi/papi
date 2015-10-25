@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Admin Ajax class.
+ * Admin class that handle ajax calls.
  */
 class Papi_Admin_Ajax {
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property Divider class.
+ * Divider property.
  */
 class Papi_Property_Divider extends Papi_Property {
 

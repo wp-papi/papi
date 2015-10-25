@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Papi Property Reference class.
+ * Property that shows which relationships that exists
+ * between the current post and other posts.
  */
 class Papi_Property_Reference extends Papi_Property {
 

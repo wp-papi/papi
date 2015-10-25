@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Papi Conditional Rules class.
+ * Conditional rules class that contains
+ * all rules.
  */
 class Papi_Conditional_Rules {
 

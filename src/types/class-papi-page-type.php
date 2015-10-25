@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Papi Page Type class.
- *
- * All page types in the should extend this class.
+ * Papi type that handle all psot types except attachment,
+ * option data and rendering. All page types should extend
+ * this class.
  */
 class Papi_Page_Type extends Papi_Page_Type_Meta {
 

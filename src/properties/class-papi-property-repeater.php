@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property Repeater class.
+ * Repeater property that can repeat multiple properties.
  */
 class Papi_Property_Repeater extends Papi_Property {
 

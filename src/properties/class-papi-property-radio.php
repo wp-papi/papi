@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Papi Property Radio class.
+ * HTML radio buttons property that can handle one or
+ * more radio buttons.
  */
 class Papi_Property_Radio extends Papi_Property {
 

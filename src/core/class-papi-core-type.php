@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Core Type class.
+ * Core class that implements a Papi type.
  */
 class Papi_Core_Type {
 

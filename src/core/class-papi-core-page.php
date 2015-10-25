@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Core Page class.
+ * Core class that implements a Papi page.
  */
 abstract class Papi_Core_Page extends Papi_Container {
 

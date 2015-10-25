@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi Property Dropdown class.
+ * Dropdown property.
  */
 class Papi_Property_Dropdown extends Papi_Property {
 

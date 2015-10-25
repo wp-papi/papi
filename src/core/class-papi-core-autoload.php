@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi core autoload class.
+ * Autoload class that autoload classes.
  */
 class Papi_Core_Autoload {
 

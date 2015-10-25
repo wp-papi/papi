@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Papi Property Post class.
+ * Post property that can handle relationship
+ * between posts.
  */
 class Papi_Property_Post extends Papi_Property {
 

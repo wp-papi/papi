@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Papi Property Term class.
+ * Term property that handle relationship between
+ * terms and posts.
  */
 class Papi_Property_Term extends Papi_Property {
 
