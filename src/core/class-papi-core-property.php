@@ -54,7 +54,7 @@ class Papi_Core_Property {
 		'slug'         => '',
 		'sort_order'   => -1,
 		'title'        => '',
-		'type'         => 'string',
+		'type'         => '',
 		'value'        => ''
 	];
 
@@ -520,6 +520,66 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Get the html id attribute value.
+	 *
+	 * @param  object|string $suffix
+	 * @param  int $row
+	 *
+	 * @return string
+	 */
+	public function html_id( $suffix = '', $row = null ) {
+		if ( is_array( $suffix ) || is_object( $suffix ) ) {
+			return '_' . $this->html_name( $suffix, $row );
+		} else {
+			$suffix = empty( $suffix ) ||
+				! is_string( $suffix ) ? '' : '_' . $suffix;
+			$suffix = papi_underscorify( papi_slugify( $suffix ) );
+		}
+
+		$name = $this->html_name();
+
+		if ( $name[strlen( $name ) - 1] === ']' ) {
+			return sprintf( '_%s%s]', substr( $name, 0, strlen( $name ) - 1 ), $suffix );
+		}
+
+		return sprintf( '_%s%s', $this->html_name(), $suffix );
+	}
+
+	/**
+	 * Get html name for property with or without sub property and row number.
+	 *
+	 * @param  array|object $sub_property
+	 * @param  int $row
+	 *
+	 * @return string
+	 */
+	public function html_name( $sub_property = null, $row = null ) {
+		$base_slug = $this->get_option( 'slug' );
+
+		if ( is_null( $sub_property ) ) {
+			return $base_slug;
+		}
+
+		if ( is_numeric( $row ) ) {
+			$base_slug = sprintf( '%s[%d]', $base_slug, intval( $row ) );
+		}
+
+		if ( ! papi_is_property( $sub_property ) ) {
+			if ( is_array( $sub_property ) || is_object( $sub_property ) ) {
+				$sub_property = self::factory( $sub_property );
+			} else {
+				return $base_slug;
+			}
+		}
+
+		return sprintf(
+			'%s[%s]',
+			$base_slug,
+			papi_remove_papi( $sub_property->get_slug() )
+		);
+	}
+
+	/**
 	 * Get the import settings.
 	 *
 	 * @param  string $key
@@ -765,11 +825,6 @@ class Papi_Core_Property {
 			return $options;
 		}
 
-		// Empty options should return a new object.
-		if ( papi_is_empty( $options ) ) {
-			return new stdClass;
-		}
-
 		// Only arrays can be handled.
 		if ( ! is_array( $options ) ) {
 			$options = [];
@@ -808,6 +863,10 @@ class Papi_Core_Property {
 			} else {
 				$slug = papi_slugify( $options->title );
 			}
+		}
+
+		if ( 'papi_' === $slug ) {
+			return '';
 		}
 
 		return papi_html_name( $slug );

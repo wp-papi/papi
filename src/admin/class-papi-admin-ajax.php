@@ -98,8 +98,8 @@ class Papi_Admin_Ajax {
 	 * GET /papi-ajax/?action=get_property
 	 */
 	public function get_property() {
-		$default_options = Papi_Property::default_options();
-		$keys            = array_keys( $default_options );
+		$default_options = Papi_Core_Property::create()->get_options();
+		$keys            = array_keys( get_object_vars( $default_options ) );
 		$options         = papi_get_qs( $keys, true );
 
 		if ( $property = papi_property( $options ) ) {

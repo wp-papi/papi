@@ -215,9 +215,13 @@ function papi_get_property_options( $options ) {
  *
  * @param  object|string $type
  *
- * @return Papi_Property
+ * @return null|Papi_Property
  */
 function papi_get_property_type( $type ) {
+	if ( papi_is_empty( $type ) ) {
+		return;
+	}
+
 	return Papi_Property::factory( $type );
 }
 
@@ -278,9 +282,13 @@ function papi_is_property_type_key( $str = '' ) {
  * @param  mixed $file_or_options
  * @param  array $values
  *
- * @return Papi_Property
+ * @return null|Papi_Property
  */
 function papi_property( $file_or_options, $values = [] ) {
+	if ( papi_is_empty( $file_or_options ) ) {
+		return;
+	}
+
 	if ( is_array( $file_or_options ) ) {
 		$file_or_options = papi_get_property_options( $file_or_options );
 	}
