@@ -3,7 +3,7 @@
 /**
  * Papi Admin Meta Box class.
  */
-class Papi_Admin_Meta_Box {
+final class Papi_Admin_Meta_Box {
 
 	/**
 	 * Meta box default options.

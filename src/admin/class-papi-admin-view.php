@@ -3,7 +3,7 @@
 /**
  * Papi Admin View class.
  */
-class Papi_Admin_View {
+final class Papi_Admin_View {
 
 	/**
 	 * Path to view dir.

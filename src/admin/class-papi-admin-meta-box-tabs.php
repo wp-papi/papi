@@ -3,7 +3,7 @@
 /**
  * Papi Admin Meta Box Tabs class.
  */
-class Papi_Admin_Meta_Box_Tabs {
+final class Papi_Admin_Meta_Box_Tabs {
 
 	/**
 	 * The tabs.

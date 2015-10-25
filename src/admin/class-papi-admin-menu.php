@@ -3,7 +3,7 @@
 /**
  * Papi Admin Menu class.
  */
-class Papi_Admin_Menu {
+final class Papi_Admin_Menu {
 
 	/**
 	 * The construct.

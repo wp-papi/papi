@@ -3,7 +3,7 @@
 /**
  * Papi Admin Management Pages class.
  */
-class Papi_Admin_Management_Pages {
+final class Papi_Admin_Management_Pages {
 
 	/**
 	 * Thew view instance.
