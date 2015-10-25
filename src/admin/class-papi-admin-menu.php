@@ -119,7 +119,7 @@ class Papi_Admin_Menu {
 			$only_page_type = papi_filter_settings_only_page_type( $post_type );
 			$page_types     = papi_get_all_page_types( false, $post_type );
 			$show_standard  = false;
-			
+
 			// Don't change menu item when no page types is found.
 			if ( empty( $page_types ) ) {
 				continue;
