@@ -522,6 +522,6 @@ class Papi_Lib_Property_Test extends WP_UnitTestCase {
 			'repeater' => 0
 		];
 
-		$this->assertSame( $expected, $actual );
+		$this->assertEquals( $expected, $actual );
 	}
 }

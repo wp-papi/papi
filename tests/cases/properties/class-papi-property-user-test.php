@@ -17,7 +17,7 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_convert_type() {
-		$this->assertEquals( 'int', $this->property->convert_type );
+		$this->assertSame( 'int', $this->property->convert_type );
 	}
 
 	public function test_property_format_value() {
@@ -29,9 +29,9 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_import_value() {
-		$this->assertEquals( 1, $this->property->import_value( $this->get_value(), '', 0 ) );
-		$this->assertEquals( 1, $this->property->import_value( 1, '', 0 ) );
-		$this->assertEquals( 1, $this->property->import_value( '1', '', 0 ) );
+		$this->assertSame( 1, $this->property->import_value( $this->get_value(), '', 0 ) );
+		$this->assertSame( 1, $this->property->import_value( 1, '', 0 ) );
+		$this->assertSame( 1, $this->property->import_value( '1', '', 0 ) );
 		$this->assertNull( $this->property->import_value( null, '', 0 ) );
 		$this->assertNull( $this->property->import_value( true, '', 0 ) );
 		$this->assertNull( $this->property->import_value( false, '', 0 ) );
@@ -40,21 +40,21 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_get_value() {
-		$this->assertEquals( 0, $this->property->get_value() );
+		$this->assertSame( 0, $this->property->get_value() );
 		$this->save_properties( $this->property );
 		$user = $this->get_expected();
-		$this->assertEquals( $user->ID, $this->property->get_value() );
+		$this->assertSame( $user->ID, $this->property->get_value() );
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'user', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'User test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_user_test', $this->property->get_option( 'slug' ) );
+		$this->assertSame( 'user', $this->property->get_option( 'type' ) );
+		$this->assertSame( 'User test', $this->property->get_option( 'title' ) );
+		$this->assertSame( 'papi_user_test', $this->property->get_option( 'slug' ) );
 	}
 
 	public function test_property_settings() {
 		$settings = $this->property->get_settings();
-		$this->assertEquals( 'Select user', $settings->placeholder );
+		$this->assertSame( 'Select user', $settings->placeholder );
 		$this->assertTrue( $settings->select2 );
 	}
 }

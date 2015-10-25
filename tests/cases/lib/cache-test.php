@@ -36,14 +36,14 @@ class Papi_Lib_Cache_Test extends WP_UnitTestCase {
 			'slug'          => 'namn',
 			'value'         => 'fredrik'
 		] );
-		$this->assertEquals( 'fredrik', papi_get_field( $this->post_id, 'namn' ) );
+		$this->assertSame( 'fredrik', papi_get_field( $this->post_id, 'namn' ) );
 
 		papi_update_property_meta_value( [
 			'post_id'       => $this->post_id,
 			'slug'          => 'namn',
 			'value'         => 'elli'
 		] );
-		$this->assertEquals( 'elli', papi_get_field( $this->post_id, 'namn' ) );
+		$this->assertSame( 'elli', papi_get_field( $this->post_id, 'namn' ) );
 	}
 
 	public function test_papi_cache_get() {
@@ -62,8 +62,8 @@ class Papi_Lib_Cache_Test extends WP_UnitTestCase {
 		global $post;
 		$post_id = $this->factory->post->create();
 		$post = get_post( $post_id );
-		$this->assertEquals( 'papi_page_' . $post_id, papi_cache_key( 'page', $post_id ) );
-		$this->assertEquals( 'papi_page_920', papi_cache_key( 'page', 920 ) );
+		$this->assertSame( 'papi_page_' . $post_id, papi_cache_key( 'page', $post_id ) );
+		$this->assertSame( 'papi_page_920', papi_cache_key( 'page', 920 ) );
 		unset( $post );
 	}
 

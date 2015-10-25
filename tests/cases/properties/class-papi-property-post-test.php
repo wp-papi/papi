@@ -17,7 +17,7 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_convert_type() {
-		$this->assertEquals( 'object', $this->property->convert_type );
+		$this->assertSame( 'object', $this->property->convert_type );
 	}
 
 	public function test_property_format_value() {
@@ -32,9 +32,9 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_import_value() {
-		$this->assertEquals( $this->post_id, $this->property->import_value( $this->post_id, '', 0 ) );
-		$this->assertEquals( $this->post_id, $this->property->import_value( strval( $this->post_id ), '', 0 ) );
-		$this->assertEquals( $this->post_id, $this->property->import_value( get_post( $this->post_id ), '', 0 ) );
+		$this->assertSame( $this->post_id, $this->property->import_value( $this->post_id, '', 0 ) );
+		$this->assertSame( $this->post_id, $this->property->import_value( strval( $this->post_id ), '', 0 ) );
+		$this->assertSame( $this->post_id, $this->property->import_value( get_post( $this->post_id ), '', 0 ) );
 		$this->assertNull( $this->property->import_value( 'hello', '', 0 ) );
 		$this->assertNull( $this->property->import_value( null, '', 0 ) );
 		$this->assertNull( $this->property->import_value( true, '', 0 ) );
@@ -44,9 +44,9 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'post', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Post test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_post_test', $this->property->get_option( 'slug' ) );
+		$this->assertSame( 'post', $this->property->get_option( 'type' ) );
+		$this->assertSame( 'Post test', $this->property->get_option( 'title' ) );
+		$this->assertSame( 'papi_post_test', $this->property->get_option( 'slug' ) );
 	}
 
 	public function test_property_settings() {

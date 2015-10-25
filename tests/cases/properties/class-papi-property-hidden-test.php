@@ -13,8 +13,8 @@ class Papi_Property_Hidden_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'hidden', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Hidden test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_hidden_test', $this->property->get_option( 'slug' ) );
+		$this->assertSame( 'hidden', $this->property->get_option( 'type' ) );
+		$this->assertSame( 'Hidden test', $this->property->get_option( 'title' ) );
+		$this->assertSame( 'papi_hidden_test', $this->property->get_option( 'slug' ) );
 	}
 }

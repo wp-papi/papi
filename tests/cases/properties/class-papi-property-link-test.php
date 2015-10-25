@@ -28,11 +28,11 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_convert_type() {
-		$this->assertEquals( 'object', $this->property->convert_type );
+		$this->assertSame( 'object', $this->property->convert_type );
 	}
 
 	public function test_property_default_value() {
-		$this->assertEquals( [], $this->property->default_value );
+		$this->assertSame( [], $this->property->default_value );
 	}
 
 	public function test_property_delete_value() {
@@ -51,15 +51,15 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 
 		$output = $this->property->format_value( $value, '_papi_link', $post_id );
 
-		$this->assertEquals( '_blank', $output->target );
-		$this->assertEquals( 'Example site', $output->title );
-		$this->assertEquals( 'http://example.org', $output->url );
+		$this->assertSame( '_blank', $output->target );
+		$this->assertSame( 'Example site', $output->title );
+		$this->assertSame( 'http://example.org', $output->url );
 
 		$output = $this->property->format_value( (object) $value, '_papi_link', $post_id );
 
-		$this->assertEquals( '_blank', $output->target );
-		$this->assertEquals( 'Example site', $output->title );
-		$this->assertEquals( 'http://example.org', $output->url );
+		$this->assertSame( '_blank', $output->target );
+		$this->assertSame( 'Example site', $output->title );
+		$this->assertSame( 'http://example.org', $output->url );
 
 		foreach ( $value as $k => $v ) {
 			update_post_meta( $post_id, $k, $v );
@@ -67,9 +67,9 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 
 		$output = $this->property->format_value( null, '_papi_link', $post_id );
 
-		$this->assertEquals( '_blank', $output->target );
-		$this->assertEquals( 'Example site', $output->title );
-		$this->assertEquals( 'http://example.org', $output->url );
+		$this->assertSame( '_blank', $output->target );
+		$this->assertSame( 'Example site', $output->title );
+		$this->assertSame( 'http://example.org', $output->url );
 
 		$output = $this->property->format_value( [ 'test' => ''], 'test', $post_id );
 		$this->assertNotEmpty( (array) $output );
@@ -141,15 +141,15 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 
 		$output = $this->property->load_value( $value, '_papi_link', $post_id );
 
-		$this->assertEquals( '_blank', $output->target );
-		$this->assertEquals( 'Example site', $output->title );
-		$this->assertEquals( 'http://example.org', $output->url );
+		$this->assertSame( '_blank', $output->target );
+		$this->assertSame( 'Example site', $output->title );
+		$this->assertSame( 'http://example.org', $output->url );
 
 		$output = $this->property->load_value( (object) $value, '_papi_link', $post_id );
 
-		$this->assertEquals( '_blank', $output->target );
-		$this->assertEquals( 'Example site', $output->title );
-		$this->assertEquals( 'http://example.org', $output->url );
+		$this->assertSame( '_blank', $output->target );
+		$this->assertSame( 'Example site', $output->title );
+		$this->assertSame( 'http://example.org', $output->url );
 
 		foreach ( $value as $k => $v ) {
 			update_post_meta( $post_id, $k, $v );
@@ -157,9 +157,9 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 
 		$output = $this->property->load_value( null, '_papi_link', $post_id );
 
-		$this->assertEquals( '_blank', $output->target );
-		$this->assertEquals( 'Example site', $output->title );
-		$this->assertEquals( 'http://example.org', $output->url );
+		$this->assertSame( '_blank', $output->target );
+		$this->assertSame( 'Example site', $output->title );
+		$this->assertSame( 'http://example.org', $output->url );
 
 		$output = $this->property->load_value( [ 'test' => ''], 'test', $post_id );
 		$this->assertNotEmpty( (array) $output );
@@ -186,9 +186,9 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'link', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Link test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_link_test', $this->property->get_option( 'slug' ) );
+		$this->assertSame( 'link', $this->property->get_option( 'type' ) );
+		$this->assertSame( 'Link test', $this->property->get_option( 'title' ) );
+		$this->assertSame( 'papi_link_test', $this->property->get_option( 'slug' ) );
 	}
 
 	public function test_render_link_template() {

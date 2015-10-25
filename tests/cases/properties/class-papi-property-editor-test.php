@@ -13,16 +13,16 @@ class Papi_Property_Editor_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_format_value() {
-		$this->assertEquals( $this->get_expected(), $this->property->format_value( $this->get_value(), '', 0 ) );
+		$this->assertSame( $this->get_expected(), $this->property->format_value( $this->get_value(), '', 0 ) );
 	}
 
 	public function test_property_import_value() {
-		$this->assertEquals( $this->get_value(), $this->property->import_value( $this->get_value(), '', 0 ) );
+		$this->assertSame( $this->get_value(), $this->property->import_value( $this->get_value(), '', 0 ) );
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'editor', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Editor test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_editor_test', $this->property->get_option( 'slug' ) );
+		$this->assertSame( 'editor', $this->property->get_option( 'type' ) );
+		$this->assertSame( 'Editor test', $this->property->get_option( 'title' ) );
+		$this->assertSame( 'papi_editor_test', $this->property->get_option( 'slug' ) );
 	}
 }

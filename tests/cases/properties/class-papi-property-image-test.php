@@ -15,11 +15,11 @@ class Papi_Property_Image_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_convert_type() {
-		$this->assertEquals( 'object', $this->property->convert_type );
+		$this->assertSame( 'object', $this->property->convert_type );
 	}
 
 	public function test_property_default_value() {
-		$this->assertEquals( [], $this->property->default_value );
+		$this->assertSame( [], $this->property->default_value );
 	}
 
 	public function test_property_format_value() {
@@ -62,29 +62,29 @@ class Papi_Property_Image_Test extends Papi_Property_Test_Case {
 		$image = $this->property->format_value( $post_id, '', $post_id );
 
 		$this->assertTrue( is_object( $image ) );
-		$this->assertEquals( 2900, $image->width );
-		$this->assertEquals( 1559, $image->height );
-		$this->assertEquals( '2011/12/press_image.jpg', $image->file );
+		$this->assertSame( 2900, $image->width );
+		$this->assertSame( 1559, $image->height );
+		$this->assertSame( '2011/12/press_image.jpg', $image->file );
 
 		$this->assertTrue( is_array( $image->sizes ) );
 		$this->assertTrue( isset( $image->sizes['thumbnail'] ) );
-		$this->assertEquals( 'press_image-150x150.jpg', $image->sizes['thumbnail']['file'] );
-		$this->assertEquals( 150, $image->sizes['thumbnail']['width'] );
-		$this->assertEquals( 150, $image->sizes['thumbnail']['height'] );
-		$this->assertEquals( 'image/jpeg', $image->sizes['thumbnail']['mime-type'] );
-		$this->assertEquals( $thumbnail_url, $image->sizes['thumbnail']['url'] );
+		$this->assertSame( 'press_image-150x150.jpg', $image->sizes['thumbnail']['file'] );
+		$this->assertSame( 150, $image->sizes['thumbnail']['width'] );
+		$this->assertSame( 150, $image->sizes['thumbnail']['height'] );
+		$this->assertSame( 'image/jpeg', $image->sizes['thumbnail']['mime-type'] );
+		$this->assertSame( $thumbnail_url, $image->sizes['thumbnail']['url'] );
 
 		$this->assertTrue( is_array( $image->image_meta ) );
-		$this->assertEquals( 5, $image->image_meta['aperture'] );
-		$this->assertEquals( '', $image->image_meta['credit'] );
-		$this->assertEquals( 'Super', $image->image_meta['camera'] );
-		$this->assertEquals( '', $image->image_meta['caption'] );
-		$this->assertEquals( 1323190643, $image->image_meta['created_timestamp'] );
-		$this->assertEquals( '', $image->image_meta['copyright'] );
-		$this->assertEquals( 35, $image->image_meta['focal_length'] );
-		$this->assertEquals( 800, $image->image_meta['iso'] );
-		$this->assertEquals( 0.016666666666667, $image->image_meta['shutter_speed'] );
-		$this->assertEquals( '', $image->image_meta['title'] );
+		$this->assertSame( 5, $image->image_meta['aperture'] );
+		$this->assertSame( '', $image->image_meta['credit'] );
+		$this->assertSame( 'Super', $image->image_meta['camera'] );
+		$this->assertSame( '', $image->image_meta['caption'] );
+		$this->assertSame( 1323190643, $image->image_meta['created_timestamp'] );
+		$this->assertSame( '', $image->image_meta['copyright'] );
+		$this->assertSame( 35, $image->image_meta['focal_length'] );
+		$this->assertSame( 800, $image->image_meta['iso'] );
+		$this->assertSame( 0.016666666666667, $image->image_meta['shutter_speed'] );
+		$this->assertSame( '', $image->image_meta['title'] );
 	}
 
 	public function test_property_import_value() {
@@ -92,9 +92,9 @@ class Papi_Property_Image_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'image', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Image test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_image_test', $this->property->get_option( 'slug' ) );
+		$this->assertSame( 'image', $this->property->get_option( 'type' ) );
+		$this->assertSame( 'Image test', $this->property->get_option( 'title' ) );
+		$this->assertSame( 'papi_image_test', $this->property->get_option( 'slug' ) );
 	}
 
 	public function test_property_settings() {

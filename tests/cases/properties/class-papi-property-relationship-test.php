@@ -38,13 +38,13 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_convert_type() {
-		$this->assertEquals( 'array', $this->properties[0]->convert_type );
-		$this->assertEquals( 'array', $this->properties[1]->convert_type );
+		$this->assertSame( 'array', $this->properties[0]->convert_type );
+		$this->assertSame( 'array', $this->properties[1]->convert_type );
 	}
 
 	public function test_property_default_value() {
-		$this->assertEquals( [], $this->properties[0]->default_value );
-		$this->assertEquals( [], $this->properties[1]->default_value );
+		$this->assertSame( [], $this->properties[0]->default_value );
+		$this->assertSame( [], $this->properties[1]->default_value );
 	}
 
 	public function test_property_format_value() {
@@ -65,16 +65,16 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 		$this->assertEmpty( $output );
 
 		$output = $this->properties[0]->import_value( $this->post_id, '', 0 );
-		$this->assertEquals( $this->get_value( 'relationship_test' ), $output );
+		$this->assertSame( $this->get_value( 'relationship_test' ), $output );
 
 		$output = $this->properties[0]->import_value( (object) ['id' => $this->post_id], '', 0 );
-		$this->assertEquals( $this->get_value( 'relationship_test' ), $output );
+		$this->assertSame( $this->get_value( 'relationship_test' ), $output );
 
 		$output = $this->properties[0]->import_value( $this->get_value( 'relationship_test' ), '', 0 );
-		$this->assertEquals( $this->get_value( 'relationship_test' ), $output );
+		$this->assertSame( $this->get_value( 'relationship_test' ), $output );
 
 		$output = $this->properties[0]->import_value( $this->get_expected( 'relationship_test' ), '', 0 );
-		$this->assertEquals( $this->get_value( 'relationship_test' ), $output );
+		$this->assertSame( $this->get_value( 'relationship_test' ), $output );
 
 		$this->assertNull( $this->properties[0]->import_value( 'hello', '', 0 ) );
 		$this->assertNull( $this->properties[0]->import_value( null, '', 0 ) );
@@ -191,20 +191,20 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_load_value() {
-		$this->assertEquals( ['yes' => true], $this->properties[0]->load_value( '{"yes":true}', '', 0 ) );
-		$this->assertEquals( [], $this->properties[0]->load_value( '{}', '', 0 ) );
-		$this->assertEquals( [1, 2, 3], $this->properties[0]->load_value( '[1, 2, 3]', '', 0 ) );
-		$this->assertEquals( [], $this->properties[0]->load_value( '[]', '', 0 ) );
+		$this->assertSame( ['yes' => true], $this->properties[0]->load_value( '{"yes":true}', '', 0 ) );
+		$this->assertSame( [], $this->properties[0]->load_value( '{}', '', 0 ) );
+		$this->assertSame( [1, 2, 3], $this->properties[0]->load_value( '[1, 2, 3]', '', 0 ) );
+		$this->assertSame( [], $this->properties[0]->load_value( '[]', '', 0 ) );
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'relationship', $this->properties[0]->get_option( 'type' ) );
-		$this->assertEquals( 'Relationship test', $this->properties[0]->get_option( 'title' ) );
-		$this->assertEquals( 'papi_relationship_test', $this->properties[0]->get_option( 'slug' ) );
+		$this->assertSame( 'relationship', $this->properties[0]->get_option( 'type' ) );
+		$this->assertSame( 'Relationship test', $this->properties[0]->get_option( 'title' ) );
+		$this->assertSame( 'papi_relationship_test', $this->properties[0]->get_option( 'slug' ) );
 
-		$this->assertEquals( 'relationship', $this->properties[1]->get_option( 'type' ) );
-		$this->assertEquals( 'Relationship test 2', $this->properties[1]->get_option( 'title' ) );
-		$this->assertEquals( 'papi_relationship_test_2', $this->properties[1]->get_option( 'slug' ) );
+		$this->assertSame( 'relationship', $this->properties[1]->get_option( 'type' ) );
+		$this->assertSame( 'Relationship test 2', $this->properties[1]->get_option( 'title' ) );
+		$this->assertSame( 'papi_relationship_test_2', $this->properties[1]->get_option( 'slug' ) );
 	}
 
 	public function test_property_sort_value() {

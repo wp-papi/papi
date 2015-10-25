@@ -13,8 +13,8 @@ class Papi_Property_Divider_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'divider', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Divider test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_divider_test', $this->property->get_option( 'slug' ) );
+		$this->assertSame( 'divider', $this->property->get_option( 'type' ) );
+		$this->assertSame( 'Divider test', $this->property->get_option( 'title' ) );
+		$this->assertSame( 'papi_divider_test', $this->property->get_option( 'slug' ) );
 	}
 }

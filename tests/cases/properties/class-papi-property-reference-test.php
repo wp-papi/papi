@@ -13,9 +13,9 @@ class Papi_Property_Reference_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'reference', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Reference test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_reference_test', $this->property->get_option( 'slug' ) );
+		$this->assertSame( 'reference', $this->property->get_option( 'type' ) );
+		$this->assertSame( 'Reference test', $this->property->get_option( 'title' ) );
+		$this->assertSame( 'papi_reference_test', $this->property->get_option( 'slug' ) );
 	}
 
 	public function test_property_settings() {

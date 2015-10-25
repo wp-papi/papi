@@ -50,11 +50,11 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_convert_type() {
-		$this->assertEquals( 'array', $this->property->convert_type );
+		$this->assertSame( 'array', $this->property->convert_type );
 	}
 
 	public function test_property_default_value() {
-		$this->assertEquals( [], $this->property->default_value );
+		$this->assertSame( [], $this->property->default_value );
 	}
 
 	public function test_property_format_value() {
@@ -79,7 +79,7 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 			'flexible_test' => 0
 		];
 		$output = $this->property->import_value( [], $this->slug, $this->post_id );
-		$this->assertEquals( $expected, $output );
+		$this->assertSame( $expected, $output );
 
 		$value = [
 			'twitter_name' => 'Kod',
@@ -91,7 +91,7 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 			'flexible_test' => 1
 		];
 		$output = $this->property->import_value( $value, $this->slug, $this->post_id );
-		$this->assertEquals( $expected, $output );
+		$this->assertSame( $expected, $output );
 
 		$value = [
 			[
@@ -106,17 +106,17 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 		];
 
 		$output = $this->property->import_value( $value, $this->slug, $this->post_id );
-		$this->assertEquals( $expected, $output );
+		$this->assertSame( $expected, $output );
 	}
 
 	public function test_property_load_value() {
-		$this->assertEquals( [], $this->property->load_value( [], '', 0 ) );
+		$this->assertSame( [], $this->property->load_value( [], '', 0 ) );
 	}
 
 	public function test_property_options() {
-		$this->assertEquals( 'flexible', $this->property->get_option( 'type' ) );
-		$this->assertEquals( 'Flexible test', $this->property->get_option( 'title' ) );
-		$this->assertEquals( 'papi_flexible_test', $this->property->get_option( 'slug' ) );
+		$this->assertSame( 'flexible', $this->property->get_option( 'type' ) );
+		$this->assertSame( 'Flexible test', $this->property->get_option( 'title' ) );
+		$this->assertSame( 'papi_flexible_test', $this->property->get_option( 'slug' ) );
 	}
 
 	public function test_property_render_repeater_rows_template() {
@@ -128,17 +128,17 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 		$items = $this->property->get_setting( 'items' );
 		$this->assertNotEmpty( $items );
 
-		$this->assertEquals( 'Twitter', $items['twitter']['title'] );
-		$this->assertEquals( 'string', $items['twitter']['items'][0]->type );
-		$this->assertEquals( 'papi_twitter_name', $items['twitter']['items'][0]->slug );
-		$this->assertEquals( 'Twitter name', $items['twitter']['items'][0]->title );
-		$this->assertEquals( 'Posts', $items['posts']['title'] );
+		$this->assertSame( 'Twitter', $items['twitter']['title'] );
+		$this->assertSame( 'string', $items['twitter']['items'][0]->type );
+		$this->assertSame( 'papi_twitter_name', $items['twitter']['items'][0]->slug );
+		$this->assertSame( 'Twitter name', $items['twitter']['items'][0]->title );
+		$this->assertSame( 'Posts', $items['posts']['title'] );
 
-		$this->assertEquals( 'post', $items['posts']['items'][0]->type );
-		$this->assertEquals( 'papi_post_one', $items['posts']['items'][0]->slug );
-		$this->assertEquals( 'Post one', $items['posts']['items'][0]->title );
-		$this->assertEquals( 'post', $items['posts']['items'][1]->type );
-		$this->assertEquals( 'papi_post_two', $items['posts']['items'][1]->slug );
-		$this->assertEquals( 'Post two', $items['posts']['items'][1]->title );
+		$this->assertSame( 'post', $items['posts']['items'][0]->type );
+		$this->assertSame( 'papi_post_one', $items['posts']['items'][0]->slug );
+		$this->assertSame( 'Post one', $items['posts']['items'][0]->title );
+		$this->assertSame( 'post', $items['posts']['items'][1]->type );
+		$this->assertSame( 'papi_post_two', $items['posts']['items'][1]->slug );
+		$this->assertSame( 'Post two', $items['posts']['items'][1]->title );
 	}
 }
