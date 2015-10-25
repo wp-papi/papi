@@ -865,11 +865,7 @@ class Papi_Core_Property {
 			}
 		}
 
-		if ( 'papi_' === $slug ) {
-			return '';
-		}
-
-		return papi_html_name( $slug );
+		return $slug === 'papi_' ? '' : papi_html_name( $slug );
 	}
 
 	/**
