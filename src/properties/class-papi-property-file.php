@@ -65,7 +65,7 @@ class Papi_Property_File extends Papi_Property {
 				return (object) array_merge( $meta, $mine );
 			}
 
-			return $value;
+			return (int) $value;
 		}
 
 		if ( is_array( $value ) ) {

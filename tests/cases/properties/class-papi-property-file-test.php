@@ -2,8 +2,6 @@
 
 class Papi_Property_File_Test extends Papi_Property_Test_Case {
 
-	protected $same = false;
-
 	public $slug = 'file_test';
 
 	public function get_value() {
