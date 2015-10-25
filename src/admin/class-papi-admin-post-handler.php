@@ -3,7 +3,7 @@
 /**
  * Admin class that handle post data.
  */
-final class Papi_Admin_Post_Handler extends Papi_Admin_Data_Handler {
+final class Papi_Admin_Post_Handler extends Papi_Core_Data_Handler {
 
 	/**
 	 * The constructor.

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Admin class that handle core post data.
+ * Core class that handle core post data.
  */
-class Papi_Admin_Data_Handler {
+class Papi_Core_Data_Handler {
 
 	/**
 	 * The fields that should be overwritten.
