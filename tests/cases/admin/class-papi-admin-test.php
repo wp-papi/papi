@@ -47,13 +47,6 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->assertSame( 'papi-hide-cpt', $classes );
 	}
 
-	public function test_admin_enqueue_scripts() {
-		$_SERVER['REQUEST_URI'] = 'plugins.php';
-		$this->assertNull( $this->admin->admin_enqueue_scripts() );
-		$_SERVER['REQUEST_URI'] = '';
-		$this->assertNull( $this->admin->admin_enqueue_scripts() );
-	}
-
 	public function test_admin_init() {
 		$admin = new Papi_Admin;
 		$this->assertNull( $admin->admin_init() );
@@ -63,10 +56,6 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$_GET['page'] = 'papi/simple-page-type';
 		$admin = new Papi_Admin;
 		$admin->admin_init();
-	}
-
-	public function test_admin_head() {
-		$this->assertNull( $this->admin->admin_head() );
 	}
 
 	public function test_edit_form_after_title() {
@@ -216,7 +205,6 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin;
 
 		$this->assertSame( 10, has_action( 'admin_init', [$admin, 'admin_init'] ) );
-		$this->assertSame( 10, has_action( 'admin_head', [$admin, 'admin_head'] ) );
 		$this->assertSame( 10, has_action( 'edit_form_after_title', [$admin, 'edit_form_after_title'] ) );
 		$this->assertSame( 10, has_action( 'load-post-new.php', [$admin, 'load_post_new'] ) );
 		$this->assertSame( 10, has_action( 'restrict_manage_posts', [$admin, 'restrict_page_types'] ) );

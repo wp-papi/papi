@@ -73,50 +73,6 @@ final class Papi_Admin {
 	}
 
 	/**
-	 * Add style to admin head.
-	 */
-	public function admin_head() {
-		wp_enqueue_media();
-		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style(
-			'papi-main',
-			dirname( PAPI_PLUGIN_URL ) . '/dist/css/style.min.css',
-			false,
-			null
-		);
-	}
-
-	/**
-	 * Enqueue script into admin footer.
-	 */
-	public function admin_enqueue_scripts() {
-		// WordPress will override window.papi on plugins page,
-		// so don't include Papi JavaScript on plugins page.
-		if ( strpos( $_SERVER['REQUEST_URI'], 'plugins.php' ) !== false ) {
-			return;
-		}
-
-		wp_enqueue_script(
-			'papi-main',
-			dirname( PAPI_PLUGIN_URL ) . '/dist/js/main.min.js',
-			[
-				'json2',
-				'jquery',
-				'jquery-ui-core',
-				'jquery-ui-sortable',
-				'wp-color-picker'
-			],
-			'',
-			true
-		);
-
-		wp_localize_script( 'papi-main', 'papiL10n', [
-			'remove'        => __( 'Remove', 'papi' ),
-			'requiredError' => __( 'This fields are required:', 'papi' ),
-		] );
-	}
-
-	/**
 	 * Add custom body class when it's a page type.
 	 *
 	 * @param  string $classes
@@ -351,9 +307,7 @@ final class Papi_Admin {
 	private function setup_actions() {
 		if ( is_admin() ) {
 			add_action( 'admin_init', [$this, 'admin_init'] );
-			add_action( 'admin_head', [$this, 'admin_head'] );
 			add_action( 'edit_form_after_title', [$this, 'edit_form_after_title'] );
-			add_action( 'admin_enqueue_scripts', [$this, 'admin_enqueue_scripts'], 9 );
 			add_action( 'load-post-new.php', [$this, 'load_post_new'] );
 			add_action( 'restrict_manage_posts', [ $this, 'restrict_page_types'] );
 			add_action( 'add_meta_boxes', [$this, 'hidden_meta_boxes'], 10 );
