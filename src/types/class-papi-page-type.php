@@ -56,9 +56,11 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		$post_type = $this->get_post_type();
 
 		// Check so we have a post the to add the box to.
+		// @codeCoverageIgnoreStart
 		if ( ! $this->load_boxes && ( empty( $post_type ) || ! $this->has_post_type( $post_type ) ) ) {
 			return;
 		}
+		// @codeCoverageIgnoreEnd
 
 		// Add post type to the options array.
 		$options['_post_type'] = $post_type;
