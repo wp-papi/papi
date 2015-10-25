@@ -91,11 +91,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$expected = $this->get_expected( $property->get_slug( true ) );
 
-		if ( $this->same ) {
-			$this->assert_values( $expected, $actual );
-		} else {
-			$this->assertEquals( $expected, $actual );
-		}
+		$this->assert_values( $expected, $actual );
 	}
 
 	public function save_properties_value_option( $property ) {
@@ -119,11 +115,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$expected = $this->get_expected( $property->get_slug( true ) );
 
-		if ( $this->same ) {
-			$this->assert_values( $expected, $actual );
-		} else {
-			$this->assertEquals( $expected, $actual );
-		}
+		$this->assert_values( $expected, $actual );
 
 		unset( $_GET['page'] );
 		$_SERVER['REQUEST_URI'] = '';
