@@ -702,9 +702,13 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						</ul>
 					</div>
 
-					<button type="button" class="button button-primary">
-						<?php _e( 'Add new row', 'papi' ); ?>
-					</button>
+					<?php
+					papi_render_html_tag( 'button', [
+						'class' => 'button button-primary',
+						'type'  => 'button',
+						esc_html( $this->get_setting( 'add_new_label' ) )
+					] );
+					?>
 				</div>
 			</div>
 

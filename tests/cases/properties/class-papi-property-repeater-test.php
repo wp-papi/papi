@@ -98,6 +98,18 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 		$this->assertSame( 'papi_repeater_test', $this->property->get_option( 'slug' ) );
 	}
 
+	public function test_property_setting_add_new_label() {
+		$property = Papi_Property::create( [
+			'settings' => [
+				'add_new_label' => 'Add new slide'
+			],
+			'title'    => 'Repeater',
+			'type'     => 'repeater'
+		] );
+
+		$this->assertSame( 'Add new slide', $property->get_setting( 'add_new_label' ) );
+	}
+
 	public function test_property_render_ajax_request() {
 		$this->property->render_ajax_request();
 		$this->expectOutputRegex( '/.*\S.*/' );

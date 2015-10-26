@@ -119,6 +119,18 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 		$this->assertSame( 'papi_flexible_test', $this->property->get_option( 'slug' ) );
 	}
 
+	public function test_property_setting_add_new_label() {
+		$property = Papi_Property::create( [
+			'settings' => [
+				'add_new_label' => 'Add new slide'
+			],
+			'title'    => 'Flexible',
+			'type'     => 'flexible'
+		] );
+
+		$this->assertSame( 'Add new slide', $property->get_setting( 'add_new_label' ) );
+	}
+
 	public function test_property_render_repeater_rows_template() {
 		$this->property->render_repeater_rows_template();
 		$this->expectOutputRegex( '/.*\S.*/' );

@@ -139,10 +139,11 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'closed_rows' => false,
-			'items'       => [],
-			'layout'      => 'table',
-			'limit'       => -1
+			'add_new_label' => __( 'Add new row', 'papi' ),
+			'closed_rows'   => false,
+			'items'         => [],
+			'layout'        => 'table',
+			'limit'         => -1
 		];
 	}
 
@@ -631,7 +632,14 @@ class Papi_Property_Repeater extends Papi_Property {
 			</table>
 
 			<div class="bottom">
-				<button type="button" class="button button-primary" data-papi-json="<?php echo $options->slug; ?>_repeater_json"><?php _e( 'Add new row', 'papi' ); ?></button>
+				<?php
+				papi_render_html_tag( 'button', [
+					'class'          => 'button button-primary',
+					'data-papi-json' => sprintf( '%s_repeater_json', $options->slug ),
+					'type'           => 'button',
+					esc_html( $this->get_setting( 'add_new_label' ) )
+				] );
+				?>
 			</div>
 
 			<?php /* Default repeater value */ ?>
