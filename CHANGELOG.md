@@ -5,6 +5,7 @@
 ### Added
 
 * Added `post_type` option to properties. Useful when a page type is used for more then one post type but not all properties.
+* Added `add_new_label` setting to flexible and repeater properties. See issue [#106](https://github.com/wp-papi/papi/issues/106).
 
 ### Fixed
 
