@@ -4,85 +4,85 @@
 
 ### Added
 
-* Added `post_type` option to properties. Useful when a page type is used for more then one post type but not all properties.
-* Added `add_new_label` setting to flexible and repeater properties. See issue [#106](https://github.com/wp-papi/papi/issues/106).
+* Added: `post_type` option to properties. Useful when a page type is used for more then one post type but not all properties.
+* Added: `add_new_label` setting to flexible and repeater properties. See issue [#106](https://github.com/wp-papi/papi/issues/106).
 
 ### Fixed
 
-* Fixed so `disabled` works in properties that are used in flexible and repeater. Disabled properties won't be rendered in flexible and repeater.
-* Fixed so `display` works in properties that are used in flexible and repeater. Table rows will be hidden when properties has `display => false`. You can show them but removing `.papi-hide` css class when you like to display them.
-* Fixed so bool property can handle `false` as empty. See pull request [#103](https://github.com/wp-papi/papi/pull/103), thanks [@rasmusbe](https://github.com/rasmusbe)!
-* Fixed so `Add new page` view is only added when page types exists.
-* Fixed so property default value is only used when post is not created or post status is `auto-draft`
+* Fixed: `disabled` works in properties that are used in flexible and repeater. Disabled properties won't be rendered in flexible and repeater.
+* Fixed: `display` works in properties that are used in flexible and repeater. Table rows will be hidden when properties has `display => false`. You can show them but removing `.papi-hide` css class when you like to display them.
+* Fixed: bool property can handle `false` as empty. See pull request [#103](https://github.com/wp-papi/papi/pull/103), thanks [@rasmusbe](https://github.com/rasmusbe)!
+* Fixed: `Add new page` view is only added when page types exists.
+* Fixed: Property default value is only used when post is not created or post status is `auto-draft`
 
 ## [2.4.1](https://github.com/wp-papi/papi/releases/tag/v2.4.1) - 2015-10-15
 
-* Fixed issue with `papi_is_option_page` where it didn't check `page` query string right.
+* Fixed: issue with `papi_is_option_page` where it didn't check `page` query string right.
 
 ## [2.4.0](https://github.com/wp-papi/papi/releases/tag/v2.4.0) - 2015-10-15
 
 ### Added
 
-* Added items setting to relationship so you can add your own data source!
-* Added image urls to image sizes array.
-* Added `Papi_Attachment_Type`
-* Added `papi-after-html` and `papi-before-class`
-* Added term property, thanks [@rasmusbe](https://github.com/rasmusbe)!
-* Added default property value option. See issue [#95](https://github.com/wp-papi/papi/issues/95).
-* Added `max`, `min` and `step` in number property. See issue [#91](https://github.com/wp-papi/papi/issues/91).
-* Added `after_class` and `before_class` to property option. So you can add your own css class to after and before div.
-* Added `display` option to properties. Flexible and repeater will hide the property and not the row.
-* Added `post_id` to link property output object if it's a internal link.
+* Added: `items` setting to relationship so you can add your own data source!
+* Added: Image urls to image sizes array in file/image/gallery property.
+* Added: `Papi_Attachment_Type`
+* Added: `papi-after-html` and `papi-before-class`
+* Added: Term property, thanks [@rasmusbe](https://github.com/rasmusbe)!
+* Added: Default property value option. See issue [#95](https://github.com/wp-papi/papi/issues/95).
+* Added: `max`, `min` and `step` in number property. See issue [#91](https://github.com/wp-papi/papi/issues/91).
+* Added: `after_class` and `before_class` to property option. So you can add your own css class to after and before div.
+* Added: `display` option to properties. Flexible and repeater will hide the property and not the row.
+* Added: `post_id` to link property output object if it's a internal link.
 
 ### Changed
 
-* Changed so standard type is hidden by default instead of showed. This will effect all standard type filters.
+* Changed: Standard type is hidden by default instead of showed. This will effect all standard type filters.
 
 ### Fixed
 
-* Fixed issue with link property when slug was same as a property name. See issue [#99](https://github.com/wp-papi/papi/issues/99).
-* Fixed issue with add new link when you have a post type on second menu level. See issue [#94](https://github.com/wp-papi/papi/issues/94).
-* Fixed issue with relationship property in flexible or repeater. See issue [#93](https://github.com/wp-papi/papi/issues/93).
-* Fixed embed issue when a embed link didn't embed as it should in custom editor.
+* Fixed: Issue with link property when slug was same as a property name. See issue [#99](https://github.com/wp-papi/papi/issues/99).
+* Fixed: Issue with add new link when you have a post type on second menu level. See issue [#94](https://github.com/wp-papi/papi/issues/94).
+* Fixed: Issue with relationship property in flexible or repeater. See issue [#93](https://github.com/wp-papi/papi/issues/93).
+* Fixed: Embed issue when a embed link didn't embed as it should in custom editor.
 
 ## [2.3.5](https://github.com/wp-papi/papi/releases/edit/v2.3.5) - 2015-10-07
 
-* Fixed cache issue where Papi din't delete cache on save. See issue [#98](https://github.com/wp-papi/papi/issues/98).
-* Fixed issue with `editor` property where `the_content` filter was run on saved.
-* Fixed issue with `allow_html` on `string` and `text` properties. See issue [#79](https://github.com/wp-papi/papi/issues/70).
+* Fixed: Cache issue where Papi din't delete cache on save. See issue [#98](https://github.com/wp-papi/papi/issues/98).
+* Fixed: Issue with `editor` property where `the_content` filter was run on saved.
+* Fixed: Issue with `allow_html` on `string` and `text` properties. See issue [#79](https://github.com/wp-papi/papi/issues/70).
 
 ## [2.3.4](https://github.com/wp-papi/papi/releases/tag/v2.3.4) - 2015-09-18
 
-* Fixed get field issue when query string is used.
-* Fixed relationship right list so it only contains objects.
+* Fixed: Get field issue when query string is used.
+* Fixed: Relationship right list so it only contains objects.
 
 ## [2.3.3](https://github.com/wp-papi/papi/releases/tag/v2.3.3) - 2015-09-18
 
-* Fixed issue with Papi ajax when multisite use subdirectories See issue [#90](https://github.com/wp-papi/papi/issues/90).
+* Fixed: Issue with Papi ajax when multisite use subdirectories See issue [#90](https://github.com/wp-papi/papi/issues/90).
 
 ## [2.3.2](https://github.com/wp-papi/papi/releases/tag/v2.3.2) - 2015-09-09
 
-* Fixed column issue with custom post types.
+* Fixed: Column issue with custom post types.
 
 ## [2.3.1](https://github.com/wp-papi/papi/releases/tag/v2.3.1) - 2015-09-08
 
-* Fixed issue with `papi_html_tag` when the text is a callable function.
+* Fixed: Issue with `papi_html_tag` when the text is a callable function.
 
 ## [2.3.0](https://github.com/wp-papi/papi/releases/tag/v2.3.0) - 2015-09-08
 
 ### Added
 
-* Added `before_html` and `after_html` options that you can use to output html before property html and after property html.
-* Added `child_types` (old `page_types`).
-* Added `standard_type` for show/hide standard page type when having a page type in a parent post.
-* Added new filter for show/hide standard page type from filter dropdown. `papi/settings/show_standard_page_type_in_filter_{$post_type}`
-* Added new property for adding links with the link popup that exists in the editor.
-* Added support for dot templates in page type, so instead of `pages/article.php` can you write `pages.article.php` or `pages.article` without `.php` extension. The old way will continue to work.
-* Added import and export layer that can be used when importing data to Papi or exporting.
-* Added `papi_get_page_type_key` function that will return the meta key that Papi use to save page type id in `postmeta` table.
-* Added `papi_set_page_type_id` function so you can set page type id to a post.
-* Added `papi_page_type_exists` function so you can check if a page type file exists.
-* Added `papi_option_type_exists` function so you can check if a option type file exists.
+* Added: `before_html` and `after_html` options that you can use to output html before property html and after property html.
+* Added: `child_types` (old `page_types`).
+* Added: `standard_type` for show/hide standard page type when having a page type in a parent post.
+* Added: New filter for show/hide standard page type from filter dropdown. `papi/settings/show_standard_page_type_in_filter_{$post_type}`
+* Added: New property for adding links with the link popup that exists in the editor.
+* Added: Support for dot templates in page type, so instead of `pages/article.php` can you write `pages.article.php` or `pages.article` without `.php` extension. The old way will continue to work.
+* Added: Import and export layer that can be used when importing data to Papi or exporting.
+* Added: `papi_get_page_type_key` function that will return the meta key that Papi use to save page type id in `postmeta` table.
+* Added: `papi_set_page_type_id` function so you can set page type id to a post.
+* Added: `papi_page_type_exists` function so you can check if a page type file exists.
+* Added: `papi_option_type_exists` function so you can check if a option type file exists.
 
 ### Changed
 
@@ -92,36 +92,36 @@
 
 ### Fixed
 
-* Fixed so `wp-admin` is not hardcoded on the management page.
-* Fixed so `2%F` is replaced with `/` when setting the current menu item.
-* Fixed so `post_type` query for post post type works as it should.
-* Fixed so all h2 tags are h1, see [Headings in Admin screens change in WordPress 4.3](https://make.wordpress.org/core/2015/07/31/headings-in-admin-screens-change-in-wordpress-4-3/) for more info.
+* Fixed: `wp-admin` is not hardcoded on the management page.
+* Fixed: `2%F` is replaced with `/` when setting the current menu item.
+* Fixed: `post_type` query for post post type works as it should.
+* Fixed: all h2 tags are h1, see [Headings in Admin screens change in WordPress 4.3](https://make.wordpress.org/core/2015/07/31/headings-in-admin-screens-change-in-wordpress-4-3/) for more info.
 
 ## [2.2.2](https://github.com/wp-papi/papi/releases/tag/v2.2.2) - 2015-09-03
 
-* Fixed so papi-ajax returns 200 status code always. When using custom permalink structure it returned 404.
+* Fixed: papi-ajax returns 200 status code always. When using custom permalink structure it returned 404.
 
 ## [2.2.1](https://github.com/wp-papi/papi/releases/tag/v2.2.1) - 2015-08-12
 
-* Fixed allow html bug. See issue [#79](https://github.com/wp-papi/papi/issues/79).
+* Fixed: Allow html bug. See issue [#79](https://github.com/wp-papi/papi/issues/79).
 
 ## [2.2.0](https://github.com/wp-papi/papi/releases/tag/v2.2.0) - 2015-08-03
 
 ### Added
 
-* Added conditional logic for properties.
-* Added property file. See [issue #71](#71).
-* Added property user.
-* Added select2 setting to Dropdown, Post and User.
+* Added: Conditional logic for properties.
+* Added: Property file. See [issue #71](#71).
+* Added: Property user.
+* Added: Select2 setting to Dropdown, Post and User.
 
 ### Fixed
 
-* Fixed labels for attribute.
-* Fixed format_value and update_value for flexible and repeater
-* Fixed array to string [issue #75](#75).
-* Fixed translation [issue #73](#73).
-* Fixed admin column [issue #72](#72).
-* Fixed so h2 is h1. See [Headings in Admin screens change in WordPress 4.3](https://make.wordpress.org/core/2015/07/31/headings-in-admin-screens-change-in-wordpress-4-3/)
+* Fixed: Labels for attribute.
+* Fixed: Format_value and update_value for flexible and repeater
+* Fixed: Array to string [issue #75](#75).
+* Fixed: Translation [issue #73](#73).
+* Fixed: Admin column [issue #72](#72).
+* Fixed: `h2` is `h1`. See [Headings in Admin screens change in WordPress 4.3](https://make.wordpress.org/core/2015/07/31/headings-in-admin-screens-change-in-wordpress-4-3/)
 
 ### Thanks
 
@@ -129,7 +129,7 @@ Thanks to [@nlemoine](https://github.com/wp-papi/papi/issues?utf8=%E2%9C%93&q=au
 
 ## [2.1.1](https://github.com/wp-papi/papi/releases/tag/v2.1.1) - 2015-07-25
 
-* Fixed so image property will render SVG on page load correctly.
+* Fixed: Image property will render SVG on page load correctly.
 
 ## [2.1.0](https://github.com/wp-papi/papi/releases/tag/v2.1.0) - 2015-06-24
 
@@ -139,12 +139,12 @@ Thanks to [@nlemoine](https://github.com/wp-papi/papi/issues?utf8=%E2%9C%93&q=au
 
 ### Changed
 
-* Changed tool page titles
+* Changed: Tool page titles
 
 ### Fixed
 
-* Fixed SVG didn't work with image property. See issue [#68](https://github.com/wp-papi/papi/issues/68).
-* Fixed option type will not be displayed under the tool page since they don't have post id
+* Fixed: SVG didn't work with image property. See issue [#68](https://github.com/wp-papi/papi/issues/68).
+* Fixed: Option type will not be displayed under the tool page since they don't have post id
 
 
 ## [2.0.0](https://github.com/wp-papi/papi/releases/tag/v2.0.0) - 2015-06-22
@@ -160,7 +160,7 @@ Upgrading from Papi 1.x to 2.x will not be a big step and there is a upgrade gui
 
 ### Enhancements
 
-* Added `display( $post_type )` method to page type class, works like `papi/settings/show_page_type_{$post_type}`.
+* Added: `display( $post_type )` method to page type class, works like `papi/settings/show_page_type_{$post_type}`.
 * New property: Flexible repeater, a repeater where you can have different layouts on each row.
 * Option type, just like page type but for option pages.
 
