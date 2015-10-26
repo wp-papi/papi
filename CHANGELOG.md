@@ -95,11 +95,11 @@
 * Fixed: `wp-admin` is not hardcoded on the management page.
 * Fixed: `2%F` is replaced with `/` when setting the current menu item.
 * Fixed: `post_type` query for post post type works as it should.
-* Fixed: all h2 tags are h1, see [Headings in Admin screens change in WordPress 4.3](https://make.wordpress.org/core/2015/07/31/headings-in-admin-screens-change-in-wordpress-4-3/) for more info.
+* Fixed: All `h2` tags are `h1`, see [Headings in Admin screens change in WordPress 4.3](https://make.wordpress.org/core/2015/07/31/headings-in-admin-screens-change-in-wordpress-4-3/) for more info.
 
 ## [2.2.2](https://github.com/wp-papi/papi/releases/tag/v2.2.2) - 2015-09-03
 
-* Fixed: papi-ajax returns 200 status code always. When using custom permalink structure it returned 404.
+* Fixed: `papi-ajax` returns 200 status code always. When using custom permalink structure it returned 404.
 
 ## [2.2.1](https://github.com/wp-papi/papi/releases/tag/v2.2.1) - 2015-08-12
 
@@ -135,7 +135,7 @@ Thanks to [@nlemoine](https://github.com/wp-papi/papi/issues?utf8=%E2%9C%93&q=au
 
 ### Added
 
-* Added: French translation by @dflorent
+* Added: French translation by [@dflorent](https://github.com/dflorent)
 
 ### Changed
 
@@ -145,7 +145,6 @@ Thanks to [@nlemoine](https://github.com/wp-papi/papi/issues?utf8=%E2%9C%93&q=au
 
 * Fixed: SVG didn't work with image property. See issue [#68](https://github.com/wp-papi/papi/issues/68).
 * Fixed: Option type will not be displayed under the tool page since they don't have post id
-
 
 ## [2.0.0](https://github.com/wp-papi/papi/releases/tag/v2.0.0) - 2015-06-22
 
