@@ -260,8 +260,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$dbresults = $wpdb->get_results( $query );
 		$value     = intval( $value );
 
-		// Do not proceed with empty value, columns or dbresults.
-		if ( empty( $value ) || empty( $dbresults ) ) {
+		// Do not proceed with empty value or columns.
+		if ( empty( $value ) ) {
 			return [[], []];
 		}
 
@@ -355,6 +355,37 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 		}
 
+		$dblayouts = [];
+
+		// Fetch one layout per row.
+		foreach ( array_keys( $values ) as $slug ) {
+			if ( preg_match( '/slug\\' . $this->layout_key . '$/', $slug ) ) {
+				$num = str_replace( $repeater_slug . '_', '', $slug );
+				$num  = intval( $num[0] );
+
+				if ( ! isset( $dblayouts[$num] ) ) {
+					$dblayouts[$num] = $num . $values[$slug];
+				}
+			}
+		}
+
+		$layouts = $this->get_settings_layouts();
+
+		// Add empty rows that isn't saved to database.
+		for ( $i = 0; $i < $value; $i++ ) {
+			foreach ( $layouts as $layout ) {
+				if ( in_array( $i . $layout['slug'], $dblayouts ) ) {
+					foreach ( $layout['items'] as $prop ) {
+						$slug = sprintf( '%s_%d_%s', $repeater_slug, $i, papi_remove_papi( $prop->slug ) );
+
+						if ( ! isset( $values[$slug] ) ) {
+							$values[$slug] = null;
+						}
+					}
+				}
+			}
+		}
+
 		return [$values, $trash];
 	}
 
@@ -425,6 +456,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @return array
 	 */
 	protected function prepare_properties( $layouts ) {
+		$layouts = array_map( function ( $layout ) {
+			return (array) $layout;
+		}, $layouts );
+
 		foreach ( $layouts as $index => $layout ) {
 			if ( ! $this->valid_layout( $layout ) ) {
 				if ( is_array( $layout ) ) {

@@ -488,10 +488,18 @@ function papi_update_property_meta_value( array $meta = [] ) {
 		}
 
 		foreach ( $value as $child_key => $child_value ) {
-			if ( $option ) {
-				update_option( papi_remove_papi( $child_key ), $child_value );
+			if ( papi_is_empty( $child_value ) ) {
+				if ( $option ) {
+					delete_option( papi_remove_papi( $child_key ) );
+				} else {
+					delete_post_meta( $meta->post_id, papi_remove_papi( $child_key ) );
+				}
 			} else {
-				update_post_meta( $meta->post_id, papi_remove_papi( $child_key ), $child_value );
+				if ( $option ) {
+					update_option( papi_remove_papi( $child_key ), $child_value );
+				} else {
+					update_post_meta( $meta->post_id, papi_remove_papi( $child_key ), $child_value );
+				}
 			}
 		}
 	}

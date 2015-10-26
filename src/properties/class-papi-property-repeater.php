@@ -188,8 +188,8 @@ class Papi_Property_Repeater extends Papi_Property {
 		$dbresults = $wpdb->get_results( $query );
 		$value     = intval( $value );
 
-		// Do not proceed with empty value or dbresults.
-		if ( empty( $value ) || empty( $dbresults ) ) {
+		// Do not proceed with empty value.
+		if ( empty( $value ) ) {
 			return [[], []];
 		}
 
@@ -240,6 +240,19 @@ class Papi_Property_Repeater extends Papi_Property {
 					}
 
 					$trash[$results[$i][$slug]->meta_key] = $rows[$i][$slug];
+				}
+			}
+		}
+
+		$properties = $this->get_settings_properties();
+
+		// Add empty rows that isn't saved to database.
+		for ( $i = 0; $i < $value; $i++ ) {
+			foreach ( $properties as $prop ) {
+				$slug = sprintf( '%s_%d_%s', $repeater_slug, $i, papi_remove_papi( $prop->slug ) );
+
+				if ( ! isset( $values[$slug] ) ) {
+					$values[$slug] = null;
 				}
 			}
 		}
