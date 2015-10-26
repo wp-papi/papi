@@ -144,20 +144,6 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		}
 	}
 
-	public function test_property_settings() {
-		foreach ( $this->properties as $property ) {
-			$settings = (array) $property->get_settings();
-
-			if ( empty( $settings ) ) {
-				$this->assertEmpty( $settings );
-			} else {
-				foreach ( $settings as $key => $value ) {
-					$this->assertSame( $value, $property->get_setting( $key ) );
-				}
-			}
-		}
-	}
-
 	public function test_property_import_value() {
 		$this->assertSame( $this->get_expected(), $this->property->import_value( $this->get_value(), '', 0 ) );
 	}
