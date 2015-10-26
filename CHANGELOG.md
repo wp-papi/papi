@@ -17,7 +17,7 @@
 
 ## [2.4.1](https://github.com/wp-papi/papi/releases/tag/v2.4.1) - 2015-10-15
 
-* Fixed: issue with `papi_is_option_page` where it didn't check `page` query string right.
+* Fixed: `papi_is_option_page` issue where it didn't check `page` query string right.
 
 ## [2.4.0](https://github.com/wp-papi/papi/releases/tag/v2.4.0) - 2015-10-15
 
@@ -40,16 +40,16 @@
 
 ### Fixed
 
-* Fixed: Issue with link property when slug was same as a property name. See issue [#99](https://github.com/wp-papi/papi/issues/99).
-* Fixed: Issue with add new link when you have a post type on second menu level. See issue [#94](https://github.com/wp-papi/papi/issues/94).
-* Fixed: Issue with relationship property in flexible or repeater. See issue [#93](https://github.com/wp-papi/papi/issues/93).
+* Fixed: Link property issue when slug was same as a property name. See issue [#99](https://github.com/wp-papi/papi/issues/99).
+* Fixed: Add new link issue when you have a post type on second menu level. See issue [#94](https://github.com/wp-papi/papi/issues/94).
+* Fixed: Relationship property issue in flexible or repeater. See issue [#93](https://github.com/wp-papi/papi/issues/93).
 * Fixed: Embed issue when a embed link didn't embed as it should in custom editor.
 
 ## [2.3.5](https://github.com/wp-papi/papi/releases/edit/v2.3.5) - 2015-10-07
 
 * Fixed: Cache issue where Papi din't delete cache on save. See issue [#98](https://github.com/wp-papi/papi/issues/98).
-* Fixed: Issue with `editor` property where `the_content` filter was run on saved.
-* Fixed: Issue with `allow_html` on `string` and `text` properties. See issue [#79](https://github.com/wp-papi/papi/issues/70).
+* Fixed: Editor property issue where `the_content` filter was run on saved.
+* Fixed: `allow_html` on `string` and `text` properties. See issue [#79](https://github.com/wp-papi/papi/issues/70).
 
 ## [2.3.4](https://github.com/wp-papi/papi/releases/tag/v2.3.4) - 2015-09-18
 
@@ -66,7 +66,7 @@
 
 ## [2.3.1](https://github.com/wp-papi/papi/releases/tag/v2.3.1) - 2015-09-08
 
-* Fixed: Issue with `papi_html_tag` when the text is a callable function.
+* Fixed: `papi_html_tag` issue when the text is a callable function.
 
 ## [2.3.0](https://github.com/wp-papi/papi/releases/tag/v2.3.0) - 2015-09-08
 
