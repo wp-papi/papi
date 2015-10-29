@@ -51,7 +51,8 @@ class Papi_Property_Relationship extends Papi_Property {
 
 			foreach ( $values as $key => $id ) {
 				// Backwards compatibility with array `id` and `id`.
-				$id  = is_array( $id ) ? $id['id'] : $id;
+				$id = (array) $id;
+				$id = is_array( $id ) ? $id['id'] : $id;
 
 				if ( empty( $id ) ) {
 					continue;
