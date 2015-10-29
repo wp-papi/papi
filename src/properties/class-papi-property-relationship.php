@@ -348,7 +348,8 @@ class Papi_Property_Relationship extends Papi_Property {
 	 * @return mixed
 	 */
 	public function load_value( $values, $slug, $post_id ) {
-		return (array) papi_maybe_json_decode( maybe_unserialize( $values ), true );
+		$values = (array) papi_maybe_json_decode( maybe_unserialize( $values ), true );
+		return array_map( 'papi_maybe_convert_to_object', $values );
 	}
 
 	/**
