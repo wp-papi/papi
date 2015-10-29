@@ -397,7 +397,7 @@ function papi_html_tag( $tag, $attr = [] ) {
 	}
 
 	if ( papi_is_empty( $content ) ) {
-		$end = '/>';
+		$end = '>';
 	} else {
 		$end = sprintf( '>%s</%s>', implode( ' ', $content ), $tag );
 	}
