@@ -237,7 +237,7 @@ class Papi_Lib_Utilities_Test extends WP_UnitTestCase {
 			['hello', 'world']
 		] ) );
 
-		$this->assertSame( '<label for="{}"/>', papi_html_tag( 'label', [
+		$this->assertSame( '<label for="{}">', papi_html_tag( 'label', [
 			'for' => (object) []
 		] ) );
 
