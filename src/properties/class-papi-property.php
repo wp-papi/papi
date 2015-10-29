@@ -83,7 +83,7 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
-	 * Get label for the property.
+	 * Render label for the property.
 	 */
 	protected function render_label_html() {
 		$title = $this->get_option( 'title' );
