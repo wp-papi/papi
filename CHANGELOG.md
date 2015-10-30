@@ -1,5 +1,10 @@
 # Papi Changelog
 
+## [2.4.3](https://github.com/wp-papi/papi/releases/tag/v2.4.3) - 2015-10-30
+
+Fixed: Relationships children did not showed correctly on page load.
+Fixed: Action `papi/include` caused recursive loop.
+
 ## [2.4.2](https://github.com/wp-papi/papi/releases/tag/v2.4.2) - 2015-10-27
 
 ### Added
