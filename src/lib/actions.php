@@ -15,5 +15,5 @@ function papi_action_delete_value( $type, $slug, $post_id = 0 ) {
  * Fire the 'papi/include' action, where plugins should include files.
  */
 function papi_action_include() {
-	do_action( 'papi/include' );
+	did_action( 'papi/include' ) || do_action( 'papi/include' );
 }
