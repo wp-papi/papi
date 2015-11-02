@@ -374,7 +374,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		// Add empty rows that isn't saved to database.
 		for ( $i = 0; $i < $value; $i++ ) {
 			foreach ( $layouts as $layout ) {
-				if ( in_array( $i . $layout['slug'], $dblayouts ) ) {
+				if ( isset( $layout['slug'] ) && in_array( $i . $layout['slug'], $dblayouts ) ) {
 					foreach ( $layout['items'] as $prop ) {
 						$slug = sprintf( '%s_%d_%s', $repeater_slug, $i, papi_remove_papi( $prop->slug ) );
 
