@@ -103,13 +103,13 @@ class Papi_Property_Link extends Papi_Property {
 			}
 		}
 
-		$values = (object) $values;
+		$link = (object) $values;
 
-		if ( isset( $values->$slug ) && is_numeric( $values->$slug ) ) {
-			unset( $values->$slug );
+		if ( isset( $link->$slug ) && is_numeric( $link->$slug ) ) {
+			unset( $link->$slug );
 		}
 
-		return $this->prepare_link_array( $values );
+		return $this->prepare_link_array( $link );
 	}
 
 	/**
@@ -190,30 +190,35 @@ class Papi_Property_Link extends Papi_Property {
 	 * Prepare link array with post id. If it gets a post id
 	 * bigger then zero it will use the permalink as url.
 	 *
-	 * @param array|object $values
+	 * @param array|object $link
 	 *
 	 * @return array|object
 	 */
-	protected function prepare_link_array( $values ) {
-		$array  = is_array( $values );
-		$values = (object) $values;
+	protected function prepare_link_array( $link ) {
+		$array  = is_array( $link );
+		$link = (object) $link;
 
 		// Don't continue without a url.
-		if ( ! isset( $values->url ) || empty( $values->url ) ) {
-			return $array ? (array) $values : $values;
+		if ( ! isset( $link->url ) || empty( $link->url ) ) {
+			return $array ? (array) $link : $link;
 		}
 
 		// Don't overwrite existing post id.
-		if ( ! isset( $values->post_id ) || empty( $values->post_id ) ) {
-			$values->post_id = url_to_postid( $values->url );
+		if ( ! isset( $link->post_id ) || empty( $link->post_id ) ) {
+			$link->post_id = url_to_postid( $link->url );
 		}
 
 		// Only replace url when post id is not zero.
-		if ( $values->post_id > 0 ) {
-			$values->url = get_permalink( $values->post_id );
+		if ( $link->post_id > 0 ) {
+			$link->url = get_permalink( $link->post_id );
 		}
 
-		return $array ? (array) $values : $values;
+		// If empty target set `_self` as default target.
+		if ( empty( $link->target ) ) {
+			$link->target = '_self';
+		}
+
+		return $array ? (array) $link : $link;
 	}
 
 	/**
