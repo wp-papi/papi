@@ -53,7 +53,6 @@ final class Papi_Loader extends Papi_Container {
 	 */
 	private function __construct() {
 		$this->constants();
-		$this->setup_actions();
 		$this->load_textdomain();
 		$this->require_files();
 		$this->setup_container();
@@ -190,13 +189,6 @@ final class Papi_Loader extends Papi_Container {
 		}
 
 		wp_die( __( 'WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
-	}
-
-	/**
-	 * Setup actions.
-	 */
-	private function setup_actions() {
-		add_action( 'after_setup_theme', 'papi_action_include' );
 	}
 
 	/**
