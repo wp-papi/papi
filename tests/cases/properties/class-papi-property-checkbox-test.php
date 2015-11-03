@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group properties
+ */
 class Papi_Property_Checkbox_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'checkbox_test';

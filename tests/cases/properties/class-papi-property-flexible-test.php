@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group properties
+ */
 class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'flexible_test';

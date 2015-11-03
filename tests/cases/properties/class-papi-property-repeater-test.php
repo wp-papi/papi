@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group properties
+ */
 class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'repeater_test';
