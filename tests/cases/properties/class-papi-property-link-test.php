@@ -223,4 +223,34 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 		$this->property->render_link_template();
 		$this->expectOutputRegex( '/.*\S.*/' );
 	}
+
+	public function test_property_update_value_empty_value() {
+		$post_id = $this->factory->post->create();
+		$values = $this->property->update_value( [], $this->property->slug, $post_id );
+		$this->assertEmpty( $values['papi_link_test_post_id'] );
+		$this->assertEmpty( $values['papi_link_test_url'] );
+		$this->assertEmpty( $values['papi_link_test_title'] );
+		$this->assertEmpty( $values['papi_link_test_target'] );
+	}
+
+	public function test_property_update_value_real_post() {
+		$post_id = $this->factory->post->create();
+		$values = $this->property->update_value( [], $this->property->slug, $post_id );
+
+		$post_id   = $this->factory->post->create();
+		$permalink = get_permalink( $post_id );
+		$input     = [
+			'url'    => get_permalink( $post_id ),
+			'title'  => get_the_title( $post_id ),
+			'target' => '_blank'
+		];
+		$expected  = [
+			'papi_link_test_url'     => get_permalink( $post_id ),
+			'papi_link_test_title'   => get_the_title( $post_id ),
+			'papi_link_test_target'  => '_blank',
+			'papi_link_test_post_id' => $post_id,
+			'papi_link_test'         => 1,
+		];
+		$this->assertEquals( $expected, $this->property->update_value( $input, $this->property->slug, 0 ) );
+	}
 }

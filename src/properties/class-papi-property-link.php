@@ -20,6 +20,18 @@ class Papi_Property_Link extends Papi_Property {
 	public $default_value = [];
 
 	/**
+	 * Link fields.
+	 *
+	 * @var array
+	 */
+	protected $link_fields = [
+		'post_id',
+		'url',
+		'title',
+		'target'
+	];
+
+	/**
 	 * Delete value from the database.
 	 *
 	 * @param  string $slug
@@ -77,12 +89,7 @@ class Papi_Property_Link extends Papi_Property {
 	 * @return array
 	 */
 	public function load_value( $value, $slug, $post_id ) {
-		$values = [
-			'post_id',
-			'url',
-			'title',
-			'target'
-		];
+		$values = $this->link_fields;
 
 		if ( is_array( $value ) || is_object( $value ) ) {
 			$values = (array) $value;
@@ -121,7 +128,9 @@ class Papi_Property_Link extends Papi_Property {
 		$value = (object) $value;
 		?>
 		<div class="papi-property-link" data-replace-slug="true" data-slug="<?php echo $this->html_name(); ?>">
-			<?php if ( isset( $value->url ) ): ?>
+			<input type="hidden" name="<?php echo $this->html_name(); ?>">
+
+			<?php if ( ! empty( $value->url ) ): ?>
 				<table class="papi-table link-table">
 					<tbody>
 						<tr>
@@ -151,11 +160,11 @@ class Papi_Property_Link extends Papi_Property {
 			<?php endif; ?>
 
 			<p class="papi-file-select">
-				<span class="<?php echo isset( $value->url ) ? 'papi-hide' : ''; ?>">
+				<span class="<?php echo empty( $value->url ) ? '' : 'papi-hide'; ?>">
 					<?php _e( 'No link selected', 'papi' ); ?>
 					<button class="button" data-link-action="add"><?php _e( 'Add link', 'papi' ); ?></button>
 				</span>
-				<span class="<?php echo isset( $value->url ) ? '' : 'papi-hide'; ?>">
+				<span class="<?php echo empty( $value->url ) ? 'papi-hide' : ''; ?>">
 					<button class="button" data-link-action="edit"><?php _e( 'Edit link', 'papi' ); ?></button>
 					<button class="button" data-link-action="remove"><?php _e( 'Remove link', 'papi' ); ?></button>
 				</span>
@@ -266,13 +275,31 @@ class Papi_Property_Link extends Papi_Property {
 	 * @return array
 	 */
 	public function update_value( $values, $slug, $post_id ) {
+		if ( ! isset( $values['url'] ) ) {
+			$values = $this->link_fields;
+
+			foreach ( $values as $index => $key ) {
+				$values[sprintf( '%s_%s', $slug, $key )] = '';
+				unset( $values[$index] );
+			}
+
+			// Delete the required field.
+			$values[$slug] = '';
+
+			return $values;
+		}
+
+		// If a url exists we can continue making the meta fields
+		// that should be saved.
 		$values = $this->prepare_link_array( $values );
 
 		foreach ( $values as $key => $val ) {
-			$values[$slug . '_' . $key] = $val;
+			$values[sprintf( '%s_%s', $slug, $key )] = $val;
 			unset( $values[$key] );
 		}
 
+		// Required field so Papi can load a value from the
+		// original property slug.
 		$values[$slug] = 1;
 
 		return $values;
