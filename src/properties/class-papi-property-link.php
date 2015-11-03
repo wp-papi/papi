@@ -120,15 +120,12 @@ class Papi_Property_Link extends Papi_Property {
 		$value = is_array( $value ) || is_object( $value ) ? $value : [];
 		$value = (object) $value;
 		?>
-
 		<div class="papi-property-link" data-replace-slug="true" data-slug="<?php echo $this->html_name(); ?>">
 			<?php if ( isset( $value->url ) ): ?>
 				<table class="papi-table link-table">
 					<tbody>
 						<tr>
-							<td>
-								<?php _e( 'URL', 'papi' ); ?>
-							</td>
+							<td><?php _e( 'URL', 'papi' ); ?></td>
 							<td>
 								<a href="<?php echo $value->url; ?>" target="_blank"><?php echo $value->url; ?></a>
 								<input type="hidden" value="<?php echo $value->title . ' - ' . $value->url; ?>" data-papi-rule="<?php echo $this->html_name(); ?>">
@@ -136,18 +133,14 @@ class Papi_Property_Link extends Papi_Property {
 							</td>
 						</tr>
 						<tr>
-							<td>
-								<?php _e( 'Title', 'papi' ); ?>
-							</td>
+							<td><?php _e( 'Title', 'papi' ); ?></td>
 							<td>
 								<?php echo $value->title; ?>
 								<input class="wp-link-text" type="hidden" value="<?php echo $value->title; ?>" name="<?php echo $this->html_name(); ?>[title]">
 							</td>
 						</tr>
 						<tr>
-							<td>
-								<?php _e( 'Target', 'papi' ); ?>
-							</td>
+							<td><?php _e( 'Target', 'papi' ); ?></td>
 							<td>
 								<?php echo $value->target === '_blank' ? __( 'New window', 'papi' ) : __( 'Same window', 'papi' ); ?>
 								<input class="wp-link-target" type="hidden" value="<?php echo $value->target; ?>" name="<?php echo $this->html_name(); ?>[target]">
