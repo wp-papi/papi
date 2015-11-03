@@ -359,7 +359,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 		// Fetch one layout per row.
 		foreach ( array_keys( $values ) as $slug ) {
-			if ( preg_match( '/slug\\' . $this->layout_key . '$/', $slug ) ) {
+			if ( preg_match( '/\\' . $this->layout_key . '$/', $slug ) ) {
 				$num = str_replace( $repeater_slug . '_', '', $slug );
 				$num  = intval( $num[0] );
 
