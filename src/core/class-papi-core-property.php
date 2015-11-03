@@ -181,7 +181,6 @@ class Papi_Core_Property {
 					if ( is_array( $value ) ) {
 						$items[$index][$key] = $this->convert_items_array( $value );
 						$items[$index][$key] = array_filter( $items[$index][$key] );
-						$items[$index][$key] = array_values( $items[$index][$key] );
 					}
 				}
 
