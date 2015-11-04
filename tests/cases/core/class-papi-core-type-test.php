@@ -66,6 +66,10 @@ class Papi_Core_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 'custom-page-type-id', $identifier_page_type->get_id() );
 	}
 
+	public function test_get_type() {
+		$this->assertSame( 'page', $this->simple_page_type->get_type() );
+	}
+
 	public function test_match_id() {
 		$this->assertTrue( $this->empty_page_type->match_id( '' ) );
 		$this->assertTrue( $this->simple_page_type->match_id( 'simple-page-type' ) );
