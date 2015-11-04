@@ -43,6 +43,13 @@ class Papi_Option_Type extends Papi_Page_Type {
 	public $post_type = '_papi_option_type';
 
 	/**
+	 * The type name.
+	 *
+	 * @var string
+	 */
+	public $type = 'option';
+
+	/**
 	 * Get post type.
 	 *
 	 * @return string

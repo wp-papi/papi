@@ -15,6 +15,13 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	public $post_type = 'attachment';
 
 	/**
+	 * The type name.
+	 *
+	 * @var string
+	 */
+	public $type = 'attachment';
+
+	/**
 	 * Get post type.
 	 *
 	 * @return string

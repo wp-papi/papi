@@ -91,6 +91,13 @@ class Papi_Page_Type_Meta extends Papi_Core_Type {
 	public $thumbnail = '';
 
 	/**
+	 * The type name.
+	 *
+	 * @var string
+	 */
+	public $type = 'page';
+
+	/**
 	 * The constructor.
 	 *
 	 * Load a page type by the file.
