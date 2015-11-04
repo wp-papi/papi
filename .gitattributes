@@ -18,3 +18,5 @@ phpunit.xml.dist export-ignore
 tmp export-ignore
 Vagrantfile export-ignore
 vendor export-ignore
+wp-cli.yml export-ignore
+behat.yml export-ignore
