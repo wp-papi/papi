@@ -229,8 +229,8 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 
 		$this->proc( 'wp core install', $install_args, $subdir )->run_check();
 
-		// Install (but don't activate) Revision Strike
+		// Install (but don't activate) Papi.
 		$plugin_file = __DIR__ . '/../../../papi-loader.php';
-		$this->proc( "ln -s $plugin_file wp-content/plugins/revision-strike/revision-strike.php" )->run_check();
+		$this->proc( "ln -s $plugin_file wp-content/plugins/papi/papi-loader.php" )->run_check();
 	}
 }
