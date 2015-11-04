@@ -53,6 +53,13 @@ class Papi_Core_Type {
 	public $id = '';
 
 	/**
+	 * The type name.
+	 *
+	 * @var string
+	 */
+	public $type = '';
+
+	/**
 	 * The constructor.
 	 *
 	 * Load a page type by the file.
