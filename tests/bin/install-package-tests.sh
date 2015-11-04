@@ -17,15 +17,6 @@ install_wp_cli() {
 	mkdir -p $WP_CLI_BIN_DIR
 	download https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar $WP_CLI_BIN_DIR/wp
 	chmod +x $WP_CLI_BIN_DIR/wp
-
-}
-
-download_behat() {
-	cd $PACKAGE_DIR
-	download https://getcomposer.org/installer installer
-	php installer
-	php composer.phar require --dev behat/behat='~2.5'
-
 }
 
 install_db() {
@@ -34,5 +25,4 @@ install_db() {
 }
 
 install_wp_cli
-download_behat
 install_db
