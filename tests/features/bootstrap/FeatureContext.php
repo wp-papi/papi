@@ -147,7 +147,7 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 	private static function run_sql( $sql ) {
 		Utils\run_mysql_command( 'mysql --no-defaults', array(
 			'execute' => $sql,
-			'host' => 'localhost',
+			'host' => '127.0.0.1',
 			'user' => self::$db_settings['dbuser'],
 			'pass' => self::$db_settings['dbpass'],
 		) );
@@ -200,8 +200,8 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 		Process::create( Utils\esc_cmd( "cp -r %s/* %s", self::$cache_dir, $dest_dir ), null, self::get_process_env_variables() )->run_check();
 
 		// disable emailing
-		mkdir( $dest_dir . '/wp-content/mu-plugins' );
-		copy( __DIR__ . '/../extra/no-mail.php', $dest_dir . '/wp-content/mu-plugins/no-mail.php' );
+		// mkdir( $dest_dir . '/wp-content/mu-plugins' );
+		// copy( __DIR__ . '/../extra/no-mail.php', $dest_dir . '/wp-content/mu-plugins/no-mail.php' );
 	}
 
 	public function create_config( $subdir = '' ) {
