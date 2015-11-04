@@ -39,7 +39,7 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 	 * * id
 	 * * post_type
 	 * * template
-	 * * number of pages
+	 * * number_of_pages
 	 * * type
 	 *
 	 * Not all fields exists on a Papi type so some fields will have `n/a`
