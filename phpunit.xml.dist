@@ -16,7 +16,7 @@
   >
   <testsuites>
     <testsuite name="Papi Test Suite">
-      <directory suffix=".php">./tests/</directory>
+      <directory suffix=".php">./tests/cases</directory>
     </testsuite>
   </testsuites>
   <filter>
