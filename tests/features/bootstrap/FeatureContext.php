@@ -26,9 +26,9 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 	private static $cache_dir, $suite_cache_dir;
 
 	private static $db_settings = array(
-		'dbname' => 'wp_cli_test',
-		'dbuser' => 'wp_cli_test',
-		'dbpass' => 'password1',
+		'dbname' => 'wptests',
+		'dbuser' => 'root',
+		'dbpass' => '',
 		'dbhost' => '127.0.0.1',
 	);
 
@@ -210,6 +210,7 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 		$params['dbprefix'] = $subdir ?: 'wp_';
 
 		$params['skip-salts'] = true;
+		unset($params['dbpass']);
 		$this->proc( 'wp core config', $params, $subdir )->run_check();
 	}
 
@@ -230,8 +231,17 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 
 		$this->proc( 'wp core install', $install_args, $subdir )->run_check();
 
+		$dest_dir = $this->variables['RUN_DIR'] . "/$subdir";
+
+		if ( $subdir ) {
+			mkdir( $dest_dir );
+		}
+
+		$dest_dir = rtrim($dest_dir, '/');
+		mkdir("$dest_dir/wp-content/plugins/papi");
+
 		// Install (but don't activate) Papi.
 		$plugin_file = __DIR__ . '/../../../papi-loader.php';
-		$this->proc( "ln -s $plugin_file wp-content/plugins/papi/papi-loader.php" )->run_check();
+		$this->proc( "ln -s $plugin_file $dest_dir/wp-content/plugins/papi/papi-loader.php" )->run_check();
 	}
 }

@@ -2,8 +2,6 @@
 
 set -ex
 
-PACKAGE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/../ && pwd )"
-
 download() {
     if [ `which curl` ]; then
         curl -s "$1" > "$2";
@@ -19,10 +17,4 @@ install_wp_cli() {
 	chmod +x $WP_CLI_BIN_DIR/wp
 }
 
-install_db() {
-  mysql -e 'CREATE DATABASE wp_cli_test;' -uroot
-  mysql -e 'GRANT ALL PRIVILEGES ON wp_cli_test.* TO "wp_cli_test"@"localhost" IDENTIFIED BY "password1"' -uroot
-}
-
 install_wp_cli
-install_db
