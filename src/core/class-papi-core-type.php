@@ -121,6 +121,20 @@ class Papi_Core_Type {
 	}
 
 	/**
+	 * Get type name.
+	 *
+	 * @return string
+	 */
+	public function get_type() {
+		$class = get_class( $this );
+
+		preg_match( '/\w+\_(\w+)\_Type$/', $class, $matches );
+		$type = isset( $matches[1] ) ? $matches[1] : $this->type;
+
+		return strtolower( $type );
+	}
+
+	/**
 	 * Check if the the given identifier match the page type identifier.
 	 *
 	 * @param  string $id
