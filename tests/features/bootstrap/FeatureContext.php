@@ -27,8 +27,9 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 
 	private static $db_settings = array(
 		'dbname' => 'wp_cli_test',
-		'dbuser' => 'root',
-		'dbpass' => ''
+		'dbuser' => 'wp_cli_test',
+		'dbpass' => 'password1',
+		'dbhost' => '127.0.0.1',
 	);
 
 	public $variables = array();
