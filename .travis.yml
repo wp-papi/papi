@@ -23,7 +23,7 @@ after_script:
 env:
   global:
     - WP_CLI_BIN_DIR=/tmp/wp-cli-phar
-    - WP_CLI_CONFIG_PATH=/tmp/wordpress-develop/wp-cli.yml
+    - WP_CLI_CONFIG_PATH=/tmp/wp-cli-phar/config.yml
 
 matrix:
   include:
