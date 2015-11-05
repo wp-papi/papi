@@ -9,15 +9,17 @@ final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 	 * The constructor.
 	 */
 	public function __construct() {
-		if ( papi_is_method( 'post' ) && papi_is_option_page() ) {
-			$this->save_options();
-		}
+		$this->setup_actions();
 	}
 
 	/**
 	 * Save options with a post id of zero.
 	 */
-	private function save_options() {
+	public function save_options() {
+		if ( ! papi_is_method( 'post' ) || ! papi_is_option_page() ) {
+			return;
+		}
+
 		// Check if our nonce is vailed.
 		if ( ! wp_verify_nonce( papi_get_sanitized_post( 'papi_meta_nonce' ), 'papi_save_data' ) ) {
 			return;
@@ -36,6 +38,13 @@ final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 				'value'         => $value
 			] );
 		}
+	}
+
+	/**
+	 * Setup actions.
+	 */
+	private function setup_actions() {
+		add_action( 'admin_init', [$this, 'save_options'], 10 );
 	}
 }
 

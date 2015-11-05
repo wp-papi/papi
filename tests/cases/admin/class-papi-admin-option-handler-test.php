@@ -24,6 +24,11 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 		);
 	}
 
+	public function test_actions() {
+		$handler = new Papi_Admin_Option_Handler;
+		$this->assertGreaterThan( 0, has_action( 'admin_init', [$handler, 'save_options'] ) );
+	}
+
 	public function test_save_options_without_nonce() {
 		global $current_screen;
 
@@ -64,6 +69,7 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/options-general.php?page=papi/options/header-option-type';
 
 		new Papi_Admin_Option_Handler;
+		do_action( 'admin_init' );
 
 		$value = papi_get_option( $this->property->slug );
 

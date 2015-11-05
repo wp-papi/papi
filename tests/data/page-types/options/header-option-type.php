@@ -21,6 +21,11 @@ class Header_Option_Type extends Papi_Option_Type {
 			papi_property( [
 				'title' => 'Name',
 				'type' => 'string'
+			] ),
+
+			papi_property( [
+				'title' => 'Link',
+				'type' => 'link'
 			] )
 
 		] );
