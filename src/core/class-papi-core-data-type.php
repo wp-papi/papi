@@ -3,7 +3,7 @@
 /**
  * Core class that implements a Papi type.
  */
-class Papi_Core_Type {
+class Papi_Core_Data_Type {
 
 	/**
 	 * The core meta method that can be used

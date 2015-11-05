@@ -1,6 +1,6 @@
 <?php
 
-class Papi_Core_Type_Test extends WP_UnitTestCase {
+class Papi_Core_Data_Type_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
