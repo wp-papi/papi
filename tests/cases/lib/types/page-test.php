@@ -222,6 +222,19 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Simple page', papi_get_page_type_name( $this->post_id ) );
 	}
 
+	public function test_papi_is_page_type() {
+		$this->assertTrue( papi_is_page_type( new Papi_Page_Type ) );
+		$this->assertFalse( papi_is_page_type( new Papi_Option_Type ) );
+		$this->assertFalse( papi_is_page_type( true ) );
+		$this->assertFalse( papi_is_page_type( false ) );
+		$this->assertFalse( papi_is_page_type( null ) );
+		$this->assertFalse( papi_is_page_type( 1 ) );
+		$this->assertFalse( papi_is_page_type( 0 ) );
+		$this->assertFalse( papi_is_page_type( '' ) );
+		$this->assertFalse( papi_is_page_type( [] ) );
+		$this->assertFalse( papi_is_page_type( (object) [] ) );
+	}
+
 	public function test_papi_set_page_type_id() {
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];

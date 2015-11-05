@@ -84,13 +84,6 @@ class Papi_Data_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 'data', $this->info_data_type->get_type() );
 	}
 
-	public function test_get_post_type() {
-		$this->assertSame( get_class( $this->empty_data_type ), $this->empty_data_type->get_post_type() );
-		$_GET['post_type'] = 'page';
-		$this->assertSame( 'page', $this->empty_data_type->get_post_type() );
-		unset( $_GET['post_type'] );
-	}
-
 	public function test_match_id() {
 		$this->assertTrue( $this->empty_data_type->match_id( '' ) );
 		$this->assertTrue( $this->info_data_type->match_id( 'info-data-type' ) );

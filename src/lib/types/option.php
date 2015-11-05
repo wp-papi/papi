@@ -21,6 +21,17 @@ function papi_is_option_page() {
 }
 
 /**
+ * Check if `$obj` is a instanceof `Papi_Option_Type`.
+ *
+ * @param  mixed $obj
+ *
+ * @return bool
+ */
+function papi_is_option_type( $obj ) {
+	return $obj instanceof Papi_Option_Type;
+}
+
+/**
  * Check if option type exists.
  *
  * @param  string $id

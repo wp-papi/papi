@@ -35,73 +35,63 @@ function papi_get_all_data_types( $all = false, $post_type = null, $fake_post_ty
 		$post_type  = papi_get_post_type();
 	}
 
-	$cache_key  = papi_cache_key( sprintf( '%s_%s', $all, $post_type ), $fake_post_types );
-	$data_types = wp_cache_get( $cache_key );
+	$data_types = [];
 	$load_once  = papi_filter_core_load_one_type_on();
+	$files      = papi_get_all_data_type_files();
 
-	if ( empty( $data_types ) ) {
-		$files = papi_get_all_data_type_files();
+	foreach ( $files as $file ) {
+		$data_type = papi_get_data_type( $file );
 
-		foreach ( $files as $file ) {
-			$data_type = papi_get_data_type( $file );
+		if ( is_null( $data_type ) ) {
+			continue;
+		}
 
-			if ( is_null( $data_type ) ) {
-				continue;
-			}
+		// Only core data types can be loaded.
+		if ( $data_type instanceof Papi_Data_Type === false ) {
+			continue;
+		}
 
-			// Only core data types can be loaded.
-			if ( $data_type instanceof Papi_Data_Type === false ) {
-				continue;
-			}
-
-			// Not all data types has a post type.
-			if ( ! isset( $data_type->post_type ) ) {
-				// If the
-				if ( $fake_post_types ) {
-					// Boot page type.
-					$data_type->boot();
-
-					// Add it to the page types array.
-					$data_types[] = $data_type;
-				}
-
-				continue;
-			}
-
-			// No page type or a fake post type loading can not be continued.
-			if ( ! papi_is_page_type( $data_type ) || $fake_post_types ) {
-				continue;
-			}
-
-			if ( papi()->exists( 'core.data_type.' . $data_type->post_type[0] ) ) {
-				if ( ! empty( $data_types ) ) {
-					continue;
-				}
-			} else if ( in_array( $data_type->post_type[0], $load_once ) ) {
-				papi()->singleton( 'core.data_type.' . $data_type->post_type[0], $data_type->get_id() );
-			}
-
-			// Add the page type if the post types is allowed.
-			if ( $all || $data_type->allowed( $post_type ) ) {
+		// Not all data types has a post type.
+		if ( ! isset( $data_type->post_type ) ) {
+			// If the
+			if ( $fake_post_types ) {
 				// Boot page type.
 				$data_type->boot();
 
 				// Add it to the page types array.
 				$data_types[] = $data_type;
 			}
+
+			continue;
 		}
 
-		if ( is_array( $data_types ) ) {
-			usort( $data_types, function ( $a, $b ) {
-				return strcmp( $a->name, $b->name );
-			} );
+		// No page type or a fake post type loading can not be continued.
+		if ( ! papi_is_page_type( $data_type ) || $fake_post_types ) {
+			continue;
+		}
 
-			wp_cache_set( $cache_key, $data_types );
+		if ( papi()->exists( 'core.data_type.' . $data_type->post_type[0] ) ) {
+			if ( ! empty( $data_types ) ) {
+				continue;
+			}
+		} else if ( in_array( $data_type->post_type[0], $load_once ) ) {
+			papi()->singleton( 'core.data_type.' . $data_type->post_type[0], $data_type->get_id() );
+		}
+
+		// Add the page type if the post types is allowed.
+		if ( $all || $data_type->allowed( $post_type ) ) {
+			// Boot page type.
+			$data_type->boot();
+
+			// Add it to the page types array.
+			$data_types[] = $data_type;
 		}
 	}
 
-	if ( ! is_array( $data_types ) ) {
-		return [];
+	if ( is_array( $data_types ) ) {
+		usort( $data_types, function ( $a, $b ) {
+			return strcmp( $a->name, $b->name );
+		} );
 	}
 
 	if ( $fake_post_types ) {
@@ -232,35 +222,4 @@ function papi_get_data_type_id( $post_id = 0 ) {
 	}
 
 	return $data_type;
-}
-
-/**
- * Get the page type key that is used for each data type.
- *
- * @return string
- */
-function papi_get_data_type_key() {
-	return '_papi_data_type';
-}
-
-/**
- * Check if `$obj` is a instanceof `Papi_Option_Type`.
- *
- * @param  mixed $obj
- *
- * @return bool
- */
-function papi_is_option_type( $obj ) {
-	return $obj instanceof Papi_Option_Type;
-}
-
-/**
- * Check if `$obj` is a instanceof `Papi_Page_Type`.
- *
- * @param  mixed $obj
- *
- * @return bool
- */
-function papi_is_page_type( $obj ) {
-	return $obj instanceof Papi_Page_Type;
 }

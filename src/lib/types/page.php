@@ -163,6 +163,17 @@ function papi_get_page_type_template( $post_id = 0 ) {
 }
 
 /**
+ * Check if `$obj` is a instanceof `Papi_Page_Type`.
+ *
+ * @param  mixed $obj
+ *
+ * @return bool
+ */
+function papi_is_page_type( $obj ) {
+	return $obj instanceof Papi_Page_Type;
+}
+
+/**
  * Set page type to a post.
  *
  * @param  mixed $post_id

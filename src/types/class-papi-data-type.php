@@ -174,19 +174,6 @@ class Papi_Data_Type extends Papi_Core_Type {
 	}
 
 	/**
-	 * Get post type.
-	 *
-	 * @return string
-	 */
-	public function get_post_type() {
-		if ( $post_type = papi_get_post_type() ) {
-			return $post_type;
-		}
-
-		return get_class( $this );
-	}
-
-	/**
 	 * Get property from page type.
 	 *
 	 * @param  string $slug
