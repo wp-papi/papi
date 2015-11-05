@@ -56,7 +56,7 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 		$types = papi_get_all_data_types( true );
 
 		// Get all fake types.
-		$types = array_merge( $types, papi_get_all_data_types( false, null, true ) );
+		$types = array_merge( $types, papi_get_all_data_types( true, null, true ) );
 
 		// Create type item with the fields that
 		// will be displayed.
