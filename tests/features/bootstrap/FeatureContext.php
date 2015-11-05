@@ -1,9 +1,9 @@
 <?php
 
-use Behat\Behat\Context\ClosuredContextInterface,
-    Behat\Behat\Context\TranslatedContextInterface,
-    Behat\Behat\Context\BehatContext,
-    Behat\Behat\Event\SuiteEvent;
+use Behat\Behat\Context\ClosuredContextInterface;
+use Behat\Behat\Context\TranslatedContextInterface;
+use Behat\Behat\Context\BehatContext;
+use Behat\Behat\Event\SuiteEvent;
 
 use \WP_CLI\Process;
 use \WP_CLI\Utils;
@@ -83,7 +83,7 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 	 * @AfterScenario
 	 */
 	public function afterScenario( $event ) {
-		if ( !isset( $this->variables['RUN_DIR'] ) )
+		if ( ! isset( $this->variables['RUN_DIR'] ) )
 			return;
 
 		// remove altered WP install, unless there's an error
@@ -133,7 +133,7 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 	}
 
 	public function create_run_dir() {
-		if ( !isset( $this->variables['RUN_DIR'] ) ) {
+		if ( ! isset( $this->variables['RUN_DIR'] ) ) {
 			$this->variables['RUN_DIR'] = sys_get_temp_dir() . '/' . uniqid( "wp-cli-test-run-", TRUE );
 			mkdir( $this->variables['RUN_DIR'] );
 		}
@@ -165,7 +165,7 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 	}
 
 	public function proc( $command, $assoc_args = array(), $path = '' ) {
-		if ( !empty( $assoc_args ) )
+		if ( ! empty( $assoc_args ) )
 			$command .= Utils\assoc_args_to_str( $assoc_args );
 
 		$env = self::get_process_env_variables();
@@ -173,7 +173,7 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 			$env['WP_CLI_CACHE_DIR'] = $this->variables['SUITE_CACHE_DIR'];
 		}
 
-		if (isset($this->variables['RUN_DIR'])) {
+		if ( isset( $this->variables['RUN_DIR'] ) ) {
 			$path = "{$this->variables['RUN_DIR']}/{$path}";
 		} else {
 			$path = '';
@@ -210,7 +210,7 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 		$params['dbprefix'] = $subdir ?: 'wp_';
 
 		$params['skip-salts'] = true;
-		unset($params['dbpass']);
+		unset( $params['dbpass'] );
 		$this->proc( 'wp core config', $params, $subdir )->run_check();
 	}
 
@@ -237,11 +237,20 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 			mkdir( $dest_dir );
 		}
 
-		$dest_dir = rtrim($dest_dir, '/');
-		mkdir("$dest_dir/wp-content/plugins/papi");
+		$dest_dir = rtrim( $dest_dir, '/' );
+
+		if ( ! defined( 'ABSPATH' ) ) {
+			require_once $dest_dir . '/wp-load.php';
+		}
 
 		// Install (but don't activate) Papi.
-		$plugin_file = __DIR__ . '/../../../papi-loader.php';
-		$this->proc( "ln -s $plugin_file $dest_dir/wp-content/plugins/papi/papi-loader.php" )->run_check();
+		$plugin_base_path = __DIR__ . '/../../..';
+		mkdir( "$dest_dir/wp-content/plugins/papi" );
+		$this->proc( "ln -s $plugin_base_path/papi-loader.php $dest_dir/wp-content/plugins/papi/papi-loader.php" )->run_check();
+
+		// Create a must use plugin file to load Papi page types.
+		mkdir( "$dest_dir/wp-content/mu-plugins" );
+		$script = "<?php add_filter( 'papi/settings/directories', function () { return '$plugin_base_path/tests/data/page-types'; } );";
+		file_put_contents( "$dest_dir/wp-content/mu-plugins/papi.php", $script );
 	}
 }
