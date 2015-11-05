@@ -14,7 +14,7 @@ before_script:
 
 script:
   - vendor/bin/phpunit --coverage-clover clover.xml
-  - vendor/bin/behat
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; vendor/bin/behat; fi
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
