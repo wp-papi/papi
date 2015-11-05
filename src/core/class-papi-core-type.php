@@ -67,6 +67,13 @@ class Papi_Core_Type {
 	public $name = '';
 
 	/**
+	 * The sort order of the page type.
+	 *
+	 * @var int
+	 */
+	public $sort_order = null;
+
+	/**
 	 * The type name.
 	 *
 	 * @var string
@@ -241,6 +248,10 @@ class Papi_Core_Type {
 			}
 
 			$this->$key = papi_esc_html( $value );
+		}
+
+		if ( is_null( $this->sort_order ) ) {
+			$this->sort_order = papi_filter_settings_sort_order();
 		}
 	}
 }

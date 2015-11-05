@@ -94,10 +94,6 @@ function papi_get_all_data_types( $all = false, $post_type = null, $fake_post_ty
 		} );
 	}
 
-	if ( $fake_post_types ) {
-		return $data_types;
-	}
-
 	return papi_sort_order( array_reverse( $data_types ) );
 }
 

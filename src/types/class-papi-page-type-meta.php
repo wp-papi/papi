@@ -49,13 +49,6 @@ class Papi_Page_Type_Meta extends Papi_Data_Type {
 	public $post_type = ['page'];
 
 	/**
-	 * The sort order of the page type.
-	 *
-	 * @var int
-	 */
-	public $sort_order = null;
-
-	/**
 	 * Show standard page type or not.
 	 *
 	 * @var bool
@@ -92,7 +85,6 @@ class Papi_Page_Type_Meta extends Papi_Data_Type {
 	 */
 	public function __construct( $file_path = '' ) {
 		parent::__construct( $file_path );
-		$this->setup_page_type();
 		$this->setup_post_types();
 	}
 
@@ -192,15 +184,6 @@ class Papi_Page_Type_Meta extends Papi_Data_Type {
 	 */
 	public function has_post_type( $post_type ) {
 		return in_array( $post_type, $this->post_type );
-	}
-
-	/**
-	 * Setup page type variables.
-	 */
-	private function setup_page_type() {
-		if ( is_null( $this->sort_order ) ) {
-			$this->sort_order = papi_filter_settings_sort_order();
-		}
 	}
 
 	/**
