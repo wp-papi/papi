@@ -120,26 +120,17 @@ final class Papi_Admin_Meta_Box {
 
 		// Get the post type that we currently are on if it exist in the array of post types.
 		$post_type = array_filter( papi_to_array( $post_type ), function ( $post_type ) {
-			// Support fake post types.
-			if ( strpos( $post_type, '_papi' ) !== false ) {
-				return true;
-			}
-
 			return ! empty( $post_type ) &&
 				strtolower( $post_type ) === strtolower(
 					papi_get_or_post( 'post_type' )
 				);
 		} );
 
-		if ( ! empty( $post_type ) ) {
-			return $post_type[0];
-		}
-
 		if ( ! empty( $this->options->_meta_box_id ) ) {
 			return strtolower( $this->options->_meta_box_id );
 		}
 
-		return 'page';
+		return empty( $post_type ) ? 'page' : $post_type[0];
 	}
 
 	/**
