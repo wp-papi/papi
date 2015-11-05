@@ -61,15 +61,15 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 		// Create type item with the fields that
 		// will be displayed.
 		$types = array_map( function( $type ) {
-			$fake_post_type = preg_match( '/\_papi/', $type->get_post_type() );
+			$is_page_type = papi_is_page_type( $type );
 
 			return [
 				'id'              => $type->get_id(),
 				'name'            => $type->name,
-				'post_type'       => $fake_post_type ? 'n/a' : implode( ', ', $type->post_type ),
-				'template'        => $fake_post_type ? 'n/a' : $type->template,
+				'post_type'       => $is_page_type ? implode( ', ', $type->post_type ) : 'n/a',
+				'template'        => $is_page_type ? $type->template : 'n/a',
 				'type'            => $type->get_type(),
-				'number_of_pages' => $fake_post_type ? 'n/a' : papi_get_number_of_pages( $type->get_id() )
+				'number_of_pages' => $is_page_type ? papi_get_number_of_pages( $type->get_id() ): 'n/a'
 			];
 		}, $types );
 
