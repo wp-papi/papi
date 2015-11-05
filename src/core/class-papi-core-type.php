@@ -181,10 +181,6 @@ class Papi_Core_Type {
 	 * @return bool
 	 */
 	public function match_id( $id ) {
-		if ( strpos( $id, 'papi/' ) === 0 ) {
-			$id = preg_replace( '/^papi\//', '', $id );
-		}
-
 		return $this->get_id() === $id;
 	}
 
