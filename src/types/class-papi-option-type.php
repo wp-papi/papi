@@ -8,7 +8,7 @@
 class Papi_Option_Type extends Papi_Data_Type {
 
 	/**
-	 * The method name to use instead of `page_type`.
+	 * The method name to use instead of `meta`.
 	 *
 	 * @var string
 	 */
