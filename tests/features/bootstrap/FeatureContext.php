@@ -239,10 +239,6 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 
 		$dest_dir = rtrim( $dest_dir, '/' );
 
-		if ( ! defined( 'ABSPATH' ) ) {
-			require_once $dest_dir . '/wp-load.php';
-		}
-
 		// Install (but don't activate) Papi.
 		$plugin_base_path = __DIR__ . '/../../..';
 		mkdir( "$dest_dir/wp-content/plugins/papi" );
