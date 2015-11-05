@@ -13,6 +13,7 @@ class Papi_Core_Data_Type_Test extends WP_UnitTestCase {
 
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'empty-page-type' );
 
+		$this->empty_data_type  = new Papi_Core_Data_Type();
 		$this->empty_page_type  = new Papi_Page_Type();
 		$this->faq_page_type    = papi_get_page_type_by_id( 'faq-page-type' );
 		$this->simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
@@ -22,6 +23,7 @@ class Papi_Core_Data_Type_Test extends WP_UnitTestCase {
 		parent::tearDown();
 		unset(
 			$this->post_id,
+			$this->empty_data_type,
 			$this->empty_page_type,
 			$this->faq_page_type,
 			$this->simple_page_type
@@ -68,6 +70,13 @@ class Papi_Core_Data_Type_Test extends WP_UnitTestCase {
 
 	public function test_get_type() {
 		$this->assertSame( 'page', $this->simple_page_type->get_type() );
+	}
+
+	public function test_get_post_type() {
+		$this->assertSame( get_class( $this->empty_data_type ), $this->empty_data_type->get_post_type() );
+		$_GET['post_type'] = 'page';
+		$this->assertSame( 'page', $this->empty_data_type->get_post_type() );
+		unset( $_GET['post_type'] );
 	}
 
 	public function test_match_id() {
