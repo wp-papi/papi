@@ -42,8 +42,7 @@ class Papi_Option_Type extends Papi_Data_Type {
 	 * @return bool
 	 */
 	public function allowed() {
-		return defined( 'WP_CLI' ) && WP_CLI
-			|| current_user_can( $this->capability );
+		return current_user_can( $this->capability );
 	}
 
 	/**

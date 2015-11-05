@@ -54,7 +54,7 @@ function papi_get_all_data_types( $all = false, $post_type = null, $fake_post_ty
 		// Not all data types has a post type.
 		if ( ! isset( $data_type->post_type ) ) {
 			// If the
-			if ( $fake_post_types && $data_type->allowed() ) {
+			if ( $fake_post_types && ( $all || $data_type->allowed() ) ) {
 				// Boot page type.
 				$data_type->boot();
 
