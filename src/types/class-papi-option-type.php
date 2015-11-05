@@ -5,7 +5,7 @@
  * and rendering. All option types should extend this
  * class.
  */
-class Papi_Option_Type extends Papi_Page_Type {
+class Papi_Option_Type extends Papi_Core_Data_Type {
 
 	/**
 	 * The method name to use instead of `page_type`.
@@ -36,27 +36,11 @@ class Papi_Option_Type extends Papi_Page_Type {
 	public $name = '';
 
 	/**
-	 * The fake post type to use.
-	 *
-	 * @var string
-	 */
-	public $post_type = '_papi_option_type';
-
-	/**
 	 * The type name.
 	 *
 	 * @var string
 	 */
 	public $type = 'option';
-
-	/**
-	 * Get post type.
-	 *
-	 * @return string
-	 */
-	public function get_post_type() {
-		return $this->post_type[0];
-	}
 
 	/**
 	 * Render option page type.
@@ -74,7 +58,7 @@ class Papi_Option_Type extends Papi_Page_Type {
 					<div id="post-body">
 						<?php
 						do_meta_boxes(
-							$this->post_type[0],
+							get_class( $this ),
 							'normal',
 							null
 						);
@@ -85,5 +69,25 @@ class Papi_Option_Type extends Papi_Page_Type {
 			</form>
 		</div>
 		<?php
+	}
+
+	/**
+	 * This function will setup all meta boxes.
+	 */
+	public function setup() {
+		if ( ! method_exists( $this, 'register' ) ) {
+			return;
+		}
+
+		// 1. Run the register method.
+		$this->register();
+
+		// 2. Load all boxes.
+		$this->boxes = $this->get_boxes();
+
+		foreach ( $this->boxes as $box ) {
+			$box[0]['_meta_box_id'] = get_class( $this );
+			new Papi_Admin_Meta_Box( $box[0], $box[1] );
+		}
 	}
 }

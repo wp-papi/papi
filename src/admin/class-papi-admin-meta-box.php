@@ -19,6 +19,7 @@ final class Papi_Admin_Meta_Box {
 		'title'        => '',
 		// Private options
 		'_id'          => '',
+		'_meta_box_id' => '',
 		'_post_type'   => 'page',
 		'_required'    => false,
 		'_tab_box'     => false
@@ -104,7 +105,7 @@ final class Papi_Admin_Meta_Box {
 	}
 
 	/**
-	 * Populate post type.
+	 * Populate meta post type.
 	 *
 	 * @param  array|string $post_type
 	 *
@@ -132,6 +133,10 @@ final class Papi_Admin_Meta_Box {
 
 		if ( ! empty( $post_type ) ) {
 			return $post_type[0];
+		}
+
+		if ( ! empty( $this->options->_meta_box_id ) ) {
+			return strtolower( $this->options->_meta_box_id );
 		}
 
 		return 'page';

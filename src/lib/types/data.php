@@ -35,9 +35,9 @@ function papi_get_all_data_types( $all = false, $post_type = null, $fake_post_ty
 		$post_type  = papi_get_post_type();
 	}
 
-	$cache_key   = papi_cache_key( sprintf( '%s_%s', $all, $post_type ), $fake_post_types );
-	$data_types  = wp_cache_get( $cache_key );
-	$load_once   = papi_filter_core_load_one_type_on();
+	$cache_key  = papi_cache_key( sprintf( '%s_%s', $all, $post_type ), $fake_post_types );
+	$data_types = wp_cache_get( $cache_key );
+	$load_once  = papi_filter_core_load_one_type_on();
 
 	if ( empty( $data_types ) ) {
 		$files = papi_get_all_data_type_files();
@@ -49,7 +49,27 @@ function papi_get_all_data_types( $all = false, $post_type = null, $fake_post_ty
 				continue;
 			}
 
-			if ( $data_type instanceof Papi_Page_Type === false ) {
+			// Only core data types can be loaded.
+			if ( $data_type instanceof Papi_Core_Data_Type === false ) {
+				continue;
+			}
+
+			// Not all data types has a post type.
+			if ( ! isset( $data_type->post_type ) ) {
+				// If the
+				if ( $fake_post_types ) {
+					// Boot page type.
+					$data_type->boot();
+
+					// Add it to the page types array.
+					$data_types[] = $data_type;
+				}
+
+				continue;
+			}
+
+			// No page type or a fake post type loading can not be continued.
+			if ( ! papi_is_page_type( $data_type ) || $fake_post_types ) {
 				continue;
 			}
 
@@ -61,21 +81,8 @@ function papi_get_all_data_types( $all = false, $post_type = null, $fake_post_ty
 				papi()->singleton( 'core.data_type.' . $data_type->post_type[0], $data_type->get_id() );
 			}
 
-			if ( $fake_post_types ) {
-				if ( isset( $data_type->post_type[0] ) && ! post_type_exists( $data_type->post_type[0] ) ) {
-					// Boot page type.
-					$data_type->boot();
-
-					// Add it to the page types array.
-					$data_types[] = $data_type;
-				}
-				continue;
-			} else if ( papi_is_option_type( $data_type ) ) {
-				continue;
-			}
-
 			// Add the page type if the post types is allowed.
-			if ( ! is_null( $data_type ) && papi_current_user_is_allowed( $data_type->capabilities ) && ( $all || in_array( $post_type, $data_type->post_type ) ) ) {
+			if ( $all || $data_type->allowed( $post_type ) ) {
 				// Boot page type.
 				$data_type->boot();
 
@@ -95,6 +102,10 @@ function papi_get_all_data_types( $all = false, $post_type = null, $fake_post_ty
 
 	if ( ! is_array( $data_types ) ) {
 		return [];
+	}
+
+	if ( $fake_post_types ) {
+		return $data_types;
 	}
 
 	return papi_sort_order( array_reverse( $data_types ) );
@@ -240,7 +251,7 @@ function papi_get_data_type_key() {
  * @return bool
  */
 function papi_is_option_type( $obj ) {
-	return $obj instanceof Papi_Option_Type && $obj->get_post_type() === '_papi_option_type';
+	return $obj instanceof Papi_Option_Type;
 }
 
 /**
@@ -251,5 +262,5 @@ function papi_is_option_type( $obj ) {
  * @return bool
  */
 function papi_is_page_type( $obj ) {
-	return $obj instanceof Papi_Page_Type && ! papi_is_option_type( $obj );
+	return $obj instanceof Papi_Page_Type;
 }

@@ -14,13 +14,6 @@ class Papi_Page_Type_Meta extends Papi_Core_Data_Type {
 	public $_meta_method = 'page_type';
 
 	/**
-	 * Capabilities list.
-	 *
-	 * @var array
-	 */
-	public $capabilities = [];
-
-	/**
 	 * The page types that lives under this page type.
 	 *
 	 * @var array
@@ -47,13 +40,6 @@ class Papi_Page_Type_Meta extends Papi_Core_Data_Type {
 	 * @var array
 	 */
 	public $labels = [];
-
-	/**
-	 * The name of the page type.
-	 *
-	 * @var string
-	 */
-	public $name = '';
 
 	/**
 	 * The post types to register the page type with.
@@ -108,6 +94,16 @@ class Papi_Page_Type_Meta extends Papi_Core_Data_Type {
 		parent::__construct( $file_path );
 		$this->setup_page_type();
 		$this->setup_post_types();
+	}
+
+	/**
+	 * Determine if the data type is allowed
+	 * by capabilities and post type.
+	 *
+	 * @return bool
+	 */
+	public function allowed() {
+		return parent::allowed() && in_array( func_get_arg( 0 ), $this->post_type );
 	}
 
 	/**
@@ -185,15 +181,6 @@ class Papi_Page_Type_Meta extends Papi_Core_Data_Type {
 		}
 
 		return $this->thumbnail;
-	}
-
-	/**
-	 * Check so we have a name on the page type.
-	 *
-	 * @return bool
-	 */
-	public function has_name() {
-		return ! empty( $this->name );
 	}
 
 	/**
