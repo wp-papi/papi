@@ -13,7 +13,7 @@ before_script:
   - bash tests/bin/install-wp-cli.sh
 
 script:
-  #- vendor/bin/phpunit --coverage-clover clover.xml
+  - vendor/bin/phpunit --coverage-clover clover.xml
   - vendor/bin/behat
 
 after_script:
