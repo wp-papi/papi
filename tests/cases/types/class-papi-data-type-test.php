@@ -93,4 +93,9 @@ class Papi_Data_Type_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $this->empty_data_type->new_class() );
 		$this->assertEquals( new Info_Data_Type(), $this->info_data_type->new_class() );
 	}
+
+	public function test_sort_order() {
+		$this->assertNull( $this->empty_data_type->sort_order );
+		$this->assertSame( 500, $this->info_data_type->sort_order );
+	}
 }

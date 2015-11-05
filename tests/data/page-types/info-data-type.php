@@ -10,7 +10,8 @@ class Info_Data_Type extends Papi_Data_Type {
 	public function meta() {
 		return [
 			'name'        => 'Info data type',
-			'description' => 'This is a Info data type'
+			'description' => 'This is a Info data type',
+			'sort_order'  => 500
 		];
 	}
 
