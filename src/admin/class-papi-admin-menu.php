@@ -58,26 +58,26 @@ final class Papi_Admin_Menu {
 	/**
 	 * Page items menu.
 	 *
-	 * This function will register all page types
+	 * This function will register all data types
 	 * that has a fake post type. Like option types.
 	 */
 	public function page_items_menu() {
-		$page_types = papi_get_all_page_types( false, null, true );
+		$data_types = papi_get_all_data_types( false, null, true );
 
-		foreach ( $page_types as $page_type ) {
-			if ( empty( $page_type->menu ) || empty( $page_type->name ) ) {
+		foreach ( $data_types as $data_type ) {
+			if ( empty( $data_type->menu ) || empty( $data_type->name ) ) {
 				continue;
 			}
 
-			$slug = 'papi/' . $page_type->get_id();
+			$slug = 'papi/' . $data_type->get_id();
 
 			add_submenu_page(
-				$page_type->menu,
-				$page_type->name,
-				$page_type->name,
-				$page_type->capability,
+				$data_type->menu,
+				$data_type->name,
+				$data_type->name,
+				$data_type->capability,
 				$slug,
-				[$page_type, 'render']
+				[$data_type, 'render']
 			);
 		}
 	}
@@ -117,7 +117,7 @@ final class Papi_Admin_Menu {
 			}
 
 			$only_page_type = papi_filter_settings_only_page_type( $post_type );
-			$page_types     = papi_get_all_page_types( false, $post_type );
+			$page_types     = papi_get_all_data_types( false, $post_type );
 			$show_standard  = false;
 
 			// Don't change menu item when no page types is found.

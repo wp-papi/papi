@@ -134,21 +134,24 @@ final class Papi_Loader extends Papi_Container {
 
 		$lib_path     = __DIR__ . '/lib/';
 		$lib_includes = [
-			'utilities.php',
-			'actions.php',
-			'cache.php',
-			'filters.php',
-			'url.php',
-			'post.php',
-			'page.php',
-			'property.php',
-			'tabs.php',
-			'io.php',
-			'field.php',
-			'template.php',
-			'option.php',
-			'deprecated.php',
-			'conditional.php'
+			'core/cache.php',
+			'core/conditional.php',
+			'core/deprecated.php',
+			'core/page.php',
+			'core/post.php',
+			'core/io.php',
+			'core/property.php',
+			'core/tabs.php',
+			'core/template.php',
+			'core/url.php',
+			'core/utilities.php',
+			'hooks/actions.php',
+			'hooks/filters.php',
+			'fields/page.php',
+			'fields/option.php',
+			'types/data.php',
+			'types/page.php',
+			'types/option.php'
 		];
 
 		// Require function files.

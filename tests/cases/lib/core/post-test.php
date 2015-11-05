@@ -1,6 +1,6 @@
 <?php
 
-class Papi_Lib_Post_Test extends WP_UnitTestCase {
+class Papi_Lib_Core_Post_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_post_id() {
 		global $post;

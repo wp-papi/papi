@@ -37,7 +37,7 @@ class Papi_Option_Page extends Papi_Core_Page {
 		$page_type_id = str_replace( 'papi/', '', papi_get_qs( 'page' ) );
 
 		if ( empty( $page_type_id ) ) {
-			$page_types = papi_get_all_page_types( false, null, true );
+			$page_types = papi_get_all_data_types( false, null, true );
 			$property   = null;
 
 			foreach ( $page_types as $index => $page_type ) {
@@ -53,7 +53,7 @@ class Papi_Option_Page extends Papi_Core_Page {
 			return $property;
 		}
 
-		$page_type = papi_get_page_type_by_id( $page_type_id );
+		$page_type = papi_get_data_type_by_id( $page_type_id );
 
 		if ( $page_type instanceof Papi_Option_Type === false ) {
 			return;

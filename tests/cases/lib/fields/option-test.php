@@ -1,6 +1,6 @@
 <?php
 
-class Papi_Lib_Option_Test extends WP_UnitTestCase {
+class Papi_Lib_Fields_Option_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -19,6 +19,8 @@ class Papi_Lib_Option_Test extends WP_UnitTestCase {
 	public function tearDown() {
 		parent::tearDown();
 		$_SERVER['REQUEST_URI'] = '';
+
+		global $current_screen;
 		$current_screen = null;
 	}
 
@@ -62,16 +64,6 @@ class Papi_Lib_Option_Test extends WP_UnitTestCase {
 			'slug'    => 'numbers',
 			'default' => [1, 2, 3]
 		] ) );
-	}
-
-	public function test_papi_option_type_exists() {
-		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
-		} );
-
-		$this->assertFalse( papi_option_type_exists( 'hello' ) );
-		$this->assertFalse( papi_option_type_exists( 'empty-page-type' ) );
-		$this->assertTrue( papi_option_type_exists( 'options/header-option-type' ) );
 	}
 
 	public function test_papi_update_option() {

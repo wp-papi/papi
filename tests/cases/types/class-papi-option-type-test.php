@@ -11,7 +11,7 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$this->header_option_type = papi_get_page_type_by_id( 'options/header-option-type' );
+		$this->header_option_type = papi_get_data_type_by_id( 'options/header-option-type' );
 		$this->empty_option_type = new Papi_Option_Type();
 	}
 

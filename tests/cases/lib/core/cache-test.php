@@ -1,6 +1,6 @@
 <?php
 
-class Papi_Lib_Cache_Test extends WP_UnitTestCase {
+class Papi_Lib_Core_Cache_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();

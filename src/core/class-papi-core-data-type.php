@@ -69,7 +69,7 @@ class Papi_Core_Data_Type {
 	public function __construct( $file_path ) {
 		// Try to load the file if the file path is empty.
 		if ( empty( $file_path ) ) {
-			$page_type = papi_get_page_type_id();
+			$page_type = papi_get_data_type_id();
 			$file_path = papi_get_file_path( $page_type );
 		}
 
@@ -177,7 +177,7 @@ class Papi_Core_Data_Type {
 	 */
 	private function setup_file( $file_path ) {
 		$this->_file_path  = $file_path;
-		$this->_file_name  = papi_get_page_type_base_path( $this->_file_path );
+		$this->_file_name  = papi_get_data_type_base_path( $this->_file_path );
 		$this->_class_name = papi_get_class_name( $this->_file_path );
 	}
 

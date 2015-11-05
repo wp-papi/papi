@@ -1,6 +1,6 @@
 <?php
 
-class Papi_Lib_Conditional_Test extends WP_UnitTestCase {
+class Papi_Lib_Core_Conditional_Test extends WP_UnitTestCase {
 
 	public function test_papi_is_rule() {
 		$this->assertFalse( papi_is_rule( null ) );

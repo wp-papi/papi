@@ -32,11 +32,11 @@ function papi_get_all_files_in_directory( $directory = '' ) {
 }
 
 /**
- * Get all page type files from the register directories.
+ * Get all data type files from the register directories.
  *
  * @return array
  */
-function papi_get_all_page_type_files() {
+function papi_get_all_data_type_files() {
 	$directories = papi_filter_settings_directories();
 	$result      = [];
 
@@ -74,13 +74,13 @@ function papi_get_file_path( $file ) {
 }
 
 /**
- * Get page type base path.
+ * Get data type base path.
  *
  * @param  string $file
  *
  * @return null|string
  */
-function papi_get_page_type_base_path( $file ) {
+function papi_get_data_type_base_path( $file ) {
 	if ( empty( $file ) || ! is_string( $file ) ) {
 		return;
 	}

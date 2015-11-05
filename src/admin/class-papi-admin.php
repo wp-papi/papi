@@ -63,7 +63,7 @@ final class Papi_Admin {
 	public function admin_init() {
 		// Preload all page types.
 		foreach ( papi_get_post_types() as $post_type ) {
-			papi_get_all_page_types( false, $post_type );
+			papi_get_all_data_types( false, $post_type );
 		}
 
 		if ( ! $this->setup_papi() ) {
@@ -152,7 +152,7 @@ final class Papi_Admin {
 			$parsed_url = parse_url( $request_uri );
 
 			$only_page_type = papi_filter_settings_only_page_type( $this->post_type );
-			$page_types     = papi_get_all_page_types( false, $this->post_type );
+			$page_types     = papi_get_all_data_types( false, $this->post_type );
 			$show_standard  = false;
 
 			if ( count( $page_types ) === 1 && empty( $only_page_type ) ) {
@@ -233,7 +233,7 @@ final class Papi_Admin {
 		$post_types = papi_get_post_types();
 
 		if ( in_array( $this->post_type, $post_types ) ) {
-			$page_types = papi_get_all_page_types( false, $this->post_type );
+			$page_types = papi_get_all_data_types( false, $this->post_type );
 
 			$page_types = array_map( function ( $page_type ) {
 				return [
@@ -340,7 +340,7 @@ final class Papi_Admin {
 		$this->post_type = papi_get_post_type();
 
 		if ( is_admin() ) {
-			$this->page_type_id  = papi_get_page_type_id();
+			$this->data_type_id  = papi_get_data_type_id();
 		}
 	}
 
@@ -355,34 +355,34 @@ final class Papi_Admin {
 			return false;
 		}
 
-		if ( empty( $this->page_type_id ) ) {
+		if ( empty( $this->data_type_id ) ) {
 			// If only page type is used, override the page type value.
-			$this->page_type_id = papi_filter_settings_only_page_type(
+			$this->data_type_id = papi_filter_settings_only_page_type(
 				$this->post_type
 			);
 
-			if ( empty( $this->page_type_id ) ) {
+			if ( empty( $this->data_type_id ) ) {
 				// Load page types that don't have any real post type.
-				$this->page_type_id = str_replace(
+				$this->data_type_id = str_replace(
 					'papi/',
 					'',
 					papi_get_qs( 'page' )
 				);
 			}
 
-			if ( empty( $this->page_type_id ) ) {
-				$this->page_type_id = papi_get_page_type_id();
+			if ( empty( $this->data_type_id ) ) {
+				$this->data_type_id = papi_get_data_type_id();
 			}
 		}
 
-		if ( empty( $this->page_type_id ) ) {
+		if ( empty( $this->data_type_id ) ) {
 			return false;
 		}
 
-		$this->page_type = papi_get_page_type_by_id( $this->page_type_id );
+		$this->page_type = papi_get_data_type_by_id( $this->data_type_id );
 
 		// Do a last check so we can be sure that we have a page type instance.
-		return $this->page_type instanceof Papi_Page_Type;
+		return $this->page_type instanceof Papi_Core_Data_Type;
 	}
 
 	/**

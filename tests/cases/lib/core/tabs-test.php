@@ -1,6 +1,6 @@
 <?php
 
-class Papi_Lib_Tabs_Test extends WP_UnitTestCase {
+class Papi_Lib_Core_Tabs_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test papi_get_tab_options.

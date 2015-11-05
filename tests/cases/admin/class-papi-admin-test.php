@@ -260,7 +260,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin;
 
 		$page_type_id = function ( Papi_Admin $class ) {
-			return $class->page_type_id;
+			return $class->data_type_id;
 		};
 		$page_type_id = Closure::bind( $page_type_id, null, $admin );
 
