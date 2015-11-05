@@ -50,7 +50,7 @@ function papi_get_all_data_types( $all = false, $post_type = null, $fake_post_ty
 			}
 
 			// Only core data types can be loaded.
-			if ( $data_type instanceof Papi_Core_Data_Type === false ) {
+			if ( $data_type instanceof Papi_Data_Type === false ) {
 				continue;
 			}
 
@@ -116,7 +116,7 @@ function papi_get_all_data_types( $all = false, $post_type = null, $fake_post_ty
  *
  * @param  string $file_path
  *
- * @return Papi_Core_Data_Type
+ * @return Papi_Data_Type
  */
 function papi_get_data_type( $file_path ) {
 	if ( ! is_file( $file_path ) || ! is_string( $file_path ) ) {
@@ -157,7 +157,7 @@ function papi_get_data_type( $file_path ) {
  *
  * @param  string $id
  *
- * @return Papi_Core_Data_Type
+ * @return Papi_Data_Type
  */
 function papi_get_data_type_by_id( $id ) {
 	if ( ! is_string( $id ) || empty( $id ) ) {

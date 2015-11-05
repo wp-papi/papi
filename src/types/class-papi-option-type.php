@@ -5,7 +5,7 @@
  * and rendering. All option types should extend this
  * class.
  */
-class Papi_Option_Type extends Papi_Core_Data_Type {
+class Papi_Option_Type extends Papi_Data_Type {
 
 	/**
 	 * The method name to use instead of `page_type`.
@@ -27,13 +27,6 @@ class Papi_Option_Type extends Papi_Core_Data_Type {
 	 * @var string
 	 */
 	public $menu = '';
-
-	/**
-	 * The name of the option type.
-	 *
-	 * @var string
-	 */
-	public $name = '';
 
 	/**
 	 * The type name.

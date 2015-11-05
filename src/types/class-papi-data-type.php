@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Core class that implements a Papi data type
- * that can register boxes with properties.
+ * Papi data type is a base class that can
+ * register boxes with properties.
  */
-class Papi_Core_Data_Type extends Papi_Core_Type {
+class Papi_Data_Type extends Papi_Core_Type {
 
 	/**
 	 * The array of meta boxes to register.
@@ -19,6 +19,13 @@ class Papi_Core_Data_Type extends Papi_Core_Type {
 	 * @var bool
 	 */
 	protected $load_boxes = false;
+
+	/**
+	 * The type name.
+	 *
+	 * @var string
+	 */
+	public $type = 'data';
 
 	/**
 	 * The constructor.

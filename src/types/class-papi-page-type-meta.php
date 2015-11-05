@@ -4,7 +4,7 @@
  * Base Papi type implementation of meta data
  * for a page type.
  */
-class Papi_Page_Type_Meta extends Papi_Core_Data_Type {
+class Papi_Page_Type_Meta extends Papi_Data_Type {
 
 	/**
 	 * The meta method to call.
