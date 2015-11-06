@@ -14,6 +14,13 @@ class Papi_Page_Type_Meta extends Papi_Data_Type {
 	public $_meta_method = 'page_type';
 
 	/**
+	 * Capabilities list.
+	 *
+	 * @var array
+	 */
+	public $capabilities = [];
+
+	/**
 	 * The page types that lives under this page type.
 	 *
 	 * @var array
@@ -89,13 +96,32 @@ class Papi_Page_Type_Meta extends Papi_Data_Type {
 	}
 
 	/**
+	 * Determine if the page type is allowed
+	 * by the capabilities.
+	 *
+	 * @return bool
+	 */
+	private function user_is_allowed() {
+		foreach ( $this->capabilities as $capability ) {
+			if ( ! current_user_can( $capability ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
 	 * Determine if the data type is allowed
 	 * by capabilities and post type.
 	 *
 	 * @return bool
 	 */
 	public function allowed() {
-		return parent::allowed() && in_array( func_get_arg( 0 ), $this->post_type );
+		$args = func_get_args();
+		return empty( $args )
+			? parent::allowed()
+			: $this->user_is_allowed() && isset( $args[0] ) && in_array( $args[0], $this->post_type );
 	}
 
 	/**

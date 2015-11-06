@@ -62,7 +62,10 @@ final class Papi_Admin_Menu {
 	 * that has a fake post type. Like option types.
 	 */
 	public function page_items_menu() {
-		$data_types = papi_get_all_data_types( false, null, true );
+		$data_types = papi_get_all_data_types( [
+			'mode'  => 'exclude',
+			'types'	=> 'page'
+		] );
 
 		foreach ( $data_types as $data_type ) {
 			if ( empty( $data_type->menu ) || empty( $data_type->name ) ) {
@@ -117,7 +120,7 @@ final class Papi_Admin_Menu {
 			}
 
 			$only_page_type = papi_filter_settings_only_page_type( $post_type );
-			$page_types     = papi_get_all_data_types( false, $post_type );
+			$page_types     = papi_get_all_page_types( $post_type );
 			$show_standard  = false;
 
 			// Don't change menu item when no page types is found.

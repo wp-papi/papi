@@ -82,6 +82,15 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$this->assertTrue( papi_display_page_type( $page_type ) );
 	}
 
+	public function test_papi_get_all_page_types() {
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$this->assertNotEmpty( papi_get_all_page_types() );
+		$this->assertSame( 1, count( papi_get_all_page_types( 'book' ) ) );
+	}
+
 	public function test_papi_get_page_type_by_post_id() {
 		$this->assertNull( papi_get_page_type_by_post_id( 0 ) );
 		$this->assertNull( papi_get_page_type_by_post_id( [] ) );

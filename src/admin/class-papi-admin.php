@@ -63,7 +63,10 @@ final class Papi_Admin {
 	public function admin_init() {
 		// Preload all page types.
 		foreach ( papi_get_post_types() as $post_type ) {
-			papi_get_all_data_types( false, $post_type );
+			papi_get_all_data_types( [
+				'mode'  => 'exclude',
+				'types' => 'page'
+			] );
 		}
 
 		if ( ! $this->setup_papi() ) {
@@ -152,7 +155,7 @@ final class Papi_Admin {
 			$parsed_url = parse_url( $request_uri );
 
 			$only_page_type = papi_filter_settings_only_page_type( $this->post_type );
-			$page_types     = papi_get_all_data_types( false, $this->post_type );
+			$page_types     = papi_get_all_page_types( $this->post_type );
 			$show_standard  = false;
 
 			if ( count( $page_types ) === 1 && empty( $only_page_type ) ) {
@@ -233,8 +236,7 @@ final class Papi_Admin {
 		$post_types = papi_get_post_types();
 
 		if ( in_array( $this->post_type, $post_types ) ) {
-			$page_types = papi_get_all_data_types( false, $this->post_type );
-
+			$page_types = papi_get_all_page_types( $this->post_type );
 			$page_types = array_map( function ( $page_type ) {
 				return [
 					'name' => $page_type->name,

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group types
+ */
 class Papi_Admin_Assets_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -22,7 +25,7 @@ class Papi_Admin_Assets_Test extends WP_UnitTestCase {
 		$this->assertGreaterThan( 0, has_action( 'admin_head', [$assets, 'enqueue_css'] ) );
 		$this->assertGreaterThan( 0, has_action( 'admin_enqueue_scripts', [$assets, 'enqueue_js'] ) );
 		$this->assertGreaterThan( 0, has_action( 'admin_enqueue_scripts', [$assets, 'enqueue_locale'] ) );
-		
+
 		$current_screen = null;
 	}
 

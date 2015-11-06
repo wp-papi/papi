@@ -110,4 +110,21 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 		$handler->save_meta_boxes( $post['ID'], $post );
 		return $post;
 	}
+
+	/**
+	 * Check if the data type is a singleton.
+	 *
+	 * @return bool
+	 */
+	public function singleton() {
+		$key = 'core.data_type.' . $this->get_post_type();
+
+		if ( papi()->exists( $key ) ) {
+			return true;
+		}
+
+		papi()->singleton( $key, $this->get_id() );
+
+		return false;
+	}
 }

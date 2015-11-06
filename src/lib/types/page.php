@@ -51,6 +51,33 @@ function papi_display_page_type( $page_type ) {
 }
 
 /**
+ * Get all page types based on a post type.
+ *
+ * @param  string $post_type
+ *
+ * @return array
+ */
+function papi_get_all_page_types( $post_type = '' ) {
+	$data_types = papi_get_all_data_types( [
+		'args'  => $post_type,
+		'mode'  => 'include',
+		'types' => 'page'
+	], true );
+
+	$page_types = array_filter( $data_types, function ( $data_type ) {
+		return papi_is_page_type( $data_type );
+	} );
+
+	if ( is_array( $page_types ) ) {
+		usort( $page_types, function ( $a, $b ) {
+			return strcmp( $a->name, $b->name );
+		} );
+	}
+
+	return papi_sort_order( array_reverse( $page_types ) );
+}
+
+/**
  * Get page type by id.
  *
  * @param  string $id

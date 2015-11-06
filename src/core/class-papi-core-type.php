@@ -46,13 +46,6 @@ class Papi_Core_Type {
 	private $_file_path = '';
 
 	/**
-	 * Capabilities list.
-	 *
-	 * @var array
-	 */
-	public $capabilities = [];
-
-	/**
 	 * The page type identifier.
 	 *
 	 * @var string
@@ -71,7 +64,7 @@ class Papi_Core_Type {
 	 *
 	 * @var int
 	 */
-	public $sort_order = null;
+	public $sort_order = 1000;
 
 	/**
 	 * The type name.
@@ -101,18 +94,11 @@ class Papi_Core_Type {
 	}
 
 	/**
-	 * Determine if the data type is allowed
-	 * by the capabilities.
+	 * Determine if the data type is allowed.
 	 *
 	 * @return bool
 	 */
 	public function allowed() {
-		foreach ( $this->capabilities as $capability ) {
-			if ( ! current_user_can( $capability ) ) {
-				return false;
-			}
-		}
-
 		return true;
 	}
 
@@ -250,7 +236,7 @@ class Papi_Core_Type {
 			$this->$key = papi_esc_html( $value );
 		}
 
-		if ( is_null( $this->sort_order ) ) {
+		if ( $this->sort_order === 1000 ) {
 			$this->sort_order = papi_filter_settings_sort_order();
 		}
 	}

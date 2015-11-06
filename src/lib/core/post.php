@@ -116,19 +116,5 @@ function papi_get_post_type_label( $post_type, $label, $default = '' ) {
  * @return array
  */
 function papi_get_post_types() {
-	$page_types = papi_get_all_data_types( true );
-	$post_types = [];
-
-	foreach ( $page_types as $page_type ) {
-		$post_types = array_merge(
-			$post_types,
-			papi_to_array( $page_type->post_type )
-		);
-	}
-
-	if ( empty( $post_types ) ) {
-		return ['page'];
-	}
-
-	return array_unique( $post_types );
+	return array_diff( get_post_types(), ['revision', 'nav_menu_item'] );
 }

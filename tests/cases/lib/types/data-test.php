@@ -19,7 +19,7 @@ class Papi_Lib_Types_Data_Test extends WP_UnitTestCase {
 
 		$this->assertFalse( papi_data_type_exists( 'hello' ) );
 		$this->assertTrue( papi_data_type_exists( 'empty-page-type' ) );
-		$this->assertFalse( papi_data_type_exists( 'options/header-option-type' ) );
+		$this->assertTrue( papi_data_type_exists( 'options/header-option-type' ) );
 	}
 
 	public function test_papi_get_all_data_types() {
@@ -29,11 +29,26 @@ class Papi_Lib_Types_Data_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$actual = papi_get_all_data_types();
-		$this->assertTrue( empty( $actual ) );
+		$this->assertNotEmpty( papi_get_all_data_types() );
 
-		$actual = papi_get_all_data_types( true );
-		$this->assertFalse( empty( $actual ) );
+		$output = papi_get_all_data_types( [
+			'types' => 'data'
+		] );
+		$this->assertNotEmpty( $output );
+		$this->assertSame( 'Info data type', $output[0]->name );
+	}
+
+	public function test_papi_get_all_data_types_option() {
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$output = papi_get_all_data_types( [
+			'types' => 'option'
+		] );
+
+		$this->assertNotEmpty( $output );
+		$this->assertSame( 'Header', $output[0]->name );
 	}
 
 	public function test_papi_get_data_type() {

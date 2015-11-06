@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group types
+ */
 class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 
 	public function setUp() {

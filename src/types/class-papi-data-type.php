@@ -245,6 +245,15 @@ class Papi_Data_Type extends Papi_Core_Type {
 	}
 
 	/**
+	 * Check if the data type is a singleton.
+	 *
+	 * @return bool
+	 */
+	public function singleton() {
+		return false;
+	}
+
+	/**
 	 * Add a new tab.
 	 *
 	 * @param  mixed $file_or_options

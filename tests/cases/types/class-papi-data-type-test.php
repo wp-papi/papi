@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group types
+ */
 class Papi_Data_Type_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -95,7 +98,7 @@ class Papi_Data_Type_Test extends WP_UnitTestCase {
 	}
 
 	public function test_sort_order() {
-		$this->assertNull( $this->empty_data_type->sort_order );
+		$this->assertSame( 1000, $this->empty_data_type->sort_order );
 		$this->assertSame( 500, $this->info_data_type->sort_order );
 	}
 }

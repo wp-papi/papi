@@ -18,7 +18,7 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 	<div class="papi-box-list">
 		<?php
 		$parent_page_type = papi_get_page_type_by_id( papi_get_page_type_id() );
-		$page_types       = papi_get_all_data_types();
+		$page_types       = papi_get_all_page_types( $post_type_name );
 		$show_standard    = papi_filter_settings_show_standard_page_type( $post_type_name );
 
 		if ( papi_is_page_type( $parent_page_type ) ) {

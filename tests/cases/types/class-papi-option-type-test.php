@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group types
+ */
 class Papi_Option_Type_Test extends WP_UnitTestCase {
 
 	public function setUp() {

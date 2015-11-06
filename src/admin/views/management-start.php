@@ -27,7 +27,7 @@
 		</thead>
 		<tbody>
 		<?php
-		$page_types = papi_get_all_data_types( true );
+		$page_types = papi_get_all_page_types();
 		foreach ( $page_types as $key => $page_type ) {
 			if ( ! papi_is_page_type( $page_type ) ) {
 				continue;

@@ -8,31 +8,46 @@
  * @return bool
  */
 function papi_data_type_exists( $id ) {
-	$exists     = false;
-	$page_types = papi_get_all_data_types( true );
+	$page_types = papi_get_all_data_types();
 
 	foreach ( $page_types as $page_type ) {
 		if ( $page_type->match_id( $id ) ) {
-			$exists = true;
-			break;
+			return true;
 		}
 	}
 
-	return $exists;
+	return false;
 }
 
 /**
  * Get all data types that exists.
  *
- * @param  bool   $all
- * @param  string $post_type
- * @param  bool   $fake_post_types
+ * @param  array $args
  *
  * @return array
  */
-function papi_get_all_data_types( $all = false, $post_type = null, $fake_post_types = false ) {
-	if ( empty( $post_type ) ) {
-		$post_type  = papi_get_post_type();
+function papi_get_all_data_types( array $args = [] ) {
+	$default_args = [
+		'all'   => true,
+		'args'  => [],
+		'mode'  => 'include',
+		'types' => []
+	];
+
+	$args = array_merge( $default_args, $args );
+
+	if ( ! is_array( $args['types'] ) ) {
+		$args['types'] = [$args['types']];
+	}
+
+	if ( ! is_array( $args['args'] ) ) {
+		$args['args'] = [$args['args']];
+	}
+
+	$args['args'] = array_filter( $args['args'] );
+
+	if ( ! empty( $args['types'] ) ) {
+		$args['all'] = false;
 	}
 
 	$data_types = [];
@@ -46,46 +61,26 @@ function papi_get_all_data_types( $all = false, $post_type = null, $fake_post_ty
 			continue;
 		}
 
-		// Only core data types can be loaded.
+		// Only data types can be loaded.
 		if ( $data_type instanceof Papi_Data_Type === false ) {
 			continue;
 		}
 
-		// Not all data types has a post type.
-		if ( ! isset( $data_type->post_type ) ) {
-			// If the
-			if ( $fake_post_types && ( $all || $data_type->allowed() ) ) {
-				// Boot page type.
-				$data_type->boot();
-
-				// Add it to the page types array.
-				$data_types[] = $data_type;
-			}
-
-			continue;
-		}
-
-		// No page type or a fake post type loading can not be continued.
-		if ( ! papi_is_page_type( $data_type ) || $fake_post_types ) {
-			continue;
-		}
-
-		if ( papi()->exists( 'core.data_type.' . $data_type->post_type[0] ) ) {
+		if ( $data_type->singleton() ) {
 			if ( ! empty( $data_types ) ) {
 				continue;
 			}
-		} else if ( in_array( $data_type->post_type[0], $load_once ) ) {
-			papi()->singleton( 'core.data_type.' . $data_type->post_type[0], $data_type->get_id() );
 		}
 
-		// Add the page type if the post types is allowed.
-		if ( $all || $data_type->allowed( $post_type ) ) {
-			// Boot page type.
-			$data_type->boot();
+		$valid_type = in_array( $data_type->type, $args['types'] );
+		$valid_type = $args['mode'] === 'include' ? $valid_type : ! $valid_type;
 
-			// Add it to the page types array.
+		if ( $args['all'] || ( $valid_type && call_user_func_array( [$data_type, 'allowed'], $args['args'] ) ) ) {
+			$data_type->boot();
 			$data_types[] = $data_type;
 		}
+
+		continue;
 	}
 
 	if ( is_array( $data_types ) ) {
@@ -151,7 +146,7 @@ function papi_get_data_type_by_id( $id ) {
 	}
 
 	$result     = null;
-	$data_types = papi_get_all_data_types( true );
+	$data_types = papi_get_all_data_types();
 
 	foreach ( $data_types as $data_type ) {
 		if ( $data_type->match_id( $id ) ) {
@@ -211,7 +206,7 @@ function papi_get_data_type_id( $post_id = 0 ) {
 				return papi()->make( $collection_key );
 			}
 
-			if ( $data_types = papi_get_all_data_types( false, $post_type ) ) {
+			if ( $data_types = papi_get_all_page_types( $post_type ) ) {
 				return $data_types[0]->get_id();
 			}
 		}
