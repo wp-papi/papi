@@ -36,14 +36,14 @@ With 2.5.0 you can now extend page types and add properties in the extended page
 
 ### Added
 
-Added: WP CLI Support. See [issue #111](https://github.com/wp-papi/papi/issues/111).
-Added: Multiple property. See [issue #112](https://github.com/wp-papi/papi/issues/112).
+* Added: WP CLI Support. See [issue #111](https://github.com/wp-papi/papi/issues/111).
+* Added: Multiple property. See [issue #112](https://github.com/wp-papi/papi/issues/112).
 
 ### Fixed
 
 ### Removed
 
-Removed: `remove` method is removed.
+* Removed: `remove` method is removed.
 
 ## [2.4.3](https://github.com/wp-papi/papi/releases/tag/v2.4.3) - 2015-10-30
 
