@@ -25,6 +25,7 @@ function papi_get_all_files_in_directory( $directory = '' ) {
 				}
 			}
 		}
+
 		closedir( $handle );
 	}
 
