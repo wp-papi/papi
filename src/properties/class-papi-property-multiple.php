@@ -36,8 +36,6 @@ class Papi_Property_Multiple extends Papi_Property {
 	 * Render property html.
 	 */
 	public function html() {
-		?><?php
-		$options    = $this->get_options();
 		$properties = $this->get_settings_properties();
 		echo '<div class="papi-property-multiple">';
 			papi_render_properties( $properties );
