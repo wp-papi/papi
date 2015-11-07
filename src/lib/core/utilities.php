@@ -655,26 +655,17 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 	asort( $sorter, SORT_NUMERIC );
 
 	$result = [];
-	$rest   = [];
 
 	foreach ( $sorter as $k => $v ) {
 		$value = $array[$k];
 		$value = is_array( $value ) ? (object) $value : $value;
 
-		if ( is_object( $value ) && ! isset( $value->$key ) ) {
-			$rest[] = $value;
-		} else {
+		if ( is_object( $value ) && isset( $value->$key ) ) {
 			$result[$k] = $array[$k];
 		}
 	}
 
-	$result = array_values( $result );
-
-	foreach ( $rest as $key => $value ) {
-		$result[] = $value;
-	}
-
-	return $result;
+	return array_values( $result );
 }
 
 /**
