@@ -98,7 +98,7 @@ function papi_get_all_content_types( array $args = [] ) {
  *
  * @param  string $file_path
  *
- * @return Papi_content_type
+ * @return null|Papi_Content_Type
  */
 function papi_get_content_type( $file_path ) {
 	if ( ! is_file( $file_path ) || ! is_string( $file_path ) ) {

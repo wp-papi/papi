@@ -163,7 +163,7 @@ function papi_get_page_type_name( $post_id = 0 ) {
 /**
  * Get template file from post id.
  *
- * @param  int|string $post_id
+ * @param  int $post_id
  *
  * @return null|string
  */

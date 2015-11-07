@@ -294,7 +294,7 @@ class Papi_Content_Type extends Papi_Core_Type {
 	 * @param  mixed $file_or_options
 	 * @param  array $properties
 	 *
-	 * @return array
+	 * @return null|Papi_Core_Tab
 	 */
 	protected function tab( $file_or_options = [], $properties = [] ) {
 		if ( ! is_string( $file_or_options ) && ! is_array( $file_or_options ) ) {
