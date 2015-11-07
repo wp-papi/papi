@@ -53,10 +53,14 @@ final class Papi_Loader extends Papi_Container {
 	 */
 	private function __construct() {
 		$this->constants();
-		$this->load_textdomain();
-		$this->require_files();
-		$this->setup_container();
-		papi_action_include();
+		$this->init();
+
+		// Fires the loaded action.
+		// Deprecated action. `papi/loaded` should be used instead.
+		did_action( 'papi/include' ) || do_action( 'papi/include' );
+
+		// Fires the loaded action.
+		did_action( 'papi/loaded' ) || do_action( 'papi/loaded' );
 	}
 
 	/**
@@ -110,6 +114,26 @@ final class Papi_Loader extends Papi_Container {
 		if ( ! defined( 'PAPI_PAGE_TYPE_KEY' ) ) {
 			define( 'PAPI_PAGE_TYPE_KEY', '_papi_page_type' );
 		}
+	}
+
+	/**
+	 * Initialise Papi.
+	 */
+	private function init() {
+		// Fires the before init action.
+		did_action( 'papi/before_init' ) || do_action( 'papi/before_init' );
+
+		// Set up localisation.
+		$this->load_textdomain();
+
+		// Load all required files.
+		$this->require_files();
+
+		// Setup the container.
+		$this->setup_container();
+
+		// Fires the init action.
+		did_action( 'papi/init' ) || do_action( 'papi/init' );
 	}
 
 	/**

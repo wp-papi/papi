@@ -38,6 +38,9 @@ With 2.5.0 you can now extend page types and add properties in the extended page
 
 * Added: WP CLI Support. See [issue #111](https://github.com/wp-papi/papi/issues/111).
 * Added: Multiple property. See [issue #112](https://github.com/wp-papi/papi/issues/112).
+* Added: `papi/before_init` action that is fired before Papi loads textdomain, classes, functions and setups the container.
+* Added: `papi/init` action that is fired after Papi loads textdomain, classes, functions and setups the container.
+* Added: `papi/loaded` action that will be the new `papi/include`. The old action will still exist but be deprecated.
 
 ### Fixed
 
