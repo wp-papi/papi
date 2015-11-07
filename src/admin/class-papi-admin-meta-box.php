@@ -55,10 +55,7 @@ final class Papi_Admin_Meta_Box {
 	 * @return string
 	 */
 	private function get_post_type() {
-		$post_id   = papi_get_post_id();
-		$post_type = papi_get_post_type();
-
-		if ( $post_id !== 0 ) {
+		if ( $post_id = papi_get_post_id() ) {
 			return get_post_type( $post_id );
 		}
 
