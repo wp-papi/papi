@@ -68,9 +68,11 @@ final class Papi_Admin_Menu {
 		] );
 
 		foreach ( $content_types as $content_type ) {
+			// @codeCoverageIgnoreStart
 			if ( empty( $content_type->menu ) || empty( $content_type->name ) ) {
 				continue;
 			}
+			// @codeCoverageIgnoreEnd
 
 			$slug = 'papi/' . $content_type->get_id();
 
@@ -94,9 +96,11 @@ final class Papi_Admin_Menu {
 		$post_types = papi_get_post_types();
 
 		foreach ( $post_types as $post_type ) {
+			// @codeCoverageIgnoreStart
 			if ( ! post_type_exists( $post_type ) ) {
 				continue;
 			}
+			// @codeCoverageIgnoreEnd
 
 			if ( $post_type === 'post' ) {
 				$edit_url = 'edit.php';
