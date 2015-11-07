@@ -14,11 +14,11 @@ final class Papi_Admin {
 	private $page_type;
 
 	/**
-	 * The page type id.
+	 * The content type id.
 	 *
 	 * @var string
 	 */
-	private $page_type_id;
+	private $content_type_id;
 
 	/**
 	 * The post type.
@@ -65,7 +65,7 @@ final class Papi_Admin {
 		foreach ( papi_get_post_types() as $post_type ) {
 			papi_get_all_content_types( [
 				'mode'  => 'exclude',
-				'types' => 'page'
+				'types' => ['attachment', 'page']
 			] );
 		}
 
@@ -116,6 +116,7 @@ final class Papi_Admin {
 	 */
 	public function hidden_meta_boxes() {
 		global $_wp_post_type_features;
+
 		if ( ! isset( $_wp_post_type_features[$this->post_type]['editor'] ) ) {
 			add_meta_box(
 				'papi-hidden-editor',
@@ -342,7 +343,7 @@ final class Papi_Admin {
 		$this->post_type = papi_get_post_type();
 
 		if ( is_admin() ) {
-			$this->data_type_id  = papi_get_content_type_id();
+			$this->content_type_id  = papi_get_content_type_id();
 		}
 	}
 
@@ -357,34 +358,32 @@ final class Papi_Admin {
 			return false;
 		}
 
-		if ( empty( $this->data_type_id ) ) {
+		if ( empty( $this->content_type_id ) ) {
 			// If only page type is used, override the page type value.
-			$this->data_type_id = papi_filter_settings_only_page_type(
+			$this->content_type_id = papi_filter_settings_only_page_type(
 				$this->post_type
 			);
 
-			if ( empty( $this->data_type_id ) ) {
+			if ( empty( $this->content_type_id ) ) {
 				// Load page types that don't have any real post type.
-				$this->data_type_id = str_replace(
+				$this->content_type_id = str_replace(
 					'papi/',
 					'',
 					papi_get_qs( 'page' )
 				);
 			}
 
-			if ( empty( $this->data_type_id ) ) {
-				$this->data_type_id = papi_get_content_type_id();
+			if ( empty( $this->content_type_id ) ) {
+				$this->content_type_id = papi_get_content_type_id();
 			}
 		}
 
-		if ( empty( $this->data_type_id ) ) {
+		if ( empty( $this->content_type_id ) ) {
 			return false;
 		}
 
-		$this->page_type = papi_get_content_type_by_id( $this->data_type_id );
-
 		// Do a last check so we can be sure that we have a page type instance.
-		return $this->page_type instanceof Papi_content_type;
+		return papi_get_content_type_by_id( $this->content_type_id ) instanceof Papi_content_type;
 	}
 
 	/**
