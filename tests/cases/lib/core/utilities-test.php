@@ -478,6 +478,7 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 	public function test_papify() {
 		$this->assertSame( 'papi_hello_world', papify( 'hello_world' ) );
 		$this->assertSame( 'papi_hello_world', papify( 'papi_hello_world' ) );
+		$this->assertSame( 'papi_hello_world', papify( '_hello_world' ) );
 		$this->assertEmpty( papify( null ) );
 		$this->assertEmpty( papify( true ) );
 		$this->assertEmpty( papify( false ) );
