@@ -1,5 +1,50 @@
 # Papi Changelog
 
+## [2.5.0](https://github.com/wp-papi/papi/releases/tag/v2.5.0) - 2015-XX-XX
+
+Papi 2.5.0 is kind of a big release since the some of the core code has been refactored to improve how page type works. With 2.5.0 release we introduce `Content Type` which is a base class that both page type and option type use. Both `box` and `tab` logic has been rewritten with new core classes and the admin classes smaller.
+
+We moved some logic from page type class to content type class to be able the separate page type and option type class. This will make it easier to add new types to core or create plugin that has own types. Some internal functions has been removed or rewritten how it works.
+
+`papi_get_all_page_types` is rewritten and use `papi_get_all_content_types` functions that is a new version of the old `papi_get_all_page_types` function. Several `papi_get_page_type_*` function has changed and is using `papi_get_content_type_*` functions.
+
+With this version we changed how `remove` method works, it's removed from the page type class and will work inside `register` method anymore. This is because we removed one of the calls to `register` method.
+
+The old way:
+
+```php
+public function register() {
+  $this->remove( ['editor'] );
+}
+```
+
+The new way:
+
+```php
+public function remove() {
+  return ['editor'];
+}
+
+public function register() {
+
+}
+```
+
+You will need to implement a method call `remove` that returns a string or array of strings that will be used to remove post type supports or meta boxes.
+
+With 2.5.0 you can now extend page types and add properties in the extended page type to the box that exists in the parent page type. Useful when you have a base page type that you extend for other page types. See [issue #114](https://github.com/wp-papi/papi/issues/114). The `remove` method will load values from the parent page also.
+
+### Added
+
+Added: WP CLI Support. See [issue #111](https://github.com/wp-papi/papi/issues/111).
+Added: Multiple property. See [issue #112](https://github.com/wp-papi/papi/issues/112).
+
+### Fixed
+
+### Removed
+
+Removed: `remove` method is removed.
+
 ## [2.4.3](https://github.com/wp-papi/papi/releases/tag/v2.4.3) - 2015-10-30
 
 Fixed: Relationships children did not showed correctly on page load.
