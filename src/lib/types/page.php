@@ -91,7 +91,7 @@ function papi_get_page_type_by_id( $id ) {
 /**
  * Get page type id.
  *
- * @param  string $id
+ * @param  int $post_id
  *
  * @return string
  */
