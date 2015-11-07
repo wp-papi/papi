@@ -44,7 +44,7 @@ final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 	 * Setup actions.
 	 */
 	private function setup_actions() {
-		add_action( 'admin_init', [$this, 'save_options'], 10 );
+		add_action( 'admin_init', [$this, 'save_options'] );
 	}
 }
 
