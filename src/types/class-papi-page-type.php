@@ -53,10 +53,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		$parent_class  = get_parent_class( $this );
 		$parent_remove = method_exists( $parent_class, 'remove' );
 
-		if ( ! $parent_remove ) {
-			return $supports;
-		}
-
 		while ( $parent_remove ) {
 			$parent        = new $parent_class();
 			$output        = $parent->remove();
