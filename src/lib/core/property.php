@@ -439,9 +439,15 @@ function papi_populate_properties( $properties ) {
  * @return bool
  */
 function papi_update_property_meta_value( array $meta = [] ) {
-	$meta       = (object) $meta;
-	$option     = $meta->type === 'option' || papi_is_option_page();
-	$save_value = true;
+	$meta         = array_merge( [
+		'post_id' => 0,
+		'slug'    => '',
+		'type'    => Papi_Core_Page::TYPE_POST,
+		'value'   => ''
+	], $meta );
+	$meta         = (object) $meta;
+	$option       = $meta->type === 'option' || papi_is_option_page();
+	$save_value   = true;
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
 		if ( is_string( $key ) ) {
@@ -450,16 +456,12 @@ function papi_update_property_meta_value( array $meta = [] ) {
 		}
 	}
 
-	if ( ! isset( $meta->post_id ) ) {
-		$meta->post_id = 0;
-	}
-
 	if ( ! $save_value && is_array( $meta->value ) ) {
 		$meta->value = [$meta->value];
 	}
 
 	if ( papi_is_empty( $meta->value ) ) {
-		return papi_delete_property_meta_value( $post_id, $meta->slug, $meta->type );
+		return papi_delete_property_meta_value( $meta->post_id, $meta->slug, $meta->type );
 	}
 
 	$result = true;
