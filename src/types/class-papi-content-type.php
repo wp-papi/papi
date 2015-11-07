@@ -68,12 +68,6 @@ class Papi_Content_Type extends Papi_Core_Type {
 		}
 		// @codeCoverageIgnoreEnd
 
-		if ( isset( $options['sort_order'] ) ) {
-			$sort_order = intval( $options['sort_order'] );
-		} else {
-			$sort_order = papi_filter_settings_sort_order();
-		}
-
 		if ( is_callable( $properties ) ) {
 			$properties = call_user_func( $properties );
 		}
