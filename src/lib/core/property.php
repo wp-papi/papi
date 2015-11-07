@@ -10,6 +10,8 @@
  * @param string $type
  */
 function papi_delete_property_meta_value( $post_id, $slug, $type = 'post' ) {
+	papi_cache_delete( $slug, $post_id );
+
 	if ( $type === Papi_Core_Page::TYPE_OPTION || papi_is_option_page() ) {
 		return delete_option( papi_remove_papi( $slug ) );
 	}
@@ -438,7 +440,7 @@ function papi_populate_properties( $properties ) {
  */
 function papi_update_property_meta_value( array $meta = [] ) {
 	$meta       = (object) $meta;
-	$option     = papi_is_option_page();
+	$option     = $meta->type === 'option' || papi_is_option_page();
 	$save_value = true;
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
@@ -457,13 +459,7 @@ function papi_update_property_meta_value( array $meta = [] ) {
 	}
 
 	if ( papi_is_empty( $meta->value ) ) {
-		papi_cache_delete( $meta->slug, $meta->post_id );
-
-		if ( $option ) {
-			return delete_option( papi_remove_papi( $meta->slug ) );
-		} else {
-			return delete_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ) );
-		}
+		return papi_delete_property_meta_value( $post_id, $meta->slug, $meta->type );
 	}
 
 	$result = true;
@@ -489,11 +485,7 @@ function papi_update_property_meta_value( array $meta = [] ) {
 
 		foreach ( $value as $child_key => $child_value ) {
 			if ( papi_is_empty( $child_value ) ) {
-				if ( $option ) {
-					delete_option( papi_remove_papi( $child_key ) );
-				} else {
-					delete_post_meta( $meta->post_id, papi_remove_papi( $child_key ) );
-				}
+				papi_delete_property_meta_value( $meta->post_id, $child_key, $meta->type );
 			} else {
 				if ( $option ) {
 					update_option( papi_remove_papi( $child_key ), $child_value );
