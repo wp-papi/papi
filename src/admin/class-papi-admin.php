@@ -64,8 +64,7 @@ final class Papi_Admin {
 		// Preload all page types.
 		foreach ( papi_get_post_types() as $post_type ) {
 			papi_get_all_content_types( [
-				'mode'  => 'exclude',
-				'types' => ['attachment', 'page']
+				'args' => $post_type
 			] );
 		}
 

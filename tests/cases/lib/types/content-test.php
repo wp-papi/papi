@@ -103,32 +103,6 @@ class Papi_Lib_Types_Content_Test extends WP_UnitTestCase {
 		unset( $_GET[$post_parent] );
 
 		$this->assertEmpty( papi_get_content_type_id() );
-
-		tests_add_filter( 'papi/core/load_one_type_on', function ( $post_types ) {
-			$post_types[] = 'duck';
-			return $post_types;
-		} );
-
-		$_GET['post_type'] = 'duck';
-		$this->assertSame( 'duck-page-type', papi_get_content_type_id( 0 ) );
-
-		tests_add_filter( 'papi/core/load_one_type_on', function ( $post_types ) {
-			$post_types[] = 'attachment_test';
-			return $post_types;
-		} );
-
-		$_GET['post_type'] = 'attachment';
-		papi()->bind( 'core.page_type.attachment', 'others/attachment-type' );
-		$this->assertSame( 'others/attachment-type', papi_get_content_type_id( 0 ) );
-		papi()->remove( 'core.page_type.attachment' );
-
-		$_GET['post_type'] = 'duck2';
-
-		tests_add_filter( 'papi/core/load_one_type_on', function ( $post_types ) {
-			$post_types[] = 'duck2';
-			return $post_types;
-		} );
-
 		$this->assertEmpty( papi_get_page_type_id() );
 		unset( $_GET['post_type'] );
 	}

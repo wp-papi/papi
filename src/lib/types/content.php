@@ -51,7 +51,6 @@ function papi_get_all_content_types( array $args = [] ) {
 	}
 
 	$content_types = [];
-	$load_once     = papi_filter_core_load_one_type_on();
 	$files         = papi_get_all_core_type_files();
 
 	foreach ( $files as $file ) {
@@ -197,20 +196,21 @@ function papi_get_content_type_id( $post_id = 0 ) {
 	}
 
 	// Load page type id from the container if it exists or
-	// load it from `papi_get_all_content_types`.
+	// load it from `papi_get_all_page_types`.
 	if ( empty( $content_type ) ) {
 		$post_type      = papi_get_post_type();
-		$load_once      = papi_filter_core_load_one_type_on();
 		$collection_key = 'core.content_type.' . $post_type;
 
-		if ( in_array( $post_type, $load_once ) ) {
-			if ( papi()->exists( $collection_key )  ) {
-				return papi()->make( $collection_key );
-			}
+		if ( $post_type != 'attachment' ) {
+			return $content_type;
+		}
 
-			if ( $content_types = papi_get_all_page_types( $post_type ) ) {
-				return $content_types[0]->get_id();
-			}
+		if ( papi()->exists( $collection_key )  ) {
+			return papi()->make( $collection_key );
+		}
+
+		if ( $page_types = papi_get_all_page_types( $post_type ) ) {
+			return $page_types[0]->get_id();
 		}
 	}
 
