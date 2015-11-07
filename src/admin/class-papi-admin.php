@@ -382,8 +382,10 @@ final class Papi_Admin {
 			return false;
 		}
 
+		$this->page_type = papi_get_content_type_by_id( $this->content_type_id );
+
 		// Do a last check so we can be sure that we have a page type instance.
-		return papi_get_content_type_by_id( $this->content_type_id ) instanceof Papi_content_type;
+		return $this->page_type instanceof Papi_Content_Type;
 	}
 
 	/**
