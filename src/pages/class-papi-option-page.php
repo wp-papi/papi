@@ -6,7 +6,7 @@
 class Papi_Option_Page extends Papi_Core_Page {
 
 	/**
-	 * content type to describe which
+	 * Data type to describe which
 	 * type of page data is it.
 	 *
 	 * @var string
@@ -34,9 +34,9 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 * @return object
 	 */
 	public function get_property( $slug, $child_slug = '' ) {
-		$page_type_id = str_replace( 'papi/', '', papi_get_qs( 'page' ) );
+		$content_type_id = str_replace( 'papi/', '', papi_get_qs( 'page' ) );
 
-		if ( empty( $page_type_id ) ) {
+		if ( empty( $content_type_id ) ) {
 			$property   = null;
 			$content_types = papi_get_all_content_types( [
 				'types' => 'option'
@@ -55,14 +55,13 @@ class Papi_Option_Page extends Papi_Core_Page {
 			return $property;
 		}
 
+		$content_type = papi_get_content_type_by_id( $content_type_id );
 
-		$page_type = papi_get_content_type_by_id( $page_type_id );
-
-		if ( $page_type instanceof Papi_Option_Type === false ) {
+		if ( ! papi_is_option_type( $content_type ) ) {
 			return;
 		}
 
-		return $page_type->get_property( $slug, $child_slug );
+		return $content_type->get_property( $slug, $child_slug );
 	}
 
 	/**

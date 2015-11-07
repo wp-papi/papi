@@ -6,7 +6,7 @@
 class Papi_Post_Page extends Papi_Core_Page {
 
 	/**
-	 * content type to describe which
+	 * Data type to describe which
 	 * type of page data is it.
 	 *
 	 * @var string
