@@ -8,7 +8,7 @@ We moved some logic from page type class to content type class to be able the se
 
 `papi_get_all_page_types` is rewritten and use `papi_get_all_content_types` functions that is a new version of the old `papi_get_all_page_types` function. Several `papi_get_page_type_*` function has changed and is using `papi_get_content_type_*` functions.
 
-With this version we changed how `remove` method works, it's removed from the page type class and will not work inside `register` method anymore. This is because we removed one of the calls to `register` method.
+With this version we changed how `remove` method works, it's removed from the page type class and will not work inside `register` method anymore. This is because we removed one of the calls to `register` method so the boxes isn't loaded twice.
 
 The old way:
 
