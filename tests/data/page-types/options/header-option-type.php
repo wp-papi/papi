@@ -37,27 +37,27 @@ class Header_Option_Type extends Papi_Option_Type {
 				'slug'     => 'name_levels',
 				'settings' => [
 					'items' => [
-						papi_property([
+						papi_property( [
 							'type'     => 'string',
 							'title'	   => 'Child name',
 							'slug'     => 'child_name',
 							'settings' => [
 								'items' => [
-									[
+									papi_property( [
 										'type'  => 'string',
 										'title' => 'Child child name',
 										'slug'  => 'child_child_name'
-									],
+									] ),
 									null
 								]
 							]
-						])
+						] )
 					]
 				]
 			] )
 		] );
 
-		$this->box('Children 2', [
+		$this->box( 'Children 2', [
 			papi_property( [
 				'type'     => 'string',
 				'title'    => 'Name',

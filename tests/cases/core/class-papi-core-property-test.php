@@ -350,7 +350,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$settings = $property->get_settings();
 
 		$this->assertTrue( is_object( $settings ) );
-		$this->assertEmpty( $settings->items );
+		$this->assertNotEmpty( $settings->items );
 	}
 
 	public function test_get_slug() {

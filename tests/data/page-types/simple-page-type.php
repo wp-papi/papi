@@ -100,11 +100,11 @@ class Simple_Page_Type extends Papi_Page_Type {
 							'slug'     => 'child_name',
 							'settings' => [
 								'items' => [
-									[
+									papi_property( [
 										'type'  => 'string',
 										'title' => 'Child child name',
 										'slug'  => 'child_child_name'
-									],
+									] ),
 									null
 								]
 							]

@@ -47,6 +47,7 @@ With 2.5.0 you can now extend page types and add properties in the extended page
 ### Removed
 
 * Removed: `remove` method is removed.
+* Removed: No more array properties, all properties must use `papi_property` or `$this->property` to work. This because the converting of array properties is bad and some keys can't be used for other things.
 
 ## [2.4.3](https://github.com/wp-papi/papi/releases/tag/v2.4.3) - 2015-10-30
 
