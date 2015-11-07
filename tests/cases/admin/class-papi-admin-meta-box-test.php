@@ -49,6 +49,15 @@ class Papi_Admin_Meta_Box_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '//' );
 	}
 
+	public function test_admin_meta_box_capabilities() {
+		$box = new Papi_Core_Box( [
+			'title' => 'Content',
+			'capabilities' => ['admin']
+		] );
+		$class = new Papi_Admin_Meta_Box( $box );
+		$this->assertTrue( ! isset( $class->box ) );
+	}
+
 	public function test_move_meta_box_after_title() {
 		global $post, $wp_meta_boxes, $pagenow;
 		$pagenow = 'post-new.php';
