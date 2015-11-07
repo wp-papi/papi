@@ -410,7 +410,7 @@ class Papi_Core_Property {
 			$this->get_default_settings()
 		);
 
-		return (object) $this->convert_settings( $settings );
+		return (object) $settings;
 	}
 
 	/**
@@ -821,7 +821,7 @@ class Papi_Core_Property {
 			);
 		}
 
-		return (object) $this->convert_settings( $options->settings );
+		return (object) $options->settings;
 	}
 
 	/**
