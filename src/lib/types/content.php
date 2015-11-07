@@ -62,9 +62,11 @@ function papi_get_all_content_types( array $args = [] ) {
 		}
 
 		// Only content types can be loaded.
+		// @codeCoverageIgnoreStart
 		if ( $content_type instanceof Papi_Content_Type === false ) {
 			continue;
 		}
+		// @codeCoverageIgnoreEnd
 
 		if ( $content_type->singleton() ) {
 			if ( ! empty( $content_types ) ) {
