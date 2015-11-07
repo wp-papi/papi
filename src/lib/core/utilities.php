@@ -635,12 +635,10 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 	$sorter = [];
 
 	foreach ( $array as $k => $value ) {
-		if ( is_object( $value ) ) {
-			if ( isset( $value->$key ) ) {
-				$sorter[$k] = $value->$key;
-			}
-		} else if ( is_array( $value ) && isset( $value[$key] ) ) {
-			$sorter[$k] = $value[$key];
+		$value = is_array( $value ) ? (object) $value : $value;
+		if ( is_object( $value ) && isset( $value->$key ) ) {
+			$sorter[$k] = $value->$key;
+			continue;
 		}
 	}
 
@@ -660,9 +658,10 @@ function papi_sort_order( $array, $key = 'sort_order' ) {
 	$rest   = [];
 
 	foreach ( $sorter as $k => $v ) {
-		$value = $array[ $k ];
+		$value = $array[$k];
+		$value = is_array( $value ) ? (object) $value : $value;
 
-		if ( ( is_object( $value ) && ! isset( $value->$key ) ) || ( is_array( $value ) && ! isset( $value[$key] ) ) ) {
+		if ( is_object( $value ) && ! isset( $value->$key ) ) {
 			$rest[] = $value;
 		} else {
 			$result[$k] = $array[$k];
