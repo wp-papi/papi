@@ -311,7 +311,6 @@ function papi_render_properties( array $properties ) {
 		new Papi_Admin_Meta_Box_Tabs( $properties );
 	} else {
 		?>
-
 		<table class="papi-table">
 			<tbody>
 			<?php
@@ -321,7 +320,6 @@ function papi_render_properties( array $properties ) {
 			?>
 			</tbody>
 		</table>
-
 	<?php
 	}
 }
