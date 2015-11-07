@@ -109,12 +109,12 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	}
 
 	/**
-	 * Check if the data type is a singleton.
+	 * Check if the content type is a singleton.
 	 *
 	 * @return bool
 	 */
 	public function singleton() {
-		$key = 'core.data_type.' . $this->get_post_type();
+		$key = 'core.content_type.' . $this->get_post_type();
 
 		if ( papi()->exists( $key ) ) {
 			return true;

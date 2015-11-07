@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Papi data type is a base class that can
+ * Papi content type is a base class that can
  * register boxes with properties.
  */
-class Papi_Data_Type extends Papi_Core_Type {
+class Papi_Content_Type extends Papi_Core_Type {
 
 	/**
 	 * The array of meta boxes to register.
@@ -14,7 +14,7 @@ class Papi_Data_Type extends Papi_Core_Type {
 	protected $boxes = [];
 
 	/**
-	 * Load all boxes even if we aren't on a post type.
+	 * Load all boxes.
 	 *
 	 * @var bool
 	 */
@@ -25,19 +25,19 @@ class Papi_Data_Type extends Papi_Core_Type {
 	 *
 	 * @var string
 	 */
-	public $type = 'data';
+	public $type = 'content';
 
 	/**
 	 * The constructor.
 	 *
-	 * Load a page type by the file.
+	 * Load a content type by the file.
 	 *
 	 * @param string $file_path
 	 */
 	public function __construct( $file_path = '' ) {
 		// Try to load the file if the file path is empty.
 		if ( empty( $file_path ) ) {
-			$page_type = papi_get_data_type_id();
+			$page_type = papi_get_content_type_id();
 			$file_path = papi_get_file_path( $page_type );
 		}
 
@@ -266,7 +266,7 @@ class Papi_Data_Type extends Papi_Core_Type {
 	}
 
 	/**
-	 * Check if the data type is a singleton.
+	 * Check if the content type is a singleton.
 	 *
 	 * @return bool
 	 */

@@ -14,7 +14,7 @@ class Papi_Attachment_Type_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$this->attachment_type = papi_get_data_type_by_id( 'others/attachment-type' );
+		$this->attachment_type = papi_get_content_type_by_id( 'others/attachment-type' );
 	}
 
 	public function tearDown() {

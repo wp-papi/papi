@@ -40,8 +40,8 @@ function papi_is_option_type( $obj ) {
  */
 function papi_option_type_exists( $id ) {
 	$exists       = false;
-	$option_types = papi_get_all_data_types( [
-		'types' => 'option'	
+	$option_types = papi_get_all_content_types( [
+		'types' => 'option'
 	] );
 
 	foreach ( $option_types as $option_type ) {

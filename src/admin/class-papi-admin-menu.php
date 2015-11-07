@@ -58,29 +58,29 @@ final class Papi_Admin_Menu {
 	/**
 	 * Page items menu.
 	 *
-	 * This function will register all data types
+	 * This function will register all content types
 	 * that has a fake post type. Like option types.
 	 */
 	public function page_items_menu() {
-		$data_types = papi_get_all_data_types( [
+		$content_types = papi_get_all_content_types( [
 			'mode'  => 'exclude',
 			'types'	=> 'page'
 		] );
 
-		foreach ( $data_types as $data_type ) {
-			if ( empty( $data_type->menu ) || empty( $data_type->name ) ) {
+		foreach ( $content_types as $content_type ) {
+			if ( empty( $content_type->menu ) || empty( $content_type->name ) ) {
 				continue;
 			}
 
-			$slug = 'papi/' . $data_type->get_id();
+			$slug = 'papi/' . $content_type->get_id();
 
 			add_submenu_page(
-				$data_type->menu,
-				$data_type->name,
-				$data_type->name,
-				$data_type->capability,
+				$content_type->menu,
+				$content_type->name,
+				$content_type->name,
+				$content_type->capability,
 				$slug,
-				[$data_type, 'render']
+				[$content_type, 'render']
 			);
 		}
 	}

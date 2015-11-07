@@ -32,7 +32,7 @@ function papi_get_all_files_in_directory( $directory = '' ) {
 }
 
 /**
- * Get all data type files from the register directories.
+ * Get all content type files from the register directories.
  *
  * @return array
  */
@@ -74,7 +74,7 @@ function papi_get_file_path( $file ) {
 }
 
 /**
- * Get data type base path.
+ * Get content type base path.
  *
  * @param  string $file
  *

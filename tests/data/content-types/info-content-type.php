@@ -1,16 +1,16 @@
 <?php
 
-class Info_Data_Type extends Papi_Data_Type {
+class Info_Content_Type extends Papi_Content_Type {
 
 	/**
-	 * Define our Data Type meta data.
+	 * Define our content type meta data.
 	 *
 	 * @return array
 	 */
 	public function meta() {
 		return [
-			'name'        => 'Info data type',
-			'description' => 'This is a Info data type',
+			'name'        => 'Info content type',
+			'description' => 'This is a Info content type',
 			'sort_order'  => 500
 		];
 	}

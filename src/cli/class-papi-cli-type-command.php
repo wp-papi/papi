@@ -53,10 +53,10 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 	 */
 	public function list_( $_, $assoc_args ) {
 		// Get all page types.
-		$types = papi_get_all_data_types();
+		$types = papi_get_all_content_types();
 
 		// Get all fake types.
-		// $types = array_merge( $types, papi_get_all_data_types( true, null, true ) );
+		// $types = array_merge( $types, papi_get_all_content_types( true, null, true ) );
 
 		// Create type item with the fields that
 		// will be displayed.

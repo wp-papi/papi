@@ -15,7 +15,7 @@ function papi_display_page_type( $page_type ) {
 	}
 
 	if ( is_string( $page_type ) ) {
-		$page_type = papi_get_data_type_by_id( $page_type );
+		$page_type = papi_get_content_type_by_id( $page_type );
 	}
 
 	if ( ! is_object( $page_type ) ) {
@@ -58,14 +58,14 @@ function papi_display_page_type( $page_type ) {
  * @return array
  */
 function papi_get_all_page_types( $post_type = '' ) {
-	$data_types = papi_get_all_data_types( [
+	$content_types = papi_get_all_content_types( [
 		'args'  => $post_type,
 		'mode'  => 'include',
 		'types' => 'page'
 	] );
 
-	$page_types = array_filter( $data_types, function ( $data_type ) {
-		return papi_is_page_type( $data_type );
+	$page_types = array_filter( $content_types, function ( $content_type ) {
+		return papi_is_page_type( $content_type );
 	} );
 
 	if ( is_array( $page_types ) ) {
@@ -85,7 +85,7 @@ function papi_get_all_page_types( $post_type = '' ) {
  * @return Papi_Page_Type
  */
 function papi_get_page_type_by_id( $id ) {
-	return papi_get_data_type_by_id( $id );
+	return papi_get_content_type_by_id( $id );
 }
 
 /**
@@ -96,7 +96,7 @@ function papi_get_page_type_by_id( $id ) {
  * @return string
  */
 function papi_get_page_type_id( $post_id = 0 ) {
-	return papi_get_data_type_id( $post_id );
+	return papi_get_content_type_id( $post_id );
 }
 
 /**
@@ -117,8 +117,8 @@ function papi_get_page_type_by_post_id( $post_id = 0 ) {
 		return;
 	}
 
-	if ( $page_type = papi_get_data_type_id( $post_id ) ) {
-		return papi_get_data_type_by_id( $page_type );
+	if ( $page_type = papi_get_content_type_id( $post_id ) ) {
+		return papi_get_content_type_by_id( $page_type );
 	}
 }
 
@@ -151,7 +151,7 @@ function papi_get_page_type_name( $post_id = 0 ) {
 		return '';
 	}
 
-	$page_type = papi_get_data_type_by_id( $page_type_id );
+	$page_type = papi_get_content_type_by_id( $page_type_id );
 
 	if ( empty( $page_type ) ) {
 		return '';
@@ -209,7 +209,7 @@ function papi_is_page_type( $obj ) {
  * @return bool
  */
 function papi_set_page_type_id( $post_id, $page_type ) {
-	return papi_data_type_exists( $page_type ) && update_post_meta(
+	return papi_content_type_exists( $page_type ) && update_post_meta(
 		papi_get_post_id( $post_id ),
 		papi_get_page_type_key(),
 		$page_type

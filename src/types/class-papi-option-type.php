@@ -5,7 +5,7 @@
  * and rendering. All option types should extend this
  * class.
  */
-class Papi_Option_Type extends Papi_Data_Type {
+class Papi_Option_Type extends Papi_content_type {
 
 	/**
 	 * The method name to use instead of `meta`.

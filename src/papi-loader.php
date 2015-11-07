@@ -149,7 +149,7 @@ final class Papi_Loader extends Papi_Container {
 			'hooks/filters.php',
 			'fields/page.php',
 			'fields/option.php',
-			'types/data.php',
+			'types/content.php',
 			'types/page.php',
 			'types/option.php'
 		];

@@ -4,7 +4,7 @@
  * Base Papi type implementation of meta data
  * for a page type.
  */
-class Papi_Page_Type_Meta extends Papi_Data_Type {
+class Papi_Page_Type_Meta extends Papi_content_type {
 
 	/**
 	 * The meta method to call.
@@ -112,7 +112,7 @@ class Papi_Page_Type_Meta extends Papi_Data_Type {
 	}
 
 	/**
-	 * Determine if the data type is allowed
+	 * Determine if the content type is allowed
 	 * by capabilities and post type.
 	 *
 	 * @return bool

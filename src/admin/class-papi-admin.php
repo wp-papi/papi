@@ -63,7 +63,7 @@ final class Papi_Admin {
 	public function admin_init() {
 		// Preload all page types.
 		foreach ( papi_get_post_types() as $post_type ) {
-			papi_get_all_data_types( [
+			papi_get_all_content_types( [
 				'mode'  => 'exclude',
 				'types' => 'page'
 			] );
@@ -342,7 +342,7 @@ final class Papi_Admin {
 		$this->post_type = papi_get_post_type();
 
 		if ( is_admin() ) {
-			$this->data_type_id  = papi_get_data_type_id();
+			$this->data_type_id  = papi_get_content_type_id();
 		}
 	}
 
@@ -373,7 +373,7 @@ final class Papi_Admin {
 			}
 
 			if ( empty( $this->data_type_id ) ) {
-				$this->data_type_id = papi_get_data_type_id();
+				$this->data_type_id = papi_get_content_type_id();
 			}
 		}
 
@@ -381,10 +381,10 @@ final class Papi_Admin {
 			return false;
 		}
 
-		$this->page_type = papi_get_data_type_by_id( $this->data_type_id );
+		$this->page_type = papi_get_content_type_by_id( $this->data_type_id );
 
 		// Do a last check so we can be sure that we have a page type instance.
-		return $this->page_type instanceof Papi_Data_Type;
+		return $this->page_type instanceof Papi_content_type;
 	}
 
 	/**
