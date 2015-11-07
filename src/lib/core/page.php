@@ -65,16 +65,14 @@ function papi_get_slugs( $post_id = 0 ) {
 	$boxes = $page_type->get_boxes();
 
 	foreach ( $boxes as $box ) {
-		if ( count( $box ) < 2 || empty( $box[0]['title'] ) || ! is_array( $box[1] ) ) {
-			continue;
+		$title = $box->title;
+
+		if ( ! isset( $value[$title] ) ) {
+			$value[$title] = [];
 		}
 
-		if ( ! isset( $value[$box[0]['title']] ) ) {
-			$value[$box[0]['title']] = [];
-		}
-
-		foreach ( $box[1] as $property ) {
-			$value[$box[0]['title']][] = $property->get_slug( true );
+		foreach ( $box->properties as $property ) {
+			$value[$title][] = $property->get_slug( true );
 		}
 	}
 

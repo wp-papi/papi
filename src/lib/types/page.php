@@ -62,7 +62,7 @@ function papi_get_all_page_types( $post_type = '' ) {
 		'args'  => $post_type,
 		'mode'  => 'include',
 		'types' => 'page'
-	], true );
+	] );
 
 	$page_types = array_filter( $data_types, function ( $data_type ) {
 		return papi_is_page_type( $data_type );

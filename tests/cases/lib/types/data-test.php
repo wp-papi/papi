@@ -26,7 +26,7 @@ class Papi_Lib_Types_Data_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_get_all_data_types() );
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+			return [1,  PAPI_FIXTURE_DIR . '/data-types'];
 		} );
 
 		$this->assertNotEmpty( papi_get_all_data_types() );

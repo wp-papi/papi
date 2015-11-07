@@ -1,35 +1,6 @@
 <?php
 
 /**
- * Get tabs options.
- *
- * @param  array|object $options
- *
- * @return stdClass
- */
-function papi_get_tab_options( $options ) {
-	if ( ! is_array( $options ) && ! is_object( $options ) || empty( $options ) ) {
-		return;
-	}
-
-	if ( is_object( $options ) ) {
-		$options = (array) $options;
-	}
-
-	$defaults = [
-		'capabilities' => [],
-		'icon'         => '',
-		'sort_order'   => papi_filter_settings_sort_order(),
-		// Private options
-		'_name'        => ''
-	];
-
-	$options = array_merge( $defaults, $options );
-
-	return (object) $options;
-}
-
-/**
  * Setup tabs.
  *
  * @param  array $tabs
@@ -40,15 +11,11 @@ function papi_setup_tabs( array $tabs ) {
 	$_tabs = [];
 
 	foreach ( $tabs as $tab ) {
-		$tab = (object) $tab;
-
-		if ( ! isset( $tab->options ) ) {
+		if ( $tab instanceof Papi_Core_Tab === false ) {
 			continue;
 		}
 
-		$tab->options = papi_get_tab_options( $tab->options );
-
-		if ( papi_current_user_is_allowed( $tab->options->capabilities ) ) {
+		if ( papi_current_user_is_allowed( $tab->capabilities ) ) {
 			$_tabs[] = $tab;
 		}
 	}
@@ -58,7 +25,7 @@ function papi_setup_tabs( array $tabs ) {
 	// Generate unique names for all tabs.
 	$len = count( $tabs );
 	for ( $i = 0; $i < $len; $i ++ ) {
-		$tabs[ $i ]->options->_name = papi_html_name( $tabs[$i]->options->title ) . '_' . $i;
+		$tabs[$i]->id = papi_html_name( $tabs[$i]->title ) . '_' . $i;
 	}
 
 	return $tabs;
@@ -77,9 +44,5 @@ function papi_tab( $file_or_options, $properties = [] ) {
 
 	// The tab key is important, it's says that we should render a tab meta box.
 	// This may change in later version of Papi.
-	return (object) [
-		'options'    => $options,
-		'properties' => $properties,
-		'tab'        => true
-	];
+	return new Papi_Core_Tab( $options, $properties );
 }

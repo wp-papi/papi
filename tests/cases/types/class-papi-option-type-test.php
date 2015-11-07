@@ -33,7 +33,7 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 
 		$boxes = $this->header_option_type->get_boxes();
 
-		$this->assertSame( 'Options', $boxes[0][0]['title'] );
+		$this->assertSame( 'Options', $boxes[0]->title );
 	}
 
 	public function test_get_property() {

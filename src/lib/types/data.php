@@ -52,7 +52,7 @@ function papi_get_all_data_types( array $args = [] ) {
 
 	$data_types = [];
 	$load_once  = papi_filter_core_load_one_type_on();
-	$files      = papi_get_all_data_type_files();
+	$files      = papi_get_all_core_type_files();
 
 	foreach ( $files as $file ) {
 		$data_type = papi_get_data_type( $file );

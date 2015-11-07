@@ -53,7 +53,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 		$boxes = $this->faq_page_type->get_boxes();
 
-		$this->assertSame( 'Content', $boxes[0][0]['title'] );
+		$this->assertSame( 'Content', $boxes[0]->title );
 
 		$this->assertEmpty( $this->empty_page_type->get_boxes() );
 	}

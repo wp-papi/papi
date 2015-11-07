@@ -38,7 +38,7 @@ class Tab_Page_Type extends Papi_Page_Type {
 			$this->tab( 1 )
 		] );
 
-		$this->box( 'Tabs with children', [
+		$this->box( 'Tabs with children will not work', [
 			papi_property( [
 				'type'     => 'string',
 				'title'    => 'Name',

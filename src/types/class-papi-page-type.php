@@ -50,8 +50,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			return;
 		}
 
-		$post_type = $this->get_post_type();
-
 		// 1. Run the register method.
 		$this->register();
 
@@ -62,8 +60,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		$this->boxes = $this->get_boxes();
 
 		foreach ( $this->boxes as $box ) {
-			$box[0]['_post_type'] = $post_type;
-			new Papi_Admin_Meta_Box( $box[0], $box[1] );
+			new Papi_Admin_Meta_Box( $box );
 		}
 	}
 

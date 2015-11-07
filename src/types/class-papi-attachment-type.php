@@ -52,18 +52,15 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	public function edit_attachment( $form_fields, $post ) {
 		foreach ( $this->get_boxes() as $box ) {
 
-			if ( ! empty( $box[0]['title'] ) ) {
+			if ( ! empty( $box->title ) ) {
 				$form_fields['papi-media-title-' . uniqid()] = [
 					'label' => '',
 					'input' => 'html',
-					'html'  => '<h4 class="papi-media-title">' . $box[0]['title'] . '</h4>'
+					'html'  => '<h4 class="papi-media-title">' . $box->title . '</h4>'
 				];
 			}
 
-			$properties = isset( $box[1][0]->properties ) ?
-				$box[1][0]->properties : $box[1];
-
-			foreach ( $properties as $prop ) {
+			foreach ( $box->properties as $prop ) {
 				// Raw output is required.
 				$prop->raw = true;
 

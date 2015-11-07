@@ -54,11 +54,11 @@ final class Papi_Admin_Meta_Box_Tabs {
 				foreach ( $this->tabs as $tab ):
 					?>
 					<li class="<?php echo $this->tabs[0] === $tab ? 'active' : ''; ?>">
-						<a href="#" data-papi-tab="<?php echo $tab->options->_name; ?>">
-							<?php if ( ! empty( $tab->options->icon ) ): ?>
-								<img src="<?php echo $tab->options->icon; ?>" alt="<?php echo $tab->options->title; ?>"/>
+						<a href="#" data-papi-tab="<?php echo $tab->id; ?>">
+							<?php if ( ! empty( $tab->icon ) ): ?>
+								<img src="<?php echo $tab->icon; ?>" alt="<?php echo $tab->title; ?>"/>
 							<?php endif;
-							echo $tab->options->title; ?>
+							echo $tab->title; ?>
 						</a>
 					</li>
 				<?php
@@ -70,16 +70,14 @@ final class Papi_Admin_Meta_Box_Tabs {
 				foreach ( $this->tabs as $tab ):
 					?>
 					<div class="<?php echo $this->tabs[0] === $tab ? 'active' : ''; ?>"
-					     data-papi-tab="<?php echo $tab->options->_name; ?>">
+					     data-papi-tab="<?php echo $tab->id; ?>">
 						<?php
-						$properties = papi_populate_properties( $tab->properties );
-
 						$properties = array_map( function ( $property ) {
 							// While in a tab the sidebar is required.
 							$property->sidebar = true;
 
 							return $property;
-						}, $properties );
+						}, $tab->properties );
 
 						papi_render_properties( $properties );
 						?>

@@ -94,6 +94,13 @@ class Papi_Core_Property {
 	private $post_id;
 
 	/**
+	 * Determine if is in a tab.
+	 *
+	 * @var bool
+	 */
+	public $tab = false;
+
+	/**
 	 * The constructor.
 	 */
 	public function __construct() {

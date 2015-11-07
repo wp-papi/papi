@@ -35,6 +35,12 @@ class Papi_Data_Type extends Papi_Core_Type {
 	 * @param string $file_path
 	 */
 	public function __construct( $file_path = '' ) {
+		// Try to load the file if the file path is empty.
+		if ( empty( $file_path ) ) {
+			$page_type = papi_get_data_type_id();
+			$file_path = papi_get_file_path( $page_type );
+		}
+
 		parent::__construct( $file_path );
 	}
 
@@ -75,16 +81,7 @@ class Papi_Data_Type extends Papi_Core_Type {
 		// Check and convert all non properties objects to properties objects.
 		$properties = $this->convert_properties( $properties );
 
-		$options['title'] = papi_esc_html(
-			isset( $options['title'] ) ? $options['title'] : ''
-		);
-
-		array_push( $this->boxes, [
-			$options,
-			$properties,
-			'sort_order' => $sort_order,
-			'title'      => $options['title']
-		] );
+		array_push( $this->boxes, new Papi_Core_Box( $options, $properties ) );
 	}
 
 	/**
@@ -98,7 +95,7 @@ class Papi_Data_Type extends Papi_Core_Type {
 		if ( is_array( $properties ) ) {
 			if ( isset( $properties['type'] ) ) {
 				$properties = [$properties];
-			} else if ( isset( $properties[0]->tab ) && $properties[0]->tab ) {
+			} else if ( isset( $properties[0] ) && $properties[0] instanceof Papi_Core_Tab ) {
 				foreach ( $properties as $index => $items ) {
 					$items->properties = array_map(
 						'papi_get_property_type',
@@ -125,6 +122,31 @@ class Papi_Data_Type extends Papi_Core_Type {
 	}
 
 	/**
+	 * Merge boxes with same title.
+	 *
+	 * @param  array $boxes
+	 *
+	 * @return array
+	 */
+	protected function merge_boxes( array $boxes ) {
+		$result = [];
+
+		foreach ( $boxes as $box ) {
+
+			if ( ! isset( $result[$box->id] ) ) {
+				$result[$box->id] = $box;
+				continue;
+			}
+
+			foreach ( $box->properties as $property ) {
+				$result[$box->id]->properties[] = $property;
+			}
+		}
+
+		return array_values( $result );
+	}
+
+	/**
 	 * Get boxes from the page type.
 	 *
 	 * @return array
@@ -140,7 +162,9 @@ class Papi_Data_Type extends Papi_Core_Type {
 			$this->register();
 		}
 
-		return papi_sort_order( array_reverse( $this->boxes ) );
+		$boxes = $this->merge_boxes( $this->boxes );
+
+		return papi_sort_order( array_reverse( $boxes ) );
 	}
 
 	/**
@@ -182,7 +206,7 @@ class Papi_Data_Type extends Papi_Core_Type {
 	 * @return null|Papi_Property
 	 */
 	public function get_property( $slug, $child_slug = '' ) {
-		$boxes = $this->get_boxes();
+		$boxes = $this->get_boxes( true );
 		$parts = preg_split( '/\[\d+\]/', $slug );
 		$parts = array_map( function ( $part ) {
 			return preg_replace( '/(\[|\])/', '', $part );
@@ -208,10 +232,7 @@ class Papi_Data_Type extends Papi_Core_Type {
 		}
 
 		foreach ( $boxes as $box ) {
-			$properties = isset( $box[1][0]->properties ) ?
-				$box[1][0]->properties : $box[1];
-
-			foreach ( $properties as $property ) {
+			foreach ( $box->properties as $property ) {
 				$property = papi_get_property_type( $property );
 
 				if ( papi_is_property( $property ) && $property->match_slug( $slug ) ) {
@@ -268,16 +289,10 @@ class Papi_Data_Type extends Papi_Core_Type {
 
 		$tab = papi_tab( $file_or_options, $properties );
 
-		// Tabs sometimes will be in $tab->options['options'] when you use a tab template in this method
-		// and using the return value of papi_tab function is used.
-		//
-		// This should be fixed later, not a priority for now since this works.
-		if ( is_object( $tab ) && isset( $tab->options ) && isset( $tab->options['options'] ) ) {
-			$tab = (object) $tab->options;
-		}
-
-		if ( isset( $tab->options ) ) {
-			$tab->options = papi_esc_html( $tab->options );
+		// Since `papi_tab` can be used in a boxes file we need to this check
+		// so we can attach properties array if it's missing.
+		if ( empty( $tab->properties ) && isset( $file_or_options['properties'] ) ) {
+			$tab->properties = papi_populate_properties( $file_or_options['properties'] );
 		}
 
 		return $tab;

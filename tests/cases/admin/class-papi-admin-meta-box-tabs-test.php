@@ -33,12 +33,12 @@ class Papi_Admin_Meta_Box_Tabs_Test extends WP_UnitTestCase {
 		$class = new Papi_Admin_Meta_Box_Tabs( $this->tabs, false );
 		$tabs  = $class->get_tabs();
 
-		$this->assertSame( 'More', $tabs[0]->options->title );
-		$this->assertSame( 1, $tabs[0]->options->sort_order );
+		$this->assertSame( 'More', $tabs[0]->title );
+		$this->assertSame( 1, $tabs[0]->sort_order );
 		$this->assertSame( 'string', $tabs[0]->properties[0]->type );
 		$this->assertSame( 'Name', $tabs[0]->properties[0]->title );
-		$this->assertSame( 'Content', $tabs[1]->options->title );
-		$this->assertSame( 1000, $tabs[1]->options->sort_order );
+		$this->assertSame( 'Content', $tabs[1]->title );
+		$this->assertSame( 1000, $tabs[1]->sort_order );
 		$this->assertEmpty( $tabs[1]->properties );
 	}
 
@@ -48,9 +48,9 @@ class Papi_Admin_Meta_Box_Tabs_Test extends WP_UnitTestCase {
 	}
 
 	public function test_tabs() {
-		$this->assertSame( 'Content', $this->tabs[0]->options['title'] );
+		$this->assertSame( 'Content', $this->tabs[0]->title );
 		$this->assertEmpty( $this->tabs[0]->properties );
-		$this->assertSame( 'More', $this->tabs[1]->options['title'] );
+		$this->assertSame( 'More', $this->tabs[1]->title );
 		$this->assertSame( 'string', $this->tabs[1]->properties[0]->type );
 		$this->assertSame( 'Name', $this->tabs[1]->properties[0]->title );
 	}

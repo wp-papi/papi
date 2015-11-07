@@ -79,8 +79,8 @@ class Papi_Option_Type extends Papi_Data_Type {
 		$this->boxes = $this->get_boxes();
 
 		foreach ( $this->boxes as $box ) {
-			$box[0]['_meta_box_id'] = get_class( $this );
-			new Papi_Admin_Meta_Box( $box[0], $box[1] );
+			$box->id = get_class( $this );
+			new Papi_Admin_Meta_Box( $box );
 		}
 	}
 }

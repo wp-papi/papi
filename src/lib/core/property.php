@@ -329,7 +329,7 @@ function papi_render_properties( array $properties ) {
 
 	// If it's a tab the tabs class will
 	// handle the rendering of the properties.
-	if ( isset( $properties[0]->tab ) && $properties[0]->tab ) {
+	if ( $properties[0] instanceof Papi_Core_Tab ) {
 		new Papi_Admin_Meta_Box_Tabs( $properties );
 	} else {
 		?>
@@ -402,8 +402,8 @@ function papi_populate_properties( $properties ) {
 
 	// Convert all non property objects to property objects.
 	$properties = array_map( function ( $property ) {
-		if ( ! is_object( $property ) && is_array( $property ) && ! isset( $property['tab'] ) ) {
-			return papi_get_property_options( $property );
+		if ( ! is_object( $property ) && is_array( $property ) && ! isset( $property->tab ) ) {
+			return papi_property( $property );
 		}
 
 		return $property;
@@ -425,7 +425,7 @@ function papi_populate_properties( $properties ) {
 		return $results;
 	}
 
-	return papi_sort_order( $results );
+	return papi_sort_order( array_filter( $results, 'papi_is_property' ) );
 }
 
 /**

@@ -20,14 +20,14 @@ class Papi_Lib_Core_IO_Test extends WP_UnitTestCase {
 		$this->assertTrue( in_array( $expected, $actual ) );
 	}
 
-	public function test_papi_get_all_data_type_files() {
-		$this->assertEmpty( papi_get_all_data_type_files() );
+	public function test_papi_get_all_core_type_files() {
+		$this->assertEmpty( papi_get_all_core_type_files() );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$actual = papi_get_all_data_type_files();
+		$actual = papi_get_all_core_type_files();
 		$this->assertFalse( empty( $actual ) );
 		$this->assertTrue( is_array( $actual ) );
 	}
@@ -53,23 +53,23 @@ class Papi_Lib_Core_IO_Test extends WP_UnitTestCase {
 		$this->assertTrue( strpos( $path2, 'simple-page-type.php' ) !== false );
 	}
 
-	public function test_papi_get_data_type_base_path() {
-		$this->assertNull( papi_get_data_type_base_path( 1 ) );
-		$this->assertNull( papi_get_data_type_base_path( true ) );
-		$this->assertNull( papi_get_data_type_base_path( false ) );
-		$this->assertNull( papi_get_data_type_base_path( [] ) );
-		$this->assertNull( papi_get_data_type_base_path( (object) [] ) );
-		$this->assertNull( papi_get_data_type_base_path( '' ) );
-		$this->assertSame( 'simple-page-type', papi_get_data_type_base_path( 'simple-page-type' ) );
+	public function test_papi_get_core_type_base_path() {
+		$this->assertNull( papi_get_core_type_base_path( 1 ) );
+		$this->assertNull( papi_get_core_type_base_path( true ) );
+		$this->assertNull( papi_get_core_type_base_path( false ) );
+		$this->assertNull( papi_get_core_type_base_path( [] ) );
+		$this->assertNull( papi_get_core_type_base_path( (object) [] ) );
+		$this->assertNull( papi_get_core_type_base_path( '' ) );
+		$this->assertSame( 'simple-page-type', papi_get_core_type_base_path( 'simple-page-type' ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		$path = papi_get_file_path( 'simple-page-type' );
-		$this->assertSame( 'simple-page-type', papi_get_data_type_base_path( $path ) );
+		$this->assertSame( 'simple-page-type', papi_get_core_type_base_path( $path ) );
 
-		$this->assertNull( papi_get_data_type_base_path( '' ) );
-		$this->assertNull( papi_get_data_type_base_path( null ) );
+		$this->assertNull( papi_get_core_type_base_path( '' ) );
+		$this->assertNull( papi_get_core_type_base_path( null ) );
 	}
 }

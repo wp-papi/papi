@@ -13,7 +13,6 @@ class FAQ_Page_Type extends Papi_Page_Type {
 			'description'  => 'This is a faq page',
 			'template'     => 'pages/faq-page.php',
 			'_not_used'    => 'Not used',
-			'capabilities' => ['kvack'],
 			'thumbnail'    => 'faq.png',
 			'post_type'    => 'faq',
 			'fill_labels'  => true,

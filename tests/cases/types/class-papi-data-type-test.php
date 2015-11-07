@@ -9,7 +9,7 @@ class Papi_Data_Type_Test extends WP_UnitTestCase {
 		parent::setUp();
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+			return [1,  PAPI_FIXTURE_DIR . '/data-types'];
 		} );
 
 		$this->post_id = $this->factory->post->create();
@@ -17,7 +17,7 @@ class Papi_Data_Type_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'empty-page-type' );
 
 		$this->empty_data_type  = new Papi_Data_Type();
-		$this->info_data_type = papi_get_data_type( PAPI_FIXTURE_DIR . '/page-types/info-data-type.php' );
+		$this->info_data_type = papi_get_data_type( PAPI_FIXTURE_DIR . '/data-types/info-data-type.php' );
 	}
 
 	public function tearDown() {
@@ -43,7 +43,7 @@ class Papi_Data_Type_Test extends WP_UnitTestCase {
 
 		$boxes = $this->info_data_type->get_boxes();
 
-		$this->assertSame( 'Info', $boxes[0][0]['title'] );
+		$this->assertSame( 'Info', $boxes[0]->title );
 
 		$this->assertEmpty( $this->empty_data_type->get_boxes() );
 	}
@@ -57,7 +57,7 @@ class Papi_Data_Type_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $this->empty_data_type->get_file_path() );
 
 		$this->assertSame(
-			PAPI_FIXTURE_DIR . '/page-types/info-data-type.php',
+			PAPI_FIXTURE_DIR . '/data-types/info-data-type.php',
 			$this->info_data_type->get_file_path()
 		);
 	}

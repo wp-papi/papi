@@ -355,7 +355,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$tab = papi_tab( 'Content', [] );
 		$actual = papi_populate_properties( [$tab] );
 
-		$this->assertSame( 'Content', $actual[0]->options['title'] );
+		$this->assertSame( 'Content', $actual[0]->title );
 		$this->assertEmpty( $actual[0]->properties );
 
 		$actual = papi_populate_properties( [
