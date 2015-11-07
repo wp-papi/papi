@@ -21,17 +21,20 @@ class FAQ_Extra_Page_Type extends FAQ_Page_Type {
 		];
 	}
 
+	public function remove() {
+		return 'blog';
+	}
+
 	/**
 	 * Define our properties.
 	 */
 	public function register() {
-		parent::register();
-
 		$this->box( 'Content', [
 			papi_property( [
-				'post_type' => 'faq',
-				'type'      => 'string',
-				'title'     => 'Name'
+				'description' => 'FAQ 2',
+				'post_type'   => 'faq',
+				'type'        => 'string',
+				'title'       => 'Name'
 			] )
 		] );
 	}

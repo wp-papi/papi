@@ -86,6 +86,22 @@ class Papi_Content_Type extends Papi_Core_Type {
 	}
 
 	/**
+	 * Call parent register if it exists
+	 * to collect boxes on the parent content type.
+	 */
+	private function call_parent_register() {
+		$parent_class = get_parent_class( $this );
+
+		if ( ! method_exists( $parent_class, 'register' ) ) {
+			return;
+		}
+
+		$parent = new $parent_class();
+		$parent->register();
+		$this->boxes = $parent->get_boxes();
+	}
+
+	/**
 	 * Convert properties to properties objects.
 	 *
 	 * @todo Refactor this method.
@@ -162,6 +178,7 @@ class Papi_Content_Type extends Papi_Core_Type {
 
 			$this->load_boxes = true;
 
+			$this->call_parent_register();
 			$this->register();
 		}
 

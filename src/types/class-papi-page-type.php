@@ -8,14 +8,6 @@
 class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 	/**
-	 * Array of post type supports to remove.
-	 * By default remove `postcustom` which is the Custom fields metabox.
-	 *
-	 * @var array
-	 */
-	private $post_type_supports = ['custom-fields'];
-
-	/**
 	 * Remove meta boxes.
 	 *
 	 * @var array
@@ -43,6 +35,53 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	}
 
 	/**
+	 * Get post type supports that will be removed.
+	 *
+	 * @return array
+	 */
+	private function get_post_type_supports() {
+		$supports = ['custom-fields'];
+
+		if ( method_exists( $this, 'remove' ) ) {
+			$output   = $this->remove();
+			$output   = is_string( $output ) ? [$output] : [];
+			$output   = is_array( $output ) ? $output : [];
+			$output   = array_filter( $output, 'is_string' );
+			$supports = array_merge( $supports, $output );
+		}
+
+		$parent_class  = get_parent_class( $this );
+		$parent_remove = method_exists( $parent_class, 'remove' );
+
+		if ( ! $parent_remove ) {
+			return $supports;
+		}
+
+		while ( $parent_remove ) {
+			$parent        = new $parent_class();
+			$output        = $parent->remove();
+			$output        = is_string( $output ) ? [$output] : [];
+			$output        = is_array( $output ) ? $output : [];
+			$output        = array_filter( $output, 'is_string' );
+			$supports      = array_merge( $supports, $output );
+			$parent_class  = get_parent_class( $parent_class );
+			$parent_remove = method_exists( $parent_class, 'remove' );
+		}
+
+		return $supports;
+	}
+
+	/**
+	 * Remove post type supports and/or
+	 * meta boxes.
+	 *
+	 * @return array
+	 */
+	public function remove() {
+		return [];
+	}
+
+	/**
 	 * This function will setup all meta boxes.
 	 */
 	public function setup() {
@@ -50,27 +89,15 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			return;
 		}
 
-		// 1. Run the register method.
-		$this->register();
-
-		// 2. Remove post type support
+		// 1. Remove post type support
 		$this->remove_post_type_support();
 
-		// 3. Load all boxes.
+		// 2. Load all boxes.
 		$this->boxes = $this->get_boxes();
 
 		foreach ( $this->boxes as $box ) {
 			new Papi_Admin_Meta_Box( $box );
 		}
-	}
-
-	/**
-	 * Remove post type support. Runs once, on page load.
-	 *
-	 * @param array $post_type_supports
-	 */
-	protected function remove( $post_type_supports = [] ) {
-		$this->post_type_supports = array_merge( $this->post_type_supports, papi_to_array( $post_type_supports ) );
 	}
 
 	/**
@@ -85,7 +112,9 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 			return;
 		}
 
-		foreach ( $this->post_type_supports as $key => $value ) {
+		$post_type_supports = $this->get_post_type_supports();
+
+		foreach ( $post_type_supports as $key => $value ) {
 			if ( is_numeric( $key ) ) {
 				$key = $value;
 				$value = '';

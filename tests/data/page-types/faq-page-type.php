@@ -27,26 +27,33 @@ class FAQ_Page_Type extends Papi_Page_Type {
 		];
 	}
 
+	public function remove() {
+		return 'div';
+	}
+
 	/**
 	 * Define our properties.
 	 */
 	public function register() {
 		$this->box( 'Content', [
 			papi_property( [
-				'post_type' => 'faq',
-				'type'      => 'string',
-				'title'     => 'Question'
+				'description' => 'FAQ 1',
+				'post_type'   => 'faq',
+				'type'        => 'string',
+				'title'       => 'Question'
 			] ),
 			papi_property( [
-				'post_type' => 'faq',
-				'type'      => 'text',
-				'title'     => 'Answer'
+				'description' => 'FAQ 1',
+				'post_type'   => 'faq',
+				'type'        => 'text',
+				'title'       => 'Answer'
 			] ),
 			papi_property( [
-				'type'     => 'text',
-				'title'    => 'Type',
-				'disabled' => true,
-				'display'  => false
+				'description' => 'FAQ 1',
+				'type'        => 'text',
+				'title'       => 'Type',
+				'disabled'    => true,
+				'display'     => false
 			] )
 		] );
 	}

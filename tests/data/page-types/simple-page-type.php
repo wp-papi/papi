@@ -18,12 +18,16 @@ class Simple_Page_Type extends Papi_Page_Type {
 	}
 
 	/**
+	 * Remove post type support and remove_meta_box.
+	 */
+	public function remove() {
+		return [ 'editor', 'commentdiv' ];
+	}
+
+	/**
 	 * Define our properties.
 	 */
 	public function register() {
-		// Remove post type support and remove_meta_box.
-		$this->remove( [ 'editor', 'commentdiv' ] );
-
 		// Test box property.
 		$this->box( 'Hello', papi_property( [
 			'type'  => 'string',
