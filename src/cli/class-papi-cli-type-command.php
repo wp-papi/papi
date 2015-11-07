@@ -77,5 +77,4 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 		$formatter = $this->get_formatter( $assoc_args );
 		$formatter->display_items( $types );
 	}
-
 }

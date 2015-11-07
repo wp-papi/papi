@@ -36,11 +36,11 @@ class Papi_CLI_Command extends WP_CLI_Command {
 	 * @return array Formatter args
 	 */
 	protected function get_format_args( $assoc_args ) {
-		$format_args = array(
+		$format_args = [
 			'fields' => $this->get_default_format_fields(),
 			'field'  => null,
 			'format' => 'table',
-		);
+		];
 
 		if ( isset( $assoc_args['fields'] ) ) {
 			$format_args['fields'] = $assoc_args['fields'];
@@ -50,7 +50,7 @@ class Papi_CLI_Command extends WP_CLI_Command {
 			$format_args['field'] = $assoc_args['field'];
 		}
 
-		if ( ! empty( $assoc_args['format'] ) && in_array( $assoc_args['format'], array( 'count', 'ids', 'table', 'csv', 'json' ) ) ) {
+		if ( ! empty( $assoc_args['format'] ) && in_array( $assoc_args['format'], ['count', 'ids', 'table', 'csv', 'json'] ) ) {
 			$format_args['format'] = $assoc_args['format'];
 		}
 
