@@ -89,10 +89,6 @@ class Papi_Core_Tab {
 	 * @param  array $properties
 	 */
 	private function setup_properties( array $properties ) {
-		foreach ( $properties as $index => $property ) {
-			$properties[$index]->tab = true;
-		}
-
 		$this->properties = papi_populate_properties( $properties );
 	}
 }

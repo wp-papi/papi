@@ -81,11 +81,14 @@ class Papi_Content_Type extends Papi_Core_Type {
 		// Check and convert all non properties objects to properties objects.
 		$properties = $this->convert_properties( $properties );
 
+		// Create a core box instance and add it to the boxes array.
 		array_push( $this->boxes, new Papi_Core_Box( $options, $properties ) );
 	}
 
 	/**
 	 * Convert properties to properties objects.
+	 *
+	 * @todo Refactor this method.
 	 *
 	 * @param  array|object $properties
 	 *
@@ -292,7 +295,7 @@ class Papi_Content_Type extends Papi_Core_Type {
 		// Since `papi_tab` can be used in a boxes file we need to this check
 		// so we can attach properties array if it's missing.
 		if ( empty( $tab->properties ) && isset( $file_or_options['properties'] ) ) {
-			$tab->properties = papi_populate_properties( $file_or_options['properties'] );
+			$tab->properties = $file_or_options['properties'];
 		}
 
 		return $tab;

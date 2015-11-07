@@ -62,30 +62,6 @@ function papi_is_property( $value ) {
 }
 
 /**
- * Get box property.
- *
- * @param  array $properties
- *
- * @return array
- */
-function papi_get_box_property( array $properties ) {
-	$box_property = array_filter( $properties, function ( $property ) {
-		return ! is_object( $property );
-	} );
-
-	if ( ! empty( $box_property ) && ! isset( $box_property[0] ) && ! isset( $box_property[0]['tab'] ) ) {
-		$property = papi_property( $properties );
-
-		if ( ! $property->disabled() ) {
-			$property->_box_property = true;
-			$properties = [$property];
-		}
-	}
-
-	return $properties;
-}
-
-/**
  * Get options and properties.
  *
  * @param  mixed $file_or_options
@@ -397,37 +373,26 @@ function papi_populate_properties( $properties ) {
 		return [$properties];
 	}
 
-	$results = [];
-
-	// Get the box property (when you only put a array in the box method) if it exists.
-	$properties = papi_get_box_property( $properties );
-
 	// Convert all non property objects to property objects.
 	$properties = array_map( function ( $property ) {
-		if ( ! is_object( $property ) && is_array( $property ) && ! isset( $property->tab ) ) {
+		if ( is_array( $property ) ) {
 			return papi_property( $property );
 		}
 
 		return $property;
 	}, $properties );
 
-	// Fix so the properties array will have the right order.
-	$properties = array_reverse( $properties );
-
-	foreach ( $properties as $property ) {
-		if ( isset( $property->tab ) && $property->tab ) {
-			$results[] = $property;
-			continue;
-		}
-
-		$results[] = $property;
+	if ( ! isset( $properties[0] ) ) {
+		$properties = [papi_property( $properties )];
 	}
 
-	if ( empty( $results ) || ( isset( $results[0]->tab ) && $results[0]->tab ) ) {
-		return $results;
+	// If the first property is a core tab, just return
+	// the properties array and skip the last check.
+	if ( empty( $properties ) || $properties[0] instanceof Papi_Core_Tab ) {
+		return papi_sort_order( $properties );
 	}
 
-	return papi_sort_order( array_filter( $results, 'papi_is_property' ) );
+	return papi_sort_order( array_filter( array_reverse( $properties ), 'papi_is_property' ) );
 }
 
 /**

@@ -51,7 +51,7 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 							</td>
 						<?php else: ?>
 							<td><?php echo esc_html( $property->title ); ?></td>
-							<td><?php echo esc_html( $property->type ); ?></td>
+							<td><?php echo strtolower( esc_html( $property->type ) ); ?></td>
 							<td><?php echo esc_html( $property->get_slug( true ) ); ?></td>
 							<td><?php echo esc_html( $property->sort_order ); ?></td>
 						<?php endif; ?>
@@ -107,7 +107,7 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 				$top_right_text = __( 'Tabs', 'papi' );
 			}
 
-			$counter = count( papi_get_box_property( $box->properties ) );
+			$counter = count( $box->properties );
 			?>
 			<div class="postbox papi-box papi-management-box">
 				<div class="handlediv" title="Click to toggle">

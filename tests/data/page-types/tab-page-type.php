@@ -34,6 +34,11 @@ class Tab_Page_Type extends Papi_Page_Type {
 			)
 		] );
 
+		$this->box( [
+			'type'  => 'string',
+			'title' => 'Title'
+		] );
+
 		$this->box( 'Tabs not working', [
 			$this->tab( 1 )
 		] );

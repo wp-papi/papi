@@ -63,16 +63,6 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_property( '' ) );
 	}
 
-	public function test_papi_get_box_property() {
-		$actual = papi_get_box_property( [
-			'type'  => 'string',
-			'title' => 'Name'
-		] );
-
-		$this->assertSame( 'Name', $actual[0]->title );
-		$this->assertSame( 'string', $actual[0]->type );
-	}
-
 	public function test_papi_get_property_meta_value() {
 		$this->assertNull( papi_get_property_meta_value( $this->post_id, 'random322-page-type' ) );
 		$this->assertNull( papi_get_property_meta_value( $this->post_id, 'random322-page-type', Papi_Core_Page::TYPE_OPTION ) );
