@@ -27,21 +27,6 @@ function papi_filter_conditional_rule_allowed( $rule ) {
 }
 
 /**
- * This filter will return all post types that should load only one page type.
- *
- * @return array
- */
-function papi_filter_core_load_one_type_on() {
-	$default = ['attachment'];
-	$result  = apply_filters(
-		'papi/core/load_one_type_on',
-		$default
-	);
-
-	return is_array( $result ) ? $result : $default;
-}
-
-/**
  * Format the value of the property before it's returned to WordPress admin or the site.
  *
  * @param  string $type
