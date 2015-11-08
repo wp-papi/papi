@@ -208,10 +208,6 @@ function papi_get_content_type_id( $post_id = 0 ) {
 		if ( papi()->exists( $collection_key )  ) {
 			return papi()->make( $collection_key );
 		}
-
-		if ( $page_types = papi_get_all_page_types( $post_type ) ) {
-			return $page_types[0]->get_id();
-		}
 	}
 
 	return $content_type;
