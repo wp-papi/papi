@@ -285,16 +285,6 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Get content type.
-	 *
-	 * @return string
-	 */
-	public function get_content_type() {
-		$page = $this->get_page();
-		return $page instanceof Papi_Core_Page ? $page->get_type() : 'post';
-	}
-
-	/**
 	 * Get default settings.
 	 *
 	 * @return array
