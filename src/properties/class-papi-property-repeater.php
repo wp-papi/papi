@@ -170,9 +170,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected function get_results( $value, $repeater_slug, $post_id ) {
 		global $wpdb;
 
-		$option_page = $this->is_option_page();
-
-		if ( $option_page ) {
+		if ( $this->is_option_page() ) {
 			$table = $wpdb->prefix . 'options';
 			$query = $wpdb->prepare(
 				"SELECT * FROM `$table` WHERE `option_name` LIKE '%s' ORDER BY `option_id` ASC",
