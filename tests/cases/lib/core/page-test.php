@@ -19,26 +19,6 @@ class Papi_Lib_Core_Page_Test extends WP_UnitTestCase {
 		$this->assertNull( $page );
 	}
 
-	public function test_papi_get_post_types() {
-		$actual = papi_get_post_types();
-
-		foreach ( $actual as $key => $value ) {
-			if ( $value !== 'page' ) {
-				unset( $actual[$key] );
-			}
-		}
-
-		$this->assertSame( ['page'], array_values( $actual ) );
-
-		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
-		} );
-
-		$post_types = papi_get_post_types();
-
-		$this->assertTrue( in_array( 'page', $post_types ) );
-	}
-
 	public function test_papi_get_slugs() {
 		$this->assertEmpty( papi_get_slugs() );
 
