@@ -105,5 +105,8 @@ class Papi_Lib_Types_Content_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_get_content_type_id() );
 		$this->assertEmpty( papi_get_page_type_id() );
 		unset( $_GET['post_type'] );
+
+		$post_id = $this->factory->post->create();
+		$this->assertEmpty( papi_get_content_type_id( $post_id ) );
 	}
 }
