@@ -89,9 +89,9 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		$this->remove_post_type_support();
 
 		// 2. Load all boxes.
-		$this->boxes = $this->get_boxes();
+		$boxes = $this->get_boxes();
 
-		foreach ( $this->boxes as $box ) {
+		foreach ( $boxes as $box ) {
 			new Papi_Admin_Meta_Box( $box );
 		}
 	}

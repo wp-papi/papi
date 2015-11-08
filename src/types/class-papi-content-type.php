@@ -176,9 +176,10 @@ class Papi_Content_Type extends Papi_Core_Type {
 			$this->register();
 		}
 
-		$boxes = $this->merge_boxes( $this->boxes );
+		$this->boxes = $this->merge_boxes( $this->boxes );
+		$this->boxes = papi_sort_order( array_reverse( $this->boxes ) );
 
-		return papi_sort_order( array_reverse( $boxes ) );
+		return $this->boxes;
 	}
 
 	/**

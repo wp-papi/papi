@@ -50,11 +50,13 @@ class Papi_Option_Type extends Papi_content_type {
 				<div id="poststuff">
 					<div id="post-body">
 						<?php
-						do_meta_boxes(
-							get_class( $this ),
-							'normal',
-							null
-						);
+						for ( $i = 0, $l = count( $this->boxes ); $i < $l; $i++ ) {
+							do_meta_boxes(
+								sprintf( '%s_%d', get_class( $this ), $i ),
+								'normal',
+								null
+							);
+						}
 						?>
 						<?php submit_button(); ?>
 					</div>
@@ -76,10 +78,10 @@ class Papi_Option_Type extends Papi_content_type {
 		$this->register();
 
 		// 2. Load all boxes.
-		$this->boxes = $this->get_boxes();
+		$boxes = $this->get_boxes();
 
-		foreach ( $this->boxes as $box ) {
-			$box->id = get_class( $this );
+		foreach ( $boxes as $index => $box ) {
+			$box->id = sprintf( '%s_%d', get_class( $this ), $index );
 			new Papi_Admin_Meta_Box( $box );
 		}
 	}
