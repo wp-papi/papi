@@ -78,6 +78,35 @@ function papi_get_all_page_types( $post_type = '' ) {
 }
 
 /**
+ * Get number of how many pages uses the given page type.
+ * This will also work with only page type.
+ *
+ * @param  string|Papi_Core_Type $page_type
+ *
+ * @return int
+ */
+function papi_get_number_of_pages( $page_type ) {
+	global $wpdb;
+
+	if ( empty( $page_type ) || ( ! is_string( $page_type ) && ( ! is_object( $page_type ) ) ) ) {
+		return 0;
+	}
+
+	if ( $page_type instanceof Papi_Core_Type ) {
+		$page_type = $page_type->get_id();
+	}
+
+	if ( ! is_string( $page_type ) ) {
+		return 0;
+	}
+
+	$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}postmeta WHERE `meta_key` = '%s' AND `meta_value` = '%s'";
+	$sql = $wpdb->prepare( $sql, papi_get_page_type_key(), $page_type );
+
+	return intval( $wpdb->get_var( $sql ) );
+}
+
+/**
  * Get page type by id.
  *
  * @param  string $id
