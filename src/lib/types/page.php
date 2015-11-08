@@ -219,6 +219,45 @@ function papi_get_page_type_template( $post_id = 0 ) {
 }
 
 /**
+ * Get boxes with properties slug for a page.
+ *
+ * @param  int $post_id
+ *
+ * @return array
+ */
+function papi_get_slugs( $post_id = 0 ) {
+	$page = papi_get_page( $post_id );
+
+	if ( $page instanceof Papi_Post_Page === false ) {
+		return [];
+	}
+
+	$page_type = $page->get_page_type();
+
+	if ( empty( $page_type ) ) {
+		return [];
+	}
+
+	$value = [];
+	$boxes = $page_type->get_boxes();
+
+	foreach ( $boxes as $box ) {
+		$title = $box->title;
+
+		if ( ! isset( $value[$title] ) ) {
+			$value[$title] = [];
+		}
+
+		foreach ( $box->properties as $property ) {
+			$value[$title][] = $property->get_slug( true );
+		}
+	}
+
+	return $value;
+}
+
+
+/**
  * Check if `$obj` is a instanceof `Papi_Page_Type`.
  *
  * @param  mixed $obj
