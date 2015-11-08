@@ -551,22 +551,6 @@ function papi_remove_papi( $str ) {
 }
 
 /**
- * Remove trailing dobule quote.
- * PHP's $_POST object adds this automatic.
- *
- * @param  string $str The string to check.
- *
- * @return string
- */
-function papi_remove_trailing_quotes( $str ) {
-	if ( ! is_string( $str ) ) {
-		return '';
-	}
-
-	return str_replace( "\'", "'", str_replace( '\"', '"', $str ) );
-}
-
-/**
  * Render html tag from tag name and array of attributes.
  *
  * @param  string $tag
@@ -593,7 +577,7 @@ function papi_santize_data( $obj ) {
 			}
 		}
 	} else if ( is_string( $obj ) ) {
-		$obj = papi_remove_trailing_quotes( $obj );
+		$obj = str_replace( "\'", "'", str_replace( '\"', '"', $obj ) );
 	}
 
 	return $obj;
