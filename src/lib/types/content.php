@@ -201,7 +201,7 @@ function papi_get_content_type_id( $post_id = 0 ) {
 		$post_type      = papi_get_post_type();
 		$collection_key = 'core.content_type.' . $post_type;
 
-		if ( $post_type != 'attachment' && papi()->exists( $collection_key )  ) {
+		if ( $post_type === 'attachment' && papi()->exists( $collection_key )  ) {
 			return papi()->make( $collection_key );
 		}
 	}
