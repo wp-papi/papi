@@ -250,7 +250,6 @@ function papi_is_property_type_key( $str = '' ) {
 	$pattern = str_replace( '_', '\_', $pattern );
 	$pattern = str_replace( '-', '\-', $pattern );
 	$pattern = '/' . $pattern . '$/';
-
 	return preg_match( $pattern, $str ) === 1;
 }
 
@@ -332,7 +331,7 @@ function papi_render_properties( array $properties ) {
  * @return string
  */
 function papi_require_text( $property ) {
-	if ( ! is_object( $property ) || ! $property->required ) {
+	if ( ! papi_is_property( $property ) || ! $property->required ) {
 		return '';
 	}
 
@@ -348,7 +347,7 @@ function papi_require_text( $property ) {
  * @return string
  */
 function papi_required_html( $property, $text = false ) {
-	if ( ! is_object( $property ) || ! $property->required ) {
+	if ( ! papi_is_property( $property ) || ! $property->required ) {
 		return '';
 	}
 
