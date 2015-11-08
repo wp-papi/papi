@@ -139,22 +139,6 @@ function papi_esc_html( $obj, $keys = [] ) {
 }
 
 /**
- * Dashify the given string.
- * Replacing whitespace and underscore with a dash.
- *
- * @param  string $str
- *
- * @return string
- */
-function papi_dashify( $str ) {
-	if ( ! is_string( $str ) ) {
-		return '';
-	}
-
-	return str_replace( ' ', '-', str_replace( '_', '-', $str ) );
-}
-
-/**
  * Add underscores at the start of the string.
  *
  * @param  string $str

@@ -61,7 +61,7 @@ function papi_get_file_path( $file ) {
 	}
 
 	$directories = papi_filter_settings_directories();
-	$file        = '/' . papi_dashify( $file );
+	$file        = '/' . str_replace( ' ', '-', str_replace( '_', '-', $file ) );
 
 	foreach ( $directories as $directory ) {
 		if ( file_exists( $directory . $file ) ) {

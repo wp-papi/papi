@@ -99,16 +99,6 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 		$this->assertSame( '__page', papi_f( '__page', 2 ) );
 	}
 
-	public function test_papi_dashify() {
-		$this->assertSame( 'hello-world', papi_dashify( 'hello world' ) );
-		$this->assertEmpty( papi_dashify( null ) );
-		$this->assertEmpty( papi_dashify( true ) );
-		$this->assertEmpty( papi_dashify( false ) );
-		$this->assertEmpty( papi_dashify( 1 ) );
-		$this->assertEmpty( papi_dashify( [] ) );
-		$this->assertEmpty( papi_dashify( new stdClass() ) );
-	}
-
 	public function test_papi_maybe_get_callable_value() {
 		$this->assertSame( 'Hello', papi_maybe_get_callable_value( 'say_hello_stub' ) );
 		$this->assertSame( 'file', papi_maybe_get_callable_value( 'file' ) );
