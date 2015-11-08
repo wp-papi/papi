@@ -196,10 +196,6 @@ function papi_get_property_options( $options ) {
  * @return null|Papi_Property
  */
 function papi_get_property_type( $type ) {
-	if ( papi_is_empty( $type ) ) {
-		return;
-	}
-
 	return Papi_Property::factory( $type );
 }
 
