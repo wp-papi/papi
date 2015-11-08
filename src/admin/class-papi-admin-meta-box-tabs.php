@@ -24,7 +24,7 @@ final class Papi_Admin_Meta_Box_Tabs {
 			return;
 		}
 
-		$this->tabs = papi_setup_tabs( $tabs );
+		$this->tabs = papi_tabs_setup( $tabs );
 
 		if ( $render ) {
 			$this->html();

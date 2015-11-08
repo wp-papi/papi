@@ -31,7 +31,7 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 				$properties = papi_populate_properties( $properties );
 
 				if ( $tab ) {
-					$properties = papi_setup_tabs( $properties );
+					$properties = papi_tabs_setup( $properties );
 				}
 
 				foreach ( $properties as $property ): ?>

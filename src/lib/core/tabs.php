@@ -7,7 +7,7 @@
  *
  * @return array
  */
-function papi_setup_tabs( array $tabs ) {
+function papi_tabs_setup( array $tabs ) {
 	$_tabs = [];
 
 	foreach ( $tabs as $tab ) {
