@@ -50,9 +50,9 @@ class Papi_Option_Type extends Papi_content_type {
 				<div id="poststuff">
 					<div id="post-body">
 						<?php
-						for ( $i = 0, $l = count( $this->boxes ); $i < $l; $i++ ) {
+						foreach ( $this->boxes as $index => $box ) {
 							do_meta_boxes(
-								sprintf( '%s_%d', get_class( $this ), $i ),
+								$box->id,
 								'normal',
 								null
 							);
@@ -81,7 +81,6 @@ class Papi_Option_Type extends Papi_content_type {
 		$boxes = $this->get_boxes();
 
 		foreach ( $boxes as $index => $box ) {
-			$box->id = sprintf( '%s_%d', get_class( $this ), $index );
 			new Papi_Admin_Meta_Box( $box );
 		}
 	}
