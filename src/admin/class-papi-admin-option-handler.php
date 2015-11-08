@@ -35,7 +35,7 @@ final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 			papi_update_property_meta_value( [
 				'post_id'       => 0,
 				'slug'          => $key,
-				'type'          => Papi_Core_Page::TYPE_OPTION,
+				'type'          => Papi_Option_Page::TYPE,
 				'value'         => $value
 			] );
 		}

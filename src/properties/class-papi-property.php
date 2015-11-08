@@ -13,6 +13,19 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
+	 * Check if it's a option page or not.
+	 *
+	 * @return bool
+	 */
+	public function is_option_page() {
+		if ( $this->page === null ) {
+			return papi_is_option_page();
+		}
+
+		return $this->page instanceof Papi_Option_Page;
+	}
+
+	/**
 	 * Render the property.
 	 */
 	public function render() {

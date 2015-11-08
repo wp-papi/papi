@@ -6,12 +6,11 @@
 class Papi_Option_Page extends Papi_Core_Page {
 
 	/**
-	 * Data type to describe which
-	 * type of page data is it.
+	 * Type option.
 	 *
 	 * @var string
 	 */
-	protected $type = self::TYPE_OPTION;
+	const TYPE = 'option';
 
 	/**
 	 * The constructor.
@@ -70,6 +69,6 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 * @return bool
 	 */
 	public function valid() {
-		return $this->id === 0 && $this->valid_type();
+		return $this->id === 0;
 	}
 }

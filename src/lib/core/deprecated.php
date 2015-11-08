@@ -26,7 +26,7 @@ function current_page() {
  *
  * @return mixed
  */
-function papi_field( $post_id = null, $slug = null, $default = null, $type = 'post' ) {
+function papi_field( $post_id = null, $slug = null, $default = null, $type = 'page' ) {
 	_deprecated_function( __FUNCTION__, '2.0.0', 'papi_get_field' );
 	return papi_get_field( $post_id, $slug, $default, $type );
 }

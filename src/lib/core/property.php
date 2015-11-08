@@ -9,10 +9,10 @@
  * @param string $slug
  * @param string $type
  */
-function papi_delete_property_meta_value( $post_id, $slug, $type = 'post' ) {
+function papi_delete_property_meta_value( $post_id, $slug, $type = 'page' ) {
 	papi_cache_delete( $slug, $post_id );
 
-	if ( $type === Papi_Core_Page::TYPE_OPTION || papi_is_option_page() ) {
+	if ( $type === Papi_Option_Page::TYPE || papi_is_option_page() ) {
 		return delete_option( papi_remove_papi( $slug ) );
 	}
 
@@ -153,8 +153,8 @@ function papi_get_property_class_name( $type ) {
  * @param string $slug
  * @param string $type
  */
-function papi_get_property_meta_value( $post_id, $slug, $type = 'post' ) {
-	if ( $type === Papi_Core_Page::TYPE_OPTION || papi_is_option_page() ) {
+function papi_get_property_meta_value( $post_id, $slug, $type = 'page' ) {
+	if ( $type === Papi_Option_Page::TYPE || papi_is_option_page() ) {
 		$value = get_option( $slug, null );
 	} else {
 		$value = get_post_meta( $post_id, $slug, true );
@@ -405,7 +405,7 @@ function papi_update_property_meta_value( array $meta = [] ) {
 	$meta         = array_merge( [
 		'post_id' => 0,
 		'slug'    => '',
-		'type'    => Papi_Core_Page::TYPE_POST,
+		'type'    => Papi_Post_Page::TYPE,
 		'value'   => ''
 	], $meta );
 	$meta         = (object) $meta;

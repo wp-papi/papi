@@ -19,10 +19,6 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 		unset( $_GET, $this->page );
 	}
 
-	public function test_is() {
-		$this->assertTrue( $this->page->is( 'option' ) );
-	}
-
 	public function test_get_property() {
 		$this->assertNull( $this->page->get_property( 'fake' ) );
 

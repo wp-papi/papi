@@ -165,11 +165,7 @@ class Papi_Core_Property {
 	 * @return bool
 	 */
 	public function delete_value( $slug, $post_id, $type ) {
-		if ( $type === Papi_Core_Page::TYPE_OPTION || $this->is_option_page() ) {
-			return delete_option( $slug );
-		}
-
-		return delete_post_meta( $post_id, $slug );
+		return papi_delete_property_meta_value( $post_id, $slug, $type );
 	}
 
 	/**
@@ -286,6 +282,16 @@ class Papi_Core_Property {
 	 */
 	public function get_child_properties() {
 		return $this->get_setting( 'items', [] );
+	}
+
+	/**
+	 * Get content type.
+	 *
+	 * @return string
+	 */
+	public function get_content_type() {
+		$page = $this->get_page();
+		return $page instanceof Papi_Core_Page ? $page->get_type() : 'post';
 	}
 
 	/**
@@ -439,7 +445,7 @@ class Papi_Core_Property {
 		if ( papi_is_empty( $value ) ) {
 			$slug = $this->get_slug( true );
 
-			if ( $this->is_option_page() ) {
+			if ( papi_is_option_page() ) {
 				$value = papi_get_option( $slug );
 			} else {
 				$value = papi_get_field( $this->get_post_id(), $slug );
@@ -564,19 +570,6 @@ class Papi_Core_Property {
 			maybe_unserialize( $value ),
 			$this->convert_type === 'array'
 		);
-	}
-
-	/**
-	 * Check if it's a option page or not.
-	 *
-	 * @return bool
-	 */
-	public function is_option_page() {
-		if ( $this->page === null ) {
-			return papi_is_option_page();
-		}
-
-		return $this->page->is( Papi_Core_Page::TYPE_OPTION );
 	}
 
 	/**

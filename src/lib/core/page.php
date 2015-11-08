@@ -37,7 +37,7 @@ function papi_get_number_of_pages( $page_type ) {
  *
  * @return Papi_Core_Page|null
  */
-function papi_get_page( $post_id = 0, $type = 'post' ) {
+function papi_get_page( $post_id = 0, $type = 'page' ) {
 	return Papi_Core_Page::factory( $post_id, $type );
 }
 
