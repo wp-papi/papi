@@ -4,7 +4,7 @@
  * Get number of how many pages uses the given page type.
  * This will also work with only page type.
  *
- * @param  string|object $page_type
+ * @param  string|Papi_Core_Type $page_type
  *
  * @return int
  */
@@ -15,7 +15,7 @@ function papi_get_number_of_pages( $page_type ) {
 		return 0;
 	}
 
-	if ( is_object( $page_type ) && method_exists( $page_type, 'get_id' ) ) {
+	if ( $page_type instanceof Papi_Core_Type ) {
 		$page_type = $page_type->get_id();
 	}
 
