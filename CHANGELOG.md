@@ -1,5 +1,12 @@
 # Papi Changelog
 
+## [2.4.5](https://github.com/wp-papi/papi/releases/tag/v2.4.5) - 2015-11-09
+
+## Fixed
+
+Fixed: Option will save on `admin_init` now since link property use `url_to_postid` and calling it to early didn't work.
+Fixed: Output for link property when saved in option table.
+
 ## [2.4.4](https://github.com/wp-papi/papi/releases/tag/v2.4.4) - 2015-11-04
 
 ## Added
