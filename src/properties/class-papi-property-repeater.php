@@ -440,7 +440,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected function prepare_properties( $items ) {
 		$key   = isset( $this->layout_key ) &&
 			$this->layout_key === '_layout' ?  'flexible' : 'repeater';
-		$items = array_map( 'papi_get_property_options', $items );
+		$items = array_map( 'papi_property', $items );
 
 		$exclude_properties = $this->exclude_properties;
 		$exclude_properties = array_merge(
