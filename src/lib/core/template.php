@@ -117,18 +117,7 @@ function papi_template_include( $original_template ) {
 		$path = get_stylesheet_directory();
 		$path = trailingslashit( $path );
 		$file = $path . $page_template;
-
-		if ( file_exists( $file ) && ! is_dir( $file ) ) {
-			return $file;
-		} else {
-			$path = get_template_directory();
-			$path = trailingslashit( $path );
-			$file = $path . $page_template;
-
-			if ( file_exists( $file ) && ! is_dir( $file ) ) {
-				return $file;
-			}
-		}
+		return locate_template( $page_template );
 	}
 
 	return $original_template;
