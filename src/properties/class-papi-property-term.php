@@ -64,6 +64,8 @@ class Papi_Property_Term extends Papi_Property {
 		<div class="papi-property-term">
 		<?php if ( empty( $settings->taxonomy ) ): ?>
 			<p><?php _e( 'No taxonomy defined for term property', 'papi' ); ?></p>
+		<?php elseif ( ! term_exists( $settings->taxonomy ) ): ?>
+			<p><?php echo esc_html( sprintf( __( 'The taxonomy %s does not exists', 'papi' ), $settings->taxonomy ) ); ?></p>
 		<?php else:
 			$terms = $this->get_terms( $settings );
 		?>
