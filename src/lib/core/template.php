@@ -111,12 +111,7 @@ function papi_template_include( $original_template ) {
 		return $original_template;
 	}
 
-	$page_template = papi_get_page_type_template( $post->ID );
-
-	if ( ! empty( $page_template ) ) {
-		$path = get_stylesheet_directory();
-		$path = trailingslashit( $path );
-		$file = $path . $page_template;
+	if ( $page_template = papi_get_page_type_template( $post->ID ) ) {
 		return locate_template( $page_template );
 	}
 
