@@ -361,7 +361,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		foreach ( array_keys( $values ) as $slug ) {
 			if ( preg_match( '/\\' . $this->layout_key . '$/', $slug ) ) {
 				$num = str_replace( $repeater_slug . '_', '', $slug );
-				$num  = intval( $num[0] );
+				$num = explode( '_', $num );
+				$num = intval( $num[0] );
 
 				if ( ! isset( $dblayouts[$num] ) ) {
 					$dblayouts[$num] = $num . $values[$slug];
