@@ -1,5 +1,15 @@
 # Papi Changelog
 
+## [2.4.6](https://github.com/wp-papi/papi/releases/tag/v2.4.6) - 2015-11-11
+
+## Added
+
+Added: Support for loading template files from a child theme if it exists.
+
+## Fixed
+
+Fixed: Empty value didn't show as it should when flexible had more then 9 fields.
+
 ## [2.4.5](https://github.com/wp-papi/papi/releases/tag/v2.4.5) - 2015-11-09
 
 ## Fixed
