@@ -86,6 +86,7 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 
 		$this->assertSame( 'Header', $this->header_option_type->name );
 		$this->assertSame( 'options-general.php', $this->header_option_type->menu );
+		$this->assertSame( 'This is your header options', $this->header_option_type->description );
 	}
 
 	public function test_render() {

@@ -22,6 +22,13 @@ class Papi_Option_Type extends Papi_content_type {
 	public $capability = 'manage_options';
 
 	/**
+	 * The description of the option type.
+	 *
+	 * @var string
+	 */
+	public $description = '';
+
+	/**
 	 * The menu to register the option type on.
 	 *
 	 * @var string
@@ -42,6 +49,7 @@ class Papi_Option_Type extends Papi_content_type {
 		?>
 		<div class="wrap">
 			<h2><?php echo esc_html( $this->name ); ?></h2>
+			<?php echo wpautop( papi_nl2br( $this->description ) ); ?>
 			<form id="post" method="post" name="post">
 				<div id="papi-hidden-editor" class="hide-if-js">
 					<?php wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' ); ?>

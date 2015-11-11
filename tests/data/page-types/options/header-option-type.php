@@ -4,8 +4,9 @@ class Header_Option_Type extends Papi_Option_Type {
 
 	public function option_type() {
 		return [
-			'name' => 'Header',
-			'menu' => 'options-general.php'
+			'name'        => 'Header',
+			'menu'        => 'options-general.php',
+			'description' => 'This is your header options'
 		];
 	}
 
