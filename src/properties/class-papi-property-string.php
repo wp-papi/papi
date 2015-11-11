@@ -43,8 +43,8 @@ class Papi_Property_String extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'placeholder' => '',
-			'allow_html'  => false
+			'allow_html'  => false,
+			'placeholder' => ''
 		];
 	}
 
