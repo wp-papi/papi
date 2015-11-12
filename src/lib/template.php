@@ -112,7 +112,9 @@ function papi_template_include( $original_template ) {
 	}
 
 	if ( $page_template = papi_get_page_type_template( $post->ID ) ) {
-		return locate_template( $page_template );
+		if ( $template = locate_template( $page_template ) ) {
+			return $template;
+		}
 	}
 
 	return $original_template;
