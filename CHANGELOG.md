@@ -1,5 +1,10 @@
 # Papi Changelog
 
+## [2.4.7](https://github.com/wp-papi/papi/releases/tag/v2.4.7) - 2015-11-12
+
+Fixed: Template did return empty string when no template was found.
+Fixed: Select2 overflow, see [issue #105](https://github.com/wp-papi/papi/issues/105).
+
 ## [2.4.6](https://github.com/wp-papi/papi/releases/tag/v2.4.6) - 2015-11-11
 
 ## Added
