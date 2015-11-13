@@ -14,13 +14,6 @@ final class Papi_Admin {
 	private $page_type;
 
 	/**
-	 * The content type id.
-	 *
-	 * @var string
-	 */
-	private $content_type_id;
-
-	/**
 	 * The post type.
 	 *
 	 * @var string
