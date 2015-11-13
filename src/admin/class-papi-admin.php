@@ -340,10 +340,6 @@ final class Papi_Admin {
 	 */
 	private function setup_globals() {
 		$this->post_type = papi_get_post_type();
-
-		if ( is_admin() ) {
-			$this->content_type_id  = papi_get_content_type_id();
-		}
 	}
 
 	/**
@@ -357,34 +353,44 @@ final class Papi_Admin {
 			return false;
 		}
 
-		if ( empty( $this->content_type_id ) ) {
-			// If only page type is used, override the page type value.
-			$this->content_type_id = papi_filter_settings_only_page_type(
+		$content_type_id = papi_get_content_type_id();
+
+		// If a post type exists, try to load the content type id
+		// from only page type filter.
+		if ( $this->post_type ) {
+			$content_type_id = papi_filter_settings_only_page_type(
 				$this->post_type
 			);
-
-			if ( empty( $this->content_type_id ) ) {
-				// Load page types that don't have any real post type.
-				$this->content_type_id = str_replace(
-					'papi/',
-					'',
-					papi_get_qs( 'page' )
-				);
-			}
-
-			if ( empty( $this->content_type_id ) ) {
-				$this->content_type_id = papi_get_content_type_id();
-			}
 		}
 
-		if ( empty( $this->content_type_id ) ) {
+		// If the content type id is empty try to load
+		// the content type id from `page` query string.
+		//
+		// Example:
+		//   /wp-admin/options-general.php?page=papi/option/site-option-type
+		if ( empty( $content_type_id ) ) {
+			$content_type_id = preg_replace( '/^papi\/\w+\//', '', papi_get_qs( 'page' ) );
+		}
+
+		// Use the default content type id if empty.
+		if ( empty( $content_type_id ) ) {
+			$content_type_id = papi_get_content_type_id();
+		}
+
+		/**
+		 * Change which content type id is loaded.
+		 *
+		 * @param string $content_type_id
+		 */
+		$content_type_id = apply_filters( 'papi/admin/content_type_id', $content_type_id );
+
+		// If no content type id exists Papi can't setup a content type.
+		if ( empty( $content_type_id ) ) {
 			return false;
 		}
 
-		$this->page_type = papi_get_content_type_by_id( $this->content_type_id );
-
 		// Do a last check so we can be sure that we have a page type instance.
-		return $this->page_type instanceof Papi_Content_Type;
+		return ( $this->page_type = papi_get_content_type_by_id( $content_type_id ) ) instanceof Papi_Content_Type;
 	}
 
 	/**

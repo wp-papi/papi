@@ -74,7 +74,11 @@ final class Papi_Admin_Menu {
 			}
 			// @codeCoverageIgnoreEnd
 
-			$slug = 'papi/' . $content_type->get_id();
+			$slug = sprintf(
+				'papi/%s/%s',
+				$content_type->get_type(),
+				$content_type->get_id()
+			);
 
 			add_submenu_page(
 				$content_type->menu,

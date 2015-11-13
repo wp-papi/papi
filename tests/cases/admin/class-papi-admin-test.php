@@ -254,24 +254,6 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->assertSame( 'page', $post_type( $admin ) );
 	}
 
-	public function test_setup_globals_2() {
-		global $current_screen;
-
-	    $current_screen = WP_Screen::get( 'admin_init' );
-		$_GET['post_type'] = 'page';
-		$_GET['page_type'] = 'simple-page-type';
-		$admin = new Papi_Admin;
-
-		$page_type_id = function ( Papi_Admin $class ) {
-			return $class->content_type_id;
-		};
-		$page_type_id = Closure::bind( $page_type_id, null, $admin );
-
-		$this->assertSame( 'simple-page-type', $page_type_id( $admin ) );
-
-		$current_screen = null;
-	}
-
 	public function test_setup_papi() {
 		$admin = new Papi_Admin;
 		$this->assertFalse( $admin->setup_papi() );
@@ -284,7 +266,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 		$_GET['post'] = $this->factory->post->create();
 		$_GET['post_type'] = 'page';
-		$_GET['page'] = 'papi/simple-page-type';
+		$_GET['page'] = 'papi/page/simple-page-type';
 		$admin = new Papi_Admin;
 		$this->assertTrue( $admin->setup_papi() );
 
