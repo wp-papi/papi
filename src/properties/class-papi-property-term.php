@@ -22,7 +22,8 @@ class Papi_Property_Term extends Papi_Property {
 		return [
 			'taxonomy'      => '',
 			'select2'       => true,
-			'query'         => []
+			'query'         => [],
+			'hide_empty'	=> true
 		];
 	}
 
@@ -36,7 +37,8 @@ class Papi_Property_Term extends Papi_Property {
 	protected function get_terms( $settings ) {
 		// Prepare arguments for get_terms.
 		$args = array_merge( $settings->query, [
-			'fields' => 'id=>name'
+			'fields' => 'id=>name',
+			'hide_empty' => $settings->hide_empty
 		] );
 
 		return get_terms( $settings->taxonomy, $args );
