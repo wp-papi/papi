@@ -61,8 +61,15 @@ class Flexible extends Repeater {
         });
         return ui;
       },
-      stop: function () {
+      start: function (e, ui) {
+        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) { return elem.id; });
+        self.deactivateEditors(editorIds);
+      },
+      stop: function (e, ui) {
         self.updateRowNumber($(this).closest('.repeater-tbody'));
+
+        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) { return elem.id; });
+        self.activateEditors(editorIds);
       }
     });
 

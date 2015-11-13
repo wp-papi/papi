@@ -1,3 +1,5 @@
+/*global tinymce, tinyMCEPreInit */
+
 import $ from 'jquery/jquery';
 
 /**
@@ -93,9 +95,16 @@ class Repeater {
         });
         return ui;
       },
-      stop: function () {
+      start: function (e, ui) {
+        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) { return elem.id; });
+        self.deactivateEditors(editorIds);
+      },
+      stop: function (e, ui) {
         const $tbody = $(this).closest('.repeater-tbody');
         self.updateRowNumber($tbody);
+
+        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) { return elem.id; });
+        self.activateEditors(editorIds);
       }
     });
 
@@ -113,6 +122,53 @@ class Repeater {
     $(document).on('click', '.papi-property-repeater .repeater-remove-item', function (e) {
       e.preventDefault();
       self.remove($(this));
+    });
+  }
+
+  /**
+   * Deactivate rich editors by instance ids.
+   *
+   * @param  {array} ids tinyMCE editor ids
+   */
+  deactivateEditors(ids) {
+    $.each(ids, function() {
+      let editor = tinymce.get(this);
+      let textarea = $('#' + this);
+      let editorHeight;
+
+      textarea.data('papi-editor-reinit', !!editor);
+      if (editor) {
+        editorHeight = editor.isHidden() ? textarea.height() : $(editor.getWin()).height();
+
+        // wpautop is killing paragraphs on remove(SaveContent)
+        // it will be reactivated on init anyway.
+        editor.settings.wpautop = false;
+
+        textarea.outerHeight(editorHeight).data('papi-editor-html', editor.isHidden());
+        editor.remove();
+      }
+    });
+  }
+
+  /**
+   * Reactivate rich editors by instance ids.
+   *
+   * @param  {array} ids tinyMCE editor ids
+   */
+  activateEditors(ids) {
+    $.each(ids, function() {
+      let textarea = $('#' + this);
+      let init;
+
+      if (!tinymce.get(this) && textarea.data('papi-editor-reinit')) {
+        init = tinymce.extend({}, tinyMCEPreInit.mceInit[this], { height: textarea.outerHeight() });
+
+        // don't reinit if editor is in text mode
+        // wp will reinit it on mode switch
+        if (!textarea.data('papi-editor-html')) {
+          tinymce.init(init);
+        }
+      }
     });
   }
 
