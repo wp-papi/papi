@@ -135,7 +135,7 @@ class Flexible extends Repeater {
   /**
    * Update database row number.
    *
-   * @param {object} $el
+   * @param {object} $tbody
    */
   updateDatabaseRowNumber($tbody) {
     let counter = $tbody.find('tr tbody tr').length;
