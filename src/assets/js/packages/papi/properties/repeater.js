@@ -132,19 +132,20 @@ class Repeater {
    */
   deactivateEditors(ids) {
     $.each(ids, function() {
-      let editor = tinymce.get(this);
-      let textarea = $('#' + this);
+      const editor    = tinymce.get(this);
+      const $textarea = $('#' + this);
       let editorHeight;
 
-      textarea.data('papi-editor-reinit', !!editor);
+      $textarea.data('papi-editor-reinit', !!editor);
+
       if (editor) {
-        editorHeight = editor.isHidden() ? textarea.height() : $(editor.getWin()).height();
+        editorHeight = editor.isHidden() ? $textarea.height() : $(editor.getWin()).height();
 
         // wpautop is killing paragraphs on remove(SaveContent)
         // it will be reactivated on init anyway.
         editor.settings.wpautop = false;
 
-        textarea.outerHeight(editorHeight).data('papi-editor-html', editor.isHidden());
+        $textarea.outerHeight(editorHeight).data('papi-editor-html', editor.isHidden());
         editor.remove();
       }
     });
@@ -157,15 +158,14 @@ class Repeater {
    */
   activateEditors(ids) {
     $.each(ids, function() {
-      let textarea = $('#' + this);
-      let init;
+      const $textarea = $('#' + this);
 
-      if (!tinymce.get(this) && textarea.data('papi-editor-reinit')) {
-        init = tinymce.extend({}, tinyMCEPreInit.mceInit[this], { height: textarea.outerHeight() });
+      if (!tinymce.get(this) && $textarea.data('papi-editor-reinit')) {
+        const init = tinymce.extend({}, tinyMCEPreInit.mceInit[this], { height: $textarea.outerHeight() });
 
         // don't reinit if editor is in text mode
         // wp will reinit it on mode switch
-        if (!textarea.data('papi-editor-html')) {
+        if (!$textarea.data('papi-editor-html')) {
           tinymce.init(init);
         }
       }
