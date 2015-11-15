@@ -124,7 +124,7 @@ class Flexible extends Repeater {
   /**
    * Remove item from the flexible repeater.
    *
-   * @param {object} e
+   * @param {object} $this
    */
   remove($this) {
     const $tbody = $this.closest('.papi-property-flexible').find('.repeater-tbody');
