@@ -183,7 +183,17 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @return bool
 	 */
 	protected function is_layout_key( $key ) {
-		return is_string( $key ) && $this->layout_key === $key;
+		return is_string( $key ) && preg_match( '/\\' . $this->layout_key . '$/', $key );
+	}
+
+	/**
+	 * Get child properties from `items` in the settings array.
+	 *
+	 * @return array|object
+	 */
+	public function get_child_properties() {
+		$items = $this->get_setting( 'items', [] );
+		return is_array( $items ) ? $items : [$items];
 	}
 
 	/**
@@ -306,15 +316,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				// so it won't be deleted.
 				$no_trash[$slug] = $meta;
 
-				// Get property type key and value.
-				$property_type_key   = papi_get_property_type_key_f(
-					$meta->meta_key
-				);
-				$property_type_value = papi_get_property_meta_value(
-					$post_id,
-					$property_type_key
-				);
-
 				// Serialize value if needed.
 				$meta->meta_value = papi_maybe_json_decode(
 					maybe_unserialize( $meta->meta_value )
@@ -322,12 +323,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 				// Add property value and property type value.
 				$values[$meta->meta_key] = $meta->meta_value;
-				$values[$property_type_key] = $property_type_value;
-
-				// Add the flexible layout for the property.
-				if ( ! preg_match( '/\_layout$/', $slug ) && is_string( $rows[$i][$slug]->meta_value ) && ! preg_match( $this->layout_prefix_regex, $rows[$i][$slug]->meta_value ) ) {
-					$slug .= '_layout';
-				}
 
 				if ( isset( $rows[$i][$slug] ) ) {
 					// Add the meta value.
@@ -357,7 +352,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 		// Fetch one layout per row.
 		foreach ( array_keys( $values ) as $slug ) {
-			if ( preg_match( '/\\' . $this->layout_key . '$/', $slug ) ) {
+			if ( $this->is_layout_key( $slug ) ) {
 				$num = str_replace( $repeater_slug . '_', '', $slug );
 				$num = explode( '_', $num );
 				$num = intval( $num[0] );
@@ -430,7 +425,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 		foreach ( $results as $index => $row ) {
 			foreach ( $row as $slug => $value ) {
-				if ( papi_is_property_type_key( $slug ) ) {
+				if ( $this->is_layout_key( $slug ) ) {
 					continue;
 				}
 
