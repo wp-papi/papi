@@ -151,13 +151,11 @@ class Simple_Page_Type extends Papi_Page_Type {
 				'slug'     => 'sections',
 				'sidebar'  => false,
 				'settings' => [
-					'items' => [
-						[
-							'type'  => 'string',
-							'title' => 'Title',
-							'slug'  => 'title'
-						]
-					]
+					'items' => papi_property( [
+						'type'  => 'string',
+						'title' => 'Title',
+						'slug'  => 'title'
+					] )
 				]
 			] )
 
