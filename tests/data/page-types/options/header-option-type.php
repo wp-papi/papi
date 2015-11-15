@@ -65,13 +65,11 @@ class Header_Option_Type extends Papi_Option_Type {
 				'slug'     => 'name_levels_2',
 				'settings' => [
 					'items' => [
-						[
-							papi_property( [
-								'type'  => 'string',
-								'title'	=> 'Child name 2',
-								'slug'  => 'child_name_2'
-							] )
-						]
+						papi_property( [
+							'type'  => 'string',
+							'title'	=> 'Child name 2',
+							'slug'  => 'child_name_2'
+						] )
 					]
 				]
 			] )
