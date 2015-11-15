@@ -36,7 +36,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'papi_flexible_test_other', $flexible->get_slug() );
 		$this->assertSame( 'flexible_test_other', $flexible->get_slug( true ) );
 
-		$flexible_children = $flexible->get_child_properties();
+		$flexible_children = $flexible->get_setting( 'items', [] );
 
 		$this->assertSame( 'Twitter', $flexible_children['twitter']['title'] );
 		$this->assertSame( 'string', $flexible_children['twitter']['items'][0]->type );
