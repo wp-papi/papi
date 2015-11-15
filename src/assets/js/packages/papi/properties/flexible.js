@@ -102,6 +102,7 @@ class Flexible extends Repeater {
    *
    * @param {array} properties
    * @param {int} counter
+   * @param {string} flexibleLayout
    * @param {function} callback
    */
   fetch(properties, counter, flexibleLayout, callback) {
