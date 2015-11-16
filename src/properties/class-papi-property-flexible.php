@@ -187,16 +187,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	}
 
 	/**
-	 * Get child properties from `items` in the settings array.
-	 *
-	 * @return array|object
-	 */
-	public function get_child_properties() {
-		$items = $this->get_setting( 'items', [] );
-		return is_array( $items ) ? $items : [$items];
-	}
-
-	/**
 	 * Generate layout slug.
 	 *
 	 * @param  string $key

@@ -282,8 +282,7 @@ class Papi_Core_Property {
 	 */
 	public function get_child_properties() {
 		$items = $this->get_setting( 'items', [] );
-		$items = is_array( $items ) ? $items : [$items];
-		return array_filter( $items, 'papi_is_property' );
+		return is_array( $items ) ? $items : [$items];
 	}
 
 	/**
