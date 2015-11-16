@@ -58,7 +58,7 @@ function papi_from_property_array_slugs( array $values, $slug ) {
  * @return bool
  */
 function papi_is_property( $value ) {
-	return $value instanceof Papi_Property;
+	return $value instanceof Papi_Core_Property;
 }
 
 /**
