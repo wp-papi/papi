@@ -183,9 +183,7 @@ function papi_get_property_options( $options ) {
 		return;
 	}
 
-	$property = Papi_Property::create( $options );
-
-	return $property->get_options();
+	return Papi_Core_Property::create( $options )->get_options();
 }
 
 /**
@@ -196,7 +194,7 @@ function papi_get_property_options( $options ) {
  * @return null|Papi_Property
  */
 function papi_get_property_type( $type ) {
-	return Papi_Property::factory( $type );
+	return Papi_Core_Property::factory( $type );
 }
 
 /**
@@ -281,7 +279,7 @@ function papi_property( $file_or_options, $values = [] ) {
  * @param Papi_Property $property
  */
 function papi_render_property( $property ) {
-	$property = Papi_Property::factory( $property );
+	$property = Papi_Core_Property::factory( $property );
 
 	if ( is_null( $property ) ) {
 		return;
