@@ -191,8 +191,23 @@ final class Papi_Admin {
 			return $defaults;
 		}
 
-		$defaults['page_type'] = papi_filter_settings_page_type_column_title(
-			$this->post_type
+		/**
+		 * Hide column for post type. Default is false.
+		 *
+		 * @param string $post_type
+		 */
+		if ( apply_filters( 'papi/settings/column_hide_' . $this->post_type, false ) ) {
+			return $defaults;
+		}
+
+		/**
+		 * Change column title for page type column.
+		 *
+		 * @param  string $post_type
+		 */
+		$defaults['page_type'] = apply_filters(
+			'papi/settings/column_title_' . $this->post_type,
+			__( 'Type', 'papi' )
 		);
 
 		return $defaults;
@@ -206,6 +221,15 @@ final class Papi_Admin {
 	 */
 	public function manage_page_type_posts_custom_column( $column_name, $post_id ) {
 		if ( ! in_array( $this->post_type, papi_get_post_types() ) ) {
+			return;
+		}
+
+		/**
+		 * Hide column for post type. Default is false.
+		 *
+		 * @param string $post_type
+		 */
+		if ( apply_filters( 'papi/settings/column_hide_' . $this->post_type, false ) ) {
 			return;
 		}
 
@@ -317,6 +341,7 @@ final class Papi_Admin {
 			add_filter( 'admin_body_class', [$this, 'admin_body_class'] );
 			add_filter( 'pre_get_posts', [$this, 'pre_get_posts'] );
 			add_filter( 'wp_link_query', [$this, 'wp_link_query'] );
+
 			add_filter( 'manage_' . $this->post_type . '_posts_columns', [
 				$this,
 				'manage_page_type_posts_columns'

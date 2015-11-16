@@ -109,20 +109,6 @@ function papi_filter_settings_only_page_type( $post_type ) {
 }
 
 /**
- * Change column title for page type column.
- *
- * @param  string $post_type
- *
- * @return string
- */
-function papi_filter_settings_page_type_column_title( $post_type ) {
-	return apply_filters(
-		'papi/settings/column_title_' . $post_type,
-		__( 'Type', 'papi' )
-	);
-}
-
-/**
  * Show page type in add new page view for the given post type.
  *
  * @param string        $post_type
