@@ -43,6 +43,7 @@ With 2.5.0 you can now extend page types and add properties in the extended page
 * Added: `papi/loaded` action that will be the new `papi/include`. The old action is deprecated but will still work, it's fired before `papi/loaded` and will be removed in a feature version of Papi.
 * Added: `placeholder` setting to string property.
 * Added: Description to option type meta data.
+* Added: `papi/settings/column_hide_{$post_type}` for hiding type column.
 
 ### Fixed
 
