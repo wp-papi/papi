@@ -132,6 +132,9 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 /**
  * Get property class name.
  *
+ * Will replace 'Property' if it exists in the string
+ * since it's a old way to write which type to use.
+ *
  * @param  string $type
  *
  * @return string

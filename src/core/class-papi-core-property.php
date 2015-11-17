@@ -226,6 +226,7 @@ class Papi_Core_Property {
 			$type = $type->type;
 		}
 
+		// Old types, 'PropertyString' => 'String'.
 		$type = preg_replace( '/^Property/', '', $type );
 
 		if ( empty( $type ) ) {
