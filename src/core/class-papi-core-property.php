@@ -763,6 +763,9 @@ class Papi_Core_Property {
 		// Setup property settings.
 		$options->settings = $this->setup_options_settings( $options );
 
+		// Type should always be lowercase.
+		$options->type = strtolower( $options->type );
+
 		// Escape all options except those that are send it as second argument.
 		return papi_esc_html( $options, ['before_html', 'html', 'after_html'] );
 	}
