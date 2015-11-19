@@ -18,12 +18,16 @@ class Simple_Page_Type extends Papi_Page_Type {
 	}
 
 	/**
+	 * Remove post type support and remove_meta_box.
+	 */
+	public function remove() {
+		return [ 'editor', 'commentdiv' ];
+	}
+
+	/**
 	 * Define our properties.
 	 */
 	public function register() {
-		// Remove post type support and remove_meta_box.
-		$this->remove( [ 'editor', 'commentdiv' ] );
-
 		// Test box property.
 		$this->box( 'Hello', papi_property( [
 			'type'  => 'string',
@@ -96,11 +100,11 @@ class Simple_Page_Type extends Papi_Page_Type {
 							'slug'     => 'child_name',
 							'settings' => [
 								'items' => [
-									[
+									papi_property( [
 										'type'  => 'string',
 										'title' => 'Child child name',
 										'slug'  => 'child_child_name'
-									],
+									] ),
 									null
 								]
 							]
@@ -117,13 +121,11 @@ class Simple_Page_Type extends Papi_Page_Type {
 				'slug'     => 'name_levels_2',
 				'settings' => [
 					'items' => [
-						[
-							papi_property( [
-								'type'  => 'string',
-								'title'	=> 'Child name 2',
-								'slug'  => 'child_name_2'
-							] )
-						]
+						papi_property( [
+							'type'  => 'string',
+							'title'	=> 'Child name 2',
+							'slug'  => 'child_name_2'
+						] )
 					]
 				]
 			] )
@@ -147,13 +149,11 @@ class Simple_Page_Type extends Papi_Page_Type {
 				'slug'     => 'sections',
 				'sidebar'  => false,
 				'settings' => [
-					'items' => [
-						[
-							'type'  => 'string',
-							'title' => 'Title',
-							'slug'  => 'title'
-						]
-					]
+					'items' => papi_property( [
+						'type'  => 'string',
+						'title' => 'Title',
+						'slug'  => 'title'
+					] )
 				]
 			] )
 

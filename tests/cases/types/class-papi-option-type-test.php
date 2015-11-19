@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group types
+ */
 class Papi_Option_Type_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -11,7 +14,7 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$this->header_option_type = papi_get_page_type_by_id( 'options/header-option-type' );
+		$this->header_option_type = papi_get_content_type_by_id( 'options/header-option-type' );
 		$this->empty_option_type = new Papi_Option_Type();
 	}
 
@@ -23,11 +26,6 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 		);
 	}
 
-	public function test_display() {
-		$this->assertFalse( $this->header_option_type->display( $this->header_option_type->post_type[0] ) );
-		$this->assertTrue( $this->empty_option_type->display( $this->empty_option_type->post_type[0] ) );
-	}
-
 	public function test_get_boxes() {
 		$this->assertEmpty( $this->empty_option_type->get_boxes() );
 
@@ -35,7 +33,7 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 
 		$boxes = $this->header_option_type->get_boxes();
 
-		$this->assertSame( 'Options', $boxes[0][0]['title'] );
+		$this->assertSame( 'Options', $boxes[0]->title );
 	}
 
 	public function test_get_property() {
@@ -77,11 +75,6 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 'string', $children2[0]->type );
 	}
 
-	public function test_has_post_type() {
-		$this->assertTrue( $this->header_option_type->has_post_type( $this->header_option_type->post_type[0] ) );
-		$this->assertTrue( $this->empty_option_type->has_post_type( $this->empty_option_type->post_type[0] ) );
-	}
-
 	public function test_meta_method() {
 		$this->assertSame( 'option_type', $this->header_option_type->_meta_method );
 		$this->assertSame( 'option_type', $this->empty_option_type->_meta_method );
@@ -93,15 +86,7 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 
 		$this->assertSame( 'Header', $this->header_option_type->name );
 		$this->assertSame( 'options-general.php', $this->header_option_type->menu );
-	}
-
-	public function test_post_type() {
-		$this->assertTrue( is_array( $this->header_option_type->post_type ) );
-		$this->assertSame( '_papi_option_type', $this->header_option_type->post_type[0] );
-		$this->assertSame( '_papi_option_type', $this->header_option_type->get_post_type() );
-		$this->assertTrue( is_array( $this->empty_option_type->post_type ) );
-		$this->assertSame( '_papi_option_type', $this->empty_option_type->post_type[0] );
-		$this->assertSame( '_papi_option_type', $this->empty_option_type->get_post_type() );
+		$this->assertSame( 'This is your header options', $this->header_option_type->description );
 	}
 
 	public function test_render() {

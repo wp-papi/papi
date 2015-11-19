@@ -5,10 +5,10 @@
  * and rendering. All option types should extend this
  * class.
  */
-class Papi_Option_Type extends Papi_Page_Type {
+class Papi_Option_Type extends Papi_content_type {
 
 	/**
-	 * The method name to use instead of `page_type`.
+	 * The method name to use instead of `meta`.
 	 *
 	 * @var string
 	 */
@@ -22,6 +22,13 @@ class Papi_Option_Type extends Papi_Page_Type {
 	public $capability = 'manage_options';
 
 	/**
+	 * The description of the option type.
+	 *
+	 * @var string
+	 */
+	public $description = '';
+
+	/**
 	 * The menu to register the option type on.
 	 *
 	 * @var string
@@ -29,27 +36,11 @@ class Papi_Option_Type extends Papi_Page_Type {
 	public $menu = '';
 
 	/**
-	 * The name of the option type.
+	 * The type name.
 	 *
 	 * @var string
 	 */
-	public $name = '';
-
-	/**
-	 * The fake post type to use.
-	 *
-	 * @var string
-	 */
-	public $post_type = '_papi_option_type';
-
-	/**
-	 * Get post type.
-	 *
-	 * @return string
-	 */
-	public function get_post_type() {
-		return $this->post_type[0];
-	}
+	public $type = 'option';
 
 	/**
 	 * Render option page type.
@@ -58,6 +49,7 @@ class Papi_Option_Type extends Papi_Page_Type {
 		?>
 		<div class="wrap">
 			<h2><?php echo esc_html( $this->name ); ?></h2>
+			<?php echo wpautop( papi_nl2br( $this->description ) ); ?>
 			<form id="post" method="post" name="post">
 				<div id="papi-hidden-editor" class="hide-if-js">
 					<?php wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' ); ?>
@@ -66,11 +58,13 @@ class Papi_Option_Type extends Papi_Page_Type {
 				<div id="poststuff">
 					<div id="post-body">
 						<?php
-						do_meta_boxes(
-							$this->post_type[0],
-							'normal',
-							null
-						);
+						foreach ( $this->boxes as $index => $box ) {
+							do_meta_boxes(
+								$box->id,
+								'normal',
+								null
+							);
+						}
 						?>
 						<?php submit_button(); ?>
 					</div>
@@ -78,5 +72,24 @@ class Papi_Option_Type extends Papi_Page_Type {
 			</form>
 		</div>
 		<?php
+	}
+
+	/**
+	 * This function will setup all meta boxes.
+	 */
+	public function setup() {
+		if ( ! method_exists( $this, 'register' ) ) {
+			return;
+		}
+
+		// 1. Run the register method.
+		$this->register();
+
+		// 2. Load all boxes.
+		$boxes = $this->get_boxes();
+
+		foreach ( $boxes as $index => $box ) {
+			new Papi_Admin_Meta_Box( $box );
+		}
 	}
 }

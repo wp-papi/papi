@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group types
+ */
 class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -9,7 +12,8 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$this->faq_page_type    = papi_get_page_type_by_id( 'faq-page-type' );
+		$this->display_not_page_type = papi_get_page_type_by_id( 'display-not-page-type' );
+		$this->faq_page_type = papi_get_page_type_by_id( 'faq-page-type' );
 		$this->simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
 		$this->empty_page_type = new Papi_Page_Type();
 	}
@@ -17,6 +21,7 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 	public function tearDown() {
 		parent::tearDown();
 		unset(
+			$this->display_not_page_type,
 			$this->empty_page_type,
 			$this->faq_page_type,
 			$this->simple_page_type
@@ -32,7 +37,7 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 	public function test_current_user_is_allowed() {
 		$this->assertTrue( $this->simple_page_type->current_user_is_allowed() );
 		$this->assertTrue( $this->empty_page_type->current_user_is_allowed() );
-		$this->assertFalse( $this->faq_page_type->current_user_is_allowed() );
+		$this->assertFalse( $this->display_not_page_type->current_user_is_allowed() );
 	}
 
 	public function test_get_child_types() {
@@ -74,9 +79,20 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 		$this->assertSame( 1000, $this->empty_page_type->sort_order );
 		$this->assertFalse( $this->empty_page_type->standard_type );
 		$this->assertSame( '', $this->empty_page_type->template );
-		$this->assertSame( '', $this->simple_page_type->thumbnail );
+		$this->assertSame( '', $this->empty_page_type->thumbnail );
 
-		$this->assertSame( ['kvack'], $this->faq_page_type->capabilities );
+		$this->assertSame( ['kvack'], $this->display_not_page_type->capabilities );
+		$this->assertSame( [], $this->display_not_page_type->child_types );
+		$this->assertSame( 'This is a display not page', $this->display_not_page_type->description );
+		$this->assertFalse( $this->display_not_page_type->fill_labels );
+		$this->assertSame( 'Display not page', $this->display_not_page_type->name );
+		$this->assertSame( 'page', $this->display_not_page_type->post_type[0] );
+		$this->assertSame( 1000, $this->display_not_page_type->sort_order );
+		$this->assertFalse( $this->display_not_page_type->standard_type );
+		$this->assertSame( 'pages/display-not-page.php', $this->display_not_page_type->template );
+		$this->assertSame( '', $this->display_not_page_type->thumbnail );
+
+		$this->assertSame( [], $this->faq_page_type->capabilities );
 		$this->assertSame( ['simple-page-type', null, 'fake'], $this->faq_page_type->child_types );
 		$this->assertSame( 'This is a faq page', $this->faq_page_type->description );
 		$this->assertTrue( $this->faq_page_type->fill_labels );

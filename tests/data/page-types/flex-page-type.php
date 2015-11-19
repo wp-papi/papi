@@ -11,9 +11,11 @@ class Flex_Page_Type extends Papi_Page_Type {
 		];
 	}
 
-	public function register() {
+	public function remove() {
+		return 'editor';
+	}
 
-		$this->remove( 'editor' );
+	public function register() {
 
 		$this->box( 'Content', [
 			papi_property( [

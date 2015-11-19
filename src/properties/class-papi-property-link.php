@@ -105,7 +105,7 @@ class Papi_Property_Link extends Papi_Property {
 				$values[$key] = papi_get_property_meta_value(
 					$post_id,
 					sprintf( '%s_%s', $slug, $key ),
-					$type
+					$this->get_page()->get_type()
 				);
 				unset( $values[$index] );
 			}

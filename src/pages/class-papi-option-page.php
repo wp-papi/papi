@@ -6,12 +6,11 @@
 class Papi_Option_Page extends Papi_Core_Page {
 
 	/**
-	 * Data type to describe which
-	 * type of page data is it.
+	 * Type option.
 	 *
 	 * @var string
 	 */
-	protected $type = self::TYPE_OPTION;
+	const TYPE = 'option';
 
 	/**
 	 * The constructor.
@@ -34,14 +33,16 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 * @return object
 	 */
 	public function get_property( $slug, $child_slug = '' ) {
-		$page_type_id = str_replace( 'papi/', '', papi_get_qs( 'page' ) );
+		$content_type_id = str_replace( 'papi/', '', papi_get_qs( 'page' ) );
 
-		if ( empty( $page_type_id ) ) {
-			$page_types = papi_get_all_page_types( false, null, true );
+		if ( empty( $content_type_id ) ) {
 			$property   = null;
+			$content_types = papi_get_all_content_types( [
+				'types' => 'option'
+			] );
 
-			foreach ( $page_types as $index => $page_type ) {
-				if ( $property = $page_type->get_property( $slug, $child_slug ) ) {
+			foreach ( $content_types as $index => $content_types ) {
+				if ( $property = $content_types->get_property( $slug, $child_slug ) ) {
 					break;
 				}
 			}
@@ -53,13 +54,13 @@ class Papi_Option_Page extends Papi_Core_Page {
 			return $property;
 		}
 
-		$page_type = papi_get_page_type_by_id( $page_type_id );
+		$content_type = papi_get_content_type_by_id( $content_type_id );
 
-		if ( $page_type instanceof Papi_Option_Type === false ) {
+		if ( ! papi_is_option_type( $content_type ) ) {
 			return;
 		}
 
-		return $page_type->get_property( $slug, $child_slug );
+		return $content_type->get_property( $slug, $child_slug );
 	}
 
 	/**
@@ -68,6 +69,6 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 * @return bool
 	 */
 	public function valid() {
-		return $this->id === 0 && $this->valid_type();
+		return $this->id === 0;
 	}
 }

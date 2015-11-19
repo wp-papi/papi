@@ -31,27 +31,27 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 				$properties = papi_populate_properties( $properties );
 
 				if ( $tab ) {
-					$properties = papi_setup_tabs( $properties );
+					$properties = papi_tabs_setup( $properties );
 				}
 
 				foreach ( $properties as $property ): ?>
 					<tr>
-						<?php if ( isset( $property->options ) && isset( $property->options->title ) ): ?>
+						<?php if ( $tab ): ?>
 							<td>
-								<?php echo esc_html( $property->options->title ); ?>
+								<?php echo esc_html( $property->title ); ?>
 								<br />
 								<br />
 								<?php echo __( 'Properties', 'papi' ) . ': ' . strval( count( $property->properties ) ); ?>
 							</td>
 							<td>
-								<?php echo esc_html( $property->options->sort_order ); ?>
+								<?php echo esc_html( $property->sort_order ); ?>
 							</td>
 							<td>
 								<?php papi_management_page_type_render_box( $property->properties ); ?>
 							</td>
 						<?php else: ?>
 							<td><?php echo esc_html( $property->title ); ?></td>
-							<td><?php echo esc_html( $property->type ); ?></td>
+							<td><?php echo strtolower( esc_html( $property->type ) ); ?></td>
 							<td><?php echo esc_html( $property->get_slug( true ) ); ?></td>
 							<td><?php echo esc_html( $property->sort_order ); ?></td>
 						<?php endif; ?>
@@ -100,29 +100,25 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 		}
 
 		foreach ( $boxes as $box ):
-			$tab 			= isset( $box[1] ) && isset( $box[1][0] ) && isset( $box[1][0]->tab ) && $box[1][0]->tab;
+			$tab 			= empty( $box->properties ) ? false : $box->properties[0]->tab;
 			$top_right_text = __( 'Properties', 'papi' );
 
 			if ( $tab ) {
 				$top_right_text = __( 'Tabs', 'papi' );
 			}
 
-			if ( ! isset( $box['title'] ) || empty( $box['title'] ) ) {
-				continue;
-			}
-
-			$counter = count( papi_get_box_property( $box[1] ) );
+			$counter = count( $box->properties );
 			?>
 			<div class="postbox papi-box papi-management-box">
 				<div class="handlediv" title="Click to toggle">
 					<br>
 				</div>
 				<h3 class="hndle">
-					<span><?php echo esc_html( $box['title'] ); ?></span>
+					<span><?php echo esc_html( $box->title ); ?></span>
 					<span class="papi-pull-right"><?php echo esc_html( $top_right_text . ': ' ) . strval( $counter ); ?></span>
 				</h3>
 				<div class="inside">
-					<?php papi_management_page_type_render_box( $box[1], $tab ); ?>
+					<?php papi_management_page_type_render_box( $box->properties, $tab ); ?>
 				</div>
 			</div>
 

@@ -15,6 +15,13 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	public $post_type = 'attachment';
 
 	/**
+	 * The type name.
+	 *
+	 * @var string
+	 */
+	public $type = 'attachment';
+
+	/**
 	 * Get post type.
 	 *
 	 * @return string
@@ -45,18 +52,15 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	public function edit_attachment( $form_fields, $post ) {
 		foreach ( $this->get_boxes() as $box ) {
 
-			if ( ! empty( $box[0]['title'] ) ) {
+			if ( ! empty( $box->title ) ) {
 				$form_fields['papi-media-title-' . uniqid()] = [
 					'label' => '',
 					'input' => 'html',
-					'html'  => '<h4 class="papi-media-title">' . $box[0]['title'] . '</h4>'
+					'html'  => '<h4 class="papi-media-title">' . $box->title . '</h4>'
 				];
 			}
 
-			$properties = isset( $box[1][0]->properties ) ?
-				$box[1][0]->properties : $box[1];
-
-			foreach ( $properties as $prop ) {
+			foreach ( $box->properties as $prop ) {
 				// Raw output is required.
 				$prop->raw = true;
 
@@ -102,5 +106,22 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 		$handler = new Papi_Admin_Post_Handler();
 		$handler->save_meta_boxes( $post['ID'], $post );
 		return $post;
+	}
+
+	/**
+	 * Check if the content type is a singleton.
+	 *
+	 * @return bool
+	 */
+	public function singleton() {
+		$key = 'core.content_type.' . $this->get_post_type();
+
+		if ( papi()->exists( $key ) ) {
+			return true;
+		}
+
+		papi()->singleton( $key, $this->get_id() );
+
+		return false;
 	}
 }

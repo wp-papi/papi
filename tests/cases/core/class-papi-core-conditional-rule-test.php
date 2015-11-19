@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group core
+ */
 class Papi_Core_Conditional_Rule_Test extends WP_UnitTestCase {
 
 	public function setUp() {

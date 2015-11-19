@@ -176,7 +176,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	/**
 	 * Get items to display from settings.
 	 *
-	 * @param  object $settings
+	 * @param  stdClass $settings
 	 *
 	 * @return array
 	 */

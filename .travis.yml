@@ -10,13 +10,20 @@ install:
 
 before_script:
   - bash vendor/frozzare/wp-test-suite/bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 $WP_VERSION
+  - bash tests/bin/install-wp-cli.sh
 
 script:
   - vendor/bin/phpunit --coverage-clover clover.xml
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then vendor/bin/behat; fi
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - bash <(curl -s https://codecov.io/bash)
+
+env:
+  global:
+    - WP_CLI_BIN_DIR=/tmp/wp-cli-phar
+    - WP_CLI_CONFIG_PATH=/tmp/wp-cli-phar/config.yml
 
 matrix:
   include:
@@ -42,3 +49,7 @@ matrix:
     - php: 7.0
       env: WP_VERSION=nightly WP_MULTISITE=0
   fast_finish: true
+
+cache:
+  directories:
+  - vendor

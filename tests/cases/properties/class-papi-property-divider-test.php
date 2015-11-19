@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group properties
+ */
 class Papi_Property_Divider_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'divider_test';

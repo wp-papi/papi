@@ -1,80 +1,54 @@
 <?php
 
+/**
+ * @group core
+ */
 class Papi_Core_Type_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
+		$this->info_core_path = PAPI_FIXTURE_DIR . '/core-types/info-core-type.php';
+		$this->info_core_type = new Papi_Core_Type( $this->info_core_path );
 
-		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
-		} );
-
-		$this->post_id = $this->factory->post->create();
-
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'empty-page-type' );
-
-		$this->empty_page_type  = new Papi_Page_Type();
-		$this->faq_page_type    = papi_get_page_type_by_id( 'faq-page-type' );
-		$this->simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		if ( ! class_exists( 'Info_Core_Type' ) ) {
+			require_once PAPI_FIXTURE_DIR . '/core-types/info-core-type.php';
+		}
 	}
 
 	public function tearDown() {
 		parent::tearDown();
 		unset(
-			$this->post_id,
-			$this->empty_page_type,
-			$this->faq_page_type,
-			$this->simple_page_type
+			$this->info_core_path,
+			$this->info_core_type
 		);
 	}
 
-	public function test_meta_method() {
-		$this->assertSame( 'page_type', $this->simple_page_type->_meta_method );
-		$this->assertSame( 'page_type', $this->empty_page_type->_meta_method );
-		$this->assertSame( 'page_type', $this->faq_page_type->_meta_method );
+	public function test_core_type_allowed() {
+		$this->assertTrue( $this->info_core_type->allowed() );
 	}
 
-	public function test_broken_page_type() {
-		$this->assertNull( papi_get_page_type_by_id( 'broken-page-type' ) );
+	public function test_core_type_get_id() {
+		$this->assertRegExp( '/\/core-types\/info-core-type$/', $this->info_core_type->get_id() );
 	}
 
-	public function test_get_class_name() {
-		$this->assertEmpty( $this->empty_page_type->get_class_name() );
-		$this->assertSame( 'Simple_Page_Type', $this->simple_page_type->get_class_name() );
-		$this->assertSame( 'FAQ_Page_Type', $this->faq_page_type->get_class_name() );
+	public function test_core_type_get_type() {
+		$this->assertSame( 'core', $this->info_core_type->get_type() );
 	}
 
-	public function test_get_file_path() {
-		$this->assertEmpty( $this->empty_page_type->get_file_path() );
-
-		$this->assertSame(
-			PAPI_FIXTURE_DIR . '/page-types/simple-page-type.php',
-			$this->simple_page_type->get_file_path()
-		);
-
-		$this->assertSame(
-			PAPI_FIXTURE_DIR . '/page-types/faq-page-type.php',
-			$this->faq_page_type->get_file_path()
-		);
+	public function test_core_type_has_name() {
+		$this->assertFalse( $this->info_core_type->has_name() );
+		$class = new Info_Core_Type( $this->info_core_path );
+		$this->assertTrue( $class->has_name() );
 	}
 
-	public function test_get_id() {
-		$this->assertEmpty( $this->empty_page_type->get_id() );
-		$this->assertSame( 'simple-page-type', $this->simple_page_type->get_id() );
-		$this->assertSame( 'faq-page-type', $this->faq_page_type->get_id() );
-		$identifier_page_type = papi_get_page_type_by_id( 'custom-page-type-id' );
-		$this->assertSame( 'custom-page-type-id', $identifier_page_type->get_id() );
+	public function test_core_type_match_id() {
+		$this->assertTrue( $this->info_core_type->match_id( $this->info_core_type->get_id() ) );
+		$this->assertFalse( $this->info_core_type->match_id( '' ) );
 	}
 
-	public function test_match_id() {
-		$this->assertTrue( $this->empty_page_type->match_id( '' ) );
-		$this->assertTrue( $this->simple_page_type->match_id( 'simple-page-type' ) );
-		$this->assertTrue( $this->faq_page_type->match_id( 'faq-page-type' ) );
-		$this->assertTrue( $this->faq_page_type->match_id( 'papi/faq-page-type' ) );
+	public function test_core_type_new_class() {
+		$class = $this->info_core_type->new_class();
+		$this->assertInstanceOf( 'Papi_Core_Type', $class );
 	}
 
-	public function test_new_class() {
-		$this->assertEmpty( $this->empty_page_type->new_class() );
-		$this->assertEquals( new Simple_Page_Type(), $this->simple_page_type->new_class() );
-	}
 }

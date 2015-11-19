@@ -14,13 +14,6 @@ final class Papi_Admin {
 	private $page_type;
 
 	/**
-	 * The page type id.
-	 *
-	 * @var string
-	 */
-	private $page_type_id;
-
-	/**
 	 * The post type.
 	 *
 	 * @var string
@@ -63,7 +56,9 @@ final class Papi_Admin {
 	public function admin_init() {
 		// Preload all page types.
 		foreach ( papi_get_post_types() as $post_type ) {
-			papi_get_all_page_types( false, $post_type );
+			papi_get_all_content_types( [
+				'args' => $post_type
+			] );
 		}
 
 		if ( ! $this->setup_papi() ) {
@@ -113,6 +108,7 @@ final class Papi_Admin {
 	 */
 	public function hidden_meta_boxes() {
 		global $_wp_post_type_features;
+
 		if ( ! isset( $_wp_post_type_features[$this->post_type]['editor'] ) ) {
 			add_meta_box(
 				'papi-hidden-editor',
@@ -152,7 +148,7 @@ final class Papi_Admin {
 			$parsed_url = parse_url( $request_uri );
 
 			$only_page_type = papi_filter_settings_only_page_type( $this->post_type );
-			$page_types     = papi_get_all_page_types( false, $this->post_type );
+			$page_types     = papi_get_all_page_types( $this->post_type );
 			$show_standard  = false;
 
 			if ( count( $page_types ) === 1 && empty( $only_page_type ) ) {
@@ -195,8 +191,23 @@ final class Papi_Admin {
 			return $defaults;
 		}
 
-		$defaults['page_type'] = papi_filter_settings_page_type_column_title(
-			$this->post_type
+		/**
+		 * Hide column for post type. Default is false.
+		 *
+		 * @param string $post_type
+		 */
+		if ( apply_filters( 'papi/settings/column_hide_' . $this->post_type, false ) ) {
+			return $defaults;
+		}
+
+		/**
+		 * Change column title for page type column.
+		 *
+		 * @param  string $post_type
+		 */
+		$defaults['page_type'] = apply_filters(
+			'papi/settings/column_title_' . $this->post_type,
+			__( 'Type', 'papi' )
 		);
 
 		return $defaults;
@@ -210,6 +221,15 @@ final class Papi_Admin {
 	 */
 	public function manage_page_type_posts_custom_column( $column_name, $post_id ) {
 		if ( ! in_array( $this->post_type, papi_get_post_types() ) ) {
+			return;
+		}
+
+		/**
+		 * Hide column for post type. Default is false.
+		 *
+		 * @param string $post_type
+		 */
+		if ( apply_filters( 'papi/settings/column_hide_' . $this->post_type, false ) ) {
 			return;
 		}
 
@@ -233,8 +253,7 @@ final class Papi_Admin {
 		$post_types = papi_get_post_types();
 
 		if ( in_array( $this->post_type, $post_types ) ) {
-			$page_types = papi_get_all_page_types( false, $this->post_type );
-
+			$page_types = papi_get_all_page_types( $this->post_type );
 			$page_types = array_map( function ( $page_type ) {
 				return [
 					'name' => $page_type->name,
@@ -322,6 +341,7 @@ final class Papi_Admin {
 			add_filter( 'admin_body_class', [$this, 'admin_body_class'] );
 			add_filter( 'pre_get_posts', [$this, 'pre_get_posts'] );
 			add_filter( 'wp_link_query', [$this, 'wp_link_query'] );
+
 			add_filter( 'manage_' . $this->post_type . '_posts_columns', [
 				$this,
 				'manage_page_type_posts_columns'
@@ -338,10 +358,6 @@ final class Papi_Admin {
 	 */
 	private function setup_globals() {
 		$this->post_type = papi_get_post_type();
-
-		if ( is_admin() ) {
-			$this->page_type_id  = papi_get_page_type_id();
-		}
 	}
 
 	/**
@@ -355,34 +371,44 @@ final class Papi_Admin {
 			return false;
 		}
 
-		if ( empty( $this->page_type_id ) ) {
-			// If only page type is used, override the page type value.
-			$this->page_type_id = papi_filter_settings_only_page_type(
+		$content_type_id = papi_get_content_type_id();
+
+		// If a post type exists, try to load the content type id
+		// from only page type filter.
+		if ( $this->post_type ) {
+			$content_type_id = papi_filter_settings_only_page_type(
 				$this->post_type
 			);
-
-			if ( empty( $this->page_type_id ) ) {
-				// Load page types that don't have any real post type.
-				$this->page_type_id = str_replace(
-					'papi/',
-					'',
-					papi_get_qs( 'page' )
-				);
-			}
-
-			if ( empty( $this->page_type_id ) ) {
-				$this->page_type_id = papi_get_page_type_id();
-			}
 		}
 
-		if ( empty( $this->page_type_id ) ) {
+		// If the content type id is empty try to load
+		// the content type id from `page` query string.
+		//
+		// Example:
+		//   /wp-admin/options-general.php?page=papi/option/site-option-type
+		if ( empty( $content_type_id ) ) {
+			$content_type_id = preg_replace( '/^papi\/\w+\//', '', papi_get_qs( 'page' ) );
+		}
+
+		// Use the default content type id if empty.
+		if ( empty( $content_type_id ) ) {
+			$content_type_id = papi_get_content_type_id();
+		}
+
+		/**
+		 * Change which content type id is loaded.
+		 *
+		 * @param string $content_type_id
+		 */
+		$content_type_id = apply_filters( 'papi/admin/content_type_id', $content_type_id );
+
+		// If no content type id exists Papi can't setup a content type.
+		if ( empty( $content_type_id ) ) {
 			return false;
 		}
 
-		$this->page_type = papi_get_page_type_by_id( $this->page_type_id );
-
 		// Do a last check so we can be sure that we have a page type instance.
-		return $this->page_type instanceof Papi_Page_Type;
+		return ( $this->page_type = papi_get_content_type_by_id( $content_type_id ) ) instanceof Papi_Content_Type;
 	}
 
 	/**

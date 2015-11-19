@@ -58,26 +58,35 @@ final class Papi_Admin_Menu {
 	/**
 	 * Page items menu.
 	 *
-	 * This function will register all page types
+	 * This function will register all content types
 	 * that has a fake post type. Like option types.
 	 */
 	public function page_items_menu() {
-		$page_types = papi_get_all_page_types( false, null, true );
+		$content_types = papi_get_all_content_types( [
+			'mode'  => 'exclude',
+			'types'	=> 'page'
+		] );
 
-		foreach ( $page_types as $page_type ) {
-			if ( empty( $page_type->menu ) || empty( $page_type->name ) ) {
+		foreach ( $content_types as $content_type ) {
+			// @codeCoverageIgnoreStart
+			if ( empty( $content_type->menu ) || empty( $content_type->name ) ) {
 				continue;
 			}
+			// @codeCoverageIgnoreEnd
 
-			$slug = 'papi/' . $page_type->get_id();
+			$slug = sprintf(
+				'papi/%s/%s',
+				$content_type->get_type(),
+				$content_type->get_id()
+			);
 
 			add_submenu_page(
-				$page_type->menu,
-				$page_type->name,
-				$page_type->name,
-				$page_type->capability,
+				$content_type->menu,
+				$content_type->name,
+				$content_type->name,
+				$content_type->capability,
 				$slug,
-				[$page_type, 'render']
+				[$content_type, 'render']
 			);
 		}
 	}
@@ -91,9 +100,11 @@ final class Papi_Admin_Menu {
 		$post_types = papi_get_post_types();
 
 		foreach ( $post_types as $post_type ) {
+			// @codeCoverageIgnoreStart
 			if ( ! post_type_exists( $post_type ) ) {
 				continue;
 			}
+			// @codeCoverageIgnoreEnd
 
 			if ( $post_type === 'post' ) {
 				$edit_url = 'edit.php';
@@ -117,7 +128,7 @@ final class Papi_Admin_Menu {
 			}
 
 			$only_page_type = papi_filter_settings_only_page_type( $post_type );
-			$page_types     = papi_get_all_page_types( false, $post_type );
+			$page_types     = papi_get_all_page_types( $post_type );
 			$show_standard  = false;
 
 			// Don't change menu item when no page types is found.

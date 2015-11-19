@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group admin
+ */
 class Papi_Admin_Assets_Test extends WP_UnitTestCase {
 
 	public function setUp() {

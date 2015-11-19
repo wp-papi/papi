@@ -58,25 +58,25 @@ class Properties_Page_Type extends Papi_Page_Type {
 						'list' => [
 							'title' => 'List',
 							'items' => [
-								[
+								papi_property( [
 									'type'     => 'repeater',
 									'title'    => 'Repeater test',
 									'slug'     => 'repeater_test_other',
 									'settings' => [
 										'items' => [
-											[
+											papi_property( [
 												'type'  => 'string',
 												'title' => 'Book name',
 												'slug'  => 'book_name'
-											],
-											[
+											] ),
+											papi_property( [
 												'type'  => 'bool',
 												'title' => 'Is open?',
 												'slug'  => 'is_open'
-											]
+											] )
 										]
 									]
-								]
+								] )
 							]
 						],
 						'list2' => [
@@ -88,16 +88,16 @@ class Properties_Page_Type extends Papi_Page_Type {
 									'slug'     => 'repeater_test_other_2',
 									'settings' => [
 										'items' => [
-											[
+											papi_property( [
 												'type'  => 'string',
 												'title' => 'Book name',
 												'slug'  => 'book_name'
-											],
-											[
+											] ),
+											papi_property( [
 												'type'  => 'bool',
 												'title' => 'Is open?',
 												'slug'  => 'is_open'
-											]
+											] )
 										]
 									]
 								] )

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group types
+ */
 class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -17,6 +20,8 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->empty_page_type  = new Papi_Page_Type();
 
 		$this->faq_page_type        = papi_get_page_type_by_id( 'faq-page-type' );
+		$this->faq_extra_page_type  = papi_get_page_type_by_id( 'faq-extra-page-type' );
+		$this->faq_extra2_page_type = papi_get_page_type_by_id( 'faq-extra2-page-type' );
 		$this->flex_page_type       = papi_get_page_type_by_id( 'flex-page-type' );
 		$this->simple_page_type     = papi_get_page_type_by_id( 'simple-page-type' );
 		$this->tab_page_type        = papi_get_page_type_by_id( 'tab-page-type' );
@@ -30,6 +35,8 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 			$this->post_id,
 			$this->empty_page_type,
 			$this->faq_page_type,
+			$this->faq_extra_page_type,
+			$this->faq_extra2_page_type,
 			$this->simple_page_type,
 			$this->tab_page_type
 		);
@@ -50,7 +57,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 		$boxes = $this->faq_page_type->get_boxes();
 
-		$this->assertSame( 'Content', $boxes[0][0]['title'] );
+		$this->assertSame( 'Content', $boxes[0]->title );
 
 		$this->assertEmpty( $this->empty_page_type->get_boxes() );
 	}
@@ -168,5 +175,40 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->assertNull( $this->empty_page_type->setup() );
 		$this->assertNull( $this->faq_page_type->setup() );
 		$this->assertNull( $this->tab_page_type->setup() );
+	}
+
+	public function test_parent_boxes() {
+		// FAQ 1
+		$property = $this->faq_page_type->get_property( 'question' );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
+		$this->assertSame( 'papi_question', $property->slug );
+		$this->assertSame( 'papi_question', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_question', $property->get_slug() );
+		$this->assertSame( 'question', $property->get_slug( true ) );
+		$this->assertSame( 'Question', $property->get_option( 'title' ) );
+		$this->assertSame( 'Question', $property->title );
+
+		// FAQ 2
+		$property = $this->faq_extra_page_type->get_property( 'question' );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
+		$this->assertSame( 'papi_question', $property->slug );
+		$this->assertSame( 'papi_question', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_question', $property->get_slug() );
+		$this->assertSame( 'question', $property->get_slug( true ) );
+		$this->assertSame( 'Question', $property->get_option( 'title' ) );
+		$this->assertSame( 'Question', $property->title );
+
+		// FAQ 3
+		$property = $this->faq_extra2_page_type->get_property( 'question' );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
+		$this->assertSame( 'papi_question', $property->slug );
+		$this->assertSame( 'papi_question', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_question', $property->get_slug() );
+		$this->assertSame( 'question', $property->get_slug( true ) );
+		$this->assertSame( 'Question', $property->get_option( 'title' ) );
+		$this->assertSame( 'Question', $property->title );
 	}
 }

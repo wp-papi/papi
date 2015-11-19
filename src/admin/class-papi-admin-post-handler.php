@@ -112,6 +112,7 @@ final class Papi_Admin_Post_Handler extends Papi_Core_Data_Handler {
 			papi_update_property_meta_value( [
 				'post_id'       => $post_id,
 				'slug'          => $key,
+				'type'          => Papi_Post_Page::TYPE,
 				'value'         => $value
 			] );
 		}

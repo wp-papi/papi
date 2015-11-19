@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group admin
+ */
 class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 
 	public function setUp() {

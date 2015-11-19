@@ -6,18 +6,11 @@
 abstract class Papi_Core_Page extends Papi_Container {
 
 	/**
-	 * Type post.
+	 * The page type.
 	 *
 	 * @var string
 	 */
-	const TYPE_POST = 'post';
-
-	/**
-	 * Type option.
-	 *
-	 * @var string
-	 */
-	const TYPE_OPTION = 'option';
+	const TYPE = 'core';
 
 	/**
 	 * The WordPress post id if it exists.
@@ -31,7 +24,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @var string
 	 */
-	protected $type;
+	public $type;
 
 	/**
 	 * Get Papi property value.
@@ -45,6 +38,15 @@ abstract class Papi_Core_Page extends Papi_Container {
 	}
 
 	/**
+	 * Get page type.
+	 *
+	 * @return string
+	 */
+	public function get_type() {
+		return static::TYPE;
+	}
+
+	/**
 	 * Get value from property.
 	 *
 	 * @param  string $slug
@@ -53,7 +55,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 */
 	public function get_value( $slug ) {
 		$slug  = papi_remove_papi( $slug );
-		$value = papi_get_property_meta_value( $this->id, $slug, $this->type );
+		$value = papi_get_property_meta_value( $this->id, $slug, static::TYPE );
 		return $this->convert( $slug, $value );
 	}
 
@@ -86,19 +88,18 @@ abstract class Papi_Core_Page extends Papi_Container {
 		// Run load value method right after the value has been loaded from the database.
 		$value = $property->load_value( $value, $slug, $this->id );
 
-		if ( $this->type !== self::TYPE_OPTION ) {
-			$value = papi_filter_load_value(
-				$property->type,
-				$value,
-				$slug,
-				$this->id
-			);
-		}
+		$value = papi_filter_load_value(
+			$property->type,
+			$value,
+			$slug,
+			$this->id
+		);
 
 		// Format the value from the property class.
 		$value = $property->format_value( $value, $slug, $this->id );
 
-		if ( ! is_admin() || $this->type !== self::TYPE_OPTION ) {
+		// Only fired when not in admin.
+		if ( ! is_admin() ) {
 			$value = papi_filter_format_value(
 				$property->type,
 				$value,
@@ -115,17 +116,6 @@ abstract class Papi_Core_Page extends Papi_Container {
 	}
 
 	/**
-	 * Check if the `$type` match the page type.
-	 *
-	 * @param  string $type
-	 *
-	 * @return bool
-	 */
-	public function is( $type ) {
-		return $this->type === $type;
-	}
-
-	/**
 	 * Get page from factory.
 	 *
 	 * @param  int    $post_id
@@ -133,11 +123,8 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 *
 	 * @return mixed
 	 */
-	public static function factory( $post_id, $type = self::TYPE_POST ) {
-		if ( papi_is_option_page() ) {
-			$type = self::TYPE_OPTION;
-		}
-
+	public static function factory( $post_id, $type = 'page' ) {
+		$type         = $type === 'page' ? 'post' : $type;
 		$class_suffix = '_' . ucfirst( $type ) . '_Page';
 		$class_name   = 'Papi' . $class_suffix;
 
@@ -146,8 +133,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 		}
 
 		$post_id = papi_get_post_id( $post_id );
-		$page = new $class_name( $post_id );
-		$page->set_type( $type );
+		$page    = new $class_name( $post_id );
 
 		if ( ! $page->valid() ) {
 			return;
@@ -167,28 +153,9 @@ abstract class Papi_Core_Page extends Papi_Container {
 	abstract public function get_property( $slug, $child_slug = '' );
 
 	/**
-	 * Set type.
-	 *
-	 * @param string $type
-	 */
-	public function set_type( $type ) {
-		$this->type = $type;
-	}
-
-	/**
 	 * Check if it's a valid page.
 	 *
 	 * @return bool
 	 */
 	abstract public function valid();
-
-	/**
-	 * Check if the page has a valid type.
-	 *
-	 * @return bool
-	 */
-	protected function valid_type() {
-		$type = strtoupper( $this->type );
-		return defined( "self::TYPE_$type" );
-	}
 }

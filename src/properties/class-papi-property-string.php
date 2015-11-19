@@ -43,7 +43,8 @@ class Papi_Property_String extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'allow_html' => false
+			'allow_html'  => false,
+			'placeholder' => ''
 		];
 	}
 
@@ -65,10 +66,11 @@ class Papi_Property_String extends Papi_Property {
 	 */
 	public function html() {
 		papi_render_html_tag( 'input', [
-			'id'      => $this->html_id(),
-			'name'    => $this->html_name(),
-			'type'    => $this->input_type,
-			'value'   => $this->get_value()
+			'id'		  => $this->html_id(),
+			'name'		  => $this->html_name(),
+			'type'		  => $this->input_type,
+			'value'		  => $this->get_value(),
+			'placeholder' => $this->get_setting('placeholder')
 		] );
 	}
 }

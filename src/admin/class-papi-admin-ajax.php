@@ -129,7 +129,7 @@ class Papi_Admin_Ajax {
 		}
 
 		$items = json_decode(
-			stripslashes( papi_get_sanitized_post( 'properties' ) ),
+			stripslashes( $_POST['properties'] ),
 			true
 		);
 

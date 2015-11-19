@@ -94,6 +94,13 @@ class Papi_Core_Property {
 	private $post_id;
 
 	/**
+	 * Determine if is in a tab.
+	 *
+	 * @var bool
+	 */
+	public $tab = false;
+
+	/**
 	 * The constructor.
 	 */
 	public function __construct() {
@@ -149,76 +156,6 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Convert settings items to properties if they are a property.
-	 *
-	 * @param  array $settings
-	 *
-	 * @return array
-	 */
-	private function convert_settings( $settings ) {
-		foreach ( $settings as $key => $value ) {
-			if ( ! is_array( $value ) ) {
-				continue;
-			}
-
-			$settings[$key] = $this->convert_items_array( $value );
-		}
-
-		return $settings;
-	}
-
-	/**
-	 * Convert all arrays that has a valid property type.
-	 *
-	 * @param  array $items
-	 *
-	 * @return array
-	 */
-	private function convert_items_array( $items ) {
-		foreach ( $items as $index => $item ) {
-			if ( is_array( $item ) && ! isset( $item['type'] ) ) {
-				foreach ( $item as $key => $value ) {
-					if ( is_array( $value ) ) {
-						$items[$index][$key] = $this->convert_items_array( $value );
-						$items[$index][$key] = array_filter( $items[$index][$key] );
-					}
-				}
-
-				continue;
-			}
-
-			if ( papi_is_property( $item ) ) {
-				$child_items = $item->get_setting( 'items' );
-
-				if ( is_array( $child_items ) ) {
-					$items[$index]->set_setting( 'items', $this->convert_items_array( $child_items ) );
-				}
-
-				continue;
-			}
-
-			if ( ( is_array( $item ) && isset( $item['type'] ) ) || ( is_object( $item ) && isset( $item->type ) ) ) {
-				$items[$index] = papi_get_property_type( $item );
-
-				if ( is_null( $items[$index] ) ) {
-					unset( $items[$index] );
-					continue;
-				}
-
-				if ( is_object( $items[$index] ) ) {
-					$child_items = $items[$index]->get_setting( 'items' );
-
-					if ( is_array( $child_items ) ) {
-						$items[$index]->set_setting( 'items', $this->convert_items_array( $child_items ) );
-					}
-				}
-			}
-		}
-
-		return $items;
-	}
-
-	/**
 	 * Delete value from the database.
 	 *
 	 * @param  string $slug
@@ -228,11 +165,7 @@ class Papi_Core_Property {
 	 * @return bool
 	 */
 	public function delete_value( $slug, $post_id, $type ) {
-		if ( $type === Papi_Core_Page::TYPE_OPTION || $this->is_option_page() ) {
-			return delete_option( $slug );
-		}
-
-		return delete_post_meta( $post_id, $slug );
+		return papi_delete_property_meta_value( $post_id, $slug, $type );
 	}
 
 	/**
@@ -293,6 +226,7 @@ class Papi_Core_Property {
 			$type = $type->type;
 		}
 
+		// Old types, 'PropertyString' => 'String'.
 		$type = preg_replace( '/^Property/', '', $type );
 
 		if ( empty( $type ) ) {
@@ -345,10 +279,11 @@ class Papi_Core_Property {
 	/**
 	 * Get child properties from `items` in the settings array.
 	 *
-	 * @return mixed
+	 * @return array|object
 	 */
 	public function get_child_properties() {
-		return $this->get_setting( 'items', [] );
+		$items = $this->get_setting( 'items', [] );
+		return is_array( $items ) ? $items : [$items];
 	}
 
 	/**
@@ -473,7 +408,7 @@ class Papi_Core_Property {
 			$this->get_default_settings()
 		);
 
-		return (object) $this->convert_settings( $settings );
+		return (object) $settings;
 	}
 
 	/**
@@ -502,7 +437,7 @@ class Papi_Core_Property {
 		if ( papi_is_empty( $value ) ) {
 			$slug = $this->get_slug( true );
 
-			if ( $this->is_option_page() ) {
+			if ( papi_is_option_page() ) {
 				$value = papi_get_option( $slug );
 			} else {
 				$value = papi_get_field( $this->get_post_id(), $slug );
@@ -627,19 +562,6 @@ class Papi_Core_Property {
 			maybe_unserialize( $value ),
 			$this->convert_type === 'array'
 		);
-	}
-
-	/**
-	 * Check if it's a option page or not.
-	 *
-	 * @return bool
-	 */
-	public function is_option_page() {
-		if ( $this->page === null ) {
-			return papi_is_option_page();
-		}
-
-		return $this->page->is( Papi_Core_Page::TYPE_OPTION );
 	}
 
 	/**
@@ -842,6 +764,9 @@ class Papi_Core_Property {
 		// Setup property settings.
 		$options->settings = $this->setup_options_settings( $options );
 
+		// Type should always be lowercase.
+		$options->type = strtolower( $options->type );
+
 		// Escape all options except those that are send it as second argument.
 		return papi_esc_html( $options, ['before_html', 'html', 'after_html'] );
 	}
@@ -884,7 +809,7 @@ class Papi_Core_Property {
 			);
 		}
 
-		return (object) $this->convert_settings( $options->settings );
+		return (object) $options->settings;
 	}
 
 	/**

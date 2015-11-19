@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group properties
+ */
 class Papi_Property_Editor_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'editor_test';

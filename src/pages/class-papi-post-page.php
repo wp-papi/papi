@@ -6,12 +6,11 @@
 class Papi_Post_Page extends Papi_Core_Page {
 
 	/**
-	 * Data type to describe which
-	 * type of page data is it.
+	 * The page type.
 	 *
 	 * @var string
 	 */
-	protected $type = self::TYPE_POST;
+	const TYPE = 'page';
 
 	/**
 	 * The WordPress post.

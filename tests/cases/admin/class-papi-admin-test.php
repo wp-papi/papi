@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group admin
+ */
 class Papi_Admin_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -144,6 +147,20 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $arr );
 	}
 
+	public function test_manage_page_type_posts_columns_title_filter() {
+		$_GET['post_type'] = 'page';
+		$admin = new Papi_Admin;
+		$arr = $admin->manage_page_type_posts_columns( [] );
+		$this->assertSame( ['page_type' => 'Type'], $arr );
+
+		tests_add_filter( 'papi/settings/column_title_page', function () {
+			return 'Typer';
+		} );
+
+		$arr = $admin->manage_page_type_posts_columns( [] );
+		$this->assertSame( ['page_type' => 'Typer'], $arr );
+	}
+
 	public function test_manage_page_type_posts_custom_column() {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin;
@@ -158,6 +175,16 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$_GET['post_type'] = 'fake';
 		$admin = new Papi_Admin;
 		$admin->manage_page_type_posts_custom_column( 'page_type', $post_id );
+		$this->expectOutputRegex( '//' );
+	}
+
+	public function test_manage_page_type_posts_custom_column_hide_filter() {
+		$_GET['post_type'] = 'page';
+		$admin = new Papi_Admin;
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		tests_add_filter( 'papi/settings/column_hide_page', '__return_true' );
+
+		$admin->manage_page_type_posts_custom_column( 'page_type', $this->post_id );
 		$this->expectOutputRegex( '//' );
 	}
 
@@ -251,24 +278,6 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->assertSame( 'page', $post_type( $admin ) );
 	}
 
-	public function test_setup_globals_2() {
-		global $current_screen;
-
-	    $current_screen = WP_Screen::get( 'admin_init' );
-		$_GET['post_type'] = 'page';
-		$_GET['page_type'] = 'simple-page-type';
-		$admin = new Papi_Admin;
-
-		$page_type_id = function ( Papi_Admin $class ) {
-			return $class->page_type_id;
-		};
-		$page_type_id = Closure::bind( $page_type_id, null, $admin );
-
-		$this->assertSame( 'simple-page-type', $page_type_id( $admin ) );
-
-		$current_screen = null;
-	}
-
 	public function test_setup_papi() {
 		$admin = new Papi_Admin;
 		$this->assertFalse( $admin->setup_papi() );
@@ -281,7 +290,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 		$_GET['post'] = $this->factory->post->create();
 		$_GET['post_type'] = 'page';
-		$_GET['page'] = 'papi/simple-page-type';
+		$_GET['page'] = 'papi/page/simple-page-type';
 		$admin = new Papi_Admin;
 		$this->assertTrue( $admin->setup_papi() );
 

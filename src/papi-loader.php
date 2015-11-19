@@ -53,10 +53,14 @@ final class Papi_Loader extends Papi_Container {
 	 */
 	private function __construct() {
 		$this->constants();
-		$this->load_textdomain();
-		$this->require_files();
-		$this->setup_container();
-		papi_action_include();
+		$this->init();
+
+		// Fires the loaded action.
+		// Deprecated action. `papi/loaded` should be used instead.
+		did_action( 'papi/include' ) || do_action( 'papi/include' );
+
+		// Fires the loaded action.
+		did_action( 'papi/loaded' ) || do_action( 'papi/loaded' );
 	}
 
 	/**
@@ -65,7 +69,7 @@ final class Papi_Loader extends Papi_Container {
 	 * @codeCoverageIgnore
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.4.7' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.5.0-dev' );
 	}
 
 	/**
@@ -74,7 +78,7 @@ final class Papi_Loader extends Papi_Container {
 	 * @codeCoverageIgnore
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.4.7' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.5.0-dev' );
 	}
 
 	/**
@@ -113,6 +117,26 @@ final class Papi_Loader extends Papi_Container {
 	}
 
 	/**
+	 * Initialise Papi.
+	 */
+	private function init() {
+		// Fires the before init action.
+		did_action( 'papi/before_init' ) || do_action( 'papi/before_init' );
+
+		// Set up localisation.
+		$this->load_textdomain();
+
+		// Load all required files.
+		$this->require_files();
+
+		// Setup the container.
+		$this->setup_container();
+
+		// Fires the init action.
+		did_action( 'papi/init' ) || do_action( 'papi/init' );
+	}
+
+	/**
 	 * Load Localisation files.
 	 *
 	 * Locales found in:
@@ -134,21 +158,24 @@ final class Papi_Loader extends Papi_Container {
 
 		$lib_path     = __DIR__ . '/lib/';
 		$lib_includes = [
-			'utilities.php',
-			'actions.php',
-			'cache.php',
-			'filters.php',
-			'url.php',
-			'post.php',
-			'page.php',
-			'property.php',
-			'tabs.php',
-			'io.php',
-			'field.php',
-			'template.php',
-			'option.php',
-			'deprecated.php',
-			'conditional.php'
+			'core/cache.php',
+			'core/conditional.php',
+			'core/deprecated.php',
+			'core/page.php',
+			'core/post.php',
+			'core/io.php',
+			'core/property.php',
+			'core/tabs.php',
+			'core/template.php',
+			'core/url.php',
+			'core/utilities.php',
+			'hooks/actions.php',
+			'hooks/filters.php',
+			'fields/page.php',
+			'fields/option.php',
+			'types/content.php',
+			'types/page.php',
+			'types/option.php'
 		];
 
 		// Require function files.
@@ -167,6 +194,11 @@ final class Papi_Loader extends Papi_Container {
 
 		// Require conditional rules that should not be loaded by the autoload.
 		require_once __DIR__ . '/conditional/class-papi-conditional-rules.php';
+
+		// Load Papi CLI class if WP CLI is used.
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			require_once __DIR__ . '/cli/class-papi-cli.php';
+		}
 	}
 
 	/**

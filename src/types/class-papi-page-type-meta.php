@@ -4,7 +4,7 @@
  * Base Papi type implementation of meta data
  * for a page type.
  */
-class Papi_Page_Type_Meta extends Papi_Core_Type {
+class Papi_Page_Type_Meta extends Papi_content_type {
 
 	/**
 	 * The meta method to call.
@@ -49,25 +49,11 @@ class Papi_Page_Type_Meta extends Papi_Core_Type {
 	public $labels = [];
 
 	/**
-	 * The name of the page type.
-	 *
-	 * @var string
-	 */
-	public $name = '';
-
-	/**
 	 * The post types to register the page type with.
 	 *
 	 * @var array
 	 */
 	public $post_type = ['page'];
-
-	/**
-	 * The sort order of the page type.
-	 *
-	 * @var int
-	 */
-	public $sort_order = null;
 
 	/**
 	 * Show standard page type or not.
@@ -91,6 +77,13 @@ class Papi_Page_Type_Meta extends Papi_Core_Type {
 	public $thumbnail = '';
 
 	/**
+	 * The type name.
+	 *
+	 * @var string
+	 */
+	public $type = 'page';
+
+	/**
 	 * The constructor.
 	 *
 	 * Load a page type by the file.
@@ -99,8 +92,36 @@ class Papi_Page_Type_Meta extends Papi_Core_Type {
 	 */
 	public function __construct( $file_path = '' ) {
 		parent::__construct( $file_path );
-		$this->setup_page_type();
 		$this->setup_post_types();
+	}
+
+	/**
+	 * Determine if the page type is allowed
+	 * by the capabilities.
+	 *
+	 * @return bool
+	 */
+	private function user_is_allowed() {
+		foreach ( $this->capabilities as $capability ) {
+			if ( ! current_user_can( $capability ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Determine if the content type is allowed
+	 * by capabilities and post type.
+	 *
+	 * @return bool
+	 */
+	public function allowed() {
+		$args = func_get_args();
+		return empty( $args )
+			? parent::allowed()
+			: $this->user_is_allowed() && isset( $args[0] ) && in_array( $args[0], $this->post_type );
 	}
 
 	/**
@@ -181,15 +202,6 @@ class Papi_Page_Type_Meta extends Papi_Core_Type {
 	}
 
 	/**
-	 * Check so we have a name on the page type.
-	 *
-	 * @return bool
-	 */
-	public function has_name() {
-		return ! empty( $this->name );
-	}
-
-	/**
 	 * Check if the given post is allowed to use the page type.
 	 *
 	 * @param string $post_type
@@ -198,15 +210,6 @@ class Papi_Page_Type_Meta extends Papi_Core_Type {
 	 */
 	public function has_post_type( $post_type ) {
 		return in_array( $post_type, $this->post_type );
-	}
-
-	/**
-	 * Setup page type variables.
-	 */
-	private function setup_page_type() {
-		if ( is_null( $this->sort_order ) ) {
-			$this->sort_order = papi_filter_settings_sort_order();
-		}
 	}
 
 	/**

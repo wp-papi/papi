@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group properties
+ */
 class Papi_Property_Text_Test extends Papi_Property_Test_Case {
 
 	public $slugs = ['text_test', 'text_html_test'];
