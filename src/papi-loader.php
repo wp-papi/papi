@@ -111,13 +111,21 @@ final class Papi_Loader extends Papi_Container {
 		}
 
 		// The meta key that page type value is using
-		if ( ! defined( 'PAPI_PAGE_TYPE_KEY' ) ) {
-			define( 'PAPI_PAGE_TYPE_KEY', '_papi_page_type' );
-		}
+		$this->define( 'PAPI_PAGE_TYPE_KEY', '_papi_page_type' );
 
 		// The plugin basename that is used in actions to match so right plugin is modified.
-		if ( ! defined( 'PAPI_PLUGIN_BASENAME' ) ) {
-			define( 'PAPI_PLUGIN_BASENAME', 'papi/papi-loader.php' );
+		$this->define( 'PAPI_PLUGIN_BASENAME', basename( dirname( __DIR__ ) ) . '/papi-loader.php' );
+	}
+
+	/**
+	 * Define constant if not already set.
+	 *
+	 * @param  string $name
+	 * @param  string|bool $value
+	 */
+	private function define( $name, $value ) {
+		if ( ! defined( $name ) ) {
+			define( $name, $value );
 		}
 	}
 
