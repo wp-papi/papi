@@ -114,6 +114,11 @@ final class Papi_Loader extends Papi_Container {
 		if ( ! defined( 'PAPI_PAGE_TYPE_KEY' ) ) {
 			define( 'PAPI_PAGE_TYPE_KEY', '_papi_page_type' );
 		}
+
+		// The plugin basename that is used in actions to match so right plugin is modified.
+		if ( ! defined( 'PAPI_PLUGIN_BASENAME' ) ) {
+			define( 'PAPI_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+		}
 	}
 
 	/**

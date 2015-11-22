@@ -247,6 +247,24 @@ final class Papi_Admin {
 	}
 
 	/**
+	 * Add docs links to plugin row meta.
+	 *
+	 * @param  array $links
+	 * @param  string $file
+	 *
+	 * @return array
+	 */
+	public function plugin_row_meta( $links, $file ) {
+		if ( $file === PAPI_PLUGIN_BASENAME ) {
+			return array_merge( $links, [
+				'docs' => '<a href="' . esc_url( 'https://wp-papi.github.io/docs/' ) . '" title="' . esc_attr( __( 'View Papi Documentation', 'papi' ) ) . '">' . __( 'Docs', 'papi' ) . '</a>',
+			] );
+		}
+
+		return (array) $links;
+	}
+
+	/**
 	 * Filter page types in post type list.
 	 */
 	public function restrict_page_types() {
@@ -330,6 +348,7 @@ final class Papi_Admin {
 			add_action( 'load-post-new.php', [$this, 'load_post_new'] );
 			add_action( 'restrict_manage_posts', [ $this, 'restrict_page_types'] );
 			add_action( 'add_meta_boxes', [$this, 'hidden_meta_boxes'], 10 );
+			add_filter( 'plugin_row_meta', [$this, 'plugin_row_meta'], 10, 2 );
 		}
 	}
 

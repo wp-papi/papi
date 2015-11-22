@@ -188,6 +188,14 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '//' );
 	}
 
+	public function test_plugin_row_meta() {
+		$output = $this->admin->plugin_row_meta( [], 'fake/fake.php' );
+		$this->assertEmpty( $output );
+
+		$output = $this->admin->plugin_row_meta( [], 'papi/papi-loader.php' );
+		$this->assertArrayHasKey( 'docs', $output );
+	}
+
 	public function test_pre_get_posts() {
 		global $pagenow;
 		$pagenow = 'edit.php';
