@@ -117,7 +117,7 @@ final class Papi_Loader extends Papi_Container {
 
 		// The plugin basename that is used in actions to match so right plugin is modified.
 		if ( ! defined( 'PAPI_PLUGIN_BASENAME' ) ) {
-			define( 'PAPI_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+			define( 'PAPI_PLUGIN_BASENAME', 'papi/papi-loader.php' );
 		}
 	}
 
