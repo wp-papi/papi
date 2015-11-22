@@ -14,7 +14,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 
-#: src/admin/class-papi-admin-assets.php:61, src/properties/class-papi-property-flexible.php:774, src/properties/class-papi-property-flexible.php:797, src/properties/class-papi-property-repeater.php:715, src/properties/class-papi-property-repeater.php:737
+#: src/admin/class-papi-admin-assets.php:61, src/properties/class-papi-property-flexible.php:760, src/properties/class-papi-property-flexible.php:783, src/properties/class-papi-property-repeater.php:717, src/properties/class-papi-property-repeater.php:739
 msgid "Remove"
 msgstr ""
 
@@ -22,15 +22,27 @@ msgstr ""
 msgid "This fields are required:"
 msgstr ""
 
-#: src/admin/class-papi-admin-menu.php:116, src/admin/class-papi-admin-menu.php:172, src/admin/class-papi-admin-menu.php:173, src/types/class-papi-page-type-meta.php:175
+#: src/admin/class-papi-admin-menu.php:120, src/admin/class-papi-admin-menu.php:176, src/admin/class-papi-admin-menu.php:177, src/types/class-papi-page-type-meta.php:175
 msgid "Add New"
 msgstr ""
 
-#: src/admin/class-papi-admin.php:46, src/admin/class-papi-admin.php:55, src/papi-loader.php:72, src/papi-loader.php:81
+#: src/admin/class-papi-admin.php:39, src/admin/class-papi-admin.php:48, src/papi-loader.php:72, src/papi-loader.php:81
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: src/admin/class-papi-admin.php:263
+#: src/admin/class-papi-admin.php:210, src/admin/views/management-page-type.php:23
+msgid "Type"
+msgstr ""
+
+#: src/admin/class-papi-admin.php:260
+msgid "View Papi Documentation"
+msgstr ""
+
+#: src/admin/class-papi-admin.php:260
+msgid "Docs"
+msgstr ""
+
+#: src/admin/class-papi-admin.php:298
 msgid "All types"
 msgstr ""
 
@@ -50,12 +62,8 @@ msgstr ""
 msgid "Properties"
 msgstr ""
 
-#: src/admin/views/management-page-type.php:22, src/properties/class-papi-property-link.php:145, src/properties/class-papi-property-link.php:246
+#: src/admin/views/management-page-type.php:22, src/properties/class-papi-property-link.php:146, src/properties/class-papi-property-link.php:247
 msgid "Title"
-msgstr ""
-
-#: src/admin/views/management-page-type.php:23, src/lib/hooks/filters.php:121
-msgid "Type"
 msgstr ""
 
 #: src/admin/views/management-page-type.php:24
@@ -114,19 +122,19 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: src/lib/core/property.php:334
+#: src/lib/core/property.php:335
 msgid "(required field)"
 msgstr ""
 
-#: src/lib/hooks/filters.php:166
+#: src/lib/hooks/filters.php:152
 msgid "%s with WordPress standard fields"
 msgstr ""
 
-#: src/lib/hooks/filters.php:182
+#: src/lib/hooks/filters.php:168
 msgid "Standard %s"
 msgstr ""
 
-#: src/papi-loader.php:223
+#: src/papi-loader.php:228
 msgid "WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself."
 msgstr ""
 
@@ -266,35 +274,35 @@ msgstr ""
 msgid "No image selected"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:137, src/properties/class-papi-property-link.php:236
+#: src/properties/class-papi-property-link.php:138, src/properties/class-papi-property-link.php:237
 msgid "URL"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:152, src/properties/class-papi-property-link.php:255
+#: src/properties/class-papi-property-link.php:153, src/properties/class-papi-property-link.php:256
 msgid "Target"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:154, src/properties/class-papi-property-link.php:259
+#: src/properties/class-papi-property-link.php:155, src/properties/class-papi-property-link.php:260
 msgid "New window"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:154, src/properties/class-papi-property-link.php:259
+#: src/properties/class-papi-property-link.php:155, src/properties/class-papi-property-link.php:260
 msgid "Same window"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:164
+#: src/properties/class-papi-property-link.php:165
 msgid "No link selected"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:165
+#: src/properties/class-papi-property-link.php:166
 msgid "Add link"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:168
+#: src/properties/class-papi-property-link.php:169
 msgid "Edit link"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:169
+#: src/properties/class-papi-property-link.php:170
 msgid "Remove link"
 msgstr ""
 
