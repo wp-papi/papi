@@ -59,10 +59,14 @@ final class Papi_Admin_Post_Handler extends Papi_Core_Data_Handler {
 	 * @param int    $post_id
 	 * @param object $post
 	 */
-	public function save_meta_boxes( $post_id, $post ) {
+	public function save_meta_boxes( $post_id, $post = null ) {
 		// Can't proceed without a post id or post.
-		if ( empty( $post_id ) || empty( $post ) ) {
+		if ( empty( $post_id ) ) {
 			return;
+		}
+
+		if ( empty( $post ) ) {
+			$post = get_post( $post_id );
 		}
 
 		// Don't save meta boxes for revisions or autosaves
@@ -123,6 +127,7 @@ final class Papi_Admin_Post_Handler extends Papi_Core_Data_Handler {
 	 */
 	private function setup_actions() {
 		add_action( 'save_post', [$this, 'save_meta_boxes'], 1, 2 );
+		add_action( 'edit_attachment', [$this, 'save_meta_boxes'], 1 );
 	}
 
 	/**
