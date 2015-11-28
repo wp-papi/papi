@@ -98,8 +98,8 @@ function papi_field_value( $slugs, $value, $default = null ) {
 		}
 
 		foreach ( $slugs as $key ) {
-			if ( isset( $value[ $key ] ) ) {
-				$value = $value[ $key ];
+			if ( isset( $value[$key] ) ) {
+				$value = $value[$key];
 			}
 		}
 	}
