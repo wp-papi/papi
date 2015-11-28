@@ -45,8 +45,9 @@ class Papi_Core_Data_Handler {
 			if ( $_POST[ $key ] === 'on' ) {
 				$data[ $key ] = true;
 			} else {
-				$value = $this->decode_property( $key, $_POST[ $key ] );
-				$data[ $key ] = $this->prepare_post_data( $value );
+				$value = $this->decode_property( $key, $_POST[$key] );
+				$data[$key] = $this->prepare_post_data( $value );
+                $data[$key] = $this->santize_data( $value );
 			}
 		}
 
@@ -56,6 +57,13 @@ class Papi_Core_Data_Handler {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Get pre data that should be saved before all properties data.
+	 */
+	protected function get_pre_data() {
+		return $this->get_post_data( '/^\_papi\_.*/' );
 	}
 
 	/**
@@ -174,9 +182,23 @@ class Papi_Core_Data_Handler {
 	}
 
 	/**
-	 * Get pre data that should be saved before all properties data.
+	 * Sanitize data before saving it.
+	 *
+	 * @param mixed $value
+	 *
+	 * @return mixed
 	 */
-	protected function get_pre_data() {
-		return $this->get_post_data( '/^\_papi\_.*/' );
+	private function santize_data( $value ) {
+		if ( is_array( $value ) ) {
+			foreach ( $value as $k => $v ) {
+				if ( is_string( $v ) ) {
+					$value[ $k ] = $this->santize_data( $v );
+				}
+			}
+		} else if ( is_string( $value ) ) {
+			$value = papi_remove_trailing_quotes( $value );
+		}
+
+		return $value;
 	}
 }
