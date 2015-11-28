@@ -99,8 +99,8 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$current_screen = WP_Screen::get( 'admin_init' );
 
-		$_GET['page'] = 'papi/options/properties-option-type';
-		$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/options/properties-option-type';
+		$_GET['page'] = 'papi/option/options/properties-option-type';
+		$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/option/options/properties-option-type';
 
 		$value = $this->get_value( $property->get_slug( true ) );
 

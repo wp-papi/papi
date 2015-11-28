@@ -413,7 +413,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$_GET['page'] = 'papi/options/header-option-type';
+		$_GET['page'] = 'papi/option/options/header-option-type';
 
 		$page = papi_get_page( 0, 'option' );
 		$property = $page->get_property( 'name' );

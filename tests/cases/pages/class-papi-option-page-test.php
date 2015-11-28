@@ -30,7 +30,7 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Name', $property->get_option( 'title' ) );
 		$this->assertSame( 'Name', $property->title );
 
-		$_GET['page'] = 'papi/options/header-option-type';
+		$_GET['page'] = 'papi/option/options/header-option-type';
 
 		$property = $this->page->get_property( 'name' );
 		$this->assertSame( 'string', $property->get_option( 'type' ) );
@@ -40,7 +40,7 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Name', $property->get_option( 'title' ) );
 		$this->assertSame( 'Name', $property->title );
 
-		$_GET['page'] = 'papi/modules/top-module-type';
+		$_GET['page'] = 'papi/page/modules/top-module-type';
 		$this->assertNull( $this->page->get_property( 'name' ) );
 	}
 

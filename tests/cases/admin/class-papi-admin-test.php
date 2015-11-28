@@ -56,7 +56,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 		$_GET['post'] = $this->factory->post->create();
 		$_GET['post_type'] = 'page';
-		$_GET['page'] = 'papi/simple-page-type';
+		$_GET['page'] = 'papi/page/simple-page-type';
 		$admin = new Papi_Admin;
 		$admin->admin_init();
 	}
@@ -98,10 +98,12 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 	public function test_load_post_new_2() {
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=page';
+
 		tests_add_filter( 'wp_redirect', function( $location ) {
 			$this->assertSame( 'edit.php?post_type=page&page=papi-add-new-page,page', $location );
 			return false;
 		} );
+
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin;
 		$admin->load_post_new();
@@ -109,13 +111,16 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 	public function test_load_post_new_3() {
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=page';
+
 		tests_add_filter( 'wp_redirect', function( $location ) {
 			$this->assertSame( 'post-new.php?page_type=simple-page-type&post_type=page', $location );
 			return false;
 		} );
+
 		tests_add_filter( 'papi/settings/only_page_type_page', function () {
 			return 'simple-page-type';
 		} );
+
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin;
 		$admin->load_post_new();
