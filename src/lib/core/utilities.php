@@ -294,6 +294,10 @@ function papi_get_qs( $qs, $keep_keys = false ) {
 			$value = true;
 		}
 
+        if ( preg_match( '/papi\/\w+\//', $value ) ) {
+            $value = preg_replace( '/papi\/\w+\//', '', $value );
+        }
+
 		return $value;
 	}
 }

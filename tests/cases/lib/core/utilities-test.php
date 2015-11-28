@@ -162,6 +162,10 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 		$this->assertSame( 1, papi_get_qs( 'page' ) );
 		unset( $_GET['page'] );
 
+        $_GET['page'] = 'papi/option/options/header-option-type';
+		$this->assertSame( 'options/header-option-type', papi_get_qs( 'page' ) );
+		unset( $_GET['page'] );
+
 		$this->assertEmpty( papi_get_qs( null ) );
 		$this->assertEmpty( papi_get_qs( true ) );
 		$this->assertEmpty( papi_get_qs( false ) );
