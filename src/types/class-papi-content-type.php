@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi content type is a base class that can
+ * Papi Content Type is a base class that can
  * register boxes with properties.
  */
 class Papi_Content_Type extends Papi_Core_Type {
