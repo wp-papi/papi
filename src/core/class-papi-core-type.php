@@ -138,6 +138,34 @@ class Papi_Core_Type {
 	}
 
 	/**
+	 * Get meta data from type class and merge
+	 * with the parent meta data.
+	 *
+	 * @param  string $method
+	 *
+	 * @return array
+	 */
+	private function get_meta( $method ) {
+        $child_meta = call_user_func( [$this, $method] );
+		$child_meta = is_array( $child_meta ) ? $child_meta : [];
+
+		$parent_class  = get_parent_class( $this );
+		$parent_remove = method_exists( $parent_class, $method );
+        $parent_meta   = [];
+
+		while ( $parent_remove ) {
+			$parent        = new $parent_class();
+			$output        = call_user_func( [$parent, $method] );
+			$output        = is_array( $output ) ? $output : [];
+			$parent_meta   = array_merge( $parent_meta, $output );
+			$parent_class  = get_parent_class( $parent_class );
+			$parent_remove = method_exists( $parent_class, $method );
+		}
+
+		return array_merge( $parent_meta, $child_meta );
+	}
+
+	/**
 	 * Get type name.
 	 *
 	 * @return string
@@ -222,7 +250,9 @@ class Papi_Core_Type {
 			return;
 		}
 
-		foreach ( call_user_func( [$this, $meta_method] ) as $key => $value ) {
+        $meta = $this->get_meta( $meta_method );
+
+		foreach ( $meta as $key => $value ) {
 			if ( substr( $key, 0, 1 ) === '_' ) {
 				continue;
 			}

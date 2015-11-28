@@ -15,9 +15,7 @@ class FAQ_Extra_Page_Type extends FAQ_Page_Type {
 		return [
 			'name'         => 'FAQ Extra page',
 			'description'  => 'This is a faq extra page',
-			'template'     => 'pages/faq-extra-page.php',
-			'post_type'    => 'faq',
-			'fill_labels'  => true
+			'template'     => 'pages/faq-extra-page.php'
 		];
 	}
 
