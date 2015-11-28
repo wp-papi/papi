@@ -192,7 +192,7 @@ class Papi_Core_Data_Handler {
 		if ( is_array( $value ) ) {
 			foreach ( $value as $k => $v ) {
 				if ( is_string( $v ) ) {
-					$value[ $k ] = $this->santize_data( $v );
+					$value[$k] = $this->santize_data( $v );
 				}
 			}
 		} else if ( is_string( $value ) ) {
