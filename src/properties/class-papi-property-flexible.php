@@ -803,6 +803,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @return bool
 	 */
 	private function valid_layout( $layout ) {
-		return isset( $layout['title'] ) && isset( $layout['items'] );
+		return isset( $layout['title'], $layout['items'] );
 	}
 }
