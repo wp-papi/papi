@@ -3,6 +3,7 @@
 ## [2.4.9](https://github.com/wp-papi/papi/releases/tag/v2.4.9) - 2015-11-30
 
 Fixed: Apostrophe fix did cause a save error when using flexible and repeater.
+Fixed: When using `only_page_type` filter Papi didn't handle this in the page type id function.
 
 ## [2.4.8](https://github.com/wp-papi/papi/releases/tag/v2.4.8) - 2015-11-30
 
