@@ -5,7 +5,6 @@
 Fixed: String issue with `$page` variable in `papi_get_post_type`
 Fixed: Apostrophe issue with added slash, see [issue #126](https://github.com/wp-papi/papi/issues/126).
 
-
 ## [2.4.7](https://github.com/wp-papi/papi/releases/tag/v2.4.7) - 2015-11-12
 
 Fixed: Template did return empty string when no template was found.
