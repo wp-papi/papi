@@ -68,7 +68,7 @@ function papi_get_post_type() {
 
 	$page = papi_get_qs( 'page' );
 
-	if ( strpos( strtolower( $page ), 'papi-add-new-page,' ) !== false ) {
+	if ( is_string( $page ) && strpos( strtolower( $page ), 'papi-add-new-page,' ) !== false ) {
 		$exploded = explode( ',', $page );
 
 		if ( empty( $exploded[1] ) ) {
