@@ -105,9 +105,7 @@ function papi_get_post_type_label( $post_type, $label, $default = '' ) {
 		return $default;
 	}
 
-	$post_type_obj = get_post_type_object( $post_type );
-
-	return $post_type_obj->labels->$label;
+	return get_post_type_object( $post_type )->labels->$label;
 }
 
 /**
