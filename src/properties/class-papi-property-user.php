@@ -80,8 +80,8 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 				$items[$user->display_name] = $user->ID;
 			}
 		}
-		
-		ksort($items);
+
+		ksort( $items );
 		return $items;
 	}
 

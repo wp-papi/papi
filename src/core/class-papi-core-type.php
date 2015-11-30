@@ -146,12 +146,12 @@ class Papi_Core_Type {
 	 * @return array
 	 */
 	private function get_meta( $method ) {
-        $child_meta = call_user_func( [$this, $method] );
+		$child_meta = call_user_func( [$this, $method] );
 		$child_meta = is_array( $child_meta ) ? $child_meta : [];
 
 		$parent_class  = get_parent_class( $this );
 		$parent_remove = method_exists( $parent_class, $method );
-        $parent_meta   = [];
+		$parent_meta   = [];
 
 		while ( $parent_remove ) {
 			$parent        = new $parent_class();
@@ -250,7 +250,7 @@ class Papi_Core_Type {
 			return;
 		}
 
-        $meta = $this->get_meta( $meta_method );
+		$meta = $this->get_meta( $meta_method );
 
 		foreach ( $meta as $key => $value ) {
 			if ( substr( $key, 0, 1 ) === '_' ) {

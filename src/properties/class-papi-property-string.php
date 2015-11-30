@@ -70,7 +70,7 @@ class Papi_Property_String extends Papi_Property {
 			'name'		  => $this->html_name(),
 			'type'		  => $this->input_type,
 			'value'		  => $this->get_value(),
-			'placeholder' => $this->get_setting('placeholder')
+			'placeholder' => $this->get_setting( 'placeholder' )
 		] );
 	}
 }

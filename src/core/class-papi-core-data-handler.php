@@ -45,9 +45,9 @@ class Papi_Core_Data_Handler {
 			if ( $_POST[$key] === 'on' ) {
 				$data[$key] = true;
 			} else {
-                $value = $this->decode_property( $key, $_POST[$key] );
-                $data[$key] = $this->prepare_post_data( $value );
-                $data[$key] = $this->santize_data( $value );
+				$value = $this->decode_property( $key, $_POST[$key] );
+				$data[$key] = $this->prepare_post_data( $value );
+				$data[$key] = $this->santize_data( $value );
 			}
 		}
 
