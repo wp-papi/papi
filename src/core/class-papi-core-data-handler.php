@@ -47,7 +47,7 @@ class Papi_Core_Data_Handler {
 			} else {
                 $value = $this->decode_property( $key, $_POST[$key] );
                 $data[$key] = $this->prepare_post_data( $value );
-                $data[$key] = $this->santize_data( $value );
+                $data[$key] = $this->santize_data( $data[$key] );
 			}
 		}
 
