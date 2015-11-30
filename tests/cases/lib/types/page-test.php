@@ -207,6 +207,69 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		unset( $_GET[$post_parent] );
 
 		$this->assertEmpty( papi_get_page_type_id() );
+
+		tests_add_filter( 'papi/core/load_one_type_on', function ( $post_types ) {
+			$post_types[] = 'duck';
+			return $post_types;
+		} );
+
+		$_GET['post_type'] = 'duck';
+		$this->assertSame( 'duck-page-type', papi_get_page_type_id( 0 ) );
+
+		tests_add_filter( 'papi/core/load_one_type_on', function ( $post_types ) {
+			$post_types[] = 'attachment_test';
+			return $post_types;
+		} );
+
+		$_GET['post_type'] = 'attachment_test';
+		papi()->bind( 'core.page_type.attachment_test', 'others/attachment-type' );
+		$this->assertSame( 'others/attachment-type', papi_get_page_type_id( 0 ) );
+		papi()->remove( 'core.page_type.attachment_test' );
+
+		$_GET['post_type'] = 'duck2';
+
+		tests_add_filter( 'papi/core/load_one_type_on', function ( $post_types ) {
+			$post_types[] = 'duck2';
+			return $post_types;
+		} );
+
+		$this->assertEmpty( papi_get_page_type_id() );
+		unset( $_GET['post_type'] );
+	}
+
+	public function test_papi_get_page_type_id_only_page_type_filter() {
+		$this->assertEmpty( papi_get_page_type_id() );
+
+		$_GET['post'] = $this->factory->post->create( ['post_type' => 'module'] );
+		$_GET['post_type'] = 'module';
+
+		add_filter( 'papi/settings/only_page_type_module', function () {
+			return 'modules/feature-module-type';
+		} );
+
+		$this->assertSame( 'modules/feature-module-type', papi_get_page_type_id() );
+		unset( $_GET['post'] );
+		unset( $_GET['post_type'] );
+	}
+
+	public function test_papi_get_post_types() {
+		$actual = papi_get_post_types();
+
+		foreach ( $actual as $key => $value ) {
+			if ( $value !== 'page' ) {
+				unset( $actual[$key] );
+			}
+		}
+
+		$this->assertSame( ['page'], array_values( $actual ) );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$post_types = papi_get_post_types();
+
+		$this->assertTrue( in_array( 'page', $post_types ) );
 	}
 
 	public function test_papi_get_page_type_key() {
