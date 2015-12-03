@@ -24,4 +24,8 @@ class Papi_Lib_Core_Deprecated_Test extends WP_UnitTestCase {
 		remove_filter( 'deprecated_function_trigger_error', '__return_false' );
 		unset( $_GET, $this->post_id );
 	}
+
+	public function test_deprecated() {
+		$this->assertTrue( true );
+	}
 }
