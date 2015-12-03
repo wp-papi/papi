@@ -114,7 +114,7 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	 * @return bool
 	 */
 	public function singleton() {
-		$key = 'core.content_type.' . $this->get_post_type();
+		$key = sprintf( 'content_type_id.%s', $this->get_post_type() );
 
 		if ( papi()->exists( $key ) ) {
 			return true;

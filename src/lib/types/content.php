@@ -146,7 +146,7 @@ function papi_get_content_type_by_id( $id ) {
 		return;
 	}
 
-	$result     = null;
+	$result        = null;
 	$content_types = papi_get_all_content_types();
 
 	foreach ( $content_types as $content_type ) {
@@ -167,54 +167,15 @@ function papi_get_content_type_by_id( $id ) {
 /**
  * Get content type id.
  *
- * @param  int $post_id
- *
  * @return string
  */
-function papi_get_content_type_id( $post_id = 0 ) {
-	$post_id   = papi_get_post_id( $post_id );
-	$key       = papi_get_page_type_key();
-	$content_type = '';
+function papi_get_content_type_id() {
+	$content_type_id = papi_get_qs( 'content_type' );
 
-	if ( $post_id !== 0 ) {
-		$meta_value = get_post_meta( $post_id, $key, true );
-		$content_type  = empty( $meta_value ) ? '' : $meta_value;
-	}
-
-	if ( empty( $content_type ) ) {
-		$content_type = str_replace( 'papi/', '', papi_get_qs( 'page_type' ) );
-	}
-
-	if ( empty( $content_type ) ) {
-		$content_type = papi_get_sanitized_post( $key );
-	}
-
-	// Load right page type from a post query string
-	if ( empty( $content_type ) ) {
-		$meta_value = get_post_meta( papi_get_parent_post_id(), $key, true );
-		$content_type  = empty( $meta_value ) ? '' : $meta_value;
-	}
-
-	// When using `only_page_type` filter we need to fetch the value since it
-	// maybe not always saved in the database.
-	if ( empty ( $content_type ) ) {
-		$post_type = get_post_type( $post_id );
-
-		if ( is_string( $post_type ) && $content_type = papi_filter_settings_only_page_type( $post_type ) ) {
-			return $content_type;
-		}
-	}
-
-	// Load page type id from the container if it exists or
-	// load it from `papi_get_all_page_types`.
-	if ( empty( $content_type ) ) {
-		$post_type      = papi_get_post_type();
-		$collection_key = 'core.content_type.' . $post_type;
-
-		if ( $post_type === 'attachment' && papi()->exists( $collection_key )  ) {
-			return papi()->make( $collection_key );
-		}
-	}
-
-	return $content_type;
+	/**
+	 * Change content type id.
+	 *
+	 * @param string $content_type_id
+	 */
+	return apply_filters( 'papi/content_type_id', $content_type_id );
 }

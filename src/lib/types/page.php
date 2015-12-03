@@ -15,7 +15,7 @@ function papi_display_page_type( $page_type ) {
 	}
 
 	if ( is_string( $page_type ) ) {
-		$page_type = papi_get_content_type_by_id( $page_type );
+		$page_type = papi_get_page_type_by_id( $page_type );
 	}
 
 	if ( ! is_object( $page_type ) ) {
@@ -64,9 +64,7 @@ function papi_get_all_page_types( $post_type = '' ) {
 		'types' => ['attachment', 'page']
 	] );
 
-	$page_types = array_filter( $content_types, function ( $content_type ) {
-		return papi_is_page_type( $content_type );
-	} );
+	$page_types = array_filter( $content_types, 'papi_is_page_type' );
 
 	if ( is_array( $page_types ) ) {
 		usort( $page_types, function ( $a, $b ) {
@@ -92,7 +90,7 @@ function papi_get_number_of_pages( $page_type ) {
 		return 0;
 	}
 
-	if ( $page_type instanceof Papi_Core_Type ) {
+	if ( papi_is_page_type( $page_type ) ) {
 		$page_type = $page_type->get_id();
 	}
 
@@ -118,14 +116,17 @@ function papi_get_page_type_by_id( $id ) {
 }
 
 /**
- * Get page type id.
+ * Get page type id by post id.
  *
  * @param  int $post_id
  *
  * @return string
  */
 function papi_get_page_type_id( $post_id = 0 ) {
-	return papi_get_content_type_id( $post_id );
+	$meta_value      = get_post_meta( $post_id, papi_get_page_type_key(), true );
+	$content_type_id = empty( $meta_value ) ? '' : $meta_value;
+
+	return empty( $content_type_id ) ? papi_get_content_type_id() : $content_type_id;
 }
 
 /**
@@ -146,7 +147,7 @@ function papi_get_page_type_by_post_id( $post_id = 0 ) {
 		return;
 	}
 
-	if ( $page_type = papi_get_content_type_id( $post_id ) ) {
+	if ( $page_type = papi_get_page_type_id( $post_id ) ) {
 		return papi_get_content_type_by_id( $page_type );
 	}
 }
@@ -294,3 +295,52 @@ function papi_set_page_type_id( $post_id, $page_type ) {
 function the_papi_page_type_name( $post_id = 0 ) {
 	echo papi_get_page_type_name( $post_id );
 }
+
+/**
+ * Load the content type id on a post types.
+ *
+ * @param  string $content_type_id
+ *
+ * @return string
+ */
+add_filter( 'papi/content_type_id', function( $content_type_id ) {
+	$key       = papi_get_page_type_key();
+	$post_id   = papi_get_post_id();
+	$post_type = papi_get_post_type( $post_id );
+
+	// If we have a post id we can load the content type id
+	// from the post.
+	if ( $post_id > 0 ) {
+		$meta_value      = get_post_meta( $post_id, $key, true );
+		$content_type_id = empty( $meta_value ) ? '' : $meta_value;
+	}
+
+	// Try to fetch the content type id from `page_type`
+	// query string.
+	if ( empty( $content_type_id ) ) {
+		$content_type_id = papi_get_qs( 'page_type' );
+	}
+
+	// When using `only_page_type` filter we need to fetch the value since it
+	// maybe not always saved in the database.
+	if ( empty ( $content_type_id ) ) {
+		$content_type_id = papi_filter_settings_only_page_type( $post_type );
+	}
+
+	// Load right content type from the parent post id.
+	if ( empty( $content_type_id ) ) {
+		$meta_value = get_post_meta( papi_get_parent_post_id(), $key, true );
+		$content_type_id = empty( $meta_value ) ? '' : $meta_value;
+	}
+
+	// Load content type id from the container if it exists.
+	if ( empty( $content_type_id ) ) {
+		$key = sprintf( 'content_type_id.%s', $post_type );
+
+		if ( papi()->exists( $key )  ) {
+			return papi()->make( $key );
+		}
+	}
+
+	return $content_type_id;
+} );

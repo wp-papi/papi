@@ -414,13 +414,6 @@ final class Papi_Admin {
 			$content_type_id = papi_get_content_type_id();
 		}
 
-		/**
-		 * Change which content type id is loaded.
-		 *
-		 * @param string $content_type_id
-		 */
-		$content_type_id = apply_filters( 'papi/admin/content_type_id', $content_type_id );
-
 		// If no content type id exists Papi can't setup a content type.
 		if ( empty( $content_type_id ) ) {
 			return false;

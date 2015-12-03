@@ -80,31 +80,9 @@ class Papi_Lib_Types_Content_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_content_type_id() {
-		$this->assertEmpty( papi_get_content_type_id() );
-
-		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
-		} );
-
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
-		$this->assertSame( 'simple-page-type', papi_get_content_type_id( $this->post_id ) );
-
-		$_GET['page_type'] = 'simple-page-type';
+		$_GET['content_type'] = 'simple-page-type';
 		$this->assertSame( 'simple-page-type', papi_get_content_type_id() );
-		unset( $_GET['page_type'] );
-
-		$_POST[PAPI_PAGE_TYPE_KEY] = 'simple-page-type';
-		$this->assertSame( 'simple-page-type', papi_get_content_type_id() );
-		unset( $_POST[PAPI_PAGE_TYPE_KEY] );
-
-		$post_parent = 'post_parent';
-		$_GET[$post_parent] = $this->post_id;
-		$this->assertSame( 'simple-page-type', papi_get_content_type_id() );
-		unset( $_GET[$post_parent] );
-
-		$this->assertEmpty( papi_get_content_type_id() );
-		$this->assertEmpty( papi_get_page_type_id() );
-		unset( $_GET['post_type'] );
+		unset( $_GET['content_type'] );
 
 		$post_id = $this->factory->post->create();
 		$this->assertEmpty( papi_get_content_type_id( $post_id ) );

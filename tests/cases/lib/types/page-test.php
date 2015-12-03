@@ -183,57 +183,44 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$this->assertTrue( is_object( $simple_page_type ) );
 	}
 
-	public function test_papi_get_page_type_id() {
+	public function test_papi_get_page_type_id_meta_value() {
 		$this->assertEmpty( papi_get_page_type_id() );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 		$this->assertSame( 'simple-page-type', papi_get_page_type_id( $this->post_id ) );
+	}
 
+	public function test_papi_get_page_type_id_query_string() {;
 		$_GET['page_type'] = 'simple-page-type';
 		$this->assertSame( 'simple-page-type', papi_get_page_type_id() );
 		unset( $_GET['page_type'] );
+	}
 
-		$_POST[PAPI_PAGE_TYPE_KEY] = 'simple-page-type';
-		$this->assertSame( 'simple-page-type', papi_get_page_type_id() );
-		unset( $_POST[PAPI_PAGE_TYPE_KEY] );
+	public function test_papi_get_page_type_id_post_parent() {
+		$post_id = $this->factory->post->create();
 
-		$post_parent = 'post_parent';
-		$_GET[$post_parent] = $this->post_id;
-		$this->assertSame( 'simple-page-type', papi_get_page_type_id() );
-		unset( $_GET[$post_parent] );
-
-		$this->assertEmpty( papi_get_page_type_id() );
-
-		tests_add_filter( 'papi/core/load_one_type_on', function ( $post_types ) {
-			$post_types[] = 'duck';
-			return $post_types;
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$_GET['post_type'] = 'duck';
-		$this->assertSame( 'duck-page-type', papi_get_page_type_id( 0 ) );
+		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
 
-		tests_add_filter( 'papi/core/load_one_type_on', function ( $post_types ) {
-			$post_types[] = 'attachment_test';
-			return $post_types;
-		} );
+		$this->assertSame( 'simple-page-type', papi_get_page_type_id( $post_id ) );
 
+		$_GET['post_parent'] = $post_id;
+		$this->assertSame( 'simple-page-type', papi_get_page_type_id() );
+		unset( $_GET['post_parent'] );
+	}
+
+	public function test_papi_get_page_type_id_container() {
 		$_GET['post_type'] = 'attachment_test';
-		papi()->bind( 'core.page_type.attachment_test', 'others/attachment-type' );
+		papi()->bind( 'content_type_id.attachment_test', 'others/attachment-type' );
 		$this->assertSame( 'others/attachment-type', papi_get_page_type_id( 0 ) );
-		papi()->remove( 'core.page_type.attachment_test' );
-
-		$_GET['post_type'] = 'duck2';
-
-		tests_add_filter( 'papi/core/load_one_type_on', function ( $post_types ) {
-			$post_types[] = 'duck2';
-			return $post_types;
-		} );
-
-		$this->assertEmpty( papi_get_page_type_id() );
+		papi()->remove( 'content_type_id.attachment_test' );
 		unset( $_GET['post_type'] );
 	}
 
