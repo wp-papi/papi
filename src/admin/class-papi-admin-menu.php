@@ -112,7 +112,7 @@ final class Papi_Admin_Menu {
 				$edit_url = 'edit.php?post_type=' . $post_type;
 			}
 
-			if ( ! isset( $submenu[$edit_url] ) || ! isset( $submenu[$edit_url][10] ) || ! isset( $submenu[$edit_url][10][2] ) ) {
+			if ( ! isset( $submenu[$edit_url], $submenu[$edit_url][10], $submenu[$edit_url][10][2] ) ) {
 				$post_type_object = get_post_type_object( $post_type );
 				if ( ! $post_type_object->show_in_menu ) {
 					$submenu[$edit_url] = [

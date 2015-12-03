@@ -83,7 +83,7 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 				if ( $file_or_options[0]->sidebar === false && $file_or_options[0]->required ) {
 					$options['_required'] = true;
 				}
-			} else if ( isset( $file_or_options[0]->options ) && isset( $file_or_options[0]->options['title'] ) ) {
+			} else if ( isset( $file_or_options[0]->options, $file_or_options[0]->options['title'] ) ) {
 				$options['title'] = $file_or_options[0]->options['title'];
 			} else {
 				$options['title'] = '';

@@ -184,8 +184,8 @@ class Papi_Property_Relationship extends Papi_Property {
 		if ( is_array( $settings->items ) && ! empty( $settings->items ) ) {
 			$mapping = function ( $item ) {
 				return is_array( $item ) ?
-					isset( $item['id'] ) && isset( $item['title'] ) :
-					isset( $item->id ) && isset( $item->title );
+					isset( $item['id'], $item['title'] ) :
+					isset( $item->id, $item->title );
 			};
 
 			return array_map(

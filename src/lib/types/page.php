@@ -204,7 +204,7 @@ function papi_get_page_type_template( $post_id = 0 ) {
 
 	$data = papi_get_page_type_by_post_id( $post_id );
 
-	if ( isset( $data ) && isset( $data->template ) ) {
+	if ( isset( $data, $data->template ) ) {
 		$template  = $data->template;
 		$extension = '.php';
 		$ext_reg   = '/(' . $extension . ')+$/';

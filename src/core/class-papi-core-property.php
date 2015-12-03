@@ -691,7 +691,7 @@ class Papi_Core_Property {
 	 * @param mixed  $value
 	 */
 	public function set_setting( $key, $value ) {
-		if ( isset( $this->options->settings ) && isset( $this->options->settings->$key ) ) {
+		if ( isset( $this->options->settings, $this->options->settings->$key ) ) {
 			$this->options->settings->$key = $value;
 		}
 	}
