@@ -61,8 +61,15 @@ class Flexible extends Repeater {
         });
         return ui;
       },
-      stop: function () {
+      start: function (e, ui) {
+        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) { return elem.id; });
+        self.deactivateEditors(editorIds);
+      },
+      stop: function (e, ui) {
         self.updateRowNumber($(this).closest('.repeater-tbody'));
+
+        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) { return elem.id; });
+        self.activateEditors(editorIds);
       }
     });
 
@@ -95,6 +102,7 @@ class Flexible extends Repeater {
    *
    * @param {array} properties
    * @param {int} counter
+   * @param {string} flexibleLayout
    * @param {function} callback
    */
   fetch(properties, counter, flexibleLayout, callback) {
@@ -117,7 +125,7 @@ class Flexible extends Repeater {
   /**
    * Remove item from the flexible repeater.
    *
-   * @param {object} e
+   * @param {object} $this
    */
   remove($this) {
     const $tbody = $this.closest('.papi-property-flexible').find('.repeater-tbody');
@@ -128,7 +136,7 @@ class Flexible extends Repeater {
   /**
    * Update database row number.
    *
-   * @param {object} $el
+   * @param {object} $tbody
    */
   updateDatabaseRowNumber($tbody) {
     let counter = $tbody.find('tr tbody tr').length;
