@@ -480,9 +480,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$layouts = $this->get_settings_layouts();
 
 		if ( defined( 'DOING_PAPI_AJAX' ) && DOING_PAPI_AJAX ) {
-			$counter = papi_get_qs( 'counter' );
-			$this->counter  = intval( $counter );
+			$counter         = papi_get_qs( 'counter' );
+			$this->counter   = intval( $counter );
 			$flexible_layout = papi_get_qs( 'flexible_layout' );
+
 			foreach ( $layouts as $layout ) {
 				if ( $layout['slug'] === $flexible_layout ) {
 					$items = $layout;
