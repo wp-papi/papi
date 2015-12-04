@@ -270,40 +270,13 @@ function papi_is_page_type( $obj ) {
 }
 
 /**
- * Set page type to a post.
- *
- * @param  mixed $post_id
- * @param  string $page_type
- *
- * @return bool
- */
-function papi_set_page_type_id( $post_id, $page_type ) {
-	return papi_content_type_exists( $page_type ) && update_post_meta(
-		papi_get_post_id( $post_id ),
-		papi_get_page_type_key(),
-		$page_type
-	);
-}
-
-/**
- * Echo the Page type name.
- *
- * @param  int $post_id
- *
- * @return string
- */
-function the_papi_page_type_name( $post_id = 0 ) {
-	echo papi_get_page_type_name( $post_id );
-}
-
-/**
  * Load the content type id on a post types.
  *
  * @param  string $content_type_id
  *
  * @return string
  */
-add_filter( 'papi/content_type_id', function( $content_type_id ) {
+function papi_load_page_type_id( $content_type_id = '' ) {
 	$key       = papi_get_page_type_key();
 	$post_id   = papi_get_post_id();
 	$post_type = papi_get_post_type( $post_id );
@@ -343,4 +316,38 @@ add_filter( 'papi/content_type_id', function( $content_type_id ) {
 	}
 
 	return $content_type_id;
-} );
+}
+
+/**
+ * Load the content type id on a post types.
+ *
+ * @return string
+ */
+add_filter( 'papi/content_type_id', 'papi_load_page_type_id' );
+
+/**
+ * Set page type to a post.
+ *
+ * @param  mixed $post_id
+ * @param  string $page_type
+ *
+ * @return bool
+ */
+function papi_set_page_type_id( $post_id, $page_type ) {
+	return papi_content_type_exists( $page_type ) && update_post_meta(
+		papi_get_post_id( $post_id ),
+		papi_get_page_type_key(),
+		$page_type
+	);
+}
+
+/**
+ * Echo the Page type name.
+ *
+ * @param  int $post_id
+ *
+ * @return string
+ */
+function the_papi_page_type_name( $post_id = 0 ) {
+	echo papi_get_page_type_name( $post_id );
+}
