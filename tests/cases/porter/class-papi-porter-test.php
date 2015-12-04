@@ -59,7 +59,7 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 
 	public function test_export() {
 		$post_id = $this->factory->post->create();
-		update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
+		update_post_meta( $post_id, papi_get_page_type_key(), 'properties-page-type' );
 
 		$this->assertEmpty( $this->porter->export( 0 ) );
 		$output = $this->porter->export( $post_id );
@@ -97,7 +97,7 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 		] );
 
 		$post_id = $this->factory->post->create();
-		update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
+		update_post_meta( $post_id, papi_get_page_type_key(), 'properties-page-type' );
 
 		$output  = $this->porter->import( $post_id, [
 			'bool_test' => true
@@ -153,7 +153,7 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 			'update_arrays' => true
 		] ) );
 
-		update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
+		update_post_meta( $post_id, papi_get_page_type_key(), 'properties-page-type' );
 
 		$output = $this->porter->import( $post_id, [
 			'fake_slug' => true,
@@ -194,7 +194,7 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 		}
 
 		$post_id = $this->factory->post->create();
-		update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
+		update_post_meta( $post_id, papi_get_page_type_key(), 'properties-page-type' );
 
 		if ( ! $this->porter->driver_exists( 'core2' ) ) {
 			$this->assertSame( $this->porter, $this->porter->add_driver(
@@ -210,7 +210,7 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 		$this->assertTrue( papi_get_field( $post_id, 'bool_test' ) );
 
 		$post_id = $this->factory->post->create();
-		update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
+		update_post_meta( $post_id, papi_get_page_type_key(), 'properties-page-type' );
 
 		$output = $this->porter->driver( 'papi' )->import( $post_id, [
 			'bool_test' => true

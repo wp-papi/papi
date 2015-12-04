@@ -18,7 +18,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		$_GET = [];
 		$_GET['post'] = $this->post_id;
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'properties-page-type' );
 
 		$this->page_type       = papi_get_page_type_by_id( 'properties-page-type' );
 		$this->extra_page_type = papi_get_page_type_by_id( 'extra-page-type' );
@@ -271,7 +271,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		], $_POST );
 
 		$_GET['post'] = $post_id;
-		update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'extra-page-type' );
+		update_post_meta( $post_id, papi_get_page_type_key(), 'extra-page-type' );
 		$this->handler->save_properties( $post_id );
 
 		$value = papi_get_field( $post_id, $property->slug );

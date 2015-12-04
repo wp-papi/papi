@@ -172,7 +172,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$admin->manage_page_type_posts_custom_column( 'page_type', $this->post_id );
 		$this->expectOutputRegex( '/Standard Page/' );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 		$admin->manage_page_type_posts_custom_column( 'page_type', $this->post_id );
 		$this->expectOutputRegex( '/Simple page/' );
 
@@ -186,7 +186,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	public function test_manage_page_type_posts_custom_column_hide_filter() {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin;
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 		tests_add_filter( 'papi/settings/column_hide_page', '__return_true' );
 
 		$admin->manage_page_type_posts_custom_column( 'page_type', $this->post_id );
@@ -208,7 +208,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$_GET['page_type'] = 'simple-page-type';
 		$query = $this->admin->pre_get_posts( new WP_Query() );
 		$this->assertSame( [
-			'meta_key'   => PAPI_PAGE_TYPE_KEY,
+			'meta_key'   => papi_get_page_type_key(),
 			'meta_value' => 'simple-page-type'
 		], $query->query_vars );
 
@@ -216,7 +216,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$query = $this->admin->pre_get_posts( new WP_Query() );
 		$this->assertSame( [
 			[
-				'key'     => PAPI_PAGE_TYPE_KEY,
+				'key'     => papi_get_page_type_key(),
 				'compare' => 'NOT EXISTS'
 			]
 		], $query->query_vars['meta_query'] );
@@ -331,7 +331,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		$post3 = [
 			'ID'   => $this->post_id,

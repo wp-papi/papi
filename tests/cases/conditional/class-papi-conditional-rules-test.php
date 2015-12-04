@@ -14,7 +14,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 		$_GET = [];
 		$_GET['post'] = $this->post_id;
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'rule-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'rule-page-type' );
 	}
 
 	public function tearDown() {

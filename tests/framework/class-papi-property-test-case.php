@@ -16,7 +16,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		$_GET = [];
 		$_GET['post'] = $this->post_id;
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'properties-page-type' );
 
 		$this->page_type = papi_get_content_type_by_id( 'properties-page-type' );
 

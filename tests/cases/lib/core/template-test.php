@@ -23,10 +23,10 @@ class Papi_Lib_Core_Template_Test extends WP_UnitTestCase {
 		$this->go_to( get_permalink( $this->post_id ) );
 		$this->assertEmpty( papi_body_class( [] ) );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, '/' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), '/' );
 		$this->assertEmpty( papi_body_class( [] ) );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 		$this->assertSame( [ 'simple-page-type' ], papi_body_class( [] ) );
 	}
 
@@ -86,10 +86,10 @@ class Papi_Lib_Core_Template_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 		$this->assertEmpty( apply_filters( 'template_include', '' ) );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'twenty-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'twenty-page-type' );
 		$this->flush_cache();
 
 		$path = get_template_directory();

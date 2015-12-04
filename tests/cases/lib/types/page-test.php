@@ -103,7 +103,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		$this->assertTrue( is_object( papi_get_page_type_by_post_id( $this->post_id ) ) );
 
@@ -125,7 +125,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 		$this->flush_cache();
 		$this->assertSame( 1, papi_get_number_of_pages( 'simple-page-type' ) );
 
@@ -143,7 +143,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		$this->flush_cache();
 		$actual = papi_get_page_type_template( $this->post_id );
@@ -153,13 +153,13 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$this->assertSame( 'pages/simple-page.php', papi_get_page_type_template() );
 		unset( $_GET['page_id'] );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'dot-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'dot-page-type' );
 
 		$this->flush_cache();
 		$actual = papi_get_page_type_template( $this->post_id );
 		$this->assertSame( 'pages/dot.php', $actual );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'dot2-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'dot2-page-type' );
 
 		$this->flush_cache();
 		$actual = papi_get_page_type_template( $this->post_id );
@@ -272,7 +272,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		global $post;
 		$post = get_post( $this->post_id );
@@ -292,17 +292,17 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 		$actual = papi_get_slugs( $this->post_id );
 
 		$this->assertTrue( ! empty( $actual ) );
 		$this->assertTrue( is_array( $actual ) );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, '' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), '' );
 		$this->flush_cache();
 		$this->assertEmpty( papi_get_slugs() );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'empty-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'empty-page-type' );
 		$this->flush_cache();
 		$this->assertEmpty( papi_get_slugs() );
 	}
@@ -346,7 +346,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		global $post;
 		$post = get_post( $this->post_id );
@@ -357,11 +357,11 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		the_papi_page_type_name( $this->post_id );
 		$this->expectOutputRegex( '/Simple\spage/' );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, '' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), '' );
 		the_papi_page_type_name();
 		$this->expectOutputRegex( '//' );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'random322-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'random322-page-type' );
 		the_papi_page_type_name();
 		$this->expectOutputRegex( '//' );
 	}

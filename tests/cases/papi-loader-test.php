@@ -20,7 +20,6 @@ class Papi_Loader_Test extends WP_UnitTestCase {
 		$this->assertTrue( defined( 'PAPI_PLUGIN_DIR' ) );
 		$this->assertTrue( defined( 'PAPI_PLUGIN_URL' ) );
 		$this->assertTrue( defined( 'PAPI_PAGE_TYPE_KEY' ) );
-		$this->assertSame( '_papi_page_type', PAPI_PAGE_TYPE_KEY );
 	}
 
 	public function test_instance() {

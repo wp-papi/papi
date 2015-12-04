@@ -13,7 +13,7 @@ class Papi_Lib_Fields_Page_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 	}
 
 	public function tearDown() {

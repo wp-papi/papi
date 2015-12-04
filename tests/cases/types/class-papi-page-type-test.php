@@ -16,7 +16,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'empty-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'empty-page-type' );
 		$this->empty_page_type  = new Papi_Page_Type();
 
 		$this->faq_page_type        = papi_get_page_type_by_id( 'faq-page-type' );

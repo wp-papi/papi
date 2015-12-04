@@ -137,7 +137,7 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 		$post_id = $this->factory->post->create();
 		$_GET['post'] = $post_id;
 
-		update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		$result = $this->conditional->display( [
 			[
@@ -194,7 +194,7 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 		$post_id = $this->factory->post->create();
 		$_GET['post'] = $post_id;
 
-		update_post_meta( $post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		$simple_page_type  = papi_get_page_type_by_id( 'simple-page-type' );
 		$sections_prop     = $simple_page_type->get_property( 'sections' );

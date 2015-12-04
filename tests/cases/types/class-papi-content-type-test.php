@@ -14,7 +14,7 @@ class Papi_Content_Type_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'empty-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'empty-page-type' );
 
 		$this->empty_content_type  = new Papi_Content_Type();
 		$this->info_content_type = papi_get_content_type( PAPI_FIXTURE_DIR . '/content-types/info-content-type.php' );

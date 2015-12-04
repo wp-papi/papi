@@ -22,7 +22,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_converter() {
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'properties-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'properties-page-type' );
 
 		$page_type = papi_get_page_type_by_id( 'properties-page-type' );
 		$flexible  = $page_type->get_property( 'flexible_test_other' );
@@ -396,7 +396,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 
 		$this->assertSame( 'hello value', $property->get_value() );
 
-		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
 		$property  = $page_type->get_property( 'name_default' );
