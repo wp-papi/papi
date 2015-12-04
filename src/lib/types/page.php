@@ -334,11 +334,11 @@ add_filter( 'papi/content_type_id', 'papi_load_page_type_id' );
  * @return bool
  */
 function papi_set_page_type_id( $post_id, $page_type ) {
-	return papi_content_type_exists( $page_type ) && update_post_meta(
-		papi_get_post_id( $post_id ),
-		papi_get_page_type_key(),
-		$page_type
-	);
+	if ( papi_content_type_exists( $page_type ) ) {
+		return update_post_meta( papi_get_post_id( $post_id ), papi_get_page_type_key(), $page_type );
+	}
+
+	return false;
 }
 
 /**
