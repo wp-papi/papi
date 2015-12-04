@@ -416,10 +416,6 @@ function papi_get_post_types() {
 		);
 	}
 
-	if ( empty( $post_types ) ) {
-		return ['page'];
-	}
-
 	return array_unique( $post_types );
 }
 

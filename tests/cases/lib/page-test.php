@@ -284,7 +284,7 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 			}
 		}
 
-		$this->assertSame( ['page'], array_values( $actual ) );
+		$this->assertEmpty( array_values( $actual ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
