@@ -2,7 +2,7 @@
 
 class Media_Attachment_Type extends Papi_Attachment_Type {
 
-	public function page_type() {
+	public function meta() {
 		return [
 			'name' => 'Media'
 		];

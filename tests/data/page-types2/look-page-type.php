@@ -7,7 +7,7 @@ class Look_Module_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-	public function page_type() {
+	public function meta() {
 		return [
 			'name'        => 'Look page',
 			'description' => 'This is a look page',

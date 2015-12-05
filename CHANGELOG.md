@@ -55,6 +55,7 @@ With 2.5.0 you can now extend page types and add properties in the extended page
 * Removed deprecated function `papi_field`, was deprecated in 2.0.0.
 * Removed deprecated function `papi_fields`, was deprecated in 2.0.0.
 * Removed deprecated function `papi_get_page_type_meta_value`, was deprecated in 2.0.0.
+* Removed deprecated meta methods, `page_type` and `option_type`, `meta` method should be used instead.
 
 ## [2.4.7](https://github.com/wp-papi/papi/releases/tag/v2.4.7) - 2015-11-12
 

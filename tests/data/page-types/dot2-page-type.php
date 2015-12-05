@@ -7,7 +7,7 @@ class Dot2_Page_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-	public function page_type() {
+	public function meta() {
 		return [
 			'name'         => 'Dot2 page',
 			'description'  => 'This is a dot2 page',

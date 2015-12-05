@@ -7,7 +7,7 @@ class Tab_Page_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-	public function page_type() {
+	public function meta() {
 		return [
 			'name'        => 'Tab page',
 			'description' => 'This is a tab page',

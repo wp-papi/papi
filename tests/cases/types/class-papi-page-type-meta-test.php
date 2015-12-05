@@ -28,12 +28,6 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 		);
 	}
 
-	public function test_meta_method() {
-		$this->assertSame( 'page_type', $this->simple_page_type->_meta_method );
-		$this->assertSame( 'page_type', $this->empty_page_type->_meta_method );
-		$this->assertSame( 'page_type', $this->faq_page_type->_meta_method );
-	}
-
 	public function test_current_user_is_allowed() {
 		$this->assertTrue( $this->simple_page_type->current_user_is_allowed() );
 		$this->assertTrue( $this->empty_page_type->current_user_is_allowed() );

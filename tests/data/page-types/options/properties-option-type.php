@@ -2,7 +2,7 @@
 
 class Properties_Option_Type extends Papi_Option_Type {
 
-	public function option_type() {
+	public function meta() {
 		return [
 			'name' => 'Properties',
 			'menu' => 'options-general.php'

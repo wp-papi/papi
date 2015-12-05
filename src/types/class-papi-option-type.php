@@ -8,13 +8,6 @@
 class Papi_Option_Type extends Papi_content_type {
 
 	/**
-	 * The method name to use instead of `meta`.
-	 *
-	 * @var string
-	 */
-	public $_meta_method = 'option_type';
-
-	/**
 	 * Capability.
 	 *
 	 * @var array

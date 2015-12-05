@@ -7,7 +7,7 @@ class No_Page_Type extends Papi_Page_Type_Meta {
 	 *
 	 * @return array
 	 */
-	public function page_type() {
+	public function meta() {
 		return [
 			'name'        => 'No page',
 			'description' => 'This is a no page',

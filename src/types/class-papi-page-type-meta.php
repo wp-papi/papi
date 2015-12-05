@@ -7,13 +7,6 @@
 class Papi_Page_Type_Meta extends Papi_content_type {
 
 	/**
-	 * The meta method to call.
-	 *
-	 * @var string
-	 */
-	public $_meta_method = 'page_type';
-
-	/**
 	 * Capabilities list.
 	 *
 	 * @var array

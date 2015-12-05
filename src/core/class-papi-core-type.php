@@ -6,25 +6,6 @@
 class Papi_Core_Type {
 
 	/**
-	 * The core meta method that can be used
-	 * instead of `$_meta_method`. If `$_meta_method` is
-	 * used the `$_core_meta_method` will not be used.
-	 *
-	 * @var string
-	 */
-	private $_core_meta_method = 'meta';
-
-	/**
-	 * The meta method to call.
-	 *
-	 * @deprecated This will be removed in feature version
-	 * and should not be used with new types.
-	 *
-	 * @var string
-	 */
-	public $_meta_method = 'meta';
-
-	/**
 	 * The page type class name.
 	 *
 	 * @var string
@@ -243,8 +224,7 @@ class Papi_Core_Type {
 	 * Setup page type meta data.
 	 */
 	private function setup_meta_data() {
-		$meta_method = method_exists( $this->_class_name, $this->_meta_method ) ?
-			$this->_meta_method : $this->_core_meta_method;
+		$meta_method = 'meta';
 
 		if ( ! method_exists( $this, $meta_method ) ) {
 			return;

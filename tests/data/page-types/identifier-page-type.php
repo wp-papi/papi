@@ -7,7 +7,7 @@ class Identifier_Page_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-	public function page_type() {
+	public function meta() {
 		return [
 			'id'          => 'custom-page-type-id',
 			'name'        => 'Identifier page',

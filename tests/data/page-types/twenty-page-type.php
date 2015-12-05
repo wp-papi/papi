@@ -7,7 +7,7 @@ class Twenty_Page_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-	public function page_type() {
+	public function meta() {
 		return [
 			'name'        => 'Twenty page',
 			'description' => 'This is a twenty page',

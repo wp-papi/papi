@@ -7,7 +7,7 @@ class Top_Module_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-	public function page_type() {
+	public function meta() {
 		return [
 			'name'        => 'Top module',
 			'post_type'   => 'module',

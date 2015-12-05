@@ -7,7 +7,7 @@ class Properties_Page_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-	public function page_type() {
+	public function meta() {
 		return [
 			'name'        => 'Properties page type',
 			'description' => 'This is a properties page',

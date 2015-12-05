@@ -42,10 +42,6 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		);
 	}
 
-	public function test_meta_method() {
-		$this->assertSame( 'page_type', $this->empty_page_type->_meta_method );
-	}
-
 	public function test_display() {
 		$this->assertTrue( $this->properties_page_type->display( 'post' ) );
 		$this->assertFalse( $this->flex_page_type->display( 'post' ) );

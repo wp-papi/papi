@@ -7,7 +7,7 @@ class Book_Core_Type extends Papi_Core_Type {
 	 *
 	 * @return array
 	 */
-	public function page_type() {
+	public function meta() {
 		return [
 			'name' => 'Book core type'
 		];

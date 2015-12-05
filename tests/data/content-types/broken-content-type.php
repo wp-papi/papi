@@ -7,7 +7,7 @@ class Book_Content_Type extends Papi_Content_Type {
 	 *
 	 * @return array
 	 */
-	public function page_type() {
+	public function meta2() {
 		return [
 			'name' => 'Book content type'
 		];

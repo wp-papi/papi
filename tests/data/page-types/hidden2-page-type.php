@@ -7,7 +7,7 @@ class Hidden2_Page_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-	public function page_type() {
+	public function meta() {
 		return [
 			'name'          => 'Hidden2 page',
 			'description'   => 'This is a hidden2 page',

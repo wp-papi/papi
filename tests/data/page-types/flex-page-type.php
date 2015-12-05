@@ -2,7 +2,7 @@
 
 class Flex_Page_Type extends Papi_Page_Type {
 
-	public function page_type() {
+	public function meta() {
 		return [
 			'description' => 'Vel adipisicing dapibus nostra. Lectus malesuada volutpat aliquet',
 			'fill_labels' => true,

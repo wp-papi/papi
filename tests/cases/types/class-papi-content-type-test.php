@@ -29,11 +29,6 @@ class Papi_Content_Type_Test extends WP_UnitTestCase {
 		);
 	}
 
-	public function test_meta_method() {
-		$this->assertSame( 'meta', $this->empty_content_type->_meta_method );
-		$this->assertSame( 'meta', $this->info_content_type->_meta_method );
-	}
-
 	public function test_broken_page_type() {
 		$this->assertNull( papi_get_content_type_by_id( 'broken-content-type' ) );
 	}

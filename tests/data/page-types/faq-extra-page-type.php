@@ -11,7 +11,7 @@ class FAQ_Extra_Page_Type extends FAQ_Page_Type {
 	 *
 	 * @return array
 	 */
-	public function page_type() {
+	public function meta() {
 		return [
 			'name'         => 'FAQ Extra page',
 			'description'  => 'This is a faq extra page',

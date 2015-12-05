@@ -7,7 +7,7 @@ class Display_Not_Page_Type extends Papi_Page_Type {
 	 *
 	 * @return array
 	 */
-	public function page_type() {
+	public function meta() {
 		return [
 			'name'         => 'Display not page',
 			'description'  => 'This is a display not page',

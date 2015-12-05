@@ -75,11 +75,6 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 'string', $children2[0]->type );
 	}
 
-	public function test_meta_method() {
-		$this->assertSame( 'option_type', $this->header_option_type->_meta_method );
-		$this->assertSame( 'option_type', $this->empty_option_type->_meta_method );
-	}
-
 	public function test_meta_info() {
 		$this->assertEmpty( $this->empty_option_type->name );
 		$this->assertEmpty( $this->empty_option_type->menu );
