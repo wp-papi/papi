@@ -53,14 +53,16 @@ function papi_get_parent_post_id() {
 /**
  * Get WordPress post type in various ways
  *
+ * @param  int $post_id
+ *
  * @return string
  */
-function papi_get_post_type() {
+function papi_get_post_type( $post_id = null ) {
 	if ( $post_type = papi_get_or_post( 'post_type' ) ) {
 		return $post_type;
 	}
 
-	$post_id = papi_get_post_id();
+	$post_id = papi_get_post_id( $post_id );
 
 	if ( $post_id !== 0 ) {
 		return strtolower( get_post_type( $post_id ) );
