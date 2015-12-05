@@ -122,11 +122,15 @@ class Papi_Core_Type {
 	 * Get meta data from type class and merge
 	 * with the parent meta data.
 	 *
-	 * @param  string $method
-	 *
 	 * @return array
 	 */
-	private function get_meta( $method ) {
+	private function get_meta() {
+		$method = 'meta';
+
+		if ( ! method_exists( $this, $method ) ) {
+			return [];
+		}
+
 		$child_meta = call_user_func( [$this, $method] );
 		$child_meta = is_array( $child_meta ) ? $child_meta : [];
 
@@ -224,15 +228,7 @@ class Papi_Core_Type {
 	 * Setup page type meta data.
 	 */
 	private function setup_meta_data() {
-		$meta_method = 'meta';
-
-		if ( ! method_exists( $this, $meta_method ) ) {
-			return;
-		}
-
-		$meta = $this->get_meta( $meta_method );
-
-		foreach ( $meta as $key => $value ) {
+		foreach ( $this->get_meta() as $key => $value ) {
 			if ( substr( $key, 0, 1 ) === '_' ) {
 				continue;
 			}
