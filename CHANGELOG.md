@@ -45,6 +45,10 @@ With 2.5.0 you can now extend page types and add properties in the extended page
 * Added: Description to option type meta data.
 * Added: `papi/settings/column_hide_{$post_type}` for hiding type column.
 
+## Changed
+
+* Flexible property will only save one layout per row. The layout key is changed from `_layout` to `__flexible_layout` since `_layout` can be a real slug. It has backward compatibility for the old layout key. This may cause problem with existing slugs that are named `layout`. To fix default value issue you need to manually add the layout value for the effected row. The slug will be something like this: `sections_0__flexible_layout`, where `sections` is your flexible slug, `0` is the row and `__flexible_layout` is the new layout key. The value should be a slug of the layout title, the same value as the old `_layout` rows that exists on each property.
+
 ### Fixed
 
 ### Removed
