@@ -39,14 +39,14 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @var string
 	 */
-	protected $layout_key = '_layout';
+	protected $layout_key = '__flexible_layout';
 
 	/**
-	 * Layout prefix regex.
+	 * Layout value regex.
 	 *
 	 * @var string
 	 */
-	private $layout_prefix_regex = '/^\_flexible\_layout\_/';
+	private $layout_value_regex = '/^\_flexible\_layout\_/';
 
 	/**
 	 * Delete value from the database.
@@ -88,7 +88,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 		foreach ( $values as $index => $layout ) {
 			foreach ( $layout as $slug => $value ) {
-				if ( is_string( $value ) && preg_match( $this->layout_prefix_regex, $value ) ) {
+				if ( is_string( $value ) && preg_match( $this->layout_value_regex, $value ) ) {
 					if ( isset( $values[$index][$this->layout_key] ) ) {
 						unset( $values[$index][$slug] );
 						continue;
@@ -157,12 +157,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		if ( ! is_admin() ) {
 			foreach ( $values as $index => $row ) {
 				foreach ( $row as $slug => $value ) {
-					if ( is_string( $value ) && preg_match( $this->layout_prefix_regex, $value ) ) {
-						$values[$index][$slug] = preg_replace(
-							$this->layout_prefix_regex,
-							'',
-							$value
-						);
+					if ( is_string( $value ) && preg_match( $this->layout_value_regex, $value ) ) {
+						unset( $values[$index][$slug] );
+						$values[$index]['_layout'] = preg_replace( $this->layout_value_regex, '', $value );
 					}
 
 					if ( papi_is_property_type_key( $slug ) ) {
@@ -294,7 +291,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				}
 
 				// Do not deal with layout meta object here since the property meta object will deal with it later.
-				if ( is_string( $meta->meta_value ) && preg_match( $this->layout_prefix_regex, $meta->meta_value ) ) {
+				if ( is_string( $meta->meta_value ) && preg_match( $this->layout_value_regex, $meta->meta_value ) ) {
 					if ( ! isset( $values[$slug] ) ) {
 						$values[$slug] = $meta->meta_value;
 					}
@@ -338,9 +335,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 		}
 
-		$dblayouts = [];
-
 		// Fetch one layout per row.
+		// Since 3.0.0 this is backward compatibility.
+		$dblayouts = [];
 		foreach ( array_keys( $values ) as $slug ) {
 			if ( $this->is_layout_key( $slug ) ) {
 				$num = str_replace( $repeater_slug . '_', '', $slug );
@@ -358,7 +355,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		// Add empty rows that isn't saved to database.
 		for ( $i = 0; $i < $value; $i++ ) {
 			foreach ( $layouts as $layout ) {
-				if ( isset( $layout['slug'] ) && in_array( $i . $layout['slug'], $dblayouts ) ) {
+				$layout_slug = sprintf( '%s_%d%s', $this->get_slug( true ), $i, $this->layout_key );
+
+				// Since 3.0.0 the `$dblayouts` check is only for backward compatibility.
+				if ( isset( $layout['slug'] ) && ( isset( $values[$layout_slug] ) || in_array( $i . $layout['slug'], $dblayouts ) ) ) {
 					foreach ( $layout['items'] as $prop ) {
 						$slug = sprintf( '%s_%d_%s', $repeater_slug, $i, papi_remove_papi( $prop->slug ) );
 
@@ -533,12 +533,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @param string $slug
 	 * @param string $value
 	 */
-	protected function render_layout_input( $slug, $value ) {
-		// Creating a fake hidden property to generate right slug.
-		$slug = $this->html_name( papi_property( [
-			'type' => 'hidden',
-			'slug' => $slug . $this->layout_key
-		] ), $this->counter );
+	protected function render_layout_input( $value ) {
+		$slug = sprintf( '%s[%d][%s]', $this->get_slug(), $this->counter, $this->layout_key );
 		?>
 		<input type="hidden" name="<?php echo $slug; ?>" value="<?php echo $value; ?>" />
 		<?php
@@ -552,9 +548,16 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 	protected function render_properties( $row, $value ) {
 		$has_value     = $value !== false;
-		$layout_slug   = isset( $row['slug'] ) ? $row['slug'] : $value['_layout'];
 		$render_layout = $this->get_setting( 'layout' );
 		$row           = isset( $row['items'] ) ? $row['items'] : $row;
+
+		// Fetch layout slug from the row, the old database slug or the new database slug.
+		$layout_slug   = isset( $row['slug'] ) ? $row['slug'] : false;
+		$layout_value  = empty( $layout_slug ) && isset( $value['_layout'] ) ? $value[$this->layout_key] : false;
+		$layout_value  = empty( $layout_value ) && isset( $value[$this->layout_key] ) ? $value[$this->layout_key] : false;
+
+		// Render one hidden input for layout value.
+		$this->render_layout_input( $layout_value );
 		?>
 			<td class="repeater-column flexible-column <?php echo $render_layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
 				<div class="repeater-content-open">
@@ -615,14 +618,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 							if ( $render_layout === 'table' ) {
 								echo '<td class="' . ( $row[$i]->display() ? '' : 'papi-hide' ) . '">';
 							}
-
-							$layout_value = isset( $layout_slug ) ?
-								$layout_slug : $value[$this->layout_key];
-
-							$this->render_layout_input(
-								$value_slug,
-								$layout_value
-							);
 
 							papi_render_property( $render_property );
 
