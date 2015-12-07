@@ -22,7 +22,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->faq_page_type        = papi_get_page_type_by_id( 'faq-page-type' );
 		$this->faq_extra_page_type  = papi_get_page_type_by_id( 'faq-extra-page-type' );
 		$this->faq_extra2_page_type = papi_get_page_type_by_id( 'faq-extra2-page-type' );
-		$this->flex_page_type       = papi_get_page_type_by_id( 'flex-page-type' );
+		$this->flex_page_type       = papi_get_page_type_by_id( 'flex2-page-type' );
 		$this->simple_page_type     = papi_get_page_type_by_id( 'simple-page-type' );
 		$this->tab_page_type        = papi_get_page_type_by_id( 'tab-page-type' );
 		$this->properties_page_type = papi_get_page_type_by_id( 'properties-page-type' );

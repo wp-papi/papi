@@ -1,6 +1,6 @@
 <?php
 
-class Flex_Page_Type extends Papi_Page_Type {
+class Flex2_Page_Type extends Papi_Page_Type {
 
 	public function meta() {
 		return [
@@ -43,14 +43,14 @@ class Flex_Page_Type extends Papi_Page_Type {
 						[
 							'title' => 'Images',
 							'items' => [
-								papi_property( [
+								[
 									'title' => 'Image left',
 									'type'  => 'image'
-								] ),
-								papi_property( [
+								],
+								[
 									'title' => 'Image right',
 									'type'  => 'image'
-								] )
+								]
 							]
 						],
 						[
@@ -66,5 +66,9 @@ class Flex_Page_Type extends Papi_Page_Type {
 				]
 			] )
 		] );
+	}
+
+	public function display( $post_type ) {
+		return false;
 	}
 }
