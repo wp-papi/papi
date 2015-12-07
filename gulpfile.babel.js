@@ -153,12 +153,12 @@ gulp.task('sass', () => {
     .pipe(concat(config.sass.dist))
     .pipe(sourcemaps.init())
     .pipe(sass(config.sass.settings))
-    .pipe(sourcemaps.write())
     .pipe(autoprefixer(config.sass.autoprefixer))
     .pipe(cssmin())
     .pipe(header(banner, {
       package: pkg
     }))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.sass.dest));
 });
 
