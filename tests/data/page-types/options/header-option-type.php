@@ -11,7 +11,6 @@ class Header_Option_Type extends Papi_Option_Type {
 	}
 
 	public function register() {
-
 		$this->box( 'Options', [
 
 			papi_property( [

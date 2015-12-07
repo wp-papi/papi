@@ -19,7 +19,6 @@ class Properties_Page_Type extends Papi_Page_Type {
 	 * Define our properties.
 	 */
 	public function register() {
-
 		$this->box( 'boxes/properties.php' );
 
 		$this->box( 'Other', [
