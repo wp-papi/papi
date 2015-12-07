@@ -207,6 +207,26 @@ class Papi_Container implements ArrayAccess {
 	}
 
 	/**
+	 * Add key and value to the container once.
+	 *
+	 * @param  string $key
+	 * @param  mixed  $callback
+	 *
+	 * @return mixed
+	 */
+	public function once( $key, $callback ) {
+		if ( ! is_string( $key ) ) {
+			return;
+		}
+
+		if ( ! $this->exists( $key ) ) {
+			$this->singleton( $key, $callback );
+		}
+
+		return $this->make( $key );
+	}
+
+	/**
 	 * Unset value by identifier.
 	 *
 	 * @param string $id

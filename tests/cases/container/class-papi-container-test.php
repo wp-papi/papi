@@ -59,6 +59,21 @@ class Container_Test extends WP_UnitTestCase {
 		$this->assertTrue( $this->container->exists( 'name' ) );
 	}
 
+	public function test_once() {
+		$this->container->once( 'Once', function () {
+			return 'App';
+		} );
+		$this->assertSame( 'App', $this->container->make( 'Once' ) );
+
+		try {
+			$this->container->once( 'Once', function () {
+				return 'App';
+			} );
+		} catch ( \Exception $e ) {
+			$this->assertNotEmpty( $e->getMessage() );
+		}
+	}
+
 	public function test_remove() {
 		$this->container['plugin'] = 'Papi';
 		$this->container->remove( 'plugin' );

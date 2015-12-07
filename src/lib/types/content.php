@@ -51,7 +51,9 @@ function papi_get_all_content_types( array $args = [] ) {
 	}
 
 	$content_types = [];
-	$files         = papi_get_all_core_type_files();
+	$files         = papi()->once( __FUNCTION__, function () {
+		return papi_get_all_core_type_files();
+	} );
 
 	foreach ( $files as $file ) {
 		$content_type = papi_get_content_type( $file );
