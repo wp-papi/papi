@@ -20,9 +20,9 @@ class Papi_Property_Term extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'taxonomy'      => '',
-			'select2'       => true,
-			'query'         => []
+			'taxonomy' => '',
+			'select2'  => true,
+			'query'    => []
 		];
 	}
 
