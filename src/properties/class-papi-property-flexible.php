@@ -530,7 +530,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Render layout input.
 	 *
-	 * @param string $slug
 	 * @param string $value
 	 */
 	protected function render_layout_input( $value ) {
