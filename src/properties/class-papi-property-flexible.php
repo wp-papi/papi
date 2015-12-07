@@ -180,7 +180,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @return bool
 	 */
 	protected function is_layout_key( $key ) {
-		return is_string( $key ) && preg_match( '/\\' . $this->layout_key . '$/', $key );
+		return is_string( $key ) && preg_match( '/\\_layout|\\' . $this->layout_key . '$/', $key );
 	}
 
 	/**
