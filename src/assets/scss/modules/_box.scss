@@ -9,7 +9,9 @@
 
 #poststuff .papi-box {
   .inside {
+    border-top: 1px transparent solid;
     margin-right: -13px !important;
+    margin-top: 5px;
     padding-right: 0;
 
     > .papi-table {
