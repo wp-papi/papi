@@ -257,7 +257,6 @@ function papi_get_slugs( $post_id = 0 ) {
 	return $value;
 }
 
-
 /**
  * Check if `$obj` is a instanceof `Papi_Page_Type`.
  *

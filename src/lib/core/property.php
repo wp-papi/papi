@@ -178,11 +178,11 @@ function papi_get_property_meta_value( $post_id, $slug, $type = 'page' ) {
  * @return stdClass
  */
 function papi_get_property_options( $options ) {
-	if ( ! is_array( $options ) ) {
-		if ( is_object( $options ) ) {
-			return $options;
-		}
+	if ( is_object( $options ) ) {
+		return $options;
+	}
 
+	if ( ! is_array( $options ) ) {
 		return;
 	}
 
