@@ -265,7 +265,7 @@ function papi_property( $file_or_options, $values = [] ) {
 function papi_render_property( $property ) {
 	$property = Papi_Core_Property::factory( $property );
 
-	if ( is_null( $property ) ) {
+	if ( ! papi_is_property( $property ) ) {
 		return;
 	}
 
