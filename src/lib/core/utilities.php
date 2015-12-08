@@ -222,9 +222,7 @@ function papi_get_class_name( $file ) {
  * @return array
  */
 function papi_get_only_objects( array $arr ) {
-	return array_filter( $arr, function ( $item ) {
-		return is_object( $item );
-	} );
+	return array_filter( $arr, 'is_object' );
 }
 
 /**
