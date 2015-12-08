@@ -139,34 +139,6 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Name', $options[0]['title'] );
 	}
 
-	public function test_papi_get_property_options() {
-		$options = papi_get_property_options( [
-			'type' 		   => 'string',
-			'title' 	   => 'Name',
-			'capabilities' => 'admin'
-		] );
-
-		$this->assertSame( 'Name', $options->title );
-		$this->assertSame( 'string', $options->type );
-		$this->assertSame( 'papi_name', $options->slug );
-		$this->assertSame( ['admin'], $options->capabilities );
-
-		$options = papi_get_property_options( [
-			'type' 	   => 'string'
-		] );
-
-		$this->assertSame( 'papi_string', $options->slug );
-
-		$obj = new stdClass;
-		$this->assertSame( $obj, papi_get_property_options( $obj ) );
-		$this->assertEmpty( papi_get_property_options( null ) );
-		$this->assertEmpty( papi_get_property_options( null ) );
-		$this->assertEmpty( papi_get_property_options( 1 ) );
-		$this->assertEmpty( papi_get_property_options( true ) );
-		$this->assertEmpty( papi_get_property_options( false ) );
-		$this->assertEmpty( papi_get_property_options( '' ) );
-	}
-
 	public function test_papi_get_property_class_name() {
 		$this->assertSame( 'Papi_Property_String', papi_get_property_class_name( 'PropertyString' ) );
 		$this->assertSame( 'Papi_Property_String', papi_get_property_class_name( 'string' ) );
@@ -188,9 +160,9 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_get_property_type( false ) instanceof Papi_Property_String );
 		$this->assertFalse( papi_get_property_type( [] ) instanceof Papi_Property_String );
 		$this->assertFalse( papi_get_property_type( new stdClass() ) instanceof Papi_Property_String );
-		$options = papi_get_property_options( [
+		$options = Papi_Core_Property::create( [
 			'type' => 'string'
-		] );
+		] )->get_options();
 		$this->assertTrue( papi_get_property_type( $options ) instanceof Papi_Property_String );
 	}
 

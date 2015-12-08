@@ -171,25 +171,6 @@ function papi_get_property_meta_value( $post_id, $slug, $type = 'page' ) {
 }
 
 /**
- * Get property options.
- *
- * @param  array $options
- *
- * @return stdClass
- */
-function papi_get_property_options( $options ) {
-	if ( is_object( $options ) ) {
-		return $options;
-	}
-
-	if ( ! is_array( $options ) ) {
-		return;
-	}
-
-	return Papi_Core_Property::create( $options )->get_options();
-}
-
-/**
  * Get property type by the given type.
  *
  * @param  object|string $type
@@ -264,7 +245,7 @@ function papi_property( $file_or_options, $values = [] ) {
 	}
 
 	if ( is_array( $file_or_options ) ) {
-		$file_or_options = papi_get_property_options( $file_or_options );
+		$file_or_options = Papi_Core_Property::create( $file_or_options )->get_options();
 	}
 
 	if ( is_string( $file_or_options ) && is_array( $values ) ) {
