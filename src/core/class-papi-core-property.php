@@ -472,7 +472,7 @@ class Papi_Core_Property {
 
 		$name = $this->html_name();
 
-		if ( $name[strlen( $name ) - 1] === ']' ) {
+		if ( isset( $name[strlen( $name ) - 1] ) && $name[strlen( $name ) - 1] === ']' ) {
 			return sprintf( '_%s%s]', substr( $name, 0, strlen( $name ) - 1 ), $suffix );
 		}
 
