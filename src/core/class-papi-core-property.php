@@ -530,8 +530,7 @@ class Papi_Core_Property {
 		if ( is_array( $suffix ) || is_object( $suffix ) ) {
 			return '_' . $this->html_name( $suffix, $row );
 		} else {
-			$suffix = empty( $suffix ) ||
-				! is_string( $suffix ) ? '' : '_' . $suffix;
+			$suffix = empty( $suffix ) || ! is_string( $suffix ) ? '' : '_' . $suffix;
 			$suffix = papi_underscorify( papi_slugify( $suffix ) );
 		}
 
