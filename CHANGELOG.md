@@ -5,6 +5,7 @@
 Fixed: jQuery sortable text input issue with TinyMCE, see [issue #121](https://github.com/wp-papi/papi/pull/121), thanks [@entr](https://github.com/entr)!
 Fixed: Meta box css border issue in WordPress 4.4.
 Fixed: Papi redirected to add new page when no page types was register on page post type.
+Fixed: Offset check before using the offset value in `html_id` method in core property class.
 
 ## [2.4.9](https://github.com/wp-papi/papi/releases/tag/v2.4.9) - 2015-11-30
 
