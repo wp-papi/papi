@@ -1,9 +1,9 @@
 # Papi Changelog
 
-## [2.X.X](https://github.com/wp-papi/papi/releases/tag/v2.X.X) - 2015-12-07
+## [2.4.10](https://github.com/wp-papi/papi/releases/tag/v2.4.10) - 2015-12-08
 
 Fixed: jQuery sortable text input issue with TinyMCE, see [issue #121](https://github.com/wp-papi/papi/pull/121), thanks [@entr](https://github.com/entr)!
-Fixed: Meta box border issue in WordPress 4.4.
+Fixed: Meta box css border issue in WordPress 4.4.
 Fixed: Papi redirected to add new page when no page types was register on page post type.
 
 ## [2.4.9](https://github.com/wp-papi/papi/releases/tag/v2.4.9) - 2015-11-30
