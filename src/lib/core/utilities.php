@@ -753,14 +753,3 @@ function papify( $str = '' ) {
 
 	return $str;
 }
-
-/**
- * Return the given object. Useful for chaining.
- *
- * @param  mixed $obj
- *
- * @return mixed
- */
-function papi_with( $obj ) {
-	return $obj;
-}

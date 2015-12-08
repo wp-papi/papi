@@ -480,9 +480,4 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papify( [] ) );
 		$this->assertEmpty( papify( new stdClass ) );
 	}
-
-	public function test_papi_with() {
-		require_once PAPI_FIXTURE_DIR . '/classes/class-say.php';
-		$this->assertSame( 'Hello Fredrik!', papi_with( new \Say )->hello( 'Fredrik' ) );
-	}
 }
