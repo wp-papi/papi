@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-11-22 19:31+0100\n"
-"PO-Revision-Date: 2015-11-22 19:31+0100\n"
+"POT-Creation-Date: 2015-12-09 09:19+0100\n"
+"PO-Revision-Date: 2015-12-09 09:19+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -19,8 +19,8 @@ msgstr ""
 "X-Poedit-SearchPath-0: ../src\n"
 
 #: ../src/admin/class-papi-admin-assets.php:61
-#: ../src/properties/class-papi-property-flexible.php:760
-#: ../src/properties/class-papi-property-flexible.php:783
+#: ../src/properties/class-papi-property-flexible.php:755
+#: ../src/properties/class-papi-property-flexible.php:778
 #: ../src/properties/class-papi-property-repeater.php:717
 #: ../src/properties/class-papi-property-repeater.php:739
 msgid "Remove"
@@ -33,7 +33,7 @@ msgstr "Dessa fält är obligatoriska:"
 #: ../src/admin/class-papi-admin-menu.php:120
 #: ../src/admin/class-papi-admin-menu.php:176
 #: ../src/admin/class-papi-admin-menu.php:177
-#: ../src/types/class-papi-page-type-meta.php:175
+#: ../src/types/class-papi-page-type-meta.php:168
 msgid "Add New"
 msgstr "Skapa ny"
 
@@ -142,21 +142,21 @@ msgstr "Mallfilen finns inte"
 msgid "Select"
 msgstr "Välj"
 
-#: ../src/lib/core/property.php:335
+#: ../src/lib/core/property.php:316
 msgid "(required field)"
 msgstr "(obligatoriskt fält)"
 
-#: ../src/lib/hooks/filters.php:152
+#: ../src/lib/hooks/filters.php:129
 #, php-format
 msgid "%s with WordPress standard fields"
 msgstr "%s med Wordpress standardfält"
 
-#: ../src/lib/hooks/filters.php:168
+#: ../src/lib/hooks/filters.php:143
 #, php-format
 msgid "Standard %s"
 msgstr "Standard %s"
 
-#: ../src/papi-loader.php:228
+#: ../src/papi-loader.php:236
 msgid ""
 "WordPress 4.0 and higher required to run Papi! The plugin has now disabled "
 "itself."
@@ -396,17 +396,20 @@ msgstr "Ingen taxonomi har definierats för term-egenskapen"
 
 #: ../src/properties/class-papi-property-term.php:68
 #, php-format
-msgid "The taxonomy %s does not exists"
-msgstr "Taxonomin %s finns inte"
+msgid "The taxonomy \"%s\" does not exists"
+msgstr ""
 
 #: ../src/properties/class-papi-property-url.php:42
 msgid "Select file"
 msgstr "Välj fil"
 
-#: ../src/types/class-papi-page-type-meta.php:180
+#: ../src/types/class-papi-page-type-meta.php:173
 msgid "Edit"
 msgstr "Redigera"
 
-#: ../src/types/class-papi-page-type-meta.php:185
+#: ../src/types/class-papi-page-type-meta.php:178
 msgid "View"
 msgstr "Vy"
+
+#~ msgid "The taxonomy %s does not exists"
+#~ msgstr "Taxonomin %s finns inte"
