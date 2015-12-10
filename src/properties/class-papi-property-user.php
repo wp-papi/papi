@@ -29,7 +29,7 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 		}
 
 		if ( is_numeric( $value ) ) {
-			return new WP_User( $value );
+			return $value === 0 ? null : new WP_User( $value );
 		}
 
 		return $value;
