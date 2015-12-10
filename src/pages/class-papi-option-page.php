@@ -57,7 +57,7 @@ class Papi_Option_Page extends Papi_Core_Page {
 	public function get_property( $slug, $child_slug = '' ) {
 		$content_type_id = papi_get_qs( 'page' );
 
-		if ( empty( $this->option_type ) ) {
+		if ( empty( $content_type_id ) ) {
 			$property   = null;
 			$content_types = papi_get_all_content_types( [
 				'types' => 'option'
