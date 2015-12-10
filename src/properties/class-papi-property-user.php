@@ -82,6 +82,7 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 		}
 
 		ksort( $items );
+
 		return $items;
 	}
 
