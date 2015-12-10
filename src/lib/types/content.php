@@ -22,7 +22,13 @@ function papi_content_type_exists( $id ) {
 /**
  * Get all content types that exists.
  *
- * @param  array $args
+ * @param  array $args {
+ *   @type bool         $all
+ *   @type mixed        $args
+ *   @type array|string $id
+ *   @type string       $mode
+ *   @type array|string $types
+ * }
  *
  * @return array
  */
