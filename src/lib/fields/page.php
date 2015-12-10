@@ -211,9 +211,10 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 	$value = papi_filter_update_value( $property->get_option( 'type' ), $value, $slug, $post_id );
 
 	return papi_update_property_meta_value( [
-		'post_id'       => $post_id,
-		'slug'          => $slug,
-		'value'         => $value
+		'type'    => $type,
+		'post_id' => $post_id,
+		'slug'    => $slug,
+		'value'   => $value
 	] );
 }
 
