@@ -6,6 +6,13 @@
 class Papi_Option_Page extends Papi_Core_Page {
 
 	/**
+	 * The current option type.
+	 *
+	 * @var Papi_Option_Type
+	 */
+	protected $option_type;
+
+	/**
 	 * Type option.
 	 *
 	 * @var string
@@ -25,6 +32,21 @@ class Papi_Option_Page extends Papi_Core_Page {
 	}
 
 	/**
+	 * Get the current option type.
+	 *
+	 * @return null|Papi_Option_Type
+	 */
+	public function get_option_type() {
+		if ( empty( $this->option_type ) ) {
+			if ( $content_type = papi_get_content_type_by_id( papi_get_qs( 'page' ) ) ) {
+				$this->option_type = papi_is_option_type( $content_type ) ? $content_type : null;
+			}
+		}
+
+		return $this->option_type;
+	}
+
+	/**
 	 * Load property from page type.
 	 *
 	 * @param  string $slug
@@ -35,14 +57,15 @@ class Papi_Option_Page extends Papi_Core_Page {
 	public function get_property( $slug, $child_slug = '' ) {
 		$content_type_id = papi_get_qs( 'page' );
 
-		if ( empty( $content_type_id ) ) {
+		if ( empty( $this->option_type ) ) {
 			$property   = null;
 			$content_types = papi_get_all_content_types( [
 				'types' => 'option'
 			] );
 
-			foreach ( $content_types as $index => $content_types ) {
-				if ( $property = $content_types->get_property( $slug, $child_slug ) ) {
+			foreach ( $content_types as $index => $content_type ) {
+				if ( $property = $content_type->get_property( $slug, $child_slug ) ) {
+					$this->option_type = $content_type;
 					break;
 				}
 			}
@@ -59,6 +82,8 @@ class Papi_Option_Page extends Papi_Core_Page {
 		if ( ! papi_is_option_type( $content_type ) ) {
 			return;
 		}
+
+		$this->option_type = $content_type;
 
 		return $content_type->get_property( $slug, $child_slug );
 	}
