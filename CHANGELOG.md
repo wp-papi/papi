@@ -1,6 +1,6 @@
 # Papi Changelog
 
-## [3.0.0](https://github.com/wp-papi/papi/releases/tag/v3.0.0) - 2015-XX-XX
+## [3.0.0](https://github.com/wp-papi/papi/releases/tag/v3.0.0) - 2016-XX-XX
 
 Papi 3.0.0 is kind of a big release since some of the core code has been refactored to improve how page type works. With 2.5.0 release we introduce `Content Type` which is a base class that both page type and option type use. Both `box` and `tab` logic has been rewritten with new core classes and the admin classes smaller.
 
