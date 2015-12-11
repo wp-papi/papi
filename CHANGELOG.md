@@ -2,7 +2,7 @@
 
 ## [3.0.0](https://github.com/wp-papi/papi/releases/tag/v3.0.0) - 2016-XX-XX
 
-Papi 3.0.0 is kind of a big release since some of the core code has been refactored to improve how page type works. With 2.5.0 release we introduce `Content Type` which is a base class that both page type and option type use. Both `box` and `tab` logic has been rewritten with new core classes and the admin classes smaller.
+Papi 3.0.0 is kind of a big release since some of the core code has been refactored to improve how page type works. With 3.0.0 release we introduce `Content Type` which is a base class that both page type and option type use. Both `box` and `tab` logic has been rewritten with new core classes and the admin classes smaller.
 
 We moved some logic from page type class to content type class to be able the separate page type and option type class. This will make it easier to add new types to core or create plugin that has own types. Some internal functions has been removed or rewritten how it works.
 
@@ -32,7 +32,7 @@ public function register() {
 
 You will need to implement a method call `remove` that returns a string or array of strings that will be used to remove post type supports or meta boxes.
 
-With 2.5.0 you can now extend page types and add properties in the extended page type to the box that exists in the parent page type. Useful when you have a base page type that you extend for other page types. See [issue #114](https://github.com/wp-papi/papi/issues/114). The `remove` method will load values from the parent page also.
+With 3.0.0 you can now extend page types and add properties in the extended page type to the box that exists in the parent page type. Useful when you have a base page type that you extend for other page types. See [issue #114](https://github.com/wp-papi/papi/issues/114). The `remove` method will load values from the parent page also.
 
 ### Added
 
