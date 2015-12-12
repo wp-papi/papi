@@ -538,21 +538,6 @@ function papi_nl2br( $str ) {
 }
 
 /**
- * Remove `papi-` or `papi_` from the given string.
- *
- * @param  string $str
- *
- * @return string
- */
-function papi_remove_papi( $str ) {
-	if ( ! is_string( $str ) ) {
-		return '';
-	}
-
-	return str_replace( 'papi-', '', str_replace( 'papi_', '', $str ) );
-}
-
-/**
  * Remove trailing dobule quote.
  * PHP's $_POST object adds this automatic.
  *
@@ -752,4 +737,19 @@ function papify( $str = '' ) {
 	}
 
 	return $str;
+}
+
+/**
+ * Remove `papi-` or `papi_` from the given string.
+ *
+ * @param  string $str
+ *
+ * @return string
+ */
+function unpapify( $str ) {
+	if ( ! is_string( $str ) ) {
+		return '';
+	}
+
+	return str_replace( 'papi-', '', str_replace( 'papi_', '', $str ) );
 }

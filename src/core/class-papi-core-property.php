@@ -420,7 +420,7 @@ class Papi_Core_Property {
 	 */
 	public function get_slug( $remove_prefix = false ) {
 		if ( $remove_prefix ) {
-			return papi_remove_papi( $this->get_option( 'slug' ) );
+			return unpapify( $this->get_option( 'slug' ) );
 		}
 
 		return $this->get_option( 'slug' );
@@ -509,7 +509,7 @@ class Papi_Core_Property {
 		return sprintf(
 			'%s[%s]',
 			$base_slug,
-			papi_remove_papi( $sub_property->get_slug() )
+			unpapify( $sub_property->get_slug() )
 		);
 	}
 

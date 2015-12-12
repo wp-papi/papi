@@ -13,10 +13,10 @@ function papi_delete_property_meta_value( $post_id, $slug, $type = 'page' ) {
 	papi_cache_delete( $slug, $post_id );
 
 	if ( $type === Papi_Option_Page::TYPE || papi_is_option_page() ) {
-		return delete_option( papi_remove_papi( $slug ) );
+		return delete_option( unpapify( $slug ) );
 	}
 
-	return delete_post_meta( $post_id, papi_remove_papi( $slug ) );
+	return delete_post_meta( $post_id, unpapify( $slug ) );
 }
 
 /**
@@ -202,7 +202,7 @@ function papi_get_property_type_key( $str = '' ) {
 		return papi_get_property_type_key( $str ) . ']';
 	}
 
-	return papi_remove_papi( $str . $suffix );
+	return unpapify( $str . $suffix );
 }
 
 /**
@@ -415,10 +415,10 @@ function papi_update_property_meta_value( array $meta = [] ) {
 			}
 
 			if ( $option ) {
-				$out = update_option( papi_remove_papi( $meta->slug ), $value );
+				$out = update_option( unpapify( $meta->slug ), $value );
 				$result = $out ? $result : $out;
 			} else {
-				$out = update_post_meta( $meta->post_id, papi_remove_papi( $meta->slug ), $value );
+				$out = update_post_meta( $meta->post_id, unpapify( $meta->slug ), $value );
 				$result = $out ? $result : $out;
 			}
 
@@ -430,9 +430,9 @@ function papi_update_property_meta_value( array $meta = [] ) {
 				papi_delete_property_meta_value( $meta->post_id, $child_key, $meta->type );
 			} else {
 				if ( $option ) {
-					update_option( papi_remove_papi( $child_key ), $child_value );
+					update_option( unpapify( $child_key ), $child_value );
 				} else {
-					update_post_meta( $meta->post_id, papi_remove_papi( $child_key ), $child_value );
+					update_post_meta( $meta->post_id, unpapify( $child_key ), $child_value );
 				}
 			}
 		}

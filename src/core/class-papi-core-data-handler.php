@@ -159,7 +159,7 @@ class Papi_Core_Data_Handler {
 				// Run `update_value` method on the property class.
 				$data[$key] = $property->update_value(
 					$item['value'],
-					papi_remove_papi( $key ),
+					unpapify( $key ),
 					$post_id
 				);
 
@@ -167,12 +167,12 @@ class Papi_Core_Data_Handler {
 				$data[$key] = papi_filter_update_value(
 					$item['type']->type,
 					$data[$key],
-					papi_remove_papi( $key ),
+					unpapify( $key ),
 					$post_id
 				);
 
 				if ( $item['type']->overwrite ) {
-					$slug = papi_remove_papi( $key );
+					$slug = unpapify( $key );
 					$this->overwrite[$slug] = $data[$key];
 				}
 			}

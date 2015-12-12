@@ -54,7 +54,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 * @return mixed
 	 */
 	public function get_value( $slug ) {
-		$slug  = papi_remove_papi( $slug );
+		$slug  = unpapify( $slug );
 		$value = papi_get_property_meta_value( $this->id, $slug, static::TYPE );
 		return $this->convert( $slug, $value );
 	}

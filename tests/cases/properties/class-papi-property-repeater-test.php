@@ -9,9 +9,9 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 
 	public function get_value() {
 		$items = $this->property->get_setting( 'items' );
-		$value_slug1         = papi_remove_papi( $items[0]->slug );
+		$value_slug1         = unpapify( $items[0]->slug );
 		$value_type_slug1    = papi_get_property_type_key( $value_slug1 );
-		$value_slug2         = papi_remove_papi( $items[1]->slug );
+		$value_slug2         = unpapify( $items[1]->slug );
 		$value_type_slug2    = papi_get_property_type_key( $value_slug2 );
 
 		$item = [];

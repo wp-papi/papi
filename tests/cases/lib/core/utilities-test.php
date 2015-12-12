@@ -375,16 +375,6 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 		$this->assertSame( papi_nl2br( "Hello\nWorld" ), "Hello<br />\nWorld" );
 	}
 
-	public function test_papi_remove_papi() {
-		$this->assertSame( 'hello-world', papi_remove_papi( 'papi-hello-world' ) );
-		$this->assertEmpty( papi_remove_papi( null ) );
-		$this->assertEmpty( papi_remove_papi( true ) );
-		$this->assertEmpty( papi_remove_papi( false ) );
-		$this->assertEmpty( papi_remove_papi( 1 ) );
-		$this->assertEmpty( papi_remove_papi( [] ) );
-		$this->assertEmpty( papi_remove_papi( new stdClass() ) );
-	}
-
 	public function test_papi_remove_trailing_quotes() {
 		$this->assertSame( '"hello" "world"', papi_remove_trailing_quotes( '\"hello\" \"world\"' ) );
 		$this->assertEmpty( papi_remove_trailing_quotes( null ) );
@@ -479,5 +469,15 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papify( 1 ) );
 		$this->assertEmpty( papify( [] ) );
 		$this->assertEmpty( papify( new stdClass ) );
+	}
+
+	public function test_unpapify() {
+		$this->assertSame( 'hello-world', unpapify( 'papi-hello-world' ) );
+		$this->assertEmpty( unpapify( null ) );
+		$this->assertEmpty( unpapify( true ) );
+		$this->assertEmpty( unpapify( false ) );
+		$this->assertEmpty( unpapify( 1 ) );
+		$this->assertEmpty( unpapify( [] ) );
+		$this->assertEmpty( unpapify( new stdClass() ) );
 	}
 }

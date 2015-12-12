@@ -22,11 +22,11 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 	public function get_value() {
 		$items = $this->property->get_setting( 'items' );
 
-		$value_slug1         = papi_remove_papi( $items['twitter']['items'][0]->slug );
+		$value_slug1         = unpapify( $items['twitter']['items'][0]->slug );
 		$value_type_slug1    = papi_get_property_type_key( $value_slug1 );
-		$value_slug2_1       = papi_remove_papi( $items['posts']['items'][0]->slug );
+		$value_slug2_1       = unpapify( $items['posts']['items'][0]->slug );
 		$value_type_slug2_1  = papi_get_property_type_key( $value_slug2_1 );
-		$value_slug2_2       = papi_remove_papi( $items['posts']['items'][1]->slug );
+		$value_slug2_2       = unpapify( $items['posts']['items'][1]->slug );
 		$value_type_slug2_2  = papi_get_property_type_key( $value_slug2_2 );
 
 		$item1 = [];

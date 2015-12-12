@@ -40,7 +40,7 @@ function papi_cache_key( $key, $suffix ) {
 	$key    = papify( $key );
 	$suffix = papi_convert_to_string( $suffix );
 	$suffix = papi_html_name( $suffix );
-	$suffix = papi_remove_papi( $suffix );
+	$suffix = unpapify( $suffix );
 
 	return sprintf( '%s_%s', $key, $suffix );
 }
