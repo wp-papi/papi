@@ -158,12 +158,13 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 'string', $children2[0]->type );
 	}
 
-	public function test_remove_post_type_support() {
-		$_GET['post_type'] = 'page';
+	public function test_remove_post_type_supports() {
+		global $_wp_post_type_features;
 		$this->assertNull( $this->simple_page_type->remove_post_type_support() );
-		$this->assertNull( $this->simple_page_type->remove_meta_boxes() );
-		$_GET['post_type'] = '';
-		$this->assertNull( $this->simple_page_type->remove_meta_boxes() );
+		$_GET['post_type'] = 'page';
+		$_wp_post_type_features['page']['editor'] = true;
+		$this->simple_page_type->remove_post_type_support();
+		$this->assertTrue( ! isset( $_wp_post_type_features['page']['editor'] ) );
 	}
 
 	public function test_setup() {
