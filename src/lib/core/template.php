@@ -114,7 +114,7 @@ function papi_template_include( $original_template ) {
 	// Only load a template if it exists.
 	if ( $page_template = papi_get_page_type_template( $post->ID ) ) {
 		if ( $template = locate_template( $page_template ) ) {
-			return $template;
+			return apply_filters( 'papi/template_include', $template );
 		}
 	}
 
