@@ -6,11 +6,11 @@ This guide will describe how to use [VVV](https://github.com/varying-vagrant-vag
 
 1. Download [VVV](https://github.com/varying-vagrant-vagrants/vvv/) which is an evolving Vagrant configuration focused on WordPress development.
 
-2. Clone Papi to `path/to/vvv/www/wordpress-default/wp-content/`.
+2. Clone Papi to `path/to/vvv/www/wordpress-default/wp-content/plugins/`.
 
-2. Go to Run  `path/to/vvv/www/wordpress-default/wp-content/papi` and run `composer install` on your host machine. If you have configured Composer right then you can run this in your VVV machine.
+2. Go to Run  `path/to/vvv/www/wordpress-default/wp-content/plugins/papi/` and run `composer install` on your host machine. If you have configured Composer right then you can run this in your VVV machine.
 
-3. Log in to your vagrant machine and go to `/srv/www/wordpress-default/wp-content/papi`, `/srv/` is equal to your VVV directory.
+3. Log in to your vagrant machine and go to `/srv/www/wordpress-default/wp-content/plugins/papi/`, `/srv/` is equal to your VVV directory.
 
 4. Run `vendor/bin/phpunit` (PHPUnit is installed with Composer) and PHPUnit will start to test Papi.
 
