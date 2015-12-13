@@ -250,6 +250,7 @@ function papi_property( $file_or_options, $values = [] ) {
 
 	if ( is_string( $file_or_options ) && is_array( $values ) ) {
 		$file_or_options = papi_template( $file_or_options, $values );
+		$file_or_options = papi_property( (array) $file_or_options->get_options() );
 	}
 
 	if ( is_object( $file_or_options ) ) {

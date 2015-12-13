@@ -371,6 +371,17 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'string', $actual->type );
 	}
 
+	public function test_papi_property_template_in_page_type() {
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$page_type  = papi_get_page_type_by_id( 'name-page-type' );
+		$boxes      = $page_type->get_boxes();
+		$properties = $boxes[0]->properties;
+		$this->assertSame( 'papi_my_name_is', $properties[0]->get_slug() );
+	}
+
 	public function test_papi_update_property_meta_value() {
 		$this->assertTrue( papi_update_property_meta_value( [
 			'post_id'       => $this->post_id,
