@@ -21,7 +21,7 @@ class Simple_Page_Type extends Papi_Page_Type {
 	 * Remove post type support and remove_meta_box.
 	 */
 	public function remove() {
-		return [ 'editor', 'commentdiv' ];
+		return ['editor', 'commentdiv'];
 	}
 
 	/**
