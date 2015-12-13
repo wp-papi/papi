@@ -44,7 +44,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 		if ( method_exists( $this, 'remove' ) ) {
 			$output   = $this->remove();
-			$output   = is_string( $output ) ? [$output] : [];
+			$output   = is_string( $output ) ? [$output] : $output;
 			$output   = is_array( $output ) ? $output : [];
 			$output   = array_filter( $output, 'is_string' );
 			$supports = array_merge( $supports, $output );
@@ -56,7 +56,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		while ( $parent_remove ) {
 			$parent        = new $parent_class();
 			$output        = $parent->remove();
-			$output        = is_string( $output ) ? [$output] : [];
+			$output        = is_string( $output ) ? [$output] : $output;
 			$output        = is_array( $output ) ? $output : [];
 			$output        = array_filter( $output, 'is_string' );
 			$supports      = array_merge( $supports, $output );
