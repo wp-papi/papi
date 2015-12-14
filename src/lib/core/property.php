@@ -239,7 +239,7 @@ function papi_is_property_type_key( $str = '' ) {
  *
  * @return null|Papi_Property
  */
-function papi_property( $file_or_options, $values = [] ) {
+function papi_property( $file_or_options, array $values = [] ) {
 	if ( papi_is_empty( $file_or_options ) ) {
 		return;
 	}
