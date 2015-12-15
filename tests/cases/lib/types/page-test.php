@@ -239,26 +239,6 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		unset( $_GET['post_type'] );
 	}
 
-	public function test_papi_get_post_types() {
-		$actual = papi_get_post_types();
-
-		foreach ( $actual as $key => $value ) {
-			if ( $value !== 'page' ) {
-				unset( $actual[$key] );
-			}
-		}
-
-		$this->assertSame( ['page'], array_values( $actual ) );
-
-		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
-		} );
-
-		$post_types = papi_get_post_types();
-
-		$this->assertTrue( in_array( 'page', $post_types ) );
-	}
-
 	public function test_papi_get_page_type_key() {
 		$this->assertSame( '_papi_page_type', papi_get_page_type_key() );
 	}
@@ -279,6 +259,18 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 
 		$this->assertSame( 'Simple page', papi_get_page_type_name() );
 		$this->assertSame( 'Simple page', papi_get_page_type_name( $this->post_id ) );
+	}
+
+	public function test_papi_get_post_types() {
+		$this->assertEmpty( papi_get_post_types() );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$post_types = papi_get_post_types();
+
+		$this->assertTrue( in_array( 'page', $post_types ) );
 	}
 
 	public function test_papi_get_slugs() {

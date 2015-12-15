@@ -220,6 +220,27 @@ function papi_get_page_type_template( $post_id = 0 ) {
 }
 
 /**
+ * Get all post types Papi should work with.
+ *
+ * @return array
+ */
+function papi_get_post_types() {
+	$post_types = [];
+	$page_types = papi_get_all_content_types( [
+		'types' => ['attachment', 'page']
+	] );
+
+	foreach ( $page_types as $page_type ) {
+		$post_types = array_merge(
+			$post_types,
+			papi_to_array( $page_type->post_type )
+		);
+	}
+
+	return array_unique( $post_types );
+}
+
+/**
  * Get boxes with properties slug for a page.
  *
  * @param  int $post_id

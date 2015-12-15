@@ -109,12 +109,3 @@ function papi_get_post_type_label( $post_type, $label, $default = '' ) {
 
 	return get_post_type_object( $post_type )->labels->$label;
 }
-
-/**
- * Get all post types Papi should work with.
- *
- * @return array
- */
-function papi_get_post_types() {
-	return array_diff( get_post_types(), ['revision', 'nav_menu_item'] );
-}
