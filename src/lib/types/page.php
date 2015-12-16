@@ -316,7 +316,7 @@ function papi_load_page_type_id( $content_type_id = '' ) {
 
 	// When using `only_page_type` filter we need to fetch the value since it
 	// maybe not always saved in the database.
-	if ( empty ( $content_type_id ) ) {
+	if ( empty( $content_type_id ) ) {
 		$content_type_id = papi_filter_settings_only_page_type( $post_type );
 	}
 
