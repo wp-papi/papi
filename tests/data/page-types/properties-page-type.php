@@ -16,6 +16,15 @@ class Properties_Page_Type extends Papi_Page_Type {
 	}
 
 	/**
+	 * Remove meta boxes.
+	 *
+	 * @return array
+	 */
+	public function remove() {
+		return ['editor', 'commentsdiv', 'commentstatusdiv', 'authordiv', 'slugdiv'];
+	}
+
+	/**
 	 * Define our properties.
 	 */
 	public function register() {
