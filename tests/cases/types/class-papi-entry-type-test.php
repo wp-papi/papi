@@ -78,8 +78,8 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_type() {
-		$this->assertSame( 'content', $this->empty_entry_type->get_type() );
-		$this->assertSame( 'content', $this->info_entry_type->get_type() );
+		$this->assertSame( 'entry', $this->empty_entry_type->get_type() );
+		$this->assertSame( 'entry', $this->info_entry_type->get_type() );
 	}
 
 	public function test_match_id() {
