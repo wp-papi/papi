@@ -82,14 +82,6 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 				continue;
 			}
 
-			if ( papi()->exists( 'core.page_type.' . $page_type->post_type[0] ) ) {
-				if ( ! empty( $page_types ) ) {
-					continue;
-				}
-			} else if ( in_array( $page_type->post_type[0], $load_once ) ) {
-				papi()->singleton( 'core.page_type.' . $page_type->post_type[0], $page_type->get_id() );
-			}
-
 			if ( $fake_post_types ) {
 				if ( isset( $page_type->post_type[0] ) && ! post_type_exists( $page_type->post_type[0] ) ) {
 					// Boot page type.
@@ -101,6 +93,14 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 				continue;
 			} else if ( $page_type instanceof Papi_Option_Type ) {
 				continue;
+			}
+
+			if ( papi()->exists( 'core.page_type.' . $page_type->post_type[0] ) ) {
+				if ( ! empty( $page_types ) ) {
+					continue;
+				}
+			} else if ( in_array( $page_type->post_type[0], $load_once ) ) {
+				papi()->singleton( 'core.page_type.' . $page_type->post_type[0], $page_type->get_id() );
 			}
 
 			// Add the page type if the post types is allowed.
