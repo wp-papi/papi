@@ -5,7 +5,7 @@
  * and rendering. All option types should extend this
  * class.
  */
-class Papi_Option_Type extends Papi_content_type {
+class Papi_Option_Type extends Papi_Entry_Type {
 
 	/**
 	 * Capability.

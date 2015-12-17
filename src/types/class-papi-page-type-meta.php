@@ -4,7 +4,7 @@
  * Base Papi type implementation of meta data
  * for a page type.
  */
-class Papi_Page_Type_Meta extends Papi_content_type {
+class Papi_Page_Type_Meta extends Papi_Entry_Type {
 
 	/**
 	 * Capabilities list.

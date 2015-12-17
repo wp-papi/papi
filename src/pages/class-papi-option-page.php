@@ -38,8 +38,8 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 */
 	public function get_option_type() {
 		if ( empty( $this->option_type ) ) {
-			if ( $content_type = papi_get_content_type_by_id( papi_get_qs( 'page' ) ) ) {
-				$this->option_type = papi_is_option_type( $content_type ) ? $content_type : null;
+			if ( $entry_type = papi_get_entry_type_by_id( papi_get_qs( 'page' ) ) ) {
+				$this->option_type = papi_is_option_type( $entry_type ) ? $entry_type : null;
 			}
 		}
 
@@ -55,17 +55,17 @@ class Papi_Option_Page extends Papi_Core_Page {
 	 * @return object
 	 */
 	public function get_property( $slug, $child_slug = '' ) {
-		$content_type_id = papi_get_qs( 'page' );
+		$entry_type_id = papi_get_qs( 'page' );
 
-		if ( empty( $content_type_id ) ) {
+		if ( empty( $entry_type_id ) ) {
 			$property   = null;
-			$content_types = papi_get_all_content_types( [
+			$entry_types = papi_get_all_entry_types( [
 				'types' => 'option'
 			] );
 
-			foreach ( $content_types as $index => $content_type ) {
-				if ( $property = $content_type->get_property( $slug, $child_slug ) ) {
-					$this->option_type = $content_type;
+			foreach ( $entry_types as $index => $entry_type ) {
+				if ( $property = $entry_type->get_property( $slug, $child_slug ) ) {
+					$this->option_type = $entry_type;
 					break;
 				}
 			}
@@ -77,15 +77,15 @@ class Papi_Option_Page extends Papi_Core_Page {
 			return $property;
 		}
 
-		$content_type = papi_get_content_type_by_id( $content_type_id );
+		$entry_type = papi_get_entry_type_by_id( $entry_type_id );
 
-		if ( ! papi_is_option_type( $content_type ) ) {
+		if ( ! papi_is_option_type( $entry_type ) ) {
 			return;
 		}
 
-		$this->option_type = $content_type;
+		$this->option_type = $entry_type;
 
-		return $content_type->get_property( $slug, $child_slug );
+		return $entry_type->get_property( $slug, $child_slug );
 	}
 
 	/**

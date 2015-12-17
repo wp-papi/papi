@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Papi Content Type is a base class that can
+ * Papi Entry Type is a base class that can
  * register boxes with properties.
  */
-class Papi_Content_Type extends Papi_Core_Type {
+class Papi_Entry_Type extends Papi_Core_Type {
 
 	/**
 	 * The array of meta boxes to register.
@@ -37,7 +37,7 @@ class Papi_Content_Type extends Papi_Core_Type {
 	public function __construct( $file_path = '' ) {
 		// Try to load the file if the file path is empty.
 		if ( empty( $file_path ) ) {
-			$page_type = papi_get_content_type_id();
+			$page_type = papi_get_entry_type_id();
 			$file_path = papi_get_file_path( $page_type );
 		}
 

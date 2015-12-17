@@ -53,7 +53,7 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 	 */
 	public function list_( $_, $assoc_args ) {
 		// Get all page types.
-		$types = papi_get_all_content_types();
+		$types = papi_get_all_entry_types();
 
 		// Create type item with the fields that
 		// will be displayed.

@@ -1,15 +1,15 @@
 <?php
 
-class Book_Content_Type extends Papi_Content_Type {
+class Book_Entry_Type extends Papi_Entry_Type {
 
 	/**
-	 * Define our content type meta data.
+	 * Define our entry type meta data.
 	 *
 	 * @return array
 	 */
 	public function meta2() {
 		return [
-			'name' => 'Book content type'
+			'name' => 'Book entry type'
 		];
 	}
 

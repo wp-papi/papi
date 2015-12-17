@@ -56,7 +56,7 @@ final class Papi_Admin {
 	public function admin_init() {
 		// Preload all page types.
 		foreach ( papi_get_post_types() as $post_type ) {
-			papi_get_all_content_types( [
+			papi_get_all_entry_types( [
 				'args' => $post_type
 			] );
 		}
@@ -390,12 +390,12 @@ final class Papi_Admin {
 			return false;
 		}
 
-		$content_type_id = papi_get_content_type_id();
+		$entry_type_id = papi_get_entry_type_id();
 
 		// If a post type exists, try to load the content type id
 		// from only page type filter.
 		if ( $this->post_type ) {
-			$content_type_id = papi_filter_settings_only_page_type(
+			$entry_type_id = papi_filter_settings_only_page_type(
 				$this->post_type
 			);
 		}
@@ -405,22 +405,22 @@ final class Papi_Admin {
 		//
 		// Example:
 		//   /wp-admin/options-general.php?page=papi/option/site-option-type
-		if ( empty( $content_type_id ) ) {
-			$content_type_id = preg_replace( '/^papi\/\w+\//', '', papi_get_qs( 'page' ) );
+		if ( empty( $entry_type_id ) ) {
+			$entry_type_id = preg_replace( '/^papi\/\w+\//', '', papi_get_qs( 'page' ) );
 		}
 
 		// Use the default content type id if empty.
-		if ( empty( $content_type_id ) ) {
-			$content_type_id = papi_get_content_type_id();
+		if ( empty( $entry_type_id ) ) {
+			$entry_type_id = papi_get_entry_type_id();
 		}
 
 		// If no content type id exists Papi can't setup a content type.
-		if ( empty( $content_type_id ) ) {
+		if ( empty( $entry_type_id ) ) {
 			return false;
 		}
 
 		// Do a last check so we can be sure that we have a page type instance.
-		return ( $this->page_type = papi_get_content_type_by_id( $content_type_id ) ) instanceof Papi_Content_Type;
+		return ( $this->page_type = papi_get_entry_type_by_id( $entry_type_id ) ) instanceof Papi_Entry_Type;
 	}
 
 	/**

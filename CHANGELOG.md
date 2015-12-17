@@ -2,11 +2,11 @@
 
 ## [3.0.0](https://github.com/wp-papi/papi/releases/tag/v3.0.0) - 2016-XX-XX
 
-Papi 3.0.0 is kind of a big release since some of the core code has been refactored to improve how page type works. With 3.0.0 release we introduce `Content Type` which is a base class that both page type and option type use. Both `box` and `tab` logic has been rewritten with new core classes and the admin classes smaller.
+Papi 3.0.0 is kind of a big release since some of the core code has been refactored to improve how page type works. With 3.0.0 release we introduce `Entry Type` which is a base class that both page type and option type use. Both `box` and `tab` logic has been rewritten with new core classes and the admin classes smaller.
 
-We moved some logic from page type class to content type class to be able the separate page type and option type class. This will make it easier to add new types to core or create plugin that has own types. Some internal functions has been removed or rewritten how it works.
+We moved some logic from page type class to entry type class to be able the separate page type and option type class. This will make it easier to add new types to core or create plugin that has own types. Some internal functions has been removed or rewritten how it works.
 
-`papi_get_all_page_types` is rewritten and use `papi_get_all_content_types` functions that is a new version of the old `papi_get_all_page_types` function. Several `papi_get_page_type_*` function has changed and is using `papi_get_content_type_*` functions now.
+`papi_get_all_page_types` is rewritten and use `papi_get_all_entry_types` functions that is a new version of the old `papi_get_all_page_types` function. Several `papi_get_page_type_*` function has changed and is using `papi_get_entry_type_*` functions now.
 
 With this version we changed how `remove` method works, it's removed from the page type class and will not work inside `register` method anymore. This is because we removed one of the calls to `register` method so the boxes isn't loaded twice.
 

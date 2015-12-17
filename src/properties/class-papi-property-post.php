@@ -114,13 +114,23 @@ class Papi_Property_Post extends Papi_Property {
 		?>
 
 		<div class="papi-property-post">
+			<select class="papi-component-select2" data-width="49%" style="float:left;">
+
+					<?php
+					foreach ( ['Activity', 'Facility', 'Post', 'Package'] as $post ) {
+						papi_render_html_tag( 'option', [
+							$post
+						] );
+					}
+					?>
+			</select>
 			<select
 				id="<?php echo $this->html_id(); ?>"
 				name="<?php echo $this->html_name(); ?>"
-				class="<?php echo $classes; ?>"
+				class="papi-component-select2"
 				data-allow-clear="true"
 				data-placeholder="<?php echo $settings->placeholder; ?>"
-				data-width="100%">
+				data-width="49%" style="float: right;">
 
 				<?php if ( ! empty( $settings->placeholder ) ): ?>
 					<option value=""></option>
