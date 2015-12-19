@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-12-09 09:19+0100\n"
-"PO-Revision-Date: 2015-12-09 09:19+0100\n"
+"POT-Creation-Date: 2015-12-19 20:51+0100\n"
+"PO-Revision-Date: 2015-12-19 20:52+0100\n"
 "Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -142,7 +142,7 @@ msgstr "Mallfilen finns inte"
 msgid "Select"
 msgstr "Välj"
 
-#: ../src/lib/core/property.php:316
+#: ../src/lib/core/property.php:317
 msgid "(required field)"
 msgstr "(obligatoriskt fält)"
 
@@ -334,6 +334,15 @@ msgstr "Ändra länk"
 msgid "Remove link"
 msgstr "Ta bort länk"
 
+#: ../src/properties/class-papi-property-post.php:42
+msgid "Select Post Type"
+msgstr "Välj post typ"
+
+#: ../src/properties/class-papi-property-post.php:43
+#, php-format
+msgid "Select %s"
+msgstr "Välj %s"
+
 #: ../src/properties/class-papi-property-reference.php:92
 msgid "No references exists"
 msgstr "Inga referenser finns"
@@ -397,7 +406,7 @@ msgstr "Ingen taxonomi har definierats för term-egenskapen"
 #: ../src/properties/class-papi-property-term.php:68
 #, php-format
 msgid "The taxonomy \"%s\" does not exists"
-msgstr ""
+msgstr "Taxonomi ”%s” finns inte"
 
 #: ../src/properties/class-papi-property-url.php:42
 msgid "Select file"

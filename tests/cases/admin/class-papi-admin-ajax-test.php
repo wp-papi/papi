@@ -81,6 +81,53 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '//' );
 	}
 
+	public function test_get_posts() {
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
+
+		$post_id = $this->factory->post->create();
+
+		do_action( 'papi/ajax/get_posts' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( sprintf( '/\"ID\"\:%d\,/', $post_id ) );
+	}
+
+	public function 	() {
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
+
+		$post_id = $this->factory->post->create();
+
+		$_GET = [
+			'fields' => ['ID']
+		];
+
+		do_action( 'papi/ajax/get_posts' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( sprintf( '/\{\"ID\"\:%d\}/', $post_id ) );
+	}
+
+	public function test_get_posts_fake_post_type() {
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
+
+		$_GET = [
+			'query' => [
+				'post_type' => 'get_posts'
+			]
+		];
+
+		do_action( 'papi/ajax/get_posts' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\[\]/' );
+	}
+
 	public function test_get_property() {
 		if ( ! defined( 'DOING_AJAX' ) ) {
 			define( 'DOING_AJAX', true );

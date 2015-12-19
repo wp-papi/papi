@@ -1,0 +1,13 @@
+.papi-property-post {
+  > label {
+    font-weight: bold;
+  }
+  &-left {
+    margin-right: 10px;
+  }
+  &-left,
+  &-right {
+    float: left;
+    width: 49%;
+  }
+}

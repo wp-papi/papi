@@ -31,6 +31,7 @@ class Papi_Admin_Ajax {
 		add_action( $this->action_prefix . 'get_property', [$this, 'get_property'] );
 		add_action( $this->action_prefix . 'get_properties', [$this, 'get_properties'] );
 		add_action( $this->action_prefix . 'get_rules_result', [$this, 'get_rules_result'] );
+		add_action( $this->action_prefix . 'get_posts', [$this, 'get_posts'] );
 	}
 
 	/**
@@ -90,6 +91,47 @@ class Papi_Admin_Ajax {
 			do_action( $this->action_prefix . $ajax_action );
 			wp_die();
 		}
+	}
+
+	/**
+	 * Get posts via GET.
+	 *
+	 * Posts with empty title will be ignored.
+	 *
+	 * GET /papi-ajax/?action=get_posts
+	 */
+	public function get_posts() {
+		$args   = papi_get_qs( 'query' ) ?: [];
+		$fields = papi_get_qs( 'fields' ) ?: [];
+		$query  = new WP_Query( array_merge( [
+			'post_type'              => ['post'],
+			'no_found_rows'          => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false
+		], $args ) );
+
+		$posts = $query->get_posts();
+		$posts = array_filter( $posts, function ( $post ) {
+			return ! empty( $post->post_title );
+		} );
+
+		usort( $posts, function ( $a, $b ) {
+			return strcmp( strtolower( $a->post_title ), strtolower( $b->post_title ) );
+		} );
+
+		if ( ! empty( $fields ) ) {
+			foreach ( $posts as $index => $post ) {
+				$item = [];
+
+				foreach ( $fields as $field ) {
+					$item[$field] = $post->$field;
+				}
+
+				$posts[$index] = $item;
+			}
+		}
+
+		wp_send_json( $posts );
 	}
 
 	/**
