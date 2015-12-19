@@ -94,7 +94,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( sprintf( '/\"ID\"\:%d\,/', $post_id ) );
 	}
 
-	public function 	() {
+	public function test_get_posts_fields() {
 		if ( ! defined( 'DOING_AJAX' ) ) {
 			define( 'DOING_AJAX', true );
 		}
