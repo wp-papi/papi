@@ -91,7 +91,8 @@ class Papi_Property_Post extends Papi_Property {
 		}
 
 		if ( empty( $post_type ) ) {
-			$post_type = array_shift( $this->get_post_types() );
+			$post_type = $this->get_post_types();
+			$post_type = array_shift( $post_type );
 		}
 
 		// Prepare arguments for WP_Query.
