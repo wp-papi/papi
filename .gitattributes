@@ -19,3 +19,4 @@ tmp export-ignore
 Vagrantfile export-ignore
 vendor export-ignore
 behat.yml export-ignore
+webpack.config.js export-ignore
