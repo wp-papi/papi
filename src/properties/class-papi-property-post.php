@@ -42,7 +42,7 @@ class Papi_Property_Post extends Papi_Property {
 				'select_post_type' => __( 'Select Post Type', 'papi' ),
 				'select_item'      => __( 'Select %s', 'papi' )
 			],
-			'layout'        => 'multiple',
+			'layout'        => 'single', // single or multiple
 			'placeholder'   => '',
 			'post_type'     => 'post',
 			'select2'       => true,
