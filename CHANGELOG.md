@@ -32,7 +32,7 @@ public function register() {
 
 You will need to implement a method call `remove` that returns a string or array of strings that will be used to remove post type supports or meta boxes.
 
-With 3.0.0 you can now extend page types and add properties in the extended page type to the box that exists in the parent page type. Useful when you have a base page type that you extend for other page types. See [issue #114](https://github.com/wp-papi/papi/issues/114). The `remove` method will load values from the parent page also.
+With 3.0.0 you can now extend page types and add properties in the extended page type to the box that exists in the parent page type. Useful when you have a base page type that you extend for other page types. See [issue #114](https://github.com/wp-papi/papi/issues/114). The `remove` method will also load values from the parent page.
 
 ### Added
 
@@ -44,6 +44,8 @@ With 3.0.0 you can now extend page types and add properties in the extended page
 * Added: `placeholder` setting to string property.
 * Added: Description to option type meta data.
 * Added: `papi/settings/column_hide_{$post_type}` for hiding type column.
+* Added: `papi/template_include` to provide support for third party templating engines.
+* Added: Layout mode to post property. It can devide into multiple select or a single select with labels (as before).
 
 ## Changed
 
