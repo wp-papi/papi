@@ -42,11 +42,11 @@ class Papi_Property_Post extends Papi_Property {
 				'select_post_type' => __( 'Select Post Type', 'papi' ),
 				'select_item'      => __( 'Select %s', 'papi' )
 			],
+			'layout'        => 'multiple',
 			'placeholder'   => '',
 			'post_type'     => 'post',
 			'select2'       => true,
-			'query'         => [],
-			'rows'          => 2
+			'query'         => []
 		];
 	}
 
@@ -84,15 +84,15 @@ class Papi_Property_Post extends Papi_Property {
 	 * @return array
 	 */
 	protected function get_posts( $post_type = '' ) {
-		$query = $this->get_setting( 'query' );
-		$rows  = $this->get_setting( 'rows' );
+		$query  = $this->get_setting( 'query' );
+		$layout = $this->get_setting( 'layout' );
 
 		// By default we add posts per page key with the value -1 (all).
 		if ( ! isset( $query['posts_per_page'] ) ) {
 			$query['posts_per_page'] = -1;
 		}
 
-		if ( $rows !== 2 ) {
+		if ( $layout !== 'multiple' ) {
 			$post_type = $this->get_post_types();
 		} else if ( empty( $post_type ) ) {
 			$post_type = $this->get_post_types();
@@ -137,12 +137,12 @@ class Papi_Property_Post extends Papi_Property {
 	 * Render property html.
 	 */
 	public function html() {
-		$rows               = $this->get_setting( 'rows' );
+		$layout             = $this->get_setting( 'layout' );
 		$labels             = $this->get_labels();
 		$post_types         = $this->get_post_types();
 		$render_label       = count( $post_types ) > 1;
-		$multiple           = $render_label && $rows === 2;
-		$single             = $render_label && $rows !== 2;
+		$multiple           = $render_label && $layout === 'multiple';
+		$single             = $render_label && $layout !== 'multiple';
 		$classes            = count( $post_types ) > 1 ? '' : 'papi-fullwidth';
 		$settings           = $this->get_settings();
 		$value              = $this->get_value();
