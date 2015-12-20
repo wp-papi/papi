@@ -2,12 +2,13 @@
 .papi-property-flexible {
   margin-right: -31px;
 
-  .papi-table {
+  > .papi-table {
     border-bottom: 1px solid #eaeaea;
     margin: -11px 0 -13px -15px;
     table-layout: fixed;
 
-    tr {
+    > thead > tr,
+    > tbody > tr {
       background: #fff;
 
       &.closed {
@@ -92,7 +93,7 @@
         }
       }
 
-      td {
+      > td {
         border-right: 1px solid #eaeaea;
         padding: 20px 15px 20px 18px;
 

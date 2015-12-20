@@ -19,7 +19,7 @@ class Post {
    */
   binds() {
     $(document).on('papi/property/repeater/added', '[data-property="post"]', this.update);
-    $(document).on('change', '.papi-property-post-left select', this.change);
+    $(document).on('change', '.papi-property-post-left', this.change);
   }
 
   /**
@@ -44,10 +44,10 @@ class Post {
       'query': query
     };
     const $prop = $this.closest('.papi-property-post');
-    const $target = $prop.find('.papi-property-post-right')
-    const $select = $target.find('select');
+    const $select = $prop.find('.papi-property-post-right')
 
-    $target
+    $('[for="' + $select.attr('id') + '"]')
+      .parent()
       .find('label')
       .text($this.data('select-item').replace('%s', $this.find('option:selected').text()));
 

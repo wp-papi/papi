@@ -139,47 +139,51 @@ class Papi_Property_Post extends Papi_Property {
 
 		<div class="papi-property-post">
 			<?php if ( $render_label ): ?>
-			<div class="papi-property-post-left">
-				<p>
-					<label for="<?php echo $this->html_id(); ?>_post_type">
-						<?php echo $settings->labels['select_post_type']; ?>
-					</label>
-				</p>
-				<select
-					id="<?php echo $this->html_id(); ?>_post_type"
-					class="<?php echo $classes; ?> "
-					data-select-item="<?php echo $settings->labels['select_item']; ?>"
-					data-post-query='<?php echo papi_maybe_json_encode( $settings->query ); ?>'
-					data-width="100%"
-					>
-					<?php
-					foreach ( $labels as $post_type => $label ) {
-						$selected = $post_type === $selected_post_type ? 'selected' : null;
+				<table class="papi-table">
+					<tr>
+						<td>
+							<label for="<?php echo $this->html_id(); ?>_post_type">
+							<?php echo $settings->labels['select_post_type']; ?>
+							</label>
+						</td>
+						<td>
+							<select
+								id="<?php echo $this->html_id(); ?>_post_type"
+								class="<?php echo $classes; ?> papi-property-post-left"
+								data-select-item="<?php echo $settings->labels['select_item']; ?>"
+								data-post-query='<?php echo papi_maybe_json_encode( $settings->query ); ?>'
+								data-width="100%"
+								>
+								<?php
+								foreach ( $labels as $post_type => $label ) {
+									$selected = $post_type === $selected_post_type ? 'selected' : null;
 
-						papi_render_html_tag( 'option', [
-							'value'    => $post_type,
-							'selected' => $selected,
-							$label
-						] );
+									papi_render_html_tag( 'option', [
+										'value'    => $post_type,
+										'selected' => $selected,
+										$label
+									] );
 
-						if ( $selected ) {
-							$selected_label = $label;
-						}
-					}
-					?>
-				</select>
-			</div>
-			<div class="papi-property-post-right">
-				<p>
-					<label for="<?php echo $this->html_id(); ?>_post_type">
-						<?php echo sprintf( $settings->labels['select_item'], $selected_label ); ?>
-					</label>
-				</p>
+									if ( $selected ) {
+										$selected_label = $label;
+									}
+								}
+								?>
+							</select>
+						</td>
+					</tr>
+					<tr>
+					<td>
+						<label for="<?php echo $this->html_id(); ?>_posts">
+							<?php echo sprintf( $settings->labels['select_item'], $selected_label ); ?>
+						</label>
+					</td>
+					<td>
 			<?php endif; ?>
 
 			<select
-				class="<?php echo $classes; ?>"
-				id="<?php echo $this->html_id(); ?>"
+				class="<?php echo $classes; ?>  papi-property-post-right"
+				id="<?php echo $this->html_id(); ?>_posts"
 				name="<?php echo $this->html_name(); ?>"
 				data-allow-clear="true"
 				data-placeholder="<?php echo $settings->placeholder; ?>"
@@ -204,9 +208,13 @@ class Papi_Property_Post extends Papi_Property {
 				}
 				?>
 			</select>
+
 			<?php if ( $render_label ): ?>
-			</div>
+					</td>
+				</tr>
+			</table>
 			<?php endif; ?>
+
 		</div>
 		<?php
 	}
