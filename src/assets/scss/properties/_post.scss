@@ -1,5 +1,8 @@
 .papi-property-post {
-  margin-right: -30px;
+
+  &.multiple {
+    margin-right: -30px;
+  }
 
   > table {
     margin: -11px 0 -10px -15px;
@@ -8,7 +11,6 @@
 
       &:first-child {
         background: #f9f9f9;
-        width: 22% !important;
       }
     }
   }
@@ -16,7 +18,9 @@
 
 /* Repeater style */
 .papi-property-repeater .papi-property-post {
-  margin-right: -31px;
+  &.multiple {
+    margin-right: -31px;
+  }
 
   .papi-table {
     margin: -21px 0 -20px -18px;
@@ -25,7 +29,9 @@
 
 /* Flexible style */
 .papi-property-flexible .papi-property-post {
-  margin-right: -32px;
+  &.multiple {
+    margin-right: -32px;
+  }
 
   .papi-table {
     tr:first-child td {

@@ -137,7 +137,7 @@ class Papi_Property_Post extends Papi_Property {
 		}
 		?>
 
-		<div class="papi-property-post">
+		<div class="papi-property-post <?php echo $render_label ? 'multiple' : ''; ?>">
 			<?php if ( $render_label ): ?>
 				<table class="papi-table">
 					<tr>
