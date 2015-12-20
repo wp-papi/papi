@@ -148,13 +148,10 @@
         }
 
         &.repeater-layout-row {
-          padding-left: 0;
-          padding-right: 0;
-          padding: 10px 0;
+          padding: 0 0 11px 0;
 
           .papi-table {
-            margin-bottom: -11px;
-            margin-left: 0;
+            margin: -1px 0 -11px 0;
             table-layout: fixed;
 
             tr td {

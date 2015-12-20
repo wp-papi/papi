@@ -1,14 +1,6 @@
 .papi-property-flexible {
-  /*.papi-table .repeater-tbody .last {
-    border-right: 1px solid #eaeaea;
-  }*/
-
   .papi-table .flexible-column {
     padding: 0;
-
-    &.flexible-layout-table {
-      border-bottom: 1px solid #eaeaea;
-    }
 
     &.flexible-layout-row {
       border-top: 0;
@@ -59,7 +51,7 @@
         }
       }
 
-      tbody > td {
+      tbody td {
         border-top: 0;
         padding: 20px 15px 20px 18px;
 

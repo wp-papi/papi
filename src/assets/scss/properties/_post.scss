@@ -10,7 +10,8 @@
       background: #fff;
 
       &:first-child {
-        background: #f9f9f9;
+        background: #f9f9f9 !important;
+        width: auto !important;
       }
     }
   }
@@ -19,23 +20,26 @@
 /* Repeater style */
 .papi-property-repeater .papi-property-post {
   &.multiple {
-    margin-right: -31px;
+    margin-right: -33px !important;
   }
 
   .papi-table {
-    margin: -21px 0 -20px -18px;
+    margin: -21px 0 -20px -18px !important;
   }
 }
 
 /* Flexible style */
 .papi-property-flexible .papi-property-post {
-  &.multiple {
-    margin-right: -32px;
-  }
-
   .papi-table {
+    margin: -20px 0 -19px -18px !important;
+
     tr:first-child td {
       border-top: 0;
     }
   }
+}
+
+/* Flexible style: row layout */
+.papi-property-flexible .flexible-layout-row .papi-property-post.multiple {
+  margin-right: -33px;
 }
