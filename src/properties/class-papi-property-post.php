@@ -45,7 +45,8 @@ class Papi_Property_Post extends Papi_Property {
 			'placeholder'   => '',
 			'post_type'     => 'post',
 			'select2'       => true,
-			'query'         => []
+			'query'         => [],
+			'rows'          => 2
 		];
 	}
 
@@ -84,13 +85,16 @@ class Papi_Property_Post extends Papi_Property {
 	 */
 	protected function get_posts( $post_type = '' ) {
 		$query = $this->get_setting( 'query' );
+		$rows  = $this->get_setting( 'rows' );
 
 		// By default we add posts per page key with the value -1 (all).
 		if ( ! isset( $query['posts_per_page'] ) ) {
 			$query['posts_per_page'] = -1;
 		}
 
-		if ( empty( $post_type ) ) {
+		if ( $rows !== 2 ) {
+			$post_type = $this->get_post_types();
+		} else if ( empty( $post_type ) ) {
 			$post_type = $this->get_post_types();
 			$post_type = array_shift( $post_type );
 		}
@@ -111,8 +115,20 @@ class Papi_Property_Post extends Papi_Property {
 		$results = [];
 
 		foreach ( $posts as $post ) {
-			$results[] = $post;
+			$obj = get_post_type_object( $post->post_type );
+
+			if ( empty( $obj ) ) {
+				continue;
+			}
+
+			if ( ! isset( $results[$obj->labels->menu_name] ) ) {
+				$results[$obj->labels->menu_name] = [];
+			}
+
+			$results[$obj->labels->menu_name][] = $post;
 		}
+
+		ksort( $results );
 
 		return $results;
 	}
@@ -121,9 +137,12 @@ class Papi_Property_Post extends Papi_Property {
 	 * Render property html.
 	 */
 	public function html() {
+		$rows               = $this->get_setting( 'rows' );
 		$labels             = $this->get_labels();
 		$post_types         = $this->get_post_types();
 		$render_label       = count( $post_types ) > 1;
+		$multiple           = $render_label && $rows === 2;
+		$single             = $render_label && $rows !== 2;
 		$classes            = count( $post_types ) > 1 ? '' : 'papi-fullwidth';
 		$settings           = $this->get_settings();
 		$value              = $this->get_value();
@@ -137,8 +156,8 @@ class Papi_Property_Post extends Papi_Property {
 		}
 		?>
 
-		<div class="papi-property-post <?php echo $render_label ? 'multiple' : ''; ?>">
-			<?php if ( $render_label ): ?>
+		<div class="papi-property-post <?php echo $multiple ? 'multiple' : ''; ?>">
+			<?php if ( $multiple ): ?>
 				<table class="papi-table">
 					<tr>
 						<td>
@@ -194,22 +213,34 @@ class Papi_Property_Post extends Papi_Property {
 					<option value=""></option>
 				<?php endif; ?>
 
-				<?php
-				foreach ( $posts as $post ) {
-					if ( papi_is_empty( $post->post_title ) ) {
-						continue;
-					}
+				<?php foreach ( $posts as $label => $items ) : ?>
 
-					papi_render_html_tag( 'option', [
-						'value'      => $post->ID,
-						'selected'   => $value === $post->ID ? 'selected' : null,
-						$post->post_title
-					] );
-				}
-				?>
+					<?php if ( $single ): ?>
+						<optgroup label="<?php echo $label; ?>">
+					<?php endif; ?>
+
+					<?php
+					foreach ( $items as $post ) {
+						if ( papi_is_empty( $post->post_title ) ) {
+							continue;
+						}
+
+						papi_render_html_tag( 'option', [
+							'value'      => $post->ID,
+							'selected'   => $value === $post->ID ? 'selected' : null,
+							$post->post_title
+						] );
+					}
+					?>
+
+					<?php if ( $single ): ?>
+						</optgroup>
+					<?php endif; ?>
+
+				<?php endforeach; ?>
 			</select>
 
-			<?php if ( $render_label ): ?>
+			<?php if ( $multiple ): ?>
 					</td>
 				</tr>
 			</table>
