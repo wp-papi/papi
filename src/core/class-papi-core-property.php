@@ -156,6 +156,15 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Determine if the current user has capabilities rights.
+	 *
+	 * @return bool
+	 */
+	public function current_user_can() {
+		return papi_current_user_is_allowed( $this->capabilities );
+	}
+
+	/**
 	 * Delete value from the database.
 	 *
 	 * @param  string $slug

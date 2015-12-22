@@ -143,6 +143,23 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( $property->get_option( 'slug' ), 'papi_name' );
 	}
 
+	public function test_current_user_can() {
+		$property = Papi_Core_Property::create( [
+			'type'  => 'string',
+			'title' => 'Name'
+		] );
+
+		$this->assertTrue( $property->current_user_can() );
+
+		$property = Papi_Core_Property::create( [
+			'type'         => 'string',
+			'title'        => 'Name',
+			'capabilities' => ['fake']
+		] );
+
+		$this->assertFalse( $property->current_user_can() );
+	}
+
 	public function test_default_options() {
 		$_GET['post'] = 0;
 		$_GET['post_type'] = '';
