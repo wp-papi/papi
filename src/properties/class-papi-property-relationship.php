@@ -158,13 +158,11 @@ class Papi_Property_Relationship extends Papi_Property {
 		};
 
 		$sort_options[__( 'Post modified date (ascending)', 'papi' )] = function ( $a, $b ) {
-			return strtotime( $a->post_modified ) >
-				strtotime( $b->post_modified );
+			return strtotime( $a->post_modified ) > strtotime( $b->post_modified );
 		};
 
 		$sort_options[__( 'Post modified date (descending)', 'papi' )] = function ( $a, $b ) {
-			return strtotime( $a->post_modified ) <
-				strtotime( $b->post_modified );
+			return strtotime( $a->post_modified ) < strtotime( $b->post_modified );
 		};
 
 		return apply_filters(
@@ -252,8 +250,6 @@ class Papi_Property_Relationship extends Papi_Property {
 			<input type="hidden" name="<?php echo $slug; ?>[]" data-papi-rule="<?php echo $slug; ?>" />
 			<div class="relationship-inner">
 				<div class="relationship-top-left">
-					<label for="<?php echo $this->html_id( 'search' ); ?>"><?php _e( 'Search', 'papi' ); ?></label>
-					<input id="<?php echo $this->html_id( 'search' ); ?>" type="search" />
 				</div>
 				<div class="relationship-top-right">
 					<?php if ( $settings->show_sort_by ): ?>
@@ -269,6 +265,10 @@ class Papi_Property_Relationship extends Papi_Property {
 			</div>
 			<div class="relationship-inner">
 				<div class="relationship-left">
+					<div class="relationship-search">
+						<label for="<?php echo $this->html_id( 'search' ); ?>"><?php _e( 'Search', 'papi' ); ?></label>
+						<input id="<?php echo $this->html_id( 'search' ); ?>" type="search" />
+					</div>
 					<ul>
 						<?php
 						foreach ( $items as $item ):

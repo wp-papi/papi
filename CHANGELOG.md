@@ -46,6 +46,7 @@ With 3.0.0 you can now extend page types and add properties in the extended page
 * Added: `papi/settings/column_hide_{$post_type}` for hiding type column.
 * Added: `papi/template_include` to provide support for third party templating engines.
 * Added: Layout mode to post property. It can devide into multiple select or a single select with labels (as before).
+* Added: Second bool param to `papi_get_slugs` that will return only slugs if true.
 
 ## Changed
 
