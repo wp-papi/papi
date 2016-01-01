@@ -16,6 +16,7 @@ import Post from 'papi/properties/post';
 import Reference from 'papi/properties/post';
 import Relationship from 'papi/properties/relationship';
 import Repeater from 'papi/properties/repeater';
+import Term from 'papi/properties/term';
 import Url from 'papi/properties/url';
 
 /**
@@ -40,5 +41,6 @@ export function init() {
   Reference.init();
   Relationship.init();
   Repeater.init();
+  Term.init();
   Url.init();
 }
