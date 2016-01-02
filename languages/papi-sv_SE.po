@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
-"POT-Creation-Date: 2015-12-19 20:51+0100\n"
-"PO-Revision-Date: 2015-12-19 20:52+0100\n"
-"Last-Translator: Fredrik Forsmo <fredrik.forsmo@gmail.com>\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2016-01-02 14:25+0100\n"
+"Last-Translator: Rasmus Bengtsson <rasmus@isotop.se>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
@@ -18,145 +18,142 @@ msgstr ""
 "_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: ../src/admin/class-papi-admin-assets.php:61
-#: ../src/properties/class-papi-property-flexible.php:755
-#: ../src/properties/class-papi-property-flexible.php:778
-#: ../src/properties/class-papi-property-repeater.php:717
-#: ../src/properties/class-papi-property-repeater.php:739
+#: src/admin/class-papi-admin-assets.php:61,
+#: src/properties/class-papi-property-flexible.php:755,
+#: src/properties/class-papi-property-flexible.php:778,
+#: src/properties/class-papi-property-repeater.php:717,
+#: src/properties/class-papi-property-repeater.php:739
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../src/admin/class-papi-admin-assets.php:62
+#: src/admin/class-papi-admin-assets.php:62
 msgid "This fields are required:"
 msgstr "Dessa fält är obligatoriska:"
 
-#: ../src/admin/class-papi-admin-menu.php:120
-#: ../src/admin/class-papi-admin-menu.php:176
-#: ../src/admin/class-papi-admin-menu.php:177
-#: ../src/types/class-papi-page-type-meta.php:168
+#: src/admin/class-papi-admin-menu.php:120,
+#: src/admin/class-papi-admin-menu.php:176,
+#: src/admin/class-papi-admin-menu.php:177,
+#: src/types/class-papi-page-type-meta.php:168
 msgid "Add New"
 msgstr "Skapa ny"
 
-#: ../src/admin/class-papi-admin.php:39 ../src/admin/class-papi-admin.php:48
-#: ../src/papi-loader.php:72 ../src/papi-loader.php:81
+#: src/admin/class-papi-admin.php:39, src/admin/class-papi-admin.php:48,
+#: src/papi-loader.php:72, src/papi-loader.php:81
 msgid "Cheatin&#8217; huh?"
 msgstr "Fuskar du?"
 
-#: ../src/admin/class-papi-admin.php:210
-#: ../src/admin/views/management-page-type.php:23
+#: src/admin/class-papi-admin.php:210,
+#: src/admin/views/management-page-type.php:23
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/admin/class-papi-admin.php:260
+#: src/admin/class-papi-admin.php:260
 msgid "View Papi Documentation"
 msgstr "Läs Papi dokumentationen"
 
-#: ../src/admin/class-papi-admin.php:260
+#: src/admin/class-papi-admin.php:260
 msgid "Docs"
 msgstr "Dokumentation"
 
-#: ../src/admin/class-papi-admin.php:298
+#: src/admin/class-papi-admin.php:298
 msgid "All types"
 msgstr "Alla typer"
 
-#: ../src/admin/views/add-new-page.php:8
-#, php-format
+#: src/admin/views/add-new-page.php:8
 msgid "Add New %s"
 msgstr "Lägg till ny %s"
 
-#: ../src/admin/views/management-page-type.php:18
+#: src/admin/views/management-page-type.php:18
 msgid "Tab Title"
 msgstr "Flikens rubrik"
 
-#: ../src/admin/views/management-page-type.php:19
-#: ../src/admin/views/management-page-type.php:25
+#: src/admin/views/management-page-type.php:19,
+#: src/admin/views/management-page-type.php:25
 msgid "Sort Order"
 msgstr "Sorteringsordning"
 
-#: ../src/admin/views/management-page-type.php:20
-#: ../src/admin/views/management-page-type.php:44
-#: ../src/admin/views/management-page-type.php:104
+#: src/admin/views/management-page-type.php:20,
+#: src/admin/views/management-page-type.php:44,
+#: src/admin/views/management-page-type.php:104
 msgid "Properties"
 msgstr "Egenskaper"
 
-#: ../src/admin/views/management-page-type.php:22
-#: ../src/properties/class-papi-property-link.php:146
-#: ../src/properties/class-papi-property-link.php:247
+#: src/admin/views/management-page-type.php:22,
+#: src/properties/class-papi-property-link.php:146,
+#: src/properties/class-papi-property-link.php:247
 msgid "Title"
 msgstr "Rubrik"
 
-#: ../src/admin/views/management-page-type.php:24
+#: src/admin/views/management-page-type.php:24
 msgid "Slug"
 msgstr "Adress"
 
-#: ../src/admin/views/management-page-type.php:80
+#: src/admin/views/management-page-type.php:80
 msgid "Cannot find the page type"
 msgstr "Kan inte hitta sidtypen"
 
-#: ../src/admin/views/management-page-type.php:87
+#: src/admin/views/management-page-type.php:87
 msgid "Overview of page type"
 msgstr "Översikt över sidtyper"
 
-#: ../src/admin/views/management-page-type.php:98
+#: src/admin/views/management-page-type.php:98
 msgid "No meta boxes exists."
 msgstr "Inga meta boxar existerar."
 
-#: ../src/admin/views/management-page-type.php:107
+#: src/admin/views/management-page-type.php:107
 msgid "Tabs"
 msgstr "Tabbar"
 
-#: ../src/admin/views/management-start.php:7
+#: src/admin/views/management-start.php:7
 msgid "Page Types"
 msgstr "Sidtyper"
 
-#: ../src/admin/views/management-start.php:12
+#: src/admin/views/management-start.php:12
 msgid "Name"
 msgstr "Namn"
 
-#: ../src/admin/views/management-start.php:15
+#: src/admin/views/management-start.php:15
 msgid "Page Type ID"
 msgstr "Sidtyp ID"
 
-#: ../src/admin/views/management-start.php:18
+#: src/admin/views/management-start.php:18
 msgid "Post types"
 msgstr "Post typer"
 
-#: ../src/admin/views/management-start.php:21
+#: src/admin/views/management-start.php:21
 msgid "Template"
 msgstr "Mall"
 
-#: ../src/admin/views/management-start.php:24
+#: src/admin/views/management-start.php:24
 msgid "Page Count"
 msgstr "Antal sidor"
 
-#: ../src/admin/views/management-start.php:55
+#: src/admin/views/management-start.php:55
 msgid "Page Type has no template file"
 msgstr "Sidtypen har ingen mallfil"
 
-#: ../src/admin/views/management-start.php:69
+#: src/admin/views/management-start.php:69
 msgid "Template file does not exist"
 msgstr "Mallfilen finns inte"
 
-#: ../src/admin/views/partials/add-new-item.php:14
-#: ../src/properties/class-papi-property-relationship.php:124
+#: src/admin/views/partials/add-new-item.php:14,
+#: src/properties/class-papi-property-relationship.php:124
 msgid "Select"
 msgstr "Välj"
 
-#: ../src/lib/core/property.php:317
+#: src/lib/core/property.php:317
 msgid "(required field)"
 msgstr "(obligatoriskt fält)"
 
-#: ../src/lib/hooks/filters.php:129
-#, php-format
+#: src/lib/hooks/filters.php:129
 msgid "%s with WordPress standard fields"
 msgstr "%s med Wordpress standardfält"
 
-#: ../src/lib/hooks/filters.php:143
-#, php-format
+#: src/lib/hooks/filters.php:143
 msgid "Standard %s"
 msgstr "Standard %s"
 
-#: ../src/papi-loader.php:236
+#: src/papi-loader.php:236
 msgid ""
 "WordPress 4.0 and higher required to run Papi! The plugin has now disabled "
 "itself."
@@ -164,261 +161,267 @@ msgstr ""
 "Wordpress 4.0 och högre krävs för att köra Papi! Tillägget har nu "
 "inaktiverat sig själv."
 
-#: ../src/properties/class-papi-property-datetime.php:32
+#: src/properties/class-papi-property-datetime.php:32
 msgid "Previous Month"
 msgstr "Föregående månad"
 
-#: ../src/properties/class-papi-property-datetime.php:33
+#: src/properties/class-papi-property-datetime.php:33
 msgid "Next Month"
 msgstr "Nästa månad"
 
-#: ../src/properties/class-papi-property-datetime.php:34
+#: src/properties/class-papi-property-datetime.php:34
 msgid "Midnight"
 msgstr "Midnatt"
 
-#: ../src/properties/class-papi-property-datetime.php:36
+#: src/properties/class-papi-property-datetime.php:36
 msgid "January"
 msgstr "Januari"
 
-#: ../src/properties/class-papi-property-datetime.php:37
+#: src/properties/class-papi-property-datetime.php:37
 msgid "February"
 msgstr "Februari"
 
-#: ../src/properties/class-papi-property-datetime.php:38
+#: src/properties/class-papi-property-datetime.php:38
 msgid "March"
 msgstr "Mars"
 
-#: ../src/properties/class-papi-property-datetime.php:39
+#: src/properties/class-papi-property-datetime.php:39
 msgid "April"
 msgstr "April"
 
-#: ../src/properties/class-papi-property-datetime.php:40
+#: src/properties/class-papi-property-datetime.php:40
 msgid "May"
 msgstr "Maj"
 
-#: ../src/properties/class-papi-property-datetime.php:41
+#: src/properties/class-papi-property-datetime.php:41
 msgid "June"
 msgstr "Juni"
 
-#: ../src/properties/class-papi-property-datetime.php:42
+#: src/properties/class-papi-property-datetime.php:42
 msgid "July"
 msgstr "Juli"
 
-#: ../src/properties/class-papi-property-datetime.php:43
+#: src/properties/class-papi-property-datetime.php:43
 msgid "August"
 msgstr "Augusti"
 
-#: ../src/properties/class-papi-property-datetime.php:44
+#: src/properties/class-papi-property-datetime.php:44
 msgid "September"
 msgstr "September"
 
-#: ../src/properties/class-papi-property-datetime.php:45
+#: src/properties/class-papi-property-datetime.php:45
 msgid "October"
 msgstr "Oktober"
 
-#: ../src/properties/class-papi-property-datetime.php:46
+#: src/properties/class-papi-property-datetime.php:46
 msgid "November"
 msgstr "November"
 
-#: ../src/properties/class-papi-property-datetime.php:47
+#: src/properties/class-papi-property-datetime.php:47
 msgid "December"
 msgstr "December"
 
-#: ../src/properties/class-papi-property-datetime.php:49
+#: src/properties/class-papi-property-datetime.php:49
 msgid "Noon"
 msgstr "Eftermiddag"
 
-#: ../src/properties/class-papi-property-datetime.php:51
+#: src/properties/class-papi-property-datetime.php:51
 msgid "Sunday"
 msgstr "Söndag"
 
-#: ../src/properties/class-papi-property-datetime.php:52
+#: src/properties/class-papi-property-datetime.php:52
 msgid "Monday"
 msgstr "Måndag"
 
-#: ../src/properties/class-papi-property-datetime.php:53
+#: src/properties/class-papi-property-datetime.php:53
 msgid "Tuesday"
 msgstr "Tisdag"
 
-#: ../src/properties/class-papi-property-datetime.php:54
+#: src/properties/class-papi-property-datetime.php:54
 msgid "Wednesday"
 msgstr "Onsdag"
 
-#: ../src/properties/class-papi-property-datetime.php:55
+#: src/properties/class-papi-property-datetime.php:55
 msgid "Thursday"
 msgstr "Torsdag"
 
-#: ../src/properties/class-papi-property-datetime.php:56
+#: src/properties/class-papi-property-datetime.php:56
 msgid "Friday"
 msgstr "Fredag"
 
-#: ../src/properties/class-papi-property-datetime.php:57
+#: src/properties/class-papi-property-datetime.php:57
 msgid "Saturday"
 msgstr "Lördag"
 
-#: ../src/properties/class-papi-property-datetime.php:60
+#: src/properties/class-papi-property-datetime.php:60
 msgid "Sun"
 msgstr "Sön"
 
-#: ../src/properties/class-papi-property-datetime.php:61
+#: src/properties/class-papi-property-datetime.php:61
 msgid "Mon"
 msgstr "Mån"
 
-#: ../src/properties/class-papi-property-datetime.php:62
+#: src/properties/class-papi-property-datetime.php:62
 msgid "Tue"
 msgstr "Tis"
 
-#: ../src/properties/class-papi-property-datetime.php:63
+#: src/properties/class-papi-property-datetime.php:63
 msgid "Wed"
 msgstr "Ons"
 
-#: ../src/properties/class-papi-property-datetime.php:64
+#: src/properties/class-papi-property-datetime.php:64
 msgid "Thu"
 msgstr "Tor"
 
-#: ../src/properties/class-papi-property-datetime.php:65
+#: src/properties/class-papi-property-datetime.php:65
 msgid "Fri"
 msgstr "Fre"
 
-#: ../src/properties/class-papi-property-datetime.php:66
+#: src/properties/class-papi-property-datetime.php:66
 msgid "Sat"
 msgstr "Lör"
 
-#: ../src/properties/class-papi-property-file.php:104
+#: src/properties/class-papi-property-file.php:104
 msgid "Add file"
 msgstr "Lägg till fil"
 
-#: ../src/properties/class-papi-property-file.php:105
+#: src/properties/class-papi-property-file.php:105
 msgid "No file selected"
 msgstr "Ingen fil vald"
 
-#: ../src/properties/class-papi-property-image.php:22
+#: src/properties/class-papi-property-image.php:22
 msgid "Add image"
 msgstr "Lägg till bild"
 
-#: ../src/properties/class-papi-property-image.php:23
+#: src/properties/class-papi-property-image.php:23
 msgid "No image selected"
 msgstr "Ingen bild vald"
 
-#: ../src/properties/class-papi-property-link.php:138
-#: ../src/properties/class-papi-property-link.php:237
+#: src/properties/class-papi-property-link.php:138,
+#: src/properties/class-papi-property-link.php:237
 msgid "URL"
 msgstr "URL"
 
-#: ../src/properties/class-papi-property-link.php:153
-#: ../src/properties/class-papi-property-link.php:256
+#: src/properties/class-papi-property-link.php:153,
+#: src/properties/class-papi-property-link.php:256
 msgid "Target"
 msgstr "Mål"
 
-#: ../src/properties/class-papi-property-link.php:155
+#: src/properties/class-papi-property-link.php:155,
+#: src/properties/class-papi-property-link.php:260
 msgid "New window"
 msgstr "Nytt fönster"
 
-#: ../src/properties/class-papi-property-link.php:155
+#: src/properties/class-papi-property-link.php:155,
+#: src/properties/class-papi-property-link.php:260
 msgid "Same window"
 msgstr "Samma fönster"
 
-#: ../src/properties/class-papi-property-link.php:165
+#: src/properties/class-papi-property-link.php:165
 msgid "No link selected"
 msgstr "Ingen länk vald"
 
-#: ../src/properties/class-papi-property-link.php:166
+#: src/properties/class-papi-property-link.php:166
 msgid "Add link"
 msgstr "Lägg till länk"
 
-#: ../src/properties/class-papi-property-link.php:169
+#: src/properties/class-papi-property-link.php:169
 msgid "Edit link"
 msgstr "Ändra länk"
 
-#: ../src/properties/class-papi-property-link.php:170
+#: src/properties/class-papi-property-link.php:170
 msgid "Remove link"
 msgstr "Ta bort länk"
 
-#: ../src/properties/class-papi-property-post.php:42
+#: src/properties/class-papi-property-post.php:42
 msgid "Select Post Type"
 msgstr "Välj post typ"
 
-#: ../src/properties/class-papi-property-post.php:43
-#, php-format
+#: src/properties/class-papi-property-post.php:43
 msgid "Select %s"
 msgstr "Välj %s"
 
-#: ../src/properties/class-papi-property-reference.php:92
+#: src/properties/class-papi-property-reference.php:92
 msgid "No references exists"
 msgstr "Inga referenser finns"
 
-#: ../src/properties/class-papi-property-relationship.php:94
+#: src/properties/class-papi-property-relationship.php:94
 msgid "Post"
 msgstr "Inlägg"
 
-#: ../src/properties/class-papi-property-relationship.php:126
+#: src/properties/class-papi-property-relationship.php:126
 msgid "Name (alphabetically)"
 msgstr "Enligt namn (alfabetiskt)"
 
-#: ../src/properties/class-papi-property-relationship.php:134
+#: src/properties/class-papi-property-relationship.php:134
 msgid "Post created date (ascending)"
 msgstr "Enligt publiceringsdatum (stigande)"
 
-#: ../src/properties/class-papi-property-relationship.php:138
+#: src/properties/class-papi-property-relationship.php:138
 msgid "Post created date (descending)"
 msgstr "Enligt publiceringsdatum (fallande)"
 
-#: ../src/properties/class-papi-property-relationship.php:142
+#: src/properties/class-papi-property-relationship.php:142
 msgid "Post id (ascending)"
 msgstr "Enligt sidans id (stigande)"
 
-#: ../src/properties/class-papi-property-relationship.php:147
+#: src/properties/class-papi-property-relationship.php:147
 msgid "Post id (descending)"
 msgstr "Enligt sidans id (fallande)"
 
-#: ../src/properties/class-papi-property-relationship.php:152
+#: src/properties/class-papi-property-relationship.php:152
 msgid "Post order value (ascending)"
 msgstr "Post ordervärde (stigande)"
 
-#: ../src/properties/class-papi-property-relationship.php:156
+#: src/properties/class-papi-property-relationship.php:156
 msgid "Post order value (descending)"
 msgstr "Post ordervärde (fallande)"
 
-#: ../src/properties/class-papi-property-relationship.php:160
+#: src/properties/class-papi-property-relationship.php:160
 msgid "Post modified date (ascending)"
 msgstr "Enligt ändringsdatum (stigande)"
 
-#: ../src/properties/class-papi-property-relationship.php:165
+#: src/properties/class-papi-property-relationship.php:164
 msgid "Post modified date (descending)"
 msgstr "Enligt ändringsdatum (fallande)"
 
-#: ../src/properties/class-papi-property-relationship.php:255
+#: src/properties/class-papi-property-relationship.php:253
 msgid "Search"
 msgstr "Sök"
 
-#: ../src/properties/class-papi-property-relationship.php:260
+#: src/properties/class-papi-property-relationship.php:258
 msgid "Sort by"
 msgstr "Sortera efter"
 
-#: ../src/properties/class-papi-property-repeater.php:142
+#: src/properties/class-papi-property-repeater.php:142
 msgid "Add new row"
 msgstr "Lägg till ny rad"
 
-#: ../src/properties/class-papi-property-term.php:66
-msgid "No taxonomy defined for term property"
-msgstr "Ingen taxonomi har definierats för term-egenskapen"
+#: src/properties/class-papi-property-term.php:41
+msgid "Select Taxonomy"
+msgstr "Välj taxonomi"
 
-#: ../src/properties/class-papi-property-term.php:68
-#, php-format
-msgid "The taxonomy \"%s\" does not exists"
-msgstr "Taxonomi ”%s” finns inte"
+#: src/properties/class-papi-property-term.php:42
+msgid "Select %s term"
+msgstr "Välj %s term"
 
-#: ../src/properties/class-papi-property-url.php:42
+#: src/properties/class-papi-property-url.php:42
 msgid "Select file"
 msgstr "Välj fil"
 
-#: ../src/types/class-papi-page-type-meta.php:173
+#: src/types/class-papi-page-type-meta.php:173
 msgid "Edit"
 msgstr "Redigera"
 
-#: ../src/types/class-papi-page-type-meta.php:178
+#: src/types/class-papi-page-type-meta.php:178
 msgid "View"
 msgstr "Vy"
+
+#~ msgid "No taxonomy defined for term property"
+#~ msgstr "Ingen taxonomi har definierats för term-egenskapen"
+
+#~ msgid "The taxonomy \"%s\" does not exists"
+#~ msgstr "Taxonomi ”%s” finns inte"
 
 #~ msgid "The taxonomy %s does not exists"
 #~ msgstr "Taxonomin %s finns inte"
