@@ -41,7 +41,7 @@ class Papi_Property_Term extends Papi_Property {
 				'select_taxonomy' => __( 'Select Taxonomy', 'papi' ),
 				'select_item'     => __( 'Select %s term', 'papi' )
 			],
-			'layout' > 'single', // Single or multiple
+			'layout'      => 'single', // Single or multiple
 			'placeholder' => '',
 			'taxonomy'    => '',
 			'select2'     => true,
@@ -133,7 +133,7 @@ class Papi_Property_Term extends Papi_Property {
 		$selected_term     = is_wp_error( $selected_term ) || empty( $selected_term ) ? '' : $selected_term;
 		$selected_taxonomy = empty( $selected_term ) ? reset( $taxonomies ) : $selected_term->taxonomy;
 
-		if ( $settings->select2 )
+		if ( $settings->select2 ) {
 			$classes = ' papi-component-select2';
 		}
 
