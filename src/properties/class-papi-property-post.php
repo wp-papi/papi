@@ -204,7 +204,7 @@ class Papi_Property_Post extends Papi_Property {
 				class="<?php echo $classes; ?>  papi-property-post-right"
 				id="<?php echo $this->html_id(); ?>_posts"
 				name="<?php echo $this->html_name(); ?>"
-				data-allow-clear="true"
+				data-allow-clear="<?php echo ! empty( $settings->placeholder ); ?>"
 				data-placeholder="<?php echo $settings->placeholder; ?>"
 				data-width="100%"
 				>

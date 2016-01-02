@@ -73,7 +73,7 @@ class Papi_Property_Term extends Papi_Property {
 				id="<?php echo $this->html_id(); ?>"
 				name="<?php echo $this->html_name(); ?>"
 				class="<?php echo $classes; ?>"
-				data-allow-clear="true"
+				data-allow-clear="<?php echo ! empty( $settings->placeholder ); ?>"
 				data-placeholder="<?php echo isset( $settings->placeholder ) ? $settings->placeholder : ''; ?>"
 				data-width="100%">
 

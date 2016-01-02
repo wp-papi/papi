@@ -86,7 +86,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 
 		papi_render_html_tag( 'select', [
 			'class'            => $classes,
-			'data-allow-clear' => true,
+			'data-allow-clear' => ! empty( $settings->placeholder ),
 			'data-placeholder' => $settings->placeholder,
 			'data-width'       => '100%',
 			'id'               => $this->html_id(),
