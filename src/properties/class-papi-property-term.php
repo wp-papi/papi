@@ -37,15 +37,15 @@ class Papi_Property_Term extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'labels'        => [
+			'labels'      => [
 				'select_taxonomy' => __( 'Select Taxonomy', 'papi' ),
-				'select_item'      => __( 'Select %s term', 'papi' )
+				'select_item'     => __( 'Select %s term', 'papi' )
 			],
-			'layout'        => 'single', // Single or multiple
-			'placeholder'   => '',
-			'taxonomy'      => '',
-			'select2'       => true,
-			'query'         => []
+			'layout' > 'single', // Single or multiple
+			'placeholder' => '',
+			'taxonomy'    => '',
+			'select2'     => true,
+			'query'       => []
 		];
 	}
 
@@ -104,8 +104,8 @@ class Papi_Property_Term extends Papi_Property {
 	protected function get_term( $term_id ) {
 		if ( version_compare( $GLOBALS['wp_version'], '4.4', '<' ) ) {
 			$taxonomies = $this->get_taxonomies();
-			$taxonomy = reset( $taxonomies );
-			$term = get_term( $term_id, $taxonomy );
+			$taxonomy   = reset( $taxonomies );
+			$term       = get_term( $term_id, $taxonomy );
 		}
 		else {
 			$term = get_term( $term_id );
@@ -118,22 +118,22 @@ class Papi_Property_Term extends Papi_Property {
 	 * Render property html.
 	 */
 	public function html() {
-		$settings                = $this->get_settings();
-		$layout                  = $settings->layout;
-		$labels                  = $this->get_labels();
-		$taxonomies              = $this->get_taxonomies();
-		$render_label            = count( $taxonomies ) > 1;
-		$multiple                = $render_label && $layout === 'multiple';
-		$single                  = $render_label && $layout !== 'multiple';
-		$classes                 = count( $taxonomies ) > 1 ? '' : 'papi-fullwidth';
-		$value                   = $this->get_value();
-		$value                   = is_object( $value ) ? $value->term_id : 0;
-		$selected_label          = reset( $labels );
-		$selected_term           = $this->get_term( $value ) ? : '';
-		$selected_term           = is_wp_error( $selected_term ) || empty( $selected_term ) ? '' : $selected_term;
-		$selected_taxonomy       = empty( $selected_term ) ? reset( $taxonomies ) : $selected_term->taxonomy;
+		$settings          = $this->get_settings();
+		$layout            = $settings->layout;
+		$labels            = $this->get_labels();
+		$taxonomies        = $this->get_taxonomies();
+		$render_label      = count( $taxonomies ) > 1;
+		$multiple          = $render_label && $layout === 'multiple';
+		$single            = $render_label && $layout !== 'multiple';
+		$classes           = count( $taxonomies ) > 1 ? '' : 'papi-fullwidth';
+		$value             = $this->get_value();
+		$value             = is_object( $value ) ? $value->term_id : 0;
+		$selected_label    = reset( $labels );
+		$selected_term     = $this->get_term( $value ) ? : '';
+		$selected_term     = is_wp_error( $selected_term ) || empty( $selected_term ) ? '' : $selected_term;
+		$selected_taxonomy = empty( $selected_term ) ? reset( $taxonomies ) : $selected_term->taxonomy;
 
-		if ( $settings->select2 ) {
+		if ( $settings->select2 )
 			$classes = ' papi-component-select2';
 		}
 
@@ -219,8 +219,8 @@ class Papi_Property_Term extends Papi_Property {
 						}
 
 						papi_render_html_tag( 'option', [
-							'value'      => $term_id,
-							'selected'   => $value === $term_id ? 'selected' : null,
+							'value'    => $term_id,
+							'selected' => $value === $term_id ? 'selected' : null,
 							$term_name
 						] );
 					}

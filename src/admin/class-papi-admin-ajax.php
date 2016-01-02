@@ -214,8 +214,8 @@ class Papi_Admin_Ajax {
 	 * GET /papi-ajax/?action=get_terms
 	 */
 	public function get_terms() {
-		$query   = papi_get_qs( 'query' ) ?: [];
-		$taxonomy   = papi_get_qs( 'taxonomy' ) ?: '';
+		$query    = papi_get_qs( 'query' ) ?: [];
+		$taxonomy = papi_get_qs( 'taxonomy' ) ?: '';
 
 		$args = array_merge( $query, [
 			'fields' => 'id=>name'
