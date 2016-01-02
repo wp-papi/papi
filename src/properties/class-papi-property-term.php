@@ -68,7 +68,7 @@ class Papi_Property_Term extends Papi_Property {
 	}
 
 	/**
-	 * Get post types.
+	 * Get taxonomies.
 	 *
 	 * @return array
 	 */
