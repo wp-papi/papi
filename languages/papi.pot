@@ -1,4 +1,4 @@
-# Copyright (C) 2015 papi
+# Copyright (C) 2016 papi
 # This file is distributed under the same license as the papi package.
 msgid ""
 msgstr ""
@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 
-#: src/admin/class-papi-admin-assets.php:61, src/properties/class-papi-property-flexible.php:760, src/properties/class-papi-property-flexible.php:783, src/properties/class-papi-property-repeater.php:717, src/properties/class-papi-property-repeater.php:739
+#: src/admin/class-papi-admin-assets.php:61, src/properties/class-papi-property-flexible.php:755, src/properties/class-papi-property-flexible.php:778, src/properties/class-papi-property-repeater.php:717, src/properties/class-papi-property-repeater.php:739
 msgid "Remove"
 msgstr ""
 
@@ -22,7 +22,7 @@ msgstr ""
 msgid "This fields are required:"
 msgstr ""
 
-#: src/admin/class-papi-admin-menu.php:120, src/admin/class-papi-admin-menu.php:176, src/admin/class-papi-admin-menu.php:177, src/types/class-papi-page-type-meta.php:175
+#: src/admin/class-papi-admin-menu.php:120, src/admin/class-papi-admin-menu.php:176, src/admin/class-papi-admin-menu.php:177, src/types/class-papi-page-type-meta.php:168
 msgid "Add New"
 msgstr ""
 
@@ -122,19 +122,19 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: src/lib/core/property.php:335
+#: src/lib/core/property.php:317
 msgid "(required field)"
 msgstr ""
 
-#: src/lib/hooks/filters.php:152
+#: src/lib/hooks/filters.php:129
 msgid "%s with WordPress standard fields"
 msgstr ""
 
-#: src/lib/hooks/filters.php:168
+#: src/lib/hooks/filters.php:143
 msgid "Standard %s"
 msgstr ""
 
-#: src/papi-loader.php:228
+#: src/papi-loader.php:236
 msgid "WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself."
 msgstr ""
 
@@ -306,6 +306,14 @@ msgstr ""
 msgid "Remove link"
 msgstr ""
 
+#: src/properties/class-papi-property-post.php:42
+msgid "Select Post Type"
+msgstr ""
+
+#: src/properties/class-papi-property-post.php:43
+msgid "Select %s"
+msgstr ""
+
 #: src/properties/class-papi-property-reference.php:92
 msgid "No references exists"
 msgstr ""
@@ -346,15 +354,15 @@ msgstr ""
 msgid "Post modified date (ascending)"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:165
+#: src/properties/class-papi-property-relationship.php:164
 msgid "Post modified date (descending)"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:255
+#: src/properties/class-papi-property-relationship.php:253
 msgid "Search"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:260
+#: src/properties/class-papi-property-relationship.php:258
 msgid "Sort by"
 msgstr ""
 
@@ -362,22 +370,22 @@ msgstr ""
 msgid "Add new row"
 msgstr ""
 
-#: src/properties/class-papi-property-term.php:66
-msgid "No taxonomy defined for term property"
+#: src/properties/class-papi-property-term.php:41
+msgid "Select Taxonomy"
 msgstr ""
 
-#: src/properties/class-papi-property-term.php:68
-msgid "The taxonomy %s does not exists"
+#: src/properties/class-papi-property-term.php:42
+msgid "Select %s term"
 msgstr ""
 
 #: src/properties/class-papi-property-url.php:42
 msgid "Select file"
 msgstr ""
 
-#: src/types/class-papi-page-type-meta.php:180
+#: src/types/class-papi-page-type-meta.php:173
 msgid "Edit"
 msgstr ""
 
-#: src/types/class-papi-page-type-meta.php:185
+#: src/types/class-papi-page-type-meta.php:178
 msgid "View"
 msgstr ""

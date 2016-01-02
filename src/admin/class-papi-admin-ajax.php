@@ -32,6 +32,7 @@ class Papi_Admin_Ajax {
 		add_action( $this->action_prefix . 'get_properties', [$this, 'get_properties'] );
 		add_action( $this->action_prefix . 'get_rules_result', [$this, 'get_rules_result'] );
 		add_action( $this->action_prefix . 'get_posts', [$this, 'get_posts'] );
+		add_action( $this->action_prefix . 'get_terms', [$this, 'get_terms'] );
 	}
 
 	/**
@@ -204,6 +205,28 @@ class Papi_Admin_Ajax {
 				'html' => $items
 			] );
 		}
+	}
+
+
+	/**
+	 * Get terms via GET.
+	 *
+	 * GET /papi-ajax/?action=get_terms
+	 */
+	public function get_terms() {
+		$query    = papi_get_qs( 'query' ) ?: [];
+		$taxonomy = papi_get_qs( 'taxonomy' ) ?: '';
+
+		$args = array_merge( $query, [
+			'fields' => 'id=>name'
+		] );
+
+		$terms = [];
+		if ( taxonomy_exists( $taxonomy ) ) {
+			$terms = get_terms( $taxonomy, $args );
+		}
+
+		wp_send_json( $terms );
 	}
 
 	/**
