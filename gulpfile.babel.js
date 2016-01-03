@@ -14,7 +14,6 @@ import uglify from 'gulp-uglify';
 import concat from 'gulp-concat';
 import header from 'gulp-header';
 import autoprefixer from 'gulp-autoprefixer';
-import eslint from 'gulp-eslint';
 import phpcs from 'gulp-phpcs';
 import phpcpd from 'gulp-phpcpd';
 import wpPot from 'gulp-wp-pot';
@@ -54,8 +53,7 @@ const config = {
     components: [
       assets + 'js/components/*.js'
     ],
-    entry: assets + 'js/main.js',
-    lint: assets + 'js/**/*.js'
+    entry: assets + 'js/main.js'
   }
 };
 
@@ -100,16 +98,6 @@ gulp.task('components', () => {
     .pipe(concat('components.js'))
     .pipe(uglify())
     .pipe(gulp.dest(`${dist}js`));
-});
-
-/**
- * Lint task using ESLint.
- */
-gulp.task('lint', () => {
-  gulp.src(config.scripts.lint)
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failOnError());
 });
 
 /**
@@ -185,7 +173,6 @@ gulp.task('scripts', ['clean:before:js', 'components'], () => {
  */
 gulp.task('watch', () => {
   gulp.watch(config.sass.src, ['sass']);
-  gulp.watch(config.scripts.lint, ['scripts']);
 });
 
 /**
