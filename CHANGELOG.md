@@ -55,6 +55,8 @@ With 3.0.0 you can now extend page types and add properties in the extended page
 
 ### Fixed
 
+* Fixed: Select2 clear issue, see [issue #105](https://github.com/wp-papi/papi/issues/132).
+
 ### Removed
 
 * Removed: `remove` method is removed.
