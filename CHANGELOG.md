@@ -55,7 +55,8 @@ With 3.0.0 you can now extend page types and add properties in the extended page
 
 ### Fixed
 
-* Fixed: Select2 clear issue, see [issue #105](https://github.com/wp-papi/papi/issues/132).
+* Fixed: Save post issue when using property template file and overwrited the slug, see [issue #129](https://github.com/wp-papi/papi/issues/129).
+* Fixed: Select2 clear issue, see [issue #132](https://github.com/wp-papi/papi/issues/132).
 
 ### Removed
 
