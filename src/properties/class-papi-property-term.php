@@ -41,7 +41,7 @@ class Papi_Property_Term extends Papi_Property {
 				'select_taxonomy' => __( 'Select Taxonomy', 'papi' ),
 				'select_item'     => __( 'Select %s term', 'papi' )
 			],
-			'layout'      => 'single', // Single or multiple
+			'layout'      => 'single', // Single or advanced
 			'placeholder' => '',
 			'taxonomy'    => '',
 			'select2'     => true,
@@ -123,8 +123,8 @@ class Papi_Property_Term extends Papi_Property {
 		$labels            = $this->get_labels();
 		$taxonomies        = $this->get_taxonomies();
 		$render_label      = count( $taxonomies ) > 1;
-		$multiple          = $render_label && $layout === 'multiple';
-		$single            = $render_label && $layout !== 'multiple';
+		$advanced          = $render_label && $layout === 'advanced';
+		$single            = $render_label && $layout !== 'advanced';
 		$classes           = count( $taxonomies ) > 1 ? '' : 'papi-fullwidth';
 		$value             = $this->get_value();
 		$value             = is_object( $value ) ? $value->term_id : 0;
@@ -139,8 +139,8 @@ class Papi_Property_Term extends Papi_Property {
 
 		?>
 
-		<div class="papi-property-term <?php echo $multiple ? 'multiple' : ''; ?>">
-			<?php if ( $multiple ): ?>
+		<div class="papi-property-term <?php echo $advanced ? 'advanced' : ''; ?>">
+			<?php if ( $advanced ): ?>
 				<table class="papi-table">
 					<tr>
 						<td>
@@ -198,7 +198,7 @@ class Papi_Property_Term extends Papi_Property {
 
 				<?php foreach ( $taxonomies as $taxonomy ) : ?>
 					<?php
-					if ( $multiple && $taxonomy !== $selected_taxonomy ) {
+					if ( $advanced && $taxonomy !== $selected_taxonomy ) {
 						continue;
 					}
 
@@ -233,7 +233,7 @@ class Papi_Property_Term extends Papi_Property {
 				<?php endforeach; ?>
 			</select>
 
-			<?php if ( $multiple ): ?>
+			<?php if ( $advanced ): ?>
 					</td>
 				</tr>
 			</table>

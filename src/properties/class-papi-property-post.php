@@ -42,7 +42,7 @@ class Papi_Property_Post extends Papi_Property {
 				'select_post_type' => __( 'Select Post Type', 'papi' ),
 				'select_item'      => __( 'Select %s', 'papi' )
 			],
-			'layout'        => 'single', // single or multiple
+			'layout'        => 'single', // single or advanced
 			'placeholder'   => '',
 			'post_type'     => 'post',
 			'select2'       => true,
@@ -92,7 +92,7 @@ class Papi_Property_Post extends Papi_Property {
 			$query['posts_per_page'] = -1;
 		}
 
-		if ( $layout !== 'multiple' ) {
+		if ( $layout !== 'advanced' ) {
 			$post_type = $this->get_post_types();
 		} else if ( empty( $post_type ) ) {
 			$post_type = $this->get_post_types();
@@ -141,8 +141,8 @@ class Papi_Property_Post extends Papi_Property {
 		$labels             = $this->get_labels();
 		$post_types         = $this->get_post_types();
 		$render_label       = count( $post_types ) > 1;
-		$multiple           = $render_label && $layout === 'multiple';
-		$single             = $render_label && $layout !== 'multiple';
+		$advanced           = $render_label && $layout === 'advanced';
+		$single             = $render_label && $layout !== 'advanced';
 		$classes            = count( $post_types ) > 1 ? '' : 'papi-fullwidth';
 		$settings           = $this->get_settings();
 		$value              = $this->get_value();
@@ -156,8 +156,8 @@ class Papi_Property_Post extends Papi_Property {
 		}
 		?>
 
-		<div class="papi-property-post <?php echo $multiple ? 'multiple' : ''; ?>">
-			<?php if ( $multiple ): ?>
+		<div class="papi-property-post <?php echo $advanced ? 'advanced' : ''; ?>">
+			<?php if ( $advanced ): ?>
 				<table class="papi-table">
 					<tr>
 						<td>
@@ -240,7 +240,7 @@ class Papi_Property_Post extends Papi_Property {
 				<?php endforeach; ?>
 			</select>
 
-			<?php if ( $multiple ): ?>
+			<?php if ( $advanced ): ?>
 					</td>
 				</tr>
 			</table>
