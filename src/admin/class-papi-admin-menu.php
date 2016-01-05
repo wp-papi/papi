@@ -114,7 +114,8 @@ final class Papi_Admin_Menu {
 
 			if ( ! isset( $submenu[$edit_url], $submenu[$edit_url][10], $submenu[$edit_url][10][2] ) ) {
 				$post_type_object = get_post_type_object( $post_type );
-				if ( ! $post_type_object->show_in_menu ) {
+
+				if ( $post_type_object->show_in_menu !== true ) {
 					$submenu[$edit_url] = [
 						10 => [
 							__( 'Add New', 'papi' ),
