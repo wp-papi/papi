@@ -51,7 +51,7 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 
 		$value = papi_get_option( $this->property->slug );
 
-		$this->assertNull(  $value );
+		$this->assertNull( $value );
 
 		$current_screen = null;
 	}
