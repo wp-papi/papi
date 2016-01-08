@@ -45,7 +45,7 @@ $ vendor/bin/phpunit --coverage-text
 * A single method or function can have multiple associated test methods if it's a large or complex method
 * For code that cannot be tested or should not be tested use `// @codeCoverageIgnoreStart` and `// @codeCoverageIgnoreEnd` before and after the code.
 * In addition to covering each line of a method/function, make sure to test common input and edge cases. When resolving a issue you should create a test for it.
-* Prefer `assertsSame()` where possible as it tests both type & equality. When testing objects you should use `assertEquals()` since object's can be different but with same data.
+* Prefer `assertsSame()` where possible as it tests equality. When testing objects you should use `assertEquals()` since object's can be different but with same data.
 * Remember that only methods prefixed with `test` will be run.
 * Remember that files that test code should end with `-test.php` prefix.
 * Filters persist between test cases so be sure to remove them in your test method or in the `tearDown()` method.
