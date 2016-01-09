@@ -207,28 +207,6 @@ class Papi_Admin_Ajax {
 		}
 	}
 
-
-	/**
-	 * Get terms via GET.
-	 *
-	 * GET /papi-ajax/?action=get_terms
-	 */
-	public function get_terms() {
-		$query    = papi_get_qs( 'query' ) ?: [];
-		$taxonomy = papi_get_qs( 'taxonomy' ) ?: '';
-
-		$args = array_merge( $query, [
-			'fields' => 'id=>name'
-		] );
-
-		$terms = [];
-		if ( taxonomy_exists( $taxonomy ) ) {
-			$terms = get_terms( $taxonomy, $args );
-		}
-
-		wp_send_json( $terms );
-	}
-
 	/**
 	 * Get rules result via GET.
 	 *
@@ -270,6 +248,27 @@ class Papi_Admin_Ajax {
 		} else {
 			$this->render_error( 'No rule found' );
 		}
+	}
+
+	/**
+	 * Get terms via GET.
+	 *
+	 * GET /papi-ajax/?action=get_terms
+	 */
+	public function get_terms() {
+		$query    = papi_get_qs( 'query' ) ?: [];
+		$taxonomy = papi_get_qs( 'taxonomy' ) ?: '';
+
+		$args = array_merge( $query, [
+			'fields' => 'id=>name'
+		] );
+
+		$terms = [];
+		if ( taxonomy_exists( $taxonomy ) ) {
+			$terms = get_terms( $taxonomy, $args );
+		}
+
+		wp_send_json( $terms );
 	}
 
 	/**

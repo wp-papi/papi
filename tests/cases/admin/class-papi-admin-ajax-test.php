@@ -506,6 +506,45 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/\{\"error\"\:\"No rule found\"\}/' );
 	}
 
+	public function test_get_terms_error() {
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
+
+		$_GET = [
+			'taxonomy' => 'category'
+		];
+
+		do_action( 'papi/ajax/get_terms' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( '/\[\]/' );
+	}
+
+	public function test_get_terms() {
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
+
+		register_taxonomy( 'test_taxonomy', 'post' );
+
+		$id = $this->factory->term->create( [
+			'taxonomy'    => 'test_taxonomy',
+			'name'        => 'Apple',
+			'description' => 'A yummy apple'
+		] );
+
+		$_GET = [
+			'taxonomy' => 'test_taxonomy',
+			'query'    => ['hide_empty' => false]
+		];
+
+		do_action( 'papi/ajax/get_terms' );
+
+		$this->expectOutputRegex( '/.*\S.*/' );
+		$this->expectOutputRegex( sprintf( '/{\"%s\"\:\"Apple\"\}/', $id ) );
+	}
+
 	public function test_render_error() {
 		if ( ! defined( 'DOING_AJAX' ) ) {
 			define( 'DOING_AJAX', true );
