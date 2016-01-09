@@ -55,6 +55,10 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 		// Get all page types.
 		$types = papi_get_all_entry_types();
 
+		if ( empty( $types ) ) {
+			WP_CLI::error( 'No Papi types exists.' );
+		}
+
 		// Create type item with the fields that
 		// will be displayed.
 		$types = array_map( function( $type ) {
