@@ -150,10 +150,14 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin;
 		$arr = $admin->manage_page_type_posts_columns( [] );
 		$this->assertEmpty( $arr );
+	}
 
+	public function test_manage_page_type_posts_columns_hide_filter() {
 		$_GET['post_type'] = 'page';
-		tests_add_filter( 'papi/settings/column_hide_page', '__return_false' );
-		$this->assertTrue( ! isset( $arr['page_type'] ) );
+		$admin = new Papi_Admin;
+		tests_add_filter( 'papi/settings/column_hide_page', '__return_true' );
+		$arr = $admin->manage_page_type_posts_columns( [] );
+		$this->assertFalse( isset( $arr['page_type'] ) );
 		unset( $_GET['post_type'] );
 	}
 
