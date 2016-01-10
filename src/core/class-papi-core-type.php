@@ -134,17 +134,17 @@ class Papi_Core_Type {
 		$child_meta = call_user_func( [$this, $method] );
 		$child_meta = is_array( $child_meta ) ? $child_meta : [];
 
-		$parent_class = get_parent_class( $this );
-		$parent_meta  = method_exists( $parent_class, $method );
-		$parent_meta  = [];
+		$parent_class  = get_parent_class( $this );
+		$parent_exists = method_exists( $parent_class, $method );
+		$parent_meta   = [];
 
-		while ( $parent_meta ) {
-			$parent       = new $parent_class();
-			$output       = call_user_func( [$parent, $method] );
-			$output       = is_array( $output ) ? $output : [];
-			$parent_meta  = array_merge( $parent_meta, $output );
-			$parent_class = get_parent_class( $parent_class );
-			$parent_meta  = method_exists( $parent_class, $method );
+		while ( $parent_exists ) {
+			$parent        = new $parent_class();
+			$output        = call_user_func( [$parent, $method] );
+			$output        = is_array( $output ) ? $output : [];
+			$parent_meta   = array_merge( $parent_meta, $output );
+			$parent_class  = get_parent_class( $parent_class );
+			$parent_exists = method_exists( $parent_class, $method );
 		}
 
 		return array_merge( $parent_meta, $child_meta );

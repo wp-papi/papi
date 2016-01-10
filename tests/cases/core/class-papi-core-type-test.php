@@ -7,11 +7,17 @@ class Papi_Core_Type_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->info_core_path = PAPI_FIXTURE_DIR . '/core-types/info-core-type.php';
-		$this->info_core_type = new Papi_Core_Type( $this->info_core_path );
+
+		$this->info_core_path  = PAPI_FIXTURE_DIR . '/core-types/info-core-type.php';
+		$this->info2_core_path = PAPI_FIXTURE_DIR . '/core-types/info2-core-type.php';
+		$this->info_core_type  = new Papi_Core_Type( $this->info_core_path );
 
 		if ( ! class_exists( 'Info_Core_Type' ) ) {
-			require_once PAPI_FIXTURE_DIR . '/core-types/info-core-type.php';
+			require_once $this->info_core_path;
+		}
+
+		if ( ! class_exists( 'Info2_Core_Type' ) ) {
+			require $this->info2_core_path;
 		}
 	}
 
@@ -19,6 +25,7 @@ class Papi_Core_Type_Test extends WP_UnitTestCase {
 		parent::tearDown();
 		unset(
 			$this->info_core_path,
+			$this->info2_core_type,
 			$this->info_core_type
 		);
 	}
@@ -29,6 +36,16 @@ class Papi_Core_Type_Test extends WP_UnitTestCase {
 
 	public function test_core_type_get_id() {
 		$this->assertRegExp( '/\/core-types\/info-core-type$/', $this->info_core_type->get_id() );
+	}
+
+	public function test_core_type_get_meta() {
+		$class = new Info_Core_Type( $this->info_core_path );
+		$this->assertSame( 'Info core type', $class->name );
+		$this->assertSame( 500, $class->sort_order );
+
+		$class2 = new Info2_Core_Type( $this->info2_core_path );
+		$this->assertSame( 'Info2 core type', $class2->name );
+		$this->assertSame( 500, $class2->sort_order );
 	}
 
 	public function test_core_type_get_type() {
@@ -50,5 +67,4 @@ class Papi_Core_Type_Test extends WP_UnitTestCase {
 		$class = $this->info_core_type->new_class();
 		$this->assertInstanceOf( 'Papi_Core_Type', $class );
 	}
-
 }

@@ -57,7 +57,10 @@ final class Papi_Loader extends Papi_Container {
 
 		// Fires the loaded action.
 		// Deprecated action. `papi/loaded` should be used instead.
-		did_action( 'papi/include' ) || do_action( 'papi/include' );
+		if ( has_action( 'papi/include' ) ) {
+			did_action( 'papi/include' ) || do_action( 'papi/include' );
+			_deprecated_function( 'The papi/include action', '3.0.0', 'papi/loaded' );
+		}
 
 		// Fires the loaded action.
 		did_action( 'papi/loaded' ) || do_action( 'papi/loaded' );
