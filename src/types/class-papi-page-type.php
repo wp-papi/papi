@@ -138,10 +138,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	public function remove_meta_boxes() {
 		$post_type = $this->get_post_type();
 
-		if ( empty( $post_type ) ) {
-			return;
-		}
-
 		foreach ( $this->remove_meta_boxes as $item ) {
 			remove_meta_box( $item[0], $post_type, $item[1] );
 		}
