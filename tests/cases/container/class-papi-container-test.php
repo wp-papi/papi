@@ -60,6 +60,8 @@ class Container_Test extends WP_UnitTestCase {
 	}
 
 	public function test_once() {
+		$this->assertNull( $this->container->once( null, null ) );
+
 		$this->container->once( 'Once', function () {
 			return 'App';
 		} );
