@@ -528,21 +528,23 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 
 		register_taxonomy( 'test_taxonomy', 'post' );
 
-		$id = $this->factory->term->create( [
+		$term_id = $this->factory->term->create( [
 			'taxonomy'    => 'test_taxonomy',
 			'name'        => 'Apple',
 			'description' => 'A yummy apple'
 		] );
 
 		$_GET = [
-			'taxonomy' => 'test_taxonomy',
-			'query'    => ['hide_empty' => false]
+			'taxonomy' => 'test_taxonomy'
 		];
+
+		$post_id = $this->factory->post->create();
+		wp_set_object_terms( $post_id, $term_id, 'test_taxonomy' );
 
 		do_action( 'papi/ajax/get_terms' );
 
 		$this->expectOutputRegex( '/.*\S.*/' );
-		$this->expectOutputRegex( sprintf( '/{\"%s\"\:\"Apple\"\}/', $id ) );
+		$this->expectOutputRegex( sprintf( '/{\"%s\"\:\"Apple\"\}/', $term_id ) );
 	}
 
 	public function test_render_error() {
