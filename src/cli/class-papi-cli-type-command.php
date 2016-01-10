@@ -51,7 +51,7 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 	 *
 	 * @subcommand list
 	 */
-	public function list_( $_, $assoc_args ) {
+	public function list_( $args, $assoc_args ) {
 		// Get all page types.
 		$types = papi_get_all_entry_types();
 

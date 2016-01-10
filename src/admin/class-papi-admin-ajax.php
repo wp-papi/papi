@@ -241,9 +241,7 @@ class Papi_Admin_Ajax {
 
 		if ( $property  = $page_type->get_property( $data['slug'] ) ) {
 			wp_send_json( [
-				'render' => $property->render_is_allowed_by_rules(
-					$data['rules']
-				)
+				'render' => $property->render_is_allowed_by_rules( $data['rules'] )
 			] );
 		} else {
 			$this->render_error( 'No rule found' );
