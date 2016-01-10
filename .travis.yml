@@ -47,3 +47,8 @@ matrix:
 cache:
   directories:
   - vendor
+
+branches:
+  only:
+    - master
+    - 2.x
