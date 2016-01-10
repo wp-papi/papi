@@ -27,8 +27,13 @@ class FAQ_Page_Type extends Papi_Page_Type {
 		];
 	}
 
+	/**
+	 * Remove meta boxes.
+	 *
+	 * @return array
+	 */
 	public function remove() {
-		return 'div';
+		return ['div', 'test_meta_box'];
 	}
 
 	/**

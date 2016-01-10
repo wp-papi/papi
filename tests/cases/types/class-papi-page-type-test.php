@@ -208,4 +208,19 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Question', $property->get_option( 'title' ) );
 		$this->assertSame( 'Question', $property->title );
 	}
+
+	public function test_remove_meta_boxes() {
+		global $wp_meta_boxes, $current_screen;
+
+		$_GET['post_type'] = 'faq';
+		$current_screen = WP_Screen::get( 'admin_init' );
+		$wp_meta_boxes['faq']['normal']['default']['test_meta_box'] = true;
+
+		$this->assertTrue( $wp_meta_boxes['faq']['normal']['default']['test_meta_box'] );
+
+		$this->faq_page_type->remove_post_type_support();
+		do_action( 'add_meta_boxes' );
+
+		$this->assertFalse( $wp_meta_boxes['faq']['normal']['default']['test_meta_box'] );
+	}
 }
