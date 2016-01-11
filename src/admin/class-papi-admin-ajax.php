@@ -103,7 +103,9 @@ class Papi_Admin_Ajax {
 	 */
 	public function get_posts() {
 		$args   = papi_get_qs( 'query' ) ?: [];
+		$args   = is_array( $args ) ? $args : [];
 		$fields = papi_get_qs( 'fields' ) ?: [];
+		$fields = is_array( $fields ) ? $fields : [];
 		$query  = new WP_Query( array_merge( [
 			'post_type'              => ['post'],
 			'no_found_rows'          => true,
@@ -255,6 +257,7 @@ class Papi_Admin_Ajax {
 	 */
 	public function get_terms() {
 		$query    = papi_get_qs( 'query' ) ?: [];
+		$query    = is_array( $query ) ? $query : [];
 		$taxonomy = papi_get_qs( 'taxonomy' ) ?: '';
 
 		$args = array_merge( $query, [
