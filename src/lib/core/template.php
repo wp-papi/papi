@@ -40,7 +40,7 @@ add_filter( 'body_class', 'papi_body_class' );
  * @param string $file
  * @param array $vars
  */
-function papi_include_template( $file, $vars = [] ) {
+function papi_include_template( $file, array $vars = [] ) {
 	if ( ! is_string( $file ) || empty( $file ) ) {
 		return;
 	}
@@ -57,12 +57,12 @@ function papi_include_template( $file, $vars = [] ) {
  * Load a template array file and merge values with it.
  *
  * @param  string $file
- * @param  array $values
- * @param  bool $convert_to_object
+ * @param  array  $values
+ * @param  bool   $convert_to_object
  *
  * @return array
  */
-function papi_template( $file, $values = [], $convert_to_object = false ) {
+function papi_template( $file, array $values = [], $convert_to_object = false ) {
 	if ( ! is_string( $file ) || empty( $file ) ) {
 		return [];
 	}
