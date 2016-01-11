@@ -68,16 +68,6 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	}
 
 	/**
-	 * Remove post type supports and/or
-	 * meta boxes.
-	 *
-	 * @return array
-	 */
-	public function remove() {
-		return [];
-	}
-
-	/**
 	 * This function will setup all meta boxes.
 	 */
 	public function setup() {
