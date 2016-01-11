@@ -69,7 +69,7 @@ class Papi_Core_Type {
 	}
 
 	/**
-	 * Determine if the content type is allowed.
+	 * Determine if the entry type is allowed.
 	 *
 	 * @return bool
 	 */

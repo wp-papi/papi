@@ -68,7 +68,7 @@ function papi_get_all_entry_types( array $args = [] ) {
 			continue;
 		}
 
-		// Only content types can be loaded.
+		// Only entry types can be loaded.
 		// @codeCoverageIgnoreStart
 		if ( $entry_type instanceof Papi_Entry_Type === false ) {
 			continue;

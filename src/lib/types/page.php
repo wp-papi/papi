@@ -302,7 +302,7 @@ function papi_is_page_type( $obj ) {
 }
 
 /**
- * Load the content type id on a post types.
+ * Load the entry type id on a post types.
  *
  * @param  string $entry_type_id
  *
@@ -313,14 +313,14 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 	$post_id   = papi_get_post_id();
 	$post_type = papi_get_post_type( $post_id );
 
-	// If we have a post id we can load the content type id
+	// If we have a post id we can load the entry type id
 	// from the post.
 	if ( $post_id > 0 ) {
 		$meta_value      = get_post_meta( $post_id, $key, true );
 		$entry_type_id = empty( $meta_value ) ? '' : $meta_value;
 	}
 
-	// Try to fetch the content type id from `page_type`
+	// Try to fetch the entry type id from `page_type`
 	// query string.
 	if ( empty( $entry_type_id ) ) {
 		$entry_type_id = papi_get_qs( 'page_type' );
@@ -332,13 +332,13 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 		$entry_type_id = papi_filter_settings_only_page_type( $post_type );
 	}
 
-	// Load right content type from the parent post id.
+	// Load right entry type from the parent post id.
 	if ( empty( $entry_type_id ) ) {
 		$meta_value = get_post_meta( papi_get_parent_post_id(), $key, true );
 		$entry_type_id = empty( $meta_value ) ? '' : $meta_value;
 	}
 
-	// Load content type id from the container if it exists.
+	// Load entry type id from the container if it exists.
 	if ( empty( $entry_type_id ) ) {
 		$key = sprintf( 'entry_type_id.%s', $post_type );
 

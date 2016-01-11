@@ -1,6 +1,6 @@
 <?php
 
-class Papi_Lib_Types_Content_Test extends WP_UnitTestCase {
+class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -32,7 +32,7 @@ class Papi_Lib_Types_Content_Test extends WP_UnitTestCase {
 		$this->assertNotEmpty( papi_get_all_entry_types() );
 
 		$output = papi_get_all_entry_types( [
-			'types' => 'content'
+			'types' => 'entry'
 		] );
 		$this->assertNotEmpty( $output );
 		$this->assertSame( 'Info entry type', $output[0]->name );

@@ -58,7 +58,7 @@ final class Papi_Admin_Menu {
 	/**
 	 * Page items menu.
 	 *
-	 * This function will register all content types
+	 * This function will register all entry types
 	 * that has a fake post type. Like option types.
 	 */
 	public function page_items_menu() {

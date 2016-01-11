@@ -142,7 +142,7 @@ function papi_get_field( $post_id = null, $slug = null, $default = null, $type =
 		$slug  = $slugs[0];
 		$slugs = array_slice( $slugs, 1 );
 
-		// Get the right page for right content type.
+		// Get the right page for right entry type.
 		$page = papi_get_page( $post_id, $type );
 
 		// Return the default value if we don't have a valid page.

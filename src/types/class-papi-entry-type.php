@@ -25,12 +25,12 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	 *
 	 * @var string
 	 */
-	public $type = 'content';
+	public $type = 'entry';
 
 	/**
 	 * The constructor.
 	 *
-	 * Load a content type by the file.
+	 * Load a entry type by the file.
 	 *
 	 * @param string $file_path
 	 */
@@ -81,7 +81,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 
 	/**
 	 * Call parent register if it exists
-	 * to collect boxes on the parent content type.
+	 * to collect boxes on the parent entry type.
 	 */
 	private function call_parent_register() {
 		$parent_class = get_parent_class( $this );
@@ -281,7 +281,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
-	 * Check if the content type is a singleton.
+	 * Check if the entry type is a singleton.
 	 *
 	 * @return bool
 	 */

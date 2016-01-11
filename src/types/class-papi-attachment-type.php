@@ -109,7 +109,7 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	}
 
 	/**
-	 * Check if the content type is a singleton.
+	 * Check if the entry type is a singleton.
 	 *
 	 * @return bool
 	 */
