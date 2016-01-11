@@ -86,7 +86,6 @@ class Papi_Admin_Meta_Box_Test extends WP_UnitTestCase {
 		] );
 		$class = new Papi_Admin_Meta_Box( $box );
 
-		$this->assertNull( $class->render_meta_box( null, null ) );
 		$this->assertNull( $class->render_meta_box( null, [] ) );
 
 		$property = papi_property( [

@@ -34,7 +34,7 @@ final class Papi_Admin_Meta_Box {
 	 *
 	 * @return string[]
 	 */
-	public function meta_box_css_classes( $classes ) {
+	public function meta_box_css_classes( array $classes ) {
 		return array_merge( $classes, [
 			'papi-box'
 		] );
@@ -90,8 +90,8 @@ final class Papi_Admin_Meta_Box {
 	 * @param array $post
 	 * @param array $args
 	 */
-	public function render_meta_box( $post, $args ) {
-		if ( ! is_array( $args ) || ! isset( $args['args'] ) ) {
+	public function render_meta_box( $post, array $args ) {
+		if ( ! isset( $args['args'] ) ) {
 			return;
 		}
 

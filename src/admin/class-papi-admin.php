@@ -7,9 +7,9 @@
 final class Papi_Admin {
 
 	/**
-	 * The page type.
+	 * The entry type.
 	 *
-	 * @var Papi_Page_Type
+	 * @var Papi_Entry_Type
 	 */
 	private $page_type;
 
@@ -186,7 +186,7 @@ final class Papi_Admin {
 	 *
 	 * @return array
 	 */
-	public function manage_page_type_posts_columns( $defaults ) {
+	public function manage_page_type_posts_columns( array $defaults ) {
 		if ( ! in_array( $this->post_type, papi_get_post_types() ) ) {
 			return $defaults;
 		}
@@ -254,14 +254,14 @@ final class Papi_Admin {
 	 *
 	 * @return array
 	 */
-	public function plugin_row_meta( $links, $file ) {
+	public function plugin_row_meta( array $links, $file ) {
 		if ( $file === PAPI_PLUGIN_BASENAME ) {
 			return array_merge( $links, [
 				'docs' => '<a href="' . esc_url( 'https://wp-papi.github.io/docs/' ) . '" title="' . esc_attr( __( 'View Papi Documentation', 'papi' ) ) . '">' . __( 'Docs', 'papi' ) . '</a>',
 			] );
 		}
 
-		return (array) $links;
+		return $links;
 	}
 
 	/**
@@ -318,7 +318,7 @@ final class Papi_Admin {
 	 *
 	 * @return WP_Query
 	 */
-	public function pre_get_posts( $query ) {
+	public function pre_get_posts( WP_Query $query ) {
 		global $pagenow;
 
 		if ( $pagenow === 'edit.php' && ! is_null( papi_get_qs( 'page_type' ) ) ) {
@@ -430,7 +430,7 @@ final class Papi_Admin {
 	 *
 	 * @return array
 	 */
-	public function wp_link_query( $results ) {
+	public function wp_link_query( array $results ) {
 		$post_type = papi_get_post_type();
 
 		foreach ( $results as $index => $value ) {

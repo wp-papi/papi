@@ -19,7 +19,7 @@ final class Papi_Admin_Meta_Box_Tabs {
 	 * @param array $tabs
 	 * @param bool  $render
 	 */
-	public function __construct( $tabs = [], $render = true ) {
+	public function __construct( array $tabs = [], $render = true ) {
 		if ( empty( $tabs ) ) {
 			return;
 		}
