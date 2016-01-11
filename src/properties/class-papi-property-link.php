@@ -193,7 +193,7 @@ class Papi_Property_Link extends Papi_Property {
 	 * Prepare link array with post id. If it gets a post id
 	 * bigger then zero it will use the permalink as url.
 	 *
-	 * @param array|object $link
+	 * @param  array|object $link
 	 *
 	 * @return array|object
 	 */

@@ -793,11 +793,11 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Check if the layout is valid or not.
 	 *
-	 * @param array $layout
+	 * @param  array $layout
 	 *
 	 * @return bool
 	 */
-	private function valid_layout( $layout ) {
+	private function valid_layout( array $layout ) {
 		return isset( $layout['title'], $layout['items'] );
 	}
 }
