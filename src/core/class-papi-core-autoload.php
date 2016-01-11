@@ -3,7 +3,7 @@
 /**
  * Autoload class that autoload classes.
  */
-class Papi_Core_Autoload {
+final class Papi_Core_Autoload {
 
 	/**
 	 * The Constructor.
