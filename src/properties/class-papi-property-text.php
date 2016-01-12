@@ -24,6 +24,8 @@ class Papi_Property_Text extends Papi_Property {
 			}
 
 			$value = wp_strip_all_tags( $value );
+			$value = $this->get_setting( 'nl2br' ) ? nl2br( $value ) : $value;
+
 		}
 
 		return $value;
@@ -36,7 +38,8 @@ class Papi_Property_Text extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'allow_html' => false
+			'allow_html' => false,
+			'nl2br' => true,
 		];
 	}
 
