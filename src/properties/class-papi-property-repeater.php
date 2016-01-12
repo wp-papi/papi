@@ -462,6 +462,32 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
+	 * Prepare property for JSON.
+	 *
+	 * @param  Papi_Property $property
+	 *
+	 * @return bool|object
+	 */
+	protected function prepare_property_for_json( $property ) {
+		// Only real property objects and not properties that are disabled.
+		if ( ! papi_is_property( $property ) || $property->disabled() ) {
+			return false;
+		}
+
+		$options = clone $property->get_options();
+
+		if ( isset( $options->settings->items ) ) {
+			foreach ( $options->settings->items as $index => $property ) {
+				if ( $property = $this->prepare_property_for_json( $property ) ) {
+					$options->settings->items[$index] = $property;
+				}
+			}
+		}
+
+		return $options;
+	}
+
+	/**
 	 * Remove all repeater rows from the database.
 	 *
 	 * @param int    $post_id
@@ -532,12 +558,14 @@ class Papi_Property_Repeater extends Papi_Property {
 		$options->settings->items = papi_to_array( $options->settings->items );
 
 		foreach ( $options->settings->items as $key => $value ) {
-			if ( ! papi_is_property( $value ) ) {
+			$property = $this->prepare_property_for_json( $property );
+
+			if ( $property === false ) {
 				unset( $options->settings->items[$key] );
 				continue;
 			}
 
-			$options->settings->items[$key] = clone $value->get_options();
+			$options->settings->items[$key] = $property;
 		}
 
 		papi_render_html_tag( 'script', [

@@ -511,20 +511,22 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 
 			foreach ( $value['items'] as $index => $property ) {
-				// Don't show the property if it's disabled.
-				if ( $property->disabled() ) {
+				$property = $this->prepare_property_for_json( $property );
+
+				if ( $property === false ) {
 					unset( $options->settings->items[$key]['items'][$index] );
 					continue;
 				}
 
-				$options->settings->items[$key]['items'][$index] = clone $property->get_options();
+				$options->settings->items[$key]['items'][$index] = $property;
 			}
 		}
-		?>
-		<script type="application/json" data-papi-json="<?php echo $slug; ?>_repeater_json">
-			<?php echo json_encode( [$options] ); ?>
-		</script>
-		<?php
+
+		papi_render_html_tag( 'script', [
+			'data-papi-json' => sprintf( '%s_repeater_json', $slug ),
+			'type'           => 'application/json',
+			json_encode( [$options] )
+		] );
 	}
 
 	/**
