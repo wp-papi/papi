@@ -558,7 +558,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$options->settings->items = papi_to_array( $options->settings->items );
 
 		foreach ( $options->settings->items as $key => $value ) {
-			$property = $this->prepare_property_for_json( $property );
+			$property = $this->prepare_property_for_json( $value );
 
 			if ( $property === false ) {
 				unset( $options->settings->items[$key] );
