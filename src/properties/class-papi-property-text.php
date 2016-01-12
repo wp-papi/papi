@@ -38,7 +38,7 @@ class Papi_Property_Text extends Papi_Property {
 	public function get_default_settings() {
 		return [
 			'allow_html' => false,
-			'nl2br' => true,
+			'nl2br'      => true,
 		];
 	}
 
