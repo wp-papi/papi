@@ -8,9 +8,9 @@ We moved some logic from page type class to entry type class to be able the sepa
 
 ### Added
 
-* Added: Extended support for `meta`, `box` and `remove` methods. See [issue #114](https://github.com/wp-papi/papi/issues/114).
-* Added: WP CLI Support. See [issue #111](https://github.com/wp-papi/papi/issues/111).
-* Added: Group property. See [issue #112](https://github.com/wp-papi/papi/issues/112).
+* Added: Extended support for `meta`, `box` and `remove` methods, see [issue #114](https://github.com/wp-papi/papi/issues/114).
+* Added: WP CLI Support, see [issue #111](https://github.com/wp-papi/papi/issues/111).
+* Added: Group property, see [issue #112](https://github.com/wp-papi/papi/issues/112).
 * Added: `papi/before_init` action that is fired before Papi loads textdomain, classes, functions and setups the container.
 * Added: `papi/init` action that is fired after Papi loads textdomain, classes, functions and setups the container.
 * Added: `papi/loaded` action that will be the new `papi/include`. The old action is deprecated but will still work, it's fired before `papi/loaded` and will be removed in a feature version of Papi.
