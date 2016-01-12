@@ -550,15 +550,13 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected function render_properties( $row, $value ) {
 		$has_value     = $value !== false;
 		$render_layout = $this->get_setting( 'layout' );
+		$layout_slug   = isset( $row['slug'] ) ? $row['slug'] : false;
+		$layout_slug   = empty( $layout_slug ) && isset( $value['_layout'] ) ? $value['_layout'] : $layout_slug;
+		$layout_slug   = empty( $layout_slug ) && isset( $value[$this->layout_key] ) ? $value[$this->layout_key] : $layout_slug;
 		$row           = isset( $row['items'] ) ? $row['items'] : $row;
 
-		// Fetch layout slug from the row, the old database slug or the new database slug.
-		$layout_slug   = isset( $row['slug'] ) ? $row['slug'] : false;
-		$layout_value  = empty( $layout_slug ) && isset( $value['_layout'] ) ? $value[$this->layout_key] : false;
-		$layout_value  = empty( $layout_value ) && isset( $value[$this->layout_key] ) ? $value[$this->layout_key] : false;
-
-		// Render one hidden input for layout value.
-		$this->render_layout_input( $layout_value );
+		// Render one hidden input for layout slug.
+		$this->render_layout_input( $layout_slug );
 		?>
 			<td class="repeater-column flexible-column <?php echo $render_layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
 				<div class="repeater-content-open">
