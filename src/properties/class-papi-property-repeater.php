@@ -31,7 +31,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @var array
 	 */
-	protected $exclude_properties = ['flexible', 'repeater'];
+	protected $exclude_properties = ['flexible', 'group', 'repeater'];
 
 	/**
 	 * Delete value from the database.

@@ -146,6 +146,30 @@ return [
 		'slug'  => 'gallery_test'
 	] ),
 
+	// Group
+	papi_property( [
+		'title'    => 'Group',
+		'slug'     => 'my_group_slug',
+		'type'     => 'group',
+		'settings' => [
+			'items' => [
+				papi_property( [
+					'title'    => 'Page',
+					'slug'     => 'page',
+					'type'     => 'post',
+					'settings' => [
+						'post_type' => 'page'
+					]
+				] ),
+				papi_property( [
+					'type'     => 'string',
+					'title'    => 'Menu item title',
+					'slug'     => 'page_title'
+				] )
+			]
+		]
+	] ),
+
 	// Hidden
 	papi_property( [
 		'type'  => 'hidden',
@@ -185,30 +209,6 @@ return [
 		'type'  => 'link',
 		'title' => 'Link test',
 		'slug'  => 'link_test'
-	] ),
-
-	// Multiple
-	papi_property( [
-		'title'    => 'Multiple',
-		'slug'     => 'my_multiple_slug',
-		'type'     => 'multiple',
-		'settings' => [
-			'items' => [
-				papi_property( [
-					'title'    => 'Page',
-					'slug'     => 'page',
-					'type'     => 'post',
-					'settings' => [
-						'post_type' => 'page'
-					]
-				] ),
-				papi_property( [
-					'type'     => 'string',
-					'title'    => 'Menu item title',
-					'slug'     => 'page_title'
-				] )
-			]
-		]
 	] ),
 
 	// Number
