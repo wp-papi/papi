@@ -688,9 +688,7 @@ class Papi_Core_Property {
 			$this->options = (object) $this->default_options;
 		}
 
-		if ( isset( $this->options->$key ) ) {
-			$this->options->$key = $value;
-		}
+		$this->options->$key = $value;
 	}
 
 	/**

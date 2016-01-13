@@ -24,6 +24,7 @@ class Papi_Property_Editor extends Papi_Property {
 	 */
 	public function html() {
 		$value = $this->get_value();
+		$value = html_entity_decode( $value );
 		$id    = str_replace(
 			'[',
 			'',
