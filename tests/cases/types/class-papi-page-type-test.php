@@ -164,7 +164,40 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$_GET['post_type'] = 'page';
 		$_wp_post_type_features['page']['editor'] = true;
 		$this->simple_page_type->remove_post_type_support();
-		$this->assertTrue( ! isset( $_wp_post_type_features['page']['editor'] ) );
+		$this->assertFalse( isset( $_wp_post_type_features['page']['editor'] ) );
+	}
+
+	public function test_remove_post_type_supports_faq_level_1() {
+		global $_wp_post_type_features;
+		$this->assertNull( $this->faq_page_type->remove_post_type_support() );
+		$_GET['post_type'] = 'faq';
+		$_wp_post_type_features['faq']['div'] = true;
+		$this->faq_page_type->remove_post_type_support();
+		$this->assertFalse( isset( $_wp_post_type_features['faq']['div'] ) );
+	}
+
+	public function test_remove_post_type_supports_faq_level_2() {
+		global $_wp_post_type_features;
+		$this->assertNull( $this->faq_extra_page_type->remove_post_type_support() );
+		$_GET['post_type'] = 'faq';
+		$_wp_post_type_features['faq']['div'] = true;
+		$_wp_post_type_features['faq']['blog'] = true;
+		$this->faq_extra_page_type->remove_post_type_support();
+		$this->assertFalse( isset( $_wp_post_type_features['faq']['div'] ) );
+		$this->assertFalse( isset( $_wp_post_type_features['faq']['blog'] ) );
+	}
+
+	public function test_remove_post_type_supports_faq_level_3() {
+		global $_wp_post_type_features;
+		$this->assertNull( $this->faq_extra2_page_type->remove_post_type_support() );
+		$_GET['post_type'] = 'faq';
+		$_wp_post_type_features['faq']['div'] = true;
+		$_wp_post_type_features['faq']['blog'] = true;
+		$_wp_post_type_features['faq']['editor'] = true;
+		$this->faq_extra2_page_type->remove_post_type_support();
+		$this->assertFalse( isset( $_wp_post_type_features['faq']['div'] ) );
+		$this->assertFalse( isset( $_wp_post_type_features['faq']['blog'] ) );
+		$this->assertFalse( isset( $_wp_post_type_features['faq']['editor'] ) );
 	}
 
 	public function test_setup() {
