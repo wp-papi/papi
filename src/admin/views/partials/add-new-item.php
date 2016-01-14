@@ -1,4 +1,4 @@
-<div class="papi-box-item">
+<a href="<?php echo $vars['url']; ?>" class="papi-box-item">
 	<?php if ( ! empty( $vars['thumbnail'] ) ): ?>
 	<div class="papi-post-type">
 		<div class="papi-post-type-screenshot" style="background-image:url(<?php echo $vars['thumbnail']; ?>)">
@@ -11,6 +11,6 @@
 		<p><?php echo $vars['description']; ?></p>
 	</div>
 	<div class="papi-post-type-actions">
-		<a class="button button-primary" href="<?php echo $vars['url']; ?>"><?php _e( 'Select', 'papi' ); ?></a>
+		<span class="button button-primary"><?php _e( 'Select', 'papi' ); ?></span>
 	</div>
-</div>
+</a>
