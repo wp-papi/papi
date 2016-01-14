@@ -4,7 +4,7 @@
  * Plugin Name: Papi
  * Description: Page Type API with custom fields
  * Author: Fredrik Forsmo
- * Author URI: http://forsmo.me
+ * Author URI: https://frozzare.com
  * Version: 3.0.0-dev
  * Plugin URI: https://wp-papi.github.io
  * Textdomain: papi
