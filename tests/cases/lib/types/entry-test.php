@@ -40,7 +40,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_all_entry_types_with_same_id() {
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/entry-types'];
+			return [PAPI_FIXTURE_DIR . '/entry-types', PAPI_FIXTURE_DIR . '/entry-types2'];
 		} );
 
 		$output = papi_get_all_entry_types( [
