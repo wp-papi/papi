@@ -38,6 +38,20 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Info entry type', $output[0]->name );
 	}
 
+	public function test_papi_get_all_entry_types_with_same_id() {
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/entry-types'];
+		} );
+
+		$output = papi_get_all_entry_types( [
+			'types' => 'entry'
+		] );
+
+		$classes = array_map( 'get_class', array_values( $output ) );
+		$this->assertTrue( in_array( 'Term_Entry2_Type', $classes ) );
+		$this->assertFalse( in_array( 'Term_Entry1_Type', $classes ) );
+	}
+
 	public function test_papi_get_all_entry_types_option() {
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];

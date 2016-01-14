@@ -57,7 +57,7 @@ function papi_get_all_entry_types( array $args = [] ) {
 	}
 
 	$entry_types = [];
-	$files         = papi()->once( __FUNCTION__, function () {
+	$files       = papi()->once( __FUNCTION__, function () {
 		return papi_get_all_core_type_files();
 	} );
 
@@ -81,16 +81,19 @@ function papi_get_all_entry_types( array $args = [] ) {
 			}
 		}
 
+		$id         = $entry_type->get_id();
 		$valid_type = in_array( $entry_type->type, $args['types'] );
 		$valid_type = $args['mode'] === 'include' ? $valid_type : ! $valid_type;
 
 		if ( $args['all'] || ( $valid_type && call_user_func_array( [$entry_type, 'allowed'], $args['args'] ) ) ) {
 			$entry_type->boot();
-			$entry_types[] = $entry_type;
+			$entry_types[$id] = $entry_type;
 		}
 
 		continue;
 	}
+
+	$entry_types = array_values( $entry_types );
 
 	if ( is_array( $entry_types ) ) {
 		usort( $entry_types, function ( $a, $b ) {
@@ -129,7 +132,7 @@ function papi_get_entry_type( $file_path ) {
 		// @codeCoverageIgnoreEnd
 
 		$rc         = new ReflectionClass( $class_name );
-		$entry_type  = $rc->newInstanceArgs( [$file_path] );
+		$entry_type = $rc->newInstanceArgs( [$file_path] );
 
 		// If the page type don't have a name we can't use it.
 		if ( ! $entry_type->has_name() ) {
