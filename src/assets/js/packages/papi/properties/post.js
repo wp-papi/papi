@@ -40,11 +40,11 @@ class Post {
 
     const params = {
       'action': 'get_posts',
-      'fields': ['ID','post_title'],
+      'fields': ['ID', 'post_title'],
       'query': query
     };
     const $prop = $this.closest('.papi-property-post');
-    const $select = $prop.find('.papi-property-post-right')
+    const $select = $prop.find('.papi-property-post-right');
 
     $('[for="' + $select.attr('id') + '"]')
       .parent()

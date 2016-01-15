@@ -42,7 +42,7 @@ class Term {
       'query': query
     };
     const $prop = $this.closest('.papi-property-term');
-    const $select = $prop.find('.papi-property-term-right')
+    const $select = $prop.find('.papi-property-term-right');
 
     $('[for="' + $select.attr('id') + '"]')
       .parent()
