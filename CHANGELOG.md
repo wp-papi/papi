@@ -21,6 +21,7 @@ We moved some logic from page type class to entry type class to be able the sepa
 * Added: Layout mode to post property. It can devide into multiple select or a single select with labels (as before).
 * Added: Layout mode to term property. It can devide into multiple select or a single select with labels (as before).
 * Added: Second bool param to `papi_get_slugs` that will return only slugs if true.
+* Added: A way to handle classes with the same name in multiple directories, see [issue #107](https://github.com/wp-papi/papi/issues/107)
 
 ## Changed
 
