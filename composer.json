@@ -17,9 +17,6 @@
     "page type",
     "page"
   ],
-  "support": {
-    "issues": "https://github.com/wp-papi/papi/issues"
-  },
   "require": {
     "php": "^5.5.9 || ^7.0"
   },
