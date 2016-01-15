@@ -21,7 +21,7 @@
     "issues": "https://github.com/wp-papi/papi/issues"
   },
   "require": {
-    "php": ">=5.5.9|^7.0"
+    "php": "^5.5.9 || ^7.0"
   },
   "require-dev": {
     "frozzare/wp-test-suite": "~1.0",
