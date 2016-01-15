@@ -7,7 +7,7 @@
 [![Latest Version](https://img.shields.io/github/release/wp-papi/papi.svg?style=flat)](https://github.com/wp-papi/papi/releases)
 [![License](https://img.shields.io/packagist/l/wp-papi/papi.svg)](https://packagist.org/packages/wp-papi/papi)
 
-> `master` is unsafe. `2.x` is the stable branch.
+> `master` is unsafe. `3.x` is beta branch of version 3. `2.x` is the stable branch.
 
 Papi has a different approach on how to work with fields and page types in WordPress. The idea is coming from how Page Type Builder in EPiServer works and has been loved by the developers.
 
