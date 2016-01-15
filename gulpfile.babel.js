@@ -10,6 +10,7 @@ import gutil from 'gulp-util';
 import sass from 'gulp-sass';
 import sourcemaps from 'gulp-sourcemaps';
 import cssmin from 'gulp-cssmin';
+import eslint from 'gulp-eslint';
 import uglify from 'gulp-uglify';
 import concat from 'gulp-concat';
 import header from 'gulp-header';
@@ -53,7 +54,8 @@ const config = {
     components: [
       assets + 'js/components/*.js'
     ],
-    entry: assets + 'js/main.js'
+    entry: assets + 'js/main.js',
+    lint: assets + 'js/packages/papi/**/**.js'
   }
 };
 
@@ -98,6 +100,16 @@ gulp.task('components', () => {
     .pipe(concat('components.js'))
     .pipe(uglify())
     .pipe(gulp.dest(`${dist}js`));
+});
+
+/**
+ * Lint JavaScript with ESLint.
+ */
+gulp.task('lint', () => {
+  return gulp.src(config.scripts.lint)
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError());
 });
 
 /**
