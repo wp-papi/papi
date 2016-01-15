@@ -262,11 +262,15 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_post_types() {
+		papi()->remove( 'papi_get_all_entry_types' );
+
 		$this->assertEmpty( papi_get_post_types() );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
+
+		papi()->remove( 'papi_get_all_entry_types' );
 
 		$post_types = papi_get_post_types();
 

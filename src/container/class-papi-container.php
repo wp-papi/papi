@@ -215,12 +215,13 @@ class Papi_Container implements ArrayAccess {
 	 * @return mixed
 	 */
 	public function once( $key, $callback ) {
-		if ( ! is_string( $key ) ) {
+		if ( ! is_string( $key ) && ! is_callable( $callback ) ) {
 			return;
 		}
 
 		if ( ! $this->exists( $key ) ) {
-			$this->singleton( $key, $callback );
+			$result = $callback();
+			$this->singleton( $key, $result );
 		}
 
 		return $this->make( $key );

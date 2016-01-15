@@ -89,8 +89,6 @@ function papi_get_all_entry_types( array $args = [] ) {
 			$entry_type->boot();
 			$entry_types[$id] = $entry_type;
 		}
-
-		continue;
 	}
 
 	$entry_types = array_values( $entry_types );

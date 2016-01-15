@@ -23,11 +23,15 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_all_entry_types() {
+		papi()->remove( 'papi_get_all_entry_types' );
+
 		$this->assertEmpty( papi_get_all_entry_types() );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/entry-types'];
 		} );
+
+		papi()->remove( 'papi_get_all_entry_types' );
 
 		$this->assertNotEmpty( papi_get_all_entry_types() );
 
@@ -43,19 +47,23 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 			return [PAPI_FIXTURE_DIR . '/entry-types', PAPI_FIXTURE_DIR . '/entry-types2'];
 		} );
 
+		papi()->remove( 'papi_get_all_entry_types' );
+
 		$output = papi_get_all_entry_types( [
 			'types' => 'entry'
 		] );
 
 		$classes = array_map( 'get_class', array_values( $output ) );
-		$this->assertTrue( in_array( 'Term_Entry2_Type', $classes ) );
-		$this->assertFalse( in_array( 'Term_Entry1_Type', $classes ) );
+		$this->assertTrue( in_array( 'Term_Entry_Type', $classes ) );
+		$this->assertTrue( strpos( 'entry-types2/term-entry-type.php', $output[0]->get_file_path() ) !== -1 );
 	}
 
 	public function test_papi_get_all_entry_types_option() {
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
+
+		papi()->remove( 'papi_get_all_entry_types' );
 
 		$output = papi_get_all_entry_types( [
 			'types' => 'option'

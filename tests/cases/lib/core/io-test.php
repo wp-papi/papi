@@ -20,6 +20,33 @@ class Papi_Lib_Core_IO_Test extends WP_UnitTestCase {
 		$this->assertTrue( in_array( $expected, $actual ) );
 	}
 
+	public function test_papi_get_core_type_file_path() {
+		$this->assertEmpty( papi_get_core_type_file_path( '' ) );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [PAPI_FIXTURE_DIR . '/entry-types', PAPI_FIXTURE_DIR . '/entry-types2'];
+		} );
+
+		$output    = papi_get_all_core_type_files();
+		$file_path = '';
+
+		foreach ( $output as $file ) {
+			if ( strpos( 'entry-types2/term-entry-type.php', $file ) !== -1 ) {
+				$this->assertTrue( true );
+				$file_path = $file;
+			}
+		}
+
+		if ( empty( $file_path ) ) {
+			$this->assertTrue( false );
+		}
+
+		$file_path = str_replace( 'types2', 'types', $file_path );
+		$file_path = papi_get_core_type_file_path( $file_path );
+
+		$this->assertTrue( strpos( 'entry-types2/term-entry-type.php', $file ) !== -1 );
+	}
+
 	public function test_papi_get_all_core_type_files() {
 		$this->assertEmpty( papi_get_all_core_type_files() );
 

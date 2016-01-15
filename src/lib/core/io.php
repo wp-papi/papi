@@ -33,6 +33,34 @@ function papi_get_all_files_in_directory( $directory = '' ) {
 }
 
 /**
+ * Get core type file path, this allows classes to be overridden.
+ *
+ * @param  string $file_path
+ *
+ * @return string
+ */
+function papi_get_core_type_file_path( $file_path ) {
+	if ( empty( $file_path ) ) {
+		return [];
+	}
+
+	$directories = papi_filter_settings_directories();
+	$result      = [];
+
+	foreach ( $directories as $directory ) {
+		$directory = rtrim( $directory, '/' ) . '/';
+		$file_path = str_replace( $directory, '', $file_path );
+		$path      = $directory . $file_path;
+
+		if ( file_exists( $path ) ) {
+			$result[] = $path;
+		}
+	}
+
+	return array_pop( $result );
+}
+
+/**
  * Get all entry type files from the register directories.
  *
  * @return array
@@ -45,7 +73,11 @@ function papi_get_all_core_type_files() {
 		$result = array_merge( $result, papi_get_all_files_in_directory( $directory ) );
 	}
 
-	return $result;
+	// Get the last file path from directories.
+	$result = array_map( 'papi_get_core_type_file_path', $result );
+
+	// Only unique path, no duplicated path is allowed.
+	return array_unique( $result );
 }
 
 /**
