@@ -57,9 +57,7 @@ function papi_get_all_entry_types( array $args = [] ) {
 	}
 
 	$entry_types = [];
-	$files       = papi()->once( __FUNCTION__, function () {
-		return papi_get_all_core_type_files();
-	} );
+	$files       = papi_get_all_core_type_files();
 
 	foreach ( $files as $file ) {
 		$entry_type = papi_get_entry_type( $file );

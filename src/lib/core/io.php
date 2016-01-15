@@ -66,18 +66,20 @@ function papi_get_core_type_file_path( $file_path ) {
  * @return array
  */
 function papi_get_all_core_type_files() {
-	$directories = papi_filter_settings_directories();
-	$result      = [];
+	return papi()->once( __FUNCTION__, function() {
+		$directories = papi_filter_settings_directories();
+		$result      = [];
 
-	foreach ( $directories as $directory ) {
-		$result = array_merge( $result, papi_get_all_files_in_directory( $directory ) );
-	}
+		foreach ( $directories as $directory ) {
+			$result = array_merge( $result, papi_get_all_files_in_directory( $directory ) );
+		}
 
-	// Get the last file path from directories.
-	$result = array_map( 'papi_get_core_type_file_path', $result );
+		// Get the last file path from directories.
+		$result = array_map( 'papi_get_core_type_file_path', $result );
 
-	// Only unique path, no duplicated path is allowed.
-	return array_unique( $result );
+		// Only unique path, no duplicated path is allowed.
+		return array_unique( $result );
+	} );
 }
 
 /**
