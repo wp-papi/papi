@@ -49,6 +49,6 @@ $ vendor/bin/phpcs -s --extensions=php --standard=phpcs.xml src/
 
 Visit the [contributing](CONTRIBUTING.md) file.
 
-# License
+## License
 
 MIT © [Fredrik Forsmo](https://github.com/frozzare)
