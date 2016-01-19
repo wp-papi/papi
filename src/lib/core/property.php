@@ -144,6 +144,11 @@ function papi_get_property_class_name( $type ) {
 		return;
 	}
 
+	$type = str_replace( '-', '_', $type );
+	$type = explode( '_', $type );
+	$type = array_map( 'ucfirst', $type );
+	$type = implode( '_', $type );
+
 	return 'Papi_Property_' . ucfirst( preg_replace( '/^Property/', '', $type ) );
 }
 

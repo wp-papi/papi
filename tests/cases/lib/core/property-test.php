@@ -143,6 +143,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Papi_Property_String', papi_get_property_class_name( 'PropertyString' ) );
 		$this->assertSame( 'Papi_Property_String', papi_get_property_class_name( 'string' ) );
 		$this->assertSame( 'Papi_Property_Fake', papi_get_property_class_name( 'fake' ) );
+		$this->assertSame( 'Papi_Property_Test_Form_1', papi_get_property_class_name( 'test-form-1' ) );
 		$this->assertNull( papi_get_property_class_name( null ) );
 		$this->assertNull( papi_get_property_class_name( false ) );
 		$this->assertNull( papi_get_property_class_name( true ) );
