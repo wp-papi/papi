@@ -13,7 +13,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 
 		tests_add_filter( 'wp_die_ajax_handler', function () {
 			return $this->get_die_handler();
-		}, 1, 1 );
+		}, 1 );
 	}
 
 	public function tearDown() {

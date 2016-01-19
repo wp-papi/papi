@@ -2,17 +2,7 @@
 
 class Papi_Loader_Test extends WP_UnitTestCase {
 
-	public function setUp() {
-		parent::setUp();
-		$this->papi = Papi_Loader::instance();
-	}
-
-	public function tearDown() {
-		parent::tearDown();
-		unset( $this->papi );
-	}
-
-	public function test_after_setup_theme_action() {
+	public function test_plugins_loaded_action() {
 		$this->assertSame( 10, has_action( 'plugins_loaded', 'papi' ) );
 	}
 
@@ -27,7 +17,8 @@ class Papi_Loader_Test extends WP_UnitTestCase {
 	}
 
 	public function test_porter() {
-		$porter = $this->papi->porter();
+		$papi = Papi_Loader::instance();
+		$porter = $papi->porter();
 		$this->assertTrue( $porter instanceof Papi_Porter );
 	}
 
@@ -36,6 +27,7 @@ class Papi_Loader_Test extends WP_UnitTestCase {
 	}
 
 	public function test_name() {
-		$this->assertSame( 'Papi', $this->papi->name );
+		$papi = Papi_Loader::instance();
+		$this->assertSame( 'Papi', $papi->name );
 	}
 }
