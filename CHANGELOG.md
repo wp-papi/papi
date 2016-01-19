@@ -31,6 +31,7 @@ We moved some logic from page type class to entry type class to be able the sepa
 
 * Fixed: Save post issue when using property template file and overwrited the slug, see [issue #129](https://github.com/wp-papi/papi/issues/129).
 * Fixed: Select2 clear issue, see [issue #132](https://github.com/wp-papi/papi/issues/132).
+* Fixed: Property type values like  `test-form-1` should match `Papi_Property_Test_Form_1`.
 
 ### Removed
 
