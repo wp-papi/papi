@@ -23,11 +23,12 @@ import plumber from 'gulp-plumber';
 import pkg from './package.json';
 import runSequence from 'run-sequence';
 import webpack from 'webpack-stream';
-import webpackconfig from './webpack.config.js';
+import gulpif from 'gulp-if';
 
 /**
  * Config.
  */
+let   env    = 'dev';
 const dist   = './dist/';
 const src    = './src/';
 const assets = src + 'assets/';
@@ -55,7 +56,8 @@ const config = {
       assets + 'js/components/*.js'
     ],
     entry: assets + 'js/main.js',
-    lint: assets + 'js/packages/papi/**/**.js'
+    lint: assets + 'js/packages/papi/**/**.js',
+    src: assets + 'js/**/*.js'
   }
 };
 
@@ -96,9 +98,8 @@ gulp.task('clean:before:js', cb => del([ `${dist}js/` ], {
  * Component task.
  */
 gulp.task('components', () => {
-  gulp.src(config.scripts.components)
+  return gulp.src(config.scripts.components)
     .pipe(concat('components.js'))
-    .pipe(uglify())
     .pipe(gulp.dest(`${dist}js`));
 });
 
@@ -151,14 +152,14 @@ gulp.task('pot', () => {
 gulp.task('sass', () => {
   gulp.src(config.sass.entries)
     .pipe(concat(config.sass.dist))
-    .pipe(sourcemaps.init())
+    .pipe(gulpif(env === 'dev', sourcemaps.init()))
     .pipe(sass(config.sass.settings))
     .pipe(autoprefixer(config.sass.autoprefixer))
     .pipe(cssmin())
     .pipe(header(banner, {
       package: pkg
     }))
-    .pipe(sourcemaps.write())
+    .pipe(gulpif(env === 'dev', sourcemaps.write()))
     .pipe(gulp.dest(config.sass.dest));
 });
 
@@ -168,11 +169,12 @@ gulp.task('sass', () => {
 gulp.task('scripts', ['clean:before:js', 'components'], () => {
   gulp.src([config.scripts.entry])
     .pipe(plumber())
-    .pipe(webpack(webpackconfig))
+    .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest(`${dist}js`))
     .on('end', function () {
       gulp.src([`${dist}js/*.js`])
         .pipe(concat('main.min.js'))
+        .pipe(gulpif(env === 'build', uglify().on('error', gutil.log)))
         .pipe(header(banner, {
           package: pkg
         }))
@@ -185,6 +187,7 @@ gulp.task('scripts', ['clean:before:js', 'components'], () => {
  */
 gulp.task('watch', () => {
   gulp.watch(config.sass.src, ['sass']);
+  gulp.watch(config.scripts.src, ['scripts']);
 });
 
 /**
@@ -198,5 +201,6 @@ gulp.task('default', ['clean:before:css', 'clean:before:js'], cb => {
  * Build task.
  */
 gulp.task('build', ['clean:before:css', 'clean:before:js'], cb => {
+  env = 'build';
   runSequence('sass', 'scripts', cb);
 });
