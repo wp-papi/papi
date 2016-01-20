@@ -45,7 +45,6 @@ const config = {
       assets + 'css/components/*.css'
     ],
     dest: dist + 'css/',
-    dist: 'style.min.css',
     settings: {
       sourceComments: 'map'
     },
@@ -79,7 +78,7 @@ const banner = [
 /**
  * Clean task for [./dist/css]
  */
-gulp.task('clean:before:css', cb => del([ `${dist}css/` ], {
+gulp.task('clean:before:css', cb => del([ `${dist}css/*.css`, `!${dist}css/style*css` ], {
   read: false,
   dot: true,
   force: true
@@ -88,7 +87,7 @@ gulp.task('clean:before:css', cb => del([ `${dist}css/` ], {
 /**
  * Clean task for [./dist/js]
  */
-gulp.task('clean:before:js', cb => del([ `${dist}js/` ], {
+gulp.task('clean:before:js', cb => del([ `${dist}js/*.js`, `!${dist}js/main*js` ], {
   read: false,
   dot: true,
   force: true
@@ -151,11 +150,11 @@ gulp.task('pot', () => {
  */
 gulp.task('sass', () => {
   gulp.src(config.sass.entries)
-    .pipe(concat(config.sass.dist))
+    .pipe(concat('style' + (env === 'build' ? '.min' : '') + '.css'))
     .pipe(gulpif(env === 'dev', sourcemaps.init()))
     .pipe(sass(config.sass.settings))
     .pipe(autoprefixer(config.sass.autoprefixer))
-    .pipe(cssmin())
+    .pipe(gulpif(env === 'build', cssmin()))
     .pipe(header(banner, {
       package: pkg
     }))
@@ -172,8 +171,8 @@ gulp.task('scripts', ['clean:before:js', 'components'], () => {
     .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest(`${dist}js`))
     .on('end', function () {
-      gulp.src([`${dist}js/*.js`])
-        .pipe(concat('main.min.js'))
+      gulp.src([`${dist}js/components.js`])
+        .pipe(concat('main' + (env === 'build' ? '.min' : '') + '.js'))
         .pipe(gulpif(env === 'build', uglify().on('error', gutil.log)))
         .pipe(header(banner, {
           package: pkg

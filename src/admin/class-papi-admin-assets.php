@@ -22,7 +22,7 @@ final class Papi_Admin_Assets {
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style(
 			'papi-main',
-			dirname( PAPI_PLUGIN_URL ) . '/dist/css/style.min.css',
+			$this->get_file_path( 'style.css' ),
 			false,
 			null
 		);
@@ -40,7 +40,7 @@ final class Papi_Admin_Assets {
 
 		wp_enqueue_script(
 			'papi-main',
-			dirname( PAPI_PLUGIN_URL ) . '/dist/js/main.min.js',
+			$this->get_file_path( 'main.js' ),
 			[
 				'json2',
 				'jquery',
@@ -61,6 +61,27 @@ final class Papi_Admin_Assets {
 			'remove'        => __( 'Remove', 'papi' ),
 			'requiredError' => __( 'This fields are required:', 'papi' ),
 		] );
+	}
+
+	/**
+	 * Get file path for CSS or JavaScript file. If the
+	 * non minified version of CSS or JavaScript exists
+	 * it return that or default to the minified version.
+	 *
+	 * @param  string $file
+	 *
+	 * @return string
+	 */
+	protected function get_file_path( $file ) {
+		$path = dirname( PAPI_PLUGIN_DIR ) . '/dist/';
+		$url  = dirname( PAPI_PLUGIN_URL ) . '/dist/';
+		$type = preg_match( '/\.css/', $file ) ? 'css' : 'js';
+		$path = $path . $type . '/';
+		$url  = $url . $type . '/';
+		$min  = str_replace( $type, 'min.' . $type, $file );
+		$file = PAPI_DEBUG && file_exists( $path . $file ) ? $file : $min;
+
+		return $url . $file;
 	}
 }
 

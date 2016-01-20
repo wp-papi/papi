@@ -11,3 +11,5 @@ vendor
 composer.lock
 components.js
 webpack.js*
+style.css
+main.js
