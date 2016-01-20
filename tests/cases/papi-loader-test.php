@@ -2,8 +2,53 @@
 
 class Papi_Loader_Test extends WP_UnitTestCase {
 
+	public function wp_die_handler( $message ) {
+	}
+
 	public function test_plugins_loaded_action() {
 		$this->assertSame( 10, has_action( 'plugins_loaded', 'papi' ) );
+	}
+
+	public function test_papi_before_init_action() {
+		global $wp_actions;
+
+		Papi_Loader::deactivate();
+
+		unset( $wp_actions['papi/before_init'] );
+
+		add_action( 'papi/before_init', function () {
+			$this->assertTrue( true );
+		} );
+
+		Papi_Loader::instance();
+	}
+
+	public function test_papi_init_action() {
+		global $wp_actions;
+
+		Papi_Loader::deactivate();
+
+		unset( $wp_actions['papi/init'] );
+
+		add_action( 'papi/init', function () {
+			$this->assertTrue( true );
+		} );
+
+		Papi_Loader::instance();
+	}
+
+	public function test_papi_loaded_action() {
+		global $wp_actions;
+
+		Papi_Loader::deactivate();
+
+		unset( $wp_actions['papi/loaded'] );
+
+		add_action( 'papi/loaded', function () {
+			$this->assertTrue( true );
+		} );
+
+		Papi_Loader::instance();
 	}
 
 	public function test_constants() {

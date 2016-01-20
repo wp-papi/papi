@@ -236,7 +236,10 @@ final class Papi_Loader extends Papi_Container {
 			deactivate_plugins( $plugin_path );
 		}
 
-		wp_die( __( 'WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
+		#wp_die( __( 'WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
+
+		// Remove instance.
+		self::$instance = null;
 	}
 
 	/**

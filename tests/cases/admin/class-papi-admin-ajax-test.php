@@ -10,23 +10,16 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$_GET  = [];
 		$_POST = [];
 		$this->ajax = new Papi_Admin_Ajax();
-
-		tests_add_filter( 'wp_die_ajax_handler', function () {
-			return $this->get_die_handler();
-		}, 1 );
+		add_filter( 'wp_die_ajax_handler', [$this, 'get_wp_die_handler'], 1, 1 );
 	}
 
 	public function tearDown() {
 		parent::tearDown();
 		unset( $_GET, $_POST, $this->ajax );
+		remove_filter( 'wp_die_ajax_handler', [$this, 'get_wp_die_handler'], 1, 1 );
 	}
 
-	public function get_die_handler() {
-		return [$this, 'die_handler'];
-	}
-
-	public function die_handler() {
-
+	public function wp_die_handler( $message ) {
 	}
 
 	public function test_actions() {
