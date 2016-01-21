@@ -171,7 +171,7 @@ gulp.task('scripts', ['clean:before:js', 'components'], () => {
     .pipe(webpack(require('./webpack.config.js')))
     .pipe(gulp.dest(`${dist}js`))
     .on('end', function () {
-      gulp.src([`${dist}js/components.js`])
+      gulp.src([`${dist}js/components.js`, `${dist}js/webpack.js`])
         .pipe(concat('main' + (env === 'build' ? '.min' : '') + '.js'))
         .pipe(gulpif(env === 'build', uglify().on('error', gutil.log)))
         .pipe(header(banner, {
