@@ -822,9 +822,9 @@ class Papi_Core_Property {
 	/**
 	 * Update value before it's saved to the database.
 	 *
-	 * @param mixed  $value
-	 * @param string $slug
-	 * @param int    $post_id
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
 	 *
 	 * @return mixed
 	 */
