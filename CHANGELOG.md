@@ -8,9 +8,9 @@ We moved some logic from page type class to entry type class to be able the sepa
 
 ### Added
 
-* Added: Extended support for `meta`, `box` and `remove` methods, see [issue #114](https://github.com/wp-papi/papi/issues/114).
-* Added: WP CLI Support, see [issue #111](https://github.com/wp-papi/papi/issues/111).
-* Added: Group property, see [issue #112](https://github.com/wp-papi/papi/issues/112).
+* Added: Extended support for `meta`, `box` and `remove` methods [#114](https://github.com/wp-papi/papi/issues/114).
+* Added: WP CLI Support [#111](https://github.com/wp-papi/papi/issues/111).
+* Added: Group property [#112](https://github.com/wp-papi/papi/issues/112).
 * Added: `papi/before_init` action that is fired before Papi loads textdomain, classes, functions and setups the container.
 * Added: `papi/init` action that is fired after Papi loads textdomain, classes, functions and setups the container.
 * Added: `papi/loaded` action that will be the new `papi/include`. The old action is deprecated but will still work, it's fired before `papi/loaded` and will be removed in a feature version of Papi.
@@ -21,7 +21,8 @@ We moved some logic from page type class to entry type class to be able the sepa
 * Added: Layout mode to post property. It can devide into multiple select or a single select with labels (as before).
 * Added: Layout mode to term property. It can devide into multiple select or a single select with labels (as before).
 * Added: Second bool param to `papi_get_slugs` that will return only slugs if true.
-* Added: A way to handle classes with the same name in multiple directories, see [issue #107](https://github.com/wp-papi/papi/issues/107)
+* Added: A way to handle classes with the same name in multiple directories [#107](https://github.com/wp-papi/papi/issues/107)
+* Added: When WordPress refresh nonces, Papi nonces should be refreshed too.
 
 ## Changed
 
@@ -29,9 +30,10 @@ We moved some logic from page type class to entry type class to be able the sepa
 
 ### Fixed
 
-* Fixed: Save post issue when using property template file and overwrited the slug, see [issue #129](https://github.com/wp-papi/papi/issues/129).
-* Fixed: Select2 clear issue, see [issue #132](https://github.com/wp-papi/papi/issues/132).
+* Fixed: Save post issue when using property template file and overwrited the slug [#129](https://github.com/wp-papi/papi/issues/129).
+* Fixed: Select2 clear issue [issue #132](https://github.com/wp-papi/papi/issues/132).
 * Fixed: Property type values like  `test-form-1` should match `Papi_Property_Test_Form_1`.
+* Fixed: When using `overwrite` it should read data from the post instead of post meta [#145](https://github.com/wp-papi/papi/issues/145)
 
 ### Removed
 
