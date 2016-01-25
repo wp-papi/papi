@@ -49,6 +49,10 @@ We moved some logic from page type class to entry type class to be able the sepa
 
 * Upgraded: Moment.js from 2.10.6 to 2.11.0
 
+### Thanks
+
+Thanks to all contributors and all who have tested Papi during the development.
+
 ## [2.4.7](https://github.com/wp-papi/papi/releases/tag/v2.4.7) - 2015-11-12
 
 Fixed: Template did return empty string when no template was found.
@@ -56,28 +60,28 @@ Fixed: Select2 overflow, see [issue #105](https://github.com/wp-papi/papi/issues
 
 ## [2.4.6](https://github.com/wp-papi/papi/releases/tag/v2.4.6) - 2015-11-11
 
-## Added
+### Added
 
 Added: Support for loading template files from a child theme if it exists.
 
-## Fixed
+### Fixed
 
 Fixed: Empty value didn't show as it should when flexible had more then 9 fields.
 
 ## [2.4.5](https://github.com/wp-papi/papi/releases/tag/v2.4.5) - 2015-11-09
 
-## Fixed
+### Fixed
 
 Fixed: Option will save on `admin_init` now since link property use `url_to_postid` and calling it to early didn't work.
 Fixed: Output for link property when saved in option table.
 
 ## [2.4.4](https://github.com/wp-papi/papi/releases/tag/v2.4.4) - 2015-11-04
 
-## Added
+### Added
 
 Added: `_self` as default target value for link property.
 
-## Fixed
+### Fixed
 
 Fixed: Link property will deleted values when removing a link.
 Fixed: Flexible empty values did not work because wrong regex.
