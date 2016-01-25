@@ -24,7 +24,7 @@ We moved some logic from page type class to entry type class to be able the sepa
 * Added: A way to handle classes with the same name in multiple directories [#107](https://github.com/wp-papi/papi/issues/107)
 * Added: When WordPress refresh nonces, Papi nonces should be refreshed too.
 
-## Changed
+### Changed
 
 * Flexible property will only save one layout per row. The layout key is changed from `_layout` to `__flexible_layout` since `_layout` can be a real slug. It has backward compatibility for the old layout key. This may cause problem with existing slugs that are named `layout`. To fix default value issue you need to manually add the layout value for the effected row. The slug will be something like this: `sections_0__flexible_layout`, where `sections` is your flexible slug, `0` is the row and `__flexible_layout` is the new layout key. The value should be a slug of the layout title, the same value as the old `_layout` rows that exists on each property.
 
