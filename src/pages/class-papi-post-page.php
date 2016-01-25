@@ -101,6 +101,24 @@ class Papi_Post_Page extends Papi_Core_Page {
 	}
 
 	/**
+	 * Prepare convert value.
+	 *
+	 * @param  Papi_Core_Property $property
+	 * @param  mixed              $value
+	 *
+	 * @retrun mixed
+	 */
+	protected function prepare_convert_value( Papi_Core_Property $property, $value ) {
+		if ( $property->overwrite ) {
+			$slug  = $property->get_slug( true );
+			$post  = get_post( $this->id );
+			$value = $post->$slug;
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Check if the page has the post object and that it's not null.
 	 *
 	 * @return bool
