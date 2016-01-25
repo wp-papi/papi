@@ -79,6 +79,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 			if ( ! papi_is_empty( $property->get_option( 'value' ) ) ) {
 				return $property->get_option( 'value' );
 			}
+
 			return;
 		}
 
