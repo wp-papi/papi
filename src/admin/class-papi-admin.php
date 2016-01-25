@@ -348,7 +348,6 @@ final class Papi_Admin {
 			add_action( 'load-post-new.php', [$this, 'load_post_new'] );
 			add_action( 'restrict_manage_posts', [ $this, 'restrict_page_types'] );
 			add_action( 'add_meta_boxes', [$this, 'hidden_meta_boxes'], 10 );
-			add_filter( 'plugin_row_meta', [$this, 'plugin_row_meta'], 10, 2 );
 		}
 	}
 
@@ -358,8 +357,10 @@ final class Papi_Admin {
 	private function setup_filters() {
 		if ( is_admin() ) {
 			add_filter( 'admin_body_class', [$this, 'admin_body_class'] );
+			add_filter( 'plugin_row_meta', [$this, 'plugin_row_meta'], 10 );
 			add_filter( 'pre_get_posts', [$this, 'pre_get_posts'] );
 			add_filter( 'wp_link_query', [$this, 'wp_link_query'] );
+			add_filter( 'wp_refresh_nonces', [$this, 'wp_refresh_nonces'], 11 );
 
 			add_filter( 'manage_' . $this->post_type . '_posts_columns', [
 				$this,
@@ -444,6 +445,23 @@ final class Papi_Admin {
 		}
 
 		return $results;
+	}
+
+	/**
+	 * Check nonce expiration on the New/Edit Post screen and refresh if needed.
+	 *
+	 * @param  array $response
+	 *
+	 * @return array
+	 */
+	public function wp_refresh_nonces( array $response ) {
+		if ( ! array_key_exists( 'wp-refresh-post-nonces', $response ) ) {
+			return $response;
+		}
+
+		$response['wp-refresh-post-nonces']['replace']['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+
+		return $response;
 	}
 }
 

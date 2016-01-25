@@ -348,6 +348,22 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		];
 		$results = $admin->wp_link_query( [$post] );
 		$this->assertSame( [$post3], $results );
+	}
 
+	public function test_wp_refresh_nonces() {
+		$admin = new Papi_Admin;
+
+		$arr = [];
+		$this->assertEmpty( $admin->wp_refresh_nonces( $arr ) );
+
+		$arr = [
+			'wp-refresh-post-nonces' => [
+				'replace' => []
+			]
+		];
+
+		$arr2 = $admin->wp_refresh_nonces( $arr );
+
+		$this->assertArrayHasKey( 'papi_meta_nonce', $arr2['wp-refresh-post-nonces']['replace'] );
 	}
 }
