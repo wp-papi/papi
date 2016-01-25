@@ -174,6 +174,7 @@ class Papi_Core_Data_Handler {
 				if ( $item['type']->overwrite ) {
 					$slug = unpapify( $key );
 					$this->overwrite[$slug] = $data[$key];
+					unset( $data[$key] );
 				}
 			}
 		}

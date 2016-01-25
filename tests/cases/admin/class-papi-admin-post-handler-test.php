@@ -274,6 +274,7 @@ class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
 		update_post_meta( $post_id, papi_get_page_type_key(), 'extra-page-type' );
 		$this->handler->save_properties( $post_id );
 
+		$this->flush_cache();
 		$value = papi_get_field( $post_id, $property->slug );
 		$this->assertSame( '<p>Hello, world!</p>', trim( $value ) );
 

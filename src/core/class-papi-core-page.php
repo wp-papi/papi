@@ -70,6 +70,11 @@ abstract class Papi_Core_Page extends Papi_Container {
 	protected function convert( $slug, $value ) {
 		$property = $this->get_property( $slug );
 
+		// Prepare convert value, when you have `overwrite => true`
+		// this value will not exist in the database and that's
+		// why we need to prepare (change) the value.
+		$value = $this->prepare_convert_value( $property, $value );
+
 		// If no property type is found, just return null.
 		if ( ! papi_is_property( $property ) ) {
 			return;
@@ -149,9 +154,21 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 * @param  string $slug
 	 * @param  string $child_slug
 	 *
-	 * @return Papi_Property
+	 * @return Papi_Core_Property
 	 */
 	abstract public function get_property( $slug, $child_slug = '' );
+
+	/**
+	 * Prepare convert value.
+	 *
+	 * @param  Papi_Core_Property $property
+	 * @param  mixed              $value
+	 *
+	 * @retrun mixed
+	 */
+	protected function prepare_convert_value( Papi_Core_Property $property, $value ) {
+		return $value;
+	}
 
 	/**
 	 * Check if it's a valid page.
