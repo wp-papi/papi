@@ -95,13 +95,7 @@ class Papi_Page_Type_Meta extends Papi_Entry_Type {
 	 * @return bool
 	 */
 	private function user_is_allowed() {
-		foreach ( $this->capabilities as $capability ) {
-			if ( ! current_user_can( $capability ) ) {
-				return false;
-			}
-		}
-
-		return true;
+		return papi_current_user_is_allowed( $this->capabilities );
 	}
 
 	/**
