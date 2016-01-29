@@ -227,17 +227,12 @@ final class Papi_Loader extends Papi_Container {
 		// Remove Papi from plugins_loaded action.
 		remove_action( 'plugins_loaded', 'papi' );
 
-		// Load is_plugin_active and deactivate_plugins.
-		if ( ! function_exists( 'is_plugin_active' ) ) {
+		// Load deactivate_plugins if it don't exists.
+		if ( ! function_exists( 'deactivate_plugins' ) ) {
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
-		$plugin_path = plugin_basename( __DIR__ . '/../' . basename( __FILE__ ) );
-
-		// If the plugin is active then deactivate it.
-		if ( is_plugin_active( $plugin_path ) ) {
-			deactivate_plugins( $plugin_path );
-		}
+		deactivate_plugins( PAPI_PLUGIN_BASENAME );
 
 		wp_die( __( 'WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
 
