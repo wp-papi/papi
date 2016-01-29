@@ -108,22 +108,7 @@ class Papi_Page_Type_Meta extends Papi_Entry_Type {
 		$args = func_get_args();
 		return empty( $args )
 			? parent::allowed()
-			: $this->user_is_allowed() && isset( $args[0] ) && in_array( $args[0], $this->post_type );
-	}
-
-	/**
-	 * Is the user allowed to view this page type?
-	 *
-	 * @return bool
-	 */
-	public function current_user_is_allowed() {
-		foreach ( $this->capabilities as $capability ) {
-			if ( ! current_user_can( $capability ) ) {
-				return false;
-			}
-		}
-
-		return true;
+			: papi_current_user_is_allowed( $this->capabilities ) && isset( $args[0] ) && in_array( $args[0], $this->post_type );
 	}
 
 	/**
