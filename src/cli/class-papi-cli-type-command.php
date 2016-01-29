@@ -11,7 +11,7 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 	 * @return array
 	 */
 	protected function get_default_format_fields() {
-		return ['name', 'id', 'post_type', 'template', 'number_of_pages', 'type'];
+		return ['name', 'id', 'post_type', 'template', 'number of pages', 'type'];
 	}
 
 	/**
@@ -70,7 +70,7 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 				'post_type'       => $is_page_type ? implode( ', ', $type->post_type ) : 'n/a',
 				'template'        => $is_page_type ? $type->template : 'n/a',
 				'type'            => $type->get_type(),
-				'number_of_pages' => $is_page_type ? papi_get_number_of_pages( $type->get_id() ): 'n/a'
+				'number of pages' => $is_page_type ? papi_get_number_of_pages( $type->get_id() ): 'n/a'
 			];
 		}, $types );
 
