@@ -39,7 +39,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @var string
 	 */
-	protected $layout_key = '__flexible_layout';
+	protected $layout_key = '_flexible_layout';
 
 	/**
 	 * Layout value regex.
