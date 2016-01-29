@@ -34,6 +34,7 @@ We moved some logic from page type class to entry type class to be able the sepa
 * Fixed: Select2 clear issue [#132](https://github.com/wp-papi/papi/issues/132).
 * Fixed: Property type values like  `test-form-1` should match `Papi_Property_Test_Form_1`
 * Fixed: When using `overwrite` it should read data from the post instead of post meta [#145](https://github.com/wp-papi/papi/issues/145)
+* Fixed: Same prefix on folders should not replace all, only the current one.
 
 ### Removed
 
