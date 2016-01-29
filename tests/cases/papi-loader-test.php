@@ -2,6 +2,16 @@
 
 class Papi_Loader_Test extends WP_UnitTestCase {
 
+	public function setUp() {
+		parent::setUp();
+		add_filter( 'wp_die_ajax_handler', [$this, 'get_wp_die_handler'], 1, 1 );
+	}
+
+	public function tearDown() {
+		parent::tearDown();
+		remove_filter( 'wp_die_ajax_handler', [$this, 'get_wp_die_handler'], 1, 1 );
+	}
+
 	public function wp_die_handler( $message ) {
 	}
 
