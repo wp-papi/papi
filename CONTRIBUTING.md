@@ -4,7 +4,7 @@ Everyone is welcome to contribute with patches, bug-fixes and new features.
 
 ## Ideas
 
-If you have a idéa the easiest way is to create a [issue](https://github.com/wp-papi/papi/issues).
+If you have a idea the easiest way is to create a [issue](https://github.com/wp-papi/papi/issues).
 
 ## Bugs
 
