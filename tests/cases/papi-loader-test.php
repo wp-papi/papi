@@ -50,6 +50,11 @@ class Papi_Loader_Test extends WP_UnitTestCase {
 		Papi_Loader::instance();
 	}
 
+	/**
+	 * Deprecated.
+	 *
+	 * @since 3.0.0
+	 */
 	public function test_papi_include() {
 		global $wp_actions;
 
