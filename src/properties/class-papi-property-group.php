@@ -64,10 +64,10 @@ class Papi_Property_Group extends Papi_Property {
 				continue;
 			}
 
-			$parts = explode($matches[0], $render_property_slug);
-			array_pop($parts);
-			$parts[] = sprintf('[%s]', unpapify($property['slug']));
-			$slug = implode($matches[0], $parts);
+			$parts = explode( $matches[0], $render_property_slug );
+			array_pop( $parts );
+			$parts[] = sprintf( '[%s]', unpapify( $property['slug'] ) );
+			$slug = implode( $matches[0], $parts );
 			$properties[$index]['slug'] = $slug;
 		}
 

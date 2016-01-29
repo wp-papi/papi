@@ -261,10 +261,7 @@ final class Papi_Porter extends Papi_Container {
 			$value = $this->fire_filter( [
 				'filter' => 'driver:value',
 				'type'   => 'before',
-				'value'  => [
-					$value,
-					$slug
-				]
+				'value'  => [$value, $slug]
 			] );
 
 			$value = $this->get_value( [
@@ -277,10 +274,7 @@ final class Papi_Porter extends Papi_Container {
 			$value = $this->fire_filter( [
 				'filter' => 'driver:value',
 				'type'   => 'after',
-				'value'  => [
-					$value,
-					$slug
-				]
+				'value'  => [$value, $slug]
 			] );
 
 			$out = papi_update_property_meta_value( [

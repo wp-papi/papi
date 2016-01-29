@@ -94,8 +94,8 @@ class Papi_Core_Conditional {
 	 * @return string
 	 */
 	private function get_rule_slug( $rule, $property ) {
-		$arrReg = '/\[\d+\](\[\w+\])$/';
-		$slug   = $property->get_slug();
+		$arr_reg = '/\[\d+\](\[\w+\])$/';
+		$slug    = $property->get_slug();
 
 		$page_type = papi_get_page_type_by_post_id();
 
@@ -103,7 +103,7 @@ class Papi_Core_Conditional {
 			return $rule->slug;
 		}
 
-		if ( preg_match( $arrReg, $slug, $out ) ) {
+		if ( preg_match( $arr_reg, $slug, $out ) ) {
 			$slug     = str_replace( $out[1], '[' . unpapify( $rule->slug ) . ']', $slug );
 			$property = $page_type->get_property( $slug );
 
