@@ -12,6 +12,9 @@ class Papi_Loader_Test extends WP_UnitTestCase {
 		remove_filter( 'wp_die_ajax_handler', [$this, 'get_wp_die_handler'], 1, 1 );
 	}
 
+	public function deprecated_function_run() {
+	}
+
 	public function wp_die_handler( $message ) {
 	}
 
@@ -41,6 +44,20 @@ class Papi_Loader_Test extends WP_UnitTestCase {
 		unset( $wp_actions['papi/init'] );
 
 		add_action( 'papi/init', function () {
+			$this->assertTrue( true );
+		} );
+
+		Papi_Loader::instance();
+	}
+
+	public function test_papi_include() {
+		global $wp_actions;
+
+		Papi_Loader::deactivate();
+
+		unset( $wp_actions['papi/include'] );
+
+		add_action( 'papi/include', function () {
 			$this->assertTrue( true );
 		} );
 
