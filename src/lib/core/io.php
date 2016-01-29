@@ -124,11 +124,10 @@ function papi_get_core_type_base_path( $file ) {
 
 	foreach ( $directories as $directory ) {
 		if ( strpos( $file, $directory ) !== false ) {
-			$file = str_replace( $directory, '', $file );
+			$file = str_replace( $directory . '/', '', $file );
 		}
 	}
 
-	$file = ltrim( $file, '/' );
 	$file = explode( '.', $file );
 
 	return $file[0];
