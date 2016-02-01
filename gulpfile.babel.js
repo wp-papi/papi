@@ -1,9 +1,3 @@
-/**
- * Gulpfile
- * Copyright (c) 2016 Fredrik Forsmo & Johnie Hjelm
- * Autoprefixer, Sass, Uglify, Header, Cssmin etc
- */
-
 import del from 'del';
 import gulp from 'gulp';
 import gutil from 'gulp-util';
