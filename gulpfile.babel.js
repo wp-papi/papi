@@ -1,6 +1,6 @@
 /**
  * Gulpfile
- * Copyright (c) 2015 Fredrik Forsmo & Johnie Hjelm
+ * Copyright (c) 2016 Fredrik Forsmo & Johnie Hjelm
  * Autoprefixer, Sass, Uglify, Header, Cssmin etc
  */
 
