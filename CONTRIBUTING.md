@@ -28,7 +28,7 @@ Good pull requests—patches, improvements, new features—are are allways welco
 
 **Please ask first** embarking on any significant pull request (e.g. implementing features, refactoring code, porting to a different language), otherwise you risk spending a lot of time working on something that the project's developers might not want to merge into the project.
 
-**Please follow** the projects code style. The projects PHP code should be following the [WordPress code standard](https://make.wordpress.org/core/handbook/coding-standards/php/) and allways use brackets.
+**Please follow** the projects code style. The projects PHP code should be following the [WordPress code standard](https://make.wordpress.org/core/handbook/coding-standards/php/) and always use brackets.
 
 * Fork [wp-papi/papi](https://github.com/wp-papi/papi) on Github and add the upstream remote.
 
