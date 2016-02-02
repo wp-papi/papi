@@ -11,7 +11,7 @@ class Papi_CLI_Post_Command extends Papi_CLI_Command {
 	 * @return array
 	 */
 	protected function get_default_format_fields() {
-		return ['slug', 'type', 'has value'];
+		return ['slug', 'type', 'has value', 'box'];
 	}
 
 	/**
@@ -68,6 +68,7 @@ class Papi_CLI_Post_Command extends Papi_CLI_Command {
 						'slug'      => $property->get_slug( true ),
 						'type'      => $property->type,
 						'has value' => $property->get_value() !== null ? 'true' : 'false',
+						'box'       => $box->title
 					];
 				}
 			}
