@@ -2,7 +2,7 @@
 
 ## [3.0.0](https://github.com/wp-papi/papi/releases/tag/v3.0.0) - 2016-02-02
 
-Papi 3.0.0 is kind of a big release since some of the core code has been refactored to improve how page type works. With 3.0.0 release we introduce `Entry Type` which is a base class that both page type and option type use. Both `box` and `tab` logic has been rewritten with new core classes and the admin classes has been divided into several smaller classes. Some internal functions has been removed or rewritten with backward compatibility.
+Papi 3.0.0 is a big release since a big piece of the core code has been refactored to improve how page type works. With 3.0.0 release we introduce `Entry Type` which is a base class that both page type and option type use. Both `box` and `tab` logic has been rewritten with new core classes and the admin classes has been divided into several smaller classes. Some internal functions has been removed or rewritten with backward compatibility.
 
 We moved some logic from page type class to entry type class to be able the separate page type and option type class. This will make it easier to add new types to core or create plugin that has custom types.
 
