@@ -12,7 +12,7 @@ class Papi_Loader_Test extends WP_UnitTestCase {
 		remove_filter( 'wp_die_ajax_handler', [$this, 'get_wp_die_handler'], 1, 1 );
 	}
 
-	public function deprecated_function_run() {
+	public function deprecated_function_run( $function ) {
 	}
 
 	public function wp_die_handler( $message ) {
