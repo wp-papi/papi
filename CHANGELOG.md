@@ -54,6 +54,27 @@ We moved some logic from page type class to entry type class to be able the sepa
 
 Thanks to all contributors and all who have tested Papi during the development.
 
+## [2.4.11](https://github.com/wp-papi/papi/releases/tag/v2.4.11) - 2016-02-06
+
+Fixed: Edit link property did appear in the default editor.
+
+## [2.4.10](https://github.com/wp-papi/papi/releases/tag/v2.4.10) - 2015-12-08
+
+Fixed: jQuery sortable text input issue with TinyMCE, see [issue #121](https://github.com/wp-papi/papi/pull/121), thanks [@entr](https://github.com/entr)!
+Fixed: Meta box css border issue in WordPress 4.4.
+Fixed: Papi redirected to add new page when no page types was register on page post type.
+Fixed: Offset check before using the offset value in `html_id` method in core property class.
+
+## [2.4.9](https://github.com/wp-papi/papi/releases/tag/v2.4.9) - 2015-11-30
+
+Fixed: Apostrophe fix did cause a save error when using flexible and repeater.
+Fixed: When using `only_page_type` filter Papi didn't handle this in the page type id function.
+
+## [2.4.8](https://github.com/wp-papi/papi/releases/tag/v2.4.8) - 2015-11-30
+
+Fixed: String issue with `$page` variable in `papi_get_post_type`
+Fixed: Apostrophe issue with added slash, see [issue #126](https://github.com/wp-papi/papi/issues/126).
+
 ## [2.4.7](https://github.com/wp-papi/papi/releases/tag/v2.4.7) - 2015-11-12
 
 Fixed: Template did return empty string when no template was found.
