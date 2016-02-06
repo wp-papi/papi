@@ -218,9 +218,9 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_page_type_id_container() {
 		$_GET['post_type'] = 'attachment_test';
-		papi()->bind( 'entry_type_id.attachment_test', 'others/attachment-type' );
+		papi()->bind( 'entry_type_id.post_type.attachment_test', 'others/attachment-type' );
 		$this->assertSame( 'others/attachment-type', papi_get_page_type_id( 0 ) );
-		papi()->remove( 'entry_type_id.attachment_test' );
+		papi()->remove( 'entry_type_id.post_type.attachment_test' );
 		unset( $_GET['post_type'] );
 	}
 

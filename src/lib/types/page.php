@@ -340,7 +340,7 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 
 	// Load entry type id from the container if it exists.
 	if ( empty( $entry_type_id ) ) {
-		$key = sprintf( 'entry_type_id.%s', $post_type );
+		$key = sprintf( 'entry_type_id.post_type.%s', $post_type );
 
 		if ( papi()->exists( $key )  ) {
 			return papi()->make( $key );
