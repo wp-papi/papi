@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [2.4.11](https://github.com/wp-papi/papi/releases/tag/v2.4.11) - 2016-02-06
+
+Fixed: Edit link property did appear in the default editor.
+
 ## [2.4.10](https://github.com/wp-papi/papi/releases/tag/v2.4.10) - 2015-12-08
 
 Fixed: jQuery sortable text input issue with TinyMCE, see [issue #121](https://github.com/wp-papi/papi/pull/121), thanks [@entr](https://github.com/entr)!
