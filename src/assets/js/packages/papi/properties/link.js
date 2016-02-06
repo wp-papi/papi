@@ -79,6 +79,13 @@ class Link {
     this.$el = $this.closest('.papi-property-link');
     this.$p = this.$el.find('p');
 
+    // Create a new window.wpLink.update that only
+    // close the wpLink window. Save the old to later.
+    this.oldLinkUpdate = window.wpLink.update;
+    window.wpLink.update = function () {
+      window.wpLink.close();
+    };
+
     window.wpLink.open();
 
     const url  = this.$el.find('.wp-link-url').val();
