@@ -2,9 +2,13 @@ language: php
 
 sudo: false
 
-before_script:
+before_install:
   - composer self-update
-  - composer install --no-interaction --prefer-source
+
+install:
+  - travis_retry composer install --no-interaction --prefer-source
+
+before_script:
   - bash vendor/frozzare/wp-test-suite/bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 $WP_VERSION
   - bash tests/bin/install-wp-cli.sh
 
