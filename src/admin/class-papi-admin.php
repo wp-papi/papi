@@ -11,7 +11,7 @@ final class Papi_Admin {
 	 *
 	 * @var Papi_Entry_Type
 	 */
-	private $page_type;
+	private $entry_type;
 
 	/**
 	 * The post type.
@@ -65,7 +65,7 @@ final class Papi_Admin {
 			return;
 		}
 
-		$this->page_type->setup();
+		$this->entry_type->setup();
 	}
 
 	/**
@@ -421,7 +421,7 @@ final class Papi_Admin {
 		}
 
 		// Do a last check so we can be sure that we have a page type instance.
-		return ( $this->page_type = papi_get_entry_type_by_id( $entry_type_id ) ) instanceof Papi_Entry_Type;
+		return ( $this->entry_type = papi_get_entry_type_by_id( $entry_type_id ) ) instanceof Papi_Entry_Type;
 	}
 
 	/**
