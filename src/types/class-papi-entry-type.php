@@ -28,6 +28,13 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	public $screen_option = true;
 
 	/**
+	 * Show help tabs.
+	 *
+	 * @return bool
+	 */
+	public $show_help_tabs = true;
+
+	/**
 	 * The type name.
 	 *
 	 * @var string
@@ -52,11 +59,56 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
+	 * Add help tabs.
+	 */
+	public function add_help_tabs() {
+		$help   = $this->help();
+		$screen = get_current_screen();
+
+		// No screen available.
+		if ( $screen instanceof WP_Screen === false ) {
+			return;
+		}
+
+		// Clean up all existing tabs.
+		if ( ! $this->show_help_tabs || ! empty( $help ) ) {
+			$screen->remove_help_tabs();
+		}
+
+		// No new help tabs available.
+		if ( empty( $help ) ) {
+			return;
+		}
+
+		// Add help sidebar content. By default it will be disabled
+		// since `help_sidebar` method returns false.
+		$help_sidebar = $this->help_sidebar();
+		$help_sidebar = papi_maybe_get_callable_value( $help_sidebar );
+		$screen->set_help_sidebar( $help_sidebar );
+
+		foreach ( $help as $key => $value ) {
+			$args = [
+				'id'    => papify( papi_slugify( $key ) ),
+				'title' => $key
+			];
+
+			if ( is_callable( $value ) ) {
+				$args['callback'] = $value;
+			} else {
+				$args['content'] = wpautop( $value );
+			}
+
+			$screen->add_help_tab( $args );
+		}
+	}
+
+	/**
 	 * Admin init.
      *
 	 * Hook into admin actions and filters in admin.
 	 */
 	public function admin_init() {
+		add_action( 'in_admin_header', [$this, 'add_help_tabs'] );
 		add_filter( 'screen_options_show_screen', function () {
 			return $this->screen_option;
 		} );
@@ -284,6 +336,30 @@ class Papi_Entry_Type extends Papi_Core_Type {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Add admin help tabs.
+	 *
+	 * Example:
+	 *   'My custom title' => 'My custom content'
+	 *
+	 * @return array
+	 */
+	public function help() {
+		return [];
+	}
+
+	/**
+	 * Add help sidebar content.
+	 *
+	 * By default we return false to disable
+	 * the sidebar content.
+	 *
+	 * @return bool
+	 */
+	public function help_sidebar() {
+		return false;
 	}
 
 	/**
