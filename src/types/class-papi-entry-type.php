@@ -21,6 +21,13 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	protected $load_boxes = false;
 
 	/**
+	 * Show screen option tab.
+     *
+	 * @var bool
+	 */
+	public $screen_option = true;
+
+	/**
 	 * The type name.
 	 *
 	 * @var string
@@ -42,6 +49,17 @@ class Papi_Entry_Type extends Papi_Core_Type {
 		}
 
 		parent::__construct( $file_path );
+	}
+
+	/**
+	 * Admin init.
+     *
+	 * Hook into admin actions and filters in admin.
+	 */
+	public function admin_init() {
+		add_filter( 'screen_options_show_screen', function () {
+			return $this->screen_option;
+		} );
 	}
 
 	/**

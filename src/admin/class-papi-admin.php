@@ -65,6 +65,10 @@ final class Papi_Admin {
 			return;
 		}
 
+		// Setup admin actions and filters.
+		$this->entry_type->admin_init();
+
+		// Setup the entry type properties and other things.
 		$this->entry_type->setup();
 	}
 
