@@ -51,7 +51,6 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	 */
 	public function edit_attachment( $form_fields, $post ) {
 		foreach ( $this->get_boxes() as $box ) {
-
 			if ( ! empty( $box->title ) ) {
 				$form_fields['papi-media-title-' . uniqid()] = [
 					'label' => '',
