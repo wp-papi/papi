@@ -21,18 +21,18 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	protected $load_boxes = false;
 
 	/**
-	 * Show screen option tab.
-     *
-	 * @var bool
-	 */
-	public $screen_option = true;
-
-	/**
 	 * Show help tabs.
 	 *
 	 * @return bool
 	 */
 	public $show_help_tabs = true;
+
+	/**
+	 * Show screen options.
+     *
+	 * @var bool
+	 */
+	public $show_screen_options = true;
 
 	/**
 	 * The type name.
