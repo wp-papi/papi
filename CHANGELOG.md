@@ -9,6 +9,13 @@
 * Added `help` method to all types which can be used to add help tabs.
 * Added `help_sidebar` method to all types which can be used to add help tabs sidebar content.
 
+## [3.0.1]() - 2016-02-XX
+
+### Fixed
+
+* Fixed: Render issue with tabs that existed in template files [#148](https://github.com/wp-papi/papi/issues/148).
+* Fixed: Edit link property did appear in the default editor.
+
 ## [3.0.0](https://github.com/wp-papi/papi/releases/tag/v3.0.0) - 2016-02-02
 
 Papi 3.0.0 is a big release since a big piece of the core code has been refactored to improve how page type works. With 3.0.0 release we introduce `Entry Type` which is a base class that both page type and option type use. Both `box` and `tab` logic has been rewritten with new core classes and the admin classes has been divided into several smaller classes. Some internal functions has been removed or rewritten with backward compatibility.
