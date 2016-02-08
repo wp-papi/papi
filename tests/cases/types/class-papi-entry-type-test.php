@@ -18,6 +18,7 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 
 		$this->empty_entry_type  = new Papi_Entry_Type();
 		$this->info_entry_type = papi_get_entry_type( PAPI_FIXTURE_DIR . '/entry-types/info-entry-type.php' );
+		$this->term_entry_type = papi_get_entry_type( PAPI_FIXTURE_DIR . '/entry-types/term-entry-type.php' );
 	}
 
 	public function tearDown() {
@@ -25,7 +26,8 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 		unset(
 			$this->post_id,
 			$this->empty_entry_type,
-			$this->info_entry_type
+			$this->info_entry_type,
+			$this->term_entry_type
 		);
 	}
 
@@ -105,6 +107,18 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 
 		$this->assertSame( '<p>Lorem ipsum</p>', trim( $tabs['papi_hello_1']['content'] ) );
 		$this->assertSame( '<p>Lorem ipsum 2</p>', trim( $tabs['papi_hello_2']['callback']() ) );
+
+	    $current_screen = null;
+	}
+
+	public function test_help_tabs_meta_property() {
+		global $current_screen;
+	    $current_screen = WP_Screen::get( 'admin_init' );
+
+	    $this->term_entry_type->add_help_tabs();
+	    $tabs = $current_screen->get_help_tabs();
+
+	    $this->assertEmpty( $tabs );
 
 	    $current_screen = null;
 	}
