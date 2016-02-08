@@ -29,7 +29,7 @@ class Tab_Page_Type extends Papi_Page_Type {
 			] ),
 
 			$this->tab(
-				papi_template( dirname( __DIR__ ) . '/tabs/content.php' )
+				papi_template( __DIR__ . '/tabs/content.php' )
 			)
 		] );
 
@@ -56,6 +56,12 @@ class Tab_Page_Type extends Papi_Page_Type {
 						] )
 					]
 				]
+			] )
+		] );
+
+		$this->box( 'Services Page', [
+			$this->tab( 'tabs/video.php', [
+				'title' => 'Background'
 			] )
 		] );
 	}

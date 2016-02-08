@@ -400,12 +400,6 @@ class Papi_Entry_Type extends Papi_Core_Type {
 
 		$tab = papi_tab( $file_or_options, $properties );
 
-		// Since `papi_tab` can be used in a boxes file we need to this check
-		// so we can attach properties array if it's missing.
-		if ( empty( $tab->properties ) && isset( $file_or_options['properties'] ) ) {
-			$tab->properties = $file_or_options['properties'];
-		}
-
 		return $tab;
 	}
 
