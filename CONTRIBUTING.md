@@ -20,7 +20,7 @@ Try to be as detailed as possible in your bug issue so we can help you better wi
 
 ## Which branch?
 
-The `master` branch is unsafe but it should be used when you adding new features. When it's a bug fix that effects the current version you should do your pull request against the last stable branch. The stable branch will have the format `MAJOR.X.X`.
+The `master` branch is unsafe but it should be used when you adding new features. When it's a bug fix that effects the current version you should do your pull request against the last stable branch. The stable branch will have the format `MAJOR.X`.
 
 ## Pull requests
 
