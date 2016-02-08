@@ -12,3 +12,4 @@ class Papi_Core_Tab_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Tab', $tab->title );
 		$this->assertSame( '_papi_tab', $tab->id );
 	}
+}
