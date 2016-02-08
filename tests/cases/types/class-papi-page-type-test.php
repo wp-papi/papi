@@ -256,4 +256,26 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 
 		$this->assertFalse( $wp_meta_boxes['faq']['normal']['default']['test_meta_box'] );
 	}
+
+	public function test_tabs_meta_boxes() {
+		$boxes = $this->tab_page_type->get_boxes();
+
+		// Box 1
+		$this->assertInstanceOf( 'Papi_Core_Tab', $boxes[0]->properties[0] );
+		$this->assertInstanceOf( 'Papi_Core_Tab', $boxes[0]->properties[1] );
+
+		// Box 2.
+		$this->assertFalse( $boxes[1]->properties[0] instanceof Papi_Core_Tab );
+		$this->assertInstanceOf( 'Papi_Core_Property', $boxes[1]->properties[0] );
+
+		// Box 3.
+		$this->assertEmpty( $boxes[2]->properties );
+
+		// Box 4.
+		$this->assertFalse( $boxes[3]->properties[0] instanceof Papi_Core_Tab );
+		$this->assertInstanceOf( 'Papi_Core_Property', $boxes[3]->properties[0] );
+
+		// Box 5.
+		$this->assertInstanceOf( 'Papi_Core_Tab', $boxes[4]->properties[0] );
+	}
 }
