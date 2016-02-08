@@ -15,7 +15,6 @@ class Tab_Page_Type extends Papi_Page_Type {
 		];
 	}
 
-
 	/**
 	 * Define our properties.
 	 */
