@@ -17,6 +17,20 @@ class Info_Entry_Type extends Papi_Entry_Type {
 	}
 
 	/**
+	 * Add help tabs.
+	 *
+	 * @return array
+	 */
+	public function help() {
+		return [
+			'Hello 1' => 'Lorem ipsum',
+			'Hello 2' => function () {
+				return 'Lorem ipsum 2';
+			}
+		];
+	}
+
+	/**
 	 * Define our properties.
 	 */
 	public function register() {

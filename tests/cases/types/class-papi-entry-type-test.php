@@ -88,6 +88,27 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 'entry', $this->info_entry_type->get_type() );
 	}
 
+	public function test_help_tabs() {
+		$help = $this->info_entry_type->help();
+
+		$this->assertArrayHasKey( 'Hello 1', $help );
+		$this->assertArrayHasKey( 'Hello 2', $help );
+
+		global $current_screen;
+	    $current_screen = WP_Screen::get( 'admin_init' );
+
+	    $this->info_entry_type->add_help_tabs();
+	    $tabs = $current_screen->get_help_tabs();
+
+		$this->assertArrayHasKey( 'papi_hello_1', $tabs );
+		$this->assertArrayHasKey( 'papi_hello_2', $tabs );
+
+		$this->assertSame( '<p>Lorem ipsum</p>', trim( $tabs['papi_hello_1']['content'] ) );
+		$this->assertSame( '<p>Lorem ipsum 2</p>', trim( $tabs['papi_hello_2']['callback']() ) );
+
+	    $current_screen = null;
+	}
+
 	public function test_match_id() {
 		$this->assertTrue( $this->empty_entry_type->match_id( '' ) );
 		$this->assertTrue( $this->info_entry_type->match_id( 'info-entry-type' ) );

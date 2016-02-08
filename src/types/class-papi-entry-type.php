@@ -88,12 +88,14 @@ class Papi_Entry_Type extends Papi_Core_Type {
 
 		foreach ( $help as $key => $value ) {
 			$args = [
-				'id'    => papify( papi_slugify( $key ) ),
+				'id'    => papi_html_name( $key ),
 				'title' => $key
 			];
 
 			if ( is_callable( $value ) ) {
-				$args['callback'] = $value;
+				$args['callback'] = function () use( $value ) {
+					return wpautop( $value() );
+				};
 			} else {
 				$args['content'] = wpautop( $value );
 			}
