@@ -112,7 +112,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	public function admin_init() {
 		add_action( 'in_admin_header', [$this, 'add_help_tabs'] );
 		add_filter( 'screen_options_show_screen', function () {
-			return $this->screen_option;
+			return $this->show_screen_options;
 		} );
 	}
 
