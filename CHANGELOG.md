@@ -4,7 +4,10 @@
 
 ### Added
 
-* Added `screen_option` to all types meta method that can turn off screen option tab.
+* Added `show_screen_options` to all types meta method that can turn off screen options tab.
+* Added `show_help_tabs` to all types meta method that can turn off help tab.
+* Added `help` method to all types which can be used to add help tabs.
+* Added `help_sidebar` method to all types which can be used to add help tabs sidebar content.
 
 ## [3.0.0](https://github.com/wp-papi/papi/releases/tag/v3.0.0) - 2016-02-02
 
