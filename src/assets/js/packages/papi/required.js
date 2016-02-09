@@ -77,7 +77,7 @@ class Required {
           items += ', ';
         }
 
-        $('.wrap h2').after('<div id="message" class="error below-h2"><p>' + window.papiL10n.requiredError + ' ' + items + '</p></div>');
+        $('.wrap h1').after('<div id="message" class="error below-h2"><p>' + window.papiL10n.requiredError + ' ' + items + '</p></div>');
       }
     }
   }
