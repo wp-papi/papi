@@ -105,7 +105,7 @@ class Papi_Property extends Papi_Core_Property {
 			'for'   => $this->html_id(),
 			'title' => trim( $title . ' ' . papi_require_text( $this->get_options() ) ),
 			$title,
-			papi_required_html( $this->get_options() )
+			papi_required_html( $this )
 		] );
 	}
 

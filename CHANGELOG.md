@@ -15,6 +15,7 @@
 
 * Fixed: Render issue with tabs that existed in template files [#148](https://github.com/wp-papi/papi/issues/148).
 * Fixed: Edit link property did appear in the default editor.
+* Fixed: Required did not output the red wildcard [#149](https://github.com/wp-papi/papi/issues/149).
 
 ## [3.0.0](https://github.com/wp-papi/papi/releases/tag/v3.0.0) - 2016-02-02
 
