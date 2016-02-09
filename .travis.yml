@@ -41,10 +41,6 @@ matrix:
       env: WP_VERSION=nightly WP_MULTISITE=0
   fast_finish: true
 
-cache:
-  directories:
-  - vendor
-
 branches:
   only:
     - master
