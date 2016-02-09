@@ -245,6 +245,17 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		wp_set_current_user( 0 );
 	}
 
+	public function test_papi_render_required_property() {
+		$property = papi_property( [
+			'slug'     => 'required_name',
+			'type'     => 'string',
+			'title'    => 'Name',
+			'required' => true
+		] );
+		papi_render_property( $property );
+		$this->expectOutputRegex( '/class\=\"papi\-rq\"/' );
+	}
+
 	public function test_papi_render_properties() {
 		$tab = papi_tab( 'Content', [] );
 		papi_render_properties( [ $tab ] );
