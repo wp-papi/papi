@@ -4,13 +4,11 @@
   "license": "MIT",
   "description": "WordPress Page Type API with custom fields",
   "homepage": "https://wp-papi.github.io",
-  "authors": [
-    {
-      "name": "Fredrik Forsmo",
-      "email": "fredrik.forsmo@gmail.com",
-      "homepage": "https://github.com/frozzare"
-    }
-  ],
+  "authors": [{
+    "name": "Fredrik Forsmo",
+    "email": "fredrik.forsmo@gmail.com",
+    "homepage": "https://github.com/frozzare"
+  }],
   "keywords": [
     "wordpress",
     "custom fields",
@@ -23,17 +21,17 @@
   "require-dev": {
     "frozzare/wp-test-suite": "~1.0",
     "wp-coding-standards/wpcs": "dev-develop",
-    "sebastian/phpcpd": "~2.0@dev",
+    "sebastian/phpcpd": "~2.0",
     "behat/behat": "~2.5"
   },
   "scripts": {
     "post-install-cmd": "if [ -f vendor/bin/phpcs ]; then \"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs; fi",
-    "post-update-cmd" : "if [ -f vendor/bin/phpcs ]; then \"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs; fi"
+    "post-update-cmd": "if [ -f vendor/bin/phpcs ]; then \"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs; fi"
   },
   "extra": {
-      "branch-alias": {
-          "dev-master": "3.0-dev"
-      }
+    "branch-alias": {
+      "dev-master": "3.0-dev"
+    }
   },
   "minimum-stability": "dev",
   "prefer-stable": true
