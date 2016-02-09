@@ -97,6 +97,10 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 		$this->assertArrayHasKey( 'Hello 2', $help );
 
 		global $current_screen;
+
+		$this->assertNull( $this->info_entry_type->add_help_tabs() );
+		$this->assertNull( $current_screen );
+
 	    $current_screen = WP_Screen::get( 'admin_init' );
 
 	    $this->info_entry_type->add_help_tabs();
