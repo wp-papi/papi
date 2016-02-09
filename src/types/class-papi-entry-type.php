@@ -29,7 +29,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 
 	/**
 	 * Show screen options.
-     *
+	 *
 	 * @var bool
 	 */
 	public $show_screen_options = true;
