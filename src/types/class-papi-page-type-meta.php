@@ -89,16 +89,6 @@ class Papi_Page_Type_Meta extends Papi_Entry_Type {
 	}
 
 	/**
-	 * Determine if the page type is allowed
-	 * by the capabilities.
-	 *
-	 * @return bool
-	 */
-	private function user_is_allowed() {
-		return papi_current_user_is_allowed( $this->capabilities );
-	}
-
-	/**
 	 * Determine if the entry type is allowed
 	 * by capabilities and post type.
 	 *
