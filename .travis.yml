@@ -2,8 +2,10 @@ language: php
 
 sudo: false
 
-before_script:
+install:
   - travis_retry composer install --no-interaction --prefer-source
+
+before_script:
   - bash vendor/frozzare/wp-test-suite/bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 $WP_VERSION
   - bash tests/bin/install-wp-cli.sh
 
@@ -38,11 +40,6 @@ matrix:
     - php: 7.0
       env: WP_VERSION=nightly WP_MULTISITE=0
   fast_finish: true
-
-cache:
-  directories:
-  - vendor
-  - $HOME/.composer/cache
 
 branches:
   only:
