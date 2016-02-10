@@ -5,18 +5,19 @@
  * If it's on a option page it will fetch the value from the
  * option table instead of the postmeta table.
  *
- * @param int    $post_id
+ * @param int    $id
  * @param string $slug
  * @param string $type
  */
-function papi_delete_property_meta_value( $post_id, $slug, $type = 'page' ) {
-	papi_cache_delete( $slug, $post_id );
+function papi_delete_property_meta_value( $id, $slug, $type = 'page' ) {
+	papi_cache_delete( $slug, $id );
 
 	if ( $type === Papi_Option_Page::TYPE || papi_is_option_page() ) {
 		return delete_option( unpapify( $slug ) );
 	}
 
-	return delete_metadata( $type === 'page' ? 'post' : 'page', $post_id, unpapify( $slug ) );
+#var_dump(delete_metadata( $type === 'page' ? 'post' : $type, $id, unpapify( $slug ) ));
+	return delete_metadata( $type === 'page' ? 'post' : $type, $id, unpapify( $slug ) );
 }
 
 /**
@@ -165,7 +166,7 @@ function papi_get_property_meta_value( $id, $slug, $type = 'page' ) {
 	if ( $type === Papi_Option_Page::TYPE || papi_is_option_page() ) {
 		$value = get_option( $slug, null );
 	} else {
-		$type  = $type === 'page' ? 'post' : 'page';
+		$type  = $type === 'page' ? 'post' : $type;
 		$value = get_metadata( $type, $id, $slug, true );
 	}
 
@@ -393,7 +394,7 @@ function papi_update_property_meta_value( array $meta = [] ) {
 		'value'   => ''
 	], $meta );
 	$meta       = (object) $meta;
-	$meta->type = $meta->type === 'page' ? 'post' : 'page';
+	$meta->type = $meta->type === 'page' ? 'post' : $meta->type;
 	$option     = $meta->type === 'option' || papi_is_option_page();
 	$save_value = true;
 
