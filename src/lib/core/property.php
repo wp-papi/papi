@@ -157,15 +157,16 @@ function papi_get_property_class_name( $type ) {
  * If it's on a option page it will fetch the value from the
  * option table instead of the postmeta table.
  *
- * @param int    $post_id
+ * @param int    $id
  * @param string $slug
  * @param string $type
  */
-function papi_get_property_meta_value( $post_id, $slug, $type = 'page' ) {
+function papi_get_property_meta_value( $id, $slug, $type = 'page' ) {
 	if ( $type === Papi_Option_Page::TYPE || papi_is_option_page() ) {
 		$value = get_option( $slug, null );
 	} else {
-		$value = get_post_meta( $post_id, $slug, true );
+		$type  = $type === 'page' ? 'post' : 'page';
+		$value = get_metadata( $type, $id, $slug, true );
 	}
 
 	if ( papi_is_empty( $value ) ) {
@@ -385,15 +386,16 @@ function papi_populate_properties( $properties ) {
  * @return bool
  */
 function papi_update_property_meta_value( array $meta = [] ) {
-	$meta         = array_merge( [
+	$meta       = array_merge( [
 		'post_id' => 0,
 		'slug'    => '',
 		'type'    => Papi_Post_Page::TYPE,
 		'value'   => ''
 	], $meta );
-	$meta         = (object) $meta;
-	$option       = $meta->type === 'option' || papi_is_option_page();
-	$save_value   = true;
+	$meta       = (object) $meta;
+	$meta->type = $meta->type === 'page' ? 'post' : 'page';
+	$option     = $meta->type === 'option' || papi_is_option_page();
+	$save_value = true;
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
 		if ( is_string( $key ) ) {
@@ -424,7 +426,7 @@ function papi_update_property_meta_value( array $meta = [] ) {
 				$out = update_option( unpapify( $meta->slug ), $value );
 				$result = $out ? $result : $out;
 			} else {
-				$out = update_post_meta( $meta->post_id, unpapify( $meta->slug ), $value );
+				$out = update_metadata( $meta->type, $meta->post_id, unpapify( $meta->slug ), $value );
 				$result = $out ? $result : $out;
 			}
 
@@ -438,7 +440,7 @@ function papi_update_property_meta_value( array $meta = [] ) {
 				if ( $option ) {
 					update_option( unpapify( $child_key ), $child_value );
 				} else {
-					update_post_meta( $meta->post_id, unpapify( $child_key ), $child_value );
+					update_metadata( $meta->type, $meta->post_id, unpapify( $child_key ), $child_value );
 				}
 			}
 		}
