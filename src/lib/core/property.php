@@ -16,7 +16,6 @@ function papi_delete_property_meta_value( $id, $slug, $type = 'page' ) {
 		return delete_option( unpapify( $slug ) );
 	}
 
-#var_dump(delete_metadata( $type === 'page' ? 'post' : $type, $id, unpapify( $slug ) ));
 	return delete_metadata( $type === 'page' ? 'post' : $type, $id, unpapify( $slug ) );
 }
 
