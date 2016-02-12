@@ -37,7 +37,6 @@ pot:
            --keyword=_nx_noop:3c,1,2 \
            --keyword=__ngettext_noop:1,2 \
            --package-name=papi \
-           --copyright-holder="Fredrik Forsmo" \
            --from-code=UTF-8 \
            --output=languages/papi.pot \
            src/**/*.php
