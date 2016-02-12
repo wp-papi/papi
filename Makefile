@@ -47,7 +47,7 @@ pot:
            --output=languages/papi.pot \
            src/**/*.php
 	# Add Poedit information to the template file.
-	cat languages/papi.pot | perl -pe 's/8bit\\n/8bit\\n\"\n\"X-Poedit-Basepath:\
+	cat languages/papi.pot|perl -pe 's/8bit\\n/8bit\\n\"\n\"X-Poedit-Basepath:\
 	..\\n"\n"X-Poedit-SourceCharset: UTF-8\\n"\n\
 	"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\\n"\n\
 	"X-Poedit-SearchPath-0: .\\n"\n\
