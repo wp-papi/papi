@@ -118,9 +118,6 @@ final class Papi_Loader extends Papi_Container {
 
 		// The plugin basename that is used in actions to match so right plugin is modified.
 		$this->define( 'PAPI_PLUGIN_BASENAME', basename( dirname( __DIR__ ) ) . '/papi-loader.php' );
-
-		// Papi debug, useful when developing Papi. Not recommended to use when using Papi.
-		$this->define( 'PAPI_DEBUG', false );
 	}
 
 	/**
