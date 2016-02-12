@@ -18,6 +18,7 @@ phpcpd:
 phpcs:
 	vendor/bin/phpcs -s --extensions=php --standard=phpcs.xml src/
 
+# brew install gettext && brew link --force gettext
 pot:
 	xgettext --language=php \
            --add-comments=L10N \
