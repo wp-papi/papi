@@ -21,7 +21,7 @@ phpcs:
 pot:
 	xgettext --language=php \
            --add-comments=L10N \
-		   --keyword=__ \
+           --keyword=__ \
            --keyword=_e \
            --keyword=_n:1,2 \
            --keyword=_x:1,2c \
@@ -37,10 +37,10 @@ pot:
            --keyword=_nx_noop:3c,1,2 \
            --keyword=__ngettext_noop:1,2 \
            --package-name=papi \
-		   --copyright-holder="Fredrik Forsmo" \
-		   --from-code=UTF-8 \
-		   --output=languages/papi.pot \
-		   src/**/*.php
+           --copyright-holder="Fredrik Forsmo" \
+           --from-code=UTF-8 \
+           --output=languages/papi.pot \
+           src/**/*.php
 	# Add Poedit information to the template file.
 	cat languages/papi.pot | perl -pe 's/8bit\\n/8bit\\n\"\n\"X-Poedit-Basepath:\
 	..\\n"\n"X-Poedit-SourceCharset: UTF-8\\n"\n\
