@@ -12,7 +12,7 @@ module.exports = {
   entry: './main.js',
   output: {
     filename: './webpack.js',
-    path: path.resolve(assetsPath)
+    path: 'dist/js/'
   },
   resolve: {
     extensions: ['', '.js'],
