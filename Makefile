@@ -9,6 +9,12 @@ css:
 	mv dist/css/style.css.map dist/css/style.min.css.map
 	rm dist/css/style.css
 
+deps:
+	composer install
+	npm install
+	brew install gettext
+	brew link --force gettext
+
 lint:
 	node_modules/.bin/eslint src/assets/js/packages/papi/**/*.js
 
@@ -18,7 +24,6 @@ phpcpd:
 phpcs:
 	vendor/bin/phpcs -s --extensions=php --standard=phpcs.xml src/
 
-# brew install gettext && brew link --force gettext
 pot:
 	xgettext --language=php \
            --add-comments=L10N \
