@@ -18,13 +18,10 @@ deps:
 js:
 	node_modules/.bin/webpack
 
-lint:
+lint\:js:
 	node_modules/.bin/eslint src/assets/js/*.js src/assets/js/properties/*.js
 
-phpcpd:
-	vendor/bin/phpcpd --min-lines 5 --min-tokens 70 --exclude false --names "*.php" src/
-
-phpcs:
+lint\:php:
 	vendor/bin/phpcs -s --extensions=php --standard=phpcs.xml src/
 
 pot:
