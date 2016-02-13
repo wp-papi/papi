@@ -1,5 +1,7 @@
 // Vendor packages.
+/* eslint-disable */
 import Select2 from 'select2';
+/* eslint-enable */
 
 // Papi core
 import Core from 'core';

@@ -19,7 +19,7 @@ js:
 	node_modules/.bin/webpack
 
 lint:
-	node_modules/.bin/eslint src/assets/js/packages/papi/**/*.js
+	node_modules/.bin/eslint src/assets/js/*.js src/assets/js/properties/*.js
 
 phpcpd:
 	vendor/bin/phpcpd --min-lines 5 --min-tokens 70 --exclude false --names "*.php" src/
@@ -63,4 +63,4 @@ watch\:css:
 	node_modules/.bin/watch 'make css' src/assets/scss
 
 watch\:js:
-	node_modules/.bin/watch 'make js' src/assets/js/packages/papi
+	node_modules/.bin/watch 'make js' src/assets/js
