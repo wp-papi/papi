@@ -93,7 +93,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 			];
 
 			if ( is_callable( $value ) ) {
-				$args['callback'] = function () use( $value ) {
+				$args['callback'] = function () use ( $value ) {
 					return wpautop( $value() );
 				};
 			} else {
@@ -106,7 +106,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 
 	/**
 	 * Admin init.
-     *
+	 *
 	 * Hook into admin actions and filters in admin.
 	 */
 	public function admin_init() {
