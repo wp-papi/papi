@@ -1,6 +1,6 @@
-/*global tinymce, tinyMCEPreInit */
+import $ from 'jquery';
 
-import $ from 'jquery/jquery';
+/*global tinymce, tinyMCEPreInit */
 
 /**
  * Property Repeater.

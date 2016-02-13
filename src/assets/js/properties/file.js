@@ -1,5 +1,5 @@
-import $ from 'jquery/jquery';
-import Utils from 'papi/utils';
+import $ from 'jquery';
+import Utils from 'utils';
 
 /**
  * Property File.

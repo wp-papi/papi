@@ -1,4 +1,4 @@
-import $ from 'jquery/jquery';
+import $ from 'jquery';
 
 class Core {
 

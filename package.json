@@ -5,6 +5,10 @@
   "description": "WordPress Page Type API with custom fields",
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
   "license": "MIT",
+  "dependencies": {
+    "moment": "^2.11.2",
+    "select2": "^4.0.0"
+  },
   "devDependencies": {
     "autoprefixer-cli": "^1.0.0",
     "babel": "^5.8.23",

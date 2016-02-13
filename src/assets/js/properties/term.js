@@ -1,30 +1,30 @@
-import $ from 'jquery/jquery';
+import $ from 'jquery';
 
 /**
- * Property Post.
+ * Property Term.
  *
  * Using Select2.
  */
-class Post {
+class Term {
 
   /**
-   * Initialize Property Post.
+   * Initialize Property Term.
    */
   static init() {
-    new Post().binds();
+    new Term().binds();
   }
 
   /**
    * Bind elements with functions.
    */
   binds() {
-    $(document).on('papi/property/repeater/added', '[data-property="post"]', this.update);
-    $(document).on('change', '.papi-property-post-left', this.change);
+    $(document).on('papi/property/repeater/added', '[data-property="term"]', this.update);
+    $(document).on('change', '.papi-property-term-left', this.change);
   }
 
   /**
-   * Change post dropdown when selecting
-   * a different post type.
+   * Change term dropdown when selecting
+   * a different taxonomy.
    *
    * @param {object} e
    */
@@ -32,33 +32,31 @@ class Post {
     e.preventDefault();
 
     const $this = $(this);
-    const query = $this.data('post-query').length
-      ? $this.data('post-query')
+    const query = $this.data('term-query').length
+      ? $this.data('term-query')
       : {};
 
-    query.post_type = $this.val();
-
     const params = {
-      'action': 'get_posts',
-      'fields': ['ID', 'post_title'],
+      'action': 'get_terms',
+      'taxonomy': $this.val(),
       'query': query
     };
-    const $prop = $this.closest('.papi-property-post');
-    const $select = $prop.find('.papi-property-post-right');
+    const $prop = $this.closest('.papi-property-term');
+    const $select = $prop.find('.papi-property-term-right');
 
     $('[for="' + $select.attr('id') + '"]')
       .parent()
       .find('label')
       .text($this.data('select-item').replace('%s', $this.find('option:selected').text()));
 
-    $.get(papi.ajaxUrl + '?' + $.param(params), function(posts) {
+    $.get(papi.ajaxUrl + '?' + $.param(params), function(terms) {
       $select.empty();
 
-      $.each(posts, function(index, post) {
+      $.each(terms, function(term_id, term_name) {
         $select
           .append($('<option></option>')
-          .attr('value', post.ID)
-          .text(post.post_title));
+          .attr('value', term_id)
+          .text(term_name));
       });
 
       if ($select.hasClass('papi-component-select2') && 'select2' in $.fn) {
@@ -84,4 +82,4 @@ class Post {
 
 }
 
-export default Post;
+export default Term;

@@ -1,4 +1,5 @@
-import $ from 'jquery/jquery';
+import $ from 'jquery';
+import Pikaday from 'components/pikaday';
 
 /**
  * Property Datetime.
@@ -30,11 +31,6 @@ class Datetime {
    * @param {object} $prop
    */
   pikaday($props) {
-    // Don't proceed if Pikaday is undefined.
-    if (window.Pikaday === undefined) {
-      return;
-    }
-
     if (!$props.length) {
       return;
     }
@@ -51,7 +47,7 @@ class Datetime {
       settings.field = $prop[0];
 
       /* eslint-disable */
-      new window.Pikaday(settings);
+      new Pikaday(settings);
       /* eslint-enable */
     });
   }

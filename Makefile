@@ -16,10 +16,7 @@ deps:
 	brew link --force gettext
 
 js:
-	cat src/assets/js/components/*.js > dist/js/components.js
-	node_modules/.bin/webpack && cat dist/js/components.js dist/js/webpack.js > dist/js/main.min.js
-	node_modules/.bin/uglifyjs dist/js/main.min.js -o dist/js/main.min.js
-	rm dist/js/components.js dist/js/webpack.js
+	node_modules/.bin/webpack
 
 lint:
 	node_modules/.bin/eslint src/assets/js/packages/papi/**/*.js

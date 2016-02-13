@@ -1,22 +1,23 @@
-/**
- * Webpack config.
- */
-
 var path        = require('path');
 var webpack     = require('webpack');
-var assetsPath  = path.join('src', 'assets', 'js');
-var modulesPath = path.join('src', 'assets', 'js', 'packages');
 
 module.exports = {
-  context: path.resolve(assetsPath),
+  context: path.join(__dirname, 'src/assets/js'),
+  devtool: 'source-map',
   entry: './main.js',
+  externals: {
+    'jquery': 'jQuery'
+  },
   output: {
-    filename: './webpack.js',
+    filename: './main.min.js',
     path: 'dist/js/'
   },
   resolve: {
     extensions: ['', '.js'],
-    root: path.resolve(modulesPath)
+    root: [
+      path.join(__dirname, 'node_modules'),
+      path.join(__dirname, 'src/assets/js')
+    ]
   },
   module: {
     loaders: [
@@ -26,5 +27,9 @@ module.exports = {
         loader: 'babel-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.optimize.UglifyJsPlugin({minimize: true})
+  ]
 };

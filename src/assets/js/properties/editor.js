@@ -1,4 +1,4 @@
-import $ from 'jquery/jquery';
+import $ from 'jquery';
 
 /* global tinymce, tinyMCE, tinyMCEPreInit, QTags */
 

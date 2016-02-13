@@ -1,5 +1,5 @@
-import $ from 'jquery/jquery';
-import Repeater from 'papi/properties/repeater';
+import $ from 'jquery';
+import Repeater from 'properties/repeater';
 
 class Flexible extends Repeater {
 
