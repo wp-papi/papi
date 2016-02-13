@@ -18,6 +18,10 @@ deps:
 js:
 	node_modules/.bin/webpack
 
+lint:
+	make lint:js
+	make lint:php
+
 lint\:js:
 	node_modules/.bin/eslint src/assets/js/*.js src/assets/js/properties/*.js
 
