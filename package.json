@@ -24,5 +24,19 @@
     "uglifyjs": "^2.4.10",
     "watch": "^0.17.1",
     "webpack": "^1.12.11"
+  },
+  "eslintConfig": {
+    "extends": "semistandard",
+    "globals": {
+      "papi": true
+    },
+    "rules": {
+      "space-before-function-paren": 0,
+      "no-multi-spaces": [1, {
+        "exceptions": {
+          "VariableDeclarator": true
+        }
+      }]
+    }
   }
 }
