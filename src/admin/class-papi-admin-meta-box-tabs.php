@@ -59,7 +59,7 @@ final class Papi_Admin_Meta_Box_Tabs {
 						$no_sidebar = empty( $tab->properties ) ? false : $tab->properties[0]->sidebar;
 						$css_classes .= ! empty( $tab->properties ) && $no_sidebar ? '' : 'white-tab';
 					} else {
-						$css_classes .= $tab->background === 'gray' ? '' : 'white-tab';
+						$css_classes .= $tab->background === 'white' ? 'white-tab' : '';
 					}
 					?>
 					<li class="<?php echo $css_classes; ?>">

@@ -5,11 +5,11 @@ class Papi_Core_Tab {
 	/**
 	 * The background of the tab.
 	 *
-	 * Possible values are: `white` or `gray`.
+	 * Possible values are: `white` or `grey`.
 	 *
 	 * By default if empty the background will be automatic,
 	 * if first property has no sidebar it'll be white and
-	 * if it has a sidebar it'll be gray.
+	 * if it has a sidebar it'll be grey.
 	 *
 	 * @var string
 	 */
