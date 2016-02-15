@@ -51,8 +51,18 @@ final class Papi_Admin_Meta_Box_Tabs {
 			<ul class="papi-tabs">
 				<?php
 				foreach ( $this->tabs as $tab ):
+					$css_classes = $this->tabs[0] === $tab ? 'active ' : '';
+
+					if ( empty( $tab->background ) ) {
+						// Find out if the first property has a sidebar or not. If the first property
+						// don't have a sidebar the tab background should be white since it looks better.
+						$no_sidebar = empty( $tab->properties ) ? false : $tab->properties[0]->sidebar;
+						$css_classes .= ! empty( $tab->properties ) && $no_sidebar ? '' : 'white-tab';
+					} else {
+						$css_classes .= $tab->background === 'gray' ? '' : 'white-tab';
+					}
 					?>
-					<li class="<?php echo $this->tabs[0] === $tab ? 'active' : ''; ?>">
+					<li class="<?php echo $css_classes; ?>">
 						<a href="#" data-papi-tab="<?php echo $tab->id; ?>">
 							<?php if ( ! empty( $tab->icon ) ): ?>
 								<img src="<?php echo $tab->icon; ?>" alt="<?php echo $tab->title; ?>"/>
@@ -60,26 +70,14 @@ final class Papi_Admin_Meta_Box_Tabs {
 							echo $tab->title; ?>
 						</a>
 					</li>
-				<?php
-				endforeach;
-				?>
+				<?php endforeach; ?>
 			</ul>
 			<div class="papi-tabs-content">
 				<?php
 				foreach ( $this->tabs as $tab ):
 					?>
-					<div class="<?php echo $this->tabs[0] === $tab ? 'active' : ''; ?>"
-					     data-papi-tab="<?php echo $tab->id; ?>">
-						<?php
-						$properties = array_map( function ( $property ) {
-							// While in a tab the sidebar is required.
-							$property->sidebar = true;
-
-							return $property;
-						}, $tab->properties );
-
-						papi_render_properties( $properties );
-						?>
+					<div class="<?php echo $this->tabs[0] === $tab ? 'active' : ''; ?>" data-papi-tab="<?php echo $tab->id; ?>">
+						<?php papi_render_properties( $tab->properties ); ?>
 					</div>
 				<?php
 				endforeach;

@@ -62,6 +62,11 @@
         position: relative;
       }
 
+      &.active.white-tab a {
+        background-color: #fff;
+        border-right: 1px #fff solid;
+      }
+
       &:first-child.active a {
         border-top: 1px solid transparent;
       }
