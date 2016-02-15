@@ -50,7 +50,6 @@ final class Papi_Admin_Meta_Box_Tabs {
 			<div class="papi-tabs-back"></div>
 			<ul class="papi-tabs">
 				<?php
-
 				foreach ( $this->tabs as $tab ):
 					?>
 					<li class="<?php echo $this->tabs[0] === $tab ? 'active' : ''; ?>">
