@@ -84,7 +84,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 		// since `help_sidebar` method returns false.
 		$help_sidebar = $this->help_sidebar();
 		$help_sidebar = papi_maybe_get_callable_value( $help_sidebar );
-		$screen->set_help_sidebar( $help_sidebar );
+		$screen->set_help_sidebar( wpautop( $help_sidebar ) );
 
 		foreach ( $help as $key => $value ) {
 			$args = [
