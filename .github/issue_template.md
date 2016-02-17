@@ -5,7 +5,7 @@ Use the template below to log a new bug.
 
 Have a feature request?
 =======================
-Remove the template and add your feature request.
+Remove the template below and add your feature request.
 -->
 
 ### What I expected
