@@ -1,7 +1,9 @@
-## What I expected
+### What I expected
 
-## What happened instead
+### What happened instead
 
-## Steps to reproduce
+### Steps to reproduce
 
-## Browser
+### Browser
+
+### Papi version
