@@ -14,6 +14,7 @@ Remove the template below and add your feature request.
 
 ### Steps to reproduce
 
-### Browser
+### What versions of software are you using?
 
-### Papi version
+- Browser:
+- Papi:
