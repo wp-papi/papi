@@ -131,6 +131,10 @@ function papi_get_entry_type( $file_path ) {
 		}
 		// @codeCoverageIgnoreEnd
 
+		if ( ! class_exists( $class_name ) ) {
+			return;
+		}
+
 		$rc         = new ReflectionClass( $class_name );
 		$entry_type = $rc->newInstanceArgs( [$file_path] );
 
