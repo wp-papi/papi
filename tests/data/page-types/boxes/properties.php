@@ -197,6 +197,17 @@ return [
 		]
 	] ),
 
+	// Html save
+	papi_property( [
+		'type'  => 'html',
+		'title' => 'Html save test',
+		'slug'  => 'html_save_test',
+		'settings' => [
+			'save' => true,
+			'html' => '<p>Hello, world!</p>'
+		]
+	] ),
+
 	// Image
 	papi_property( [
 		'type'  => 'image',

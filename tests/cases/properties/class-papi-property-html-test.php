@@ -5,14 +5,36 @@
  */
 class Papi_Property_Html_Test extends Papi_Property_Test_Case {
 
-	public $slugs = ['html_test', 'html_test_2'];
+	public $slugs = ['html_test', 'html_test_2', 'html_save_test'];
 
 	public function get_value() {
-		return;
+		$args = func_get_args();
+		switch ( $args[0] ) {
+			case 'html_save_test':
+				return '<p>Hello, world!</p>';
+			default:
+				return;
+		}
+	}
+
+	public function get_update_value() {
+		$args = func_get_args();
+		switch ( $args[0] ) {
+			case 'html_save_test':
+				return '<p>Hello, world 2!</p>';
+			default:
+				return;
+		}
 	}
 
 	public function get_expected() {
-		return;
+		$args = func_get_args();
+		switch ( $args[0] ) {
+			case 'html_save_test':
+				return '<p>Hello, world!</p>';
+			default:
+				return;
+		}
 	}
 
 	public function test_property_format_value() {
@@ -34,6 +56,10 @@ class Papi_Property_Html_Test extends Papi_Property_Test_Case {
 		$this->assertSame( 'html', $this->properties[1]->get_option( 'type' ) );
 		$this->assertSame( 'Html test 2', $this->properties[1]->get_option( 'title' ) );
 		$this->assertSame( 'papi_html_test_2', $this->properties[1]->get_option( 'slug' ) );
+
+		$this->assertSame( 'html', $this->properties[2]->get_option( 'type' ) );
+		$this->assertSame( 'Html save test', $this->properties[2]->get_option( 'title' ) );
+		$this->assertSame( 'papi_html_save_test', $this->properties[2]->get_option( 'slug' ) );
 	}
 
 	public function test_property_output() {
@@ -44,5 +70,8 @@ class Papi_Property_Html_Test extends Papi_Property_Test_Case {
 
 		papi_render_property( $this->properties[1] );
 		$this->expectOutputRegex( '/\<p\>Hello, callable!\<\/p\>/' );
+
+		papi_render_property( $this->properties[2] );
+		$this->expectOutputRegex( '/\<p\>Hello, world!\<\/p\>/' );
 	}
 }
