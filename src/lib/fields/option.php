@@ -75,5 +75,10 @@ function the_papi_option( $slug = null, $default = null ) {
 		$value = implode( ', ', $value );
 	}
 
+	if ( is_object( $value ) ) {
+		// @codingStandardsIgnoreLine
+		$value = print_r( $value, true );
+	}
+
 	echo $value;
 }

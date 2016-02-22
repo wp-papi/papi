@@ -448,6 +448,8 @@ class Papi_Core_Property {
 
 			if ( papi_is_option_page() ) {
 				$value = papi_get_option( $slug );
+			} elseif ( papi_is_taxonomy_page() ) {
+				$value = papi_get_term_meta( papi_get_term_id(), $slug );
 			} else {
 				$value = papi_get_field( $this->get_post_id(), $slug );
 			}

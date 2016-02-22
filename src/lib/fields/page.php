@@ -21,7 +21,7 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'page' ) {
 
 	$post_id = papi_get_post_id( $post_id );
 
-	if ( $post_id === 0 && $type === Papi_Post_Page::TYPE ) {
+	if ( $post_id === 0 && $type !== Papi_Option_Page::TYPE ) {
 		return false;
 	}
 
@@ -37,7 +37,7 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'page' ) {
 		return false;
 	}
 
-	papi_cache_delete( $slug, $post_id );
+	papi_cache_delete( $slug, $post_id, $type );
 
 	papi_action_delete_value( $type, $slug, $post_id );
 
@@ -110,31 +110,31 @@ function papi_field_value( $slugs, $value, $default = null ) {
 /**
  * Get value for a property on a page.
  *
- * @param  int    $post_id
+ * @param  int    $id
  * @param  string $slug
  * @param  mixed  $default
  * @param  string $type
  *
  * @return mixed
  */
-function papi_get_field( $post_id = null, $slug = null, $default = null, $type = 'page' ) {
-	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
+function papi_get_field( $id = null, $slug = null, $default = null, $type = 'page' ) {
+	if ( ! is_numeric( $id ) && is_string( $id ) ) {
 		$default = $slug;
-		$slug    = $post_id;
-		$post_id = null;
+		$slug    = $id;
+		$id      = null;
 	}
 
 	if ( ! is_string( $slug ) || empty( $slug ) ) {
 		return $default;
 	}
 
-	$post_id = papi_get_post_id( $post_id );
+	$id = papi_get_post_id( $id );
 
-	if ( $post_id === 0 && $type === Papi_Post_Page::TYPE ) {
+	if ( $id === 0 && $type !== Papi_Option_Page::TYPE ) {
 		return $default;
 	}
 
-	$value = papi_cache_get( $slug, $post_id );
+	$value = papi_cache_get( $slug, $id, $type );
 
 	if ( $value === null || $value === false ) {
 		// Check for "dot" notation.
@@ -143,7 +143,7 @@ function papi_get_field( $post_id = null, $slug = null, $default = null, $type =
 		$slugs = array_slice( $slugs, 1 );
 
 		// Get the right page for right entry type.
-		$page = papi_get_page( $post_id, $type );
+		$page = papi_get_page( $id, $type );
 
 		// Return the default value if we don't have a valid page.
 		if ( is_null( $page ) ) {
@@ -156,7 +156,7 @@ function papi_get_field( $post_id = null, $slug = null, $default = null, $type =
 			return $default;
 		}
 
-		papi_cache_set( $slug, $post_id, $value );
+		papi_cache_set( $slug, $id, $value, $type );
 	}
 
 	return $value;
@@ -230,6 +230,11 @@ function the_papi_field( $post_id = null, $slug = null, $default = null ) {
 
 	if ( is_array( $value ) ) {
 		$value = implode( ', ', $value );
+	}
+
+	if ( is_object( $value ) ) {
+		// @codingStandardsIgnoreLine
+		$value = print_r( $value, true );
 	}
 
 	echo $value;

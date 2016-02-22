@@ -138,6 +138,7 @@ final class Papi_Admin {
 		require_once __DIR__ . '/class-papi-admin-management-pages.php';
 		require_once __DIR__ . '/class-papi-admin-post-handler.php';
 		require_once __DIR__ . '/class-papi-admin-option-handler.php';
+		require_once __DIR__ . '/class-papi-admin-taxonomy-handler.php';
 	}
 
 	/**
@@ -352,6 +353,11 @@ final class Papi_Admin {
 			add_action( 'load-post-new.php', [$this, 'load_post_new'] );
 			add_action( 'restrict_manage_posts', [ $this, 'restrict_page_types'] );
 			add_action( 'add_meta_boxes', [$this, 'hidden_meta_boxes'], 10 );
+
+			if ( $taxonomy = papi_get_taxonomy() ) {
+				add_action( $taxonomy . '_add_form_fields', [$this, 'edit_form_after_title'] );
+				add_action( $taxonomy . '_edit_form_fields', [$this, 'edit_form_after_title'] );
+			}
 		}
 	}
 
