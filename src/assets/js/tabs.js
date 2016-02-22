@@ -13,7 +13,8 @@ class Tabs {
    * Bind elements with functions.
    */
   binds() {
-    $('a[data-papi-tab]').on('click', this.changeTab);
+    $('a[data-papi-tab]').on('click', this.changeTab.bind(this));
+    this.updateTabsTableBack($('ul.papi-tabs li.active'));
   }
 
   /**
@@ -24,16 +25,32 @@ class Tabs {
   changeTab(e) {
     e.preventDefault();
 
-    let $this = $(this);
-    let tab = $this.data().papiTab;
+    const $this = $(e.currentTarget);
+    const $parent = $this.parent();
+    const tab = $this.data().papiTab;
 
     $('a[data-papi-tab]').parent().removeClass('active');
-    $this.parent().addClass('active');
+    $parent.addClass('active');
 
     $('div[data-papi-tab]').removeClass('active').addClass('papi-hide');
-    $('div[data-papi-tab="' + tab + '"]').addClass('active').removeClass('papi-hide');
+    const $tabContent = $('div[data-papi-tab="' + tab + '"]').addClass('active').removeClass('papi-hide');
+
+    const forceUpdate = $('.papi-tabs-content').height() < $('.papi-tabs').height()
+      && !$tabContent.find('tr').last().find('.papi-table-sidebar').length;
+
+    this.updateTabsTableBack($parent, forceUpdate);
   }
 
+  /**
+   * Update tabs table back css class.
+   *
+   * @param {object} $activeTab
+   * @param {bool} addClass
+   */
+  updateTabsTableBack($activeTab, addClass = false) {
+    const $tabsTableBack = $activeTab.closest('.papi-tabs-wrapper').find('.papi-tabs-table-back');
+    $tabsTableBack[$activeTab.hasClass('white-tab') || addClass ? 'addClass' : 'removeClass']('white-tab');
+  }
 }
 
 export default Tabs;

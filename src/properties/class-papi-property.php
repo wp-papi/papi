@@ -144,7 +144,7 @@ class Papi_Property extends Papi_Core_Property {
 			?>
 			<tr class="<?php echo $css_class; ?>">
 				<?php if ( $this->get_option( 'sidebar' ) ): ?>
-					<td>
+					<td class="papi-table-sidebar">
 						<?php
 							$this->render_label_html();
 							$this->render_description_html();

@@ -81,6 +81,11 @@
     position: absolute;
     top: 0;
     width: 246px;
+
+    &.white-tab {
+      background-color: #fff;
+      border-right: 1px #fff solid;
+    }
   }
 
   .papi-tabs-content {
