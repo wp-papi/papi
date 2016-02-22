@@ -2,8 +2,9 @@
 
 abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
-	protected $same = true;
-
+	/**
+	 * Setup test and add global properties, post id, slugs and so.
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -21,6 +22,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		$this->page_type = papi_get_entry_type_by_id( 'properties-page-type' );
 
 		if ( isset( $this->slug ) && is_string( $this->slug ) ) {
+			$this->slugs = [$this->slug];
 			$this->property   = $this->page_type->get_property( $this->slug );
 			$this->properties = [$this->property];
 		} else {
@@ -32,25 +34,36 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * Tear down all properties that has been used.
+	 */
 	public function tearDown() {
 		parent::tearDown();
-		unset(
-			$_GET,
-			$_POST,
-			$this->post_id,
-			$this->page_type,
-			$this->property
-		);
+		unset( $_GET, $_POST, $this->post_id, $this->page_type, $this->property );
 	}
 
+	/**
+	 * Assert values will assert values so it's the same by default.
+	 */
 	public function assert_values( $expected, $actual ) {
 		$this->assertSame( $expected, $actual );
 	}
 
+	/**
+	 * Get actual value for the given slug.
+	 */
 	abstract public function get_value();
 
+	/**
+	 * Get expected value for the given slug.
+	 */
 	abstract public function get_expected();
 
+	/**
+	 * Save properties value for different type.
+	 *
+	 * @param  Papi_Property $property
+	 */
 	public function save_properties( $property, $value = null, $type = 'post' ) {
 		if ( is_null( $value ) ) {
 			$value = $this->get_value( $property->get_slug( true ) );
@@ -77,6 +90,11 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * Save properties value for page type and assert values.
+	 *
+	 * @param  Papi_Property $property
+	 */
 	public function save_properties_value( $property = null ) {
 		$value = $this->get_value( $property->get_slug( true ) );
 
@@ -94,6 +112,11 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		$this->assert_values( $expected, $actual );
 	}
 
+	/**
+	 * Save properties value for option type and assert values.
+	 *
+	 * @param  Papi_Property $property
+	 */
 	public function save_properties_value_option( $property ) {
 		global $current_screen;
 
@@ -122,34 +145,57 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		$current_screen = null;
 	}
 
+	/**
+	 * Test property convert type, by default it is `string` if isn't set to anything else.
+	 */
 	public function test_property_convert_type() {
 		foreach ( $this->properties as $property ) {
 			$this->assertSame( 'string', $property->convert_type );
 		}
 	}
 
+	/**
+	 * Test property default value, by default is `null` if it isn't set to anything else.
+	 */
 	public function test_property_default_value() {
 		foreach ( $this->properties as $property ) {
 			$this->assertNull( $property->default_value );
 		}
 	}
 
+	/**
+	 * Test property `format_value`, it will check so the
+	 * expected value is return by default.
+	 */
 	public function test_property_format_value() {
 		$this->assertSame( $this->get_expected(), $this->property->format_value( $this->get_value(), '', 0 ) );
 	}
 
+	/**
+	 * Test properties `get_default_settings` so it is a array.
+	 */
 	public function test_property_get_default_settings() {
 		foreach ( $this->properties as $property ) {
 			$this->assertTrue( is_array( $property->get_default_settings() ) );
 		}
 	}
 
+	/**
+	 * Test property `import_value`, it will check so the
+	 * expected value is return by default.
+	 */
 	public function test_property_import_value() {
 		$this->assertSame( $this->get_expected(), $this->property->import_value( $this->get_value(), '', 0 ) );
 	}
 
+	/**
+	 * Abstract method that should test property options, if any.
+	 */
 	abstract public function test_property_options();
 
+	/**
+	 * Test property output will test so the html contains the property.
+	 */
 	public function test_property_output() {
 		foreach ( $this->properties as $property ) {
 			papi_render_property( $property );
@@ -158,6 +204,10 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		}
 	}
 
+	/**
+	 * Test save properties will test to save properties as
+	 * all existing types.
+	 */
 	public function test_save_properties_value() {
 		foreach ( $this->properties as $prop ) {
 			$this->save_properties_value( $prop );
@@ -166,5 +216,47 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		// Required to clear request uri here instead of in `save_properties_value_option`.
 		$_SERVER['REQUEST_URI'] = '';
+	}
+
+	/**
+	 * Get update value will return the value that will
+	 * be used as value when updating the property.
+	 *
+	 * @return mixed
+	 */
+	public function get_update_value() {
+		return;
+	}
+
+	/**
+	 * Update type value will test to update the property value.
+	 *
+	 * @param  int    $post_id
+	 * @param  int    $index
+	 * @param  string $slug
+	 * @param  string $type
+	 */
+	public function update_type_value( $post_id = 0, $index = 0, $slug = null, $type = 'post' ) {
+		$property = $this->properties[$index];
+		$value    = $this->get_update_value( $property->get_slug( true ) );
+
+		if ( is_null( $value ) ) {
+			$this->assertNull( papi_get_field( $this->post_id, $property->slug, null, $type ) );
+		} else if ( papi_update_field( $this->post_id, $slug, $value, $type ) ) {
+			$actual = papi_get_field( $this->post_id, $property->slug, null, $type );
+			$this->assert_values( $value, $actual );
+		}
+	}
+
+	/**
+	 * Test so values is updated right.
+	 *
+	 * @depends test_save_properties_value
+	 */
+	public function test_property_update_type_value() {
+		foreach ( $this->slugs as $index => $slug ) {
+			$this->update_type_value( $this->post_id, $index, $slug );
+			$this->update_type_value( 0, $index, $slug, 'option' );
+		}
 	}
 }
