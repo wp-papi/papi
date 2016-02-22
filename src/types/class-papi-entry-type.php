@@ -165,6 +165,13 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	 * @return array
 	 */
 	public function get_boxes() {
+		// When calling properties before they are registered on `admin_init`
+		// we need to rest the `boxes` array to prevent dublicated boxes.
+		if ( ! empty( $this->boxes ) && current_filter() === 'admin_init' ) {
+			$this->boxes = [];
+			$this->load_boxes = false;
+		}
+
 		if ( empty( $this->boxes ) && $this->load_boxes === false ) {
 			if ( ! method_exists( $this, 'register' ) ) {
 				return [];
