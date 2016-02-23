@@ -148,7 +148,6 @@ class Flexible extends Repeater {
 
     this.triggerRule($tbody, counter);
   }
-
 }
 
 export default Flexible;

@@ -302,7 +302,6 @@ class Repeater {
 
     this.triggerRule($tbody, counter);
   }
-
 }
 
 export default Repeater;

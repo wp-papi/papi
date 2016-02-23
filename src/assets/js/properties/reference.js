@@ -32,7 +32,6 @@ class Reference {
       .next()
       .toggle();
   }
-
 }
 
 export default Reference;

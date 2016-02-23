@@ -298,8 +298,8 @@ class Rules {
    * @param {object} $this
    */
   setupRules($this) {
-    const rules    = $.parseJSON($this.text());
-    let slug       = $this.data('papi-rule-source-slug');
+    const rules = $.parseJSON($this.text());
+    let slug    = $this.data('papi-rule-source-slug');
 
     for (let key in rules) {
       let rule = rules[key];
@@ -313,7 +313,6 @@ class Rules {
 
     $this.removeAttr('data-papi-rules');
   }
-
 }
 
 export default Rules;

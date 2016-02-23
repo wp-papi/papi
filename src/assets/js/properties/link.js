@@ -148,7 +148,6 @@ class Link {
 
     this.wpLink = this.$el = this.$p = undefined;
   }
-
 }
 
 export default Link;

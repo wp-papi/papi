@@ -134,7 +134,6 @@ class Core {
       $('a[href="' + href + '"]', $adminmenu).addClass('current').parent().addClass('current');
     }
   }
-
 }
 
 export default Core;

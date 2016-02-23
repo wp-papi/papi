@@ -65,7 +65,6 @@ class Utils {
   static set wpMediaFrame(obj) {
     this._wpMediaFrame = obj;
   }
-
 }
 
 export default Utils;

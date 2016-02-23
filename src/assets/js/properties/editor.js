@@ -194,7 +194,6 @@ class Editor {
     elements.$dom.addClass(selectors.wrap, 'tmce-active');
     elements.$dom.removeClass(selectors.wrap, 'html-active');
   }
-
 }
 
 export default Editor;

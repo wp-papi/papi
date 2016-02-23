@@ -209,7 +209,6 @@ class File {
         revert: true
       });
   }
-
 }
 
 export default File;

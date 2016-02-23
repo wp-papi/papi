@@ -134,7 +134,6 @@ class Relationship {
       $this.removeAttr('name');
     });
   }
-
 }
 
 export default Relationship;

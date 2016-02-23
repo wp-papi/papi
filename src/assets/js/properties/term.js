@@ -79,7 +79,6 @@ class Term {
       $select.select2();
     }
   }
-
 }
 
 export default Term;

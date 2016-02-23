@@ -81,7 +81,6 @@ class Post {
       $select.select2();
     }
   }
-
 }
 
 export default Post;

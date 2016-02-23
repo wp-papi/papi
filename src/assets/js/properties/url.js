@@ -34,7 +34,6 @@ class Url {
   binds() {
     $(document).on('click', '.papi-url-media-button', this.add);
   }
-
 }
 
 export default Url;

@@ -33,7 +33,6 @@ class Dropdown {
       $select.select2();
     }
   }
-
 }
 
 export default Dropdown;

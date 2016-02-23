@@ -81,7 +81,6 @@ class Required {
       }
     }
   }
-
 }
 
 export default Required;
