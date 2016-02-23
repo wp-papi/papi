@@ -33,6 +33,26 @@ Or manually add it to your `composer.json`:
 }
 ```
 
+## Build CSS and JavaScript
+
+Install dependencies:
+
+```
+$ make deps
+```
+
+Build CSS:
+
+```
+$ make css
+```
+
+Build JavaScript:
+
+```
+$ make js
+```
+
 ## Testing
 
 Visit the [readme](tests/README.md) file for testing.
