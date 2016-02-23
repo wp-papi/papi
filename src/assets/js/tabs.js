@@ -35,8 +35,8 @@ class Tabs {
     $('div[data-papi-tab]').removeClass('active').addClass('papi-hide');
     const $tabContent = $('div[data-papi-tab="' + tab + '"]').addClass('active').removeClass('papi-hide');
 
-    const forceUpdate = $('.papi-tabs-content').height() < $('.papi-tabs').height()
-      && !$tabContent.find('tr').last().find('.papi-table-sidebar').length;
+    const forceUpdate = $('.papi-tabs-content').height() < $('.papi-tabs').height() &&
+      !$tabContent.find('tr').last().find('.papi-table-sidebar').length;
 
     this.updateTabsTableBack($parent, forceUpdate);
   }
