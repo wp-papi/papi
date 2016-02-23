@@ -152,14 +152,7 @@ final class Papi_Admin_Menu {
 				$submenu[$edit_url][10][2] = papi_get_page_new_url(
 					$only_page_type,
 					false,
-					$post_type,
-					[
-						'action',
-						'message',
-						'page_type',
-						'post',
-						'post_type'
-					]
+					$post_type
 				);
 			} else {
 				$page  = 'papi-add-new-page,' . $post_type;

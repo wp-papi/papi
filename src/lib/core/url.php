@@ -6,75 +6,15 @@
  * @param  string $page_type
  * @param  bool   $append_admin_url
  * @param  string $post_type
- * @param  array  $exclude
+ * @param  array  $include
  *
  * @return string
  */
-function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type = null, array $exclude = [] ) {
+function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type = null, array $include = [] ) {
 	$admin_url = $append_admin_url ? get_admin_url() : '';
-	$admin_url = $admin_url . 'post-new.php?page_type=' . $page_type . papi_get_page_query_strings( '&', $exclude );
-
-	if ( ! is_null( $post_type ) && in_array( 'post_type', $exclude ) ) {
-		$admin_url = str_replace( '&&', '&', $admin_url . '&post_type=' . $post_type );
-	}
+	$admin_url = $admin_url . 'post-new.php?page_type=' . $page_type . papi_include_query_strings( '&', $include );
 
 	return papi_append_post_type_query( $admin_url, $post_type );
-}
-
-/**
- * Get page query strings.
- *
- * @param  string $first_char
- * @param  array  $exclude
- *
- * @return string
- */
-function papi_get_page_query_strings( $first_char = '&', array $exclude = [] ) {
-	$request_uri = $_SERVER['REQUEST_URI'];
-	$parsed_url  = parse_url( $request_uri );
-
-	if ( ! isset( $parsed_url['query'] ) || empty( $parsed_url['query'] ) ) {
-		return '';
-	}
-
-	$query = $parsed_url['query'];
-	$query = preg_replace( '/page\=[a-z-,]+/', '', $query );
-	$query = str_replace( '?', '', $query );
-	$query = explode( '&', $query );
-
-	$query = array_filter( $query, function ( $q ) use ( $exclude ) {
-		$q = explode( '=', $q );
-
-		if ( empty( $q ) || empty( $q[0] ) ) {
-			return false;
-		}
-
-		if ( empty( $exclude ) ) {
-			return true;
-		}
-
-		return ! in_array( $q[0], $exclude );
-	} );
-
-	$query = implode( '&', $query );
-	$query = $first_char . $query;
-
-	if ( in_array( 'post_type', $exclude ) ) {
-		return $query;
-	}
-
-	if ( $query === $first_char ) {
-		$query = '';
-	}
-
-	$empty_query = empty( $query );
-	$query = papi_append_post_type_query( $query );
-
-	if ( $empty_query ) {
-		return $first_char . substr( $query, 1 );
-	}
-
-	return $query;
 }
 
 /**
@@ -115,4 +55,26 @@ function papi_append_post_type_query( $url, $post_type_arg = null ) {
 	}
 
 	return $url;
+}
+
+/**
+ * Append query strings from existing request
+ *
+ * @param  string $first_character
+ * @param  array  $allowed_keys
+ *
+ * @return string
+ */
+function papi_include_query_strings( $first_character = '?', $allowed_keys = [] ) {
+	if ( empty( $allowed_keys ) || ! is_array( $allowed_keys ) ) {
+		return '';
+	}
+
+	$include = array_intersect_key( $_GET, array_flip( $allowed_keys ) );
+
+	if ( empty( $include ) ) {
+		return '';
+	}
+
+	return $first_character . http_build_query( $include );
 }
