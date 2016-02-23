@@ -285,6 +285,16 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
+	 * Get labels that should be changed
+	 * when using `fill_labels` option.
+	 *
+	 * @return array
+	 */
+	public function get_labels() {
+		return [];
+	}
+
+	/**
 	 * Get property from page type.
 	 *
 	 * @param  string $slug

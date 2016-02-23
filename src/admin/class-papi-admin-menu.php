@@ -37,7 +37,7 @@ final class Papi_Admin_Menu {
 	 *
 	 * @param Papi_Page_Type $page_type
 	 */
-	private function override_labels( Papi_Page_Type $page_type ) {
+	private function override_labels( Papi_Entry_Type $page_type ) {
 		global $wp_post_types;
 
 		$post_type = papi_get_post_type();
