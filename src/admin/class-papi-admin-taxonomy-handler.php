@@ -85,7 +85,6 @@ final class Papi_Admin_Taxonomy_Handler extends Papi_Core_Data_Handler {
 				'value'         => $value
 			] );
 		}
-
 	}
 
 	/**
