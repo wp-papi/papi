@@ -9,7 +9,7 @@
  *
  * @return bool
  */
-function papi_delete_field( $post_id = null, $slug = null, $type = 'page' ) {
+function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$slug    = $post_id;
 		$post_id = null;
@@ -117,7 +117,7 @@ function papi_field_value( $slugs, $value, $default = null ) {
  *
  * @return mixed
  */
-function papi_get_field( $id = null, $slug = null, $default = null, $type = 'page' ) {
+function papi_get_field( $id = null, $slug = null, $default = null, $type = 'post' ) {
 	if ( ! is_numeric( $id ) && is_string( $id ) ) {
 		$default = $slug;
 		$slug    = $id;
@@ -172,7 +172,7 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pag
  *
  * @return bool
  */
-function papi_update_field( $post_id = null, $slug = null, $value = null, $type = 'page' ) {
+function papi_update_field( $post_id = null, $slug = null, $value = null, $type = 'post' ) {
 	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
 		$value   = $slug;
 		$slug    = $post_id;
