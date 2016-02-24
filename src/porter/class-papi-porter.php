@@ -278,9 +278,9 @@ final class Papi_Porter extends Papi_Container {
 			] );
 
 			$out = papi_update_property_meta_value( [
-				'post_id' => $post_id,
-				'slug'    => $slug,
-				'value'   => $value
+				'id'    => $post_id,
+				'slug'  => $slug,
+				'value' => $value
 			] );
 
 			$result = $out ? $result : $out;

@@ -110,10 +110,10 @@ final class Papi_Admin_Post_Handler extends Papi_Core_Data_Handler {
 		// Save all properties value
 		foreach ( $data as $key => $value ) {
 			papi_update_property_meta_value( [
-				'post_id'       => $post_id,
-				'slug'          => $key,
-				'type'          => Papi_Post_Page::TYPE,
-				'value'         => $value
+				'id'    => $post_id,
+				'slug'  => $key,
+				'type'  => Papi_Post_Page::TYPE,
+				'value' => $value
 			] );
 		}
 	}
