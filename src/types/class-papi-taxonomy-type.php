@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Papi type that handle taxonomies
  */
