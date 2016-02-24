@@ -19,8 +19,7 @@ function papi_get_term_id( $term_id = null ) {
 	if ( is_null( $term_id ) || intval( $term_id ) === 0 ) {
 		if ( ! is_admin() && ( is_category() || is_tag() || is_tax() ) ) {
 			return get_queried_object_id();
-		}
-		else if ( $term_id = papi_get_or_post( 'term_id' ) ) {
+		} else if ( $term_id = papi_get_or_post( 'term_id' ) ) {
 			return intval( $term_id );
 		}
 	}
