@@ -58,7 +58,7 @@ function papi_append_post_type_query( $url, $post_type_arg = null ) {
 }
 
 /**
- * Append query strings from existing request
+ * Append query strings from existing request.
  *
  * @param  string $first_character
  * @param  array  $allowed_keys
