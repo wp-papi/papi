@@ -42,7 +42,7 @@ class Papi_Property_File_Test extends Papi_Property_Test_Case {
 		$this->assertSame( $post_id, $this->property->import_value( (object) ['id' => $post_id], '', 0 ) );
 		$this->assertSame( $post_id, $this->property->import_value( $post_id, '', 0 ) );
 
-		$property = $this->page_type->get_property( 'file_test_2' );
+		$property = $this->entry_type->get_property( 'file_test_2' );
 
 		$value = [
 			(object) ['id' => $post_id],
