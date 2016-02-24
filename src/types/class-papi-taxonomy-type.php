@@ -104,12 +104,7 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 
 					</th>
 					<td>
-						<?php
-						echo papi_maybe_get_callable_value(
-							'papi_render_property',
-							$prop
-						);
-						?>
+						<?php papi_render_property( $prop ); ?>
 						<p class="description"><?php echo $prop->description; ?></p>
 					</td>
 				</tr>
