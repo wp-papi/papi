@@ -65,8 +65,8 @@ function papi_append_post_type_query( $url, $post_type_arg = null ) {
  *
  * @return string
  */
-function papi_include_query_strings( $first_character = '?', $allowed_keys = [] ) {
-	if ( empty( $allowed_keys ) || ! is_array( $allowed_keys ) ) {
+function papi_include_query_strings( $first_character = '?', array $allowed_keys = [] ) {
+	if ( empty( $allowed_keys ) ) {
 		return '';
 	}
 
