@@ -79,13 +79,13 @@ class Papi_Taxonomy_Page extends Papi_Core_Page {
 	 * @return object
 	 */
 	public function get_property( $slug, $child_slug = '' ) {
-		$page_type_id = papi_load_taxonomy_type_id( $this->id );
-		$page_type    = papi_get_page_type_by_id( $page_type_id );
+		$taxonomy_type_id = papi_load_taxonomy_type_id( $this->id );
+		$taxonomy_type    = papi_get_page_type_by_id( $taxonomy_type_id );
 
-		if ( $page_type instanceof Papi_Taxonomy_Type === false ) {
+		if ( $taxonomy_type instanceof Papi_Taxonomy_Type === false ) {
 			return;
 		}
 
-		return $page_type->get_property( $slug, $child_slug );
+		return $this->prepare_property( $taxonomy_type->get_property( $slug, $child_slug ) );
 	}
 }

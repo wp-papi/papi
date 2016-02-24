@@ -85,7 +85,7 @@ class Papi_Option_Page extends Papi_Core_Page {
 
 		$this->option_type = $entry_type;
 
-		return $entry_type->get_property( $slug, $child_slug );
+		return $this->prepare_property( $entry_type->get_property( $slug, $child_slug ) );
 	}
 
 	/**

@@ -131,7 +131,8 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 * @return mixed
 	 */
 	public static function factory( $post_id, $type = 'page' ) {
-		$type         = $type === 'page' ? 'post' : $type;
+		$type         = papi_get_meta_type( $type );
+		$type         = $type === 'term' ? 'taxonomy' : $type;
 		$class_suffix = '_' . ucfirst( $type ) . '_Page';
 		$class_name   = 'Papi' . $class_suffix;
 
@@ -169,6 +170,21 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 */
 	protected function prepare_convert_value( Papi_Core_Property $property, $value ) {
 		return $value;
+	}
+
+	/**
+	 * Prepare property before returning it.
+	 *
+	 * @param  Papi_Core_Property $property
+	 *
+	 * @return Papi_Core_Property|null
+	 */
+	protected function prepare_property( $property ) {
+		if ( papi_is_property( $property ) ) {
+			$property->set_page( $this );
+		}
+
+		return $property;
 	}
 
 	/**

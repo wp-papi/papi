@@ -97,7 +97,7 @@ class Papi_Post_Page extends Papi_Core_Page {
 			return;
 		}
 
-		return $page_type->get_property( $slug, $child_slug );
+		return $this->prepare_property( $page_type->get_property( $slug, $child_slug ) );
 	}
 
 	/**
