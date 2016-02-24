@@ -10,7 +10,7 @@ class Papi_Post_Page extends Papi_Core_Page {
 	 *
 	 * @var string
 	 */
-	const TYPE = 'page';
+	const TYPE = 'post';
 
 	/**
 	 * The WordPress post.
