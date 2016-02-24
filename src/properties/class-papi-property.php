@@ -47,13 +47,7 @@ class Papi_Property extends Papi_Core_Property {
 	 * @return bool
 	 */
 	public function is_option_page() {
-		$page = $this->get_page();
-
-		if ( $page === null ) {
-			return papi_is_option_page();
-		}
-
-		return $page instanceof Papi_Option_Page;
+		return $this->get_page() instanceof Papi_Option_Page || papi_is_option_page();
 	}
 
 	/**
