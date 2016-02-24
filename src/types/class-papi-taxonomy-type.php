@@ -124,17 +124,17 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	 * @return bool
 	 */
 	public function singleton() {
-		$return = true;
+		$singleton = true;
 
 		foreach ( $this->taxonomy as $taxonomy ) {
 			$key = sprintf( 'entry_type_id.taxonomy.%s', $taxonomy );
+
 			if ( ! papi()->exists( $key ) ) {
 				papi()->singleton( $key, $this->get_id() );
-
-				$return = false;
+				$singleton = false;
 			}
 		}
 
-		return $return;
+		return $singleton;
 	}
 }
