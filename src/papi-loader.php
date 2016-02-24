@@ -177,6 +177,7 @@ final class Papi_Loader extends Papi_Container {
 			'core/cache.php',
 			'core/conditional.php',
 			'core/deprecated.php',
+			'core/meta.php',
 			'core/page.php',
 			'core/post.php',
 			'core/io.php',
