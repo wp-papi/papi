@@ -23,7 +23,6 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 		$this->taxonomy = papi_to_array( $this->taxonomy );
 	}
 
-
 	/**
 	 * This function will setup all meta boxes.
 	 */
