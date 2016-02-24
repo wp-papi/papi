@@ -43,13 +43,15 @@ class Papi_Lib_Core_Url_Test extends WP_UnitTestCase {
 		$old_get = $_GET;
 
 		$_GET = [
-			'foo'=>'bar',
-			'baz'=>'boom',
-			'cow'=>'milk',
-			'php'=>'hypertext processor'
+			'foo' => 'bar',
+			'baz' => 'boom',
+			'cow' => 'milk',
+			'php' => 'hypertext processor'
 		];
 
 		$this->assertEmpty( papi_include_query_strings( '?' ) );
+
+		$this->assertEmpty( papi_include_query_strings( '?', [ 'missing' ] ) );
 
 		$this->assertSame( '?foo=bar', papi_include_query_strings( '?', [ 'foo' ] ) );
 
