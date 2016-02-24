@@ -266,7 +266,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 			'title'   => 'Hello'
 		] );
 
-		$this->assertNull( $property->get_value() );
+		$this->assertSame( 'Hello', $property->get_value() );
 	}
 
 	public function test_get_default_value_success() {
