@@ -100,7 +100,6 @@ class Papi_Property_Link extends Papi_Property {
 				$values[$key] = $val;
 			}
 		} else {
-			$type = $post_id === 0 ? 'option' : 'post';
 			foreach ( $values as $index => $key ) {
 				$values[$key] = papi_get_property_meta_value(
 					$post_id,

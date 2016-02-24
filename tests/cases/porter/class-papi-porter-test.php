@@ -99,7 +99,7 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 		$post_id = $this->factory->post->create();
 		update_post_meta( $post_id, papi_get_page_type_key(), 'properties-page-type' );
 
-		$output  = $this->porter->import( $post_id, [
+		$output = $this->porter->import( $post_id, [
 			'bool_test' => true
 		] );
 
