@@ -7,6 +7,35 @@
 class Papi_Property extends Papi_Core_Property {
 
 	/**
+	 * Get value.
+	 *
+	 * @return mixed
+	 */
+	public function get_value() {
+		$value = $this->get_option( 'value' );
+
+		if ( papi_is_empty( $value ) ) {
+			$slug = $this->get_slug( true );
+
+			if ( papi_is_option_page() ) {
+				$value = papi_get_option( $slug );
+			} elseif ( papi_is_taxonomy_page() ) {
+				$value = papi_get_term_field( papi_get_term_id(), $slug );
+			} else {
+				$value = papi_get_field( $this->get_post_id(), $slug );
+			}
+
+			$post_status = get_post_status( $this->get_post_id() );
+
+			if ( papi_is_empty( $value ) && ( $post_status === false || $post_status === 'auto-draft' ) ) {
+				$value = $this->get_option( 'default' );
+			}
+		}
+
+		return $this->prepare_value( $value );
+	}
+
+	/**
 	 * Render property html.
 	 */
 	public function html() {
