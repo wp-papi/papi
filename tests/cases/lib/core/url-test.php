@@ -30,6 +30,9 @@ class Papi_Lib_Core_Url_Test extends WP_UnitTestCase {
 		$post = get_post( $this->post_id );
 		$url = papi_append_post_type_query( 'http://wordpress/?post_parent=1' );
 		$this->assertSame( 'http://wordpress/?post_parent=1&post_type=post', $url );
+
+		$url = papi_append_post_type_query( 'http://wordpress/?post_parent=1&post_type=post' );
+		$this->assertSame( 'http://wordpress/?post_parent=1&post_type=post', $url );
 	}
 
 	public function test_papi_append_post_type_query_fail() {
