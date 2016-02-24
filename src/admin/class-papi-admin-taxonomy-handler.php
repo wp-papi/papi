@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Admin class that handle post data.
+ * Admin class that handle taxonomy post data.
  */
 final class Papi_Admin_Taxonomy_Handler extends Papi_Core_Data_Handler {
 
