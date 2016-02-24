@@ -39,7 +39,7 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	}
 
 	/**
-	 * Setup filters.
+	 * Setup actions.
 	 */
 	protected function setup_actions() {
 		if ( empty( $this->taxonomy ) ) {
