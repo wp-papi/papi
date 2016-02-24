@@ -13,9 +13,9 @@ final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 	}
 
 	/**
-	 * Save options with a post id of zero.
+	 * Save properties with a post id of zero.
 	 */
-	public function save_options() {
+	public function save_properties() {
 		if ( ! papi_is_method( 'post' ) || ! papi_is_option_page() ) {
 			return;
 		}
@@ -45,7 +45,7 @@ final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 	 * Setup actions.
 	 */
 	private function setup_actions() {
-		add_action( 'admin_init', [$this, 'save_options'] );
+		add_action( 'admin_init', [$this, 'save_properties'] );
 	}
 }
 
