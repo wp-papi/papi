@@ -18,7 +18,7 @@ final class Papi_Admin_Taxonomy_Handler extends Papi_Core_Data_Handler {
 	 * @param int $term_id
 	 */
 	public function save_meta_boxes( $term_id ) {
-		// Can't proceed without a post id or post.
+		// Can't proceed without a term id or post.
 		if ( empty( $term_id ) ) {
 			return;
 		}
@@ -37,7 +37,7 @@ final class Papi_Admin_Taxonomy_Handler extends Papi_Core_Data_Handler {
 	}
 
 	/**
-	 * Pre save page template and page type.
+	 * Pre save page template and taxonomy type.
 	 *
 	 * @param int $term_id
 	 */
