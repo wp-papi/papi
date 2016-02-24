@@ -154,11 +154,8 @@ final class Papi_Admin_Menu {
 					false,
 					$post_type,
 					[
-						'action',
-						'message',
-						'page_type',
-						'post',
-						'post_type'
+						'post_parent',
+						'lang'
 					]
 				);
 			} else {
