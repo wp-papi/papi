@@ -23,7 +23,7 @@ final class Papi_Admin_Taxonomy_Handler extends Papi_Core_Data_Handler {
 			return;
 		}
 
-		// Don't save meta boxes for autosaves
+		// Don't save meta boxes for autosaves.
 		if ( defined( 'DOING_AUTOSAVE' ) ) {
 			return;
 		}
