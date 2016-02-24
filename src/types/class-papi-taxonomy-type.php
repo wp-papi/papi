@@ -124,7 +124,6 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	 * @return bool
 	 */
 	public function singleton() {
-
 		$return = true;
 
 		foreach ( $this->taxonomy as $taxonomy ) {

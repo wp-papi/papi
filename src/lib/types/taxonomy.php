@@ -44,7 +44,6 @@ function papi_load_taxonomy_type_id( $entry_type_id = '' ) {
 
 add_filter( 'papi/entry_type_id', 'papi_load_taxonomy_type_id' );
 
-
 /**
  * Check if it's a taxonomy page url.
  *
