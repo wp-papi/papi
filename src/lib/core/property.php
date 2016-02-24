@@ -9,7 +9,7 @@
  * @param string $slug
  * @param string $type
  */
-function papi_delete_property_meta_value( $id, $slug, $type = 'page' ) {
+function papi_delete_property_meta_value( $id, $slug, $type = 'post' ) {
 	papi_cache_delete( $slug, $id, $type );
 
 	if ( $type === Papi_Option_Page::TYPE || papi_is_option_page() ) {
@@ -161,14 +161,13 @@ function papi_get_property_class_name( $type ) {
  * @param string $slug
  * @param string $type
  */
-function papi_get_property_meta_value( $id, $slug, $type = 'page' ) {
+function papi_get_property_meta_value( $id, $slug, $type = 'post' ) {
 	if ( $type === Papi_Option_Page::TYPE || papi_is_option_page() ) {
-		$value = get_option( $slug, null );
+		$value = get_option( unpapify( $slug ), null );
 	} else {
 		$type  = $type === 'page' ? 'post' : $type;
 		$type  = $type === 'taxonomy' ? 'term' : $type;
-
-		$value = get_metadata( $type, $id, $slug, true );
+		$value = get_metadata( $type, $id, unpapify( $slug ), true );
 	}
 
 	if ( papi_is_empty( $value ) ) {
@@ -427,9 +426,6 @@ function papi_update_property_meta_value( array $meta = [] ) {
 			if ( $meta->type === 'option' ) {
 				$out = update_option( unpapify( $meta->slug ), $value );
 				$result = $out ? $result : $out;
-			} elseif ( $meta->type === 'taxonomy' ) {
-				$out = update_term_meta( $meta->post_id, unpapify( $meta->slug ), $value );
-				$result = $out ? $result : $out;
 			} else {
 				$out = update_metadata( $meta->type, $meta->post_id, unpapify( $meta->slug ), $value );
 				$result = $out ? $result : $out;
@@ -442,10 +438,8 @@ function papi_update_property_meta_value( array $meta = [] ) {
 			if ( papi_is_empty( $child_value ) ) {
 				papi_delete_property_meta_value( $meta->post_id, $child_key, $meta->type );
 			} else {
-				if ( $type === 'option' ) {
+				if ( $meta->type === 'option' ) {
 					update_option( unpapify( $child_key ), $child_value );
-				} elseif ( $type === 'taxonomy' ) {
-					update_term_meta( $meta->post_id, unpapify( $child_key ), $child_value );
 				} else {
 					update_metadata( $meta->type, $meta->post_id, unpapify( $child_key ), $child_value );
 				}
