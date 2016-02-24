@@ -26,7 +26,7 @@ function papi_get_option( $slug, $default = null ) {
 /**
  * Shortcode for `papi_get_option` function.
  *
- * [papi_option slug="field_name" default="Default value"][/papi_option]
+ * [papi_option slug="property_slug" default="Default value"][/papi_option]
  *
  * @param  array $atts
  *

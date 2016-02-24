@@ -47,7 +47,7 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'page' ) {
 /**
  * Shortcode for `papi_get_field` function.
  *
- * [papi_field id=1 slug="field_name" default="Default value"][/papi_field]
+ * [papi_field id=1 slug="property_slug" default="Default value"][/papi_field]
  *
  * @param  array $atts
  *

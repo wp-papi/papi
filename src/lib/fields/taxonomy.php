@@ -49,7 +49,7 @@ function papi_get_term_meta( $term_id, $slug, $default = null ) {
 /**
  * Shortcode for `papi_get_term_meta` function.
  *
- * [papi_taxonomy id=1 slug="field_name" default="Default value"][/papi_taxonomy]
+ * [papi_taxonomy id=1 slug="property_slug" default="Default value"][/papi_taxonomy]
  *
  * @param  array $atts
  *
