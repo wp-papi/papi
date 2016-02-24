@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Delete value in the database.
+ * Delete property value in the database.
  *
  * @param  int    $term_id
  * @param  string $slug
  *
  * @return bool
  */
-function papi_delete_term_meta( $term_id, $slug = '' ) {
+function papi_delete_term_field( $term_id, $slug = '' ) {
 	if ( ! is_numeric( $term_id ) && is_string( $term_id ) ) {
 		$slug    = $term_id;
 		$term_id = null;
@@ -22,7 +22,7 @@ function papi_delete_term_meta( $term_id, $slug = '' ) {
 }
 
 /**
- * Get property value for property on a term archive page.
+ * Get property value from the database.
  *
  * @param  int    $term_id
  * @param  string $slug
@@ -30,7 +30,7 @@ function papi_delete_term_meta( $term_id, $slug = '' ) {
  *
  * @return mixed
  */
-function papi_get_term_meta( $term_id, $slug, $default = null ) {
+function papi_get_term_field( $term_id, $slug, $default = null ) {
 	if ( ! is_numeric( $term_id ) && is_string( $term_id ) ) {
 		$slug    = $term_id;
 		$default = $slug;
@@ -43,11 +43,15 @@ function papi_get_term_meta( $term_id, $slug, $default = null ) {
 
 	$term_id = papi_get_term_id( $term_id );
 
+	if ( empty( $term_id ) ) {
+		return $default;
+	}
+
 	return papi_get_field( $term_id, $slug, $default, Papi_Taxonomy_Page::TYPE );
 }
 
 /**
- * Shortcode for `papi_get_term_meta` function.
+ * Shortcode for `papi_get_term_field` function.
  *
  * [papi_taxonomy id=1 slug="property_slug" default="Default value"][/papi_taxonomy]
  *
@@ -63,7 +67,7 @@ function papi_taxonomy_shortcode( $atts ) {
 	if ( empty( $atts['id'] ) || empty( $atts['slug'] ) ) {
 		$value = $default;
 	} else {
-		$value = papi_get_term_meta( $atts['id'], $atts['slug'], $default );
+		$value = papi_get_term_field( $atts['id'], $atts['slug'], $default );
 	}
 
 	if ( is_array( $value ) ) {
@@ -76,7 +80,7 @@ function papi_taxonomy_shortcode( $atts ) {
 add_shortcode( 'papi_taxonomy', 'papi_taxonomy_shortcode' );
 
 /**
- * Update field with new value. The old value will be deleted.
+ * Update property with new value. The old value will be deleted.
  *
  * @param  int    $term_id
  * @param  string $slug
@@ -84,7 +88,7 @@ add_shortcode( 'papi_taxonomy', 'papi_taxonomy_shortcode' );
  *
  * @return bool
  */
-function papi_update_term_meta( $term_id, $slug, $value = null ) {
+function papi_update_term_field( $term_id, $slug, $value = null ) {
 	if ( ! is_numeric( $term_id ) && is_string( $term_id ) ) {
 		$slug    = $term_id;
 		$value   = $slug;
@@ -96,10 +100,14 @@ function papi_update_term_meta( $term_id, $slug, $value = null ) {
 	}
 
 	if ( papi_is_empty( $value ) ) {
-		return papi_delete_term_meta( $term_id, $slug );
+		return papi_delete_term_field( $term_id, $slug );
 	}
 
 	$term_id = papi_get_term_id( $term_id );
+
+	if ( empty( $term_id ) ) {
+		return $default;
+	}
 
 	return papi_update_field( $term_id, $slug, $value, Papi_Taxonomy_Page::TYPE );
 }
@@ -112,7 +120,7 @@ function papi_update_term_meta( $term_id, $slug, $value = null ) {
  * @param mixed  $default
  */
 function the_papi_term_meta( $term_id = null, $slug = null, $default = null ) {
-	$value = papi_get_term_meta( $term_id, $slug, $default );
+	$value = papi_get_term_field( $term_id, $slug, $default );
 
 	if ( is_array( $value ) ) {
 		$value = implode( ', ', $value );
