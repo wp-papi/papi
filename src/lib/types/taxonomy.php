@@ -19,14 +19,14 @@ function papi_is_taxonomy_type( $obj ) {
  * @return string
  */
 function papi_load_taxonomy_type_id( $entry_type_id = '' ) {
-	$key       = papi_get_page_type_key();
-	$term_id   = papi_get_term_id();
+	$key      = papi_get_page_type_key();
+	$term_id  = papi_get_term_id();
 	$taxonomy = papi_get_taxonomy( $term_id );
 
 	// If we have a term id we can load the entry type id
 	// from the term.
 	if ( $term_id > 0 ) {
-		$meta_value      = get_term_meta( $term_id, $key, true );
+		$meta_value    = get_term_meta( $term_id, $key, true );
 		$entry_type_id = empty( $meta_value ) ? '' : $meta_value;
 	}
 
