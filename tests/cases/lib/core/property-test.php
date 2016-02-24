@@ -449,6 +449,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 
 		papi_update_property_meta_value( [
 			'slug'  => 'name',
+			'type'  => 'option',
 			'value' => 'Fredrik'
 		] );
 
@@ -456,14 +457,16 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 
 		papi_update_property_meta_value( [
 			'slug'  => 'name',
+			'type'  => 'option',
 			'value' => ''
 		] );
 
 		$this->assertNull( get_option( 'name', null ) );
 
 		papi_update_property_meta_value( [
-			'slug'          => 'name',
-			'value'         => [
+			'slug'  => 'name',
+			'type'  => 'option',
+			'value' => [
 				'firstname' => 'Fredrik'
 			]
 		] );
@@ -471,8 +474,9 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Fredrik', get_option( 'firstname' ) );
 
 		papi_update_property_meta_value( [
-			'slug'          => 'name',
-			'value'         => [
+			'slug'  => 'name',
+			'type'  => 'option',
+			'value' => [
 				'Fredrik'
 			]
 		] );
