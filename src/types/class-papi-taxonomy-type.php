@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Papi type that handle taxonomies
+ * Papi type that handle taxonomies.
  */
 class Papi_Taxonomy_Type extends Papi_Entry_Type {
 
