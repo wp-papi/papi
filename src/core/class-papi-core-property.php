@@ -39,7 +39,7 @@ class Papi_Core_Property {
 		'before_class' => '',
 		'before_html'  => '',
 		'capabilities' => [],
-		'default'      => '',
+		'default'      => null,
 		'description'  => '',
 		'disabled'     => false,
 		'display'      => true,
@@ -55,7 +55,7 @@ class Papi_Core_Property {
 		'sort_order'   => -1,
 		'title'        => '',
 		'type'         => '',
-		'value'        => ''
+		'value'        => null
 	];
 
 	/**
@@ -441,7 +441,7 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function get_value() {
-		return $this->value;
+		return papi_is_empty( $this->value ) ? $this->default : $this->value;
 	}
 
 	/**
