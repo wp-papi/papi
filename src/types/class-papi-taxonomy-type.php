@@ -53,7 +53,7 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	}
 
 	/**
-	 * Render the fields on the add term page
+	 * Render the fields on the add term page.
 	 */
 	public function add_term() {
 		foreach ( $this->get_boxes() as $box ) {
@@ -81,7 +81,7 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	}
 
 	/**
-	 * Render the fields on the edit term page
+	 * Render the fields on the edit term page.
 	 */
 	public function edit_term() {
 		foreach ( $this->get_boxes() as $box ) {
