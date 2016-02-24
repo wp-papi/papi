@@ -68,12 +68,7 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 				?>
 				<div class="form-field">
 					<label for="<?php echo $prop->get_slug(); ?>"><?php echo $prop->title; ?></label>
-					<?php
-					echo papi_maybe_get_callable_value(
-						'papi_render_property',
-						$prop
-					);
-					?>
+					<?php papi_render_property( $prop ); ?>
 					<p><?php echo $prop->description; ?></p>
 				</div>
 			<?php
