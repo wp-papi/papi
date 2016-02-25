@@ -167,6 +167,8 @@ function papi_get_property_meta_value( $id, $slug, $type = 'post' ) {
 	} else {
 		$type  = papi_get_meta_type( $type );
 		$value = get_metadata( $type, $id, unpapify( $slug ), true );
+		// Backward compatibility, slugs can contain `papi` prefix.
+		$value = papi_is_empty( $value ) ? get_metadata( $type, $id, $slug, true ) : $value;
 	}
 
 	if ( papi_is_empty( $value ) ) {
