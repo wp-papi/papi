@@ -110,7 +110,7 @@ class Papi_Property_Relationship extends Papi_Property {
 		$slug = str_replace( '[', '_', $slug );
 		$slug = str_replace( ']', '', $slug );
 
-		return papi_get_property_meta_value( $post_id, $slug );
+		return papi_get_property_meta_value( $post_id, $slug, $this->get_meta_type() );
 	}
 
 	/**

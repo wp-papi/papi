@@ -315,6 +315,19 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Get meta type from the store or the default one.
+	 *
+	 * @return string
+	 */
+	public function get_meta_type() {
+		if ( $store = $this->get_store() ) {
+			return $store->get_type();
+		}
+
+		return papi_get_meta_type();
+	}
+
+	/**
 	 * Get option value.
 	 *
 	 * @param  string $key
