@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Option store implementation of Papi store.
+ * Option store implementation of Papi meta store.
  */
 class Papi_Option_Store extends Papi_Core_Meta_Store {
 

@@ -3,14 +3,14 @@
 /**
  * Core class that implements a Papi meta store.
  */
-abstract class Papi_Core_Meta_Store extends Papi_Container {
+abstract class Papi_Core_Meta_Store {
 
 	/**
 	 * The store type.
 	 *
 	 * @var string
 	 */
-	const TYPE = 'core';
+	const TYPE = 'meta';
 
 	/**
 	 * The WordPress meta id if it exists.
@@ -131,7 +131,6 @@ abstract class Papi_Core_Meta_Store extends Papi_Container {
 	 */
 	public static function factory( $post_id, $type = 'page' ) {
 		$type         = papi_get_meta_type( $type );
-		$type         = $type === 'term' ? 'taxonomy' : $type;
 		$class_suffix = '_' . ucfirst( $type ) . '_Store';
 		$class_name   = 'Papi' . $class_suffix;
 

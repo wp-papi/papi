@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Post store implementation of Papi store.
+ * Post store implementation of Papi meta store.
  */
 class Papi_Post_Store extends Papi_Core_Meta_Store {
 

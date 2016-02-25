@@ -18,7 +18,7 @@ function papi_delete_term_field( $term_id, $slug = '' ) {
 		return false;
 	}
 
-	return papi_delete_field( $term_id, $slug, Papi_Taxonomy_Store::TYPE );
+	return papi_delete_field( $term_id, $slug, Papi_Term_Store::TYPE );
 }
 
 /**
@@ -47,7 +47,7 @@ function papi_get_term_field( $term_id, $slug, $default = null ) {
 		return $default;
 	}
 
-	return papi_get_field( $term_id, $slug, $default, Papi_Taxonomy_Store::TYPE );
+	return papi_get_field( $term_id, $slug, $default, Papi_Term_Store::TYPE );
 }
 
 /**
@@ -109,7 +109,7 @@ function papi_update_term_field( $term_id, $slug, $value = null ) {
 		return $default;
 	}
 
-	return papi_update_field( $term_id, $slug, $value, Papi_Taxonomy_Store::TYPE );
+	return papi_update_field( $term_id, $slug, $value, Papi_Term_Store::TYPE );
 }
 
 /**

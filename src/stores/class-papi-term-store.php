@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Taxonomy store implementation of Papi store.
+ * Term store implementation of Papi meta store.
  */
-class Papi_Taxonomy_Store extends Papi_Core_Meta_Store {
+class Papi_Term_Store extends Papi_Core_Meta_Store {
 
 	/**
 	 * The store type.
 	 *
 	 * @var string
 	 */
-	const TYPE = 'taxonomy';
+	const TYPE = 'term';
 
 	/**
 	 * The WordPress term.
