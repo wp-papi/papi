@@ -6,13 +6,6 @@
 final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 
 	/**
-	 * The constructor.
-	 */
-	public function __construct() {
-		$this->setup_actions();
-	}
-
-	/**
 	 * Get meta type so we know where the data should be saved.
 	 *
 	 * @return string
@@ -137,7 +130,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	/**
 	 * Setup actions.
 	 */
-	private function setup_actions() {
+	protected function setup_actions() {
 		add_action( 'save_post', [$this, 'save_meta_boxes'], 1, 2 );
 		add_action( 'created_term', [$this, 'save_meta_boxes'], 1 );
 		add_action( 'edit_term', [$this, 'save_meta_boxes'], 1 );

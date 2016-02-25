@@ -6,13 +6,6 @@
 final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 
 	/**
-	 * The constructor.
-	 */
-	public function __construct() {
-		$this->setup_actions();
-	}
-
-	/**
 	 * Save properties with a post id of zero.
 	 */
 	public function save_properties() {
@@ -44,7 +37,7 @@ final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 	/**
 	 * Setup actions.
 	 */
-	private function setup_actions() {
+	protected function setup_actions() {
 		add_action( 'admin_init', [$this, 'save_properties'] );
 	}
 }
