@@ -20,13 +20,6 @@ abstract class Papi_Core_Meta_Store {
 	public $id;
 
 	/**
-	 * The type of store.
-	 *
-	 * @var string
-	 */
-	public $type;
-
-	/**
 	 * Get Papi property value.
 	 *
 	 * @param  string $slug
