@@ -13,7 +13,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 	const TYPE = 'core';
 
 	/**
-	 * The WordPress post id if it exists.
+	 * The WordPress meta id if it exists.
 	 *
 	 * @var int
 	 */
