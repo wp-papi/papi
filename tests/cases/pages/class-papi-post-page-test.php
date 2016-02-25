@@ -44,7 +44,7 @@ class Papi_Post_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_value() {
-		$handler = new Papi_Admin_Post_Handler();
+		$handler = new Papi_Admin_Meta_Handler();
 
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 

@@ -75,6 +75,8 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	 * @param  string $type
 	 */
 	public function save_properties( $property, $value = null, $type = 'post' ) {
+		global $wp_current_filter;
+
 		if ( is_null( $value ) ) {
 			$value = $this->get_value( $property->get_slug( true ) );
 		}
@@ -90,16 +92,19 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		switch ( papi_get_meta_type( $type ) ) {
 			case 'post':
 				$id = $this->post_id;
-				$handler = new Papi_Admin_Post_Handler();
+				$handler = new Papi_Admin_Meta_Handler();
+				$wp_current_filter = ['save_post'];
 				break;
 			case 'term':
 				$id = $this->term_id;
-				$handler = new Papi_Admin_Taxonomy_Handler();
+				$handler = new Papi_Admin_Meta_Handler();
+				$wp_current_filter = ['create_term'];
 				break;
 			case 'option':
 				$_SERVER['REQUEST_METHOD'] = 'POST';
 				$id = 0;
 				$handler = new Papi_Admin_Option_Handler();
+				$wp_current_filter = null;
 				break;
 			default:
 				$id = 0;
@@ -108,6 +113,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$handler->save_properties( $id );
 		$_SERVER['REQUEST_METHOD'] = '';
+		$wp_current_filter = null;
 	}
 
 	/**

@@ -26,7 +26,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 	}
 
 	private function save_properties( $property ) {
-		$handler = new Papi_Admin_Post_Handler();
+		$handler = new Papi_Admin_Meta_Handler();
 
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $property->slug,
