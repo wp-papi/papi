@@ -87,7 +87,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
 
-		switch ( $type ) {
+		switch ( papi_get_meta_type( $type ) ) {
 			case 'post':
 				$id = $this->post_id;
 				$handler = new Papi_Admin_Post_Handler();
@@ -259,9 +259,9 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	 */
 	public function test_save_properties_value() {
 		foreach ( $this->properties as $prop ) {
-#			$this->save_properties_value( $prop, 'option' );
-#			$this->save_properties_value( $prop, 'post' );
-#			$this->save_properties_value( $prop, 'term' );
+			$this->save_properties_value( $prop, 'option' );
+			$this->save_properties_value( $prop, 'post' );
+			$this->save_properties_value( $prop, 'term' );
 		}
 
 		// Required to clear request uri here instead of in `save_properties_value_option`.

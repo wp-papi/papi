@@ -42,13 +42,6 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 		$this->assertNull( $this->property->import_value( (object) [], '', 0 ) );
 	}
 
-	public function test_property_get_value() {
-		$this->assertSame( 0, $this->property->get_value() );
-		$this->save_properties( $this->property );
-		$user = $this->get_expected();
-		$this->assertSame( $user->ID, $this->property->get_value() );
-	}
-
 	public function test_property_options() {
 		$this->assertSame( 'user', $this->property->get_option( 'type' ) );
 		$this->assertSame( 'User test', $this->property->get_option( 'title' ) );

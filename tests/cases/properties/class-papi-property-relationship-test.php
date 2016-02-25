@@ -215,7 +215,7 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 		$post_id2 = $this->factory->post->create( ['post_title' => 'Beta'] );
 
 		$slug = $this->properties[0]->html_id( 'sort_option' );
-		update_post_meta( $post_id, $slug, 'Name (alphabetically)' );
+		update_post_meta( $post_id, unpapify( $slug ) , 'Name (alphabetically)' );
 
 		$arr = [get_post( $post_id2 ), get_post( $post_id )];
 		$out = [get_post( $post_id ), get_post( $post_id2 )];
@@ -225,7 +225,7 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 	public function test_property_sort_value_2() {
 		$post_id = $this->factory->post->create( ['post_title' => 'Alfa'] );
 		$slug    = $this->properties[1]->html_id( 'sort_option' );
-		update_post_meta( $post_id, $slug, 'Name (alphabetically)' );
+		update_post_meta( $post_id, unpapify( $slug ), 'Name (alphabetically)' );
 
 		$arr = $this->properties[1]->get_setting( 'items' );
 		$arr = array_map( function( $a ) {
