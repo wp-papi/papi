@@ -29,15 +29,13 @@ class Papi_Term_Store extends Papi_Core_Meta_Store {
 	/**
 	 * The constructor.
 	 *
-	 * Create a new instance of the class.
-	 *
-	 * @param int $term_id
+	 * @param int $id
 	 */
-	public function __construct( $term_id = 0 ) {
-		if ( $term_id === 0 ) {
+	public function __construct( $id = 0 ) {
+		if ( $id === 0 ) {
 			$this->id = papi_get_term_id();
 		} else {
-			$this->id = intval( $term_id );
+			$this->id = intval( $id );
 		}
 
 		$this->term = get_term( $this->id );

@@ -29,15 +29,13 @@ class Papi_Post_Store extends Papi_Core_Meta_Store {
 	/**
 	 * The constructor.
 	 *
-	 * Create a new instance of the class.
-	 *
-	 * @param int $post_id
+	 * @param int $id
 	 */
-	public function __construct( $post_id = 0 ) {
-		if ( $post_id === 0 ) {
+	public function __construct( $id = 0 ) {
+		if ( $id === 0 ) {
 			$this->id = papi_get_post_id();
 		} else {
-			$this->id = intval( $post_id );
+			$this->id = intval( $id );
 		}
 
 		$this->post      = get_post( $this->id );

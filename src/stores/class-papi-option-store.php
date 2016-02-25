@@ -22,12 +22,10 @@ class Papi_Option_Store extends Papi_Core_Meta_Store {
 	/**
 	 * The constructor.
 	 *
-	 * Create a new instance of the class.
-	 *
-	 * @param int $post_id
+	 * @param int $id
 	 */
-	public function __construct( $post_id = 0 ) {
-		// On option page this should always be equal to zero.
+	public function __construct( $id = 0 ) {
+		// Options don't have a id so set it to zero.
 		$this->id = 0;
 	}
 
