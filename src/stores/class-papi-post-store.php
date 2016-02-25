@@ -3,7 +3,7 @@
 /**
  * Post store implementation of Papi store.
  */
-class Papi_Post_Store extends Papi_Core_Store {
+class Papi_Post_Store extends Papi_Core_Meta_Store {
 
 	/**
 	 * The store type.

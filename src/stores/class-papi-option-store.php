@@ -3,7 +3,7 @@
 /**
  * Option store implementation of Papi store.
  */
-class Papi_Option_Store extends Papi_Core_Store {
+class Papi_Option_Store extends Papi_Core_Meta_Store {
 
 	/**
 	 * The current option type.

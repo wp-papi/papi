@@ -25,7 +25,7 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
 		return false;
 	}
 
-	$store = papi_get_store( $post_id, $type );
+	$store = papi_get_meta_store( $post_id, $type );
 
 	if ( is_null( $store ) ) {
 		return false;
@@ -143,7 +143,7 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 		$slugs = array_slice( $slugs, 1 );
 
 		// Get the right store for right entry type.
-		$store = papi_get_store( $id, $type );
+		$store = papi_get_meta_store( $id, $type );
 
 		// Return the default value if we don't have a valid store.
 		if ( is_null( $store ) ) {
@@ -193,7 +193,7 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 		return false;
 	}
 
-	$store = papi_get_store( $post_id, $type );
+	$store = papi_get_meta_store( $post_id, $type );
 
 	if ( is_null( $store ) ) {
 		return false;

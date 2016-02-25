@@ -9,7 +9,7 @@ class Papi_Option_Store_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$this->store = papi_get_store( 0, 'option' );
+		$this->store = papi_get_meta_store( 0, 'option' );
 
 		$_GET = [];
 	}

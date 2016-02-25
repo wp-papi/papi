@@ -252,7 +252,7 @@ function papi_get_post_types() {
  * @return array
  */
 function papi_get_slugs( $post_id = 0, $only_slugs = false ) {
-	$store = papi_get_store( $post_id );
+	$store = papi_get_meta_store( $post_id );
 
 	if ( $store instanceof Papi_Post_Store === false ) {
 		return [];

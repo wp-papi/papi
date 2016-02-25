@@ -90,7 +90,7 @@ class Papi_Core_Property {
 	 * The store that the property works with
 	 * to get data.
 	 *
-	 * @var Papi_Core_Store
+	 * @var Papi_Core_Meta_Store
 	 */
 	private $store;
 
@@ -349,14 +349,14 @@ class Papi_Core_Property {
 	/**
 	 * Get the store that the property will get data from.
 	 *
-	 * @return Papi_Core_Store|null
+	 * @return Papi_Core_Meta_Store|null
 	 */
 	public function get_store() {
-		if ( $this->store instanceof Papi_Core_Store ) {
+		if ( $this->store instanceof Papi_Core_Meta_Store ) {
 			return $this->store;
 		}
 
-		return papi_get_store( $this->get_post_id() );
+		return papi_get_meta_store( $this->get_post_id() );
 	}
 
 	/**
@@ -630,9 +630,9 @@ class Papi_Core_Property {
 	/**
 	 * Set the store that the property will get data from.
 	 *
-	 * @param Papi_Core_Store $store
+	 * @param Papi_Core_Meta_Store $store
 	 */
-	public function set_store( Papi_Core_Store $store ) {
+	public function set_store( Papi_Core_Meta_Store $store ) {
 		$this->store = $store;
 	}
 

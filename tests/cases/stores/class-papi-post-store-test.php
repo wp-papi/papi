@@ -11,7 +11,7 @@ class Papi_Post_Store_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
-		$this->store = papi_get_store( $this->post_id );
+		$this->store = papi_get_meta_store( $this->post_id );
 	}
 
 	public function tearDown() {
@@ -24,7 +24,7 @@ class Papi_Post_Store_Test extends WP_UnitTestCase {
 
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 
-		$store = papi_get_store( $this->post_id );
+		$store = papi_get_meta_store( $this->post_id );
 
 		$this->assertSame( $store->get_page_type()->name, 'Simple page' );
 	}
@@ -99,7 +99,7 @@ class Papi_Post_Store_Test extends WP_UnitTestCase {
 
 	public function test_get_property() {
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'random322-page-type' );
-		$store = papi_get_store( $this->post_id );
+		$store = papi_get_meta_store( $this->post_id );
 		$this->assertNull( $store->get_property( 'fake' ) );
 	}
 

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Core class that implements a Papi store.
+ * Core class that implements a Papi meta store.
  */
-abstract class Papi_Core_Store extends Papi_Container {
+abstract class Papi_Core_Meta_Store extends Papi_Container {
 
 	/**
 	 * The store type.
