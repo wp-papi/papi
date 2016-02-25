@@ -20,6 +20,13 @@ function papi_get_meta_type( $type = 'post' ) {
 	}
 }
 
+/**
+ * Get right meta id for meta type.
+ *
+ * @param  string $type
+ *
+ * @return string
+ */
 function papi_get_meta_id( $type = 'post' ) {
 	$type = papi_get_meta_type( $type );
 	return sprintf( '%s_id', $type );
