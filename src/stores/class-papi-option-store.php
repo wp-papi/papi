@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Option page implementation of Papi page.
+ * Option store implementation of Papi store.
  */
-class Papi_Option_Page extends Papi_Core_Page {
+class Papi_Option_Store extends Papi_Core_Store {
 
 	/**
 	 * The current option type.
@@ -13,7 +13,7 @@ class Papi_Option_Page extends Papi_Core_Page {
 	protected $option_type;
 
 	/**
-	 * Type option.
+	 * The store type.
 	 *
 	 * @var string
 	 */
@@ -89,7 +89,7 @@ class Papi_Option_Page extends Papi_Core_Page {
 	}
 
 	/**
-	 * Check if it's a valid page.
+	 * Check if it's a valid store.
 	 *
 	 * @return bool
 	 */

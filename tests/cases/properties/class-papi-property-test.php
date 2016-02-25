@@ -64,8 +64,8 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$_GET['page'] = 'papi/option/options/header-option-type';
 
-		$page = papi_get_page( 0, 'option' );
-		$property = $page->get_property( 'name' );
+		$store = papi_get_store( 0, 'option' );
+		$property = $store->get_property( 'name' );
 		$this->assertSame( 'string', $property->get_option( 'type' ) );
 		$this->assertSame( 'string', $property->type );
 		$this->assertSame( 'papi_name', $property->slug );

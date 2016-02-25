@@ -21,17 +21,17 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
 
 	$post_id = papi_get_post_id( $post_id );
 
-	if ( $post_id === 0 && $type !== Papi_Option_Page::TYPE ) {
+	if ( $post_id === 0 && $type !== Papi_Option_Store::TYPE ) {
 		return false;
 	}
 
-	$page = papi_get_page( $post_id, $type );
+	$store = papi_get_store( $post_id, $type );
 
-	if ( is_null( $page ) ) {
+	if ( is_null( $store ) ) {
 		return false;
 	}
 
-	$property = $page->get_property( $slug );
+	$property = $store->get_property( $slug );
 
 	if ( ! papi_is_property( $property ) ) {
 		return false;
@@ -130,7 +130,7 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 
 	$id = papi_get_post_id( $id );
 
-	if ( $id === 0 && $type !== Papi_Option_Page::TYPE ) {
+	if ( $id === 0 && $type !== Papi_Option_Store::TYPE ) {
 		return $default;
 	}
 
@@ -142,15 +142,15 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 		$slug  = $slugs[0];
 		$slugs = array_slice( $slugs, 1 );
 
-		// Get the right page for right entry type.
-		$page = papi_get_page( $id, $type );
+		// Get the right store for right entry type.
+		$store = papi_get_store( $id, $type );
 
-		// Return the default value if we don't have a valid page.
-		if ( is_null( $page ) ) {
+		// Return the default value if we don't have a valid store.
+		if ( is_null( $store ) ) {
 			return $default;
 		}
 
-		$value = papi_field_value( $slugs, $page->get_value( $slug ), $default );
+		$value = papi_field_value( $slugs, $store->get_value( $slug ), $default );
 
 		if ( papi_is_empty( $value ) ) {
 			return $default;
@@ -189,17 +189,17 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 
 	$post_id = papi_get_post_id( $post_id );
 
-	if ( $post_id === 0 && $type === Papi_Post_Page::TYPE ) {
+	if ( $post_id === 0 && $type !== Papi_Option_Store::TYPE ) {
 		return false;
 	}
 
-	$page = papi_get_page( $post_id, $type );
+	$store = papi_get_store( $post_id, $type );
 
-	if ( is_null( $page ) ) {
+	if ( is_null( $store ) ) {
 		return false;
 	}
 
-	$property = $page->get_property( $slug );
+	$property = $store->get_property( $slug );
 
 	if ( ! papi_is_property( $property ) ) {
 		return false;

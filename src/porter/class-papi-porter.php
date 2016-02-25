@@ -113,15 +113,15 @@ final class Papi_Porter extends Papi_Container {
 				if ( $only_values === true ) {
 					$slugs[$key][$slug] = $value;
 				} else {
-					$page = papi_get_page( $post_id );
+					$store = papi_get_store( $post_id );
 
 					// @codeCoverageIgnoreStart
-					if ( is_null( $page ) ) {
+					if ( is_null( $store ) ) {
 						continue;
 					}
 					// @codeCoverageIgnoreEnd
 
-					$property = $page->get_property( $slug );
+					$property = $store->get_property( $slug );
 
 					// @codeCoverageIgnoreStart
 					if ( ! papi_is_property( $property ) ) {

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Post page implementation of Papi page.
+ * Post store implementation of Papi store.
  */
-class Papi_Post_Page extends Papi_Core_Page {
+class Papi_Post_Store extends Papi_Core_Store {
 
 	/**
-	 * The page type.
+	 * The store type.
 	 *
 	 * @var string
 	 */

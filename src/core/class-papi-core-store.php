@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Core class that implements a Papi page.
+ * Core class that implements a Papi store.
  */
-abstract class Papi_Core_Page extends Papi_Container {
+abstract class Papi_Core_Store extends Papi_Container {
 
 	/**
-	 * The page type.
+	 * The store type.
 	 *
 	 * @var string
 	 */
@@ -20,7 +20,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 	public $id;
 
 	/**
-	 * The type of page.
+	 * The type of store.
 	 *
 	 * @var string
 	 */
@@ -38,7 +38,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 	}
 
 	/**
-	 * Get page type.
+	 * Get store type.
 	 *
 	 * @return string
 	 */
@@ -89,12 +89,11 @@ abstract class Papi_Core_Page extends Papi_Container {
 			return;
 		}
 
-		// A property need to know about the page.
-		$property->set_page( $this );
+		// A property need to know about the store.
+		$property->set_store( $this );
 
 		// Run load value method right after the value has been loaded from the database.
 		$value = $property->load_value( $value, $slug, $this->id );
-
 		$value = papi_filter_load_value(
 			$property->type,
 			$value,
@@ -123,7 +122,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 	}
 
 	/**
-	 * Get page from factory.
+	 * Get store from factory.
 	 *
 	 * @param  int    $post_id
 	 * @param  string $type
@@ -133,7 +132,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 	public static function factory( $post_id, $type = 'page' ) {
 		$type         = papi_get_meta_type( $type );
 		$type         = $type === 'term' ? 'taxonomy' : $type;
-		$class_suffix = '_' . ucfirst( $type ) . '_Page';
+		$class_suffix = '_' . ucfirst( $type ) . '_Store';
 		$class_name   = 'Papi' . $class_suffix;
 
 		if ( ! class_exists( $class_name ) ) {
@@ -151,7 +150,7 @@ abstract class Papi_Core_Page extends Papi_Container {
 	}
 
 	/**
-	 * Get property from page type.
+	 * Get property from entry type.
 	 *
 	 * @param  string $slug
 	 * @param  string $child_slug
@@ -181,14 +180,14 @@ abstract class Papi_Core_Page extends Papi_Container {
 	 */
 	protected function prepare_property( $property ) {
 		if ( papi_is_property( $property ) ) {
-			$property->set_page( $this );
+			$property->set_store( $this );
 		}
 
 		return $property;
 	}
 
 	/**
-	 * Check if it's a valid page.
+	 * Check if it's a valid store.
 	 *
 	 * @return bool
 	 */

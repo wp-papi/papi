@@ -324,9 +324,9 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Name', $options->title );
 	}
 
-	public function test_get_page() {
+	public function test_get_store() {
 		$property = new Papi_Core_Property();
-		$this->assertTrue( $property->get_page() instanceof Papi_Post_Page );
+		$this->assertTrue( $property->get_store() instanceof Papi_Post_Store );
 	}
 
 	public function test_get_post_id() {

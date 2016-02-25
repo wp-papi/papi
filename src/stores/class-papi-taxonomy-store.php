@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Post page implementation of Papi page.
+ * Taxonomy store implementation of Papi store.
  */
-class Papi_Taxonomy_Page extends Papi_Core_Page {
+class Papi_Taxonomy_Store extends Papi_Core_Store {
 
 	/**
-	 * The page type.
+	 * The store type.
 	 *
 	 * @var string
 	 */

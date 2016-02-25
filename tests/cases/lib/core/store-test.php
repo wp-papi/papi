@@ -1,6 +1,6 @@
 <?php
 
-class Papi_Lib_Core_Page_Test extends WP_UnitTestCase {
+class Papi_Lib_Core_Store_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -13,9 +13,9 @@ class Papi_Lib_Core_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_page() {
-		$page = papi_get_page( $this->post_id );
+		$page = papi_get_store( $this->post_id );
 		$this->assertTrue( is_object( $page ) );
-		$page = papi_get_page( $this->post_id, 'fake' );
+		$page = papi_get_store( $this->post_id, 'fake' );
 		$this->assertNull( $page );
 	}
 }

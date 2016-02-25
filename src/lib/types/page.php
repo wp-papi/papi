@@ -252,13 +252,13 @@ function papi_get_post_types() {
  * @return array
  */
 function papi_get_slugs( $post_id = 0, $only_slugs = false ) {
-	$page = papi_get_page( $post_id );
+	$store = papi_get_store( $post_id );
 
-	if ( $page instanceof Papi_Post_Page === false ) {
+	if ( $store instanceof Papi_Post_Store === false ) {
 		return [];
 	}
 
-	$page_type = $page->get_page_type();
+	$page_type = $store->get_page_type();
 
 	if ( empty( $page_type ) ) {
 		return [];

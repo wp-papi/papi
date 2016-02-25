@@ -80,18 +80,19 @@ class Papi_Core_Property {
 	private $options;
 
 	/**
-	 * The page that the property exists on.
-	 *
-	 * @var Papi_Core_Page
-	 */
-	private $page;
-
-	/**
 	 * The post id.
 	 *
 	 * @var int
 	 */
 	private $post_id;
+
+	/**
+	 * The store that the property works with
+	 * to get data.
+	 *
+	 * @var Papi_Core_Store
+	 */
+	private $store;
 
 	/**
 	 * Determine if is in a tab.
@@ -346,16 +347,16 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Get the page that the property is on.
+	 * Get the store that the property will get data from.
 	 *
-	 * @return Papi_Core_Page|null
+	 * @return Papi_Core_Store|null
 	 */
-	public function get_page() {
-		if ( $this->page instanceof Papi_Core_Page ) {
-			return $this->page;
+	public function get_store() {
+		if ( $this->store instanceof Papi_Core_Store ) {
+			return $this->store;
 		}
 
-		return papi_get_page( $this->get_post_id() );
+		return papi_get_store( $this->get_post_id() );
 	}
 
 	/**
@@ -627,12 +628,12 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Set the page that the property is on.
+	 * Set the store that the property will get data from.
 	 *
-	 * @param Papi_Core_Page $page
+	 * @param Papi_Core_Store $store
 	 */
-	public function set_page( Papi_Core_Page $page ) {
-		$this->page = $page;
+	public function set_store( Papi_Core_Store $store ) {
+		$this->store = $store;
 	}
 
 	/**
