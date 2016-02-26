@@ -97,6 +97,26 @@ function papi_template( $file, array $values = [], $convert_to_object = false ) 
 }
 
 /**
+ * Get template file name.
+ *
+ * @param  string $template
+ *
+ * @return string
+ */
+function papi_get_template_file_name( $template ) {
+	$extension = '.php';
+	$ext_reg   = '/(' . $extension . ')+$/';
+
+	if ( preg_match( '/\.\w+$/', $template, $matches ) && preg_match( $ext_reg, $matches[0] ) ) {
+		return str_replace( '.', '/', preg_replace( '/' . $matches[0] . '$/', '', $template ) ) . $matches[0];
+	}
+
+	$template = str_replace( '.', '/', $template );
+
+	return substr( $template, -strlen( $extension ) ) === $extension ? $template : $template . $extension;
+}
+
+/**
  * Include template files from Papis custom page template meta field.
  *
  * @param  string $original_template
