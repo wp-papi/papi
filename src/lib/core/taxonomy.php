@@ -28,7 +28,7 @@ function papi_get_term_id( $term_id = null ) {
 }
 
 /**
- * Get WordPress taxonomy in various ways
+ * Get WordPress taxonomy in various ways.
  *
  * @param  int $term_id
  *
