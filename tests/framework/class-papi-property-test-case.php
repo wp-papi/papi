@@ -22,7 +22,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'properties-page-type' );
 
-		if ( function_exists( 'update_term_meta' ) ) {
+		if ( papi_supports_term_meta() ) {
 			update_term_meta( $this->term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
 		}
 
@@ -271,7 +271,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 			$this->save_properties_value( $prop, 'option' );
 			$this->save_properties_value( $prop, 'post' );
 
-			if ( function_exists( 'update_term_meta' ) ) {
+			if ( papi_supports_term_meta() ) {
 				$this->save_properties_value( $prop, 'term' );
 			}
 		}
