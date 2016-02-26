@@ -33,13 +33,12 @@ function papi_get_meta_store( $post_id = 0, $type = 'post' ) {
  */
 function papi_get_meta_type( $type = 'post' ) {
 	switch ( $type ) {
-		case 'post':
-		case 'page':
-			return 'post';
+		case 'option':
+			return 'option';
 		case 'taxonomy':
 		case 'term':
 			return 'term';
 		default:
-			return $type;
+			return 'post';
 	}
 }

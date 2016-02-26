@@ -18,4 +18,14 @@ class Papi_Lib_Core_Meta_Test extends WP_UnitTestCase {
 		$store = papi_get_meta_store( $this->post_id, 'fake' );
 		$this->assertNull( $store );
 	}
+
+	public function test_papi_get_meta_type() {
+		$this->assertSame( 'post', papi_get_meta_type() );
+		$this->assertSame( 'post', papi_get_meta_type( 'post' ) );
+		$this->assertSame( 'post', papi_get_meta_type( 'page' ) );
+		$this->assertSame( 'term', papi_get_meta_type( 'term' ) );
+		$this->assertSame( 'term', papi_get_meta_type( 'taxonomy' ) );
+		$this->assertSame( 'option', papi_get_meta_type( 'option' ) );
+		$this->assertSame( 'post', papi_get_meta_type( 'hello' ) );
+	}
 }
