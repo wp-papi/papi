@@ -3,29 +3,29 @@
 /**
  * Delete value in the database.
  *
- * @param  int    $post_id
+ * @param  int    $id
  * @param  string $slug
  * @param  string $type
  *
  * @return bool
  */
-function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
-	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
-		$slug    = $post_id;
-		$post_id = null;
+function papi_delete_field( $id = null, $slug = null, $type = 'post' ) {
+	if ( ! is_numeric( $id ) && is_string( $id ) ) {
+		$slug = $id;
+		$id   = null;
 	}
 
 	if ( ! is_string( $slug ) || empty( $slug ) ) {
 		return false;
 	}
 
-	$post_id = papi_get_post_id( $post_id );
+	$id = papi_get_post_id( $id );
 
-	if ( $post_id === 0 && $type !== Papi_Option_Store::TYPE ) {
+	if ( $id === 0 && $type !== Papi_Option_Store::TYPE ) {
 		return false;
 	}
 
-	$store = papi_get_meta_store( $post_id, $type );
+	$store = papi_get_meta_store( $id, $type );
 
 	if ( is_null( $store ) ) {
 		return false;
@@ -37,11 +37,11 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'post' ) {
 		return false;
 	}
 
-	papi_cache_delete( $slug, $post_id, $type );
+	papi_cache_delete( $slug, $id, $type );
 
-	papi_action_delete_value( $type, $slug, $post_id );
+	papi_action_delete_value( $type, $slug, $id );
 
-	return $property->delete_value( $slug, $post_id, $type );
+	return $property->delete_value( $slug, $id, $type );
 }
 
 /**
@@ -165,18 +165,18 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 /**
  * Update field with new value. The old value will be deleted.
  *
- * @param  int    $post_id
+ * @param  int    $id
  * @param  string $slug
  * @param  mixed  $value
  * @param  string $type
  *
  * @return bool
  */
-function papi_update_field( $post_id = null, $slug = null, $value = null, $type = 'post' ) {
-	if ( ! is_numeric( $post_id ) && is_string( $post_id ) ) {
-		$value   = $slug;
-		$slug    = $post_id;
-		$post_id = null;
+function papi_update_field( $id = null, $slug = null, $value = null, $type = 'post' ) {
+	if ( ! is_numeric( $id ) && is_string( $id ) ) {
+		$value = $slug;
+		$slug  = $id;
+		$id    = null;
 	}
 
 	if ( ! is_string( $slug ) || empty( $slug ) ) {
@@ -184,16 +184,16 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 	}
 
 	if ( papi_is_empty( $value ) ) {
-		return papi_delete_field( $post_id, $slug, $type );
+		return papi_delete_field( $id, $slug, $type );
 	}
 
-	$post_id = papi_get_post_id( $post_id );
+	$id = papi_get_post_id( $id );
 
-	if ( $post_id === 0 && $type !== Papi_Option_Store::TYPE ) {
+	if ( $id === 0 && $type !== Papi_Option_Store::TYPE ) {
 		return false;
 	}
 
-	$store = papi_get_meta_store( $post_id, $type );
+	$store = papi_get_meta_store( $id, $type );
 
 	if ( is_null( $store ) ) {
 		return false;
@@ -205,28 +205,28 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 		return false;
 	}
 
-	papi_delete_field( $post_id, $slug, $type );
+	papi_delete_field( $id, $slug, $type );
 
-	$value = $property->update_value( $value, $slug, $post_id );
-	$value = papi_filter_update_value( $property->get_option( 'type' ), $value, $slug, $post_id );
+	$value = $property->update_value( $value, $slug, $id );
+	$value = papi_filter_update_value( $property->get_option( 'type' ), $value, $slug, $id );
 
 	return papi_update_property_meta_value( [
 		'type'  => $type,
-		'id'    => $post_id,
+		'id'    => $id,
 		'slug'  => $slug,
 		'value' => $value
 	] );
 }
 
 /**
- * Echo the value for property on a page.
+ * Echo the value for property.
  *
- * @param int    $post_id
+ * @param int    $id
  * @param string $slug
  * @param mixed  $default
  */
-function the_papi_field( $post_id = null, $slug = null, $default = null ) {
-	$value = papi_get_field( $post_id, $slug, $default );
+function the_papi_field( $id = null, $slug = null, $default = null ) {
+	$value = papi_get_field( $id, $slug, $default );
 
 	if ( is_array( $value ) ) {
 		$value = implode( ', ', $value );
