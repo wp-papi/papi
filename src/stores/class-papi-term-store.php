@@ -20,13 +20,6 @@ class Papi_Term_Store extends Papi_Core_Meta_Store {
 	private $term;
 
 	/**
-	 * The WordPress taxonomy.
-	 *
-	 * @var string
-	 */
-	private $taxonomy;
-
-	/**
 	 * The constructor.
 	 *
 	 * @param int $id
@@ -38,7 +31,7 @@ class Papi_Term_Store extends Papi_Core_Meta_Store {
 			$this->id = intval( $id );
 		}
 
-		$this->term       = get_term( $this->id );
+		$this->term       = get_term( $this->id, '' );
 		$id               = papi_get_taxonomy_type_id( $this->id );
 		$this->type_class = papi_get_entry_type_by_id( $id );
 	}
