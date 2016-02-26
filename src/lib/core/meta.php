@@ -8,8 +8,9 @@
  * @return string
  */
 function papi_get_meta_id( $type = 'post' ) {
-	$type = papi_get_meta_type( $type );
-	return sprintf( '%s_id', $type );
+	if ( $type = papi_get_meta_type( $type ) ) {
+		return sprintf( '%s_id', $type );
+	}
 }
 
 /**
@@ -29,16 +30,21 @@ function papi_get_meta_store( $post_id = 0, $type = 'post' ) {
  *
  * @param  string $type
  *
- * @return string
+ * @return string|null
  */
 function papi_get_meta_type( $type = 'post' ) {
 	switch ( $type ) {
 		case 'option':
 			return 'option';
+		case 'post':
+		case 'page':
+			return 'post';
 		case 'taxonomy':
 		case 'term':
 			return 'term';
 		default:
-			return 'post';
+			if ( isset( $wp_filter["get_{$type}_metadata"] ) ) {
+				return $type;
+			}
 	}
 }
