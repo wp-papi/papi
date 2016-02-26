@@ -30,6 +30,22 @@ class Papi_Lib_Core_Template_Test extends WP_UnitTestCase {
 		$this->assertSame( [ 'simple-page-type' ], papi_body_class( [] ) );
 	}
 
+	public function test_papi_get_template_file_name() {
+		$this->assertNull( papi_get_template_file_name( '' ) );
+		$this->assertNull( papi_get_template_file_name( true ) );
+		$this->assertNull( papi_get_template_file_name( false ) );
+		$this->assertNull( papi_get_template_file_name( null ) );
+		$this->assertNull( papi_get_template_file_name( 1 ) );
+		$this->assertNull( papi_get_template_file_name( 0 ) );
+		$this->assertNull( papi_get_template_file_name( '' ) );
+		$this->assertNull( papi_get_template_file_name( [] ) );
+		$this->assertNull( papi_get_template_file_name( (object) [] ) );
+
+		$this->assertSame( 'hello/world.php', papi_get_template_file_name( 'hello.world' ) );
+		$this->assertSame( 'hello/world.php', papi_get_template_file_name( 'hello/world' ) );
+		$this->assertSame( 'hello/world.php', papi_get_template_file_name( 'hello/world.php' ) );
+	}
+
 	public function test_papi_include_template() {
 		$this->assertEmpty( papi_include_template( '' ) );
 		$this->assertEmpty( papi_include_template( 1 ) );
