@@ -184,6 +184,8 @@ function papi_get_entry_type_by_id( $id ) {
  * @return string
  */
 function papi_get_entry_type_id( $id = 0, $type = 'post' ) {
+	$type = papi_get_meta_type( $type );
+
 	if ( $id > 0 ) {
 		if ( $meta_value = get_metadata( $type, $id, papi_get_page_type_key(), true ) ) {
 			return $meta_value;
@@ -196,6 +198,7 @@ function papi_get_entry_type_id( $id = 0, $type = 'post' ) {
 	 * Change entry type id.
 	 *
 	 * @param string $entry_type_id
+	 * @param string $type
 	 */
-	return apply_filters( 'papi/entry_type_id', $entry_type_id );
+	return apply_filters( 'papi/entry_type_id', $entry_type_id, $type );
 }

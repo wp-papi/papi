@@ -37,17 +37,22 @@ function papi_get_taxonomy_type_by_id( $id ) {
  * Load the entry type id on a taxonomy.
  *
  * @param  string $entry_type_id
+ * @param  string $type
  *
  * @return string
  */
-function papi_load_taxonomy_type_id( $entry_type_id = '' ) {
+function papi_load_taxonomy_type_id( $entry_type_id = '', $type = 'term' ) {
+	if ( $type !== Papi_Term_Store::TYPE ) {
+		return $entry_type_id;
+	}
+
 	$key      = papi_get_page_type_key();
 	$term_id  = papi_get_term_id();
 	$taxonomy = papi_get_taxonomy( $term_id );
 
 	// If we have a term id we can load the entry type id
 	// from the term.
-	if ( $term_id > 0 && function_exists( 'get_term_meta' ) ) {
+	if ( $term_id > 0 && papi_supports_term_meta() ) {
 		$meta_value    = get_term_meta( $term_id, $key, true );
 		$entry_type_id = empty( $meta_value ) ? '' : $meta_value;
 	}
@@ -64,7 +69,7 @@ function papi_load_taxonomy_type_id( $entry_type_id = '' ) {
 	return $entry_type_id;
 }
 
-add_filter( 'papi/entry_type_id', 'papi_load_taxonomy_type_id' );
+add_filter( 'papi/entry_type_id', 'papi_load_taxonomy_type_id', 10, 2 );
 
 /**
  * Check if it's a taxonomy page url.
