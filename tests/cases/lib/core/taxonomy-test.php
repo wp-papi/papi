@@ -2,6 +2,14 @@
 
 class Papi_Lib_Core_Taxonomy_Test extends WP_UnitTestCase {
 
+	public function setUp() {
+		parent::setUp();
+
+		if ( ! function_exists( 'update_term_meta' ) ) {
+			$this->markTestSkipped( 'Term metadata is not supported' );
+		}
+	}
+
 	public function test_papi_get_term_id() {
 		$this->assertSame( 1, papi_get_term_id( 1 ) );
 		$this->assertSame( 1, papi_get_term_id( '1' ) );

@@ -21,7 +21,10 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		$_GET['term_id'] = $this->term_id;
 
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'properties-page-type' );
-		update_term_meta( $this->term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
+
+		if ( function_exists( 'update_term_meta' ) ) {
+			update_term_meta( $this->term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
+		}
 
 		$this->entry_type = papi_get_entry_type_by_id( 'properties-page-type' );
 
@@ -267,7 +270,10 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		foreach ( $this->properties as $prop ) {
 			$this->save_properties_value( $prop, 'option' );
 			$this->save_properties_value( $prop, 'post' );
-			$this->save_properties_value( $prop, 'term' );
+
+			if ( function_exists( 'update_term_meta' ) ) {
+				$this->save_properties_value( $prop, 'term' );
+			}
 		}
 
 		// Required to clear request uri here instead of in `save_properties_value_option`.
