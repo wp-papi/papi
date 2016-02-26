@@ -77,7 +77,7 @@ class Papi_Term_Store extends Papi_Core_Meta_Store {
 	 * @return object
 	 */
 	public function get_property( $slug, $child_slug = '' ) {
-		$taxonomy_type_id = papi_load_taxonomy_type_id( $this->id );
+		$taxonomy_type_id = papi_get_taxonomy_type_id( $this->id, 'term' );
 		$taxonomy_type    = papi_get_page_type_by_id( $taxonomy_type_id );
 
 		if ( $taxonomy_type instanceof Papi_Taxonomy_Type === false ) {

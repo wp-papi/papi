@@ -12,7 +12,18 @@ function papi_is_taxonomy_type( $obj ) {
 }
 
 /**
- * Load the entry type id on a post types.
+ * Get taxonomy type id by term id.
+ *
+ * @param  int $term_id
+ *
+ * @return string
+ */
+function papi_get_taxonomy_type_id( $term_id = 0 ) {
+	return papi_get_entry_type_id( $term_id, 'term' );
+}
+
+/**
+ * Load the entry type id on a taxonomy.
  *
  * @param  string $entry_type_id
  *
