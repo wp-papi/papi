@@ -47,7 +47,7 @@ function papi_load_taxonomy_type_id( $entry_type_id = '' ) {
 
 	// If we have a term id we can load the entry type id
 	// from the term.
-	if ( $term_id > 0 ) {
+	if ( $term_id > 0 && function_exists( 'get_term_meta' ) ) {
 		$meta_value    = get_term_meta( $term_id, $key, true );
 		$entry_type_id = empty( $meta_value ) ? '' : $meta_value;
 	}

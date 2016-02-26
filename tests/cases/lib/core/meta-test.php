@@ -24,10 +24,13 @@ class Papi_Lib_Core_Meta_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_meta_store() {
 		$this->assertInstanceOf( 'Papi_Post_Store', papi_get_meta_store( $this->post_id ) );
-		$this->assertInstanceOf( 'Papi_Term_Store', papi_get_meta_store( $this->term_id, 'term' ) );
 		$this->assertInstanceOf( 'Papi_Option_Store', papi_get_meta_store( 0, 'option' ) );
 		$store = papi_get_meta_store( $this->post_id, 'fake' );
 		$this->assertNull( $store );
+
+		if ( function_exists( 'get_term_meta' ) ) {
+			$this->assertInstanceOf( 'Papi_Term_Store', papi_get_meta_store( $this->term_id, 'term' ) );
+		}
 	}
 
 	public function test_papi_get_meta_type() {
