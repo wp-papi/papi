@@ -18,7 +18,7 @@ function papi_delete_term_field( $term_id, $slug = '' ) {
 		return false;
 	}
 
-	return papi_delete_field( $term_id, $slug, Papi_Term_Store::TYPE );
+	return papi_delete_field( papi_get_term_id( $term_id ), $slug, Papi_Term_Store::TYPE );
 }
 
 /**
@@ -30,10 +30,10 @@ function papi_delete_term_field( $term_id, $slug = '' ) {
  *
  * @return mixed
  */
-function papi_get_term_field( $term_id, $slug, $default = null ) {
+function papi_get_term_field( $term_id = null, $slug = null, $default = null ) {
 	if ( ! is_numeric( $term_id ) && is_string( $term_id ) ) {
-		$slug    = $term_id;
 		$default = $slug;
+		$slug    = $term_id;
 		$term_id = null;
 	}
 
@@ -41,13 +41,7 @@ function papi_get_term_field( $term_id, $slug, $default = null ) {
 		return $default;
 	}
 
-	$term_id = papi_get_term_id( $term_id );
-
-	if ( empty( $term_id ) ) {
-		return $default;
-	}
-
-	return papi_get_field( $term_id, $slug, $default, Papi_Term_Store::TYPE );
+	return papi_get_field( papi_get_term_id( $term_id ), $slug, $default, Papi_Term_Store::TYPE );
 }
 
 /**
@@ -88,10 +82,10 @@ add_shortcode( 'papi_taxonomy', 'papi_taxonomy_shortcode' );
  *
  * @return bool
  */
-function papi_update_term_field( $term_id, $slug, $value = null ) {
+function papi_update_term_field( $term_id = null, $slug = null, $value = null ) {
 	if ( ! is_numeric( $term_id ) && is_string( $term_id ) ) {
-		$slug    = $term_id;
 		$value   = $slug;
+		$slug    = $term_id;
 		$term_id = null;
 	}
 
@@ -103,17 +97,11 @@ function papi_update_term_field( $term_id, $slug, $value = null ) {
 		return papi_delete_term_field( $term_id, $slug );
 	}
 
-	$term_id = papi_get_term_id( $term_id );
-
-	if ( empty( $term_id ) ) {
-		return $default;
-	}
-
-	return papi_update_field( $term_id, $slug, $value, Papi_Term_Store::TYPE );
+	return papi_update_field( papi_get_term_id( $term_id ), $slug, $value, Papi_Term_Store::TYPE );
 }
 
 /**
- * Echo the value for property on a page.
+ * Echo the value for property.
  *
  * @param int    $term_id
  * @param string $slug
