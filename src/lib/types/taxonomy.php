@@ -23,6 +23,17 @@ function papi_get_taxonomy_type_id( $term_id = 0 ) {
 }
 
 /**
+ * Get taxonomy type by id.
+ *
+ * @param  string $id
+ *
+ * @return Papi_Taxonomy_Type
+ */
+function papi_get_taxonomy_type_by_id( $id ) {
+	return papi_get_entry_type_by_id( $id );
+}
+
+/**
  * Load the entry type id on a taxonomy.
  *
  * @param  string $entry_type_id
