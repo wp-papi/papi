@@ -19,14 +19,14 @@ class Papi_Post_Store_Test extends WP_UnitTestCase {
 		unset( $this->post_id, $this->store );
 	}
 
-	public function test_get_page_type() {
-		$this->assertEmpty( $this->store->get_page_type() );
+	public function test_get_type_class() {
+		$this->assertEmpty( $this->store->get_type_class() );
 
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		$store = papi_get_meta_store( $this->post_id );
 
-		$this->assertSame( $store->get_page_type()->name, 'Simple page' );
+		$this->assertSame( $store->get_type_class()->name, 'Simple page' );
 	}
 
 	public function test_get_permalink() {

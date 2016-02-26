@@ -20,6 +20,13 @@ abstract class Papi_Core_Meta_Store {
 	public $id;
 
 	/**
+	 * The type class.
+	 *
+	 * @var Papi_Core_Type
+	 */
+	protected $type_class;
+
+	/**
 	 * Get Papi property value.
 	 *
 	 * @param  string $slug
@@ -37,6 +44,15 @@ abstract class Papi_Core_Meta_Store {
 	 */
 	public function get_type() {
 		return static::TYPE;
+	}
+
+	/**
+	 * Get type class.
+	 *
+	 * @return Papi_Core_Type
+	 */
+	public function get_type_class() {
+		return $this->type_class;
 	}
 
 	/**

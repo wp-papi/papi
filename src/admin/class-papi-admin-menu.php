@@ -16,19 +16,19 @@ final class Papi_Admin_Menu {
 	 * Fill labels on admin bar.
 	 */
 	public function admin_bar_menu() {
-		if ( $page_type = $this->get_page_type() ) {
-			$this->override_labels( $page_type );
+		if ( $type_class = $this->get_type_class() ) {
+			$this->override_labels( $type_class );
 		}
 	}
 
 	/**
-	 * Get current page type.
+	 * Get current type class.
 	 *
-	 * @return Papi_Page_Type
+	 * @return Papi_Core_Type
 	 */
-	private function get_page_type() {
-		if ( $page_type = papi_get_page_type_by_id( papi_get_page_type_id() ) ) {
-			return $page_type;
+	private function get_type_class() {
+		if ( $type_class = papi_get_entry_type_by_id( papi_get_entry_type_id() ) ) {
+			return $type_class;
 		}
 	}
 

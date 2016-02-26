@@ -255,14 +255,14 @@ function papi_get_slugs( $post_id = 0, $only_slugs = false ) {
 		return [];
 	}
 
-	$page_type = $store->get_page_type();
+	$type_class = $store->get_type_class();
 
-	if ( empty( $page_type ) ) {
+	if ( empty( $type_class ) ) {
 		return [];
 	}
 
 	$value = [];
-	$boxes = $page_type->get_boxes();
+	$boxes = $type_class->get_boxes();
 
 	foreach ( $boxes as $box ) {
 		if ( ! $only_slugs ) {

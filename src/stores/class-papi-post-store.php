@@ -38,18 +38,9 @@ class Papi_Post_Store extends Papi_Core_Meta_Store {
 			$this->id = intval( $id );
 		}
 
-		$this->post      = get_post( $this->id );
-		$id              = papi_get_page_type_id( $this->id );
-		$this->page_type = papi_get_page_type_by_id( $id );
-	}
-
-	/**
-	 * Get the page type object of the page.
-	 *
-	 * @return Papi_Page_Type
-	 */
-	public function get_page_type() {
-		return $this->page_type;
+		$this->post       = get_post( $this->id );
+		$id               = papi_get_page_type_id( $this->id );
+		$this->type_class = papi_get_page_type_by_id( $id );
 	}
 
 	/**

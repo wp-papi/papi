@@ -19,16 +19,6 @@ class Papi_Term_Store_Test extends WP_UnitTestCase {
 		unset( $this->term_id, $this->store );
 	}
 
-	/*public function test_get_page_type() {
-		$this->assertEmpty( $this->store->get_page_type() );
-
-		update_term_meta( $this->term_id, papi_get_page_type_key(), 'simple-page-type' );
-
-		$store = papi_get_meta_store( $this->term_id );
-
-		$this->assertSame( $store->get_page_type()->name, 'Simple page' );
-	}*/
-
 	public function test_get_permalink() {
 		$permalink = $this->store->get_permalink();
 		$this->assertFalse( empty( $permalink ) );
