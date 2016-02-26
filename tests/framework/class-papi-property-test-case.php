@@ -9,27 +9,35 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		parent::setUp();
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types', PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 
-		$this->post_id = $this->factory->post->create();
+		$this->meta_type = 'post';
+		$this->post_id   = $this->factory->post->create();
+		$this->term_id   = $this->factory->term->create();
 
 		$_GET = [];
-		$_GET['post'] = $this->post_id;
+		$_GET['post']    = $this->post_id;
+		$_GET['term_id'] = $this->term_id;
 
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'properties-page-type' );
+		update_term_meta( $this->term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
 
-		$this->page_type = papi_get_entry_type_by_id( 'properties-page-type' );
+		$this->entry_type = papi_get_entry_type_by_id( 'properties-page-type' );
+
+		if ( empty( $this->entry_type ) ) {
+			$this->entry_type = papi_get_entry_type_by_id( 'properties-taxonomy-type' );
+		}
 
 		if ( isset( $this->slug ) && is_string( $this->slug ) ) {
-			$this->slugs = [$this->slug];
-			$this->property   = $this->page_type->get_property( $this->slug );
+			$this->slugs      = [$this->slug];
+			$this->property   = $this->entry_type->get_property( $this->slug );
 			$this->properties = [$this->property];
 		} else {
 			$slugs = $this->slugs;
 			$this->properties = [];
 			foreach ( $slugs as $slug ) {
-				$this->properties[] = $this->page_type->get_property( $slug );
+				$this->properties[] = $this->entry_type->get_property( $slug );
 			}
 		}
 	}
@@ -39,7 +47,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	 */
 	public function tearDown() {
 		parent::tearDown();
-		unset( $_GET, $_POST, $this->post_id, $this->page_type, $this->property );
+		unset( $_GET, $_POST, $this->post_id, $this->term_id, $this->entry_type, $this->property );
 	}
 
 	/**
@@ -60,17 +68,17 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	abstract public function get_expected();
 
 	/**
-	 * Save properties value for different type.
+	 * Save properties value for different types.
 	 *
 	 * @param  Papi_Property $property
+	 * @param  mixed  $value
+	 * @param  string $type
 	 */
 	public function save_properties( $property, $value = null, $type = 'post' ) {
+		global $wp_current_filter;
+
 		if ( is_null( $value ) ) {
 			$value = $this->get_value( $property->get_slug( true ) );
-		}
-
-		if ( $type === 'post' ) {
-			$handler = new Papi_Admin_Post_Handler();
 		}
 
 		$_POST = papi_test_create_property_post_data( [
@@ -81,31 +89,76 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
 
-		if ( $type === 'post' ) {
-			$handler->save_properties( $this->post_id );
-		} else {
-			$_SERVER['REQUEST_METHOD'] = 'POST';
-			$handler = new Papi_Admin_Option_Handler();
-			$_SERVER['REQUEST_METHOD'] = '';
+		switch ( papi_get_meta_type( $type ) ) {
+			case 'post':
+				$id = $this->post_id;
+				$handler = new Papi_Admin_Meta_Handler();
+				$wp_current_filter = ['save_post'];
+				break;
+			case 'term':
+				$id = $this->term_id;
+				$handler = new Papi_Admin_Meta_Handler();
+				$wp_current_filter = ['create_term'];
+				break;
+			case 'option':
+				$_SERVER['REQUEST_METHOD'] = 'POST';
+				$id = 0;
+				$handler = new Papi_Admin_Option_Handler();
+				$wp_current_filter = null;
+				break;
+			default:
+				$id = 0;
+				break;
 		}
+
+		$handler->save_properties( $id );
+		$_SERVER['REQUEST_METHOD'] = '';
+		$wp_current_filter = null;
 	}
 
 	/**
 	 * Save properties value for page type and assert values.
 	 *
 	 * @param  Papi_Property $property
+	 * @param  string $type
 	 */
-	public function save_properties_value( $property = null ) {
+	public function save_properties_value( $property = null, $type = 'post' ) {
+		$this->meta_type = $type;
+
+		if ( $type === 'option' ) {
+			return $this->save_properties_value_option( $property );
+		}
+
 		$value = $this->get_value( $property->get_slug( true ) );
 
 		if ( is_null( $value ) ) {
-			$this->assertNull( papi_get_field( $this->post_id, $property->slug ) );
+			switch ( $type ) {
+				case 'post':
+					$actual = papi_get_field( $this->post_id, $property->slug );
+					break;
+				case 'term':
+					$actual = papi_get_term_field( $this->term_id, $property->slug );
+					break;
+				default:
+					break;
+			}
+
+			$this->assertNull( $actual );
 			return;
 		}
 
-		$this->save_properties( $property, $value );
+		$this->save_properties( $property, $value, $type );
 
-		$actual = papi_get_field( $this->post_id, $property->slug );
+		switch ( $type ) {
+			case 'post':
+				$actual = papi_get_field( $this->post_id, $property->slug );
+				break;
+			case 'term':
+				$actual = papi_get_term_field( $this->term_id, $property->slug );
+				break;
+			default:
+				break;
+		}
 
 		$expected = $this->get_expected( $property->get_slug( true ) );
 
@@ -134,6 +187,9 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$this->save_properties( $property, $value, 'option' );
 
+		// Leave admin screen.
+		$current_screen = null;
+
 		$actual = papi_get_option( $property->slug );
 
 		$expected = $this->get_expected( $property->get_slug( true ) );
@@ -142,7 +198,6 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		unset( $_GET['page'] );
 		$_SERVER['REQUEST_URI'] = '';
-		$current_screen = null;
 	}
 
 	/**
@@ -210,8 +265,9 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	 */
 	public function test_save_properties_value() {
 		foreach ( $this->properties as $prop ) {
-			$this->save_properties_value( $prop );
-			$this->save_properties_value_option( $prop );
+			$this->save_properties_value( $prop, 'option' );
+			$this->save_properties_value( $prop, 'post' );
+			$this->save_properties_value( $prop, 'term' );
 		}
 
 		// Required to clear request uri here instead of in `save_properties_value_option`.

@@ -245,9 +245,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$repeater_slug . '_%'
 			);
 		} else {
-			$table = $wpdb->prefix . 'postmeta';
+			$table = sprintf( '%s%smeta', $wpdb->prefix, $this->get_meta_type() );
+			$id_column = papi_get_meta_id( $this->get_meta_type() );
 			$query = $wpdb->prepare(
-				"SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `post_id` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%',
+				"SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `$id_column` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%',
 				$post_id
 			);
 		}
@@ -403,13 +404,13 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		// Will not need this array.
 		unset( $trash );
 
-		$page    = $this->get_page();
+		$store    = $this->get_store();
 		$results = papi_from_property_array_slugs(
 			$results,
 			unpapify( $repeater_slug )
 		);
 
-		if ( is_null( $page ) ) {
+		if ( is_null( $store ) ) {
 			return $this->default_value;
 		}
 
@@ -419,7 +420,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					continue;
 				}
 
-				if ( $property = $page->get_property( $repeater_slug, $slug ) ) {
+				if ( $property = $store->get_property( $repeater_slug, $slug ) ) {
 					$type_key = papi_get_property_type_key_f( $slug );
 					$results[$index][$type_key] = $property;
 				}

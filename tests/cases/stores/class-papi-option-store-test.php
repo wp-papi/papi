@@ -1,6 +1,6 @@
 <?php
 
-class Papi_Option_Page_Test extends WP_UnitTestCase {
+class Papi_Option_Store_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -9,20 +9,20 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$this->page = papi_get_page( 0, 'option' );
+		$this->store = papi_get_meta_store( 0, 'option' );
 
 		$_GET = [];
 	}
 
 	public function tearDown() {
 		parent::tearDown();
-		unset( $_GET, $this->page );
+		unset( $_GET, $this->store );
 	}
 
 	public function test_get_property() {
-		$this->assertNull( $this->page->get_property( 'fake' ) );
+		$this->assertNull( $this->store->get_property( 'fake' ) );
 
-		$property = $this->page->get_property( 'name' );
+		$property = $this->store->get_property( 'name' );
 		$this->assertSame( 'string', $property->get_option( 'type' ) );
 		$this->assertSame( 'string', $property->type );
 		$this->assertSame( 'papi_name', $property->slug );
@@ -32,7 +32,7 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 
 		$_GET['page'] = 'papi/option/options/header-option-type';
 
-		$property = $this->page->get_property( 'name' );
+		$property = $this->store->get_property( 'name' );
 		$this->assertSame( 'string', $property->get_option( 'type' ) );
 		$this->assertSame( 'string', $property->type );
 		$this->assertSame( 'papi_name', $property->slug );
@@ -41,35 +41,35 @@ class Papi_Option_Page_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Name', $property->title );
 
 		$_GET['page'] = 'papi/page/modules/top-module-type';
-		$this->assertNull( $this->page->get_property( 'name' ) );
+		$this->assertNull( $this->store->get_property( 'name' ) );
 	}
 
 	public function test_get_value() {
-		$property = $this->page->get_property( 'name' );
+		$property = $this->store->get_property( 'name' );
 		$this->assertEmpty( $property->get_value() );
 
 		update_option( 'name', 'Fredrik' );
-		$this->assertSame( 'Fredrik', $this->page->get_value( 'name' ) );
+		$this->assertSame( 'Fredrik', $this->store->get_value( 'name' ) );
 
 		update_option( 'hello', 'Fredrik' );
-		$this->assertNull( $this->page->get_value( 'hello' ) );
+		$this->assertNull( $this->store->get_value( 'hello' ) );
 	}
 
 	public function test_get_option_type() {
-		$page = new Papi_Option_Page();
-		$this->assertNull( $page->get_option_type() );
+		$store = new Papi_Option_Store();
+		$this->assertNull( $store->get_option_type() );
 
-		$page = new Papi_Option_Page();
+		$store = new Papi_Option_Store();
 		$_GET['page'] = 'papi/option/options/properties-option-type';
-		$this->assertSame( 'options/properties-option-type', $page->get_option_type()->get_id() );
+		$this->assertSame( 'options/properties-option-type', $store->get_option_type()->get_id() );
 		unset( $_GET['page'] );
 
-		$page = new Papi_Option_Page();
-		$property = $page->get_property( 'name' );
-		$this->assertSame( 'options/header-option-type', $page->get_option_type()->get_id() );
+		$store = new Papi_Option_Store();
+		$property = $store->get_property( 'name' );
+		$this->assertSame( 'options/header-option-type', $store->get_option_type()->get_id() );
 	}
 
 	public function test_valid() {
-		$this->assertTrue( $this->page->valid() );
+		$this->assertTrue( $this->store->valid() );
 	}
 }

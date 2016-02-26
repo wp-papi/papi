@@ -32,17 +32,17 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 		$item1 = [];
 		$item1[$value_slug1] = '@frozzare';
 		$item1[$value_type_slug1] = $items['twitter']['items'][0];
-		$item1[$value_slug1 . '_layout'] = '_flexible_layout_twitter';
+		$item1[$value_slug1 . '_flexible_layout'] = '_flexible_layout_twitter';
 
 		$item2 = [];
 		$item2[$value_slug2_1] = $this->post_id;
 		$item2[$value_type_slug2_1] = $items['posts']['items'][0];
-		$item2[$value_slug2_1 . '_layout'] = '_flexible_layout_posts';
+		$item2[$value_slug2_1 . '_flexible_layout'] = '_flexible_layout_posts';
 		$item2[$value_slug2_2] = $this->post_id;
 		$item2[$value_type_slug2_2] = $items['posts']['items'][0];
-		$item2[$value_slug2_2 . '_layout'] = '_flexible_layout_posts';
+		$item2[$value_slug2_2 . '_flexible_layout'] = '_flexible_layout_posts';
 
-		return [ $item1, $item2 ];
+		return [$item1, $item2];
 	}
 
 	public function get_expected() {

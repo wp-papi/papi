@@ -1,6 +1,6 @@
 <?php
 
-class Papi_Post_Page_Test extends WP_UnitTestCase {
+class Papi_Post_Store_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -11,49 +11,49 @@ class Papi_Post_Page_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
-		$this->page = papi_get_page( $this->post_id );
+		$this->store = papi_get_meta_store( $this->post_id );
 	}
 
 	public function tearDown() {
 		parent::tearDown();
-		unset( $this->post_id, $this->page );
+		unset( $this->post_id, $this->store );
 	}
 
-	public function test_get_page_type() {
-		$this->assertEmpty( $this->page->get_page_type() );
+	public function test_get_type_class() {
+		$this->assertEmpty( $this->store->get_type_class() );
 
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 
-		$page = papi_get_page( $this->post_id );
+		$store = papi_get_meta_store( $this->post_id );
 
-		$this->assertSame( $page->get_page_type()->name, 'Simple page' );
+		$this->assertSame( $store->get_type_class()->name, 'Simple page' );
 	}
 
 	public function test_get_permalink() {
-		$permalink = $this->page->get_permalink();
+		$permalink = $this->store->get_permalink();
 		$this->assertFalse( empty( $permalink ) );
 	}
 
 	public function test_get_post() {
-		$this->assertTrue( is_object( $this->page->get_post() ) );
-		$this->assertSame( $this->post_id, $this->page->get_post()->ID );
+		$this->assertTrue( is_object( $this->store->get_post() ) );
+		$this->assertSame( $this->post_id, $this->store->get_post()->ID );
 	}
 
 	public function test_get_status() {
-		$this->assertSame( 'publish', $this->page->get_status() );
+		$this->assertSame( 'publish', $this->store->get_status() );
 	}
 
 	public function test_get_value() {
-		$handler = new Papi_Admin_Post_Handler();
+		$handler = new Papi_Admin_Meta_Handler();
 
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		update_post_meta( $this->post_id, 'name', 'Janni' );
-		$this->assertSame( 'Janni', $this->page->get_value( 'name' ) );
+		$this->assertSame( 'Janni', $this->store->get_value( 'name' ) );
 
 		update_post_meta( $this->post_id, 'name', 'Fredrik' );
 
-		$this->assertSame( 'Fredrik', $this->page->get_value( 'name' ) );
+		$this->assertSame( 'Fredrik', $this->store->get_value( 'name' ) );
 
 		$property = papi_property( [
 			'type'  => 'number',
@@ -94,16 +94,16 @@ class Papi_Post_Page_Test extends WP_UnitTestCase {
 	public function test__get() {
 		update_post_meta( $this->post_id, 'name', '' );
 
-		$this->assertNull( $this->page->name );
+		$this->assertNull( $this->store->name );
 	}
 
 	public function test_get_property() {
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'random322-page-type' );
-		$page = papi_get_page( $this->post_id );
-		$this->assertNull( $page->get_property( 'fake' ) );
+		$store = papi_get_meta_store( $this->post_id );
+		$this->assertNull( $store->get_property( 'fake' ) );
 	}
 
 	public function test_valid() {
-		$this->assertTrue( $this->page->valid() );
+		$this->assertTrue( $this->store->valid() );
 	}
 }

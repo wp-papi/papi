@@ -39,7 +39,7 @@ class Papi_Core_Property {
 		'before_class' => '',
 		'before_html'  => '',
 		'capabilities' => [],
-		'default'      => '',
+		'default'      => null,
 		'description'  => '',
 		'disabled'     => false,
 		'display'      => true,
@@ -55,7 +55,7 @@ class Papi_Core_Property {
 		'sort_order'   => -1,
 		'title'        => '',
 		'type'         => '',
-		'value'        => ''
+		'value'        => null
 	];
 
 	/**
@@ -80,18 +80,19 @@ class Papi_Core_Property {
 	private $options;
 
 	/**
-	 * The page that the property exists on.
-	 *
-	 * @var Papi_Core_Page
-	 */
-	private $page;
-
-	/**
 	 * The post id.
 	 *
 	 * @var int
 	 */
 	private $post_id;
+
+	/**
+	 * The store that the property works with
+	 * to get data.
+	 *
+	 * @var Papi_Core_Meta_Store
+	 */
+	private $store;
 
 	/**
 	 * Determine if is in a tab.
@@ -314,6 +315,19 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Get meta type from the store or the default one.
+	 *
+	 * @return string
+	 */
+	public function get_meta_type() {
+		if ( $store = $this->get_store() ) {
+			return $store->get_type();
+		}
+
+		return papi_get_meta_type();
+	}
+
+	/**
 	 * Get option value.
 	 *
 	 * @param  string $key
@@ -346,16 +360,16 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Get the page that the property is on.
+	 * Get the store that the property will get data from.
 	 *
-	 * @return Papi_Core_Page|null
+	 * @return Papi_Core_Meta_Store|null
 	 */
-	public function get_page() {
-		if ( $this->page instanceof Papi_Core_Page ) {
-			return $this->page;
+	public function get_store() {
+		if ( $this->store instanceof Papi_Core_Meta_Store ) {
+			return $this->store;
 		}
 
-		return papi_get_page( $this->get_post_id() );
+		return papi_get_meta_store( $this->get_post_id() );
 	}
 
 	/**
@@ -436,30 +450,12 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Get value.
+	 * Get value, no database connections here.
 	 *
 	 * @return mixed
 	 */
 	public function get_value() {
-		$value = $this->get_option( 'value' );
-
-		if ( papi_is_empty( $value ) ) {
-			$slug = $this->get_slug( true );
-
-			if ( papi_is_option_page() ) {
-				$value = papi_get_option( $slug );
-			} else {
-				$value = papi_get_field( $this->get_post_id(), $slug );
-			}
-
-			$post_status = get_post_status( $this->get_post_id() );
-
-			if ( papi_is_empty( $value ) && ( $post_status === false || $post_status === 'auto-draft' ) ) {
-				$value = $this->get_option( 'default' );
-			}
-		}
-
-		return $this->prepare_value( $value );
+		return papi_is_empty( $this->value ) ? $this->default : $this->value;
 	}
 
 	/**
@@ -547,9 +543,7 @@ class Papi_Core_Property {
 	 */
 	public function import_settings() {
 		$settings = $this->get_import_settings();
-
-		$settings = is_array( $settings ) || is_object( $settings ) ?
-			$settings : [];
+		$settings = is_array( $settings ) || is_object( $settings ) ? $settings : [];
 
 		return (object) array_merge(
 			$this->default_import_settings,
@@ -647,12 +641,12 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Set the page that the property is on.
+	 * Set the store that the property will get data from.
 	 *
-	 * @param Papi_Core_Page $page
+	 * @param Papi_Core_Meta_Store $store
 	 */
-	public function set_page( Papi_Core_Page $page ) {
-		$this->page = $page;
+	public function set_store( Papi_Core_Meta_Store $store ) {
+		$this->store = $store;
 	}
 
 	/**

@@ -123,10 +123,7 @@ function papi_get_page_type_by_id( $id ) {
  * @return string
  */
 function papi_get_page_type_id( $post_id = 0 ) {
-	$meta_value    = get_post_meta( $post_id, papi_get_page_type_key(), true );
-	$entry_type_id = empty( $meta_value ) ? '' : $meta_value;
-
-	return empty( $entry_type_id ) ? papi_get_entry_type_id() : $entry_type_id;
+	return papi_get_entry_type_id( $post_id );
 }
 
 /**
@@ -205,17 +202,7 @@ function papi_get_page_type_template( $post_id = 0 ) {
 	$data = papi_get_page_type_by_post_id( $post_id );
 
 	if ( isset( $data, $data->template ) ) {
-		$template  = $data->template;
-		$extension = '.php';
-		$ext_reg   = '/(' . $extension . ')+$/';
-
-		if ( preg_match( '/\.\w+$/', $template, $matches ) && preg_match( $ext_reg, $matches[0] ) ) {
-			return str_replace( '.', '/', preg_replace( '/' . $matches[0] . '$/', '', $template ) ) . $matches[0];
-		} else {
-			$template = str_replace( '.', '/', $template );
-			return substr( $template, -strlen( $extension ) ) === $extension
-				? $template : $template . $extension;
-		}
+		return papi_get_template_file_name( $data->template );
 	}
 }
 
@@ -252,20 +239,20 @@ function papi_get_post_types() {
  * @return array
  */
 function papi_get_slugs( $post_id = 0, $only_slugs = false ) {
-	$page = papi_get_page( $post_id );
+	$store = papi_get_meta_store( $post_id );
 
-	if ( $page instanceof Papi_Post_Page === false ) {
+	if ( $store instanceof Papi_Post_Store === false ) {
 		return [];
 	}
 
-	$page_type = $page->get_page_type();
+	$type_class = $store->get_type_class();
 
-	if ( empty( $page_type ) ) {
+	if ( empty( $type_class ) ) {
 		return [];
 	}
 
 	$value = [];
-	$boxes = $page_type->get_boxes();
+	$boxes = $type_class->get_boxes();
 
 	foreach ( $boxes as $box ) {
 		if ( ! $only_slugs ) {

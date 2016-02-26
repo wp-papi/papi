@@ -65,7 +65,7 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 		$this->assertSame( 'http://example.org', $output->url );
 
 		foreach ( $value as $k => $v ) {
-			update_post_meta( $post_id, $k, $v );
+			update_post_meta( $post_id, unpapify( $k ) , $v );
 		}
 
 		$output = $this->property->format_value( null, '_papi_link', $post_id );
@@ -169,7 +169,7 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 		$this->assertSame( 'http://example.org', $output->url );
 
 		foreach ( $value as $k => $v ) {
-			update_post_meta( $post_id, $k, $v );
+			update_post_meta( $post_id, unpapify( $k ) , $v );
 		}
 
 		$output = $this->property->load_value( null, '_papi_link', $post_id );

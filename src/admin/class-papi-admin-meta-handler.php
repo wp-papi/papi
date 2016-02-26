@@ -1,15 +1,21 @@
 <?php
 
 /**
- * Admin class that handle post data.
+ * Admin class that handle meta data, like post or term.
  */
-final class Papi_Admin_Post_Handler extends Papi_Core_Data_Handler {
+final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 
 	/**
-	 * The constructor.
+	 * Get meta type so we know where the data should be saved.
+	 *
+	 * @return string
 	 */
-	public function __construct() {
-		$this->setup_actions();
+	private function get_meta_type() {
+		if ( $current_filter = current_filter() ) {
+			return papi_get_meta_type( explode( '_', $current_filter )[1] );
+		}
+
+		return papi_get_meta_type();
 	}
 
 	/**
@@ -32,8 +38,8 @@ final class Papi_Admin_Post_Handler extends Papi_Core_Data_Handler {
 	 *
 	 * @param int $post_id
 	 */
-	private function pre_save( $post_id ) {
-		if ( empty( $post_id ) ) {
+	private function pre_save( $id ) {
+		if ( empty( $id ) ) {
 			return;
 		}
 
@@ -49,7 +55,7 @@ final class Papi_Admin_Post_Handler extends Papi_Core_Data_Handler {
 				$key = sprintf( '%s_%s', $key, implode( '_', $keys ) );
 			}
 
-			update_post_meta( $post_id, $key, $value );
+			update_metadata( $this->get_meta_type(), $id, $key, $value );
 		}
 	}
 
@@ -59,21 +65,27 @@ final class Papi_Admin_Post_Handler extends Papi_Core_Data_Handler {
 	 * @param int    $post_id
 	 * @param object $post
 	 */
-	public function save_meta_boxes( $post_id, $post ) {
-		// Can't proceed without a post id or post.
-		if ( empty( $post_id ) || empty( $post ) ) {
+	public function save_meta_boxes( $id, $post = null ) {
+		// Can't proceed without a id or post.
+		if ( empty( $id ) || empty( $post ) ) {
 			return;
 		}
 
-		// Don't save meta boxes for revisions or autosaves
-		if ( defined( 'DOING_AUTOSAVE' ) || is_int( wp_is_post_revision( $post ) ) || is_int( wp_is_post_autosave( $post ) ) ) {
+		// Don't save meta boxes for revisions or autosaves.
+		if ( defined( 'DOING_AUTOSAVE' ) ) {
 			return;
 		}
 
-		// Check the post being saved has the same id as the post id.
-		// This will prevent other save post events.
-		if ( $this->valid_post_id( $post_id ) ) {
-			return;
+		if ( $this->get_meta_type() === 'post' ) {
+			// Check so the id is a post id and not a revision or autosaved post.
+			if ( $this->valid_post_id( $id ) || is_int( wp_is_post_revision( $post ) ) || is_int( wp_is_post_autosave( $post ) ) ) {
+				return;
+			}
+
+			// Check for any of the capabilities before we save the code.
+			if ( ! current_user_can( 'edit_posts' ) || ! current_user_can( 'edit_pages' ) ) {
+				return;
+			}
 		}
 
 		// Check if our nonce is vailed.
@@ -81,39 +93,36 @@ final class Papi_Admin_Post_Handler extends Papi_Core_Data_Handler {
 			return;
 		}
 
-		// Check for any of the capabilities before we save the code.
-		if ( ! current_user_can( 'edit_posts' ) || ! current_user_can( 'edit_pages' ) ) {
-			return;
-		}
-
-		$this->save_properties( $post_id );
+		$this->save_properties( $id );
 	}
 
 	/**
 	 * Save properties.
 	 *
-	 * @param int $post_id
+	 * @param int $id
 	 */
-	public function save_properties( $post_id ) {
+	public function save_properties( $id ) {
 		// Pre save page template, page type and some others dynamic values.
-		$this->pre_save( $post_id );
+		$this->pre_save( $id );
 
 		// Get properties data.
 		$data = $this->get_post_data();
 
 		// Prepare properties data.
-		$data = $this->prepare_properties_data( $data, $post_id );
+		$data = $this->prepare_properties_data( $data, $id );
 
 		// Overwrite post data if any.
-		$this->overwrite_post_data( $post_id );
+		if ( $this->get_meta_type() === 'post' ) {
+			$this->overwrite_post_data( $id );
+		}
 
 		// Save all properties value
 		foreach ( $data as $key => $value ) {
 			papi_update_property_meta_value( [
-				'post_id'       => $post_id,
-				'slug'          => $key,
-				'type'          => Papi_Post_Page::TYPE,
-				'value'         => $value
+				'id'    => $id,
+				'slug'  => $key,
+				'type'  => $this->get_meta_type(),
+				'value' => $value
 			] );
 		}
 	}
@@ -121,8 +130,10 @@ final class Papi_Admin_Post_Handler extends Papi_Core_Data_Handler {
 	/**
 	 * Setup actions.
 	 */
-	private function setup_actions() {
+	protected function setup_actions() {
 		add_action( 'save_post', [$this, 'save_meta_boxes'], 1, 2 );
+		add_action( 'created_term', [$this, 'save_meta_boxes'], 1 );
+		add_action( 'edit_term', [$this, 'save_meta_boxes'], 1 );
 	}
 
 	/**
@@ -142,5 +153,5 @@ final class Papi_Admin_Post_Handler extends Papi_Core_Data_Handler {
 }
 
 if ( is_admin() ) {
-	new Papi_Admin_Post_Handler;
+	new Papi_Admin_Meta_Handler;
 }

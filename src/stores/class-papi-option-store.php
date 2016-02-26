@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Option page implementation of Papi page.
+ * Option store implementation of Papi meta store.
  */
-class Papi_Option_Page extends Papi_Core_Page {
+class Papi_Option_Store extends Papi_Core_Meta_Store {
 
 	/**
 	 * The current option type.
@@ -13,7 +13,7 @@ class Papi_Option_Page extends Papi_Core_Page {
 	protected $option_type;
 
 	/**
-	 * Type option.
+	 * The store type.
 	 *
 	 * @var string
 	 */
@@ -22,12 +22,10 @@ class Papi_Option_Page extends Papi_Core_Page {
 	/**
 	 * The constructor.
 	 *
-	 * Create a new instance of the class.
-	 *
-	 * @param int $post_id
+	 * @param int $id
 	 */
-	public function __construct( $post_id = 0 ) {
-		// On option page this should always be equal to zero.
+	public function __construct( $id = 0 ) {
+		// Options don't have a id so set it to zero.
 		$this->id = 0;
 	}
 
@@ -85,11 +83,11 @@ class Papi_Option_Page extends Papi_Core_Page {
 
 		$this->option_type = $entry_type;
 
-		return $entry_type->get_property( $slug, $child_slug );
+		return $this->prepare_property( $entry_type->get_property( $slug, $child_slug ) );
 	}
 
 	/**
-	 * Check if it's a valid page.
+	 * Check if it's a valid store.
 	 *
 	 * @return bool
 	 */

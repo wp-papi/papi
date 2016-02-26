@@ -3,11 +3,11 @@
 /**
  * @group admin
  */
-class Papi_Admin_Post_Handler_Test extends WP_UnitTestCase {
+class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->handler = new Papi_Admin_Post_Handler;
+		$this->handler = new Papi_Admin_Meta_Handler;
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];

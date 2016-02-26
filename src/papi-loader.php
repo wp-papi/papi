@@ -177,11 +177,13 @@ final class Papi_Loader extends Papi_Container {
 			'core/cache.php',
 			'core/conditional.php',
 			'core/deprecated.php',
-			'core/page.php',
+			'core/meta.php',
+			'core/store.php',
 			'core/post.php',
 			'core/io.php',
 			'core/property.php',
 			'core/tabs.php',
+			'core/taxonomy.php',
 			'core/template.php',
 			'core/url.php',
 			'core/utilities.php',
@@ -189,9 +191,11 @@ final class Papi_Loader extends Papi_Container {
 			'hooks/filters.php',
 			'fields/page.php',
 			'fields/option.php',
+			'fields/taxonomy.php',
 			'types/entry.php',
 			'types/page.php',
-			'types/option.php'
+			'types/option.php',
+			'types/taxonomy.php'
 		];
 
 		// Require function files.

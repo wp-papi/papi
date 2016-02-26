@@ -178,9 +178,18 @@ function papi_get_entry_type_by_id( $id ) {
 /**
  * Get entry type id.
  *
+ * @param  int $id
+ * @param  string $type
+ *
  * @return string
  */
-function papi_get_entry_type_id() {
+function papi_get_entry_type_id( $id = 0, $type = 'post' ) {
+	if ( $id > 0 ) {
+		if ( $meta_value = get_metadata( $type, $id, papi_get_page_type_key(), true ) ) {
+			return $meta_value;
+		}
+	}
+
 	$entry_type_id = papi_get_qs( 'entry_type' );
 
 	/**

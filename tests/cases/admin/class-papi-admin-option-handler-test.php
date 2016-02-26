@@ -29,7 +29,7 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 
 	public function test_actions() {
 		$handler = new Papi_Admin_Option_Handler;
-		$this->assertGreaterThan( 0, has_action( 'admin_init', [$handler, 'save_options'] ) );
+		$this->assertGreaterThan( 0, has_action( 'admin_init', [$handler, 'save_properties'] ) );
 	}
 
 	public function test_save_options_without_nonce() {

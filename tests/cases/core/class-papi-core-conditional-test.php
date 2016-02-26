@@ -155,7 +155,7 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 			'value' => 'Fredrik'
 		] );
 
-		$handler = new Papi_Admin_Post_Handler();
+		$handler = new Papi_Admin_Meta_Handler();
 
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $property->slug,
@@ -254,7 +254,7 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 		$item[$value_slug1] = 'Hello, world!';
 		$item[$value_type_slug1] = $title_prop;
 
-		$handler = new Papi_Admin_Post_Handler();
+		$handler = new Papi_Admin_Meta_Handler();
 
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $sections_prop->slug,

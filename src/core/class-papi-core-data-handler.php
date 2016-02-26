@@ -13,6 +13,13 @@ class Papi_Core_Data_Handler {
 	protected $overwrite = [];
 
 	/**
+	 * The constructor.
+	 */
+	public function __construct() {
+		$this->setup_actions();
+	}
+
+	/**
 	 * Decode property.
 	 *
 	 * @param string $key
@@ -201,5 +208,11 @@ class Papi_Core_Data_Handler {
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Setup actions.
+	 */
+	protected function setup_actions() {
 	}
 }

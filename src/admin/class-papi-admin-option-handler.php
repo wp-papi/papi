@@ -6,16 +6,9 @@
 final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 
 	/**
-	 * The constructor.
+	 * Save properties with a post id of zero.
 	 */
-	public function __construct() {
-		$this->setup_actions();
-	}
-
-	/**
-	 * Save options with a post id of zero.
-	 */
-	public function save_options() {
+	public function save_properties() {
 		if ( ! papi_is_method( 'post' ) || ! papi_is_option_page() ) {
 			return;
 		}
@@ -33,10 +26,10 @@ final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 
 		foreach ( $data as $key => $value ) {
 			papi_update_property_meta_value( [
-				'post_id'       => 0,
-				'slug'          => $key,
-				'type'          => Papi_Option_Page::TYPE,
-				'value'         => $value
+				'id'    => 0,
+				'slug'  => $key,
+				'type'  => Papi_Option_Store::TYPE,
+				'value' => $value
 			] );
 		}
 	}
@@ -44,8 +37,8 @@ final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 	/**
 	 * Setup actions.
 	 */
-	private function setup_actions() {
-		add_action( 'admin_init', [$this, 'save_options'] );
+	protected function setup_actions() {
+		add_action( 'admin_init', [$this, 'save_properties'] );
 	}
 }
 

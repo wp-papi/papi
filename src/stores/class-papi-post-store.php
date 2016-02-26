@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Post page implementation of Papi page.
+ * Post store implementation of Papi meta store.
  */
-class Papi_Post_Page extends Papi_Core_Page {
+class Papi_Post_Store extends Papi_Core_Meta_Store {
 
 	/**
-	 * The page type.
+	 * The store type.
 	 *
 	 * @var string
 	 */
-	const TYPE = 'page';
+	const TYPE = 'post';
 
 	/**
 	 * The WordPress post.
@@ -29,29 +29,18 @@ class Papi_Post_Page extends Papi_Core_Page {
 	/**
 	 * The constructor.
 	 *
-	 * Create a new instance of the class.
-	 *
-	 * @param int $post_id
+	 * @param int $id
 	 */
-	public function __construct( $post_id = 0 ) {
-		if ( $post_id === 0 ) {
+	public function __construct( $id = 0 ) {
+		if ( $id === 0 ) {
 			$this->id = papi_get_post_id();
 		} else {
-			$this->id = intval( $post_id );
+			$this->id = intval( $id );
 		}
 
-		$this->post      = get_post( $this->id );
-		$id              = papi_get_page_type_id( $this->id );
-		$this->page_type = papi_get_page_type_by_id( $id );
-	}
-
-	/**
-	 * Get the page type object of the page.
-	 *
-	 * @return Papi_Page_Type
-	 */
-	public function get_page_type() {
-		return $this->page_type;
+		$this->post       = get_post( $this->id );
+		$id               = papi_get_page_type_id( $this->id );
+		$this->type_class = papi_get_page_type_by_id( $id );
 	}
 
 	/**
@@ -97,7 +86,7 @@ class Papi_Post_Page extends Papi_Core_Page {
 			return;
 		}
 
-		return $page_type->get_property( $slug, $child_slug );
+		return $this->prepare_property( $page_type->get_property( $slug, $child_slug ) );
 	}
 
 	/**

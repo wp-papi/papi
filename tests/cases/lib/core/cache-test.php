@@ -32,16 +32,16 @@ class Papi_Lib_Core_Cache_Test extends WP_UnitTestCase {
 
 	public function test_papi_cache_delete_2() {
 		papi_update_property_meta_value( [
-			'post_id'       => $this->post_id,
-			'slug'          => 'namn',
-			'value'         => 'fredrik'
+			'id'    => $this->post_id,
+			'slug'  => 'namn',
+			'value' => 'fredrik'
 		] );
 		$this->assertSame( 'fredrik', papi_get_field( $this->post_id, 'namn' ) );
 
 		papi_update_property_meta_value( [
-			'post_id'       => $this->post_id,
-			'slug'          => 'namn',
-			'value'         => 'elli'
+			'id'    => $this->post_id,
+			'slug'  => 'namn',
+			'value' => 'elli'
 		] );
 		$this->assertSame( 'elli', papi_get_field( $this->post_id, 'namn' ) );
 	}
@@ -62,8 +62,8 @@ class Papi_Lib_Core_Cache_Test extends WP_UnitTestCase {
 		global $post;
 		$post_id = $this->factory->post->create();
 		$post = get_post( $post_id );
-		$this->assertSame( 'papi_page_' . $post_id, papi_cache_key( 'page', $post_id ) );
-		$this->assertSame( 'papi_page_920', papi_cache_key( 'page', 920 ) );
+		$this->assertSame( 'papi_post_page_' . $post_id, papi_cache_key( 'page', $post_id ) );
+		$this->assertSame( 'papi_post_page_920', papi_cache_key( 'page', 920 ) );
 		unset( $post );
 	}
 

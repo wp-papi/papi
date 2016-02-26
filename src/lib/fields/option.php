@@ -8,7 +8,7 @@
  * @return bool
  */
 function papi_delete_option( $slug ) {
-	return papi_delete_field( 0, $slug, Papi_Option_Page::TYPE );
+	return papi_delete_field( 0, $slug, Papi_Option_Store::TYPE );
 }
 
 /**
@@ -20,13 +20,13 @@ function papi_delete_option( $slug ) {
  * @return mixed
  */
 function papi_get_option( $slug, $default = null ) {
-	return papi_get_field( 0, $slug, $default, Papi_Option_Page::TYPE );
+	return papi_get_field( 0, $slug, $default, Papi_Option_Store::TYPE );
 }
 
 /**
  * Shortcode for `papi_get_option` function.
  *
- * [papi_option slug="field_name" default="Default value"][/papi_option]
+ * [papi_option slug="property_slug" default="Default value"][/papi_option]
  *
  * @param  array $atts
  *
@@ -59,7 +59,7 @@ add_shortcode( 'papi_option', 'papi_option_shortcode' );
  * @return bool
  */
 function papi_update_option( $slug, $value = null ) {
-	return papi_update_field( 0, $slug, $value, Papi_Option_Page::TYPE );
+	return papi_update_field( 0, $slug, $value, Papi_Option_Store::TYPE );
 }
 
 /**
@@ -73,6 +73,11 @@ function the_papi_option( $slug = null, $default = null ) {
 
 	if ( is_array( $value ) ) {
 		$value = implode( ', ', $value );
+	}
+
+	if ( is_object( $value ) ) {
+		// @codingStandardsIgnoreLine
+		$value = print_r( $value, true );
 	}
 
 	echo $value;
