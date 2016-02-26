@@ -6,6 +6,13 @@
 class Papi_Taxonomy_Type extends Papi_Entry_Type {
 
 	/**
+	 * The taxonomy.
+	 *
+	 * @var string
+	 */
+	public $taxonomy = '';
+
+	/**
 	 * The type name.
 	 *
 	 * @var string

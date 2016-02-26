@@ -79,7 +79,5 @@ function papi_is_taxonomy_page() {
 		return false;
 	}
 
-	$query = $parsed_url['query'];
-
-	return is_admin() && preg_match( '/taxonomy=/', $query );
+	return is_admin() && preg_match( '/taxonomy=/', $parsed_url['query'] );
 }
