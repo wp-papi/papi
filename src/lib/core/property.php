@@ -416,6 +416,11 @@ function papi_update_property_meta_value( array $meta = [] ) {
 	$result = true;
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
+		if ( papi_is_empty( $value ) || $value === '[]' || $value === '{}' ) {
+			papi_delete_property_meta_value( $meta->id, $meta->slug, $meta->type );
+			continue;
+		}
+
 		papi_cache_delete( $meta->slug, $meta->id, $meta->type );
 
 		if ( ! is_array( $value ) ) {
