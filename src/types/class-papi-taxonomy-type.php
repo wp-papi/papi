@@ -20,18 +20,6 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	public $type = 'taxonomy';
 
 	/**
-	 * The constructor.
-	 *
-	 * Load a entry type by the file.
-	 *
-	 * @param string $file_path
-	 */
-	public function __construct( $file_path = '' ) {
-		parent::__construct( $file_path );
-		$this->taxonomy = papi_to_array( $this->taxonomy );
-	}
-
-	/**
 	 * This function will setup all meta boxes.
 	 */
 	public function setup() {
@@ -113,6 +101,14 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 			<?php
 			}
 		}
+	}
+
+	/**
+	 * Setup meta data.
+	 */
+	protected function setup_meta_data() {
+		parent::setup_meta_data();
+		$this->taxonomy = papi_to_array( $this->taxonomy );
 	}
 
 	/**

@@ -225,9 +225,9 @@ class Papi_Core_Type {
 	}
 
 	/**
-	 * Setup page type meta data.
+	 * Setup meta data.
 	 */
-	private function setup_meta_data() {
+	protected function setup_meta_data() {
 		foreach ( $this->get_meta() as $key => $value ) {
 			if ( substr( $key, 0, 1 ) === '_' ) {
 				continue;
