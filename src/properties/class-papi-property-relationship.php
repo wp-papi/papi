@@ -395,6 +395,6 @@ class Papi_Property_Relationship extends Papi_Property {
 			return $item;
 		}, $values );
 
-		return json_encode( $values );
+		return papi_maybe_json_decode( $values );
 	}
 }

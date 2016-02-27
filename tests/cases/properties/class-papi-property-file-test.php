@@ -38,7 +38,7 @@ class Papi_Property_File_Test extends Papi_Property_Test_Case {
 		$post_id  = $this->factory->post->create( ['post_type' => 'attachment'] );
 		$post_id2 = $this->factory->post->create( ['post_type' => 'attachment'] );
 
-		$this->assertSame( 0, $this->property->import_value( $this->get_value(), '', 0 ) );
+		$this->assertNull( $this->property->import_value( $this->get_value(), '', 0 ) );
 		$this->assertSame( $post_id, $this->property->import_value( (object) ['id' => $post_id], '', 0 ) );
 		$this->assertSame( $post_id, $this->property->import_value( $post_id, '', 0 ) );
 

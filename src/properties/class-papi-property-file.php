@@ -195,7 +195,6 @@ class Papi_Property_File extends Papi_Property {
 			</div>
 			<div class="clear"></div>
 		</div>
-
 	<?php
 	}
 
@@ -234,8 +233,6 @@ class Papi_Property_File extends Papi_Property {
 		if ( is_numeric( $value ) && $this->is_attachment( (int) $value ) ) {
 			return (int) $value;
 		}
-
-		return 0;
 	}
 
 	/**
@@ -284,12 +281,7 @@ class Papi_Property_File extends Papi_Property {
 	 * Setup filters.
 	 */
 	protected function setup_filters() {
-		add_action(
-			'wp_get_attachment_metadata',
-			[$this, 'wp_get_attachment_metadata'],
-			10,
-			2
-		);
+		add_action( 'wp_get_attachment_metadata', [$this, 'wp_get_attachment_metadata'], 10, 2 );
 	}
 
 	/**
