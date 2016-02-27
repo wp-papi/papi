@@ -15,7 +15,7 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	public $post_type = 'attachment';
 
 	/**
-	 * The type name.
+	 * The type name. Used for WP CLI.
 	 *
 	 * @var string
 	 */

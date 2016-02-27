@@ -48,7 +48,7 @@ class Papi_Core_Type {
 	public $sort_order = 1000;
 
 	/**
-	 * The type name.
+	 * The type name. Used for WP CLI.
 	 *
 	 * @var string
 	 */

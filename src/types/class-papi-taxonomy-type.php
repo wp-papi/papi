@@ -13,7 +13,7 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	public $taxonomy = '';
 
 	/**
-	 * The type name.
+	 * The type name. Used for WP CLI.
 	 *
 	 * @var string
 	 */

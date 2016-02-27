@@ -70,7 +70,7 @@ class Papi_Page_Type_Meta extends Papi_Entry_Type {
 	public $thumbnail = '';
 
 	/**
-	 * The type name.
+	 * The type name. Used for WP CLI.
 	 *
 	 * @var string
 	 */
