@@ -6,18 +6,11 @@
 class Papi_Option_Store extends Papi_Core_Meta_Store {
 
 	/**
-	 * The current option type.
-	 *
-	 * @var Papi_Option_Type
-	 */
-	protected $option_type;
-
-	/**
-	 * The store type.
+	 * The meta type.
 	 *
 	 * @var string
 	 */
-	const TYPE = 'option';
+	protected $type = 'option';
 
 	/**
 	 * The constructor.

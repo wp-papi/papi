@@ -42,7 +42,7 @@ function papi_get_taxonomy_type_by_id( $id ) {
  * @return string
  */
 function papi_load_taxonomy_type_id( $entry_type_id = '', $type = 'term' ) {
-	if ( $type !== Papi_Term_Store::TYPE ) {
+	if ( $type !== 'term' ) {
 		return $entry_type_id;
 	}
 
@@ -70,19 +70,3 @@ function papi_load_taxonomy_type_id( $entry_type_id = '', $type = 'term' ) {
 }
 
 add_filter( 'papi/entry_type_id', 'papi_load_taxonomy_type_id', 10, 2 );
-
-/**
- * Check if it's a taxonomy page url.
- *
- * @return bool
- */
-function papi_is_taxonomy_page() {
-	$request_uri = $_SERVER['REQUEST_URI'];
-	$parsed_url  = parse_url( $request_uri );
-
-	if ( ! isset( $parsed_url['query'] ) || empty( $parsed_url['query'] ) ) {
-		return false;
-	}
-
-	return is_admin() && preg_match( '/taxonomy=/', $parsed_url['query'] );
-}

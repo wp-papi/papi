@@ -17,12 +17,18 @@ class Papi_Property extends Papi_Core_Property {
 		if ( papi_is_empty( $value ) ) {
 			$slug = $this->get_slug( true );
 
-			if ( papi_is_option_page() ) {
-				$value = papi_get_option( $slug );
-			} elseif ( papi_is_taxonomy_page() ) {
-				$value = papi_get_term_field( papi_get_term_id(), $slug );
-			} else {
-				$value = papi_get_field( $this->get_post_id(), $slug );
+			switch ( papi_get_meta_type() ) {
+				case 'option':
+					$value = papi_get_option( $slug );
+					break;
+				case 'post':
+					$value = papi_get_field( $this->get_post_id(), $slug );
+					break;
+				case 'term':
+					$value = papi_get_term_field( papi_get_term_id(), $slug );
+					break;
+				default:
+					break;
 			}
 
 			$post_status = get_post_status( $this->get_post_id() );
@@ -47,7 +53,7 @@ class Papi_Property extends Papi_Core_Property {
 	 * @return bool
 	 */
 	public function is_option_page() {
-		return $this->get_store() instanceof Papi_Option_Store || papi_is_option_page();
+		return $this->get_store() instanceof Papi_Option_Store || papi_get_meta_type() === 'option';
 	}
 
 	/**

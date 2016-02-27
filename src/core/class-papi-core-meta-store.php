@@ -6,18 +6,18 @@
 abstract class Papi_Core_Meta_Store {
 
 	/**
-	 * The store type.
-	 *
-	 * @var string
-	 */
-	const TYPE = 'meta';
-
-	/**
 	 * The WordPress meta id if it exists.
 	 *
 	 * @var int
 	 */
 	public $id;
+
+	/**
+	 * The meta type.
+	 *
+	 * @var string
+	 */
+	protected $type = 'meta';
 
 	/**
 	 * The type class.
@@ -38,12 +38,12 @@ abstract class Papi_Core_Meta_Store {
 	}
 
 	/**
-	 * Get store type.
+	 * Get meta type.
 	 *
 	 * @return string
 	 */
 	public function get_type() {
-		return static::TYPE;
+		return $this->type;
 	}
 
 	/**
@@ -138,7 +138,7 @@ abstract class Papi_Core_Meta_Store {
 	 *
 	 * @return mixed
 	 */
-	public static function factory( $post_id, $type = 'page' ) {
+	public static function factory( $post_id, $type = 'post' ) {
 		$type         = papi_get_meta_type( $type );
 		$class_suffix = '_' . ucfirst( $type ) . '_Store';
 		$class_name   = 'Papi' . $class_suffix;

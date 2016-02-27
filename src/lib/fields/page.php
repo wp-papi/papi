@@ -21,7 +21,7 @@ function papi_delete_field( $id = null, $slug = null, $type = 'post' ) {
 
 	$id = papi_get_post_id( $id );
 
-	if ( $id === 0 && $type !== Papi_Option_Store::TYPE ) {
+	if ( $id === 0 && papi_get_meta_type( $type ) !== 'option' ) {
 		return false;
 	}
 
@@ -130,7 +130,7 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 
 	$id = papi_get_post_id( $id );
 
-	if ( $id === 0 && $type !== Papi_Option_Store::TYPE ) {
+	if ( $id === 0 && papi_get_meta_type( $type ) !== 'option' ) {
 		return $default;
 	}
 
@@ -189,7 +189,7 @@ function papi_update_field( $id = null, $slug = null, $value = null, $type = 'po
 
 	$id = papi_get_post_id( $id );
 
-	if ( $id === 0 && $type !== Papi_Option_Store::TYPE ) {
+	if ( $id === 0 && papi_get_meta_type( $type ) !== 'option') {
 		return false;
 	}
 

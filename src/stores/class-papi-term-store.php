@@ -6,18 +6,18 @@
 class Papi_Term_Store extends Papi_Core_Meta_Store {
 
 	/**
-	 * The store type.
-	 *
-	 * @var string
-	 */
-	const TYPE = 'term';
-
-	/**
 	 * The WordPress term.
 	 *
 	 * @var object
 	 */
 	private $term;
+
+	/**
+	 * The meta type.
+	 *
+	 * @var string
+	 */
+	protected $type = 'term';
 
 	/**
 	 * The constructor.

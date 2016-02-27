@@ -85,21 +85,4 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 		papi()->remove( 'entry_type_id.taxonomy.post_tag' );
 		unset( $_GET['taxonomy'] );
 	}
-
-	public function test_papi_is_taxonomy_page() {
-		$_SERVER['REQUEST_URI'] = '';
-		$this->assertFalse( papi_is_taxonomy_page() );
-
-		$_SERVER['REQUEST_URI'] = 'http://wordpress/wp-admin/?taxonomy=post_tag';
-		$this->assertFalse( papi_is_taxonomy_page() );
-
-		global $current_screen;
-		$current_screen = WP_Screen::get( 'admin_init' );
-
-		$_SERVER['REQUEST_URI'] = 'http://wordpress/wp-admin/?taxonomy=post_tag';
-		$this->assertTrue( papi_is_taxonomy_page() );
-
-		$_SERVER['REQUEST_URI'] = '';
-		$current_screen = null;
-	}
 }

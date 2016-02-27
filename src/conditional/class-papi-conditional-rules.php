@@ -168,7 +168,7 @@ class Papi_Conditional_Rules {
 
 		$slug = $rule->get_field_slug();
 
-		if ( papi_is_option_page() ) {
+		if ( papi_get_meta_type() === 'option' ) {
 			$value = papi_get_option( $slug );
 		} else {
 		 	$value = papi_get_field( $slug );

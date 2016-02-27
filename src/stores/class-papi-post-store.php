@@ -6,13 +6,6 @@
 class Papi_Post_Store extends Papi_Core_Meta_Store {
 
 	/**
-	 * The store type.
-	 *
-	 * @var string
-	 */
-	const TYPE = 'post';
-
-	/**
 	 * The WordPress post.
 	 *
 	 * @var object
@@ -20,11 +13,11 @@ class Papi_Post_Store extends Papi_Core_Meta_Store {
 	private $post;
 
 	/**
-	 * The Page type.
+	 * The meta type.
 	 *
-	 * @var Papi_Page_Type
+	 * @var string
 	 */
-	private $page_type;
+	protected $type = 'post';
 
 	/**
 	 * The constructor.

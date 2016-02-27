@@ -9,7 +9,7 @@ final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 	 * Save properties with a post id of zero.
 	 */
 	public function save_properties() {
-		if ( ! papi_is_method( 'post' ) || ! papi_is_option_page() ) {
+		if ( ! papi_is_method( 'post' ) || papi_get_meta_type() !== 'option' ) {
 			return;
 		}
 
@@ -28,7 +28,7 @@ final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 			papi_update_property_meta_value( [
 				'id'    => 0,
 				'slug'  => $key,
-				'type'  => Papi_Option_Store::TYPE,
+				'type'  => 'option',
 				'value' => $value
 			] );
 		}

@@ -18,7 +18,7 @@ function papi_delete_term_field( $term_id, $slug = '' ) {
 		return false;
 	}
 
-	return papi_delete_field( papi_get_term_id( $term_id ), $slug, Papi_Term_Store::TYPE );
+	return papi_delete_field( papi_get_term_id( $term_id ), $slug, 'term' );
 }
 
 /**
@@ -41,7 +41,7 @@ function papi_get_term_field( $term_id = null, $slug = null, $default = null ) {
 		return $default;
 	}
 
-	return papi_get_field( papi_get_term_id( $term_id ), $slug, $default, Papi_Term_Store::TYPE );
+	return papi_get_field( papi_get_term_id( $term_id ), $slug, $default, 'term' );
 }
 
 /**
@@ -97,7 +97,7 @@ function papi_update_term_field( $term_id = null, $slug = null, $value = null ) 
 		return papi_delete_term_field( $term_id, $slug );
 	}
 
-	return papi_update_field( papi_get_term_id( $term_id ), $slug, $value, Papi_Term_Store::TYPE );
+	return papi_update_field( papi_get_term_id( $term_id ), $slug, $value, 'term' );
 }
 
 /**
