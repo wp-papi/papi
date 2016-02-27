@@ -68,7 +68,7 @@ class Papi_Option_Type extends Papi_Entry_Type {
 	}
 
 	/**
-	 * This function will setup all meta boxes.
+	 * Setup all meta boxes.
 	 */
 	public function setup() {
 		if ( ! method_exists( $this, 'register' ) ) {
