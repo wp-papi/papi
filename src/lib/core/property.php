@@ -472,7 +472,6 @@ function papi_to_property_array_slugs( array $value, $slug ) {
 		$counter[] = $arr;
 
 		foreach ( $arr as $key => $val ) {
-
 			if ( ! is_string( $key ) || empty( $key ) ) {
 				continue;
 			}
