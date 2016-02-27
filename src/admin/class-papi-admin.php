@@ -105,7 +105,7 @@ final class Papi_Admin {
 			'data-papi-page-type-key' => true,
 			'name'                    => esc_attr( papi_get_page_type_key() ),
 			'type'                    => 'hidden',
-			'value'                   => esc_attr( papi_get_page_type_id() )
+			'value'                   => esc_attr( papi_get_entry_type_id() )
 		] );
 	}
 

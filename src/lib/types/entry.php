@@ -183,7 +183,7 @@ function papi_get_entry_type_by_id( $id ) {
  *
  * @return string
  */
-function papi_get_entry_type_id( $id = 0, $type = 'post' ) {
+function papi_get_entry_type_id( $id = 0, $type = null ) {
 	$type = papi_get_meta_type( $type );
 
 	if ( $id > 0 ) {

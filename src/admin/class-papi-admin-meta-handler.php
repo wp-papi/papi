@@ -66,8 +66,8 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 * @param object $post
 	 */
 	public function save_meta_boxes( $id, $post = null ) {
-		// Can't proceed without a id or post.
-		if ( empty( $id ) || empty( $post ) ) {
+		// Can't proceed without a id.
+		if ( empty( $id ) ) {
 			return;
 		}
 
