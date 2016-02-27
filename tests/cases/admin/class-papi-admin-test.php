@@ -37,7 +37,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 	public function test_admin_body_class() {
 		$classes = $this->admin->admin_body_class( '' );
-		$this->assertEmpty( $classes );
+		$this->assertSame( ' papi-meta-type-post', $classes );
 	}
 
 	public function test_admin_body_class_2() {
@@ -47,7 +47,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 			'test.php' => 'Test'
 		] );
 		$classes = $admin->admin_body_class( '' );
-		$this->assertSame( 'papi-hide-cpt', $classes );
+		$this->assertSame( ' papi-meta-type-post papi-hide-cpt', $classes );
 	}
 
 	public function test_admin_init() {
