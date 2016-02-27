@@ -80,12 +80,14 @@ final class Papi_Admin {
 	 * @return string
 	 */
 	public function admin_body_class( $classes ) {
+		$classes .= sprintf( ' papi-meta-type-%s', papi_get_meta_type() );
+
 		if ( ! in_array( $this->post_type, papi_get_post_types() ) ) {
 			return $classes;
 		}
 
 		if ( count( get_page_templates() ) ) {
-			$classes .= 'papi-hide-cpt';
+			$classes .= ' papi-hide-cpt';
 		}
 
 		return $classes;
@@ -353,6 +355,10 @@ final class Papi_Admin {
 			add_action( 'load-post-new.php', [$this, 'load_post_new'] );
 			add_action( 'restrict_manage_posts', [ $this, 'restrict_page_types'] );
 			add_action( 'add_meta_boxes', [$this, 'hidden_meta_boxes'], 10 );
+			add_action( 'manage_' . $this->post_type . '_posts_custom_column', [
+				$this,
+				'manage_page_type_posts_custom_column'
+			], 10, 2 );
 
 			if ( $taxonomy = papi_get_taxonomy() ) {
 				add_action( $taxonomy . '_add_form_fields', [$this, 'edit_form_after_title'] );
@@ -371,15 +377,10 @@ final class Papi_Admin {
 			add_filter( 'pre_get_posts', [$this, 'pre_get_posts'] );
 			add_filter( 'wp_link_query', [$this, 'wp_link_query'] );
 			add_filter( 'wp_refresh_nonces', [$this, 'wp_refresh_nonces'], 11 );
-
 			add_filter( 'manage_' . $this->post_type . '_posts_columns', [
 				$this,
 				'manage_page_type_posts_columns'
 			] );
-			add_action( 'manage_' . $this->post_type . '_posts_custom_column', [
-				$this,
-				'manage_page_type_posts_custom_column'
-			], 10, 2 );
 		}
 	}
 
