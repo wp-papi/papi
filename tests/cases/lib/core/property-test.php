@@ -436,6 +436,14 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		] ) );
 
 		$this->assertSame( ['Fredrik'], get_post_meta( $this->post_id, 'what', true ) );
+
+		papi_update_property_meta_value( [
+			'id'    => $this->post_id,
+			'slug'  => 'what',
+			'value' => '{}'
+		] );
+
+		$this->assertEmpty( get_post_meta( $this->post_id, 'what', true ) );
 	}
 
 	public function test_papi_update_property_meta_value_option() {
