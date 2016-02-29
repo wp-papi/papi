@@ -105,6 +105,18 @@ function papi_get_number_of_pages( $page_type ) {
 }
 
 /**
+ * Get the data page.
+ *
+ * @param  int    $id
+ * @param  string $type
+ *
+ * @return Papi_Core_Meta_Store|null
+ */
+function papi_get_page( $id = 0, $type = 'post' ) {
+	return papi_get_meta_store( $id, $type );
+}
+
+/**
  * Get page type by id.
  *
  * @param  string $id
