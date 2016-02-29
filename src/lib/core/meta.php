@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Get right meta id for a meta type.
+ * Get right meta id column for a meta type.
  *
  * @param  string $type
  *
  * @return string|null
  */
-function papi_get_meta_id( $type = 'post' ) {
+function papi_get_meta_id_column( $type = 'post' ) {
 	if ( $type = papi_get_meta_type( $type ) ) {
 		return sprintf( '%s_id', $type );
 	}

@@ -13,13 +13,13 @@ class Papi_Lib_Core_Meta_Test extends WP_UnitTestCase {
 		unset( $this->post_id, $this->term_id );
 	}
 
-	public function test_papi_get_meta_id() {
-		$this->assertSame( 'post_id', papi_get_meta_id() );
-		$this->assertSame( 'post_id', papi_get_meta_id( 'post' ) );
-		$this->assertSame( 'post_id', papi_get_meta_id( 'page' ) );
-		$this->assertSame( 'term_id', papi_get_meta_id( 'term' ) );
-		$this->assertSame( 'term_id', papi_get_meta_id( 'taxonomy' ) );
-		$this->assertNull( papi_get_meta_id( 'hello' ) );
+	public function test_papi_get_meta_id_column() {
+		$this->assertSame( 'post_id', papi_get_meta_id_column() );
+		$this->assertSame( 'post_id', papi_get_meta_id_column( 'post' ) );
+		$this->assertSame( 'post_id', papi_get_meta_id_column( 'page' ) );
+		$this->assertSame( 'term_id', papi_get_meta_id_column( 'term' ) );
+		$this->assertSame( 'term_id', papi_get_meta_id_column( 'taxonomy' ) );
+		$this->assertNull( papi_get_meta_id_column( 'hello' ) );
 	}
 
 	public function test_papi_get_meta_store() {
