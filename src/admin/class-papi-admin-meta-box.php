@@ -103,7 +103,7 @@ final class Papi_Admin_Meta_Box {
 	 * Setup actions.
 	 */
 	private function setup_actions() {
-		if ( post_type_exists( $this->get_post_type() ) ) {
+		if ( post_type_exists( $this->get_post_type() ) && papi_get_meta_type() === 'post' ) {
 			add_action( 'add_meta_boxes', [$this, 'setup_meta_box'] );
 
 			if ( $this->box->context === 'after_title' ) {
@@ -132,7 +132,7 @@ final class Papi_Admin_Meta_Box {
 		add_meta_box(
 			$this->box->id,
 			$this->get_title(),
-			[ $this, 'render_meta_box' ],
+			[$this, 'render_meta_box'],
 			$this->get_post_type(),
 			$this->box->context,
 			$this->box->priority,
