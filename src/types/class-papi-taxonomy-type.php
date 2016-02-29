@@ -43,15 +43,16 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 		}
 
 		foreach ( $this->taxonomy as $taxonomy ) {
-			add_action( $taxonomy . '_add_form_fields', [$this, 'add_term'] );
-			add_action( $taxonomy . '_edit_form_fields', [$this, 'edit_term'] );
+			add_action( $taxonomy . '_add_form_fields', [$this, 'add_form'] );
+			add_action( $taxonomy . '_term_edit_form_top', [$this, 'edit_form_top'] );
+			add_action( $taxonomy . '_edit_form', [$this, 'edit_form'] );
 		}
 	}
 
 	/**
 	 * Render the fields on the add term page.
 	 */
-	public function add_term() {
+	public function add_form() {
 		foreach ( $this->get_boxes() as $box ) {
 			?>
 			<h2><?php echo $box->title; ?></h2>
@@ -72,35 +73,34 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	}
 
 	/**
-	 * Render the fields on the edit term page.
+	 * Render edit form top.
+	 * Requires 4.5.
 	 */
-	public function edit_term() {
-		foreach ( $this->get_boxes() as $box ) {
-			?>
-			<tr class="form-field">
-				<th scope="row" valign="top" colspan="2" class="papi-taxonomy-title">
-					<h2><?php echo $box->title; ?></h2>
-				</th>
-			</tr>
-			<?php
-			foreach ( $box->properties as $prop ) {
-				// Raw output is required.
-				$prop->raw = true;
+	public function edit_form_top() {
+		?>
+		<h2 class="hndle"><span>Tag</span></h2>
+		<?php
+	}
 
+	/**
+	 * Render term edit form.
+	 */
+	public function edit_form() {
+		?>
+		<div id="poststuff">
+			<div id="post-body">
+				<?php
+				foreach ( $this->boxes as $index => $box ) {
+					do_meta_boxes(
+						'post',
+						'normal',
+						null
+					);
+				}
 				?>
-				<tr class="form-field">
-					<th scope="row" valign="top">
-						<label for="<?php echo $prop->get_slug(); ?>"><?php echo $prop->title; ?></label>
-
-					</th>
-					<td>
-						<?php papi_render_property( $prop ); ?>
-						<p class="description"><?php echo $prop->description; ?></p>
-					</td>
-				</tr>
-			<?php
-			}
-		}
+			</div>
+		</div>
+		<?php
 	}
 
 	/**

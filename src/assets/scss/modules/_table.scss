@@ -1,5 +1,6 @@
 // Table
-.papi-table {
+.papi-table,
+.papi-meta-type-term .form-table {
   border-spacing: 0;
   cursor: default !important;
 
@@ -12,7 +13,7 @@
     box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
     margin: 0;
 
-    td {
+    td, th[scope="row"] {
       border-bottom: 0;
       border-top: 1px solid #eaeaea;
       padding: 10px 16px 10px 15px;
@@ -84,10 +85,22 @@
   }
 }
 
-// #poststuff .papi-box {
-//  .hndle {
-//    border: 0;
-//  }
-// }
+.papi-meta-type-term .wrap h1 {
+  margin-bottom: 10px;
+}
 
-// side meta boxes
+.papi-meta-type-term #edittag > .form-table {
+  border-top: 1px #ddd solid;
+}
+
+.papi-meta-type-term #edittag > .papi-table {
+  margin-top: -1px;
+}
+
+.papi-meta-type-term #edittag > .form-table,
+.papi-meta-type-term #edittag > .papi-table {
+  background: white;
+  border-left: 1px #ddd solid;
+  border-right: 1px #ddd solid;
+  border-bottom: 1px #ddd solid;
+}
