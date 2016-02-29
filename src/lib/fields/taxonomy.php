@@ -115,8 +115,9 @@ function the_papi_term_meta( $term_id = null, $slug = null, $default = null ) {
 	}
 
 	if ( is_object( $value ) ) {
-		// @codingStandardsIgnoreLine
+		// @codeCoverageIgnoreStart
 		$value = print_r( $value, true );
+		// @codeCoverageIgnoreEnd
 	}
 
 	echo $value;
