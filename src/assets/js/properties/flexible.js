@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Repeater from 'properties/repeater';
+import Utils from 'utils';
 
 class Flexible extends Repeater {
 
@@ -110,7 +111,7 @@ class Flexible extends Repeater {
       'action': 'get_properties',
       'counter': counter,
       'flexible_layout': flexibleLayout,
-      'post_type': $('#post_type').val()
+      'post_type': Utils.getParameterByName('post_type')
     };
     $.ajax({
       type: 'POST',
