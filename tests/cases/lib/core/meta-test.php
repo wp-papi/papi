@@ -13,6 +13,19 @@ class Papi_Lib_Core_Meta_Test extends WP_UnitTestCase {
 		unset( $this->post_id, $this->term_id );
 	}
 
+	public function test_papi_get_meta_id() {
+		$this->assertNull( papi_get_meta_id( 'option' ) );
+
+		$_GET['post'] = 1;
+		$this->assertSame( 1, papi_get_meta_id() );
+		$this->assertSame( 1, papi_get_meta_id( 'post' ) );
+		unset( $_GET['post'] );
+
+		$_GET['term_id'] = 2;
+		$this->assertSame( 2, papi_get_meta_id( 'term' ) );
+		unset( $_GET['term_id'] );
+	}
+
 	public function test_papi_get_meta_id_column() {
 		$this->assertSame( 'post_id', papi_get_meta_id_column() );
 		$this->assertSame( 'post_id', papi_get_meta_id_column( 'post' ) );

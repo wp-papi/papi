@@ -1,6 +1,21 @@
 <?php
 
 /**
+ * Get meta id for a meta type.
+ *
+ * @param  string $type
+ *
+ * @return string|null
+ */
+function papi_get_meta_id( $type = null ) {
+	$type = papi_get_meta_type( $type );
+
+	if ( function_exists( sprintf( 'papi_get_%s_id', $type ) ) ) {
+		return call_user_func_array( sprintf( 'papi_get_%s_id', $type ), [] );
+	}
+}
+
+/**
  * Get right meta id column for a meta type.
  *
  * @param  string $type
