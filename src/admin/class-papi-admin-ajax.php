@@ -230,7 +230,7 @@ class Papi_Admin_Ajax {
 			return;
 		}
 
-		$page_type = papi_get_page_type_by_post_id();
+		$page_type = papi_get_entry_type_by_meta_id();
 
 		if ( $page_type instanceof Papi_Page_Type === false ) {
 			$this->render_error( 'No rule found' );

@@ -101,6 +101,27 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		$this->assertTrue( is_object( $simple_page_type ) );
 	}
 
+	public function test_papi_get_entry_type_by_meta_id() {
+		$this->assertNull( papi_get_entry_type_by_meta_id( 0 ) );
+		$this->assertNull( papi_get_entry_type_by_meta_id( [] ) );
+		$this->assertNull( papi_get_entry_type_by_meta_id( (object) [] ) );
+		$this->assertNull( papi_get_entry_type_by_meta_id( true ) );
+		$this->assertNull( papi_get_entry_type_by_meta_id( false ) );
+		$this->assertNull( papi_get_entry_type_by_meta_id( null ) );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
+
+		$this->assertTrue( is_object( papi_get_entry_type_by_meta_id( $this->post_id ) ) );
+
+		$_GET['page_id'] = $this->post_id;
+		$this->assertTrue( is_object( papi_get_entry_type_by_meta_id() ) );
+		unset( $_GET['page_id'] );
+	}
+
 	public function test_papi_get_entry_type_id() {
 		$_GET['entry_type'] = 'simple-page-type';
 		$this->assertSame( 'simple-page-type', papi_get_entry_type_id() );

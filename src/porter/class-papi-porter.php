@@ -233,7 +233,7 @@ final class Papi_Porter extends Papi_Container {
 		}
 
 		if ( empty( $page_type ) ) {
-			$page_type = papi_get_page_type_by_post_id( $options['post_id'] );
+			$page_type = papi_get_entry_type_by_meta_id( $options['post_id'] );
 		}
 
 		if ( is_string( $page_type ) ) {

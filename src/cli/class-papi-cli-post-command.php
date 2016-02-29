@@ -54,7 +54,7 @@ class Papi_CLI_Post_Command extends Papi_CLI_Command {
 			$_GET['post'] = $args[0];
 
 			// Get the page type that the post has.
-			$page_type = papi_get_page_type_by_post_id( $args[0] );
+			$page_type = papi_get_entry_type_by_meta_id( $args[0] );
 
 			if ( empty( $page_type ) ) {
 				WP_CLI::error( 'No page type exists on the post' );

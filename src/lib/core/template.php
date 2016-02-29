@@ -132,12 +132,15 @@ function papi_template_include( $original_template ) {
 	global $post;
 
 	// Check so we only change template on single and page posts.
-	if ( ! is_single() && ! is_page() ) {
+	if ( ! is_single() && ! is_page() && ! is_tag() ) {
 		return $original_template;
 	}
 
+	// Determine which id to use.
+	$id = is_tag() ? get_queried_object()->term_id : $post->ID;
+
 	// Only load a template if it exists.
-	if ( $page_template = papi_get_page_type_template( $post->ID ) ) {
+	if ( $page_template = papi_get_entry_type_template( $id ) ) {
 		if ( $template = locate_template( $page_template ) ) {
 			/**
 			 * Change which template that is used by Papi.

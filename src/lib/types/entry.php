@@ -176,6 +176,30 @@ function papi_get_entry_type_by_id( $id ) {
 }
 
 /**
+ * Get entry type from meta id.
+ *
+ * @param  int    $id
+ * @param  string $type
+ *
+ * @return Papi_Entry_Type
+ */
+function papi_get_entry_type_by_meta_id( $id = 0, $type = 'post' ) {
+	if ( ! is_numeric( $id ) ) {
+		return;
+	}
+
+	$id = papi_get_meta_id( $type, $id );
+
+	if ( $id === 0 ) {
+		return;
+	}
+
+	if ( $entry_type = papi_get_entry_type_id( $id ) ) {
+		return papi_get_entry_type_by_id( $entry_type );
+	}
+}
+
+/**
  * Get entry type id.
  *
  * @param  int $id
@@ -201,4 +225,23 @@ function papi_get_entry_type_id( $id = 0, $type = null ) {
 	 * @param string $type
 	 */
 	return apply_filters( 'papi/entry_type_id', $entry_type_id, $type );
+}
+
+/**
+ * Get entry template file from meta id.
+ *
+ * @param  int $id
+ *
+ * @return null|string
+ */
+function papi_get_entry_type_template( $id = 0 ) {
+	if ( empty( $id ) && ! is_numeric( $id ) ) {
+		return;
+	}
+
+	$data = papi_get_entry_type_by_meta_id( $id );
+
+	if ( isset( $data, $data->template ) ) {
+		return papi_get_template_file_name( $data->template );
+	}
 }

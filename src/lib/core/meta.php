@@ -78,6 +78,11 @@ function papi_get_meta_type( $type = null ) {
 		}
 	}
 
+	// On the frontend term should be returned if on a tag page.
+	if ( ! is_admin() && is_tag() ) {
+		return 'term';
+	}
+
 	// Default was has to be set here since we trying to figure out
 	// which url conform which meta type.
 	if ( is_null( $type ) ) {

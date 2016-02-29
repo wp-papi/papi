@@ -241,7 +241,7 @@ final class Papi_Admin {
 		}
 
 		if ( $column_name === 'page_type' ) {
-			$page_type = papi_get_page_type_by_post_id( $post_id );
+			$page_type = papi_get_entry_type_by_meta_id( $post_id );
 
 			if ( ! is_null( $page_type ) ) {
 				echo esc_html( $page_type->name );

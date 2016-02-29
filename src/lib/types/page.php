@@ -36,7 +36,7 @@ function papi_display_page_type( $page_type ) {
 		return true;
 	}
 
-	$parent_page_type = papi_get_page_type_by_post_id( papi_get_parent_post_id() );
+	$parent_page_type = papi_get_entry_type_by_meta_id( papi_get_parent_post_id() );
 
 	if ( papi_is_page_type( $parent_page_type ) ) {
 		$child_types = $parent_page_type->get_child_types();
@@ -139,29 +139,6 @@ function papi_get_page_type_id( $post_id = 0 ) {
 }
 
 /**
- * Get page type from post id.
- *
- * @param  int $post_id
- *
- * @return Papi_Page_Type
- */
-function papi_get_page_type_by_post_id( $post_id = 0 ) {
-	if ( ! is_numeric( $post_id ) ) {
-		return;
-	}
-
-	$post_id = papi_get_post_id( $post_id );
-
-	if ( $post_id === 0 ) {
-		return;
-	}
-
-	if ( $page_type = papi_get_page_type_id( $post_id ) ) {
-		return papi_get_entry_type_by_id( $page_type );
-	}
-}
-
-/**
  * Get the page type key that is used for each post.
  *
  * @return string
@@ -207,15 +184,7 @@ function papi_get_page_type_name( $post_id = 0 ) {
  * @return null|string
  */
 function papi_get_page_type_template( $post_id = 0 ) {
-	if ( empty( $post_id ) && ! is_numeric( $post_id ) ) {
-		return;
-	}
-
-	$data = papi_get_page_type_by_post_id( $post_id );
-
-	if ( isset( $data, $data->template ) ) {
-		return papi_get_template_file_name( $data->template );
-	}
+	return papi_get_entry_type_template( $post_id );
 }
 
 /**

@@ -45,7 +45,7 @@ class Papi_Conditional_Rules {
 	 */
 	private function convert_prop( $value, Papi_Core_Conditional_Rule $rule ) {
 		$post_id   = papi_get_post_id();
-		$page_type = papi_get_page_type_by_post_id( $post_id );
+		$page_type = papi_get_entry_type_by_meta_id( $post_id );
 
 		if ( ! papi_is_empty( $value ) && $page_type instanceof Papi_Page_Type !== false ) {
 			$property = $page_type->get_property( $rule->slug );
@@ -153,7 +153,7 @@ class Papi_Conditional_Rules {
 		if ( papi_doing_ajax() ) {
 			$source    = $rule->get_source();
 			$post_id   = papi_get_post_id();
-			$page_type = papi_get_page_type_by_post_id( $post_id );
+			$page_type = papi_get_entry_type_by_meta_id( $post_id );
 
 			if ( ! papi_is_empty( $source ) && $page_type instanceof Papi_Page_Type !== false ) {
 				if ( papi_is_property( $page_type->get_property( $rule->slug ) ) ) {

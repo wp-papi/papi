@@ -63,7 +63,7 @@ class Papi_Property_Reference extends Papi_Property {
 					continue;
 				}
 
-				$page_type = papi_get_page_type_by_post_id( $post->ID );
+				$page_type = papi_get_entry_type_by_meta_id( $post->ID );
 
 				if ( empty( $page_type ) ) {
 					continue;
