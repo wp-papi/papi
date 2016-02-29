@@ -23,21 +23,6 @@ class Papi_Option_Store extends Papi_Core_Meta_Store {
 	}
 
 	/**
-	 * Get the current option type.
-	 *
-	 * @return null|Papi_Option_Type
-	 */
-	public function get_option_type() {
-		if ( empty( $this->option_type ) ) {
-			if ( $entry_type = papi_get_entry_type_by_id( papi_get_qs( 'page' ) ) ) {
-				$this->option_type = papi_is_option_type( $entry_type ) ? $entry_type : null;
-			}
-		}
-
-		return $this->option_type;
-	}
-
-	/**
 	 * Load property from page type.
 	 *
 	 * @param  string $slug
@@ -56,7 +41,6 @@ class Papi_Option_Store extends Papi_Core_Meta_Store {
 
 			foreach ( $entry_types as $index => $entry_type ) {
 				if ( $property = $entry_type->get_property( $slug, $child_slug ) ) {
-					$this->option_type = $entry_type;
 					break;
 				}
 			}
@@ -70,11 +54,9 @@ class Papi_Option_Store extends Papi_Core_Meta_Store {
 
 		$entry_type = papi_get_entry_type_by_id( $entry_type_id );
 
-		if ( ! papi_is_option_type( $entry_type ) ) {
+		if ( $entry_type instanceof Papi_Option_Type === false ) {
 			return;
 		}
-
-		$this->option_type = $entry_type;
 
 		return $this->prepare_property( $entry_type->get_property( $slug, $child_slug ) );
 	}
