@@ -70,6 +70,11 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 'info-entry-type', $this->info_entry_type->get_id() );
 	}
 
+	public function test_get_labels() {
+		$entry_type = new Papi_Entry_Type;
+		$this->assertEmpty( $entry_type->get_labels() );
+	}
+
 	public function test_get_property() {
 		$this->assertNull( $this->empty_entry_type->get_property( 'fake' ) );
 		$this->assertNull( $this->info_entry_type->get_property( 'fake' ) );
