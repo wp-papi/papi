@@ -187,12 +187,12 @@ final class Papi_Loader extends Papi_Container {
 			'core/template.php',
 			'core/url.php',
 			'core/utilities.php',
+			'core/entry.php',
 			'hooks/actions.php',
 			'hooks/filters.php',
 			'fields/page.php',
 			'fields/option.php',
 			'fields/taxonomy.php',
-			'types/entry.php',
 			'types/page.php',
 			'types/option.php',
 			'types/taxonomy.php'
