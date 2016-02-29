@@ -2,26 +2,10 @@
 .papi-property-flexible {
   margin-right: -31px;
 
-  body.edit-tags-php &,
-  body.term-php &, {
-    margin-right: 0;
-  }
-  body.edit-tags-php & {
-    width: 95%;
-  }
-  body.term-php & {
-    width: 95%;
-  }
-
   > .papi-table {
     border-bottom: 1px solid #eaeaea;
     margin: -11px 0 -13px -15px;
     table-layout: fixed;
-
-    body.edit-tags-php &,
-    body.term-php & {
-      margin: 0;
-    }
 
     > thead > tr,
     > tbody > tr {
@@ -190,10 +174,6 @@
   .bottom {
     margin-top: 25px;
     width: 95%;
-
-    body.edit-tags-php & {
-      margin-top: 5px;
-    }
 
     button {
       float: right;
