@@ -55,20 +55,6 @@ class Papi_Option_Store_Test extends WP_UnitTestCase {
 		$this->assertNull( $this->store->get_value( 'hello' ) );
 	}
 
-	public function test_get_option_type() {
-		$store = new Papi_Option_Store();
-		$this->assertNull( $store->get_option_type() );
-
-		$store = new Papi_Option_Store();
-		$_GET['page'] = 'papi/option/options/properties-option-type';
-		$this->assertSame( 'options/properties-option-type', $store->get_option_type()->get_id() );
-		unset( $_GET['page'] );
-
-		$store = new Papi_Option_Store();
-		$property = $store->get_property( 'name' );
-		$this->assertSame( 'options/header-option-type', $store->get_option_type()->get_id() );
-	}
-
 	public function test_valid() {
 		$this->assertTrue( $this->store->valid() );
 	}
