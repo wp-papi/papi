@@ -1,6 +1,7 @@
 import $ from 'jquery';
+import Utils from 'utils';
 
-/*global tinymce, tinyMCEPreInit */
+/* global tinymce, tinyMCEPreInit */
 
 /**
  * Property Repeater.
@@ -183,7 +184,7 @@ class Repeater {
     const params = {
       'action': 'get_properties',
       'counter': counter,
-      'post_type': /post\_type\=(.*)&/.exec(window.location.search)[1]
+      'post_type': Utils.getParameterByName('post_type')
     };
     $.ajax({
       type: 'POST',
