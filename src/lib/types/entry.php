@@ -230,16 +230,17 @@ function papi_get_entry_type_id( $id = 0, $type = null ) {
 /**
  * Get entry template file from meta id.
  *
- * @param  int $id
+ * @param  int    $id
+ * @param  string $type
  *
  * @return null|string
  */
-function papi_get_entry_type_template( $id = 0 ) {
+function papi_get_entry_type_template( $id = 0, $type = 'post' ) {
 	if ( empty( $id ) && ! is_numeric( $id ) ) {
 		return;
 	}
 
-	$data = papi_get_entry_type_by_meta_id( $id );
+	$data = papi_get_entry_type_by_meta_id( $id, $type );
 
 	if ( isset( $data, $data->template ) ) {
 		return papi_get_template_file_name( $data->template );
