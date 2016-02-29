@@ -1,6 +1,6 @@
 <?php
 
-class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
+class Papi_Lib_Core_Entry_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
