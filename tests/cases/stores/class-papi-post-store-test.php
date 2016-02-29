@@ -10,13 +10,19 @@ class Papi_Post_Store_Test extends WP_UnitTestCase {
 		} );
 
 		$this->post_id = $this->factory->post->create();
+		$_GET['post'] = $this->post_id;
 
 		$this->store = papi_get_meta_store( $this->post_id );
 	}
 
 	public function tearDown() {
 		parent::tearDown();
-		unset( $this->post_id, $this->store );
+		unset( $this->post_id, $_GET['post'], $this->store );
+	}
+
+	public function test_post_store_construct() {
+		$this->assertTrue( ( new Papi_Post_Store )->valid() );
+		$this->assertTrue( ( new Papi_Post_Store( $this->post_id ) )->valid() );
 	}
 
 	public function test_get_type_class() {

@@ -14,13 +14,18 @@ class Papi_Term_Store_Test extends WP_UnitTestCase {
 		} );
 
 		$this->term_id = $this->factory->term->create();
-
+		$_GET['term_id'] = $this->term_id;
 		$this->store = papi_get_meta_store( $this->term_id, 'term' );
 	}
 
 	public function tearDown() {
 		parent::tearDown();
-		unset( $this->term_id, $this->store );
+		unset( $this->term_id, $_GET['term_id'], $this->store );
+	}
+
+	public function test_term_store_construct() {
+		$this->assertTrue( ( new Papi_Term_Store )->valid() );
+		$this->assertTrue( ( new Papi_Term_Store( $this->term_id ) )->valid() );
 	}
 
 	public function test_get_permalink() {
