@@ -183,7 +183,7 @@ class Repeater {
     const params = {
       'action': 'get_properties',
       'counter': counter,
-      'post_type': $('#post_type').val()
+      'post_type': /post\_type\=(.*)&/.exec(window.location.search)[1]
     };
     $.ajax({
       type: 'POST',
