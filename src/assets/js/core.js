@@ -26,6 +26,8 @@ class Core {
     if ('select2' in $.fn) {
       $('.inside .papi-table tr .papi-component-select2').select2();
     }
+
+    $('.papi-meta-type-term button.handlediv').on('click', this.handlediv);
   }
 
   /**
@@ -38,6 +40,23 @@ class Core {
     if (!$menuitem.hasClass('current') && !$submenu.find('li.current').length) {
       $menuitem.addClass('current');
     }
+  }
+
+  /**
+   * Handle expanded postbox div.
+   *
+   * @param  {object} e
+   */
+  handlediv(e) {
+    e.preventDefault();
+
+    const $this   = $(this);
+    const $parent = $this.parent();
+    const $inside = $parent.find('.inside');
+
+    $parent.parent().toggleClass('closed');
+    $inside.toggleClass('papi-hide');
+    $this.attr('aria-expanded', !$inside.hasClass('papi-hide'));
   }
 
   /**
