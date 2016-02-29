@@ -72,9 +72,11 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		}
 
 		// Don't save meta boxes for revisions or autosaves.
+		// @codeCoverageIgnoreStart
 		if ( defined( 'DOING_AUTOSAVE' ) ) {
 			return;
 		}
+		// @codeCoverageIgnoreEnd
 
 		if ( $this->get_meta_type() === 'post' ) {
 			// Check so the id is a post id and not a revision or autosaved post.
