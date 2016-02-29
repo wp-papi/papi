@@ -4,14 +4,15 @@
  * Get meta id for a meta type.
  *
  * @param  string $type
+ * @param  int    $id
  *
  * @return string|null
  */
-function papi_get_meta_id( $type = null ) {
+function papi_get_meta_id( $type = null, $id = null ) {
 	$type = papi_get_meta_type( $type );
 
 	if ( function_exists( sprintf( 'papi_get_%s_id', $type ) ) ) {
-		return call_user_func_array( sprintf( 'papi_get_%s_id', $type ), [] );
+		return call_user_func_array( sprintf( 'papi_get_%s_id', $type ), [$id] );
 	}
 }
 

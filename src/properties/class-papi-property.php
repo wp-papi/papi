@@ -15,22 +15,9 @@ class Papi_Property extends Papi_Core_Property {
 		$value = $this->get_option( 'value' );
 
 		if ( papi_is_empty( $value ) ) {
-			$slug = $this->get_slug( true );
-
-			switch ( papi_get_meta_type() ) {
-				case 'option':
-					$value = papi_get_option( $slug );
-					break;
-				case 'post':
-					$value = papi_get_field( $this->get_post_id(), $slug );
-					break;
-				case 'term':
-					$value = papi_get_term_field( papi_get_term_id(), $slug );
-					break;
-				default:
-					break;
-			}
-
+			$type        = papi_get_meta_type();
+			$slug        = $this->get_slug( true );
+			$value       = papi_get_field( $slug, null, $type );
 			$post_status = get_post_status( $this->get_post_id() );
 
 			if ( papi_is_empty( $value ) && ( $post_status === false || $post_status === 'auto-draft' ) ) {
