@@ -180,7 +180,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			$table  = sprintf( '%s%smeta', $wpdb->prefix, $this->get_meta_type() );
 			$column = papi_get_meta_id_column( $this->get_meta_type() );
 			$query  = $wpdb->prepare(
-				"SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `$id_column` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%',
+				"SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `$column` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%',
 				$post_id
 			);
 		}
