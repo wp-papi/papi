@@ -3,7 +3,7 @@
 /**
  * @group types
  */
-class Papi_Page_Type_Test extends WP_UnitTestCase {
+class Papi_Taxonomy_Type_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
