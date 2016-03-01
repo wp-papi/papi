@@ -13,7 +13,7 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	public $taxonomy = '';
 
 	/**
-	 * The type name. Used for WP CLI.
+	 * The type name.
 	 *
 	 * @var string
 	 */
@@ -43,32 +43,8 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 		}
 
 		foreach ( $this->taxonomy as $taxonomy ) {
-			add_action( $taxonomy . '_add_form_fields', [$this, 'add_form'] );
 			add_action( $taxonomy . '_term_edit_form_top', [$this, 'edit_form_top'] );
 			add_action( $taxonomy . '_edit_form', [$this, 'edit_form'] );
-		}
-	}
-
-	/**
-	 * Render the fields on the add term page.
-	 */
-	public function add_form() {
-		foreach ( $this->get_boxes() as $box ) {
-			?>
-			<h2><?php echo $box->title; ?></h2>
-			<?php
-			foreach ( $box->properties as $prop ) {
-				// Raw output is required.
-				$prop->raw = true;
-
-				?>
-				<div class="form-field">
-					<label for="<?php echo $prop->get_slug(); ?>"><?php echo $prop->title; ?></label>
-					<?php papi_render_property( $prop ); ?>
-					<p><?php echo $prop->description; ?></p>
-				</div>
-			<?php
-			}
 		}
 	}
 
@@ -109,25 +85,5 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	protected function setup_meta_data() {
 		parent::setup_meta_data();
 		$this->taxonomy = papi_to_array( $this->taxonomy );
-	}
-
-	/**
-	 * Check if the entry type is a singleton.
-	 *
-	 * @return bool
-	 */
-	public function singleton() {
-		$singleton = true;
-
-		foreach ( $this->taxonomy as $taxonomy ) {
-			$key = sprintf( 'entry_type_id.taxonomy.%s', $taxonomy );
-
-			if ( ! papi()->exists( $key ) ) {
-				papi()->singleton( $key, $this->get_id() );
-				$singleton = false;
-			}
-		}
-
-		return $singleton;
 	}
 }

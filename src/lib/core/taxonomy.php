@@ -21,6 +21,8 @@ function papi_get_term_id( $term_id = null ) {
 			return get_queried_object_id();
 		} else if ( $term_id = papi_get_or_post( 'term_id' ) ) {
 			return intval( $term_id );
+		} else if ( $tag_id = papi_get_or_post( 'tag_ID' ) ) {
+			return intval( $tag_id );
 		}
 	}
 

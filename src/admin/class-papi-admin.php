@@ -140,7 +140,7 @@ final class Papi_Admin {
 		require_once __DIR__ . '/class-papi-admin-management-pages.php';
 		require_once __DIR__ . '/class-papi-admin-meta-handler.php';
 		require_once __DIR__ . '/class-papi-admin-option-handler.php';
-		// require_once __DIR__ . '/class-papi-admin-taxonomy-handler.php';
+		require_once __DIR__ . '/class-papi-admin-taxonomy.php';
 	}
 
 	/**
@@ -407,9 +407,7 @@ final class Papi_Admin {
 		// If a post type exists, try to load the entry type id
 		// from only page type filter.
 		if ( $this->post_type ) {
-			$entry_type_id = papi_filter_settings_only_page_type(
-				$this->post_type
-			);
+			$entry_type_id = papi_filter_settings_only_page_type( $this->post_type );
 		}
 
 		// If the entry type id is empty try to load

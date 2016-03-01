@@ -209,6 +209,7 @@ function papi_get_entry_type_by_meta_id( $id = 0, $type = 'post' ) {
  */
 function papi_get_entry_type_id( $id = 0, $type = null ) {
 	$type = papi_get_meta_type( $type );
+	$id   = papi_get_meta_id( $type, $id );
 
 	if ( $id > 0 ) {
 		if ( $meta_value = get_metadata( $type, $id, papi_get_page_type_key(), true ) ) {

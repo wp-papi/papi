@@ -22,6 +22,12 @@ class Papi_Lib_Core_Taxonomy_Test extends WP_UnitTestCase {
 		$_GET['term_id'] = $term_id;
 		$this->assertSame( $term_id, papi_get_term_id() );
 		$this->assertSame( $term_id, papi_get_term_id( null ) );
+		unset( $_GET['term_id'] );
+
+		$_GET['tag_ID'] = $term_id;
+		$this->assertSame( $term_id, papi_get_term_id() );
+		$this->assertSame( $term_id, papi_get_term_id( null ) );
+		unset( $_GET['tag_ID'] );
 	}
 
 	public function test_papi_get_taxonomy() {
