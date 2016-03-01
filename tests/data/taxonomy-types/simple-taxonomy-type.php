@@ -12,8 +12,17 @@ class Simple_Taxonomy_Type extends Papi_Taxonomy_Type {
 			'name'        => 'Simple taxonomy',
 			'description' => 'This is a simple taxonomy',
 			'template'    => 'pages/simple-taxonomy.php',
-			'taxonomy'    => 'post_tag'
+			'taxonomy'    => ['post_tag', 'category', 'test_taxonomy']
 		];
+	}
+
+	/**
+	 * Hide taxonomy type for taxonomy.
+	 *
+	 * @return bool
+	 */
+	public function display( $taxonomy ) {
+		return $taxonomy !== 'test_taxonomy';
 	}
 
 	/**
