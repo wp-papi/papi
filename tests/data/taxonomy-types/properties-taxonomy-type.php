@@ -9,9 +9,9 @@ class Properties_Taxonomy_Type extends Papi_Taxonomy_Type {
 	 */
 	public function meta() {
 		return [
-			'name'        => 'Properties taxonomy type',
-			'description' => 'This is a properties taxonomy page',
-			'template'    => 'pages/properties-taxonomy-page.php',
+			'name'        => 'Properties taxonomy',
+			'description' => 'This is a properties taxonomy',
+			'template'    => 'pages/properties-taxonomy.php',
 			'taxonomy'    => 'post_tag'
 		];
 	}
