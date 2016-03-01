@@ -29,7 +29,7 @@ class Papi_Option_Type extends Papi_Entry_Type {
 	public $menu = '';
 
 	/**
-	 * The type name. Used for WP CLI.
+	 * The type name.
 	 *
 	 * @var string
 	 */

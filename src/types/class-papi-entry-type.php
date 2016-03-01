@@ -35,7 +35,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	public $show_screen_options = true;
 
 	/**
-	 * The type name. Used for WP CLI.
+	 * The type name.
 	 *
 	 * @var string
 	 */
