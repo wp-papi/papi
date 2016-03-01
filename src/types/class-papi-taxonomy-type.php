@@ -20,6 +20,17 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	public $type = 'taxonomy';
 
 	/**
+	 * Should the Taxonomy Type be displayed in WordPress admin or not?
+	 *
+	 * @param  string $taxonomy
+	 *
+	 * @return bool
+	 */
+	public function display( $taxonomy ) {
+		return true;
+	}
+
+	/**
 	 * Setup all meta boxes.
 	 */
 	public function setup() {

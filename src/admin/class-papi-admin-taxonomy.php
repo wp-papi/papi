@@ -29,8 +29,13 @@ final class Papi_Admin_Taxonomy {
 
 		// Get only the taxonomy types that has the taxonomy.
 		$taxonomy_types  = array_filter( $this->taxonomy_types, function ( $taxonomy_type ) use( $taxonomy ) {
-			return in_array( $taxonomy, $taxonomy_type->taxonomy );
+			return in_array( $taxonomy, $taxonomy_type->taxonomy ) && $taxonomy_type->display( $taxonomy );
 		} );
+
+		// Do not display empty select if no taxonomy types.
+		if ( empty( $taxonomy_types ) ) {
+			return;
+		}
 		?>
 		<div class="form-field">
 			<label for="<?php echo $html_name; ?>">
