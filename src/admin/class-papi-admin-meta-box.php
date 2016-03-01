@@ -55,12 +55,14 @@ final class Papi_Admin_Meta_Box {
 	 * @return string
 	 */
 	private function get_post_type() {
-		if ( $post_id = papi_get_post_id() ) {
-			return get_post_type( $post_id );
-		}
+		if ( papi_get_meta_type() === 'post' ) {
+			if ( $post_id = papi_get_post_id() ) {
+				return get_post_type( $post_id );
+			}
 
-		if ( $post_type = papi_get_post_type() ) {
-			return $post_type;
+			if ( $post_type = papi_get_post_type() ) {
+				return $post_type;
+			}
 		}
 
 		return $this->box->id;

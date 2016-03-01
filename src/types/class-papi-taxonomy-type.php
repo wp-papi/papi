@@ -79,7 +79,7 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 				<?php
 				foreach ( $this->boxes as $index => $box ) {
 					do_meta_boxes(
-						'post',
+						$box->id,
 						'normal',
 						null
 					);
