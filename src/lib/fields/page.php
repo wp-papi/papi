@@ -192,7 +192,7 @@ function papi_update_field( $id = null, $slug = null, $value = null, $type = 'po
 
 	$id = papi_get_meta_id( $type, $id );
 
-	if ( $id === 0 && papi_get_meta_type( $type ) !== 'option') {
+	if ( $id === 0 && papi_get_meta_type( $type ) !== 'option' ) {
 		return false;
 	}
 

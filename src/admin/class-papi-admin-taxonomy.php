@@ -28,7 +28,7 @@ final class Papi_Admin_Taxonomy {
 		$taxonomy_object = get_taxonomy( $taxonomy );
 
 		// Get only the taxonomy types that has the taxonomy.
-		$taxonomy_types  = array_filter( $this->taxonomy_types, function ( $taxonomy_type ) use( $taxonomy ) {
+		$taxonomy_types  = array_filter( $this->taxonomy_types, function ( $taxonomy_type ) use ( $taxonomy ) {
 			return in_array( $taxonomy, $taxonomy_type->taxonomy ) && $taxonomy_type->display( $taxonomy );
 		} );
 		$taxonomy_types = array_values( $taxonomy_types );
