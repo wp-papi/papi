@@ -230,9 +230,9 @@ class Papi_Admin_Ajax {
 			return;
 		}
 
-		$page_type = papi_get_entry_type_by_meta_id();
+		$entry_type = papi_get_entry_type_by_meta_id();
 
-		if ( $page_type instanceof Papi_Page_Type === false ) {
+		if ( $entry_type instanceof Papi_Entry_Type === false ) {
 			$this->render_error( 'No rule found' );
 			return;
 		}
@@ -241,7 +241,7 @@ class Papi_Admin_Ajax {
 			$data['slug'] = preg_replace( '/\[\]$/', '', $data['slug'] );
 		}
 
-		if ( $property  = $page_type->get_property( $data['slug'] ) ) {
+		if ( $property = $entry_type->get_property( $data['slug'] ) ) {
 			wp_send_json( [
 				'render' => $property->render_is_allowed_by_rules( $data['rules'] )
 			] );
