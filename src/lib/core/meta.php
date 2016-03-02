@@ -50,6 +50,10 @@ function papi_get_meta_store( $post_id = 0, $type = 'post' ) {
  * @return string|null
  */
 function papi_get_meta_type( $type = null ) {
+	if ( $meta_type = papi_get_qs( 'meta_type' ) ) {
+		return $meta_type;
+	}
+
 	switch ( $type ) {
 		case 'option':
 			return 'option';

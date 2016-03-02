@@ -184,8 +184,11 @@ class Repeater {
     const params = {
       'action': 'get_properties',
       'counter': counter,
-      'post_type': Utils.getParameterByName('post_type')
+      'meta_type': Utils.getMetaType()
     };
+
+    params[Utils.getMetaTypeKey()] = Utils.getMetaTypeValue();
+
     $.ajax({
       type: 'POST',
       data: {

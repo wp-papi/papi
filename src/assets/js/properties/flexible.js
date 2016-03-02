@@ -111,8 +111,11 @@ class Flexible extends Repeater {
       'action': 'get_properties',
       'counter': counter,
       'flexible_layout': flexibleLayout,
-      'post_type': Utils.getParameterByName('post_type')
+      'meta_type': Utils.getMetaType()
     };
+
+    params[Utils.getMetaTypeKey()] = Utils.getMetaTypeValue();
+
     $.ajax({
       type: 'POST',
       data: {

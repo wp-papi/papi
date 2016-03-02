@@ -58,11 +58,6 @@ function papi_get_parent_post_id() {
  * @return string
  */
 function papi_get_post_type( $post_id = null ) {
-	// Disable false positive when editing term
-	if ( papi_get_or_post( 'term_id' ) ) {
-		return '';
-	}
-
 	if ( $post_type = papi_get_or_post( 'post_type' ) ) {
 		return $post_type;
 	}

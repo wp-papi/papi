@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 const wp = window.wp;
 
 class Utils {
@@ -10,6 +12,55 @@ class Utils {
   }
 
   /**
+   * Get meta type.
+   *
+   * @return {string}
+   */
+  static getMetaType() {
+    const $body = $('body');
+
+    if ($body.hasClass('papi-meta-type-term')) {
+      return 'term';
+    }
+
+    if ($body.hasClass('papi-meta-type-post')) {
+      return 'post';
+    }
+  }
+
+  /**
+   * Get meta type key.
+   *
+   * @return {string}
+   */
+  static getMetaTypeKey() {
+    switch (Utils.getMetaType()) {
+      case 'post':
+        return 'post_type';
+      case 'term':
+        return 'taxonomy';
+      default:
+        break;
+    }
+  }
+
+  /**
+   * Get meta type value.
+   *
+   * @return {string}
+   */
+  static getMetaTypeValue() {
+    switch (Utils.getMetaType()) {
+      case 'post':
+        return Utils.getParameterByName('post_type');
+      case 'term':
+        return Utils.getParameterByName('taxonomy');
+      default:
+        break;
+    }
+  }
+
+  /**
    * Get parameter by name.
    *
    * @param {string} name
@@ -18,8 +69,8 @@ class Utils {
    */
   static getParameterByName(name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    let regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    let results = regex.exec(window.location.search);
+    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    const results = regex.exec(window.location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
   }
 

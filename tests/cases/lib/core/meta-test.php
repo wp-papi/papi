@@ -54,5 +54,9 @@ class Papi_Lib_Core_Meta_Test extends WP_UnitTestCase {
 		$this->assertSame( 'term', papi_get_meta_type( 'taxonomy' ) );
 		$this->assertSame( 'option', papi_get_meta_type( 'option' ) );
 		$this->assertNull( papi_get_meta_type( 'hello' ) );
+
+		$_GET['meta_type'] = 'test';
+		$this->assertSame( 'test', papi_get_meta_type() );
+		unset( $_GET['meta_type'] );
 	}
 }
