@@ -163,7 +163,7 @@ class Papi_Property_File extends Papi_Property {
 						}
 						?>
 						<div class="attachment">
-							<a class="check" href="#">X</a>
+							<a class="check" href="#">&times;</a>
 							<div class="attachment-preview">
 								<div class="thumbnail">
 									<div class="centered">
@@ -252,7 +252,7 @@ class Papi_Property_File extends Papi_Property {
 	public function render_file_template() {
 		?>
 		<script type="text/template" id="tmpl-papi-property-file">
-			<a class="check" href="#">X</a>
+			<a class="check" href="#">&times;</a>
 			<div class="attachment-preview">
 				<div class="thumbnail">
 					<div class="centered">
