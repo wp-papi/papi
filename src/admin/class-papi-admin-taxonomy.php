@@ -36,6 +36,10 @@ final class Papi_Admin_Taxonomy {
 		if ( empty( $taxonomy_types ) ) {
 			return;
 		}
+
+		// Render a dropdown if more than one taxonomy types
+		// exists on the taxonomy.
+		if ( count( $taxonomy_types ) > 1 ):
 		?>
 		<div class="form-field">
 			<label for="<?php echo $html_name; ?>">
@@ -43,7 +47,7 @@ final class Papi_Admin_Taxonomy {
 			</label>
 			<select name="<?php echo $html_name; ?>" id="<?php echo $html_name; ?>">
 				<?php foreach ( $taxonomy_types as $taxonomy_type ): ?>
-					<option value="<?php echo $taxonomy_type->get_id(); ?>">
+					<option value="<?php echo esc_attr( $taxonomy_type->get_id() ); ?>">
 						<?php echo $taxonomy_type->name; ?>
 					</option>
 				<?php endforeach; ?>
@@ -51,6 +55,14 @@ final class Papi_Admin_Taxonomy {
 			<!-- additional info? -->
 		</div>
 		<?php
+		else:
+			papi_render_html_tag( 'input', [
+				'data-papi-page-type-key' => true,
+				'name'                    => esc_attr( papi_get_page_type_key() ),
+				'type'                    => 'hidden',
+				'value'                   => esc_attr( $taxonomy_types[0]->get_id() )
+			] );
+		endif;
 	}
 
 	/**
