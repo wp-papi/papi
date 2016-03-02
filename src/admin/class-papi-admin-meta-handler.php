@@ -71,16 +71,16 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 			return;
 		}
 
-		// Don't save meta boxes for revisions or autosaves.
+		// Don't save meta boxes for autosaves.
 		// @codeCoverageIgnoreStart
-		if ( defined( 'DOING_AUTOSAVE' ) ) {
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
 		// @codeCoverageIgnoreEnd
 
 		if ( $this->get_meta_type() === 'post' ) {
-			// Check so the id is a post id and not a revision or autosaved post.
-			if ( $this->valid_post_id( $id ) || is_int( wp_is_post_revision( $post ) ) || is_int( wp_is_post_autosave( $post ) ) ) {
+			// Check so the id is a post id and not a revision post.
+			if ( $this->valid_post_id( $id ) || is_int( wp_is_post_revision( $post ) ) || get_post_status( $id ) === 'auto-draft' ) {
 				return;
 			}
 
