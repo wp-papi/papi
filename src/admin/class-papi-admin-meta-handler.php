@@ -79,8 +79,8 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		// @codeCoverageIgnoreEnd
 
 		if ( $this->get_meta_type() === 'post' ) {
-			// Check so the id is a post id and not a revision post.
-			if ( $this->valid_post_id( $id ) || is_int( wp_is_post_revision( $post ) ) || get_post_status( $id ) === 'auto-draft' ) {
+			// Check so the id is a post id and not a revision or autosave post.
+			if ( $this->valid_post_id( $id ) || is_int( wp_is_post_revision( $post ) ) || is_int( wp_is_post_autosave( $post ) ) ) {
 				return;
 			}
 
