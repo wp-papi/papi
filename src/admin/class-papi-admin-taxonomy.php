@@ -31,6 +31,7 @@ final class Papi_Admin_Taxonomy {
 		$taxonomy_types  = array_filter( $this->taxonomy_types, function ( $taxonomy_type ) use( $taxonomy ) {
 			return in_array( $taxonomy, $taxonomy_type->taxonomy ) && $taxonomy_type->display( $taxonomy );
 		} );
+		$taxonomy_types = array_values( $taxonomy_types );
 
 		// Do not display empty select if no taxonomy types.
 		if ( empty( $taxonomy_types ) ) {
