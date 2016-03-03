@@ -183,14 +183,14 @@ function papi_get_slugs( $post_id = 0, $only_slugs = false, $type = 'post' ) {
 		return [];
 	}
 
-	$type_class = $store->get_type_class();
+	$entry_type = $store->get_type_class();
 
-	if ( empty( $type_class ) ) {
+	if ( empty( $entry_type ) ) {
 		return [];
 	}
 
 	$value = [];
-	$boxes = $type_class->get_boxes();
+	$boxes = $entry_type->get_boxes();
 
 	foreach ( $boxes as $box ) {
 		if ( ! $only_slugs ) {

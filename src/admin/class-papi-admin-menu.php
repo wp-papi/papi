@@ -16,8 +16,8 @@ final class Papi_Admin_Menu {
 	 * Fill labels on admin bar.
 	 */
 	public function admin_bar_menu() {
-		if ( $type_class = $this->get_type_class() ) {
-			$this->override_labels( $type_class );
+		if ( $entry_type = $this->get_entry_type() ) {
+			$this->override_labels( $entry_type );
 		}
 	}
 
@@ -26,9 +26,9 @@ final class Papi_Admin_Menu {
 	 *
 	 * @return Papi_Entry_Type
 	 */
-	private function get_type_class() {
-		if ( $type_class = papi_get_entry_type_by_id( papi_get_entry_type_id() ) ) {
-			return $type_class;
+	private function get_entry_type() {
+		if ( $entry_type = papi_get_entry_type_by_id( papi_get_entry_type_id() ) ) {
+			return $entry_type;
 		}
 	}
 
