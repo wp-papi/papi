@@ -82,8 +82,8 @@ final class Papi_Admin_Taxonomy {
 		] );
 
 		$taxonomies = array_reduce( $this->taxonomy_types, function ( $taxonomies, $taxonomy_type ) {
-			return array_merge( is_array( $taxonomies ) ? $taxonomies : [], $taxonomy_type->taxonomy );
-		} );
+			return array_merge( $taxonomies, $taxonomy_type->taxonomy );
+		}, [] );
 		$taxonomies = array_unique( $taxonomies );
 
 		foreach ( $taxonomies as $taxonomy ) {
