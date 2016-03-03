@@ -11,6 +11,7 @@
 * Added support for taxonomy types with support for term meta.
 * Added `wp papi term` command like post command.
 * Added `mce_buttons` settings to editor property.
+* Added `media_buttons`, `teeny` and `drag_drop_upload` settings to editor property.
 
 ### Changed
 
