@@ -9,7 +9,7 @@ function assertEquals( $expected, $actual ) {
 }
 
 function assertNumeric( $actual ) {
-	if ( !is_numeric( $actual ) ) {
+	if ( ! is_numeric( $actual ) ) {
 		throw new Exception( "Actual value: " . var_export( $actual, true ) );
 	}
 }
@@ -39,7 +39,7 @@ function checkString( $output, $expected, $action, $message = false ) {
 		throw new Behat\Behat\Exception\PendingException();
 	}
 
-	if ( !$r ) {
+	if ( ! $r ) {
 		if ( false === $message )
 			$message = $output;
 		throw new Exception( $message );
@@ -56,7 +56,7 @@ function compareTables( $expected_rows, $actual_rows, $output ) {
 	unset( $expected_rows[0] );
 
 	$missing_rows = array_diff( $expected_rows, $actual_rows );
-	if ( !empty( $missing_rows ) ) {
+	if ( ! empty( $missing_rows ) ) {
 		throw new \Exception( $output );
 	}
 }
@@ -120,7 +120,7 @@ function checkThatJsonStringContainsJsonString( $actualJson, $expectedJson ) {
 	$actualValue   = json_decode( $actualJson );
 	$expectedValue = json_decode( $expectedJson );
 
-	if ( !$actualValue ) {
+	if ( ! $actualValue ) {
 		return false;
 	}
 

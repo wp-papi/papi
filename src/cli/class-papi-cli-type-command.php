@@ -11,7 +11,29 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 	 * @return array
 	 */
 	protected function get_default_format_fields() {
-		return ['name', 'id', 'post_type', 'template', 'number of pages', 'type'];
+		return ['name', 'id', 'meta type', 'meta type value', 'template', 'db count', 'type'];
+	}
+
+	/**
+	 * Get meta type value.
+	 *
+	 * @param  Papi_Entry_Type $entry_type
+	 *
+	 * @return string
+	 */
+	protected function get_meta_type_value( $entry_type ) {
+		if ( in_array( $entry_type->get_type(), ['attachment'] ) ) {
+			return $entry_type->get_type();
+		}
+
+		switch ( papi_get_meta_type( $entry_type->get_type() ) ) {
+			case 'post':
+				return implode( ', ', $entry_type->post_type );
+			case 'term':
+				return implode( ', ', $entry_type->taxonomy );
+			default:
+				return 'n/a';
+		}
 	}
 
 	/**
@@ -52,30 +74,29 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 	 * @subcommand list
 	 */
 	public function list_( $args, $assoc_args ) {
-		// Get all page types.
-		$types = papi_get_all_entry_types();
+		// Get all entry types.
+		$entry_types = papi_get_all_entry_types();
 
-		if ( empty( $types ) ) {
+		if ( empty( $entry_types ) ) {
 			WP_CLI::error( 'No Papi types exists.' );
 		}
 
 		// Create type item with the fields that
 		// will be displayed.
-		$types = array_map( function( $type ) {
-			$is_page_type = papi_is_page_type( $type );
-
+		$entry_types = array_map( function( $entry_type ) {
 			return [
-				'id'              => $type->get_id(),
-				'name'            => $type->name,
-				'post_type'       => $is_page_type ? implode( ', ', $type->post_type ) : 'n/a',
-				'template'        => $is_page_type ? $type->template : 'n/a',
-				'type'            => $type->get_type(),
-				'number of pages' => $is_page_type ? papi_get_number_of_pages( $type->get_id() ): 'n/a'
+				'id'              => $entry_type->get_id(),
+				'name'            => $entry_type->name,
+				'meta type'       => papi_is_page_type( $entry_type ) ? 'post' : $entry_type->type,
+				'meta type value' => $this->get_meta_type_value( $entry_type ),
+				'template'        => empty( $entry_type->template ) ? 'n/a' : $entry_type->template,
+				'type'            => $entry_type->get_type(),
+				'db count'        => $entry_type->type === 'option' ? 'n/a' : papi_get_number_of_pages( $entry_type->get_id() )
 			];
-		}, $types );
+		}, $entry_types );
 
 		// Render types as a table.
 		$formatter = $this->get_formatter( $assoc_args );
-		$formatter->display_items( $types );
+		$formatter->display_items( $entry_types );
 	}
 }

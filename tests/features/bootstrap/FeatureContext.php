@@ -246,7 +246,7 @@ class FeatureContext extends BehatContext implements ClosuredContextInterface {
 
 		// Create a must use plugin file to load Papi page types.
 		mkdir( "$dest_dir/wp-content/mu-plugins" );
-		$script = "<?php add_filter( 'papi/settings/directories', function () { return '$plugin_base_path/tests/data/page-types'; } );";
+		$script = "<?php add_filter( 'papi/settings/directories', function () { return ['$plugin_base_path/tests/data/page-types', '$plugin_base_path/tests/data/taxonomy-types']; } );";
 		file_put_contents( "$dest_dir/wp-content/mu-plugins/papi.php", $script );
 	}
 }
