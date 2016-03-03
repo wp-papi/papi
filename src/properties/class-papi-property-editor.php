@@ -56,7 +56,7 @@ class Papi_Property_Editor extends Papi_Property {
 			str_replace( ']', '', $this->html_name() )
 		) . '-' . uniqid();
 
-		// Add mce buttons filters.
+		// Add `mce_buttons` filters.
 		$this->add_mce_buttons();
 
 		wp_editor( $value, $id, [
@@ -64,8 +64,21 @@ class Papi_Property_Editor extends Papi_Property {
 			'media_buttons' => true
 		] );
 
+		// Remove `mce_buttons` filters.
+		$this->reove_mce_buttons();
+
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			add_filter( 'mce_external_plugins', '__return_empty_array' );
+		}
+	}
+
+	/**
+	 * Remove filters that filter TinyMCE buttons.
+	 */
+	protected function reove_mce_buttons() {
+		for ( $i = 0; $i < 4; $i++ ) {
+			$num = $i === 0 ? '' : '_' . ( $i + 1 );
+			remove_filter( 'mce_buttons' . $num, [$this, 'mce_buttons'] );
 		}
 	}
 }

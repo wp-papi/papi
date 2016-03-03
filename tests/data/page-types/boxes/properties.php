@@ -76,7 +76,18 @@ return [
 	papi_property( [
 		'type'  => 'editor',
 		'title' => 'Editor test',
-		'slug'  => 'editor_test'
+		'slug'  => 'editor_test',
+		'settings' => [
+			'mce_buttons'   => ['bold'],
+			'mce_buttons_2' => 'wp_help'
+		]
+	] ),
+
+	// Editor
+	papi_property( [
+		'type'  => 'editor',
+		'title' => 'Editor2 test',
+		'slug'  => 'editor2_test',
 	] ),
 
 	// Email
