@@ -30,6 +30,23 @@ class Papi_Property_Editor extends Papi_Property {
 	}
 
 	/**
+	 * Get default settings.
+	 *
+	 * @return array
+	 */
+	public function get_default_settings() {
+		return [
+			'mce_buttons'      => [],
+			'mce_buttons_2'    => [],
+			'mce_buttons_3'    => [],
+			'mce_buttons_4'    => [],
+			'media_buttons'    => true,
+			'teeny'            => false,
+			'drag_drop_upload' => true
+		];
+	}
+
+	/**
 	 * Filter TinyMCE buttons (Visual tab).
 	 *
 	 * @param  array $buttons
@@ -60,8 +77,10 @@ class Papi_Property_Editor extends Papi_Property {
 		$this->add_mce_buttons();
 
 		wp_editor( $value, $id, [
-			'textarea_name' => $this->html_name(),
-			'media_buttons' => true
+			'textarea_name'    => $this->html_name(),
+			'media_buttons'    => $this->get_setting( 'media_buttons', true ),
+			'teeny'            => $this->get_setting( 'teeny', false ),
+			'drag_drop_upload' => $this->get_setting( 'drag_drop_upload', true ),
 		] );
 
 		// Remove `mce_buttons` filters.
