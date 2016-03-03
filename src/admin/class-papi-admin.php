@@ -101,12 +101,14 @@ final class Papi_Admin {
 	public function edit_form_after_title() {
 		wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' );
 
-		papi_render_html_tag( 'input', [
-			'data-papi-page-type-key' => true,
-			'name'                    => esc_attr( papi_get_page_type_key() ),
-			'type'                    => 'hidden',
-			'value'                   => esc_attr( papi_get_entry_type_id() )
-		] );
+		if ( $value = esc_attr( papi_get_entry_type_id() ) ) {
+			papi_render_html_tag( 'input', [
+				'data-papi-page-type-key' => true,
+				'name'                    => esc_attr( papi_get_page_type_key() ),
+				'type'                    => 'hidden',
+				'value'                   => $value
+			] );
+		}
 	}
 
 	/**
