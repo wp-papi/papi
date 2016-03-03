@@ -209,56 +209,6 @@ function papi_get_post_types() {
 }
 
 /**
- * Get boxes with properties slug for a page.
- *
- * Since 3.0.0 the param `$only_slugs` exists, if true
- * will it only return the slugs without boxes title.
- *
- * @param  int    $post_id
- * @param  string $only_slugs
- *
- * @return array
- */
-function papi_get_slugs( $post_id = 0, $only_slugs = false ) {
-	$store = papi_get_meta_store( $post_id );
-
-	if ( $store instanceof Papi_Post_Store === false ) {
-		return [];
-	}
-
-	$type_class = $store->get_type_class();
-
-	if ( empty( $type_class ) ) {
-		return [];
-	}
-
-	$value = [];
-	$boxes = $type_class->get_boxes();
-
-	foreach ( $boxes as $box ) {
-		if ( ! $only_slugs ) {
-			$title = $box->title;
-
-			if ( ! isset( $value[$title] ) ) {
-				$value[$title] = [];
-			}
-		}
-
-		foreach ( $box->properties as $property ) {
-			$slug = $property->get_slug( true );
-
-			if ( $only_slugs ) {
-				$value[] = $slug;
-			} else {
-				$value[$title][] = $slug;
-			}
-		}
-	}
-
-	return $only_slugs ? array_unique( $value ) : $value;
-}
-
-/**
  * Check if `$obj` is a instanceof `Papi_Page_Type`.
  *
  * @param  mixed $obj

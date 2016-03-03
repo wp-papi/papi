@@ -45,6 +45,18 @@ function papi_get_term_field( $term_id = null, $slug = null, $default = null ) {
 }
 
 /**
+ * Get boxes with properties slug for a taxonomy.
+ *
+ * @param  int    $post_id
+ * @param  string $only_slugs
+ *
+ * @return array
+ */
+function papi_get_term_slugs( $id = 0, $only_slugs = false ) {
+	return papi_get_slugs( papi_get_term_id( $id ), $only_slugs, 'term' );
+}
+
+/**
  * Shortcode for `papi_get_term_field` function.
  *
  * [papi_taxonomy id=1 slug="property_slug" default="Default value"][/papi_taxonomy]

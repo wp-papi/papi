@@ -71,6 +71,27 @@ class Papi_Lib_Fields_Taxonomy_Test extends WP_UnitTestCase {
 		$this->assertSame( 'fredrik', papi_get_term_field( '', 'fredrik' ) );
 	}
 
+	public function test_papi_get_term_slugs() {
+		$this->assertEmpty( papi_get_term_slugs() );
+
+		update_term_meta( $this->term_id, papi_get_page_type_key(), 'simple-taxonomy-type' );
+		$actual = papi_get_term_slugs( $this->term_id );
+
+		$this->assertTrue( ! empty( $actual ) );
+		$this->assertTrue( is_array( $actual ) );
+
+		$slugs = papi_get_term_slugs( $this->term_id, true );
+		$this->assertTrue( array_filter( $slugs, 'is_string' ) === $slugs );
+
+		update_term_meta( $this->term_id, papi_get_page_type_key(), '' );
+		$this->flush_cache();
+		$this->assertEmpty( papi_get_term_slugs() );
+
+		update_term_meta( $this->term_id, papi_get_page_type_key(), 'empty-taxonomy-type' );
+		$this->flush_cache();
+		$this->assertEmpty( papi_get_term_slugs() );
+	}
+
 	public function test_papi_taxonomy_shortcode() {
 		update_term_meta( $this->term_id, 'string_test', 'fredrik' );
 

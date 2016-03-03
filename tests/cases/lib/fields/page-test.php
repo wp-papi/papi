@@ -68,6 +68,35 @@ class Papi_Lib_Fields_Page_Test extends WP_UnitTestCase {
 		$this->assertSame( 'fredrik', papi_get_field( '', 'fredrik' ) );
 	}
 
+	public function test_papi_get_slugs() {
+		$this->assertEmpty( papi_get_slugs() );
+
+		global $post;
+
+		$post = get_post( $this->post_id );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
+		$actual = papi_get_slugs( $this->post_id );
+
+		$this->assertTrue( ! empty( $actual ) );
+		$this->assertTrue( is_array( $actual ) );
+
+		$slugs = papi_get_slugs( $this->post_id, true );
+		$this->assertTrue( array_filter( $slugs, 'is_string' ) === $slugs );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), '' );
+		$this->flush_cache();
+		$this->assertEmpty( papi_get_slugs() );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'empty-page-type' );
+		$this->flush_cache();
+		$this->assertEmpty( papi_get_slugs() );
+	}
+
 	public function test_papi_field_value() {
 		$this->assertSame( 'fredrik', papi_field_value(
 			[ 'what', 'name' ],
