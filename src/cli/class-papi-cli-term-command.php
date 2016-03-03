@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Manage posts.
+ * Manage terms.
  */
-class Papi_CLI_Post_Command extends Papi_CLI_Command {
+class Papi_CLI_Term_Command extends Papi_CLI_Command {
 
 	/**
 	 * Get default fields for formatter.
@@ -15,18 +15,18 @@ class Papi_CLI_Post_Command extends Papi_CLI_Command {
 	}
 
 	/**
-	 * Get fields that exists on a post.
+	 * Get fields that exists on a term.
 	 *
 	 * ## OPTIONS
 	 *
-	 * <post>
-	 * : Post ID
+	 * <term>
+	 * : Term ID
 	 *
 	 * [--field=<field>]
-	 * : Instead of returning the whole post fields, returns the value of a single fields.
+	 * : Instead of returning the whole term fields, returns the value of a single fields.
 	 *
 	 * [--fields=<fields>]
-	 * : Get a specific subset of the post's fields.
+	 * : Get a specific subset of the term's fields.
 	 *
 	 * [--format=<format>]
 	 * : Accepted values: table, json, csv. Default: table.
@@ -41,9 +41,9 @@ class Papi_CLI_Post_Command extends Papi_CLI_Command {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp papi post get 123 --format=json
+	 *     wp papi term get 123 --format=json
 	 *
-	 *     wp papi post get 123 --field=slug
+	 *     wp papi term get 123 --field=slug
 	 *
 	 * @param  array $args
 	 * @param  array $assoc_args
@@ -51,13 +51,13 @@ class Papi_CLI_Post_Command extends Papi_CLI_Command {
 	public function get( $args, $assoc_args ) {
 		try {
 			// Set query string that we need.
-			$_GET['post'] = $args[0];
+			$_GET['meta_type'] = 'term';
 
-			// Get the page type that the post has.
+			// Get the taxonomy type that the term has.
 			$entry_type = papi_get_entry_type_by_meta_id( $args[0] );
 
-			if ( empty( $entry_type ) || $entry_type instanceof Papi_Page_Type === false ) {
-				WP_CLI::error( 'No page type exists on the post' );
+			if ( empty( $entry_type ) || $entry_type instanceof Papi_Taxonomy_Type === false ) {
+				WP_CLI::error( 'No taxonomy type exists on the term' );
 			}
 
 			$properties = [];
