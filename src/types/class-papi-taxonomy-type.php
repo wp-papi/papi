@@ -6,6 +6,20 @@
 class Papi_Taxonomy_Type extends Papi_Entry_Type {
 
 	/**
+	 * Fill labels.
+	 *
+	 * @var bool
+	 */
+	public $fill_labels = false;
+
+	/**
+	 * Labels, the same labels that taxonomy type object uses.
+	 *
+	 * @var array
+	 */
+	public $labels = [];
+
+	/**
 	 * The taxonomy.
 	 *
 	 * @var string
@@ -28,6 +42,24 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	 */
 	public function display( $taxonomy ) {
 		return true;
+	}
+
+	/**
+	 * Get labels that should be changed
+	 * when using `fill_labels` option.
+	 *
+	 * @return array
+	 */
+	public function get_labels() {
+		if ( ! $this->fill_labels ) {
+			return $this->labels;
+		}
+
+		return array_merge( $this->labels, [
+			'add_new_item' => sprintf( '%s %s', __( 'Add New', 'papi' ), $this->name ),
+			'edit_item'    => sprintf( '%s %s', __( 'Edit', 'papi' ), $this->name ),
+			'view_item'    => sprintf( '%s %s', __( 'View', 'papi' ), $this->name )
+		] );
 	}
 
 	/**

@@ -24,7 +24,7 @@ final class Papi_Admin_Menu {
 	/**
 	 * Get current type class.
 	 *
-	 * @return Papi_Core_Type
+	 * @return Papi_Entry_Type
 	 */
 	private function get_type_class() {
 		if ( $type_class = papi_get_entry_type_by_id( papi_get_entry_type_id() ) ) {
@@ -33,25 +33,33 @@ final class Papi_Admin_Menu {
 	}
 
 	/**
-	 * Override labels with labels from the page type.
+	 * Override labels with labels from the entry type.
 	 *
-	 * @param Papi_Page_Type $page_type
+	 * @param Papi_Entry_Type $entry_type
 	 */
-	private function override_labels( Papi_Entry_Type $page_type ) {
-		global $wp_post_types;
+	private function override_labels( Papi_Entry_Type $entry_type ) {
+		global $wp_post_types, $wp_taxonomies;
 
-		$post_type = papi_get_post_type();
+		if ( $entry_type->type === 'taxonomy' ) {
+			$meta_type_value = papi_get_taxonomy();
+		} else {
+			$meta_type_value = papi_get_post_type();
+		}
 
-		if ( empty( $post_type ) || ! isset( $wp_post_types[$post_type] ) ) {
+		if ( empty( $meta_type_value ) || ( ! isset( $wp_post_types[$meta_type_value] ) && ! isset( $wp_taxonomies[$meta_type_value] ) ) ) {
 			return;
 		}
 
-		foreach ( $page_type->get_labels() as $key => $value ) {
-			if ( ! isset( $wp_post_types[$post_type]->labels->$key ) || empty( $value ) ) {
+		foreach ( $entry_type->get_labels() as $key => $value ) {
+			if ( empty( $value ) ) {
 				continue;
 			}
 
-			$wp_post_types[$post_type]->labels->$key = $value;
+			if ( $entry_type->type === 'taxonomy' && isset( $wp_taxonomies[$meta_type_value]->labels->$key ) ) {
+				$wp_taxonomies[$meta_type_value]->labels->$key = $value;
+			} else if ( isset( $wp_post_types[$meta_type_value]->labels->$key ) ) {
+				$wp_post_types[$meta_type_value]->labels->$key = $value;
+			}
 		}
 	}
 
