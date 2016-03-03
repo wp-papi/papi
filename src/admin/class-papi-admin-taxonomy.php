@@ -59,7 +59,7 @@ final class Papi_Admin_Taxonomy {
 		else:
 			papi_render_html_tag( 'input', [
 				'data-papi-page-type-key' => true,
-				'name'                    => esc_attr( papi_get_page_type_key() ),
+				'name'                    => $html_name,
 				'type'                    => 'hidden',
 				'value'                   => esc_attr( $taxonomy_types[0]->get_id() )
 			] );
