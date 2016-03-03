@@ -98,28 +98,6 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$this->assertNull( $page );
 	}
 
-	public function test_papi_get_number_of_pages() {
-		$this->assertSame( 0, papi_get_number_of_pages( 'simple-page-type' ) );
-		$this->assertSame( 0, papi_get_number_of_pages( null ) );
-		$this->assertSame( 0, papi_get_number_of_pages( true ) );
-		$this->assertSame( 0, papi_get_number_of_pages( false ) );
-		$this->assertSame( 0, papi_get_number_of_pages( [] ) );
-		$this->assertSame( 0, papi_get_number_of_pages( new stdClass() ) );
-		$this->assertSame( 0, papi_get_number_of_pages( 1 ) );
-
-		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
-		} );
-
-		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
-		$this->flush_cache();
-		$this->assertSame( 1, papi_get_number_of_pages( 'simple-page-type' ) );
-
-		$simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
-
-		$this->assertSame( 1, papi_get_number_of_pages( $simple_page_type ) );
-	}
-
 	public function test_papi_get_page_type_template() {
 		$this->assertNull( papi_get_page_type_template() );
 		$this->assertNull( papi_get_page_type_template( 0 ) );

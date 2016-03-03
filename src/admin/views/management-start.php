@@ -72,7 +72,7 @@
 					?>
 				</td>
 				<td>
-					<?php echo esc_html( papi_get_number_of_pages( $page_type->get_id() ) ); ?>
+					<?php echo esc_html( papi_get_entry_type_count( $page_type->get_id() ) ); ?>
 				</td>
 			</tr>
 		<?php

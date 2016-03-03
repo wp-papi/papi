@@ -1,6 +1,36 @@
 <?php
 
 /**
+ * Count entry types in the database for the
+ * given entry type.
+ *
+ * @param  string|Papi_Entry_Type $entry_type
+ *
+ * @return int
+ */
+function papi_get_entry_type_count( $entry_type ) {
+	global $wpdb;
+
+	if ( empty( $entry_type ) || ( ! is_string( $entry_type ) && ( ! is_object( $entry_type ) ) ) ) {
+		return 0;
+	}
+
+	if ( is_string( $entry_type ) ) {
+		$entry_type = papi_get_entry_type_by_id( $entry_type );
+	}
+
+	if ( $entry_type instanceof Papi_Entry_Type === false ) {
+		return 0;
+	}
+
+	$table = sprintf( '%s%smeta', $wpdb->prefix, papi_get_meta_type( $entry_type->type ) );
+	$sql   = "SELECT COUNT(*) FROM $table WHERE `meta_key` = '%s' AND `meta_value` = '%s'";
+	$sql   = $wpdb->prepare( $sql, papi_get_page_type_key(), $entry_type->get_id() );
+
+	return intval( $wpdb->get_var( $sql ) );
+}
+
+/**
  * Check if entry type exists.
  *
  * @param  string $id
