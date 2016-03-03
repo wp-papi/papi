@@ -23,6 +23,7 @@ class Papi_Property_Editor_Test extends Papi_Property_Test_Case {
 		$this->assertEmpty( $property->mce_buttons() );
 
 		global $wp_current_filter;
+
 		$wp_current_filter[] = 'mce_buttons';
 		$property = papi_property( [
 			'title'    => 'Editor',
@@ -32,6 +33,17 @@ class Papi_Property_Editor_Test extends Papi_Property_Test_Case {
 			]
 		] );
 		$this->assertSame( ['bold'], $property->mce_buttons() );
+
+		$wp_current_filter[] = 'mce_buttons_2';
+		$property = papi_property( [
+			'title'    => 'Editor',
+			'type'     => 'editor',
+			'settings' => [
+				'mce_buttons'   => ['bold'],
+				'mce_buttons_2' => 'wp_help'
+			]
+		] );
+		$this->assertSame( ['wp_help'], $property->mce_buttons() );
 	}
 
 	public function test_property_default_value() {

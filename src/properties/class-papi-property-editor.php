@@ -10,7 +10,7 @@ class Papi_Property_Editor extends Papi_Property {
 	 */
 	protected function add_mce_buttons() {
 		for ( $i = 0; $i < 4; $i++ ) {
-			$num = $i === 0 ? '' : '_' . $i + 1;
+			$num = $i === 0 ? '' : '_' . ( $i + 1 );
 			add_filter( 'mce_buttons' . $num, [$this, 'mce_buttons'] );
 		}
 	}
@@ -32,10 +32,16 @@ class Papi_Property_Editor extends Papi_Property {
 	/**
 	 * Filter TinyMCE buttons (Visual tab).
 	 *
+	 * @param  array $buttons
+	 *
 	 * @return array
 	 */
-	public function mce_buttons() {
-		return papi_to_array( $this->get_setting( current_filter(), [] ) );
+	public function mce_buttons( array $buttons = [] ) {
+		if ( $new = papi_to_array( $this->get_setting( current_filter(), [] ) ) ) {
+			return $new;
+		}
+
+		return $buttons;
 	}
 
 	/**
