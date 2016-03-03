@@ -8,6 +8,12 @@
 * Added `show_help_tabs` to all types meta method that can turn off help tab.
 * Added `help` method to all types which can be used to add help tabs.
 * Added `help_sidebar` method to all types which can be used to add help tabs sidebar content.
+* Added support for taxonomy types with support for term meta.
+* Added `wp papi term` command like post command.
+
+### Changed
+
+* Updated cross icon for file property with new color [#158](https://github.com/wp-papi/papi/pull/158).
 
 ## [3.0.1]() - 2016-02-XX
 
