@@ -10,6 +10,7 @@
 * Added `help_sidebar` method to all types which can be used to add help tabs sidebar content.
 * Added support for taxonomy types with support for term meta.
 * Added `wp papi term` command like post command.
+* Added `mce_buttons` settings to editor property.
 
 ### Changed
 
