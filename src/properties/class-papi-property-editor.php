@@ -53,11 +53,6 @@ class Papi_Property_Editor extends Papi_Property {
 		// Add mce buttons filters.
 		$this->add_mce_buttons();
 
-		// Filter the second-row list of TinyMCE buttons (Visual tab).
-		add_filter( 'mce_buttons_2', function () {
-			return papi_to_array( $this->get_setting( 'mce_buttons_2', [] ) );
-		} );
-
 		wp_editor( $value, $id, [
 			'textarea_name' => $this->html_name(),
 			'media_buttons' => true
