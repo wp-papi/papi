@@ -86,19 +86,8 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 		}
 
 		foreach ( $this->taxonomy as $taxonomy ) {
-			add_action( $taxonomy . '_term_edit_form_top', [$this, 'edit_form_top'] );
 			add_action( $taxonomy . '_edit_form', [$this, 'edit_form'] );
 		}
-	}
-
-	/**
-	 * Render edit form top.
-	 * Requires 4.5.
-	 */
-	public function edit_form_top() {
-		?>
-		<h2 class="hndle"><span>Tag</span></h2>
-		<?php
 	}
 
 	/**
