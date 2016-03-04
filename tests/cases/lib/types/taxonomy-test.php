@@ -29,7 +29,7 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 		delete_term_meta( $this->term_id, papi_get_page_type_key() );
 	}
 
-	public function test_papi_get_page_type_id_container() {
+	public function test_papi_get_taxonomy_type_id_container() {
 		$_GET['taxonomy'] = 'post_tag';
 		papi()->bind( 'entry_type_id.taxonomy.post_tag', 'properties-taxonomy-type' );
 		$this->assertSame( 'properties-taxonomy-type', papi_get_taxonomy_type_id( 0 ) );
@@ -37,20 +37,20 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 		unset( $_GET['taxonomy'] );
 	}
 
-	public function test_papi_get_entry_type_by_id() {
-		$this->assertNull( papi_get_entry_type_by_id( 0 ) );
-		$this->assertNull( papi_get_entry_type_by_id( [] ) );
-		$this->assertNull( papi_get_entry_type_by_id( (object) [] ) );
-		$this->assertNull( papi_get_entry_type_by_id( true ) );
-		$this->assertNull( papi_get_entry_type_by_id( false ) );
-		$this->assertNull( papi_get_entry_type_by_id( null ) );
-		$this->assertNull( papi_get_entry_type_by_id( 'page' ) );
+	public function test_papi_get_taxonomies() {
+		papi()->remove( 'papi_get_all_core_type_files' );
+
+		$this->assertEmpty( papi_get_taxonomies() );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 
-		$this->assertInstanceOf( 'Papi_Taxonomy_Type', papi_get_entry_type_by_id( 'properties-taxonomy-type' ) );
+		papi()->remove( 'papi_get_all_core_type_files' );
+
+		$taxonomies = papi_get_taxonomies();
+
+		$this->assertTrue( in_array( 'post_tag', $taxonomies ) );
 	}
 
 	public function test_papi_is_taxonomy_type() {

@@ -141,109 +141,12 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$admin->load_post_new();
 	}
 
-	public function test_manage_page_type_posts_columns() {
-		$_GET['post_type'] = 'page';
-		$admin = new Papi_Admin;
-		$arr = $admin->manage_page_type_posts_columns( [] );
-		$this->assertSame( ['page_type' => 'Type'], $arr );
-		$_GET['post_type'] = 'fake';
-		$admin = new Papi_Admin;
-		$arr = $admin->manage_page_type_posts_columns( [] );
-		$this->assertEmpty( $arr );
-	}
-
-	public function test_manage_page_type_posts_columns_hide_filter() {
-		$_GET['post_type'] = 'page';
-		$admin = new Papi_Admin;
-		tests_add_filter( 'papi/settings/column_hide_page', '__return_true' );
-		$arr = $admin->manage_page_type_posts_columns( [] );
-		$this->assertFalse( isset( $arr['page_type'] ) );
-		unset( $_GET['post_type'] );
-	}
-
-	public function test_manage_page_type_posts_columns_title_filter() {
-		$_GET['post_type'] = 'page';
-		$admin = new Papi_Admin;
-		$arr = $admin->manage_page_type_posts_columns( [] );
-		$this->assertSame( ['page_type' => 'Type'], $arr );
-
-		tests_add_filter( 'papi/settings/column_title_page', function () {
-			return 'Typer';
-		} );
-
-		$arr = $admin->manage_page_type_posts_columns( [] );
-		$this->assertSame( ['page_type' => 'Typer'], $arr );
-	}
-
-	public function test_manage_page_type_posts_custom_column() {
-		$_GET['post_type'] = 'page';
-		$admin = new Papi_Admin;
-		$admin->manage_page_type_posts_custom_column( 'page_type', $this->post_id );
-		$this->expectOutputRegex( '/Standard Page/' );
-
-		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
-		$admin->manage_page_type_posts_custom_column( 'page_type', $this->post_id );
-		$this->expectOutputRegex( '/Simple page/' );
-
-		$post_id = $this->factory->post->create();
-		$_GET['post_type'] = 'fake';
-		$admin = new Papi_Admin;
-		$admin->manage_page_type_posts_custom_column( 'page_type', $post_id );
-		$this->expectOutputRegex( '//' );
-	}
-
-	public function test_manage_page_type_posts_custom_column_hide_filter() {
-		$_GET['post_type'] = 'page';
-		$admin = new Papi_Admin;
-		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
-		tests_add_filter( 'papi/settings/column_hide_page', '__return_true' );
-
-		$admin->manage_page_type_posts_custom_column( 'page_type', $this->post_id );
-		$this->expectOutputRegex( '//' );
-	}
-
 	public function test_plugin_row_meta() {
 		$output = $this->admin->plugin_row_meta( [], 'fake/fake.php' );
 		$this->assertEmpty( $output );
 
 		$output = $this->admin->plugin_row_meta( [], 'papi/papi-loader.php' );
 		$this->assertArrayHasKey( 'docs', $output );
-	}
-
-	public function test_pre_get_posts() {
-		global $pagenow;
-		$pagenow = 'edit.php';
-
-		$_GET['page_type'] = 'simple-page-type';
-		$query = $this->admin->pre_get_posts( new WP_Query() );
-		$this->assertSame( [
-			'meta_key'   => papi_get_page_type_key(),
-			'meta_value' => 'simple-page-type'
-		], $query->query_vars );
-
-		$_GET['page_type'] = 'papi-standard-page';
-		$query = $this->admin->pre_get_posts( new WP_Query() );
-		$this->assertSame( [
-			[
-				'key'     => papi_get_page_type_key(),
-				'compare' => 'NOT EXISTS'
-			]
-		], $query->query_vars['meta_query'] );
-	}
-
-	public function test_restrict_page_types() {
-		$_GET['post_type'] = '';
-		$admin = new Papi_Admin;
-		$admin->restrict_page_types();
-		$this->expectOutputRegex( '//' );
-	}
-
-	public function test_restrict_page_types_2() {
-		$_GET['post_type'] = 'page';
-		tests_add_filter( 'papi/settings/show_standard_page_type_in_filter_page', '__return_true' );
-		$admin = new Papi_Admin;
-		$admin->restrict_page_types();
-		$this->expectOutputRegex( '/.*\S.*/' );
 	}
 
 	public function test_setup_actions() {
@@ -256,7 +159,6 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->assertSame( 10, has_action( 'admin_init', [$admin, 'admin_init'] ) );
 		$this->assertSame( 10, has_action( 'edit_form_after_title', [$admin, 'edit_form_after_title'] ) );
 		$this->assertSame( 10, has_action( 'load-post-new.php', [$admin, 'load_post_new'] ) );
-		$this->assertSame( 10, has_action( 'restrict_manage_posts', [$admin, 'restrict_page_types'] ) );
 		$this->assertSame( 10, has_action( 'add_meta_boxes', [$admin, 'hidden_meta_boxes'] ) );
 
 		$current_screen = null;
@@ -269,22 +171,6 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin;
 
 		$this->assertSame( 10, has_filter( 'admin_body_class', [$admin, 'admin_body_class'] ) );
-		$this->assertSame( 10, has_filter( 'pre_get_posts', [$admin, 'pre_get_posts'] ) );
-
-		$current_screen = null;
-	}
-
-	public function test_setup_filters_2() {
-		global $current_screen;
-
-	    $current_screen = WP_Screen::get( 'admin_init' );
-		$_GET['post_type'] = 'page';
-		$admin = new Papi_Admin;
-
-		$this->assertSame( 10, has_filter( 'admin_body_class', [$admin, 'admin_body_class'] ) );
-		$this->assertSame( 10, has_filter( 'pre_get_posts', [$admin, 'pre_get_posts'] ) );
-		$this->assertSame( 10, has_filter( 'manage_page_posts_columns', [$admin, 'manage_page_type_posts_columns'] ) );
-		$this->assertSame( 10, has_filter( 'manage_page_posts_custom_column', [$admin, 'manage_page_type_posts_custom_column'] ) );
 
 		$current_screen = null;
 	}

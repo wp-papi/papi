@@ -70,3 +70,24 @@ function papi_load_taxonomy_type_id( $entry_type_id = '', $type = 'term' ) {
 }
 
 add_filter( 'papi/entry_type_id', 'papi_load_taxonomy_type_id', 10, 2 );
+
+/**
+ * Get all taxonomies Papi should work with.
+ *
+ * @return array
+ */
+function papi_get_taxonomies() {
+	$taxonomies  = [];
+	$entry_types = papi_get_all_entry_types( [
+		'types' => 'taxonomy'
+	] );
+
+	foreach ( $entry_types as $entry_type ) {
+		$taxonomies = array_merge(
+			$taxonomies,
+			papi_to_array( $entry_type->taxonomy )
+		);
+	}
+
+	return array_unique( $taxonomies );
+}
