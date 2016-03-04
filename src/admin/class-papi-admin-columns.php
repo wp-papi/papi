@@ -109,7 +109,7 @@ final class Papi_Admin_Columns {
 			return;
 		}
 
-		// Get the entry type for the post or taxonomy.
+		// Get the entry type for the post or term.
 		$entry_type = papi_get_entry_type_by_meta_id(
 			is_numeric( $post_id ) ? $post_id : $term_id,
 			papi_get_meta_type()
@@ -162,7 +162,7 @@ final class Papi_Admin_Columns {
 			$page_types = papi_get_all_page_types( $this->post_type );
 			$page_types = array_map( function ( $page_type ) {
 				return [
-					'name' => $page_type->name,
+					'name'  => $page_type->name,
 					'value' => $page_type->get_id()
 				];
 			}, $page_types );
