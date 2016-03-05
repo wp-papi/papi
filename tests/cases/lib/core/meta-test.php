@@ -4,13 +4,14 @@ class Papi_Lib_Core_Meta_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
+		$_GET = [];
 		$this->post_id = $this->factory->post->create();
 		$this->term_id = $this->factory->term->create();
 	}
 
 	public function tearDown() {
 		parent::tearDown();
-		unset( $this->post_id, $this->term_id );
+		unset( $_GET, $this->post_id, $this->term_id );
 	}
 
 	public function test_papi_get_meta_id() {
@@ -57,6 +58,29 @@ class Papi_Lib_Core_Meta_Test extends WP_UnitTestCase {
 
 		$_GET['meta_type'] = 'test';
 		$this->assertSame( 'test', papi_get_meta_type() );
-		unset( $_GET['meta_type'] );
+	}
+
+	public function test_papi_get_meta_type_wp_query() {
+		global $wp_query;
+
+		$wp_query->is_tag = true;
+		$this->assertSame( 'term', papi_get_meta_type() );
+		$wp_query->is_tag = false;
+	}
+
+	public function test_papi_get_meta_type_admin() {
+		global $current_screen;
+
+		$current_screen = WP_Screen::get( 'admin_init' );
+
+		$_SERVER['REQUEST_URI'] = 'http://site.com/?taxonomy=test';
+		$this->assertSame( 'term', papi_get_meta_type() );
+		$_SERVER['REQUEST_URI'] = '';
+
+		$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/option/test';
+		$this->assertSame( 'option', papi_get_meta_type() );
+		$_SERVER['REQUEST_URI'] = '';
+
+		$current_screen = null;
 	}
 }
