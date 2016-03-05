@@ -9,15 +9,16 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		parent::setUp();
 		$this->admin = new Papi_Admin_Columns;
 		$this->post_id = $this->factory->post->create();
+		$this->term_id = $this->factory->term->create();
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types', PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 	}
 
 	public function tearDown() {
 		parent::tearDown();
-		unset( $this->admin, $this->post_id );
+		unset( $this->admin, $this->post_id, $this->term_id );
 	}
 
 	public function test_manage_page_type_posts_columns() {
@@ -54,26 +55,48 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$this->assertSame( ['entry_type' => 'Typer'], $arr );
 	}
 
-	public function test_manage_page_type_posts_custom_column() {
+	public function test_manage_page_type_posts_custom_column_empty() {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin_Columns;
 		$admin->manage_page_type_posts_custom_column( '', $this->post_id );
 		$this->expectOutputRegex( '//' );
+	}
 
+	public function test_manage_page_type_posts_custom_column_standard() {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin_Columns;
 		$admin->manage_page_type_posts_custom_column( 'entry_type', $this->post_id );
 		$this->expectOutputRegex( '/Standard Page/' );
+	}
 
+	public function test_manage_page_type_posts_custom_column_page_type_auto() {
+		$_GET['post_type'] = 'page';
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
+		$admin = new Papi_Admin_Columns;
 		$admin->manage_page_type_posts_custom_column( 'entry_type', $this->post_id );
 		$this->expectOutputRegex( '/Simple page/' );
+	}
 
+	public function test_manage_page_type_posts_custom_column_fake_post_type() {
 		$post_id = $this->factory->post->create();
 		$_GET['post_type'] = 'fake';
 		$admin = new Papi_Admin_Columns;
 		$admin->manage_page_type_posts_custom_column( 'entry_type', $post_id );
 		$this->expectOutputRegex( '//' );
+	}
+
+	public function test_manage_page_type_posts_custom_column_taxonomy_empty() {
+		$_GET['taxonomy'] = 'category';
+		$admin = new Papi_Admin_Columns;
+		$admin->manage_page_type_posts_custom_column( '', '', $this->term_id );
+		$this->expectOutputRegex( '//' );
+	}
+
+	public function test_manage_page_type_posts_custom_column_taxonomy_standard() {
+		$_GET['taxonomy'] = 'category';
+		$admin = new Papi_Admin_Columns;
+		$admin->manage_page_type_posts_custom_column( '', 'entry_type', $this->post_id );
+		$this->expectOutputRegex( '/Standard Page/' );
 	}
 
 	public function test_manage_page_type_posts_custom_column_hide_filter() {
