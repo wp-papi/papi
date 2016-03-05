@@ -66,6 +66,12 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/papi\_meta\_nonce/' );
 	}
 
+	public function test_edit_form_after_title_2() {
+		$_GET['entry_type'] = 'test';
+		$this->admin->edit_form_after_title();
+		$this->expectOutputRegex( '/name\=\"\_papi\_page\_type\"/' );
+	}
+
 	public function test_hidden_meta_boxes() {
 		global $wp_meta_boxes;
 		$_GET['post_type'] = 'page';
