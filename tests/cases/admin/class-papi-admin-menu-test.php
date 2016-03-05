@@ -13,7 +13,7 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 		$this->menu = new Papi_Admin_Menu();
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types', PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 	}
 
@@ -44,6 +44,25 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Add New FAQ page', $labels->add_new_item );
 		$this->assertSame( 'Edit FAQ page', $labels->edit_item );
 		$this->assertSame( 'View FAQ page', $labels->view_item );
+	}
+
+	public function test_admin_bar_menu_taxonomy() {
+		global $wp_taxonomies;
+		$taxonomy = 'category';
+		$labels = $wp_taxonomies[$taxonomy]->labels;
+
+		$_GET['taxonomy'] = 1;
+		$this->menu->admin_bar_menu();
+		$this->assertSame( 'Add New Category', $labels->add_new_item );
+		$this->assertSame( 'Edit Category', $labels->edit_item );
+		$this->assertSame( 'View Category', $labels->view_item );
+
+		$_GET['taxonomy'] = 'category';
+		$_GET['entry_type'] = 'simple-taxonomy-type';
+		$this->menu->admin_bar_menu();
+		$this->assertSame( 'Add New Simple taxonomy type', $labels->add_new_item );
+		$this->assertSame( 'Edit Simple taxonomy type', $labels->edit_item );
+		$this->assertSame( 'View Simple taxonomy type', $labels->view_item );
 	}
 
 	public function test_admin_bar_menu_2() {
