@@ -45,13 +45,7 @@ final class Papi_Admin_Columns {
 	 * @return array
 	 */
 	public function manage_page_type_posts_columns( array $defaults = [] ) {
-		// Check so Papi should work with the post type.
-		if ( papi_get_meta_type() === 'post' && ! in_array( $this->post_type, papi_get_post_types() ) ) {
-			return $defaults;
-		}
-
-		// Check so Papi should work with the taxonomy.
-		if ( papi_get_meta_type() === 'term' && ! in_array( $this->taxonomy, papi_get_taxonomies() ) ) {
+		if ( ! in_array( $this->post_type, papi_get_post_types() ) && ! in_array( $this->taxonomy, papi_get_taxonomies() ) ) {
 			return $defaults;
 		}
 
@@ -85,13 +79,7 @@ final class Papi_Admin_Columns {
 	 * @param int    $term_id
 	 */
 	public function manage_page_type_posts_custom_column( $column_name, $post_id, $term_id = null ) {
-		// Check so Papi should work with the post type.
-		if ( papi_get_meta_type() === 'post' && ! in_array( $this->post_type, papi_get_post_types() ) ) {
-			return;
-		}
-
-		// Check so Papi should work with the taxonomy.
-		if ( papi_get_meta_type() === 'term' && ! in_array( $this->taxonomy, papi_get_taxonomies() ) ) {
+		if ( ! in_array( $this->post_type, papi_get_post_types() ) && ! in_array( $this->taxonomy, papi_get_taxonomies() ) ) {
 			return;
 		}
 

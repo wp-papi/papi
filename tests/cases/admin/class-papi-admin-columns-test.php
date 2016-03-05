@@ -57,6 +57,11 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 	public function test_manage_page_type_posts_custom_column() {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin_Columns;
+		$admin->manage_page_type_posts_custom_column( '', $this->post_id );
+		$this->expectOutputRegex( '//' );
+
+		$_GET['post_type'] = 'page';
+		$admin = new Papi_Admin_Columns;
 		$admin->manage_page_type_posts_custom_column( 'entry_type', $this->post_id );
 		$this->expectOutputRegex( '/Standard Page/' );
 
