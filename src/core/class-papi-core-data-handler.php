@@ -212,6 +212,8 @@ class Papi_Core_Data_Handler {
 
 	/**
 	 * Setup actions.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	protected function setup_actions() {
 	}
