@@ -30,6 +30,15 @@ class Papi_Lib_Core_Taxonomy_Test extends WP_UnitTestCase {
 		unset( $_GET['tag_ID'] );
 	}
 
+	public function test_papi_get_term_id_wp_query() {
+		global $wp_query;
+
+		$term_id = $this->factory->term->create(['slug' => 'category_test']);
+		$term = get_term_by('slug', 'category_test', 'post_tag');
+		$this->go_to( get_term_link( $term ) );
+		$this->assertSame( $term_id, papi_get_term_id() );
+	}
+
 	public function test_papi_get_taxonomy() {
 		$this->assertSame( '', papi_get_taxonomy() );
 
