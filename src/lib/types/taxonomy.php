@@ -1,17 +1,6 @@
 <?php
 
 /**
- * Check if `$obj` is a instanceof `Papi_Taxonomy_Type`.
- *
- * @param  mixed $obj
- *
- * @return bool
- */
-function papi_is_taxonomy_type( $obj ) {
-	return $obj instanceof Papi_Taxonomy_Type;
-}
-
-/**
  * Get taxonomy type id by term id.
  *
  * @param  int $term_id

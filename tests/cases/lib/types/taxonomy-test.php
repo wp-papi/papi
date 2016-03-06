@@ -53,19 +53,6 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 		$this->assertTrue( in_array( 'post_tag', $taxonomies ) );
 	}
 
-	public function test_papi_is_taxonomy_type() {
-		$this->assertTrue( papi_is_taxonomy_type( new Papi_Taxonomy_Type ) );
-		$this->assertFalse( papi_is_taxonomy_type( new Papi_Page_Type ) );
-		$this->assertFalse( papi_is_taxonomy_type( true ) );
-		$this->assertFalse( papi_is_taxonomy_type( false ) );
-		$this->assertFalse( papi_is_taxonomy_type( null ) );
-		$this->assertFalse( papi_is_taxonomy_type( 1 ) );
-		$this->assertFalse( papi_is_taxonomy_type( 0 ) );
-		$this->assertFalse( papi_is_taxonomy_type( '' ) );
-		$this->assertFalse( papi_is_taxonomy_type( [] ) );
-		$this->assertFalse( papi_is_taxonomy_type( (object) [] ) );
-	}
-
 	public function test_papi_load_taxonomy_type_id() {
 		$this->assertEmpty( papi_load_taxonomy_type_id() );
 
