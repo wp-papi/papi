@@ -12,6 +12,35 @@ function papi_get_taxonomy_type_id( $term_id = 0 ) {
 }
 
 /**
+ * Get the taxonomy type name.
+ *
+ * @param  int $term_id
+ *
+ * @return string
+ */
+function papi_get_taxonomy_type_name( $term_id = 0 ) {
+	$term_id = papi_get_term_id( $term_id );
+
+	if ( empty( $term_id ) ) {
+		return '';
+	}
+
+	$entry_type_id = papi_get_taxonomy_type_id( $term_id );
+
+	if ( empty( $entry_type_id ) ) {
+		return '';
+	}
+
+	$entry_type = papi_get_entry_type_by_id( $entry_type_id );
+
+	if ( empty( $entry_type ) ) {
+		return '';
+	}
+
+	return $entry_type->name;
+}
+
+/**
  * Load the entry type id on a taxonomy.
  *
  * @param  string $entry_type_id
@@ -84,4 +113,15 @@ function papi_set_taxonomy_type_id( $term_id, $taxonomy_type ) {
 	}
 
 	return false;
+}
+
+/**
+ * Echo the taxonomy type name.
+ *
+ * @param  int $term_id
+ *
+ * @return string
+ */
+function the_papi_taxonomy_type_name( $term_id = 0 ) {
+	echo papi_get_taxonomy_type_name( $term_id );
 }

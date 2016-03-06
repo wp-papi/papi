@@ -37,6 +37,23 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 		unset( $_GET['taxonomy'] );
 	}
 
+	public function test_papi_get_taxonomy_type_name() {
+		$this->assertEmpty( papi_get_taxonomy_type_name() );
+		$this->assertEmpty( papi_get_taxonomy_type_name( null ) );
+		$this->assertEmpty( papi_get_taxonomy_type_name( 0 ) );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
+		} );
+
+		update_term_meta( $this->term_id, papi_get_page_type_key(), 'simple-taxonomy-type' );
+
+		$_GET['term_id'] = $this->term_id;
+
+		$this->assertSame( 'Simple taxonomy', papi_get_taxonomy_type_name() );
+		$this->assertSame( 'Simple taxonomy', papi_get_taxonomy_type_name( $this->term_id ) );
+	}
+
 	public function test_papi_get_taxonomies() {
 		papi()->remove( 'papi_get_all_core_type_files' );
 
@@ -83,5 +100,37 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_set_taxonomy_type_id( $term_id, 'hello' ) );
 		$this->assertNotFalse( papi_set_taxonomy_type_id( $term_id, 'simple-taxonomy-type' ) );
 		$this->assertSame( 'simple-taxonomy-type', papi_get_taxonomy_type_id( $term_id ) );
+	}
+
+	public function test_the_papi_taxonomy_type_name() {
+		the_papi_taxonomy_type_name();
+		$this->expectOutputRegex( '//' );
+
+		the_papi_taxonomy_type_name( null );
+		$this->expectOutputRegex( '//' );
+
+		the_papi_taxonomy_type_name( 0 );
+		$this->expectOutputRegex( '//' );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
+		} );
+
+		update_post_meta( $this->term_id, papi_get_page_type_key(), 'simple-taxonomy-type' );
+
+		$_GET['term_id'] = $this->term_id;
+		the_papi_taxonomy_type_name();
+		$this->expectOutputRegex( '/Simple\staxonomy/' );
+
+		the_papi_taxonomy_type_name( $this->term_id );
+		$this->expectOutputRegex( '/Simple\staxonomy/' );
+
+		update_post_meta( $this->term_id, papi_get_page_type_key(), '' );
+		the_papi_taxonomy_type_name();
+		$this->expectOutputRegex( '//' );
+
+		update_post_meta( $this->term_id, papi_get_page_type_key(), 'random322-page-type' );
+		the_papi_taxonomy_type_name();
+		$this->expectOutputRegex( '//' );
 	}
 }

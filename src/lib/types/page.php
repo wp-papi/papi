@@ -108,7 +108,7 @@ function papi_get_page_type_key() {
 }
 
 /**
- * Get the Page type name.
+ * Get the page type name.
  *
  * @param  int $post_id
  *
@@ -121,19 +121,19 @@ function papi_get_page_type_name( $post_id = 0 ) {
 		return '';
 	}
 
-	$page_type_id = papi_get_page_type_id( $post_id );
+	$entry_type_id = papi_get_page_type_id( $post_id );
 
-	if ( empty( $page_type_id ) ) {
+	if ( empty( $entry_type_id ) ) {
 		return '';
 	}
 
-	$page_type = papi_get_entry_type_by_id( $page_type_id );
+	$entry_type = papi_get_entry_type_by_id( $entry_type_id );
 
-	if ( empty( $page_type ) ) {
+	if ( empty( $entry_type ) ) {
 		return '';
 	}
 
-	return $page_type->name;
+	return $entry_type->name;
 }
 
 /**
@@ -236,7 +236,7 @@ function papi_set_page_type_id( $post_id, $page_type ) {
 }
 
 /**
- * Echo the Page type name.
+ * Echo the page type name.
  *
  * @param  int $post_id
  *

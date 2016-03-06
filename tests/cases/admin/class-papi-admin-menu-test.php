@@ -60,9 +60,9 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 		$_GET['taxonomy'] = 'category';
 		$_GET['entry_type'] = 'simple-taxonomy-type';
 		$this->menu->admin_bar_menu();
-		$this->assertSame( 'Add New Simple taxonomy type', $labels->add_new_item );
-		$this->assertSame( 'Edit Simple taxonomy type', $labels->edit_item );
-		$this->assertSame( 'View Simple taxonomy type', $labels->view_item );
+		$this->assertSame( 'Add New Simple taxonomy', $labels->add_new_item );
+		$this->assertSame( 'Edit Simple taxonomy', $labels->edit_item );
+		$this->assertSame( 'View Simple taxonomy', $labels->view_item );
 	}
 
 	public function test_admin_bar_menu_2() {

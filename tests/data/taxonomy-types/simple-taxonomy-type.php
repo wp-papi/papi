@@ -9,8 +9,8 @@ class Simple_Taxonomy_Type extends Papi_Taxonomy_Type {
 	 */
 	public function meta() {
 		return [
-			'name'        => 'Simple taxonomy type',
-			'description' => 'This is a simple taxonomy type',
+			'name'        => 'Simple taxonomy',
+			'description' => 'This is a simple taxonomy',
 			'template'    => 'pages/simple-taxonomy.php',
 			'taxonomy'    => ['post_tag', 'category', 'test_taxonomy'],
 			'fill_labels' => true,
