@@ -26,29 +26,35 @@ function papi_filter_conditional_rule_allowed( $rule ) {
 /**
  * Format the value of the property before it's returned to WordPress admin or the site.
  *
+ * Since 3.1.0 `$meta_type` argument was added.
+ *
  * @param  string $type
  * @param  mixed  $value
  * @param  string $slug
- * @param  int    $post_id
+ * @param  int    $id
+ * @param  string $meta_type
  *
  * @return mixed
  */
-function papi_filter_format_value( $type, $value, $slug, $post_id ) {
-	return apply_filters( 'papi/format_value/' . $type, $value, $slug, $post_id );
+function papi_filter_format_value( $type, $value, $slug, $post_id, $meta_type = 'post' ) {
+	return apply_filters( 'papi/format_value/' . $type, $value, $slug, $post_id, $meta_type );
 }
 
 /**
  * This filter is applied after the value is loaded in the database.
  *
+ * Since 3.1.0 `$meta_type` argument was added.
+ *
  * @param  string $type
  * @param  mixed  $value
  * @param  string $slug
- * @param  int    $post_id
+ * @param  int    $id
+ * @param  string $meta_type
  *
  * @return mixed
  */
-function papi_filter_load_value( $type, $value, $slug, $post_id ) {
-	return apply_filters( 'papi/load_value/' . $type, $value, $slug, $post_id );
+function papi_filter_load_value( $type, $value, $slug, $id, $meta_type = 'post' ) {
+	return apply_filters( 'papi/load_value/' . $type, $value, $slug, $id, $meta_type );
 }
 
 /**
@@ -190,13 +196,16 @@ function papi_filter_settings_sort_order() {
 /**
  * This filter is applied before the value is saved in the database.
  *
+ * Since 3.1.0 `$meta_type` argument was added.
+ *
  * @param  string $type
  * @param  mixed  $value
  * @param  string $slug
- * @param  int    $post_id
+ * @param  int    $id
+ * @param  string $meta_type
  *
  * @return mixed
  */
-function papi_filter_update_value( $type, $value, $slug, $post_id ) {
-	return apply_filters( 'papi/update_value/' . $type, $value, $slug, $post_id );
+function papi_filter_update_value( $type, $value, $slug, $id, $meta_type = 'post' ) {
+	return apply_filters( 'papi/update_value/' . $type, $value, $slug, $id, $meta_type );
 }

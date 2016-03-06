@@ -107,7 +107,8 @@ abstract class Papi_Core_Meta_Store {
 			$property->type,
 			$value,
 			$slug,
-			$this->id
+			$this->id,
+			papi_get_meta_type()
 		);
 
 		// Format the value from the property class.
@@ -119,7 +120,8 @@ abstract class Papi_Core_Meta_Store {
 				$property->type,
 				$value,
 				$slug,
-				$this->id
+				$this->id,
+				papi_get_meta_type()
 			);
 		}
 

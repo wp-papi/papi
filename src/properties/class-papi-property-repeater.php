@@ -97,13 +97,13 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			// Load the value.
 			$values[$slug] = $property_type->load_value( $value, $child_slug, $post_id );
-			$values[$slug] = papi_filter_load_value( $property_type->type, $values[$slug], $child_slug, $post_id );
+			$values[$slug] = papi_filter_load_value( $property_type->type, $values[$slug], $child_slug, $post_id, papi_get_meta_type() );
 
 			// Format the value from the property class.
 			$values[$slug] = $property_type->format_value( $values[$slug], $child_slug, $post_id );
 
 			if ( ! is_admin() ) {
-				$values[$slug] = papi_filter_format_value( $property_type->type, $values[$slug], $child_slug, $post_id );
+				$values[$slug] = papi_filter_format_value( $property_type->type, $values[$slug], $child_slug, $post_id, papi_get_meta_type() );
 			}
 
 			$values[$property_type_slug] = $property_type_value;
@@ -843,7 +843,8 @@ class Papi_Property_Repeater extends Papi_Property {
 				$property_type_value,
 				$value,
 				$property_slug,
-				$post_id
+				$post_id,
+				papi_get_meta_type()
 			);
 
 			if ( is_array( $values[$slug] ) ) {

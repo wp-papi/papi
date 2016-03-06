@@ -131,7 +131,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					$property_type->type,
 					$values[$index][$slug],
 					$child_slug,
-					$post_id
+					$post_id,
+					papi_get_meta_type()
 				);
 
 				// Format the value from the property class.
@@ -146,7 +147,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 						$property_type->type,
 						$values[$index][$slug],
 						$child_slug,
-						$post_id
+						$post_id,
+						papi_get_meta_type()
 					);
 				}
 

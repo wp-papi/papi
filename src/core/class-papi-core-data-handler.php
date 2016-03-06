@@ -170,12 +170,14 @@ class Papi_Core_Data_Handler {
 					$post_id
 				);
 
-				// Apply `update_value` filter so this can be changed from the theme for specified property type.
+				// Apply `update_value` filter so this can be changed from
+				// the theme for specified property type.
 				$data[$key] = papi_filter_update_value(
 					$item['type']->type,
 					$data[$key],
 					unpapify( $key ),
-					$post_id
+					$post_id,
+					papi_get_meta_type()
 				);
 
 				if ( $item['type']->overwrite ) {

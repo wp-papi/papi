@@ -45,7 +45,8 @@ class Papi_Conditional_Rules {
 	 */
 	private function convert_prop( $value, Papi_Core_Conditional_Rule $rule ) {
 		$meta_id    = papi_get_meta_id();
-		$entry_type = papi_get_entry_type_by_meta_id( $meta_id );
+		$meta_type  = papi_get_meta_type();
+		$entry_type = papi_get_entry_type_by_meta_id( $meta_id, $meta_type );
 
 		if ( ! papi_is_empty( $value ) && $entry_type instanceof Papi_Entry_Type !== false ) {
 			$property = $entry_type->get_property( $rule->slug );
@@ -61,7 +62,8 @@ class Papi_Conditional_Rules {
 					$property->type,
 					$prop_value,
 					$property->slug,
-					$meta_id
+					$meta_id,
+					$meta_type
 				);
 
 				$prop_value = $this->get_deep_value(
