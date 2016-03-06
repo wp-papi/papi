@@ -167,6 +167,11 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->assertSame( 10, has_action( 'load-post-new.php', [$admin, 'load_post_new'] ) );
 		$this->assertSame( 10, has_action( 'add_meta_boxes', [$admin, 'hidden_meta_boxes'] ) );
 
+		$_GET['taxonomy'] = 'post_tag';
+		$admin = new Papi_Admin;
+
+		$this->assertSame( 10, has_action( 'post_tag_edit_form_fields', [$admin, 'edit_form_after_title'] ) );
+
 		$current_screen = null;
 	}
 
