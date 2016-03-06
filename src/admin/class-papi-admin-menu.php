@@ -51,9 +51,11 @@ final class Papi_Admin_Menu {
 		}
 
 		foreach ( $entry_type->get_labels() as $key => $value ) {
+			// @codeCoverageIgnoreStart
 			if ( empty( $value ) ) {
 				continue;
 			}
+			// @codeCoverageIgnoreEnd
 
 			if ( $entry_type->type === 'taxonomy' && isset( $wp_taxonomies[$meta_type_value]->labels->$key ) ) {
 				$wp_taxonomies[$meta_type_value]->labels->$key = $value;
