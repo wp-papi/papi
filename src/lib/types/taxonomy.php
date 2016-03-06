@@ -69,3 +69,19 @@ function papi_get_taxonomies() {
 
 	return array_unique( $taxonomies );
 }
+
+/**
+ * Set taxonomy type to a term.
+ *
+ * @param  mixed  $term_id
+ * @param  string $taxonomy_type
+ *
+ * @return bool
+ */
+function papi_set_taxonomy_type_id( $term_id, $taxonomy_type ) {
+	if ( papi_entry_type_exists( $taxonomy_type ) ) {
+		return update_term_meta( papi_get_term_id( $term_id ), papi_get_page_type_key(), $taxonomy_type );
+	}
+
+	return false;
+}

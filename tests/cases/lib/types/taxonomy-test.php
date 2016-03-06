@@ -72,4 +72,16 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 		papi()->remove( 'entry_type_id.taxonomy.post_tag' );
 		unset( $_GET['taxonomy'] );
 	}
+
+	public function test_papi_set_taxonomy_type_id() {
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
+		} );
+
+		$this->assertFalse( papi_set_taxonomy_type_id( 0, 'hello' ) );
+		$term_id = $this->factory->term->create();
+		$this->assertFalse( papi_set_taxonomy_type_id( $term_id, 'hello' ) );
+		$this->assertNotFalse( papi_set_taxonomy_type_id( $term_id, 'simple-taxonomy-type' ) );
+		$this->assertSame( 'simple-taxonomy-type', papi_get_taxonomy_type_id( $term_id ) );
+	}
 }
