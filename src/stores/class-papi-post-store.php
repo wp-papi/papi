@@ -33,7 +33,7 @@ class Papi_Post_Store extends Papi_Core_Meta_Store {
 
 		$this->post       = get_post( $this->id );
 		$id               = papi_get_page_type_id( $this->id );
-		$this->type_class = papi_get_page_type_by_id( $id );
+		$this->type_class = papi_get_entry_type_by_id( $id );
 	}
 
 	/**
@@ -73,7 +73,7 @@ class Papi_Post_Store extends Papi_Core_Meta_Store {
 	 */
 	public function get_property( $slug, $child_slug = '' ) {
 		$page_type_id = papi_get_page_type_id( $this->id );
-		$page_type    = papi_get_page_type_by_id( $page_type_id );
+		$page_type    = papi_get_entry_type_by_id( $page_type_id );
 
 		if ( $page_type instanceof Papi_Page_Type === false ) {
 			return;

@@ -22,10 +22,10 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$page_type = papi_get_page_type_by_id( 'display-not-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'display-not-page-type' );
 		$this->assertFalse( papi_display_page_type( $page_type ) );
 
-		$page_type = papi_get_page_type_by_id( 'empty-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'empty-page-type' );
 		$this->assertTrue( papi_display_page_type( $page_type ) );
 
 		tests_add_filter( 'papi/settings/show_page_type_page', function ( $page_type ) {
@@ -36,12 +36,12 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 			return true;
 		} );
 
-		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 		$this->assertFalse( papi_display_page_type( $page_type ) );
 
 		$GET['post_type'] = 'module';
 
-		$page_type = papi_get_page_type_by_id( 'faq-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'faq-page-type' );
 		$this->assertFalse( papi_display_page_type( $page_type ) );
 
 		$type          = 'papi-standard-page-type';
@@ -60,7 +60,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		update_post_meta( $post_id, papi_get_page_type_key(), 'faq-page-type' );
 
 		$_GET['post_parent'] = $post_id;
-		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 		$this->assertTrue( papi_display_page_type( $page_type ) );
 	}
 
@@ -128,23 +128,6 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$this->flush_cache();
 		$actual = papi_get_page_type_template( $this->post_id );
 		$this->assertSame( 'pages/dot2.php', $actual );
-	}
-
-	public function test_papi_get_page_type_by_id() {
-		$this->assertNull( papi_get_page_type_by_id( 0 ) );
-		$this->assertNull( papi_get_page_type_by_id( [] ) );
-		$this->assertNull( papi_get_page_type_by_id( (object) [] ) );
-		$this->assertNull( papi_get_page_type_by_id( true ) );
-		$this->assertNull( papi_get_page_type_by_id( false ) );
-		$this->assertNull( papi_get_page_type_by_id( null ) );
-		$this->assertNull( papi_get_page_type_by_id( 'page' ) );
-
-		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
-		} );
-
-		$simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
-		$this->assertTrue( is_object( $simple_page_type ) );
 	}
 
 	public function test_papi_get_page_type_id_meta_value() {

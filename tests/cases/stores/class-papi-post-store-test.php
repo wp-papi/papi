@@ -75,7 +75,7 @@ class Papi_Post_Store_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 		$property  = $page_type->get_property( 'name' );
 
 		$this->assertSame( 'string', $property->get_option( 'type' ) );

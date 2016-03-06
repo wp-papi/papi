@@ -196,7 +196,7 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 
 		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
 
-		$simple_page_type  = papi_get_page_type_by_id( 'simple-page-type' );
+		$simple_page_type  = papi_get_entry_type_by_id( 'simple-page-type' );
 		$sections_prop     = $simple_page_type->get_property( 'sections' );
 		$title_prop        = $simple_page_type->get_property( 'sections[0][title]' );
 		$title_prop2       = clone $title_prop->get_options();

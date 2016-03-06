@@ -73,7 +73,7 @@ if ( ! function_exists( 'papi_management_page_type_render_box' ) ) {
 
 	<?php
 	$page_type = papi_get_qs( 'page_type' );
-	$page_type = papi_get_page_type_by_id( $page_type );
+	$page_type = papi_get_entry_type_by_id( $page_type );
 
 	if ( empty( $page_type ) ):
 	?>

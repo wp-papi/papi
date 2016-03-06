@@ -15,7 +15,7 @@ function papi_display_page_type( $page_type ) {
 	}
 
 	if ( is_string( $page_type ) ) {
-		$page_type = papi_get_page_type_by_id( $page_type );
+		$page_type = papi_get_entry_type_by_id( $page_type );
 	}
 
 	if ( ! is_object( $page_type ) ) {
@@ -85,17 +85,6 @@ function papi_get_all_page_types( $post_type = '' ) {
  */
 function papi_get_page( $id = 0, $type = 'post' ) {
 	return papi_get_meta_store( $id, $type );
-}
-
-/**
- * Get page type by id.
- *
- * @param  string $id
- *
- * @return Papi_Page_Type
- */
-function papi_get_page_type_by_id( $id ) {
-	return papi_get_entry_type_by_id( $id );
 }
 
 /**

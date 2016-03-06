@@ -388,7 +388,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$page_type  = papi_get_page_type_by_id( 'name-page-type' );
+		$page_type  = papi_get_entry_type_by_id( 'name-page-type' );
 		$boxes      = $page_type->get_boxes();
 		$properties = $boxes[0]->properties;
 		$this->assertSame( 'papi_my_name_is', $properties[0]->get_slug() );

@@ -24,7 +24,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 	public function test_converter() {
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'properties-page-type' );
 
-		$page_type = papi_get_page_type_by_id( 'properties-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'properties-page-type' );
 		$flexible  = $page_type->get_property( 'flexible_test_other' );
 
 		$this->assertSame( 'flexible', $flexible->type );
@@ -192,21 +192,21 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_disabled() {
-		$page_type = papi_get_page_type_by_id( 'properties-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'properties-page-type' );
 		$property  = $page_type->get_property( 'string_test' );
 		$this->assertFalse( $property->disabled() );
 
-		$page_type2 = papi_get_page_type_by_id( 'faq-page-type' );
+		$page_type2 = papi_get_entry_type_by_id( 'faq-page-type' );
 		$property2  = $page_type2->get_property( 'type' );
 		$this->assertTrue( $property2->disabled() );
 	}
 
 	public function test_display() {
-		$page_type = papi_get_page_type_by_id( 'properties-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'properties-page-type' );
 		$property  = $page_type->get_property( 'string_test' );
 		$this->assertTrue( $property->display() );
 
-		$page_type2 = papi_get_page_type_by_id( 'faq-page-type' );
+		$page_type2 = papi_get_entry_type_by_id( 'faq-page-type' );
 		$property2  = $page_type2->get_property( 'type' );
 		$this->assertFalse( $property2->display() );
 	}
@@ -532,12 +532,12 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 
 	public function test_post_type_option() {
 		$_GET['post_type'] = 'faq';
-		$page_type2 = papi_get_page_type_by_id( 'faq-page-type' );
+		$page_type2 = papi_get_entry_type_by_id( 'faq-page-type' );
 		$property2  = $page_type2->get_property( 'question' );
 		$this->assertFalse( $property2->disabled() );
 
 		$_GET['post_type'] = 'page';
-		$page_type2 = papi_get_page_type_by_id( 'faq-page-type' );
+		$page_type2 = papi_get_entry_type_by_id( 'faq-page-type' );
 		$property2  = $page_type2->get_property( 'question' );
 		$this->assertTrue( $property2->disabled() );
 		unset( $_GET['post_type'] );

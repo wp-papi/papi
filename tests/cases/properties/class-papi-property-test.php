@@ -47,7 +47,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 
-		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 		$property  = $page_type->get_property( 'name_default' );
 
 		$this->assertSame( 'Fredrik', $property->get_value() );
@@ -173,28 +173,28 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_render_with_after_class() {
-		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 		$property  = $page_type->get_property( 'siffran' );
 		$property->render();
 		$this->expectOutputRegex( '/class=\"papi-after-html tva-siffra\"/' );
 	}
 
 	public function test_render_with_after_html() {
-		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 		$property  = $page_type->get_property( 'siffran' );
 		$property->render();
 		$this->expectOutputRegex( '/\>Två siffra\<\/div\>/' );
 	}
 
 	public function test_render_with_before_class() {
-		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 		$property  = $page_type->get_property( 'siffran' );
 		$property->render();
 		$this->expectOutputRegex( '/class=\"papi-before-html en-siffra\"/' );
 	}
 
 	public function test_render_with_before_html() {
-		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 		$property  = $page_type->get_property( 'siffran' );
 		$property->render();
 		$this->expectOutputRegex( '/\>En siffra\<\/div\>/' );

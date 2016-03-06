@@ -12,9 +12,9 @@ class Papi_Page_Type_Meta_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$this->display_not_page_type = papi_get_page_type_by_id( 'display-not-page-type' );
-		$this->faq_page_type = papi_get_page_type_by_id( 'faq-page-type' );
-		$this->simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$this->display_not_page_type = papi_get_entry_type_by_id( 'display-not-page-type' );
+		$this->faq_page_type = papi_get_entry_type_by_id( 'faq-page-type' );
+		$this->simple_page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 		$this->empty_page_type = new Papi_Page_Type();
 	}
 

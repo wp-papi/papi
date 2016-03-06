@@ -11,7 +11,7 @@ class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 
 		$this->driver    = new Papi_Porter_Driver_Core();
 		$this->post_id   = $this->factory->post->create();
-		$this->page_type = papi_get_page_type_by_id( 'properties-page-type' );
+		$this->page_type = papi_get_entry_type_by_id( 'properties-page-type' );
 
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'properties-page-type' );
 	}

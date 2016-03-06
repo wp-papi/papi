@@ -117,14 +117,14 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 		$this->assertTrue( papi_filter_settings_show_page_type( 'post', $page_type ) );
 
 		tests_add_filter( 'papi/settings/show_page_type_post', function ( $page_type ) {
 			return 'no';
 		} );
 
-		$page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 		$this->assertFalse( papi_filter_settings_show_page_type( 'post', $page_type ) );
 	}
 

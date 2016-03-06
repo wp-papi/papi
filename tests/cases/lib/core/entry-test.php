@@ -28,7 +28,7 @@ class Papi_Lib_Core_Entry_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 		$this->assertSame( 1, papi_get_entry_type_count( 'simple-page-type' ) );
 
-		$simple_page_type = papi_get_page_type_by_id( 'simple-page-type' );
+		$simple_page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 
 		$this->assertSame( 1, papi_get_entry_type_count( $simple_page_type ) );
 	}

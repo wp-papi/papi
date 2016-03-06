@@ -12,7 +12,7 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		$this->page_type = papi_get_page_type_by_id( 'options/header-option-type' );
+		$this->page_type = papi_get_entry_type_by_id( 'options/header-option-type' );
 		$this->property  = $this->page_type->get_property( 'name' );
 	}
 
