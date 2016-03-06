@@ -15,8 +15,8 @@ class Papi_Taxonomy_Type_Test extends WP_UnitTestCase {
 		$this->term_id = $this->factory->term->create();
 
 		$this->empty_taxonomy_type      = new Papi_Taxonomy_Type();
-		$this->properties_taxonomy_type = papi_get_taxonomy_type_by_id( 'properties-taxonomy-type' );
-		$this->simple_taxonomy_type     = papi_get_taxonomy_type_by_id( 'simple-taxonomy-type' );
+		$this->properties_taxonomy_type = papi_get_entry_type_by_id( 'properties-taxonomy-type' );
+		$this->simple_taxonomy_type     = papi_get_entry_type_by_id( 'simple-taxonomy-type' );
 	}
 
 	public function tearDown() {

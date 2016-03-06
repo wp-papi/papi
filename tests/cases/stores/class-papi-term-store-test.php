@@ -60,7 +60,7 @@ class Papi_Term_Store_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Number', $property->title );
 		$this->assertSame( 'papi_number_test', $property->slug );
 
-		$taxonomies_type = papi_get_taxonomy_type_by_id( 'properties-taxonomy-type' );
+		$taxonomies_type = papi_get_entry_type_by_id( 'properties-taxonomy-type' );
 		$property  = $taxonomies_type->get_property( 'string_test' );
 
 		$this->assertSame( 'string', $property->get_option( 'type' ) );
