@@ -218,13 +218,14 @@ function papi_get_entry_type_by_meta_id( $id = 0, $type = 'post' ) {
 		return;
 	}
 
-	$id = papi_get_meta_id( $type, $id );
+	$type = papi_get_meta_type( $type );
+	$id   = papi_get_meta_id( $type, $id );
 
 	if ( $id === 0 ) {
 		return;
 	}
 
-	if ( $entry_type = papi_get_entry_type_id( $id ) ) {
+	if ( $entry_type = papi_get_entry_type_id( $id, $type === 'post' ? null : $type ) ) {
 		return papi_get_entry_type_by_id( $entry_type );
 	}
 }

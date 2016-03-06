@@ -44,24 +44,24 @@ class Papi_Conditional_Rules {
 	 * @return mixed
 	 */
 	private function convert_prop( $value, Papi_Core_Conditional_Rule $rule ) {
-		$post_id   = papi_get_post_id();
-		$page_type = papi_get_entry_type_by_meta_id( $post_id );
+		$meta_id    = papi_get_meta_id();
+		$entry_type = papi_get_entry_type_by_meta_id( $meta_id );
 
-		if ( ! papi_is_empty( $value ) && $page_type instanceof Papi_Page_Type !== false ) {
-			$property = $page_type->get_property( $rule->slug );
+		if ( ! papi_is_empty( $value ) && $entry_type instanceof Papi_Entry_Type !== false ) {
+			$property = $entry_type->get_property( $rule->slug );
 
 			if ( papi_is_property( $property ) ) {
 				$prop_value = $property->format_value(
 					$value,
 					$property->slug,
-					$post_id
+					$meta_id
 				);
 
 				$prop_value = papi_filter_format_value(
 					$property->type,
 					$prop_value,
 					$property->slug,
-					$post_id
+					$meta_id
 				);
 
 				$prop_value = $this->get_deep_value(
@@ -151,12 +151,12 @@ class Papi_Conditional_Rules {
 	 */
 	private function get_value( Papi_Core_Conditional_Rule $rule ) {
 		if ( papi_doing_ajax() ) {
-			$source    = $rule->get_source();
-			$post_id   = papi_get_post_id();
-			$page_type = papi_get_entry_type_by_meta_id( $post_id );
+			$source     = $rule->get_source();
+			$meta_id    = papi_get_meta_id();
+			$entry_type = papi_get_entry_type_by_meta_id( $meta_id );
 
-			if ( ! papi_is_empty( $source ) && $page_type instanceof Papi_Page_Type !== false ) {
-				if ( papi_is_property( $page_type->get_property( $rule->slug ) ) ) {
+			if ( ! papi_is_empty( $source ) && $entry_type instanceof Papi_Entry_Type !== false ) {
+				if ( papi_is_property( $entry_type->get_property( $rule->slug ) ) ) {
 					return $this->get_deep_value( $rule->slug, $source );
 				}
 			}
@@ -170,6 +170,8 @@ class Papi_Conditional_Rules {
 
 		if ( papi_get_meta_type() === 'option' ) {
 			$value = papi_get_option( $slug );
+		} else if ( papi_get_meta_type() === 'term' ) {
+			$value = papi_get_term_field( $slug );
 		} else {
 		 	$value = papi_get_field( $slug );
 		}

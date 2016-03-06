@@ -184,6 +184,8 @@ final class Papi_Porter extends Papi_Container {
 	 */
 	protected function get_import_options( $options ) {
 		$default_options = [
+			'meta_id'       => 0,
+			'meta_type'     => 'post',
 			'post_id'       => 0,
 			'page_type'     => '',
 			'update_arrays' => false
@@ -195,7 +197,7 @@ final class Papi_Porter extends Papi_Container {
 			] );
 		}
 
-		return $options;
+		return array_merge( $default_options, $options );
 	}
 
 	/**
@@ -218,9 +220,10 @@ final class Papi_Porter extends Papi_Container {
 	 * @return bool
 	 */
 	public function import( $options, array $fields = [] ) {
-		$options   = $this->get_import_options( $options );
-		$post_id   = $options['post_id'];
-		$page_type = $options['page_type'];
+		$options    = $this->get_import_options( $options );
+		$meta_id    = empty( $options['meta_id'] ) ? $options['post_id'] : $options['meta_id'];
+		$meta_type  = $options['meta_type'];
+		$entry_type = $options['page_type'];
 
 		if ( isset( $options['update_arrays'] ) ) {
 			$this->driver->set_options( [
@@ -228,19 +231,19 @@ final class Papi_Porter extends Papi_Container {
 			] );
 		}
 
-		if ( empty( $post_id ) || empty( $fields ) ) {
+		if ( empty( $meta_id ) || empty( $fields ) ) {
 			return false;
 		}
 
-		if ( empty( $page_type ) ) {
-			$page_type = papi_get_entry_type_by_meta_id( $options['post_id'] );
+		if ( empty( $entry_type ) ) {
+			$entry_type = papi_get_entry_type_by_meta_id( $meta_id, $meta_type );
 		}
 
-		if ( is_string( $page_type ) ) {
-			$page_type = papi_get_entry_type_by_id( $page_type );
+		if ( is_string( $entry_type ) ) {
+			$entry_type = papi_get_entry_type_by_id( $entry_type );
 		}
 
-		if ( ! papi_is_page_type( $page_type ) ) {
+		if ( $entry_type instanceof Papi_Entry_Type === false ) {
 			return false;
 		}
 
@@ -251,7 +254,7 @@ final class Papi_Porter extends Papi_Container {
 				continue;
 			}
 
-			$property = $page_type->get_property( $slug );
+			$property = $entry_type->get_property( $slug );
 
 			if ( ! papi_is_property( $property ) ) {
 				$result = false;
@@ -265,7 +268,7 @@ final class Papi_Porter extends Papi_Container {
 			] );
 
 			$value = $this->get_value( [
-				'post_id'  => $post_id,
+				'post_id'  => $meta_id,
 				'property' => $property,
 				'slug'     => $slug,
 				'value'    => $value
@@ -278,8 +281,9 @@ final class Papi_Porter extends Papi_Container {
 			] );
 
 			$out = papi_update_property_meta_value( [
-				'id'    => $post_id,
+				'id'    => $meta_id,
 				'slug'  => $slug,
+				'type'  => $meta_type,
 				'value' => $value
 			] );
 

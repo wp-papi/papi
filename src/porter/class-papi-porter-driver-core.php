@@ -29,9 +29,14 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
 	 * @return mixed
 	 */
 	public function get_value( array $options = [] ) {
-		if ( ! isset( $options['post_id'] ) || ! is_int( $options['post_id'] ) ) {
+		// Backward compability.
+		if ( ! empty( $options['post_id'] ) ) {
+			$options['meta_id'] = $options['post_id'];
+		}
+
+		if ( ! isset( $options['meta_id'] ) || ! is_int( $options['meta_id'] ) ) {
 			throw new InvalidArgumentException(
-				'Missing `post_id` option. Should be int.'
+				'Missing `meta_id` option. Should be int.'
 			);
 		}
 
@@ -54,7 +59,8 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
 			$options['property'],
 			$value,
 			$options['slug'],
-			$options['post_id']
+			$options['meta_id'],
+			isset( $options['meta_type'] ) ? $options['meta_type'] : 'post'
 		);
 
 		return papi_maybe_json_decode( maybe_unserialize( $value ) );
@@ -66,23 +72,24 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
 	 * @param  Papi_Core_Property $property
 	 * @param  mixed  $value
 	 * @param  string $slug
-	 * @param  int    $post_id
+	 * @param  int    $meta_id
+	 * @param  string $meta_type
 	 *
 	 * @return array
 	 */
-	protected function update_value( $property, $value, $slug, $post_id ) {
+	protected function update_value( $property, $value, $slug, $meta_id, $meta_type = 'post' ) {
 		if ( ! is_array( $value ) || ! $this->should_update_array( $slug ) ) {
-			return $property->import_value( $value, $slug, $post_id );
+			return $property->import_value( $value, $slug, $meta_id );
 		}
 
-		$old   = papi_get_field( $post_id, $slug, [] );
+		$old   = papi_get_field( $meta_id, $slug, [], null, $meta_type );
 		$value = array_merge( $old, $value );
-		$value = $property->import_value( $value, $slug, $post_id );
+		$value = $property->import_value( $value, $slug, $meta_id, $meta_type );
 
 		if ( $property->import_setting( 'property_array_slugs' ) ) {
 			return papi_from_property_array_slugs( $value, $slug );
 		}
 
-		return $property->update_value( $value, $slug, $post_id );
+		return $property->update_value( $value, $slug, $meta_id, $meta_type );
 	}
 }

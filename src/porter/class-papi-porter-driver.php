@@ -25,11 +25,12 @@ abstract class Papi_Porter_Driver {
 	 * @var array
 	 */
 	protected $options = [
-		'custom'   => [],
-		'post_id'  => 0,
-		'property' => null,
-		'slug'     => '',
-		'value'    => null
+		'custom'    => [],
+		'meta_id'   => 0,
+		'meta_type' => 'post',
+		'property'  => null,
+		'slug'      => '',
+		'value'     => null
 	];
 
 	/**
@@ -38,13 +39,6 @@ abstract class Papi_Porter_Driver {
 	 * @var Papi_Porter
 	 */
 	protected $porter;
-
-	/**
-	 * The post id.
-	 *
-	 * @var int
-	 */
-	protected $post_id;
 
 	/**
 	 * The constructor.

@@ -1,12 +1,15 @@
 <?php
 
+/**
+ * @group porter
+ */
 class Papi_Porter_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types',  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 
 		$this->porter = new Papi_Porter();
@@ -172,6 +175,21 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 			] );
 
 		$this->assertFalse( $output );
+	}
+
+	public function test_import_taxonomy() {
+		$term_id = $this->factory->term->create();
+		update_term_meta( $term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
+
+		$output = $this->porter->import( [
+			'meta_id'   => $term_id,
+			'meta_type' => 'term'
+		], [
+			'bool_test' => true
+		] );
+
+		$this->assertTrue( $output );
+		$this->assertTrue( papi_get_term_field( $term_id, 'bool_test' ) );
 	}
 
 	public function test_use_driver() {

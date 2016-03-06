@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group porter
+ */
 class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -35,11 +38,12 @@ class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 
 	public function test_get_options() {
 		$expected = [
-			'custom'   => [],
-			'post_id'  => 0,
-			'property' => null,
-			'slug'     => '',
-			'value'    => null
+			'custom'    => [],
+			'meta_id'   => 0,
+			'meta_type' => 'post',
+			'property'  => null,
+			'slug'      => '',
+			'value'     => null
 		];
 
 		$this->assertSame( $expected, $this->driver->get_options() );
@@ -49,7 +53,7 @@ class Papi_Porter_Driver_Core_Test extends WP_UnitTestCase {
 		try {
 			$this->driver->get_value( [] );
 		} catch ( InvalidArgumentException $e ) {
-			$this->assertSame( 'Missing `post_id` option. Should be int.', $e->getMessage() );
+			$this->assertSame( 'Missing `meta_id` option. Should be int.', $e->getMessage() );
 		}
 
 		try {
