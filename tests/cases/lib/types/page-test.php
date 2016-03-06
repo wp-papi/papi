@@ -98,38 +98,6 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$this->assertNull( $page );
 	}
 
-	public function test_papi_get_page_type_template() {
-		$this->assertNull( papi_get_page_type_template() );
-		$this->assertNull( papi_get_page_type_template( 0 ) );
-		$this->assertNull( papi_get_page_type_template( null ) );
-
-		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
-		} );
-
-		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
-
-		$this->flush_cache();
-		$actual = papi_get_page_type_template( $this->post_id );
-		$this->assertSame( 'pages/simple-page.php', $actual );
-
-		$_GET['page_id'] = $this->post_id;
-		$this->assertSame( 'pages/simple-page.php', papi_get_page_type_template() );
-		unset( $_GET['page_id'] );
-
-		update_post_meta( $this->post_id, papi_get_page_type_key(), 'dot-page-type' );
-
-		$this->flush_cache();
-		$actual = papi_get_page_type_template( $this->post_id );
-		$this->assertSame( 'pages/dot.php', $actual );
-
-		update_post_meta( $this->post_id, papi_get_page_type_key(), 'dot2-page-type' );
-
-		$this->flush_cache();
-		$actual = papi_get_page_type_template( $this->post_id );
-		$this->assertSame( 'pages/dot2.php', $actual );
-	}
-
 	public function test_papi_get_page_type_id_meta_value() {
 		$this->assertEmpty( papi_get_page_type_id() );
 

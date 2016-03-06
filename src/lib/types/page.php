@@ -137,17 +137,6 @@ function papi_get_page_type_name( $post_id = 0 ) {
 }
 
 /**
- * Get template file from post id.
- *
- * @param  int $post_id
- *
- * @return null|string
- */
-function papi_get_page_type_template( $post_id = 0 ) {
-	return papi_get_entry_type_template( $post_id );
-}
-
-/**
  * Get all post types Papi should work with.
  *
  * @return array
