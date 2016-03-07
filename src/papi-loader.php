@@ -190,6 +190,8 @@ final class Papi_Loader extends Papi_Container {
 			'core/entry.php',
 			'hooks/actions.php',
 			'hooks/filters.php',
+			'hooks/filters-page-type.php',
+			'hooks/filters-taxonomy-type.php',
 			'fields/page.php',
 			'fields/option.php',
 			'fields/taxonomy.php',

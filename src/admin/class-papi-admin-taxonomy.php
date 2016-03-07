@@ -38,6 +38,9 @@ final class Papi_Admin_Taxonomy {
 			return;
 		}
 
+		// Prepare taxonomy types with standard taxonomy type.
+		$taxonomy_types = $this->prepare_taxonomy_types( $taxonomy_types );
+
 		// Render a dropdown if more than one taxonomy types
 		// exists on the taxonomy.
 		if ( count( $taxonomy_types ) > 1 ):
@@ -64,6 +67,32 @@ final class Papi_Admin_Taxonomy {
 				'value'                   => esc_attr( $taxonomy_types[0]->get_id() )
 			] );
 		endif;
+	}
+
+	/**
+	 * Prepare taxonomy types, add standard taxonomy if it should be added.
+	 *
+	 * @param  array $taxonomy_types
+	 *
+	 * @return array
+	 */
+	private function prepare_taxonomy_types( array $taxonomy_types ) {
+		$taxonomy = papi_get_qs( 'taxonomy' );
+
+		if ( papi_filter_settings_show_standard_taxonomy_type( $taxonomy ) ) {
+			$id                      = sprintf( 'papi-standard-%s-type', $taxonomy );
+			$taxonomy_type           = new Papi_Taxonomy_Type( $id );
+			$taxonomy_type->id       = $id;
+			$taxonomy_type->name     = papi_filter_settings_standard_taxonomy_type_name( $taxonomy );
+			$taxonomy_type->taxonomy = [$taxonomy];
+			$taxonomy_types[]        = $taxonomy_type;
+		}
+
+		usort( $taxonomy_types, function ( $a, $b ) {
+			return strcmp( $a->name, $b->name );
+		} );
+
+		return papi_sort_order( array_reverse( $taxonomy_types ) );
 	}
 
 	/**

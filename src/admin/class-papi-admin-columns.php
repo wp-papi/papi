@@ -107,7 +107,7 @@ final class Papi_Admin_Columns {
 			echo esc_html( $entry_type->name );
 		} else {
 			// New filter needed for taxonomy standard name.
-			echo esc_html( papi_filter_settings_standard_page_name(
+			echo esc_html( papi_filter_settings_standard_page_type_name(
 				papi_get_meta_type() === 'post' ? papi_get_post_type() : papi_get_taxonomy()
 			) );
 		}
@@ -158,7 +158,7 @@ final class Papi_Admin_Columns {
 			// Add the standard page that isn't a real page type.
 			if ( papi_filter_settings_show_standard_page_type_in_filter( $this->post_type ) ) {
 				$page_types[] = [
-					'name'  => papi_filter_settings_standard_page_name( $this->post_type ),
+					'name'  => papi_filter_settings_standard_page_type_name( $this->post_type ),
 					'value' => 'papi-standard-page'
 				];
 			}
@@ -213,10 +213,7 @@ final class Papi_Admin_Columns {
 	private function setup_filters() {
 		// Setup post type actions.
 		if ( ! empty( $this->post_type ) && empty( $this->taxonomy ) ) {
-			add_filter( sprintf( 'manage_%s_posts_columns', $this->post_type ), [
-				$this,
-				'manage_page_type_posts_columns'
-			] );
+			add_filter( sprintf( 'manage_%s_posts_columns', $this->post_type ), [$this, 'manage_page_type_posts_columns'] );
 		}
 
 		// Setup taxonomy actions.

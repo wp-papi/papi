@@ -12,7 +12,7 @@ class Simple_Taxonomy_Type extends Papi_Taxonomy_Type {
 			'name'        => 'Simple taxonomy',
 			'description' => 'This is a simple taxonomy',
 			'template'    => 'pages/simple-taxonomy.php',
-			'taxonomy'    => ['post_tag', 'category', 'test_taxonomy'],
+			'taxonomy'    => ['post_tag', 'category', 'test_taxonomy', 'faq'],
 			'fill_labels' => true,
 			'labels'      => [
 				'name'          => 'Simple taxonomy',

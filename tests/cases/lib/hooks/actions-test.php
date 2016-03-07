@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group hooks
+ */
 class Papi_Lib_Actions_Test extends WP_UnitTestCase {
 
 	public function test_papi_action_delete_value() {

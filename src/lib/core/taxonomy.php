@@ -55,6 +55,23 @@ function papi_get_taxonomy( $term_id = null ) {
 }
 
 /**
+ * Get taxonomy label.
+ *
+ * @param  string $taxonomy
+ * @param  string $label
+ * @param  string $default
+ *
+ * @return string
+ */
+function papi_get_taxonomy_label( $taxonomy, $label, $default = '' ) {
+	if ( ! taxonomy_exists( $taxonomy ) ) {
+		return $default;
+	}
+
+	return get_taxonomy( $taxonomy )->labels->$label;
+}
+
+/**
  * Determine if Papi can support term meta.
  *
  * @return bool
