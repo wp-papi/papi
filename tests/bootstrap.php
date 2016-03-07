@@ -11,12 +11,11 @@ WP_Test_Suite::load_plugins( __DIR__ . '/../papi-loader.php' );
 
 // Load our helpers file.
 WP_Test_Suite::load_files( [
-	__DIR__ . '/data/functions.php',
 	__DIR__ . '/framework/helpers.php',
 	__DIR__	. '/framework/class-papi-property-test-case.php'
 ] );
 
 // Run the WordPress test suite.
 WP_Test_Suite::run( function () {
-	require_once __DIR__ . '/framework/run.php';
+	require_once __DIR__ . '/framework/functions.php';
 } );

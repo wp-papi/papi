@@ -71,6 +71,37 @@ function papi_test_register_book_post_type() {
 }
 
 /**
+ * Add custom taxonomy `FAQ taxonomy`.
+ */
+function papi_test_register_faq_taxonomy() {
+	$labels = [
+		'name'              => 'FAQ taxonomy',
+		'singular_name'     => 'FAQ',
+		'search_items'      => 'Search FAQs',
+		'all_items'         => 'All FAQs',
+		'parent_item'       => 'Parent FAQ',
+		'parent_item_colon' => 'Parent FAQ:',
+		'edit_item'         => 'Edit FAQ',
+		'update_item'       => 'Update FAQ',
+		'add_new_item'      => 'Add New FAQ',
+		'new_item_name'     => 'New FAQ Name',
+		'menu_name'         => 'FAQ taxonomy',
+		'view_item'         => 'View FAQ'
+	];
+	$args = [
+		'hierarchical'      => true,
+		'labels'            => $labels,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+	];
+
+	register_taxonomy( 'faq', ['post'], $args );
+}
+
+add_action( 'init', 'papi_test_register_faq_taxonomy' );
+
+/**
  * Register a hidden post type.
  */
 function papi_test_register_hidden_post_type() {
