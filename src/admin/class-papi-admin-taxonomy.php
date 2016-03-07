@@ -10,7 +10,7 @@ final class Papi_Admin_Taxonomy {
 	 *
 	 * @var array
 	 */
-	protected $taxonomy_types;
+	protected $taxonomy_types = [];
 
 	/**
 	 * The construct.
