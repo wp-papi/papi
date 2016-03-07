@@ -83,4 +83,24 @@ class Papi_Lib_Core_Meta_Test extends WP_UnitTestCase {
 
 		$current_screen = null;
 	}
+
+	public function test_papi_get_meta_type_admin_ajax() {
+		global $current_screen;
+
+		$current_screen = WP_Screen::get( 'admin_init' );
+
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
+
+		$_POST['post_type'] = 'post';
+		$_POST['taxonomy'] = 'test';
+		$this->assertSame( 'term', papi_get_meta_type() );
+		unset( $_POST['taxonomy'] );
+
+		$this->assertSame( 'post', papi_get_meta_type() );
+		unset( $_POST['post_type'] );
+
+		$current_screen = null;
+	}
 }

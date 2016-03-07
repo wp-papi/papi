@@ -82,6 +82,17 @@ function papi_get_meta_type( $type = null ) {
 		}
 	}
 
+	// When doing ajax we need to check if it's a taxonomy ajax or a post type ajax.
+	if ( is_admin() && defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( isset( $_POST['taxonomy'] ) ) {
+			return 'term';
+		}
+
+		if ( isset( $_POST['post_type'] ) ) {
+			return 'post';
+		}
+	}
+
 	// On the frontend term should be returned if on a tag page.
 	if ( ! is_admin() && is_tag() ) {
 		return 'term';
