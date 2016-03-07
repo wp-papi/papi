@@ -1,7 +1,7 @@
 <?php
 
 if ( ! class_exists( 'FAQ_Taxonomy_Type' ) ) {
-	require_once __DIR__ . '/faq-Taxonomy-type.php';
+	require_once __DIR__ . '/faq-taxonomy-type.php';
 }
 
 class FAQ_Extra_Taxonomy_Type extends FAQ_Taxonomy_Type {
