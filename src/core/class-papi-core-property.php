@@ -322,11 +322,9 @@ class Papi_Core_Property {
 	 * @return string
 	 */
 	public function get_meta_type() {
-		if ( $store = $this->get_store() ) {
-			return $store->get_type();
-		}
+		$store = $this->get_store();
 
-		return papi_get_meta_type();
+		return $store ? $store->get_type() : papi_get_meta_type();
 	}
 
 	/**

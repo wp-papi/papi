@@ -283,6 +283,11 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		unset( $_GET['post'] );
 	}
 
+	public function test_get_meta_type() {
+		$property = new Papi_Core_Property();
+		$this->assertSame( 'post', $property->get_meta_type() );
+	}
+
 	public function test_get_option() {
 		$property = new Papi_Core_Property();
 
