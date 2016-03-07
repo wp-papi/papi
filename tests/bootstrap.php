@@ -17,4 +17,6 @@ WP_Test_Suite::load_files( [
 ] );
 
 // Run the WordPress test suite.
-WP_Test_Suite::run();
+WP_Test_Suite::run( function () {
+	require_once __DIR__ . '/framework/run.php';
+} );
