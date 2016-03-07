@@ -304,6 +304,10 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 	}
 
 	public function test_save_meta_boxes_taxonomy() {
+		if ( ! papi_supports_term_meta() ) {
+			$this->markTestSkipped( 'Term metadata is not supported' );
+		}
+
 		$property = $this->taxonomy_type->get_property( 'string_test' );
 
 		$_POST = papi_test_create_property_post_data( [
