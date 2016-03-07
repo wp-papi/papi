@@ -55,6 +55,14 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$this->assertSame( ['entry_type' => 'Typer'], $arr );
 	}
 
+	public function test_manage_page_type_posts_custom_column_simple() {
+		$_GET['post_type'] = 'page';
+		$admin = new Papi_Admin_Columns;
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
+		$admin->manage_page_type_posts_custom_column( 'entry_type', $this->post_id );
+		$this->expectOutputRegex( '/Simple\spage/' );
+	}
+
 	public function test_manage_page_type_posts_custom_column_empty() {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin_Columns;
