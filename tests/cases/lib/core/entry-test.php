@@ -143,6 +143,23 @@ class Papi_Lib_Core_Entry_Test extends WP_UnitTestCase {
 		unset( $_GET['page_id'] );
 	}
 
+	public function test_papi_get_entry_type_template() {
+		$this->assertNull( papi_get_entry_type_template( 0 ) );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types',  PAPI_FIXTURE_DIR . '/taxonomy-types'];
+		} );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
+		$this->assertSame( 'pages/simple-page.php', papi_get_entry_type_template( $this->post_id ) );
+
+		if ( papi_supports_term_meta() ) {
+			$term_id = $this->factory->term->create();
+			update_term_meta( $term_id, papi_get_page_type_key(), 'simple-taxonomy-type' );
+			$this->assertSame( 'pages/simple-taxonomy.php', papi_get_entry_type_template( $term_id, 'term' ) );
+		}
+	}
+
 	public function test_papi_get_entry_type_id() {
 		$_GET['entry_type'] = 'simple-page-type';
 		$this->assertSame( 'simple-page-type', papi_get_entry_type_id() );
