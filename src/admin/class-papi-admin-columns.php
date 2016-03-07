@@ -106,10 +106,11 @@ final class Papi_Admin_Columns {
 		if ( ! is_null( $entry_type ) ) {
 			echo esc_html( $entry_type->name );
 		} else {
-			// New filter needed for taxonomy standard name.
-			echo esc_html( papi_filter_settings_standard_page_type_name(
-				papi_get_meta_type() === 'post' ? papi_get_post_type() : papi_get_taxonomy()
-			) );
+			$post = ! empty( $this->post_type ) && empty( $this->taxonomy );
+			$arg  = $post ? papi_get_post_type() : papi_get_taxonomy();
+			$type = $post ? 'page' : 'taxonomy';
+
+			echo esc_html( call_user_func_array( "papi_filter_settings_standard_{$type}_type_name", [$arg] ) );
 		}
 	}
 
