@@ -163,10 +163,7 @@ final class Papi_Admin {
 
 			if ( count( $page_types ) === 1 && empty( $only_page_type ) ) {
 				$show_standard  = $page_types[0]->standard_type;
-				$show_standard  = $show_standard ?
-					papi_filter_settings_show_standard_page_type( $this->post_type ) :
-					$show_standard;
-
+				$show_standard  = $show_standard ? papi_filter_settings_show_standard_page_type( $this->post_type ) : $show_standard;
 				$only_page_type = $show_standard ? '' : $page_types[0]->get_id();
 			}
 
