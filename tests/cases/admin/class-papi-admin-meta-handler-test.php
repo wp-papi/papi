@@ -7,12 +7,14 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
+
 		$this->handler = new Papi_Admin_Meta_Handler;
 
 		tests_add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+			return [1,  PAPI_FIXTURE_DIR . '/page-types', PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 
+		$this->term_id = $this->factory->term->create();
 		$this->post_id = $this->factory->post->create();
 
 		$_GET = [];
@@ -20,8 +22,13 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'properties-page-type' );
 
+		if ( papi_supports_term_meta() ) {
+			update_term_meta( $this->term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
+		}
+
 		$this->page_type       = papi_get_entry_type_by_id( 'properties-page-type' );
 		$this->extra_page_type = papi_get_entry_type_by_id( 'extra-page-type' );
+		$this->taxonomy_type   = papi_get_entry_type_by_id( 'properties-taxonomy-type' );
 	}
 
 	public function tearDown() {
@@ -31,13 +38,17 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 			$_POST,
 			$this->handler,
 			$this->post_id,
+			$this->term_id,
 			$this->page_type,
-			$this->extra_page_type
+			$this->extra_page_type,
+			$this->taxonomy_type
 		);
 	}
 
 	public function test_actions() {
-		$this->assertGreaterThan( 0, has_action( 'save_post', [$this->handler, 'save_meta_boxes'] ) );
+		$this->assertSame( 1, has_action( 'save_post', [$this->handler, 'save_meta_boxes'] ) );
+		$this->assertSame( 1, has_action( 'created_term', [$this->handler, 'save_meta_boxes'] ) );
+		$this->assertSame( 1, has_action( 'edit_term', [$this->handler, 'save_meta_boxes'] ) );
 	}
 
 	public function test_save_meta_boxes() {
@@ -106,6 +117,9 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 		$this->assertSame( "I'm home", papi_get_field( $this->post_id, $property->slug ) );
 	}
 
+	/**
+	 * Wrong nonce.
+	 */
 	public function test_save_meta_boxes_fail_1() {
 		$property = $this->page_type->get_property( 'string_test' );
 
@@ -124,10 +138,12 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 		$this->handler->save_meta_boxes( $this->post_id, get_post( $this->post_id ) );
 		wp_set_current_user( 0 );
 
-		// wrong nonce
 		$this->assertNull( papi_get_field( $this->post_id, $property->slug ) );
 	}
 
+	/**
+	 * Wrong post id.
+	 */
 	public function test_save_meta_boxes_fail_2() {
 		$property = $this->page_type->get_property( 'string_test' );
 
@@ -145,10 +161,12 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 		$this->handler->save_meta_boxes( 0, null );
 		wp_set_current_user( 0 );
 
-		// wrong post id
 		$this->assertNull( papi_get_field( $this->post_id, $property->slug ) );
 	}
 
+	/**
+	 * Wrong capability.
+	 */
 	public function test_save_meta_boxes_fail_3() {
 		$property = $this->page_type->get_property( 'string_test' );
 
@@ -167,10 +185,12 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 		$this->handler->save_meta_boxes( $this->post_id, get_post( $this->post_id ) );
 		wp_set_current_user( 0 );
 
-		// wrong capability
 		$this->assertNull( papi_get_field( $this->post_id, $property->slug ) );
 	}
 
+	/**
+	 * Revision should not work.
+	 */
 	public function test_save_meta_boxes_fail_4() {
 		$post_id  = $this->factory->post->create();
 		$revs_id  = wp_save_post_revision( $post_id );
@@ -281,5 +301,101 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 		$this->flush_cache();
 		$post = get_post( $post_id );
 		$this->assertSame( 'Hello, world!', trim( $post->post_content ) );
+	}
+
+	public function test_save_meta_boxes_taxonomy() {
+		$property = $this->taxonomy_type->get_property( 'string_test' );
+
+		$_POST = papi_test_create_property_post_data( [
+			'slug'  => $property->slug,
+			'type'  => $property,
+			'value' => 'Hello, world!'
+		], $_POST );
+
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+		$_POST['term_id'] = $this->term_id;
+		$_GET['meta_type'] = 'term';
+
+		$this->handler->save_meta_boxes( $this->term_id );
+		wp_set_current_user( 0 );
+
+		$this->assertSame( 'Hello, world!', papi_get_term_field( $this->term_id, $property->slug ) );
+	}
+
+	/**
+	 * Wrong nonce.
+	 */
+	public function test_save_meta_boxes_taxonomy_fail_1() {
+		$property = $this->taxonomy_type->get_property( 'string_test' );
+
+		$_POST = papi_test_create_property_post_data( [
+			'slug'  => $property->slug,
+			'type'  => $property,
+			'value' => 'Hello, world!'
+		], $_POST );
+
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$_POST['papi_meta_nonce'] = '';
+		$_POST['term_id'] = $this->term_id;
+		$_GET['meta_type'] = 'term';
+
+		$this->handler->save_meta_boxes( $this->term_id );
+		wp_set_current_user( 0 );
+
+		$this->assertNull( papi_get_term_field( $this->term_id, $property->slug ) );
+	}
+
+	/**
+	 * Wrong term id.
+	 */
+	public function test_save_meta_boxes_taxonomy_fail_2() {
+		$property = $this->taxonomy_type->get_property( 'string_test' );
+
+		$_POST = papi_test_create_property_post_data( [
+			'slug'  => $property->slug,
+			'type'  => $property,
+			'value' => 'Hello, world!'
+		], $_POST );
+
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+		$_GET['meta_type'] = 'term';
+
+		$this->handler->save_meta_boxes( 0, null );
+		wp_set_current_user( 0 );
+
+		$this->assertNull( papi_get_field( $this->term_id, $property->slug ) );
+	}
+
+	/**
+	 * Wrong capability.
+	 */
+	public function test_save_meta_boxes_taxonomy_fail_3() {
+		$property = $this->taxonomy_type->get_property( 'string_test' );
+
+		$_POST = papi_test_create_property_post_data( [
+			'slug'  => $property->slug,
+			'type'  => $property,
+			'value' => 'Hello, world!'
+		], $_POST );
+
+		$user_id = $this->factory->user->create( [ 'role' => 'read' ] );
+		wp_set_current_user( $user_id );
+
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+		$_POST['term_id'] = $this->term_id;
+		$_GET['meta_type'] = 'term';
+
+		$this->handler->save_meta_boxes( $this->term_id );
+		wp_set_current_user( 0 );
+
+		$this->assertNull( papi_get_term_field( $this->term_id, $property->slug ) );
 	}
 }

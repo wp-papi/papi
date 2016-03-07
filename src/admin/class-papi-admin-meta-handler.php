@@ -78,7 +78,9 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		}
 		// @codeCoverageIgnoreEnd
 
-		if ( $this->get_meta_type() === 'post' ) {
+		$meta_type = $this->get_meta_type();
+
+		if ( $meta_type === 'post' ) {
 			// Check so the id is a post id and not a revision or autosave post.
 			if ( $this->valid_post_id( $id ) || is_int( wp_is_post_revision( $post ) ) || is_int( wp_is_post_autosave( $post ) ) ) {
 				return;
@@ -88,11 +90,9 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 			if ( ! current_user_can( 'edit_posts' ) || ! current_user_can( 'edit_pages' ) ) {
 				return;
 			}
-		}
-
-		if ( $this->get_meta_type() === 'term' ) {
+		} else if ( $meta_type === 'term' && $taxonomy = get_taxonomy( papi_get_taxonomy() ) ) {
 			// Check for any of the capabilities before we save the code.
-			if ( ! current_user_can( 'edit_terms' ) ) {
+			if ( $taxonomy && ! current_user_can( $taxonomy->cap->edit_terms ) ) {
 				return;
 			}
 		}
