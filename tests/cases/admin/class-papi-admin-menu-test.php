@@ -48,21 +48,24 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 
 	public function test_admin_bar_menu_taxonomy() {
 		global $wp_taxonomies;
-		$taxonomy = 'category';
+
+		papi_test_register_faq_taxonomy();
+
+		$taxonomy = 'faq';
 		$labels = $wp_taxonomies[$taxonomy]->labels;
 
 		$_GET['taxonomy'] = 1;
 		$this->menu->admin_bar_menu();
-		$this->assertSame( 'Add New Category', $labels->add_new_item );
-		$this->assertSame( 'Edit Category', $labels->edit_item );
-		$this->assertSame( 'View Category', $labels->view_item );
+		$this->assertSame( 'Add New FAQ', $labels->add_new_item );
+		$this->assertSame( 'Edit FAQ', $labels->edit_item );
+		$this->assertSame( 'View FAQ', $labels->view_item );
 
-		$_GET['taxonomy'] = 'category';
-		$_GET['entry_type'] = 'simple-taxonomy-type';
+		$_GET['taxonomy'] = 'faq';
+		$_GET['entry_type'] = 'faq-taxonomy-type';
 		$this->menu->admin_bar_menu();
-		$this->assertSame( 'Add New Simple taxonomy', $labels->add_new_item );
-		$this->assertSame( 'Edit Simple taxonomy', $labels->edit_item );
-		$this->assertSame( 'View Simple taxonomy', $labels->view_item );
+		$this->assertSame( 'Add New FAQ taxonomy', $labels->add_new_item );
+		$this->assertSame( 'Edit FAQ taxonomy', $labels->edit_item );
+		$this->assertSame( 'View FAQ taxonomy', $labels->view_item );
 	}
 
 	public function test_admin_bar_menu_2() {

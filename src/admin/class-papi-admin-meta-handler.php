@@ -90,6 +90,13 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 			}
 		}
 
+		if ( $this->get_meta_type() === 'term' ) {
+			// Check for any of the capabilities before we save the code.
+			if ( ! current_user_can( 'edit_terms' ) ) {
+				return;
+			}
+		}
+
 		// Check if our nonce is vailed.
 		if ( ! wp_verify_nonce( papi_get_sanitized_post( 'papi_meta_nonce' ), 'papi_save_data' ) ) {
 			return;
