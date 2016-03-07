@@ -79,8 +79,9 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		// @codeCoverageIgnoreEnd
 
 		$meta_type = $this->get_meta_type();
+		$post      = is_array( $post ) ? (object) $post : $post;
 
-		if ( $meta_type === 'post' && $post_type = get_post_type_object( ( (object) $post )->post_type ) ) {
+		if ( $meta_type === 'post' && $post_type = get_post_type_object( $post->post_type ) ) {
 			// Check so the id is a post id and not a revision or autosave post.
 			if ( $this->valid_post_id( $id ) || is_int( wp_is_post_revision( $post ) ) || is_int( wp_is_post_autosave( $post ) ) ) {
 				return;

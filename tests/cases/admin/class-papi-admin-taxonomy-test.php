@@ -5,6 +5,11 @@
  */
 class Papi_Admin_Taxonomy_Test extends WP_UnitTestCase {
 
+	public function setUp() {
+		parent::setUp();
+		papi()->remove( 'papi_get_all_core_type_files' );
+	}
+
 	public function test_add_form_fields_empty() {
 		$admin = new Papi_Admin_Taxonomy;
 		$admin->add_form_fields();
