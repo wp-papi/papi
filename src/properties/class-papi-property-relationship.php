@@ -66,11 +66,21 @@ class Papi_Property_Relationship extends Papi_Property {
 
 					$result[] = $post;
 				} else {
-					$item = array_filter( $items, function ( $item ) use ( $id ) {
-						return wp_list_pluck( [$item], 'id' )[0] === (int) $id;
-					} );
+					$id   = (int) $id;
+					$item = null;
 
-					$result[] = papi_maybe_convert_to_object( array_values( $item )[0] );
+					foreach ( (array) $items as $value ) {
+						$ids = wp_list_pluck( [$value], 'id' );
+
+						if ( is_array( $ids ) && array_shift( $ids ) === $id  ) {
+							$item = $value;
+							break;
+						}
+					}
+
+					if ( is_array( $item ) || is_object( $item ) ) {
+						$result[] = papi_maybe_convert_to_object( $item );
+					}
 				}
 			}
 
