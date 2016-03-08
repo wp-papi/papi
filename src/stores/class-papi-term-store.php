@@ -25,12 +25,7 @@ class Papi_Term_Store extends Papi_Core_Meta_Store {
 	 * @param int $id
 	 */
 	public function __construct( $id = 0 ) {
-		if ( $id === 0 ) {
-			$this->id = papi_get_term_id();
-		} else {
-			$this->id = intval( $id );
-		}
-
+		$this->id         = papi_get_term_id( $id );
 		$this->term       = get_term( $this->id, '' );
 		$id               = papi_get_taxonomy_type_id( $this->id );
 		$this->type_class = papi_get_entry_type_by_id( $id );

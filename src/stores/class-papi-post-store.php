@@ -25,12 +25,7 @@ class Papi_Post_Store extends Papi_Core_Meta_Store {
 	 * @param int $id
 	 */
 	public function __construct( $id = 0 ) {
-		if ( $id === 0 ) {
-			$this->id = papi_get_post_id();
-		} else {
-			$this->id = intval( $id );
-		}
-
+		$this->id         = papi_get_post_id( $id );
 		$this->post       = get_post( $this->id );
 		$id               = papi_get_page_type_id( $this->id );
 		$this->type_class = papi_get_entry_type_by_id( $id );
