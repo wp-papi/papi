@@ -52,6 +52,10 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 
 		$this->assertSame( 'Simple taxonomy', papi_get_taxonomy_type_name() );
 		$this->assertSame( 'Simple taxonomy', papi_get_taxonomy_type_name( $this->term_id ) );
+
+		update_term_meta( $this->term_id, papi_get_page_type_key(), 'simple-taxonomy-type2' );
+
+		$this->assertEmpty( papi_get_taxonomy_type_name( $this->term_id ) );
 	}
 
 	public function test_papi_get_taxonomies() {
