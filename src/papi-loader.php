@@ -65,7 +65,7 @@ final class Papi_Loader extends Papi_Container {
 	 * @codeCoverageIgnore
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.4.11' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.4.12' );
 	}
 
 	/**
@@ -74,7 +74,7 @@ final class Papi_Loader extends Papi_Container {
 	 * @codeCoverageIgnore
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.4.11' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '2.4.12' );
 	}
 
 	/**

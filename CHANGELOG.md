@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [2.4.12](https://github.com/wp-papi/papi/releases/tag/v2.4.12) - 2016-03-08
+
+Fixed: PHP Notice/Object issue for relationship when using custom relationship data.
+
 ## [2.4.11](https://github.com/wp-papi/papi/releases/tag/v2.4.11) - 2016-02-06
 
 Fixed: Edit link property did appear in the default editor.
