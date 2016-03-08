@@ -168,15 +168,9 @@ class Papi_Conditional_Rules {
 			return $this->get_deep_value( $rule->slug, $rule->get_source() );
 		}
 
-		$slug = $rule->get_field_slug();
-
-		if ( papi_get_meta_type() === 'option' ) {
-			$value = papi_get_option( $slug );
-		} else if ( papi_get_meta_type() === 'term' ) {
-			$value = papi_get_term_field( $slug );
-		} else {
-		 	$value = papi_get_field( $slug );
-		}
+		$slug  = $rule->get_field_slug();
+		$type  = papi_get_meta_type();
+		$value = papi_get_field( $slug, null, $type );
 
 		return $this->get_deep_value( $slug, $value );
 	}
