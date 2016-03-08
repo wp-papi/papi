@@ -116,7 +116,9 @@ final class Papi_Admin_Taxonomy {
 		$taxonomies = array_unique( $taxonomies );
 
 		foreach ( $taxonomies as $taxonomy ) {
-			add_action( $taxonomy . '_add_form_fields', [$this, 'add_form_fields'] );
+			if ( is_string( $taxonomy ) && taxonomy_exists( $taxonomy ) ) {
+				add_action( $taxonomy . '_add_form_fields', [$this, 'add_form_fields'] );
+			}
 		}
 	}
 }
