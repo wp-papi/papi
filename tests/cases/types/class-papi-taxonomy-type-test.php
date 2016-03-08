@@ -57,6 +57,17 @@ class Papi_Taxonomy_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( ['post_tag'], $this->properties_taxonomy_type->taxonomy );
 	}
 
+	public function test_get_labels() {
+		$this->assertEmpty( $this->properties_taxonomy_type->get_labels() );
+		$this->assertSame( [
+			'name'          => 'Simple taxonomy',
+			'singular_name' => 'Simple taxonomy',
+			'add_new_item'  => 'Add New Simple taxonomy',
+			'edit_item'     => 'Edit Simple taxonomy',
+			'view_item'     => 'View Simple taxonomy'
+		], $this->simple_taxonomy_type->get_labels() );
+	}
+
 	public function test_get_property() {
 		$this->assertNull( $this->empty_taxonomy_type->get_property( 'fake' ) );
 		$this->assertNull( $this->simple_taxonomy_type->get_property( 'fake' ) );
