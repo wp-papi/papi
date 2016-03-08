@@ -90,10 +90,7 @@ function papi_get_taxonomies() {
 	] );
 
 	foreach ( $entry_types as $entry_type ) {
-		$taxonomies = array_merge(
-			$taxonomies,
-			papi_to_array( $entry_type->taxonomy )
-		);
+		$taxonomies = array_merge( $taxonomies, papi_to_array( $entry_type->taxonomy ) );
 	}
 
 	return array_unique( $taxonomies );
