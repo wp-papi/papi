@@ -1,5 +1,12 @@
 # Papi Changelog
 
+## [3.0.2](https://github.com/wp-papi/papi/releases/tag/v3.0.2) - 2016-03-08
+
+### Fixed
+
+* Fixed: PHP Notice/Object issue for relationship when using custom relationship data.
+* Fixed: Double fields issue for any field when using `papi_get_field` in hooks that fires earlier then `admin_init` [#153](https://github.com/wp-papi/papi/issues/153).
+
 ## [3.0.1](https://github.com/wp-papi/papi/releases/tag/v3.0.1) - 2016-02-15
 
 ### Fixed
