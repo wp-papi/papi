@@ -92,4 +92,9 @@ class Papi_Taxonomy_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 'string', $property->get_option( 'type' ) );
 		$this->assertSame( 'string', $property->type );
 	}
+
+	public function test_setup() {
+		$this->assertNull( $this->simple_taxonomy_type->setup() );
+		$this->assertNull( $this->empty_taxonomy_type->setup() );
+	}
 }
