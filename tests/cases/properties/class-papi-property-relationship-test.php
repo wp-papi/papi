@@ -58,6 +58,54 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 		$this->assertEmpty( $this->properties[0]->format_value( true, '', 0 ) );
 		$this->assertEmpty( $this->properties[0]->format_value( false, '', 0 ) );
 		$this->assertEmpty( $this->properties[0]->format_value( 'hello', '', 0 ) );
+
+		$out = $this->properties[0]->format_value( [$this->post_id], '', 0 );
+		$this->assertEquals( [get_post( $this->post_id )], $out );
+	}
+
+	public function test_property_format_value_custom_items() {
+		$categories = array_map( function ( $cat ) {
+		  return [
+		    'id'    => (int) $cat->term_id,
+		    'title' => $cat->name
+		  ];
+		}, get_categories() );
+
+		$property = papi_property( [
+			'type'     => 'relationship',
+			'title'    => 'Relationship',
+			'settings' => [
+				'items' => $categories
+			]
+		] );
+
+		$out = $property->format_value( [
+			[
+				'id'    => 1,
+				'title' => 'Uncategorized'
+			]
+		], '', 0 );
+
+		$this->assertEquals( [
+			(object) [
+				'id'    => 1,
+				'title' => 'Uncategorized'
+			]
+		], $out );
+
+		$out = $property->format_value( [
+			(object) [
+				'id'    => 1,
+				'title' => 'Uncategorized'
+			]
+		], '', 0 );
+
+		$this->assertEquals( [
+			(object) [
+				'id'    => 1,
+				'title' => 'Uncategorized'
+			]
+		], $out );
 	}
 
 	public function test_property_import_value() {
