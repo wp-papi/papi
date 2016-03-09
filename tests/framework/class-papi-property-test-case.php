@@ -120,7 +120,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Save properties value for page type and assert values.
+	 * Save properties value for the different meta types.
 	 *
 	 * @param  Papi_Property $property
 	 * @param  string $type
@@ -129,13 +129,21 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		$this->meta_type = $type;
 
 		if ( $type === 'option' ) {
-			return $this->save_properties_value_option( $property );
+			global $current_screen;
+
+			$current_screen = WP_Screen::get( 'admin_init' );
+
+			$_GET['page'] = 'papi/option/options/properties-option-type';
+			$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/option/options/properties-option-type';
 		}
 
 		$value = $this->get_value( $property->get_slug( true ) );
 
 		if ( is_null( $value ) ) {
 			switch ( $type ) {
+				case 'option':
+					$actual = papi_get_option( $property->slug );
+					break;
 				case 'post':
 					$actual = papi_get_field( $this->post_id, $property->slug );
 					break;
@@ -153,6 +161,12 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		$this->save_properties( $property, $value, $type );
 
 		switch ( $type ) {
+			case 'option':
+				// Leave admin screen.
+				$current_screen = null;
+				$actual = papi_get_option( $property->slug );
+				unset( $_GET['page'] );
+				break;
 			case 'post':
 				$actual = papi_get_field( $this->post_id, $property->slug );
 				break;
@@ -166,41 +180,6 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		$expected = $this->get_expected( $property->get_slug( true ) );
 
 		$this->assert_values( $expected, $actual );
-	}
-
-	/**
-	 * Save properties value for option type and assert values.
-	 *
-	 * @param  Papi_Property $property
-	 */
-	public function save_properties_value_option( $property ) {
-		global $current_screen;
-
-		$current_screen = WP_Screen::get( 'admin_init' );
-
-		$_GET['page'] = 'papi/option/options/properties-option-type';
-		$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/option/options/properties-option-type';
-
-		$value = $this->get_value( $property->get_slug( true ) );
-
-		if ( is_null( $value ) ) {
-			$this->assertNull( papi_get_option( $property->slug ) );
-			return;
-		}
-
-		$this->save_properties( $property, $value, 'option' );
-
-		// Leave admin screen.
-		$current_screen = null;
-
-		$actual = papi_get_option( $property->slug );
-
-		$expected = $this->get_expected( $property->get_slug( true ) );
-
-		$this->assert_values( $expected, $actual );
-
-		unset( $_GET['page'] );
-		$_SERVER['REQUEST_URI'] = '';
 	}
 
 	/**
@@ -276,7 +255,6 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 			}
 		}
 
-		// Required to clear request uri here instead of in `save_properties_value_option`.
 		$_SERVER['REQUEST_URI'] = '';
 	}
 
