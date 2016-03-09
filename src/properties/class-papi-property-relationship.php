@@ -283,9 +283,7 @@ class Papi_Property_Relationship extends Papi_Property {
 							if ( ! empty( $item->title ) ):
 								?>
 								<li>
-									<input type="hidden"
-										   data-name="<?php echo $slug; ?>[]"
-									       value="<?php echo $item->id; ?>"/>
+									<input type="hidden" data-name="<?php echo $slug; ?>[]" value="<?php echo $item->id; ?>"/>
 									<a href="#"><?php echo $item->title; ?></a>
 									<span class="icon plus"></span>
 								</li>
