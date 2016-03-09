@@ -106,6 +106,15 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 				'title' => 'Uncategorized'
 			]
 		], $out );
+
+		$out = $property->format_value( [
+			(object) [
+				'id'    => null,
+				'title' => 'Uncategorized'
+			]
+		], '', 0 );
+
+		$this->assertEmpty( $out );
 	}
 
 	public function test_property_import_value() {
