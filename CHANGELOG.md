@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [3.0.3](https://github.com/wp-papi/papi/releases/tag/v3.0.3) - 2016-XX-XX
+
+* Fixed: Box options didn't work when no properties exists in the box.
+
 ## [3.0.2](https://github.com/wp-papi/papi/releases/tag/v3.0.2) - 2016-03-08
 
 ### Fixed
