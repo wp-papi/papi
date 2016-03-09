@@ -316,7 +316,7 @@ function papi_get_sanitized_post( $key ) {
 }
 
 /**
- * Get a php friendly name.
+ * Get a html friendly name.
  *
  * @param  string $name
  *
