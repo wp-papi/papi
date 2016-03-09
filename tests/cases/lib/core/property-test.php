@@ -137,6 +137,9 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		] ] );
 
 		$this->assertSame( 'Name', $options[0]['title'] );
+
+		$options = papi_get_options_and_properties( ['title' => 'Test', 'context' => 'side'] );
+		$this->assertSame( ['title' => 'Test', 'context' => 'side'], $options[0] );
 	}
 
 	public function test_papi_get_property_class_name() {

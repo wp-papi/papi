@@ -80,6 +80,7 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 				$options['title'] = $file_or_options['title'];
 			} else if ( isset( $file_or_options[0]->title ) ) {
 				$options['title'] = $file_or_options[0]->title;
+
 				if ( $file_or_options[0]->sidebar === false && $file_or_options[0]->required ) {
 					$options['_required'] = true;
 				}
@@ -88,7 +89,12 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 			} else {
 				$options['title'] = '';
 			}
+
 			$properties  = $file_or_options;
+
+			if ( ! empty( $properties['title'] ) ) {
+				$options = $properties;
+			}
 		} else {
 			$options = array_merge( $options, $file_or_options );
 
