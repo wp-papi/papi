@@ -112,12 +112,12 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 		// If it's a template we need to load it the right way
 		// and add all properties the right way.
 		if ( preg_match( '/\.php$/', $file_or_options ) === 1 ) {
-			$values = $properties;
+			$values   = $properties;
 			$template = papi_template( $file_or_options, $values );
 
 			// Create the property array from existing property array or a new.
 			$properties = [];
-			$options = $template;
+			$options    = $template;
 
 			// Add all non string keys to the properties array
 			foreach ( $options as $key => $value ) {
