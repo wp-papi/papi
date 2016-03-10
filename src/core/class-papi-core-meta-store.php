@@ -186,7 +186,7 @@ abstract class Papi_Core_Meta_Store {
 	 *
 	 * @param  Papi_Core_Property $property
 	 *
-	 * @return Papi_Core_Property|null
+	 * @return Papi_Core_Property
 	 */
 	protected function prepare_property( $property ) {
 		if ( papi_is_property( $property ) ) {

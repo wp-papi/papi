@@ -36,7 +36,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	/**
 	 * Pre save page template and page type.
 	 *
-	 * @param int $post_id
+	 * @param int $id
 	 */
 	private function pre_save( $id ) {
 		if ( empty( $id ) ) {
@@ -62,7 +62,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	/**
 	 * Save meta boxes.
 	 *
-	 * @param int    $post_id
+	 * @param int    $id
 	 * @param object $post
 	 */
 	public function save_meta_boxes( $id, $post = null ) {

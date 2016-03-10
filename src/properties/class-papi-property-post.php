@@ -78,8 +78,7 @@ class Papi_Property_Post extends Papi_Property {
 	/**
 	 * Get posts.
 	 *
-	 * @param  stdClass $settings
-	 * @param  string   $post_type
+	 * @param  string $post_type
 	 *
 	 * @return array
 	 */

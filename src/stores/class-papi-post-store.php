@@ -64,7 +64,7 @@ class Papi_Post_Store extends Papi_Core_Meta_Store {
 	 * @param  string $slug
 	 * @param  string $child_slug
 	 *
-	 * @return object
+	 * @return null|Papi_Core_Property
 	 */
 	public function get_property( $slug, $child_slug = '' ) {
 		$page_type_id = papi_get_page_type_id( $this->id );

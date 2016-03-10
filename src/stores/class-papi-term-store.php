@@ -64,7 +64,7 @@ class Papi_Term_Store extends Papi_Core_Meta_Store {
 	 * @param  string $slug
 	 * @param  string $child_slug
 	 *
-	 * @return object
+	 * @return null|Papi_Core_Property
 	 */
 	public function get_property( $slug, $child_slug = '' ) {
 		$taxonomy_type_id = papi_get_taxonomy_type_id( $this->id, 'term' );
