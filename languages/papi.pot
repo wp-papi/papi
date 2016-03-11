@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: papi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-12 18:23+0100\n"
+"POT-Creation-Date: 2016-03-11 07:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 
 #: src/admin/class-papi-admin-assets.php:61
-#: src/properties/class-papi-property-flexible.php:755
-#: src/properties/class-papi-property-flexible.php:778
-#: src/properties/class-papi-property-repeater.php:745
-#: src/properties/class-papi-property-repeater.php:767
+#: src/properties/class-papi-property-flexible.php:758
+#: src/properties/class-papi-property-flexible.php:781
+#: src/properties/class-papi-property-repeater.php:746
+#: src/properties/class-papi-property-repeater.php:768
 msgid "Remove"
 msgstr ""
 
@@ -29,31 +29,37 @@ msgstr ""
 msgid "This fields are required:"
 msgstr ""
 
-#: src/admin/class-papi-admin-menu.php:121
-#: src/admin/class-papi-admin-menu.php:177
-#: src/admin/class-papi-admin-menu.php:178
+#: src/admin/class-papi-admin-columns.php:68
+msgid "Type"
+msgstr ""
+
+#: src/admin/class-papi-admin-columns.php:175
+msgid "All types"
+msgstr ""
+
+#: src/admin/class-papi-admin-menu.php:131
+#: src/admin/class-papi-admin-menu.php:181
+#: src/admin/class-papi-admin-menu.php:182
 #: src/types/class-papi-page-type-meta.php:135
+#: src/types/class-papi-taxonomy-type.php:59
 msgid "Add New"
+msgstr ""
+
+#: src/admin/class-papi-admin-taxonomy.php:50
+#, php-format
+msgid "%s type"
 msgstr ""
 
 #: src/admin/class-papi-admin.php:39 src/admin/class-papi-admin.php:48
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: src/admin/class-papi-admin.php:214
-msgid "Type"
-msgstr ""
-
-#: src/admin/class-papi-admin.php:264
+#: src/admin/class-papi-admin.php:200
 msgid "View Papi Documentation"
 msgstr ""
 
-#: src/admin/class-papi-admin.php:264
+#: src/admin/class-papi-admin.php:200
 msgid "Docs"
-msgstr ""
-
-#: src/admin/class-papi-admin.php:302
-msgid "All types"
 msgstr ""
 
 #: src/properties/class-papi-property-datetime.php:32
@@ -192,42 +198,42 @@ msgstr ""
 msgid "No image selected"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:138
-#: src/properties/class-papi-property-link.php:237
+#: src/properties/class-papi-property-link.php:137
+#: src/properties/class-papi-property-link.php:236
 msgid "URL"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:146
-#: src/properties/class-papi-property-link.php:247
+#: src/properties/class-papi-property-link.php:145
+#: src/properties/class-papi-property-link.php:246
 msgid "Title"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:153
-#: src/properties/class-papi-property-link.php:256
+#: src/properties/class-papi-property-link.php:152
+#: src/properties/class-papi-property-link.php:255
 msgid "Target"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:155
+#: src/properties/class-papi-property-link.php:154
 msgid "New window"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:155
+#: src/properties/class-papi-property-link.php:154
 msgid "Same window"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:165
+#: src/properties/class-papi-property-link.php:164
 msgid "No link selected"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:166
+#: src/properties/class-papi-property-link.php:165
 msgid "Add link"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:169
+#: src/properties/class-papi-property-link.php:168
 msgid "Edit link"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:170
+#: src/properties/class-papi-property-link.php:169
 msgid "Remove link"
 msgstr ""
 
@@ -244,55 +250,55 @@ msgstr ""
 msgid "No references exists"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:94
+#: src/properties/class-papi-property-relationship.php:104
 msgid "Post"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:124
+#: src/properties/class-papi-property-relationship.php:134
 msgid "Select"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:126
+#: src/properties/class-papi-property-relationship.php:136
 msgid "Name (alphabetically)"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:134
+#: src/properties/class-papi-property-relationship.php:144
 msgid "Post created date (ascending)"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:138
+#: src/properties/class-papi-property-relationship.php:148
 msgid "Post created date (descending)"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:142
+#: src/properties/class-papi-property-relationship.php:152
 msgid "Post id (ascending)"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:147
+#: src/properties/class-papi-property-relationship.php:157
 msgid "Post id (descending)"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:152
+#: src/properties/class-papi-property-relationship.php:162
 msgid "Post order value (ascending)"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:156
+#: src/properties/class-papi-property-relationship.php:166
 msgid "Post order value (descending)"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:160
+#: src/properties/class-papi-property-relationship.php:170
 msgid "Post modified date (ascending)"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:164
+#: src/properties/class-papi-property-relationship.php:174
 msgid "Post modified date (descending)"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:253
+#: src/properties/class-papi-property-relationship.php:263
 msgid "Search"
 msgstr ""
 
-#: src/properties/class-papi-property-relationship.php:258
+#: src/properties/class-papi-property-relationship.php:268
 msgid "Sort by"
 msgstr ""
 
@@ -314,9 +320,11 @@ msgid "Select file"
 msgstr ""
 
 #: src/types/class-papi-page-type-meta.php:136
+#: src/types/class-papi-taxonomy-type.php:60
 msgid "Edit"
 msgstr ""
 
 #: src/types/class-papi-page-type-meta.php:137
+#: src/types/class-papi-taxonomy-type.php:61
 msgid "View"
 msgstr ""
