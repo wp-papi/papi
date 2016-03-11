@@ -17,6 +17,10 @@
 
 * Updated cross icon for file property with new color [#158](https://github.com/wp-papi/papi/pull/158).
 
+### Removed
+
+* Removed Papi tool page.
+
 ## [3.0.1]() - 2016-02-XX
 
 ### Fixed
