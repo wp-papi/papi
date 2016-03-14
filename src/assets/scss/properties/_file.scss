@@ -33,6 +33,13 @@
         -webkit-box-shadow: none;
         box-shadow: none;
       }
+
+      img {
+        display: block;
+        max-width: 134px;
+        max-height: 134px;
+        margin: 0 auto;
+      }
     }
   }
 }
