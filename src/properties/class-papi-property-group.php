@@ -38,6 +38,11 @@ class Papi_Property_Group extends Papi_Property {
 		$properties = $this->get_settings_properties();
 		$properties = $this->prepare_properties( $properties );
 
+		// Fix so group is not render over the title and description.
+		if ( $this->get_option( 'layout' ) === 'vertical' ) {
+			echo '<br />';
+		}
+
 		echo '<div class="papi-property-group">';
 			papi_render_properties( $properties );
 		echo '</div>';

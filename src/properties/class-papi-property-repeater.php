@@ -325,6 +325,11 @@ class Papi_Property_Repeater extends Papi_Property {
 		// Reset list counter number.
 		$this->counter = 0;
 
+		// Fix so repeater is not render over the title and description.
+		if ( $this->get_option( 'layout' ) === 'vertical' ) {
+			echo '<br />';
+		}
+
 		// Render repeater html.
 		$this->render_repeater( $options );
 

@@ -85,6 +85,19 @@
   }
 }
 
+//
+// Vertical layout fixes.
+//
+
+.papi-table tr td:first-child > p,
+.papi-meta-type-term .form-table tr td:first-child > p {
+  padding: 0 0 10px 0 !important;
+}
+
+//
+// Term table.
+//
+
 .papi-meta-type-term .wrap h1 {
   margin-bottom: 10px;
 }

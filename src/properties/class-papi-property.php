@@ -176,7 +176,6 @@ class Papi_Property extends Papi_Core_Property {
 					if ( $this->get_option( 'layout' ) === 'vertical' ) {
 						$this->render_label_html();
 						$this->render_description_html();
-						echo '<br />';
 					}
 
 					$this->render_property_html();
