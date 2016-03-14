@@ -1,8 +1,22 @@
-.papi-layout-vertical .papi-property-radio > input[type="radio"] {
-  float: left;
+.papi-property-radio {
+
+  @media screen and (min-width: 782px) {
+    p {
+      margin: 0;
+    }
+  }
+
+  @media screen and (max-width: 782px) {
+    p:first-child {
+      margin-top: 0;
+    }
+  }
 }
+
+//
+// Vertical layout fixes
+//
 
 .papi-layout-vertical .papi-property-radio > br {
   display: none;
 }
-

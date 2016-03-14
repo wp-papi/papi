@@ -75,7 +75,13 @@
 
       input[type="radio"],
       input[type="checkbox"] {
-        width: auto;
+        width: 16px;
+        min-width: 16px;
+
+        @media screen and (max-width: 782px) {
+          width: 25px;
+          min-width: 25px;
+        }
       }
     }
   }

@@ -50,22 +50,22 @@ class Papi_Property_Radio extends Papi_Property {
 		foreach ( $settings->items as $key => $value ) {
 			$key = is_numeric( $key ) ? $value : $key;
 
-			papi_render_html_tag( 'label', [
-				'class' => 'light',
-				'for'   => $this->html_id( $key ),
+			papi_render_html_tag( 'p', [
+				papi_html_tag( 'label', [
+					'class' => 'light',
+					'for'   => $this->html_id( $key ),
 
-				papi_render_html_tag( 'input', [
-					'id'      => $this->html_id( $key ),
-					'name'    => $this->html_name(),
-					'type'    => 'radio',
-					'checked' => $value === $settings->selected ? 'checked' : null,
-					'value'   => $value
-				] ),
+					papi_html_tag( 'input', [
+						'id'      => $this->html_id( $key ),
+						'name'    => $this->html_name(),
+						'type'    => 'radio',
+						'checked' => $value === $settings->selected ? 'checked' : null,
+						'value'   => $value
+					] ),
 
-				papi_convert_to_string( $key )
+					papi_convert_to_string( $key )
+				] )
 			] );
-
-			papi_render_html_tag( 'br' );
 		}
 
 		echo '</div>';
