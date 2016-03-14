@@ -387,8 +387,8 @@ class Papi_Core_Property {
 			return $this->post_id;
 		}
 
-		if ( $this->page instanceof Papi_Core_Page ) {
-			return $this->page->id;
+		if ( $this->store instanceof Papi_Core_Meta_Store ) {
+			return $this->store->id;
 		}
 
 		return papi_get_post_id();
