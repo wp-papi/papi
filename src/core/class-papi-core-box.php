@@ -77,9 +77,7 @@ class Papi_Core_Box {
 	 * @return mixed
 	 */
 	public function get_option( $key ) {
-		return isset( $this->options[$key] )
-			? $this->options[$key]
-			: null;
+		return isset( $this->options[$key] ) ? $this->options[$key] : null;
 	}
 
 	/**
