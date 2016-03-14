@@ -15,6 +15,36 @@
     width: 139px;
   }
 
+  .papi-tabs-top {
+    background: #f4f2f2;
+    border: 1px solid #eaeaea;
+    /* border-top: 0; */
+    margin: -7px 0 20px -12px;
+    min-height: 29px;
+    width: 99.8%;
+    padding: 5px 0 0;
+
+    li {
+      float: left;
+      padding: 5px 10px;
+      border: 1px solid #dedede;
+      margin: 0 5px;
+      background: #eaeaea;
+
+      a {
+        color: #899194;
+        display: block;
+        font-weight: bold;
+        text-decoration: none;
+      }
+
+      &.active {
+        background: #fff;
+        border-bottom: 1px solid #fff;
+      }
+    }
+  }
+
   .papi-tabs {
     background: #f4f2f2;
     border-right: 1px solid #dedede;
@@ -113,5 +143,10 @@
         }
       }
     }
+  }
+
+  .papi-tabs-top + .papi-tabs-content {
+    margin: 0;
+    width: 100%;
   }
 }

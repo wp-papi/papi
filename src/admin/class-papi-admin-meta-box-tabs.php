@@ -46,9 +46,10 @@ final class Papi_Admin_Meta_Box_Tabs {
 	private function html() {
 		?>
 		<div class="papi-tabs-wrapper">
-			<div class="papi-tabs-table-back"></div>
+<!--			<div class="papi-tabs-table-back"></div>
 			<div class="papi-tabs-back"></div>
-			<ul class="papi-tabs">
+-->
+			<ul class="papi-tabs-top">
 				<?php
 				foreach ( $this->tabs as $tab ):
 					$css_classes = $this->tabs[0] === $tab ? 'active ' : '';
@@ -57,9 +58,9 @@ final class Papi_Admin_Meta_Box_Tabs {
 						// Find out if the first property has a sidebar or not. If the first property
 						// don't have a sidebar the tab background should be white since it looks better.
 						$no_sidebar = empty( $tab->properties ) ? false : $tab->properties[0]->sidebar;
-						$css_classes .= ! empty( $tab->properties ) && $no_sidebar ? '' : 'white-tab';
+				#		$css_classes .= ! empty( $tab->properties ) && $no_sidebar ? '' : 'white-tab';
 					} else {
-						$css_classes .= $tab->background === 'white' ? 'white-tab' : '';
+				#		$css_classes .= $tab->background === 'white' ? 'white-tab' : '';
 					}
 					?>
 					<li class="<?php echo $css_classes; ?>">

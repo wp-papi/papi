@@ -41,25 +41,20 @@ class FAQ_Page_Type extends Papi_Page_Type {
 	 */
 	public function register() {
 		$this->box( 'Content', [
-			papi_property( [
-				'description' => 'FAQ 1',
-				'post_type'   => 'faq',
-				'type'        => 'string',
-				'title'       => 'Question'
-			] ),
-			papi_property( [
-				'description' => 'FAQ 1',
-				'post_type'   => 'faq',
-				'type'        => 'text',
-				'title'       => 'Answer'
-			] ),
-			papi_property( [
-				'description' => 'FAQ 1',
-				'type'        => 'text',
-				'title'       => 'Type',
-				'disabled'    => true,
-				'display'     => false
-			] )
+
+
+	// Dropdown
+	papi_property( [
+		'type'     => 'dropdown',
+		'title'    => 'Dropdown test',
+		'slug'     => 'dropdown_test',
+		'settings' => [
+			'items' => [
+				'White' => '#ffffff',
+				'Black' => '#000000'
+			]
+		]
+	] )
 		] );
 	}
 }
