@@ -512,6 +512,25 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Fredrik', $actual );
 	}
 
+	public function test_layout() {
+		$property = Papi_Core_Property::create( [
+			'type' => 'string',
+			'slug' => 'name'
+		] );
+
+		$this->assertSame( 'horizontal', $property->get_option( 'layout' ) );
+		$this->assertTrue( $property->get_option( 'sidebar' ) );
+
+		$property = Papi_Core_Property::create( [
+			'layout' => 'vertical',
+			'type'   => 'string',
+			'slug'   => 'name'
+		] );
+
+		$this->assertSame( 'vertical', $property->get_option( 'layout' ) );
+		$this->assertFalse( $property->get_option( 'sidebar' ) );
+	}
+
 	public function test_match_slug() {
 		$property = Papi_Core_Property::create( [
 			'description' => 'Test',
