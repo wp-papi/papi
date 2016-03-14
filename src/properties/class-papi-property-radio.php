@@ -45,6 +45,8 @@ class Papi_Property_Radio extends Papi_Property {
 			$settings->selected = $value;
 		}
 
+		echo '<div class="papi-property-radio">';
+
 		foreach ( $settings->items as $key => $value ) {
 			$key = is_numeric( $key ) ? $value : $key;
 
@@ -65,5 +67,7 @@ class Papi_Property_Radio extends Papi_Property {
 
 			papi_render_html_tag( 'br' );
 		}
+
+		echo '</div>';
 	}
 }

@@ -1,3 +1,8 @@
-.papi-box-vertical .papi-table td > input[type=radio] {
+.papi-layout-vertical .papi-property-radio > input[type="radio"] {
   float: left;
 }
+
+.papi-layout-vertical .papi-property-radio > br {
+  display: none;
+}
+

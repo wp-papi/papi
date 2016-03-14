@@ -152,7 +152,7 @@ class Papi_Property extends Papi_Core_Property {
 		$display_class = $this->display() ? '' : ' papi-hide';
 		$rules_class   = papi_is_empty( $this->get_rules() ) ? '' : ' papi-rules-exists';
 		$css_class     = trim( $display_class . $rules_class );
-		$css_class    .= sprintf( ' papi-box-%s', $this->get_option( 'layout' ) );
+		$css_class    .= sprintf( ' papi-layout-%s', $this->get_option( 'layout' ) );
 
 		if ( $this->get_option( 'raw' ) ) {
 			echo sprintf( '<div class="%s">', $css_class );

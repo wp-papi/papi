@@ -69,6 +69,8 @@ class Papi_Property_Checkbox extends Papi_Property {
 
 		$settings->selected = papi_to_array( $settings->selected );
 
+		echo '<div class="papi-property-checkbox">';
+
 		foreach ( $settings->items as $key => $value ) {
 			$key = is_numeric( $key ) ? $value : $key;
 
@@ -89,6 +91,8 @@ class Papi_Property_Checkbox extends Papi_Property {
 
 			papi_render_html_tag( 'br' );
 		}
+
+		echo '</div>';
 	}
 
 	/**

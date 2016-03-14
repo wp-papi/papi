@@ -1,4 +1,12 @@
 .papi-property-flexible {
+  .papi-table {
+    border-bottom: 0 !important;
+
+    tbody tr:last-child td {
+      border-bottom: 1px solid #eaeaea;
+    }
+  }
+
   .papi-table .flexible-column {
     padding: 0;
 
