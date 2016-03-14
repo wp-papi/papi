@@ -44,6 +44,7 @@ class Papi_Core_Property {
 		'disabled'     => false,
 		'display'      => true,
 		'lang'         => false,
+		'layout'       => 'horizontal', // or 'vertical'
 		'overwrite'    => false,
 		'post_type'    => '',
 		'raw'          => false,
@@ -335,19 +336,23 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function get_option( $key ) {
+		$value = null;
+
 		if ( isset( $this->options->$key ) ) {
-			return $this->options->$key;
+			$value = $this->options->$key;
 		}
 
-		if ( isset( $this->default_options[$key] ) ) {
-			$option = $this->default_options[$key];
-
-			if ( $key === 'settings' ) {
-				$option = (object) $option;
-			}
-
-			return $option;
+		if ( papi_is_empty( $value ) && isset( $this->default_options[$key] ) ) {
+			$value = $this->default_options[$key];
 		}
+
+		if ( $key === 'settings' && is_array( $value ) ) {
+			$value = (object) $value;
+		} else if ( $key === 'sidebar' && $value ) {
+			$value = $this->get_option( 'layout' ) === 'horizontal';
+		}
+
+		return $value;
 	}
 
 	/**

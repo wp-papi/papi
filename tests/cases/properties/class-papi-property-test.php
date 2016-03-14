@@ -137,7 +137,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$property->render();
 
-		$this->expectOutputRegex( '/class=\"papi\-hide\"/' );
+		$this->expectOutputRegex( '/class=\"papi\-hide/' );
 
 		unset( $_GET['lang'] );
 	}

@@ -97,6 +97,16 @@ final class Papi_Admin_Meta_Box {
 			return;
 		}
 
+		// Do a last check before all properties is rendered.
+		$args['args'] = array_filter( $args['args'], 'papi_is_property' );
+
+		// Inherit options from the box.
+		foreach ( $args['args'] as $index => $property ) {
+			if ( $property->layout === 'horizontal' ) {
+				$args['args'][$index]->layout = $this->box->layout;
+			}
+		}
+
 		// Render the properties.
 		papi_render_properties( $args['args'] );
 	}

@@ -100,9 +100,8 @@ class Papi_Property extends Papi_Core_Property {
 			$slug = papi_get_property_type_key( $slug );
 		}
 
-		$slug = papify( $slug );
-
-		$options = $this->get_options();
+		$slug          = papify( $slug );
+		$options       = $this->get_options();
 		$property_json = base64_encode( papi_maybe_json_encode( $options ) );
 
 		papi_render_html_tag( 'input', [
@@ -153,6 +152,7 @@ class Papi_Property extends Papi_Core_Property {
 		$display_class = $this->display() ? '' : ' papi-hide';
 		$rules_class   = papi_is_empty( $this->get_rules() ) ? '' : ' papi-rules-exists';
 		$css_class     = trim( $display_class . $rules_class );
+		$css_class    .= sprintf( ' papi-box-%s', $this->get_option( 'layout' ) );
 
 		if ( $this->get_option( 'raw' ) ) {
 			echo sprintf( '<div class="%s">', $css_class );
@@ -170,7 +170,17 @@ class Papi_Property extends Papi_Core_Property {
 					</td>
 				<?php endif; ?>
 				<td <?php echo $this->get_option( 'sidebar' ) ? '' : 'colspan="2"'; ?>>
-					<?php $this->render_property_html(); ?>
+					<?php
+					// Render vertical layout where title and description is
+					// above the property.
+					if ( $this->get_option( 'layout' ) === 'vertical' ) {
+						$this->render_label_html();
+						$this->render_description_html();
+						echo '<br />';
+					}
+
+					$this->render_property_html();
+					?>
 				</td>
 			</tr>
 			<?php

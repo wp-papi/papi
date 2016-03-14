@@ -24,6 +24,17 @@ class Papi_Core_Box {
 	public $id = '';
 
 	/**
+	 * Box layout that all properties will inherit.
+	 *
+	 * Possible values are:
+	 * - horizontal
+	 * - vertical
+	 *
+	 * @var string
+	 */
+	public $layout = 'horizontal';
+
+	/**
 	 * Custom box options.
 	 *
 	 * @var array
