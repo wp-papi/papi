@@ -12,6 +12,7 @@
 * Added `wp papi term` command like post command.
 * Added `mce_buttons` settings to editor property.
 * Added `media_buttons`, `teeny` and `drag_drop_upload` settings to editor property.
+* Added vertical boxes support [#148](https://github.com/wp-papi/papi/issues/159).
 
 ### Changed
 
