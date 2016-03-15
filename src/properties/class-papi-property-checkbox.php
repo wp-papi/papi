@@ -74,22 +74,22 @@ class Papi_Property_Checkbox extends Papi_Property {
 		foreach ( $settings->items as $key => $value ) {
 			$key = is_numeric( $key ) ? $value : $key;
 
-			papi_render_html_tag( 'label', [
-				'class' => 'light',
-				'for'   => $this->html_id( $key ),
+			papi_render_html_tag( 'p', [
+				papi_html_tag( 'label', [
+					'class' => 'light',
+					'for'   => $this->html_id( $key ),
 
-				papi_html_tag( 'input', [
-					'checked' => in_array( $value, $settings->selected ) ? 'checked' : null,
-					'id'      => $this->html_id( $key ),
-					'name'    => $this->html_name() . '[]',
-					'type'    => 'checkbox',
-					'value'   => $value
-				] ),
+					papi_html_tag( 'input', [
+						'checked' => in_array( $value, $settings->selected ) ? 'checked' : null,
+						'id'      => $this->html_id( $key ),
+						'name'    => $this->html_name() . '[]',
+						'type'    => 'checkbox',
+						'value'   => $value
+					] ),
 
-				papi_convert_to_string( $key )
+					papi_convert_to_string( $key )
+				] )
 			] );
-
-			papi_render_html_tag( 'br' );
 		}
 
 		echo '</div>';
