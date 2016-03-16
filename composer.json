@@ -13,7 +13,9 @@
     "wordpress",
     "custom fields",
     "page type",
-    "page"
+    "page",
+    "taxonomy",
+    "options"
   ],
   "require": {
     "php": "^5.5.9 || ^7.0"
