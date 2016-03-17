@@ -167,17 +167,25 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 /**
  * Get boxes with properties slug for a page.
  *
- * @since 3.0.0 the param `$only_slugs` exists, if true
- * will it only return the slugs without boxes title.
- *
- * @param  int    $post_id
+ * @param  int    $id
  * @param  string $only_slugs
  * @param  string $type
  *
+ * @since 3.0.0 the param `$only_slugs` exists, if true
+ * will it only return the slugs without boxes title.
+ *
+ * @since 3.1.0 `$id` param is optional.
+ *
  * @return array
  */
-function papi_get_slugs( $post_id = 0, $only_slugs = false, $type = 'post' ) {
-	$store = papi_get_meta_store( $post_id, $type );
+function papi_get_slugs( $id = 0, $only_slugs = false, $type = 'post' ) {
+	if ( is_bool( $id ) ) {
+		$type       = $only_slugs;
+		$only_slugs = $id;
+		$id         = null;
+	}
+
+	$store = papi_get_meta_store( $id, $type );
 
 	if ( $store instanceof Papi_Core_Meta_Store === false ) {
 		return [];

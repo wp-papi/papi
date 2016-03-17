@@ -83,6 +83,11 @@ class Papi_Lib_Fields_Taxonomy_Test extends WP_UnitTestCase {
 		$slugs = papi_get_term_slugs( $this->term_id, true );
 		$this->assertTrue( array_filter( $slugs, 'is_string' ) === $slugs );
 
+		$_GET['term_id'] = $this->term_id;
+		$slugs = papi_get_term_slugs( true );
+		$this->assertTrue( array_filter( $slugs, 'is_string' ) === $slugs );
+		unset( $_GET['term_id'] );
+
 		update_term_meta( $this->term_id, papi_get_page_type_key(), '' );
 		$this->flush_cache();
 		$this->assertEmpty( papi_get_term_slugs() );

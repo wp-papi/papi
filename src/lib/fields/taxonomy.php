@@ -50,9 +50,16 @@ function papi_get_term_field( $term_id = null, $slug = null, $default = null ) {
  * @param  int    $id
  * @param  string $only_slugs
  *
+ * @since 3.1.0 `$id` param is optional.
+ *
  * @return array
  */
 function papi_get_term_slugs( $id = 0, $only_slugs = false ) {
+	if ( is_bool( $id ) ) {
+		$only_slugs = $id;
+		$id         = null;
+	}
+
 	return papi_get_slugs( papi_get_term_id( $id ), $only_slugs, 'term' );
 }
 

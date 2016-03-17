@@ -88,6 +88,11 @@ class Papi_Lib_Fields_Page_Test extends WP_UnitTestCase {
 		$slugs = papi_get_slugs( $this->post_id, true );
 		$this->assertTrue( array_filter( $slugs, 'is_string' ) === $slugs );
 
+		$_GET['post_id'] = $this->post_id;
+		$slugs = papi_get_slugs( true );
+		$this->assertTrue( array_filter( $slugs, 'is_string' ) === $slugs );
+		unset( $_GET['post_id'] );
+
 		update_post_meta( $this->post_id, papi_get_page_type_key(), '' );
 		$this->flush_cache();
 		$this->assertEmpty( papi_get_slugs() );
