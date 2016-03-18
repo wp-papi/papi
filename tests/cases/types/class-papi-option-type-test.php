@@ -38,6 +38,40 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Options', $boxes[0][0]['title'] );
 	}
 
+	/**
+	 * @issue #153
+	 */
+	public function test_get_boxes_init_hook() {
+		global $wp_current_filter;
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$admin = new Papi_Admin;
+		$header_option_type = papi_get_page_type( PAPI_FIXTURE_DIR . '/page-types/options/header-option-type.php' );
+		$_GET['page'] = 'papi/options/header-option-type';
+
+		// Set to setup option type.
+		$admin = new Papi_Admin;
+		$this->assertTrue( $admin->setup_papi() );
+
+		// Add a value to the option field.
+		update_option( 'question', 'Hello, world' );
+
+		// Get option value on init hook.
+		$wp_current_filter[] = 'init';
+		papi_get_option( 'question' );
+
+		// Setup option type on admin init hook.
+		$wp_current_filter[]='admin_init';
+		$admin->admin_init();
+
+		// Properties should be 3.
+		$boxes = $header_option_type->get_boxes();
+		$this->assertSame( 3, count( $boxes[0][1] ) );
+	}
+
 	public function test_get_property() {
 		$this->assertNull( $this->header_option_type->get_property( 'fake' ) );
 
