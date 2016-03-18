@@ -2,11 +2,17 @@
 
 ## [2.4.13](https://github.com/wp-papi/papi/releases/tag/v2.4.13) - 2016-03-19
 
+### Fixed
+
 * Fixed: Box options didn't work when no properties exists in the box.
 * Fixed: Some properties that was stored in options table did return null from `papi_get_option`, mostly flexible and repeater.
 * Fixed: Object cache issue with options fields that did get post id instead of zero that options should have.
 * Fixed: Check for registered directories before they are used.
 * Fixed: Double fields issue for any field when using `papi_get_field` in hooks that fires earlier then `admin_init` [#153](https://github.com/wp-papi/papi/issues/153).
+
+### Removed
+
+* Removed: `papi_get_all_page_types` had a broken cache that didn't work as it should when you have more than one Papi directory it will not load all types.
 
 ## [2.4.12](https://github.com/wp-papi/papi/releases/tag/v2.4.12) - 2016-03-08
 
@@ -40,28 +46,28 @@
 
 ## [2.4.6](https://github.com/wp-papi/papi/releases/tag/v2.4.6) - 2015-11-11
 
-## Added
+### Added
 
 * Added: Support for loading template files from a child theme if it exists.
 
-## Fixed
+### Fixed
 
 * Fixed: Empty value didn't show as it should when flexible had more then 9 fields.
 
 ## [2.4.5](https://github.com/wp-papi/papi/releases/tag/v2.4.5) - 2015-11-09
 
-## Fixed
+### Fixed
 
 * Fixed: Option will save on `admin_init` now since link property use `url_to_postid` and calling it to early didn't work.
 * Fixed: Output for link property when saved in option table.
 
 ## [2.4.4](https://github.com/wp-papi/papi/releases/tag/v2.4.4) - 2015-11-04
 
-## Added
+### Added
 
 * Added: `_self` as default target value for link property.
 
-## Fixed
+### Fixed
 
 * Fixed: Link property will deleted values when removing a link.
 * Fixed: Flexible empty values did not work because wrong regex.
