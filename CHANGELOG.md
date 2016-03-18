@@ -1,67 +1,74 @@
 # Papi Changelog
 
+## [2.4.13](https://github.com/wp-papi/papi/releases/tag/v2.4.13) - 2016-03-19
+
+* Fixed: Box options didn't work when no properties exists in the box.
+* Fixed: Some properties that was stored in options table did return null from `papi_get_option`, mostly flexible and repeater.
+* Fixed: Object cache issue with options fields that did get post id instead of zero that options should have.
+* Fixed: Check for registered directories before they are used.
+
 ## [2.4.12](https://github.com/wp-papi/papi/releases/tag/v2.4.12) - 2016-03-08
 
-Fixed: PHP Notice/Object issue for relationship when using custom relationship data.
+* Fixed: PHP Notice/Object issue for relationship when using custom relationship data.
 
 ## [2.4.11](https://github.com/wp-papi/papi/releases/tag/v2.4.11) - 2016-02-06
 
-Fixed: Edit link property did appear in the default editor.
+* Fixed: Edit link property did appear in the default editor.
 
 ## [2.4.10](https://github.com/wp-papi/papi/releases/tag/v2.4.10) - 2015-12-08
 
-Fixed: jQuery sortable text input issue with TinyMCE, see [issue #121](https://github.com/wp-papi/papi/pull/121), thanks [@entr](https://github.com/entr)!
-Fixed: Meta box css border issue in WordPress 4.4.
-Fixed: Papi redirected to add new page when no page types was register on page post type.
-Fixed: Offset check before using the offset value in `html_id` method in core property class.
+* Fixed: jQuery sortable text input issue with TinyMCE, see [issue #121](https://github.com/wp-papi/papi/pull/121), thanks [@entr](https://github.com/entr)!
+* Fixed: Meta box css border issue in WordPress 4.4.
+* Fixed: Papi redirected to add new page when no page types was register on page post type.
+* Fixed: Offset check before using the offset value in `html_id` method in core property class.
 
 ## [2.4.9](https://github.com/wp-papi/papi/releases/tag/v2.4.9) - 2015-11-30
 
-Fixed: Apostrophe fix did cause a save error when using flexible and repeater.
-Fixed: When using `only_page_type` filter Papi didn't handle this in the page type id function.
+* Fixed: Apostrophe fix did cause a save error when using flexible and repeater.
+* Fixed: When using `only_page_type` filter Papi didn't handle this in the page type id function.
 
 ## [2.4.8](https://github.com/wp-papi/papi/releases/tag/v2.4.8) - 2015-11-30
 
-Fixed: String issue with `$page` variable in `papi_get_post_type`
-Fixed: Apostrophe issue with added slash, see [issue #126](https://github.com/wp-papi/papi/issues/126).
+* Fixed: String issue with `$page` variable in `papi_get_post_type`
+* Fixed: Apostrophe issue with added slash, see [issue #126](https://github.com/wp-papi/papi/issues/126).
 
 ## [2.4.7](https://github.com/wp-papi/papi/releases/tag/v2.4.7) - 2015-11-12
 
-Fixed: Template did return empty string when no template was found.
-Fixed: Select2 overflow, see [issue #105](https://github.com/wp-papi/papi/issues/105).
+* Fixed: Template did return empty string when no template was found.
+* Fixed: Select2 overflow, see [issue #105](https://github.com/wp-papi/papi/issues/105).
 
 ## [2.4.6](https://github.com/wp-papi/papi/releases/tag/v2.4.6) - 2015-11-11
 
 ## Added
 
-Added: Support for loading template files from a child theme if it exists.
+* Added: Support for loading template files from a child theme if it exists.
 
 ## Fixed
 
-Fixed: Empty value didn't show as it should when flexible had more then 9 fields.
+* Fixed: Empty value didn't show as it should when flexible had more then 9 fields.
 
 ## [2.4.5](https://github.com/wp-papi/papi/releases/tag/v2.4.5) - 2015-11-09
 
 ## Fixed
 
-Fixed: Option will save on `admin_init` now since link property use `url_to_postid` and calling it to early didn't work.
-Fixed: Output for link property when saved in option table.
+* Fixed: Option will save on `admin_init` now since link property use `url_to_postid` and calling it to early didn't work.
+* Fixed: Output for link property when saved in option table.
 
 ## [2.4.4](https://github.com/wp-papi/papi/releases/tag/v2.4.4) - 2015-11-04
 
 ## Added
 
-Added: `_self` as default target value for link property.
+* Added: `_self` as default target value for link property.
 
 ## Fixed
 
-Fixed: Link property will deleted values when removing a link.
-Fixed: Flexible empty values did not work because wrong regex.
+* Fixed: Link property will deleted values when removing a link.
+* Fixed: Flexible empty values did not work because wrong regex.
 
 ## [2.4.3](https://github.com/wp-papi/papi/releases/tag/v2.4.3) - 2015-10-30
 
-Fixed: Relationships children did not showed correctly on page load.
-Fixed: Action `papi/include` caused recursive loop.
+* Fixed: Relationships children did not showed correctly on page load.
+* Fixed: Action `papi/include` caused recursive loop.
 
 ## [2.4.2](https://github.com/wp-papi/papi/releases/tag/v2.4.2) - 2015-10-27
 

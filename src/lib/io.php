@@ -14,7 +14,7 @@ function papi_get_all_files_in_directory( $directory = '' ) {
 		return $result;
 	}
 
-	if ( $handle = opendir( $directory ) ) {
+	if ( file_exists( $directory ) && $handle = opendir( $directory ) ) {
 		while ( false !== ( $file = readdir( $handle ) ) ) {
 			if ( ! in_array( $file, ['..', '.'] ) ) {
 				if ( is_dir( $directory . '/' . $file ) ) {
