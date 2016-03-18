@@ -6,6 +6,7 @@
 * Fixed: Some properties that was stored in options table did return null from `papi_get_option`, mostly flexible and repeater.
 * Fixed: Object cache issue with options fields that did get post id instead of zero that options should have.
 * Fixed: Check for registered directories before they are used.
+* Fixed: Double fields issue for any field when using `papi_get_field` in hooks that fires earlier then `admin_init` [#153](https://github.com/wp-papi/papi/issues/153).
 
 ## [2.4.12](https://github.com/wp-papi/papi/releases/tag/v2.4.12) - 2016-03-08
 
@@ -17,7 +18,7 @@
 
 ## [2.4.10](https://github.com/wp-papi/papi/releases/tag/v2.4.10) - 2015-12-08
 
-* Fixed: jQuery sortable text input issue with TinyMCE, see [issue #121](https://github.com/wp-papi/papi/pull/121), thanks [@entr](https://github.com/entr)!
+* Fixed: jQuery sortable text input issue with TinyMCE [#121](https://github.com/wp-papi/papi/pull/121), thanks [@entr](https://github.com/entr)!
 * Fixed: Meta box css border issue in WordPress 4.4.
 * Fixed: Papi redirected to add new page when no page types was register on page post type.
 * Fixed: Offset check before using the offset value in `html_id` method in core property class.
@@ -30,12 +31,12 @@
 ## [2.4.8](https://github.com/wp-papi/papi/releases/tag/v2.4.8) - 2015-11-30
 
 * Fixed: String issue with `$page` variable in `papi_get_post_type`
-* Fixed: Apostrophe issue with added slash, see [issue #126](https://github.com/wp-papi/papi/issues/126).
+* Fixed: Apostrophe issue with added slash [#126](https://github.com/wp-papi/papi/issues/126).
 
 ## [2.4.7](https://github.com/wp-papi/papi/releases/tag/v2.4.7) - 2015-11-12
 
 * Fixed: Template did return empty string when no template was found.
-* Fixed: Select2 overflow, see [issue #105](https://github.com/wp-papi/papi/issues/105).
+* Fixed: Select2 overflow [#105](https://github.com/wp-papi/papi/issues/105).
 
 ## [2.4.6](https://github.com/wp-papi/papi/releases/tag/v2.4.6) - 2015-11-11
 
