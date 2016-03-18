@@ -64,66 +64,56 @@ function papi_get_all_page_types( $all = false, $post_type = null, $fake_post_ty
 		$post_type  = papi_get_post_type();
 	}
 
-	$cache_key   = papi_cache_key( sprintf( '%s_%s', $all, $post_type ), $fake_post_types );
-	$page_types  = wp_cache_get( $cache_key );
 	$load_once   = papi_filter_core_load_one_type_on();
+	$page_types  = [];
+	$files       = papi_get_all_page_type_files();
 
-	if ( empty( $page_types ) ) {
-		$files = papi_get_all_page_type_files();
+	foreach ( $files as $file ) {
+		$page_type = papi_get_page_type( $file );
 
-		foreach ( $files as $file ) {
-			$page_type = papi_get_page_type( $file );
+		if ( is_null( $page_type ) ) {
+			continue;
+		}
 
-			if ( is_null( $page_type ) ) {
-				continue;
-			}
+		if ( $page_type instanceof Papi_Page_Type === false ) {
+			continue;
+		}
 
-			if ( $page_type instanceof Papi_Page_Type === false ) {
-				continue;
-			}
-
-			if ( $fake_post_types ) {
-				if ( isset( $page_type->post_type[0] ) && ! post_type_exists( $page_type->post_type[0] ) ) {
-					// Boot page type.
-					$page_type->boot();
-
-					// Add it to the page types array.
-					$page_types[] = $page_type;
-				}
-				continue;
-			} else if ( $page_type instanceof Papi_Option_Type ) {
-				continue;
-			}
-
-			if ( papi()->exists( 'core.page_type.' . $page_type->post_type[0] ) ) {
-				if ( ! empty( $page_types ) ) {
-					continue;
-				}
-			} else if ( in_array( $page_type->post_type[0], $load_once ) ) {
-				papi()->singleton( 'core.page_type.' . $page_type->post_type[0], $page_type->get_id() );
-			}
-
-			// Add the page type if the post types is allowed.
-			if ( ! is_null( $page_type ) && papi_current_user_is_allowed( $page_type->capabilities ) && ( $all || in_array( $post_type, $page_type->post_type ) ) ) {
+		if ( $fake_post_types ) {
+			if ( isset( $page_type->post_type[0] ) && ! post_type_exists( $page_type->post_type[0] ) ) {
 				// Boot page type.
 				$page_type->boot();
 
 				// Add it to the page types array.
 				$page_types[] = $page_type;
 			}
+			continue;
+		} else if ( $page_type instanceof Papi_Option_Type ) {
+			continue;
+		}
+
+		if ( papi()->exists( 'core.page_type.' . $page_type->post_type[0] ) ) {
+			if ( ! empty( $page_types ) ) {
+				continue;
+			}
+		} else if ( in_array( $page_type->post_type[0], $load_once ) ) {
+			papi()->singleton( 'core.page_type.' . $page_type->post_type[0], $page_type->get_id() );
+		}
+
+		// Add the page type if the post types is allowed.
+		if ( ! is_null( $page_type ) && papi_current_user_is_allowed( $page_type->capabilities ) && ( $all || in_array( $post_type, $page_type->post_type ) ) ) {
+			// Boot page type.
+			$page_type->boot();
+
+			// Add it to the page types array.
+			$page_types[] = $page_type;
 		}
 
 		if ( is_array( $page_types ) ) {
 			usort( $page_types, function ( $a, $b ) {
 				return strcmp( $a->name, $b->name );
 			} );
-
-			wp_cache_set( $cache_key, $page_types );
 		}
-	}
-
-	if ( ! is_array( $page_types ) ) {
-		return [];
 	}
 
 	return papi_sort_order( array_reverse( $page_types ) );
