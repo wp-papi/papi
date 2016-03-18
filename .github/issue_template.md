@@ -18,3 +18,4 @@ Remove the template below and add your feature request.
 
 - Browser:
 - Papi:
+- WordPress:
