@@ -1,9 +1,10 @@
 # Papi Changelog
 
-## [3.0.3](https://github.com/wp-papi/papi/releases/tag/v3.0.3) - 2016-XX-XX
+## [3.0.3](https://github.com/wp-papi/papi/releases/tag/v3.0.3) - 2016-03-19
 
 * Fixed: Box options didn't work when no properties exists in the box.
 * Fixed: Some properties that was stored in options table did return null from `papi_get_option`, mostly flexible and repeater.
+* Fixed: Object cache issue with options fields that did get post id instead of zero that options should have.
 
 ## [3.0.2](https://github.com/wp-papi/papi/releases/tag/v3.0.2) - 2016-03-08
 
