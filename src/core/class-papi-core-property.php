@@ -634,11 +634,13 @@ class Papi_Core_Property {
 	 * @return bool
 	 */
 	public function is_option_page() {
-		if ( $this->page === null ) {
+		$page = $this->get_page();
+
+		if ( $page === null ) {
 			return papi_is_option_page();
 		}
 
-		return $this->page->is( Papi_Core_Page::TYPE_OPTION );
+		return $page->is( Papi_Core_Page::TYPE_OPTION );
 	}
 
 	/**
