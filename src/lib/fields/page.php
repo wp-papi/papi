@@ -25,6 +25,10 @@ function papi_delete_field( $post_id = null, $slug = null, $type = 'page' ) {
 		return false;
 	}
 
+	if ( $type === Papi_Option_Page::TYPE && $post_id !== 0 ) {
+		$post_id = 0;
+	}
+
 	$page = papi_get_page( $post_id, $type );
 
 	if ( is_null( $page ) ) {
@@ -134,6 +138,10 @@ function papi_get_field( $post_id = null, $slug = null, $default = null, $type =
 		return $default;
 	}
 
+	if ( $type === Papi_Option_Page::TYPE && $post_id !== 0 ) {
+		$post_id = 0;
+	}
+
 	$value = papi_cache_get( $slug, $post_id );
 
 	if ( $value === null || $value === false ) {
@@ -191,6 +199,10 @@ function papi_update_field( $post_id = null, $slug = null, $value = null, $type 
 
 	if ( $post_id === 0 && $type === Papi_Post_Page::TYPE ) {
 		return false;
+	}
+
+	if ( $type === Papi_Option_Page::TYPE && $post_id !== 0 ) {
+		$post_id = 0;
 	}
 
 	$page = papi_get_page( $post_id, $type );
