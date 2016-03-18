@@ -65,7 +65,7 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 		$wp_current_filter[]='admin_init';
 		$admin->admin_init();
 
-		// Boxes should be 3.
+		// Properties should be 3.
 		$boxes = $header_option_type->get_boxes();
 		$this->assertSame( 3, count( $boxes[0]->properties ) );
 	}
