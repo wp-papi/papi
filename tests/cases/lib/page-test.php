@@ -276,6 +276,9 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_post_types() {
+		// Remove container key is required so the test will pass.
+		papi()->remove( 'papi_get_all_page_types_1__false' );
+
 		$actual = papi_get_post_types();
 
 		foreach ( $actual as $key => $value ) {
@@ -289,6 +292,9 @@ class Papi_Lib_Page_Test extends WP_UnitTestCase {
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
+
+		// Remove container key is required so the test will pass.
+		papi()->remove( 'papi_get_all_page_types_1__false' );
 
 		$post_types = papi_get_post_types();
 
