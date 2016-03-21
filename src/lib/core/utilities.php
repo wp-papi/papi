@@ -172,7 +172,7 @@ function papi_f( $str = '', $len = 1 ) {
  * @return string
  */
 function papi_get_class_name( $file ) {
-	if ( ! is_string( $file ) ) {
+	if ( ! is_string( $file ) || ! file_exists( $file ) ) {
 		return '';
 	}
 
