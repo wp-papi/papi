@@ -1,5 +1,10 @@
 # Papi Changelog
 
+## [2.4.14](https://github.com/wp-papi/papi/releases/tag/v2.4.14) - 2016-03-21
+
+* Fixed: Maximum execution time problem with `papi_get_all_page_types`.
+* Fixed: Check so file exists before calling `file_get_contents` when reading page type files.
+
 ## [2.4.13](https://github.com/wp-papi/papi/releases/tag/v2.4.13) - 2016-03-19
 
 ### Fixed
