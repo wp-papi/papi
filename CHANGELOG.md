@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [3.0.4](https://github.com/wp-papi/papi/releases/tag/v3.0.4) - 2016-XX-XX
+
+* Fixed: Require for link property [#165](https://github.com/wp-papi/papi/issues/165).
+
 ## [3.0.3](https://github.com/wp-papi/papi/releases/tag/v3.0.3) - 2016-03-19
 
 * Fixed: Box options didn't work when no properties exists in the box.
