@@ -52,7 +52,13 @@ class Utils {
   static getMetaTypeValue() {
     switch (Utils.getMetaType()) {
       case 'post':
-        return Utils.getParameterByName('post_type');
+        const value = Utils.getParameterByName('post_type');
+
+        if (value.length) {
+          return value;
+        }
+
+        return $('#post_type').val();
       case 'term':
         return Utils.getParameterByName('taxonomy');
       default:
