@@ -123,14 +123,15 @@ class Papi_Property_Link extends Papi_Property {
 	 * Render property html.
 	 */
 	public function html() {
-		$value = $this->get_value();
-		$value = is_array( $value ) || is_object( $value ) ? $value : [];
-		$value = (object) $value;
+		$value  = $this->get_value();
+		$value  = is_array( $value ) || is_object( $value ) ? $value : [];
+		$value  = (object) $value;
+		$exists = ! empty( $value->url );
 		?>
 		<div class="papi-property-link" data-replace-slug="true" data-slug="<?php echo $this->html_name(); ?>">
-			<input type="hidden" name="<?php echo $this->html_name(); ?>">
+			<input type="hidden" name="<?php echo $this->html_name(); ?>" value="<?php echo $exists ? 1 : ''; ?>">
 
-			<?php if ( ! empty( $value->url ) ): ?>
+			<?php if ( $exists ): ?>
 				<table class="papi-table link-table">
 					<tbody>
 						<tr>
