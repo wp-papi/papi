@@ -93,6 +93,29 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 		$this->assertTrue( papi_get_field( $this->post_id, $property->slug ) );
 	}
 
+	public function test_save_meta_boxes_3() {
+		$post_id  = $this->factory->post->create();
+		$revs_id  = wp_save_post_revision( $post_id );
+		$property = $this->page_type->get_property( 'string_test' );
+
+		$_POST = papi_test_create_property_post_data( [
+			'slug'  => $property->slug,
+			'type'  => $property,
+			'value' => 'Hello, world!'
+		], $_POST );
+
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+		$_POST['post_ID'] = $revs_id;
+
+		$this->handler->save_meta_boxes( $revs_id, get_post( $revs_id ) );
+		wp_set_current_user( 0 );
+
+		$this->assertSame( 'Hello, world!', papi_get_field( $revs_id, $property->slug ) );
+	}
+
 	/**
 	 * @issue 126
 	 */
@@ -188,33 +211,7 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_field( $this->post_id, $property->slug ) );
 	}
 
-	/**
-	 * Revision should not work.
-	 */
 	public function test_save_meta_boxes_fail_4() {
-		$post_id  = $this->factory->post->create();
-		$revs_id  = wp_save_post_revision( $post_id );
-		$property = $this->page_type->get_property( 'string_test' );
-
-		$_POST = papi_test_create_property_post_data( [
-			'slug'  => $property->slug,
-			'type'  => $property,
-			'value' => 'Hello, world!'
-		], $_POST );
-
-		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
-		wp_set_current_user( $user_id );
-
-		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
-		$_POST['post_ID'] = $revs_id;
-
-		$this->handler->save_meta_boxes( $revs_id, get_post( $revs_id ) );
-		wp_set_current_user( 0 );
-
-		$this->assertNull( papi_get_field( $revs_id, $property->slug ) );
-	}
-
-	public function test_save_meta_boxes_fail_5() {
 		$property = $this->page_type->get_property( 'bool_test' );
 
 		$_POST = papi_test_create_property_post_data( [

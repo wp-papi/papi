@@ -71,6 +71,15 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 			return;
 		}
 
+		// Save post revision data.
+		if ( $parent_id = wp_is_post_revision( $id ) ) {
+			$slugs = papi_get_slugs( $id, true );
+
+			foreach ( $slugs as $slug ) {
+				papi_update_field( $id, $slug, papi_get_field( $parent_id, $slug ) );
+			}
+		}
+
 		// Don't save meta boxes for autosaves.
 		// @codeCoverageIgnoreStart
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -82,8 +91,8 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		$post      = is_array( $post ) ? (object) $post : $post;
 
 		if ( $meta_type === 'post' && $post_type = get_post_type_object( $post->post_type ) ) {
-			// Check so the id is a post id and not a revision or autosave post.
-			if ( $this->valid_post_id( $id ) || is_int( wp_is_post_revision( $post ) ) || is_int( wp_is_post_autosave( $post ) ) ) {
+			// Check so the id is a post id and not a autosave post.
+			if ( $this->valid_post_id( $id ) || is_int( wp_is_post_autosave( $post ) ) ) {
 				return;
 			}
 
@@ -138,12 +147,33 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	}
 
 	/**
+	 * Restore to post revision.
+	 *
+	 * @param int $post_id
+	 * @param int $revision_id
+	 */
+	public function restore_post_revision( $post_id, $revision_id ) {
+		$slugs = papi_get_slugs( $revision_id, true );
+
+		foreach ( $slugs as $slug ) {
+			$value = papi_get_field( $revision_id, $slug );
+
+			if ( papi_is_empty( $value ) ) {
+				papi_delete_field( $post_id, $slug );
+			} else {
+				papi_update_field( $post_id, $slug, $value );
+			}
+		}
+	}
+
+	/**
 	 * Setup actions.
 	 */
 	protected function setup_actions() {
 		add_action( 'save_post', [$this, 'save_meta_boxes'], 1, 2 );
 		add_action( 'created_term', [$this, 'save_meta_boxes'], 1 );
 		add_action( 'edit_term', [$this, 'save_meta_boxes'], 1 );
+		add_action( 'wp_restore_post_revision', [$this, 'restore_post_revision'], 10, 2 );
 	}
 
 	/**
