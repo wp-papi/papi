@@ -82,15 +82,6 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		$post      = is_array( $post ) ? (object) $post : $post;
 
 		if ( $meta_type === 'post' && $post_type = get_post_type_object( $post->post_type ) ) {
-			// Save post revision data.
-			if ( $parent_id = wp_is_post_revision( $id ) ) {
-				$slugs = papi_get_slugs( $id, true );
-
-				foreach ( $slugs as $slug ) {
-					papi_update_field( $id, $slug, papi_get_field( $parent_id, $slug ) );
-				}
-			}
-
 			// Check so the id is a post id and not a autosave post.
 			if ( $this->valid_post_id( $id ) || is_int( wp_is_post_autosave( $post ) ) ) {
 				return;
@@ -99,6 +90,15 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 			// Check the `edit_posts` capability before we continue.
 			if ( ! current_user_can( $post_type->cap->edit_posts ) ) {
 				return;
+			}
+
+			// Save post revision data.
+			if ( $parent_id = wp_is_post_revision( $id ) ) {
+				$slugs = papi_get_slugs( $id, true );
+
+				foreach ( $slugs as $slug ) {
+					papi_update_field( $id, $slug, papi_get_field( $parent_id, $slug ) );
+				}
 			}
 		}
 
