@@ -49,6 +49,25 @@ class Papi_Admin_Meta_Box_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '//' );
 	}
 
+	public function test_admin_meta_box_hidden_box() {
+		$_GET['post_type'] = 'post';
+
+		$box = new Papi_Core_Box( [
+			'title' => 'Hidden'
+		] );
+
+		$class = new Papi_Admin_Meta_Box( $box );
+		$this->assertSame( 10, has_action( 'add_meta_boxes', [$class, 'setup_meta_box'] ) );
+
+		$box = new Papi_Core_Box( [
+			'title'   => 'Hidden',
+			'display' => false
+		] );
+
+		$class = new Papi_Admin_Meta_Box( $box );
+		$this->assertFalse( has_action( 'add_meta_boxes', [$class, 'setup_meta_box'] ) );
+	}
+
 	public function test_admin_meta_box_capabilities() {
 		$box = new Papi_Core_Box( [
 			'title' => 'Content',

@@ -23,8 +23,10 @@ final class Papi_Admin_Meta_Box {
 			return;
 		}
 
-		$this->box = $box;
-		$this->setup_actions();
+		if ( $box->display ) {
+			$this->box = $box;
+			$this->setup_actions();
+		}
 	}
 
 	/**

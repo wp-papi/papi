@@ -17,6 +17,13 @@ class Papi_Core_Box {
 	public $context = 'normal';
 
 	/**
+	 * Display box.
+	 *
+	 * @var boolean
+	 */
+	public $display = true;
+
+	/**
 	 * The core type identifier.
 	 *
 	 * @var string
