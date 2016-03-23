@@ -13,6 +13,7 @@
 * Added `mce_buttons` settings to editor property.
 * Added `media_buttons`, `teeny` and `drag_drop_upload` settings to editor property.
 * Added vertical boxes support [#148](https://github.com/wp-papi/papi/issues/159).
+* Added support for saving properties on revision posts and restoring revision data.
 
 ### Changed
 
