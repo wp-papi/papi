@@ -106,7 +106,9 @@ class Link {
    */
   remove($this) {
     const $prop = $this.closest('.papi-property-link');
+
     $prop.find('.link-table').remove();
+    $prop.find('input[type="hidden"]:first').val('');
 
     const $spans = $prop.find('p > span');
     $spans.first().removeClass('papi-hide');
@@ -130,6 +132,8 @@ class Link {
     data.link = '<a href="' + data.href + '" target="_blank">' + data.href + '</a>';
     data.title = $('#wp-link-text').val();
     data.slug = this.$el.data('slug');
+
+    this.$el.find('input[type="hidden"]:first').val(1);
 
     this.$el.find('.link-table').remove();
     this.$p.before(template(data));
