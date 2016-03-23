@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [2.4.15](https://github.com/wp-papi/papi/releases/tag/v2.4.15) - 2016-XX-XX
+
+* Fixed: Require for link property [#165](https://github.com/wp-papi/papi/issues/165).
+
 ## [2.4.14](https://github.com/wp-papi/papi/releases/tag/v2.4.14) - 2016-03-21
 
 * Fixed: Maximum execution time problem with `papi_get_all_page_types`
