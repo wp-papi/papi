@@ -11,8 +11,7 @@ class Test_Page_Type extends Papi_Page_Type {
 		return [
 			'fill_labels' => true,
 			'name'        => 'Test page',
-			'template'    => 'pages/test-page.php',
-			'show_screen_options'=>false
+			'template'    => 'pages/test-page.php'
 		];
 	}
 
@@ -23,7 +22,8 @@ class Test_Page_Type extends Papi_Page_Type {
 	 */
 	public function help() {
 		return [
-			'hej' => 'du'
+			'Page type'    => 'Class cursus vehicula dolor. Tellus inceptos semper pede reprehenderit habitant.',
+			'More details' => 'Convallis morbi fames vivamus cum. Ac metus vivamus sollicitudin.'
 		];
 	}
 
@@ -40,11 +40,6 @@ class Test_Page_Type extends Papi_Page_Type {
 	 * Register properties.
 	 */
 	public function register() {
-		$this->box( 'Content', [
-			papi_property( [
-				'type'  => 'string',
-				'title' => 'Name'
-			] )
-		] );
+		$this->box( 'boxes/properties.php' );
 	}
 }
