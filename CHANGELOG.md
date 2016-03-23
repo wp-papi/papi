@@ -24,12 +24,27 @@
 
 * Removed Papi tool page.
 
-## [3.0.1]() - 2016-02-XX
+## [3.0.3](https://github.com/wp-papi/papi/releases/tag/v3.0.3) - 2016-03-19
+
+* Fixed: Box options didn't work when no properties exists in the box.
+* Fixed: Some properties that was stored in options table did return null from `papi_get_option`, mostly flexible and repeater.
+* Fixed: Object cache issue with options fields that did get post id instead of zero that options should have.
+* Fixed: Check for registered directories before they are used.
+
+## [3.0.2](https://github.com/wp-papi/papi/releases/tag/v3.0.2) - 2016-03-08
+
+### Fixed
+
+* Fixed: PHP Notice/Object issue for relationship when using custom relationship data.
+* Fixed: Double fields issue for any field when using `papi_get_field` in hooks that fires earlier then `admin_init` [#153](https://github.com/wp-papi/papi/issues/153).
+
+## [3.0.1](https://github.com/wp-papi/papi/releases/tag/v3.0.1) - 2016-02-15
 
 ### Fixed
 
 * Fixed: Render issue with tabs that existed in template files [#148](https://github.com/wp-papi/papi/issues/148).
 * Fixed: Edit link property did appear in the default editor.
+* Fixed: Required did not output the red wildcard [#149](https://github.com/wp-papi/papi/issues/149).
 * Fixed: Required did not output the red wildcard [#149](https://github.com/wp-papi/papi/issues/149).
 
 ## [3.0.0](https://github.com/wp-papi/papi/releases/tag/v3.0.0) - 2016-02-02
