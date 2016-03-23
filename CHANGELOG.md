@@ -25,6 +25,11 @@
 
 * Removed Papi tool page.
 
+## [3.0.4](https://github.com/wp-papi/papi/releases/tag/v3.0.4) - 2016-03-23
+
+* Fixed: Require for link property [#165](https://github.com/wp-papi/papi/issues/165).
+* Fixed: Check so file exists before calling `file_get_contents` when reading page type files.
+
 ## [3.0.3](https://github.com/wp-papi/papi/releases/tag/v3.0.3) - 2016-03-19
 
 * Fixed: Box options didn't work when no properties exists in the box.
