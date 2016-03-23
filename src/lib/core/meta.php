@@ -15,7 +15,7 @@ function papi_get_meta_id( $type = null, $id = null ) {
 		return call_user_func_array( sprintf( 'papi_get_%s_id', $type ), [$id] );
 	}
 
-	return 0;
+	return intval( $id );
 }
 
 /**
