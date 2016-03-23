@@ -63,21 +63,6 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	}
 
 	/**
-	 * Setup all meta boxes.
-	 */
-	protected function setup() {
-		if ( ! method_exists( $this, 'register' ) ) {
-			return;
-		}
-
-		$boxes = $this->get_boxes();
-
-		foreach ( $boxes as $box ) {
-			new Papi_Admin_Meta_Box( $box );
-		}
-	}
-
-	/**
 	 * Setup actions.
 	 */
 	protected function setup_actions() {

@@ -385,23 +385,22 @@ class Papi_Entry_Type extends Papi_Core_Type {
 
 	/**
 	 * Setup entry type.
-	 *
-	 * @codeCoverageIgnore
 	 */
-	protected function setup() {
-	}
-
-	/**
-	 * Render page type and add actions and filters
-	 * for help and screen options.
-	 */
-	public function render() {
+	public function setup() {
 		add_action( 'in_admin_header', [$this, 'add_help_tabs'] );
 		add_filter( 'screen_options_show_screen', function () {
 			return $this->show_screen_options;
 		} );
 
-		$this->setup();
+		if ( ! method_exists( $this, 'register' ) ) {
+			return;
+		}
+
+		$this->register();
+
+		foreach ( $this->get_boxes() as $index => $box ) {
+			new Papi_Admin_Meta_Box( $box );
+		}
 	}
 
 	/**

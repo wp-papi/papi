@@ -136,9 +136,9 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 		$this->assertEquals( new Info_Entry_Type(), $this->info_entry_type->new_class() );
 	}
 
-	public function test_render() {
+	public function test_setup() {
 		$this->assertTrue( apply_filters( 'screen_options_show_screen', true ) );
-		$this->info_entry_type->render();
+		$this->info_entry_type->setup();
 		$this->assertFalse( apply_filters( 'screen_options_show_screen', true ) );
 	}
 

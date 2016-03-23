@@ -49,7 +49,7 @@ final class Papi_Admin {
 	}
 
 	/**
-	 * Preboot all types and render the current type if any.
+	 * Preboot all types and setup the current type if any.
 	 */
 	public function admin_init() {
 		// Preload all page types.
@@ -63,8 +63,8 @@ final class Papi_Admin {
 			return;
 		}
 
-		// Render page type.
-		$this->entry_type->render();
+		// Setup entry type.
+		$this->entry_type->setup();
 	}
 
 	/**

@@ -66,23 +66,4 @@ class Papi_Option_Type extends Papi_Entry_Type {
 		</div>
 		<?php
 	}
-
-	/**
-	 * Setup all meta boxes.
-	 */
-	protected function setup() {
-		if ( ! method_exists( $this, 'register' ) ) {
-			return;
-		}
-
-		// 1. Run the register method.
-		$this->register();
-
-		// 2. Load all boxes.
-		$boxes = $this->get_boxes();
-
-		foreach ( $boxes as $index => $box ) {
-			new Papi_Admin_Meta_Box( $box );
-		}
-	}
 }

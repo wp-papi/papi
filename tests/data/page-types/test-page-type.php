@@ -40,6 +40,11 @@ class Test_Page_Type extends Papi_Page_Type {
 	 * Register properties.
 	 */
 	public function register() {
-	#	$this->box( 'boxes/properties.php' );
+		$this->box( 'Content', [
+			papi_property( [
+				'type'  => 'string',
+				'title' => 'Name'
+			] )
+		] );
 	}
 }

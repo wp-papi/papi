@@ -68,22 +68,11 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	}
 
 	/**
-	 * Setup all meta boxes.
+	 * Setup page type.
 	 */
-	protected function setup() {
-		if ( ! method_exists( $this, 'register' ) ) {
-			return;
-		}
-
-		// 1. Remove post type support
+	public function setup() {
+		parent::setup();
 		$this->remove_post_type_support();
-
-		// 2. Load all boxes.
-		$boxes = $this->get_boxes();
-
-		foreach ( $boxes as $box ) {
-			new Papi_Admin_Meta_Box( $box );
-		}
 	}
 
 	/**
