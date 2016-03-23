@@ -101,6 +101,29 @@ We moved some logic from page type class to entry type class to be able the sepa
 
 Thanks to all contributors and all who have tested Papi during the development.
 
+## [2.4.14](https://github.com/wp-papi/papi/releases/tag/v2.4.14) - 2016-03-21
+
+* Fixed: Maximum execution time problem with `papi_get_all_page_types`
+* Fixed: Check so file exists before calling `file_get_contents` when reading page type files.
+
+## [2.4.13](https://github.com/wp-papi/papi/releases/tag/v2.4.13) - 2016-03-19
+
+### Fixed
+
+* Fixed: Box options didn't work when no properties exists in the box.
+* Fixed: Some properties that was stored in options table did return null from `papi_get_option`, mostly flexible and repeater.
+* Fixed: Object cache issue with options fields that did get post id instead of zero that options should have.
+* Fixed: Check for registered directories before they are used.
+* Fixed: Double fields issue for any field when using `papi_get_field` in hooks that fires earlier then `admin_init` [#153](https://github.com/wp-papi/papi/issues/153).
+
+### Removed
+
+* Removed: `papi_get_all_page_types` had a broken cache that didn't work as it should when you have more than one Papi directory it will not load all types.
+
+## [2.4.12](https://github.com/wp-papi/papi/releases/tag/v2.4.12) - 2016-03-08
+
+* Fixed: PHP Notice/Object issue for relationship when using custom relationship data.
+
 ## [2.4.11](https://github.com/wp-papi/papi/releases/tag/v2.4.11) - 2016-02-06
 
 Fixed: Edit link property did appear in the default editor.
