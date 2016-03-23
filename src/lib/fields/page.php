@@ -20,12 +20,7 @@ function papi_delete_field( $id = null, $slug = null, $type = 'post' ) {
 		return false;
 	}
 
-	$id = papi_get_meta_id( $type, $id );
-
-	if ( $id === 0 && papi_get_meta_type( $type ) !== 'option' ) {
-		return false;
-	}
-
+	$id    = papi_get_meta_id( $type, $id );
 	$store = papi_get_meta_store( $id, $type );
 
 	if ( is_null( $store ) ) {
@@ -130,12 +125,7 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 		return $default;
 	}
 
-	$id = papi_get_meta_id( $type, $id );
-
-	if ( $id === 0 && papi_get_meta_type( $type ) !== 'option' ) {
-		return $default;
-	}
-
+	$id    = papi_get_meta_id( $type, $id );
 	$value = papi_cache_get( $slug, $id, $type );
 
 	if ( $value === null || $value === false ) {
@@ -249,12 +239,7 @@ function papi_update_field( $id = null, $slug = null, $value = null, $type = 'po
 		return papi_delete_field( $id, $slug, $type );
 	}
 
-	$id = papi_get_meta_id( $type, $id );
-
-	if ( $id === 0 && papi_get_meta_type( $type ) !== 'option' ) {
-		return false;
-	}
-
+	$id    = papi_get_meta_id( $type, $id );
 	$store = papi_get_meta_store( $id, $type );
 
 	if ( is_null( $store ) ) {
