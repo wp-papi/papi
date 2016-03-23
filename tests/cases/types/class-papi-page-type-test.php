@@ -199,13 +199,6 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->assertFalse( isset( $_wp_post_type_features['faq']['editor'] ) );
 	}
 
-	public function test_setup() {
-		$this->assertNull( $this->simple_page_type->setup() );
-		$this->assertNull( $this->empty_page_type->setup() );
-		$this->assertNull( $this->faq_page_type->setup() );
-		$this->assertNull( $this->tab_page_type->setup() );
-	}
-
 	public function test_parent_boxes() {
 		// FAQ 1
 		$property = $this->faq_page_type->get_property( 'question' );

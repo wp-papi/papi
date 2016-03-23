@@ -11,7 +11,19 @@ class Test_Page_Type extends Papi_Page_Type {
 		return [
 			'fill_labels' => true,
 			'name'        => 'Test page',
-			'template'    => 'pages/test-page.php'
+			'template'    => 'pages/test-page.php',
+			'show_screen_options'=>false
+		];
+	}
+
+	/**
+	 * Add help tabs.
+	 *
+	 * @return array
+	 */
+	public function help() {
+		return [
+			'hej' => 'du'
 		];
 	}
 
@@ -28,6 +40,6 @@ class Test_Page_Type extends Papi_Page_Type {
 	 * Register properties.
 	 */
 	public function register() {
-		$this->box( 'boxes/properties.php' );
+	#	$this->box( 'boxes/properties.php' );
 	}
 }

@@ -105,18 +105,6 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
-	 * Admin init.
-	 *
-	 * Hook into admin actions and filters in admin.
-	 */
-	public function admin_init() {
-		add_action( 'in_admin_header', [$this, 'add_help_tabs'] );
-		add_filter( 'screen_options_show_screen', function () {
-			return $this->show_screen_options;
-		} );
-	}
-
-	/**
 	 * Add new meta box with properties.
 	 *
 	 * @param mixed $file_or_options
@@ -393,6 +381,27 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	 */
 	public function singleton() {
 		return false;
+	}
+
+	/**
+	 * Setup entry type.
+	 *
+	 * @codeCoverageIgnore
+	 */
+	protected function setup() {
+	}
+
+	/**
+	 * Render page type and add actions and filters
+	 * for help and screen options.
+	 */
+	public function render() {
+		add_action( 'in_admin_header', [$this, 'add_help_tabs'] );
+		add_filter( 'screen_options_show_screen', function () {
+			return $this->show_screen_options;
+		} );
+
+		$this->setup();
 	}
 
 	/**

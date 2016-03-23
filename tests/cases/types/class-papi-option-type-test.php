@@ -88,9 +88,4 @@ class Papi_Option_Type_Test extends WP_UnitTestCase {
 		$this->header_option_type->render();
 		$this->expectOutputRegex( '/.*/' );
 	}
-
-	public function test_setup() {
-		$this->assertNull( $this->header_option_type->setup() );
-		$this->assertNull( $this->empty_option_type->setup() );
-	}
 }

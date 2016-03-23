@@ -70,7 +70,7 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	/**
 	 * Setup all meta boxes.
 	 */
-	public function setup() {
+	protected function setup() {
 		if ( ! method_exists( $this, 'register' ) ) {
 			return;
 		}

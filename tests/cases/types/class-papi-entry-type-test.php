@@ -31,12 +31,6 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 		);
 	}
 
-	public function test_admin_init() {
-		$this->assertTrue( apply_filters( 'screen_options_show_screen', true ) );
-		$this->info_entry_type->admin_init();
-		$this->assertFalse( apply_filters( 'screen_options_show_screen', true ) );
-	}
-
 	public function test_broken_page_type() {
 		$this->assertNull( papi_get_entry_type_by_id( 'broken-entry-type' ) );
 	}
@@ -140,6 +134,12 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 	public function test_new_class() {
 		$this->assertEmpty( $this->empty_entry_type->new_class() );
 		$this->assertEquals( new Info_Entry_Type(), $this->info_entry_type->new_class() );
+	}
+
+	public function test_render() {
+		$this->assertTrue( apply_filters( 'screen_options_show_screen', true ) );
+		$this->info_entry_type->render();
+		$this->assertFalse( apply_filters( 'screen_options_show_screen', true ) );
 	}
 
 	public function test_sort_order() {

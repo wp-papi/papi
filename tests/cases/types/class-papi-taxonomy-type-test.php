@@ -37,7 +37,7 @@ class Papi_Taxonomy_Type_Test extends WP_UnitTestCase {
 	public function test_edit_form() {
 		$_GET['taxonomy'] = 'post_tag';
 		$_GET['post'] = 'post';
-		$this->simple_taxonomy_type->setup();
+		$this->simple_taxonomy_type->render();
 		$this->simple_taxonomy_type->edit_form();
 		$this->expectOutputRegex( '/name\=\"papi\_name\"/' );
 	}
@@ -91,10 +91,5 @@ class Papi_Taxonomy_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 'twitter_name', $property->get_slug( true ) );
 		$this->assertSame( 'string', $property->get_option( 'type' ) );
 		$this->assertSame( 'string', $property->type );
-	}
-
-	public function test_setup() {
-		$this->assertNull( $this->simple_taxonomy_type->setup() );
-		$this->assertNull( $this->empty_taxonomy_type->setup() );
 	}
 }
