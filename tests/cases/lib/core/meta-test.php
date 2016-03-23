@@ -15,7 +15,7 @@ class Papi_Lib_Core_Meta_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_meta_id() {
-		$this->assertNull( papi_get_meta_id( 'option' ) );
+		$this->assertSame( 0, papi_get_meta_id( 'option' ) );
 
 		$_GET['post'] = 1;
 		$this->assertSame( 1, papi_get_meta_id() );

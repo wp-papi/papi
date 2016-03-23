@@ -6,7 +6,7 @@
  * @param  string $type
  * @param  int    $id
  *
- * @return string|null
+ * @return int
  */
 function papi_get_meta_id( $type = null, $id = null ) {
 	$type = papi_get_meta_type( $type );
@@ -14,6 +14,8 @@ function papi_get_meta_id( $type = null, $id = null ) {
 	if ( function_exists( sprintf( 'papi_get_%s_id', $type ) ) ) {
 		return call_user_func_array( sprintf( 'papi_get_%s_id', $type ), [$id] );
 	}
+
+	return 0;
 }
 
 /**
