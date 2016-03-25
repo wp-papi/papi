@@ -298,8 +298,7 @@ class Papi_Core_Property {
 	 * @return Papi_Core_Property|null
 	 */
 	public function get_child_property( $slug, array $items = [] ) {
-		$items  = empty( $items ) ? $this->get_setting( 'items', [] ) : $items;
-		$items  = is_array( $items ) ? $items : [$items];
+		$items  = empty( $items ) ? $this->get_child_properties() : $items;
 		$result = null;
 
 		foreach ( $items as $property ) {
@@ -313,6 +312,16 @@ class Papi_Core_Property {
 				return $property;
 			}
 		}
+	}
+
+	/**
+	 * Get child properties from `items` in the settings array.
+	 *
+	 * @return array|object
+	 */
+	public function get_child_properties() {
+		$items = $this->get_setting( 'items', [] );
+		return is_array( $items ) ? $items : [$items];
 	}
 
 	/**
