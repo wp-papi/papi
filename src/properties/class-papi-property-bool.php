@@ -93,9 +93,7 @@ class Papi_Property_Bool extends Papi_Property {
 	 * @return mixed
 	 */
 	protected function prepare_value( $value ) {
-		if ( is_string( $value ) &&
-			( $value === 'true' || $value === 'on' ) ||
-			$value === true ) {
+		if ( is_string( $value ) && ( $value === 'true' || $value === 'on' ) || $value === true ) {
 			return true;
 		}
 
