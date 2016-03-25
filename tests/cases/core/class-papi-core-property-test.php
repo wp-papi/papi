@@ -243,6 +243,36 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Fredrik', $actual );
 	}
 
+	public function test_get_child_property_fail() {
+		$property = Papi_Core_Property::create( [
+			'type'  => 'string',
+			'title' => 'Hello'
+		] );
+
+		$this->assertNull( $property->get_child_property( 'hello' ) );
+	}
+
+	public function test_get_child_property_success() {
+		$property = Papi_Core_Property::create( [
+			'type'     => 'string',
+			'title'    => 'Hello',
+			'settings' => [
+				'items' => [
+					Papi_Core_Property::create( [
+						'type'  => 'string',
+						'title' => 'Name'
+					] )
+				]
+			]
+		] );
+
+		$child_property = $property->get_child_property( 'name' );
+
+		$this->assertInstanceOf( 'Papi_Core_Property', $child_property );
+		$this->assertSame( 'string', $child_property->type );
+		$this->assertSame( 'Name', $child_property->title );
+	}
+
 	public function test_get_default_settings() {
 		$property = Papi_Core_Property::create( [
 			'type'  => 'string',

@@ -290,13 +290,29 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Get child properties from `items` in the settings array.
+	 * Get child property.
 	 *
-	 * @return array|object
+	 * @param  string $slug
+	 * @param  array  $items
+	 *
+	 * @return Papi_Core_Property|null
 	 */
-	public function get_child_properties() {
-		$items = $this->get_setting( 'items', [] );
-		return is_array( $items ) ? $items : [$items];
+	public function get_child_property( $slug, array $items = [] ) {
+		$items  = empty( $items ) ? $this->get_setting( 'items', [] ) : $items;
+		$items  = is_array( $items ) ? $items : [$items];
+		$result = null;
+
+		foreach ( $items as $property ) {
+			if ( is_array( $property ) && isset( $property['items'] ) ) {
+				$property = $this->get_child_property( $slug, $property['items'] );
+			}
+
+			$property = papi_get_property_type( $property );
+
+			if ( papi_is_property( $property ) && $property->match_slug( $slug ) ) {
+				return $property;
+			}
+		}
 	}
 
 	/**

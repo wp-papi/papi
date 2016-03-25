@@ -243,36 +243,6 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
-	 * Get child property.
-	 *
-	 * @param  array  $items
-	 * @param  string $slug
-	 *
-	 * @return object
-	 */
-	protected function get_child_property( $items, $slug ) {
-		$result = null;
-
-		foreach ( $items as $property ) {
-			if ( is_array( $property ) ) {
-				$result = $this->get_child_property( $property, $slug );
-
-				if ( is_object( $result ) ) {
-					return papi_get_property_type( $result );
-				}
-			}
-
-			$property = papi_get_property_type( $property );
-
-			if ( papi_is_property( $property ) && $property->match_slug( $slug ) ) {
-				return papi_get_property_type( $property );
-			}
-		}
-
-		return $result;
-	}
-
-	/**
 	 * Get labels that should be changed
 	 * when using `fill_labels` option.
 	 *
@@ -325,13 +295,10 @@ class Papi_Entry_Type extends Papi_Core_Type {
 						return $property;
 					}
 
-					$result = $this->get_child_property(
-						$property->get_child_properties(),
-						$child_slug
-					);
+					$property = $property->get_child_property( $child_slug );
 
-					if ( is_object( $result ) ) {
-						return papi_get_property_type( $result );
+					if ( papi_is_property( $property ) ) {
+						return $property;
 					}
 				}
 			}
