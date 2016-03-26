@@ -15,6 +15,7 @@
 * Added vertical boxes support [#148](https://github.com/wp-papi/papi/issues/159).
 * Added support for saving properties on revision posts and restoring revision data.
 * Added `display` option to box options in order to control if the box should be displayed or not.
+* Added support for repeaters inside repeaters.
 
 ### Changed
 
