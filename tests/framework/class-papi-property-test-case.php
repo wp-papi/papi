@@ -54,6 +54,25 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Get property value.
+	 *
+	 * @param  string $name
+	 *
+	 * @return mixed
+	 */
+	public function __get( $name ) {
+		if ( $name === 'property' && count( $this->properties ) > 0 ) {
+			return $this->properties[0];
+		}
+
+		if ( $name === 'slug' && count( $this->slugs ) > 0 ) {
+			return $this->slugs[0];
+		}
+
+		return parent::__get( $name );
+	}
+
+	/**
 	 * Assert values will assert values so it's the same by default.
 	 */
 	public function assert_values( $expected, $actual ) {
