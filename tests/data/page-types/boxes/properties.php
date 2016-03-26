@@ -310,6 +310,36 @@ return [
 		]
 	] ),
 
+	// Repeater with repeater inside
+	papi_property( [
+		'type'     => 'repeater',
+		'title'    => 'Repeater with child test',
+		'slug'     => 'repeater_with_child_test',
+		'settings' => [
+			'items' => [
+				papi_property( [
+					'type'     => 'repeater',
+					'title'    => 'Repeater child test',
+					'slug'     => 'repeater_child_test',
+					'settings' => [
+						'items' => [
+							papi_property( [
+								'type'  => 'string',
+								'title' => 'Book name',
+								'slug'  => 'book_name'
+							] ),
+							papi_property( [
+								'type'  => 'bool',
+								'title' => 'Is open?',
+								'slug'  => 'is_open'
+							] )
+						]
+					]
+				] )
+			]
+		]
+	] ),
+
 	// String
 	papi_property( [
 		'type'  => 'string',

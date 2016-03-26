@@ -5,28 +5,57 @@
  */
 class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 
-	public $slug = 'repeater_test';
+	public $slugs = [
+		'repeater_test',
+		'repeater_with_child_test'
+	];
 
 	public function get_value() {
-		$items = $this->property->get_setting( 'items' );
-		$value_slug1         = unpapify( $items[0]->slug );
-		$value_type_slug1    = papi_get_property_type_key( $value_slug1 );
-		$value_slug2         = unpapify( $items[1]->slug );
-		$value_type_slug2    = papi_get_property_type_key( $value_slug2 );
+		$args = func_get_args();
+		$args[0] = isset( $args[0] ) ? $args[0] : $this->slugs[0];
+		switch ( $args[0] ) {
+			case 'repeater_with_child_test':
+				return [
+					[
+						'repeater_child_test'          => $this->get_expected( 'repeater_test' ),
+						'repeater_child_test_property' => $this->properties[1]
+					]
+				];
+			default:
+				$items = $this->property->get_setting( 'items' );
+				$value_slug1         = unpapify( $items[0]->slug );
+				$value_type_slug1    = papi_get_property_type_key( $value_slug1 );
+				$value_slug2         = unpapify( $items[1]->slug );
+				$value_type_slug2    = papi_get_property_type_key( $value_slug2 );
 
-		$item = [];
-		$item[$value_slug1] = 'Harry Potter';
-		$item[$value_type_slug1] = $items[0];
-		$item[$value_slug2] = '';
-		$item[$value_type_slug2] = $items[1];
+				$item = [];
+				$item[$value_slug1] = 'Harry Potter';
+				$item[$value_type_slug1] = $items[0];
+				$item[$value_slug2] = '';
+				$item[$value_type_slug2] = $items[1];
 
-		return [ $item ];
+				return [$item];
+		}
 	}
 
 	public function get_expected() {
-		return [
-			[ 'book_name' => 'Harry Potter', 'is_open' => false ]
-		];
+		$args = func_get_args();
+		$args[0] = isset( $args[0] ) ? $args[0] : $this->slugs[0];
+		switch ( $args[0] ) {
+			case 'repeater_with_child_test':
+				return [
+					[
+						'repeater_child_test' => $this->get_expected( 'repeater_test' )
+					]
+				];
+			default:
+				return [
+					[
+						'book_name' => 'Harry Potter',
+						'is_open'   => false
+					]
+				];
+		}
 	}
 
 	public function test_property_convert_type() {

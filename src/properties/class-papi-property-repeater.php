@@ -31,7 +31,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 *
 	 * @var array
 	 */
-	protected $exclude_properties = ['flexible', 'group', 'repeater'];
+	protected $exclude_properties = ['flexible', 'group'];
 
 	/**
 	 * Delete value from the database.
@@ -272,7 +272,6 @@ class Papi_Property_Repeater extends Papi_Property {
 		$option_page = $this->is_option_page();
 
 		foreach ( $dbresults as $key => $meta ) {
-
 			if ( $option_page ) {
 				preg_match( '/^[^\d]*(\d+)/', $meta->option_name, $matches );
 			} else {
@@ -404,31 +403,39 @@ class Papi_Property_Repeater extends Papi_Property {
 		// Will not need this array.
 		unset( $trash );
 
-		$store    = $this->get_store();
-		$types   = [];
-		$results = papi_from_property_array_slugs(
-			$results,
-			unpapify( $repeater_slug )
-		);
+		$results = papi_from_property_array_slugs( $results, unpapify( $repeater_slug ) );
 
-		if ( empty( $store ) || empty( $results ) ) {
+		if ( empty( $results ) ) {
 			return $this->default_value;
 		}
 
-		foreach ( $results[0] as $slug => $value ) {
-			if ( $property = $store->get_property( $repeater_slug, $slug ) ) {
-				$types[$slug] = $property;
-			}
-		}
+		return $this->load_child_properties( $results, $this );
+	}
 
+	/**
+	 * Load child properties.
+	 *
+	 * @param  array              $results
+	 * @param  Papi_Core_Property $property
+	 *
+	 * @return array
+	 */
+	protected function load_child_properties( array $results, $property = null ) {
 		foreach ( $results as $index => $row ) {
 			foreach ( $row as $slug => $value ) {
-				if ( ! isset( $types[$slug] ) ) {
-					continue;
+				if ( is_array( $value ) && isset( $value[$slug] ) ) {
+					$child_property = $this->get_store()->get_property( $this->get_slug( true ), $slug );
+					$value = papi_from_property_array_slugs( $value, unpapify( $slug ) );
+					$results[$index][$slug] = $this->load_child_properties( $value, $child_property );
 				}
 
 				$type_key = papi_get_property_type_key_f( $slug );
-				$results[$index][$type_key] = $types[$slug];
+
+				if ( $property->match_slug( $slug ) ) {
+					$results[$index][$type_key] = $property;
+				} else {
+					$results[$index][$type_key] = $property->get_child_property( $slug );
+				}
 			}
 		}
 
@@ -484,6 +491,12 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		if ( isset( $options->settings->items ) ) {
 			foreach ( $options->settings->items as $index => $property ) {
+				if ( is_array( $property ) && isset( $property['items'] ) ) {
+					foreach ( $property['items'] as $child_index => $child_property ) {
+						$options->settings->items[$index]['items'][$child_index] = $this->prepare_property_for_json( $child_property );
+					}
+				}
+
 				if ( $property = $this->prepare_property_for_json( $property ) ) {
 					$options->settings->items[$index] = $property;
 				}
@@ -564,7 +577,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$options->settings->items = papi_to_array( $options->settings->items );
 
 		foreach ( $options->settings->items as $key => $value ) {
-			$property = $this->prepare_property_for_json( $value );
+			$property = $this->prepare_property_for_json( papi_property( $value ) );
 
 			if ( $property === false ) {
 				unset( $options->settings->items[$key] );

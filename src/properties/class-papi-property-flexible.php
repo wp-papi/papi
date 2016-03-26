@@ -32,7 +32,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @var array
 	 */
-	protected $exclude_properties = ['flexible', 'repeater'];
+	protected $exclude_properties = ['flexible', 'group'];
 
 	/**
 	 * The layout key.
@@ -416,20 +416,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			return $this->default_value;
 		}
 
-		foreach ( $results as $index => $row ) {
-			foreach ( $row as $slug => $value ) {
-				if ( $this->is_layout_key( $slug ) ) {
-					continue;
-				}
-
-				if ( $property = $store->get_property( $repeater_slug, $slug ) ) {
-					$type_key = papi_get_property_type_key_f( $slug );
-					$results[$index][$type_key] = $property;
-				}
-			}
-		}
-
-		return $results;
+		return $this->load_child_properties( $results, $this );
 	}
 
 	/**
@@ -514,7 +501,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 
 			foreach ( $value['items'] as $index => $property ) {
-				$property = $this->prepare_property_for_json( $property );
+				$property = $this->prepare_property_for_json( papi_property( $property ) );
 
 				if ( $property === false ) {
 					unset( $options->settings->items[$key]['items'][$index] );
