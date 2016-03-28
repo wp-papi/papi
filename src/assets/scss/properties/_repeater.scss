@@ -188,3 +188,16 @@
 .papi-table td[colspan="2"] .papi-property-repeater-top .repeater-tbody > tr > td.last {
   border-right: 0;
 }
+
+//
+// Repeater inside repeater css.
+//
+
+.papi-property-repeater .papi-property-repeater {
+  margin-right: -34px;
+  margin-top: -21px;
+
+  .papi-table {
+    margin-left: -18px;
+  }
+}
