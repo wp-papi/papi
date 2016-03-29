@@ -10,16 +10,17 @@ class Papi_Property_Divider extends Papi_Property {
 	 */
 	public function html() {
 		$options = $this->get_options();
+		$text    = '';
+
+		if ( ! papi_is_empty( $options->description ) ) {
+			$text = sprintf( '<p>%s</p>', $options->description );
+		}
 
 		papi_render_html_tag( 'div', [
 			'class'          => 'papi-property-divider',
 			'data-papi-rule' => $this->html_name(),
-			sprintf( '<h3><span>%s</span></h3>', $options->title )
+			sprintf( '<h3><span>%s</span></h3>%s', $options->title, $text )
 		] );
-
-		if ( ! papi_is_empty( $options->description ) ) {
-			echo sprintf( '<p>%s</p>', $options->description );
-		}
 	}
 
 	/**
