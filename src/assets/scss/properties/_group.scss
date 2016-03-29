@@ -3,5 +3,29 @@
 
   > table {
     margin: -11px 0 -10px -15px;
+
+    @media screen and (max-width: 782px) {
+      td {
+        display: block;
+
+        &:first-child {
+          border-bottom: 1px solid #eaeaea;
+          border-right: 0;
+          margin-top: 10px;
+          padding: 10px 15px 10px 15px;
+          width: 90%;
+
+          &[colspan="2"] {
+            margin-bottom: -11px;
+            padding-bottom: 20px;
+          }
+        }
+
+        + td {
+          border-top: 0;
+          margin-top: 10px;
+        }
+      }
+    }
   }
 }

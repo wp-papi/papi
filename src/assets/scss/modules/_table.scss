@@ -108,23 +108,32 @@
   .papi-box > .inside {
     margin-top: -5px !important;
 
-    > .papi-table > tbody > tr > td {
-      display: block;
+    > .papi-table > tbody > tr {
+      > td {
+        display: block;
 
-      &:first-child {
-        border-bottom: 1px solid #eaeaea;
-        border-right: 0;
-        margin-top: 10px;
-        width: 89%;
+        &:first-child {
+          border-bottom: 1px solid #eaeaea;
+          border-right: 0;
+          margin-top: 10px;
+          width: 89%;
 
-        &[colspan="2"] {
-          margin-bottom: -11px;
+          &[colspan="2"] {
+            margin-bottom: -11px;
+            padding-bottom: 20px;
+          }
+        }
+
+        + td {
+          border-top: 0;
+          margin-top: 10px;
         }
       }
 
-      + td {
-        border-top: 0;
-        margin-top: 10px;
+      &.papi-layout-vertical {
+        > td:first-child {
+          border-bottom: 0;
+        }
       }
     }
   }
