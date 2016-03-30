@@ -21,7 +21,7 @@ class Url {
   add(e) {
     e.preventDefault();
 
-    const $this = $(this);
+    const $this = $(e.currentTarget);
 
     Utils.wpMediaEditor().on('insert', (attachment) => {
       $this.prev().val(attachment.url);
@@ -32,7 +32,7 @@ class Url {
    * Bind elements with functions.
    */
   binds() {
-    $(document).on('click', '.papi-url-media-button', this.add);
+    $(document).on('click', '.papi-url-media-button', this.add.bind(this));
   }
 }
 
