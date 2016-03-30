@@ -42,7 +42,6 @@ class Relationship {
    * Bind elements with functions.
    */
   binds() {
-    const self = this;
     $('.relationship-right > ul').sortable({
       placeholder: 'ui-state-highlight',
       start: function (e, ui) {
@@ -52,24 +51,20 @@ class Relationship {
         ui.item.removeClass('sortable');
       }
     }).disableSelection();
-    $(document).on('click', '.papi-property-relationship .relationship-left li', function (e) {
-      e.preventDefault();
-      self.add($(this));
-    });
-    $(document).on('click', '.papi-property-relationship .relationship-right li', function (e) {
-      e.preventDefault();
-      self.remove($(this));
-    });
-    $(document).on('keyup', '.papi-property-relationship input[type=search]', this.search);
-    $(document).on('papi/property/repeater/added', '[data-property="relationship"]', this.update);
+
+    $(document).on('click', '.papi-property-relationship .relationship-left li', this.add.bind(this));
+    $(document).on('click', '.papi-property-relationship .relationship-right li', this.remove.bind(this));
+    $(document).on('keyup', '.papi-property-relationship input[type=search]', this.search.bind(this));
+    $(document).on('papi/property/repeater/added', '[data-property="relationship"]', this.update.bind(this));
   }
 
   /**
    * Remove the selected page.
    *
-   * @param {object} $this
+   * @param {object} e
    */
-  remove($this) {
+  remove(e) {
+    const $this    = $(e.currentTarget);
     const $prop    = $this.closest('.papi-property-relationship');
     const settings = $prop.data().settings;
 
@@ -92,7 +87,7 @@ class Relationship {
   search(e) {
     e.preventDefault();
 
-    const $this = $(this);
+    const $this = $(e.currentTarget);
     const $list = $this.closest('.papi-property-relationship').find('.relationship-left ul');
     const val   = $this.val().toLowerCase();
 
@@ -125,7 +120,7 @@ class Relationship {
   update(e) {
     e.preventDefault();
 
-    let $this   = $(this);
+    let $this   = $(e.currentTarget);
     const $prop = $this.prev();
 
     $prop.find('.relationship-left [name]').each(function () {
