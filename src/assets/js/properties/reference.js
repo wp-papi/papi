@@ -16,7 +16,7 @@ class Reference {
    * Bind elements with functions.
    */
   binds() {
-    $(document).on('click', '.papi-property-reference .handlediv', this.toggle);
+    $(document).on('click', '.papi-property-reference .handlediv', this.toggle.bind(this));
   }
 
   /**
@@ -27,7 +27,8 @@ class Reference {
   toggle(e) {
     e.preventDefault();
 
-    $(this).parent()
+    $(e.currentTarget)
+      .parent()
       .toggleClass('closed')
       .next()
       .toggle();
