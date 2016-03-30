@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [2.4.16](https://github.com/wp-papi/papi/releases/tag/v2.4.16) - 2016-XX-XX
+
+* Fixed: Datetime did not work in repeater [#166](https://github.com/wp-papi/papi/issues/166).
+
 ## [2.4.15](https://github.com/wp-papi/papi/releases/tag/v2.4.15) - 2016-XX-XX
 
 * Fixed: Require for link property [#165](https://github.com/wp-papi/papi/issues/165).
