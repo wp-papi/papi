@@ -22,7 +22,7 @@ class Datetime {
     this.pikaday($('.inside > .papi-table > tbody > tr > td > input.papi-property-datetime'));
     this.pikaday($('.papi-table .papi-table input.papi-property-datetime'));
 
-    $(document).on('papi/property/repeater/added', '[data-property="datetime"]', this.updateSelect);
+    $(document).on('papi/property/repeater/added', '[data-property="datetime"]', this.updateSelect.bind(this));
   }
 
   /**
@@ -59,7 +59,7 @@ class Datetime {
    */
    updateSelect(e) {
      e.preventDefault();
-     this.pikaday($(this).prev());
+     this.pikaday($(e.currentTarget).prev().find('.papi-property-datetime'));
    }
 }
 
