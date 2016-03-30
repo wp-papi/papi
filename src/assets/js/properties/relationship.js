@@ -14,9 +14,12 @@ class Relationship {
   /**
    * Add new page to the list.
    *
-   * @param {object} $this
+   * @param {object} e
    */
-  add($this) {
+  add(e) {
+    e.preventDefault();
+
+    const $this    = $(e.currentTarget);
     const $li      = $this.clone();
     const $prop    = $this.closest('.papi-property-relationship');
     const $right   = $prop.find('.relationship-right');
