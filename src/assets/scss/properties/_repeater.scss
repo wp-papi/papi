@@ -190,7 +190,7 @@
 }
 
 //
-// Repeater inside repeater css.
+// Repeater inside repeater fixes.
 //
 
 .papi-property-repeater .papi-property-repeater {
@@ -199,5 +199,17 @@
 
   .papi-table {
     margin-left: -18px;
+  }
+}
+
+//
+// Repeater inside flexible fixes.
+//
+
+.papi-property-flexible .papi-property-repeater {
+  margin-right: -32px;
+
+  .papi-table {
+    margin: -21px 0 -13px -17px;
   }
 }
