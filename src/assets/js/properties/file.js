@@ -32,16 +32,11 @@ class File {
       revert: true
     });
 
-    const self = this;
-    $(document).on('click', '.papi-property-file .papi-file-select > .button', function (e) {
-      e.preventDefault();
-      self.add($(this));
-    });
-
-    $(document).on('mouseenter mouseleave', '.papi-property-file .attachment', this.hover);
-    $(document).on('click', '.papi-property-file .attachment a', this.remove);
-    $(document).on('change', '.papi-property-repeater-top', this.update);
-    $(document).on('click', '.papi-property-file .attachment', this.replace);
+    $(document).on('click', '.papi-property-file .papi-file-select > .button', this.add.bind(this));
+    $(document).on('mouseenter mouseleave', '.papi-property-file .attachment', this.hover.bind(this));
+    $(document).on('click', '.papi-property-file .attachment a', this.remove.bind(this));
+    $(document).on('change', '.papi-property-repeater-top', this.update.bind(this));
+    $(document).on('click', '.papi-property-file .attachment', this.replace.bind(this));
   }
 
   /**
@@ -49,7 +44,10 @@ class File {
    *
    * @param {object} e
    */
-  add($this) {
+  add(e) {
+    e.preventDefault();
+
+    const $this    = $(e.currentTarget);
     const $prop    = $this.closest('.papi-property-file');
     const $select  = $this.closest('p');
     const $target  = $prop.find('.attachments');
@@ -101,8 +99,7 @@ class File {
    */
   hover(e) {
     e.preventDefault();
-
-    $(this).find('a').toggle();
+    $(e.currentTarget).find('a').toggle();
   }
 
   /**
@@ -114,7 +111,7 @@ class File {
     e.stopPropagation();
     e.preventDefault();
 
-    const $this = $(this);
+    const $this = $(e.currentTarget);
     const $prop = $this.closest('.papi-property-file');
 
     $prop
@@ -153,7 +150,7 @@ class File {
   replace(e) {
     e.preventDefault();
 
-    const $this   = $(this);
+    const $this   = $(e.currentTarget);
     const $prop   = $this.closest('.papi-property-file');
     const $img    = $this.find('img[src]');
     const $input  = $this.find('input[type=hidden]');
@@ -198,11 +195,13 @@ class File {
 
   /**
    * Update when added to repeater.
+   *
+   * @param {object} e
    */
   update(e) {
     e.preventDefault();
 
-    $(this)
+    $(e.currentTarget)
       .find('tr').last()
       .find('.attachments')
       .sortable({
