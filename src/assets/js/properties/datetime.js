@@ -39,6 +39,11 @@ class Datetime {
       let $prop = $(this);
       let settings = $prop.data().settings;
 
+      // Expects settings to be defined.
+      if (typeof settings === 'undefined') {
+        return;
+      }
+
       // Fixes to 24 hours actually works if you forget to change the format.
       if (settings.use24hour) {
         settings.format = settings.format.replace(/hh/, 'HH');
