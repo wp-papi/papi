@@ -27,38 +27,24 @@ class Link {
    * Bind elements with functions.
    */
   binds() {
-    const self = this;
-    $(document).on('click', '.papi-property-link button[data-link-action="add"]', function (e) {
-      e.preventDefault();
-      self.add($(this));
-    });
-
-    $(document).on('click', '#wp-link-submit', function (e) {
-      if (self.$el !== undefined) {
-        e.preventDefault();
-        self.render(window.wpLink.getAttrs());
-      }
-    });
-
-    $(document).on('click', '.papi-property-link button[data-link-action="edit"]', function (e) {
-      e.preventDefault();
-      self.edit($(this));
-    });
-
-    $(document).on('click', '.papi-property-link button[data-link-action="remove"]', function (e) {
-      e.preventDefault();
-      self.remove($(this));
-    });
+    $(document).on('click', '.papi-property-link button[data-link-action="add"]', this.add.bind(this));
+    $(document).on('click', '.papi-property-link button[data-link-action="edit"]', this.edit.bind(this));
+    $(document).on('click', '.papi-property-link button[data-link-action="remove"]', this.remove.bind(this));
+    $(document).on('click', '#wp-link-submit', this.render.bind(this));
   }
 
   /**
    * Add new link.
    *
-   * @param {object} $this
+   * @param {object} e
    */
-  add($this) {
+  add(e) {
+    e.preventDefault();
+
+    const $this = $(e.currentTarget);
+
     this.$el = $this.closest('.papi-property-link');
-    this.$p = this.$el.find('p');
+    this.$p  = this.$el.find('p');
 
     // Create a new window.wpLink.update that only
     // close the wpLink window. Save the old to later.
@@ -73,11 +59,15 @@ class Link {
   /**
    * Add new link.
    *
-   * @param {object} $this
+   * @param {object} e
    */
-  edit($this) {
+  edit(e) {
+    e.preventDefault();
+
+    const $this = $(e.currentTarget);
+
     this.$el = $this.closest('.papi-property-link');
-    this.$p = this.$el.find('p');
+    this.$p  = this.$el.find('p');
 
     // Create a new window.wpLink.update that only
     // close the wpLink window. Save the old to later.
@@ -102,9 +92,12 @@ class Link {
   /**
    * Remove a link.
    *
-   * @param {object} $this
+   * @param {object} e
    */
-  remove($this) {
+  remove(e) {
+    e.preventDefault();
+
+    const $this = $(e.currentTarget);
     const $prop = $this.closest('.papi-property-link');
 
     $prop.find('.link-table').remove();
@@ -123,11 +116,18 @@ class Link {
   /**
    * Render the image with the template.
    *
-   * @param {object} data
+   * @param {object} e
    */
-  render(data) {
+  render(e) {
+    if (typeof this.$el === undefined) {
+      return;
+    }
+
+    e.preventDefault();
+
+    const data   = window.wpLink.getAttrs();
     let template = this.template;
-    template = window._.template($.trim(template()));
+    template     = window._.template($.trim(template()));
 
     data.link = '<a href="' + data.href + '" target="_blank">' + data.href + '</a>';
     data.title = $('#wp-link-text').val();
