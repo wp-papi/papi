@@ -18,8 +18,8 @@ class Post {
    * Bind elements with functions.
    */
   binds() {
-    $(document).on('papi/property/repeater/added', '[data-property="post"]', this.update);
-    $(document).on('change', '.papi-property-post-left', this.change);
+    $(document).on('papi/property/repeater/added', '[data-property="post"]', this.update.bind(this));
+    $(document).on('change', '.papi-property-post-left', this.change.bind(this));
   }
 
   /**
@@ -31,19 +31,19 @@ class Post {
   change(e) {
     e.preventDefault();
 
-    const $this = $(this);
+    const $this = $(e.currentTarget);
     const query = $this.data('post-query').length
       ? $this.data('post-query')
       : {};
 
     query.post_type = $this.val();
 
-    const params = {
+    const params  = {
       'action': 'get_posts',
       'fields': ['ID', 'post_title'],
       'query': query
     };
-    const $prop = $this.closest('.papi-property-post');
+    const $prop   = $this.closest('.papi-property-post');
     const $select = $prop.find('.papi-property-post-right');
 
     $('[for="' + $select.attr('id') + '"]')
@@ -75,7 +75,7 @@ class Post {
   update(e) {
     e.preventDefault();
 
-    const $select = $(this).parent().find('select');
+    const $select = $(e.currentTarget).parent().find('select');
 
     if ($select.hasClass('papi-component-select2') && 'select2' in $.fn) {
       $select.select2();
