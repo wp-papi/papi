@@ -18,17 +18,22 @@ class Color {
    * Bind elements with functions.
    */
   binds() {
-    $('.papi-property-color-picker input').each(function () {
-      const $el = $(this);
-      const palettes = $el.data().palettes;
+    $('.papi-property-color-picker input').each(this.showColorPicker);
+  }
 
-      $el.wpColorPicker({
-        color: true,
-        change: function () {
-          $el.trigger('change');
-        },
-        palettes: palettes === undefined ? false : palettes
-      });
+  /**
+   * Show color picker.
+   */
+  showColorPicker() {
+    const $el      = $(this);
+    const palettes = $el.data().palettes;
+
+    $el.wpColorPicker({
+      color: true,
+      change: function () {
+        $el.trigger('change');
+      },
+      palettes: palettes === undefined ? false : palettes
     });
   }
 }
