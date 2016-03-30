@@ -18,7 +18,7 @@ class Dropdown {
    * Bind elements with functions.
    */
   binds() {
-    $(document).on('papi/property/repeater/added', '[data-property="dropdown"]', this.update);
+    $(document).on('papi/property/repeater/added', '[data-property="dropdown"]', this.update.bind(this));
   }
 
   /**
@@ -27,7 +27,7 @@ class Dropdown {
   update(e) {
     e.preventDefault();
 
-    const $select = $(this).parent().find('select');
+    const $select = $(e.currentTarget).parent().find('select');
 
     if ($select.hasClass('papi-component-select2') && 'select2' in $.fn) {
       $select.select2();
