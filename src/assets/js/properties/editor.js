@@ -23,13 +23,7 @@ class Editor {
    * Bind elements with functions.
    */
   binds() {
-    const self = this;
-
-    $(document).on('papi/property/repeater/added', '[data-property="editor"]', function (e) {
-      e.preventDefault();
-      self.update($(this));
-    });
-
+    $(document).on('papi/property/repeater/added', '[data-property="editor"]', this.update.bind(this));
     $(this.loaded);
   }
 
@@ -155,10 +149,13 @@ class Editor {
   /**
    * Update editor when it is added to repeater.
    *
-   * @param {object} $this
+   * @param {object} e
    */
-  update($this) {
-    const id = this.getId($this.parent().find('div[id]').attr('id'));
+  update(e) {
+    e.preventDefault();
+
+    const $this = $(e.currentTarget);
+    const id    = this.getId($this.parent().find('div[id]').attr('id'));
 
     if (tinyMCE.editors[id] !== undefined) {
       return;
