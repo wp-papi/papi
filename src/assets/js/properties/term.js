@@ -18,8 +18,8 @@ class Term {
    * Bind elements with functions.
    */
   binds() {
-    $(document).on('papi/property/repeater/added', '[data-property="term"]', this.update);
-    $(document).on('change', '.papi-property-term-left', this.change);
+    $(document).on('papi/property/repeater/added', '[data-property="term"]', this.update.bind(this));
+    $(document).on('change', '.papi-property-term-left', this.change.bind(this));
   }
 
   /**
@@ -31,7 +31,7 @@ class Term {
   change(e) {
     e.preventDefault();
 
-    const $this = $(this);
+    const $this = $(e.currentTarget);
     const query = $this.data('term-query').length
       ? $this.data('term-query')
       : {};
@@ -73,7 +73,7 @@ class Term {
   update(e) {
     e.preventDefault();
 
-    const $select = $(this).parent().find('select');
+    const $select = $(e.currentTarget).parent().find('select');
 
     if ($select.hasClass('papi-component-select2') && 'select2' in $.fn) {
       $select.select2();
