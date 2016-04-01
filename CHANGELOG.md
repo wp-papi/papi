@@ -26,6 +26,10 @@
 
 * Removed Papi tool page.
 
+## [3.0.5](https://github.com/wp-papi/papi/releases/tag/v3.0.5) - 2016-04-01
+
+* Fixed: Datetime did not work in repeater [#166](https://github.com/wp-papi/papi/issues/166).
+
 ## [3.0.4](https://github.com/wp-papi/papi/releases/tag/v3.0.4) - 2016-03-23
 
 * Fixed: Require for link property [#165](https://github.com/wp-papi/papi/issues/165).
