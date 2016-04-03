@@ -16,6 +16,7 @@
 * Added support for saving properties on revision posts and restoring revision data.
 * Added `display` option to box options in order to control if the box should be displayed or not.
 * Added support for repeaters inside repeaters.
+* Added support for render html in `Publish box` with `publish_box` method.
 
 ### Changed
 
