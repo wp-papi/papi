@@ -1,6 +1,6 @@
 # Papi Changelog
 
-## [3.1.0]() - 2016-XX-XX
+## [3.1.0](https://github.com/wp-papi/papi/releases/tag/v3.1.0) - 2016-XX-XX
 
 ### Added
 
