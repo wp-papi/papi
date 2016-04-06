@@ -39,6 +39,10 @@ class Taxonomy {
     let interval;
 
     interval = setInterval(() => {
+      if ($('#ajax-response').children().length) {
+        clearInterval(interval);
+      }
+
       const $thelist   = $('#the-list');
       const $rowTitles = $thelist.find('td.column-name a.row-title');
       const $rows      = $rowTitles.contents().filter(function () {
@@ -48,10 +52,6 @@ class Taxonomy {
       if ($rows.length) {
         clearInterval(interval);
         window.location = $rows[0].parentElement.href;
-      }
-
-      if ($('#ajax-response').children().length) {
-        clearInterval(interval);
       }
     }, 500);
   }
