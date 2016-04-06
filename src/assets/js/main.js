@@ -8,6 +8,7 @@ import Core from 'core';
 import Required from 'required';
 import Rules from 'rules';
 import Tabs from 'tabs';
+import Taxonomy from 'taxonomy';
 
 // Properties
 import Color from 'properties/color';
@@ -29,6 +30,7 @@ Core.init();
 Required.init();
 Rules.init();
 Tabs.init();
+Taxonomy.init();
 
 // Properties
 Color.init();

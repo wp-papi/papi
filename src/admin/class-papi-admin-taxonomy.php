@@ -49,18 +49,23 @@ final class Papi_Admin_Taxonomy {
 			<label for="<?php echo $html_name; ?>">
 				<?php echo sprintf( __( '%s type', 'papi' ), $taxonomy_object->labels->singular_name ); ?>
 			</label>
-			<select name="<?php echo $html_name; ?>" id="<?php echo $html_name; ?>">
-				<?php foreach ( $taxonomy_types as $taxonomy_type ): ?>
-					<option value="<?php echo esc_attr( $taxonomy_type->get_id() ); ?>">
-						<?php echo $taxonomy_type->name; ?>
-					</option>
-				<?php endforeach; ?>
+			<select name="<?php echo $html_name; ?>" id="<?php echo $html_name; ?>" data-papi-page-type-key="true">
+				<?php
+				foreach ( $taxonomy_types as $taxonomy_type ) {
+					papi_render_html_tag( 'option', [
+						'data-redirect' => $taxonomy_type->redirect,
+						'value'         => esc_attr( $taxonomy_type->get_id() ),
+						$taxonomy_type->name
+					] );
+				}
+				?>
 			</select>
 			<!-- additional info? -->
 		</div>
 		<?php
 		else:
 			papi_render_html_tag( 'input', [
+				'data-redirect'           => $taxonomy_types[0]->redirect,
 				'data-papi-page-type-key' => true,
 				'name'                    => $html_name,
 				'type'                    => 'hidden',
