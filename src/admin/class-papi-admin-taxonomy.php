@@ -53,7 +53,7 @@ final class Papi_Admin_Taxonomy {
 				<?php
 				foreach ( $taxonomy_types as $taxonomy_type ) {
 					papi_render_html_tag( 'option', [
-						'data-redirect' => $taxonomy_type->redirect,
+						'data-redirect' => $taxonomy_type->redirect_after_create,
 						'value'         => esc_attr( $taxonomy_type->get_id() ),
 						$taxonomy_type->name
 					] );
@@ -65,7 +65,7 @@ final class Papi_Admin_Taxonomy {
 		<?php
 		else:
 			papi_render_html_tag( 'input', [
-				'data-redirect'           => $taxonomy_types[0]->redirect,
+				'data-redirect'           => $taxonomy_types[0]->redirect_after_create,
 				'data-papi-page-type-key' => true,
 				'name'                    => $html_name,
 				'type'                    => 'hidden',
