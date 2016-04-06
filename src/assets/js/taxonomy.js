@@ -41,6 +41,7 @@ class Taxonomy {
     interval = setInterval(() => {
       if ($('#ajax-response').children().length) {
         clearInterval(interval);
+        return;
       }
 
       const $thelist   = $('#the-list');
