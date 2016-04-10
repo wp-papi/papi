@@ -157,6 +157,49 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 'string', $children2[0]->type );
 	}
 
+	public function test_parent_boxes() {
+		// FAQ 1
+		$property = $this->faq_page_type->get_property( 'question' );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
+		$this->assertSame( 'papi_question', $property->slug );
+		$this->assertSame( 'papi_question', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_question', $property->get_slug() );
+		$this->assertSame( 'question', $property->get_slug( true ) );
+		$this->assertSame( 'Question', $property->get_option( 'title' ) );
+		$this->assertSame( 'Question', $property->title );
+
+		// FAQ 2
+		$property = $this->faq_extra_page_type->get_property( 'question' );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
+		$this->assertSame( 'papi_question', $property->slug );
+		$this->assertSame( 'papi_question', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_question', $property->get_slug() );
+		$this->assertSame( 'question', $property->get_slug( true ) );
+		$this->assertSame( 'Question', $property->get_option( 'title' ) );
+		$this->assertSame( 'Question', $property->title );
+
+		// FAQ 3
+		$property = $this->faq_extra2_page_type->get_property( 'question' );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
+		$this->assertSame( 'papi_question', $property->slug );
+		$this->assertSame( 'papi_question', $property->get_option( 'slug' ) );
+		$this->assertSame( 'papi_question', $property->get_slug() );
+		$this->assertSame( 'question', $property->get_slug( true ) );
+		$this->assertSame( 'Question', $property->get_option( 'title' ) );
+		$this->assertSame( 'Question', $property->title );
+	}
+
+	public function test_publish_box() {
+		$this->simple_page_type->setup();
+		$this->assertFalse( has_action( 'post_submitbox_misc_actions', [$this->simple_page_type, 'publish_box'] ) );
+
+		$this->faq_page_type->setup();
+		$this->assertSame( 10, has_action( 'post_submitbox_misc_actions', [$this->faq_page_type, 'publish_box'] ) );
+	}
+
 	public function test_remove_post_type_supports() {
 		global $_wp_post_type_features;
 		$this->assertNull( $this->simple_page_type->remove_post_type_support() );
@@ -197,41 +240,6 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->assertFalse( isset( $_wp_post_type_features['faq']['div'] ) );
 		$this->assertFalse( isset( $_wp_post_type_features['faq']['blog'] ) );
 		$this->assertFalse( isset( $_wp_post_type_features['faq']['editor'] ) );
-	}
-
-	public function test_parent_boxes() {
-		// FAQ 1
-		$property = $this->faq_page_type->get_property( 'question' );
-		$this->assertSame( 'string', $property->get_option( 'type' ) );
-		$this->assertSame( 'string', $property->type );
-		$this->assertSame( 'papi_question', $property->slug );
-		$this->assertSame( 'papi_question', $property->get_option( 'slug' ) );
-		$this->assertSame( 'papi_question', $property->get_slug() );
-		$this->assertSame( 'question', $property->get_slug( true ) );
-		$this->assertSame( 'Question', $property->get_option( 'title' ) );
-		$this->assertSame( 'Question', $property->title );
-
-		// FAQ 2
-		$property = $this->faq_extra_page_type->get_property( 'question' );
-		$this->assertSame( 'string', $property->get_option( 'type' ) );
-		$this->assertSame( 'string', $property->type );
-		$this->assertSame( 'papi_question', $property->slug );
-		$this->assertSame( 'papi_question', $property->get_option( 'slug' ) );
-		$this->assertSame( 'papi_question', $property->get_slug() );
-		$this->assertSame( 'question', $property->get_slug( true ) );
-		$this->assertSame( 'Question', $property->get_option( 'title' ) );
-		$this->assertSame( 'Question', $property->title );
-
-		// FAQ 3
-		$property = $this->faq_extra2_page_type->get_property( 'question' );
-		$this->assertSame( 'string', $property->get_option( 'type' ) );
-		$this->assertSame( 'string', $property->type );
-		$this->assertSame( 'papi_question', $property->slug );
-		$this->assertSame( 'papi_question', $property->get_option( 'slug' ) );
-		$this->assertSame( 'papi_question', $property->get_slug() );
-		$this->assertSame( 'question', $property->get_slug( true ) );
-		$this->assertSame( 'Question', $property->get_option( 'title' ) );
-		$this->assertSame( 'Question', $property->title );
 	}
 
 	public function test_remove_meta_boxes() {

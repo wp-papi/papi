@@ -28,6 +28,13 @@ class FAQ_Page_Type extends Papi_Page_Type {
 	}
 
 	/**
+	 * Output custom information in publish box.
+	 */
+	public function publish_box() {
+		echo 'Hello, world';
+	}
+
+	/**
 	 * Remove meta boxes.
 	 *
 	 * @return array

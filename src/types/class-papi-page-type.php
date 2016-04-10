@@ -72,7 +72,14 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 	public function setup() {
 		parent::setup();
+
+		// Remove post type support and meta boxes.
 		$this->remove_post_type_support();
+
+		// Add support for displaying information in publish box from a page type.
+		if ( method_exists( $this, 'publish_box' ) ) {
+			add_action( 'post_submitbox_misc_actions', [$this, 'publish_box'] );
+		}
 	}
 
 	/**
