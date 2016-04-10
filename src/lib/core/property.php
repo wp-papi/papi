@@ -37,7 +37,7 @@ function papi_from_property_array_slugs( array $values, $slug ) {
 	for ( $i = 0; $i < $values[$slug]; $i++ ) {
 		$item      = [];
 		$item_slug = $slug . '_' . $i . '_';
-		$keys      = preg_grep( '/' . preg_quote( $item_slug ). '/' , array_keys( $values ) );
+		$keys      = preg_grep( '/' . preg_quote( $item_slug ) . '/' , array_keys( $values ) );
 
 		foreach ( $keys as $key ) {
 			$arr_key = str_replace( $item_slug, '', $key );
