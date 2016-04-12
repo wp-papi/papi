@@ -25,6 +25,11 @@ final class Papi_Admin_Post_Handler extends Papi_Core_Data_Handler {
 		}
 
 		$wpdb->update( $wpdb->posts, $this->overwrite, ['ID' => $post_id] );
+
+		// Delete cache since it can be cached even if not saved in the database.
+		foreach ( $this->overwrite as $key => $value ) {
+			papi_cache_delete( $key, $post_id );
+		}
 	}
 
 	/**
