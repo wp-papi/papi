@@ -262,7 +262,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_post_types() {
-		papi()->remove( 'papi_get_all_core_type_files' );
+		papi()->reset();
 
 		$this->assertEmpty( papi_get_post_types() );
 
@@ -270,7 +270,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		papi()->remove( 'papi_get_all_core_type_files' );
+		papi()->reset();
 
 		$post_types = papi_get_post_types();
 

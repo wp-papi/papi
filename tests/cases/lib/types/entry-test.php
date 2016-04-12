@@ -23,7 +23,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_all_entry_types() {
-		papi()->remove( 'papi_get_all_core_type_files' );
+		papi()->reset();
 
 		$this->assertEmpty( papi_get_all_entry_types() );
 
@@ -31,7 +31,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/entry-types'];
 		} );
 
-		papi()->remove( 'papi_get_all_core_type_files' );
+		papi()->reset();
 
 		$this->assertNotEmpty( papi_get_all_entry_types() );
 
