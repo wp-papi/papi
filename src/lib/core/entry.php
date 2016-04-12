@@ -66,6 +66,7 @@ function papi_get_all_entry_types( array $args = [] ) {
 	$default_args = [
 		'all'   => true,
 		'args'  => [],
+		'cache' => true,
 		'mode'  => 'include',
 		'types' => []
 	];
@@ -86,6 +87,17 @@ function papi_get_all_entry_types( array $args = [] ) {
 		$args['all'] = false;
 	}
 
+	$cache_key = papi_cache_key( __FUNCTION__, md5( serialize( $args ) ) );
+
+	if ( ! $args['cache'] ) {
+		papi()->remove( $cache_key );
+	}
+
+	if ( papi()->exists( $cache_key ) ) {
+		return papi()->make( $cache_key );
+	}
+
+	$singletons  = [];
 	$entry_types = [];
 	$files       = papi_get_all_core_type_files();
 
@@ -104,8 +116,10 @@ function papi_get_all_entry_types( array $args = [] ) {
 		// @codeCoverageIgnoreEnd
 
 		if ( $entry_type->singleton() ) {
-			if ( ! empty( $entry_types ) ) {
+			if ( isset( $singletons[$entry_type->type] ) ) {
 				continue;
+			} else {
+				$singletons[$entry_type->type] = true;
 			}
 		}
 
@@ -127,7 +141,13 @@ function papi_get_all_entry_types( array $args = [] ) {
 		} );
 	}
 
-	return papi_sort_order( array_reverse( $entry_types ) );
+	$entry_types = papi_sort_order( array_reverse( $entry_types ) );
+
+	if ( ! papi()->exists( $cache_key ) ) {
+		papi()->singleton( $cache_key, $entry_types );
+	}
+
+	return $entry_types;
 }
 
 /**
@@ -188,7 +208,7 @@ function papi_get_entry_type_by_id( $id ) {
 		return;
 	}
 
-	$result        = null;
+	$result      = null;
 	$entry_types = papi_get_all_entry_types();
 
 	foreach ( $entry_types as $entry_type ) {
