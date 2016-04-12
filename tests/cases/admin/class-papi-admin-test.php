@@ -41,7 +41,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	}
 
 	public function test_admin_body_class_2() {
-		papi()->remove( 'papi_get_all_core_type_files' );
+		papi()->reset();
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin;
 		$this->register_template_paths( [

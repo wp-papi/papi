@@ -48,14 +48,14 @@ class Papi_Lib_Core_IO_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_all_core_type_files() {
-		papi()->remove( 'papi_get_all_core_type_files' );
+		papi()->reset();
 		$this->assertEmpty( papi_get_all_core_type_files() );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		papi()->remove( 'papi_get_all_core_type_files' );
+		papi()->reset();
 		$actual = papi_get_all_core_type_files();
 		$this->assertFalse( empty( $actual ) );
 		$this->assertTrue( is_array( $actual ) );

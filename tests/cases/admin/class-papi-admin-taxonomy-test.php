@@ -7,7 +7,7 @@ class Papi_Admin_Taxonomy_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		papi()->remove( 'papi_get_all_core_type_files' );
+		papi()->reset();
 	}
 
 	public function test_add_form_fields_empty() {
@@ -17,6 +17,8 @@ class Papi_Admin_Taxonomy_Test extends WP_UnitTestCase {
 	}
 
 	public function test_add_form_fields_single() {
+		papi()->reset();
+
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
@@ -32,6 +34,8 @@ class Papi_Admin_Taxonomy_Test extends WP_UnitTestCase {
 	}
 
 	public function test_add_form_fields_single_plus_standard() {
+		papi()->reset();
+
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
@@ -49,6 +53,8 @@ class Papi_Admin_Taxonomy_Test extends WP_UnitTestCase {
 	}
 
 	public function test_add_form_fields_several() {
+		papi()->reset();
+
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
@@ -64,6 +70,8 @@ class Papi_Admin_Taxonomy_Test extends WP_UnitTestCase {
 	}
 
 	public function test_setup_actions() {
+		papi()->reset();
+
 		$admin = new Papi_Admin_Taxonomy;
 		$this->assertSame( 10, has_action( 'admin_init', [$admin, 'setup_taxonomies_hooks'] ) );
 		$this->assertFalse( has_action( 'category_add_form_fields', [$admin, 'add_form_fields'] ) );

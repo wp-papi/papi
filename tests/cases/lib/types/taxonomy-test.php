@@ -59,7 +59,7 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_taxonomies() {
-		papi()->remove( 'papi_get_all_core_type_files' );
+		papi()->reset();
 
 		$this->assertEmpty( papi_get_taxonomies() );
 
@@ -67,7 +67,7 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 
-		papi()->remove( 'papi_get_all_core_type_files' );
+		papi()->reset();
 
 		$taxonomies = papi_get_taxonomies();
 
