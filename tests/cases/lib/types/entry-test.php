@@ -1,6 +1,6 @@
 <?php
 
-class Papi_Lib_Core_Entry_Test extends WP_UnitTestCase {
+class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -68,7 +68,7 @@ class Papi_Lib_Core_Entry_Test extends WP_UnitTestCase {
 			return [PAPI_FIXTURE_DIR . '/entry-types', PAPI_FIXTURE_DIR . '/entry-types2'];
 		} );
 
-		papi()->remove( 'papi_get_all_core_type_files' );
+		papi()->reset();
 
 		$output = papi_get_all_entry_types( [
 			'types' => 'entry'
@@ -84,7 +84,7 @@ class Papi_Lib_Core_Entry_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		papi()->remove( 'papi_get_all_core_type_files' );
+		papi()->reset();
 
 		$output = papi_get_all_entry_types( [
 			'types' => 'option'
