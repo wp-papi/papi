@@ -82,6 +82,14 @@ class Container_Test extends WP_UnitTestCase {
 		$this->assertFalse( isset( $this->container['plugin'] ) );
 	}
 
+	public function test_reset() {
+		$this->container['plugin'] = 'Papi';
+		$this->container['wp'] = true;
+		$this->container->reset();
+		$this->assertFalse( isset( $this->container['plugin'] ) );
+		$this->assertFalse( isset( $this->container['wp'] ) );
+	}
+
 	public function test_singleton() {
 		$this->container->singleton( 'Singleton', 'App' );
 		$this->assertSame( 'App', $this->container->make( 'Singleton' ) );

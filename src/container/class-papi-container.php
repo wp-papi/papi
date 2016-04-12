@@ -238,6 +238,13 @@ class Papi_Container implements ArrayAccess {
 	}
 
 	/**
+	 * Reset container values.
+	 */
+	public function reset() {
+		unset( $this->keys, $this->values, $this->classes );
+	}
+
+	/**
 	 * Set a parameter or an object.
 	 *
 	 * @param string $id
