@@ -126,7 +126,8 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 				$_SERVER['REQUEST_METHOD'] = 'POST';
 				$id = 0;
 				$handler = new Papi_Admin_Option_Handler();
-				$wp_current_filter = null;
+				$wp_current_filter = [];
+				$handler->save_options();
 				break;
 			default:
 				$id = 0;
@@ -135,7 +136,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$handler->save_properties( $id );
 		$_SERVER['REQUEST_METHOD'] = '';
-		$wp_current_filter = null;
+		$wp_current_filter = [];
 	}
 
 	/**
