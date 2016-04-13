@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [2.4.16](https://github.com/wp-papi/papi/releases/tag/v2.4.16) - 2016-04-XX
+
+* Fixed: Object cache issue with properties that overwrites a existing post field. Cached data was loaded in WordPress admin.
+
 ## [2.4.15](https://github.com/wp-papi/papi/releases/tag/v2.4.15) - 2016-04-01
 
 * Fixed: Datetime did not work in repeater [#166](https://github.com/wp-papi/papi/issues/166).
