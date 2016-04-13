@@ -26,7 +26,6 @@
 ### Removed
 
 * Removed Papi tool page.
-=======
 
 ## [3.0.6](https://github.com/wp-papi/papi/releases/tag/v3.0.6) - 2016-04-XX
 
