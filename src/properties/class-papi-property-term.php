@@ -95,14 +95,6 @@ class Papi_Property_Term extends Papi_Property {
 			$terms = get_terms( $taxonomy, $args );
 		}
 
-		if ( $taxonomy === 'nav_menu' ) {
-			$nav_menus = wp_get_nav_menus();
-
-			foreach ( $nav_menus as $term ) {
-				$terms[$term->term_id] = $term->name;
-			}
-		}
-
 		return $terms;
 	}
 
