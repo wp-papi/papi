@@ -78,13 +78,15 @@ class Papi_Property_Term extends Papi_Property {
 
 	/**
 	 * Get terms for specified taxonomy.
+	 *
 	 * @param  string $taxonomy
+	 *
 	 * @return array
 	 */
 	protected function get_terms( $taxonomy ) {
 		// Prepare arguments for get_terms.
-		$query  = $this->get_setting( 'query' );
-		$args = array_merge( $query, [
+		$query = $this->get_setting( 'query' );
+		$args  = array_merge( $query, [
 			'fields' => 'id=>name'
 		] );
 
@@ -93,25 +95,33 @@ class Papi_Property_Term extends Papi_Property {
 			$terms = get_terms( $taxonomy, $args );
 		}
 
-		 return $terms;
+		if ( $taxonomy === 'nav_menu' ) {
+			$nav_menus = wp_get_nav_menus();
+
+			foreach ( $nav_menus as $term ) {
+				$terms[$term->term_id] = $term->name;
+			}
+		}
+
+		return $terms;
 	}
 
 	/**
 	 * Get single term.
+	 *
 	 * @param  int $term_id
+	 *
 	 * @return object
 	 */
 	protected function get_term( $term_id ) {
-		if ( version_compare( $GLOBALS['wp_version'], '4.4', '<' ) ) {
+		if ( version_compare( get_bloginfo( 'version' ), '4.4', '<' ) ) {
 			$taxonomies = $this->get_taxonomies();
 			$taxonomy   = reset( $taxonomies );
-			$term       = get_term( $term_id, $taxonomy );
-		}
-		else {
-			$term = get_term( $term_id );
+
+			return get_term( $term_id, $taxonomy );
 		}
 
-		return $term;
+		return get_term( $term_id );
 	}
 
 	/**
@@ -175,11 +185,11 @@ class Papi_Property_Term extends Papi_Property {
 						</td>
 					</tr>
 					<tr>
-					<td>
-						<label for="<?php echo $this->html_id(); ?>_terms">
-							<?php echo sprintf( $settings->labels['select_item'], $selected_label ); ?>
-						</label>
-					</td>
+						<td>
+							<label for="<?php echo $this->html_id(); ?>_terms">
+								<?php echo sprintf( $settings->labels['select_item'], $selected_label ); ?>
+							</label>
+						</td>
 					<td>
 			<?php endif; ?>
 
