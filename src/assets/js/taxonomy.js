@@ -26,7 +26,7 @@ class Taxonomy {
 
     const $title    = $('#tag-name');
     const title     = $title.val();
-    const $pageType = $('[data-papi-page-type-key=true]');
+    const $pageType = $('[data-papi-page-type-key="true"]');
 
     if (!$pageType.data('redirect') && !$pageType.find(':selected').data('redirect')) {
       return;
