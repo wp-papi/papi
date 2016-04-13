@@ -74,7 +74,7 @@ class Flexible extends Repeater {
       }
     });
 
-    $(document).on('click', '.papi-property-flexible .bottom button[type=button]', function (e) {
+    $(document).on('click', '.papi-property-flexible .bottom button[type="button"]', function (e) {
       e.preventDefault();
       $(this).prev().removeClass('papi-hide');
     });

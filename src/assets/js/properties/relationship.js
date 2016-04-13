@@ -57,7 +57,7 @@ class Relationship {
 
     $(document).on('click', '.papi-property-relationship .relationship-left li', this.add.bind(this));
     $(document).on('click', '.papi-property-relationship .relationship-right li', this.remove.bind(this));
-    $(document).on('keyup', '.papi-property-relationship input[type=search]', this.search.bind(this));
+    $(document).on('keyup', '.papi-property-relationship input[type="search"]', this.search.bind(this));
     $(document).on('papi/property/repeater/added', '[data-property="relationship"]', this.update.bind(this));
   }
 
@@ -73,7 +73,7 @@ class Relationship {
 
     if (settings.onlyOnce) {
       $prop
-        .find('.relationship-left input[value="' + $this.find('input[type=hidden]').val() + '"]')
+        .find('.relationship-left input[value="' + $this.find('input[type="hidden"]').val() + '"]')
         .closest('li')
         .removeClass('papi-hide');
     }
