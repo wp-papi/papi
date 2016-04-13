@@ -52,6 +52,7 @@ class Relationship {
         ui.item.removeClass('sortable');
       }
     }).disableSelection();
+
     $(document).on('click', '.papi-property-relationship .relationship-left li', function (e) {
       e.preventDefault();
       self.add($(this));
@@ -60,7 +61,7 @@ class Relationship {
       e.preventDefault();
       self.remove($(this));
     });
-    $(document).on('keyup', '.papi-property-relationship input[type=search]', this.search);
+    $(document).on('keyup', '.papi-property-relationship input[type="search"]', this.search);
     $(document).on('papi/property/repeater/added', '[data-property="relationship"]', this.update);
   }
 
@@ -75,7 +76,7 @@ class Relationship {
 
     if (settings.onlyOnce) {
       $prop
-        .find('.relationship-left input[value="' + $this.find('input[type=hidden]').val() + '"]')
+        .find('.relationship-left input[value="' + $this.find('input[type="hidden"]').val() + '"]')
         .closest('li')
         .removeClass('papi-hide');
     }
