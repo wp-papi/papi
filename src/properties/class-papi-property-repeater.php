@@ -711,6 +711,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected function render_repeater_rows() {
 		$items  = $this->get_settings_properties();
 		$values = $this->get_value();
+		$values = is_array( $values ) ? $values : [];
 		$slugs  = wp_list_pluck( $items, 'slug' );
 
 		// Remove values that don't exists in the slugs array.
