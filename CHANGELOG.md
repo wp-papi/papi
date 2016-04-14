@@ -27,7 +27,7 @@
 
 * Removed Papi tool page.
 
-## [3.0.6](https://github.com/wp-papi/papi/releases/tag/v3.0.6) - 2016-04-XX
+## [3.0.6](https://github.com/wp-papi/papi/releases/tag/v3.0.6) - 2016-04-14
 
 * Fixed: Attachment types used on a page type didn't load right, so the site performance was bad.
 * Fixed: Object cache issue with properties that overwrites a existing post field. Cached data was loaded in WordPress admin.
