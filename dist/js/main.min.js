@@ -1,7 +1,7 @@
 /*!
  * papi
  * WordPress Page Type API with custom fields
- * http://github.com/
+ * http://github.com/wp-papi/papi
  * @author Fredrik Forsmo <fredrik.forsmo@gmail.com>
  * @version 3.0.6
  * Copyright 2016. MIT licensed.

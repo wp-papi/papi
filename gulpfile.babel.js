@@ -61,7 +61,7 @@ const banner = [
   '/*!\n' +
   ' * <%= package.name %>\n' +
   ' * <%= package.description %>\n' +
-  ' * http://github.com/<%= package.homepage %>\n' +
+  ' * http://github.com/<%= package.repository %>\n' +
   ' * @author <%= package.author %>\n' +
   ' * @version <%= package.version %>\n' +
   ' * Copyright ' + new Date().getFullYear() + '. <%= package.license %> licensed.\n' +
