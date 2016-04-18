@@ -74,7 +74,6 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	}
 
 	public function test_hidden_meta_boxes() {
-		global $wp_meta_boxes;
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin;
 		$this->assertNull( $admin->hidden_meta_boxes() );
@@ -83,7 +82,6 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	}
 
 	public function test_hidden_meta_boxes_2() {
-		global $wp_meta_boxes;
 		$_GET['post_type'] = 'fake';
 		$admin = new Papi_Admin;
 		$this->assertNull( $admin->hidden_meta_boxes() );

@@ -271,7 +271,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$results     = [];
 		$option_page = $this->is_option_page();
 
-		foreach ( $dbresults as $key => $meta ) {
+		foreach ( $dbresults as $meta ) {
 			if ( $option_page ) {
 				preg_match( '/^[^\d]*(\d+)/', $meta->option_name, $matches );
 			} else {
@@ -821,7 +821,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		list( $results, $trash ) = $this->get_results( $rows, $repeater_slug, $post_id );
 
 		// Delete trash values.
-		foreach ( $trash as $index => $meta ) {
+		foreach ( $trash as $meta ) {
 			papi_delete_property_meta_value( $post_id, $meta->meta_key );
 		}
 

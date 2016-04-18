@@ -38,7 +38,6 @@ class Papi_Admin_Meta_Box_Test extends WP_UnitTestCase {
 	}
 
 	public function test_admin_meta_box_construct() {
-		$user_id = $this->factory->user->create( ['role' => 'read'] );
 		$box = new Papi_Core_Box( [
 			'title' => 'Content'
 		] );

@@ -110,10 +110,8 @@ class Papi_Lib_Core_Template_Test extends WP_UnitTestCase {
 
 		$path = get_template_directory();
 		$path = trailingslashit( $path );
-		$file = $path . 'functions.php';
 		$path = apply_filters( 'template_include', '' );
 		$this->assertNotFalse( strpos( $path, 'functions.php' ) );
-
 	}
 
 	public function test_filter_papi_template_include() {

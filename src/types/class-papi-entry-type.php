@@ -169,11 +169,8 @@ class Papi_Entry_Type extends Papi_Core_Type {
 			if ( isset( $properties['type'] ) ) {
 				$properties = [$properties];
 			} else if ( isset( $properties[0] ) && $properties[0] instanceof Papi_Core_Tab ) {
-				foreach ( $properties as $index => $items ) {
-					$items->properties = array_map(
-						'papi_get_property_type',
-						$items->properties
-					);
+				foreach ( $properties as $items ) {
+					$items->properties = array_map( 'papi_get_property_type', $items->properties );
 				}
 
 				return $properties;
@@ -205,7 +202,6 @@ class Papi_Entry_Type extends Papi_Core_Type {
 		$result = [];
 
 		foreach ( $boxes as $box ) {
-
 			if ( ! isset( $result[$box->id] ) ) {
 				$result[$box->id] = $box;
 				continue;
@@ -365,7 +361,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 
 		$this->register();
 
-		foreach ( $this->get_boxes() as $index => $box ) {
+		foreach ( $this->get_boxes() as $box ) {
 			new Papi_Admin_Meta_Box( $box );
 		}
 	}

@@ -97,7 +97,6 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 
 	public function test_property_format_value_real_post() {
 		$post_id   = $this->factory->post->create();
-		$permalink = get_permalink( $post_id );
 		$input     = [
 			'url'    => rtrim( get_permalink( $post_id ), '/' ),
 			'title'  => get_the_title( $post_id ),

@@ -298,8 +298,7 @@ class Papi_Core_Property {
 	 * @return Papi_Core_Property|null
 	 */
 	public function get_child_property( $slug, array $items = [] ) {
-		$items  = empty( $items ) ? $this->get_child_properties() : $items;
-		$result = null;
+		$items = empty( $items ) ? $this->get_child_properties() : $items;
 
 		foreach ( $items as $property ) {
 			if ( is_array( $property ) && isset( $property['items'] ) ) {

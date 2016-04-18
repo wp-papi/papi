@@ -49,7 +49,7 @@ class Papi_Property_Relationship extends Papi_Property {
 			$items  = $this->get_settings()->items;
 			$result = [];
 
-			foreach ( $values as $key => $id ) {
+			foreach ( $values as $id ) {
 				// Backwards compatibility with array `id` and `id`.
 				$id = is_object( $id ) ? $id->id : $id;
 
@@ -327,7 +327,7 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		$values = [];
 
-		foreach ( papi_to_array( $value ) as $index => $val ) {
+		foreach ( papi_to_array( $value ) as $val ) {
 			if ( $val instanceof WP_Post ) {
 				$values[] = $val->ID;
 			}

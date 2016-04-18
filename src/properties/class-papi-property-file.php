@@ -155,7 +155,7 @@ class Papi_Property_File extends Papi_Property {
 			<div class="attachments">
 				<?php
 				if ( is_array( $value ) ):
-					foreach ( $value as $key => $file ):
+					foreach ( $value as $file ):
 						$url = wp_get_attachment_thumb_url( $file->id );
 
 						if ( empty( $url ) ) {

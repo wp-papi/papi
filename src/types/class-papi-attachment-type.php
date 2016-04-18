@@ -37,7 +37,7 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 		// Don't add any filters on post.php page.
 		if ( ! isset( $_GET['post'] ) ) {
 			add_filter( 'attachment_fields_to_edit', [$this, 'edit_attachment'], 10, 2 );
-			add_filter( 'attachment_fields_to_save', [$this, 'save_attachment'], 10, 2 );
+			add_filter( 'attachment_fields_to_save', [$this, 'save_attachment'], 10 );
 		}
 	}
 
@@ -96,11 +96,10 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	 * Save attachment post data.
 	 *
 	 * @param  array $post
-	 * @param  array $attachment
 	 *
 	 * @return array
 	 */
-	public function save_attachment( $post, $attachment ) {
+	public function save_attachment( $post ) {
 		update_post_meta( $post['ID'], papi_get_page_type_key(), $this->get_id() );
 		$handler = new Papi_Admin_Meta_Handler();
 		$handler->save_meta_boxes( $post['ID'], $post );
