@@ -240,7 +240,7 @@ class Papi_Property_Relationship extends Papi_Property {
 		if ( papi_is_empty( $settings->items ) ) {
 			$values = array_map( [$this, 'convert_post_to_item'], $values );
 		} else {
-			foreach ( $sort_options as $key => $sort ) {
+			foreach ( array_keys( $sort_options ) as $key ) {
 				if ( strpos( $key, 'Post' ) === 0 ) {
 					unset( $sort_options[$key] );
 				}
@@ -267,7 +267,7 @@ class Papi_Property_Relationship extends Papi_Property {
 					<?php if ( $settings->show_sort_by ): ?>
 						<label for="<?php echo $this->html_id( 'sort_option' ); ?>"><?php _e( 'Sort by', 'papi' ); ?></label>
 						<select id="<?php echo $this->html_id( 'sort_option' ); ?>" name="<?php echo $this->html_id( 'sort_option' ); ?>">
-							<?php foreach ( $sort_options as $key => $v ): ?>
+							<?php foreach ( array_keys( $sort_options ) as $key ): ?>
 								<option value="<?php echo $key; ?>" <?php echo $key === $sort_option ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
 							<?php endforeach; ?>
 						</select>

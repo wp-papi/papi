@@ -55,7 +55,7 @@ class Papi_Property_File extends Papi_Property {
 				$meta = is_array( $meta ) ? $meta : ['file' => $meta];
 
 				if ( isset( $meta['sizes'] ) ) {
-					foreach ( $meta['sizes'] as $size => $val ) {
+					foreach ( array_keys( $meta['sizes'] ) as $size ) {
 						if ( $src = wp_get_attachment_image_src( $mine['id'], $size ) ) {
 							$meta['sizes'][$size]['url'] = $src[0];
 						}

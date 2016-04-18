@@ -42,9 +42,10 @@ class Papi_Property_Link extends Papi_Property {
 	 */
 	public function delete_value( $slug, $post_id, $type ) {
 		$values = $this->load_value( null, $slug, $post_id );
+		$values = is_object( $values ) ? (array) $values : $values;
 		$result = true;
 
-		foreach ( $values as $key => $val ) {
+		foreach ( array_keys( $values ) as $key ) {
 			$out    = papi_delete_property_meta_value( $post_id, $slug . '_' . $key );
 			$result = $out ? $result : $out;
 		}

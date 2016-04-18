@@ -889,7 +889,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		);
 
 		// Delete trash values.
-		foreach ( $trash as $trash_key => $trash_value ) {
+		foreach ( array_keys( $trash ) as $trash_key ) {
 			papi_delete_property_meta_value( $post_id, $trash_key );
 		}
 

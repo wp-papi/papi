@@ -707,7 +707,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		foreach ( $values as $index => $row ) {
 			$keys = array_keys( $row );
 
-			foreach ( $row as $slug => $value ) {
+			foreach ( array_keys( $row ) as $slug ) {
 				if ( in_array( $slug, $keys ) || papi_is_property_type_key( $slug ) || $this->is_layout_key( $slug ) ) {
 					continue;
 				}

@@ -39,7 +39,7 @@ class Papi_Option_Store extends Papi_Core_Meta_Store {
 				'types' => 'option'
 			] );
 
-			foreach ( $entry_types as $index => $entry_type ) {
+			foreach ( $entry_types as $entry_type ) {
 				if ( $property = $entry_type->get_property( $slug, $child_slug ) ) {
 					break;
 				}
