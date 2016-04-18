@@ -131,11 +131,13 @@ function papi_esc_html( $obj, $keys = [] ) {
 		}
 
 		return $obj;
-	} else if ( is_string( $obj ) ) {
-		return esc_html( $obj );
-	} else {
-		return $obj;
 	}
+
+	if ( is_string( $obj ) ) {
+		return esc_html( $obj );
+	}
+
+	return $obj;
 }
 
 /**

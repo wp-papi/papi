@@ -159,9 +159,11 @@ class Papi_Admin_Ajax {
 			wp_send_json( [
 				'html' => utf8_encode( $html )
 			] );
-		} else {
-			$this->render_error( 'No property found' );
+
+			return;
 		}
+
+		$this->render_error( 'No property found' );
 	}
 
 	/**
@@ -204,11 +206,13 @@ class Papi_Admin_Ajax {
 
 		if ( empty( $items ) ) {
 			$this->render_error( 'No properties found' );
-		} else {
-			wp_send_json( [
-				'html' => $items
-			] );
+
+			return;
 		}
+
+		wp_send_json( [
+			'html' => $items
+		] );
 	}
 
 	/**
@@ -247,9 +251,11 @@ class Papi_Admin_Ajax {
 			wp_send_json( [
 				'render' => $property->render_is_allowed_by_rules( $data['rules'] )
 			] );
-		} else {
-			$this->render_error( 'No rule found' );
+
+			return;
 		}
+
+		$this->render_error( 'No rule found' );
 	}
 
 	/**
