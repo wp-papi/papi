@@ -653,6 +653,8 @@ function papi_slugify( $str, $replace = [], $delimiter = '-' ) {
 		return '';
 	}
 
+	$old_locale = setlocale( LC_ALL, '0' );
+
 	setlocale( LC_ALL, 'en_US.UTF8' );
 
 	if ( ! empty( $replace ) ) {
@@ -663,6 +665,8 @@ function papi_slugify( $str, $replace = [], $delimiter = '-' ) {
 	$clean = preg_replace( '/[^a-zA-Z0-9\/_|+ -]/', '', $clean );
 	$clean = strtolower( trim( $clean, '-' ) );
 	$clean = preg_replace( '/[\/_|+ -]+/', $delimiter, $clean );
+
+	setlocale( LC_ALL, $old_locale );
 
 	return trim( $clean );
 }
