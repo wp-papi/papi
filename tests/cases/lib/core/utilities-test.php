@@ -432,6 +432,12 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 		$this->assertSame( 'hello-aao', papi_slugify( 'hello world åäö', [ 'world' ] ) );
 	}
 
+	public function test_papi_slugify_locale() {
+		$locale = setlocale( LC_ALL, '0' );
+		$this->assertSame( 'hello-world-aao', papi_slugify( 'hello world åäö' ) );
+		$this->assertSame( $locale, setlocale( LC_ALL, '0' ) );
+	}
+
 	public function test_papi_to_array() {
 		$this->assertSame( [ 1 ], papi_to_array( 1 ) );
 		$this->assertSame( [ null ], papi_to_array( null ) );
