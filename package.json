@@ -32,11 +32,7 @@
     },
     "rules": {
       "space-before-function-paren": 0,
-      "no-multi-spaces": [1, {
-        "exceptions": {
-          "VariableDeclarator": true
-        }
-      }]
+      "no-multi-spaces": 0
     }
   }
 }
