@@ -12,6 +12,22 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		unset( $this->post_id );
 	}
 
+	public function test_papi_get_entry_type_css_class() {
+		global $post;
+
+		$this->assertEmpty( papi_get_entry_type_css_class() );
+
+		$post = get_post( $this->post_id );
+		$this->go_to( get_permalink( $this->post_id ) );
+		$this->assertEmpty( papi_get_entry_type_css_class() );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), '/' );
+		$this->assertEmpty( papi_get_entry_type_css_class() );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
+		$this->assertSame( 'simple-page-type', papi_get_entry_type_css_class() );
+	}
+
 	public function test_papi_get_entry_type_count() {
 		$this->assertSame( 0, papi_get_entry_type_count( 'simple-page-type' ) );
 		$this->assertSame( 0, papi_get_entry_type_count( null ) );

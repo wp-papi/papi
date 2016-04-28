@@ -8,26 +8,13 @@
  * @return array
  */
 function papi_body_class( array $classes ) {
-	global $post;
+	$class = papi_get_entry_type_css_class();
 
-	// Check so we only change template on single and page posts.
-	if ( ! is_single() && ! is_page() ) {
+	if ( empty( $class ) ) {
 		return $classes;
 	}
 
-	$page_type = get_post_meta( $post->ID, papi_get_page_type_key(), true );
-
-	if ( empty( $page_type ) ) {
-		return $classes;
-	}
-
-	$parts = explode( '/', $page_type );
-
-	if ( empty( $parts ) || empty( $parts[0] ) ) {
-		return $classes;
-	}
-
-	$classes[] = array_pop( $parts );
+	$classes[] = $class;
 
 	return $classes;
 }
