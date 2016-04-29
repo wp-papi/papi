@@ -134,10 +134,6 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
 		$_POST['data'] = ['wp_autosave' => ['post_id' => $this->post_id]];
 
-		if ( ! defined( 'DOING_AUTOSAVE' ) ) {
-			define( 'DOING_AUTOSAVE', true );
-		}
-
 		$this->handler->save_meta_boxes( $this->post_id, get_post( $this->post_id ) );
 		wp_set_current_user( 0 );
 

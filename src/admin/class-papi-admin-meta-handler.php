@@ -190,7 +190,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		$val = papi_get_sanitized_post( $key );
 
 		// When autosave is in place the post id is located deeper in the post data array.
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		if ( isset( $_POST['data'], $_POST['data']['wp_autosave'], $_POST['data']['wp_autosave']['post_id'] ) ) {
 			$val = sanitize_text_field( $_POST['data']['wp_autosave']['post_id'] );
 		}
 
