@@ -15,6 +15,30 @@ class Core {
   }
 
   /**
+   * Autosave fields on heartbeat.
+   *
+   * @param {object} e
+   * @param {object} xhr
+   * @param {object} options
+   */
+  autosave(e, xhr, options) {
+    const fields = jQuery('[name*="papi_"]');
+    const data = {};
+    const reg = /action\=(.+?)\&/;
+    const val = reg.exec(options.data);
+
+    if (val.length && val[1] === 'heartbeat') {
+        fields.each(function () {
+          const $this = $(this);
+
+          data[$this.attr('name')] = $this.val();
+      });
+
+      options.data += '&' + jQuery.param(data);
+    }
+  }
+
+  /**
    * Bind elements with functions.
    */
   binds() {
@@ -28,6 +52,9 @@ class Core {
     }
 
     $('.papi-meta-type-term button.handlediv').on('click', this.handlediv);
+
+    // Autosave fields on heartbeat.
+    $(document).ajaxSend(this.autosave);
   }
 
   /**

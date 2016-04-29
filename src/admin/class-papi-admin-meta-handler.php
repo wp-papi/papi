@@ -76,19 +76,12 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 			return;
 		}
 
-		// Don't save meta boxes for autosaves.
-		// @codeCoverageIgnoreStart
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return;
-		}
-		// @codeCoverageIgnoreEnd
-
 		$meta_type = $this->get_meta_type();
 		$post      = is_array( $post ) ? (object) $post : $post;
 
 		if ( $meta_type === 'post' && $post_type = get_post_type_object( $post->post_type ) ) {
 			// Check so the id is a post id and not a autosave post.
-			if ( $this->valid_post_id( $id ) || is_int( wp_is_post_autosave( $post ) ) ) {
+			if ( $this->valid_post_id( $id ) ) {
 				return;
 			}
 
@@ -194,8 +187,14 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		$key = papi_get_sanitized_post( 'action' ) === 'save-attachment-compat'
 			? 'id'
 			: 'post_ID';
+		$val = papi_get_sanitized_post( $key );
 
-		return papi_get_sanitized_post( $key ) !== strval( $post_id );
+		// When autosave is in place the post id is located deeper in the post data array.
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			$val = sanitize_text_field( $_POST['data']['wp_autosave']['post_id'] );
+		}
+
+		return $val !== strval( $post_id );
 	}
 }
 
