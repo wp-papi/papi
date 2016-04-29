@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: papi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-11 07:58+0100\n"
+"POT-Creation-Date: 2016-04-29 13:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 
 #: src/admin/class-papi-admin-assets.php:61
-#: src/properties/class-papi-property-flexible.php:758
-#: src/properties/class-papi-property-flexible.php:781
-#: src/properties/class-papi-property-repeater.php:746
-#: src/properties/class-papi-property-repeater.php:768
+#: src/properties/class-papi-property-flexible.php:745
+#: src/properties/class-papi-property-flexible.php:768
+#: src/properties/class-papi-property-repeater.php:765
+#: src/properties/class-papi-property-repeater.php:787
 msgid "Remove"
 msgstr ""
 
@@ -41,7 +41,7 @@ msgstr ""
 #: src/admin/class-papi-admin-menu.php:181
 #: src/admin/class-papi-admin-menu.php:182
 #: src/types/class-papi-page-type-meta.php:135
-#: src/types/class-papi-taxonomy-type.php:59
+#: src/types/class-papi-taxonomy-type.php:66
 msgid "Add New"
 msgstr ""
 
@@ -54,11 +54,11 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: src/admin/class-papi-admin.php:200
+#: src/admin/class-papi-admin.php:194
 msgid "View Papi Documentation"
 msgstr ""
 
-#: src/admin/class-papi-admin.php:200
+#: src/admin/class-papi-admin.php:194
 msgid "Docs"
 msgstr ""
 
@@ -198,42 +198,42 @@ msgstr ""
 msgid "No image selected"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:137
-#: src/properties/class-papi-property-link.php:236
+#: src/properties/class-papi-property-link.php:139
+#: src/properties/class-papi-property-link.php:238
 msgid "URL"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:145
-#: src/properties/class-papi-property-link.php:246
+#: src/properties/class-papi-property-link.php:147
+#: src/properties/class-papi-property-link.php:248
 msgid "Title"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:152
-#: src/properties/class-papi-property-link.php:255
+#: src/properties/class-papi-property-link.php:154
+#: src/properties/class-papi-property-link.php:257
 msgid "Target"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:154
+#: src/properties/class-papi-property-link.php:156
 msgid "New window"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:154
+#: src/properties/class-papi-property-link.php:156
 msgid "Same window"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:164
+#: src/properties/class-papi-property-link.php:166
 msgid "No link selected"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:165
+#: src/properties/class-papi-property-link.php:167
 msgid "Add link"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:168
+#: src/properties/class-papi-property-link.php:170
 msgid "Edit link"
 msgstr ""
 
-#: src/properties/class-papi-property-link.php:169
+#: src/properties/class-papi-property-link.php:171
 msgid "Remove link"
 msgstr ""
 
@@ -320,11 +320,11 @@ msgid "Select file"
 msgstr ""
 
 #: src/types/class-papi-page-type-meta.php:136
-#: src/types/class-papi-taxonomy-type.php:60
+#: src/types/class-papi-taxonomy-type.php:67
 msgid "Edit"
 msgstr ""
 
 #: src/types/class-papi-page-type-meta.php:137
-#: src/types/class-papi-taxonomy-type.php:61
+#: src/types/class-papi-taxonomy-type.php:68
 msgid "View"
 msgstr ""
