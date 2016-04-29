@@ -117,6 +117,34 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Autosave.
+	 */
+	public function test_save_meta_boxes_4() {
+		$property = $this->page_type->get_property( 'string_test' );
+
+		$_POST = papi_test_create_property_post_data( [
+			'slug'  => $property->slug,
+			'type'  => $property,
+			'value' => 'Hello, world!'
+		], $_POST );
+
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+		$_POST['data'] = ['wp_autosave' => ['post_id' => $this->post_id]];
+
+		if ( ! defined( 'DOING_AUTOSAVE' ) ) {
+			define( 'DOING_AUTOSAVE', true );
+		}
+
+		$this->handler->save_meta_boxes( $this->post_id, get_post( $this->post_id ) );
+		wp_set_current_user( 0 );
+
+		$this->assertSame( 'Hello, world!', papi_get_field( $this->post_id, $property->slug ) );
+	}
+
+	/**
 	 * @issue 126
 	 */
 	public function test_save_meta_boxes_apostrophe() {
