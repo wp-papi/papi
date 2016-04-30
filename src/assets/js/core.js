@@ -27,7 +27,7 @@ class Core {
     const reg = /action\=(.+?)\&/;
     const val = reg.exec(options.data);
 
-    if (val.length && val[1] === 'heartbeat') {
+    if (val !== null && val.length && val[1] === 'heartbeat') {
         fields.each(function () {
           const $this = $(this);
 
