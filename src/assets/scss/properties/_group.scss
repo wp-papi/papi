@@ -3,8 +3,20 @@
 
   > table {
     margin: -11px 0 -10px -15px;
+  }
+}
 
-    @media screen and (max-width: 782px) {
+//
+// Mobile css.
+//
+
+@media screen and (max-width: 782px) {
+  .papi-property-group {
+    margin-right: -19px;
+
+    > table {
+      margin: -11px 0 -10px -10px;
+
       td {
         display: block;
 
@@ -12,12 +24,15 @@
           border-bottom: 1px solid #eaeaea;
           border-right: 0;
           margin-top: 10px;
-          padding: 10px 15px 10px 15px;
-          width: 90%;
+          padding: 10px 0;
+          width: 100%;
+
+          > label {
+            padding-left: 10px;
+          }
 
           &[colspan="2"] {
             margin-bottom: -11px;
-            padding-bottom: 20px;
           }
         }
 
@@ -29,3 +44,4 @@
     }
   }
 }
+
