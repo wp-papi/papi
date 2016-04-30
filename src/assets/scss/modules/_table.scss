@@ -115,18 +115,23 @@
         &:first-child {
           border-bottom: 1px solid #eaeaea;
           border-right: 0;
-          margin-top: 10px;
-          width: 89%;
+          margin: 10px 0 0;
+          padding: 10px 0;
+          width: 99.6%;
+
+          > label {
+            padding-left: 10px;
+          }
 
           &[colspan="2"] {
             margin-bottom: -11px;
-            padding-bottom: 20px;
           }
         }
 
         + td {
           border-top: 0;
           margin-top: 10px;
+          padding: 10px;
         }
       }
 
