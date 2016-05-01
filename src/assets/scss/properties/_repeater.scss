@@ -2,10 +2,6 @@
 .papi-property-flexible {
   margin-right: -31px;
 
-  @media screen and (max-width: 782px) {
-    margin-top: -21px;
-  }
-
   > .papi-table {
     border-bottom: 1px solid #eaeaea;
     margin: -11px 0 -13px -15px;
@@ -211,5 +207,21 @@
 
   .papi-table {
     margin: -21px 0 -13px -17px;
+  }
+}
+
+//
+// Mobile css.
+//
+
+@media screen and (max-width: 782px) {
+  .papi-property-repeater, .papi-property-flexible {
+    margin-top: -16px;
+    padding: 6px;
+
+    .papi-property-repeater,
+    .papi-property-repeater {
+      padding: 0;
+    }
   }
 }
