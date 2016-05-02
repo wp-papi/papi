@@ -32,7 +32,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @var array
 	 */
-	protected $exclude_properties = ['flexible', 'group'];
+	protected $exclude_properties = ['flexible'];
 
 	/**
 	 * The layout key.
@@ -165,6 +165,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					}
 
 					if ( papi_is_property_type_key( $slug ) ) {
+						unset( $values[$index][$slug] );
+					}
+
+					if ( papi_is_empty( $value ) ) {
 						unset( $values[$index][$slug] );
 					}
 				}
