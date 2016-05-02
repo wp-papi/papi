@@ -32,7 +32,7 @@ class Repeater {
    */
   add($this) {
     const $repeater = $this.closest('.papi-property-repeater-top');
-    const $tbody    = $repeater.find('.repeater-tbody');
+    const $tbody    = $repeater.find('.repeater-tbody').first();
     const counter   = $tbody.children().length;
     const jsonText  = this.getJSON($this);
     const limit     = $repeater.data().limit;
