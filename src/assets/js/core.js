@@ -26,8 +26,9 @@ class Core {
     const data = {};
     const reg = /action\=(.+?)\&/;
     const val = reg.exec(options.data);
+    const id  = /post_id\=\d+/.exec(options.data);
 
-    if (val !== null && val.length && val[1] === 'heartbeat') {
+    if (val !== null && val.length && val[1] === 'heartbeat' && id != null && id.length) {
         fields.each(function () {
           const $this = $(this);
 
