@@ -91,6 +91,8 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 			// Set the value if it exists.
 			if ( isset( $value[$slug] ) ) {
 				$property->value = $value[$slug];
+			} else {
+				$property->value = null;
 			}
 
 			// Create a array slug.
