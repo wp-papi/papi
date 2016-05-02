@@ -79,6 +79,8 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 		$value = $this->get_value();
 
 		foreach ( $properties as $index => $property ) {
+			$property = papi_property( $property );
+
 			if ( ! papi_is_property( $property ) ) {
 				unset( $properties[$index] );
 				continue;
