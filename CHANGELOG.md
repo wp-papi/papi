@@ -16,6 +16,7 @@
 * Added support for saving properties on revision posts and restoring revision data.
 * Added `display` option to box options in order to control if the box should be displayed or not.
 * Added support for repeaters inside repeaters.
+* Added support for repeaters inside flexibles.
 * Added support for render html in `Publish box` with `publish_box` method.
 * Added `papi_get_entry_type_css_class` to get the css class that is added to body for a entry type.
 * Added support for autosaving fields.
