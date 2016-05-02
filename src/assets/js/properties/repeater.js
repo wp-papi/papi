@@ -116,7 +116,6 @@ class Repeater {
 
     $(document).on('click', '.repeater-tbody span.toggle', function (e) {
       e.preventDefault();
-      // e.stopPropagation();
       self.toggle($(this));
     });
 
@@ -229,9 +228,13 @@ class Repeater {
    * @param {object} e
    */
   remove($this) {
-    const $tbody = $this.closest('.papi-property-repeater-top').find('.repeater-tbody');
-    $this.closest('tr').remove();
-    this.updateRowNumber($tbody);
+    let $tbody = $this.closest('.papi-property-repeater-top')
+
+    if (!$tbody.hasClass('papi-property-flexible')) {
+      $tbody = $tbody.find('.repeater-tbody').first();
+      $this.closest('tr').remove();
+      this.updateRowNumber($tbody);
+    }
   }
 
   /**
@@ -261,8 +264,8 @@ class Repeater {
    * @param {object} $prop
    */
   triggerRule($tbody, counter) {
-    const $top  = $tbody.closest('.papi-property-repeater-top');
-    let name    = $top.find('.bottom').next().attr('name').replace('[]', '');
+    const $top = $tbody.closest('.papi-property-repeater-top');
+    const name = $top.find('.bottom').next().attr('name').replace('[]', '');
     $('[data-papi-rule="' + name + '"]').data('papi-rule-value', counter).trigger('change');
   }
 

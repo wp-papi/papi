@@ -132,9 +132,13 @@ class Flexible extends Repeater {
    * @param {object} $this
    */
   remove($this) {
-    const $tbody = $this.closest('.papi-property-flexible').find('.repeater-tbody');
-    $this.closest('tr').remove();
-    this.updateRowNumber($tbody);
+    let $tbody = $this.closest('.papi-property-repeater-top');
+
+    if ($tbody.hasClass('papi-property-flexible')) {
+      $tbody = $tbody.find('.repeater-tbody');
+      $this.closest('tr').remove();
+      this.updateRowNumber($tbody);
+    }
   }
 
   /**
