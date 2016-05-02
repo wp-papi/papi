@@ -42,7 +42,7 @@
         margin-bottom: -4px !important;
       }
 
-      thead th {
+      > thead > tr > th {
         background: #f9f9f9;
         border: 1px solid #eaeaea;
         border-left: 0;
@@ -59,7 +59,7 @@
         }
       }
 
-      tbody td {
+      > tbody > tr > td {
         border-right: 1px solid #eaeaea;
         border-top: 0;
         padding: 20px 15px 20px 18px;
