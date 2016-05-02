@@ -3,7 +3,6 @@
   margin-right: -31px;
 
   > .papi-table {
-    border-bottom: 1px solid #eaeaea;
     margin: -11px 0 -13px -15px;
     table-layout: fixed;
 
@@ -183,6 +182,10 @@
 
 .papi-table td[colspan="2"] .papi-property-repeater-top .repeater-tbody > tr > td.last {
   border-right: 0;
+}
+
+.papi-property-repeater > .papi-table {
+  border-bottom: 1px solid #eaeaea;
 }
 
 //
