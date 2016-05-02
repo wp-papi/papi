@@ -32,7 +32,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @var array
 	 */
-	protected $exclude_properties = ['flexible', 'group', 'repeater'];
+	protected $exclude_properties = ['flexible', 'group'];
 
 	/**
 	 * The layout key.
