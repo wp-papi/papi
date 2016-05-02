@@ -249,6 +249,10 @@ class Papi_Property_Repeater extends Papi_Property {
 		// Add empty rows that isn't saved to database.
 		for ( $i = 0; $i < $value; $i++ ) {
 			foreach ( $properties as $prop ) {
+				if ( ! isset( $prop->slug ) ) {
+					continue;
+				}
+
 				$slug = sprintf( '%s_%d_%s', $repeater_slug, $i, unpapify( $prop->slug ) );
 
 				if ( ! isset( $values[$slug] ) ) {

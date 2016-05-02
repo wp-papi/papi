@@ -25,6 +25,7 @@
 
 * Updated cross icon for file property with new color [#158](https://github.com/wp-papi/papi/pull/158).
 * Updated so `$id` param for `papi_get_slugs` is optional.
+* Updated so group property is stored as a repeater but only with one row and not a standalone properties.
 
 ### Removed
 

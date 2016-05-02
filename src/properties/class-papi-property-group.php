@@ -3,7 +3,45 @@
 /**
  * Group property that render child properties in a table.
  */
-class Papi_Property_Group extends Papi_Property {
+class Papi_Property_Group extends Papi_Property_Repeater {
+
+	/**
+	 * Format the value of the property before it's returned
+	 * to WordPress admin or the site.
+	 *
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
+	 *
+	 * @return array
+	 */
+	public function format_value( $value, $slug, $post_id ) {
+		if ( ! is_array( $value ) ) {
+			return [];
+		}
+
+		$value = parent::format_value( $value, $slug, $post_id );
+
+		return array_shift( $value );
+	}
+
+	/**
+	 * Format the value of the property before it's returned
+	 * to WordPress admin or the site.
+	 *
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
+	 *
+	 * @return array
+	 */
+	public function load_value( $value, $slug, $post_id ) {
+		if ( is_array( $value ) ) {
+			return [];
+		}
+
+		return parent::load_value( $value, $slug, $post_id );
+	}
 
 	/**
 	 * Get default settings.
@@ -55,25 +93,26 @@ class Papi_Property_Group extends Papi_Property {
 	 *
 	 * @return array
 	 */
-	protected function prepare_properties( array $properties ) {
-		$render_property_slug = $this->slug;
-		preg_match( '/\[(\d+)\]/', $render_property_slug, $matches );
-
-		if ( ! isset( $matches[1] ) ) {
-			return $properties;
-		}
+	protected function prepare_properties( $properties ) {
+		$value = $this->get_value();
 
 		foreach ( $properties as $index => $property ) {
-			if ( ! isset( $property['slug'] ) ) {
+			if ( ! papi_is_property( $property ) ) {
 				unset( $properties[$index] );
 				continue;
 			}
 
-			$parts = explode( $matches[0], $render_property_slug );
-			array_pop( $parts );
-			$parts[] = sprintf( '[%s]', unpapify( $property['slug'] ) );
-			$slug = implode( $matches[0], $parts );
-			$properties[$index]['slug'] = $slug;
+			$slug = $property->get_slug( true );
+
+			// Set the value if it exists.
+			if ( isset( $value[$slug] ) ) {
+				$property->value = $value[$slug];
+			}
+
+			// Create a array slug.
+			$property->slug = sprintf( '%s[0][%s]', $this->slug, $slug );
+
+			$properties[$index] = $property;
 		}
 
 		return $properties;
