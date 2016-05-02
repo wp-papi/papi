@@ -26,24 +26,6 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 	}
 
 	/**
-	 * Format the value of the property before it's returned
-	 * to WordPress admin or the site.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return array
-	 */
-	public function load_value( $value, $slug, $post_id ) {
-		if ( is_array( $value ) ) {
-			return [];
-		}
-
-		return parent::load_value( $value, $slug, $post_id );
-	}
-
-	/**
 	 * Get default settings.
 	 *
 	 * @return array
