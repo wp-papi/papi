@@ -1,5 +1,10 @@
 # Papi Changelog
 
+## [3.0.7](https://github.com/wp-papi/papi/releases/tag/v3.0.7) - 2016-05-09
+
+* Fixed: Locale is restored after `papi_slugify` is used.
+* Fixed: Show standard page type filter is used when only one page type exists.
+
 ## [3.0.6](https://github.com/wp-papi/papi/releases/tag/v3.0.6) - 2016-04-14
 
 * Fixed: Attachment types used on a page type didn't load right, so the site performance was bad.
