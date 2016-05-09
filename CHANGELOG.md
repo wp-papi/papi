@@ -2,7 +2,7 @@
 
 ## [3.0.7](https://github.com/wp-papi/papi/releases/tag/v3.0.7) - 2016-05-09
 
-* Fixed: Locale is restored after `papi_slugify` is used.
+* Fixed: Locale should be restored after `papi_slugify` is used.
 * Fixed: Show standard page type filter is used when only one page type exists.
 
 ## [3.0.6](https://github.com/wp-papi/papi/releases/tag/v3.0.7) - 2016-04-14
