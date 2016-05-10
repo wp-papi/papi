@@ -155,8 +155,8 @@ return [
 
 	// Group
 	papi_property( [
-		'title'    => 'Group',
-		'slug'     => 'my_group_slug',
+		'title'    => 'Group test',
+		'slug'     => 'group_test',
 		'type'     => 'group',
 		'settings' => [
 			'items' => [
@@ -170,7 +170,7 @@ return [
 				] ),
 				papi_property( [
 					'type'     => 'string',
-					'title'    => 'Menu item title',
+					'title'    => 'Page title',
 					'slug'     => 'page_title'
 				] )
 			]

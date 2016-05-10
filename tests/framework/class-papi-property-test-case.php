@@ -172,7 +172,6 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 				default:
 					break;
 			}
-
 			$this->assertNull( $actual );
 			return;
 		}

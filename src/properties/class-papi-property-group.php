@@ -96,7 +96,9 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 			}
 
 			// Create a array slug.
-			$property->slug = sprintf( '%s[0][%s]', $this->slug, $slug );
+			if ( is_admin() ) {
+				$property->slug = sprintf( '%s[0][%s]', $this->slug, $slug );
+			}
 
 			$properties[$index] = $property;
 		}
