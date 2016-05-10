@@ -355,9 +355,11 @@ class Papi_Entry_Type extends Papi_Core_Type {
 			return $this->show_screen_options;
 		} );
 
+		// @codeCoverageIgnoreStart
 		if ( ! method_exists( $this, 'register' ) ) {
 			return;
 		}
+		// @codeCoverageIgnoreEnd
 
 		$this->register();
 
