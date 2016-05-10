@@ -95,11 +95,6 @@ function papi_get_meta_type( $type = null ) {
 		}
 	}
 
-	// On the frontend term should be returned if on a tag page.
-	if ( ! is_admin() && is_tag() ) {
-		return 'term';
-	}
-
 	// Check quried object for right meta type.
 	if ( $obj = get_queried_object() ) {
 		if ( $obj instanceof WP_Term || isset( $obj->term_id ) ) {
