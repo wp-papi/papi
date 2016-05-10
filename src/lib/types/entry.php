@@ -116,6 +116,7 @@ function papi_get_all_entry_types( array $args = [] ) {
 	$cache_key = papi_cache_key( __FUNCTION__, md5( serialize( $args ) ) );
 
 	if ( ! $args['cache'] ) {
+		papi()->remove( 'papi_get_all_core_type_files' );
 		papi()->remove( $cache_key );
 	}
 

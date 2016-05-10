@@ -60,9 +60,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_all_entry_types() {
-		papi()->reset();
-
-		$this->assertEmpty( papi_get_all_entry_types() );
+		$this->assertEmpty( papi_get_all_entry_types(['cache' => false]) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/entry-types'];
