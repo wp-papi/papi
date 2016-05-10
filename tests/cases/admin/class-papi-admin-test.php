@@ -169,7 +169,8 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$_GET['taxonomy'] = 'post_tag';
 		$admin = new Papi_Admin;
 
-		$this->assertSame( 10, has_action( 'post_tag_add_form_fields', [$admin, 'edit_form_after_title'] ) );
+		$this->assertSame( 10, has_action( 'post_tag_add_form', [$admin, 'edit_form_after_title'] ) );
+		$this->assertSame( 10, has_action( 'post_tag_edit_form', [$admin, 'edit_form_after_title'] ) );
 
 		$current_screen = null;
 	}
