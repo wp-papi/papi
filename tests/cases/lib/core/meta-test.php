@@ -96,6 +96,10 @@ class Papi_Lib_Core_Meta_Test extends WP_UnitTestCase {
 		$wp_query->is_tag = true;
 		$this->assertSame( 'term', papi_get_meta_type() );
 		$wp_query->is_tag = false;
+
+		$wp_query->is_category = true;
+		$this->assertSame( 'term', papi_get_meta_type() );
+		$wp_query->is_category = false;
 	}
 
 	public function test_papi_get_meta_type_admin() {
