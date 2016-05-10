@@ -160,6 +160,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_entry_type_template() {
+		$this->assertNull( papi_get_entry_type_template( null ) );
 		$this->assertNull( papi_get_entry_type_template( 0 ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
