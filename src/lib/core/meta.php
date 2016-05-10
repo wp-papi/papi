@@ -100,6 +100,17 @@ function papi_get_meta_type( $type = null ) {
 		return 'term';
 	}
 
+	// Check quried object for right meta type.
+	if ( $obj = get_queried_object() ) {
+		if ( $obj instanceof WP_Term || isset( $obj->term_id ) ) {
+			return 'term';
+		}
+
+		if ( $obj instanceof WP_Post || isset( $obj->post_id ) ) {
+			return 'post';
+		}
+	}
+
 	// Default was has to be set here since we trying to figure out
 	// which url conform which meta type.
 	if ( is_null( $type ) ) {

@@ -58,6 +58,36 @@ class Papi_Lib_Core_Meta_Test extends WP_UnitTestCase {
 
 		$_GET['meta_type'] = 'test';
 		$this->assertSame( 'test', papi_get_meta_type() );
+		unset( $_GET['meta_type'] );
+
+		$this->assertSame( 'post', papi_get_meta_type() );
+	}
+
+	public function test_papi_get_meta_type_quried_object() {
+		global $wp_query;
+
+		// Test term object.
+		$wp_query->is_category = true;
+		$category_id = $this->factory->category->create();
+		$wp_query->query_vars['cat'] = $category_id;
+		$this->assertSame( 'term', papi_get_meta_type() );
+		$this->assertTrue( isset( get_queried_object()->term_id ) );
+
+		// Turn off category query.
+		$wp_query->queried_object = null;
+		$wp_query->is_category = false;
+
+		// Test post object.
+		$post_id = $this->factory->post->create();
+		$wp_query->is_singular = true;
+		$wp_query->post = get_post( $post_id );
+		$this->assertSame( 'post', papi_get_meta_type() );
+		$this->assertTrue( isset( get_queried_object()->post_type ) );
+
+		// Turn off post query.
+		$wp_query->queried_object = null;
+		$wp_query->is_singular = false;
+		$wp_query->post = null;
 	}
 
 	public function test_papi_get_meta_type_wp_query() {
