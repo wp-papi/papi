@@ -209,7 +209,8 @@ final class Papi_Admin {
 			add_action( 'add_meta_boxes', [$this, 'hidden_meta_boxes'], 10 );
 
 			if ( $taxonomy = papi_get_taxonomy() ) {
-				add_action( $taxonomy . '_add_form_fields', [$this, 'edit_form_after_title'] );
+				add_action( $taxonomy . '_add_form', [$this, 'edit_form_after_title'] );
+				add_action( $taxonomy . '_edit_form', [$this, 'edit_form_after_title'] );
 			}
 		}
 	}

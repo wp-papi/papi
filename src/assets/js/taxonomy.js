@@ -22,8 +22,6 @@ class Taxonomy {
    * @param {object} e
    */
   addNewTerm(e) {
-    e.preventDefault();
-
     const $title    = $('#tag-name');
     const title     = $title.val();
     const $pageType = $('[data-papi-page-type-key="true"]');
@@ -35,6 +33,8 @@ class Taxonomy {
     if (!title.length) {
       return;
     }
+
+    e.preventDefault();
 
     let interval;
 

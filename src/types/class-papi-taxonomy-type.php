@@ -85,6 +85,9 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	 */
 	public function edit_form() {
 		?>
+		<div id="papi-hidden-editor" class="hide-if-js">
+			<?php wp_editor( '', 'papiHiddenEditor' ); ?>
+		</div>
 		<div id="poststuff">
 			<div id="post-body">
 				<?php
