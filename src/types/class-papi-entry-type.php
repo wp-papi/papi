@@ -379,9 +379,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 			return;
 		}
 
-		$tab = papi_tab( $file_or_options, $properties );
-
-		return $tab;
+		return papi_tab( $file_or_options, $properties );
 	}
 
 	/**
