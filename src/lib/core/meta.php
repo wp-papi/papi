@@ -95,7 +95,7 @@ function papi_get_meta_type( $type = null ) {
 		}
 	}
 
-	// Check quried object for right meta type.
+	// Check queried object for right meta type.
 	if ( $obj = get_queried_object() ) {
 		if ( $obj instanceof WP_Term || isset( $obj->term_id ) ) {
 			return 'term';
