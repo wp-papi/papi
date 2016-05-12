@@ -57,8 +57,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$_GET['page'] = 'papi/page/simple-page-type';
 		$admin = new Papi_Admin;
 		$classes = $admin->admin_body_class( '' );
-		add_filter( 'theme_page_templates', '__return_empty_array' );
-		$this->assertSame( ' papi-meta-type-post simple-page-type', $classes );
+		$this->assertTrue( (bool) preg_match( '/\ssimple\-page\-type/', $classes ) );
 	}
 
 	public function test_admin_init() {
