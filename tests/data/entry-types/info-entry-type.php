@@ -17,6 +17,15 @@ class Info_Entry_Type extends Papi_Entry_Type {
 	}
 
 	/**
+	 * Add custom body classes.
+	 *
+	 * @return array
+	 */
+	public function body_classes() {
+		return ['info-entry-type'];
+	}
+
+	/**
 	 * Add help tabs.
 	 *
 	 * @return array

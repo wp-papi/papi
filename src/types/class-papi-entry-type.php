@@ -105,7 +105,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
-	 * Get body css classes.
+	 * Get custom body classes.
 	 *
 	 * @return array
 	 */
@@ -198,6 +198,21 @@ class Papi_Entry_Type extends Papi_Core_Type {
 		$properties = array_map( 'papi_get_property_type', $properties );
 
 		return array_filter( $properties, 'papi_is_property' );
+	}
+
+	/**
+	 * Get body css classes.
+	 *
+	 * Use `body_classes` method to add custom body classes.
+	 *
+	 * @return array
+	 */
+	public function get_body_classes() {
+		$arr = $this->body_classes();
+		$arr = is_string( $arr ) ? [$arr] : $arr;
+		$arr = is_array( $arr ) ? $arr : [];
+
+		return array_merge( $arr, [] );
 	}
 
 	/**

@@ -86,7 +86,7 @@ final class Papi_Admin {
 		}
 
 		if ( $entry_type = $this->get_entry_type() ) {
-			$arr = $entry_type->body_classes();
+			$arr = $entry_type->get_body_classes();
 			$arr = is_string( $arr ) ? [$arr] : $arr;
 			$arr = is_array( $arr ) ? $arr : [];
 
