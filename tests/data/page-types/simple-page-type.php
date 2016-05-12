@@ -18,7 +18,18 @@ class Simple_Page_Type extends Papi_Page_Type {
 	}
 
 	/**
-	 * Remove post type support and remove_meta_box.
+	 * Add custom body classes.
+	 *
+	 * @return array
+	 */
+	public function body_classes() {
+		return ['simple-page-type'];
+	}
+
+	/**
+	 * Remove post type support and `remove_meta_box`.
+	 *
+	 * @return array
 	 */
 	public function remove() {
 		return ['editor', 'commentdiv'];

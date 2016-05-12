@@ -105,6 +105,15 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
+	 * Get body css classes.
+	 *
+	 * @return array
+	 */
+	public function body_classes() {
+		return [];
+	}
+
+	/**
 	 * Add new meta box with properties.
 	 *
 	 * @param mixed $file_or_options
@@ -189,30 +198,6 @@ class Papi_Entry_Type extends Papi_Core_Type {
 		$properties = array_map( 'papi_get_property_type', $properties );
 
 		return array_filter( $properties, 'papi_is_property' );
-	}
-
-	/**
-	 * Merge boxes with same title.
-	 *
-	 * @param  array $boxes
-	 *
-	 * @return array
-	 */
-	protected function merge_boxes( array $boxes ) {
-		$result = [];
-
-		foreach ( $boxes as $box ) {
-			if ( ! isset( $result[$box->id] ) ) {
-				$result[$box->id] = $box;
-				continue;
-			}
-
-			foreach ( $box->properties as $property ) {
-				$result[$box->id]->properties[] = $property;
-			}
-		}
-
-		return array_values( $result );
 	}
 
 	/**
@@ -323,6 +308,30 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	 */
 	public function help_sidebar() {
 		return false;
+	}
+
+	/**
+	 * Merge boxes with same title.
+	 *
+	 * @param  array $boxes
+	 *
+	 * @return array
+	 */
+	protected function merge_boxes( array $boxes ) {
+		$result = [];
+
+		foreach ( $boxes as $box ) {
+			if ( ! isset( $result[$box->id] ) ) {
+				$result[$box->id] = $box;
+				continue;
+			}
+
+			foreach ( $box->properties as $property ) {
+				$result[$box->id]->properties[] = $property;
+			}
+		}
+
+		return array_values( $result );
 	}
 
 	/**

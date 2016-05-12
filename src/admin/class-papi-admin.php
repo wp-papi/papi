@@ -85,6 +85,14 @@ final class Papi_Admin {
 			$classes .= ' papi-hide-cpt';
 		}
 
+		if ( $entry_type = $this->get_entry_type() ) {
+			$arr = $entry_type->body_classes();
+			$arr = is_string( $arr ) ? [$arr] : $arr;
+			$arr = is_array( $arr ) ? $arr : [];
+
+			$classes .= ' '  . implode( ' ', $arr );
+		}
+
 		return $classes;
 	}
 
@@ -104,6 +112,46 @@ final class Papi_Admin {
 				'value'                   => $value
 			] );
 		}
+	}
+
+	/**
+	 * Get Entry Type instance.
+	 *
+	 * @return Papi_Entry_Type|false
+	 */
+	private function get_entry_type() {
+		if ( $this->entry_type instanceof Papi_Entry_Type ) {
+			return $this->entry_type;
+		}
+
+		$entry_type_id = papi_get_entry_type_id();
+
+		// If a post type exists, try to load the entry type id
+		// from only page type filter.
+		if ( $this->post_type ) {
+			$entry_type_id = papi_filter_settings_only_page_type( $this->post_type );
+		}
+
+		// If the entry type id is empty try to load
+		// the entry type id from `page` query string.
+		//
+		// Example:
+		//   /wp-admin/options-general.php?page=papi/option/site-option-type
+		if ( empty( $entry_type_id ) ) {
+			$entry_type_id = preg_replace( '/^papi\/\w+\//', '', papi_get_qs( 'page' ) );
+		}
+
+		// Use the default entry type id if empty.
+		if ( empty( $entry_type_id ) ) {
+			$entry_type_id = papi_get_entry_type_id();
+		}
+
+		// If no entry type id exists Papi can't setup a entry type.
+		if ( empty( $entry_type_id ) ) {
+			return false;
+		}
+
+		return $this->entry_type = papi_get_entry_type_by_id( $entry_type_id );
 	}
 
 	/**
@@ -245,35 +293,7 @@ final class Papi_Admin {
 			return false;
 		}
 
-		$entry_type_id = papi_get_entry_type_id();
-
-		// If a post type exists, try to load the entry type id
-		// from only page type filter.
-		if ( $this->post_type ) {
-			$entry_type_id = papi_filter_settings_only_page_type( $this->post_type );
-		}
-
-		// If the entry type id is empty try to load
-		// the entry type id from `page` query string.
-		//
-		// Example:
-		//   /wp-admin/options-general.php?page=papi/option/site-option-type
-		if ( empty( $entry_type_id ) ) {
-			$entry_type_id = preg_replace( '/^papi\/\w+\//', '', papi_get_qs( 'page' ) );
-		}
-
-		// Use the default entry type id if empty.
-		if ( empty( $entry_type_id ) ) {
-			$entry_type_id = papi_get_entry_type_id();
-		}
-
-		// If no entry type id exists Papi can't setup a entry type.
-		if ( empty( $entry_type_id ) ) {
-			return false;
-		}
-
-		// Do a last check so we can be sure that we have a page type instance.
-		return ( $this->entry_type = papi_get_entry_type_by_id( $entry_type_id ) ) instanceof Papi_Entry_Type;
+		return $this->get_entry_type() instanceof Papi_Entry_Type;
 	}
 
 	/**

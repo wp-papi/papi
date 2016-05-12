@@ -31,6 +31,11 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 		);
 	}
 
+	public function test_body_classes() {
+		$this->assertTrue( is_array( $this->empty_entry_type->body_classes() ) );
+		$this->assertEmpty( $this->empty_entry_type->body_classes() );
+	}
+
 	public function test_broken_page_type() {
 		$this->assertNull( papi_get_entry_type_by_id( 'broken-entry-type' ) );
 	}
