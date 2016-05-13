@@ -56,6 +56,13 @@ class Papi_Page_Type_Meta extends Papi_Entry_Type {
 	public $standard_type = false;
 
 	/**
+	 * Show permalink edit box.
+	 *
+	 * @var bool
+	 */
+	public $show_permalink = true;
+
+	/**
 	 * The template of the page type.
 	 *
 	 * @var string
@@ -99,6 +106,21 @@ class Papi_Page_Type_Meta extends Papi_Entry_Type {
 		return empty( $args )
 			? parent::allowed()
 			: papi_current_user_is_allowed( $this->capabilities ) && isset( $args[0] ) && in_array( $args[0], $this->post_type );
+	}
+
+	/**
+	 * Get body css classes.
+	 *
+	 * @return array
+	 */
+	public function get_body_classes() {
+		$classes = parent::get_body_classes();
+
+		if ( ! $this->show_permalink ) {
+			$classes[] = 'papi-hide-edit-slug-box';
+		}
+
+		return $classes;
 	}
 
 	/**
