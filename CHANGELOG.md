@@ -22,6 +22,8 @@
 * Added support for autosaving fields.
 * Added support for group inside flexibles.
 * Added support for group inside repeaters.
+* Added `body_classes` method to all types which can be used to add custom body classes.
+* Added `show_permalink` to page type so permalink div can be hidden.
 
 ### Changed
 
