@@ -4,36 +4,36 @@
 
 ### Added
 
-* Added `show_screen_options` to all types meta method that can turn off screen options tab.
-* Added `show_help_tabs` to all types meta method that can turn off help tab.
-* Added `help` method to all types which can be used to add help tabs.
-* Added `help_sidebar` method to all types which can be used to add help tabs sidebar content.
-* Added support for taxonomy types with support for term meta.
-* Added `wp papi term` command like post command.
-* Added `mce_buttons` settings to editor property.
-* Added `media_buttons`, `teeny` and `drag_drop_upload` settings to editor property.
-* Added vertical boxes support [#148](https://github.com/wp-papi/papi/issues/159).
-* Added support for saving properties on revision posts and restoring revision data.
-* Added `display` option to box options in order to control if the box should be displayed or not.
-* Added support for repeaters inside repeaters.
-* Added support for repeaters inside flexibles.
-* Added support for render html in `Publish box` with `publish_box` method.
-* Added `papi_get_entry_type_css_class` to get the css class that is added to body for a entry type.
-* Added support for autosaving fields.
-* Added support for group inside flexibles.
-* Added support for group inside repeaters.
-* Added `body_classes` method to all types which can be used to add custom body classes.
-* Added `show_permalink` to page type so permalink div can be hidden.
+* Added: `show_screen_options` to all types meta method that can turn off screen options tab.
+* Added: `show_help_tabs` to all types meta method that can turn off help tab.
+* Added: `help` method to all types which can be used to add help tabs.
+* Added: `help_sidebar` method to all types which can be used to add help tabs sidebar content.
+* Added: Support for taxonomy types with support for term meta.
+* Added: `wp papi term` command like post command.
+* Added: `mce_buttons` settings to editor property.
+* Added: `media_buttons`, `teeny` and `drag_drop_upload` settings to editor property.
+* Added: Vertical boxes support [#148](https://github.com/wp-papi/papi/issues/159).
+* Added: Support for saving properties on revision posts and restoring revision data.
+* Added: `display` option to box options in order to control if the box should be displayed or not.
+* Added: Support for repeaters inside repeaters.
+* Added: Support for repeaters inside flexibles.
+* Added: Support for render html in `Publish box` with `publish_box` method.
+* Added: `papi_get_entry_type_css_class` to get the css class that is added to body for a entry type.
+* Added: Support for autosaving fields.
+* Added: Support for group inside flexibles.
+* Added: Support for group inside repeaters.
+* Added: `body_classes` method to all types which can be used to add custom body classes.
+* Added: `show_permalink` to page type so permalink div can be hidden.
 
 ### Changed
 
-* Updated cross icon for file property with new color [#158](https://github.com/wp-papi/papi/pull/158).
-* Updated so `$id` param for `papi_get_slugs` is optional.
-* Updated so group property is stored as a repeater but only with one row and not a standalone properties.
+* Updated: Cross icon for file property with new color [#158](https://github.com/wp-papi/papi/pull/158).
+* Updated: `$id` param for `papi_get_slugs` is optional.
+* Updated: Group property is stored as a repeater but only with one row and not a standalone properties.
 
 ### Removed
 
-* Removed Papi tool page.
+* Removed: Papi tool page.
 
 ## [3.0.7](https://github.com/wp-papi/papi/releases/tag/v3.0.7) - 2016-05-09
 
