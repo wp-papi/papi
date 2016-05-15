@@ -437,7 +437,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				if ( is_array( $value ) && isset( $value[$slug] ) ) {
 					$child_property = $this->get_store()->get_property( $this->get_slug( true ), $slug );
 
-					if ( $child_property->has_children ) {
+					if ( papi_is_property( $child_property ) && $child_property->has_children ) {
 						$value = papi_from_property_array_slugs( $value, unpapify( $slug ) );
 						$results[$index][$slug] = $this->load_child_properties( $value, $child_property );
 					}
