@@ -22,7 +22,7 @@ class Papi_Admin_Assets_Test extends WP_UnitTestCase {
 
 		$assets = new Papi_Admin_Assets;
 
-		$this->assertGreaterThan( 0, has_action( 'admin_head', [$assets, 'enqueue_css'] ) );
+		$this->assertGreaterThan( 0, has_action( 'admin_enqueue_scripts', [$assets, 'enqueue_css'] ) );
 		$this->assertGreaterThan( 0, has_action( 'admin_enqueue_scripts', [$assets, 'enqueue_js'] ) );
 		$this->assertGreaterThan( 0, has_action( 'admin_enqueue_scripts', [$assets, 'enqueue_locale'] ) );
 
