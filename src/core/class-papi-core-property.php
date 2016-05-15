@@ -74,6 +74,13 @@ class Papi_Core_Property {
 	protected $display = true;
 
 	/**
+	 * Determine if the property has children properties.
+	 *
+	 * @var bool
+	 */
+	public $has_children = false;
+
+	/**
 	 * Current property options object.
 	 *
 	 * @var stdClass

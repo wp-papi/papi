@@ -35,6 +35,13 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected $exclude_properties = ['flexible'];
 
 	/**
+	 * Determine if the property has children properties.
+	 *
+	 * @var bool
+	 */
+	public $has_children = true;
+
+	/**
 	 * The layout key.
 	 *
 	 * @var string
