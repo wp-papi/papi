@@ -34,13 +34,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected $exclude_properties = ['flexible'];
 
 	/**
-	 * Determine if the property has children properties.
-	 *
-	 * @var bool
-	 */
-	public $has_children = true;
-
-	/**
 	 * Delete value from the database.
 	 *
 	 * @param  string $slug
@@ -437,7 +430,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				if ( is_array( $value ) && isset( $value[$slug] ) ) {
 					$child_property = $this->get_store()->get_property( $this->get_slug( true ), $slug );
 
-					if ( papi_is_property( $child_property ) && $child_property->has_children ) {
+					if ( papi_is_property( $child_property ) && ! empty( $child_property->get_child_properties() ) ) {
 						$value = papi_from_property_array_slugs( $value, unpapify( $slug ) );
 						$results[$index][$slug] = $this->load_child_properties( $value, $child_property );
 					}
