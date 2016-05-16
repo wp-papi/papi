@@ -57,7 +57,6 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 	public function html() {
 		$properties = $this->get_settings_properties();
 		$properties = $this->prepare_properties( $properties );
-		$value      = $this->get_value();
 
 		// Fix so group is not render over the title and description.
 		if ( $this->get_option( 'layout' ) === 'vertical' ) {
