@@ -884,25 +884,28 @@ class Papi_Property_Repeater extends Papi_Property {
 					$values[$slug][$key] = $val;
 				}
 			}
-
-			if ( isset( $values[$property_type_slug] ) ) {
-				unset( $values[$property_type_slug] );
-			}
 		}
 
+		// Find out which keys that should be deleted.
 		$trash = array_diff(
 			array_keys( papi_to_array( $results ) ),
 			array_keys( papi_to_array( $values ) )
 		);
 
-		// Delete trash values.
+		// Delete unwanted (trash) values.
 		foreach ( array_keys( $trash ) as $trash_key ) {
 			papi_delete_property_meta_value( $post_id, $trash_key );
 		}
 
-		// Keep this method before the return statement.
 		// It's safe to remove all rows in the database here.
 		$this->remove_repeater_rows( $post_id, $repeater_slug );
+
+		// Remove unnecessary property type keys if any is left.
+		foreach ( array_keys( $values ) as $slug ) {
+			if ( papi_is_property_type_key( $slug ) ) {
+				unset( $values[$slug] );
+			}
+		}
 
 		return $values;
 	}
