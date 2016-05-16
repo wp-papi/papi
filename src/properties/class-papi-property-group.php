@@ -48,7 +48,7 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 			return [];
 		}
 
-		return papi_to_array( $settings->items );
+		return array_filter( papi_to_array( $settings->items ), 'papi_is_property' );
 	}
 
 	/**
@@ -57,6 +57,7 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 	public function html() {
 		$properties = $this->get_settings_properties();
 		$properties = $this->prepare_properties( $properties );
+		$value      = $this->get_value();
 
 		// Fix so group is not render over the title and description.
 		if ( $this->get_option( 'layout' ) === 'vertical' ) {
@@ -69,40 +70,31 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 	}
 
 	/**
-	 * Prepare properties and set right slugs.
+	 * Prepare properties and set right slug and value.
 	 *
 	 * @param  array $properties
 	 *
 	 * @return array
 	 */
 	protected function prepare_properties( $properties ) {
-		$value = $this->get_value();
+		$result = [];
+		$value  = $this->get_value();
 
-		foreach ( $properties as $index => $property ) {
-			$property = papi_property( $property );
+		foreach ( $properties as $property ) {
+			$render_property = clone $property->get_options();
+			$value_slug      = $property->get_slug( true );
 
-			if ( ! papi_is_property( $property ) ) {
-				unset( $properties[$index] );
-				continue;
-			}
-
-			$slug = $property->get_slug( true );
-
-			// Set the value if it exists.
-			if ( isset( $value[$slug] ) ) {
-				$property->value = $value[$slug];
+			if ( array_key_exists( $value_slug, $value ) ) {
+				$render_property->value = $value[$value_slug];
 			} else {
-				$property->value = null;
+				$render_property->value = null;
 			}
 
-			// Create a array slug.
-			if ( is_admin() ) {
-				$property->slug = sprintf( '%s[0][%s]', $this->slug, $slug );
-			}
+			$render_property->slug = $this->html_name( $property, $this->counter );
 
-			$properties[$index] = $property;
+			$result[] = $render_property;
 		}
 
-		return $properties;
+		return $result;
 	}
 }
