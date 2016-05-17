@@ -9,7 +9,14 @@
  * @return bool
  */
 function papi_cache_delete( $key, $suffix ) {
-	return wp_cache_delete( papi_cache_key( $key, $suffix ) );
+	$key = papi_cache_key( $key, $suffix );
+	$out = true;
+
+	if ( is_admin() ) {
+		$out = wp_cache_delete( 'admin_' . $key );
+	}
+
+	return $out ? wp_cache_delete( $key ) : $out;
 }
 
 /**
@@ -21,7 +28,13 @@ function papi_cache_delete( $key, $suffix ) {
  * @return bool
  */
 function papi_cache_get( $key, $suffix ) {
-	return wp_cache_get( papi_cache_key( $key, $suffix ) );
+	$key = papi_cache_key( $key, $suffix );
+
+	if ( is_admin() ) {
+		$key = 'admin_' . $key;
+	}
+
+	return wp_cache_get( $key );
 }
 
 /**
@@ -55,5 +68,11 @@ function papi_cache_key( $key, $suffix ) {
  * @return bool
  */
 function papi_cache_set( $key, $suffix, $value ) {
-	return wp_cache_set( papi_cache_key( $key, $suffix ), $value );
+	$key = papi_cache_key( $key, $suffix );
+
+	if ( is_admin() ) {
+		$key = 'admin_' . $key;
+	}
+
+	return wp_cache_set( $key, $value );
 }
