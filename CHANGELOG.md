@@ -1,8 +1,9 @@
 # Papi Changelog
 
-## [2.4.16](https://github.com/wp-papi/papi/releases/tag/v2.4.16) - 2016-04-XX
+## [2.4.16](https://github.com/wp-papi/papi/releases/tag/v2.4.16) - 2016-05-17
 
 * Fixed: Object cache issue with properties that overwrites a existing post field. Cached data was loaded in WordPress admin.
+* Fixed: Cache issue where admin and theme did get the same cached data, will now be saved as two caches.
 
 ## [2.4.15](https://github.com/wp-papi/papi/releases/tag/v2.4.15) - 2016-04-01
 
