@@ -220,13 +220,16 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Get layout value.
 	 *
-	 * @param  string $prefix
-	 * @param  string $name
+	 * @param  string $layout
 	 *
 	 * @return string
 	 */
-	protected function get_layout_value( $prefix, $name ) {
-		return sprintf( '_flexible_%s_%s', $prefix, $name );
+	protected function get_layout_value( $layout ) {
+		if ( preg_match( $this->layout_prefix_regex, $layout ) ) {
+			return $layout;
+		}
+
+		return sprintf( '_flexible_layout_%s', $layout );
 	}
 
 	/**
@@ -478,7 +481,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 			$layouts[$index]['slug']  = papi_slugify( $layout['slug'] );
 			$layouts[$index]['slug']  = $this->get_layout_value(
-				'layout',
 				$layouts[$index]['slug']
 			);
 			$layouts[$index]['items'] = parent::prepare_properties(
@@ -762,7 +764,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				<?php
 				foreach ( $layouts as $layout ) {
 					// Don't render layouts that don't have a valid value in the database.
-					if ( ! isset( $row[$this->layout_key] ) || $layout['slug'] !== $row[$this->layout_key] ) {
+					if ( ! isset( $row[$this->layout_key] ) || $layout['slug'] !== $this->get_layout_value( $row[$this->layout_key] ) ) {
 						continue;
 					}
 
