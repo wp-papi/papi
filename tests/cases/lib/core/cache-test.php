@@ -51,8 +51,8 @@ class Papi_Lib_Core_Cache_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_cache_get( 'test', $this->post_id ) );
 
 		global $current_screen;
-	    $current_screen = WP_Screen::get( 'admin_init' );
-	    papi_cache_set( 'test', $this->post_id, 'elli' );
+		$current_screen = WP_Screen::get( 'admin_init' );
+		papi_cache_set( 'test', $this->post_id, 'elli' );
 		$this->assertSame( 'elli', papi_cache_get( 'test', $this->post_id ) );
 
 		papi_cache_delete( 'test', $this->post_id );
@@ -67,9 +67,9 @@ class Papi_Lib_Core_Cache_Test extends WP_UnitTestCase {
 
 	public function test_papi_cache_get_admin() {
 		global $current_screen;
-	    $current_screen = WP_Screen::get( 'admin_init' );
+		$current_screen = WP_Screen::get( 'admin_init' );
 
-	    papi_cache_set( 'test', $this->post_id, 'elli' );
+		papi_cache_set( 'test', $this->post_id, 'elli' );
 		$this->assertSame( 'elli', papi_cache_get( 'test', $this->post_id ) );
 
 		$current_screen = null;
@@ -78,7 +78,7 @@ class Papi_Lib_Core_Cache_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_cache_get( 'test', $this->post_id ) );
 
 		global $current_screen;
-	    $current_screen = WP_Screen::get( 'admin_init' );
+		$current_screen = WP_Screen::get( 'admin_init' );
 
 		papi_cache_delete( 'test', $this->post_id );
 		$this->assertEmpty( papi_cache_get( 'test', $this->post_id ) );
@@ -109,9 +109,9 @@ class Papi_Lib_Core_Cache_Test extends WP_UnitTestCase {
 
 	public function test_papi_cache_set_admin() {
 		global $current_screen;
-	    $current_screen = WP_Screen::get( 'admin_init' );
+		$current_screen = WP_Screen::get( 'admin_init' );
 
-	    papi_cache_set( 'test', $this->post_id, 'elli' );
+		papi_cache_set( 'test', $this->post_id, 'elli' );
 		$this->assertSame( 'elli', papi_cache_get( 'test', $this->post_id ) );
 
 		$current_screen = null;
@@ -120,7 +120,7 @@ class Papi_Lib_Core_Cache_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_cache_get( 'test', $this->post_id ) );
 
 		global $current_screen;
-	    $current_screen = WP_Screen::get( 'admin_init' );
+		$current_screen = WP_Screen::get( 'admin_init' );
 
 		papi_cache_delete( 'test', $this->post_id );
 		$this->assertEmpty( papi_cache_get( 'test', $this->post_id ) );
