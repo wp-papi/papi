@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [3.0.8](https://github.com/wp-papi/papi/releases/tag/v3.0.8) - 2016-05-17
+
+* Fixed: Cache issue where admin and theme did get the same cached data, will now be saved as two caches.
+
 ## [3.0.7](https://github.com/wp-papi/papi/releases/tag/v3.0.7) - 2016-05-09
 
 * Fixed: Locale should be restored after `papi_slugify` is used [#169](https://github.com/wp-papi/papi/issues/169).
