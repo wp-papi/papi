@@ -10,7 +10,14 @@
  * @return bool
  */
 function papi_cache_delete( $key, $suffix, $type = 'post' ) {
-	return wp_cache_delete( papi_cache_key( $key, $suffix, $type ) );
+	$key = papi_cache_key( $key, $suffix, $type );
+	$out = true;
+
+	if ( is_admin() ) {
+		$out = wp_cache_delete( 'admin_' . $key );;
+	}
+
+	return $out ? wp_cache_delete( $key ) : $out;
 }
 
 /**
@@ -23,7 +30,13 @@ function papi_cache_delete( $key, $suffix, $type = 'post' ) {
  * @return bool
  */
 function papi_cache_get( $key, $suffix, $type = 'post' ) {
-	return wp_cache_get( papi_cache_key( $key, $suffix, $type ) );
+	$key = papi_cache_key( $key, $suffix, $type );
+
+	if ( is_admin() ) {
+		$key = 'admin_' . $key;
+	}
+
+	return wp_cache_get( $key );
 }
 
 /**
@@ -61,5 +74,11 @@ function papi_cache_key( $key, $suffix, $type = 'post' ) {
  * @return bool
  */
 function papi_cache_set( $key, $suffix, $value, $type = 'post' ) {
-	return wp_cache_set( papi_cache_key( $key, $suffix, $type ), $value );
+	$key = papi_cache_key( $key, $suffix, $type );
+
+	if ( is_admin() ) {
+		$key = 'admin_' . $key;
+	}
+
+	return wp_cache_set( $key, $value );
 }
