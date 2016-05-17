@@ -1,6 +1,6 @@
 <?php
 
-class Papi_Lib_Core_Cache_Test extends WP_UnitTestCase {
+class Papi_Lib_Cache_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -11,7 +11,7 @@ class Papi_Lib_Core_Cache_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 
-		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
+		update_post_meta( $this->post_id, PAPI_PAGE_TYPE_KEY, 'simple-page-type' );
 	}
 
 	public function tearDown() {
@@ -46,9 +46,44 @@ class Papi_Lib_Core_Cache_Test extends WP_UnitTestCase {
 		$this->assertSame( 'elli', papi_get_field( $this->post_id, 'namn' ) );
 	}
 
+	public function test_papi_cache_delete_admin() {
+		papi_cache_delete( 'test', $this->post_id );
+		$this->assertEmpty( papi_cache_get( 'test', $this->post_id ) );
+
+		global $current_screen;
+	    $current_screen = WP_Screen::get( 'admin_init' );
+	    papi_cache_set( 'test', $this->post_id, 'elli' );
+		$this->assertSame( 'elli', papi_cache_get( 'test', $this->post_id ) );
+
+		papi_cache_delete( 'test', $this->post_id );
+		$this->assertEmpty( papi_cache_get( 'test', $this->post_id ) );
+		$current_screen = null;
+	}
+
 	public function test_papi_cache_get() {
 		papi_cache_set( 'get', $this->post_id, 'elli' );
 		$this->assertSame( 'elli', papi_cache_get( 'get', $this->post_id ) );
+	}
+
+	public function test_papi_cache_get_admin() {
+		global $current_screen;
+	    $current_screen = WP_Screen::get( 'admin_init' );
+
+	    papi_cache_set( 'test', $this->post_id, 'elli' );
+		$this->assertSame( 'elli', papi_cache_get( 'test', $this->post_id ) );
+
+		$current_screen = null;
+
+		papi_cache_delete( 'test', $this->post_id );
+		$this->assertEmpty( papi_cache_get( 'test', $this->post_id ) );
+
+		global $current_screen;
+	    $current_screen = WP_Screen::get( 'admin_init' );
+
+		papi_cache_delete( 'test', $this->post_id );
+		$this->assertEmpty( papi_cache_get( 'test', $this->post_id ) );
+
+		$current_screen = null;
 	}
 
 	public function test_papi_cache_key() {
@@ -70,5 +105,26 @@ class Papi_Lib_Core_Cache_Test extends WP_UnitTestCase {
 	public function test_papi_cache_set() {
 		papi_cache_set( 'set', $this->post_id, 'elli' );
 		$this->assertSame( 'elli', papi_cache_get( 'set', $this->post_id ) );
+	}
+
+	public function test_papi_cache_set_admin() {
+		global $current_screen;
+	    $current_screen = WP_Screen::get( 'admin_init' );
+
+	    papi_cache_set( 'test', $this->post_id, 'elli' );
+		$this->assertSame( 'elli', papi_cache_get( 'test', $this->post_id ) );
+
+		$current_screen = null;
+
+		papi_cache_delete( 'test', $this->post_id );
+		$this->assertEmpty( papi_cache_get( 'test', $this->post_id ) );
+
+		global $current_screen;
+	    $current_screen = WP_Screen::get( 'admin_init' );
+
+		papi_cache_delete( 'test', $this->post_id );
+		$this->assertEmpty( papi_cache_get( 'test', $this->post_id ) );
+
+		$current_screen = null;
 	}
 }
