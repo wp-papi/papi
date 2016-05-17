@@ -14,7 +14,7 @@ function papi_cache_delete( $key, $suffix, $type = 'post' ) {
 	$out = true;
 
 	if ( is_admin() ) {
-		$out = wp_cache_delete( 'admin_' . $key );;
+		$out = wp_cache_delete( 'admin_' . $key );
 	}
 
 	return $out ? wp_cache_delete( $key ) : $out;
