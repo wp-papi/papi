@@ -222,7 +222,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @return string
 	 */
 	protected function get_layout_value( $layout ) {
-		if ( preg_match( $this->layout_prefix_regex, $layout ) ) {
+		if ( preg_match( $this->layout_value_regex, $layout ) ) {
 			return $layout;
 		}
 
