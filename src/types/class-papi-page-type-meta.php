@@ -103,7 +103,7 @@ class Papi_Page_Type_Meta extends Papi_Entry_Type {
 	}
 
 	/**
-	 * Determine if the entry type is allowed
+	 * Determine if the page type is allowed
 	 * by capabilities and post type.
 	 *
 	 * @return bool
