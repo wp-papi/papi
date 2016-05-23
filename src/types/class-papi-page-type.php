@@ -1,11 +1,52 @@
 <?php
 
 /**
- * Papi type that handle all psot types except attachment,
- * option data and rendering. All page types should extend
- * this class.
+ * Papi type that handle all post types except attachment.
+ * All page types should extend this class.
  */
-class Papi_Page_Type extends Papi_Page_Type_Meta {
+class Papi_Page_Type extends Papi_Entry_Type {
+
+	/**
+	 * Capabilities list.
+	 *
+	 * @var array
+	 */
+	public $capabilities = [];
+
+	/**
+	 * The page types that lives under this page type.
+	 *
+	 * @var array
+	 */
+	public $child_types = [];
+
+	/**
+	 * The description of the page type.
+	 *
+	 * @var string
+	 */
+	public $description = '';
+
+	/**
+	 * Fill labels.
+	 *
+	 * @var bool
+	 */
+	public $fill_labels = false;
+
+	/**
+	 * Labels, the same labels that post type object uses.
+	 *
+	 * @var array
+	 */
+	public $labels = [];
+
+	/**
+	 * The post types to register the page type with.
+	 *
+	 * @var array
+	 */
+	public $post_type = ['page'];
 
 	/**
 	 * Remove meta boxes.
@@ -13,6 +54,73 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 * @var array
 	 */
 	private $remove_meta_boxes = [];
+
+	/**
+	 * Show standard page type or not.
+	 *
+	 * @var bool
+	 */
+	public $standard_type = false;
+
+	/**
+	 * Show permalink edit box.
+	 *
+	 * @var bool
+	 */
+	public $show_permalink = true;
+
+	/**
+	 * Show page template dropdown.
+	 *
+	 * @var bool
+	 */
+	public $show_page_template = false;
+
+	/**
+	 * The template of the page type.
+	 *
+	 * @var string
+	 */
+	public $template = '';
+
+	/**
+	 * The page type thumbnail.
+	 *
+	 * @var string
+	 */
+	public $thumbnail = '';
+
+	/**
+	 * The type name.
+	 *
+	 * @var string
+	 */
+	public $type = 'page';
+
+	/**
+	 * The constructor.
+	 *
+	 * Load a page type by the file.
+	 *
+	 * @param string $file_path
+	 */
+	public function __construct( $file_path = '' ) {
+		parent::__construct( $file_path );
+		$this->setup_post_types();
+	}
+
+	/**
+	 * Determine if the page type is allowed
+	 * by capabilities and post type.
+	 *
+	 * @return bool
+	 */
+	public function allowed() {
+		$args = func_get_args();
+		return empty( $args )
+			? parent::allowed()
+			: papi_current_user_is_allowed( $this->capabilities ) && isset( $args[0] ) && in_array( $args[0], $this->post_type );
+	}
 
 	/**
 	 * Should the Page Type be displayed in WordPress admin or not?
@@ -23,6 +131,58 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	 */
 	public function display( $post_type ) {
 		return true;
+	}
+
+	/**
+	 * Get body css classes.
+	 *
+	 * @return array
+	 */
+	public function get_body_classes() {
+		$classes = parent::get_body_classes();
+
+		if ( ! $this->show_permalink ) {
+			$classes[] = 'papi-hide-edit-slug-box';
+		}
+
+		return $classes;
+	}
+
+	/**
+	 * Get child page types that lives under the current page type.
+	 *
+	 * @return array
+	 */
+	public function get_child_types() {
+		$child_types = [];
+
+		foreach ( papi_to_array( $this->child_types ) as $id ) {
+			$child_type = papi_get_entry_type_by_id( $id );
+
+			if ( papi_is_page_type( $child_type ) ) {
+				$child_types[] = $child_type;
+			}
+		}
+
+		return $child_types;
+	}
+
+	/**
+	 * Get labels that should be changed
+	 * when using `fill_labels` option.
+	 *
+	 * @return array
+	 */
+	public function get_labels() {
+		if ( ! $this->fill_labels ) {
+			return $this->labels;
+		}
+
+		return array_merge( $this->labels, [
+			'add_new_item' => sprintf( '%s %s', __( 'Add New', 'papi' ), $this->name ),
+			'edit_item'    => sprintf( '%s %s', __( 'Edit', 'papi' ), $this->name ),
+			'view_item'    => sprintf( '%s %s', __( 'View', 'papi' ), $this->name )
+		] );
 	}
 
 	/**
@@ -68,23 +228,27 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 	}
 
 	/**
-	 * Setup page type.
+	 * Get page type image thumbnail.
+	 *
+	 * @return string
 	 */
-	public function setup() {
-		parent::setup();
-
-		// Remove post type support and meta boxes.
-		$this->remove_post_type_support();
-
-		// Add support for displaying information in publish box from a page type.
-		if ( method_exists( $this, 'publish_box' ) ) {
-			add_action( 'post_submitbox_misc_actions', [$this, 'publish_box'] );
+	public function get_thumbnail() {
+		if ( empty( $this->thumbnail ) ) {
+			return '';
 		}
 
-		// Hide page template dropdown if it shouldn't be showed.
-		if ( ! $this->show_page_template ) {
-			add_filter( 'theme_page_templates', '__return_empty_array' );
-		}
+		return $this->thumbnail;
+	}
+
+	/**
+	 * Check if the given post is allowed to use the page type.
+	 *
+	 * @param string $post_type
+	 *
+	 * @return bool
+	 */
+	public function has_post_type( $post_type ) {
+		return in_array( $post_type, $this->post_type );
 	}
 
 	/**
@@ -131,6 +295,39 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 
 		foreach ( $this->remove_meta_boxes as $item ) {
 			remove_meta_box( $item[0], $post_type, $item[1] );
+		}
+	}
+
+	/**
+	 * Setup page type.
+	 */
+	public function setup() {
+		parent::setup();
+
+		// Remove post type support and meta boxes.
+		$this->remove_post_type_support();
+
+		// Add support for displaying information in publish box from a page type.
+		if ( method_exists( $this, 'publish_box' ) ) {
+			add_action( 'post_submitbox_misc_actions', [$this, 'publish_box'] );
+		}
+
+		// Hide page template dropdown if it shouldn't be showed.
+		if ( ! $this->show_page_template ) {
+			add_filter( 'theme_page_templates', '__return_empty_array' );
+		}
+	}
+
+	/**
+	 * Setup post types array.
+	 */
+	private function setup_post_types() {
+		$this->post_type = papi_to_array( $this->post_type );
+
+		// Set a default value to post types array
+		// if we don't have a array or a empty array.
+		if ( empty( $this->post_type ) ) {
+			$this->post_type = ['page'];
 		}
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 
-class No_Page_Type extends Papi_Page_Type_Meta {
+class No_Page_Type extends Papi_Entry_Type {
 
 	/**
 	 * Define our Page Type meta data.
