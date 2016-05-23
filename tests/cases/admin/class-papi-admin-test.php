@@ -40,18 +40,8 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->assertSame( ' papi-meta-type-post', $classes );
 	}
 
-	public function test_admin_body_class_2() {
-		papi()->reset();
-		$_GET['post_type'] = 'page';
-		$admin = new Papi_Admin;
-		$this->register_template_paths( [
-			'test.php' => 'Test'
-		] );
-		$classes = $admin->admin_body_class( '' );
-		$this->assertSame( ' papi-meta-type-post papi-hide-cpt', $classes );
-	}
-
 	public function test_admin_body_class_with_entry_type_body_classes() {
+		papi()->reset();
 		$_GET['post'] = $this->factory->post->create();
 		$_GET['post_type'] = 'page';
 		$_GET['page'] = 'papi/page/simple-page-type';

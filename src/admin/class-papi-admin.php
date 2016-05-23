@@ -81,10 +81,6 @@ final class Papi_Admin {
 			return $classes;
 		}
 
-		if ( count( get_page_templates() ) ) {
-			$classes .= ' papi-hide-cpt';
-		}
-
 		if ( $entry_type = $this->get_entry_type() ) {
 			$arr = $entry_type->get_body_classes();
 			$arr = is_string( $arr ) ? [$arr] : $arr;
