@@ -83,7 +83,7 @@
       width: 100%;
     }
 
-    .papi-post-type-screenshot {
+    .papi-page-type-screenshot {
         background-size: 100%;
         display: inline-block;
         height: 200px;
@@ -101,7 +101,7 @@
       width: 100%;
     }
 
-    .papi-post-type-info {
+    .papi-page-type-info {
       margin-top: -4px;
       max-width: 240px;
       padding: 15px;
@@ -123,12 +123,11 @@
       }
     }
 
-    .papi-post-type-actions {
+    .papi-page-type-actions {
       background-color: #fafafa;
       border-top: 1px solid #dedede;
       height: 38px;
       padding: 9px 10px 0;
     }
-
   }
 }
