@@ -63,6 +63,13 @@ class Papi_Page_Type_Meta extends Papi_Entry_Type {
 	public $show_permalink = true;
 
 	/**
+	 * Show page template dropdown.
+	 *
+	 * @var bool
+	 */
+	public $show_page_template = false;
+
+	/**
 	 * The template of the page type.
 	 *
 	 * @var string

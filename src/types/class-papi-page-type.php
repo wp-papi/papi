@@ -80,6 +80,11 @@ class Papi_Page_Type extends Papi_Page_Type_Meta {
 		if ( method_exists( $this, 'publish_box' ) ) {
 			add_action( 'post_submitbox_misc_actions', [$this, 'publish_box'] );
 		}
+
+		// Hide page template dropdown if it shouldn't be showed.
+		if ( ! $this->show_page_template ) {
+			add_filter( 'theme_page_templates', '__return_empty_array' );
+		}
 	}
 
 	/**
