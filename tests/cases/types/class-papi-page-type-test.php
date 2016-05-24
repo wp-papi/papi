@@ -52,7 +52,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 	public function test_get_body_classes() {
 		$this->assertTrue( is_array( $this->empty_page_type->get_body_classes() ) );
 		$this->assertEmpty( $this->empty_page_type->get_body_classes() );
-		$this->assertSame( ['papi-hide-edit-slug-box', 'papi-hide-pageparentdiv'], $this->simple_page_type->get_body_classes() );
+		$this->assertSame( ['simple-page-type', 'papi-hide-edit-slug-box', 'papi-hide-pageparentdiv'], $this->simple_page_type->get_body_classes() );
 	}
 
 	public function test_get_boxes() {
