@@ -9,11 +9,13 @@ class Simple_Page_Type extends Papi_Page_Type {
 	 */
 	public function meta() {
 		return [
-			'name'          => 'Simple page',
-			'description'   => 'This is a simple page',
-			'template'      => 'pages/simple-page.php',
-			'post_type'     => [],
-			'standard_type' => true
+			'name'                 => 'Simple page',
+			'description'          => 'This is a simple page',
+			'template'             => 'pages/simple-page.php',
+			'post_type'            => [],
+			'standard_type'        => true,
+			'show_page_attributes' => false,
+			'show_permalink'       => false
 		];
 	}
 

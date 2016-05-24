@@ -70,6 +70,13 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	public $show_permalink = true;
 
 	/**
+	 * Show page attributes box.
+	 *
+	 * @var bool
+	 */
+	public $show_page_attributes = true;
+
+	/**
 	 * Show page template dropdown.
 	 *
 	 * @var bool
@@ -143,6 +150,10 @@ class Papi_Page_Type extends Papi_Entry_Type {
 
 		if ( ! $this->show_permalink ) {
 			$classes[] = 'papi-hide-edit-slug-box';
+		}
+
+		if ( ! $this->show_page_attributes ) {
+			$classes[] = 'papi-hide-pageparentdiv';
 		}
 
 		return $classes;
