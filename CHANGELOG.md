@@ -24,6 +24,8 @@
 * Added: Support for group inside repeaters.
 * Added: `body_classes` method to all types which can be used to add custom body classes.
 * Added: `show_permalink` to page type so permalink div can be hidden.
+* Added: `show_page_template` to hide page template dropdown by default.
+* Added: `show_page_attributes` to show page attributes box by default.
 
 ### Changed
 
