@@ -8,7 +8,7 @@ label[for="papi-hidden-editor-hide"],
 // Hide classes for hiding html
 // elements that can be hidden
 // with a filter or something like that.
-$hide-list: #edit-slug-box;
+$hide-list: #edit-slug-box #pageparentdiv;
 @each $item in $hide-list {
   .papi-hide-#{str-slice($item, 2)} #{$item} {
     display: none;
