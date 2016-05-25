@@ -80,6 +80,13 @@ class Papi_Property_Checkbox extends Papi_Property {
 					'for'   => $this->html_id( $key ),
 
 					papi_html_tag( 'input', [
+						'id'      => $this->html_id( $key ),
+						'name'    => $this->html_name() . '[]',
+						'type'    => 'hidden',
+						'value'   => '0'
+					] ),
+
+					papi_html_tag( 'input', [
 						'checked' => in_array( $value, $settings->selected ) ? 'checked' : null,
 						'id'      => $this->html_id( $key ),
 						'name'    => $this->html_name() . '[]',
