@@ -82,8 +82,7 @@ class Papi_Property_Checkbox extends Papi_Property {
 					papi_html_tag( 'input', [
 						'id'      => $this->html_id( $key ),
 						'name'    => $this->html_name() . '[]',
-						'type'    => 'hidden',
-						'value'   => '0'
+						'type'    => 'hidden'
 					] ),
 
 					papi_html_tag( 'input', [
