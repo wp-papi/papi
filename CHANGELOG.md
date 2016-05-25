@@ -1,6 +1,6 @@
 # Papi Changelog
 
-## [3.0.9](https://github.com/wp-papi/papi/releases/tag/v3.0.9) - 2016-05-XX
+## [3.0.9](https://github.com/wp-papi/papi/releases/tag/v3.0.9) - 2016-05-25
 
 * Fixed: Checkbox property did not save unchecked values.
 
