@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [2.4.17](https://github.com/wp-papi/papi/releases/tag/v2.4.17) - 2016-05-XX
+
+* Fixed: Checkbox property did not save unchecked values.
+
 ## [2.4.16](https://github.com/wp-papi/papi/releases/tag/v2.4.16) - 2016-05-17
 
 * Fixed: Object cache issue with properties that overwrites a existing post field. Cached data was loaded in WordPress admin.
