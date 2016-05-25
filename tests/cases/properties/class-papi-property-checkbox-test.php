@@ -24,8 +24,8 @@ class Papi_Property_Checkbox_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_format_value() {
-		$this->assertSame( [ 'hello' ], $this->property->format_value( 'hello', '', 0 ) );
-		$this->assertSame( [ 'hello' ], $this->property->format_value( [ 'hello' ], '', 0 ) );
+		$this->assertSame( ['hello'], $this->property->format_value( 'hello', '', 0 ) );
+		$this->assertSame( ['hello'], $this->property->format_value( ['hello'], '', 0 ) );
 		$this->assertSame( [2014], $this->property->format_value( ['2014'], '', 0 ) );
 		$this->assertSame( [12.3], $this->property->format_value( ['12.3'], '', 0 ) );
 		$this->assertSame( [true], $this->property->format_value( ['true'], '', 0 ) );
