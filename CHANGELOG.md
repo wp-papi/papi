@@ -37,6 +37,10 @@
 
 * Removed: Papi tool page.
 
+## [3.0.9](https://github.com/wp-papi/papi/releases/tag/v3.0.9) - 2016-05-25
+
+* Fixed: Checkbox property did not save unchecked values.
+
 ## [3.0.8](https://github.com/wp-papi/papi/releases/tag/v3.0.8) - 2016-05-17
 
 * Fixed: Cache issue where admin and theme did get the same cached data, will now be saved as two caches.
