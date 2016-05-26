@@ -36,6 +36,7 @@
 ### Removed
 
 * Removed: Papi tool page.
+* Removed: `papi_translate_keys`
 
 ## [3.0.9](https://github.com/wp-papi/papi/releases/tag/v3.0.9) - 2016-05-25
 
