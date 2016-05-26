@@ -811,6 +811,14 @@ class Papi_Core_Property {
 	private function setup_options_slug( $options ) {
 		$slug = $options->slug;
 
+		// When `slug` is false a unique id should be generated.
+		if ( $slug === false ) {
+			return papi_html_name( md5( uniqid( rand(), true ) ) );
+		}
+
+		// If `slug` is empty, check if `title` is not empty
+		// and generate a slug from the `title` or if empty
+		// use the `type`.
 		if ( empty( $slug ) ) {
 			if ( empty( $options->title ) ) {
 				$slug = papi_slugify( $options->type );
@@ -819,7 +827,8 @@ class Papi_Core_Property {
 			}
 		}
 
-		return $slug === 'papi_' ? '' : papi_html_name( $slug );
+		// Create a html friendly name from the `slug`.
+		return papi_html_name( $slug );
 	}
 
 	/**

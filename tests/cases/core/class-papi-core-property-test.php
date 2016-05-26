@@ -143,6 +143,37 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( $property->get_option( 'slug' ), 'papi_name' );
 	}
 
+	public function test_create_slug() {
+		$property = Papi_Core_Property::create( [
+			'type'  => 'string',
+			'title' => 'Name',
+			'slug'  => 'name'
+		] );
+
+		$this->assertSame( $property->get_option( 'slug' ), 'papi_name' );
+	}
+
+	public function test_create_slug_empty() {
+		$property = Papi_Core_Property::create( [
+			'type'  => 'string',
+			'title' => 'Name'
+		] );
+
+		$this->assertSame( $property->get_option( 'slug' ), 'papi_name' );
+	}
+
+	public function test_create_slug_false() {
+		$property = Papi_Core_Property::create( [
+			'type'  => 'string',
+			'title' => 'Name',
+			'slug'  => false
+		] );
+
+		$slug = unpapify( $property->get_option( 'slug' ) );
+
+		$this->assertRegExp( '/^[a-f0-9]{32}$/', $slug );
+	}
+
 	public function test_current_user_can() {
 		$property = Papi_Core_Property::create( [
 			'type'  => 'string',
