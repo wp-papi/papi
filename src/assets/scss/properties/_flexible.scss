@@ -23,6 +23,11 @@
             border-right: 1px solid #eaeaea;
             padding: 10px 16px 10px 15px;
             width: 15%;
+
+            &[colspan="2"] {
+              background: #f9f9f9;
+              border-right: 0;
+            }
           }
         }
       }
