@@ -101,8 +101,10 @@ class Papi_Attachment_Type extends Papi_Page_Type {
 	 */
 	public function save_attachment( $post ) {
 		update_post_meta( $post['ID'], papi_get_page_type_key(), $this->get_id() );
+
 		$handler = new Papi_Admin_Meta_Handler();
 		$handler->save_meta_boxes( $post['ID'], $post );
+
 		return $post;
 	}
 
