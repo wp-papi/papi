@@ -71,10 +71,7 @@ class Papi_Admin_Ajax {
 		}
 
 		if ( ! papi_is_empty( papi_get_qs( 'action' ) ) ) {
-			$wp_query->set(
-				'papi_ajax_action',
-				papi_get_qs( 'action' )
-			);
+			$wp_query->set( 'papi_ajax_action', papi_get_qs( 'action' ) );
 		}
 
 		$ajax_action = $wp_query->get( 'papi_ajax_action' );
