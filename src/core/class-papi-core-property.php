@@ -497,7 +497,7 @@ class Papi_Core_Property {
 	 */
 	public function html_id( $suffix = '', $row = null ) {
 		if ( is_array( $suffix ) || is_object( $suffix ) ) {
-			return '_' . $this->html_name( $suffix, $row );
+			return papi_f( $this->html_name( $suffix, $row ) );
 		} else {
 			$suffix = empty( $suffix ) || ! is_string( $suffix ) ? '' : '_' . $suffix;
 			$suffix = papi_underscorify( papi_slugify( $suffix ) );
@@ -507,10 +507,10 @@ class Papi_Core_Property {
 		$len  = strlen( $name );
 
 		if ( isset( $name[$len - 1] ) && $name[$len - 1] === ']' ) {
-			return sprintf( '_%s%s]', substr( $name, 0, $len - 1 ), $suffix );
+			return papi_f( sprintf( '%s%s]', substr( $name, 0, $len - 1 ), $suffix ) );
 		}
 
-		return sprintf( '_%s%s', $this->html_name(), $suffix );
+		return papi_f( sprintf( '%s%s', $this->html_name(), $suffix ) );
 	}
 
 	/**
@@ -813,7 +813,7 @@ class Papi_Core_Property {
 
 		// When `slug` is false a unique id should be generated.
 		if ( $slug === false ) {
-			return papi_html_name( md5( uniqid( rand(), true ) ) );
+			return '_' . papi_html_name( md5( uniqid( rand(), true ) ) );
 		}
 
 		// If `slug` is empty, check if `title` is not empty

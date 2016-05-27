@@ -170,6 +170,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		] );
 
 		$slug = unpapify( $property->get_option( 'slug' ) );
+		$slug = str_replace( '_', '', $slug );
 
 		$this->assertRegExp( '/^[a-f0-9]{32}$/', $slug );
 	}
