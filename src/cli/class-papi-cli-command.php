@@ -14,6 +14,7 @@ class Papi_CLI_Command extends WP_CLI_Command {
 	 */
 	protected function get_formatter( $assoc_args ) {
 		$args = $this->get_format_args( $assoc_args );
+
 		return new \WP_CLI\Formatter( $args );
 	}
 
