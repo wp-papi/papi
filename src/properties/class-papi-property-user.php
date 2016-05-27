@@ -103,8 +103,6 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 		if ( is_numeric( $value ) ) {
 			return (int) $value;
 		}
-
-		return $this->default_value;
 	}
 
 	/**
