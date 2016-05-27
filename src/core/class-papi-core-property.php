@@ -811,7 +811,7 @@ class Papi_Core_Property {
 	private function setup_options_slug( $options ) {
 		$slug = $options->slug;
 
-		// When `slug` is false a unique id should be generated.
+		// When `slug` is false a unique slug should be generated.
 		if ( $slug === false ) {
 			return '_' . papi_html_name( md5( uniqid( rand(), true ) ) );
 		}
