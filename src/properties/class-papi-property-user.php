@@ -1,8 +1,7 @@
 <?php
 
 /**
- * User property that handle relationship between
- * users and posts.
+ * User property that populates a dropdown.
  */
 class Papi_Property_User extends Papi_Property_Dropdown {
 
