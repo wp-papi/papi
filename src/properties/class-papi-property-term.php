@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Term property that handle relationship between
- * terms and posts.
+ * Term property that populates a dropdown.
  */
 class Papi_Property_Term extends Papi_Property {
 
