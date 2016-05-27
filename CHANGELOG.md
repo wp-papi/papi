@@ -26,6 +26,7 @@
 * Added: `show_permalink` to page type so permalink div can be hidden on a page type.
 * Added: `show_page_template` to hide page template dropdown by default on a page type.
 * Added: `show_page_attributes` to show page attributes box by default on a page type.
+* Added: `false` value to `slug` key to generate a unique slug that don't should be saved in the database but displayed in the admin.
 
 ### Changed
 
