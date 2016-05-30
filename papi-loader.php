@@ -5,7 +5,7 @@
  * Description: Page Type API with custom fields
  * Author: Fredrik Forsmo
  * Author URI: https://frozzare.com
- * Version: 3.1.0-beta2
+ * Version: 3.1.0-rc1
  * Plugin URI: https://wp-papi.github.io
  * Textdomain: papi
  * Domain Path: /languages/
