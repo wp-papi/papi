@@ -247,7 +247,7 @@ final class Papi_Porter extends Papi_Container {
 			return false;
 		}
 
-		update_post_meta( $post_id, papi_get_page_type_key(), $page_type->get_id() );
+		update_metadata( $meta_type, $meta_id, papi_get_page_type_key(), $entry_type->get_id() );
 
 		$result = true;
 
