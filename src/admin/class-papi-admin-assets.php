@@ -9,7 +9,7 @@ final class Papi_Admin_Assets {
 	 * The constructor.
 	 */
 	public function __construct() {
-		add_action( 'admin_head', [$this, 'enqueue_css'] );
+		add_action( 'admin_enqueue_scripts', [$this, 'enqueue_css'] );
 		add_action( 'admin_enqueue_scripts', [$this, 'enqueue_js'] );
 		add_action( 'admin_enqueue_scripts', [$this, 'enqueue_locale'] );
 	}
