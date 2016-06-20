@@ -141,13 +141,13 @@ class Papi_Lib_Fields_Taxonomy_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Kalle', papi_get_term_field( $this->term_id, 'string_test' ) );
 	}
 
-	public function test_the_papi_term_meta() {
+	public function test_the_papi_term_field() {
 		update_term_meta( $this->term_id, 'string_test', 'fredrik' );
 
-		the_papi_term_meta( $this->term_id, 'string_test' );
+		the_papi_term_field( $this->term_id, 'string_test' );
 		$this->expectOutputRegex( '/fredrik/' );
 
-		the_papi_term_meta( $this->term_id, 'numbers', [ 1, 2, 3 ] );
+		the_papi_term_field( $this->term_id, 'numbers', [ 1, 2, 3 ] );
 		$this->expectOutputRegex( '/1\, 2\, 3/' );
 	}
 }

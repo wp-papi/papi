@@ -126,7 +126,7 @@ function papi_update_term_field( $term_id = null, $slug = null, $value = null ) 
  * @param string $slug
  * @param mixed  $default
  */
-function the_papi_term_meta( $term_id = null, $slug = null, $default = null ) {
+function the_papi_term_field( $term_id = null, $slug = null, $default = null ) {
 	$value = papi_get_term_field( $term_id, $slug, $default );
 
 	if ( is_array( $value ) ) {
