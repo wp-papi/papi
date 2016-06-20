@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [3.0.10](https://github.com/wp-papi/papi/releases/tag/v3.0.10) - 2016-06-20
+
+* Fixed: Page type id is now set on porter import.
+
 ## [3.0.9](https://github.com/wp-papi/papi/releases/tag/v3.0.9) - 2016-05-25
 
 * Fixed: Checkbox property did not save unchecked values.
