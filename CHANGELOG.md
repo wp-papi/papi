@@ -1,5 +1,10 @@
 # Papi Changelog
 
+## [2.4.18](https://github.com/wp-papi/papi/releases/tag/v2.4.18) - 2016-06-20
+
+* Fixed: Page type id is now set on porter import.
+* Fixed: CSS is now loaded before content is loaded.
+
 ## [2.4.17](https://github.com/wp-papi/papi/releases/tag/v2.4.17) - 2016-05-25
 
 * Fixed: Checkbox property did not save unchecked values.
