@@ -18,20 +18,36 @@ class Color {
    * Bind elements with functions.
    */
   binds() {
-    $('.papi-property-color-picker input').each(function () {
-      const $el = $(this);
-      const palettes = $el.data().palettes;
+    let self = this;
 
-      $el.wpColorPicker({
-        color: true,
-        change: function () {
-          $el.trigger('change');
-        },
-        palettes: palettes === undefined ? false : palettes
-      });
+    $('.papi-property-color-picker input').each(self.showColorPicker);
+
+    // Bind all new inputs when added in repeater.
+    $(document).on('papi/property/repeater/added', '[data-property="color"]', function () {
+      $('.papi-property-color-picker input').each(self.showColorPicker);
     });
   }
 
+  /**
+   * Show color picker.
+   */
+  showColorPicker() {
+    const $el      = $(this);
+    const palettes = $el.data().palettes;
+
+    if (!$el.parent().hasClass('papi-property-color-picker')) {
+      return;
+    }
+
+    $el.wpColorPicker({
+      color: true,
+      change: function () {
+        $el.trigger('change');
+      },
+      input: $el,
+      palettes: palettes === undefined || !palettes.length ? false : palettes
+    });
+  }
 }
 
 export default Color;
