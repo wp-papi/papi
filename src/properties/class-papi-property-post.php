@@ -59,8 +59,10 @@ class Papi_Property_Post extends Papi_Property {
 		$results = [];
 
 		foreach ( $this->get_post_types() as $post_type ) {
-			$post_type_object    = get_post_type_object( $post_type );
-			$results[$post_type] = $post_type_object->labels->menu_name;
+			if ( post_type_exists( $post_type ) ) {
+				$post_type_object    = get_post_type_object( $post_type );
+				$results[$post_type] = $post_type_object->labels->menu_name;
+			}
 		}
 
 		return $results;
