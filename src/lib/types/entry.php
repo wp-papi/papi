@@ -189,7 +189,6 @@ function papi_get_entry_type( $file_path ) {
 		return;
 	}
 
-	$file_path  = strtolower( $file_path );
 	$class_name = papi_get_class_name( $file_path );
 
 	if ( empty( $class_name ) ) {
