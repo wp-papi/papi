@@ -2,7 +2,7 @@
 
 ## [3.1.1](https://github.com/wp-papi/papi/releases/tag/v3.1.1) - 2016-07-04
 
-* Fixed: Path to files was rewritten with to lowercase, see [#176](https://github.com/wp-papi/papi/issues/176)
+* Fixed: Path to files was rewritten with to lowercase [#176](https://github.com/wp-papi/papi/issues/176)
 
 ## [3.1.0](https://github.com/wp-papi/papi/releases/tag/v3.1.0) - 2016-06-27
 
