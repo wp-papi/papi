@@ -132,7 +132,7 @@ class Core {
     let boxMaxHeight = 0;
 
     if (!thumbnails) {
-      $boxItems = $('.papi-post-type-info');
+      $boxItems = $('.papi-page-type-info');
     }
 
     $boxItems.each(function () {
