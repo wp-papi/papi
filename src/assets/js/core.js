@@ -127,8 +127,8 @@ class Core {
    * Set equal height on page type boxes.
    */
   setEqualBoxHeights() {
-    let $boxItems  = $('.papi-box-item');
-    let thumbnails = $boxItems.find('.papi-post-type-screenshot').length > 0;
+    let $boxItems = $('.papi-box-item');
+    let thumbnails = $boxItems.find('.papi-page-type-screenshot').length;
     let boxMaxHeight = 0;
 
     if (!thumbnails) {
@@ -153,7 +153,7 @@ class Core {
       let height = boxMaxHeight;
 
       if (thumbnails) {
-        let $thumb = $this.find('.papi-post-type-screenshot');
+        let $thumb = $this.find('.papi-page-type-screenshot');
 
         if ($thumb.length) {
           height = height - $thumb.height();
@@ -161,7 +161,7 @@ class Core {
           height += 5;
         }
 
-        $this.find('.papi-post-type-info').height(height);
+        $this.find('.papi-page-type-info').height(height);
       } else {
         $this.height(height);
       }
