@@ -194,7 +194,7 @@ class Papi_Core_Data_Handler {
 	/**
 	 * Sanitize data before saving it.
 	 *
-	 * @param mixed $value
+	 * @param  mixed $value
 	 *
 	 * @return mixed
 	 */
