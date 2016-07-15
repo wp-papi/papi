@@ -375,16 +375,6 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 		$this->assertSame( papi_nl2br( "Hello\nWorld" ), "Hello<br />\nWorld" );
 	}
 
-	public function test_papi_remove_trailing_quotes() {
-		$this->assertSame( '"hello" "world"', papi_remove_trailing_quotes( '\"hello\" \"world\"' ) );
-		$this->assertEmpty( papi_remove_trailing_quotes( null ) );
-		$this->assertEmpty( papi_remove_trailing_quotes( true ) );
-		$this->assertEmpty( papi_remove_trailing_quotes( false ) );
-		$this->assertEmpty( papi_remove_trailing_quotes( 1 ) );
-		$this->assertEmpty( papi_remove_trailing_quotes( [] ) );
-		$this->assertEmpty( papi_remove_trailing_quotes( new stdClass() ) );
-	}
-
 	public function test_papi_santize_data() {
 		$value = papi_santize_data( '\"hello\"' );
 		$this->assertSame( '"hello"', $value );

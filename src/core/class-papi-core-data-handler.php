@@ -206,7 +206,7 @@ class Papi_Core_Data_Handler {
 				}
 			}
 		} else if ( is_string( $value ) ) {
-			$value = papi_remove_trailing_quotes( $value );
+			$value = wp_unslash( $value );
 		}
 
 		return $value;
