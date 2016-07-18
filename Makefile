@@ -49,7 +49,8 @@ pot:
            --package-name=papi \
            --from-code=UTF-8 \
            --output=languages/papi.pot \
-           src/**/*.php
+           $(shell find src -name '*.php' -type f)
+
 	# Add Poedit information to the template file.
 	cat languages/papi.pot|perl -pe 's/8bit\\n/8bit\\n\"\n\"X-Poedit-Basepath:\
 	..\\n"\n"X-Poedit-SourceCharset: UTF-8\\n"\n\
