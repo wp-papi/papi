@@ -19,7 +19,7 @@ import File from 'properties/File';
 import Flexible from 'properties/flexible';
 import Link from 'properties/link';
 import Post from 'properties/post';
-import Reference from 'properties/post';
+import Reference from 'properties/reference';
 import Relationship from 'properties/relationship';
 import Repeater from 'properties/repeater';
 import Term from 'properties/term';

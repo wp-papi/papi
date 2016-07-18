@@ -22,20 +22,20 @@ class Core {
    * @param {object} options
    */
   autosave(e, xhr, options) {
-    const fields = jQuery('[name*="papi_"]');
+    const fields = $('[name*="papi_"]');
     const data = {};
-    const reg = /action\=(.+?)\&/;
+    const reg = /action=(.+?)&/;
     const val = reg.exec(options.data);
-    const id  = /post_id\=\d+/.exec(options.data);
+    const id  = /post_id=\d+/.exec(options.data);
 
     if (val !== null && val.length && val[1] === 'heartbeat' && id != null && id.length) {
-        fields.each(function () {
-          const $this = $(this);
+      fields.each(function () {
+        const $this = $(this);
 
-          data[$this.attr('name')] = $this.val();
+        data[$this.attr('name')] = $this.val();
       });
 
-      options.data += '&' + jQuery.param(data);
+      options.data += '&' + $.param(data);
     }
   }
 
@@ -196,7 +196,7 @@ class Core {
 
     if (!$adminmenu.find('li.current > a.current').length) {
       href = href.substr(href.lastIndexOf('/') + 1);
-      href = href.replace(/\%2F/g, '/');
+      href = href.replace(/%2F/g, '/');
       $('a[href="' + href + '"]', $adminmenu).addClass('current').parent().addClass('current');
     }
   }

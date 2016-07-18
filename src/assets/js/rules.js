@@ -169,7 +169,7 @@ class Rules {
    */
   getRuleSlug(slug, rule) {
     const arrReg  = /\[\d+\](\[\w+\])$/;
-    const papiReg = /^papi\_/;
+    const papiReg = /^papi_/;
 
     if (rule.slug.indexOf('.') !== -1) {
       rule.slug = rule.slug.split('.')[0];

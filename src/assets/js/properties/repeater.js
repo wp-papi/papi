@@ -228,7 +228,7 @@ class Repeater {
    * @param {object} e
    */
   remove($this) {
-    let $tbody = $this.closest('.papi-property-repeater-top')
+    let $tbody = $this.closest('.papi-property-repeater-top');
 
     if (!$tbody.hasClass('papi-property-flexible')) {
       $tbody = $tbody.find('.repeater-tbody').first();

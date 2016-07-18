@@ -13,27 +13,19 @@
     "autoprefixer-cli": "^1.0",
     "babel": "^6.5",
     "babel-core": "^6.9",
+    "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2",
     "babel-preset-es2015": "^6.9",
     "csso": "^2.1",
     "eslint": "^2.11",
     "eslint-config-semistandard": "^6.0",
     "eslint-config-standard": "^5.3",
+    "eslint-plugin-promise": "^2.0.0",
     "eslint-plugin-standard": "^1.3",
     "node-sass": "^3.4",
     "parallelshell": "^2.0",
     "uglifyjs": "^2.4",
     "watch": "^0.18",
     "webpack": "^1.12"
-  },
-  "eslintConfig": {
-    "extends": "semistandard",
-    "globals": {
-      "papi": true
-    },
-    "rules": {
-      "space-before-function-paren": 0,
-      "no-multi-spaces": 0
-    }
   }
 }
