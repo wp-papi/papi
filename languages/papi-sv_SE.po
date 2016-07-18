@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-11 07:59+0100\n"
-"PO-Revision-Date: 2016-03-11 07:59+0100\n"
+"POT-Creation-Date: 2016-07-18 16:04+0200\n"
+"PO-Revision-Date: 2016-07-18 16:05+0200\n"
 "Last-Translator: Rasmus Bengtsson <rasmus@isotop.se>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
@@ -19,15 +19,15 @@ msgstr ""
 "_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: src/admin/class-papi-admin-assets.php:61
-#: src/properties/class-papi-property-flexible.php:758
-#: src/properties/class-papi-property-flexible.php:781
-#: src/properties/class-papi-property-repeater.php:746
-#: src/properties/class-papi-property-repeater.php:768
+#: src/admin/class-papi-admin-assets.php:62
+#: src/properties/class-papi-property-flexible.php:751
+#: src/properties/class-papi-property-flexible.php:774
+#: src/properties/class-papi-property-repeater.php:772
+#: src/properties/class-papi-property-repeater.php:794
 msgid "Remove"
 msgstr "Ta bort"
 
-#: src/admin/class-papi-admin-assets.php:62
+#: src/admin/class-papi-admin-assets.php:63
 msgid "This fields are required:"
 msgstr "Dessa fält är obligatoriska:"
 
@@ -40,10 +40,10 @@ msgid "All types"
 msgstr "Alla typer"
 
 #: src/admin/class-papi-admin-menu.php:131
+#: src/admin/class-papi-admin-menu.php:180
 #: src/admin/class-papi-admin-menu.php:181
-#: src/admin/class-papi-admin-menu.php:182
-#: src/types/class-papi-page-type-meta.php:135
-#: src/types/class-papi-taxonomy-type.php:59
+#: src/types/class-papi-page-type.php:193
+#: src/types/class-papi-taxonomy-type.php:66
 msgid "Add New"
 msgstr "Skapa ny"
 
@@ -53,16 +53,50 @@ msgid "%s type"
 msgstr "%styp"
 
 #: src/admin/class-papi-admin.php:39 src/admin/class-papi-admin.php:48
+#: src/papi-loader.php:75 src/papi-loader.php:84
 msgid "Cheatin&#8217; huh?"
 msgstr "Fuskar du?"
 
-#: src/admin/class-papi-admin.php:200
+#: src/admin/class-papi-admin.php:238
 msgid "View Papi Documentation"
 msgstr "Läs Papi dokumentationen"
 
-#: src/admin/class-papi-admin.php:200
+#: src/admin/class-papi-admin.php:238
 msgid "Docs"
 msgstr "Dokumentation"
+
+#: src/admin/views/add-new-page.php:8
+#, php-format
+msgid "Add New %s"
+msgstr "Lägg till ny %s"
+
+#: src/admin/views/partials/add-new-item.php:9
+msgid "Thumbnail missing"
+msgstr "Bild saknas"
+
+#: src/admin/views/partials/add-new-item.php:22
+#: src/properties/class-papi-property-relationship.php:134
+msgid "Select"
+msgstr "Välj"
+
+#: src/lib/hooks/filters-page-type.php:58
+#, php-format
+msgid "%s with WordPress standard fields"
+msgstr "%s med Wordpress standardfält"
+
+#: src/lib/hooks/filters-page-type.php:80
+#: src/lib/hooks/filters-taxonomy-type.php:14
+#, php-format
+msgid "Standard %s"
+msgstr "Standard %s"
+
+#: src/papi-loader.php:240
+msgid ""
+"WordPress 4.0 and higher required to run Papi! The plugin has now disabled "
+"itself."
+msgstr ""
+"Wordpress 4.0 och högre krävs för att köra Papi! Tillägget har nu "
+"inaktiverat sig själv."
 
 #: src/properties/class-papi-property-datetime.php:32
 msgid "Previous Month"
@@ -200,42 +234,42 @@ msgstr "Lägg till bild"
 msgid "No image selected"
 msgstr "Ingen bild vald"
 
-#: src/properties/class-papi-property-link.php:137
-#: src/properties/class-papi-property-link.php:236
+#: src/properties/class-papi-property-link.php:139
+#: src/properties/class-papi-property-link.php:238
 msgid "URL"
 msgstr "URL"
 
-#: src/properties/class-papi-property-link.php:145
-#: src/properties/class-papi-property-link.php:246
+#: src/properties/class-papi-property-link.php:147
+#: src/properties/class-papi-property-link.php:248
 msgid "Title"
 msgstr "Rubrik"
 
-#: src/properties/class-papi-property-link.php:152
-#: src/properties/class-papi-property-link.php:255
+#: src/properties/class-papi-property-link.php:154
+#: src/properties/class-papi-property-link.php:257
 msgid "Target"
 msgstr "Mål"
 
-#: src/properties/class-papi-property-link.php:154
+#: src/properties/class-papi-property-link.php:156
 msgid "New window"
 msgstr "Nytt fönster"
 
-#: src/properties/class-papi-property-link.php:154
+#: src/properties/class-papi-property-link.php:156
 msgid "Same window"
 msgstr "Samma fönster"
 
-#: src/properties/class-papi-property-link.php:164
+#: src/properties/class-papi-property-link.php:166
 msgid "No link selected"
 msgstr "Ingen länk vald"
 
-#: src/properties/class-papi-property-link.php:165
+#: src/properties/class-papi-property-link.php:167
 msgid "Add link"
 msgstr "Lägg till länk"
 
-#: src/properties/class-papi-property-link.php:168
+#: src/properties/class-papi-property-link.php:170
 msgid "Edit link"
 msgstr "Ändra länk"
 
-#: src/properties/class-papi-property-link.php:169
+#: src/properties/class-papi-property-link.php:171
 msgid "Remove link"
 msgstr "Ta bort länk"
 
@@ -255,10 +289,6 @@ msgstr "Inga referenser finns"
 #: src/properties/class-papi-property-relationship.php:104
 msgid "Post"
 msgstr "Inlägg"
-
-#: src/properties/class-papi-property-relationship.php:134
-msgid "Select"
-msgstr "Välj"
 
 #: src/properties/class-papi-property-relationship.php:136
 msgid "Name (alphabetically)"
@@ -308,11 +338,11 @@ msgstr "Sortera efter"
 msgid "Add new row"
 msgstr "Lägg till ny rad"
 
-#: src/properties/class-papi-property-term.php:41
+#: src/properties/class-papi-property-term.php:40
 msgid "Select Taxonomy"
 msgstr "Välj taxonomi"
 
-#: src/properties/class-papi-property-term.php:42
+#: src/properties/class-papi-property-term.php:41
 #, php-format
 msgid "Select %s term"
 msgstr "Välj %s term"
@@ -321,18 +351,15 @@ msgstr "Välj %s term"
 msgid "Select file"
 msgstr "Välj fil"
 
-#: src/types/class-papi-page-type-meta.php:136
-#: src/types/class-papi-taxonomy-type.php:60
+#: src/types/class-papi-page-type.php:194
+#: src/types/class-papi-taxonomy-type.php:67
 msgid "Edit"
 msgstr "Redigera"
 
-#: src/types/class-papi-page-type-meta.php:137
-#: src/types/class-papi-taxonomy-type.php:61
+#: src/types/class-papi-page-type.php:195
+#: src/types/class-papi-taxonomy-type.php:68
 msgid "View"
 msgstr "Vy"
-
-#~ msgid "Add New %s"
-#~ msgstr "Lägg till ny %s"
 
 #~ msgid "Tab Title"
 #~ msgstr "Flikens rubrik"
@@ -384,16 +411,3 @@ msgstr "Vy"
 
 #~ msgid "(required field)"
 #~ msgstr "(obligatoriskt fält)"
-
-#~ msgid "%s with WordPress standard fields"
-#~ msgstr "%s med Wordpress standardfält"
-
-#~ msgid "Standard %s"
-#~ msgstr "Standard %s"
-
-#~ msgid ""
-#~ "WordPress 4.0 and higher required to run Papi! The plugin has now "
-#~ "disabled itself."
-#~ msgstr ""
-#~ "Wordpress 4.0 och högre krävs för att köra Papi! Tillägget har nu "
-#~ "inaktiverat sig själv."
