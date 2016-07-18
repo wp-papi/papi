@@ -9,7 +9,7 @@ class Core {
     const core = new Core();
 
     core.binds();
-    core.setEqualBoxHeights();
+    core.prepareBoxes();
     core.setSelectedMenuItem();
     core.addCurrentClassToMenuItem();
   }
@@ -46,7 +46,6 @@ class Core {
     $('.papi-box-list > li > p').on('click', this.redirect);
     $('input[name="add-new-page-search"]').on('keyup', this.search);
     $('[data-papi-href]').on('click touchstart', this.redirect);
-    $(window).resize(this.setEqualBoxHeights);
 
     if ('select2' in $.fn) {
       $('.inside .papi-table tr .papi-component-select2').select2();
@@ -117,16 +116,30 @@ class Core {
     let $list = $('.papi-box-list');
     let val   = $this.val();
 
+    // Destroy masonry before searching the list.
+    $('.papi-box-list').masonry('destroy');
+
     $list.find('.papi-box-item').each(function() {
       let $item = $(this);
-      $item[$item.text().toLowerCase().indexOf(val) === -1 ? 'addClass' : 'removeClass']('papi-hide');
+
+      if ($item.text().toLowerCase().indexOf(val) === -1) {
+        $item.addClass('papi-hide');
+      } else {
+        $item.removeClass('papi-hide');
+      }
+    });
+
+    // Enable masonry after searching the list.
+    $('.papi-box-list').masonry({
+      itemSelector: '.papi-box-item:not(.papi-hide)',
+      isResizable: true
     });
   }
 
   /**
-   * Set equal height on page type boxes.
+   * Prepare boxes with equal height.
    */
-  setEqualBoxHeights() {
+  prepareBoxes() {
     let $boxItems = $('.papi-box-item');
     let thumbnails = $boxItems.find('.papi-page-type-screenshot').length;
     let boxMaxHeight = 0;
@@ -165,6 +178,12 @@ class Core {
       } else {
         $this.height(height);
       }
+    });
+
+    // Enable masonry after setting equal height.
+    $('.papi-box-list').masonry({
+      itemSelector: '.papi-box-item:not(.papi-hide)',
+      isResizable: true
     });
   }
 

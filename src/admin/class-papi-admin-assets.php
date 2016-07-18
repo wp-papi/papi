@@ -46,6 +46,7 @@ final class Papi_Admin_Assets {
 				'jquery',
 				'jquery-ui-core',
 				'jquery-ui-sortable',
+				'jquery-masonry',
 				'wp-color-picker'
 			],
 			'',
