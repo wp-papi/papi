@@ -84,10 +84,24 @@
     }
 
     .papi-page-type-screenshot {
-        background-size: 100%;
-        display: inline-block;
+      background: #eaeaea;
+      background-size: 100%;
+      color: #aaa;
+      display: inline-block;
+      height: 200px;
+      width: 100%;
+
+      div {
+        display: table;
         height: 200px;
         width: 100%;
+
+        div {
+          display: table-cell;
+          text-align: center;
+          vertical-align: middle;
+        }
+      }
     }
 
     img {

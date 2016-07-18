@@ -46,6 +46,13 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 		} );
 
 		$page_types = papi_sort_order( array_reverse( $page_types ) );
+		$use_thumbnail = false;
+
+		foreach ( $page_types as $key => $page_type ) {
+			if ( ! empty( $page_type->get_thumbnail() ) ) {
+				$use_thumbnail = true;
+			}
+		}
 
 		foreach ( $page_types as $key => $page_type ) {
 			if ( ! papi_display_page_type( $page_type ) ) {
@@ -53,10 +60,11 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 			}
 
 			papi_include_template( 'admin/views/partials/add-new-item.php', [
-				'title'       => $page_type->name,
-				'description' => $page_type->description,
-				'thumbnail'   => $page_type->get_thumbnail(),
-				'url'         => papi_get_page_new_url( $page_type->get_id(), true, null, ['post_parent', 'lang'] )
+				'title'         => $page_type->name,
+				'description'   => $page_type->description,
+				'thumbnail'     => $page_type->get_thumbnail(),
+				'url'           => papi_get_page_new_url( $page_type->get_id(), true, null, ['post_parent', 'lang'] ),
+				'use_thumbnail' => $use_thumbnail
 			] );
 		}
 		?>
