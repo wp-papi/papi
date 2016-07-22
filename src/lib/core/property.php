@@ -2,8 +2,9 @@
 
 /**
  * Delete property value from database.
+ *
  * If it's on a option page it will fetch the value from the
- * option table instead of the postmeta table.
+ * option table instead of the metadata table.
  *
  * @param int    $id
  * @param string $slug
@@ -176,6 +177,7 @@ function papi_get_property_class_name( $type ) {
 
 /**
  * Get property value from database.
+ *
  * If it's on a option page it will fetch the value from the
  * option table instead of the metadata table.
  *
