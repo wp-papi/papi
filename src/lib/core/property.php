@@ -10,13 +10,33 @@
  * @param string $type
  */
 function papi_delete_property_meta_value( $id, $slug, $type = 'post' ) {
+	$type = papi_get_meta_type( $type );
+
+	// Delete cached value.
 	papi_cache_delete( $slug, $id, $type );
 
-	if ( papi_get_meta_type( $type ) === 'option' ) {
-		return delete_option( unpapify( $slug ) );
+	// Set the right delete value function for the type.
+	$delete_value_fn = $type === 'option' ? 'delete_option' : 'delete_metadata';
+
+	/**
+	 * Change delete value function.
+	 *
+	 * @param  string $delete_function
+	 *
+	 * @return string
+	 */
+	$delete_value_fn = apply_filters( 'papi/core/delete_value_function', $delete_value_fn );
+
+	// Check so the function is callable before using it.
+	if ( ! is_callable( $delete_value_fn ) ) {
+		return;
 	}
 
-	return delete_metadata( papi_get_meta_type( $type ), $id, unpapify( $slug ) );
+	if ( $type === 'option' ) {
+		return call_user_func_array( $delete_value_fn, [unpapify( $slug )] );
+	}
+
+	return call_user_func_array( $delete_value_fn, [papi_get_meta_type( $type ), $id, unpapify( $slug )] );
 }
 
 /**
@@ -157,21 +177,41 @@ function papi_get_property_class_name( $type ) {
 /**
  * Get property value from database.
  * If it's on a option page it will fetch the value from the
- * option table instead of the postmeta table.
+ * option table instead of the metadata table.
  *
  * @param int    $id
  * @param string $slug
  * @param string $type
  */
 function papi_get_property_meta_value( $id, $slug, $type = 'post' ) {
-	if ( papi_get_meta_type( $type ) === 'option' ) {
-		$value = get_option( unpapify( $slug ), null );
+	$type = papi_get_meta_type( $type );
+
+	// Set the right get value function for the type.
+	$get_value_fn = $type === 'option' ? 'get_option' : 'get_metadata';
+
+	/**
+	 * Change get value function.
+	 *
+	 * @param  string $delete_function
+	 *
+	 * @return string
+	 */
+	$get_value_fn = apply_filters( 'papi/core/get_value_function', $get_value_fn );
+
+	// Check so the function is callable before using it.
+	if ( ! is_callable( $get_value_fn ) ) {
+		return;
+	}
+
+	if ( $type === 'option' ) {
+		$value = call_user_func_array( $get_value_fn, [unpapify( $slug ), null] );
 	} else {
-		$type  = papi_get_meta_type( $type );
-		$value = get_metadata( $type, $id, unpapify( $slug ), true );
+		$value = call_user_func_array( $get_value_fn, [$type, $id, unpapify( $slug ), true] );
 
 		// Backward compatibility, slugs can contain `papi` prefix.
-		$value = papi_is_empty( $value ) ? get_metadata( $type, $id, $slug, true ) : $value;
+		if ( papi_is_empty( $value ) ) {
+			$value = call_user_func_array( $get_value_fn, [$type, $id, $slug, true] );
+		}
 	}
 
 	if ( papi_is_empty( $value ) ) {
@@ -404,6 +444,23 @@ function papi_update_property_meta_value( array $meta = [] ) {
 	$meta->type = papi_get_meta_type( $meta->type );
 	$save_value = true;
 
+	// Set the right update value function for the type.
+	$update_value_fn = $meta->type === 'option' ? 'update_option' : 'update_metadata';
+
+	/**
+	 * Change update function.
+	 *
+	 * @param  string $update_value_fn
+	 *
+	 * @return string
+	 */
+	$update_value_fn = apply_filters( 'papi/core/update_value_function', $update_value_fn );
+
+	// Check so the function is callable before using it.
+	if ( ! is_callable( $update_value_fn ) ) {
+		return;
+	}
+
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
 		if ( is_string( $key ) ) {
 			$save_value = false;
@@ -434,10 +491,10 @@ function papi_update_property_meta_value( array $meta = [] ) {
 			}
 
 			if ( papi_get_meta_type( $meta->type ) === 'option' ) {
-				$out = update_option( unpapify( $meta->slug ), $value );
+				$out = call_user_func_array( $update_value_fn, [unpapify( $meta->slug ), $value] );
 				$result = $out ? $result : $out;
 			} else {
-				$out = update_metadata( $meta->type, $meta->id, unpapify( $meta->slug ), $value );
+				$out = call_user_func_array( $update_value_fn, [$meta->type, $meta->id, unpapify( $meta->slug ), $value] );
 				$result = $out ? $result : $out;
 			}
 
@@ -449,9 +506,9 @@ function papi_update_property_meta_value( array $meta = [] ) {
 				papi_delete_property_meta_value( $meta->id, $child_key, $meta->type );
 			} else {
 				if ( papi_get_meta_type( $meta->type ) === 'option' ) {
-					update_option( unpapify( $child_key ), $child_value );
+					call_user_func_array( $update_value_fn, [unpapify( $child_key ), $child_value] );
 				} else {
-					update_metadata( $meta->type, $meta->id, unpapify( $child_key ), $child_value );
+					call_user_func_array( $update_value_fn, [$meta->type, $meta->id, unpapify( $child_key ), $child_value] );
 				}
 			}
 		}
