@@ -26,7 +26,7 @@ function papi_delete_property_meta_value( $id, $slug, $type = 'post' ) {
 	 *
 	 * @return string
 	 */
-	$delete_value_fn = apply_filters( 'papi/core/delete_value_function', $delete_value_fn );
+	$delete_value_fn = apply_filters( 'papi/core/delete_value_fn', $delete_value_fn );
 
 	// Check so the function is callable before using it.
 	if ( ! is_callable( $delete_value_fn ) ) {
@@ -198,7 +198,7 @@ function papi_get_property_meta_value( $id, $slug, $type = 'post' ) {
 	 *
 	 * @return string
 	 */
-	$get_value_fn = apply_filters( 'papi/core/get_value_function', $get_value_fn );
+	$get_value_fn = apply_filters( 'papi/core/get_value_fn', $get_value_fn );
 
 	// Check so the function is callable before using it.
 	if ( ! is_callable( $get_value_fn ) ) {
@@ -456,7 +456,7 @@ function papi_update_property_meta_value( array $meta = [] ) {
 	 *
 	 * @return string
 	 */
-	$update_value_fn = apply_filters( 'papi/core/update_value_function', $update_value_fn );
+	$update_value_fn = apply_filters( 'papi/core/update_value_fn', $update_value_fn );
 
 	// Check so the function is callable before using it.
 	if ( ! is_callable( $update_value_fn ) ) {
