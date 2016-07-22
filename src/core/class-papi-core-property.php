@@ -34,29 +34,30 @@ class Papi_Core_Property {
 	 * @var array
 	 */
 	protected $default_options = [
-		'after_class'  => '',
-		'after_html'   => '',
-		'before_class' => '',
-		'before_html'  => '',
-		'capabilities' => [],
-		'default'      => null,
-		'description'  => '',
-		'disabled'     => false,
-		'display'      => true,
-		'lang'         => false,
-		'layout'       => 'horizontal', // or 'vertical'
-		'overwrite'    => false,
-		'post_type'    => '',
-		'raw'          => false,
-		'required'     => false,
-		'rules'        => [],
-		'settings'     => [],
-		'sidebar'      => true,
-		'slug'         => '',
-		'sort_order'   => -1,
-		'title'        => '',
-		'type'         => '',
-		'value'        => null
+		'after_class'   => '',
+		'after_html'    => '',
+		'before_class'  => '',
+		'before_html'   => '',
+		'capabilities'  => [],
+		'default'       => null,
+		'description'   => '',
+		'disabled'      => false,
+		'display'       => true,
+		'lang'          => false,
+		'layout'        => 'horizontal', // or 'vertical'
+		'overwrite'     => false,
+		'post_type'     => '',
+		'raw'           => false,
+		'required'      => false,
+		'rules'         => [],
+		'settings'      => [],
+		'sidebar'       => true,
+		'show_in_rest'  => true,
+		'slug'          => '',
+		'sort_order'    => -1,
+		'title'         => '',
+		'type'          => '',
+		'value'         => null
 	];
 
 	/**
