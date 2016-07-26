@@ -177,15 +177,16 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 	$post_id   = papi_get_post_id();
 	$post_type = papi_get_post_type( $post_id );
 
-	// If we have a post id we can load the entry type id
-	// from the post.
-	if ( $post_id > 0 ) {
-		$meta_value      = get_post_meta( $post_id, $key, true );
+	// Try to load the entry type id from only page type filter.
+	$entry_type_id = papi_filter_settings_only_page_type( $post_type );
+
+	// If we have a post id we can load the entry type id from the post.
+	if ( empty( $entry_type_id ) && $post_id > 0 ) {
+		$meta_value    = get_post_meta( $post_id, $key, true );
 		$entry_type_id = empty( $meta_value ) ? '' : $meta_value;
 	}
 
-	// Try to fetch the entry type id from `page_type`
-	// query string.
+	// Try to fetch the entry type id from `page_type` query string.
 	if ( empty( $entry_type_id ) ) {
 		$entry_type_id = papi_get_qs( 'page_type' );
 	}
