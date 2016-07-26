@@ -21,13 +21,6 @@ final class Papi_Admin {
 	private $post_type;
 
 	/**
-	 * The taxonomy.
-	 *
-	 * @var string
-	 */
-	private $taxonomy;
-
-	/**
 	 * The constructor.
 	 */
 	public function __construct() {
@@ -253,9 +246,9 @@ final class Papi_Admin {
 			add_action( 'load-post-new.php', [$this, 'load_post_new'] );
 			add_action( 'add_meta_boxes', [$this, 'hidden_meta_boxes'], 10 );
 
-			if ( ! empty( $this->taxonomy ) ) {
-				add_action( $this->taxonomy . '_add_form', [$this, 'edit_form_after_title'] );
-				add_action( $this->taxonomy . '_edit_form', [$this, 'edit_form_after_title'] );
+			if ( $taxonomy = papi_get_taxonomy() ) {
+				add_action( $taxonomy . '_add_form', [$this, 'edit_form_after_title'] );
+				add_action( $taxonomy . '_edit_form', [$this, 'edit_form_after_title'] );
 			}
 		}
 	}
@@ -277,7 +270,6 @@ final class Papi_Admin {
 	 */
 	private function setup_globals() {
 		$this->post_type = papi_get_post_type();
-		$this->taxonomy  = papi_get_taxonomy();
 	}
 
 	/**

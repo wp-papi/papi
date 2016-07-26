@@ -178,7 +178,9 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 	$post_type = papi_get_post_type( $post_id );
 
 	// Try to load the entry type id from only page type filter.
-	$entry_type_id = papi_filter_settings_only_page_type( $post_type );
+	if ( empty( $entry_type_id ) ) {
+		$entry_type_id = papi_filter_settings_only_page_type( $post_type );
+	}
 
 	// If we have a post id we can load the entry type id from the post.
 	if ( empty( $entry_type_id ) && $post_id > 0 ) {

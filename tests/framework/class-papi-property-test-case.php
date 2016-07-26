@@ -28,7 +28,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$this->entry_type = papi_get_entry_type_by_id( 'properties-page-type' );
 
-		if ( empty( $this->entry_type ) ) {
+		if ( papi_supports_term_meta() ) {
 			$this->entry_type = papi_get_entry_type_by_id( 'properties-taxonomy-type' );
 		}
 
@@ -147,13 +147,25 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	public function save_properties_value( $property = null, $type = 'post' ) {
 		$this->meta_type = $type;
 
-		if ( $type === 'option' ) {
-			global $current_screen;
+		// Set right entry type for meta type.
+		switch ( $type ) {
+			case 'option':
+				global $current_screen;
 
-			$current_screen = WP_Screen::get( 'admin_init' );
+				$current_screen = WP_Screen::get( 'admin_init' );
 
-			$_GET['page'] = 'papi/option/options/properties-option-type';
-			$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/option/options/properties-option-type';
+				$_GET['page'] = 'papi/option/options/properties-option-type';
+				$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/option/options/properties-option-type';
+
+				break;
+			case 'term':
+				$_GET['entry_type'] = 'properties-taxonomy-type';
+				break;
+			case 'post':
+				$_GET['entry_type'] = 'properties-page-type';
+				break;
+			default:
+				break;
 		}
 
 		$value = $this->get_value( $property->get_slug( true ) );
