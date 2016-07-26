@@ -5,6 +5,22 @@
  */
 class Papi_Lib_Filters_Taxonomy_Type_Test extends WP_UnitTestCase {
 
+	public function test_papi_filter_settings_only_taxonomy_type() {
+		$this->assertSame( '', papi_filter_settings_only_taxonomy_type( 'category' ) );
+
+		tests_add_filter( 'papi/settings/only_taxonomy_type_category', function () {
+			return 'simple-taxonomy-type';
+		} );
+
+		$this->assertSame( 'simple-taxonomy-type', papi_filter_settings_only_taxonomy_type( 'category' ) );
+
+		tests_add_filter( 'papi/settings/only_taxonomy_type_category', function () {
+			return false;
+		} );
+
+		$this->assertEmpty( papi_filter_settings_only_taxonomy_type( 'category' ) );
+	}
+
 	public function test_papi_filter_settings_standard_taxonomy_type_name() {
 		$this->assertSame( 'Standard Category', papi_filter_settings_standard_taxonomy_type_name( 'category' ) );
 		$this->assertSame( 'Standard Taxonomy', papi_filter_settings_standard_taxonomy_type_name( 'fake' ) );
