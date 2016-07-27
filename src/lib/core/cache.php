@@ -55,6 +55,7 @@ function papi_cache_key( $key, $suffix, $type = 'post' ) {
 
 	$type = $type === 'page' ? 'post' : $type;
 
+	$key    = unpapify( $key );
 	$key    = papify( $type . '_' . $key );
 	$suffix = papi_convert_to_string( $suffix );
 	$suffix = papi_html_name( $suffix );

@@ -98,6 +98,7 @@ class Papi_Lib_Core_Cache_Test extends WP_UnitTestCase {
 		$post_id = $this->factory->post->create();
 		$post = get_post( $post_id );
 		$this->assertSame( 'papi_post_page_' . $post_id, papi_cache_key( 'page', $post_id ) );
+		$this->assertSame( 'papi_post_page_' . $post_id, papi_cache_key( 'papi_page', $post_id ) );
 		$this->assertSame( 'papi_post_page_920', papi_cache_key( 'page', 920 ) );
 		unset( $post );
 	}
