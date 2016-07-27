@@ -78,6 +78,7 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 	protected function prepare_properties( $properties ) {
 		$result = [];
 		$value  = $this->get_value();
+		$value  = is_array( $value ) ? $value : [];
 
 		foreach ( $properties as $property ) {
 			$render_property = clone $property->get_options();
