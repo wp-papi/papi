@@ -131,7 +131,7 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_setting_add_new_label() {
-		$property = Papi_Property::create( [
+		$property = Papi_Property::factory( [
 			'settings' => [
 				'add_new_label' => 'Add new slide'
 			],

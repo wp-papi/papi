@@ -24,7 +24,7 @@ class Papi_Core_Property {
 	 *
 	 * @var array
 	 */
-	private $default_import_settings = [
+	protected $default_import_settings = [
 		'property_array_slugs' => false
 	];
 
@@ -79,22 +79,28 @@ class Papi_Core_Property {
 	 *
 	 * @var stdClass
 	 */
-	private $options;
+	protected $options;
 
 	/**
 	 * The post id.
 	 *
 	 * @var int
 	 */
-	private $post_id;
+	protected $post_id;
 
 	/**
-	 * The store that the property works with
-	 * to get data.
+	 * Determine if the property require a slug or not.
+	 *
+	 * @var bool
+	 */
+	protected $slug_required = true;
+
+	/**
+	 * The store that the property works with to get data.
 	 *
 	 * @var Papi_Core_Meta_Store
 	 */
-	private $store;
+	protected $store;
 
 	/**
 	 * Determine if is in a tab.
@@ -146,19 +152,6 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Create a property from options.
-	 *
-	 * @param  array|object $options
-	 *
-	 * @return Papi_Property
-	 */
-	public static function create( $options = [] ) {
-		$property = new static;
-		$property->set_options( $options );
-		return $property;
-	}
-
-	/**
 	 * Determine if the current user has capabilities rights.
 	 *
 	 * @return bool
@@ -207,20 +200,33 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Create a new instance of the given type.
+	 * Create a new instance of the given type or a
+	 * empty core property if no type is given.
 	 *
 	 * @param  mixed $type
 	 *
 	 * @return object
 	 */
-	public static function factory( $type ) {
+	public static function factory() {
+		if ( count( func_get_args() ) === 0 ) {
+			return new static;
+		} else {
+			$type = func_get_arg( 0 );
+		}
+
 		if ( is_array( $type ) ) {
-			$prop = self::create( $type );
-			$type = $prop->get_options();
+			$type = (object) $type;
 		}
 
 		if ( ! is_string( $type ) && ! is_object( $type ) ) {
 			return;
+		}
+
+		if ( is_object( $type ) && ! isset( $type->type ) ) {
+			$property = new static;
+			$property->set_options( $type );
+
+			return $property;
 		}
 
 		if ( is_subclass_of( $type, __CLASS__ ) ) {
@@ -267,7 +273,7 @@ class Papi_Core_Property {
 		$property = clone $class;
 
 		if ( is_object( $options ) ) {
-			$property->set_options( $options );
+			$property->set_options( (array) $options );
 		}
 
 		return $property;
@@ -386,6 +392,10 @@ class Papi_Core_Property {
 	 * @return stdClass
 	 */
 	public function get_options() {
+		if ( is_null( $this->options ) ) {
+			$this->set_options();
+		}
+
 		return $this->options;
 	}
 
@@ -697,7 +707,7 @@ class Papi_Core_Property {
 	 *
 	 * @param array|object $options
 	 */
-	public function set_options( $options ) {
+	public function set_options( $options = [] ) {
 		$this->options = $this->setup_options( $options );
 	}
 
@@ -771,7 +781,7 @@ class Papi_Core_Property {
 	 *
 	 * @return mixed
 	 */
-	private function setup_options( $options ) {
+	private function setup_options( $options = [] ) {
 		// When a object is sent in, just return it.
 		if ( is_object( $options ) ) {
 			return $options;
@@ -812,8 +822,8 @@ class Papi_Core_Property {
 	private function setup_options_slug( $options ) {
 		$slug = $options->slug;
 
-		// When `slug` is false a unique slug should be generated.
-		if ( $slug === false ) {
+		// When `slug` is false or not required a unique slug should be generated.
+		if ( $slug === false || ( empty( $slug ) && $this->slug_required === false ) ) {
 			return '_' . papi_html_name( md5( uniqid( rand(), true ) ) );
 		}
 

@@ -163,7 +163,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_get_property_type( false ) instanceof Papi_Property_String );
 		$this->assertFalse( papi_get_property_type( [] ) instanceof Papi_Property_String );
 		$this->assertFalse( papi_get_property_type( new stdClass() ) instanceof Papi_Property_String );
-		$options = Papi_Core_Property::create( [
+		$options = Papi_Core_Property::factory( [
 			'type' => 'string'
 		] )->get_options();
 		$this->assertTrue( papi_get_property_type( $options ) instanceof Papi_Property_String );
@@ -219,12 +219,13 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 			'type'  => 'fake',
 			'title' => 'Name'
 		] );
+
 		$this->assertEmpty( papi_render_property( $property ) );
 
-		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		$user_id = $this->factory->user->create( ['role' => 'administrator'] );
 		wp_set_current_user( $user_id );
 
-		$_GET = [ 'lang' => 'se' ];
+		$_GET = ['lang' => 'se'];
 		$property = papi_property( [
 			'type'  => 'string',
 			'title' => 'Name',
@@ -371,7 +372,6 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'string', $actual->type );
 
 		$this->assertNull( papi_property( [] ) );
-		$this->assertNull( papi_property( new stdClass() ) );
 		$this->assertNull( papi_property( null ) );
 		$this->assertNull( papi_property( true ) );
 		$this->assertNull( papi_property( false ) );

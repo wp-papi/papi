@@ -298,7 +298,9 @@ function papi_property( $file_or_options, array $values = [] ) {
 	}
 
 	if ( is_array( $file_or_options ) ) {
-		$file_or_options = Papi_Core_Property::create( $file_or_options )->get_options();
+		if ( $property = Papi_Core_Property::factory( $file_or_options ) ) {
+			$file_or_options = $property->get_options();
+		}
 	}
 
 	if ( is_string( $file_or_options ) && is_array( $values ) ) {

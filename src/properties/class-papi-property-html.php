@@ -6,6 +6,13 @@
 class Papi_Property_Html extends Papi_Property {
 
 	/**
+	 * Determine if the property require a slug or not.
+	 *
+	 * @var bool
+	 */
+	protected $slug_required = false;
+
+	/**
 	 * Get default settings.
 	 *
 	 * @return array

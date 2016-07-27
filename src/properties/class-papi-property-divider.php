@@ -6,11 +6,19 @@
 class Papi_Property_Divider extends Papi_Property {
 
 	/**
+	 * Determine if the property require a slug or not.
+	 *
+	 * @var bool
+	 */
+	protected $slug_required = false;
+
+	/**
 	 * Render property html.
 	 */
 	public function html() {
 		$options = $this->get_options();
 		$text    = '';
+		$options->description = $options->slug;
 
 		if ( ! papi_is_empty( $options->description ) ) {
 			$text = sprintf( '<p>%s</p>', $options->description );

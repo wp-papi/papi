@@ -23,7 +23,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 
 		$this->assertNull( $property->get_value() );
 
-		$property = Papi_Property::create();
+		$property = Papi_Property::factory();
 
 		$this->assertNull( $property->get_value() );
 
@@ -37,7 +37,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_value_hardcoded() {
-		$property = Papi_Property::create( [
+		$property = Papi_Property::factory( [
 			'type'  => 'string',
 			'slug'  => 'name',
 			'value' => 'hello value'
@@ -85,7 +85,7 @@ class Papi_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_html() {
-		$property = Papi_Property::create();
+		$property = Papi_Property::factory();
 		$this->assertEmpty( $property->html() );
 	}
 
