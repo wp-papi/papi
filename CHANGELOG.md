@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [3.1.3](https://github.com/wp-papi/papi/releases/tag/v3.1.3) - 2016-07-27
+
+* Fixed: Cache issue with key that has `papi_` prefix.
+
 ## [3.1.2](https://github.com/wp-papi/papi/releases/tag/v3.1.2) - 2016-07-27
 
 * Added: `papi_filter_settings_only_taxonomy_type` that acts the same way as `papi_filter_settings_only_page_type`
