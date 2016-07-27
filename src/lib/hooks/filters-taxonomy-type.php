@@ -1,6 +1,23 @@
 <?php
 
 /**
+ * Get the only taxonomy type that will be used for the given taxonomy.
+ *
+ * @param  string $taxonomy
+ *
+ * @return string
+ */
+function papi_filter_settings_only_taxonomy_type( $taxonomy ) {
+	$taxonomy_type = apply_filters( 'papi/settings/only_taxonomy_type_' . $taxonomy, '' );
+
+	if ( ! is_string( $taxonomy_type ) ) {
+		return '';
+	}
+
+	return str_replace( '.php', '', $taxonomy_type );
+}
+
+/**
  * Get standard taxonomy name for the given taxonomy.
  *
  * @param  string $taxonomy

@@ -122,12 +122,6 @@ final class Papi_Admin {
 
 		$entry_type_id = papi_get_entry_type_id();
 
-		// If a post type exists, try to load the entry type id
-		// from only page type filter.
-		if ( $this->post_type ) {
-			$entry_type_id = papi_filter_settings_only_page_type( $this->post_type );
-		}
-
 		// If the entry type id is empty try to load
 		// the entry type id from `page` query string.
 		//

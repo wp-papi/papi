@@ -359,6 +359,7 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_maybe_json_encode() {
+		$this->assertSame( '{"name":"Malmö"}', papi_maybe_json_encode( ['name' => 'Malmö'] ) );
 		$this->assertTrue( is_string( papi_maybe_json_encode( (object) ['yes' => true] ) ) );
 		$this->assertTrue( is_string( papi_maybe_json_encode( (object) [] ) ) );
 		$this->assertTrue( is_string( papi_maybe_json_encode( [1, 2 , 3] ) ) );
