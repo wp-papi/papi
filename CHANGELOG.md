@@ -4,6 +4,7 @@
 
 * Added: `papi_filter_settings_only_taxonomy_type` that acts the same way as `papi_filter_settings_only_page_type`
 * Fixed: UTF-8 Encoding issue with JSON encoded strings.
+* Fixed: Equal hight class names on add new page view.
 
 ## [3.1.1](https://github.com/wp-papi/papi/releases/tag/v3.1.1) - 2016-07-04
 
