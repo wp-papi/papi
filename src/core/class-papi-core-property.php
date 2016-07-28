@@ -400,19 +400,6 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Get the store that the property will get data from.
-	 *
-	 * @return Papi_Core_Meta_Store|null
-	 */
-	public function get_store() {
-		if ( $this->store instanceof Papi_Core_Meta_Store ) {
-			return $this->store;
-		}
-
-		return papi_get_meta_store( $this->get_post_id() );
-	}
-
-	/**
 	 * Get post id.
 	 *
 	 * @return int
@@ -487,6 +474,19 @@ class Papi_Core_Property {
 		}
 
 		return $this->get_option( 'slug' );
+	}
+
+	/**
+	 * Get the store that the property will get data from.
+	 *
+	 * @return Papi_Core_Meta_Store|null
+	 */
+	public function get_store() {
+		if ( $this->store instanceof Papi_Core_Meta_Store ) {
+			return $this->store;
+		}
+
+		return papi_get_meta_store( $this->get_post_id() );
 	}
 
 	/**
