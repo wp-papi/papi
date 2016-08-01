@@ -26,6 +26,10 @@ class Utils {
     if ($body.hasClass('papi-meta-type-post')) {
       return 'post';
     }
+
+    if (/page\=.*papi(?:%2F|\/)option/.test(window.location.search)) {
+      return 'option';
+    }
   }
 
   /**
