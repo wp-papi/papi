@@ -1,5 +1,10 @@
 # Papi Changelog
 
+## [3.1.4](https://github.com/wp-papi/papi/releases/tag/v3.1.4) - 2016-08-01
+
+* Fixed: PHP type error in group property.
+* Fixed: Wrong meta type was send to ajax when option page was in a post type menu.
+
 ## [3.1.3](https://github.com/wp-papi/papi/releases/tag/v3.1.3) - 2016-07-27
 
 * Fixed: Cache issue with key that has `papi_` prefix.
