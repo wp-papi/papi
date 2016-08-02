@@ -134,27 +134,29 @@ class Papi_Core_Data_Handler {
 	 * @return array
 	 */
 	protected function prepare_properties_data( array $data = [], $post_id = 0 ) {
-		// Since we are storing witch property it is in the $data array
+		// Since we are storing witch property it is in the `$data` array
 		// we need to remove that and set the property type to the property
 		// and make a array of the property type and the value.
 		foreach ( $data as $key => $value ) {
-			$property_type_key = papi_get_property_type_key();
-
-			if ( strpos( $key, $property_type_key ) === false ) {
+			if ( papi_is_property_type_key( $key ) ) {
 				continue;
 			}
 
-			$property_key = str_replace( $property_type_key, '', $key );
+			$property_type_key = papify( papi_get_property_type_key( $key ) );
 
 			// Check if value exists.
-			if ( isset( $data[$property_key] ) ) {
-				$data[$property_key] = [
-					'type'  => $value,
-					'value' => $data[$property_key]
-				];
+			if ( ! isset( $data[$key] ) && ! isset( $data[$property_type_key] ) ) {
+				continue;
 			}
 
-			unset( $data[$key] );
+			// Pair property value with property type object.
+			$data[$key] = [
+				'type'  => $data[$property_type_key],
+				'value' => $value
+			];
+
+			// Remove property type object since it's not needed anymore.
+			unset( $data[$property_type_key] );
 		}
 
 		foreach ( $data as $key => $item ) {
