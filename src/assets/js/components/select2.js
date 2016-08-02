@@ -9,7 +9,7 @@ const options = {
     }
 
     const url      = $(result.element).data('edit-url');
-    const editText = 'Edit'; // TODO: translate
+    const editText = papiL10n.edit;
 
     return $('<span>' + result.text + '</span> <a href="#" class="papi-iframe-link-open" data-url="' + url + '&papi-iframe-mode=true">' + editText + '</a>');
   }

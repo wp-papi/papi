@@ -59,6 +59,7 @@ final class Papi_Admin_Assets {
 	 */
 	public function enqueue_locale() {
 		wp_localize_script( 'papi-main', 'papiL10n', [
+			'edit'          => __( 'Edit', 'papi' ),
 			'remove'        => __( 'Remove', 'papi' ),
 			'requiredError' => __( 'This fields are required:', 'papi' ),
 		] );
