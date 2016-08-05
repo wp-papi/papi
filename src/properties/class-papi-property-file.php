@@ -69,6 +69,8 @@ class Papi_Property_File extends Papi_Property {
 		}
 
 		if ( is_array( $value ) ) {
+			$value = array_filter( $value );
+
 			foreach ( $value as $k => $v ) {
 				$value[$k] = $this->format_value( $v, $slug, $post_id );
 			}
@@ -282,6 +284,21 @@ class Papi_Property_File extends Papi_Property {
 	 */
 	protected function setup_filters() {
 		add_action( 'wp_get_attachment_metadata', [$this, 'wp_get_attachment_metadata'], 10, 2 );
+	}
+
+	/**
+	 * Update value before it's saved to the database.
+	 *
+	 * @param  mixed  $value
+	 * @param  string $slug
+	 * @param  int    $post_id
+	 *
+	 * @return mixed
+	 */
+	public function update_value( $value, $slug, $post_id ) {
+		$value = is_array( $value ) ? array_values( array_filter( $value ) ) : $value;
+
+		return parent::update_value( $value, $slug, $post_id );
 	}
 
 	/**
