@@ -285,7 +285,10 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_is_empty() {
+		$this->assertTrue( papi_is_empty( [null, null] ) );
+		$this->assertFalse( papi_is_empty( [4, null] ) );
 		$this->assertTrue( papi_is_empty( null ) );
+		$this->assertTrue( papi_is_empty( '' ) );
 		$this->assertFalse( papi_is_empty( 'false' ) );
 		$this->assertFalse( papi_is_empty( true ) );
 		$this->assertFalse( papi_is_empty( false ) );
