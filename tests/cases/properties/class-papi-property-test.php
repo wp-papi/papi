@@ -8,6 +8,80 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
+
+		$this->post_id = $this->factory->post->create();
+		$_GET['post'] = $this->post_id;
+	}
+
+	public function tearDown() {
+		parent::tearDown();
+		unset( $_GET, $this->post_id );
+	}
+
+	public function test_get_value() {
+		$property = new Papi_Property();
+
+		$this->assertNull( $property->get_value() );
+
+		$property = Papi_Property::factory();
+
+		$this->assertNull( $property->get_value() );
+
+		$property->set_options( [
+			'type'  => 'string',
+			'slug'  => 'name',
+			'value' => 'Fredrik'
+		] );
+
+		$this->assertSame( 'Fredrik', $property->get_value() );
+	}
+
+	public function test_get_value_hardcoded() {
+		$property = Papi_Property::factory( [
+			'type'  => 'string',
+			'slug'  => 'name',
+			'value' => 'hello value'
+		] );
+
+		$this->assertSame( 'hello value', $property->get_value() );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
+
+		$page_type = papi_get_entry_type_by_id( 'simple-page-type' );
+		$property  = $page_type->get_property( 'name_default' );
+
+		$this->assertSame( 'Fredrik', $property->get_value() );
+	}
+
+	public function test_get_value_option() {
+		global $current_screen;
+
+		$current_screen = WP_Screen::get( 'admin_init' );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$_GET['page'] = 'papi/option/options/header-option-type';
+
+		$store = papi_get_meta_store( 0, 'option' );
+		$property = $store->get_property( 'name' );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
+		$this->assertSame( 'papi_name', $property->slug );
+		$this->assertSame( 'papi_name', $property->get_option( 'slug' ) );
+		$this->assertSame( 'Name', $property->get_option( 'title' ) );
+		$this->assertSame( 'Name', $property->title );
+
+		$this->assertEmpty( $property->get_value() );
+
+		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/options-general.php?page=papi/options/header-option-type';
+
+		update_option( 'name', 'Fredrik' );
+
+		$this->assertSame( 'Fredrik', $property->get_value() );
+
+		$current_screen = null;
 	}
 
 	public function test_html() {

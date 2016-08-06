@@ -489,39 +489,12 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Get value.
+	 * Get value, no database connections here.
 	 *
 	 * @return mixed
 	 */
 	public function get_value() {
-		$value = $this->get_option( 'value' );
-
-		if ( papi_is_empty( $value ) ) {
-			$type        = papi_get_meta_type();
-			$slug        = $this->get_slug( true );
-			$value       = papi_get_field( $slug, null, $type );
-			$post_status = get_post_status( $this->get_post_id() );
-
-			if ( papi_is_empty( $value ) && ( $post_status === false || $post_status === 'auto-draft' ) ) {
-				$value = $this->get_option( 'default' );
-			}
-		}
-
-		if ( papi_is_empty( $value ) ) {
-			$value = $this->get_option( 'default' );
-		}
-
-		if ( $this->convert_type === 'string' ) {
-			$value = papi_convert_to_string( $value );
-		}
-
-		$value = papi_santize_data( $value );
-
-		if ( papi_is_empty( $value ) ) {
-			return $this->default_value;
-		}
-
-		return $value;
+		return papi_is_empty( $this->value ) ? $this->default : $this->value;
 	}
 
 	/**
