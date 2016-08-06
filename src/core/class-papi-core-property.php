@@ -157,7 +157,7 @@ class Papi_Core_Property {
 	 * @return bool
 	 */
 	public function current_user_can() {
-		return papi_current_user_is_allowed( $this->get_option( 'capabilities' ) );
+		return papi_current_user_is_allowed( $this->capabilities ) );
 	}
 
 	/**
@@ -379,7 +379,7 @@ class Papi_Core_Property {
 		if ( $key === 'settings' && is_array( $value ) ) {
 			$value = (object) $value;
 		} else if ( $key === 'sidebar' && $value ) {
-			$value = $this->get_option( 'layout' ) === 'horizontal';
+			$value = $this->layout === 'horizontal';
 		}
 
 		return $value;
@@ -421,7 +421,7 @@ class Papi_Core_Property {
 	 * @return array
 	 */
 	public function get_rules() {
-		return $this->get_option( 'rules' );
+		return $this->rules;
 	}
 
 	/**
@@ -453,7 +453,7 @@ class Papi_Core_Property {
 	 */
 	public function get_settings() {
 		$settings = wp_parse_args(
-			$this->get_option( 'settings' ),
+			$this->settings,
 			$this->get_default_settings()
 		);
 
@@ -469,10 +469,10 @@ class Papi_Core_Property {
 	 */
 	public function get_slug( $remove_prefix = false ) {
 		if ( $remove_prefix ) {
-			return unpapify( $this->get_option( 'slug' ) );
+			return unpapify( $this->slug );
 		}
 
-		return $this->get_option( 'slug' );
+		return $this->slug;
 	}
 
 	/**
@@ -532,7 +532,7 @@ class Papi_Core_Property {
 	 * @return string
 	 */
 	public function html_name( $sub_property = null, $row = null ) {
-		$base_slug = $this->get_option( 'slug' );
+		$base_slug = $this->slug;
 
 		if ( is_null( $sub_property ) ) {
 			return $base_slug;
