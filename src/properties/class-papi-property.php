@@ -25,7 +25,15 @@ class Papi_Property extends Papi_Core_Property {
 			}
 		}
 
-		return $this->prepare_value( $value );
+		if ( papi_is_empty( $value ) ) {
+			return $this->default_value;
+		}
+
+		if ( $this->convert_type === 'string' ) {
+			$value = papi_convert_to_string( $value );
+		}
+
+		return papi_santize_data( $value );
 	}
 
 	/**

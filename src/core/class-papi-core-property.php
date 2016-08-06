@@ -283,10 +283,9 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function format_value( $value, $slug, $post_id ) {
-		return papi_maybe_json_decode(
-			maybe_unserialize( $value ),
-			$this->convert_type === 'array'
-		);
+		$value = maybe_unserialize( $value );
+
+		return papi_maybe_json_decode( $value, $this->convert_type === 'array' );
 	}
 
 	/**
@@ -590,10 +589,13 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function import_value( $value, $slug, $post_id ) {
-		return papi_maybe_json_decode(
-			maybe_unserialize( $value ),
-			$this->convert_type === 'array'
-		);
+		if ( ! ( $value = $this->prepare_value( $value ) ) ) {
+			return;
+		}
+
+		$value = maybe_unserialize( $value );
+
+		return papi_maybe_json_decode( $value, $this->convert_type === 'array' );
 	}
 
 	/**
@@ -606,10 +608,9 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function load_value( $value, $slug, $post_id ) {
-		return papi_maybe_json_decode(
-			maybe_unserialize( $value ),
-			$this->convert_type === 'array'
-		);
+		$value = maybe_unserialize( $value );
+
+		return papi_maybe_json_decode( $value, $this->convert_type === 'array' );
 	}
 
 	/**
@@ -628,7 +629,7 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Prepare property value.
+	 * Prepare value before database.
 	 *
 	 * @param  mixed $value
 	 *
@@ -636,14 +637,22 @@ class Papi_Core_Property {
 	 */
 	protected function prepare_value( $value ) {
 		if ( papi_is_empty( $value ) ) {
-			return $this->default_value;
+			return;
 		}
 
-		if ( $this->convert_type === 'string' ) {
-			$value = papi_convert_to_string( $value );
+		$value = papi_santize_data( $value );
+
+		if ( is_array( $value ) ) {
+			$value = array_filter( $value, function ( $val ) {
+				return ! papi_is_empty( $val );
+			} );
+
+			if ( array_keys( $value ) !== range( 0, count( $value ) - 1 ) ) {
+				$value = array_values( $value );
+			}
 		}
 
-		return papi_santize_data( $value );
+		return $value;
 	}
 
 	/**
@@ -861,6 +870,10 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function update_value( $value, $slug, $post_id ) {
+		if ( ! ( $value = $this->prepare_value( $value ) ) ) {
+			return;
+		}
+
 		return papi_maybe_json_encode( $value );
 	}
 }
