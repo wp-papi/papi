@@ -114,9 +114,8 @@ class Papi_Core_Property {
 	 */
 	public function __construct() {
 		$this->setup_actions();
-		$this->setup_conditional();
-		$this->setup_default_options();
 		$this->setup_filters();
+		$this->setup_properties();
 	}
 
 	/**
@@ -157,7 +156,7 @@ class Papi_Core_Property {
 	 * @return bool
 	 */
 	public function current_user_can() {
-		return papi_current_user_is_allowed( $this->capabilities ) );
+		return papi_current_user_is_allowed( $this->capabilities );
 	}
 
 	/**
@@ -452,12 +451,10 @@ class Papi_Core_Property {
 	 * @return stdClass
 	 */
 	public function get_settings() {
-		$settings = wp_parse_args(
-			$this->settings,
-			$this->get_default_settings()
+		return (object) array_merge(
+			$this->get_default_settings(),
+			(array) $this->settings
 		);
-
-		return (object) $settings;
 	}
 
 	/**
@@ -630,7 +627,7 @@ class Papi_Core_Property {
 	 */
 	public function match_slug( $slug ) {
 		if ( ! is_string( $slug ) ) {
-			$slug = '';
+			return false;
 		}
 
 		return $this->get_slug( ! preg_match( '/^papi\_/', $slug ) ) === $slug;
@@ -743,34 +740,24 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Setup conditional class.
+	 * Setup filters.
 	 */
-	protected function setup_conditional() {
-		$this->conditional = new Papi_Core_Conditional();
+	protected function setup_filters() {
 	}
 
 	/**
-	 * Setup default options values.
-	 * All default values can't be set in the `$default_options` array.
+	 * Setup properties.
 	 */
-	private function setup_default_options() {
+	protected function setup_properties() {
+		$this->conditional = new Papi_Core_Conditional();
+
 		if ( $this->default_options['sort_order'] === -1 ) {
 			$this->default_options['sort_order'] = papi_filter_settings_sort_order();
 		}
 
-		if ( empty( $this->default_options['post_type'] ) ) {
+		if ( papi_is_empty( $this->default_options['post_type'] ) ) {
 			$this->default_options['post_type'] = papi_get_post_type();
 		}
-
-		if ( papi_is_empty( $this->default_options['default'] ) ) {
-			$this->default_options['default'] = $this->default_value;
-		}
-	}
-
-	/**
-	 * Setup filters.
-	 */
-	protected function setup_filters() {
 	}
 
 	/**
