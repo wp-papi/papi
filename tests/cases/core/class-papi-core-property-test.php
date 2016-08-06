@@ -132,49 +132,6 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Is open?', $repeater_children2[1]->get_option( 'title' ) );
 	}
 
-	public function test_create() {
-		$property = Papi_Core_Property::factory( [
-			'type'  => 'string',
-			'title' => 'Name'
-		] );
-
-		$this->assertSame( $property->get_option( 'type' ), 'string' );
-		$this->assertSame( $property->get_option( 'title' ), 'Name' );
-		$this->assertSame( $property->get_option( 'slug' ), 'papi_name' );
-	}
-
-	public function test_create_slug() {
-		$property = Papi_Core_Property::factory( [
-			'type'  => 'string',
-			'title' => 'Name',
-			'slug'  => 'name'
-		] );
-
-		$this->assertSame( $property->get_option( 'slug' ), 'papi_name' );
-	}
-
-	public function test_create_slug_empty() {
-		$property = Papi_Core_Property::factory( [
-			'type'  => 'string',
-			'title' => 'Name'
-		] );
-
-		$this->assertSame( $property->get_option( 'slug' ), 'papi_name' );
-	}
-
-	public function test_create_slug_false() {
-		$property = Papi_Core_Property::factory( [
-			'type'  => 'string',
-			'title' => 'Name',
-			'slug'  => false
-		] );
-
-		$slug = unpapify( $property->get_option( 'slug' ) );
-		$slug = str_replace( '_', '', $slug );
-
-		$this->assertRegExp( '/^[a-f0-9]{32}$/', $slug );
-	}
-
 	public function test_current_user_can() {
 		$property = Papi_Core_Property::factory( [
 			'type'  => 'string',
@@ -233,6 +190,17 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertFalse( $property2->display() );
 	}
 
+	public function test_factory() {
+		$property = Papi_Core_Property::factory( [
+			'type'  => 'string',
+			'title' => 'Name'
+		] );
+
+		$this->assertSame( $property->get_option( 'type' ), 'string' );
+		$this->assertSame( $property->get_option( 'title' ), 'Name' );
+		$this->assertSame( $property->get_option( 'slug' ), 'papi_name' );
+	}
+
 	public function test_factory_fake() {
 		require_once PAPI_FIXTURE_DIR . '/properties/class-papi-property-fake.php';
 
@@ -251,6 +219,38 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 			'title' => 'Hello'
 		] );
 		$this->assertTrue( Papi_Core_Property::factory( $property ) instanceof Papi_Core_Property );
+	}
+
+	public function test_factory_slug() {
+		$property = Papi_Core_Property::factory( [
+			'type'  => 'string',
+			'title' => 'Name',
+			'slug'  => 'name'
+		] );
+
+		$this->assertSame( $property->get_option( 'slug' ), 'papi_name' );
+	}
+
+	public function test_factory_slug_empty() {
+		$property = Papi_Core_Property::factory( [
+			'type'  => 'string',
+			'title' => 'Name'
+		] );
+
+		$this->assertSame( $property->get_option( 'slug' ), 'papi_name' );
+	}
+
+	public function test_factory_slug_false() {
+		$property = Papi_Core_Property::factory( [
+			'type'  => 'string',
+			'title' => 'Name',
+			'slug'  => false
+		] );
+
+		$slug = unpapify( $property->get_option( 'slug' ) );
+		$slug = str_replace( '_', '', $slug );
+
+		$this->assertRegExp( '/^[a-f0-9]{32}$/', $slug );
 	}
 
 	public function test_format_value() {
@@ -438,7 +438,69 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_value() {
-		$this->assertNull( ( new Papi_Core_Property )->get_value() );
+		$property = new Papi_Property();
+
+		$this->assertNull( $property->get_value() );
+
+		$property = Papi_Property::factory();
+
+		$this->assertNull( $property->get_value() );
+
+		$property->set_options( [
+			'type'  => 'string',
+			'slug'  => 'name',
+			'value' => 'Fredrik'
+		] );
+
+		$this->assertSame( 'Fredrik', $property->get_value() );
+	}
+
+	public function test_get_value_hardcoded() {
+		$property = Papi_Property::factory( [
+			'type'  => 'string',
+			'slug'  => 'name',
+			'value' => 'hello value'
+		] );
+
+		$this->assertSame( 'hello value', $property->get_value() );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
+
+		$page_type = papi_get_entry_type_by_id( 'simple-page-type' );
+		$property  = $page_type->get_property( 'name_default' );
+
+		$this->assertSame( 'Fredrik', $property->get_value() );
+	}
+
+	public function test_get_value_option() {
+		global $current_screen;
+
+		$current_screen = WP_Screen::get( 'admin_init' );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$_GET['page'] = 'papi/option/options/header-option-type';
+
+		$store = papi_get_meta_store( 0, 'option' );
+		$property = $store->get_property( 'name' );
+		$this->assertSame( 'string', $property->get_option( 'type' ) );
+		$this->assertSame( 'string', $property->type );
+		$this->assertSame( 'papi_name', $property->slug );
+		$this->assertSame( 'papi_name', $property->get_option( 'slug' ) );
+		$this->assertSame( 'Name', $property->get_option( 'title' ) );
+		$this->assertSame( 'Name', $property->title );
+
+		$this->assertEmpty( $property->get_value() );
+
+		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/options-general.php?page=papi/options/header-option-type';
+
+		update_option( 'name', 'Fredrik' );
+
+		$this->assertSame( 'Fredrik', $property->get_value() );
+
+		$current_screen = null;
 	}
 
 	public function test_import_setting() {
@@ -539,8 +601,8 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_import_value() {
-		$property = Papi_Core_Property::create( [
-			'type' => 'number',
+		$property = Papi_Core_Property::factory( [
+			'type' => 'string',
 			'slug' => 'age'
 		] );
 
@@ -548,7 +610,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_import_value_empty() {
-		$property = Papi_Core_Property::create( [
+		$property = Papi_Core_Property::factory( [
 			'type'  => 'string',
 			'title' => 'Name'
 		] );
@@ -558,7 +620,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_import_value_with_empty_values() {
-		$property = Papi_Core_Property::create( [
+		$property = Papi_Core_Property::factory( [
 			'type'  => 'string',
 			'title' => 'Name'
 		] );
@@ -714,7 +776,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_update_value_empty() {
-		$property = Papi_Core_Property::create( [
+		$property = Papi_Core_Property::factory( [
 			'type'  => 'string',
 			'title' => 'Name'
 		] );
@@ -727,7 +789,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_update_value_with_empty_values() {
-		$property = Papi_Core_Property::create( [
+		$property = Papi_Core_Property::factory( [
 			'type'  => 'string',
 			'title' => 'Name'
 		] );
