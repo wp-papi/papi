@@ -157,7 +157,7 @@ class Papi_Core_Property {
 	 * @return bool
 	 */
 	public function current_user_can() {
-		return papi_current_user_is_allowed( $this->capabilities );
+		return papi_current_user_is_allowed( $this->get_option( 'capabilities' ) );
 	}
 
 	/**

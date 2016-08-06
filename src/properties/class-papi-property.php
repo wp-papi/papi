@@ -55,8 +55,8 @@ class Papi_Property extends Papi_Core_Property {
 	 * Render the property.
 	 */
 	public function render() {
-		// Check so the property has a type and capabilities on the property.
-		if ( ! papi_current_user_is_allowed( $this->get_option( 'capabilities' ) ) ) {
+		// Check if current user can view the property.
+		if ( ! $this->current_user_can() ) {
 			return;
 		}
 
