@@ -52,6 +52,13 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
+	 * Render AJAX request.
+	 */
+	public function render_ajax_request() {
+		papi_render_property( $this );
+	}
+
+	/**
 	 * Render the property description.
 	 */
 	protected function render_description_html() {

@@ -691,13 +691,6 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Render AJAX request.
-	 */
-	public function render_ajax_request() {
-		papi_render_property( $this );
-	}
-
-	/**
 	 * Check if the property is allowed
 	 * to render by the conditional rules.
 	 *
