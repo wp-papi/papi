@@ -408,6 +408,12 @@ function papi_html_tag( $tag, $attr = [] ) {
  * @return bool
  */
 function papi_is_empty( $obj ) {
+	if ( is_array( $obj ) ) {
+		$obj = array_filter( $obj, function ( $val ) {
+			return ! papi_is_empty( $val );
+		} );
+	}
+
 	if ( is_string( $obj ) ) {
 		return empty( $obj ) && ! is_numeric( $obj );
 	}
