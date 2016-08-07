@@ -171,7 +171,6 @@ final class Papi_Admin {
 	 * Load admin files that are not loaded by the autoload.
 	 */
 	private function load_files() {
-		require_once __DIR__ . '/class-papi-admin-ajax.php';
 		require_once __DIR__ . '/class-papi-admin-meta-handler.php';
 		require_once __DIR__ . '/class-papi-admin-option-handler.php';
 		require_once __DIR__ . '/class-papi-admin-taxonomy.php';

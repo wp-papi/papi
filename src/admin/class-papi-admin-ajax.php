@@ -10,29 +10,13 @@ class Papi_Admin_Ajax {
 	 *
 	 * @var string
 	 */
-	private $action_prefix = 'papi/ajax/';
+	protected $action_prefix = 'papi/ajax/';
 
 	/**
-	 * The constructor.
+	 * The construct.
 	 */
 	public function __construct() {
 		$this->setup_actions();
-	}
-
-	/**
-	 * Setup actions.
-	 */
-	private function setup_actions() {
-		add_action( 'init', [$this, 'add_endpoint'] );
-		add_action( 'parse_query', [$this, 'handle_papi_ajax'] );
-		add_action( 'admin_enqueue_scripts', [$this, 'ajax_url'], 10 );
-
-		// Ajax actions.
-		add_action( $this->action_prefix . 'get_property', [$this, 'get_property'] );
-		add_action( $this->action_prefix . 'get_properties', [$this, 'get_properties'] );
-		add_action( $this->action_prefix . 'get_rules_result', [$this, 'get_rules_result'] );
-		add_action( $this->action_prefix . 'get_posts', [$this, 'get_posts'] );
-		add_action( $this->action_prefix . 'get_terms', [$this, 'get_terms'] );
 	}
 
 	/**
@@ -287,8 +271,22 @@ class Papi_Admin_Ajax {
 			'error' => $message
 		] );
 	}
+
+	/**
+	 * Setup action hooks.
+	 */
+	protected function setup_actions() {
+		add_action( 'init', [$this, 'add_endpoint'] );
+		add_action( 'parse_query', [$this, 'handle_papi_ajax'] );
+		add_action( 'admin_enqueue_scripts', [$this, 'ajax_url'], 10 );
+
+		// Ajax actions.
+		add_action( $this->action_prefix . 'get_property', [$this, 'get_property'] );
+		add_action( $this->action_prefix . 'get_properties', [$this, 'get_properties'] );
+		add_action( $this->action_prefix . 'get_rules_result', [$this, 'get_rules_result'] );
+		add_action( $this->action_prefix . 'get_posts', [$this, 'get_posts'] );
+		add_action( $this->action_prefix . 'get_terms', [$this, 'get_terms'] );
+	}
 }
 
-if ( is_admin() ) {
-	new Papi_Admin_Ajax;
-}
+new Papi_Admin_Ajax;
