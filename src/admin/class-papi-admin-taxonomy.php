@@ -60,7 +60,6 @@ final class Papi_Admin_Taxonomy {
 				}
 				?>
 			</select>
-			<!-- additional info? -->
 		</div>
 		<?php
 		else:
