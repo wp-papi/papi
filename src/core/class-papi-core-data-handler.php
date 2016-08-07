@@ -48,6 +48,15 @@ class Papi_Core_Data_Handler {
 		$keys = preg_grep( $pattern, array_keys( $_POST ) );
 
 		foreach ( $keys as $key ) {
+			// Remove page type keys with suffix. This should not be saved.
+			if (
+				strpos( $key, papi_get_page_type_key() ) === 0
+				&&
+				strlen( papi_get_page_type_key() ) !== strlen( $key )
+			) {
+				continue;
+			}
+
 			// Fix for input fields that should be true on `on` value.
 			if ( $_POST[$key] === 'on' ) {
 				$data[$key] = true;
