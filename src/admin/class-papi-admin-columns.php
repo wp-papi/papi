@@ -61,7 +61,7 @@ final class Papi_Admin_Columns {
 		/**
 		 * Change column title for entry type column.
 		 *
-		 * @param  string $post_type
+		 * @param string $post_type
 		 */
 		$defaults['entry_type'] = apply_filters(
 			'papi/settings/column_title_' . $this->get_meta_type_value(),

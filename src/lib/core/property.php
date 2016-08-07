@@ -6,9 +6,11 @@
  * If it's on a option page it will fetch the value from the
  * option table instead of the metadata table.
  *
- * @param int    $id
- * @param string $slug
- * @param string $type
+ * @param  int    $id
+ * @param  string $slug
+ * @param  string $type
+ *
+ * @return mixed
  */
 function papi_delete_property_meta_value( $id, $slug, $type = 'post' ) {
 	$type = papi_get_meta_type( $type );
@@ -22,9 +24,7 @@ function papi_delete_property_meta_value( $id, $slug, $type = 'post' ) {
 	/**
 	 * Change delete value function.
 	 *
-	 * @param  string $delete_function
-	 *
-	 * @return string
+	 * @param string $delete_function
 	 */
 	$delete_value_fn = apply_filters( 'papi/core/delete_value_fn', $delete_value_fn );
 
@@ -196,9 +196,7 @@ function papi_get_property_meta_value( $id, $slug, $type = 'post' ) {
 	/**
 	 * Change get value function.
 	 *
-	 * @param  string $delete_function
-	 *
-	 * @return string
+	 * @param string $delete_function
 	 */
 	$get_value_fn = apply_filters( 'papi/core/get_value_fn', $get_value_fn );
 
@@ -456,9 +454,7 @@ function papi_update_property_meta_value( array $meta = [] ) {
 	/**
 	 * Change update function.
 	 *
-	 * @param  string $update_value_fn
-	 *
-	 * @return string
+	 * @param string $update_value_fn
 	 */
 	$update_value_fn = apply_filters( 'papi/core/update_value_fn', $update_value_fn );
 
