@@ -21,7 +21,7 @@ final class Papi_Admin {
 	private $post_type;
 
 	/**
-	 * The constructor.
+	 * The construct.
 	 */
 	public function __construct() {
 		$this->load_files();
@@ -176,6 +176,7 @@ final class Papi_Admin {
 		require_once __DIR__ . '/class-papi-admin-option-handler.php';
 		require_once __DIR__ . '/class-papi-admin-taxonomy.php';
 		require_once __DIR__ . '/class-papi-admin-columns.php';
+		require_once __DIR__ . '/class-papi-admin-page-type-switcher.php';
 	}
 
 	/**
