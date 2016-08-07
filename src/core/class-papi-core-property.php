@@ -202,8 +202,6 @@ class Papi_Core_Property {
 	 * Create a new instance of the given type or a
 	 * empty core property if no type is given.
 	 *
-	 * @param  mixed $type
-	 *
 	 * @return object
 	 */
 	public static function factory() {
