@@ -211,6 +211,7 @@ final class Papi_Loader extends Papi_Container {
 
 		// Require admin classes that should not be loaded by the autoload.
 		require_once __DIR__ . '/admin/class-papi-admin.php';
+		require_once __DIR__ . '/admin/class-papi-admin-ajax.php';
 		require_once __DIR__ . '/admin/class-papi-admin-assets.php';
 		require_once __DIR__ . '/admin/class-papi-admin-menu.php';
 
