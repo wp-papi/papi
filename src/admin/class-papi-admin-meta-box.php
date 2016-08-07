@@ -56,7 +56,7 @@ final class Papi_Admin_Meta_Box {
 	 *
 	 * @return string
 	 */
-	private function get_post_type() {
+	protected function get_post_type() {
 		if ( papi_get_meta_type() === 'post' ) {
 			if ( $post_id = papi_get_post_id() ) {
 				return get_post_type( $post_id );
@@ -75,7 +75,7 @@ final class Papi_Admin_Meta_Box {
 	 *
 	 * @return string
 	 */
-	private function get_title() {
+	protected function get_title() {
 		$title = $this->box->title;
 
 		if ( $this->box->get_option( 'required' ) ) {
@@ -114,9 +114,9 @@ final class Papi_Admin_Meta_Box {
 	}
 
 	/**
-	 * Setup actions.
+	 * Setup action hooks.
 	 */
-	private function setup_actions() {
+	protected function setup_actions() {
 		if ( post_type_exists( $this->get_post_type() ) && papi_get_meta_type() === 'post' ) {
 			add_action( 'add_meta_boxes', [$this, 'setup_meta_box'] );
 
