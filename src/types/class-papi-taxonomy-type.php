@@ -73,7 +73,7 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	 * Setup actions.
 	 */
 	protected function setup_actions() {
-		foreach ( (array) $this->taxonomy as $taxonomy ) {
+		foreach ( papi_to_array( $this->taxonomy ) as $taxonomy ) {
 			if ( is_string( $taxonomy ) && taxonomy_exists( $taxonomy ) ) {
 				add_action( $taxonomy . '_edit_form', [$this, 'edit_form'] );
 			}
