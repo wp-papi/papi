@@ -202,7 +202,7 @@ class Papi_Core_Property {
 	 * Create a new instance of the given type or a
 	 * empty core property if no type is given.
 	 *
-	 * @return object
+	 * @return null|object
 	 */
 	public static function factory() {
 		if ( count( func_get_args() ) === 0 ) {
