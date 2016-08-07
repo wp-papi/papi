@@ -378,8 +378,8 @@ function papi_require_text( $property ) {
 /**
  * Get require tag for property.
  *
- * @param  Papi_Property $property
- * @param  bool          $text
+ * @param  stdClass $property
+ * @param  bool     $text
  *
  * @return string
  */
