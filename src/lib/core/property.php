@@ -181,9 +181,11 @@ function papi_get_property_class_name( $type ) {
  * If it's on a option page it will fetch the value from the
  * option table instead of the metadata table.
  *
- * @param int    $id
- * @param string $slug
- * @param string $type
+ * @param  int    $id
+ * @param  string $slug
+ * @param  string $type
+ *
+ * @return mixed
  */
 function papi_get_property_meta_value( $id, $slug, $type = 'post' ) {
 	$type = papi_get_meta_type( $type );
