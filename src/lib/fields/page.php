@@ -158,7 +158,7 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
  * Get boxes with properties slug for a page.
  *
  * @param  int    $id
- * @param  string $only_slugs
+ * @param  bool   $only_slugs
  * @param  string $type
  *
  * @since 3.0.0 the param `$only_slugs` exists, if true
