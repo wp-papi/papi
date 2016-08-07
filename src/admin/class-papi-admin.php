@@ -25,9 +25,9 @@ final class Papi_Admin {
 	 */
 	public function __construct() {
 		$this->load_files();
-		$this->setup_globals();
 		$this->setup_actions();
 		$this->setup_filters();
+		$this->setup_properties();
 	}
 
 	/**
@@ -240,16 +240,14 @@ final class Papi_Admin {
 	 * Setup actions.
 	 */
 	private function setup_actions() {
-		if ( is_admin() ) {
-			add_action( 'admin_init', [$this, 'admin_init'] );
-			add_action( 'edit_form_after_title', [$this, 'edit_form_after_title'] );
-			add_action( 'load-post-new.php', [$this, 'load_post_new'] );
-			add_action( 'add_meta_boxes', [$this, 'hidden_meta_boxes'], 10 );
+		add_action( 'admin_init', [$this, 'admin_init'] );
+		add_action( 'edit_form_after_title', [$this, 'edit_form_after_title'] );
+		add_action( 'load-post-new.php', [$this, 'load_post_new'] );
+		add_action( 'add_meta_boxes', [$this, 'hidden_meta_boxes'], 10 );
 
-			if ( $taxonomy = papi_get_taxonomy() ) {
-				add_action( $taxonomy . '_add_form', [$this, 'edit_form_after_title'] );
-				add_action( $taxonomy . '_edit_form', [$this, 'edit_form_after_title'] );
-			}
+		if ( $taxonomy = papi_get_taxonomy() ) {
+			add_action( $taxonomy . '_add_form', [$this, 'edit_form_after_title'] );
+			add_action( $taxonomy . '_edit_form', [$this, 'edit_form_after_title'] );
 		}
 	}
 
@@ -257,19 +255,10 @@ final class Papi_Admin {
 	 * Setup filters.
 	 */
 	private function setup_filters() {
-		if ( is_admin() ) {
-			add_filter( 'admin_body_class', [$this, 'admin_body_class'] );
-			add_filter( 'plugin_row_meta', [$this, 'plugin_row_meta'], 10, 2 );
-			add_filter( 'wp_link_query', [$this, 'wp_link_query'] );
-			add_filter( 'wp_refresh_nonces', [$this, 'wp_refresh_nonces'], 11 );
-		}
-	}
-
-	/**
-	 * Setup globals.
-	 */
-	private function setup_globals() {
-		$this->post_type = papi_get_post_type();
+		add_filter( 'admin_body_class', [$this, 'admin_body_class'] );
+		add_filter( 'plugin_row_meta', [$this, 'plugin_row_meta'], 10, 2 );
+		add_filter( 'wp_link_query', [$this, 'wp_link_query'] );
+		add_filter( 'wp_refresh_nonces', [$this, 'wp_refresh_nonces'], 11 );
 	}
 
 	/**
@@ -284,6 +273,13 @@ final class Papi_Admin {
 		}
 
 		return $this->get_entry_type() instanceof Papi_Entry_Type;
+	}
+
+	/**
+	 * Setup properties.
+	 */
+	private function setup_properties() {
+		$this->post_type = papi_get_post_type();
 	}
 
 	/**
@@ -327,4 +323,6 @@ final class Papi_Admin {
 	}
 }
 
-new Papi_Admin;
+if ( is_admin() ) {
+	new Papi_Admin;
+}
