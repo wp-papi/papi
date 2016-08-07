@@ -50,4 +50,4 @@ final class Papi_Core_Autoload {
 	}
 }
 
-new Papi_Core_Autoload();
+new Papi_Core_Autoload;
