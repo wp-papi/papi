@@ -84,6 +84,13 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	public $show_page_template = false;
 
 	/**
+	 * Show page type switcher.
+	 *
+	 * @var boolean
+	 */
+	public $switcher = true;
+
+	/**
 	 * The template of the page type.
 	 *
 	 * @var string
