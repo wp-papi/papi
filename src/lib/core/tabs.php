@@ -37,9 +37,10 @@ function papi_tabs_setup( array $tabs ) {
  * @param  string|array $file_or_options
  * @param  array $properties
  *
- * @return array
+ * @return Papi_Core_Tab
  */
 function papi_tab( $file_or_options, $properties = [] ) {
 	list( $options, $properties ) = papi_get_options_and_properties( $file_or_options, $properties, false );
-	return new Papi_Core_Tab( $options, $properties );
+
+    return new Papi_Core_Tab( $options, $properties );
 }

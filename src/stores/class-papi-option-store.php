@@ -28,7 +28,7 @@ class Papi_Option_Store extends Papi_Core_Meta_Store {
 	 * @param  string $slug
 	 * @param  string $child_slug
 	 *
-	 * @return object
+	 * @return null|object
 	 */
 	public function get_property( $slug, $child_slug = '' ) {
 		$entry_type_id = papi_get_qs( 'page' );

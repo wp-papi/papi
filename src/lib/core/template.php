@@ -72,7 +72,7 @@ function papi_include_template( $file, array $vars = [] ) {
  * @param  array  $values
  * @param  bool   $convert_to_object
  *
- * @return array
+ * @return array|object
  */
 function papi_template( $file, array $values = [], $convert_to_object = false ) {
 	if ( ! is_string( $file ) || empty( $file ) ) {

@@ -20,7 +20,7 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	 * @param  string $slug
 	 * @param  int    $post_id
 	 *
-	 * @return array
+	 * @return null|WP_User
 	 */
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_object( $value ) && isset( $value->ID ) ) {

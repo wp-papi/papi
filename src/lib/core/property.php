@@ -363,7 +363,7 @@ function papi_render_properties( array $properties ) {
 /**
  * Get require text for property.
  *
- * @param  Papi_Property $property
+ * @param  stdClass $property
  *
  * @return string
  */

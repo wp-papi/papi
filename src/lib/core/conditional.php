@@ -16,7 +16,7 @@ function papi_is_rule( $rule ) {
  *
  * @param  array|Papi_Core_Conditional_Rule $rule
  *
- * @return Papi_Page|null
+ * @return Papi_Core_Conditional_Rule
  */
 function papi_rule( $rule ) {
 	if ( is_array( $rule ) && ! empty( $rule ) ) {

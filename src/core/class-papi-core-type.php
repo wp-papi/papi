@@ -187,7 +187,7 @@ class Papi_Core_Type {
 	/**
 	 * Create a new instance of the page type file.
 	 *
-	 * @return object
+	 * @return null|object
 	 */
 	public function new_class() {
 		if ( empty( $this->_file_path ) ) {
