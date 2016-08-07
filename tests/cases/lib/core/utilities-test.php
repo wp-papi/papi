@@ -238,6 +238,16 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 		$this->assertSame( '<label>Hello</label>', papi_html_tag( 'label', 'Hello' ) );
 
 		$this->assertSame( '<label>Hello</label>', papi_html_tag( 'label', papi_maybe_get_callable_value( 'say_hello_stub' ) ) );
+
+		$this->assertSame( '<option selected="selected">hello</option>', papi_html_tag( 'option', [
+			'selected' => true,
+			'hello'
+		] ) );
+
+		$this->assertSame( '<input type="checkbox" checked="checked">', papi_html_tag( 'input', [
+			'type'    => 'checkbox',
+			'checked' => true
+		] ) );
 	}
 
 	public function test_papi_render_html_tag() {

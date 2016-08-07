@@ -369,6 +369,19 @@ function papi_html_tag( $tag, $attr = [] ) {
 			continue;
 		}
 
+		switch ( $key ) {
+			case 'checked':
+				$value = $value === true ? 'checked' : $value;
+				$value = is_bool( $value ) ? null : $value;
+				break;
+			case 'selected':
+				$value = $value === true ? 'selected' : $value;
+				$value = is_bool( $value ) ? null : $value;
+				break;
+			default:
+				break;
+		}
+
 		if ( is_array( $value ) || is_object( $value ) ) {
 			$value = json_encode( $value );
 		} else if ( is_bool( $value ) ) {
@@ -377,7 +390,7 @@ function papi_html_tag( $tag, $attr = [] ) {
 			$value = trim( $value );
 		}
 
-		if ( is_null( $value ) ) {
+		if ( papi_is_empty( $value ) ) {
 			continue;
 		}
 
