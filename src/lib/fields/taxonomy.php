@@ -47,8 +47,8 @@ function papi_get_term_field( $term_id = null, $slug = null, $default = null ) {
 /**
  * Get boxes with properties slug for a taxonomy.
  *
- * @param  int    $id
- * @param  string $only_slugs
+ * @param  int $id
+ * @param  bool $only_slugs
  *
  * @since 3.1.0 `$id` param is optional.
  *
