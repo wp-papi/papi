@@ -249,15 +249,15 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
-	 * Get property from page type.
+	 * Get property from entry type.
 	 *
 	 * @param  string $slug
 	 * @param  string $child_slug
 	 *
-	 * @return null|Papi_Property
+	 * @return Papi_Property
 	 */
 	public function get_property( $slug, $child_slug = '' ) {
-		$boxes = $this->get_boxes( true );
+		$boxes = $this->get_boxes();
 		$parts = preg_split( '/\[\d+\]/', $slug );
 		$parts = array_map( function ( $part ) {
 			return preg_replace( '/(\[|\])/', '', $part );
@@ -278,10 +278,6 @@ class Papi_Entry_Type extends Papi_Core_Type {
 			return $property;
 		}
 
-		if ( empty( $boxes ) ) {
-			return;
-		}
-
 		foreach ( $boxes as $box ) {
 			foreach ( $box->properties as $property ) {
 				$property = papi_get_property_type( $property );
@@ -299,6 +295,24 @@ class Papi_Entry_Type extends Papi_Core_Type {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Get root properties.
+	 *
+	 * @return array
+	 */
+	public function get_properties() {
+		$boxes = $this->get_boxes();
+		$list  = [];
+
+		foreach ( $boxes as $box ) {
+			foreach ( $box->properties as $property ) {
+				$list[] = $property;
+			}
+		}
+
+		return $list;
 	}
 
 	/**
