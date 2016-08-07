@@ -175,7 +175,7 @@ abstract class Papi_Core_Meta_Store {
 	 * @param  Papi_Core_Property $property
 	 * @param  mixed              $value
 	 *
-	 * @retrun mixed
+	 * @return mixed
 	 */
 	protected function prepare_convert_value( Papi_Core_Property $property, $value ) {
 		return $value;
