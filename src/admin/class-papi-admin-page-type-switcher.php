@@ -107,8 +107,8 @@ class Papi_Admin_Page_Type_Switcher {
 			return false;
 		}
 
-		// Check so user can edit posts.
-		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		// Check so user can edit posts and that the user can publish posts on the post type.
+		if ( ! current_user_can( 'edit_post', $post_id ) && ! current_user_can( $post_type_object->cap->publish_posts ) ) {
 			return false;
 		}
 
@@ -124,11 +124,6 @@ class Papi_Admin_Page_Type_Switcher {
 
 		// Check if revision post type.
 		if ( in_array( $post->post_type, ['revision', 'nav_menu_item'], true ) ) {
-			return false;
-		}
-
-		// Check so user can publish post.
-		if ( ! current_user_can( $post_type_object->cap->publish_posts ) ) {
 			return false;
 		}
 
