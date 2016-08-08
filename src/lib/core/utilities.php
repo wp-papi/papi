@@ -30,7 +30,7 @@ function papi_cast_string_value( $str ) {
 	}
 
 	if ( is_numeric( $str ) ) {
-		return $str == (int) $str ? (int) $str : (float) $str;
+		return $str == (int) $str ? (int) $str : (float) $str; // loose comparison
 	}
 
 	if ( $str === 'true' || $str === 'false' ) {
@@ -565,7 +565,7 @@ function papi_nl2br( $str ) {
  * @return string
  */
 function papi_render_html_tag( $tag, $attr = [] ) {
-	echo papi_html_tag( $tag, $attr );
+	echo papi_html_tag( $tag, $attr ); // xss
 }
 
 /**
