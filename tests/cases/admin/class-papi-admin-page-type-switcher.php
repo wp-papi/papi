@@ -13,6 +13,13 @@ class Papi_Admin_Page_Type_Switcher_Test extends WP_UnitTestCase {
 		} );
 	}
 
+	public function test_admin_init() {
+		$switcher = new Papi_Admin_Page_Type_Switcher;
+		$switcher->admin_init();
+		$this->assertSame( 10, has_action( 'post_submitbox_misc_actions', [$switcher, 'metabox'] ) );
+		$this->assertSame( 10, has_action( 'save_post', [$switcher, 'save_post'] ) );
+	}
+
 	public function test_save_post() {
 		$switcher = new Papi_Admin_Page_Type_Switcher;
 		$post_id  = $this->factory->post->create( ['post_type' => 'page'] );
