@@ -6,7 +6,7 @@ class Papi_Admin_Page_Type_Switcher {
 	 * The construct.
 	 */
 	public function __construct() {
-		$this->setup_actions();
+		add_action( 'admin_init', [$this, 'admin_init'] );
 	}
 
 	/**
@@ -159,13 +159,6 @@ class Papi_Admin_Page_Type_Switcher {
 
 		// Update page type id.
 		papi_set_page_type_id( $post_id, $page_type_switch_id );
-	}
-
-	/**
-	 * Setup action hooks.
-	 */
-	protected function setup_actions() {
-		add_action( 'admin_init', [$this, 'admin_init'] );
 	}
 }
 
