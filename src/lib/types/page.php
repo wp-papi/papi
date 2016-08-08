@@ -101,10 +101,15 @@ function papi_get_page_type_id( $post_id = 0 ) {
 /**
  * Get the page type key that is used for each post.
  *
+ * @param  string $suffix
+ *
  * @return string
  */
-function papi_get_page_type_key() {
-	return defined( 'PAPI_PAGE_TYPE_KEY' ) ? PAPI_PAGE_TYPE_KEY : '_papi_page_type';
+function papi_get_page_type_key( $suffix = '' ) {
+	$key    = defined( 'PAPI_PAGE_TYPE_KEY' ) ? PAPI_PAGE_TYPE_KEY : '_papi_page_type';
+	$suffix = ltrim( $suffix, '_' );
+
+	return empty( $suffix ) ? $key : $key . '_' . $suffix;
 }
 
 /**

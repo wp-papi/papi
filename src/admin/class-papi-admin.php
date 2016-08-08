@@ -21,7 +21,7 @@ final class Papi_Admin {
 	private $post_type;
 
 	/**
-	 * The constructor.
+	 * The construct.
 	 */
 	public function __construct() {
 		$this->load_files();
@@ -175,6 +175,7 @@ final class Papi_Admin {
 		require_once __DIR__ . '/class-papi-admin-option-handler.php';
 		require_once __DIR__ . '/class-papi-admin-taxonomy.php';
 		require_once __DIR__ . '/class-papi-admin-columns.php';
+		require_once __DIR__ . '/class-papi-admin-page-type-switcher.php';
 	}
 
 	/**
@@ -267,7 +268,7 @@ final class Papi_Admin {
 	 */
 	public function setup_papi() {
 		// If the post type isn't in the post types array we can't proceed.
-		if ( in_array( $this->post_type, ['revision', 'nav_menu_item'] ) ) {
+		if ( in_array( $this->post_type, ['revision', 'nav_menu_item'], true ) ) {
 			return false;
 		}
 

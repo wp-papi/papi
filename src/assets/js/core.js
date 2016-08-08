@@ -8,10 +8,11 @@ class Core {
   static init() {
     const core = new Core();
 
+    core.addCurrentClassToMenuItem();
     core.binds();
+    core.pageTypeSwitcher();
     core.prepareBoxes();
     core.setSelectedMenuItem();
-    core.addCurrentClassToMenuItem();
   }
 
   /**
@@ -84,6 +85,29 @@ class Core {
     $parent.parent().toggleClass('closed');
     $inside.toggleClass('papi-hide');
     $this.attr('aria-expanded', !$inside.hasClass('papi-hide'));
+  }
+
+  /**
+   * Page type switcher.
+   */
+  pageTypeSwitcher() {
+    $('.misc-pub-section.curtime.misc-pub-section-last').removeClass('misc-pub-section-last');
+    $('#papi-page-type-switcher-edit').on('click', function(e) {
+      e.preventDefault();
+      $(this).hide();
+      $('.papi-page-type-switcher > div').slideDown();
+    });
+    $('#papi-page-type-switcher-save').on('click', function(e) {
+      e.preventDefault();
+      $('.papi-page-type-switcher > div').slideUp();
+      $('#papi-page-type-switcher-edit').show();
+      $('.papi-page-type-switcher > span').text($('.papi-page-type-switcher select :selected').text());
+    });
+    $('#papi-page-type-switcher-cancel').on('click', function(e) {
+      e.preventDefault();
+      $('.papi-page-type-switcher > div').slideUp();
+      $('#papi-page-type-switcher-edit').show();
+    });
   }
 
   /**

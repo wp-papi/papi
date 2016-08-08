@@ -156,6 +156,8 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_page_type_key() {
 		$this->assertSame( '_papi_page_type', papi_get_page_type_key() );
+		$this->assertSame( '_papi_page_type_switch', papi_get_page_type_key( '_switch' ) );
+		$this->assertSame( '_papi_page_type_switch', papi_get_page_type_key( 'switch' ) );
 	}
 
 	public function test_papi_get_page_type_name() {

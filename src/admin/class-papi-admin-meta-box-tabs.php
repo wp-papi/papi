@@ -43,7 +43,7 @@ final class Papi_Admin_Meta_Box_Tabs {
 	/**
 	 * Generate html for tabs and properties.
 	 */
-	private function html() {
+	protected function html() {
 		?>
 		<div class="papi-tabs-wrapper">
 			<div class="papi-tabs-table-back"></div>
