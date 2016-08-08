@@ -88,6 +88,7 @@ class Papi_Admin_Page_Type_Switcher {
 			return;
 		}
 
+		$page_type        = papi_get_entry_type_by_id( $page_type_id );
 		$page_type_switch = papi_get_entry_type_by_id( $page_type_switch_id );
 		$post_type_object = get_post_type_object( papi_get_post_type() );
 
@@ -126,14 +127,32 @@ class Papi_Admin_Page_Type_Switcher {
 			return;
 		}
 
-		// Check if any meta keys can be found.
-		if ( ! ( $meta_keys = papi_get_slugs( $post_id, true ) ) ) {
+		// Check if any properties exists.
+		if ( ! ( $properties = $page_type->get_properties() ) ) {
 			return;
 		}
 
-		// Delete all meta keys.
-		foreach ( $meta_keys as $meta_key ) {
-			papi_delete_property_meta_value( $post_id, $meta_key );
+		// Check for properties on the new page type.
+		if ( ! ( $properties_switch = $page_type_switch->get_properties() ) ) {
+			return;
+		}
+
+		// Delete only properties that don't have the same type and slug.
+		foreach ( $properties as $property ) {
+			$delete = true;
+
+			foreach ( $properties_switch as $property_switch ) {
+				if ( $property_switch->type === $property->type && $property_switch->match_slug( $property->get_slug() ) ) {
+					$delete = false;
+					break;
+				}
+			}
+
+			if ( ! $delete ) {
+				continue;
+			}
+
+			papi_delete_property_meta_value( $post_id, $property->get_slug() );
 		}
 
 		// Update page type id.
@@ -146,7 +165,6 @@ class Papi_Admin_Page_Type_Switcher {
 	protected function setup_actions() {
 		add_action( 'admin_init', [$this, 'admin_init'] );
 	}
-
 }
 
 if ( is_admin() ) {
