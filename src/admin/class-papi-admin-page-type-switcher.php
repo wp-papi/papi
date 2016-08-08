@@ -153,7 +153,8 @@ class Papi_Admin_Page_Type_Switcher {
 				continue;
 			}
 
-			papi_delete_property_meta_value( $post_id, $property->get_slug() );
+			// Delete property values.
+			$property->delete_value( $property->get_slug( true ), $post_id, papi_get_meta_type() );
 		}
 
 		// Update page type id.
