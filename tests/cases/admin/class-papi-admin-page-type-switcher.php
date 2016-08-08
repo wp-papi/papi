@@ -20,7 +20,13 @@ class Papi_Admin_Page_Type_Switcher_Test extends WP_UnitTestCase {
 		$this->assertSame( 10, has_action( 'save_post', [$switcher, 'save_post'] ) );
 	}
 
-	public function test_metabox() {
+	public function test_metabox_1() {
+		$switcher = new Papi_Admin_Page_Type_Switcher;
+		$switcher->metabox();
+		$this->expectOutputRegex( '//' );
+	}
+
+	public function test_metabox_2() {
 		$switcher = new Papi_Admin_Page_Type_Switcher;
 
 		$_GET = [
