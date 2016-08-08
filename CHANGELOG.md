@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [3.1.6](https://github.com/wp-papi/papi/releases/tag/v3.1.6) - 2016-08-08
+
+* Fixed: Issue with `papi_html_tag` that caused html output issue with some properties.
+
 ## [3.1.5](https://github.com/wp-papi/papi/releases/tag/v3.1.5) - 2016-08-08
 
 * Fixed: Slug with `_property` suffix didn't work.
