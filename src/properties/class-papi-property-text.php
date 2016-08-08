@@ -48,11 +48,13 @@ class Papi_Property_Text extends Papi_Property {
 	 * @return string
 	 */
 	public function get_value() {
-		return $this->format_value(
+		$value = $this->format_value(
 			parent::get_value(),
 			$this->get_slug(),
 			papi_get_post_id()
 		);
+
+		return $this->get_setting( 'allow_html' ) ? $value : esc_html( $value );
 	}
 
 	/**
@@ -61,8 +63,8 @@ class Papi_Property_Text extends Papi_Property {
 	public function html() {
 		papi_render_html_tag( 'textarea', [
 			'class' => 'papi-property-text',
-			'id'    => $this->html_id(),
-			'name'  => $this->html_name(),
+			'id'    => esc_attr( $this->html_id() ),
+			'name'  => esc_attr( $this->html_name() ),
 			$this->get_value()
 		] );
 	}

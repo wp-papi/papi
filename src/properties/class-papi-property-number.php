@@ -84,9 +84,9 @@ class Papi_Property_Number extends Papi_Property {
 			'id'    => $this->html_id(),
 			'max'   => $settings->max,
 			'min'   => $settings->min,
-			'name'  => $this->html_name(),
+			'name'  => esc_attr( $this->html_name() ),
 			'step'  => $settings->step,
-			'type'  => $settings->type,
+			'type'  => esc_attr( $settings->type ),
 			'value' => $value
 		] );
 	}

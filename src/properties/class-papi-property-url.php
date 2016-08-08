@@ -24,8 +24,8 @@ class Papi_Property_Url extends Papi_Property {
 
 		papi_render_html_tag( 'input', [
 			'class'   => $settings->mediauploader ? 'papi-url-media-input' : null,
-			'id'      => $this->html_id(),
-			'name'    => $this->html_name(),
+			'id'      => esc_attr( $this->html_id() ),
+			'name'    => esc_attr( $this->html_name() ),
 			'type'    => 'url',
 			'value'   => $this->get_value()
 		] );
@@ -36,10 +36,10 @@ class Papi_Property_Url extends Papi_Property {
 			papi_render_html_tag( 'input', [
 				'class'            => 'button papi-url-media-button',
 				'data-papi-action' => 'mediauploader',
-				'id'               => $this->html_id(),
-				'name'             => $this->html_name() . '_button',
+				'id'               => esc_attr( $this->html_id() ),
+				'name'             => esc_attr( $this->html_name() . '_button' ),
 				'type'             => 'button',
-				'value'            => __( 'Select file', 'papi' )
+				'value'            => esc_attr__( 'Select file', 'papi' )
 			] );
 		}
 	}

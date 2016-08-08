@@ -26,8 +26,8 @@ class Papi_Property_Divider extends Papi_Property {
 
 		papi_render_html_tag( 'div', [
 			'class'          => 'papi-property-divider',
-			'data-papi-rule' => $this->html_name(),
-			sprintf( '<h3><span>%s</span></h3>%s', $options->title, $text )
+			'data-papi-rule' => esc_attr( $this->html_name() ),
+			sprintf( '<h3><span>%s</span></h3>%s', esc_html( $options->title ), $text )
 		] );
 	}
 

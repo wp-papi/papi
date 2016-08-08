@@ -53,17 +53,17 @@ class Papi_Property_Radio extends Papi_Property {
 			papi_render_html_tag( 'p', [
 				papi_html_tag( 'label', [
 					'class' => 'light',
-					'for'   => $this->html_id( $key ),
+					'for'   => esc_attr( $this->html_id( $key ) ),
 
 					papi_html_tag( 'input', [
-						'id'      => $this->html_id( $key ),
-						'name'    => $this->html_name(),
+						'id'      => esc_attr( $this->html_id( $key ) ),
+						'name'    => esc_attr( $this->html_name() ),
 						'type'    => 'radio',
-						'checked' => $value === $settings->selected ? 'checked' : null,
+						'checked' => $value === $settings->selected,
 						'value'   => $value
 					] ),
 
-					papi_convert_to_string( $key )
+					esc_html( papi_convert_to_string( $key ) )
 				] )
 			] );
 		}

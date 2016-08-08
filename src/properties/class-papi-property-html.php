@@ -39,14 +39,14 @@ class Papi_Property_Html extends Papi_Property {
 			}
 
 			papi_render_html_tag( 'input', [
-				'name'  => $this->html_name(),
+				'name'  => esc_attr( $this->html_name() ),
 				'type'  => 'hidden',
 				'value' => $html
 			] );
 		}
 
 		papi_render_html_tag( 'div', [
-			'data-papi-rule' => $this->html_name(),
+			'data-papi-rule' => esc_attr( $this->html_name() ),
 			'class'          => 'property-html',
 			$html
 		] );

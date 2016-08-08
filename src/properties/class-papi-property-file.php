@@ -169,14 +169,14 @@ class Papi_Property_File extends Papi_Property {
 									<div class="centered">
 										<?php
 										papi_render_html_tag( 'img', [
-											'alt' => $file->alt,
-											'src' => $url
+											'alt' => esc_attr( $file->alt ),
+											'src' => esc_attr( $url )
 										] );
 
 										papi_render_html_tag( 'input', [
-											'name'  => $slug,
+											'name'  => esc_attr( $slug ),
 											'type'  => 'hidden',
-											'value' => $file->id
+											'value' => esc_attr( $file->id )
 										] );
 										?>
 									</div>

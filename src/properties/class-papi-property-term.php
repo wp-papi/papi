@@ -220,7 +220,7 @@ class Papi_Property_Term extends Papi_Property {
 						papi_render_html_tag( 'option', [
 							'value'    => $term_id,
 							'selected' => $value === $term_id,
-							$term_name
+							esc_html( $term_name )
 						] );
 					}
 					?>

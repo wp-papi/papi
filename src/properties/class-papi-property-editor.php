@@ -77,7 +77,7 @@ class Papi_Property_Editor extends Papi_Property {
 		$this->add_mce_buttons();
 
 		wp_editor( $value, $id, [
-			'textarea_name'    => $this->html_name(),
+			'textarea_name'    => esc_attr( $this->html_name() ),
 			'media_buttons'    => $this->get_setting( 'media_buttons', true ),
 			'teeny'            => $this->get_setting( 'teeny', false ),
 			'drag_drop_upload' => $this->get_setting( 'drag_drop_upload', true ),
