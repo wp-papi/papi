@@ -132,15 +132,9 @@ class Papi_Admin_Page_Type_Switcher {
 			return false;
 		}
 
-		// Check if any properties exists.
-		if ( ! ( $properties = $page_type->get_properties() ) ) {
-			$properties = [];
-		}
-
-		// Check for properties on the new page type.
-		if ( ! ( $properties_switch = $page_type_switch->get_properties() ) ) {
-			$properties_switch = [];
-		}
+		// Get properties.
+		$properties = $page_type->get_properties();
+		$properties_switch = $page_type_switch->get_properties();
 
 		// Delete only properties that don't have the same type and slug.
 		foreach ( $properties as $property ) {
