@@ -69,14 +69,19 @@ class Papi_Admin_Page_Type_Switcher {
 	 * @param  WP_post $post
 	 */
 	public function save_post( $post_id, $post ) {
+		// Check if post id and post object is empty or not.
+		if ( empty( $post_id ) || empty( $post ) ) {
+			return false;
+		}
+
 		// Check if our nonce is vailed.
 		if ( ! wp_verify_nonce( papi_get_sanitized_post( 'papi_meta_nonce' ), 'papi_save_data' ) ) {
-			return $data;
+			return false;
 		}
 
 		// Check if so both page type keys exists.
 		if ( empty( $_POST[papi_get_page_type_key()] ) || empty( $_POST[papi_get_page_type_key( 'switch' )] ) ) {
-			return;
+			return false;
 		}
 
 		// Page type information.
@@ -85,7 +90,7 @@ class Papi_Admin_Page_Type_Switcher {
 
 		// Don't update if the same ids.
 		if ( $page_type_id === $page_type_switch_id ) {
-			return;
+			return false;
 		}
 
 		$page_type        = papi_get_entry_type_by_id( $page_type_id );
@@ -94,47 +99,52 @@ class Papi_Admin_Page_Type_Switcher {
 
 		// Check if page type and post type is not empty.
 		if ( empty( $page_type_switch ) || empty( $post_type_object ) ) {
-			return;
+			return false;
+		}
+
+		// Check so page type has the post type.
+		if ( ! $page_type->has_post_type( $post->post_type ) || ! $page_type_switch->has_post_type( $post->post_type ) ) {
+			return false;
 		}
 
 		// Check so user can edit posts.
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
-			return;
+			return false;
 		}
 
 		// Check if autosave.
 		if ( wp_is_post_autosave( $post_id ) ) {
-			return;
+			return false;
 		}
 
 		// Check if revision.
 		if ( wp_is_post_revision( $post_id ) ) {
-			return;
+			return false;
 		}
 
 		// Check if revision post type.
-		if ( in_array( $post->post_type, array( $post_type, 'revision' ), true ) ) {
-			return;
+		if ( in_array( $post->post_type, ['revision', 'nav_menu_item'], true ) ) {
+			return false;
 		}
 
 		// Check so user can publish post.
 		if ( ! current_user_can( $post_type_object->cap->publish_posts ) ) {
-			return;
+			return false;
 		}
 
 		// Check page type capabilities.
 		if ( ! papi_current_user_is_allowed( $page_type_switch->capabilities ) ) {
-			return;
+			return false;
 		}
 
 		// Check if any properties exists.
 		if ( ! ( $properties = $page_type->get_properties() ) ) {
-			return;
+			return false;
 		}
 
 		// Check for properties on the new page type.
 		if ( ! ( $properties_switch = $page_type_switch->get_properties() ) ) {
-			return;
+			$properties_switch = [];
 		}
 
 		// Delete only properties that don't have the same type and slug.
@@ -158,7 +168,7 @@ class Papi_Admin_Page_Type_Switcher {
 		}
 
 		// Update page type id.
-		papi_set_page_type_id( $post_id, $page_type_switch_id );
+		return papi_set_page_type_id( $post_id, $page_type_switch_id );
 	}
 }
 

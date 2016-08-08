@@ -155,7 +155,6 @@ class Simple_Page_Type extends Papi_Page_Type {
 		] ) );
 
 		$this->box( 'Sections', [
-
 			papi_property( [
 				'type'     => 'repeater',
 				'title'    => 'Sections',
@@ -169,7 +168,14 @@ class Simple_Page_Type extends Papi_Page_Type {
 					] )
 				]
 			] )
+		] );
 
+		$this->box( 'String test', [
+			papi_property( [
+				'type'  => 'string',
+				'title' => 'String test',
+				'slug'  => 'string_test'
+			] )
 		] );
 	}
 
