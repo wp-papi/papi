@@ -49,7 +49,7 @@ class Papi_Admin_Page_Type_Switcher_Test extends WP_UnitTestCase {
 		// Bad post type.
 		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
 
-		$_POST[papi_get_page_type_key( 'switch' )] = 'simple-page-type';
+		$_POST[papi_get_page_type_key( 'switch' )] = 'display-not-page-type';
 
 		// Bad capabilities.
 		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
@@ -66,6 +66,7 @@ class Papi_Admin_Page_Type_Switcher_Test extends WP_UnitTestCase {
 
 		// Create new nonce because of new user.
 		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+		$_POST[papi_get_page_type_key( 'switch' )] = 'simple-page-type';
 
 		// Success!
 		$this->assertTrue( $switcher->save_post( $post_id, $post ) );
@@ -74,5 +75,45 @@ class Papi_Admin_Page_Type_Switcher_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_field( $post_id, 'hidden_test' ) );
 
 		wp_set_current_user( 0 );
+	}
+
+	public function test_save_post_revision() {
+		$switcher = new Papi_Admin_Page_Type_Switcher;
+		$post_id  = $this->factory->post->create( ['post_type' => 'revision'] );
+		$post     = get_post( $post_id );
+		$_POST    = [];
+		$user_id  = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$_POST['post_type'] = 'page';
+		$_POST[papi_get_page_type_key( 'switch' )] = 'simple-page-type';
+		$_POST[papi_get_page_type_key()] = 'properties-page-type';
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+
+		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
+
+		$post_id  = $this->factory->post->create( ['post_type' => 'revision', 'post_parent' => $post_id] );
+		$post     = get_post( $post_id );
+
+		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
+	}
+
+	public function test_save_post_autosave() {
+		$switcher = new Papi_Admin_Page_Type_Switcher;
+		$post_id  = $this->factory->post->create( ['post_type' => 'page'] );
+		$post     = get_post( $post_id );
+		$_POST    = [];
+		$user_id  = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$_POST['post_type'] = 'page';
+		$_POST[papi_get_page_type_key( 'switch' )] = 'simple-page-type';
+		$_POST[papi_get_page_type_key()] = 'properties-page-type';
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+
+		$post_id  = $this->factory->post->create( ['post_type' => 'revision', 'post_parent' => $post_id, 'post_name' => $post_id . '-autosave'] );
+		$post     = get_post( $post_id );
+
+		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
 	}
 }

@@ -102,16 +102,6 @@ class Papi_Admin_Page_Type_Switcher {
 			return false;
 		}
 
-		// Check so page type has the post type.
-		if ( ! $page_type->has_post_type( $post->post_type ) || ! $page_type_switch->has_post_type( $post->post_type ) ) {
-			return false;
-		}
-
-		// Check so user can edit posts and that the user can publish posts on the post type.
-		if ( ! current_user_can( 'edit_post', $post_id ) && ! current_user_can( $post_type_object->cap->publish_posts ) ) {
-			return false;
-		}
-
 		// Check if autosave.
 		if ( wp_is_post_autosave( $post_id ) ) {
 			return false;
@@ -127,8 +117,19 @@ class Papi_Admin_Page_Type_Switcher {
 			return false;
 		}
 
+		// Check so page type has the post type.
+		if ( ! $page_type->has_post_type( $post->post_type ) || ! $page_type_switch->has_post_type( $post->post_type ) ) {
+			return false;
+		}
+
+		// Check so user can edit posts and that the user can publish posts on the post type.
+		if ( ! current_user_can( 'edit_post', $post_id ) && ! current_user_can( $post_type_object->cap->publish_posts ) ) {
+			return false;
+		}
+
 		// Check page type capabilities.
 		if ( ! papi_current_user_is_allowed( $page_type_switch->capabilities ) ) {
+var_dump( 4 );
 			return false;
 		}
 
