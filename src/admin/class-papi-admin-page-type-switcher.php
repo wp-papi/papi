@@ -122,13 +122,13 @@ class Papi_Admin_Page_Type_Switcher {
 			return false;
 		}
 
-		// Check so user can edit posts and that the user can publish posts on the post type.
-		if ( ! current_user_can( 'edit_post', $post_id ) && ! current_user_can( $post_type_object->cap->publish_posts ) ) {
+		// Check page type capabilities.
+		if ( ! papi_current_user_is_allowed( $page_type_switch->capabilities ) ) {
 			return false;
 		}
 
-		// Check page type capabilities.
-		if ( ! papi_current_user_is_allowed( $page_type_switch->capabilities ) ) {
+		// Check so user can edit posts and that the user can publish posts on the post type.
+		if ( ! current_user_can( 'edit_post', $post_id ) || ! current_user_can( $post_type_object->cap->publish_posts ) ) {
 			return false;
 		}
 

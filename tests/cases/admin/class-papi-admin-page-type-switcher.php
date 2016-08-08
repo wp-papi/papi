@@ -79,6 +79,11 @@ class Papi_Admin_Page_Type_Switcher_Test extends WP_UnitTestCase {
 		// Bad capabilities.
 		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
 
+		$_POST[papi_get_page_type_key( 'switch' )] = 'simple-page-type';
+
+		// Bad capabilities.
+		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
+
 		update_post_meta( $post_id, papi_get_page_type_key(), 'properties-page-type' );
 		update_post_meta( $post_id, 'string_test', 'Fredrik' );
 		update_post_meta( $post_id, 'hidden_test', 'Fredrik' );
