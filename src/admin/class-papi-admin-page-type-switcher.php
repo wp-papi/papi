@@ -139,7 +139,7 @@ class Papi_Admin_Page_Type_Switcher {
 
 		// Check if any properties exists.
 		if ( ! ( $properties = $page_type->get_properties() ) ) {
-			return false;
+			$properties = [];
 		}
 
 		// Check for properties on the new page type.
