@@ -27,7 +27,7 @@ class Papi_Admin_Page_Type_Switcher {
 		$page_types    = papi_get_all_page_types( $post_type );
 
 		// Don't do anything without any page types.
-		if ( empty( $page_types ) ) {
+		if ( empty( $page_type ) || empty( $page_types ) ) {
 			return;
 		} ?>
 
@@ -129,7 +129,6 @@ class Papi_Admin_Page_Type_Switcher {
 
 		// Check page type capabilities.
 		if ( ! papi_current_user_is_allowed( $page_type_switch->capabilities ) ) {
-var_dump( 4 );
 			return false;
 		}
 
