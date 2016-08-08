@@ -48,7 +48,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$value  = papi_to_property_array_slugs( $value, $slug );
 		$result = true;
 
-		foreach ( array_keys( $value ) as $key) {
+		foreach ( array_keys( $value ) as $key ) {
 			$out    = papi_delete_property_meta_value( $post_id, $key, $type );
 			$result = $out ? $result : $out;
 		}

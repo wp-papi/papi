@@ -27,7 +27,7 @@ class Utils {
       return 'post';
     }
 
-    if (/page\=.*papi(?:%2F|\/)option/.test(window.location.search)) {
+    if (/page=.*papi(?:%2F|\/)option/.test(window.location.search)) {
       return 'option';
     }
   }
