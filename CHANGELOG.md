@@ -1,5 +1,10 @@
 # Papi Changelog
 
+## [3.1.5](https://github.com/wp-papi/papi/releases/tag/v3.1.5) - 2016-08-08
+
+* Fixed: Slug with `_property` suffix didn't work.
+* Fixed: Remove empty values on post save for properties.
+
 ## [3.1.4](https://github.com/wp-papi/papi/releases/tag/v3.1.4) - 2016-08-01
 
 * Fixed: PHP type error in group property.
