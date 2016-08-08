@@ -133,7 +133,7 @@ class Papi_Page_Type extends Papi_Entry_Type {
 		$args = func_get_args();
 		return empty( $args )
 			? parent::allowed()
-			: papi_current_user_is_allowed( $this->capabilities ) && isset( $args[0] ) && in_array( $args[0], $this->post_type );
+			: papi_current_user_is_allowed( $this->capabilities ) && isset( $args[0] ) && in_array( $args[0], $this->post_type, true );
 	}
 
 	/**
@@ -266,7 +266,7 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	 * @return bool
 	 */
 	public function has_post_type( $post_type ) {
-		return in_array( $post_type, $this->post_type );
+		return in_array( $post_type, $this->post_type, true );
 	}
 
 	/**

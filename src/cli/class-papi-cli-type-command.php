@@ -22,7 +22,7 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 	 * @return string
 	 */
 	protected function get_meta_type_value( $entry_type ) {
-		if ( in_array( $entry_type->get_type(), ['attachment'] ) ) {
+		if ( in_array( $entry_type->get_type(), ['attachment'], true ) ) {
 			return $entry_type->get_type();
 		}
 

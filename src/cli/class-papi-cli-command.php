@@ -51,7 +51,7 @@ class Papi_CLI_Command extends WP_CLI_Command {
 			$format_args['field'] = $assoc_args['field'];
 		}
 
-		if ( ! empty( $assoc_args['format'] ) && in_array( $assoc_args['format'], ['count', 'ids', 'table', 'csv', 'json'] ) ) {
+		if ( ! empty( $assoc_args['format'] ) && in_array( $assoc_args['format'], ['count', 'ids', 'table', 'csv', 'json'], true ) ) {
 			$format_args['format'] = $assoc_args['format'];
 		}
 

@@ -76,10 +76,8 @@ function the_papi_option( $slug = null, $default = null ) {
 	}
 
 	if ( is_object( $value ) ) {
-		// @codeCoverageIgnoreStart
-		$value = print_r( $value, true );
-		// @codeCoverageIgnoreEnd
+		$value = papi_convert_to_string( $value );
 	}
 
-	echo $value;
+	echo esc_html( $value );
 }

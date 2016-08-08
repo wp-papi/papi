@@ -117,7 +117,7 @@ class Papi_Core_Box {
 		$excluded_keys = ['options', 'properties'];
 
 		foreach ( $args as $key => $value ) {
-			if ( isset( $this->$key ) && ! in_array( $key, $excluded_keys ) ) {
+			if ( isset( $this->$key ) && ! in_array( $key, $excluded_keys, true ) ) {
 				$this->$key = papi_esc_html( $value );
 			}
 		}

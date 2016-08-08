@@ -112,7 +112,7 @@ function papi_esc_html( $obj, $keys = [] ) {
 
 	if ( is_array( $obj ) ) {
 		foreach ( $obj as $key => $value ) {
-			if ( in_array( $key, $keys ) ) {
+			if ( in_array( $key, $keys, true ) ) {
 				continue;
 			}
 
@@ -383,7 +383,7 @@ function papi_html_tag( $tag, $attr = [] ) {
 		}
 
 		if ( is_array( $value ) || is_object( $value ) ) {
-			$value = json_encode( $value );
+			$value = papi_maybe_json_encode( $value );
 		} else if ( is_bool( $value ) ) {
 			$value = $value ? 'true' : 'false';
 		} else if ( is_string( $value ) ) {

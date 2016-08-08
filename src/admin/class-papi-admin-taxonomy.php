@@ -29,7 +29,7 @@ final class Papi_Admin_Taxonomy {
 
 		// Get only the taxonomy types that has the taxonomy.
 		$taxonomy_types  = array_filter( $this->taxonomy_types, function ( $taxonomy_type ) use ( $taxonomy ) {
-			return in_array( $taxonomy, $taxonomy_type->taxonomy ) && $taxonomy_type->display( $taxonomy );
+			return in_array( $taxonomy, $taxonomy_type->taxonomy, true ) && $taxonomy_type->display( $taxonomy );
 		} );
 		$taxonomy_types = array_values( $taxonomy_types );
 
@@ -46,16 +46,16 @@ final class Papi_Admin_Taxonomy {
 		if ( count( $taxonomy_types ) > 1 ):
 		?>
 		<div class="form-field">
-			<label for="<?php echo $html_name; ?>">
-				<?php echo sprintf( __( '%s type', 'papi' ), $taxonomy_object->labels->singular_name ); ?>
+			<label for="<?php echo esc_attr( $html_name ); ?>">
+				<?php echo esc_html( sprintf( __( '%s type', 'papi' ), $taxonomy_object->labels->singular_name ) ); ?>
 			</label>
-			<select name="<?php echo $html_name; ?>" id="<?php echo $html_name; ?>" data-papi-page-type-key="true">
+			<select name="<?php echo esc_attr( $html_name ); ?>" id="<?php echo esc_attr( $html_name ); ?>" data-papi-page-type-key="true">
 				<?php
 				foreach ( $taxonomy_types as $taxonomy_type ) {
 					papi_render_html_tag( 'option', [
 						'data-redirect' => $taxonomy_type->redirect_after_create,
 						'value'         => esc_attr( $taxonomy_type->get_id() ),
-						$taxonomy_type->name
+						esc_html( $taxonomy_type->name )
 					] );
 				}
 				?>
@@ -66,7 +66,7 @@ final class Papi_Admin_Taxonomy {
 			papi_render_html_tag( 'input', [
 				'data-redirect'           => $taxonomy_types[0]->redirect_after_create,
 				'data-papi-page-type-key' => true,
-				'name'                    => $html_name,
+				'name'                    => esc_attr( $html_name ),
 				'type'                    => 'hidden',
 				'value'                   => esc_attr( $taxonomy_types[0]->get_id() )
 			] );

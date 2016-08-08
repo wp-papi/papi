@@ -124,5 +124,5 @@ function papi_set_taxonomy_type_id( $term_id, $taxonomy_type ) {
  * @return string
  */
 function the_papi_taxonomy_type_name( $term_id = 0 ) {
-	echo papi_get_taxonomy_type_name( $term_id );
+	echo esc_html( papi_get_taxonomy_type_name( $term_id ) );
 }

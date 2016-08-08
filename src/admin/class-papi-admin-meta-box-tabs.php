@@ -62,12 +62,12 @@ final class Papi_Admin_Meta_Box_Tabs {
 						$css_classes .= $tab->background === 'white' ? 'white-tab' : '';
 					}
 					?>
-					<li class="<?php echo $css_classes; ?>">
-						<a href="#" data-papi-tab="<?php echo $tab->id; ?>">
+					<li class="<?php echo esc_attr( $css_classes ); ?>">
+						<a href="#" data-papi-tab="<?php echo esc_attr( $tab->id ); ?>">
 							<?php if ( ! empty( $tab->icon ) ): ?>
-								<img src="<?php echo $tab->icon; ?>" alt="<?php echo $tab->title; ?>"/>
+								<img src="<?php echo esc_attr( $tab->icon ); ?>" alt="<?php echo esc_attr( $tab->title ); ?>"/>
 							<?php endif;
-							echo $tab->title; ?>
+							echo esc_html( $tab->title ); ?>
 						</a>
 					</li>
 				<?php endforeach; ?>
@@ -76,7 +76,7 @@ final class Papi_Admin_Meta_Box_Tabs {
 				<?php
 				foreach ( $this->tabs as $tab ):
 					?>
-					<div class="<?php echo $this->tabs[0] === $tab ? 'active' : ''; ?>" data-papi-tab="<?php echo $tab->id; ?>">
+					<div class="<?php echo $this->tabs[0] === $tab ? 'active' : ''; ?>" data-papi-tab="<?php echo esc_attr( $tab->id ); ?>">
 						<?php papi_render_properties( $tab->properties ); ?>
 					</div>
 				<?php

@@ -170,12 +170,12 @@ class Papi_Property extends Papi_Core_Property {
 		$css_class    .= sprintf( ' papi-layout-%s', $this->get_option( 'layout' ) );
 
 		if ( $this->get_option( 'raw' ) ) {
-			echo sprintf( '<div class="%s">', $css_class );
+			echo sprintf( '<div class="%s">', esc_attr( $css_class ) );
 			$this->render_property_html();
 			echo '</div>';
 		} else {
 			?>
-			<tr class="<?php echo $css_class; ?>">
+			<tr class="<?php echo esc_attr( $css_class ); ?>">
 				<?php if ( $this->get_option( 'sidebar' ) ): ?>
 					<td class="papi-table-sidebar">
 						<?php
@@ -217,7 +217,7 @@ class Papi_Property extends Papi_Core_Property {
 			'data-papi-rule-source-slug' => $this->html_name(),
 			'data-papi-rules'            => 'true',
 			'type'                       => 'application/json',
-			json_encode( $rules )
+			papi_maybe_json_encode( $rules )
 		] );
 	}
 }

@@ -36,7 +36,7 @@ final class Papi_Admin {
 	 * @codeCoverageIgnore
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '3.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'papi' ), '3.0' );
 	}
 
 	/**
@@ -45,7 +45,7 @@ final class Papi_Admin {
 	 * @codeCoverageIgnore
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '3.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'papi' ), '3.0' );
 	}
 
 	/**
@@ -77,7 +77,7 @@ final class Papi_Admin {
 	public function admin_body_class( $classes ) {
 		$classes .= sprintf( ' papi-meta-type-%s', papi_get_meta_type() );
 
-		if ( ! in_array( $this->post_type, papi_get_post_types() ) ) {
+		if ( ! in_array( $this->post_type, papi_get_post_types(), true ) ) {
 			return $classes;
 		}
 
@@ -186,7 +186,7 @@ final class Papi_Admin {
 		$request_uri = $_SERVER['REQUEST_URI'];
 		$post_types = papi_get_post_types();
 
-		if ( in_array( $this->post_type, $post_types ) && strpos( $request_uri, 'page_type=' ) === false ) {
+		if ( in_array( $this->post_type, $post_types, true ) && strpos( $request_uri, 'page_type=' ) === false ) {
 			$parsed_url = parse_url( $request_uri );
 
 			$only_page_type = papi_filter_settings_only_page_type( $this->post_type );

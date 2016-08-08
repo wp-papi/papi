@@ -72,7 +72,7 @@ final class Papi_Loader extends Papi_Container {
 	 * @codeCoverageIgnore
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '3.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'papi' ), '3.0' );
 	}
 
 	/**
@@ -81,7 +81,7 @@ final class Papi_Loader extends Papi_Container {
 	 * @codeCoverageIgnore
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'papi' ), '3.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'papi' ), '3.0' );
 	}
 
 	/**
@@ -238,7 +238,7 @@ final class Papi_Loader extends Papi_Container {
 
 		deactivate_plugins( PAPI_PLUGIN_BASENAME );
 
-		wp_die( __( 'WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
+		wp_die( esc_html__( 'WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
 
 		// Remove instance.
 		self::$instance = null;

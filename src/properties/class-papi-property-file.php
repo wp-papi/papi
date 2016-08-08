@@ -48,7 +48,7 @@ class Papi_Property_File extends Papi_Property {
 					'description' => trim( strip_tags( $att->post_content ) ),
 					'id'          => intval( $value ),
 					'is_image'    => (bool) wp_attachment_is_image( $value ),
-					'title'       => $att->post_title,
+					'title'       => esc_html( $att->post_title ),
 					'url'         => wp_get_attachment_url( $value ),
 				];
 
@@ -130,25 +130,25 @@ class Papi_Property_File extends Papi_Property {
 		}
 		?>
 
-		<div class="papi-property-file <?php echo $css_classes; ?>" data-file-type="<?php echo esc_attr( $this->file_type ); ?>">
+		<div class="papi-property-file <?php echo esc_attr( $css_classes ); ?>" data-file-type="<?php echo esc_attr( $this->file_type ); ?>">
 			<p class="papi-file-select <?php echo $show_button ? '' : 'papi-hide'; ?>">
 				<?php
 				if ( ! $settings->multiple ) {
-					echo $labels['no_file'] . '&nbsp;';
+					echo esc_html( $labels['no_file'] ) . '&nbsp;';
 				}
 
 				papi_render_html_tag( 'input', [
-					'name'  => $slug,
+					'name'  => esc_attr( $slug ),
 					'type'  => 'hidden',
 					'value' => ''
 				] );
 
 				papi_render_html_tag( 'button', [
-					'data-slug' => $slug,
+					'data-slug' => esc_attr( $slug ),
 					'class'     => 'button',
 					'type'      => 'button',
 
-					$labels['add']
+					esc_html( $labels['add'] )
 				] );
 				?>
 			</p>
@@ -182,7 +182,7 @@ class Papi_Property_File extends Papi_Property {
 									</div>
 									<?php if ( $this->file_type === 'file' ): ?>
 										<div class="filename">
-											<div><?php echo basename( $file->file ); ?></div>
+											<div><?php echo esc_html( basename( $file->file ) ); ?></div>
 										</div>
 									<?php endif; ?>
 								</div>

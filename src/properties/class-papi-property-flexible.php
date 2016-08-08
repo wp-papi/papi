@@ -368,7 +368,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$layout_slug = sprintf( '%s_%d%s', $this->get_slug( true ), $i, $this->layout_key );
 
 				// Since 3.0.0 the `$dblayouts` check is only for backward compatibility.
-				if ( isset( $layout['slug'] ) && ( isset( $values[$layout_slug] ) || in_array( $i . $layout['slug'], $dblayouts ) ) ) {
+				if ( isset( $layout['slug'] ) && ( isset( $values[$layout_slug] ) || in_array( $i . $layout['slug'], $dblayouts, true ) ) ) {
 					foreach ( $layout['items'] as $prop ) {
 						$slug = sprintf( '%s_%d_%s', $repeater_slug, $i, unpapify( $prop->slug ) );
 
@@ -519,9 +519,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		}
 
 		papi_render_html_tag( 'script', [
-			'data-papi-json' => sprintf( '%s_repeater_json', $slug ),
+			'data-papi-json' => esc_attr( sprintf( '%s_repeater_json', $slug ) ),
 			'type'           => 'application/json',
-			json_encode( [$options] )
+			papi_maybe_json_encode( [$options] )
 		] );
 	}
 
@@ -533,7 +533,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected function render_layout_input( $value ) {
 		$slug = sprintf( '%s[%d][%s]', $this->get_slug(), $this->counter, $this->layout_key );
 		?>
-		<input type="hidden" name="<?php echo $slug; ?>" value="<?php echo $value; ?>" />
+		<input type="hidden" name="<?php echo esc_attr( $slug ); ?>" value="<?php echo esc_attr( $value ); ?>" />
 		<?php
 	}
 
@@ -569,8 +569,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 								echo '<th class="' . ( $row[$i]->display() ? '' : 'papi-hide' ) . '">';
 								echo sprintf(
 									'<label for="%s">%s</label>',
-									$this->html_id( $row[$i], $this->counter ),
-									$row[$i]->title
+									esc_attr( $this->html_id( $row[$i], $this->counter ) ),
+									esc_html( $row[$i]->title )
 								);
 								echo '</th>';
 							}
@@ -632,7 +632,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				<div class="repeater-content-closed">
 					<?php
 					if ( $layout = $this->get_layout( $layout_slug ) ) {
-						echo $layout['title'];
+						echo esc_html( $layout['title'] );
 					}
 					?>
 				</div>
@@ -648,7 +648,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected function render_repeater( $options ) {
 		$layouts = $this->get_settings_layouts();
 		?>
-		<div class="papi-property-flexible papi-property-repeater-top" data-limit="<?php echo $this->get_setting( 'limit' ); ?>">
+		<div class="papi-property-flexible papi-property-repeater-top" data-limit="<?php echo esc_attr( $this->get_setting( 'limit' ) ); ?>">
 			<table class="papi-table">
 				<tbody class="repeater-tbody flexible-tbody">
 					<?php $this->render_repeater_row(); ?>
@@ -664,12 +664,12 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 							foreach ( $layouts as $layout ) {
 								papi_render_html_tag( 'li', [
 									papi_html_tag( 'a', [
-										'data-layout'    => $layout['slug'],
+										'data-layout'    => esc_html( $layout['slug'] ),
 										'data-papi-json' => sprintf( '%s_repeater_json', $options->slug ),
 										'href'           => '#',
 										'role'           => 'button',
 										'tabindex'       => 0,
-										$layout['title']
+										esc_html( $layout['title'] )
 									] )
 								] );
 							}
@@ -689,7 +689,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 			<?php /* Default repeater value */ ?>
 
-			<input type="hidden" data-papi-rule="<?php echo $options->slug; ?>" name="<?php echo $this->get_slug(); ?>[]" />
+			<input type="hidden" data-papi-rule="<?php echo esc_attr( $options->slug ); ?>" name="<?php echo esc_attr( $this->get_slug() ); ?>[]" />
 		</div>
 		<?php
 	}
@@ -714,7 +714,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			$keys = array_keys( $row );
 
 			foreach ( array_keys( $row ) as $slug ) {
-				if ( in_array( $slug, $keys ) || papi_is_property_type_key( $slug ) || $this->is_layout_key( $slug ) ) {
+				if ( in_array( $slug, $keys, true ) || papi_is_property_type_key( $slug ) || $this->is_layout_key( $slug ) ) {
 					continue;
 				}
 
@@ -731,7 +731,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			<tr <?php echo $closed_rows ? 'class="closed"' : ''; ?>>
 				<td class="handle">
 					<span class="toggle"></span>
-					<span class="count"><?php echo $this->counter + 1; ?></span>
+					<span class="count"><?php echo esc_html( $this->counter + 1 ); ?></span>
 				</td>
 				<?php
 				foreach ( $layouts as $layout ) {
@@ -748,7 +748,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				?>
 				<td class="last">
 					<span>
-						<a title="<?php _e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
+						<a title="<?php esc_html_e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
 					</span>
 				</td>
 			</tr>
@@ -771,7 +771,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				<%= columns %>
 				<td class="last">
 					<span>
-						<a title="<?php _e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
+						<a title="<?php esc_html_e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
 					</span>
 				</td>
 			</tr>

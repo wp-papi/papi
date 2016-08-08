@@ -32,13 +32,13 @@ class Papi_Admin_Page_Type_Switcher {
 		} ?>
 
 		<div class="misc-pub-section misc-pub-section-last papi-page-type-switcher">
-			<label for="<?php echo $page_type_key; ?>"><?php esc_html_e( 'Page Type:', 'papi' ); ?></label>
+			<label for="<?php echo esc_attr( $page_type_key ); ?>"><?php esc_html_e( 'Page Type:', 'papi' ); ?></label>
 			<span><?php echo esc_html( $page_type->name ); ?></span>
 
 			<?php if ( papi_current_user_is_allowed( $page_type->capabilities ) && $page_type->switcher ): ?>
 				<a href="#" id="papi-page-type-switcher-edit" class="hide-if-no-js"><?php esc_html_e( 'Edit', 'papi' ); ?></a>
 				<div>
-					<select name="<?php echo $page_type_key; ?>" id="<?php echo $page_type_key; ?>">
+					<select name="<?php echo esc_attr( $page_type_key ); ?>" id="<?php echo esc_attr( $page_type_key ); ?>">
 					<?php
 					foreach ( $page_types as $pt ) {
 						if ( ! papi_current_user_is_allowed( $pt->capabilities ) ) {

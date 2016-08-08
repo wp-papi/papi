@@ -162,25 +162,23 @@ class Papi_Property_Post extends Papi_Property {
 				<table class="papi-table">
 					<tr>
 						<td>
-							<label for="<?php echo $this->html_id(); ?>_post_type">
-							<?php echo $settings->labels['select_post_type']; ?>
+							<label for="<?php echo esc_attr( $this->html_id() ); ?>_post_type">
+								<?php echo esc_html( $settings->labels['select_post_type'] ); ?>
 							</label>
 						</td>
 						<td>
 							<select
-								id="<?php echo $this->html_id(); ?>_post_type"
-								class="<?php echo $classes; ?> papi-property-post-left"
-								data-select-item="<?php echo $settings->labels['select_item']; ?>"
-								data-post-query='<?php echo papi_maybe_json_encode( $settings->query ); ?>'
+								id="<?php echo esc_attr( $this->html_id() ); ?>_post_type"
+								class="<?php echo esc_attr( $classes ); ?> papi-property-post-left"
+								data-select-item="<?php echo esc_attr( $settings->labels['select_item'] ); ?>"
+								data-post-query='<?php echo esc_attr( papi_maybe_json_encode( $settings->query ) ); ?>'
 								data-width="100%"
 								>
 								<?php
 								foreach ( $labels as $post_type => $label ) {
-									$selected = $post_type === $selected_post_type ? 'selected' : null;
-
 									papi_render_html_tag( 'option', [
 										'value'    => $post_type,
-										'selected' => $selected,
+										'selected' => $post_type === $selected_post_type,
 										$label
 									] );
 
@@ -194,19 +192,19 @@ class Papi_Property_Post extends Papi_Property {
 					</tr>
 					<tr>
 					<td>
-						<label for="<?php echo $this->html_id(); ?>_posts">
-							<?php echo sprintf( $settings->labels['select_item'], $selected_label ); ?>
+						<label for="<?php echo esc_attr( $this->html_id() ); ?>_posts">
+							<?php echo esc_html( sprintf( $settings->labels['select_item'], $selected_label ) ); ?>
 						</label>
 					</td>
 					<td>
 			<?php endif; ?>
 
 			<select
-				class="<?php echo $classes; ?>  papi-property-post-right"
-				id="<?php echo $this->html_id(); ?>_posts"
-				name="<?php echo $this->html_name(); ?>"
-				data-allow-clear="<?php echo ! empty( $settings->placeholder ); ?>"
-				data-placeholder="<?php echo $settings->placeholder; ?>"
+				class="<?php echo esc_attr( $classes ); ?>  papi-property-post-right"
+				id="<?php echo esc_attr( $this->html_id() ); ?>_posts"
+				name="<?php echo esc_attr( $this->html_name() ); ?>"
+				data-allow-clear="<?php echo empty( $settings->placeholder ) ? 'false' : 'true'; ?>"
+				data-placeholder="<?php echo esc_attr( $settings->placeholder ); ?>"
 				data-width="100%"
 				>
 
@@ -217,7 +215,7 @@ class Papi_Property_Post extends Papi_Property {
 				<?php foreach ( $posts as $label => $items ) : ?>
 
 					<?php if ( $single ): ?>
-						<optgroup label="<?php echo $label; ?>">
+						<optgroup label="<?php echo esc_attr( $label ); ?>">
 					<?php endif; ?>
 
 					<?php
@@ -228,7 +226,7 @@ class Papi_Property_Post extends Papi_Property {
 
 						papi_render_html_tag( 'option', [
 							'value'      => $post->ID,
-							'selected'   => $value === $post->ID ? 'selected' : null,
+							'selected'   => $value === $post->ID,
 							$post->post_title
 						] );
 					}

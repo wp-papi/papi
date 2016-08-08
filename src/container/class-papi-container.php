@@ -87,7 +87,7 @@ class Papi_Container implements ArrayAccess {
 					continue;
 				}
 
-				if ( in_array( $arg->getClass()->name, $classes ) ) {
+				if ( in_array( $arg->getClass()->name, $classes, true ) ) {
 					$parameters[$index] = $this;
 				} else if ( $this->exists( $arg->getClass()->name ) ) {
 					$parameters[$index] = $this->make( $arg->getClass()->name );

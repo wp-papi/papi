@@ -35,7 +35,7 @@ class Papi_Admin_Ajax {
 		?>
 		<script type="text/javascript">
 			var papi = papi || {};
-			papi.ajaxUrl = '<?php echo $url; ?>';
+			papi.ajaxUrl = '<?php echo esc_html( $url ); ?>';
 		</script>
 		<?php
 	}

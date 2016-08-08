@@ -86,10 +86,10 @@ class Papi_Property_Reference extends Papi_Property {
 		}
 
 		?>
-		<ul class="papi-property-reference" data-papi-rule="<?php echo $this->html_name(); ?>">
+		<ul class="papi-property-reference" data-papi-rule="<?php echo esc_attr( $this->html_name() ); ?>">
 			<?php if ( empty( $values ) ): ?>
 				<p>
-					<?php _e( 'No references exists', 'papi' ); ?>
+					<?php esc_html_e( 'No references exists', 'papi' ); ?>
 				</p>
 			<?php
 			endif;
@@ -97,7 +97,7 @@ class Papi_Property_Reference extends Papi_Property {
 				$post_type = get_post_type_object( $title );
 				?>
 				<li>
-					<h3><?php echo $post_type->labels->name; ?></h3>
+					<h3><?php echo esc_html( $post_type->labels->name ); ?></h3>
 					<div class="handlediv" title="Click to toggle"><br></div>
 				</li>
 				<li>
@@ -105,14 +105,14 @@ class Papi_Property_Reference extends Papi_Property {
 						<ul>
 							<?php ksort( $val ); foreach ( $val as $name => $posts ): ?>
 								<li class="heading-border">
-									<h4><?php echo $name; ?></h4>
+									<h4><?php echo esc_html( $name ); ?></h4>
 									<div class="handlediv" title="Click to toggle"><br></div>
 								</li>
 								<li>
 									<div class="box">
 										<?php $i = 0;
 										foreach ( $posts as $post ): ?>
-											<a href="<?php echo get_edit_post_link( $post->ID ); ?>"><?php echo $post->post_title; ?></a>
+											<a href="<?php echo esc_attr( get_edit_post_link( $post->ID ) ); ?>"><?php echo esc_html( $post->post_title ); ?></a>
 										<?php $i++;
 										endforeach; ?>
 										<div class="clear"></div>

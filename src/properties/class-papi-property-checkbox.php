@@ -77,23 +77,23 @@ class Papi_Property_Checkbox extends Papi_Property {
 			papi_render_html_tag( 'p', [
 				papi_html_tag( 'label', [
 					'class' => 'light',
-					'for'   => $this->html_id( $key ),
+					'for'   => esc_attr( $this->html_id( $key ) ),
 
 					papi_html_tag( 'input', [
-						'id'      => $this->html_id( $key ),
-						'name'    => $this->html_name() . '[]',
+						'id'      => esc_attr( $this->html_id( $key ) ),
+						'name'    => esc_attr( $this->html_name() ) . '[]',
 						'type'    => 'hidden'
 					] ),
 
 					papi_html_tag( 'input', [
-						'checked' => in_array( $value, $settings->selected ) ? 'checked' : null,
-						'id'      => $this->html_id( $key ),
-						'name'    => $this->html_name() . '[]',
+						'checked' => in_array( $value, $settings->selected, true ),
+						'id'      => esc_attr( $this->html_id( $key ) ),
+						'name'    => esc_attr( $this->html_name() ) . '[]',
 						'type'    => 'checkbox',
-						'value'   => $value
+						'value'   => esc_attr( $value )
 					] ),
 
-					papi_convert_to_string( $key )
+					esc_html( papi_convert_to_string( $key ) )
 				] )
 			] );
 		}

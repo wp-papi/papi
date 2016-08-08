@@ -45,7 +45,7 @@ final class Papi_Admin_Columns {
 	 * @return array
 	 */
 	public function manage_page_type_posts_columns( array $defaults = [] ) {
-		if ( ! in_array( $this->post_type, papi_get_post_types() ) && ! in_array( $this->taxonomy, papi_get_taxonomies() ) ) {
+		if ( ! in_array( $this->post_type, papi_get_post_types(), true ) && ! in_array( $this->taxonomy, papi_get_taxonomies(), true ) ) {
 			return $defaults;
 		}
 
@@ -65,7 +65,7 @@ final class Papi_Admin_Columns {
 		 */
 		$defaults['entry_type'] = apply_filters(
 			'papi/settings/column_title_' . $this->get_meta_type_value(),
-			__( 'Type', 'papi' )
+			esc_html__( 'Type', 'papi' )
 		);
 
 		return $defaults;
@@ -79,7 +79,7 @@ final class Papi_Admin_Columns {
 	 * @param int    $term_id
 	 */
 	public function manage_page_type_posts_custom_column( $column_name, $post_id, $term_id = null ) {
-		if ( ! in_array( $this->post_type, papi_get_post_types() ) && ! in_array( $this->taxonomy, papi_get_taxonomies() ) ) {
+		if ( ! in_array( $this->post_type, papi_get_post_types(), true ) && ! in_array( $this->taxonomy, papi_get_taxonomies(), true ) ) {
 			return;
 		}
 
@@ -147,7 +147,7 @@ final class Papi_Admin_Columns {
 	public function restrict_page_types() {
 		$post_types = papi_get_post_types();
 
-		if ( in_array( $this->post_type, $post_types ) ) {
+		if ( in_array( $this->post_type, $post_types, true ) ) {
 			$page_types = papi_get_all_page_types( $this->post_type );
 			$page_types = array_map( function ( $page_type ) {
 				return [
@@ -172,14 +172,14 @@ final class Papi_Admin_Columns {
 			} );
 			?>
 			<select name="page_type" class="postform">
-				<option value="0" selected><?php _e( 'All types', 'papi' ); ?></option>
+				<option value="0" selected><?php esc_html_e( 'All types', 'papi' ); ?></option>
 				<?php
 				foreach ( $page_types as $page_type ) {
 					printf(
 						'<option value="%s" %s>%s</option>',
-						$page_type['value'],
+						esc_attr( $page_type['value'] ),
 						papi_get_qs( 'page_type' ) === $page_type['value'] ? ' selected' : '',
-						$page_type['name']
+						esc_html( $page_type['name'] )
 					);
 				}
 				?>

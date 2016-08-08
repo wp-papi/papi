@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group conditional
+ */
 class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 
 	public function setUp() {

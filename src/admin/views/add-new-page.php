@@ -5,13 +5,13 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 ?>
 <div class="wrap">
 	<h1>
-		<?php echo sprintf( __( 'Add New %s', 'papi' ), $post_type->labels->singular_name ); ?>
+		<?php echo esc_html( sprintf( __( 'Add New %s', 'papi' ), $post_type->labels->singular_name ) ); ?>
 
 		<label class="screen-reader-text" for="add-new-page-search">
-			<?php echo $post_type->labels->search_items; ?>
+			<?php echo esc_html( $post_type->labels->search_items ); ?>
 		</label>
 
-		<input placeholder="<?php echo $post_type->labels->search_items; ?>..." type="search" name="add-new-page-search"
+		<input placeholder="<?php echo esc_attr( $post_type->labels->search_items ); ?>..." type="search" name="add-new-page-search"
 		       id="add-new-page-search" class="papi-search">
 	</h1>
 

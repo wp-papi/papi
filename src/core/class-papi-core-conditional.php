@@ -31,7 +31,7 @@ class Papi_Core_Conditional {
 
 		$rules  = $this->prepare_rules( $rules, $property );
 
-		if ( in_array( $rules['relation'], $this->relations ) ) {
+		if ( in_array( $rules['relation'], $this->relations, true ) ) {
 			return $this->display_by_relation( $rules );
 		}
 

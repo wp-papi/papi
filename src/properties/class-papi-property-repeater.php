@@ -477,7 +477,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				return false;
 			}
 
-			return ! in_array( $item->type, $exclude_properties );
+			return ! in_array( $item->type, $exclude_properties, true );
 		} );
 	}
 
@@ -595,9 +595,9 @@ class Papi_Property_Repeater extends Papi_Property {
 		}
 
 		papi_render_html_tag( 'script', [
-			'data-papi-json' => sprintf( '%s_repeater_json', $slug ),
+			'data-papi-json' => esc_attr( sprintf( '%s_repeater_json', $slug ) ),
 			'type'           => 'application/json',
-			json_encode( [$options] )
+			papi_maybe_json_encode( [$options] )
 		] );
 	}
 
@@ -648,8 +648,8 @@ class Papi_Property_Repeater extends Papi_Property {
 					echo '<div class="repeater-content-open">';
 						echo sprintf(
 							'<label for="%s" class="papi-visually-hidden">%s</label>',
-							$this->html_id( $property, $this->counter ),
-							$property->title
+							esc_attr( $this->html_id( $property, $this->counter ) ),
+							esc_html( $property->title )
 						);
 			}
 
@@ -676,7 +676,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 	protected function render_repeater( $options ) {
 		?>
-		<div class="papi-property-repeater papi-property-repeater-top" data-limit="<?php echo $this->get_setting( 'limit' ); ?>">
+		<div class="papi-property-repeater papi-property-repeater-top" data-limit="<?php echo esc_attr( $this->get_setting( 'limit' ) ); ?>">
 			<table class="papi-table">
 				<?php $this->render_repeater_head(); ?>
 
@@ -698,7 +698,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			<?php /* Default repeater value */ ?>
 
-			<input type="hidden" data-papi-rule="<?php echo $options->slug; ?>" name="<?php echo $options->slug; ?>[]" />
+			<input type="hidden" data-papi-rule="<?php echo esc_attr( $options->slug ); ?>" name="<?php echo esc_attr( $options->slug ); ?>[]" />
 		</div>
 		<?php
 	}
@@ -721,7 +721,7 @@ class Papi_Property_Repeater extends Papi_Property {
 					}
 				?>
 					<th class="repeater-column <?php echo $property->display() ? '' : 'papi-hide'; ?>">
-						<?php echo $property->title; ?>
+						<?php echo esc_html( $property->title ); ?>
 					</th>
 				<?php endforeach; ?>
 				<th class="last"></th>
@@ -745,7 +745,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			$keys = array_keys( $value );
 
 			foreach ( $slugs as $slug ) {
-				if ( in_array( $slug, $keys ) ) {
+				if ( in_array( $slug, $keys, true ) ) {
 					continue;
 				}
 
@@ -761,7 +761,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			<tr <?php echo $closed_rows ? 'class="closed"' : ''; ?>>
 				<td class="handle">
 					<span class="toggle"></span>
-					<span class="count"><?php echo $this->counter + 1; ?></span>
+					<span class="count"><?php echo esc_html( $this->counter + 1 ); ?></span>
 				</td>
 				<?php
 					$this->render_properties( $items, $row );
@@ -769,7 +769,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				?>
 				<td class="last">
 					<span>
-						<a title="<?php _e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
+						<a title="<?php esc_attr_e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
 					</span>
 				</td>
 			</tr>
@@ -791,7 +791,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				<%= columns %>
 				<td class="last">
 					<span>
-						<a title="<?php _e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
+						<a title="<?php esc_attr_e( 'Remove', 'papi' ); ?>" href="#" class="repeater-remove-item">x</a>
 					</span>
 				</td>
 			</tr>

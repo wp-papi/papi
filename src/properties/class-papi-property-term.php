@@ -145,25 +145,23 @@ class Papi_Property_Term extends Papi_Property {
 				<table class="papi-table">
 					<tr>
 						<td>
-							<label for="<?php echo $this->html_id(); ?>_taxonomy">
-							<?php echo $settings->labels['select_taxonomy']; ?>
+							<label for="<?php echo esc_attr( $this->html_id() ); ?>_taxonomy">
+								<?php echo esc_html( $settings->labels['select_taxonomy'] ); ?>
 							</label>
 						</td>
 						<td>
 							<select
-								id="<?php echo $this->html_id(); ?>_taxonomy"
-								class="<?php echo $classes; ?> papi-property-term-left"
-								data-select-item="<?php echo $settings->labels['select_item']; ?>"
-								data-term-query='<?php echo papi_maybe_json_encode( $settings->query ); ?>'
+								id="<?php echo esc_attr( $this->html_id() ); ?>_taxonomy"
+								class="<?php echo esc_attr( $classes ); ?> papi-property-term-left"
+								data-select-item="<?php echo esc_attr( $settings->labels['select_item'] ); ?>"
+								data-term-query='<?php echo esc_attr( papi_maybe_json_encode( $settings->query ) ); ?>'
 								data-width="100%"
 								>
 								<?php
 								foreach ( $labels as $taxonomy => $label ) {
-									$selected = $taxonomy === $selected_taxonomy ? 'selected' : null;
-
 									papi_render_html_tag( 'option', [
 										'value'    => $taxonomy,
-										'selected' => $selected,
+										'selected' => $taxonomy === $selected_taxonomy,
 										$label
 									] );
 
@@ -177,20 +175,20 @@ class Papi_Property_Term extends Papi_Property {
 					</tr>
 					<tr>
 						<td>
-							<label for="<?php echo $this->html_id(); ?>_terms">
-								<?php echo sprintf( $settings->labels['select_item'], $selected_label ); ?>
+							<label for="<?php echo esc_attr( $this->html_id() ); ?>_terms">
+								<?php echo esc_html( sprintf( $settings->labels['select_item'], $selected_label ) ); ?>
 							</label>
 						</td>
 					<td>
 			<?php endif; ?>
 
 			<select
-				class="<?php echo $classes; ?>  papi-property-term-right"
-				id="<?php echo $this->html_id(); ?>_terms"
-				name="<?php echo $this->html_name(); ?>"
-				class="<?php echo $classes; ?>"
-				data-allow-clear="<?php echo ! empty( $settings->placeholder ); ?>"
-				data-placeholder="<?php echo isset( $settings->placeholder ) ? $settings->placeholder : ''; ?>"
+				class="<?php echo esc_attr( $classes ); ?>  papi-property-term-right"
+				id="<?php echo esc_attr( $this->html_id() ); ?>_terms"
+				name="<?php echo esc_attr( $this->html_name() ); ?>"
+				class="<?php echo esc_attr( $classes ); ?>"
+				data-allow-clear="<?php echo empty( $settings->placeholder ) ? 'false' : 'true'; ?>"
+				data-placeholder="<?php echo esc_attr( isset( $settings->placeholder ) ? $settings->placeholder : '' ); ?>"
 				data-width="100%">
 
 				<?php if ( ! empty( $settings->placeholder ) ): ?>
@@ -210,7 +208,7 @@ class Papi_Property_Term extends Papi_Property {
 					?>
 
 					<?php if ( $single ): ?>
-						<optgroup label="<?php echo $labels[$taxonomy]; ?>">
+						<optgroup label="<?php echo esc_attr( $labels[$taxonomy] ); ?>">
 					<?php endif; ?>
 
 					<?php
@@ -221,7 +219,7 @@ class Papi_Property_Term extends Papi_Property {
 
 						papi_render_html_tag( 'option', [
 							'value'    => $term_id,
-							'selected' => $value === $term_id ? 'selected' : null,
+							'selected' => $value === $term_id,
 							$term_name
 						] );
 					}

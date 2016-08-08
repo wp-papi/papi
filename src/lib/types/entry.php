@@ -151,7 +151,7 @@ function papi_get_all_entry_types( array $args = [] ) {
 		}
 
 		$id         = $entry_type->get_id();
-		$valid_type = in_array( $entry_type->type, $args['types'] );
+		$valid_type = in_array( $entry_type->type, $args['types'], true );
 		$valid_type = $args['mode'] === 'include' ? $valid_type : ! $valid_type;
 
 		if ( $args['all'] || ( $valid_type && call_user_func_array( [$entry_type, 'allowed'], $args['args'] ) ) ) {

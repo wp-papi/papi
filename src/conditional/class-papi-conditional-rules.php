@@ -90,15 +90,7 @@ class Papi_Conditional_Rules {
 	 * @return float|int
 	 */
 	private function convert_number( $str ) {
-		if ( is_numeric( $str ) && ! is_string( $str ) || ! is_numeric( $str ) ) {
-			return $str;
-		}
-
-		if ( $str == (int) $str ) {
-			return (int) $str;
-		} else {
-			return (float) $str;
-		}
+		return papi_cast_string_value( $str );
 	}
 
 	/**
@@ -301,7 +293,7 @@ class Papi_Conditional_Rules {
 			return false;
 		}
 
-		return in_array( $value, $rule_value );
+		return in_array( $value, $rule_value, true );
 	}
 
 	/**
@@ -318,7 +310,7 @@ class Papi_Conditional_Rules {
 			return false;
 		}
 
-		return ! in_array( $value, $rule_value );
+		return ! in_array( $value, $rule_value, true );
 	}
 
 	/**
@@ -418,7 +410,7 @@ class Papi_Conditional_Rules {
 	 * @return bool
 	 */
 	public function rule_exists( Papi_Core_Conditional_Rule $rule ) {
-		return ! in_array( $this->get_value( $rule ), [null, []] );
+		return ! in_array( $this->get_value( $rule ), [null, []], true );
 	}
 
 	/**
@@ -429,7 +421,7 @@ class Papi_Conditional_Rules {
 	 * @return bool
 	 */
 	public function rule_not_exists( Papi_Core_Conditional_Rule $rule ) {
-		return in_array( $this->get_value( $rule ), [null, []] );
+		return in_array( $this->get_value( $rule ), [null, []], true );
 	}
 
 	/**

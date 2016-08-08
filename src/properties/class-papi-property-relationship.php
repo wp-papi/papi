@@ -249,26 +249,26 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		// Convert all sneak case key to camel case.
 		foreach ( (array) $settings as $key => $val ) {
-			if ( ! is_string( $key ) || ! in_array( $key, ['only_once', 'limit'] ) ) {
+			if ( ! is_string( $key ) || ! in_array( $key, ['only_once', 'limit'], true ) ) {
 				continue;
 			}
 
 			$settings_json[papi_camel_case( $key )] = $val;
 		}
 		?>
-		<div class="papi-property-relationship" data-settings='<?php echo json_encode( $settings_json ); ?>'>
-			<input type="hidden" name="<?php echo $slug; ?>[]" data-papi-rule="<?php echo $slug; ?>" />
+		<div class="papi-property-relationship" data-settings='<?php echo esc_attr( papi_maybe_json_encode( $settings_json ) ); ?>'>
+			<input type="hidden" name="<?php echo esc_attr( $slug ); ?>[]" data-papi-rule="<?php echo esc_attr( $slug ); ?>" />
 			<div class="relationship-inner">
 				<div class="relationship-top-left">
-					<label for="<?php echo $this->html_id( 'search' ); ?>"><?php _e( 'Search', 'papi' ); ?></label>
-					<input id="<?php echo $this->html_id( 'search' ); ?>" type="search" />
+					<label for="<?php echo esc_attr( $this->html_id( 'search' ) ); ?>"><?php esc_html_e( 'Search', 'papi' ); ?></label>
+					<input id="<?php echo esc_attr( $this->html_id( 'search' ) ); ?>" type="search" />
 				</div>
 				<div class="relationship-top-right">
 					<?php if ( $settings->show_sort_by ): ?>
-						<label for="<?php echo $this->html_id( 'sort_option' ); ?>"><?php _e( 'Sort by', 'papi' ); ?></label>
-						<select id="<?php echo $this->html_id( 'sort_option' ); ?>" name="<?php echo $this->html_id( 'sort_option' ); ?>">
+						<label for="<?php echo esc_attr( $this->html_id( 'sort_option' ) ); ?>"><?php esc_html_e( 'Sort by', 'papi' ); ?></label>
+						<select id="<?php echo esc_attr( $this->html_id( 'sort_option' ) ); ?>" name="<?php echo esc_attr( $this->html_id( 'sort_option' ) ); ?>">
 							<?php foreach ( array_keys( $sort_options ) as $key ): ?>
-								<option value="<?php echo $key; ?>" <?php echo $key === $sort_option ? 'selected="selected"' : ''; ?>><?php echo $key; ?></option>
+								<option value="<?php echo esc_attr( $key ); ?>" <?php echo $key === $sort_option ? 'selected="selected"' : ''; ?>><?php echo esc_html( $key ); ?></option>
 							<?php endforeach; ?>
 						</select>
 					<?php endif; ?>
@@ -283,8 +283,8 @@ class Papi_Property_Relationship extends Papi_Property {
 							if ( ! empty( $item->title ) ):
 								?>
 								<li>
-									<input type="hidden" data-name="<?php echo $slug; ?>[]" value="<?php echo $item->id; ?>"/>
-									<a href="#" title="<?php echo $item->title; ?>"><?php echo $item->title; ?></a>
+									<input type="hidden" data-name="<?php echo esc_attr( $slug ); ?>[]" value="<?php echo esc_attr( $item->id ); ?>"/>
+									<a href="#" title="<?php echo esc_attr( $item->title ); ?>"><?php echo esc_html( $item->title ); ?></a>
 									<span class="icon plus"></span>
 								</li>
 							<?php
@@ -297,9 +297,9 @@ class Papi_Property_Relationship extends Papi_Property {
 					<ul>
 						<?php foreach ( $values as $item ): ?>
 							<li>
-								<input type="hidden" name="<?php echo $slug; ?>[]"
-								       value="<?php echo $item->id; ?>"/>
-								<a href="#"><?php echo $item->title; ?></a>
+								<input type="hidden" name="<?php echo esc_attr( $slug ); ?>[]"
+								       value="<?php echo esc_attr( $item->id ); ?>"/>
+								<a href="#"><?php echo esc_attr( $item->title ); ?></a>
 								<span class="icon minus"></span>
 							</li>
 						<?php endforeach; ?>

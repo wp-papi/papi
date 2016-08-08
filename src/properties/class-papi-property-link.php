@@ -129,32 +129,32 @@ class Papi_Property_Link extends Papi_Property {
 		$value  = (object) $value;
 		$exists = ! empty( $value->url );
 		?>
-		<div class="papi-property-link" data-replace-slug="true" data-slug="<?php echo $this->html_name(); ?>">
-			<input type="hidden" name="<?php echo $this->html_name(); ?>" value="<?php echo $exists ? 1 : ''; ?>">
+		<div class="papi-property-link" data-replace-slug="true" data-slug="<?php echo esc_attr( $this->html_name() ); ?>">
+			<input type="hidden" name="<?php echo esc_attr( $this->html_name() ); ?>" value="<?php echo $exists ? 1 : ''; ?>">
 
 			<?php if ( $exists ): ?>
 				<table class="papi-table link-table">
 					<tbody>
 						<tr>
-							<td><?php _e( 'URL', 'papi' ); ?></td>
+							<td><?php esc_html_e( 'URL', 'papi' ); ?></td>
 							<td>
-								<a href="<?php echo $value->url; ?>" target="_blank"><?php echo $value->url; ?></a>
-								<input type="hidden" value="<?php echo $value->title . ' - ' . $value->url; ?>" data-papi-rule="<?php echo $this->html_name(); ?>">
-								<input class="wp-link-url" type="hidden" value="<?php echo $value->url; ?>" name="<?php echo $this->html_name(); ?>[url]">
+								<a href="<?php echo esc_attr( $value->url ); ?>" target="_blank"><?php echo esc_attr( $value->url ); ?></a>
+								<input type="hidden" value="<?php echo esc_attr( $value->title . ' - ' . $value->url ); ?>" data-papi-rule="<?php echo esc_attr( $this->html_name() ); ?>">
+								<input class="wp-link-url" type="hidden" value="<?php echo esc_attr( $value->url ); ?>" name="<?php echo esc_attr( $this->html_name() ); ?>[url]">
 							</td>
 						</tr>
 						<tr>
-							<td><?php _e( 'Title', 'papi' ); ?></td>
+							<td><?php esc_html_e( 'Title', 'papi' ); ?></td>
 							<td>
-								<?php echo $value->title; ?>
-								<input class="wp-link-text" type="hidden" value="<?php echo $value->title; ?>" name="<?php echo $this->html_name(); ?>[title]">
+								<?php echo esc_html( $value->title ); ?>
+								<input class="wp-link-text" type="hidden" value="<?php echo esc_attr( $value->title ); ?>" name="<?php echo esc_attr( $this->html_name() ); ?>[title]">
 							</td>
 						</tr>
 						<tr>
-							<td><?php _e( 'Target', 'papi' ); ?></td>
+							<td><?php esc_html_e( 'Target', 'papi' ); ?></td>
 							<td>
-								<?php echo $value->target === '_blank' ? __( 'New window', 'papi' ) : __( 'Same window', 'papi' ); ?>
-								<input class="wp-link-target" type="hidden" value="<?php echo $value->target; ?>" name="<?php echo $this->html_name(); ?>[target]">
+								<?php echo $value->target === '_blank' ? esc_html_e( 'New window', 'papi' ) : esc_html_e( 'Same window', 'papi' ); ?>
+								<input class="wp-link-target" type="hidden" value="<?php echo esc_attr( $value->target ); ?>" name="<?php echo esc_attr( $this->html_name() ); ?>[target]">
 							</td>
 						</tr>
 					</tbody>
@@ -163,12 +163,12 @@ class Papi_Property_Link extends Papi_Property {
 
 			<p class="papi-file-select">
 				<span class="<?php echo empty( $value->url ) ? '' : 'papi-hide'; ?>">
-					<?php _e( 'No link selected', 'papi' ); ?>
-					<button class="button" data-link-action="add"><?php _e( 'Add link', 'papi' ); ?></button>
+					<?php esc_html_e( 'No link selected', 'papi' ); ?>
+					<button class="button" data-link-action="add"><?php esc_html_e( 'Add link', 'papi' ); ?></button>
 				</span>
 				<span class="<?php echo empty( $value->url ) ? 'papi-hide' : ''; ?>">
-					<button class="button" data-link-action="edit"><?php _e( 'Edit link', 'papi' ); ?></button>
-					<button class="button" data-link-action="remove"><?php _e( 'Remove link', 'papi' ); ?></button>
+					<button class="button" data-link-action="edit"><?php esc_html_e( 'Edit link', 'papi' ); ?></button>
+					<button class="button" data-link-action="remove"><?php esc_html_e( 'Remove link', 'papi' ); ?></button>
 				</span>
 			</p>
 		</div>
@@ -235,7 +235,7 @@ class Papi_Property_Link extends Papi_Property {
 				<tbody>
 					<tr>
 						<td>
-							<?php _e( 'URL', 'papi' ); ?>
+							<?php esc_html_e( 'URL', 'papi' ); ?>
 						</td>
 						<td>
 							<%= link %>
@@ -245,7 +245,7 @@ class Papi_Property_Link extends Papi_Property {
 					</tr>
 					<tr>
 						<td>
-							<?php _e( 'Title', 'papi' ); ?>
+							<?php esc_html_e( 'Title', 'papi' ); ?>
 						</td>
 						<td>
 							<%= title %>
@@ -254,11 +254,11 @@ class Papi_Property_Link extends Papi_Property {
 					</tr>
 					<tr>
 						<td>
-							<?php _e( 'Target', 'papi' ); ?>
+							<?php esc_html_e( 'Target', 'papi' ); ?>
 						</td>
 						<td>
 							<input class="wp-link-target" type="hidden" value="<%= target %>" name="<%= slug %>[target]">
-							<%= target === '_blank' ? '<?php _e( 'New window', 'papi' ) ?>' : '<?php _e( 'Same window', 'papi' ); ?>' %>
+							<%= target === '_blank' ? '<?php esc_html_e( 'New window', 'papi' ) ?>' : '<?php esc_html_e( 'Same window', 'papi' ); ?>' %>
 						</td>
 					</tr>
 				</tbody>
