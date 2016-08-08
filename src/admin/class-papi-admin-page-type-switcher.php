@@ -63,7 +63,7 @@ class Papi_Admin_Page_Type_Switcher {
 	}
 
 	/**
-	 * Update page type.
+	 * Switch page type if all checks pass.
 	 *
 	 * @param  int     $post_id
 	 * @param  WP_post $post
@@ -141,6 +141,7 @@ class Papi_Admin_Page_Type_Switcher {
 		foreach ( $properties as $property ) {
 			$delete = true;
 
+			// Check if the properties are the same or not.
 			foreach ( $properties_switch as $property_switch ) {
 				if ( $property_switch->type === $property->type && $property_switch->match_slug( $property->get_slug() ) ) {
 					$delete = false;
