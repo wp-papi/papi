@@ -248,6 +248,8 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 			'type'    => 'checkbox',
 			'checked' => true
 		] ) );
+
+		$this->assertSame( '<textarea></textarea>', papi_html_tag( 'textarea', '' ) );
 	}
 
 	public function test_papi_render_html_tag() {
