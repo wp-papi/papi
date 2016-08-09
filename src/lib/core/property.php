@@ -290,7 +290,7 @@ function papi_is_property_type_key( $str = '' ) {
  * @param  mixed $file_or_options
  * @param  array $values
  *
- * @return null|Papi_Property
+ * @return Papi_Core_Property
  */
 function papi_property( $file_or_options, array $values = [] ) {
 	if ( papi_is_empty( $file_or_options ) ) {
