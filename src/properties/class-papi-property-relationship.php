@@ -247,6 +247,17 @@ class Papi_Property_Relationship extends Papi_Property {
 			}
 		}
 
+		// Remove existing values if `only once` is active.
+		if ( $this->get_setting( 'only_once' ) ) {
+			$items = array_udiff( $items, $values, function( $a, $b ) {
+				// Backwards compatibility with both `post_title` and `title`.
+				return strcmp(
+					strtolower( isset( $a->post_title ) ? $a->post_title : $a->title ),
+					strtolower( isset( $b->post_title ) ? $b->post_title : $b->title )
+				);
+			} );
+		}
+
 		// Convert all sneak case key to camel case.
 		foreach ( (array) $settings as $key => $val ) {
 			if ( ! is_string( $key ) || ! in_array( $key, ['only_once', 'limit'], true ) ) {
