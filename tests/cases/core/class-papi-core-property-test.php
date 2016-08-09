@@ -739,6 +739,19 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( [75, 87], $value1 );
 	}
 
+	public function test_update_value_with_key_value() {
+		$property = Papi_Core_Property::factory( [
+			'type'  => 'string',
+			'title' => 'Name'
+		] );
+
+		$value = $property->update_value( ['name' => 'Fredrik'], '', 0 );
+		$this->assertTrue( is_string( $value ) );
+
+		$value1 = $property->load_value( $value, '', 0 );
+		$this->assertSame( 'Fredrik', $value1->name );
+	}
+
 	public function test_value_serialize() {
 		$property = Papi_Core_Property::factory( [
 			'title' => 'Name'
