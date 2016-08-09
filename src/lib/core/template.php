@@ -18,7 +18,6 @@ function papi_body_class( array $classes ) {
 
 	return $classes;
 }
-
 add_filter( 'body_class', 'papi_body_class' );
 
 /**
@@ -142,5 +141,4 @@ function papi_template_include( $original_template ) {
 
 	return $original_template;
 }
-
 add_filter( 'template_include', 'papi_template_include' );
