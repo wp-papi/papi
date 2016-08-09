@@ -650,7 +650,7 @@ class Papi_Core_Property {
 				return ! papi_is_empty( $val );
 			} );
 
-			if ( array_keys( $value ) !== range( 0, count( $value ) - 1 ) ) {
+			if ( ! count( array_filter( array_keys( $value ), 'is_string' ) ) ) {
 				$value = array_values( $value );
 			}
 		}
