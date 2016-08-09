@@ -319,7 +319,7 @@ function papi_property( $file_or_options, array $values = [] ) {
 /**
  * Render the given property.
  *
- * @param Papi_Property $property
+ * @param mixed $property
  */
 function papi_render_property( $property ) {
 	$property = Papi_Core_Property::factory( $property );
