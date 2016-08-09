@@ -562,7 +562,7 @@ function papi_santize_data( $obj ) {
 	if ( is_array( $obj ) ) {
 		foreach ( $obj as $k => $v ) {
 			if ( is_string( $v ) ) {
-				$obj[ $k ] = papi_santize_data( $v );
+				$obj[$k] = papi_santize_data( $v );
 			}
 		}
 	} else if ( is_string( $obj ) ) {
