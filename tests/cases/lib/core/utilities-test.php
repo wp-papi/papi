@@ -319,20 +319,6 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_json( (object) [] ) );
 	}
 
-	public function test_papi_is_method() {
-		unset( $_SERVER['REQUEST_METHOD'] );
-		$this->assertFalse( papi_is_method( 'POST' ) );
-		$_SERVER['REQUEST_METHOD'] = 'GET';
-		$this->assertTrue( papi_is_method( 'GET' ) );
-		$this->assertFalse( papi_is_method( 'POST' ) );
-		$this->assertFalse( papi_is_method( 1 ) );
-		$this->assertFalse( papi_is_method( true ) );
-		$this->assertFalse( papi_is_method( false ) );
-		$this->assertFalse( papi_is_method( [] ) );
-		$this->assertFalse( papi_is_method( (object) [] ) );
-		$this->assertFalse( papi_is_method( '' ) );
-	}
-
 	public function test_papi_maybe_convert_to_array() {
 		$this->assertEquals( [], papi_maybe_convert_to_array( (object) [] ) );
 		$this->assertSame( true, papi_maybe_convert_to_array( true ) );

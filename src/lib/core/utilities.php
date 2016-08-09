@@ -450,21 +450,6 @@ function papi_is_json( $obj ) {
 }
 
 /**
- * Check which http method it is.
- *
- * @param  string $method
- *
- * @return bool
- */
-function papi_is_method( $method ) {
-	if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || ! is_string( $method ) ) {
-		return false;
-	}
-
-	return strtoupper( $_SERVER ['REQUEST_METHOD'] ) === strtoupper( $method );
-}
-
-/**
  * Maybe JSON decode the given string.
  *
  * @param  string $str
