@@ -81,7 +81,7 @@ function papi_get_all_page_types( $post_type = '' ) {
  * @param  int    $id
  * @param  string $type
  *
- * @return Papi_Core_Meta_Store|null
+ * @return Papi_Core_Meta_Store
  */
 function papi_get_page( $id = 0, $type = 'post' ) {
 	return papi_get_meta_store( $id, $type );
@@ -227,7 +227,7 @@ add_filter( 'papi/entry_type_id', 'papi_load_page_type_id' );
 /**
  * Set page type to a post.
  *
- * @param  mixed $post_id
+ * @param  mixed  $post_id
  * @param  string $page_type
  *
  * @return bool
