@@ -182,7 +182,7 @@ function papi_get_all_entry_types( array $args = [] ) {
  *
  * @param  string $file_path
  *
- * @return null|Papi_Entry_Type
+ * @return Papi_Entry_Type
  */
 function papi_get_entry_type( $file_path ) {
 	if ( ! is_file( $file_path ) || ! is_string( $file_path ) ) {
