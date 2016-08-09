@@ -51,7 +51,7 @@ function papi_get_parent_post_id() {
 }
 
 /**
- * Get WordPress post type in various ways
+ * Get WordPress post type in various ways.
  *
  * @param  int $post_id
  *
