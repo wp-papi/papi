@@ -5,13 +5,11 @@
  *
  * @param  string $str
  *
- * @throws InvalidArgumentException if an argument is not of the expected type.
- *
- * @return string
+ * @return null|string
  */
 function papi_camel_case( $str ) {
 	if ( ! is_string( $str ) ) {
-		throw new InvalidArgumentException( 'Invalid argument. Must be string.' );
+		return;
 	}
 
 	return lcfirst( str_replace( ' ', '', ucwords( str_replace( ['-', '_'], ' ', $str ) ) ) );

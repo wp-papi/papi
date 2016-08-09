@@ -253,7 +253,9 @@ class Papi_Property_Relationship extends Papi_Property {
 				continue;
 			}
 
-			$settings_json[papi_camel_case( $key )] = $val;
+			if ( $key = papi_camel_case( $key ) ) {
+				$settings_json[$key] = $val;
+			}
 		}
 		?>
 		<div class="papi-property-relationship" data-settings='<?php echo esc_attr( papi_maybe_json_encode( $settings_json ) ); ?>'>

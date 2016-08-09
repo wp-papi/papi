@@ -86,7 +86,9 @@ class Papi_Property_Datetime extends Papi_Property {
 				continue;
 			}
 
-			$settings_json[papi_camel_case( $key )] = $val;
+			if ( $key = papi_camel_case( $key ) ) {
+				$settings_json[$key] = $val;
+			}
 		}
 
 		// Papi has `use24Hours` as key and Pikaday has `use24hour`.
