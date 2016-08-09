@@ -226,9 +226,9 @@ function papi_get_property_meta_value( $id, $slug, $type = 'post' ) {
 /**
  * Get property type by the given type.
  *
- * @param  object|string $type
+ * @param  mixed $type
  *
- * @return null|Papi_Property
+ * @return Papi_Core_Property
  */
 function papi_get_property_type( $type ) {
 	return Papi_Core_Property::factory( $type );
