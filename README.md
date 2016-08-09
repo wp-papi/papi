@@ -69,6 +69,10 @@ $ vendor/bin/phpcs -s --extensions=php --standard=phpcs.xml src/
 
 Visit the [contributing](CONTRIBUTING.md) file.
 
+## Security
+
+If you discover a security vulnerability within this package, please send an e-mail to Fredrik Forsmo at security@frozzare.com. All security vulnerabilities will be promptly addressed.
+
 ## License
 
 MIT © [Fredrik Forsmo](https://github.com/frozzare)
