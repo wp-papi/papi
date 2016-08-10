@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [3.1.8](https://github.com/wp-papi/papi/releases/tag/v3.1.8) - 2016-08-10
+
+* Fixed: Some properties did try to save the property key.
+
 ## [3.1.7](https://github.com/wp-papi/papi/releases/tag/v3.1.7) - 2016-08-10
 
 * Fixed: Save issue with key/value arrays.
