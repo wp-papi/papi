@@ -1,5 +1,10 @@
 # Papi Changelog
 
+## [3.1.7](https://github.com/wp-papi/papi/releases/tag/v3.1.7) - 2016-08-10
+
+* Fixed: Save issue with key/value arrays.
+* FIxed: Relationship setting `only_once` didn't remove items on page load [#183](https://github.com/wp-papi/papi/pull/183).
+
 ## [3.1.6](https://github.com/wp-papi/papi/releases/tag/v3.1.6) - 2016-08-08
 
 * Fixed: Issue with `papi_html_tag` that caused html output issue with some properties.
