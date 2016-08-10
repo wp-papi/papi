@@ -160,6 +160,10 @@ class Papi_Core_Data_Handler {
 		}
 
 		foreach ( $data as $key => $item ) {
+			if ( papi_is_property_type_key( $key ) ) {
+				continue;
+			}
+
 			$property = papi_get_property_type( $item['type'] );
 
 			unset( $data[ $key ] );
