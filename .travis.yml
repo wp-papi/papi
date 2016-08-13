@@ -8,10 +8,6 @@ php:
   - 7.0
   - 7.1
 
-env:
-  - WP_VERSION=4.0 WP_MULTISITE=0
-  - WP_VERSION=latest WP_MULTISITE=0
-
 install:
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-source
@@ -29,6 +25,9 @@ after_script:
   - bash <(curl -s https://codecov.io/bash)
 
 env:
+  - WP_VERSION=4.0 WP_MULTISITE=0
+  - WP_VERSION=latest WP_MULTISITE=0
+
   global:
     - WP_CLI_BIN_DIR=/tmp/wp-cli-phar
     - WP_CLI_CONFIG_PATH=/tmp/wp-cli-phar/config.yml
