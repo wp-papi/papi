@@ -71,6 +71,11 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 * @param object $post
 	 */
 	public function save_meta_boxes( $id, $post = null ) {
+		// Check if there was a multisite switch before.
+		if ( is_multisite() && ms_is_switched() ) {
+			return;
+		}
+
 		// Can't proceed without a id.
 		if ( empty( $id ) ) {
 			return;
