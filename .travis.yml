@@ -25,9 +25,9 @@ after_script:
   - bash <(curl -s https://codecov.io/bash)
 
 env:
-  - WP_VERSION=4.0 WP_MULTISITE=0
-  - WP_VERSION=latest WP_MULTISITE=0
-
+  matrix:
+    - WP_VERSION=4.0 WP_MULTISITE=0
+    - WP_VERSION=latest WP_MULTISITE=0
   global:
     - WP_CLI_BIN_DIR=/tmp/wp-cli-phar
     - WP_CLI_CONFIG_PATH=/tmp/wp-cli-phar/config.yml
