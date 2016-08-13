@@ -30,6 +30,8 @@ matrix:
     - php: 5.6
       env: WP_VERSION=latest WP_MULTISITE=1
     - php: 7.0
+      env: WP_VERSION=4.3 WP_MULTISITE=0
+    - php: 7.0
       env: WP_VERSION=latest WP_MULTISITE=0
     - php: 7.1
       env: WP_VERSION=nightly WP_MULTISITE=0
