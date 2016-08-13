@@ -258,7 +258,7 @@ final class Papi_Loader extends Papi_Container {
  * @return Papi_Loader
  */
 function papi() {
-	if ( version_compare( get_bloginfo( 'version' ), '4.0', '<' ) ) {
+	if ( version_compare( get_bloginfo( 'version' ), '4.3', '<' ) ) {
 		Papi_Loader::deactivate();
 	}
 
