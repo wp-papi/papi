@@ -2,12 +2,6 @@ language: php
 
 sudo: false
 
-php:
-  - 5.5.9
-  - 5.6
-  - 7.0
-  - 7.1
-
 install:
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-source
@@ -25,12 +19,24 @@ after_script:
   - bash <(curl -s https://codecov.io/bash)
 
 env:
-  matrix:
-    - WP_VERSION=4.3 WP_MULTISITE=0
-    - WP_VERSION=latest WP_MULTISITE=0
   global:
     - WP_CLI_BIN_DIR=/tmp/wp-cli-phar
     - WP_CLI_CONFIG_PATH=/tmp/wp-cli-phar/config.yml
+
+matrix:
+  include:
+    - php: 5.5.9
+      env: WP_VERSION=4.3 WP_MULTISITE=0
+    - php: 5.6
+      env: WP_VERSION=latest WP_MULTISITE=1
+    - php: 7.0
+      env: WP_VERSION=latest WP_MULTISITE=0
+    - php: 7.1
+      env: WP_VERSION=nightly WP_MULTISITE=0
+  allow_failures:
+    - php: 7.1
+      env: WP_VERSION=nightly WP_MULTISITE=0
+  fast_finish: true
 
 cache:
   directories:
