@@ -191,7 +191,8 @@
 
 .papi-property-flexible .flexible-column.flexible-layout-row .papi-property-repeater,
 .papi-property-repeater .papi-property-repeater {
-  margin: -21px -16px 0 -18px;
+  margin-left: -1px;
+  margin-right: -33px;
 
   > .papi-table {
     margin: -21px 0 -13px -17px;
