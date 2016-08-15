@@ -202,13 +202,29 @@
       > tr > td {
         border-right: 1px solid #eaeaea !important;
 
-        &.handle span,
+        &.handle span {
+          margin-left: -15px;
+        }
+
         &.last span {
-          margin-left: 4px;
-          text-align: inherit;
+          margin-left: -18px;
         }
       }
     }
+  }
+}
+
+//
+// Repeater inside repeater without sidebar fixes.
+// Repeater inside flexible without sidebar fixes.
+//
+
+.papi-property-flexible .flexible-column.flexible-layout-row td[colspan="2"] .papi-property-repeater,
+.papi-property-repeater td[colspan="2"] .papi-property-repeater {
+  margin-right: -31px;
+
+  > .papi-table {
+    margin: -21px 0 -13px -14px;
   }
 }
 
