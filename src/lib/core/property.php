@@ -445,6 +445,8 @@ function papi_update_property_meta_value( array $meta = [] ) {
 		}
 
 		foreach ( $value as $child_key => $child_value ) {
+			papi_cache_delete( $child_key, $meta->id, $meta->type );
+
 			if ( papi_is_empty( $child_value ) ) {
 				papi_delete_property_meta_value( $meta->id, $child_key, $meta->type );
 			} else {
