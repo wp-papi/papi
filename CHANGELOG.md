@@ -1,6 +1,6 @@
 # Papi Changelog
 
-## [3.1.9](https://github.com/wp-papi/papi/releases/tag/v3.1.9) - 2016-08-15
+## [3.1.9](https://github.com/wp-papi/papi/releases/tag/v3.1.9) - 2016-08-16
 
 * Fixed: Remove repeater rows in flexible.
 * Fixed: Object cache not updated when adding row in repeater in flexible [#185](https://github.com/wp-papi/papi/pull/185).
