@@ -282,12 +282,13 @@ class Repeater {
 
       $el.find('[data-replace-slug="true"]').each(function () {
         let $prop = $(this);
-        $prop.attr('data-slug', $prop.attr('data-slug').replace(/(\[\d+\])/, '[' + i + ']'));
+        $prop.attr('data-slug', $prop.attr('data-slug').replace(/(\[\d+\])(\[\w+\])$/g, '[' + i + ']$2'));
       });
 
       $el.find('[name*="papi_"]').each(function () {
         let $input = $(this);
-        $input.attr('name', $input.attr('name').replace(/(\[\d+\])/, '[' + i + ']'));
+        console.log($input.attr('name'));
+        $input.attr('name', $input.attr('name').replace(/(\[\d+\])(\[\w+\])$/g, '[' + i + ']$2'));
       });
     });
 
