@@ -76,3 +76,4 @@ If you discover a security vulnerability within this package, please send an e-m
 ## License
 
 MIT © [Fredrik Forsmo](https://github.com/frozzare)
+
