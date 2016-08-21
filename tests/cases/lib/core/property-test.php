@@ -170,12 +170,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_property_type_custom() {
-		add_action( 'papi_include_properties', function() {
-			require_once PAPI_FIXTURE_DIR . '/properties/class-papi-property-kvack.php';
-		} );
-
-		do_action( 'papi_include_properties' );
-
+		require_once PAPI_FIXTURE_DIR . '/properties/class-papi-property-kvack.php';
 		$this->assertTrue( papi_get_property_type( 'kvack' ) instanceof Papi_Property_Kvack );
 	}
 
