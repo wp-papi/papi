@@ -57,6 +57,30 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $this->empty_entry_type->get_boxes() );
 	}
 
+	public function test_get_boxes_filter() {
+		$this->assertTrue( is_array( $this->info_entry_type->get_boxes() ) );
+
+		add_filter( 'papi/get_boxes', function ( $boxes ) {
+			$boxes[] = [
+				'title' => 'Majs'
+			];
+
+			return $boxes;
+		} );
+
+		$boxes = $this->info_entry_type->get_boxes();
+		$this->assertSame( 'Majs', $boxes[1]->title );
+
+		add_filter( 'papi/get_boxes', function ( $boxes ) {
+			$boxes['Hello'] = [];
+
+			return $boxes;
+		} );
+
+		$boxes = $this->info_entry_type->get_boxes();
+		$this->assertSame( 'Hello', $boxes[3]->title );
+	}
+
 	public function test_get_class_name() {
 		$this->assertEmpty( $this->empty_entry_type->get_class_name() );
 		$this->assertSame( 'Info_Entry_Type', $this->info_entry_type->get_class_name() );

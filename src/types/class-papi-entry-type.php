@@ -232,10 +232,40 @@ class Papi_Entry_Type extends Papi_Core_Type {
 			$this->register();
 		}
 
+		// Merge boxes, e.g a parent box with a child box.
 		$this->boxes = $this->merge_boxes( $this->boxes );
-		$this->boxes = papi_sort_order( array_reverse( $this->boxes ) );
 
-		return $this->boxes;
+		/**
+		 * Modify boxes array.
+		 *
+		 * @param array  $boxes
+		 * @param string $id
+		 */
+		$this->boxes = apply_filters( 'papi/get_boxes', $this->boxes, $this->get_id() );
+		$this->boxes = is_array( $this->boxes ) ? $this->boxes : [];
+
+		// Go through all boxes and only add boxes
+		// that is a array and remove boxes that isn't
+		// a instance of core box class.
+		foreach ( $this->boxes as $index => $box ) {
+			if ( is_array( $box ) ) {
+				if ( is_string( $index ) ) {
+					$box['title'] = $index;
+				}
+
+				$this->box( $box );
+
+				unset( $this->boxes[$index] );
+				continue;
+			}
+
+			if ( $box instanceof Papi_Core_Box === false ) {
+				unset( $this->boxes[$index] );
+				continue;
+			}
+		}
+
+		return papi_sort_order( array_reverse( $this->boxes ) );
 	}
 
 	/**
