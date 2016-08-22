@@ -876,4 +876,13 @@ class Papi_Core_Property {
 
 		return papi_maybe_json_encode( $value );
 	}
+
+	/**
+	 * Get a string representation of the object.
+	 *
+	 * @return string
+	 */
+	public function __toString() {
+		return $this->get_slug( true );
+	}
 }

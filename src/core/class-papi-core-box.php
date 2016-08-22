@@ -135,4 +135,13 @@ class Papi_Core_Box {
 	private function setup_properties( array $properties ) {
 		$this->properties = papi_populate_properties( $properties );
 	}
+
+	/**
+	 * Get a string representation of the object.
+	 *
+	 * @return string
+	 */
+	public function __toString() {
+		return $this->id;
+	}
 }

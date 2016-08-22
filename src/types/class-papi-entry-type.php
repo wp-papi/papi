@@ -167,8 +167,6 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	/**
 	 * Convert properties to properties objects.
 	 *
-	 * @todo Refactor this method.
-	 *
 	 * @param  array|object $properties
 	 *
 	 * @return array
@@ -344,6 +342,8 @@ class Papi_Entry_Type extends Papi_Core_Type {
 			foreach ( $box->properties as $property ) {
 				$result[$box->id]->properties[] = $property;
 			}
+
+			$result[$box->id]->properties = array_unique( $result[$box->id]->properties );
 		}
 
 		return array_values( $result );
