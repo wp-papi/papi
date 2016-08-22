@@ -240,6 +240,21 @@ class Papi_Admin_Ajax {
 	}
 
 	/**
+	 * Get shortcode via GET.
+	 *
+	 * GET /papi-ajax/?action=get_shortcode
+	 */
+	public function get_shortcode() {
+		$shortcode = papi_get_qs( 'shortcode' ) ?: '';
+		$shortcode = html_entity_decode( $shortcode );
+		$shortcode = wp_unslash( $shortcode );
+
+		wp_send_json( [
+			'html' => do_shortcode( $shortcode )
+		] );
+	}
+
+	/**
 	 * Get terms via GET.
 	 *
 	 * GET /papi-ajax/?action=get_terms
@@ -286,6 +301,7 @@ class Papi_Admin_Ajax {
 		add_action( $this->action_prefix . 'get_rules_result', [$this, 'get_rules_result'] );
 		add_action( $this->action_prefix . 'get_posts', [$this, 'get_posts'] );
 		add_action( $this->action_prefix . 'get_terms', [$this, 'get_terms'] );
+		add_action( $this->action_prefix . 'get_shortcode', [$this, 'get_shortcode'] );
 	}
 }
 

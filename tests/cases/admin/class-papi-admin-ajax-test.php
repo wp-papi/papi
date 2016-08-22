@@ -499,6 +499,34 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/\{\"error\"\:\"No rule found\"\}/' );
 	}
 
+	public function test_get_shortcode_fail() {
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
+
+		$_GET = ['action' => 'get_shortcode'];
+
+		do_action( 'papi/ajax/get_shortcode' );
+
+		$this->expectOutputRegex( '/{\"html\"\:\"\"\}/' );
+	}
+
+	public function test_get_shortcode_success() {
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
+
+		add_shortcode( 'hello', function () {
+			return 'hello';
+		} );
+
+		$_GET = ['action' => 'get_shortcode', 'shortcode' => '[hello]'];
+
+		do_action( 'papi/ajax/get_shortcode' );
+
+		$this->expectOutputRegex( '/\"hello\"/' );
+	}
+
 	public function test_get_terms() {
 		if ( ! defined( 'DOING_AJAX' ) ) {
 			define( 'DOING_AJAX', true );
