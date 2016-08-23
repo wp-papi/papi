@@ -63,7 +63,7 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 				'title'         => $page_type->name,
 				'description'   => $page_type->description,
 				'thumbnail'     => $page_type->get_thumbnail(),
-				'url'           => papi_get_page_new_url( $page_type->get_id(), true, null, ['post_parent', 'lang'] ),
+				'url'           => papi_get_page_new_url( $page_type->get_id(), true, null ),
 				'use_thumbnail' => $use_thumbnail
 			] );
 		}
