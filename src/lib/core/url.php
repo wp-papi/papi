@@ -11,6 +11,11 @@
  * @return string
  */
 function papi_get_page_new_url( $page_type, $append_admin_url = true, $post_type = null, array $include = [] ) {
+	// Prepare query strings.
+	$include = empty( $include ) ? array_keys( $_GET ) : $include;
+	$include = array_diff( $include, ['page', 'page_type', 'post_type'] );
+
+	// Create new admin url.
 	$admin_url = $append_admin_url ? get_admin_url() : '';
 	$admin_url = $admin_url . 'post-new.php?page_type=' . $page_type . papi_include_query_strings( '&', $include );
 
