@@ -347,5 +347,10 @@ class Papi_Page_Type extends Papi_Entry_Type {
 		if ( empty( $this->post_type ) ) {
 			$this->post_type = ['page'];
 		}
+
+		if ( count( $this->post_type ) === 1 && $this->post_type[0] === 'any' ) {
+			$this->post_type = get_post_types( '', 'names' );
+			$this->post_type = array_values( $this->post_type );
+		}
 	}
 }
