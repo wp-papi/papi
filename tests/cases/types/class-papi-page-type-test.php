@@ -27,7 +27,6 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->simple_page_type      = papi_get_entry_type_by_id( 'simple-page-type' );
 		$this->tab_page_type         = papi_get_entry_type_by_id( 'tab-page-type' );
 		$this->properties_page_type  = papi_get_entry_type_by_id( 'properties-page-type' );
-		$this->any_page_type         = papi_get_entry_type_by_id( 'any-page-type' );
 	}
 
 	public function tearDown() {
@@ -41,8 +40,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 			$this->faq_extra_page_type,
 			$this->faq_extra2_page_type,
 			$this->simple_page_type,
-			$this->tab_page_type,
-			$this->any_page_type
+			$this->tab_page_type
 		);
 	}
 
@@ -365,6 +363,8 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 	}
 
 	public function test_any_post_type() {
-		$this->assertSame( count( $this->any_page_type->post_type ), count( get_post_types( '', 'names' ) ) );
+		require_once PAPI_FIXTURE_DIR . '/page-types2/any-page-type.php';
+		$page_type = new Any_Page_Type( PAPI_FIXTURE_DIR . '/page-types2/any-page-type.php' );
+		$this->assertSame( count( $page_type->post_type ), count( get_post_types( '', 'names' ) ) );
 	}
 }
