@@ -167,6 +167,12 @@ function papi_get_post_types() {
  * @return bool
  */
 function papi_is_page_type( $obj ) {
+	if ( is_string( $obj ) ) {
+		$obj = papi_get_entry_type_by_id( $obj );
+
+		return papi_is_page_type( $obj );
+	}
+
 	return $obj instanceof Papi_Page_Type;
 }
 

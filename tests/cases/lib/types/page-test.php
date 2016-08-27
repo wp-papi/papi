@@ -207,6 +207,16 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_page_type( (object) [] ) );
 	}
 
+	public function test_papi_is_page_type_id() {
+		$this->assertFalse( papi_is_page_type( 'empty-page-type' ) );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$this->assertTrue( papi_is_page_type( 'empty-page-type' ) );
+	}
+
 	public function test_papi_set_page_type_id() {
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
