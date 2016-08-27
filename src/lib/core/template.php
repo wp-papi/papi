@@ -8,15 +8,13 @@
  * @return array
  */
 function papi_body_class( array $classes ) {
-	$class = papi_get_entry_type_css_class();
+	$classes = array_merge( $classes, papi_get_entry_type_body_classes() );
 
-	if ( empty( $class ) ) {
-		return $classes;
+	if ( $class = papi_get_entry_type_css_class() ) {
+		$classes[] = $class;
 	}
 
-	$classes[] = $class;
-
-	return $classes;
+	return array_unique( $classes );
 }
 add_filter( 'body_class', 'papi_body_class' );
 

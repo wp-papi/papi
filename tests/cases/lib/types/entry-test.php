@@ -12,7 +12,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		unset( $this->post_id );
 	}
 
-	public function test_papi_get_entry_type_css_class() {
+	public function test_papi_get_entry_type_css_class_page() {
 		global $post;
 
 		$this->assertEmpty( papi_get_entry_type_css_class() );

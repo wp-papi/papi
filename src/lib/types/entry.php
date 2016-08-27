@@ -26,6 +26,33 @@ function papi_get_entry_type_css_class( $id = 0, $type = null ) {
 }
 
 /**
+ * Get entry type body classes.
+ *
+ * @param  int $id
+ * @param  string $type
+ *
+ * @return string
+ */
+function papi_get_entry_type_body_classes( $id = 0, $type = null ) {
+	$entry_type_id = papi_get_entry_type_id( $id, $type );
+
+	if ( empty( $entry_type_id ) ) {
+		return [];
+	}
+
+	$entry_type = papi_get_entry_type_by_id( $entry_type_id );
+
+	if ( $entry_type instanceof Papi_Entry_Type === false ) {
+		return [];
+	}
+
+	$classes = $entry_type->body_classes();
+	$classes = is_array( $classes ) ? $classes : [];
+
+	return $classes;
+}
+
+/**
  * Count entry types in the database for the
  * given entry type.
  *
@@ -260,7 +287,7 @@ function papi_get_entry_type_by_id( $id ) {
  *
  * @return Papi_Entry_Type
  */
-function papi_get_entry_type_by_meta_id( $id = 0, $type = null ) {
+function papi_get_entry_type_by_meta_id( $id = 0, $type = 'post' ) {
 	if ( ! is_numeric( $id ) ) {
 		return;
 	}
@@ -316,7 +343,7 @@ function papi_get_entry_type_id( $id = 0, $type = null ) {
  *
  * @return null|string
  */
-function papi_get_entry_type_template( $id = 0, $type = null ) {
+function papi_get_entry_type_template( $id = 0, $type = 'post' ) {
 	if ( empty( $id ) && ! is_numeric( $id ) ) {
 		return;
 	}

@@ -16,6 +16,15 @@ class Dot_Page_Type extends Papi_Page_Type {
 	}
 
 	/**
+	 * Add custom body classes.
+	 *
+	 * @return array
+	 */
+	public function body_classes() {
+		return ['custom-css-class'];
+	}
+
+	/**
 	 * Define our properties.
 	 */
 	public function register() {
