@@ -12,6 +12,20 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		unset( $this->post_id );
 	}
 
+	public function test_papi_get_entry_type_body_classes() {
+		global $post;
+
+		$post = get_post( $this->post_id );
+		$this->assertEmpty( papi_get_entry_type_body_classes() );
+
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'dot-page-type' );
+		$this->assertSame( ['custom-css-class'], papi_get_entry_type_body_classes() );
+	}
+
 	public function test_papi_get_entry_type_css_class_page() {
 		global $post;
 

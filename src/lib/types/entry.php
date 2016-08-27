@@ -1,31 +1,6 @@
 <?php
 
 /**
- * Get entry type css class, it will split the entry type id
- * on slash and take the last part of the id.
- *
- * @param  int $id
- * @param  string $type
- *
- * @return string
- */
-function papi_get_entry_type_css_class( $id = 0, $type = null ) {
-	$entry_type = papi_get_entry_type_id( $id, $type );
-
-	if ( empty( $entry_type ) ) {
-		return '';
-	}
-
-	$parts = explode( '/', $entry_type );
-
-	if ( empty( $parts ) || empty( $parts[0] ) ) {
-		return '';
-	}
-
-	return array_pop( $parts );
-}
-
-/**
  * Get entry type body classes.
  *
  * @param  int $id
@@ -50,6 +25,31 @@ function papi_get_entry_type_body_classes( $id = 0, $type = null ) {
 	$classes = is_array( $classes ) ? $classes : [];
 
 	return $classes;
+}
+
+/**
+ * Get entry type css class, it will split the entry type id
+ * on slash and take the last part of the id.
+ *
+ * @param  int $id
+ * @param  string $type
+ *
+ * @return string
+ */
+function papi_get_entry_type_css_class( $id = 0, $type = null ) {
+	$entry_type = papi_get_entry_type_id( $id, $type );
+
+	if ( empty( $entry_type ) ) {
+		return '';
+	}
+
+	$parts = explode( '/', $entry_type );
+
+	if ( empty( $parts ) || empty( $parts[0] ) ) {
+		return '';
+	}
+
+	return array_pop( $parts );
 }
 
 /**
