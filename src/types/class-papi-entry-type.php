@@ -105,7 +105,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
-	 * Get custom admin body classes.
+	 * Get custom body classes.
 	 *
 	 * @return array
 	 */
@@ -199,9 +199,9 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
-	 * Get admin body css classes.
+	 * Get body css classes.
 	 *
-	 * Use `body_classes` method to add custom admin body classes.
+	 * Use `body_classes` method to add custom body classes.
 	 *
 	 * @return array
 	 */
