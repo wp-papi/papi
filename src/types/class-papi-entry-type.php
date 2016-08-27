@@ -199,7 +199,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
-	 * Get body css classes.
+	 * Get admin body css classes.
 	 *
 	 * Use `body_classes` method to add custom body classes.
 	 *

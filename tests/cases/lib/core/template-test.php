@@ -26,8 +26,12 @@ class Papi_Lib_Core_Template_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, papi_get_page_type_key(), '/' );
 		$this->assertEmpty( papi_body_class( [] ) );
 
-		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
-		$this->assertSame( ['simple-page-type'], papi_body_class( [] ) );
+		tests_add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'dot-page-type' );
+		$this->assertSame( ['custom-css-class', 'dot-page-type'], papi_body_class( [] ) );
 	}
 
 	public function test_papi_get_template_file_name() {
