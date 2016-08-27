@@ -287,7 +287,7 @@ function papi_get_entry_type_by_id( $id ) {
  *
  * @return Papi_Entry_Type
  */
-function papi_get_entry_type_by_meta_id( $id = 0, $type = 'post' ) {
+function papi_get_entry_type_by_meta_id( $id = 0, $type = null ) {
 	if ( ! is_numeric( $id ) ) {
 		return;
 	}
@@ -299,7 +299,7 @@ function papi_get_entry_type_by_meta_id( $id = 0, $type = 'post' ) {
 		return;
 	}
 
-	if ( $entry_type = papi_get_entry_type_id( $id, $type === 'post' ? null : $type ) ) {
+	if ( $entry_type = papi_get_entry_type_id( $id, $type ) ) {
 		return papi_get_entry_type_by_id( $entry_type );
 	}
 }
@@ -343,7 +343,7 @@ function papi_get_entry_type_id( $id = 0, $type = null ) {
  *
  * @return null|string
  */
-function papi_get_entry_type_template( $id = 0, $type = 'post' ) {
+function papi_get_entry_type_template( $id = 0, $type = null ) {
 	if ( empty( $id ) && ! is_numeric( $id ) ) {
 		return;
 	}
