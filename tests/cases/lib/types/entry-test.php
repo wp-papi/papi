@@ -28,6 +28,22 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		$this->assertSame( 'simple-page-type', papi_get_entry_type_css_class() );
 	}
 
+	public function test_test_papi_get_entry_type_css_class_taxonomy() {
+		if ( ! papi_supports_term_meta() ) {
+			$this->markTestSkipped( 'Term metadata is not supported' );
+		}
+
+		$cat_id = $this->factory->category->create();
+		$this->go_to( get_term_link( $cat_id, 'category' ) );
+		$this->assertEmpty( papi_get_entry_type_css_class() );
+
+		update_term_meta( $cat_id, papi_get_page_type_key(), '/' );
+		$this->assertEmpty( papi_get_entry_type_css_class() );
+
+		update_term_meta( $cat_id, papi_get_page_type_key(), 'simple-page-type' );
+		$this->assertSame( 'simple-page-type', papi_get_entry_type_css_class() );
+	}
+
 	public function test_papi_get_entry_type_count() {
 		$this->assertSame( 0, papi_get_entry_type_count( 'simple-page-type' ) );
 		$this->assertSame( 0, papi_get_entry_type_count( null ) );
@@ -60,7 +76,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_all_entry_types() {
-		$this->assertEmpty( papi_get_all_entry_types(['cache' => false]) );
+		$this->assertEmpty( papi_get_all_entry_types( ['cache' => false] ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/entry-types'];

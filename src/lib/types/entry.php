@@ -9,7 +9,8 @@
  *
  * @return string
  */
-function papi_get_entry_type_css_class( $id = 0, $type = 'post' ) {
+function papi_get_entry_type_css_class( $id = 0, $type = null ) {
+	$type       = papi_get_meta_type( $type );
 	$entry_type = papi_get_entry_type_id( $id, $type );
 
 	if ( empty( $entry_type ) ) {
