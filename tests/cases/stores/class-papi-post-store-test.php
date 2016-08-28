@@ -5,7 +5,7 @@ class Papi_Post_Store_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -71,7 +71,7 @@ class Papi_Post_Store_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Nummer', $property->title );
 		$this->assertSame( 'papi_nummer', $property->slug );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 

@@ -56,7 +56,7 @@ class Papi_Property_Gallery_Test extends Papi_Property_Test_Case {
 		update_post_meta( $post_id, '_wp_attached_file', '2011/12/press_image.jpg' );
 		$thumbnail_url = home_url( '/wp-content/uploads/2011/12/press_image-150x150.jpg' );
 
-		tests_add_filter( 'image_downsize', function( $image, $attachment_id, $size ) use ( $thumbnail_url ) {
+		add_filter( 'image_downsize', function( $image, $attachment_id, $size ) use ( $thumbnail_url ) {
 			return [$thumbnail_url, 150, 150, false];
 		}, 10, 3 );
 

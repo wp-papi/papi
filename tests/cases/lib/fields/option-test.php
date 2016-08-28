@@ -11,7 +11,7 @@ class Papi_Lib_Fields_Option_Test extends WP_UnitTestCase {
 
 		$_SERVER['REQUEST_URI'] = 'http://site.com/?page=papi/options/header-option-type';
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 	}

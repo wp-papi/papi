@@ -26,7 +26,7 @@ class Papi_Lib_Core_Template_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, papi_get_page_type_key(), '/' );
 		$this->assertEmpty( papi_body_class( [] ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -102,7 +102,7 @@ class Papi_Lib_Core_Template_Test extends WP_UnitTestCase {
 		$this->go_to( get_permalink( $this->post_id ) );
 		$this->assertEmpty( apply_filters( 'template_include', '' ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -126,11 +126,11 @@ class Papi_Lib_Core_Template_Test extends WP_UnitTestCase {
 		$post = get_post( $this->post_id );
 		$this->go_to( get_permalink( $this->post_id ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
-		tests_add_filter( 'papi/template_include', function () {
+		add_filter( 'papi/template_include', function () {
 			return 'purus-risus-adipiscing-pharetramollis.php';
 		} );
 

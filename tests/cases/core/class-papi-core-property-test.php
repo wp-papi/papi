@@ -8,7 +8,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 

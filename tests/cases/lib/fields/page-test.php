@@ -7,7 +7,7 @@ class Papi_Lib_Fields_Page_Test extends WP_UnitTestCase {
 
 		$_GET = [];
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -75,7 +75,7 @@ class Papi_Lib_Fields_Page_Test extends WP_UnitTestCase {
 
 		$post = get_post( $this->post_id );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 

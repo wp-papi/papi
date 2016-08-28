@@ -10,7 +10,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->admin = new Papi_Admin;
 		$this->post_id = $this->factory->post->create();
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 	}
@@ -103,7 +103,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	public function test_load_post_new_2() {
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=page';
 
-		tests_add_filter( 'wp_redirect', function( $location ) {
+		add_filter( 'wp_redirect', function( $location ) {
 			$this->assertSame( 'edit.php?post_type=page&page=papi-add-new-page,page', $location );
 			return false;
 		} );
@@ -116,12 +116,12 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	public function test_load_post_new_3() {
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=page';
 
-		tests_add_filter( 'wp_redirect', function( $location ) {
+		add_filter( 'wp_redirect', function( $location ) {
 			$this->assertSame( 'post-new.php?page_type=simple-page-type&post_type=page', $location );
 			return false;
 		} );
 
-		tests_add_filter( 'papi/settings/only_page_type_page', function () {
+		add_filter( 'papi/settings/only_page_type_page', function () {
 			return 'simple-page-type';
 		} );
 
@@ -133,10 +133,10 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	public function test_load_post_new_4() {
 		papi_test_register_book_post_type();
 
-		tests_add_filter( 'papi/settings/show_standard_page_type_book', '__return_false' );
+		add_filter( 'papi/settings/show_standard_page_type_book', '__return_false' );
 
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=book';
-		tests_add_filter( 'wp_redirect', function( $location ) {
+		add_filter( 'wp_redirect', function( $location ) {
 			$this->assertSame( 'post-new.php?page_type=book-page-type&post_type=book', $location );
 			return false;
 		} );
@@ -232,7 +232,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$results = $admin->wp_link_query( [$post] );
 		$this->assertSame( [$post2], $results );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 

@@ -10,7 +10,7 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 
 		$this->handler = new Papi_Admin_Meta_Handler;
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types', PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 

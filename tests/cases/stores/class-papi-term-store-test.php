@@ -9,7 +9,7 @@ class Papi_Term_Store_Test extends WP_UnitTestCase {
 			$this->markTestSkipped( 'Term metadata is not supported' );
 		}
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 

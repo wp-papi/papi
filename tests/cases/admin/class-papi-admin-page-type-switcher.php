@@ -8,7 +8,7 @@ class Papi_Admin_Page_Type_Switcher_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return PAPI_FIXTURE_DIR . '/page-types';
 		} );
 	}

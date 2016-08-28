@@ -7,7 +7,7 @@ class Papi_Lib_Core_Deprecated_Test extends WP_UnitTestCase {
 		$_GET = [];
 
 		add_action( 'deprecated_function_run', [$this, 'deprecated_function_run'] );
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 

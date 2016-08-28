@@ -93,7 +93,7 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 	}
 
 	public function test_custom_display() {
-		tests_add_filter( 'papi/conditional/rule/==', function ( $rule ) {
+		add_filter( 'papi/conditional/rule/==', function ( $rule ) {
 			return $rule->value === 'hello';
 		} );
 
@@ -115,7 +115,7 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 		] );
 		$this->assertTrue( $result );
 
-		tests_add_filter( 'papi/conditional/rule/===', function ( $rule ) {
+		add_filter( 'papi/conditional/rule/===', function ( $rule ) {
 			return null;
 		} );
 
@@ -130,7 +130,7 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 	}
 
 	public function test_display_with_simple_slug() {
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -187,7 +187,7 @@ class Papi_Core_Conditional_Test extends WP_UnitTestCase {
 	}
 
 	public function test_display_with_array_slug() {
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 

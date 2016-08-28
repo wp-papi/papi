@@ -18,7 +18,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$_GET['post_type'] = 'page';
 		$this->assertFalse( papi_display_page_type( 'fake-page-type2' ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -28,7 +28,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$page_type = papi_get_entry_type_by_id( 'empty-page-type' );
 		$this->assertTrue( papi_display_page_type( $page_type ) );
 
-		tests_add_filter( 'papi/settings/show_page_type_page', function ( $page_type ) {
+		add_filter( 'papi/settings/show_page_type_page', function ( $page_type ) {
 			if ( $page_type == 'simple-page-type' ) {
 				return false;
 			}
@@ -51,7 +51,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_display_for_child_page_type() {
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -65,7 +65,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_display_for_child_page_type_2() {
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -83,7 +83,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_all_page_types() {
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 		papi()->reset();
@@ -101,7 +101,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 	public function test_papi_get_page_type_id_meta_value() {
 		$this->assertEmpty( papi_get_page_type_id() );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -118,7 +118,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 	public function test_papi_get_page_type_id_post_parent() {
 		$post_id = $this->factory->post->create();
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -165,7 +165,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_get_page_type_name( null ) );
 		$this->assertEmpty( papi_get_page_type_name( 0 ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -183,7 +183,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 
 		$this->assertEmpty( papi_get_post_types() );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -210,7 +210,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 	public function test_papi_is_page_type_id() {
 		$this->assertFalse( papi_is_page_type( 'fake-page-type' ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -218,7 +218,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_set_page_type_id() {
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -239,7 +239,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		the_papi_page_type_name( 0 );
 		$this->expectOutputRegex( '//' );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 

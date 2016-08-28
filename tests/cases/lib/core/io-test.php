@@ -23,7 +23,7 @@ class Papi_Lib_Core_IO_Test extends WP_UnitTestCase {
 	public function test_papi_get_core_type_file_path() {
 		$this->assertEmpty( papi_get_core_type_file_path( '' ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [PAPI_FIXTURE_DIR . '/entry-types', PAPI_FIXTURE_DIR . '/entry-types2'];
 		} );
 
@@ -51,7 +51,7 @@ class Papi_Lib_Core_IO_Test extends WP_UnitTestCase {
 		papi()->reset();
 		$this->assertEmpty( papi_get_all_core_type_files() );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -71,7 +71,7 @@ class Papi_Lib_Core_IO_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_file_path( '' ) );
 		$this->assertNull( papi_get_file_path( 'simple-page-type' ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -91,7 +91,7 @@ class Papi_Lib_Core_IO_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_get_core_type_base_path( '' ) );
 		$this->assertSame( 'simple-page-type', papi_get_core_type_base_path( 'simple-page-type' ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 

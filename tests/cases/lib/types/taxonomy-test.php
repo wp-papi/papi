@@ -20,7 +20,7 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 	public function test_papi_get_taxonomy_type_id_meta_value() {
 		$this->assertEmpty( papi_get_taxonomy_type_id() );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 
@@ -42,7 +42,7 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 		$this->assertEmpty( papi_get_taxonomy_type_name( null ) );
 		$this->assertEmpty( papi_get_taxonomy_type_name( 0 ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 
@@ -63,7 +63,7 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 
 		$this->assertEmpty( papi_get_taxonomies() );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 
@@ -77,7 +77,7 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 	public function test_papi_load_taxonomy_type_id() {
 		$this->assertEmpty( papi_load_taxonomy_type_id() );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 
@@ -95,7 +95,7 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_set_taxonomy_type_id() {
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 
@@ -116,7 +116,7 @@ class Papi_Lib_Types_Taxonomy_Test extends WP_UnitTestCase {
 		the_papi_taxonomy_type_name( 0 );
 		$this->expectOutputRegex( '//' );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 

@@ -8,7 +8,7 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types',  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 
@@ -125,12 +125,12 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 			$this->assertSame( 'Missing `value` in options array.', $e->getMessage() );
 		}
 
-		tests_add_filter( 'papi/porter/driver/after/driver:test', function ( $value, $slug ) {
+		add_filter( 'papi/porter/driver/after/driver:test', function ( $value, $slug ) {
 			$this->assertTrue( $value );
 			$this->assertSame( 'bool_test', $slug );
 		}, 10, 2 );
 
-		tests_add_filter( 'papi/porter/driver/after/', function ( $value, $slug ) {
+		add_filter( 'papi/porter/driver/after/', function ( $value, $slug ) {
 			$this->assertTrue( $value );
 			$this->assertSame( 'bool_test', $slug );
 		}, 10, 2 );

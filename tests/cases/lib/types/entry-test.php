@@ -18,7 +18,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		$post = get_post( $this->post_id );
 		$this->assertEmpty( papi_get_entry_type_body_classes() );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -67,7 +67,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		$this->assertSame( 0, papi_get_entry_type_count( new stdClass() ) );
 		$this->assertSame( 0, papi_get_entry_type_count( 1 ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -80,7 +80,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_entry_type_exists() {
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -92,7 +92,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 	public function test_papi_get_all_entry_types() {
 		$this->assertEmpty( papi_get_all_entry_types( ['cache' => false] ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/entry-types'];
 		} );
 
@@ -108,7 +108,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_all_entry_types_with_same_id() {
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [PAPI_FIXTURE_DIR . '/entry-types', PAPI_FIXTURE_DIR . '/entry-types2'];
 		} );
 
@@ -124,7 +124,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_all_entry_types_option() {
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -158,7 +158,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_entry_type_by_id( null ) );
 		$this->assertNull( papi_get_entry_type_by_id( 'page' ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -174,7 +174,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_entry_type_by_meta_id( false ) );
 		$this->assertNull( papi_get_entry_type_by_meta_id( null ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
@@ -191,7 +191,7 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_entry_type_template( null ) );
 		$this->assertNull( papi_get_entry_type_template( 0 ) );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types',  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 

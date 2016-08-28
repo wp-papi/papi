@@ -18,7 +18,7 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	public function test_papi_filter_format_value() {
 		$this->assertSame( 'hello', papi_filter_format_value( 'string', 'hello', 'slug', 1 ) );
 
-		tests_add_filter( 'papi/format_value/string', function () {
+		add_filter( 'papi/format_value/string', function () {
 			return 'change-format';
 		} );
 
@@ -49,7 +49,7 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	public function test_papi_filter_load_value() {
 		$this->assertSame( 'hello', papi_filter_load_value( 'string', 'hello', 'slug', 1 ) );
 
-		tests_add_filter( 'papi/load_value/string', function () {
+		add_filter( 'papi/load_value/string', function () {
 			return 'change-load';
 		} );
 
@@ -59,7 +59,7 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	public function test_papi_filter_settings_default_sort_order() {
 		$this->assertSame( 1000, papi_filter_settings_sort_order() );
 
-		tests_add_filter( 'papi/settings/sort_order', function () {
+		add_filter( 'papi/settings/sort_order', function () {
 			return 1;
 		} );
 
@@ -67,20 +67,20 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_filter_page_type_directories() {
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [];
 		} );
 
 		$this->assertEmpty( papi_filter_settings_directories() );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return 'path';
 		} );
 
 		$directories = papi_filter_settings_directories();
 		$this->assertSame( 'path', $directories[0] );
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return null;
 		} );
 
@@ -90,7 +90,7 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	public function test_papi_filter_update_value() {
 		$this->assertSame( 'hello', papi_filter_update_value( 'string', 'hello', 'slug', 1 ) );
 
-		tests_add_filter( 'papi/update_value/string', function () {
+		add_filter( 'papi/update_value/string', function () {
 			return 'change-update';
 		} );
 

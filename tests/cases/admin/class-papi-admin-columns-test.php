@@ -11,7 +11,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$this->post_id = $this->factory->post->create();
 		$this->term_id = $this->factory->term->create();
 
-		tests_add_filter( 'papi/settings/directories', function () {
+		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types', PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
 	}
@@ -35,7 +35,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 	public function test_manage_page_type_posts_columns_hide_filter() {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin_Columns;
-		tests_add_filter( 'papi/settings/column_hide_page', '__return_true' );
+		add_filter( 'papi/settings/column_hide_page', '__return_true' );
 		$arr = $admin->manage_page_type_posts_columns( [] );
 		$this->assertFalse( isset( $arr['entry_type'] ) );
 		unset( $_GET['post_type'] );
@@ -47,7 +47,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$arr = $admin->manage_page_type_posts_columns( [] );
 		$this->assertSame( ['entry_type' => 'Type'], $arr );
 
-		tests_add_filter( 'papi/settings/column_title_page', function () {
+		add_filter( 'papi/settings/column_title_page', function () {
 			return 'Typer';
 		} );
 
@@ -96,7 +96,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin_Columns;
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
-		tests_add_filter( 'papi/settings/column_hide_page', '__return_true' );
+		add_filter( 'papi/settings/column_hide_page', '__return_true' );
 
 		$admin->manage_page_type_posts_custom_column( 'entry_type', $this->post_id );
 		$this->expectOutputRegex( '//' );
@@ -133,7 +133,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 
 	public function test_restrict_page_types_2() {
 		$_GET['post_type'] = 'page';
-		tests_add_filter( 'papi/settings/show_standard_page_type_in_filter_page', '__return_true' );
+		add_filter( 'papi/settings/show_standard_page_type_in_filter_page', '__return_true' );
 		$admin = new Papi_Admin_Columns;
 		$admin->restrict_page_types();
 		$this->expectOutputRegex( '/.*\S.*/' );
