@@ -113,11 +113,11 @@ function papi_get_file_path( $file ) {
  *
  * @param  string $file
  *
- * @return null|string
+ * @return string
  */
 function papi_get_core_type_base_path( $file ) {
 	if ( empty( $file ) || ! is_string( $file ) ) {
-		return;
+		return '';
 	}
 
 	$directories = papi_filter_settings_directories();

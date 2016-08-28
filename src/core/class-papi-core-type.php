@@ -13,25 +13,11 @@ class Papi_Core_Type {
 	private $_class_name = '';
 
 	/**
-	 * The file name of the core type file.
-	 *
-	 * @var string
-	 */
-	private $_file_name = '';
-
-	/**
 	 * The file path of the core type file.
 	 *
 	 * @var string
 	 */
 	private $_file_path = '';
-
-	/**
-	 * The core type identifier.
-	 *
-	 * @var string
-	 */
-	public $id = '';
 
 	/**
 	 * The name of the core type.
@@ -111,11 +97,7 @@ class Papi_Core_Type {
 	 * @return string
 	 */
 	public function get_id() {
-		if ( ! empty( $this->id ) ) {
-			return $this->id;
-		}
-
-		return $this->_file_name;
+		return papi_get_core_type_base_path( $this->_file_path );
 	}
 
 	/**
@@ -212,7 +194,6 @@ class Papi_Core_Type {
 	 */
 	private function setup_file( $file_path ) {
 		$this->_file_path  = $file_path;
-		$this->_file_name  = papi_get_core_type_base_path( $this->_file_path );
 		$this->_class_name = papi_get_class_name( $this->_file_path );
 	}
 

@@ -86,7 +86,7 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		tests_add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
-
+		papi()->reset();
 		$this->assertNotEmpty( papi_get_all_page_types() );
 		$this->assertSame( 1, count( papi_get_all_page_types( 'book' ) ) );
 	}

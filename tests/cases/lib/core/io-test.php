@@ -83,12 +83,12 @@ class Papi_Lib_Core_IO_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_core_type_base_path() {
-		$this->assertNull( papi_get_core_type_base_path( 1 ) );
-		$this->assertNull( papi_get_core_type_base_path( true ) );
-		$this->assertNull( papi_get_core_type_base_path( false ) );
-		$this->assertNull( papi_get_core_type_base_path( [] ) );
-		$this->assertNull( papi_get_core_type_base_path( (object) [] ) );
-		$this->assertNull( papi_get_core_type_base_path( '' ) );
+		$this->assertEmpty( papi_get_core_type_base_path( 1 ) );
+		$this->assertEmpty( papi_get_core_type_base_path( true ) );
+		$this->assertEmpty( papi_get_core_type_base_path( false ) );
+		$this->assertEmpty( papi_get_core_type_base_path( [] ) );
+		$this->assertEmpty( papi_get_core_type_base_path( (object) [] ) );
+		$this->assertEmpty( papi_get_core_type_base_path( '' ) );
 		$this->assertSame( 'simple-page-type', papi_get_core_type_base_path( 'simple-page-type' ) );
 
 		tests_add_filter( 'papi/settings/directories', function () {
@@ -98,7 +98,7 @@ class Papi_Lib_Core_IO_Test extends WP_UnitTestCase {
 		$path = papi_get_file_path( 'simple-page-type' );
 		$this->assertSame( 'simple-page-type', papi_get_core_type_base_path( $path ) );
 
-		$this->assertNull( papi_get_core_type_base_path( '' ) );
-		$this->assertNull( papi_get_core_type_base_path( null ) );
+		$this->assertEmpty( papi_get_core_type_base_path( '' ) );
+		$this->assertEmpty( papi_get_core_type_base_path( null ) );
 	}
 }

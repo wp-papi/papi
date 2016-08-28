@@ -90,10 +90,14 @@ function papi_get_entry_type_count( $entry_type ) {
  * @return bool
  */
 function papi_entry_type_exists( $id ) {
-	$page_types = papi_get_all_entry_types();
+	if ( papi()->exists( $id ) ) {
+		return true;
+	}
 
-	foreach ( $page_types as $page_type ) {
-		if ( $page_type->match_id( $id ) ) {
+	$entry_types = papi_get_all_entry_types();
+
+	foreach ( $entry_types as $entry_type ) {
+		if ( $entry_type->match_id( $id ) ) {
 			return true;
 		}
 	}
@@ -216,14 +220,15 @@ function papi_get_entry_type( $file_path ) {
 		return;
 	}
 
-	$class_name = papi_get_class_name( $file_path );
+	$id = papi_get_core_type_base_path( $file_path );
 
-	if ( empty( $class_name ) ) {
+	// Check if file path is changed.
+	if ( $id === $file_path ) {
 		return;
 	}
 
-	// Try to add the page type to the container.
-	if ( ! papi()->exists( $class_name ) ) {
+	if ( ! papi()->exists( $id ) ) {
+		$class_name = papi_get_class_name( $file_path );
 
 		// @codeCoverageIgnoreStart
 		if ( ! class_exists( $class_name ) ) {
@@ -238,15 +243,15 @@ function papi_get_entry_type( $file_path ) {
 		$rc         = new ReflectionClass( $class_name );
 		$entry_type = $rc->newInstanceArgs( [$file_path] );
 
-		// If the page type don't have a name we can't use it.
+		// If the entry type don't have a name we can't use it.
 		if ( ! $entry_type->has_name() ) {
 			return;
 		}
 
-		papi()->singleton( $class_name, $entry_type );
+		papi()->singleton( $id, $entry_type );
 	}
 
-	return papi()->make( $class_name );
+	return papi()->make( $id );
 }
 
 /**
@@ -259,6 +264,10 @@ function papi_get_entry_type( $file_path ) {
 function papi_get_entry_type_by_id( $id ) {
 	if ( ! is_string( $id ) || empty( $id ) ) {
 		return;
+	}
+
+	if ( papi()->exists( $id ) ) {
+		return papi()->make( $id );
 	}
 
 	$result      = null;
