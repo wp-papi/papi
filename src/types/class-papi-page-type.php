@@ -177,7 +177,7 @@ class Papi_Page_Type extends Papi_Entry_Type {
 		foreach ( papi_to_array( $this->child_types ) as $id ) {
 			$child_type = papi_get_entry_type_by_id( $id );
 
-			if ( papi_is_page_type( $child_type ) ) {
+			if ( $child_type instanceof Papi_Page_Type ) {
 				$child_types[] = $child_type;
 			}
 		}

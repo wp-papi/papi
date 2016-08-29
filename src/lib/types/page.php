@@ -38,7 +38,7 @@ function papi_display_page_type( $page_type ) {
 
 	$parent_page_type = papi_get_entry_type_by_meta_id( papi_get_parent_post_id() );
 
-	if ( papi_is_page_type( $parent_page_type ) ) {
+	if ( $parent_page_type instanceof Papi_Page_Type ) {
 		$child_types = $parent_page_type->get_child_types();
 
 		if ( ! empty( $child_types ) ) {
@@ -58,13 +58,11 @@ function papi_display_page_type( $page_type ) {
  * @return array
  */
 function papi_get_all_page_types( $post_type = '' ) {
-	$entry_types = papi_get_all_entry_types( [
+	$page_types = papi_get_all_entry_types( [
 		'args'  => $post_type,
 		'mode'  => 'include',
 		'types' => ['attachment', 'page']
 	] );
-
-	$page_types = array_filter( $entry_types, 'papi_is_page_type' );
 
 	if ( is_array( $page_types ) ) {
 		usort( $page_types, function ( $a, $b ) {
@@ -160,20 +158,14 @@ function papi_get_post_types() {
 }
 
 /**
- * Check if `$obj` is a instanceof `Papi_Page_Type`.
+ * Check if given string is a page type
  *
- * @param  mixed $obj
+ * @param  mixed $str
  *
  * @return bool
  */
-function papi_is_page_type( $obj ) {
-	if ( is_string( $obj ) ) {
-		$obj = papi_get_entry_type_by_id( $obj );
-
-		return papi_is_page_type( $obj );
-	}
-
-	return $obj instanceof Papi_Page_Type;
+function papi_is_page_type( $str ) {
+	return $str === papi_get_entry_type_id();
 }
 
 /**

@@ -17,11 +17,11 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 
 	<div class="papi-box-list">
 		<?php
-		$parent_page_type = papi_get_entry_type_by_id( papi_get_page_type_id() );
+		$parent_page_type = papi_get_entry_type_by_id( papi_get_entry_type_id() );
 		$page_types       = papi_get_all_page_types( $post_type_name );
 		$show_standard    = papi_filter_settings_show_standard_page_type( $post_type_name );
 
-		if ( papi_is_page_type( $parent_page_type ) ) {
+		if ( $parent_page_type instanceof Papi_Page_Type ) {
 			$child_types = $parent_page_type->get_child_types();
 			$page_types = empty( $child_types ) ? $page_types : $child_types;
 
