@@ -158,9 +158,9 @@ function papi_get_post_types() {
 }
 
 /**
- * Check if given string is a page type
+ * Check if given string is a page type.
  *
- * @param  mixed $str
+ * @param  string $str
  *
  * @return bool
  */
