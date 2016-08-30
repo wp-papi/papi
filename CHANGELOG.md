@@ -1,5 +1,10 @@
 # Papi Changelog
 
+## [3.1.10](https://github.com/wp-papi/papi/releases/tag/v3.1.10) - 2016-08-30
+
+* Fixed: Multiple render issue when using `papi_get_field` instead a property array.
+* Fixed: Add new page did remove custom query strings that shouldn't be removed.
+
 ## [3.1.9](https://github.com/wp-papi/papi/releases/tag/v3.1.9) - 2016-08-16
 
 * Fixed: Small css fixes for repeater in flexible [#187](https://github.com/wp-papi/papi/pull/187).
