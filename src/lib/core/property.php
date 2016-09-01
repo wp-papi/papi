@@ -463,6 +463,7 @@ function papi_update_property_meta_value( array $meta = [] ) {
 		return;
 	}
 
+	// Check for string keys in the array if any.
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
 		if ( is_string( $key ) ) {
 			$save_value = false;
@@ -470,10 +471,12 @@ function papi_update_property_meta_value( array $meta = [] ) {
 		}
 	}
 
+	// If main value shouldn't be saved it should be array.
 	if ( ! $save_value && is_array( $meta->value ) ) {
 		$meta->value = [$meta->value];
 	}
 
+	// Delete saved value if empty.
 	if ( papi_is_empty( $meta->value ) ) {
 		return papi_delete_property_meta_value( $meta->id, $meta->slug, $meta->type );
 	}
@@ -481,12 +484,15 @@ function papi_update_property_meta_value( array $meta = [] ) {
 	$result = true;
 
 	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
+		// Delete saved value if value is empty.
 		if ( papi_is_empty( $value ) || $value === '[]' || $value === '{}' ) {
 			return papi_delete_property_meta_value( $meta->id, $meta->slug, $meta->type );
 		}
 
+		// Delete main value cache.
 		papi_cache_delete( $meta->slug, $meta->id, $meta->type );
 
+		// If not a array we can save the value.
 		if ( ! is_array( $value ) ) {
 			if ( $save_value ) {
 				$value = $meta->value;
@@ -503,9 +509,11 @@ function papi_update_property_meta_value( array $meta = [] ) {
 			continue;
 		}
 
-		foreach ( $value as $child_key => $child_value ) {
-			papi_cache_delete( $child_key, $meta->id, $meta->type );
+		// Delete all child value caches.
+		papi_update_property_meta_value_cache_delete( $meta, $value );
 
+		// Update metadata or option value for all child values.
+		foreach ( $value as $child_key => $child_value ) {
 			if ( papi_is_empty( $child_value ) ) {
 				papi_delete_property_meta_value( $meta->id, $child_key, $meta->type );
 			} else {
@@ -519,6 +527,24 @@ function papi_update_property_meta_value( array $meta = [] ) {
 	}
 
 	return $result;
+}
+
+/**
+ * Delete cache values on update property meta.
+ *
+ * @param  object $meta
+ * @param  array  $value
+ */
+function papi_update_property_meta_value_cache_delete( $meta, $value ) {
+	$value = is_array( $value ) ? $value : [];
+
+	foreach ( $value as $child_key => $child_value ) {
+		papi_cache_delete( $child_key, $meta->id, $meta->type );
+
+		if ( is_array( $child_value ) ) {
+			papi_update_property_meta_value_cache_delete( $meta, $child_value );
+		}
+	}
 }
 
 /**
