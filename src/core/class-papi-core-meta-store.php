@@ -13,6 +13,13 @@ abstract class Papi_Core_Meta_Store {
 	public $id;
 
 	/**
+	 * Current properties.
+	 *
+	 * @var array
+	 */
+	protected $properties = [];
+
+	/**
 	 * The meta type.
 	 *
 	 * @var string
@@ -56,60 +63,34 @@ abstract class Papi_Core_Meta_Store {
 	}
 
 	/**
-	 * Get value from property.
+	 * Get value, uncached.
 	 *
 	 * @param  string $slug
 	 *
 	 * @return mixed
 	 */
 	public function get_value( $slug ) {
-		$slug  = unpapify( $slug );
-		$value = papi_get_property_meta_value( $this->id, $slug, $this->get_type() );
+		$value = $this->load_value( $slug );
 
-		return $this->convert( $slug, $value );
+		return $this->format_value( $slug, $value );
 	}
 
 	/**
-	 * Convert property value with the property type converter.
+	 * Format property value from the property.
 	 *
 	 * @param  string $slug
 	 * @param  mixed  $value
 	 *
 	 * @return mixed
 	 */
-	protected function convert( $slug, $value ) {
-		$property = $this->get_property( $slug );
+	public function format_value( $slug, $value ) {
+		$slug     = unpapify( $slug );
+		$property = $this->property( $slug );
 
 		// If no property type is found, just return null.
 		if ( ! papi_is_property( $property ) ) {
 			return;
 		}
-
-		// Prepare convert value, when you have `overwrite => true`
-		// this value will not exist in the database and that's
-		// why we need to prepare (change) the value.
-		$value = $this->prepare_convert_value( $property, $value );
-
-		if ( papi_is_empty( $value ) ) {
-			if ( ! papi_is_empty( $property->get_option( 'value' ) ) ) {
-				return $property->get_option( 'value' );
-			}
-
-			return;
-		}
-
-		// A property need to know about the store.
-		$property->set_store( $this );
-
-		// Run load value method right after the value has been loaded from the database.
-		$value = $property->load_value( $value, $slug, $this->id );
-		$value = papi_filter_load_value(
-			$property->type,
-			$value,
-			$slug,
-			$this->id,
-			papi_get_meta_type()
-		);
 
 		// Format the value from the property class.
 		$value = $property->format_value( $value, $slug, $this->id );
@@ -125,6 +106,77 @@ abstract class Papi_Core_Meta_Store {
 			);
 		}
 
+		if ( is_array( $value ) ) {
+			$value = array_filter( $value );
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Get current property.
+	 *
+	 * @param  string $slug
+	 *
+	 * @return Papi_Core_Property
+	 */
+	protected function property( $slug = '' ) {
+		if ( isset( $this->properties[$slug] ) && papi_is_property( $this->properties[$slug] ) ) {
+			return $this->properties[$slug];
+		}
+
+		$this->properties[$slug] = $this->get_property( $slug );
+
+		return $this->properties[$slug];
+	}
+
+	/**
+	 * Load property value from the property.
+	 *
+	 * @param  string $slug
+	 *
+	 * @return mixed
+	 */
+	public function load_value( $slug ) {
+		$slug     = unpapify( $slug );
+		$property = $this->property( $slug );
+
+		// If no property type is found, just return null.
+		if ( ! papi_is_property( $property ) ) {
+			return;
+		}
+
+		// Get raw property meta value.
+		$value = papi_get_property_meta_value( $this->id, $slug, $this->get_type() );
+
+		// Prepare load value, when you have `overwrite => true`
+		// this value will not exist in the database and that's
+		// why we need to prepare (change) the value.
+		$value = $this->prepare_load_value( $property, $value );
+
+		// Bail if value is empty and option value is empty.
+		if ( papi_is_empty( $value ) ) {
+			if ( ! papi_is_empty( $property->get_option( 'value' ) ) ) {
+				return $property->get_option( 'value' );
+			}
+
+			return;
+		}
+
+		// A property need to know about the store.
+		$this->property( $slug )->set_store( $this );
+
+		// Run load value method right after the value has been loaded from the database.
+		$value = $property->load_value( $value, $slug, $this->id );
+		$value = papi_filter_load_value(
+			$property->type,
+			$value,
+			$slug,
+			$this->id,
+			papi_get_meta_type()
+		);
+
+		// Remove empty values from arrays.
 		if ( is_array( $value ) ) {
 			$value = array_filter( $value );
 		}
@@ -170,14 +222,14 @@ abstract class Papi_Core_Meta_Store {
 	abstract public function get_property( $slug, $child_slug = '' );
 
 	/**
-	 * Prepare convert value.
+	 * Prepare load value.
 	 *
 	 * @param  Papi_Core_Property $property
 	 * @param  mixed              $value
 	 *
 	 * @retrun mixed
 	 */
-	protected function prepare_convert_value( Papi_Core_Property $property, $value ) {
+	protected function prepare_load_value( Papi_Core_Property $property, $value ) {
 		return $value;
 	}
 
@@ -188,10 +240,8 @@ abstract class Papi_Core_Meta_Store {
 	 *
 	 * @return Papi_Core_Property
 	 */
-	protected function prepare_property( $property ) {
-		if ( papi_is_property( $property ) ) {
-			$property->set_store( $this );
-		}
+	protected function prepare_property( Papi_Core_Property $property ) {
+		$property->set_store( $this );
 
 		return $property;
 	}
