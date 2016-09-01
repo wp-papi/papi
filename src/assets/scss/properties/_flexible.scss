@@ -1,7 +1,4 @@
 .papi-property-flexible {
-  > .papi-table > tbody > tr:last-child > td {
-    border-bottom: 1px solid #eaeaea;
-  }
 
   .papi-table .flexible-column {
     padding: 0;
@@ -69,6 +66,7 @@
           background: none;
           border-left: 0;
           font-weight: normal;
+          padding: 10px 15px 20px 18px;
           width: auto;
         }
 
