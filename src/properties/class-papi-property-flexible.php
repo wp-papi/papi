@@ -120,36 +120,26 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				// Get property child slug.
 				$child_slug = $this->get_child_slug( $repeater_slug, $slug );
 
-				// Load the value.
-				$values[$index][$slug] = $property_type->load_value(
-					$value,
-					$child_slug,
-					$post_id
-				);
+				// Get raw value from cache.
+				$raw_value = papi_cache_get( $slug, $post_id, $this->get_meta_type() );
 
-				$values[$index][$slug] = papi_filter_load_value(
-					$property_type->type,
-					$values[$index][$slug],
-					$child_slug,
-					$post_id,
-					papi_get_meta_type()
-				);
+				// Load the value.
+				if ( $raw_value === null || $raw_value === false ) {
+					$values[$index][$slug] = $property_type->load_value( $value, $child_slug, $post_id );
+					$values[$index][$slug] = papi_filter_load_value( $property_type->type, $values[$index][$slug], $child_slug, $post_id, papi_get_meta_type() );
+
+					if ( ! papi_is_empty( $values[$index][$slug] ) ) {
+						papi_cache_set( $slug, $post_id, $values[$index][$slug], $this->get_meta_type() );
+					}
+				} else {
+					$values[$index][$slug] = $raw_value;
+				}
 
 				// Format the value from the property class.
-				$values[$index][$slug] = $property_type->format_value(
-					$values[$index][$slug],
-					$child_slug,
-					$post_id
-				);
+				$values[$index][$slug] = $property_type->format_value( $values[$index][$slug], $child_slug, $post_id );
 
 				if ( ! is_admin() ) {
-					$values[$index][$slug] = papi_filter_format_value(
-						$property_type->type,
-						$values[$index][$slug],
-						$child_slug,
-						$post_id,
-						papi_get_meta_type()
-					);
+					$values[$index][$slug] = papi_filter_format_value( $property_type->type, $values[$index][$slug], $child_slug, $post_id, papi_get_meta_type() );
 				}
 
 				$values[$index][$property_type_slug] = $property_type_value;
