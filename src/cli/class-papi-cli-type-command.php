@@ -11,7 +11,7 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 	 * @return array
 	 */
 	protected function get_default_format_fields() {
-		return ['name', 'id', 'meta type', 'meta type value', 'template', 'db count', 'type'];
+		return ['name', 'id', 'meta type value', 'template', 'db count', 'type'];
 	}
 
 	/**
@@ -87,7 +87,6 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 			return [
 				'id'              => $entry_type->get_id(),
 				'name'            => $entry_type->name,
-				'meta type'       => $entry_type->type,
 				'meta type value' => $this->get_meta_type_value( $entry_type ),
 				'template'        => empty( $entry_type->template ) ? 'n/a' : $entry_type->template,
 				'type'            => $entry_type->get_type(),
