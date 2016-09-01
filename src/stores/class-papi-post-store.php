@@ -74,18 +74,20 @@ class Papi_Post_Store extends Papi_Core_Meta_Store {
 			return;
 		}
 
-		return $this->prepare_property( $page_type->get_property( $slug, $child_slug ) );
+		if ( $property = $page_type->get_property( $slug, $child_slug ) ) {
+			return $this->prepare_property( $property );
+		}
 	}
 
 	/**
-	 * Prepare convert value.
+	 * Prepare load value.
 	 *
 	 * @param  Papi_Core_Property $property
 	 * @param  mixed              $value
 	 *
 	 * @return mixed
 	 */
-	protected function prepare_convert_value( Papi_Core_Property $property, $value ) {
+	protected function prepare_load_value( Papi_Core_Property $property, $value ) {
 		if ( $property->overwrite ) {
 			// Clear post cache to solve issue with cached post objects
 			// when selecting post field.

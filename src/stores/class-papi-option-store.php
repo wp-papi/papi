@@ -58,7 +58,9 @@ class Papi_Option_Store extends Papi_Core_Meta_Store {
 			return;
 		}
 
-		return $this->prepare_property( $entry_type->get_property( $slug, $child_slug ) );
+		if ( $property = $entry_type->get_property( $slug, $child_slug ) ) {
+			return $this->prepare_property( $property );
+		}
 	}
 
 	/**

@@ -15,12 +15,13 @@ class Papi_Term_Store_Test extends WP_UnitTestCase {
 
 		$this->term_id = $this->factory->term->create();
 		$_GET['term_id'] = $this->term_id;
+		$_GET['meta_type'] = 'term';
 		$this->store = papi_get_meta_store( $this->term_id, 'term' );
 	}
 
 	public function tearDown() {
 		parent::tearDown();
-		unset( $this->term_id, $_GET['term_id'], $this->store );
+		unset( $this->term_id, $_GET['term_id'], $_GET['meta_type'], $this->store );
 	}
 
 	public function test_term_store_construct() {
@@ -38,54 +39,35 @@ class Papi_Term_Store_Test extends WP_UnitTestCase {
 		$this->assertSame( $this->term_id, $this->store->get_term()->term_id );
 	}
 
-	public function test_get_value() {
+	public function test_load_value() {
+		update_term_meta( $this->term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
+
+		update_term_meta( $this->term_id, 'string_test', 'Janni' );
+		$this->assertSame( 'Janni', $this->store->load_value( 'string_test' ) );
+
+		update_term_meta( $this->term_id, 'string_test', 'Fredrik' );
+
+		$this->assertSame( 'Fredrik', $this->store->load_value( 'string_test' ) );
+	}
+
+	public function test_format_value() {
 		$handler = new Papi_Admin_Meta_Handler();
 
 		update_term_meta( $this->term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
 
-		update_term_meta( $this->term_id, 'string_test', 'Janni' );
-		$this->assertSame( 'Janni', $this->store->get_value( 'string_test' ) );
-
-		update_term_meta( $this->term_id, 'string_test', 'Fredrik' );
-
-		$this->assertSame( 'Fredrik', $this->store->get_value( 'string_test' ) );
-
-		$property = papi_property( [
-			'type'  => 'number',
-			'title' => 'Number',
-			'slug'  => 'number_test'
-		] );
-
-		$this->assertSame( 'number', $property->type );
-		$this->assertSame( 'Number', $property->title );
-		$this->assertSame( 'papi_number_test', $property->slug );
-
-		$taxonomies_type = papi_get_entry_type_by_id( 'properties-taxonomy-type' );
-		$property  = $taxonomies_type->get_property( 'string_test' );
-
-		$this->assertSame( 'string', $property->get_option( 'type' ) );
-		$this->assertSame( 'String test', $property->get_option( 'title' ) );
-		$this->assertSame( 'papi_string_test', $property->get_option( 'slug' ) );
+		$page_type = papi_get_entry_type_by_id( 'properties-taxonomy-type' );
+		$property  = $page_type->get_property( 'string_test' );
 
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $property->get_option( 'slug' ),
 			'type'  => $property,
 			'value' => 'Fredrik'
 		], $_POST );
-
 		$handler->save_properties( $this->term_id );
 
-		$actual = papi_get_term_field( $this->term_id, $property->get_option( 'slug' ) );
-		$this->assertSame( 'Fredrik', $actual );
-
-		update_term_meta( $this->term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
-		$this->assertSame( 'Fredrik', papi_get_term_field( $this->term_id, 'string_test' ) );
-	}
-
-	public function test__get() {
-		update_term_meta( $this->term_id, 'name', '' );
-
-		$this->assertNull( $this->store->name );
+		$value = $this->store->load_value( $property->get_option( 'slug' ) );
+		$value = $this->store->format_value( $property->get_option( 'slug' ), $value );
+		$this->assertSame( 'Fredrik', $value );
 	}
 
 	public function test_get_property() {

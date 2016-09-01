@@ -125,33 +125,46 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 		return $default;
 	}
 
-	$id    = papi_get_meta_id( $type, $id );
-	$value = papi_cache_get( $slug, $id, $type );
+	// Check for "dot" notation.
+	$slugs = explode( '.', $slug );
+	$slug  = $slugs[0];
+	$slugs = array_slice( $slugs, 1 );
 
-	if ( $value === null || $value === false ) {
-		// Check for "dot" notation.
-		$slugs = explode( '.', $slug );
-		$slug  = $slugs[0];
-		$slugs = array_slice( $slugs, 1 );
+	// Get right id for right meta type.
+	$id = papi_get_meta_id( $type, $id );
 
-		// Get the right store for right entry type.
-		$store = papi_get_meta_store( $id, $type );
+	// Get the right store for right entry type.
+	$store = papi_get_meta_store( $id, $type );
 
-		// Return the default value if we don't have a valid store.
-		if ( is_null( $store ) ) {
-			return $default;
-		}
-
-		$value = papi_field_value( $slugs, $store->get_value( $slug ), $default );
-
-		if ( papi_is_empty( $value ) ) {
-			return $default;
-		}
-
-		papi_cache_set( $slug, $id, $value, $type );
+	// Return the default value if we don't have a valid store.
+	if ( is_null( $store ) ) {
+		return $default;
 	}
 
-	return $value;
+	$raw_value = papi_cache_get( $slug, $id, $type );
+
+	// Load raw value if not cached.
+	if ( $raw_value === null || $raw_value === false ) {
+		$raw_value = $store->load_value( $slug );
+
+		if ( papi_is_empty( $raw_value ) ) {
+			return $default;
+		}
+
+		papi_cache_set( $slug, $id, $raw_value, $type );
+	}
+
+	if ( papi_is_empty( $raw_value ) ) {
+		return $default;
+	}
+
+	// Format raw value.
+	$value = $store->format_value( $slug, $raw_value );
+
+	// Get value by dot keys if any.
+	$value = papi_field_value( $slugs, $value, $default );
+
+	return papi_is_empty( $value ) ? $default : $value;
 }
 
 /**

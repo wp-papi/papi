@@ -74,6 +74,8 @@ class Papi_Term_Store extends Papi_Core_Meta_Store {
 			return;
 		}
 
-		return $this->prepare_property( $taxonomy_type->get_property( $slug, $child_slug ) );
+		if ( $property = $taxonomy_type->get_property( $slug, $child_slug ) ) {
+			return $this->prepare_property( $property );
+		}
 	}
 }
