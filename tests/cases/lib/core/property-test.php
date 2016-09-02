@@ -493,6 +493,24 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$current_screen = null;
 	}
 
+	public function test_papi_update_property_meta_value_cache_delete() {
+		wp_cache_set( 'papi_option_name_0', 'Fredrik' );
+
+		$this->assertSame( 'Fredrik', wp_cache_get( 'papi_option_name_0' ) );
+
+		papi_update_property_meta_value_cache_delete( (object) [
+			'id'    => 0,
+			'slug'  => 'name',
+			'type'  => 'option'
+		], [
+			[
+				'name' => 'Fredrik'
+			]
+		] );
+
+		$this->assertEmpty( wp_cache_get( 'papi_option_name_0' ) );
+	}
+
 	public function test_papi_to_property_array_slugs() {
 		$actual = papi_to_property_array_slugs( [
 			[
