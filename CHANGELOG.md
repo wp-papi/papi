@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [3.1.12](https://github.com/wp-papi/papi/releases/tag/v3.1.12) - 2016-09-05
+
+* Fixed: Cache issue with improved cache for flexible.
+
 ## [3.1.11](https://github.com/wp-papi/papi/releases/tag/v3.1.11) - 2016-09-05
 
 * Fixed: Cache only raw database value instead of formatted value, this solves problems with shortcodes in the editor that shouldn't be cached.
