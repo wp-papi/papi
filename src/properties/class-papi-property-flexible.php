@@ -120,8 +120,11 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				// Get property child slug.
 				$child_slug = $this->get_child_slug( $repeater_slug, $slug );
 
+				// Create cache key.
+				$cache_key = sprintf( '%s_%d_%s', $repeater_slug, $index, $child_slug );
+
 				// Get raw value from cache.
-				$raw_value = papi_cache_get( $slug, $post_id, $this->get_meta_type() );
+				$raw_value = papi_cache_get( $cache_key , $post_id, $this->get_meta_type() );
 
 				// Load the value.
 				if ( $raw_value === null || $raw_value === false ) {
@@ -129,7 +132,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					$values[$index][$slug] = papi_filter_load_value( $property_type->type, $values[$index][$slug], $child_slug, $post_id, papi_get_meta_type() );
 
 					if ( ! papi_is_empty( $values[$index][$slug] ) ) {
-						papi_cache_set( $slug, $post_id, $values[$index][$slug], $this->get_meta_type() );
+						papi_cache_set( $cache_key, $post_id, $values[$index][$slug], $this->get_meta_type() );
 					}
 				} else {
 					$values[$index][$slug] = $raw_value;
