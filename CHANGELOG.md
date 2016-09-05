@@ -2,7 +2,7 @@
 
 ## [3.1.11](https://github.com/wp-papi/papi/releases/tag/v3.1.11) - 2016-09-05
 
-* Fixed: Cache only raw database value instead of formatted value, this solves problems with shortcodes in the editor that shoudln't be cached.
+* Fixed: Cache only raw database value instead of formatted value, this solves problems with shortcodes in the editor that shouldn't be cached.
 * Fixed: Improve css for flexible and repeater.
 
 ## [3.1.10](https://github.com/wp-papi/papi/releases/tag/v3.1.10) - 2016-08-30
