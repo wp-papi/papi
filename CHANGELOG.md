@@ -1,5 +1,14 @@
 # Papi Changelog
 
+## [3.1.12](https://github.com/wp-papi/papi/releases/tag/v3.1.12) - 2016-09-05
+
+* Fixed: Cache issue with improved cache for flexible.
+
+## [3.1.11](https://github.com/wp-papi/papi/releases/tag/v3.1.11) - 2016-09-05
+
+* Fixed: Cache only raw database value instead of formatted value, this solves problems with shortcodes in the editor that shouldn't be cached.
+* Fixed: Improve css for flexible and repeater.
+
 ## [3.1.10](https://github.com/wp-papi/papi/releases/tag/v3.1.10) - 2016-08-30
 
 * Fixed: Multiple render issue when using `papi_get_field` instead a property array.
