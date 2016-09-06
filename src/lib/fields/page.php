@@ -35,7 +35,14 @@ function papi_delete_field( $id = null, $slug = null, $type = 'post' ) {
 
 	papi_cache_delete( $slug, $id, $type );
 
-	papi_action_delete_value( $type, $slug, $id );
+	/**
+	 * Fire action before value is deleted.
+	 *
+	 * @param string $type
+	 * @param string $slug
+	 * @param int    $post_id
+	 */
+	do_action( 'papi/delete_value/' . $type, $slug, $id );
 
 	return $property->delete_value( $slug, $id, $type );
 }
