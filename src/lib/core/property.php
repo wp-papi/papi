@@ -3,9 +3,6 @@
 /**
  * Delete property value from database.
  *
- * If it's on a option page it will fetch the value from the
- * option table instead of the metadata table.
- *
  * @param  int    $id
  * @param  string $slug
  * @param  string $type
@@ -13,31 +10,7 @@
  * @return mixed
  */
 function papi_delete_property_meta_value( $id, $slug, $type = 'post' ) {
-	$type = papi_get_meta_type( $type );
-
-	// Delete cached value.
-	papi_cache_delete( $slug, $id, $type );
-
-	// Set the right delete value function for the type.
-	$delete_value_fn = $type === 'option' ? 'delete_option' : 'delete_metadata';
-
-	/**
-	 * Change delete value function.
-	 *
-	 * @param string $delete_function
-	 */
-	$delete_value_fn = apply_filters( 'papi/core/delete_value_fn', $delete_value_fn );
-
-	// Check so the function is callable before using it.
-	if ( ! is_callable( $delete_value_fn ) ) {
-		return;
-	}
-
-	if ( $type === 'option' ) {
-		return call_user_func_array( $delete_value_fn, [unpapify( $slug )] );
-	}
-
-	return call_user_func_array( $delete_value_fn, [papi_get_meta_type( $type ), $id, unpapify( $slug )] );
+	return papi()->data( $type )->delete( $id, $slug );
 }
 
 /**
@@ -58,10 +31,10 @@ function papi_from_property_array_slugs( array $values, $slug ) {
 	for ( $i = 0; $i < $values[$slug]; $i++ ) {
 		$item      = [];
 		$item_slug = $slug . '_' . $i . '_';
-		$keys      = preg_grep( '/' . preg_quote( $item_slug ) . '/' , array_keys( $values ) );
+		$keys      = preg_grep( '/' . preg_quote( $item_slug ) . '/', array_keys( $values ) );
 
 		foreach ( $keys as $key ) {
-			$arr_key = str_replace( $item_slug, '', $key );
+			$arr_key        = str_replace( $item_slug, '', $key );
 			$item[$arr_key] = $values[$key];
 		}
 
@@ -107,7 +80,7 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 				$options['title'] = '';
 			}
 
-			$properties  = $file_or_options;
+			$properties = $file_or_options;
 
 			if ( ! empty( $properties['title'] ) ) {
 				$options = $properties;
@@ -178,9 +151,6 @@ function papi_get_property_class_name( $type ) {
 /**
  * Get property value from database.
  *
- * If it's on a option page it will fetch the value from the
- * option table instead of the metadata table.
- *
  * @param  int    $id
  * @param  string $slug
  * @param  string $type
@@ -188,39 +158,7 @@ function papi_get_property_class_name( $type ) {
  * @return mixed
  */
 function papi_get_property_meta_value( $id, $slug, $type = 'post' ) {
-	$type = papi_get_meta_type( $type );
-
-	// Set the right get value function for the type.
-	$get_value_fn = $type === 'option' ? 'get_option' : 'get_metadata';
-
-	/**
-	 * Change get value function.
-	 *
-	 * @param string $delete_function
-	 */
-	$get_value_fn = apply_filters( 'papi/core/get_value_fn', $get_value_fn );
-
-	// Check so the function is callable before using it.
-	if ( ! is_callable( $get_value_fn ) ) {
-		return;
-	}
-
-	if ( $type === 'option' ) {
-		$value = call_user_func_array( $get_value_fn, [unpapify( $slug ), null] );
-	} else {
-		$value = call_user_func_array( $get_value_fn, [$type, $id, unpapify( $slug ), true] );
-
-		// Backward compatibility, slugs can contain `papi` prefix.
-		if ( papi_is_empty( $value ) ) {
-			$value = call_user_func_array( $get_value_fn, [$type, $id, $slug, true] );
-		}
-	}
-
-	if ( papi_is_empty( $value ) ) {
-		return;
-	}
-
-	return $value;
+	return papi()->data( $type )->get( $id, $slug );
 }
 
 /**
@@ -252,6 +190,7 @@ function papi_get_property_type_key( $str = '' ) {
 
 	if ( isset( $str[$len - 1] ) && $str[$len - 1] === ']' ) {
 		$str = substr( $str, 0, $len - 1 );
+
 		return papi_get_property_type_key( $str ) . ']';
 	}
 
@@ -281,6 +220,7 @@ function papi_is_property_type_key( $str = '' ) {
 	$pattern = str_replace( '_', '\_', $pattern );
 	$pattern = str_replace( '-', '\-', $pattern );
 	$pattern = '/' . $pattern . '$/';
+
 	return preg_match( $pattern, $str ) === 1;
 }
 
@@ -356,7 +296,7 @@ function papi_render_properties( array $properties ) {
 			?>
 			</tbody>
 		</table>
-	<?php
+		<?php
 	}
 }
 
@@ -403,7 +343,7 @@ function papi_populate_properties( $properties ) {
 		return [];
 	}
 
-	if ( is_object( $properties )  ) {
+	if ( is_object( $properties ) ) {
 		return [$properties];
 	}
 
@@ -430,121 +370,21 @@ function papi_populate_properties( $properties ) {
 }
 
 /**
- * Update property values on the post with the given post id
- * or update property values on the option page.
+ * Update property value in the right meta table or option table.
  *
  * @param  array $meta
  *
  * @return bool
  */
 function papi_update_property_meta_value( array $meta = [] ) {
-	$meta       = array_merge( [
+	$meta = array_merge( [
 		'id'    => 0,
 		'slug'  => '',
 		'type'  => 'post',
 		'value' => ''
 	], $meta );
-	$meta       = (object) $meta;
-	$meta->type = papi_get_meta_type( $meta->type );
-	$save_value = true;
 
-	// Set the right update value function for the type.
-	$update_value_fn = $meta->type === 'option' ? 'update_option' : 'update_metadata';
-
-	/**
-	 * Change update function.
-	 *
-	 * @param string $update_value_fn
-	 */
-	$update_value_fn = apply_filters( 'papi/core/update_value_fn', $update_value_fn );
-
-	// Check so the function is callable before using it.
-	if ( ! is_callable( $update_value_fn ) ) {
-		return;
-	}
-
-	// Check for string keys in the array if any.
-	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
-		if ( is_string( $key ) ) {
-			$save_value = false;
-			break;
-		}
-	}
-
-	// If main value shouldn't be saved it should be array.
-	if ( ! $save_value && is_array( $meta->value ) ) {
-		$meta->value = [$meta->value];
-	}
-
-	// Delete saved value if empty.
-	if ( papi_is_empty( $meta->value ) ) {
-		return papi_delete_property_meta_value( $meta->id, $meta->slug, $meta->type );
-	}
-
-	$result = true;
-
-	foreach ( papi_to_array( $meta->value ) as $key => $value ) {
-		// Delete saved value if value is empty.
-		if ( papi_is_empty( $value ) || $value === '[]' || $value === '{}' ) {
-			return papi_delete_property_meta_value( $meta->id, $meta->slug, $meta->type );
-		}
-
-		// Delete main value cache.
-		papi_cache_delete( $meta->slug, $meta->id, $meta->type );
-
-		// If not a array we can save the value.
-		if ( ! is_array( $value ) ) {
-			if ( $save_value ) {
-				$value = $meta->value;
-			}
-
-			if ( papi_get_meta_type( $meta->type ) === 'option' ) {
-				$out = call_user_func_array( $update_value_fn, [unpapify( $meta->slug ), $value] );
-				$result = $out ? $result : $out;
-			} else {
-				$out = call_user_func_array( $update_value_fn, [$meta->type, $meta->id, unpapify( $meta->slug ), $value] );
-				$result = $out ? $result : $out;
-			}
-
-			continue;
-		}
-
-		// Delete all child value caches.
-		papi_update_property_meta_value_cache_delete( $meta, $value );
-
-		// Update metadata or option value for all child values.
-		foreach ( $value as $child_key => $child_value ) {
-			if ( papi_is_empty( $child_value ) ) {
-				papi_delete_property_meta_value( $meta->id, $child_key, $meta->type );
-			} else {
-				if ( papi_get_meta_type( $meta->type ) === 'option' ) {
-					call_user_func_array( $update_value_fn, [unpapify( $child_key ), $child_value] );
-				} else {
-					call_user_func_array( $update_value_fn, [$meta->type, $meta->id, unpapify( $child_key ), $child_value] );
-				}
-			}
-		}
-	}
-
-	return $result;
-}
-
-/**
- * Delete cache values on update property meta.
- *
- * @param  object $meta
- * @param  array  $value
- */
-function papi_update_property_meta_value_cache_delete( $meta, $value ) {
-	$value = is_array( $value ) ? $value : [];
-
-	foreach ( $value as $child_key => $child_value ) {
-		papi_cache_delete( $child_key, $meta->id, $meta->type );
-
-		if ( is_array( $child_value ) ) {
-			papi_update_property_meta_value_cache_delete( $meta, $child_value );
-		}
-	}
+	return papi()->data( $meta['type'] )->update( $meta['id'], $meta['slug'], $meta['value'] );
 }
 
 /**
