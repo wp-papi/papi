@@ -258,7 +258,7 @@ final class Papi_Loader extends Papi_Container {
 	 */
 	private function setup_container() {
 		$this->singleton( 'porter', new Papi_Porter );
-		$this->singleton( 'data', function ( $type ) {
+		$this->singleton( 'data', function ( $type = 'post' ) {
 			return new Papi_Core_Data( $type );
 		} );
 	}

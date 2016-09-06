@@ -370,24 +370,6 @@ function papi_populate_properties( $properties ) {
 }
 
 /**
- * Update property value in the right meta table or option table.
- *
- * @param  array $meta
- *
- * @return bool
- */
-function papi_update_property_meta_value( array $meta = [] ) {
-	$meta = array_merge( [
-		'id'    => 0,
-		'slug'  => '',
-		'type'  => 'post',
-		'value' => ''
-	], $meta );
-
-	return papi()->data( $meta['type'] )->update( $meta['id'], $meta['slug'], $meta['value'] );
-}
-
-/**
  * Convert array of arrays to array of slugs.
  * The given slug will match a key with the number of properties.
  *
