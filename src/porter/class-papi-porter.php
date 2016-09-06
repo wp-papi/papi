@@ -31,6 +31,7 @@ final class Papi_Porter extends Papi_Container {
 	 */
 	public function add_driver( Papi_Porter_Driver $driver ) {
 		$driver->set_porter( $this );
+
 		return $this;
 	}
 
@@ -46,6 +47,7 @@ final class Papi_Porter extends Papi_Container {
 	 */
 	public function after( $filter, Closure $closure, $priority = 10, $accepted_args = 2 ) {
 		$filter = $this->driver->filter( 'after', $filter );
+
 		return add_filter( $filter, $closure, $priority, $accepted_args );
 	}
 
@@ -61,6 +63,7 @@ final class Papi_Porter extends Papi_Container {
 	 */
 	public function before( $filter, Closure $closure, $priority = 10, $accepted_args = 2 ) {
 		$filter = $this->driver->filter( 'before', $filter );
+
 		return add_filter( $filter, $closure, $priority, $accepted_args );
 	}
 
@@ -72,9 +75,7 @@ final class Papi_Porter extends Papi_Container {
 	 * @return Papi_Porter
 	 */
 	public function driver( $driver ) {
-		return $driver instanceof Papi_Porter_Driver ?
-			$this->add_driver( $driver ) :
-			$this->use_driver( $driver );
+		return $driver instanceof Papi_Porter_Driver ? $this->add_driver( $driver ) : $this->use_driver( $driver );
 	}
 
 	/**
@@ -129,8 +130,8 @@ final class Papi_Porter extends Papi_Container {
 					}
 					// @codeCoverageIgnoreEnd
 
-					$options = clone $property->get_options();
-					$options->value = $value;
+					$options            = clone $property->get_options();
+					$options->value     = $value;
 					$slugs[$key][$slug] = $options;
 				}
 			}
@@ -282,12 +283,7 @@ final class Papi_Porter extends Papi_Container {
 				'value'  => [$value, $slug]
 			] );
 
-			$out = papi_update_property_meta_value( [
-				'id'    => $meta_id,
-				'slug'  => $slug,
-				'type'  => $meta_type,
-				'value' => $value
-			] );
+			$out = papi()->data( $meta_type )->update( $meta_id, $slug, $value );
 
 			$result = $out ? $result : $out;
 		}
@@ -306,6 +302,7 @@ final class Papi_Porter extends Papi_Container {
 		$this->driver->set_options( [
 			'custom' => $options
 		] );
+
 		return $this;
 	}
 
@@ -321,18 +318,13 @@ final class Papi_Porter extends Papi_Container {
 	 */
 	public function use_driver( $driver ) {
 		if ( ! is_string( $driver ) ) {
-			throw new InvalidArgumentException(
-				'Invalid argument. Must be string.'
-			);
+			throw new InvalidArgumentException( 'Invalid argument. Must be string.' );
 		}
 
 		$driver = strtolower( $driver );
 
 		if ( ! $this->exists( 'driver.' . $driver ) ) {
-			throw new Exception( sprintf(
-				'`%s` driver does not exist.',
-				$driver
-			) );
+			throw new Exception( sprintf( '`%s` driver does not exist.', $driver ) );
 		}
 
 		$class = $this->make( 'driver.' . $driver );
