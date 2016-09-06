@@ -79,7 +79,7 @@ final class Papi_Admin_Meta_Box {
 		$title = $this->box->title;
 
 		if ( $this->box->get_option( 'required' ) ) {
-			$title .= papi_required_html(
+			$title .= papi_property_required_html(
 				$this->box->properties[0],
 				true
 			);

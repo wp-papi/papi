@@ -281,7 +281,7 @@ function papi_render_properties( array $properties ) {
  *
  * @return string
  */
-function papi_require_text( $property ) {
+function papi_property_require_text( $property ) {
 	if ( ! papi_is_property( $property ) || ! $property->required ) {
 		return '';
 	}
@@ -297,12 +297,12 @@ function papi_require_text( $property ) {
  *
  * @return string
  */
-function papi_required_html( $property, $text = false ) {
+function papi_property_required_html( $property, $text = false ) {
 	if ( ! papi_is_property( $property ) || ! $property->required ) {
 		return '';
 	}
 
-	return ' <span class="papi-rq" data-property-name="' . $property->title . '" data-property-id="' . $property->slug . '">' . ( $text ? papi_require_text( $property ) : '*' ) . '</span>';
+	return ' <span class="papi-rq" data-property-name="' . $property->title . '" data-property-id="' . $property->slug . '">' . ( $text ? papi_property_require_text( $property ) : '*' ) . '</span>';
 }
 
 /**

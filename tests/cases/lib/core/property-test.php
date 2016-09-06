@@ -244,23 +244,23 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_require_text() {
-		$this->assertEmpty( papi_require_text( null ) );
+		$this->assertEmpty( papi_property_require_text( null ) );
 		$property = papi_property( [
 			'type'     => 'string',
 			'title'    => 'Name',
 			'required' => true
 		] );
-		$this->assertSame( '(required field)', papi_require_text( $property ) );
+		$this->assertSame( '(required field)', papi_property_require_text( $property ) );
 	}
 
 	public function test_papi_required_html() {
-		$this->assertEmpty( papi_required_html( null ) );
+		$this->assertEmpty( papi_property_required_html( null ) );
 		$property = papi_property( [
 			'type'     => 'string',
 			'title'    => 'Name',
 			'required' => true
 		] );
-		$this->assertRegExp( '/class\=\"papi\-rq\"/', papi_required_html( $property ) );
+		$this->assertRegExp( '/class\=\"papi\-rq\"/', papi_property_required_html( $property ) );
 	}
 
 	public function test_papi_populate_properties() {

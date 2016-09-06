@@ -136,9 +136,9 @@ class Papi_Property extends Papi_Core_Property {
 
 		papi_render_html_tag( 'label', [
 			'for'   => $this->html_id(),
-			'title' => trim( $title . ' ' . papi_require_text( $this->get_options() ) ),
+			'title' => trim( $title . ' ' . papi_property_require_text( $this->get_options() ) ),
 			$title,
-			papi_required_html( $this )
+			papi_property_required_html( $this )
 		] );
 	}
 
