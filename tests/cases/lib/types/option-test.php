@@ -24,19 +24,6 @@ class Papi_Lib_Types_Option_Test extends WP_UnitTestCase {
 		$current_screen = null;
 	}
 
-	public function test_papi_is_option_type() {
-		$this->assertTrue( papi_is_option_type( new Papi_Option_Type ) );
-		$this->assertFalse( papi_is_option_type( new Papi_Page_Type ) );
-		$this->assertFalse( papi_is_option_type( true ) );
-		$this->assertFalse( papi_is_option_type( false ) );
-		$this->assertFalse( papi_is_option_type( null ) );
-		$this->assertFalse( papi_is_option_type( 1 ) );
-		$this->assertFalse( papi_is_option_type( 0 ) );
-		$this->assertFalse( papi_is_option_type( '' ) );
-		$this->assertFalse( papi_is_option_type( [] ) );
-		$this->assertFalse( papi_is_option_type( (object) [] ) );
-	}
-
 	public function test_papi_option_type_exists() {
 		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
