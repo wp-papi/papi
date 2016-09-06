@@ -90,10 +90,7 @@ final class Papi_Loader extends Papi_Container {
 	private function constants() {
 		// Path to Papi plugin directory
 		if ( ! defined( 'PAPI_PLUGIN_DIR' ) ) {
-			$mu_dir = trailingslashit( sprintf( '%s/%s/src',
-				WPMU_PLUGIN_DIR,
-				basename( dirname( __DIR__ ) )
-			) );
+			$mu_dir = trailingslashit( sprintf( '%s/%s/src', WPMU_PLUGIN_DIR, basename( dirname( __DIR__ ) ) ) );
 
 			if ( is_dir( $mu_dir ) ) {
 				define( 'PAPI_PLUGIN_DIR', $mu_dir );
@@ -123,7 +120,7 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Define constant if not already set.
 	 *
-	 * @param  string $name
+	 * @param  string      $name
 	 * @param  string|bool $value
 	 */
 	private function define( $name, $value ) {
@@ -248,10 +245,22 @@ final class Papi_Loader extends Papi_Container {
 	}
 
 	/**
+	 * Reset container.
+	 */
+	public function reset() {
+		parent::reset();
+
+		$this->setup_container();
+	}
+
+	/**
 	 * Setup container.
 	 */
 	private function setup_container() {
 		$this->singleton( 'porter', new Papi_Porter );
+		$this->singleton( 'data', function ( $type ) {
+			return new Papi_Core_Data( $type );
+		} );
 	}
 }
 
