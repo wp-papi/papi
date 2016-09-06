@@ -156,7 +156,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 
 		// Save all properties value
 		foreach ( $data as $key => $value ) {
-			papi()->data( $this->get_meta_type() )->update( $id, $key, $value );
+			papi_data_update( $id, $key, $value, $this->get_meta_type() );
 		}
 
 		/**
