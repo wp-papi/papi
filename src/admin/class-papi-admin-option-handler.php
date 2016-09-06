@@ -25,7 +25,7 @@ final class Papi_Admin_Option_Handler extends Papi_Core_Data_Handler {
 		$data = $this->prepare_properties_data( $data, 0 );
 
 		foreach ( $data as $key => $value ) {
-			papi()->data( 'option' )->update( 0, $key, $value );
+			papi_data_update( 0, $key, $value, 'option' );
 		}
 
 		/**

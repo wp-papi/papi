@@ -283,7 +283,7 @@ final class Papi_Porter extends Papi_Container {
 				'value'  => [$value, $slug]
 			] );
 
-			$out = papi()->data( $meta_type )->update( $meta_id, $slug, $value );
+			$out = papi_data_update( $meta_id, $slug, $value, $meta_type );
 
 			$result = $out ? $result : $out;
 		}

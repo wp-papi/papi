@@ -251,7 +251,7 @@ function papi_update_field( $id = null, $slug = null, $value = null, $type = 'po
 	$value = $property->update_value( $value, $slug, $id );
 	$value = papi_filter_update_value( $property->get_option( 'type' ), $value, $slug, $id, $type );
 
-	return papi()->data( $type )->update( $id, $slug, $value );
+	return papi_data_update( $id, $slug, $value, $type );
 }
 
 /**
