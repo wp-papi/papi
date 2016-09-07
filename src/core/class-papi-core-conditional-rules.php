@@ -4,7 +4,7 @@
  * Conditional rules class that contains
  * all rules.
  */
-class Papi_Conditional_Rules {
+class Papi_Core_Conditional_Rules {
 
 	/**
 	 * The constructor.
@@ -468,4 +468,4 @@ class Papi_Conditional_Rules {
 	}
 }
 
-new Papi_Conditional_Rules();
+new Papi_Core_Conditional_Rules();
