@@ -248,7 +248,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected function get_results( $value, $repeater_slug, $post_id ) {
 		global $wpdb;
 
-		if ( $this->is_option_page() ) {
+		if ( $this->get_meta_type() === 'option' ) {
 			$table = $wpdb->prefix . 'options';
 			// @codingStandardsIgnoreStart
 			$query = $wpdb->prepare(
