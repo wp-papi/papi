@@ -4,8 +4,7 @@
 require_once __DIR__ . '/core/class-papi-core-container.php';
 
 /**
- * Papi loader class that handle the loading
- * of the plugin.
+ * Papi loader class that handle the loading of the plugin.
  */
 final class Papi_Loader extends Papi_Core_Container {
 
