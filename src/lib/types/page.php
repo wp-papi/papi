@@ -74,18 +74,6 @@ function papi_get_all_page_types( $post_type = '' ) {
 }
 
 /**
- * Get the data page.
- *
- * @param  int    $id
- * @param  string $type
- *
- * @return Papi_Core_Meta_Store
- */
-function papi_get_page( $id = 0, $type = 'post' ) {
-	return papi_get_meta_store( $id, $type );
-}
-
-/**
  * Get page type id by post id.
  *
  * @param  int $post_id
