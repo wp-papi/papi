@@ -52,11 +52,7 @@ class Papi_Option_Type extends Papi_Entry_Type {
 					<div id="post-body">
 						<?php
 						foreach ( $this->boxes as $box ) {
-							do_meta_boxes(
-								$box->id,
-								'normal',
-								null
-							);
+							do_meta_boxes( $box->id, 'normal', null );
 						}
 						?>
 						<?php submit_button(); ?>
