@@ -168,6 +168,44 @@ function papi_is_property_type_key( $str = '' ) {
 }
 
 /**
+ * Populate properties array.
+ *
+ * @param  array|object $properties
+ *
+ * @return array
+ */
+function papi_populate_properties( $properties ) {
+	if ( ! is_array( $properties ) && ! is_object( $properties ) || empty( $properties ) ) {
+		return [];
+	}
+
+	if ( is_object( $properties ) ) {
+		return [$properties];
+	}
+
+	// Convert all non property objects to property objects.
+	$properties = array_map( function ( $property ) {
+		if ( is_array( $property ) ) {
+			return papi_property( $property );
+		}
+
+		return $property;
+	}, $properties );
+
+	if ( ! isset( $properties[0] ) ) {
+		$properties = [papi_property( $properties )];
+	}
+
+	// If the first property is a core tab, just return
+	// the properties array and skip the last check.
+	if ( empty( $properties ) || $properties[0] instanceof Papi_Core_Tab ) {
+		return papi_sort_order( $properties );
+	}
+
+	return papi_sort_order( array_filter( array_reverse( $properties ), 'papi_is_property' ) );
+}
+
+/**
  * Create a new property array or rendering a template property file.
  *
  * @param  mixed $file_or_options
@@ -272,44 +310,6 @@ function papi_property_required_html( $property, $text = false ) {
 	}
 
 	return ' <span class="papi-rq" data-property-name="' . $property->title . '" data-property-id="' . $property->slug . '">' . ( $text ? papi_property_require_text( $property ) : '*' ) . '</span>';
-}
-
-/**
- * Populate properties array.
- *
- * @param  array|object $properties
- *
- * @return array
- */
-function papi_populate_properties( $properties ) {
-	if ( ! is_array( $properties ) && ! is_object( $properties ) || empty( $properties ) ) {
-		return [];
-	}
-
-	if ( is_object( $properties ) ) {
-		return [$properties];
-	}
-
-	// Convert all non property objects to property objects.
-	$properties = array_map( function ( $property ) {
-		if ( is_array( $property ) ) {
-			return papi_property( $property );
-		}
-
-		return $property;
-	}, $properties );
-
-	if ( ! isset( $properties[0] ) ) {
-		$properties = [papi_property( $properties )];
-	}
-
-	// If the first property is a core tab, just return
-	// the properties array and skip the last check.
-	if ( empty( $properties ) || $properties[0] instanceof Papi_Core_Tab ) {
-		return papi_sort_order( $properties );
-	}
-
-	return papi_sort_order( array_filter( array_reverse( $properties ), 'papi_is_property' ) );
 }
 
 /**
