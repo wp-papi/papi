@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @group conditional
+ * @group core
  */
-class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
+class Papi_Core_Conditional_Rules_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -784,7 +784,7 @@ class Papi_Conditional_Rule_Test extends WP_UnitTestCase {
 	}
 
 	public function test_setup_filters() {
-		$rules = new Papi_Conditional_Rules();
+		$rules = new Papi_Core_Conditional_Rules();
 		$this->assertNull( $rules->setup_filters() );
 	}
 }

@@ -214,7 +214,7 @@ final class Papi_Loader extends Papi_Container {
 		require_once __DIR__ . '/admin/class-papi-admin-menu.php';
 
 		// Require conditional rules that should not be loaded by the autoload.
-		require_once __DIR__ . '/conditional/class-papi-conditional-rules.php';
+		require_once __DIR__ . '/core/class-papi-core-conditional-rules.php';
 
 		// Require REST API classes.
 		require_once __DIR__ . '/rest-api/class-papi-rest-api.php';
