@@ -91,13 +91,6 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$this->assertSame( 1, count( papi_get_all_page_types( 'book' ) ) );
 	}
 
-	public function test_papi_get_page() {
-		$page = papi_get_page( $this->post_id );
-		$this->assertTrue( is_object( $page ) );
-		$page = papi_get_page( $this->post_id, 'fake' );
-		$this->assertNull( $page );
-	}
-
 	public function test_papi_get_page_type_id_meta_value() {
 		$this->assertEmpty( papi_get_page_type_id() );
 
