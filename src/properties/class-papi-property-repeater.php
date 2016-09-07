@@ -185,7 +185,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected function get_results( $value, $repeater_slug, $post_id ) {
 		global $wpdb;
 
-		if ( $this->is_option_page() ) {
+		if ( $this->get_meta_type() === 'option' ) {
 			$table = $wpdb->prefix . 'options';
 			// @codingStandardsIgnoreStart
 			$query = $wpdb->prepare(
@@ -291,11 +291,11 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @return array
 	 */
 	protected function get_row_results( $dbresults ) {
-		$results     = [];
-		$option_page = $this->is_option_page();
+		$results   = [];
+		$is_option = $this->get_meta_type() === 'option';
 
 		foreach ( $dbresults as $meta ) {
-			if ( $option_page ) {
+			if ( $is_option ) {
 				preg_match( '/^[^\d]*(\d+)/', $meta->option_name, $matches );
 			} else {
 				preg_match( '/^[^\d]*(\d+)/', $meta->meta_key, $matches );
@@ -310,7 +310,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				$results[$i] = [];
 			}
 
-			if ( $option_page ) {
+			if ( $is_option ) {
 				$results[$i][$meta->option_name] = (object) [
 					'meta_key'   => $meta->option_name,
 					'meta_value' => $meta->option_value
@@ -541,10 +541,10 @@ class Papi_Property_Repeater extends Papi_Property {
 	protected function remove_repeater_rows( $post_id, $repeater_slug ) {
 		global $wpdb;
 
-		$option_page   = $this->is_option_page();
+		$is_option     = $this->get_meta_type() === 'option';
 		$repeater_slug = $repeater_slug . '_%';
 
-		if ( $option_page ) {
+		if ( $is_option ) {
 			$table = $wpdb->prefix . 'options';
 			// @codingStandardsIgnoreStart
 			$query = $wpdb->prepare(
@@ -570,7 +570,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$results = $wpdb->get_results( $query ); // WPCS: unprepared sql
 
 		foreach ( $results as $res ) {
-			if ( $option_page ) {
+			if ( $is_option ) {
 				$key = $res->option_name;
 			} else {
 				$key = $res->meta_key;

@@ -43,15 +43,6 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
-	 * Check if it's a option page or not.
-	 *
-	 * @return bool
-	 */
-	public function is_option_page() {
-		return $this->get_store() instanceof Papi_Option_Store || papi_get_meta_type() === 'option';
-	}
-
-	/**
 	 * Render the property.
 	 */
 	public function render() {
