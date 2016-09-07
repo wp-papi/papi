@@ -106,13 +106,6 @@ class Papi_Core_Property {
 	protected $store;
 
 	/**
-	 * Determine if is in a tab.
-	 *
-	 * @var bool
-	 */
-	public $tab = false;
-
-	/**
 	 * The constructor.
 	 */
 	public function __construct() {
