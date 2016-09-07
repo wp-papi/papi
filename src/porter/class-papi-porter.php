@@ -4,7 +4,7 @@
  * Papi Porter class that handle import and export
  * of properties data.
  */
-final class Papi_Porter extends Papi_Container {
+final class Papi_Porter extends Papi_Core_Container {
 
 	/**
 	 * The driver that should be used.
