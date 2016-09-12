@@ -223,6 +223,28 @@ class Repeater {
   }
 
   /**
+   * Replace first number in name array.
+   *
+   * @param  {string} name
+   * @param  {int} j
+   * @return {string}
+   */
+  replaceFirstNumber(name, j) {
+    name = name.split('[');
+
+    for (var i = 0, l = name.length; i < l; i++) {
+      var part = name[i];
+
+      if (/\d+/.test(part.replace('[', ''))) {
+        name[i] = j + ']';
+        break;
+      }
+    }
+
+    return name.join('[');
+  }
+
+  /**
    * Remove item from the repeater.
    *
    * @param {object} e
@@ -275,6 +297,8 @@ class Repeater {
    * @param {object} $tbody
    */
   updateRowNumber($tbody) {
+    let self = this;
+
     $tbody.find('> tr').each((i, el) => {
       let $el = $(el);
 
@@ -282,13 +306,12 @@ class Repeater {
 
       $el.find('[data-replace-slug="true"]').each(function () {
         let $prop = $(this);
-        $prop.attr('data-slug', $prop.attr('data-slug').replace(/(\[\d+\])(\[\w+\])$/g, '[' + i + ']$2'));
+        $prop.attr('data-slug', self.replaceFirstNumber($prop.attr('data-slug'), i));
       });
 
       $el.find('[name*="papi_"]').each(function () {
         let $input = $(this);
-        console.log($input.attr('name'));
-        $input.attr('name', $input.attr('name').replace(/(\[\d+\])(\[\w+\])$/g, '[' + i + ']$2'));
+        $input.attr('name', self.replaceFirstNumber($input.attr('name'), i));
       });
     });
 
