@@ -235,7 +235,7 @@ class Repeater {
     for (var i = 0, l = name.length; i < l; i++) {
       var part = name[i];
 
-      if (/\d+/.test(part.replace('[', ''))) {
+      if (/\d+$/.test(part.replace(']', ''))) {
         name[i] = j + ']';
         break;
       }
