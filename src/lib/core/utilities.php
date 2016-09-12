@@ -409,9 +409,12 @@ function papi_html_tag( $tag, $attr = [] ) {
  */
 function papi_is_empty( $obj ) {
 	if ( is_array( $obj ) ) {
-		$obj = array_filter( $obj, function ( $val ) {
-			return ! papi_is_empty( $val );
-		} );
+		foreach ( $obj as $val ) {
+			if ( ! papi_is_empty( $val ) ) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	if ( is_string( $obj ) ) {
