@@ -11,8 +11,7 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 			<?php echo $post_type->labels->search_items; ?>
 		</label>
 
-		<input placeholder="<?php echo $post_type->labels->search_items; ?>..." type="search" name="add-new-page-search"
-		       id="add-new-page-search" class="papi-search">
+		<input placeholder="<?php echo $post_type->labels->search_items; ?>..." type="search" name="add-new-page-search" id="add-new-page-search" class="papi-search">
 	</h1>
 
 	<div class="papi-box-list">
