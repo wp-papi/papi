@@ -1,5 +1,11 @@
 # Papi Changelog
 
+## [3.1.13](https://github.com/wp-papi/papi/releases/tag/v3.1.13) - 2016-09-12
+
+* Fixed: Drag and drop issue with link property in flexible/repeater.
+* Fixed: Bug with post add new link when user is on another post type [#190](https://github.com/wp-papi/papi/pull/190).
+* Fixed: Optimize `papi_is_empty` check for arrays [#191](https://github.com/wp-papi/papi/pull/191).
+
 ## [3.1.12](https://github.com/wp-papi/papi/releases/tag/v3.1.12) - 2016-09-05
 
 * Fixed: Cache issue with improved cache for flexible.
