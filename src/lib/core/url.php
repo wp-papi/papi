@@ -35,22 +35,33 @@ function papi_append_post_type_query( $url, $post_type_arg = null ) {
 		return preg_replace( '/&%.+/', '', $url );
 	}
 
-	$post_id = papi_get_post_id();
+	$post_type = '';
 
-	if ( $post_id === 0 ) {
-		$post_type = papi_get_or_post( 'post_type' );
-	} else {
-		$post_type = get_post_type( $post_id );
-	}
-
-	if ( ! empty( $post_type_arg ) && empty( $post_type ) ) {
+	// Only change post type if post type arg isn't the same.
+	if ( $post_type_arg !== $post_type ) {
 		$post_type = $post_type_arg;
 	}
 
+	// Add post type if empty.
 	if ( empty( $post_type ) ) {
-		$post_type = 'post';
+		$post_id = papi_get_post_id();
+
+		if ( $post_id === 0 ) {
+			$post_type = papi_get_or_post( 'post_type' );
+		} else {
+			$post_type = get_post_type( $post_id );
+		}
+
+		if ( empty( $post_type ) ) {
+			$post_type = $post_type_arg;
+		}
+
+		if ( empty( $post_type ) ) {
+			$post_type = 'post';
+		}
 	}
 
+	// Add right query string character.
 	if ( ! empty( $post_type ) ) {
 		if ( substr( $url, - 1, 1 ) !== '&' ) {
 			$url .= '&';
