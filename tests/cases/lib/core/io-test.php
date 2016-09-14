@@ -2,6 +2,20 @@
 
 class Papi_Lib_Core_IO_Test extends WP_UnitTestCase {
 
+	public function test_register_papi_directory() {
+		$this->assertEmpty( register_papi_directory( null ) );
+		$this->assertEmpty( register_papi_directory( null ) );
+
+		register_papi_directory( 'fake-path' );
+		$this->assertEmpty( papi_filter_settings_directories() );
+
+		register_papi_directory( ['fake-path'] );
+		$this->assertEmpty( papi_filter_settings_directories() );
+
+		register_papi_directory( PAPI_FIXTURE_DIR . '/entry-types' );
+		$this->assertSame( [PAPI_FIXTURE_DIR . '/entry-types'], papi_filter_settings_directories() );
+	}
+
 	public function test_papi_get_all_files_in_directory() {
 		$this->assertEmpty( papi_get_all_files_in_directory( 1 ) );
 		$this->assertEmpty( papi_get_all_files_in_directory( true ) );

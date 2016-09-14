@@ -1,6 +1,43 @@
 <?php
 
 /**
+ * Register Papi directory.
+ *
+ * @param  array|string $directory
+ *
+ * @return bool
+ */
+function register_papi_directory( $directory ) {
+	// Bail if not a array or string.
+	if ( ! is_array( $directory ) && ! is_string( $directory ) ) {
+		return false;
+	}
+
+	// Bail if directory don't exists.
+	if ( is_string( $directory ) && ( ! file_exists( $directory ) || ! is_dir( $directory ) ) ) {
+		return false;
+	}
+
+	// Add directory to directories filter.
+	return add_filter( 'papi/settings/directories', function ( $directories ) use ( $directory ) {
+		$directories = is_string( $directories ) ? [$directories] : $directories;
+		$directories = is_array( $directories ) ? $directories : [];
+
+		// Create a array of directory.
+		$directory = papi_to_array( $directory );
+
+		// Check if directory exists before adding it.
+		foreach ( $directory as $index => $dir ) {
+			if ( ! file_exists( $dir ) || ! is_dir( $dir ) ) {
+				unset( $directory[$index] );
+			}
+		}
+
+		return array_merge( $directories, $directory );
+	} );
+}
+
+/**
  * Get all files in directory.
  *
  * @param  string $directory
