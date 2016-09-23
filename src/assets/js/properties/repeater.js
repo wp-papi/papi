@@ -223,19 +223,25 @@ class Repeater {
   }
 
   /**
-   * Replace first number in name array.
+   * Replace array number in name array.
    *
    * @param  {string} name
    * @param  {int} j
+   * @param  {int} p
+   *
    * @return {string}
    */
-  replaceFirstNumber(name, j) {
+  replaceArrayNumber(name, j, p) {
     name = name.split('[');
+
+    if (typeof p === 'undefined') {
+      p = 0;
+    }
 
     for (var i = 0, l = name.length; i < l; i++) {
       var part = name[i];
 
-      if (/\d+$/.test(part.replace(']', ''))) {
+      if (/\d+$/.test(part.replace(']', '')) && (p === 0 || p === i)) {
         name[i] = j + ']';
         break;
       }
@@ -301,37 +307,58 @@ class Repeater {
 
     $tbody.find('> tr').each((i, el) => {
       let $el = $(el);
+      let $rpt = $el.closest('.papi-property-repeater-top');
+      let position = 0;
+      let count = 0
+
+      if ($rpt.length) {
+        while ($rpt.length) {
+          if (!$rpt.parentsUntil('.papi-property-repeater-top').length) {
+            break;
+          }
+
+          $rpt = $rpt.closest('.papi-property-repeater-top').prev();
+
+          if ($rpt.length) {
+            count++;
+
+            if (count > 1) {
+              position += 3;
+            }
+          }
+        }
+      }
 
       $el.find('> td:first-child .count').text(i + 1);
 
       // Replace `data-slug` attribute.
       $el.find('[data-replace-slug="true"]').each(function () {
         let $prop = $(this);
-        $prop.attr('data-slug', self.replaceFirstNumber($prop.attr('data-slug'), i));
+        $prop.attr('data-slug', self.replaceArrayNumber($prop.attr('data-slug'), i, position));
       });
 
       // Replace `data-papi-rule` attribute.
       $el.find('[data-papi-rule*="papi_"]').each(function () {
         let $prop = $(this);
-        $prop.attr('data-papi-rule', self.replaceFirstNumber($prop.attr('data-papi-rule'), i));
+        $prop.attr('data-papi-rule', self.replaceArrayNumber($prop.attr('data-papi-rule'), i, position));
       });
 
       // Replace `data-papi-json` attribute.
       $el.find('[data-papi-json*="papi_"]').each(function () {
         let $prop = $(this);
-        $prop.attr('data-papi-json', self.replaceFirstNumber($prop.attr('data-papi-json'), i));
+        $prop.attr('data-papi-json', self.replaceArrayNumber($prop.attr('data-papi-json'), i, position));
       });
 
       // Replace id attribute.
       $el.find('[id*="papi_"]').each(function () {
         let $prop = $(this);
-        $prop.attr('id', self.replaceFirstNumber($prop.attr('id'), i));
+        $prop.attr('id', self.replaceArrayNumber($prop.attr('id'), i, position));
       });
 
       // Replace name attribute.
       $el.find('[name*="papi_"]').each(function () {
         let $prop = $(this);
-        $prop.attr('name', self.replaceFirstNumber($prop.attr('name'), i));
+        $prop.attr('name', self.replaceArrayNumber($prop.attr('name'), i, position));
       });
     });
 
