@@ -1,5 +1,10 @@
 # Papi Changelog
 
+## [3.1.14](https://github.com/wp-papi/papi/releases/tag/v3.1.14) - 2016-09-23
+
+* Fixed: Browser issue with `selected` attribute.
+* Fixed: Drag and drop issue with repeater.
+
 ## [3.1.13](https://github.com/wp-papi/papi/releases/tag/v3.1.13) - 2016-09-12
 
 * Fixed: Drag and drop issue with link property in flexible/repeater.
