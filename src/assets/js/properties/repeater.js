@@ -230,7 +230,6 @@ class Repeater {
    * @return {string}
    */
   replaceFirstNumber(name, j) {
-    console.log('Before: ', name);
     name = name.split('[');
 
     for (var i = 0, l = name.length; i < l; i++) {
@@ -242,7 +241,6 @@ class Repeater {
       }
     }
 
-    console.log('After: ', name.join('['));
     return name.join('[');
   }
 
