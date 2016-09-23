@@ -230,6 +230,7 @@ class Repeater {
    * @return {string}
    */
   replaceFirstNumber(name, j) {
+    console.log('Before: ', name);
     name = name.split('[');
 
     for (var i = 0, l = name.length; i < l; i++) {
@@ -241,6 +242,7 @@ class Repeater {
       }
     }
 
+    console.log('After: ', name.join('['));
     return name.join('[');
   }
 
@@ -250,7 +252,7 @@ class Repeater {
    * @param {object} e
    */
   remove($this) {
-    let $tbody = $this.closest('.papi-property-repeater-top')
+    let $tbody = $this.closest('.papi-property-repeater-top');
 
     if (!$tbody.hasClass('papi-property-flexible')) {
       $tbody = $tbody.find('.repeater-tbody').first();
@@ -304,14 +306,34 @@ class Repeater {
 
       $el.find('> td:first-child .count').text(i + 1);
 
+      // Replace `data-slug` attribute.
       $el.find('[data-replace-slug="true"]').each(function () {
         let $prop = $(this);
         $prop.attr('data-slug', self.replaceFirstNumber($prop.attr('data-slug'), i));
       });
 
+      // Replace `data-papi-rule` attribute.
+      $el.find('[data-papi-rule*="papi_"]').each(function () {
+        let $prop = $(this);
+        $prop.attr('data-papi-rule', self.replaceFirstNumber($prop.attr('data-papi-rule'), i));
+      });
+
+      // Replace `data-papi-json` attribute.
+      $el.find('[data-papi-json*="papi_"]').each(function () {
+        let $prop = $(this);
+        $prop.attr('data-papi-json', self.replaceFirstNumber($prop.attr('data-papi-json'), i));
+      });
+
+      // Replace id attribute.
+      $el.find('[id*="papi_"]').each(function () {
+        let $prop = $(this);
+        $prop.attr('id', self.replaceFirstNumber($prop.attr('id'), i));
+      });
+
+      // Replace name attribute.
       $el.find('[name*="papi_"]').each(function () {
-        let $input = $(this);
-        $input.attr('name', self.replaceFirstNumber($input.attr('name'), i));
+        let $prop = $(this);
+        $prop.attr('name', self.replaceFirstNumber($prop.attr('name'), i));
       });
     });
 
