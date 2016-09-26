@@ -121,7 +121,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$child_slug = $this->get_child_slug( $repeater_slug, $slug );
 
 				// Create cache key.
-				$cache_key = sprintf( '%s_%d_%s', $repeater_slug, $index, $child_slug );
+				$cache_key = sprintf( '%s_%d_%s', $repeater_slug, $index, $slug );
 
 				// Get raw value from cache.
 				$raw_value = papi_cache_get( $cache_key , $post_id, $this->get_meta_type() );
