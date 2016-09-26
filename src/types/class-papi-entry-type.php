@@ -159,7 +159,14 @@ class Papi_Entry_Type extends Papi_Core_Type {
 			return;
 		}
 
-		$parent = new $parent_class();
+		$rc = new ReflectionClass( $parent_class );
+
+		// Bail if not instantiable.
+		if ( ! $rc->isinstantiable() ) {
+			return;
+		}
+
+		$parent = $rc->newInstance();
 		$parent->register();
 		$this->boxes = $parent->get_boxes();
 	}

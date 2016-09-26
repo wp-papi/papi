@@ -48,6 +48,17 @@ class Papi_Core_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 500, $class2->sort_order );
 	}
 
+	public function test_core_type_get_meta_abstract() {
+		$path = PAPI_FIXTURE_DIR . '/core-types/abstract-core-type.php';
+
+		if ( ! class_exists( 'Abstract_Core_Type' ) ) {
+			require_once $path;
+		}
+
+		$class = new Abstract_Core_Type( $path );
+		$this->assertSame( 'Abstract core', $class->name );
+	}
+
 	public function test_core_type_get_type() {
 		$this->assertSame( 'core', $this->info_core_type->get_type() );
 	}

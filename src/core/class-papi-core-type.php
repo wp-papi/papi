@@ -121,7 +121,14 @@ class Papi_Core_Type {
 		$parent_meta   = [];
 
 		while ( $parent_exists ) {
-			$parent        = new $parent_class();
+			$rc = new ReflectionClass( $parent_class );
+
+			// Bail if not instantiable.
+			if ( ! $rc->isInstantiable() ) {
+				break;
+			}
+
+			$parent        = $rc->newInstance();
 			$output        = call_user_func( [$parent, $method] );
 			$output        = is_array( $output ) ? $output : [];
 			$parent_meta   = array_merge( $parent_meta, $output );

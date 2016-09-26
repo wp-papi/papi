@@ -240,7 +240,13 @@ function papi_get_entry_type( $file_path ) {
 		}
 		// @codeCoverageIgnoreEnd
 
-		$rc         = new ReflectionClass( $class_name );
+		$rc = new ReflectionClass( $class_name );
+
+		// Bail if not instantiable.
+		if ( ! $rc->isInstantiable() ) {
+			return;
+		}
+
 		$entry_type = $rc->newInstanceArgs( [$file_path] );
 
 		// If the entry type don't have a name we can't use it.

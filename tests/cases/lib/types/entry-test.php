@@ -140,10 +140,16 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 
 	public function test_papi_get_entry_type() {
 		$this->assertNull( papi_get_entry_type( 'hello.php' ) );
+
 		$path = PAPI_FIXTURE_DIR . '/page-types/boxes/simple.php';
 		$this->assertNull( papi_get_entry_type( $path ) );
+
+		$path = PAPI_FIXTURE_DIR . '/entry-types/base-entry-type.php';
+		$this->assertNull( papi_get_entry_type( $path ) );
+
 		$path = PAPI_FIXTURE_DIR . '/page-types/simple-page-type.php';
 		$this->assertNotEmpty( papi_get_entry_type( $path ) );
+
 		$path = PAPI_FIXTURE_DIR . '/page-types2/look-page-type.php';
 		$page_type = papi_get_entry_type( $path );
 		$this->assertTrue( $page_type instanceof Look_Module_Type );
