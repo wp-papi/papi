@@ -123,19 +123,27 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				// Create cache key.
 				$cache_key = sprintf( '%s_%d_%s', $repeater_slug, $index, $slug );
 
-				// Get raw value from cache.
-				$raw_value = papi_cache_get( $cache_key , $post_id, $this->get_meta_type() );
+				// Get raw value from cache if enabled.
+				if ( $this->cache ) {
+					$raw_value = papi_cache_get( $cache_key , $post_id, $this->get_meta_type() );
+				} else {
+					$raw_value = false;
+				}
 
 				// Load the value.
 				if ( $raw_value === null || $raw_value === false ) {
 					$values[$index][$slug] = $property_type->load_value( $value, $child_slug, $post_id );
 					$values[$index][$slug] = papi_filter_load_value( $property_type->type, $values[$index][$slug], $child_slug, $post_id, papi_get_meta_type() );
 
-					if ( ! papi_is_empty( $values[$index][$slug] ) ) {
+					if ( ! papi_is_empty( $values[$index][$slug] ) && $this->cache ) {
 						papi_cache_set( $cache_key, $post_id, $values[$index][$slug], $this->get_meta_type() );
 					}
 				} else {
 					$values[$index][$slug] = $raw_value;
+				}
+
+				if ( strtolower( $property_type->type ) === 'repeater' ) {
+					$property_type->cache = false;
 				}
 
 				// Format the value from the property class.
