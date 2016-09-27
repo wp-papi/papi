@@ -6,6 +6,13 @@
 class Papi_Property_Repeater extends Papi_Property {
 
 	/**
+	 * Cache child values or not.
+	 *
+	 * @var bool
+	 */
+	protected $cache = false;
+
+	/**
 	 * The convert type.
 	 *
 	 * @var string
@@ -95,15 +102,19 @@ class Papi_Property_Repeater extends Papi_Property {
 			// Get property child slug.
 			$child_slug = $this->get_child_slug( $repeater_slug, $slug );
 
-			// Get raw value from cache.
-			$raw_value = papi_cache_get( $slug, $post_id, $this->get_meta_type() );
+			// Get raw value from cache if enabled.
+			if ( $this->cache ) {
+				$raw_value = papi_cache_get( $slug, $post_id, $this->get_meta_type() );
+			} else {
+				$raw_value = false;
+			}
 
 			// Load the value.
 			if ( $raw_value === null || $raw_value === false ) {
 				$values[$slug] = $property_type->load_value( $value, $child_slug, $post_id );
 				$values[$slug] = papi_filter_load_value( $property_type->type, $values[$slug], $child_slug, $post_id, papi_get_meta_type() );
 
-				if ( ! papi_is_empty( $values[$slug] ) ) {
+				if ( ! papi_is_empty( $values[$slug] ) && $this->cache ) {
 					papi_cache_set( $slug, $post_id, $values[$slug], $this->get_meta_type() );
 				}
 			} else {
