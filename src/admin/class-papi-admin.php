@@ -89,6 +89,10 @@ final class Papi_Admin {
 			$classes .= ' ' . implode( ' ', $arr );
 		}
 
+		if ( papi_get_qs( 'papi-iframe-mode' ) ) {
+			$classes .= ' papi-iframe-mode';
+		}
+
 		return $classes;
 	}
 
@@ -237,6 +241,37 @@ final class Papi_Admin {
 	}
 
 	/**
+	 * Change redirect post link when iframe mode is on.
+	 *
+	 * @param  string $location
+	 *
+	 * @return string
+	 */
+	public function redirect_post_link( $location ) {
+		// Don't continue if no http referer exists.
+		if ( ! isset( $_SERVER['HTTP_REFERER'] ) ) {
+			return $location;
+		}
+
+		$referer = $_SERVER['HTTP_REFERER'];
+
+		// Don't continue if not in iframe mode.
+		if ( strpos( $referer, 'papi-iframe-mode' ) === false ) {
+			return $location;
+		}
+
+		// Get the message query string.
+		preg_match( '/message=\d+/', $location, $matches );
+
+		// Don't continue if no message query string.
+		if ( empty( $matches ) ) {
+			return $location;
+		}
+
+		return $referer . '&' . $matches[0];
+	}
+
+	/**
 	 * Setup actions.
 	 */
 	private function setup_actions() {
@@ -255,10 +290,20 @@ final class Papi_Admin {
 	 * Setup filters.
 	 */
 	private function setup_filters() {
-		add_filter( 'admin_body_class', [$this, 'admin_body_class'] );
-		add_filter( 'plugin_row_meta', [$this, 'plugin_row_meta'], 10, 2 );
-		add_filter( 'wp_link_query', [$this, 'wp_link_query'] );
-		add_filter( 'wp_refresh_nonces', [$this, 'wp_refresh_nonces'], 11 );
+		if ( is_admin() ) {
+			add_filter( 'admin_body_class', [$this, 'admin_body_class'] );
+			add_filter( 'plugin_row_meta', [$this, 'plugin_row_meta'], 10, 2 );
+			add_filter( 'redirect_post_location', [$this, 'redirect_post_location'] );
+			add_filter( 'wp_link_query', [$this, 'wp_link_query'] );
+			add_filter( 'wp_refresh_nonces', [$this, 'wp_refresh_nonces'], 11 );
+		}
+	}
+
+	/**
+	 * Setup globals.
+	 */
+	private function setup_globals() {
+		$this->post_type = papi_get_post_type();
 	}
 
 	/**

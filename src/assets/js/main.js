@@ -10,6 +10,9 @@ import Rules from 'rules';
 import Tabs from 'tabs';
 import Taxonomy from 'taxonomy';
 
+// Modals
+import Iframe from 'modals/iframe';
+
 // Properties
 import Color from 'properties/color';
 import Datetime from 'properties/datetime';
@@ -31,6 +34,9 @@ Required.init();
 Rules.init();
 Tabs.init();
 Taxonomy.init();
+
+// Modals
+Iframe.init();
 
 // Properties
 Color.init();

@@ -52,3 +52,30 @@ $hide-list: #edit-slug-box #pageparentdiv;
     }
   }
 }
+
+//
+// Iframe mode, hide menus, admin tab and other things.
+//
+.papi-iframe-mode {
+  #adminmenumain, // admin menu
+  #wpadminbar, // admin bar
+  #wpfooter, // admin footer
+  .wrap > #message.updated > p > a, // view post link
+  .submitdelete.deletion // move to trash link
+  {
+    display: none !important;
+    height: 1px;
+    width: 1px;
+  }
+  #wpcontent {
+    margin-top: -32px;
+    margin-left: 0px !important;
+
+    .wrap h1,
+    #screen-meta,
+    #screen-meta-links,
+    .delete-action {
+      display: none;
+    }
+  }
+}

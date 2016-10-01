@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import select2Options from 'components/select2';
 
 class Core {
 
@@ -49,7 +50,7 @@ class Core {
     $('[data-papi-href]').on('click touchstart', this.redirect);
 
     if ('select2' in $.fn) {
-      $('.inside .papi-table tr .papi-component-select2').select2();
+      $('.inside .papi-table tr .papi-component-select2').select2(select2Options);
 
       // Fix issue with browsers where selected attribute is not removed correct.
       $(document.body).on('change', 'select.papi-component-select2', function () {
