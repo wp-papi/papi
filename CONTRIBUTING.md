@@ -24,9 +24,9 @@ The `master` branch is unsafe but it should be used when you adding new features
 
 ## Pull requests
 
-Good pull requests—patches, improvements, new features—are are allways welcome. They should remain focused in scope and avoid containing unrelated commits.
+Good pull requests with patches, improvements or new features is always welcome. They should remain focused in scope and avoid containing unrelated commits.
 
-**Please ask first** embarking on any significant pull request (e.g. implementing features, refactoring code, porting to a different language), otherwise you risk spending a lot of time working on something that the project's developers might not want to merge into the project.
+**Please ask first** embarking on any significant pull request (e.g. implementing features, refactoring code, porting to a different language), otherwise you risk spending a lot of time working on something that the project developers might not want to merge into the project.
 
 **Please follow** the projects code style. The projects PHP code should be following the code style that is based on [WordPress code standard](https://make.wordpress.org/core/handbook/coding-standards/php/) and always use brackets.
 
@@ -38,7 +38,7 @@ cd papi
 git remote add upstream https://github.com/wp-papi/papi.git
 ```
 
-This is useful if you cloned your repo a while ago and want's to updated it.
+This is useful if you cloned your repo a while ago and now wants to update it.
 
 ```
 git checkout master
