@@ -77,10 +77,12 @@ final class Papi_Admin {
 	public function admin_body_class( $classes ) {
 		$classes .= sprintf( ' papi-meta-type-%s', papi_get_meta_type() );
 
+		// Bail if post type isn't in list of post types.
 		if ( ! in_array( $this->post_type, papi_get_post_types(), true ) ) {
 			return $classes;
 		}
 
+		// Add custom css classes from entry type.
 		if ( $entry_type = $this->get_entry_type() ) {
 			$arr = $entry_type->get_body_classes();
 			$arr = is_string( $arr ) ? [$arr] : $arr;
@@ -89,6 +91,7 @@ final class Papi_Admin {
 			$classes .= ' ' . implode( ' ', $arr );
 		}
 
+		// Add custom css classes from query string.
 		if ( $css = papi_get_qs( 'papi_css' ) ) {
 			$css = is_array( $css ) ? $css : [];
 			$css = array_map( 'sanitize_text_field', $css );
