@@ -97,14 +97,18 @@ class Repeater {
         return ui;
       },
       start: function (e, ui) {
-        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) { return elem.id; });
+        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) {
+          return elem.id;
+        });
         self.deactivateEditors(editorIds);
       },
       stop: function (e, ui) {
         const $tbody = $(this).closest('.repeater-tbody');
         self.updateRowNumber($tbody);
 
-        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) { return elem.id; });
+        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) {
+          return elem.id;
+        });
         self.activateEditors(editorIds);
       }
     });
@@ -132,7 +136,12 @@ class Repeater {
    */
   deactivateEditors(ids) {
     $.each(ids, function() {
-      const editor    = tinymce.get(this);
+      const editor = tinymce.get(this);
+
+      if (typeof this !== 'string' || !this.length || this[0] !== 'p') {
+        return;
+      }
+
       const $textarea = $('#' + this);
       let editorHeight;
 
@@ -158,6 +167,10 @@ class Repeater {
    */
   activateEditors(ids) {
     $.each(ids, function() {
+      if (typeof this !== 'string' || !this.length || this[0] !== 'p') {
+        return;
+      }
+
       const $textarea = $('#' + this);
 
       if (!tinymce.get(this) && $textarea.data('papi-editor-reinit')) {
