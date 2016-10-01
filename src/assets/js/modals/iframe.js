@@ -62,7 +62,7 @@ class Iframe {
    * @param {string} url
    */
   constructor(url) {
-    this.url = url;
+    this.url = url + '&papi_css[]=papi-iframe-mode';
     this.$iframe = $(this.template({
       closeText: 'Close',
       title: 'Edit'

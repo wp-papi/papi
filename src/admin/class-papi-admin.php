@@ -89,8 +89,10 @@ final class Papi_Admin {
 			$classes .= ' ' . implode( ' ', $arr );
 		}
 
-		if ( papi_get_qs( 'papi-iframe-mode' ) ) {
-			$classes .= ' papi-iframe-mode';
+		if ( $css = papi_get_qs( 'papi_css' ) ) {
+			$css = is_array( $css ) ? $css : [];
+			$css = array_map( 'sanitize_text_field', $css );
+			$classes .= ' ' . implode( ' ', $css );
 		}
 
 		return $classes;
