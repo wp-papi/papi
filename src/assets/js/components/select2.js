@@ -2,8 +2,6 @@ import $ from 'jquery';
 
 const options = {
   templateSelection: function (result) {
-    console.log(result);
-
     if (!result.id) {
       return result.text;
     }

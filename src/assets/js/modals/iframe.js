@@ -40,12 +40,8 @@ class Iframe {
       return;
     }
 
-    console.log('iframe init');
-
     $(document).on('click', 'a.papi-iframe-link-open', function(e) {
       e.preventDefault();
-
-      console.log('iframe open click');
 
       if (typeof window.papi.iframe !== 'undefined') {
         window.papi.iframe.close();
@@ -58,12 +54,6 @@ class Iframe {
       window.papi.iframe = new Iframe(url);
       window.papi.iframe.open();
     });
-  }
-
-  /**
-   * Bind elements with functions.
-   */
-  binds() {
   }
 
   /**
@@ -98,11 +88,9 @@ class Iframe {
   /**
    * Add iframe events when iframe is loaded.
    *
-   * @param  {object} e
+   * @param {object} e
    */
   loaded(e) {
-    console.log('iframe loaded');
-
     let $this = $(e.currentTarget);
     let $contents = $this.contents();
 
@@ -112,13 +100,10 @@ class Iframe {
   /**
    * Change current title in dropdown on iframe submit.
    *
-   * @param  {object} e
+   * @param {object} e
    */
   submit(e) {
-    console.log('iframe submit');
-
     let $this = $(e.currentTarget);
-    let self = this;
     let title = $this.find('[name="post_title"]').val();
 
     $('a.papi-iframe-link-open[data-url="' + this.url + '"]').prev().text(title);
@@ -126,14 +111,8 @@ class Iframe {
 
   /**
    * Close iframe modal.
-   *
-   * @param  {object} e
    */
-  close(e) {
-    e.preventDefault();
-
-    console.log('iframe close click');
-
+  close() {
     $('#papi-iframe-modal-dialog').hide();
     $(document).off('focusin');
     $('body').css({'overflow': 'auto'});
