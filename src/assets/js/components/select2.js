@@ -6,7 +6,12 @@ const options = {
       return result.text;
     }
 
-    const url      = $(result.element).data('edit-url');
+    const url = $(result.element).data('edit-url');
+
+    if (!url) {
+      return result.text;
+    }
+
     const editText = papiL10n.edit;
     const $html = $('<div><span>' + result.text + '</span> <a href="#" class="papi-iframe-link-open" data-url="' + url + '">' + editText + '</a></div>');
 
