@@ -38,6 +38,7 @@ class Papi_Core_Property {
 		'after_html'    => '',
 		'before_class'  => '',
 		'before_html'   => '',
+		'cache'         => true,
 		'capabilities'  => [],
 		'default'       => null,
 		'description'   => '',

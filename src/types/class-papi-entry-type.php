@@ -310,7 +310,12 @@ class Papi_Entry_Type extends Papi_Core_Type {
 				}
 			}
 
-			return $property;
+			/**
+			 * Modify property.
+			 *
+			 * @param  Papi_Core_Property $property
+			 */
+			return apply_filters( 'papi/get_property', $property );
 		}
 
 		foreach ( $boxes as $box ) {
@@ -319,13 +324,23 @@ class Papi_Entry_Type extends Papi_Core_Type {
 
 				if ( papi_is_property( $property ) && $property->match_slug( $slug ) ) {
 					if ( empty( $child_slug ) ) {
-						return $property;
+						/**
+						 * Modify property.
+						 *
+						 * @param  Papi_Core_Property $property
+						 */
+						return apply_filters( 'papi/get_property', $property );
 					}
 
 					$property = $property->get_child_property( $child_slug );
 
 					if ( papi_is_property( $property ) ) {
-						return $property;
+						/**
+						 * Modify property.
+						 *
+						 * @param  Papi_Core_Property $property
+						 */
+						return apply_filters( 'papi/get_property', $property );
 					}
 				}
 			}

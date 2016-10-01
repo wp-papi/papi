@@ -6,13 +6,6 @@
 class Papi_Property_Repeater extends Papi_Property {
 
 	/**
-	 * Cache child values or not.
-	 *
-	 * @var bool
-	 */
-	protected $cache = false;
-
-	/**
 	 * The convert type.
 	 *
 	 * @var string
