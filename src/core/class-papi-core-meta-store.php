@@ -222,6 +222,34 @@ abstract class Papi_Core_Meta_Store {
 	abstract public function get_property( $slug, $child_slug = '' );
 
 	/**
+	 * Get property option or default value.
+	 *
+	 * @param  string $slug
+	 * @param  string $option
+	 * @param  mixed  $default
+	 *
+	 * @return bool
+	 */
+	public function get_property_option( $slug, $option, $default = null ) {
+		$slug     = unpapify( $slug );
+		$property = $this->property( $slug );
+
+		// If no property type is found, return default
+		// value since we don't have a property.
+		if ( ! papi_is_property( $property ) ) {
+			return $default;
+		}
+
+		$value = $property->get_option( $option );
+
+		if ( papi_is_empty( $value ) ) {
+			return $default;
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Prepare load value.
 	 *
 	 * @param  Papi_Core_Property $property

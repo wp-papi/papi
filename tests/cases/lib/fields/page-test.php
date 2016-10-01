@@ -68,6 +68,25 @@ class Papi_Lib_Fields_Page_Test extends WP_UnitTestCase {
 		$this->assertSame( 'fredrik', papi_get_field( '', 'fredrik' ) );
 	}
 
+	public function test_papi_get_field_cache() {
+		papi_update_property_meta_value( [
+			'id'    => $this->post_id,
+			'slug'  => 'name',
+			'value' => 'fredrik'
+		] );
+		$this->assertSame( 'fredrik', papi_get_field( $this->post_id, 'name' ) );
+		$this->assertSame( 'fredrik', papi_cache_get( 'name', $this->post_id ) );
+
+		// Turn off property cache.
+		add_filter( 'papi/get_property', function ( $property ) {
+			$property->set_option( 'cache', false );
+			return $property;
+		} );
+
+		$this->assertSame( 'fredrik', papi_get_field( $this->post_id, 'name' ) );
+		$this->assertEmpty( papi_cache_get( 'name', $this->post_id ) );
+	}
+
 	public function test_papi_get_slugs() {
 		$this->assertEmpty( papi_get_slugs() );
 
