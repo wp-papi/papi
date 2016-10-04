@@ -98,7 +98,7 @@ function papi_get_core_type_file_path( $file_path ) {
 }
 
 /**
- * Get all entry type files from the register directories.
+ * Get all core type files from the register directories.
  *
  * @return array
  */
