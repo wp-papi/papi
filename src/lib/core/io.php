@@ -120,7 +120,7 @@ function papi_get_all_core_type_files() {
 }
 
 /**
- * Get page type file from page type query.
+ * Get core type file path from file name.
  *
  * @param  string $file
  *
@@ -146,7 +146,7 @@ function papi_get_file_path( $file ) {
 }
 
 /**
- * Get entry type base path.
+ * Get core type base path.
  *
  * @param  string $file
  *
