@@ -159,7 +159,7 @@ class Papi_Query {
 			if ( empty( $args['meta_key'] ) || empty( $args['meta_value'] ) ) {
 				$args['meta_key']   = papi_get_page_type_key();
 				$args['meta_value'] = $args['entry_type'];
-			} else {
+			} else if ( papi_entry_type_exists( $args['entry_type'] ) ) {
 				$item = [
 					'key'   => $args['meta_key'],
 					'value' => $args['meta_value']
@@ -191,7 +191,7 @@ class Papi_Query {
 				unset( $args['meta_key'] );
 				unset( $args['meta_value'] );
 			}
-		} else {
+		} else if ( papi_entry_type_exists( $args['entry_type'] ) ) {
 			// Add Papi entry/page type meta query.
 			$args['meta_query'][] = [
 				'key'   => papi_get_page_type_key(),

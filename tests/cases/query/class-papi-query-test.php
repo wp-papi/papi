@@ -19,19 +19,37 @@ class Papi_Query_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $query->get_result() );
 	}
 
+	public function test_missing_query() {
+		$query = new Papi_Query( [
+			'entry_type' => 'fake-page-type',
+			'fields'     => 'ids'
+		] );
+
+		$this->assertEmpty( $query->get_result() );
+
+		$post_id = $this->factory->post->create( ['post_type' => 'page'] );
+		update_post_meta( $post_id, papi_get_page_type_key(), 'fake-page-type' );
+
+		$this->assertEmpty( $query->get_result() );
+	}
+
 	public function test_first() {
 		$query = new Papi_Query( [
-			'entry_type' => 'query-entry-type',
+			'entry_type' => 'simple-page-type',
 			'fields'     => 'ids'
 		] );
 
 		$this->assertEmpty( $query->first() );
 
-		$post_id1 = $this->factory->post->create();
-		update_post_meta( $post_id1, papi_get_page_type_key(), 'query-entry-type' );
+		add_filter( 'papi/settings/directories', function () {
+			return PAPI_FIXTURE_DIR . '/page-types';
+		} );
 
-		$post_id2 = $this->factory->post->create();
-		update_post_meta( $post_id2, papi_get_page_type_key(), 'query-entry-type' );
+		$post_id1 = $this->factory->post->create( ['post_type' => 'page'] );
+		update_post_meta( $post_id1, papi_get_page_type_key(), 'simple-page-typee' );
+
+		$post_id2 = $this->factory->post->create( ['post_type' => 'page'] );
+		update_post_meta( $post_id2, papi_get_page_type_key(), 'simple-page-type' );
 
 		$result = $query->get_result();
 		$first  = array_shift( $result );
@@ -41,17 +59,21 @@ class Papi_Query_Test extends WP_UnitTestCase {
 
 	public function test_last() {
 		$query = new Papi_Query( [
-			'entry_type' => 'query-entry-type',
+			'entry_type' => 'simple-page-type',
 			'fields'     => 'ids'
 		] );
 
 		$this->assertEmpty( $query->last() );
 
-		$post_id1 = $this->factory->post->create();
-		update_post_meta( $post_id1, papi_get_page_type_key(), 'quert-entry-type' );
+		add_filter( 'papi/settings/directories', function () {
+			return PAPI_FIXTURE_DIR . '/page-types';
+		} );
 
-		$post_id2 = $this->factory->post->create();
-		update_post_meta( $post_id2, papi_get_page_type_key(), 'query-entry-type' );
+		$post_id1 = $this->factory->post->create( ['post_type' => 'page'] );
+		update_post_meta( $post_id1, papi_get_page_type_key(), 'simple-page-type' );
+
+		$post_id2 = $this->factory->post->create( ['post_type' => 'page'] );
+		update_post_meta( $post_id2, papi_get_page_type_key(), 'simple-page-type' );
 
 		$result = $query->get_result();
 		$last   = array_pop( $result );
@@ -61,14 +83,19 @@ class Papi_Query_Test extends WP_UnitTestCase {
 
 	public function test_simple_query() {
 		$query = new Papi_Query( [
-			'entry_type' => 'query-entry-type',
+			'entry_type' => 'simple-page-type',
 			'fields'     => 'ids'
 		] );
 
+
 		$this->assertEmpty( $query->get_result() );
 
-		$post_id = $this->factory->post->create();
-		update_post_meta( $post_id, papi_get_page_type_key(), 'query-entry-type' );
+		add_filter( 'papi/settings/directories', function () {
+			return PAPI_FIXTURE_DIR . '/page-types';
+		} );
+
+		$post_id = $this->factory->post->create( ['post_type' => 'page'] );
+		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		$this->assertSame( [$post_id], $query->get_result() );
 	}
