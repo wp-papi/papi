@@ -24,7 +24,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 
 	public function test_actions() {
 		$this->assertSame( 10, has_action( 'init', [$this->ajax, 'add_endpoint'] ) );
-		$this->assertSame( 10, has_action( 'parse_query', [$this->ajax, 'handle_papi_ajax'] ) );
+		$this->assertSame( 10, has_action( 'parse_request', [$this->ajax, 'handle_papi_ajax'] ) );
 		$this->assertSame( 10, has_action( 'admin_enqueue_scripts', [$this->ajax, 'ajax_url'] ) );
 		$this->assertSame( 10, has_action( 'papi/ajax/get_property', [$this->ajax, 'get_property'] ) );
 		$this->assertSame( 10, has_action( 'papi/ajax/get_properties', [$this->ajax, 'get_properties'] ) );
@@ -40,12 +40,6 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 	public function test_ajax_url() {
 		$this->ajax->ajax_url();
 		$this->expectOutputRegex( '/papi\-ajax/' );
-	}
-
-	public function test_handle_papi_ajax_wp_query() {
-		global $wp_query;
-		$wp_query = null;
-		$this->assertNull( $this->ajax->handle_papi_ajax() );
 	}
 
 	public function test_handle_papi_ajax_doing_ajax() {
