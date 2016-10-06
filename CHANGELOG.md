@@ -1,5 +1,11 @@
 # Papi Changelog
 
+## [3.1.15](https://github.com/wp-papi/papi/releases/tag/v3.1.15) - 2016-10-06
+
+* Fixed: Expression issues with TinyMCE in flexibles and repeaters [#196](https://github.com/wp-papi/papi/issues/196).
+* Fixed: Dot files should not be loaded if exists in types directories [#193](https://github.com/wp-papi/papi/issues/193).
+* Fixed: Cache issue when a repeater is a child property to a flexible.
+
 ## [3.1.14](https://github.com/wp-papi/papi/releases/tag/v3.1.14) - 2016-09-23
 
 * Fixed: Browser issue with `selected` attribute.
