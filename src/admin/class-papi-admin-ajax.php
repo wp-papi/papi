@@ -20,6 +20,22 @@ class Papi_Admin_Ajax {
 	}
 
 	/**
+	 * Setup actions.
+	 */
+	private function setup_actions() {
+		add_action( 'init', [$this, 'add_endpoint'] );
+		add_action( 'parse_request', [$this, 'handle_papi_ajax'] );
+		add_action( 'admin_enqueue_scripts', [$this, 'ajax_url'], 10 );
+
+		// Ajax actions.
+		add_action( $this->action_prefix . 'get_property', [$this, 'get_property'] );
+		add_action( $this->action_prefix . 'get_properties', [$this, 'get_properties'] );
+		add_action( $this->action_prefix . 'get_rules_result', [$this, 'get_rules_result'] );
+		add_action( $this->action_prefix . 'get_posts', [$this, 'get_posts'] );
+		add_action( $this->action_prefix . 'get_terms', [$this, 'get_terms'] );
+	}
+
+	/**
 	 * Add ajax endpoint.
 	 */
 	public function add_endpoint() {
@@ -44,21 +60,15 @@ class Papi_Admin_Ajax {
 	 * Handle Papi ajax.
 	 */
 	public function handle_papi_ajax() {
-		global $wp_query;
-
-		if ( ! is_object( $wp_query ) ) {
-			return;
-		}
-
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return;
 		}
 
-		if ( ! papi_is_empty( papi_get_qs( 'action' ) ) ) {
-			$wp_query->set( 'papi_ajax_action', papi_get_qs( 'action' ) );
-		}
+		$ajax_action = '';
 
-		$ajax_action = $wp_query->get( 'papi_ajax_action' );
+		if ( ! empty( $_GET['action'] ) ) {
+			$ajax_action = sanitize_text_field( $_GET['action'] );
+		}
 
 		if ( is_user_logged_in() && has_action( $this->action_prefix . $ajax_action ) !== false ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {
