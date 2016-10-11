@@ -209,7 +209,11 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		global $post;
 		$post = get_post( $post_id );
 
+		// Returns true if id equals page type id.
 		$this->assertTrue( papi_is_page_type( 'simple-page-type' ) );
+
+		// Returns true if not empty.
+		$this->assertTrue( papi_is_page_type() );
 	}
 
 	public function test_papi_set_page_type_id() {

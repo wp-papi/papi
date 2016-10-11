@@ -369,3 +369,16 @@ function papi_get_entry_type_template( $id = 0, $type = null ) {
 		return papi_get_template_file_name( $data->template );
 	}
 }
+
+/**
+ * Check if given string is a entry type.
+ *
+ * @param  string $str
+ *
+ * @return bool
+ */
+function papi_is_entry_type( $str = '' ) {
+	$id = papi_get_entry_type_id();
+
+	return empty( $str ) ? ! empty( $id ) : $str === $id;
+}

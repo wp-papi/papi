@@ -164,8 +164,8 @@ function papi_get_post_types() {
  *
  * @return bool
  */
-function papi_is_page_type( $str ) {
-	return $str === papi_get_entry_type_id();
+function papi_is_page_type( $str = '' ) {
+	return papi_is_entry_type( $str );
 }
 
 /**

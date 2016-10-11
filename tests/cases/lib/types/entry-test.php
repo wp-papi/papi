@@ -219,4 +219,26 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		$post_id = $this->factory->post->create();
 		$this->assertEmpty( papi_get_entry_type_id( $post_id ) );
 	}
+
+	public function test_papi_is_entry_type() {
+		$this->assertFalse( papi_is_entry_type( 'fake-entry-type' ) );
+
+		add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$this->assertFalse( papi_is_entry_type( 'info-entry-type' ) );
+
+		$post_id = $this->factory->post->create();
+		update_post_meta( $post_id, papi_get_page_type_key(), 'info-entry-type' );
+
+		global $post;
+		$post = get_post( $post_id );
+
+		// Returns true if id equals entry type.
+		$this->assertTrue( papi_is_entry_type( 'info-entry-type' ) );
+
+		// Returns true if not empty.
+		$this->assertTrue( papi_is_entry_type() );
+	}
 }
