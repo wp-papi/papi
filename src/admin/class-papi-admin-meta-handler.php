@@ -135,8 +135,11 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		// Prepare properties data.
 		$data = $this->prepare_properties_data( $data, $id );
 
+		// Get meta type.
+		$meta_type = $this->get_meta_type();
+
 		// Overwrite post data if any.
-		if ( $this->get_meta_type() === 'post' ) {
+		if ( $meta_type === 'post' ) {
 			$this->overwrite_post_data( $id );
 		}
 
@@ -149,6 +152,14 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 				'value' => $value
 			] );
 		}
+
+		/**
+		 * Fire `save_properties` action when all is done.
+		 *
+		 * @param int    $id
+		 * @param string $meta_type
+		 */
+		do_action( 'papi/save_properties', $id, $meta_type );
 	}
 
 	/**
