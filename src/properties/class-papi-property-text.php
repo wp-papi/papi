@@ -24,7 +24,10 @@ class Papi_Property_Text extends Papi_Property {
 			}
 
 			$value = wp_strip_all_tags( $value );
-			$value = $this->get_setting( 'nl2br' ) ? nl2br( $value ) : $value;
+
+			if ( ! is_admin() ) {
+				$value = $this->get_setting( 'nl2br' ) ? nl2br( $value ) : $value;
+			}
 		}
 
 		return $value;
