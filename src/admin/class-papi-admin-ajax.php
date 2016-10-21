@@ -97,14 +97,13 @@ class Papi_Admin_Ajax {
 		$args   = is_array( $args ) ? $args : [];
 		$fields = papi_get_qs( 'fields' ) ?: [];
 		$fields = is_array( $fields ) ? $fields : [];
-		$query  = new WP_Query( array_merge( [
+		$posts  = ( new WP_Query( array_merge( [
 			'post_type'              => ['post'],
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false
-		], $args ) );
+		], $args ) ) )->posts;
 
-		$posts = $query->get_posts();
 		$posts = array_filter( $posts, function ( $post ) {
 			return ! empty( $post->post_title );
 		} );
