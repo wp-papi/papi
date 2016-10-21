@@ -108,8 +108,7 @@ class Papi_Property_Post extends Papi_Property {
 			'update_post_term_cache' => false
 		] );
 
-		$query = new WP_Query( $args );
-		$posts = $query->get_posts();
+		$posts = ( new WP_Query( $args ) )->posts;
 
 		// Keep only objects.
 		$posts   = papi_get_only_objects( $posts );
