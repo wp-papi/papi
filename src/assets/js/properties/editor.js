@@ -154,8 +154,16 @@ class Editor {
   update(e) {
     e.preventDefault();
 
-    const $this = $(e.currentTarget);
-    const id    = this.getId($this.parent().find('div[id]').attr('id'));
+    const $this   = $(e.currentTarget);
+    const $prev   = $this.prev();
+    let   id      = '';
+
+    // Support `vertical` layout in flexible and repeater.
+    if ($prev.length && $prev[0].tagName.toLowerCase() === 'tr') {
+      id = this.getId($prev.find('div[id]').attr('id'));
+    } else {
+      id = this.getId($this.parent().find('div[id]').attr('id'));
+    }
 
     if (tinyMCE.editors[id] !== undefined) {
       return;
