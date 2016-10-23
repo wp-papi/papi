@@ -41,7 +41,6 @@ class Color {
 
     $el.wpColorPicker({
       color: true,
-      input: $el,
       palettes: palettes === undefined || !palettes.length ? false : palettes
     });
   }
