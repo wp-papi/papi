@@ -45,7 +45,7 @@ class Papi_Query {
 	}
 
 	/**
-	 * Dynamically access query attributes.
+	 * Dynamically access query properties.
 	 *
 	 * @param  string $key
 	 *
