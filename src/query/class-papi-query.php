@@ -45,6 +45,23 @@ class Papi_Query {
 	}
 
 	/**
+	 * Dynamically access query attributes.
+	 *
+	 * @param  string $key
+	 *
+	 * @return mixed
+	 */
+	public function __get( $key ) {
+		switch ( $key ) {
+			case 'posts':
+			case 'terms':
+				return $this->get_result();
+			default:
+				break;
+		}
+	}
+
+	/**
 	 * Get first item of result.
 	 *
 	 * @return array
@@ -230,36 +247,6 @@ class Papi_Query {
 		$this->parse_args( $this->args );
 
 		return $this->query->query( $this->get_query_args() );
-	}
-
-	/**
-	 * Get posts result.
-	 *
-	 * Will only work if query type is `post`.
-	 *
-	 * @return array
-	 */
-	public function get_posts() {
-		if ( $this->type !== 'post' ) {
-			return [];
-		}
-
-		return $this->get_result();
-	}
-
-	/**
-	 * Get terms result.
-	 *
-	 * Will only work if query type is `term`.
-	 *
-	 * @return array
-	 */
-	public function get_terms() {
-		if ( $this->type !== 'term' ) {
-			return [];
-		}
-
-		return $this->get_result();
 	}
 
 	/**

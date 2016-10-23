@@ -114,7 +114,7 @@ class Papi_Query_Test extends WP_UnitTestCase {
 		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		// Wrong post type.
-		$this->assertEmpty( $query->get_posts() );
+		$this->assertEmpty( $query->posts );
 	}
 
 	public function test_real_page_type_query_success() {
@@ -130,7 +130,7 @@ class Papi_Query_Test extends WP_UnitTestCase {
 		$post_id = $this->factory->post->create( ['post_type' => 'page'] );
 		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
 
-		$this->assertSame( [$post_id], $query->get_posts() );
+		$this->assertSame( [$post_id], $query->posts );
 	}
 
 	public function test_real_page_type_meta_query() {
@@ -152,11 +152,11 @@ class Papi_Query_Test extends WP_UnitTestCase {
 		$post_id = $this->factory->post->create( ['post_type' => 'page'] );
 		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
 
-		$this->assertEmpty( $query->get_posts() );
+		$this->assertEmpty( $query->posts );
 
 		update_post_meta( $post_id, 'name', 'Fredrik' );
 
-		$this->assertSame( [$post_id], $query->get_posts() );
+		$this->assertSame( [$post_id], $query->posts );
 	}
 
 	public function test_real_page_type_meta_key_value() {
@@ -175,11 +175,11 @@ class Papi_Query_Test extends WP_UnitTestCase {
 		$post_id = $this->factory->post->create( ['post_type' => 'page'] );
 		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
 
-		$this->assertEmpty( $query->get_posts() );
+		$this->assertEmpty( $query->posts );
 
 		update_post_meta( $post_id, 'name', 'Fredrik' );
 
-		$this->assertSame( [$post_id], $query->get_posts() );
+		$this->assertSame( [$post_id], $query->posts );
 	}
 
 	public function test_real_taxonomy_type_query_fail() {
@@ -200,7 +200,7 @@ class Papi_Query_Test extends WP_UnitTestCase {
 		update_term_meta( $term_id, papi_get_page_type_key(), 'simple-taxonomy-type' );
 
 		// Wrong taxonomy.
-		$this->assertEmpty( $query->get_terms() );
+		$this->assertEmpty( $query->terms );
 	}
 
 	public function test_real_taxonomy_type_query_success() {
@@ -221,7 +221,7 @@ class Papi_Query_Test extends WP_UnitTestCase {
 		$term_id = $this->factory->term->create( ['taxonomy' => 'category'] );
 		update_term_meta( $term_id, papi_get_page_type_key(), 'simple-taxonomy-type' );
 
-		$this->assertSame( [strval( $term_id )], $query->get_terms() );
+		$this->assertSame( [strval( $term_id )], $query->terms );
 	}
 
 	public function test_real_taxonomy_type_meta_query() {
@@ -248,11 +248,11 @@ class Papi_Query_Test extends WP_UnitTestCase {
 		$term_id = $this->factory->term->create( ['taxonomy' => 'category'] );
 		update_term_meta( $term_id, papi_get_page_type_key(), 'simple-taxonomy-type' );
 
-		$this->assertEmpty( $query->get_terms() );
+		$this->assertEmpty( $query->terms );
 
 		update_term_meta( $term_id, 'name', 'Fredrik' );
 
-		$this->assertSame( [strval( $term_id )], $query->get_terms() );
+		$this->assertSame( [strval( $term_id )], $query->terms );
 	}
 
 	public function test_real_taxonomy_type_meta_key_value() {
@@ -275,10 +275,10 @@ class Papi_Query_Test extends WP_UnitTestCase {
 		$term_id = $this->factory->term->create( ['taxonomy' => 'category'] );
 		update_term_meta( $term_id, papi_get_page_type_key(), 'simple-taxonomy-type' );
 
-		$this->assertEmpty( $query->get_terms() );
+		$this->assertEmpty( $query->terms );
 
 		update_term_meta( $term_id, 'name', 'Fredrik' );
 
-		$this->assertSame( [strval( $term_id )], $query->get_terms() );
+		$this->assertSame( [strval( $term_id )], $query->terms );
 	}
 }
