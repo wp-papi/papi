@@ -29,7 +29,7 @@ class Papi_Property_Color extends Papi_Property {
 			'class' => 'papi-property-color-picker',
 
 			papi_html_tag( 'input', [
-				'data-palettes' => $settings->palettes,
+				'data-palettes' => $settings->palettes ? $settings->palettes : true,
 				'id'            => $this->html_id(),
 				'name'          => $this->html_name(),
 				'type'          => $settings->show_input === true ? 'text' : 'hidden',
