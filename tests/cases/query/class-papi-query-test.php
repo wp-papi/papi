@@ -221,7 +221,7 @@ class Papi_Query_Test extends WP_UnitTestCase {
 		$term_id = $this->factory->term->create( ['taxonomy' => 'category'] );
 		update_term_meta( $term_id, papi_get_page_type_key(), 'simple-taxonomy-type' );
 
-		$this->assertSame( [strval( $term_id )], $query->terms );
+		$this->assertEquals( [$term_id], $query->terms );
 	}
 
 	public function test_real_taxonomy_type_meta_query() {
@@ -252,7 +252,7 @@ class Papi_Query_Test extends WP_UnitTestCase {
 
 		update_term_meta( $term_id, 'name', 'Fredrik' );
 
-		$this->assertSame( [strval( $term_id )], $query->terms );
+		$this->assertEquals( [$term_id], $query->terms );
 	}
 
 	public function test_real_taxonomy_type_meta_key_value() {
@@ -279,6 +279,6 @@ class Papi_Query_Test extends WP_UnitTestCase {
 
 		update_term_meta( $term_id, 'name', 'Fredrik' );
 
-		$this->assertSame( [strval( $term_id )], $query->terms );
+		$this->assertEquals( [$term_id], $query->terms );
 	}
 }
