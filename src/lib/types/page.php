@@ -196,12 +196,6 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 		$entry_type_id = papi_get_qs( 'page_type' );
 	}
 
-	// When using `only_page_type` filter we need to fetch the value since it
-	// maybe not always saved in the database.
-	if ( empty( $entry_type_id ) ) {
-		$entry_type_id = papi_filter_settings_only_page_type( $post_type );
-	}
-
 	// Load right entry type from the parent post id.
 	if ( empty( $entry_type_id ) ) {
 		$meta_value = get_post_meta( papi_get_parent_post_id(), $key, true );
