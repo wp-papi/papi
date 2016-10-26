@@ -1,5 +1,14 @@
 # Papi Changelog
 
+## [3.1.16](https://github.com/wp-papi/papi/releases/tag/v3.1.16) - 2016-10-26
+
+* Fixed: Auto draft didn't save fields.
+* Fixed: Issues with color picker property that didn't work [#179](https://github.com/wp-papi/papi/issues/179).
+* Fixed: Editor tabs didn't work when flexible and repeater use `vertical` layout [#201](https://github.com/wp-papi/papi/issues/201).
+* Fixed: Remove duplicated database queries.
+* Fixed: `z-index` issue with flexible `add` button when placed under a editor [#198](https://github.com/wp-papi/papi/pull/198).
+* Fixed: `nl2br` issue with text property [#199](https://github.com/wp-papi/papi/issues/199).
+
 ## [3.1.15](https://github.com/wp-papi/papi/releases/tag/v3.1.15) - 2016-10-06
 
 * Fixed: Expression issues with TinyMCE in flexibles and repeaters [#196](https://github.com/wp-papi/papi/issues/196).
