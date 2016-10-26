@@ -81,6 +81,11 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 			return;
 		}
 
+		// Check if our nonce is vailed.
+		if ( ! wp_verify_nonce( papi_get_sanitized_post( 'papi_meta_nonce' ), 'papi_save_data' ) ) {
+			return;
+		}
+
 		$meta_type = $this->get_meta_type();
 		$post      = is_array( $post ) ? (object) $post : $post;
 
@@ -110,11 +115,6 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 			if ( $taxonomy && ! current_user_can( $taxonomy->cap->edit_terms ) ) {
 				return;
 			}
-		}
-
-		// Check if our nonce is vailed.
-		if ( ! wp_verify_nonce( papi_get_sanitized_post( 'papi_meta_nonce' ), 'papi_save_data' ) ) {
-			return;
 		}
 
 		$this->save_properties( $id );
