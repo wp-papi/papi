@@ -72,6 +72,7 @@ class Papi_Property extends Papi_Core_Property {
 			$this->display = $this->get_option( 'lang' ) === false && papi_is_empty( papi_get_qs( 'lang' ) );
 		}
 
+		// Check rules.
 		if ( $this->display() ) {
 			$this->display = $this->render_is_allowed_by_rules();
 		}
