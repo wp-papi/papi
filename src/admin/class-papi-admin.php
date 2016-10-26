@@ -86,7 +86,7 @@ final class Papi_Admin {
 			$arr = is_string( $arr ) ? [$arr] : $arr;
 			$arr = is_array( $arr ) ? $arr : [];
 
-			$classes .= ' '  . implode( ' ', $arr );
+			$classes .= ' ' . implode( ' ', $arr );
 		}
 
 		return $classes;
