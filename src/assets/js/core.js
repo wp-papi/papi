@@ -28,10 +28,10 @@ class Core {
     const val = reg.exec(options.data);
 
     if (val !== null && val.length && val[1] === 'heartbeat') {
-        fields.each(function () {
-          const $this = $(this);
+      fields.each(function () {
+        const $this = $(this);
 
-          data[$this.attr('name')] = $this.val();
+        data[$this.attr('name')] = $this.val();
       });
 
       options.data += '&' + jQuery.param(data);
