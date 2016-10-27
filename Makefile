@@ -11,7 +11,8 @@ css:
 
 deps:
 	composer install
-	npm install
+	npm install -g yarnpkg
+	yarn
 	brew install gettext
 	brew link --force gettext
 
