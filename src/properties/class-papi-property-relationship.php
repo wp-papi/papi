@@ -52,6 +52,7 @@ class Papi_Property_Relationship extends Papi_Property {
 			foreach ( $values as $id ) {
 				// Backwards compatibility with array `id` and `id`.
 				$id = is_object( $id ) ? $id->id : $id;
+				$id = is_array( $id ) ? $id['id'] : $id;
 
 				if ( empty( $id ) ) {
 					continue;
@@ -71,8 +72,9 @@ class Papi_Property_Relationship extends Papi_Property {
 
 					foreach ( (array) $items as $value ) {
 						$ids = wp_list_pluck( [$value], 'id' );
+						$ids = count( $ids ) > 0 ? strval( $ids[0] ) : '';
 
-						if ( is_array( $ids ) && array_shift( $ids ) === $id  ) {
+						if ( $ids === (string) $id  ) {
 							$item = $value;
 							break;
 						}
