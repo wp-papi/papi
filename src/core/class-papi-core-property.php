@@ -53,6 +53,7 @@ class Papi_Core_Property {
 		'rules'         => [],
 		'settings'      => [],
 		'sidebar'       => true,
+		'site_id'       => 0,
 		'show_in_rest'  => true,
 		'slug'          => '',
 		'sort_order'    => -1,
@@ -179,6 +180,11 @@ class Papi_Core_Property {
 	 * @return bool
 	 */
 	public function disabled() {
+		// Return true if site id isn't zero and don't match the current site id.
+		if ( $this->site_id !== 0 && $this->site_id !== get_current_blog_id() ) {
+			return true;
+		}
+
 		// If the post type don't match the current one
 		// the property should not be rendered.
 		if ( papi_get_meta_type() === 'post' && ! empty( $this->post_type ) && $this->post_type !== papi_get_post_type() ) {

@@ -180,6 +180,23 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		unset( $_GET['post_type'] );
 	}
 
+	public function test_disabled() {
+		$property = Papi_Core_Property::factory( [
+			'type'  => 'string',
+			'title' => 'Name'
+		] );
+
+		$this->assertFalse( $property->disabled() );
+
+		$property = Papi_Core_Property::factory( [
+			'type'    => 'string',
+			'title'   => 'Name',
+			'site_id' => 2
+		] );
+
+		$this->assertTrue( $property->disabled() );
+	}
+
 	public function test_display() {
 		$page_type = papi_get_entry_type_by_id( 'properties-page-type' );
 		$property  = $page_type->get_property( 'string_test' );
