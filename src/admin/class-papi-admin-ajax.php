@@ -44,21 +44,15 @@ class Papi_Admin_Ajax {
 	 * Handle Papi ajax.
 	 */
 	public function handle_papi_ajax() {
-		global $wp_query;
-
-		if ( ! is_object( $wp_query ) ) {
-			return;
-		}
-
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return;
 		}
 
-		if ( ! papi_is_empty( papi_get_qs( 'action' ) ) ) {
-			$wp_query->set( 'papi_ajax_action', papi_get_qs( 'action' ) );
-		}
+		$ajax_action = '';
 
-		$ajax_action = $wp_query->get( 'papi_ajax_action' );
+		if ( ! empty( $_GET['action'] ) ) {
+			$ajax_action = sanitize_text_field( $_GET['action'] );
+		}
 
 		if ( is_user_logged_in() && has_action( $this->action_prefix . $ajax_action ) !== false ) {
 			if ( ! defined( 'DOING_AJAX' ) ) {
@@ -87,14 +81,13 @@ class Papi_Admin_Ajax {
 		$args   = is_array( $args ) ? $args : [];
 		$fields = papi_get_qs( 'fields' ) ?: [];
 		$fields = is_array( $fields ) ? $fields : [];
-		$query  = new WP_Query( array_merge( [
+		$posts  = ( new WP_Query( array_merge( [
 			'post_type'              => ['post'],
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false
-		], $args ) );
+		], $args ) ) )->posts;
 
-		$posts = $query->get_posts();
 		$posts = array_filter( $posts, function ( $post ) {
 			return ! empty( $post->post_title );
 		} );
@@ -292,7 +285,7 @@ class Papi_Admin_Ajax {
 	 */
 	protected function setup_actions() {
 		add_action( 'init', [$this, 'add_endpoint'] );
-		add_action( 'parse_query', [$this, 'handle_papi_ajax'] );
+		add_action( 'parse_request', [$this, 'handle_papi_ajax'] );
 		add_action( 'admin_enqueue_scripts', [$this, 'ajax_url'], 10 );
 
 		// Ajax actions.

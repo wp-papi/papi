@@ -41,11 +41,7 @@ class Color {
 
     $el.wpColorPicker({
       color: true,
-      change: function () {
-        $el.trigger('change');
-      },
-      input: $el,
-      palettes: palettes === undefined || !palettes.length ? false : palettes
+      palettes: $.isArray(palettes) && palettes.length ? palettes : true
     });
   }
 }

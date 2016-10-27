@@ -40,6 +40,8 @@ final class Papi_Core_Autoload {
 			$path .= 'porter/';
 		} else if ( strpos( $class, 'papi_property' ) === 0 ) {
 			$path .= 'properties/';
+		} else if ( strpos( $class, 'papi_query' ) === 0 ) {
+			$path .= 'query/';
 		} else if ( preg_match( '/^papi\_\w+\_type/', $class ) ) {
 			$path .= 'types/';
 		}

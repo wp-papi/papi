@@ -264,7 +264,14 @@ class Papi_Entry_Type extends Papi_Core_Type {
 				continue;
 			}
 
+			// Remove boxes that isn't a instanceof core box class.
 			if ( $box instanceof Papi_Core_Box === false ) {
+				unset( $this->boxes[$index] );
+				continue;
+			}
+
+			// Remove box if site id isn't zero and isn't the current blog id.
+			if ( $box->site_id !== 0 && $box->site_id !== get_current_blog_id() ) {
 				unset( $this->boxes[$index] );
 				continue;
 			}

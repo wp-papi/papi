@@ -63,6 +63,13 @@ class Papi_Core_Box {
 	public $properties = [];
 
 	/**
+	 * Site id.
+	 *
+	 * @var int
+	 */
+	public $site_id = 0;
+
+	/**
 	 * The sort order of the core box.
 	 *
 	 * @var int

@@ -68,7 +68,7 @@ class Papi_Property_Link extends Papi_Property {
 	 * @return mixed
 	 */
 	public function format_value( $value, $slug, $post_id ) {
-		return $this->load_value( $value, $slug, $post_id );
+		return (object) $this->prepare_link_array( $value, $slug );
 	}
 
 	/**
@@ -90,17 +90,11 @@ class Papi_Property_Link extends Papi_Property {
 	 * @return array
 	 */
 	public function load_value( $value, $slug, $post_id ) {
-		$values = $this->link_fields;
-
 		if ( is_array( $value ) || is_object( $value ) ) {
-			$values = (array) $value;
-
-			foreach ( $values as $key => $val ) {
-				unset( $values[$key] );
-				$key = preg_replace( '/^' . $slug . '\_/', '', $key );
-				$values[$key] = $val;
-			}
+			$values = $value;
 		} else {
+			$values = $this->link_fields;
+
 			foreach ( $values as $index => $key ) {
 				$values[$key] = papi_get_property_meta_value(
 					$post_id,
@@ -111,13 +105,7 @@ class Papi_Property_Link extends Papi_Property {
 			}
 		}
 
-		$link = (object) $values;
-
-		if ( isset( $link->$slug ) && is_numeric( $link->$slug ) ) {
-			unset( $link->$slug );
-		}
-
-		return $this->prepare_link_array( $link );
+		return (object) $this->prepare_link_array( $values, $slug );
 	}
 
 	/**
@@ -195,12 +183,21 @@ class Papi_Property_Link extends Papi_Property {
 	 * bigger then zero it will use the permalink as url.
 	 *
 	 * @param  array|object $link
+	 * @param  string       $slug
 	 *
 	 * @return array|object
 	 */
-	protected function prepare_link_array( $link ) {
+	protected function prepare_link_array( $link, $slug ) {
 		$array  = is_array( $link );
-		$link = (object) $link;
+		$values = (array) $link;
+
+		foreach ( $values as $key => $val ) {
+			unset( $values[$key] );
+			$key = preg_replace( '/^' . $slug . '\_/', '', $key );
+			$values[$key] = $val;
+		}
+
+		$link = (object) $values;
 
 		// Don't continue without a url.
 		if ( ! isset( $link->url ) || empty( $link->url ) ) {
@@ -220,6 +217,11 @@ class Papi_Property_Link extends Papi_Property {
 		// If empty target set `_self` as default target.
 		if ( empty( $link->target ) ) {
 			$link->target = '_self';
+		}
+
+		// Remove slug if it exists.
+		if ( isset( $link->$slug ) && is_numeric( $link->$slug ) ) {
+			unset( $link->$slug );
 		}
 
 		return $array ? (array) $link : $link;
@@ -293,7 +295,7 @@ class Papi_Property_Link extends Papi_Property {
 
 		// If a url exists we can continue making the meta fields
 		// that should be saved.
-		$values = $this->prepare_link_array( $values );
+		$values = $this->prepare_link_array( $values, $slug );
 
 		foreach ( $values as $key => $val ) {
 			$values[sprintf( '%s_%s', $slug, $key )] = $val;

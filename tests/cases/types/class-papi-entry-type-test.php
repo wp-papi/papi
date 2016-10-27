@@ -49,6 +49,7 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 
 	public function test_get_boxes() {
 		$this->assertTrue( is_array( $this->info_entry_type->get_boxes() ) );
+		$this->assertSame( 1, count( $this->info_entry_type->get_boxes() ) );
 
 		$boxes = $this->info_entry_type->get_boxes();
 

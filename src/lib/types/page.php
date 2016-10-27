@@ -164,8 +164,8 @@ function papi_get_post_types() {
  *
  * @return bool
  */
-function papi_is_page_type( $str ) {
-	return $str === papi_get_entry_type_id();
+function papi_is_page_type( $str = '' ) {
+	return papi_is_entry_type( $str );
 }
 
 /**
@@ -194,12 +194,6 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 	// Try to fetch the entry type id from `page_type` query string.
 	if ( empty( $entry_type_id ) ) {
 		$entry_type_id = papi_get_qs( 'page_type' );
-	}
-
-	// When using `only_page_type` filter we need to fetch the value since it
-	// maybe not always saved in the database.
-	if ( empty( $entry_type_id ) ) {
-		$entry_type_id = papi_filter_settings_only_page_type( $post_type );
 	}
 
 	// Load right entry type from the parent post id.

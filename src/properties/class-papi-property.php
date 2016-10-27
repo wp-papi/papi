@@ -67,11 +67,12 @@ class Papi_Property extends Papi_Core_Property {
 
 		// Only render if it's the right language if the definition exist.
 		if ( $this->get_option( 'lang' ) === strtolower( papi_get_qs( 'lang' ) ) ) {
-			$render = true;
+			$this->display = true;
 		} else {
-			$render = $this->get_option( 'lang' ) === false && papi_is_empty( papi_get_qs( 'lang' ) );
+			$this->display = $this->get_option( 'lang' ) === false && papi_is_empty( papi_get_qs( 'lang' ) );
 		}
 
+		// Check rules.
 		if ( $this->display() ) {
 			$this->display = $this->render_is_allowed_by_rules();
 		}

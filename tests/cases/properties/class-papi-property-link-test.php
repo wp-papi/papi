@@ -63,22 +63,6 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 		$this->assertSame( '_blank', $output->target );
 		$this->assertSame( 'Example site', $output->title );
 		$this->assertSame( 'http://example.org', $output->url );
-
-		foreach ( $value as $k => $v ) {
-			update_post_meta( $post_id, unpapify( $k ) , $v );
-		}
-
-		$output = $this->property->format_value( null, '_papi_link', $post_id );
-
-		$this->assertSame( '_blank', $output->target );
-		$this->assertSame( 'Example site', $output->title );
-		$this->assertSame( 'http://example.org', $output->url );
-
-		$output = $this->property->format_value( [ 'test' => ''], 'test', $post_id );
-		$this->assertNotEmpty( (array) $output );
-
-		$output = $this->property->format_value( [ 'test' => '1'], 'test', $post_id );
-		$this->assertEmpty( (array) $output );
 	}
 
 	public function test_property_format_value_empty_target() {
@@ -155,18 +139,6 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 			'_papi_link_url'    => 'http://example.org'
 		];
 
-		$output = $this->property->load_value( $value, '_papi_link', $post_id );
-
-		$this->assertSame( '_blank', $output->target );
-		$this->assertSame( 'Example site', $output->title );
-		$this->assertSame( 'http://example.org', $output->url );
-
-		$output = $this->property->load_value( (object) $value, '_papi_link', $post_id );
-
-		$this->assertSame( '_blank', $output->target );
-		$this->assertSame( 'Example site', $output->title );
-		$this->assertSame( 'http://example.org', $output->url );
-
 		foreach ( $value as $k => $v ) {
 			update_post_meta( $post_id, unpapify( $k ) , $v );
 		}
@@ -176,12 +148,6 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 		$this->assertSame( '_blank', $output->target );
 		$this->assertSame( 'Example site', $output->title );
 		$this->assertSame( 'http://example.org', $output->url );
-
-		$output = $this->property->load_value( [ 'test' => ''], 'test', $post_id );
-		$this->assertNotEmpty( (array) $output );
-
-		$output = $this->property->load_value( [ 'test' => '1'], 'test', $post_id );
-		$this->assertEmpty( (array) $output );
 	}
 
 	public function test_property_load_value_empty_target() {
@@ -190,6 +156,10 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 			'_papi_link_title'  => 'Example site',
 			'_papi_link_url'    => 'http://example.org'
 		];
+
+		foreach ( $value as $k => $v ) {
+			update_post_meta( $post_id, unpapify( $k ) , $v );
+		}
 
 		$output = $this->property->load_value( $value, '_papi_link', $post_id );
 
@@ -201,18 +171,25 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 	public function test_property_load_value_real_post() {
 		$post_id   = $this->factory->post->create();
 		$permalink = get_permalink( $post_id );
-		$input     = [
-			'url'    => rtrim( get_permalink( $post_id ), '/' ),
-			'title'  => get_the_title( $post_id ),
-			'target' => '_blank'
+		$value     = [
+			'papi_link_test_url'    => rtrim( get_permalink( $post_id ), '/' ),
+			'papi_link_test_title'  => get_the_title( $post_id ),
+			'papi_link_test_target' => '_blank'
 		];
-		$expected  = (object) [
+
+		foreach ( $value as $k => $v ) {
+			update_post_meta( $post_id, unpapify( $k ) , $v );
+		}
+
+		$output = $this->property->load_value( null, $this->property->slug, $post_id );
+		$expected = (object) [
 			'url'     => get_permalink( $post_id ),
 			'title'   => get_the_title( $post_id ),
 			'target'  => '_blank',
 			'post_id' => $post_id
 		];
-		$this->assertEquals( $expected, $this->property->load_value( $input, $this->property->slug, 0 ) );
+
+		$this->assertEquals( $expected, $output );
 	}
 
 	public function test_property_options() {
