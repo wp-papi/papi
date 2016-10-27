@@ -47,5 +47,10 @@ class Info_Entry_Type extends Papi_Entry_Type {
 			'type'  => 'string',
 			'title' => 'Info'
 		] ) );
+
+		$this->box( ['title' => 'Site 2', 'site_id' => 2], papi_property( [
+			'type'  => 'string',
+			'title' => 'Name'
+		] ) );
 	}
 }
