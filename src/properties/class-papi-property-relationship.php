@@ -66,13 +66,12 @@ class Papi_Property_Relationship extends Papi_Property {
 
 					$result[] = $post;
 				} else {
-					$id   = (int) $id;
 					$item = null;
 
 					foreach ( (array) $items as $value ) {
 						$ids = wp_list_pluck( [$value], 'id' );
 
-						if ( is_array( $ids ) && array_shift( $ids ) === $id  ) {
+						if ( is_array( $ids ) && (string) array_shift( $ids ) === (string) $id  ) {
 							$item = $value;
 							break;
 						}
