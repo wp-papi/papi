@@ -90,7 +90,22 @@ class Papi_Property_Link extends Papi_Property {
 	 * @return array
 	 */
 	public function load_value( $value, $slug, $post_id ) {
-		return (object) $this->prepare_link_array( $value, $slug );
+		if ( is_array( $value ) || is_object( $value ) ) {
+			$values = $value;
+		} else {
+			$values = $this->link_fields;
+
+			foreach ( $values as $index => $key ) {
+				$values[$key] = papi_get_property_meta_value(
+					$post_id,
+					sprintf( '%s_%s', $slug, $key ),
+					$this->get_meta_type()
+				);
+				unset( $values[$index] );
+			}
+		}
+
+		return (object) $this->prepare_link_array( $values, $slug );
 	}
 
 	/**
