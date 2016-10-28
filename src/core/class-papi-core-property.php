@@ -36,6 +36,7 @@ class Papi_Core_Property {
 	protected $default_options = [
 		'after_class'   => '',
 		'after_html'    => '',
+		'auth_callback' => '__return_true',
 		'before_class'  => '',
 		'before_html'   => '',
 		'cache'         => true,
@@ -331,6 +332,15 @@ class Papi_Core_Property {
 	public function get_child_properties() {
 		$items = $this->get_setting( 'items', [] );
 		return is_array( $items ) ? $items : [$items];
+	}
+
+	/**
+	 * Get convert type.
+	 *
+	 * @return string
+	 */
+	public function get_convert_type() {
+		return $this->convert_type;
 	}
 
 	/**
@@ -652,6 +662,10 @@ class Papi_Core_Property {
 
 		$value = papi_santize_data( $value );
 
+		if ( $this->get_convert_type() === 'string' ) {
+			$value = papi_convert_to_string( $value );
+		}
+
 		if ( is_array( $value ) ) {
 			$value = array_filter( $value, function ( $val ) {
 				return ! papi_is_empty( $val );
@@ -663,6 +677,51 @@ class Papi_Core_Property {
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Register meta, only supported in WordPress 4.6 by Papi.
+	 *
+	 * @return bool
+	 */
+	public function register_meta() {
+		if ( version_compare( get_bloginfo( 'version' ), '4.6', '<' ) ) {
+			return false;
+		}
+
+		$type = papi_get_meta_type();
+
+		// Don't have to register meta on option type.
+		if ( $type === 'option' ) {
+			return false;
+		}
+
+		return register_meta( $type, $this->get_slug( true ), [
+			'auth_callback'     => $this->get_option( 'auth_callback' ),
+			'description'       => $this->get_option( 'description' ),
+			'sanitize_callback' => [$this, 'register_meta_sanitize_callback'],
+			'show_in_rest'      => $this->get_option( 'show_in_rest' ),
+			'single'            => $this->get_convert_type() !== 'array',
+			'type'              => $this->get_convert_type()
+		] );
+	}
+
+	/**
+	 * No need for this in Papi, since this is handle different.
+	 *
+	 * @param  mixed $value
+	 *
+	 * @return mixed
+	 */
+	public function register_meta_sanitize_callback( $value ) {
+		return $value;
+	}
+
+	/**
+	 * Render AJAX request.
+	 */
+	public function render_ajax_request() {
+		papi_render_property( $this );
 	}
 
 	/**

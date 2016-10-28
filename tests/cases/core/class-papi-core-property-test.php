@@ -315,6 +315,12 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Name', $child_property->title );
 	}
 
+	public function test_get_convert_type() {
+		$property = Papi_Core_Property::factory();
+
+		$this->assertSame( 'string', $property->get_convert_type() );
+	}
+
 	public function test_get_default_settings() {
 		$property = Papi_Core_Property::factory();
 
