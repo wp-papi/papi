@@ -662,10 +662,6 @@ class Papi_Core_Property {
 
 		$value = papi_santize_data( $value );
 
-		if ( $this->get_convert_type() === 'string' ) {
-			$value = papi_convert_to_string( $value );
-		}
-
 		if ( is_array( $value ) ) {
 			$value = array_filter( $value, function ( $val ) {
 				return ! papi_is_empty( $val );
@@ -714,6 +710,17 @@ class Papi_Core_Property {
 	 * @return mixed
 	 */
 	public function register_meta_sanitize_callback( $value ) {
+		return $value;
+	}
+
+	/**
+	 * Prepare property value for REST API response.
+	 *
+	 * @param  mixed $value
+	 *
+	 * @return mixed
+	 */
+	public function rest_prepare_value( $value ) {
 		return $value;
 	}
 

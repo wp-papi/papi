@@ -45,6 +45,11 @@ class Papi_Option_Store_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_value() {
+		$this->assertNull( $this->store->get_value( 1 ) );
+		$this->assertNull( $this->store->get_value( '' ) );
+		$this->assertNull( $this->store->get_value( $this->post_id, '' ) );
+		$this->assertNull( $this->store->get_value( 99999, 'fake' ) );
+
 		$property = $this->store->get_property( 'name' );
 		$this->assertEmpty( $property->get_value() );
 
@@ -53,6 +58,26 @@ class Papi_Option_Store_Test extends WP_UnitTestCase {
 
 		update_option( 'hello', 'Fredrik' );
 		$this->assertNull( $this->store->get_value( 'hello' ) );
+	}
+
+	public function test_get_value_cache() {
+		papi_update_property_meta_value( [
+			'id'    => $this->post_id,
+			'type'  => 'option',
+			'slug'  => 'name',
+			'value' => 'fredrik'
+		] );
+		$this->assertSame( 'fredrik', $this->store->get_value( $this->post_id, 'name' ) );
+		$this->assertSame( 'fredrik', papi_cache_get( 'name', $this->post_id ) );
+
+		// Turn off property cache.
+		add_filter( 'papi/get_property', function ( $property ) {
+			$property->set_option( 'cache', false );
+			return $property;
+		} );
+
+		$this->assertSame( 'fredrik', $this->store->get_value( $this->post_id, 'name' ) );
+		$this->assertEmpty( papi_cache_get( 'name', $this->post_id ) );
 	}
 
 	public function test_valid() {

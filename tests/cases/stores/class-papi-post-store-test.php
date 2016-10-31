@@ -13,6 +13,8 @@ class Papi_Post_Store_Test extends WP_UnitTestCase {
 		$_GET['post'] = $this->post_id;
 
 		$this->store = papi_get_meta_store( $this->post_id );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 	}
 
 	public function tearDown() {
@@ -47,6 +49,39 @@ class Papi_Post_Store_Test extends WP_UnitTestCase {
 
 	public function test_get_status() {
 		$this->assertSame( 'publish', $this->store->get_status() );
+	}
+
+	public function test_get_value() {
+		update_post_meta( $this->post_id, 'name', 'fredrik' );
+
+		$this->assertNull( $this->store->get_value( 1 ) );
+		$this->assertNull( $this->store->get_value( '' ) );
+		$this->assertNull( $this->store->get_value( $this->post_id, '' ) );
+		$this->assertNull( $this->store->get_value( 99999, 'fake' ) );
+
+		$this->assertSame( 'fredrik', $this->store->get_value( $this->post_id, 'name' ) );
+		$this->assertSame( 'fredrik', $this->store->get_value( $this->post_id, 'name', '', 'post' ) );
+
+		$this->assertSame( 'world', $this->store->get_value( $this->post_id, 'hello', 'world' ) );
+	}
+
+	public function test_get_value_cache() {
+		papi_update_property_meta_value( [
+			'id'    => $this->post_id,
+			'slug'  => 'name',
+			'value' => 'fredrik'
+		] );
+		$this->assertSame( 'fredrik', $this->store->get_value( $this->post_id, 'name' ) );
+		$this->assertSame( 'fredrik', papi_cache_get( 'name', $this->post_id ) );
+
+		// Turn off property cache.
+		add_filter( 'papi/get_property', function ( $property ) {
+			$property->set_option( 'cache', false );
+			return $property;
+		} );
+
+		$this->assertSame( 'fredrik', $this->store->get_value( $this->post_id, 'name' ) );
+		$this->assertEmpty( papi_cache_get( 'name', $this->post_id ) );
 	}
 
 	public function test_load_value() {
@@ -109,12 +144,6 @@ class Papi_Post_Store_Test extends WP_UnitTestCase {
 
 		$value = $this->store->format_value( $property->get_option( 'slug' ), $value );
 		$this->assertSame( '<p><a href="http://wordpress.org">http://wordpress.org</a></p>', trim( $value ) );
-	}
-
-	public function test__get() {
-		update_post_meta( $this->post_id, 'name', '' );
-
-		$this->assertNull( $this->store->name );
 	}
 
 	public function test_get_property() {

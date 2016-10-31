@@ -141,38 +141,11 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 		return $default;
 	}
 
-	// Determine if we should use the cache or not.
-	$cache = $store->get_property_option( $slug, 'cache', true );
-
-	// Get the raw value from the cache.
-	$raw_value = $cache ? papi_cache_get( $slug, $id, $type ) : false;
-
-	// Load raw value if not cached.
-	if ( $raw_value === null || $raw_value === false ) {
-		$raw_value = $store->load_value( $slug );
-
-		if ( papi_is_empty( $raw_value ) ) {
-			return $default;
-		}
-
-		if ( $cache ) {
-			papi_cache_set( $slug, $id, $raw_value, $type );
-		} else {
-			papi_cache_delete( $slug, $id, $type );
-		}
-	}
-
-	if ( papi_is_empty( $raw_value ) ) {
-		return $default;
-	}
-
-	// Format raw value.
-	$value = $store->format_value( $slug, $raw_value );
+	// Get value from store.
+	$value = $store->get_value( $id, $slug, $type, $default );
 
 	// Get value by dot keys if any.
-	$value = papi_field_value( $slugs, $value, $default );
-
-	return papi_is_empty( $value ) ? $default : $value;
+	return papi_field_value( $slugs, $value, $default );
 }
 
 /**
