@@ -1,5 +1,10 @@
 # Papi Changelog
 
+## [3.1.17](https://github.com/wp-papi/papi/releases/tag/v3.1.17) - 2016-11-01
+
+* Fixed: Link property didn't save values correct.
+* Fixed: Relationship custom data can now use string id and not just int ids.
+
 ## [3.1.16](https://github.com/wp-papi/papi/releases/tag/v3.1.16) - 2016-10-26
 
 * Fixed: Auto draft didn't save fields.
