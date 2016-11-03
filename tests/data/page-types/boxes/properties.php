@@ -72,6 +72,25 @@ return [
 		]
 	] ),
 
+	// Dropdown 3
+	papi_property( [
+		'type'     => 'dropdown',
+		'title'    => 'Dropdown test 3',
+		'slug'     => 'dropdown_test_3',
+		'settings' => [
+			'multiple'      => true,
+			'placeholder'   => 'Pick multiple',
+			'items'         => [
+				0,
+				1,
+				2,
+				3,
+				4,
+				5
+			]
+		]
+	] ),
+
 	// Editor
 	papi_property( [
 		'type'  => 'editor',
