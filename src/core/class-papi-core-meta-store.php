@@ -106,8 +106,13 @@ abstract class Papi_Core_Meta_Store {
 			);
 		}
 
+		// Remove empty values from arrays.
 		if ( is_array( $value ) ) {
-			$value = array_filter( $value );
+			foreach ( $value as $index => $val ) {
+				if ( papi_is_empty( $val ) ) {
+					unset( $value[$index] );
+				}
+			}
 		}
 
 		return $value;
@@ -178,7 +183,11 @@ abstract class Papi_Core_Meta_Store {
 
 		// Remove empty values from arrays.
 		if ( is_array( $value ) ) {
-			$value = array_filter( $value );
+			foreach ( $value as $index => $val ) {
+				if ( papi_is_empty( $val ) ) {
+					unset( $value[$index] );
+				}
+			}
 		}
 
 		return $value;
