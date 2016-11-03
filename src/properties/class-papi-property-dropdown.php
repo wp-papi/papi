@@ -86,6 +86,12 @@ class Papi_Property_Dropdown extends Papi_Property {
 		$value        = $this->get_value();
 		$options_html = [];
 
+		// Properties that extends dropdown property
+		// maybe don't have this setting.
+		if ( ! isset( $settings->multiple ) ) {
+			$settings->multiple = false;
+		}
+
 		// Override selected setting with
 		// database value if not empty.
 		if ( ! papi_is_empty( $value ) ) {
