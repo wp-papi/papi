@@ -101,7 +101,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 		$classes = 'papi-fullwidth';
 
 		if ( $settings->select2 ) {
-			$classes = ' papi-component-select2';
+			$classes .= ' papi-component-select2';
 		}
 
 		// Add placeholder if any.
