@@ -52,7 +52,7 @@ class Core {
       $('.inside .papi-table tr .papi-component-select2').select2(select2Options);
 
       // Fix issue with browsers where selected attribute is not removed correct.
-      $(document.body).on('change', 'select.papi-component-select2', function () {
+      $(document.body).on('change', 'select.papi-component-select2:not([multiple])', function () {
         $(this).find('option[selected]').removeAttr('selected');
       });
     }
