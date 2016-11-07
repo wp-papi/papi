@@ -298,7 +298,6 @@ final class Papi_Admin {
 		if ( is_admin() ) {
 			add_filter( 'admin_body_class', [$this, 'admin_body_class'] );
 			add_filter( 'plugin_row_meta', [$this, 'plugin_row_meta'], 10, 2 );
-			add_filter( 'redirect_post_location', [$this, 'redirect_post_location'] );
 			add_filter( 'wp_link_query', [$this, 'wp_link_query'] );
 			add_filter( 'wp_refresh_nonces', [$this, 'wp_refresh_nonces'], 11 );
 		}

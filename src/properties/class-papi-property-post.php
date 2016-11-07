@@ -152,7 +152,7 @@ class Papi_Property_Post extends Papi_Property {
 		$posts              = $this->get_posts( $selected_post_type );
 
 		if ( $settings->select2 ) {
-			$classes = ' papi-component-select2';
+			$classes .= ' papi-component-select2';
 		}
 		?>
 
