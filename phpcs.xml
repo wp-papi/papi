@@ -10,6 +10,8 @@
   <rule ref="WordPress-Core">
     <exclude name="PEAR.Functions.FunctionCallSignature.EmptyLine" />
     <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions" />
+    <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceAfterArrayOpener" />
+    <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceBeforeArrayCloser" />
     <exclude name="WordPress.Arrays.ArrayDeclaration" />
     <exclude name="WordPress.PHP.YodaConditions" />
     <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterStructureOpen" />
@@ -19,6 +21,7 @@
     <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseParenthesis" />
     <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
     <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword" />
+    <exclude name="Squiz.Commenting.LongConditionClosingComment.Missing" />
     <exclude name="PSR2"></exclude>
   </rule>
 
