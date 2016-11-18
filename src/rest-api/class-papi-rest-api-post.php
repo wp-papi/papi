@@ -13,7 +13,7 @@ class Papi_REST_API_Post {
 	 * Register REST API routes.
 	 */
 	public function __construct() {
-		add_filter( 'rest_the_post', [$this, 'get_post'] );
+		add_filter( 'the_post', [$this, 'get_post'] );
 	}
 
 	/**
@@ -57,7 +57,7 @@ class Papi_REST_API_Post {
 		}
 
 		foreach ( $response->data['meta'] as $key => $value ) {
-			$response->data['meta']->$key = $this->prepare_property_value( $key, $value );
+			$response->data['meta'][$key] = $this->prepare_property_value( $key, $value );
 		}
 
 		return $response;

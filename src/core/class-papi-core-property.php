@@ -676,7 +676,7 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Register meta, only supported in WordPress 4.6 by Papi.
+	 * Register meta, only supported in WordPress 4.6.
 	 *
 	 * @return bool
 	 */
@@ -692,13 +692,17 @@ class Papi_Core_Property {
 			return false;
 		}
 
+		// Register meta fields with the new `register_meta` function.
+		// The `type` will be the same for each fields, this is just to get it out
+		// to the REST API, the output will be different for different fields and are
+		// handled later on.
 		return register_meta( $type, $this->get_slug( true ), [
 			'auth_callback'     => $this->get_option( 'auth_callback' ),
 			'description'       => $this->get_option( 'description' ),
 			'sanitize_callback' => [$this, 'register_meta_sanitize_callback'],
 			'show_in_rest'      => $this->get_option( 'show_in_rest' ),
 			'single'            => $this->get_convert_type() !== 'array',
-			'type'              => $this->get_convert_type()
+			'type'              => 'string'
 		] );
 	}
 

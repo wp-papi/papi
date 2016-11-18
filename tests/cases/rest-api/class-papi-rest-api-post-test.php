@@ -22,7 +22,7 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
     }
 
 	public function test_actions() {
-		$this->assertSame( 10, has_action( 'rest_the_post', [$this->class, 'get_post'] ) );
+		$this->assertSame( 10, has_action( 'the_post', [$this->class, 'get_post'] ) );
 	}
 
     public function test_get_post() {
@@ -55,12 +55,12 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 
         update_post_meta( $post_id, 'name', 'Fredrik' );
         $response = [
-            'meta' => (object) [
+            'meta' => [
                 'name' => get_post_meta( $post_id, 'name', true )
             ]
         ];
         
         $response = $this->class->prepare_response( $response );
-        $this->assertSame( 'Fredrik', $response['meta']->name );
+        $this->assertSame( 'Fredrik', $response['meta']['name'] );
     }
 }
