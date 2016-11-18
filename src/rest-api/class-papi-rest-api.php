@@ -13,7 +13,7 @@ final class Papi_REST_API {
 	/**
 	 * Load admin files that are not loaded by the autoload.
 	 */
-	private function load_files() {
+	protected function load_files() {
 		require_once __DIR__ . '/class-papi-rest-api-post.php';
 	}
 

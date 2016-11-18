@@ -26,10 +26,6 @@ class Papi_REST_API_Post {
 	 * @return WP_Post
 	 */
 	public function get_post( WP_Post $post ) {
-		if ( is_null( $post ) ) {
-			return $post;
-		}
-
 		if ( ! ( $page_type = papi_get_entry_type_by_meta_id( $post->ID ) ) ) {
 			return $post;
 		}
