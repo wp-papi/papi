@@ -3,7 +3,7 @@
 /**
  * Get entry type body classes.
  *
- * @param  int $id
+ * @param  int    $id
  * @param  string $type
  *
  * @return string
@@ -31,7 +31,7 @@ function papi_get_entry_type_body_classes( $id = 0, $type = null ) {
  * Get entry type css class, it will split the entry type id
  * on slash and take the last part of the id.
  *
- * @param  int $id
+ * @param  int    $id
  * @param  string $type
  *
  * @return string
@@ -76,10 +76,13 @@ function papi_get_entry_type_count( $entry_type ) {
 	}
 
 	$table = sprintf( '%s%smeta', $wpdb->prefix, papi_get_meta_type( $entry_type->type ) );
-	$sql   = "SELECT COUNT(*) FROM $table WHERE `meta_key` = '%s' AND `meta_value` = '%s'";
-	$sql   = $wpdb->prepare( $sql, papi_get_page_type_key(), $entry_type->get_id() );
+	$sql   = $wpdb->prepare(
+		"SELECT COUNT(*) FROM `$table` WHERE `meta_key` = '%s' AND `meta_value` = '%s'",
+		papi_get_page_type_key(),
+		$entry_type->get_id()
+	);
 
-	return intval( $wpdb->get_var( $sql ) );
+	return intval( $wpdb->get_var( $sql ) ); // WPCS: unprepared SQL
 }
 
 /**
@@ -108,14 +111,7 @@ function papi_entry_type_exists( $id ) {
 /**
  * Get all entry types that exists.
  *
- * @param  array $args {
- *   @type bool         $all
- *   @type mixed        $args
- *   @type bool         $cache
- *   @type array|string $id
- *   @type string       $mode
- *   @type array|string $types
- * }
+ * @param  array $args
  *
  * @return array
  */
@@ -322,7 +318,7 @@ function papi_get_entry_type_by_meta_id( $id = 0, $type = null ) {
 /**
  * Get entry type id.
  *
- * @param  int $id
+ * @param  int    $id
  * @param  string $type
  *
  * @return string
