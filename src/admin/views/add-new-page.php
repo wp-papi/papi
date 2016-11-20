@@ -11,7 +11,7 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 			<?php echo esc_html( $post_type->labels->search_items ); ?>
 		</label>
 
-		<input placeholder="<?php echo $post_type->labels->search_items; ?>..." type="search" name="add-new-page-search" id="add-new-page-search" class="papi-search">
+		<input placeholder="<?php echo esc_html( $post_type->labels->search_items ); ?>..." type="search" name="add-new-page-search" id="add-new-page-search" class="papi-search">
 	</h1>
 
 	<div class="papi-box-list">
@@ -22,7 +22,7 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 
 		if ( $parent_page_type instanceof Papi_Page_Type ) {
 			$child_types = $parent_page_type->get_child_types();
-			$page_types = empty( $child_types ) ? $page_types : $child_types;
+			$page_types  = empty( $child_types ) ? $page_types : $child_types;
 
 			if ( ! $show_standard ) {
 				$show_standard = $parent_page_type->standard_type;
@@ -44,7 +44,7 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 			return strcmp( $a->name, $b->name );
 		} );
 
-		$page_types = papi_sort_order( array_reverse( $page_types ) );
+		$page_types    = papi_sort_order( array_reverse( $page_types ) );
 		$use_thumbnail = false;
 
 		foreach ( $page_types as $key => $page_type ) {

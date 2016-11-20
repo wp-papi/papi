@@ -39,20 +39,20 @@ class Papi_Admin_Page_Type_Switcher {
 				<a href="#" id="papi-page-type-switcher-edit" class="hide-if-no-js"><?php esc_html_e( 'Edit', 'papi' ); ?></a>
 				<div>
 					<select name="<?php echo esc_attr( $page_type_key ); ?>" id="<?php echo esc_attr( $page_type_key ); ?>">
-					<?php
-					foreach ( $page_types as $pt ) {
-						if ( ! papi_current_user_is_allowed( $pt->capabilities ) ) {
-							continue;
+						<?php
+						foreach ( $page_types as $pt ) {
+							if ( ! papi_current_user_is_allowed( $pt->capabilities ) ) {
+								continue;
+							}
+
+							papi_render_html_tag( 'option', [
+								'selected' => $page_type->match_id( $pt->get_id() ),
+								'value'    => esc_attr( $pt->get_id() ),
+
+								esc_html( $pt->name )
+							] );
 						}
-
-						papi_render_html_tag( 'option', [
-							'selected' => $page_type->match_id( $pt->get_id() ),
-							'value'    => esc_attr( $pt->get_id() ),
-
-							esc_html( $pt->name )
-						] );
-					}
-					?>
+						?>
 					</select>
 					<a href="#" id="papi-page-type-switcher-save" class="hide-if-no-js button"><?php esc_html_e( 'OK', 'papi' ); ?></a>
 					<a href="#" id="papi-page-type-switcher-cancel" class="hide-if-no-js"><?php esc_html_e( 'Cancel', 'papi' ); ?></a>
@@ -67,6 +67,8 @@ class Papi_Admin_Page_Type_Switcher {
 	 *
 	 * @param  int     $post_id
 	 * @param  WP_post $post
+	 *
+	 * @return bool
 	 */
 	public function save_post( $post_id, $post ) {
 		// Check if post id and post object is empty or not.
@@ -133,7 +135,7 @@ class Papi_Admin_Page_Type_Switcher {
 		}
 
 		// Get properties.
-		$properties = $page_type->get_properties();
+		$properties        = $page_type->get_properties();
 		$properties_switch = $page_type_switch->get_properties();
 
 		// Delete only properties that don't have the same type and slug.

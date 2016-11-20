@@ -195,11 +195,8 @@ final class Papi_Admin_Columns {
 		// Setup post type actions.
 		if ( ! empty( $this->post_type ) && empty( $this->taxonomy ) ) {
 			add_filter( 'pre_get_posts', [$this, 'pre_get_posts'] );
-			add_action( 'restrict_manage_posts', [ $this, 'restrict_page_types'] );
-			add_action( sprintf( 'manage_%s_posts_custom_column', $this->post_type ), [
-				$this,
-				'manage_page_type_posts_custom_column'
-			], 10, 2 );
+			add_action( 'restrict_manage_posts', [$this, 'restrict_page_types'] );
+			add_action( sprintf( 'manage_%s_posts_custom_column', $this->post_type ), [$this, 'manage_page_type_posts_custom_column'], 10, 2 );
 		}
 
 		// Setup taxonomy actions.

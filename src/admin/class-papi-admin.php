@@ -159,14 +159,11 @@ final class Papi_Admin {
 	public function hidden_meta_boxes() {
 		global $_wp_post_type_features;
 
-		if ( ! isset( $_wp_post_type_features[$this->post_type]['editor'] ) ) {
-			add_meta_box(
-				'papi-hidden-editor',
-				'Papi hidden editor',
-				[$this, 'hidden_meta_box_editor'],
-				$this->post_type
-			);
+		if ( isset( $_wp_post_type_features[$this->post_type]['editor'] ) ) {
+			return;
 		}
+
+		add_meta_box( 'papi-hidden-editor', 'Papi hidden editor', [$this, 'hidden_meta_box_editor'], $this->post_type );
 	}
 
 	/**
@@ -193,7 +190,7 @@ final class Papi_Admin {
 	 */
 	public function load_post_new() {
 		$request_uri = $_SERVER['REQUEST_URI'];
-		$post_types = papi_get_post_types();
+		$post_types  = papi_get_post_types();
 
 		if ( in_array( $this->post_type, $post_types, true ) && strpos( $request_uri, 'page_type=' ) === false ) {
 			$parsed_url = parse_url( $request_uri );
@@ -230,7 +227,7 @@ final class Papi_Admin {
 	/**
 	 * Add docs links to plugin row meta.
 	 *
-	 * @param  array $links
+	 * @param  array  $links
 	 * @param  string $file
 	 *
 	 * @return array

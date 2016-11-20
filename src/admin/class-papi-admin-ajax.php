@@ -34,7 +34,7 @@ class Papi_Admin_Ajax {
 		$url = esc_url( trailingslashit( get_bloginfo( 'url' ) ) . 'papi-ajax/' );
 		?>
 		<script type="text/javascript">
-			var papi = papi || {};
+			var papi = papi || {};
 			papi.ajaxUrl = '<?php echo esc_html( $url ); ?>';
 		</script>
 		<?php
@@ -92,11 +92,9 @@ class Papi_Admin_Ajax {
 			return ! empty( $post->post_title );
 		} );
 
-		// @codeCoverageIgnoreStart
 		usort( $posts, function ( $a, $b ) {
 			return strcmp( strtolower( $a->post_title ), strtolower( $b->post_title ) );
 		} );
-		// @codeCoverageIgnoreEnd
 
 		if ( ! empty( $fields ) ) {
 			foreach ( $posts as $index => $post ) {
@@ -148,16 +146,15 @@ class Papi_Admin_Ajax {
 	public function get_properties() {
 		if ( ! papi_get_sanitized_post( 'properties' ) ) {
 			$this->render_error( 'No properties found' );
+
 			return;
 		}
 
-		$items = json_decode(
-			stripslashes( $_POST['properties'] ),
-			true
-		);
+		$items = json_decode( stripslashes( $_POST['properties'] ), true );
 
 		if ( empty( $items ) || ! is_array( $items ) ) {
 			$this->render_error( 'No properties found' );
+
 			return;
 		}
 
@@ -197,16 +194,15 @@ class Papi_Admin_Ajax {
 	public function get_rules_result() {
 		if ( ! papi_get_sanitized_post( 'data' ) ) {
 			$this->render_error( 'No rule found' );
+
 			return;
 		}
 
-		$data = json_decode(
-			stripslashes( papi_get_sanitized_post( 'data' ) ),
-			true
-		);
+		$data = json_decode( stripslashes( papi_get_sanitized_post( 'data' ) ), true );
 
 		if ( empty( $data ) || ! is_array( $data ) || ! isset( $data['slug'] ) ) {
 			$this->render_error( 'No rule found' );
+
 			return;
 		}
 
@@ -214,6 +210,7 @@ class Papi_Admin_Ajax {
 
 		if ( $entry_type instanceof Papi_Entry_Type === false ) {
 			$this->render_error( 'No rule found' );
+
 			return;
 		}
 

@@ -218,6 +218,9 @@ final class Papi_Loader extends Papi_Container {
 		// Require conditional rules that should not be loaded by the autoload.
 		require_once __DIR__ . '/conditional/class-papi-conditional-rules.php';
 
+		// Require REST API classes.
+		require_once __DIR__ . '/rest-api/class-papi-rest-api.php';
+
 		// Load Papi CLI class if WP CLI is used.
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			require_once __DIR__ . '/cli/class-papi-cli.php';

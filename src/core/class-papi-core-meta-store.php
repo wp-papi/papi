@@ -20,6 +20,13 @@ abstract class Papi_Core_Meta_Store {
 	protected $properties = [];
 
 	/**
+	 * Properties meta values.
+	 *
+	 * @var array
+	 */
+	protected $meta_values = [];
+
+	/**
 	 * The meta type.
 	 *
 	 * @var string
@@ -34,14 +41,18 @@ abstract class Papi_Core_Meta_Store {
 	protected $type_class;
 
 	/**
-	 * Get Papi property value.
+	 * Get property meta value.
 	 *
 	 * @param  string $slug
 	 *
 	 * @return mixed
 	 */
-	public function __get( $slug ) {
-		return $this->get_value( $slug );
+	public function get_property_meta_value( $slug ) {
+		if ( isset( $this->meta_values[$slug] ) ) {
+			return $this->meta_values[$slug];
+		}
+
+		return papi_get_property_meta_value( $this->id, $slug, $this->get_type() );
 	}
 
 	/**
@@ -63,16 +74,52 @@ abstract class Papi_Core_Meta_Store {
 	}
 
 	/**
-	 * Get value, uncached.
+	 * Get value.
 	 *
+	 * @param  int    $id
 	 * @param  string $slug
+	 * @param  mixed  $default
+	 * @param  string $type
 	 *
 	 * @return mixed
 	 */
-	public function get_value( $slug ) {
-		$value = $this->load_value( $slug );
+	public function get_value( $id = null, $slug = null, $default = null, $type = 'post' ) {
+		if ( ! is_numeric( $id ) && is_string( $id ) ) {
+			$type    = empty( $default ) ? $type : $default;
+			$default = $slug;
+			$slug    = $id;
+			$id      = null;
+		}
 
-		return $this->format_value( $slug, $value );
+		// Determine if we should use the cache or not.
+		$cache = $this->get_property_option( $slug, 'cache', true );
+
+		// Get the raw value from the cache.
+		$raw_value = $cache ? papi_cache_get( $slug, $id, $type ) : false;
+
+		// Load raw value if not cached.
+		if ( $raw_value === null || $raw_value === false ) {
+			$raw_value = $this->load_value( $slug );
+
+			if ( papi_is_empty( $raw_value ) ) {
+				return $default;
+			}
+
+			if ( $cache ) {
+				papi_cache_set( $slug, $id, $raw_value, $type );
+			} else {
+				papi_cache_delete( $slug, $id, $type );
+			}
+		}
+
+		if ( papi_is_empty( $raw_value ) ) {
+			return $default;
+		}
+
+		// Format raw value.
+		$value = $this->format_value( $slug, $raw_value );
+
+		return papi_is_empty( $value ) ? $default : $value;
 	}
 
 	/**
@@ -127,12 +174,17 @@ abstract class Papi_Core_Meta_Store {
 	 */
 	protected function property( $slug = '' ) {
 		if ( isset( $this->properties[$slug] ) && papi_is_property( $this->properties[$slug] ) ) {
-			return $this->properties[$slug];
+			$property = $this->properties[$slug];
+		} else {
+			$property = $this->properties[$slug] = $this->get_property( $slug );
 		}
 
-		$this->properties[$slug] = $this->get_property( $slug );
-
-		return $this->properties[$slug];
+		/**
+		 * Modify property.
+		 *
+		 * @param  Papi_Core_Property $property
+		 */
+		return apply_filters( 'papi/get_property', $property );
 	}
 
 	/**
@@ -152,7 +204,7 @@ abstract class Papi_Core_Meta_Store {
 		}
 
 		// Get raw property meta value.
-		$value = papi_get_property_meta_value( $this->id, $slug, $this->get_type() );
+		$value = $this->get_property_meta_value( $slug );
 
 		// Prepare load value, when you have `overwrite => true`
 		// this value will not exist in the database and that's
@@ -281,6 +333,16 @@ abstract class Papi_Core_Meta_Store {
 		$property->set_store( $this );
 
 		return $property;
+	}
+
+	/**
+	 * Set property meta value.
+	 *
+	 * @param string $slug
+	 * @param mixed  $value
+	 */
+	public function set_property_meta_value( $slug, $value ) {
+		$this->meta_values[$slug] = $value;
 	}
 
 	/**

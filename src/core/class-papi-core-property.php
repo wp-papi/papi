@@ -36,6 +36,7 @@ class Papi_Core_Property {
 	protected $default_options = [
 		'after_class'   => '',
 		'after_html'    => '',
+		'auth_callback' => '__return_true',
 		'before_class'  => '',
 		'before_html'   => '',
 		'cache'         => true,
@@ -331,6 +332,15 @@ class Papi_Core_Property {
 	public function get_child_properties() {
 		$items = $this->get_setting( 'items', [] );
 		return is_array( $items ) ? $items : [$items];
+	}
+
+	/**
+	 * Get convert type.
+	 *
+	 * @return string
+	 */
+	public function get_convert_type() {
+		return $this->convert_type;
 	}
 
 	/**
@@ -663,6 +673,66 @@ class Papi_Core_Property {
 		}
 
 		return $value;
+	}
+
+	/**
+	 * Register meta, only supported in WordPress 4.6.
+	 *
+	 * @return bool
+	 */
+	public function register_meta() {
+		if ( version_compare( get_bloginfo( 'version' ), '4.6', '<' ) ) {
+			return false;
+		}
+
+		$type = papi_get_meta_type();
+
+		// Don't have to register meta on option type.
+		if ( $type === 'option' ) {
+			return false;
+		}
+
+		// Register meta fields with the new `register_meta` function.
+		// The `type` will be the same for each fields, this is just to get it out
+		// to the REST API, the output will be different for different fields and are
+		// handled later on.
+		return register_meta( $type, $this->get_slug( true ), [
+			'auth_callback'     => $this->get_option( 'auth_callback' ),
+			'description'       => $this->get_option( 'description' ),
+			'sanitize_callback' => [$this, 'register_meta_sanitize_callback'],
+			'show_in_rest'      => $this->get_option( 'show_in_rest' ),
+			'single'            => $this->get_convert_type() !== 'array',
+			'type'              => 'string'
+		] );
+	}
+
+	/**
+	 * No need for this in Papi, since this is handle different.
+	 *
+	 * @param  mixed $value
+	 *
+	 * @return mixed
+	 */
+	public function register_meta_sanitize_callback( $value ) {
+		return $value;
+	}
+
+	/**
+	 * Prepare property value for REST API response.
+	 *
+	 * @param  mixed $value
+	 *
+	 * @return mixed
+	 */
+	public function rest_prepare_value( $value ) {
+		return $value;
+	}
+
+	/**
+	 * Render AJAX request.
+	 */
+	public function render_ajax_request() {
+		papi_render_property( $this );
 	}
 
 	/**

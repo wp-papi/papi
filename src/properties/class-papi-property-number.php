@@ -13,6 +13,17 @@ class Papi_Property_Number extends Papi_Property {
 	public $convert_type = 'int';
 
 	/**
+	 * Get convert type.
+	 *
+	 * @return string
+	 */
+	public function get_convert_type() {
+		$value = $this->get_value();
+
+		return is_float( $value ) ? 'float' : $this->convert_type;
+	}
+
+	/**
 	 * Format the value of the property before it's returned
 	 * to WordPress admin or the site.
 	 *

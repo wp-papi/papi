@@ -65,7 +65,7 @@ final class Papi_Admin_Meta_Box_Tabs {
 					<li class="<?php echo esc_attr( $css_classes ); ?>">
 						<a href="#" data-papi-tab="<?php echo esc_attr( $tab->id ); ?>">
 							<?php if ( ! empty( $tab->icon ) ): ?>
-								<img src="<?php echo esc_attr( $tab->icon ); ?>" alt="<?php echo esc_attr( $tab->title ); ?>"/>
+								<img src="<?php echo esc_attr( $tab->icon ); ?>" alt="<?php echo esc_attr( $tab->title ); ?>" />
 							<?php endif;
 							echo esc_html( $tab->title ); ?>
 						</a>
@@ -79,12 +79,12 @@ final class Papi_Admin_Meta_Box_Tabs {
 					<div class="<?php echo $this->tabs[0] === $tab ? 'active' : ''; ?>" data-papi-tab="<?php echo esc_attr( $tab->id ); ?>">
 						<?php papi_render_properties( $tab->properties ); ?>
 					</div>
-				<?php
+					<?php
 				endforeach;
 				?>
 			</div>
 		</div>
 		<div class="papi-clear"></div>
-	<?php
+		<?php
 	}
 }

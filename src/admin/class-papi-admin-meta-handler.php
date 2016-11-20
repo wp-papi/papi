@@ -67,8 +67,8 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	/**
 	 * Save meta boxes.
 	 *
-	 * @param int    $id
-	 * @param object $post
+	 * @param int     $id
+	 * @param object  $post
 	 */
 	public function save_meta_boxes( $id, $post = null ) {
 		// Check if there was a multisite switch before.
@@ -200,9 +200,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 * @return bool
 	 */
 	private function valid_post_id( $post_id ) {
-		$key = papi_get_sanitized_post( 'action' ) === 'save-attachment-compat'
-			? 'id'
-			: 'post_ID';
+		$key = papi_get_sanitized_post( 'action' ) === 'save-attachment-compat' ? 'id' : 'post_ID';
 		$val = papi_get_sanitized_post( $key );
 
 		// When autosave is in place the post id is located deeper in the post data array.

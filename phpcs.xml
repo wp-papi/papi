@@ -22,8 +22,12 @@
     <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
     <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword" />
     <exclude name="Squiz.Commenting.LongConditionClosingComment.Missing" />
+    <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores" />
+    <exclude name="Generic.PHP.DisallowAlternativePHPTags.MaybeASPShortOpenTagFound" />
+    <exclude name="Generic.PHP.DisallowAlternativePHPTags.MaybeASPOpenTagFound" />
     <exclude name="PSR2"></exclude>
   </rule>
+
 
   <rule ref="WordPress.XSS.EscapeOutput" />
   <rule ref="WordPress.PHP.StrictComparisons" />
