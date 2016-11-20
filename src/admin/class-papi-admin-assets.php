@@ -20,12 +20,7 @@ final class Papi_Admin_Assets {
 	public function enqueue_css() {
 		wp_enqueue_media();
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_style(
-			'papi-main',
-			dirname( PAPI_PLUGIN_URL ) . '/dist/css/style.min.css',
-			false,
-			null
-		);
+		wp_enqueue_style( 'papi-main', dirname( PAPI_PLUGIN_URL ) . '/dist/css/style.min.css', false, null );
 	}
 
 	/**
@@ -38,20 +33,14 @@ final class Papi_Admin_Assets {
 			return;
 		}
 
-		wp_enqueue_script(
-			'papi-main',
-			dirname( PAPI_PLUGIN_URL ) . '/dist/js/main.min.js',
-			[
-				'json2',
-				'jquery',
-				'jquery-ui-core',
-				'jquery-ui-sortable',
-				'jquery-masonry',
-				'wp-color-picker'
-			],
-			'',
-			true
-		);
+		wp_enqueue_script( 'papi-main', dirname( PAPI_PLUGIN_URL ) . '/dist/js/main.min.js', [
+			'json2',
+			'jquery',
+			'jquery-ui-core',
+			'jquery-ui-sortable',
+			'jquery-masonry',
+			'wp-color-picker'
+		], '', true );
 	}
 
 	/**
