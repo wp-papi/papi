@@ -86,7 +86,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			// Get property type
 			$property_type_value = $values[$property_type_slug];
-			$property_type = papi_get_property_type( $property_type_value );
+			$property_type       = papi_get_property_type( $property_type_value );
 
 			if ( ! is_object( $property_type ) ) {
 				continue;
@@ -158,7 +158,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			'closed_rows'   => false,
 			'items'         => [],
 			'layout'        => 'table',
-			'limit'         => -1
+			'limit'         => - 1
 		];
 	}
 
@@ -187,20 +187,24 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		if ( $this->is_option_page() ) {
 			$table = $wpdb->prefix . 'options';
+			// @codingStandardsIgnoreStart
 			$query = $wpdb->prepare(
 				"SELECT * FROM `$table` WHERE `option_name` LIKE '%s' ORDER BY `option_id` ASC",
 				$repeater_slug . '_%'
 			);
+			// @codingStandardsIgnoreEnd
 		} else {
 			$table  = sprintf( '%s%smeta', $wpdb->prefix, $this->get_meta_type() );
 			$column = papi_get_meta_id_column( $this->get_meta_type() );
-			$query  = $wpdb->prepare(
+			// @codingStandardsIgnoreStart
+			$query = $wpdb->prepare(
 				"SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `$column` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%',
 				$post_id
 			);
+			// @codingStandardsIgnoreEnd
 		}
 
-		$dbresults = $wpdb->get_results( $query );
+		$dbresults = $wpdb->get_results( $query ); // WPCS: unprepared SQL
 		$value     = intval( $value );
 
 		// Do not proceed with empty value.
@@ -218,7 +222,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		// Add repeater slug with number of rows to the values array.
 		$values[$repeater_slug] = $value;
 
-		for ( $i = 0; $i < $value; $i++ ) {
+		for ( $i = 0; $i < $value; $i ++ ) {
 			$no_trash = [];
 
 			if ( ! isset( $no_trash[$i] ) ) {
@@ -262,7 +266,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$properties = $this->get_settings_properties();
 
 		// Add empty rows that isn't saved to database.
-		for ( $i = 0; $i < $value; $i++ ) {
+		for ( $i = 0; $i < $value; $i ++ ) {
 			foreach ( $properties as $prop ) {
 				if ( ! isset( $prop->slug ) ) {
 					continue;
@@ -446,7 +450,7 @@ class Papi_Property_Repeater extends Papi_Property {
 					$child_property = $this->get_store()->get_property( $this->get_slug( true ), $slug );
 
 					if ( papi_is_property( $child_property ) && ! empty( $child_property->get_child_properties() ) ) {
-						$value = papi_from_property_array_slugs( $value, unpapify( $slug ) );
+						$value                  = papi_from_property_array_slugs( $value, unpapify( $slug ) );
 						$results[$index][$slug] = $this->load_child_properties( $value, $child_property );
 					}
 				}
@@ -474,7 +478,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 */
 	protected function prepare_properties( $items ) {
 		$key   = isset( $this->layout_key ) &&
-			$this->layout_key === '_layout' ?  'flexible' : 'repeater';
+		$this->layout_key === '_layout' ? 'flexible' : 'repeater';
 		$items = array_map( 'papi_property', $items );
 
 		$exclude_properties = $this->exclude_properties;
@@ -542,26 +546,28 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		if ( $option_page ) {
 			$table = $wpdb->prefix . 'options';
-			$sql   = "SELECT * FROM $table WHERE (`option_name` LIKE %s OR `option_name` LIKE %s AND NOT `option_name` = %s)";
+			// @codingStandardsIgnoreStart
 			$query = $wpdb->prepare(
-				$sql,
+				"SELECT * FROM `$table` WHERE (`option_name` LIKE %s OR `option_name` LIKE %s AND NOT `option_name` = %s)",
 				$repeater_slug,
 				papi_f( $repeater_slug ),
 				papi_get_property_type_key_f( $repeater_slug )
 			);
+			// @codingStandardsIgnoreEnd
 		} else {
 			$table = $wpdb->prefix . 'postmeta';
-			$sql   = "SELECT * FROM $table WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)";
+			// @codingStandardsIgnoreStart
 			$query = $wpdb->prepare(
-				$sql,
+				"SELECT * FROM `$table` WHERE `post_id` = %d AND (`meta_key` LIKE %s OR `meta_key` LIKE %s AND NOT `meta_key` = %s)",
 				$post_id,
 				$repeater_slug,
 				papi_f( $repeater_slug ),
 				papi_get_property_type_key_f( $repeater_slug )
 			);
+			// @codingStandardsIgnoreEnd
 		}
 
-		$results = $wpdb->get_results( $query );
+		$results = $wpdb->get_results( $query ); // WPCS: unprepared sql
 
 		foreach ( $results as $res ) {
 			if ( $option_page ) {
@@ -581,7 +587,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$items = $this->get_settings_properties();
 
 		if ( papi_doing_ajax() ) {
-			$counter = papi_get_qs( 'counter' );
+			$counter       = papi_get_qs( 'counter' );
 			$this->counter = intval( $counter );
 		}
 
@@ -619,17 +625,17 @@ class Papi_Property_Repeater extends Papi_Property {
 	/**
 	 * Render properties.
 	 *
-	 * @param array $row
+	 * @param array      $row
 	 * @param array|bool $value
 	 */
 	protected function render_properties( $row, $value ) {
 		$layout = $this->get_setting( 'layout' );
 
 		if ( $layout === 'row' ): ?>
-		<td class="repeater-layout-row">
+			<td class="repeater-layout-row">
 			<div class="repeater-content-open">
-				<table class="papi-table">
-					<tbody>
+			<table class="papi-table">
+			<tbody>
 		<?php endif;
 
 		$has_value = $value !== false;
@@ -660,27 +666,27 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			if ( $layout === 'table' ) {
 				echo '<td class="repeater-column ' . ( $property->display() ? '' : 'papi-hide' ) . '">';
-					echo '<div class="repeater-content-open">';
-						echo sprintf(
-							'<label for="%s" class="papi-visually-hidden">%s</label>',
-							esc_attr( $this->html_id( $property, $this->counter ) ),
-							esc_html( $property->title )
-						);
+				echo '<div class="repeater-content-open">';
+				echo sprintf(
+					'<label for="%s" class="papi-visually-hidden">%s</label>',
+					esc_attr( $this->html_id( $property, $this->counter ) ),
+					esc_html( $property->title )
+				);
 			}
 
 			papi_render_property( $render_property );
 
 			if ( $layout === 'table' ) {
-					echo '</div>';
+				echo '</div>';
 				echo '</td>';
 			}
 		}
 
 		if ( $layout === 'row' ): ?>
-					</tbody>
-				</table>
+			</tbody>
+			</table>
 			</div>
-		</td>
+			</td>
 		<?php endif;
 	}
 
@@ -696,7 +702,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				<?php $this->render_repeater_head(); ?>
 
 				<tbody class="repeater-tbody">
-					<?php $this->render_repeater_rows(); ?>
+				<?php $this->render_repeater_rows(); ?>
 				</tbody>
 			</table>
 
@@ -725,7 +731,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$properties = $this->get_settings_properties();
 		?>
 		<thead>
-			<?php if ( ! $this->layout( 'row' ) ): ?>
+		<?php if ( ! $this->layout( 'row' ) ): ?>
 			<tr>
 				<th></th>
 				<?php
@@ -734,14 +740,14 @@ class Papi_Property_Repeater extends Papi_Property {
 					if ( $property->disabled() ) {
 						continue;
 					}
-				?>
+					?>
 					<th class="repeater-column <?php echo $property->display() ? '' : 'papi-hide'; ?>">
 						<?php echo esc_html( $property->title ); ?>
 					</th>
 				<?php endforeach; ?>
 				<th class="last"></th>
 			</tr>
-			<?php endif; ?>
+		<?php endif; ?>
 		</thead>
 		<?php
 	}
@@ -768,7 +774,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 		}
 
-		$values = array_filter( $values );
+		$values      = array_filter( $values );
 		$closed_rows = $this->get_setting( 'closed_rows', true );
 
 		foreach ( $values as $row ):
@@ -779,8 +785,8 @@ class Papi_Property_Repeater extends Papi_Property {
 					<span class="count"><?php echo esc_html( $this->counter + 1 ); ?></span>
 				</td>
 				<?php
-					$this->render_properties( $items, $row );
-					$this->counter++;
+				$this->render_properties( $items, $row );
+				$this->counter ++;
 				?>
 				<td class="last">
 					<span>
@@ -865,7 +871,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			// Get property type
 			$property_type_value = $values[$property_type_slug]->type;
-			$property_type = papi_get_property_type( $property_type_value );
+			$property_type       = papi_get_property_type( $property_type_value );
 
 			// Unserialize if needed.
 			$value = papi_maybe_json_decode(
@@ -895,7 +901,9 @@ class Papi_Property_Repeater extends Papi_Property {
 					}
 
 					unset( $values[$slug][$key] );
+
 					$key = preg_replace( '/^\_/', '', $key );
+
 					$values[$slug][$key] = $val;
 				}
 			}

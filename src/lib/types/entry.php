@@ -76,13 +76,17 @@ function papi_get_entry_type_count( $entry_type ) {
 	}
 
 	$table = sprintf( '%s%smeta', $wpdb->prefix, papi_get_meta_type( $entry_type->type ) );
-	$sql   = $wpdb->prepare(
+
+	// @codingStandardsIgnoreStart
+	$sql = $wpdb->prepare(
 		"SELECT COUNT(*) FROM `$table` WHERE `meta_key` = '%s' AND `meta_value` = '%s'",
 		papi_get_page_type_key(),
 		$entry_type->get_id()
 	);
 
-	return intval( $wpdb->get_var( $sql ) ); // WPCS: unprepared SQL
+
+	return intval( $wpdb->get_var( $sql ) );
+	// @codingStandardsIgnoreEnd
 }
 
 /**
