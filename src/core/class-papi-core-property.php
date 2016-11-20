@@ -676,11 +676,13 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Register meta, only supported in WordPress 4.6.
+	 * Register property with:
+	 *
+	 * - `register_meta` (WP 4.6+)
 	 *
 	 * @return bool
 	 */
-	public function register_meta() {
+	public function register() {
 		if ( version_compare( get_bloginfo( 'version' ), '4.6', '<' ) ) {
 			return false;
 		}

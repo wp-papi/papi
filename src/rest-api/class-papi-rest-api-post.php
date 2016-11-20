@@ -32,7 +32,7 @@ class Papi_REST_API_Post {
 
 		// Register all properties fields with register meta.
 		foreach ( $page_type->get_properties() as $property ) {
-			$property->register_meta();
+			$property->register();
 		}
 
 		// Get the post store for a page type.
