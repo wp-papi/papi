@@ -92,11 +92,9 @@ class Papi_Admin_Ajax {
 			return ! empty( $post->post_title );
 		} );
 
-		// @codeCoverageIgnoreStart
 		usort( $posts, function ( $a, $b ) {
 			return strcmp( strtolower( $a->post_title ), strtolower( $b->post_title ) );
 		} );
-		// @codeCoverageIgnoreEnd
 
 		if ( ! empty( $fields ) ) {
 			foreach ( $posts as $index => $post ) {
