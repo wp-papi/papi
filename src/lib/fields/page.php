@@ -142,7 +142,7 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 	}
 
 	// Get value from store.
-	$value = $store->get_value( $id, $slug, $type, $default );
+	$value = $store->get_value( $id, $slug, $default, $type );
 
 	// Get value by dot keys if any.
 	return papi_field_value( $slugs, $value, $default );
