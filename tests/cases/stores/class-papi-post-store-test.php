@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group stores
+ */
 class Papi_Post_Store_Test extends WP_UnitTestCase {
 
 	public function setUp() {
