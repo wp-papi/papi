@@ -680,18 +680,27 @@ class Papi_Core_Property {
 	 *
 	 * - `register_meta` (WP 4.6+)
 	 *
+	 * @param  string $type
+	 *
 	 * @return bool
 	 */
-	public function register() {
+	public function register( $type = 'post' ) {
 		if ( version_compare( get_bloginfo( 'version' ), '4.6', '<' ) ) {
 			return false;
 		}
 
-		$type = papi_get_meta_type();
+		$type = papi_get_meta_type( $type );
 
-		// Don't have to register meta on option type.
+		// Register option fields with the new `register_setting` function.
 		if ( $type === 'option' ) {
-			return false;
+			// The `type` will be the same for each fields, this is just to get it out
+			// to the REST API, the output will be different for different fields and are
+			// handled later on.
+			return register_setting( 'papi', $this->get_slug( true ), [
+				'sanitize_callback' => [$this, 'register_meta_sanitize_callback'],
+				'show_in_rest'      => $this->get_option( 'show_in_rest' ),
+				'type'              => 'string'
+			] );
 		}
 
 		// Register meta fields with the new `register_meta` function.
