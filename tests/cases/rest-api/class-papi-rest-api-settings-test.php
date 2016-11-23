@@ -8,7 +8,7 @@ class Papi_REST_API_Settings_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		if ( version_compare( get_bloginfo( 'version' ), '4.7', '<' ) ) {
+		if ( version_compare( get_bloginfo( 'version' ), '4.6', '<=' ) ) {
 			$this->markTestSkipped( '`register_settings` is only supported in WordPress 4.7 and later' );
 		}
 
