@@ -84,7 +84,6 @@ function papi_get_entry_type_count( $entry_type ) {
 		$entry_type->get_id()
 	);
 
-
 	return intval( $wpdb->get_var( $sql ) );
 	// @codingStandardsIgnoreEnd
 }
