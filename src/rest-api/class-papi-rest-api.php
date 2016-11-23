@@ -15,6 +15,7 @@ final class Papi_REST_API {
 	 */
 	protected function load_files() {
 		require_once __DIR__ . '/class-papi-rest-api-post.php';
+		require_once __DIR__ . '/class-papi-rest-api-settings.php';
 	}
 
 	/**
