@@ -10,7 +10,7 @@ class Papi_REST_API_Post {
 	protected $store;
 
 	/**
-	 * Register REST API routes.
+	 * REST API Post construct.
 	 */
 	public function __construct() {
 		add_filter( 'the_post', [$this, 'get_post'] );
