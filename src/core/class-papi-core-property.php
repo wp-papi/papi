@@ -691,8 +691,8 @@ class Papi_Core_Property {
 
 		$type = papi_get_meta_type( $type );
 
-		// Register option fields with the new `register_setting` function.
-		if ( $type === 'option' ) {
+		// Register option fields with the new `register_setting` function and only for WordPress 4.7.
+		if ( $type === 'option' && version_compare( get_bloginfo( 'version' ), '4.7', '>=' ) ) {
 			// The `type` will be the same for each fields, this is just to get it out
 			// to the REST API, the output will be different for different fields and are
 			// handled later on.
