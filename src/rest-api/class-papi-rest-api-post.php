@@ -26,7 +26,7 @@ class Papi_REST_API_Post {
 	 *
 	 * @return array
 	 */
-	public function get_page_type( array $data, $field_name, WP_REST_Request $request ) {
+	public function get_page_type( array $data, $field_name, $request ) {
 		return papi_get_page_type_id( $data['ID'] ) ?: '';
 	}
 

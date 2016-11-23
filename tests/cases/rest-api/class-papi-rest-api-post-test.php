@@ -28,12 +28,12 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 
 	public function test_get_page_type() {
 		$post_id = $this->factory->post->create();
-		$page_type = $this->class->get_page_type( ['ID' => $post_id], 'page_type', new WP_REST_Request );
+		$page_type = $this->class->get_page_type( ['ID' => $post_id], 'page_type', null );
 
 		$this->assertSame( $page_type, '' );
 		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-content-page-type' );
 
-		$page_type = $this->class->get_page_type( ['ID' => $post_id], 'page_type', new WP_REST_Request );
+		$page_type = $this->class->get_page_type( ['ID' => $post_id], 'page_type', null );
 		$this->assertSame( $page_type, get_post_meta( $post_id, papi_get_page_type_key(), true ) );
 	}
 
