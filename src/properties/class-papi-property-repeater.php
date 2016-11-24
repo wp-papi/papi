@@ -45,7 +45,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	public function delete_value( $slug, $post_id, $type ) {
 		$rows   = intval( papi_data_get( $post_id, $slug, $type ) );
 		$value  = $this->load_value( $rows, $slug, $post_id );
-		$value  = papi_to_property_array_slugs( $value, $slug );
+		$value  = papi_property_to_array_slugs( $value, $slug );
 		$result = true;
 
 		foreach ( array_keys( $value ) as $key ) {
@@ -71,7 +71,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			return [];
 		}
 
-		$values = papi_to_property_array_slugs( $values, $repeater_slug );
+		$values = papi_property_to_array_slugs( $values, $repeater_slug );
 
 		foreach ( $values as $slug => $value ) {
 			if ( papi_is_property_type_key( $slug ) ) {
@@ -132,7 +132,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 		}
 
-		return papi_from_property_array_slugs( $values, $repeater_slug );
+		return papi_property_from_array_slugs( $values, $repeater_slug );
 	}
 
 	/**
@@ -425,7 +425,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		// Will not need this array.
 		unset( $trash );
 
-		$results = papi_from_property_array_slugs( $results, unpapify( $repeater_slug ) );
+		$results = papi_property_from_array_slugs( $results, unpapify( $repeater_slug ) );
 
 		if ( empty( $results ) ) {
 			return $this->default_value;
@@ -449,7 +449,7 @@ class Papi_Property_Repeater extends Papi_Property {
 					$child_property = $this->get_store()->get_property( $this->get_slug( true ), $slug );
 
 					if ( papi_is_property( $child_property ) && ! empty( $child_property->get_child_properties() ) ) {
-						$value                  = papi_from_property_array_slugs( $value, unpapify( $slug ) );
+						$value                  = papi_property_from_array_slugs( $value, unpapify( $slug ) );
 						$results[$index][$slug] = $this->load_child_properties( $value, $child_property );
 					}
 				}
@@ -847,7 +847,7 @@ class Papi_Property_Repeater extends Papi_Property {
 			papi_data_delete( $post_id, $meta->meta_key, $this->get_meta_type() );
 		}
 
-		$values = papi_to_property_array_slugs( $values, $repeater_slug );
+		$values = papi_property_to_array_slugs( $values, $repeater_slug );
 
 		foreach ( $values as $slug => $value ) {
 			if ( papi_is_property_type_key( $slug ) ) {

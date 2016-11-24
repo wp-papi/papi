@@ -18,7 +18,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_from_property_array_slugs() {
-		$actual = papi_from_property_array_slugs( [
+		$actual = papi_property_from_array_slugs( [
 			'repeater' => 1,
 			'repeater_0_image' => 1,
 			'_repeater_0_image_property' => 'image'
@@ -33,7 +33,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 
 		$this->assertSame( $expected, $actual );
 
-		$this->assertEmpty( papi_from_property_array_slugs( [], 'custom_slug' ) );
+		$this->assertEmpty( papi_property_from_array_slugs( [], 'custom_slug' ) );
 	}
 
 	public function test_papi_is_property() {
@@ -368,7 +368,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_to_property_array_slugs() {
-		$actual = papi_to_property_array_slugs( [
+		$actual = papi_property_to_array_slugs( [
 			[
 				'image' => 1,
 				'image_property' => 'image',
@@ -384,7 +384,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( $expected, $actual );
 
-		$actual = papi_to_property_array_slugs( [ 1, '', true, false ], 'repeater' );
+		$actual = papi_property_to_array_slugs( [1, '', true, false ], 'repeater' );
 
 		$expected = [
 			'repeater' => 0

@@ -1,37 +1,6 @@
 <?php
 
 /**
- * Convert array of slugs to array with arrays in.
- *
- * @param  array  $values
- * @param  string $slug
- *
- * @return array
- */
-function papi_from_property_array_slugs( array $values, $slug ) {
-	$results = [];
-
-	if ( empty( $values ) ) {
-		return $results;
-	}
-
-	for ( $i = 0; $i < $values[$slug]; $i++ ) {
-		$item      = [];
-		$item_slug = $slug . '_' . $i . '_';
-		$keys      = preg_grep( '/' . preg_quote( $item_slug ) . '/', array_keys( $values ) );
-
-		foreach ( $keys as $key ) {
-			$arr_key        = str_replace( $item_slug, '', $key );
-			$item[$arr_key] = $values[$key];
-		}
-
-		$results[] = $item;
-	}
-
-	return $results;
-}
-
-/**
  * Check if the given value is a instance of a property or not.
  *
  * @param  mixed $value
@@ -344,6 +313,37 @@ function papi_populate_properties( $properties ) {
 }
 
 /**
+ * Convert array of slugs to array with arrays in.
+ *
+ * @param  array  $values
+ * @param  string $slug
+ *
+ * @return array
+ */
+function papi_property_from_array_slugs( array $values, $slug ) {
+	$results = [];
+
+	if ( empty( $values ) ) {
+		return $results;
+	}
+
+	for ( $i = 0; $i < $values[$slug]; $i++ ) {
+		$item      = [];
+		$item_slug = $slug . '_' . $i . '_';
+		$keys      = preg_grep( '/' . preg_quote( $item_slug ) . '/', array_keys( $values ) );
+
+		foreach ( $keys as $key ) {
+			$arr_key        = str_replace( $item_slug, '', $key );
+			$item[$arr_key] = $values[$key];
+		}
+
+		$results[] = $item;
+	}
+
+	return $results;
+}
+
+/**
  * Convert array of arrays to array of slugs.
  * The given slug will match a key with the number of properties.
  *
@@ -352,7 +352,7 @@ function papi_populate_properties( $properties ) {
  *
  * @return array
  */
-function papi_to_property_array_slugs( array $value, $slug ) {
+function papi_property_to_array_slugs( array $value, $slug ) {
 	$results = [];
 	$counter = [];
 

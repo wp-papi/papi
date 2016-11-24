@@ -87,7 +87,7 @@ class Papi_Porter_Driver_Core extends Papi_Porter_Driver {
 		$value = $property->import_value( $value, $slug, $meta_id, $meta_type );
 
 		if ( $property->import_setting( 'property_array_slugs' ) ) {
-			return papi_from_property_array_slugs( $value, $slug );
+			return papi_property_from_array_slugs( $value, $slug );
 		}
 
 		return $property->update_value( $value, $slug, $meta_id, $meta_type );
