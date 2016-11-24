@@ -68,18 +68,10 @@ function papi_load_taxonomy_type_id( $entry_type_id = '', $type = 'term' ) {
 		$entry_type_id = empty( $meta_value ) ? '' : $meta_value;
 	}
 
-	// Load entry type id from the container if it exists.
-	if ( empty( $entry_type_id ) ) {
-		$key = sprintf( 'entry_type_id.taxonomy.%s', $taxonomy );
-
-		if ( papi()->exists( $key )  ) {
-			return papi()->make( $key );
-		}
-	}
-
 	// Try to load the entry type from all taxonomy types and check
-	// if only one exists of that post type. The same as only taxonomy type filter
-	// but without the filter.
+	// if only one exists of that post type.
+	//
+	// The same as only taxonomy type filter but without the filter.
 	if ( empty( $entry_type_id ) ) {
 		$key = sprintf( 'entry_type_id.taxonomy.%s', $taxonomy );
 

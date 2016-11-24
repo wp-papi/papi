@@ -203,8 +203,9 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 	}
 
 	// Try to load the entry type from all page types and check
-	// if only one exists of that post type. The same as only page type filter
-	// but without the filter.
+	// if only one exists of that post type.
+	//
+	// The same as only page type filter but without the filter.
 	if ( empty( $entry_type_id ) ) {
 		$key = sprintf( 'entry_type_id.post_type.%s', $post_type );
 
