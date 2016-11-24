@@ -174,7 +174,7 @@ class Papi_Core_Property {
 	 * @return bool
 	 */
 	public function delete_value( $slug, $post_id, $type ) {
-		return papi_delete_property_meta_value( $post_id, $slug, $type );
+		return papi_data_delete( $post_id, $slug, $type );
 	}
 
 	/**
@@ -248,7 +248,7 @@ class Papi_Core_Property {
 			}
 
 			$options = $type;
-			$type = $type->type;
+			$type    = $type->type;
 		}
 
 		// Old types, 'PropertyString' => 'String'.
@@ -333,6 +333,7 @@ class Papi_Core_Property {
 	 */
 	public function get_child_properties() {
 		$items = $this->get_setting( 'items', [] );
+
 		return is_array( $items ) ? $items : [$items];
 	}
 
@@ -466,10 +467,7 @@ class Papi_Core_Property {
 	 * @return stdClass
 	 */
 	public function get_settings() {
-		return (object) array_merge(
-			$this->get_default_settings(),
-			(array) $this->settings
-		);
+		return (object) array_merge( $this->get_default_settings(), (array) $this->settings );
 	}
 
 	/**
@@ -513,7 +511,7 @@ class Papi_Core_Property {
 	 * Get the html id attribute value.
 	 *
 	 * @param  object|string $suffix
-	 * @param  int $row
+	 * @param  int           $row
 	 *
 	 * @return string
 	 */
@@ -539,7 +537,7 @@ class Papi_Core_Property {
 	 * Get html name for property with or without sub property and row number.
 	 *
 	 * @param  array|object $sub_property
-	 * @param  int $row
+	 * @param  int          $row
 	 *
 	 * @return string
 	 */
@@ -562,11 +560,7 @@ class Papi_Core_Property {
 			}
 		}
 
-		return sprintf(
-			'%s[%s]',
-			$base_slug,
-			unpapify( $sub_property->get_slug() )
-		);
+		return sprintf( '%s[%s]', $base_slug, unpapify( $sub_property->get_slug() ) );
 	}
 
 	/**
@@ -937,10 +931,7 @@ class Papi_Core_Property {
 		$property_class = self::factory( $options->type );
 
 		if ( papi_is_property( $property_class ) ) {
-			$options->settings = array_merge(
-				(array) $property_class->get_default_settings(),
-				(array) $options->settings
-			);
+			$options->settings = array_merge( (array) $property_class->get_default_settings(), (array) $options->settings );
 		}
 
 		return (object) $options->settings;

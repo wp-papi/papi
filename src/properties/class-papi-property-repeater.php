@@ -49,7 +49,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$result = true;
 
 		foreach ( array_keys( $value ) as $key ) {
-			$out    = papi_delete_property_meta_value( $post_id, $key, $type );
+			$out    = papi_data_delete( $post_id, $key, $type );
 			$result = $out ? $result : $out;
 		}
 
@@ -187,6 +187,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		if ( $this->get_meta_type() === 'option' ) {
 			$table = $wpdb->prefix . 'options';
+
 			// @codingStandardsIgnoreStart
 			$query = $wpdb->prepare(
 				"SELECT * FROM `$table` WHERE `option_name` LIKE '%s' ORDER BY `option_id` ASC",
@@ -243,9 +244,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				$no_trash[$slug] = $meta;
 
 				// Add property value.
-				$values[$meta->meta_key] = papi_maybe_json_decode(
-					maybe_unserialize( $meta->meta_value )
-				);
+				$values[$meta->meta_key] = papi_maybe_json_decode( maybe_unserialize( $meta->meta_value ) );
 			}
 
 			// Get the meta keys to delete.
@@ -482,10 +481,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		$items = array_map( 'papi_property', $items );
 
 		$exclude_properties = $this->exclude_properties;
-		$exclude_properties = array_merge(
-			$exclude_properties,
-			apply_filters( 'papi/property/' . $key . '/exclude', [] )
-		);
+		$exclude_properties = array_merge( $exclude_properties, apply_filters( 'papi/property/' . $key . '/exclude', [] ) );
 
 		return array_filter( $items, function ( $item ) use ( $exclude_properties ) {
 			if ( ! is_object( $item ) ) {
@@ -546,6 +542,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		if ( $is_option ) {
 			$table = $wpdb->prefix . 'options';
+
 			// @codingStandardsIgnoreStart
 			$query = $wpdb->prepare(
 				"SELECT * FROM `$table` WHERE (`option_name` LIKE %s OR `option_name` LIKE %s AND NOT `option_name` = %s)",
@@ -576,7 +573,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				$key = $res->meta_key;
 			}
 
-			papi_delete_property_meta_value( $post_id, $key );
+			papi_data_delete( $post_id, $key, $this->get_meta_type() );
 		}
 	}
 
@@ -837,10 +834,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @return array
 	 */
 	public function update_value( $values, $repeater_slug, $post_id ) {
-		$rows = intval( papi_get_property_meta_value(
-			$post_id,
-			$repeater_slug
-		) );
+		$rows = intval( papi_get_property_meta_value( $post_id, $repeater_slug ) );
 
 		if ( ! is_array( $values ) ) {
 			$values = [];
@@ -850,7 +844,7 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		// Delete trash values.
 		foreach ( $trash as $meta ) {
-			papi_delete_property_meta_value( $post_id, $meta->meta_key );
+			papi_data_delete( $post_id, $meta->meta_key, $this->get_meta_type() );
 		}
 
 		$values = papi_to_property_array_slugs( $values, $repeater_slug );
@@ -878,25 +872,13 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 
 			// Unserialize if needed.
-			$value = papi_maybe_json_decode(
-				maybe_unserialize( $value )
-			);
+			$value = papi_maybe_json_decode( maybe_unserialize( $value ) );
 
 			// Run update value on each property type class.
-			$value = $property_type->update_value(
-				$value,
-				$property_slug,
-				$post_id
-			);
+			$value = $property_type->update_value( $value, $property_slug, $post_id );
 
 			// Run update value on each property type filter.
-			$values[$slug] = papi_filter_update_value(
-				$property_type_value,
-				$value,
-				$property_slug,
-				$post_id,
-				papi_get_meta_type()
-			);
+			$values[$slug] = papi_filter_update_value( $property_type_value, $value, $property_slug, $post_id, papi_get_meta_type() );
 
 			if ( is_array( $values[$slug] ) ) {
 				foreach ( $values[$slug] as $key => $val ) {
@@ -914,14 +896,11 @@ class Papi_Property_Repeater extends Papi_Property {
 		}
 
 		// Find out which keys that should be deleted.
-		$trash = array_diff(
-			array_keys( papi_to_array( $results ) ),
-			array_keys( papi_to_array( $values ) )
-		);
+		$trash = array_diff( array_keys( papi_to_array( $results ) ), array_keys( papi_to_array( $values ) ) );
 
 		// Delete unwanted (trash) values.
 		foreach ( array_keys( $trash ) as $trash_key ) {
-			papi_delete_property_meta_value( $post_id, $trash_key );
+			papi_data_delete( $post_id, $trash_key, $this->get_meta_type() );
 		}
 
 		// It's safe to remove all rows in the database here.

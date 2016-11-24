@@ -1,19 +1,6 @@
 <?php
 
 /**
- * Delete property value from database.
- *
- * @param  int    $id
- * @param  string $slug
- * @param  string $type
- *
- * @return mixed
- */
-function papi_delete_property_meta_value( $id, $slug, $type = 'post' ) {
-	return papi()->data( $type )->delete( $id, $slug );
-}
-
-/**
  * Convert array of slugs to array with arrays in.
  *
  * @param  array  $values
