@@ -31,8 +31,6 @@ class Papi_Post_Store_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_type_class() {
-		$this->assertEmpty( $this->store->get_type_class() );
-
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		$store = papi_get_meta_store( $this->post_id );

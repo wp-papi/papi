@@ -97,7 +97,7 @@ function papi_get_taxonomies() {
 		$taxonomies = array_merge( $taxonomies, papi_to_array( $entry_type->taxonomy ) );
 	}
 
-	return array_unique( $taxonomies );
+	return array_filter( array_unique( $taxonomies ) );
 }
 
 /**

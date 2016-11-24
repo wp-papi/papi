@@ -202,12 +202,24 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 		$entry_type_id = empty( $meta_value ) ? '' : $meta_value;
 	}
 
-	// Load entry type id from the container if it exists.
+	// Try to load the entry type from all page types and check
+	// if only one exists of that post type. The same as only page type filter
+	// but without the filter.
 	if ( empty( $entry_type_id ) ) {
+		$post_type = papi_get_post_type();
+
 		$key = sprintf( 'entry_type_id.post_type.%s', $post_type );
 
 		if ( papi()->exists( $key )  ) {
 			return papi()->make( $key );
+		}
+
+		$entries = papi_get_all_page_types( $post_type );
+
+		if ( count( $entries ) === 1 ) {
+			$entry_type_id = $entries[0]->get_id();
+
+			papi()->bind( $key, $entry_type_id );
 		}
 	}
 

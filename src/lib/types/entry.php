@@ -151,7 +151,12 @@ function papi_get_all_entry_types( array $args = [] ) {
 	}
 
 	if ( papi()->exists( $cache_key ) ) {
-		return papi()->make( $cache_key );
+		if ( $entry_types = papi()->make( $cache_key ) ) {
+			return $entry_types;
+		}
+
+		papi()->remove( $cache_key );
+		papi()->remove( 'papi_get_all_core_type_files' );
 	}
 
 	$singletons  = [];
