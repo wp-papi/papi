@@ -1,5 +1,36 @@
 # Papi Changelog
 
+## [3.1.17](https://github.com/wp-papi/papi/releases/tag/v3.1.17) - 2016-11-01
+
+* Fixed: Link property didn't save values correct.
+* Fixed: Relationship custom data can now use string id and not just int ids.
+
+## [3.1.16](https://github.com/wp-papi/papi/releases/tag/v3.1.16) - 2016-10-26
+
+* Fixed: Auto draft didn't save fields.
+* Fixed: Issues with color picker property that didn't work [#179](https://github.com/wp-papi/papi/issues/179).
+* Fixed: Editor tabs didn't work when flexible and repeater use `vertical` layout [#201](https://github.com/wp-papi/papi/issues/201).
+* Fixed: Remove duplicated database queries.
+* Fixed: `z-index` issue with flexible `add` button when placed under a editor [#198](https://github.com/wp-papi/papi/pull/198). Props [nlemoine](https://github.com/nlemoine).
+* Fixed: `nl2br` issue with text property [#199](https://github.com/wp-papi/papi/issues/199).
+
+## [3.1.15](https://github.com/wp-papi/papi/releases/tag/v3.1.15) - 2016-10-06
+
+* Fixed: Expression issues with TinyMCE in flexibles and repeaters [#196](https://github.com/wp-papi/papi/issues/196).
+* Fixed: Dot files should not be loaded if exists in types directories [#193](https://github.com/wp-papi/papi/issues/193).
+* Fixed: Cache issue when a repeater is a child property to a flexible.
+
+## [3.1.14](https://github.com/wp-papi/papi/releases/tag/v3.1.14) - 2016-09-23
+
+* Fixed: Browser issue with `selected` attribute.
+* Fixed: Drag and drop issue with repeater.
+
+## [3.1.13](https://github.com/wp-papi/papi/releases/tag/v3.1.13) - 2016-09-12
+
+* Fixed: Drag and drop issue with link property in flexible/repeater.
+* Fixed: Bug with post add new link when user is on another post type [#190](https://github.com/wp-papi/papi/pull/190).
+* Fixed: Optimize `papi_is_empty` check for arrays [#191](https://github.com/wp-papi/papi/pull/191).
+
 ## [3.1.12](https://github.com/wp-papi/papi/releases/tag/v3.1.12) - 2016-09-05
 
 * Fixed: Cache issue with improved cache for flexible.
