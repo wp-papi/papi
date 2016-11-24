@@ -137,10 +137,7 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		$sort_options[__( 'Name (alphabetically)', 'papi' )] = function ( $a, $b ) {
 			// Backwards compatibility with both `post_title` and `title`.
-			return strcmp(
-				strtolower( isset( $a->post_title ) ? $a->post_title : $a->title ),
-				strtolower( isset( $b->post_title ) ? $b->post_title : $b->title )
-			);
+			return strcmp( strtolower( isset( $a->post_title ) ? $a->post_title : $a->title ), strtolower( isset( $b->post_title ) ? $b->post_title : $b->title ) );
 		};
 
 		$sort_options[__( 'Post created date (ascending)', 'papi' )] = function ( $a, $b ) {
@@ -177,10 +174,7 @@ class Papi_Property_Relationship extends Papi_Property {
 			return strtotime( $a->post_modified ) < strtotime( $b->post_modified );
 		};
 
-		return apply_filters(
-			'papi/property/relationship/sort_options',
-			$sort_options
-		);
+		return apply_filters( 'papi/property/relationship/sort_options', $sort_options );
 	}
 
 	/**
@@ -193,15 +187,10 @@ class Papi_Property_Relationship extends Papi_Property {
 	protected function get_items( $settings ) {
 		if ( is_array( $settings->items ) && ! empty( $settings->items ) ) {
 			$mapping = function ( $item ) {
-				return is_array( $item ) ?
-					isset( $item['id'], $item['title'] ) :
-					isset( $item->id, $item->title );
+				return is_array( $item ) ? isset( $item['id'], $item['title'] ) : isset( $item->id, $item->title );
 			};
 
-			return array_map(
-				'papi_maybe_convert_to_object',
-				array_filter( $settings->items, $mapping )
-			);
+			return array_map( 'papi_maybe_convert_to_object', array_filter( $settings->items, $mapping ) );
 		}
 
 		// By default we add posts per page key with the value -1 (all).
@@ -219,10 +208,7 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		$items = ( new WP_Query( $args ) )->posts;
 
-		return array_map(
-			[$this, 'convert_post_to_item'],
-			papi_get_only_objects( $items )
-		);
+		return array_map( [$this, 'convert_post_to_item'], papi_get_only_objects( $items ) );
 	}
 
 	/**
@@ -250,12 +236,9 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		// Remove existing values if `only once` is active.
 		if ( $this->get_setting( 'only_once' ) ) {
-			$items = array_udiff( $items, $values, function( $a, $b ) {
+			$items = array_udiff( $items, $values, function ( $a, $b ) {
 				// Backwards compatibility with both `post_title` and `title`.
-				return strcmp(
-					strtolower( isset( $a->post_title ) ? $a->post_title : $a->title ),
-					strtolower( isset( $b->post_title ) ? $b->post_title : $b->title )
-				);
+				return strcmp( strtolower( isset( $a->post_title ) ? $a->post_title : $a->title ), strtolower( isset( $b->post_title ) ? $b->post_title : $b->title ) );
 			} );
 		}
 
@@ -297,11 +280,11 @@ class Papi_Property_Relationship extends Papi_Property {
 							if ( ! empty( $item->title ) ):
 								?>
 								<li>
-									<input type="hidden" data-name="<?php echo esc_attr( $slug ); ?>[]" value="<?php echo esc_attr( $item->id ); ?>"/>
+									<input type="hidden" data-name="<?php echo esc_attr( $slug ); ?>[]" value="<?php echo esc_attr( $item->id ); ?>" />
 									<a href="#" title="<?php echo esc_attr( $item->title ); ?>"><?php echo esc_html( $item->title ); ?></a>
 									<span class="icon plus"></span>
 								</li>
-							<?php
+								<?php
 							endif;
 						endforeach;
 						?>
@@ -312,7 +295,7 @@ class Papi_Property_Relationship extends Papi_Property {
 						<?php foreach ( $values as $item ): ?>
 							<li>
 								<input type="hidden" name="<?php echo esc_attr( $slug ); ?>[]"
-								       value="<?php echo esc_attr( $item->id ); ?>"/>
+								       value="<?php echo esc_attr( $item->id ); ?>" />
 								<a href="#"><?php echo esc_attr( $item->title ); ?></a>
 								<span class="icon minus"></span>
 							</li>
@@ -322,7 +305,7 @@ class Papi_Property_Relationship extends Papi_Property {
 				<div class="papi-clear"></div>
 			</div>
 		</div>
-	<?php
+		<?php
 	}
 
 	/**
@@ -369,6 +352,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 	public function load_value( $values, $slug, $post_id ) {
 		$values = (array) papi_maybe_json_decode( maybe_unserialize( $values ), true );
+
 		return array_map( 'papi_maybe_convert_to_object', $values );
 	}
 
