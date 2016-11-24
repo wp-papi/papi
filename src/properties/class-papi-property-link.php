@@ -46,12 +46,12 @@ class Papi_Property_Link extends Papi_Property {
 		$result = true;
 
 		foreach ( array_keys( $values ) as $key ) {
-			$out    = papi_delete_property_meta_value( $post_id, $slug . '_' . $key );
+			$out    = papi_data_delete( $post_id, $slug . '_' . $key );
 			$result = $out ? $result : $out;
 		}
 
 		if ( $result ) {
-			$result = papi_delete_property_meta_value( $post_id, $slug );
+			$result = papi_data_delete( $post_id, $slug );
 		}
 
 		return $result;
@@ -96,7 +96,7 @@ class Papi_Property_Link extends Papi_Property {
 			$values = $this->link_fields;
 
 			foreach ( $values as $index => $key ) {
-				$values[$key] = papi_get_property_meta_value(
+				$values[$key] = papi_data_get(
 					$post_id,
 					sprintf( '%s_%s', $slug, $key ),
 					$this->get_meta_type()

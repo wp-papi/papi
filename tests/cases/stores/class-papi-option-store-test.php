@@ -63,12 +63,8 @@ class Papi_Option_Store_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_value_cache() {
-		papi_update_property_meta_value( [
-			'id'    => 0,
-			'type'  => 'option',
-			'slug'  => 'name',
-			'value' => 'fredrik'
-		] );
+		papi_data_update( 0, 'name', 'fredrik', 'option' );
+
 		$this->assertSame( 'fredrik', $this->store->get_value( 0, 'name' ) );
 		$this->assertSame( 'fredrik', papi_cache_get( 'name', 0 ) );
 

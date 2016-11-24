@@ -54,7 +54,7 @@ abstract class Papi_Core_Meta_Store {
 			return $this->meta_values[$slug];
 		}
 
-		return papi_get_property_meta_value( $this->id, $slug, $this->get_type() );
+		return papi_data_get( $this->id, $slug, $this->get_type() );
 	}
 
 	/**
