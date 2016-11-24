@@ -77,8 +77,8 @@ function papi_load_taxonomy_type_id( $entry_type_id = '', $type = 'term' ) {
 		}
 	}
 
-	// Try to load the entry type from all page types and check
-	// if only one exists of that post type. The same as only page type filter
+	// Try to load the entry type from all taxonomy types and check
+	// if only one exists of that post type. The same as only taxonomy type filter
 	// but without the filter.
 	if ( empty( $entry_type_id ) ) {
 		$key = sprintf( 'entry_type_id.taxonomy.%s', $taxonomy );
