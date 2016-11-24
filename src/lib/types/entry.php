@@ -114,7 +114,14 @@ function papi_entry_type_exists( $id ) {
 /**
  * Get all entry types that exists.
  *
- * @param  array $args
+ * @param  array $args {
+ *     @type bool         $all
+ *     @type mixed        $args
+ *     @type bool         $cache
+ *     @type array|string $id
+ *     @type string       $mode
+ *     @type array|string $types
+ * }
  *
  * @return array
  */
