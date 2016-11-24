@@ -173,6 +173,7 @@ final class Papi_Loader extends Papi_Container {
 		$lib_includes = [
 			'core/cache.php',
 			'core/conditional.php',
+			'core/data.php',
 			'core/deprecated.php',
 			'core/meta.php',
 			'core/store.php',

@@ -64,7 +64,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$result = true;
 
 		foreach ( array_keys( $value ) as $key ) {
-			$out    = papi_delete_property_meta_value( $post_id, $key, $type );
+			$out    = papi_data_delete( $post_id, $key, $type );
 			$result = $out ? $result : $out;
 		}
 
@@ -319,9 +319,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$no_trash[$slug] = $meta;
 
 				// Serialize value if needed.
-				$meta->meta_value = papi_maybe_json_decode(
-					maybe_unserialize( $meta->meta_value )
-				);
+				$meta->meta_value = papi_maybe_json_decode( maybe_unserialize( $meta->meta_value ) );
 
 				// Add property value and property type value.
 				$values[$meta->meta_key] = $meta->meta_value;
@@ -333,10 +331,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 
 			// Get the meta keys to delete.
-			$trash_diff = array_diff(
-				array_keys( $rows[$i] ),
-				array_keys( $no_trash )
-			);
+			$trash_diff = array_diff( array_keys( $rows[$i] ), array_keys( $no_trash ) );
 
 			if ( ! empty( $trash_diff ) ) {
 				// Find all trash meta objects from results array.
@@ -463,12 +458,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 
 			$layouts[$index]['slug']  = papi_slugify( $layout['slug'] );
-			$layouts[$index]['slug']  = $this->get_layout_value(
-				$layouts[$index]['slug']
-			);
-			$layouts[$index]['items'] = parent::prepare_properties(
-				$layout['items']
-			);
+			$layouts[$index]['slug']  = $this->get_layout_value( $layouts[$index]['slug'] );
+			$layouts[$index]['items'] = parent::prepare_properties( $layout['items'] );
 		}
 
 		return array_filter( $layouts );
