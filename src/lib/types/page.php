@@ -206,8 +206,6 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 	// if only one exists of that post type. The same as only page type filter
 	// but without the filter.
 	if ( empty( $entry_type_id ) ) {
-		$post_type = papi_get_post_type();
-
 		$key = sprintf( 'entry_type_id.post_type.%s', $post_type );
 
 		if ( papi()->exists( $key )  ) {

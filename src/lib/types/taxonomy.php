@@ -77,6 +77,37 @@ function papi_load_taxonomy_type_id( $entry_type_id = '', $type = 'term' ) {
 		}
 	}
 
+	// Try to load the entry type from all page types and check
+	// if only one exists of that post type. The same as only page type filter
+	// but without the filter.
+	if ( empty( $entry_type_id ) ) {
+		$key = sprintf( 'entry_type_id.taxonomy.%s', $taxonomy );
+
+		if ( papi()->exists( $key )  ) {
+			return papi()->make( $key );
+		}
+
+		$entries = papi_get_all_entry_types( [
+			'args'  => $taxonomy,
+			'mode'  => 'include',
+			'types' => ['taxonomy']
+		] );
+
+		if ( is_array( $entries ) ) {
+			usort( $entries, function ( $a, $b ) {
+				return strcmp( $a->name, $b->name );
+			} );
+		}
+
+		$entries = papi_sort_order( array_reverse( $entries ) );
+
+		if ( count( $entries ) === 1 ) {
+			$entry_type_id = $entries[0]->get_id();
+
+			papi()->bind( $key, $entry_type_id );
+		}
+	}
+
 	return $entry_type_id;
 }
 
