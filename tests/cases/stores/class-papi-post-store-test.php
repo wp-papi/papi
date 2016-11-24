@@ -67,11 +67,8 @@ class Papi_Post_Store_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_value_cache() {
-		papi_update_property_meta_value( [
-			'id'    => $this->post_id,
-			'slug'  => 'name',
-			'value' => 'fredrik'
-		] );
+		papi_data_update( $this->post_id, 'name', 'fredrik' );
+
 		$this->assertSame( 'fredrik', $this->store->get_value( $this->post_id, 'name' ) );
 		$this->assertSame( 'fredrik', papi_cache_get( 'name', $this->post_id ) );
 

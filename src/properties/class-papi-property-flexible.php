@@ -415,10 +415,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		unset( $trash );
 
 		$store   = $this->get_store();
-		$results = papi_from_property_array_slugs(
-			$results,
-			unpapify( $repeater_slug )
-		);
+		$results = papi_property_from_array_slugs( $results, unpapify( $repeater_slug ) );
 
 		if ( is_null( $store ) ) {
 			return $this->default_value;
