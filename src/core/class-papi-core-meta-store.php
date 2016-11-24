@@ -204,7 +204,7 @@ abstract class Papi_Core_Meta_Store {
 		}
 
 		// Get raw property meta value.
-		$value = $this->get_property_meta_value( $slug );
+		$value = papi_data_get( $this->id, $slug, $this->get_type() );
 
 		// Prepare load value, when you have `overwrite => true`
 		// this value will not exist in the database and that's

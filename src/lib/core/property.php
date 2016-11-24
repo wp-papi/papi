@@ -136,19 +136,6 @@ function papi_get_property_class_name( $type ) {
 }
 
 /**
- * Get property value from database.
- *
- * @param  int    $id
- * @param  string $slug
- * @param  string $type
- *
- * @return mixed
- */
-function papi_get_property_meta_value( $id, $slug, $type = 'post' ) {
-	return papi()->data( $type )->get( $id, $slug );
-}
-
-/**
  * Get property type by the given type.
  *
  * @param  mixed $type
