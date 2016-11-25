@@ -872,7 +872,7 @@ class Papi_Core_Property {
 		$options->capabilities = papi_to_array( $options->capabilities );
 
 		// Setup property slug.
-		$options->slug = $this->setup_options_slug( $options );
+		$options->slug = strtolower( $this->setup_options_slug( $options ) );
 
 		// Setup property settings.
 		$options->settings = $this->setup_options_settings( $options );
