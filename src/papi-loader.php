@@ -14,7 +14,7 @@ final class Papi_Loader extends Papi_Container {
 	 *
 	 * @var Papi_Loader
 	 */
-	private static $instance;
+	protected static $instance;
 
 	/**
 	 * The plugin name.
@@ -51,7 +51,7 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * The constructor.
 	 */
-	private function __construct() {
+	protected function __construct() {
 		$this->constants();
 		$this->init();
 
@@ -87,7 +87,7 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Bootstrap constants
 	 */
-	private function constants() {
+	protected function constants() {
 		// Path to Papi plugin directory
 		if ( ! defined( 'PAPI_PLUGIN_DIR' ) ) {
 			$mu_dir = trailingslashit( sprintf( '%s/%s/src',
@@ -126,7 +126,7 @@ final class Papi_Loader extends Papi_Container {
 	 * @param  string $name
 	 * @param  string|bool $value
 	 */
-	private function define( $name, $value ) {
+	protected function define( $name, $value ) {
 		if ( ! defined( $name ) ) {
 			define( $name, $value );
 		}
@@ -135,7 +135,7 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Initialise Papi.
 	 */
-	private function init() {
+	protected function init() {
 		// Fires the before init action.
 		did_action( 'papi/before_init' ) || do_action( 'papi/before_init' );
 
@@ -159,7 +159,7 @@ final class Papi_Loader extends Papi_Container {
 	 * - WP_LANG_DIR/papi/papi-LOCALE.mo
 	 * - WP_CONTENT_DIR/[mu-]plugins/papi/languages/papi-LOCALE.mo
 	 */
-	private function load_textdomain() {
+	protected function load_textdomain() {
 		$locale = apply_filters( 'plugin_locale', get_locale(), 'papi' );
 		load_textdomain( 'papi', WP_LANG_DIR . '/papi/papi-' . $locale . '.mo' );
 		load_textdomain( 'papi', PAPI_PLUGIN_DIR . '../languages/papi-' . $locale . '.mo' );
@@ -168,7 +168,7 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Require files.
 	 */
-	private function require_files() {
+	protected function require_files() {
 		// Require the autoload class.
 		require_once __DIR__ . '/core/class-papi-core-autoload.php';
 
@@ -250,7 +250,7 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Setup container.
 	 */
-	private function setup_container() {
+	protected function setup_container() {
 		$this->singleton( 'porter', new Papi_Porter );
 	}
 }

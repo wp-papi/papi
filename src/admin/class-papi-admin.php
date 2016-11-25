@@ -11,14 +11,14 @@ final class Papi_Admin {
 	 *
 	 * @var Papi_Entry_Type
 	 */
-	private $entry_type;
+	protected $entry_type;
 
 	/**
 	 * The post type.
 	 *
 	 * @var string
 	 */
-	private $post_type;
+	protected $post_type;
 
 	/**
 	 * The construct.
@@ -124,7 +124,7 @@ final class Papi_Admin {
 	 *
 	 * @return Papi_Entry_Type|false
 	 */
-	private function get_entry_type() {
+	protected function get_entry_type() {
 		if ( $this->entry_type instanceof Papi_Entry_Type ) {
 			return $this->entry_type;
 		}
@@ -176,7 +176,7 @@ final class Papi_Admin {
 	/**
 	 * Load admin files that are not loaded by the autoload.
 	 */
-	private function load_files() {
+	protected function load_files() {
 		require_once __DIR__ . '/class-papi-admin-meta-handler.php';
 		require_once __DIR__ . '/class-papi-admin-option-handler.php';
 		require_once __DIR__ . '/class-papi-admin-taxonomy.php';
@@ -276,7 +276,7 @@ final class Papi_Admin {
 	/**
 	 * Setup actions.
 	 */
-	private function setup_actions() {
+	protected function setup_actions() {
 		add_action( 'admin_init', [$this, 'admin_init'] );
 		add_action( 'edit_form_after_title', [$this, 'edit_form_after_title'] );
 		add_action( 'load-post-new.php', [$this, 'load_post_new'] );
@@ -291,7 +291,7 @@ final class Papi_Admin {
 	/**
 	 * Setup filters.
 	 */
-	private function setup_filters() {
+	protected function setup_filters() {
 		if ( is_admin() ) {
 			add_filter( 'admin_body_class', [$this, 'admin_body_class'] );
 			add_filter( 'plugin_row_meta', [$this, 'plugin_row_meta'], 10, 2 );
@@ -303,7 +303,7 @@ final class Papi_Admin {
 	/**
 	 * Setup globals.
 	 */
-	private function setup_globals() {
+	protected function setup_globals() {
 		$this->post_type = papi_get_post_type();
 	}
 
@@ -324,7 +324,7 @@ final class Papi_Admin {
 	/**
 	 * Setup properties.
 	 */
-	private function setup_properties() {
+	protected function setup_properties() {
 		$this->post_type = papi_get_post_type();
 	}
 

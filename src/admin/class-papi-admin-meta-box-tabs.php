@@ -11,7 +11,7 @@ final class Papi_Admin_Meta_Box_Tabs {
 	 *
 	 * @var array
 	 */
-	private $tabs = [];
+	protected $tabs = [];
 
 	/**
 	 * The constructor.

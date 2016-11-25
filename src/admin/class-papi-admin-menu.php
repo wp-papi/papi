@@ -26,7 +26,7 @@ final class Papi_Admin_Menu {
 	 *
 	 * @return Papi_Entry_Type
 	 */
-	private function get_entry_type() {
+	protected function get_entry_type() {
 		if ( $entry_type = papi_get_entry_type_by_id( papi_get_entry_type_id() ) ) {
 			return $entry_type;
 		}
@@ -37,7 +37,7 @@ final class Papi_Admin_Menu {
 	 *
 	 * @param Papi_Entry_Type $entry_type
 	 */
-	private function override_labels( Papi_Entry_Type $entry_type ) {
+	protected function override_labels( Papi_Entry_Type $entry_type ) {
 		global $wp_post_types, $wp_taxonomies;
 
 		if ( $entry_type->type === 'taxonomy' ) {
@@ -210,7 +210,7 @@ final class Papi_Admin_Menu {
 	/**
 	 * Setup actions.
 	 */
-	private function setup_actions() {
+	protected function setup_actions() {
 		if ( is_admin() ) {
 			add_action( 'admin_init', [$this, 'admin_bar_menu'] );
 			add_action( 'admin_menu', [$this, 'page_items_menu'] );

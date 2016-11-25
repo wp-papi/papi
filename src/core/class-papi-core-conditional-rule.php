@@ -115,7 +115,7 @@ class Papi_Core_Conditional_Rule {
 	 *
 	 * @param array  $rule
 	 */
-	private function setup( array $rule ) {
+	protected function setup( array $rule ) {
 		foreach ( $rule as $key => $value ) {
 			if ( $key === 'operator' ) {
 				$value = strtoupper( $value );

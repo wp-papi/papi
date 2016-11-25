@@ -10,7 +10,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 *
 	 * @return string
 	 */
-	private function get_meta_type() {
+	protected function get_meta_type() {
 		if ( $current_filter = current_filter() ) {
 			return papi_get_meta_type( explode( '_', $current_filter )[1] );
 		}
@@ -23,7 +23,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 *
 	 * @param int $post_id
 	 */
-	private function overwrite_post_data( $post_id ) {
+	protected function overwrite_post_data( $post_id ) {
 		global $wpdb;
 
 		if ( empty( $post_id ) || empty( $this->overwrite ) ) {
@@ -43,7 +43,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 *
 	 * @param int $id
 	 */
-	private function pre_save( $id ) {
+	protected function pre_save( $id ) {
 		if ( empty( $id ) ) {
 			return;
 		}
@@ -199,7 +199,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 *
 	 * @return bool
 	 */
-	private function valid_post_id( $post_id ) {
+	protected function valid_post_id( $post_id ) {
 		$key = papi_get_sanitized_post( 'action' ) === 'save-attachment-compat' ? 'id' : 'post_ID';
 		$val = papi_get_sanitized_post( $key );
 

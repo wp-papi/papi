@@ -10,14 +10,14 @@ class Papi_Core_Type {
 	 *
 	 * @var string
 	 */
-	private $_class_name = '';
+	protected $_class_name = '';
 
 	/**
 	 * The file path of the core type file.
 	 *
 	 * @var string
 	 */
-	private $_file_path = '';
+	protected $_file_path = '';
 
 	/**
 	 * The name of the core type.
@@ -106,7 +106,7 @@ class Papi_Core_Type {
 	 *
 	 * @return array
 	 */
-	private function get_meta() {
+	protected function get_meta() {
 		$method = 'meta';
 
 		if ( ! method_exists( $this, $method ) ) {
@@ -199,7 +199,7 @@ class Papi_Core_Type {
 	 *
 	 * @param string $file_path
 	 */
-	private function setup_file( $file_path ) {
+	protected function setup_file( $file_path ) {
 		$this->_file_path  = $file_path;
 		$this->_class_name = papi_get_class_name( $this->_file_path );
 	}

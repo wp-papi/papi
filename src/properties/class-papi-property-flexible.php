@@ -46,7 +46,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @var string
 	 */
-	private $layout_value_regex = '/^\_flexible\_layout\_/';
+	protected $layout_value_regex = '/^\_flexible\_layout\_/';
 
 	/**
 	 * Delete value from the database.
@@ -799,7 +799,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @return bool
 	 */
-	private function valid_layout( array $layout ) {
+	protected function valid_layout( array $layout ) {
 		return isset( $layout['title'], $layout['items'] );
 	}
 }

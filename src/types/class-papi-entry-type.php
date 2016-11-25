@@ -135,7 +135,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	 * Call parent register if it exists
 	 * to collect boxes on the parent entry type.
 	 */
-	private function call_parent_register() {
+	protected function call_parent_register() {
 		$parent_class = get_parent_class( $this );
 
 		if ( ! method_exists( $parent_class, 'register' ) ) {
@@ -161,7 +161,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	 *
 	 * @return array
 	 */
-	private function convert_properties( $properties ) {
+	protected function convert_properties( $properties ) {
 		if ( is_array( $properties ) ) {
 			if ( isset( $properties['type'] ) ) {
 				$properties = [$properties];
