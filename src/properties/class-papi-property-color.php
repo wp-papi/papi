@@ -13,8 +13,16 @@ class Papi_Property_Color extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'palettes'   => [],
-			'show_input' => true
+			'change'        => false,
+			'clear'         => false,
+			'default_color' => false,
+			'hide'          => false,
+			'mode'          => 'hsv',
+			'palettes'      => true,
+			'slider'        => 'horizontal',
+			'show_input'    => false,
+			'type'          => 'full',
+			'width'         => 255
 		];
 	}
 
@@ -29,7 +37,7 @@ class Papi_Property_Color extends Papi_Property {
 			'class' => 'papi-property-color-picker',
 
 			papi_html_tag( 'input', [
-				'data-palettes' => $settings->palettes ? $settings->palettes : true,
+				'data-settings' => $settings,
 				'id'            => $this->html_id(),
 				'name'          => $this->html_name(),
 				'type'          => $settings->show_input === true ? 'text' : 'hidden',
