@@ -3,7 +3,7 @@
 /**
  * Admin class that handles taxonomy modifications.
  */
-final class Papi_Admin_Taxonomy {
+class Papi_Admin_Entry_Taxonomy extends Papi_Admin_Entry {
 
 	/**
 	 * All taxonomy types.
@@ -128,5 +128,5 @@ final class Papi_Admin_Taxonomy {
 }
 
 if ( is_admin() ) {
-	new Papi_Admin_Taxonomy;
+	Papi_Admin_Entry_Taxonomy::instance();
 }
