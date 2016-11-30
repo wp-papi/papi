@@ -243,34 +243,25 @@ final class Papi_Admin {
 	}
 
 	/**
-	 * Change redirect post link when iframe mode is on.
+	 * Redirect post location when post is in iframe mode.
 	 *
 	 * @param  string $location
 	 *
 	 * @return string
 	 */
-	public function redirect_post_link( $location ) {
-		// Don't continue if no http referer exists.
+	public function redirect_post_location( $location ) {
 		if ( ! isset( $_SERVER['HTTP_REFERER'] ) ) {
 			return $location;
 		}
 
 		$referer = $_SERVER['HTTP_REFERER'];
+		$referer = strtolower( $referer );
 
-		// Don't continue if not in iframe mode.
 		if ( strpos( $referer, 'papi-iframe-mode' ) === false ) {
 			return $location;
 		}
 
-		// Get the message query string.
-		preg_match( '/message=\d+/', $location, $matches );
-
-		// Don't continue if no message query string.
-		if ( empty( $matches ) ) {
-			return $location;
-		}
-
-		return $referer . '&' . $matches[0];
+		return sprintf( '%s&papi_css[]=papi-iframe-mode', $location );
 	}
 
 	/**
@@ -281,6 +272,7 @@ final class Papi_Admin {
 		add_action( 'edit_form_after_title', [$this, 'edit_form_after_title'] );
 		add_action( 'load-post-new.php', [$this, 'load_post_new'] );
 		add_action( 'add_meta_boxes', [$this, 'hidden_meta_boxes'], 10 );
+		add_action( 'redirect_post_location', [$this, 'redirect_post_location'] );
 
 		if ( $taxonomy = papi_get_taxonomy() ) {
 			add_action( $taxonomy . '_add_form', [$this, 'edit_form_after_title'] );
