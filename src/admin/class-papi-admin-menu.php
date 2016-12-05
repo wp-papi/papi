@@ -70,11 +70,22 @@ final class Papi_Admin_Menu {
 	 * that has a fake post type. Like option types.
 	 */
 	public function page_items_menu() {
-		$entry_types = papi_get_all_entry_types( [
-			'mode'  => 'exclude',
-			'types' => 'page'
-		] );
+		if ( is_network_admin() ) {
+			$args = [
+				'mode'  => 'exclude',
+				'types' => ['page', 'taxonomy']
+			];
+		} else {
+			$args = [
+				'mode'  => 'include',
+				'types' => 'network'
+			];
+		}
 
+		// Get all entry types.
+		$entry_types = papi_get_all_entry_types( $args );
+
+		// Add all entry types that has a menu to admin menu.
 		foreach ( $entry_types as $entry_type ) {
 			if ( empty( $entry_type->menu ) || empty( $entry_type->name ) ) {
 				continue;
@@ -215,6 +226,7 @@ final class Papi_Admin_Menu {
 			add_action( 'admin_init', [$this, 'admin_bar_menu'] );
 			add_action( 'admin_menu', [$this, 'page_items_menu'] );
 			add_action( 'admin_menu', [$this, 'post_types_menu'] );
+			add_action( 'network_admin_menu', [$this, 'page_items_menu'] );
 		} else {
 			add_action( 'admin_bar_menu', [$this, 'admin_bar_menu'] );
 		}

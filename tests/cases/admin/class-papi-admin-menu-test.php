@@ -211,6 +211,7 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 		$this->assertSame( 10, has_action( 'admin_init', [$menu, 'admin_bar_menu'] ) );
 		$this->assertSame( 10, has_action( 'admin_menu', [$menu, 'page_items_menu'] ) );
 		$this->assertSame( 10, has_action( 'admin_menu', [$menu, 'post_types_menu'] ) );
+		$this->assertSame( 10, has_action( 'network_admin_menu', [$menu, 'page_items_menu'] ) );
 
 		$current_screen = null;
 	}
