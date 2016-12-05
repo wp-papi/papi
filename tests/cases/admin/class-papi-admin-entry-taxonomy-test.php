@@ -3,7 +3,7 @@
 /**
  * @group admin
  */
-class Papi_Admin_Taxonomy_Test extends WP_UnitTestCase {
+class Papi_Admin_Entry_Taxonomy_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -11,7 +11,7 @@ class Papi_Admin_Taxonomy_Test extends WP_UnitTestCase {
 	}
 
 	public function test_add_form_fields_empty() {
-		$admin = new Papi_Admin_Taxonomy;
+		$admin = new Papi_Admin_Entry_Taxonomy;
 		$admin->add_form_fields();
 		$this->expectOutputRegex( '//' );
 	}
@@ -25,7 +25,7 @@ class Papi_Admin_Taxonomy_Test extends WP_UnitTestCase {
 
 		$_GET['taxonomy'] = 'category';
 
-		$admin = new Papi_Admin_Taxonomy;
+		$admin = new Papi_Admin_Entry_Taxonomy;
 		$admin->setup_taxonomies_hooks();
 		$admin->add_form_fields();
 		$this->expectOutputRegex( '/input.*name\=\"\_papi\_page\_type\"/' );
@@ -44,7 +44,7 @@ class Papi_Admin_Taxonomy_Test extends WP_UnitTestCase {
 
 		$_GET['taxonomy'] = 'category';
 
-		$admin = new Papi_Admin_Taxonomy;
+		$admin = new Papi_Admin_Entry_Taxonomy;
 		$admin->setup_taxonomies_hooks();
 		$admin->add_form_fields();
 		$this->expectOutputRegex( '/select.*name\=\"\_papi\_page\_type\"/' );
@@ -61,7 +61,7 @@ class Papi_Admin_Taxonomy_Test extends WP_UnitTestCase {
 
 		$_GET['taxonomy'] = 'post_tag';
 
-		$admin = new Papi_Admin_Taxonomy;
+		$admin = new Papi_Admin_Entry_Taxonomy;
 		$admin->setup_taxonomies_hooks();
 		$admin->add_form_fields();
 		$this->expectOutputRegex( '/select.*name\=\"\_papi\_page\_type\"/' );
@@ -72,7 +72,7 @@ class Papi_Admin_Taxonomy_Test extends WP_UnitTestCase {
 	public function test_setup_actions() {
 		papi()->reset();
 
-		$admin = new Papi_Admin_Taxonomy;
+		$admin = new Papi_Admin_Entry_Taxonomy;
 		$this->assertSame( 10, has_action( 'admin_init', [$admin, 'setup_taxonomies_hooks'] ) );
 		$this->assertFalse( has_action( 'category_add_form_fields', [$admin, 'add_form_fields'] ) );
 

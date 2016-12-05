@@ -53,7 +53,7 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	 *
 	 * @var array
 	 */
-	private $remove_meta_boxes = [];
+	protected $remove_meta_boxes = [];
 
 	/**
 	 * Show standard page type or not.
@@ -217,7 +217,7 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	 *
 	 * @return array
 	 */
-	private function get_post_type_supports() {
+	protected function get_post_type_supports() {
 		$supports = ['custom-fields'];
 
 		if ( method_exists( $this, 'remove' ) ) {
@@ -339,7 +339,7 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	/**
 	 * Setup post types array.
 	 */
-	private function setup_post_types() {
+	protected function setup_post_types() {
 		$this->post_type = papi_to_array( $this->post_type );
 
 		// Set a default value to post types array

@@ -82,7 +82,7 @@ class Papi_Core_Tab {
 	 *
 	 * @param  array $args
 	 */
-	private function setup_args( array $args ) {
+	protected function setup_args( array $args ) {
 		foreach ( $args as $key => $value ) {
 			if ( isset( $this->$key ) ) {
 				$this->$key = papi_esc_html( $value );
@@ -99,7 +99,7 @@ class Papi_Core_Tab {
 	 *
 	 * @param  array $properties
 	 */
-	private function setup_properties( array $properties ) {
+	protected function setup_properties( array $properties ) {
 		$this->properties = array_merge( $this->properties, papi_populate_properties( $properties ) );
 	}
 }

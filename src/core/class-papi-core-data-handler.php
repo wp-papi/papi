@@ -213,7 +213,7 @@ class Papi_Core_Data_Handler {
 	 *
 	 * @return mixed
 	 */
-	private function santize_data( $value ) {
+	protected function santize_data( $value ) {
 		if ( is_array( $value ) ) {
 			foreach ( $value as $k => $v ) {
 				if ( is_string( $v ) ) {

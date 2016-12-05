@@ -33,16 +33,22 @@ class Color {
    */
   showColorPicker() {
     const $el      = $(this);
-    const palettes = $el.data().palettes;
+    const settings = $el.data().settings || {};
 
     if (!$el.parent().hasClass('papi-property-color-picker')) {
       return;
     }
 
-    $el.wpColorPicker({
-      color: true,
-      palettes: $.isArray(palettes) && palettes.length ? palettes : true
-    });
+    if (typeof settings.default_color !== 'undefined') {
+      settings.defaultColor = settings.default_color;
+      delete settings.default_color;
+    }
+
+    if (typeof settings.palettes !== 'undefined') {
+      settings.palettes = $.isArray(settings.palettes) && settings.palettes.length ? settings.palettes : true;
+    }
+
+    $el.wpColorPicker(settings);
   }
 }
 

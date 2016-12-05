@@ -177,6 +177,14 @@ class Simple_Page_Type extends Papi_Page_Type {
 				'slug'  => 'string_test'
 			] )
 		] );
+
+		$this->box( 'UPPERCASE TEST', [
+			papi_property( [
+				'type'  => 'string',
+				'title' => 'UPPERCASE',
+				'slug'  => 'UPPERCASE'
+			] )
+		] );
 	}
 
 	public function content_box() {

@@ -10,14 +10,14 @@ final class Papi_Admin_Columns {
 	 *
 	 * @var string
 	 */
-	private $post_type;
+	protected $post_type;
 
 	/**
 	 * Current taxonomy.
 	 *
 	 * @var string
 	 */
-	private $taxonomy;
+	protected $taxonomy;
 
 	/**
 	 * The constructor.
@@ -33,7 +33,7 @@ final class Papi_Admin_Columns {
 	 *
 	 * @return string
 	 */
-	private function get_meta_type_value() {
+	protected function get_meta_type_value() {
 		return empty( $this->taxonomy ) ? $this->post_type : $this->taxonomy;
 	}
 
@@ -191,7 +191,7 @@ final class Papi_Admin_Columns {
 	/**
 	 * Setup actions.
 	 */
-	private function setup_actions() {
+	protected function setup_actions() {
 		// Setup post type actions.
 		if ( ! empty( $this->post_type ) && empty( $this->taxonomy ) ) {
 			add_filter( 'pre_get_posts', [$this, 'pre_get_posts'] );
@@ -208,7 +208,7 @@ final class Papi_Admin_Columns {
 	/**
 	 * Setup filters.
 	 */
-	private function setup_filters() {
+	protected function setup_filters() {
 		// Setup post type actions.
 		if ( ! empty( $this->post_type ) && empty( $this->taxonomy ) ) {
 			add_filter( sprintf( 'manage_%s_posts_columns', $this->post_type ), [$this, 'manage_page_type_posts_columns'] );
@@ -223,7 +223,7 @@ final class Papi_Admin_Columns {
 	/**
 	 * Setup globals.
 	 */
-	private function setup_globals() {
+	protected function setup_globals() {
 		$this->post_type = papi_get_post_type();
 		$this->taxonomy  = papi_get_taxonomy();
 	}

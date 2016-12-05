@@ -72,79 +72,6 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '/name\=\"\_papi\_page\_type\"/' );
 	}
 
-	public function test_hidden_meta_boxes() {
-		$_GET['post_type'] = 'page';
-		$admin = new Papi_Admin;
-		$this->assertNull( $admin->hidden_meta_boxes() );
-		do_meta_boxes( 'papi-hidden-editor', 'normal', null );
-		$this->expectOutputRegex( '/.*\S.*/' );
-	}
-
-	public function test_hidden_meta_boxes_2() {
-		$_GET['post_type'] = 'fake';
-		$admin = new Papi_Admin;
-		$this->assertNull( $admin->hidden_meta_boxes() );
-		do_meta_boxes( 'papi-hidden-editor', 'normal', null );
-		$this->expectOutputRegex( '//' );
-	}
-
-	public function test_hidden_meta_box_editor() {
-		$this->admin->hidden_meta_box_editor();
-		$this->expectOutputRegex( '/wp\-editor\-wrap/' );
-	}
-
-	public function test_load_post_new() {
-		$_GET['post_type'] = '';
-		$admin = new Papi_Admin;
-		$admin->load_post_new();
-		$this->expectOutputRegex( '//' );
-	}
-
-	public function test_load_post_new_2() {
-		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=page';
-
-		add_filter( 'wp_redirect', function( $location ) {
-			$this->assertSame( 'edit.php?post_type=page&page=papi-add-new-page,page', $location );
-			return false;
-		} );
-
-		$_GET['post_type'] = 'page';
-		$admin = new Papi_Admin;
-		$admin->load_post_new();
-	}
-
-	public function test_load_post_new_3() {
-		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=page';
-
-		add_filter( 'wp_redirect', function( $location ) {
-			$this->assertSame( 'post-new.php?page_type=simple-page-type&post_type=page', $location );
-			return false;
-		} );
-
-		add_filter( 'papi/settings/only_page_type_page', function () {
-			return 'simple-page-type';
-		} );
-
-		$_GET['post_type'] = 'page';
-		$admin = new Papi_Admin;
-		$admin->load_post_new();
-	}
-
-	public function test_load_post_new_4() {
-		papi_test_register_book_post_type();
-
-		add_filter( 'papi/settings/show_standard_page_type_book', '__return_false' );
-
-		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=book';
-		add_filter( 'wp_redirect', function( $location ) {
-			$this->assertSame( 'post-new.php?page_type=book-page-type&post_type=book', $location );
-			return false;
-		} );
-		$_GET['post_type'] = 'book';
-		$admin = new Papi_Admin;
-		$admin->load_post_new();
-	}
-
 	public function test_plugin_row_meta() {
 		$output = $this->admin->plugin_row_meta( [], 'fake/fake.php' );
 		$this->assertEmpty( $output );
@@ -161,9 +88,6 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin;
 
 		$this->assertSame( 10, has_action( 'admin_init', [$admin, 'admin_init'] ) );
-		$this->assertSame( 10, has_action( 'edit_form_after_title', [$admin, 'edit_form_after_title'] ) );
-		$this->assertSame( 10, has_action( 'load-post-new.php', [$admin, 'load_post_new'] ) );
-		$this->assertSame( 10, has_action( 'add_meta_boxes', [$admin, 'hidden_meta_boxes'] ) );
 
 		$_GET['taxonomy'] = 'post_tag';
 		$admin = new Papi_Admin;
@@ -185,17 +109,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$current_screen = null;
 	}
 
-	public function test_setup_globals() {
-		$_GET['post_type'] = 'page';
-		$admin = new Papi_Admin;
-
-		$post_type = function ( Papi_Admin $class ) {
-			return $class->post_type;
-		};
-		$post_type = Closure::bind( $post_type, null, $admin );
-		$this->assertSame( 'page', $post_type( $admin ) );
-	}
-
+/*
 	public function test_setup_papi() {
 		$admin = new Papi_Admin;
 		$this->assertFalse( $admin->setup_papi() );
@@ -218,7 +132,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin;
 		$this->assertTrue( $admin->setup_papi() );
 	}
-
+*/
 	public function test_wp_link_query() {
 		$admin = new Papi_Admin;
 		$post  = [

@@ -10,7 +10,7 @@ final class Papi_Admin_Meta_Box {
 	 *
 	 * @var Papi_Core_Box
 	 */
-	private $box;
+	protected $box;
 
 	/**
 	 * The constructor.

@@ -10,7 +10,7 @@ class Papi_Term_Store extends Papi_Core_Meta_Store {
 	 *
 	 * @var object
 	 */
-	private $term;
+	protected $term;
 
 	/**
 	 * The meta type.

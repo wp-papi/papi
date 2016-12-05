@@ -48,6 +48,8 @@ abstract class Papi_Core_Meta_Store {
 	 * @return mixed
 	 */
 	public function get_property_meta_value( $slug ) {
+		$slug = strtolower( $slug );
+
 		if ( isset( $this->meta_values[$slug] ) ) {
 			return $this->meta_values[$slug];
 		}
@@ -91,6 +93,8 @@ abstract class Papi_Core_Meta_Store {
 			$id      = null;
 		}
 
+		$slug = strtolower( $slug );
+
 		// Determine if we should use the cache or not.
 		$cache = $this->get_property_option( $slug, 'cache', true );
 
@@ -131,7 +135,7 @@ abstract class Papi_Core_Meta_Store {
 	 * @return mixed
 	 */
 	public function format_value( $slug, $value ) {
-		$slug     = unpapify( $slug );
+		$slug     = strtolower( unpapify( $slug ) );
 		$property = $this->property( $slug );
 
 		// If no property type is found, just return null.
@@ -195,7 +199,7 @@ abstract class Papi_Core_Meta_Store {
 	 * @return mixed
 	 */
 	public function load_value( $slug ) {
-		$slug     = unpapify( $slug );
+		$slug     = strtolower( unpapify( $slug ) );
 		$property = $this->property( $slug );
 
 		// If no property type is found, just return null.
@@ -342,7 +346,7 @@ abstract class Papi_Core_Meta_Store {
 	 * @param mixed  $value
 	 */
 	public function set_property_meta_value( $slug, $value ) {
-		$this->meta_values[$slug] = $value;
+		$this->meta_values[strtolower( $slug )] = $value;
 	}
 
 	/**

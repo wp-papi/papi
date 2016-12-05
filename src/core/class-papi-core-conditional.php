@@ -11,7 +11,7 @@ class Papi_Core_Conditional {
 	 *
 	 * @var array
 	 */
-	private $relations = [
+	protected $relations = [
 		'AND',
 		'OR'
 	];
@@ -45,7 +45,7 @@ class Papi_Core_Conditional {
 	 *
 	 * @return bool
 	 */
-	private function display_by_relation( array $rules ) {
+	protected function display_by_relation( array $rules ) {
 		if ( $rules['relation'] === 'AND' ) {
 			$display = true;
 
@@ -93,7 +93,7 @@ class Papi_Core_Conditional {
 	 *
 	 * @return string
 	 */
-	private function get_rule_slug( $rule, $property ) {
+	protected function get_rule_slug( $rule, $property ) {
 		$arr_reg = '/\[\d+\](\[\w+\])$/';
 		$slug    = $property->get_slug();
 

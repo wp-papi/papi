@@ -10,7 +10,7 @@ class Papi_Post_Store extends Papi_Core_Meta_Store {
 	 *
 	 * @var object
 	 */
-	private $post;
+	protected $post;
 
 	/**
 	 * The meta type.

@@ -3,9 +3,9 @@ Feature: Manage types
   Background:
 	 Given a WP install
 	  When I run `wp plugin activate papi`
-    Then STDOUT should be:
+    Then STDOUT should contain:
     	"""
-			Success: Plugin 'papi' activated.
+			Plugin 'papi' activated.
     	"""
 
   Scenario: List all types

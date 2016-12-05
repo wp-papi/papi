@@ -20,7 +20,7 @@ class Papi_Core_Conditional_Rules {
 	 *
 	 * @return mixed
 	 */
-	private function convert_bool( $str ) {
+	protected function convert_bool( $str ) {
 		if ( ! is_string( $str ) ) {
 			return $str;
 		}
@@ -43,7 +43,7 @@ class Papi_Core_Conditional_Rules {
 	 *
 	 * @return mixed
 	 */
-	private function convert_prop( $value, Papi_Core_Conditional_Rule $rule ) {
+	protected function convert_prop( $value, Papi_Core_Conditional_Rule $rule ) {
 		$meta_id    = papi_get_meta_id();
 		$meta_type  = papi_get_meta_type();
 		$entry_type = papi_get_entry_type_by_meta_id( $meta_id, $meta_type );
@@ -89,7 +89,7 @@ class Papi_Core_Conditional_Rules {
 	 *
 	 * @return float|int
 	 */
-	private function convert_number( $str ) {
+	protected function convert_number( $str ) {
 		return papi_cast_string_value( $str );
 	}
 
@@ -100,7 +100,7 @@ class Papi_Core_Conditional_Rules {
 	 *
 	 * @return array
 	 */
-	private function get_converted_value( Papi_Core_Conditional_Rule $rule ) {
+	protected function get_converted_value( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
 
 		// Convert numeric values.
@@ -130,7 +130,7 @@ class Papi_Core_Conditional_Rules {
 	 *
 	 * @return mixed
 	 */
-	private function get_deep_value( $slug, $value ) {
+	protected function get_deep_value( $slug, $value ) {
 		$slugs = explode( '.', $slug );
 		array_shift( $slugs );
 		return papi_field_value( $slugs, $value, $value );
@@ -143,7 +143,7 @@ class Papi_Core_Conditional_Rules {
 	 *
 	 * @return mixed
 	 */
-	private function get_value( Papi_Core_Conditional_Rule $rule ) {
+	protected function get_value( Papi_Core_Conditional_Rule $rule ) {
 		if ( papi_doing_ajax() ) {
 			$source     = $rule->get_source();
 			$meta_id    = papi_get_meta_id();
@@ -344,7 +344,7 @@ class Papi_Core_Conditional_Rules {
 	 *
 	 * @return array
 	 */
-	private function get_between_values( Papi_Core_Conditional_Rule $rule ) {
+	protected function get_between_values( Papi_Core_Conditional_Rule $rule ) {
 		$value = $this->get_value( $rule );
 
 		if ( ! is_array( $rule->value ) ) {

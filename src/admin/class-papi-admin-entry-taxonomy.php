@@ -3,7 +3,7 @@
 /**
  * Admin class that handles taxonomy modifications.
  */
-final class Papi_Admin_Taxonomy {
+class Papi_Admin_Entry_Taxonomy extends Papi_Admin_Entry {
 
 	/**
 	 * All taxonomy types.
@@ -80,7 +80,7 @@ final class Papi_Admin_Taxonomy {
 	 *
 	 * @return array
 	 */
-	private function prepare_taxonomy_types( array $taxonomy_types ) {
+	protected function prepare_taxonomy_types( array $taxonomy_types ) {
 		$taxonomy = papi_get_qs( 'taxonomy' );
 
 		if ( papi_filter_settings_show_standard_taxonomy_type( $taxonomy ) ) {
@@ -102,7 +102,7 @@ final class Papi_Admin_Taxonomy {
 	/**
 	 * Setup actions.
 	 */
-	private function setup_actions() {
+	protected function setup_actions() {
 		add_action( 'admin_init', [$this, 'setup_taxonomies_hooks'] );
 	}
 
@@ -128,5 +128,5 @@ final class Papi_Admin_Taxonomy {
 }
 
 if ( is_admin() ) {
-	new Papi_Admin_Taxonomy;
+	Papi_Admin_Entry_Taxonomy::instance();
 }

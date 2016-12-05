@@ -840,7 +840,7 @@ class Papi_Core_Property {
 	 *
 	 * @return mixed
 	 */
-	private function setup_options( $options = [] ) {
+	protected function setup_options( $options = [] ) {
 		// When a object is sent in, just return it.
 		if ( is_object( $options ) ) {
 			return $options;
@@ -859,7 +859,7 @@ class Papi_Core_Property {
 		$options->capabilities = papi_to_array( $options->capabilities );
 
 		// Setup property slug.
-		$options->slug = $this->setup_options_slug( $options );
+		$options->slug = strtolower( $this->setup_options_slug( $options ) );
 
 		// Setup property settings.
 		$options->settings = $this->setup_options_settings( $options );
@@ -878,7 +878,7 @@ class Papi_Core_Property {
 	 *
 	 * @return string
 	 */
-	private function setup_options_slug( $options ) {
+	protected function setup_options_slug( $options ) {
 		$slug = $options->slug;
 
 		// When `slug` is false or not required a unique slug should be generated.
@@ -908,7 +908,7 @@ class Papi_Core_Property {
 	 *
 	 * @return stdClass
 	 */
-	private function setup_options_settings( $options ) {
+	protected function setup_options_settings( $options ) {
 		$property_class = self::factory( $options->type );
 
 		if ( papi_is_property( $property_class ) ) {
