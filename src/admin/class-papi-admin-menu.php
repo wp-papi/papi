@@ -72,13 +72,13 @@ final class Papi_Admin_Menu {
 	public function page_items_menu() {
 		if ( is_network_admin() ) {
 			$args = [
-				'mode'  => 'exclude',
-				'types' => ['page', 'taxonomy']
+				'mode'  => 'include',
+				'types' => 'network'
 			];
 		} else {
 			$args = [
-				'mode'  => 'include',
-				'types' => 'network'
+				'mode'  => 'exclude',
+				'types' => ['page', 'taxonomy']
 			];
 		}
 
