@@ -11,10 +11,8 @@ css:
 
 deps:
 	composer install
-	npm install -g yarn
+	npm install -g yarn wp-pot-cli
 	yarn
-	brew install gettext
-	brew link --force gettext
 
 js:
 	node_modules/.bin/webpack
@@ -30,34 +28,7 @@ lint\:php:
 	vendor/bin/phpcs -s --extensions=php --standard=phpcs.xml src/
 
 pot:
-	xgettext --language=php \
-           --add-comments=L10N \
-           --keyword=__ \
-           --keyword=_e \
-           --keyword=_n:1,2 \
-           --keyword=_x:1,2c \
-           --keyword=_ex:1,2c \
-           --keyword=_nx:4c,1,2 \
-           --keyword=esc_attr_ \
-           --keyword=esc_attr_e \
-           --keyword=esc_attr_x:1,2c \
-           --keyword=esc_html_ \
-           --keyword=esc_html_e \
-           --keyword=esc_html_x:1,2c \
-           --keyword=_n_noop:1,2 \
-           --keyword=_nx_noop:3c,1,2 \
-           --keyword=__ngettext_noop:1,2 \
-           --package-name=papi \
-           --from-code=UTF-8 \
-           --output=languages/papi.pot \
-           $(shell find src -name '*.php' -type f)
-
-	# Add Poedit information to the template file.
-	cat languages/papi.pot|perl -pe 's/8bit\\n/8bit\\n\"\n\"X-Poedit-Basepath:\
-	..\\n"\n"X-Poedit-SourceCharset: UTF-8\\n"\n\
-	"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\\n"\n\
-	"X-Poedit-SearchPath-0: .\\n"\n\
-	"X-Poedit-SearchPathExcluded-0: *.js\\n"\n"Plural-Forms: nplurals=2; plural=(n != 1);\\n\\n/g'|tail -n +7|tee languages/papi.pot >/dev/null 2>/dev/null
+	wp-pot --src 'src/**/*.php' --dest-file languages/papi.pot --package papi
 
 watch:
 	node_modules/.bin/parallelshell "make watch:css" "make watch:js"
