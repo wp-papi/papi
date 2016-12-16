@@ -1,5 +1,9 @@
 # Papi Changelog
 
+## [3.1.18](https://github.com/wp-papi/papi/releases/tag/v3.1.18) - 2016-12-16
+
+* Fixed: Link property target didn't work correct in new WordPress [#207](https://github.com/wp-papi/papi/issues/207)
+
 ## [3.1.17](https://github.com/wp-papi/papi/releases/tag/v3.1.17) - 2016-11-01
 
 * Fixed: Link property didn't save values correct.
