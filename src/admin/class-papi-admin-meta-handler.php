@@ -65,6 +65,15 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	}
 
 	/**
+	 * Save heartbeat.
+	 */
+	public function save_heartbeat() {
+		if ( isset( $_POST['data']['wp-refresh-post-lock']['post_id'] ) ) {
+			$this->save_properties( intval( $_POST['data']['wp-refresh-post-lock']['post_id'] ) );
+		}
+	}
+
+	/**
 	 * Save meta boxes.
 	 *
 	 * @param int    $id
@@ -174,6 +183,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		add_action( 'created_term', [$this, 'save_meta_boxes'], 1 );
 		add_action( 'edit_term', [$this, 'save_meta_boxes'], 1 );
 		add_action( 'wp_restore_post_revision', [$this, 'restore_post_revision'], 10, 2 );
+		add_action( 'heartbeat_tick', [$this, 'save_heartbeat'] );
 	}
 
 	/**
