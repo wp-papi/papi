@@ -318,7 +318,7 @@ class Repeater {
   updateRowNumber($tbody) {
     let self = this;
 
-    $tbody.find('> tr').each((i, el) => {
+    $tbody.first().find('> tr').each((i, el) => {
       let $el = $(el);
       let $rpt = $el.closest('.papi-property-repeater-top');
       let position = 0;
