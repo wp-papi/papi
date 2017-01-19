@@ -86,7 +86,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 
 		if ( $meta_type === 'post' && $post_type = get_post_type_object( $post->post_type ) ) {
 			// Check so the id is a post id and not a autosave post.
-			if ( $this->valid_post_id( $id ) ) {
+			if ( ! $this->valid_post_id( $id ) ) {
 				return;
 			}
 
