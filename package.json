@@ -25,15 +25,5 @@
     "uglifyjs": "^2.4",
     "watch": "^0.18",
     "webpack": "^1.12"
-  },
-  "eslintConfig": {
-    "extends": "semistandard",
-    "globals": {
-      "papi": true
-    },
-    "rules": {
-      "space-before-function-paren": 0,
-      "no-multi-spaces": 0
-    }
   }
 }
