@@ -209,7 +209,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @param  string $slug
 	 *
-	 * @return string
+	 * @return array
 	 */
 	protected function get_layout( $slug ) {
 		$layouts = $this->get_settings_layouts();
@@ -219,6 +219,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				return $layout;
 			}
 		}
+
+		return [];
 	}
 
 	/**
@@ -556,12 +558,16 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$layout_slug   = empty( $layout_slug ) && isset( $value['_layout'] ) ? $value['_layout'] : $layout_slug;
 		$layout_slug   = empty( $layout_slug ) && isset( $value[$this->layout_key] ) ? $value[$this->layout_key] : $layout_slug;
 		$row           = isset( $row['items'] ) ? $row['items'] : $row;
+		$layout        = $this->get_layout( $layout_slug );
 
 		// Render one hidden input for layout slug.
 		$this->render_layout_input( $layout_slug );
 		?>
 		<td class="repeater-column flexible-column <?php echo $render_layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
 			<div class="repeater-content-open">
+				<?php if ( $render_layout === 'table' && ! empty( $layout['title'] ) && isset( $layout['heading'] ) && $layout['heading'] ): ?>
+					<label class="flexible-row-title"><?php echo esc_html( $layout['title'] ); ?></label>
+				<?php endif; ?>
 				<table class="<?php echo $render_layout === 'table' ? 'flexible-table' : 'papi-table'; ?>">
 					<?php
 					if ( $render_layout === 'table' ):
@@ -572,13 +578,15 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 								continue;
 							}
 
-							echo '<th class="' . ( $row[$i]->display() ? '' : 'papi-hide' ) . '">';
-							echo sprintf(
-								'<label for="%s">%s</label>',
-								esc_attr( $this->html_id( $row[$i], $this->counter ) ),
-								esc_html( $row[$i]->title )
-							);
-							echo '</th>';
+							if ( $row[$i]->sidebar ) {
+								echo '<th class="' . ( $row[$i]->display() ? '' : 'papi-hide' ) . '">';
+								echo sprintf(
+									'<label for="%s">%s</label>',
+									esc_attr( $this->html_id( $row[$i], $this->counter ) ),
+									esc_html( $row[$i]->title )
+								);
+								echo '</th>';
+							}
 						}
 						echo '</thead>';
 					endif;
@@ -618,6 +626,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 						if ( $render_layout === 'table' ) {
 							echo '<td class="' . ( $row[$i]->display() ? '' : 'papi-hide' ) . '">';
+						} else if ( $i === 0 && ! empty( $layout['title'] ) && isset( $layout['heading'] ) && $layout['heading'] ) { // row layout
+							echo sprintf( '<label class="flexible-row-title">%s</label>', $layout['title'] );
 						}
 
 						papi_render_property( $render_property );
@@ -637,7 +647,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			</div>
 			<div class="repeater-content-closed">
 				<?php
-				if ( $layout = $this->get_layout( $layout_slug ) ) {
+				if ( ! empty( $layout['title'] ) ) {
 					echo esc_html( $layout['title'] );
 				}
 				?>

@@ -176,8 +176,8 @@ class Papi_Property extends Papi_Core_Property {
 			echo '</div>';
 		} else {
 			?>
-			<tr class="<?php echo esc_attr( $css_class ); ?>">
-				<?php if ( $this->get_option( 'sidebar' ) ): ?>
+			<tr class="<?php echo $css_class; ?>">
+				<?php if ( $this->get_option( 'sidebar' ) && $this->get_option( 'layout' ) === 'horizontal' ): ?>
 					<td class="papi-table-sidebar">
 						<?php
 							$this->render_label_html();
@@ -185,11 +185,10 @@ class Papi_Property extends Papi_Core_Property {
 						?>
 					</td>
 				<?php endif; ?>
-				<td <?php echo $this->get_option( 'sidebar' ) ? '' : 'colspan="2"'; ?>>
+				<td <?php echo $this->get_option( 'sidebar' ) && $this->get_option( 'layout' ) === 'horizontal' ? '' : 'colspan="2"'; ?>>
 					<?php
-					// Render vertical layout where title and description is
-					// above the property.
-					if ( $this->get_option( 'layout' ) === 'vertical' ) {
+					// Render vertical layout where title and description is above the property.
+					if ( $this->get_option( 'layout' ) === 'vertical' && $this->get_option( 'sidebar' ) ) {
 						$this->render_label_html();
 						$this->render_description_html();
 					}

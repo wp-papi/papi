@@ -392,8 +392,6 @@ class Papi_Core_Property {
 
 		if ( $key === 'settings' && is_array( $value ) ) {
 			$value = (object) $value;
-		} else if ( $key === 'sidebar' && $value ) {
-			$value = $this->layout === 'horizontal';
 		}
 
 		return $value;

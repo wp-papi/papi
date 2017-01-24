@@ -621,7 +621,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		] );
 
 		$this->assertSame( 'vertical', $property->get_option( 'layout' ) );
-		$this->assertFalse( $property->get_option( 'sidebar' ) );
+		$this->assertTrue( $property->get_option( 'sidebar' ) );
 	}
 
 	public function test_match_slug() {
