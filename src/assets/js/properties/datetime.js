@@ -62,10 +62,10 @@ class Datetime {
    *
    * @param {object} e
    */
-   updateSelect(e) {
-     e.preventDefault();
-     this.pikaday($(e.currentTarget).prev().find('.papi-property-datetime'));
-   }
+  updateSelect(e) {
+    e.preventDefault();
+    this.pikaday($(e.currentTarget).prev().find('.papi-property-datetime'));
+  }
 }
 
 export default Datetime;

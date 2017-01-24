@@ -52,11 +52,11 @@ class Term {
     $.get(papi.ajaxUrl + '?' + $.param(params), function(terms) {
       $select.empty();
 
-      $.each(terms, function(term_id, term_name) {
+      $.each(terms, function(termId, termName) {
         $select
           .append($('<option></option>')
-          .attr('value', term_id)
-          .text(term_name));
+          .attr('value', termId)
+          .text(termName));
       });
 
       if ($select.hasClass('papi-component-select2') && 'select2' in $.fn) {

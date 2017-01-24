@@ -322,7 +322,7 @@ class Repeater {
       let $el = $(el);
       let $rpt = $el.closest('.papi-property-repeater-top');
       let position = 0;
-      let count = 0
+      let count = 0;
 
       if ($rpt.length) {
         while ($rpt.length) {

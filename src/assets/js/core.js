@@ -22,7 +22,7 @@ class Core {
    * @param {object} options
    */
   autosave(e, xhr, options) {
-    const reg = /action\=(.+?)\&/;
+    const reg = /action=(.+?)&/;
     const val = reg.exec(options.data);
 
     if (val !== null && val.length && val[1] === 'heartbeat') {
@@ -179,7 +179,7 @@ class Core {
 
     if (!$adminmenu.find('li.current > a.current').length) {
       href = href.substr(href.lastIndexOf('/') + 1);
-      href = href.replace(/\%2F/g, '/');
+      href = href.replace(/%2F/g, '/');
       $('a[href="' + href + '"]', $adminmenu).addClass('current').parent().addClass('current');
     }
   }
