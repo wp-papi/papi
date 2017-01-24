@@ -22,19 +22,17 @@ class Core {
    * @param {object} options
    */
   autosave(e, xhr, options) {
-    const fields = jQuery('[name*="papi_"]');
-    const data = {};
     const reg = /action\=(.+?)\&/;
     const val = reg.exec(options.data);
 
     if (val !== null && val.length && val[1] === 'heartbeat') {
-      fields.each(function () {
-        const $this = $(this);
+      const formdata = $('form#post').serializeArray();
 
-        data[$this.attr('name')] = $this.val();
+      $.each(formdata, function (index, field) {
+        if (field.name.substring(0, 5) === 'papi_') {
+          options.data += '&' + field.name + '=' + field.value;
+        }
       });
-
-      options.data += '&' + jQuery.param(data);
     }
   }
 
