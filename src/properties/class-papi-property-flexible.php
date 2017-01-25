@@ -464,6 +464,16 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$layout['slug'] = $layout['title'];
 			}
 
+			if ( ! isset( $layout['row_label'] ) ) {
+				$layout['row_label'] = $layout['title'];
+			}
+
+			if ( ! isset( $layout['show_label'] ) ) {
+				$layout['show_label'] = true;
+			}
+
+			$layouts[$index] = array_merge( $layouts[$index], $layout );
+
 			$layouts[$index]['slug']  = papi_slugify( $layout['slug'] );
 			$layouts[$index]['slug']  = $this->get_layout_value(
 				$layouts[$index]['slug']
@@ -565,8 +575,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		?>
 		<td class="repeater-column flexible-column <?php echo $render_layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
 			<div class="repeater-content-open">
-				<?php if ( $render_layout === 'table' && ! empty( $layout['title'] ) && isset( $layout['heading'] ) && $layout['heading'] ): ?>
-					<label class="flexible-row-title"><?php echo esc_html( $layout['title'] ); ?></label>
+				<?php // flexible label table layout ?>
+				<?php if ( $render_layout === 'table' && ! empty( $layout['row_label'] ) && isset( $layout['show_label'] ) && $layout['show_label'] ): ?>
+					<label class="flexible-row-label"><?php echo esc_html( $layout['row_label'] ); ?></label>
 				<?php endif; ?>
 				<table class="<?php echo $render_layout === 'table' ? 'flexible-table' : 'papi-table'; ?>">
 					<?php
@@ -626,8 +637,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 						if ( $render_layout === 'table' ) {
 							echo '<td class="' . ( $row[$i]->display() ? '' : 'papi-hide' ) . '">';
-						} else if ( $i === 0 && ! empty( $layout['title'] ) && isset( $layout['heading'] ) && $layout['heading'] ) { // row layout
-							echo sprintf( '<label class="flexible-row-title">%s</label>', $layout['title'] );
+						} else if ( $i === 0 && ! empty( $layout['row_label'] ) && isset( $layout['show_label'] ) && $layout['show_label'] ) {
+							// flexible label row layout
+							echo sprintf( '<label class="flexible-row-label">%s</label>', esc_html( $layout['row_label'] ) );
 						}
 
 						papi_render_property( $render_property );
