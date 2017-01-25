@@ -47,7 +47,7 @@ class Papi_Admin_Ajax {
 	 * Add ajax url to Papi JavaScript object.
 	 */
 	public function ajax_url() {
-		$url = esc_url( trailingslashit( get_bloginfo( 'url' ) ) . 'papi-ajax/' );
+		$url = esc_url( trailingslashit( home_url( '/' , is_ssl() ? 'https' : 'http' ) ) . 'papi-ajax/' );
 		?>
 		<script type="text/javascript">
 			var papi = papi || {};
