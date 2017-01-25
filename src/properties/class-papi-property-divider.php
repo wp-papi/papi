@@ -17,8 +17,12 @@ class Papi_Property_Divider extends Papi_Property {
 	 */
 	public function html() {
 		$options = $this->get_options();
+		$title   = '';
 		$text    = '';
-		$options->description = $options->slug;
+
+		if ( ! papi_is_empty( $options->title ) ) {
+			$title = sprintf( '<h3><span>%s</span></h3>', esc_html( $options->title ) );
+		}
 
 		if ( ! papi_is_empty( $options->description ) ) {
 			$text = sprintf( '<p>%s</p>', $options->description );
@@ -27,7 +31,7 @@ class Papi_Property_Divider extends Papi_Property {
 		papi_render_html_tag( 'div', [
 			'class'          => 'papi-property-divider',
 			'data-papi-rule' => esc_attr( $this->html_name() ),
-			sprintf( '<h3><span>%s</span></h3>%s', esc_html( $options->title ), $text )
+			sprintf( '%s%s', $title, $text )
 		] );
 	}
 
