@@ -42,9 +42,7 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	 *
 	 * @var array
 	 */
-	public $labels = [
-		'title_placeholder' => ''
-	];
+	public $labels = [];
 
 	/**
 	 * The post types to register the page type with.
