@@ -37,9 +37,14 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	/**
 	 * Labels, the same labels that post type object uses.
 	 *
+	 * Plus some special:
+	 * - `title_placeholder` that can change main title input placeholder.
+	 *
 	 * @var array
 	 */
-	public $labels = [];
+	public $labels = [
+		'title_placeholder' => ''
+	];
 
 	/**
 	 * The post types to register the page type with.
@@ -333,6 +338,13 @@ class Papi_Page_Type extends Papi_Entry_Type {
 		// Hide page template dropdown if it shouldn't be showed.
 		if ( ! $this->show_page_template ) {
 			add_filter( 'theme_page_templates', '__return_empty_array' );
+		}
+
+		// Main title input placeholder.
+		if ( ! empty( $this->labels['title_placeholder'] ) ) {
+			add_filter( 'enter_title_here', function () {
+				return $this->labels['title_placeholder'];
+			} );
 		}
 	}
 
