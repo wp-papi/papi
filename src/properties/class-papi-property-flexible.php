@@ -295,7 +295,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$values[$repeater_slug] = $value;
 
 		for ( $i = 0; $i < $value; $i ++ ) {
-
 			$no_trash = [];
 
 			if ( ! isset( $columns[$i] ) || ! isset( $rows[$i] ) ) {
@@ -375,7 +374,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$layout_slug = sprintf( '%s_%d%s', $this->get_slug( true ), $i, $this->layout_key );
 
 				// Since 3.0.0 the `$dblayouts` check is only for backward compatibility.
-				if ( isset( $layout['slug'] ) && ( isset( $values[$layout_slug] ) || in_array( $i . $layout['slug'], $dblayouts, true ) ) ) {
+				if ( isset( $layout['slug'] ) && ( ( isset( $values[$layout_slug] ) && $layout['slug'] === $values[$layout_slug] ) || in_array( $i . $layout['slug'], $dblayouts, true ) ) ) {
 					foreach ( $layout['items'] as $prop ) {
 						$slug = sprintf( '%s_%d_%s', $repeater_slug, $i, unpapify( $prop->slug ) );
 
