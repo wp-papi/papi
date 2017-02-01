@@ -252,6 +252,6 @@ final class Papi_Admin {
 	}
 }
 
-if ( is_admin() ) {
+if ( papi_is_admin() ) {
 	new Papi_Admin;
 }

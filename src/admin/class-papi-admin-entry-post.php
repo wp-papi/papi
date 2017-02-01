@@ -75,7 +75,7 @@ class Papi_Admin_Entry_Post extends Papi_Admin_Entry {
 			}
 
 			wp_safe_redirect( $url );
-			is_admin() && exit;
+			papi_is_admin() && exit;
 		}
 	}
 
@@ -125,6 +125,6 @@ class Papi_Admin_Entry_Post extends Papi_Admin_Entry {
 	}
 }
 
-if ( is_admin() ) {
+if ( papi_is_admin() ) {
 	Papi_Admin_Entry_Post::instance();
 }

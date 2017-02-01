@@ -94,7 +94,7 @@ class Papi_Post_Store extends Papi_Core_Meta_Store {
 			clean_post_cache( $this->id );
 
 			$slug    = $property->get_slug( true );
-			$context = is_admin() ? 'edit' : 'display';
+			$context = papi_is_admin() ? 'edit' : 'display';
 			$value   = get_post_field( $slug, $this->id, $context );
 		}
 

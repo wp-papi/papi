@@ -56,6 +56,6 @@ final class Papi_Admin_Assets {
 	}
 }
 
-if ( is_admin() ) {
+if ( papi_is_admin() ) {
 	new Papi_Admin_Assets;
 }

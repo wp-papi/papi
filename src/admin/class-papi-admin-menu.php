@@ -211,7 +211,7 @@ final class Papi_Admin_Menu {
 	 * Setup actions.
 	 */
 	protected function setup_actions() {
-		if ( is_admin() ) {
+		if ( papi_is_admin() ) {
 			add_action( 'admin_init', [$this, 'admin_bar_menu'] );
 			add_action( 'admin_menu', [$this, 'page_items_menu'] );
 			add_action( 'admin_menu', [$this, 'post_types_menu'] );

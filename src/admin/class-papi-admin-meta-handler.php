@@ -217,6 +217,6 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	}
 }
 
-if ( is_admin() ) {
+if ( papi_is_admin() ) {
 	new Papi_Admin_Meta_Handler;
 }

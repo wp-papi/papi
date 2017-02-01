@@ -163,6 +163,6 @@ class Papi_Admin_Page_Type_Switcher {
 	}
 }
 
-if ( is_admin() ) {
+if ( papi_is_admin() ) {
 	new Papi_Admin_Page_Type_Switcher;
 }

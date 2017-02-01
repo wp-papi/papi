@@ -149,7 +149,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				// Format the value from the property class.
 				$values[$index][$slug] = $property_type->format_value( $values[$index][$slug], $child_slug, $post_id );
 
-				if ( ! is_admin() ) {
+				if ( ! papi_is_admin() ) {
 					$values[$index][$slug] = papi_filter_format_value( $property_type->type, $values[$index][$slug], $child_slug, $post_id, papi_get_meta_type() );
 				}
 
@@ -157,7 +157,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 		}
 
-		if ( ! is_admin() ) {
+		if ( ! papi_is_admin() ) {
 			foreach ( $values as $index => $row ) {
 				foreach ( $row as $slug => $value ) {
 					if ( is_string( $value ) && preg_match( $this->layout_value_regex, $value ) ) {
