@@ -110,7 +110,7 @@ final class Papi_Admin_Meta_Box {
 		}
 
 		// Render the properties.
-		papi_render_properties( $args['args'] );
+		papi_render_properties( papi_sort_order( $args['args'] ) );
 	}
 
 	/**
