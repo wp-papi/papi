@@ -24,8 +24,25 @@ class Papi_Property_Post extends Papi_Property {
 	 * @return array
 	 */
 	public function format_value( $value, $slug, $post_id ) {
-		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
-			return get_post( $value );
+		$meta_key = $this->get_setting( 'meta_key' );
+
+		if ( strtoupper( $meta_key ) === 'ID' ) {
+			if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
+				return get_post( $value );
+			}
+		} else {
+			$args = [
+				'fields'         => 'ids',
+				'meta_key'       => $meta_key,
+				'meta_value'     => $value,
+				'posts_per_page' => 1,
+			];
+
+			$query = new WP_Query( $args );
+
+			if ( ! empty( $query->posts ) ) {
+				return get_post( $query->posts[0] );
+			}
 		}
 
 		return $this->default_value;
@@ -43,6 +60,7 @@ class Papi_Property_Post extends Papi_Property {
 				'select_item'      => __( 'Select %s', 'papi' )
 			],
 			'layout'        => 'single', // single or advanced
+			'meta_key'      => 'ID',
 			'placeholder'   => '',
 			'post_type'     => 'post',
 			'select2'       => true,
@@ -134,6 +152,30 @@ class Papi_Property_Post extends Papi_Property {
 	}
 
 	/**
+	 * Get matching value based on key from a post.
+	 *
+	 * @param  string $key
+	 * @param  mixed  $value
+	 *
+	 * @return mixed
+	 */
+	protected function get_post_value( $key, $value ) {
+		if ( $value instanceof WP_Post === false ) {
+			return 0;
+		}
+
+		if ( strtoupper( $key ) === 'ID' ) {
+			return $value->ID;
+		}
+
+		if ( $value = get_post_meta( $value->ID, $key, true ) ) {
+			return $value;
+		}
+
+		return 0;
+	}
+
+	/**
 	 * Render property html.
 	 */
 	public function html() {
@@ -145,8 +187,9 @@ class Papi_Property_Post extends Papi_Property {
 		$single             = $render_label && $layout !== 'advanced';
 		$classes            = count( $post_types ) > 1 ? '' : 'papi-fullwidth';
 		$settings           = $this->get_settings();
+		$meta_key           = $settings->meta_key;
 		$value              = $this->get_value();
-		$value              = is_object( $value ) ? $value->ID : 0;
+		$value              = $this->get_post_value( $meta_key, $value );
 		$selected_label     = array_shift( $labels );
 		$selected_post_type = get_post_type( $value ) ? : '';
 		$posts              = $this->get_posts( $selected_post_type );
@@ -225,8 +268,8 @@ class Papi_Property_Post extends Papi_Property {
 
 						papi_render_html_tag( 'option', [
 							'data-edit-url' => get_edit_post_link( $value ),
-							'selected'      => $value === $post->ID,
-							'value'         => $post->ID,
+							'selected'      => $value === $this->get_post_value( $meta_key, $post ),
+							'value'         => $this->get_post_value( $meta_key, $post ),
 							$post->post_title
 						] );
 					}
