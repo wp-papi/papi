@@ -59,7 +59,7 @@ class Papi_Property_Relationship extends Papi_Property {
 				}
 
 				if ( papi_is_empty( $items ) ) {
-					if ( strtoupper( $this->meta_key ) === 'ID' ) {
+					if ( empty( $this->get_setting( 'meta_key' ) ) ) {
 						$post = get_post( $id );
 					} else {
 						$args = [
@@ -115,6 +115,8 @@ class Papi_Property_Relationship extends Papi_Property {
 					return $id;
 				}, $values );
 			}
+
+			return $values;
 		}
 
 		return $this->default_value;
