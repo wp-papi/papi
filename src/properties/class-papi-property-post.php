@@ -28,7 +28,7 @@ class Papi_Property_Post extends Papi_Property {
 
 		if ( strtoupper( $meta_key ) === 'ID' ) {
 			if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
-				return get_post( $value );
+				$post = get_post( $value );
 			}
 		} else {
 			$args = [
@@ -41,11 +41,20 @@ class Papi_Property_Post extends Papi_Property {
 			$query = new WP_Query( $args );
 
 			if ( ! empty( $query->posts ) ) {
-				return get_post( $query->posts[0] );
+				$post = get_post( $query->posts[0] );
 			}
 		}
 
-		return $this->default_value;
+		if ( empty( $post ) ) {
+			return $this->default_value;
+		}
+
+		// Allow only id to be returned.
+		if ( ! is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
+			return $post->ID;
+		}
+
+		return $post;
 	}
 
 	/**
@@ -55,6 +64,7 @@ class Papi_Property_Post extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
+			'fields'        => '',
 			'labels'        => [
 				'select_post_type' => __( 'Select Post Type', 'papi' ),
 				'select_item'      => __( 'Select %s', 'papi' )

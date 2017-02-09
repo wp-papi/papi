@@ -101,7 +101,20 @@ class Papi_Property_Relationship extends Papi_Property {
 				}
 			}
 
-			return $this->sort_value( $result, $slug, $post_id );
+			$values = $this->sort_value( $result, $slug, $post_id );
+
+			// Allow only id to be returned.
+			if ( ! is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
+				return array_map( function ( $item ) {
+					$id = $item->ID;
+
+					if ( is_numeric( $id ) ) {
+						return $id == (int) $id ? (int) $id : (float) $id; // loose comparison
+					}
+
+					return $id;
+				}, $values );
+			}
 		}
 
 		return $this->default_value;
@@ -114,6 +127,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
+			'fields'       => '',
 			'items'        => [],
 			'limit'        => -1,
 			'meta_key'     => 'ID',
