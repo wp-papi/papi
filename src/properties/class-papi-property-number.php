@@ -52,7 +52,7 @@ class Papi_Property_Number extends Papi_Property {
 		return [
 			'max'  => '',
 			'min'  => '',
-			'step' => '',
+			'step' => 'any',
 			'type' => 'number'
 		];
 	}
