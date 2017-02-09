@@ -26,7 +26,7 @@ class Papi_Property_Post extends Papi_Property {
 	public function format_value( $value, $slug, $post_id ) {
 		$meta_key = $this->get_setting( 'meta_key' );
 
-		if ( strtoupper( $meta_key ) === 'ID' ) {
+		if ( empty( $meta_key ) ) {
 			if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
 				$post = get_post( $value );
 			}
@@ -70,7 +70,7 @@ class Papi_Property_Post extends Papi_Property {
 				'select_item'      => __( 'Select %s', 'papi' )
 			],
 			'layout'        => 'single', // single or advanced
-			'meta_key'      => 'ID',
+			'meta_key'      => '',
 			'placeholder'   => '',
 			'post_type'     => 'post',
 			'select2'       => true,
@@ -164,21 +164,22 @@ class Papi_Property_Post extends Papi_Property {
 	/**
 	 * Get matching value based on key from a post.
 	 *
-	 * @param  string $key
-	 * @param  mixed  $value
+	 * @param  mixed $value
 	 *
 	 * @return mixed
 	 */
-	protected function get_post_value( $key, $value ) {
+	protected function get_post_value( $value ) {
+		$meta_key = $this->get_setting( 'meta_key' );
+
 		if ( $value instanceof WP_Post === false ) {
 			return 0;
 		}
 
-		if ( strtoupper( $key ) === 'ID' ) {
+		if ( empty( $meta_key ) ) {
 			return $value->ID;
 		}
 
-		if ( $value = get_post_meta( $value->ID, $key, true ) ) {
+		if ( $value = get_post_meta( $value->ID, $meta_key, true ) ) {
 			return $value;
 		}
 
@@ -197,9 +198,8 @@ class Papi_Property_Post extends Papi_Property {
 		$single             = $render_label && $layout !== 'advanced';
 		$classes            = count( $post_types ) > 1 ? '' : 'papi-fullwidth';
 		$settings           = $this->get_settings();
-		$meta_key           = $settings->meta_key;
 		$value              = $this->get_value();
-		$value              = $this->get_post_value( $meta_key, $value );
+		$value              = $this->get_post_value( $value );
 		$selected_label     = array_shift( $labels );
 		$selected_post_type = get_post_type( $value ) ? : '';
 		$posts              = $this->get_posts( $selected_post_type );
@@ -278,8 +278,8 @@ class Papi_Property_Post extends Papi_Property {
 
 						papi_render_html_tag( 'option', [
 							'data-edit-url' => get_edit_post_link( $value ),
-							'selected'      => $value === $this->get_post_value( $meta_key, $post ),
-							'value'         => $this->get_post_value( $meta_key, $post ),
+							'selected'      => $value === $this->get_post_value( $post ),
+							'value'         => $this->get_post_value( $post ),
 							$post->post_title
 						] );
 					}

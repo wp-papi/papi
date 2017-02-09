@@ -130,7 +130,7 @@ class Papi_Property_Relationship extends Papi_Property {
 			'fields'       => '',
 			'items'        => [],
 			'limit'        => -1,
-			'meta_key'     => 'ID',
+			'meta_key'     => '',
 			'only_once'    => false,
 			'post_type'    => 'page',
 			'query'        => [],
@@ -263,7 +263,7 @@ class Papi_Property_Relationship extends Papi_Property {
 			return 0;
 		}
 
-		if ( strtoupper( $meta_key ) === 'ID' ) {
+		if ( empty( $meta_key ) ) {
 			return $value->ID;
 		}
 
