@@ -13,16 +13,28 @@ class Papi_Admin_Ajax {
 	protected $action_prefix = 'papi/ajax/';
 
 	/**
+	 * The permalink structure.
+	 *
+	 * @var string
+	 */
+	protected $structure;
+
+	/**
 	 * The construct.
 	 */
 	public function __construct() {
 		$this->setup_actions();
+		$this->structure = get_option( 'permalink_structure' );
 	}
 
 	/**
 	 * Add ajax endpoint.
 	 */
 	public function add_endpoint() {
+		if ( empty( $this->structure ) ) {
+			return;
+		}
+
 		add_rewrite_tag( '%action%', '([^/]*)' );
 		add_rewrite_rule( 'papi-ajax/([^/]*)/?', 'index.php?action=$matches[1]', 'top' );
 	}
@@ -31,7 +43,11 @@ class Papi_Admin_Ajax {
 	 * Add ajax url to Papi JavaScript object.
 	 */
 	public function ajax_url() {
-		$url = esc_url( trailingslashit( home_url( '/' , is_ssl() ? 'https' : 'http' ) ) . 'papi-ajax/' );
+		if ( empty( $this->structure ) ) {
+			$url = '/';
+		} else {
+			$url = esc_url( trailingslashit( home_url( '/' , is_ssl() ? 'https' : 'http' ) ) . 'papi-ajax/' );
+		}
 		?>
 		<script type="text/javascript">
 			var papi = papi || {};
