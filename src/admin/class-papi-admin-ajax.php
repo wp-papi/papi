@@ -36,7 +36,7 @@ class Papi_Admin_Ajax {
 		}
 
 		add_rewrite_tag( '%action%', '([^/]*)' );
-		add_rewrite_rule( 'papi-ajax/([^/]*)/?', 'index.php?action=$matches[1]', 'top' );
+		add_rewrite_rule( 'papi-ajax/([^/]*)/?', 'index.php?papi-ajax=true&action=$matches[1]', 'top' );
 	}
 
 	/**
@@ -44,9 +44,9 @@ class Papi_Admin_Ajax {
 	 */
 	public function ajax_url() {
 		if ( empty( $this->structure ) ) {
-			$url = '/';
+			$url = esc_url( home_url( 'index.php', is_ssl() ? 'https' : 'http' ) );
 		} else {
-			$url = esc_url( trailingslashit( home_url( '/' , is_ssl() ? 'https' : 'http' ) ) . 'papi-ajax/' );
+			$url = esc_url( home_url( '/papi-ajax/', is_ssl() ? 'https' : 'http' ) );
 		}
 		?>
 		<script type="text/javascript">
