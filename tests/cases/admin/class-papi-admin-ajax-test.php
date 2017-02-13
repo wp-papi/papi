@@ -31,19 +31,21 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 	}
 
 	public function test_endpoint() {
-		$this->ajax->add_endpoint();
+		$ajax = new Papi_Admin_Ajax();
+		$ajax->add_endpoint();
+
 		global $wp_rewrite;
+		$this->assertTrue( ! isset( $wp_rewrite->extra_rules_top['papi-ajax/([^/]*)/?'] ) );
+
+		add_filter( 'pre_option_permalink_structure', function() {
+			return 'not empty';
+		} );
+
+		$ajax = new Papi_Admin_Ajax();
+		$ajax->add_endpoint();
+
 		$this->assertNotNull( $wp_rewrite->extra_rules_top['papi-ajax/([^/]*)/?'] );
 		$this->assertSame( 'index.php?action=$matches[1]', $wp_rewrite->extra_rules_top['papi-ajax/([^/]*)/?'] );
-	}
-
-	public function test_ajax_url() {
-		$this->ajax->ajax_url();
-		$this->expectOutputRegex( '/papi\-ajax/' );
-	}
-
-	public function test_handle_papi_ajax_doing_ajax() {
-		$this->assertNull( $this->ajax->handle_papi_ajax() );
 	}
 
 	public function test_handle_papi_ajax_action() {
