@@ -160,7 +160,9 @@ final class Papi_Loader extends Papi_Container {
 	 * - WP_CONTENT_DIR/[mu-]plugins/papi/languages/papi-LOCALE.mo
 	 */
 	private function load_textdomain() {
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'papi' );
+		$locale = function_exists( 'get_user_local' ) ? get_user_local() : get_locale();
+		$locale = apply_filters( 'plugin_locale', $locale, 'papi' );
+
 		load_textdomain( 'papi', WP_LANG_DIR . '/papi/papi-' . $locale . '.mo' );
 		load_textdomain( 'papi', PAPI_PLUGIN_DIR . '../languages/papi-' . $locale . '.mo' );
 	}
