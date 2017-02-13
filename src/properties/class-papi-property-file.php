@@ -156,6 +156,10 @@ class Papi_Property_File extends Papi_Property {
 				<?php
 				if ( is_array( $value ) ):
 					foreach ( $value as $file ):
+						if ( ! is_object( $file ) ) {
+							continue;
+						}
+
 						$url = wp_get_attachment_thumb_url( $file->id );
 
 						if ( empty( $url ) ) {
@@ -180,7 +184,7 @@ class Papi_Property_File extends Papi_Property {
 										] );
 										?>
 									</div>
-									<?php if ( $this->file_type === 'file' ): ?>
+									<?php if ( $this->file_type === 'file' && isset( $file->file ) ): ?>
 										<div class="filename">
 											<div><?php echo esc_html( basename( $file->file ) ); ?></div>
 										</div>
