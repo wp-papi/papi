@@ -874,6 +874,10 @@ class Papi_Property_Repeater extends Papi_Property {
 			$property_type_value = $values[$property_type_slug]->type;
 			$property_type = papi_get_property_type( $property_type_value );
 
+			if ( ! is_object( $property_type ) ) {
+				continue;
+			}
+
 			// Unserialize if needed.
 			$value = papi_maybe_json_decode(
 				maybe_unserialize( $value )
