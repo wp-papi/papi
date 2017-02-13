@@ -182,9 +182,13 @@ class Papi_Property_File extends Papi_Property {
 											'type'  => 'hidden',
 											'value' => esc_attr( $file->id )
 										] );
+
+										if ( ! isset( $file->file ) && isset( $file->url ) ) {
+											$file->file = $file->url;
+										}
 										?>
 									</div>
-									<?php if ( $this->file_type === 'file' && isset( $file->file ) ): ?>
+									<?php if ( $this->file_type === 'file' ): ?>
 										<div class="filename">
 											<div><?php echo esc_html( basename( $file->file ) ); ?></div>
 										</div>
