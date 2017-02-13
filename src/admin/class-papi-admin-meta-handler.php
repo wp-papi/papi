@@ -103,6 +103,15 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 					papi_update_field( $id, $slug, papi_get_field( $parent_id, $slug ) );
 				}
 			}
+
+			// Delete all oEmbed caches.
+			if ( class_exists( 'WP_Embed' ) ) {
+				global $wp_embed;
+
+				if ( $wp_embed instanceof WP_Embed ) {
+					$wp_embed->delete_oembed_caches( $id );
+				}
+			}
 		}
 
 		if ( $meta_type === 'term' && $taxonomy = get_taxonomy( papi_get_taxonomy() ) ) {
