@@ -5,7 +5,7 @@
 * Fixed: Sanitize box id key [#215](https://github.com/wp-papi/papi/issues/215).
 * Fixed: Undefined property on file object used in file property [#217](https://github.com/wp-papi/papi/issues/217).
 * Fixed: AJAX endpoint for plain permalink structure [#218](https://github.com/wp-papi/papi/issues/218).
-* Fixed: `FORCED_SSL_ADMIN` and AJAX endpoint [#213](https://github.com/wp-papi/papi/issues/213).
+* Fixed: `FORCE_SSL_ADMIN` and AJAX endpoint [#213](https://github.com/wp-papi/papi/issues/213).
 * Fixed: oEmbed cache is broken if content is empty [#210](https://github.com/wp-papi/papi/issues/210).
 * Fixed: Respect user admin language in WordPress 4.7 [#209](https://github.com/wp-papi/papi/issues/209).
 * Fixed: Sort order on properties.
