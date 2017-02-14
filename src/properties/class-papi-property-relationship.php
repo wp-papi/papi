@@ -104,7 +104,7 @@ class Papi_Property_Relationship extends Papi_Property {
 			$values = $this->sort_value( $result, $slug, $post_id );
 
 			// Allow only id to be returned.
-			if ( ! is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
+			if ( ! papi_is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
 				return array_map( function ( $item ) {
 					$id = $item->ID;
 
