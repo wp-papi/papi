@@ -1,5 +1,21 @@
 # Papi Changelog
 
+## [3.1.19](https://github.com/wp-papi/papi/releases/tag/v3.1.19) - 2017-02-14
+
+* Fixed: Sanitize box id key [#215](https://github.com/wp-papi/papi/issues/215).
+* Fixed: Undefined property on file object used in file property [#217](https://github.com/wp-papi/papi/issues/217).
+* Fixed: AJAX endpoint for plain permalink structure [#218](https://github.com/wp-papi/papi/issues/218).
+* Fixed: `FORCED_SSL_ADMIN` and AJAX endpoint [#213](https://github.com/wp-papi/papi/issues/213).
+* Fixed: oEmbed cache is broken if content is empty [#210](https://github.com/wp-papi/papi/issues/210).
+* Fixed: Respect user admin language in WordPress 4.7 [#209](https://github.com/wp-papi/papi/issues/209).
+* Fixed: Sort order on properties.
+* Fixed: Autosave didn't work as it should.
+* Fixed: Repeater rows was affected when removing flexible rows when repeater was a child property to the flexible.
+
+## [3.1.18](https://github.com/wp-papi/papi/releases/tag/v3.1.18) - 2016-12-16
+
+* Fixed: Link property target didn't work correct in new WordPress [#207](https://github.com/wp-papi/papi/issues/207).
+
 ## [3.1.17](https://github.com/wp-papi/papi/releases/tag/v3.1.17) - 2016-11-01
 
 * Fixed: Link property didn't save values correct.
