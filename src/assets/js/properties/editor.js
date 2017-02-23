@@ -132,18 +132,22 @@ class Editor {
   qtInit(id) {
     const qtContent = tinyMCEPreInit.qtInit.content === undefined
       ? tinyMCEPreInit.qtInit.papiHiddenEditor : tinyMCEPreInit.qtInit.content;
-    const qtInit = tinyMCEPreInit.qtInit[id] = $.extend({}, qtContent, {
-      id: id,
-      buttons: qtContent.buttons.replace(',fullscreen', '')
-    });
 
-    try {
-      /* eslint-disable */
-      new QTags(qtInit);
-      /* eslint-enable */
-    } catch (e) {}
+    if (qtContent !== undefined) {
+      const qtInit = tinyMCEPreInit.qtInit[id] = $.extend({}, qtContent, {
+        id: id,
+        buttons: qtContent.buttons.replace(',fullscreen', '')
+      });
 
-    QTags._buttonsInit();
+      try {
+        /* eslint-disable */
+        new QTags(qtInit);
+        /* eslint-enable */
+      } catch (e) {
+      }
+
+      QTags._buttonsInit();
+    }
   }
 
   /**
