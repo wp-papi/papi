@@ -36,6 +36,7 @@ class Papi_Property_Post extends Papi_Property {
 				'meta_key'       => $meta_key,
 				'meta_value'     => $value,
 				'posts_per_page' => 1,
+				'post_type'      => $this->get_setting( 'post_type' ),
 			];
 
 			$query = new WP_Query( $args );
