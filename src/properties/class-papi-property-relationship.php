@@ -107,6 +107,10 @@ class Papi_Property_Relationship extends Papi_Property {
 			// Allow only id to be returned.
 			if ( ! papi_is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
 				return array_map( function ( $item ) {
+					if ( $id = $this->get_post_value( $item ) ) {
+						return $id;
+					}
+
 					$id = $item->ID;
 
 					if ( is_numeric( $id ) ) {

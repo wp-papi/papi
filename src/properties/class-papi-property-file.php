@@ -70,7 +70,7 @@ class Papi_Property_File extends Papi_Property {
 				$value = (object) array_merge( $meta, $mine );
 
 				if ( ! papi_is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
-					return $value->id;
+					return $this->get_file_value( $value );
 				}
 
 				return $value;

@@ -52,7 +52,7 @@ class Papi_Property_Post extends Papi_Property {
 
 		// Allow only id to be returned.
 		if ( ! papi_is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
-			return $post->ID;
+			return $this->get_post_value( $post );
 		}
 
 		return $post;
