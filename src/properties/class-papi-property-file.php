@@ -151,7 +151,7 @@ class Papi_Property_File extends Papi_Property {
 		}
 
 		if ( empty( $post ) ) {
-			return 0;
+			return $value;
 		}
 
 		return $post->ID;
