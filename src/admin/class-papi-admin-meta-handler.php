@@ -36,6 +36,8 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		foreach ( array_keys( $this->overwrite ) as $key ) {
 			papi_cache_delete( $key, $post_id );
 		}
+
+		clean_post_cache( $post_id );
 	}
 
 	/**
