@@ -697,6 +697,13 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		] );
 
 		$this->assertSame( 'test', $property->get_option( 'description' ) );
+
+		$property = Papi_Core_Property::factory( [
+			'type' => 'string',
+			'desc' => 'test'
+		] );
+
+		$this->assertSame( 'test', $property->get_option( 'description' ) );
 	}
 
 	public function test_set_post_id() {
