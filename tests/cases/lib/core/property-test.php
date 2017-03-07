@@ -384,7 +384,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( $expected, $actual );
 
-		$actual = papi_property_to_array_slugs( [ 1, '', true, false ], 'repeater' );
+		$actual = papi_property_to_array_slugs( [1, '', true, false], 'repeater' );
 
 		$expected = [
 			'repeater' => 0
