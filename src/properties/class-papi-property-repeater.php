@@ -43,7 +43,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @return bool
 	 */
 	public function delete_value( $slug, $post_id, $type ) {
-		$rows   = intval( papi_get_property_meta_value( $post_id, $slug ) );
+		$rows   = intval( papi_data_get( $post_id, $slug, $type ) );
 		$value  = $this->load_value( $rows, $slug, $post_id );
 		$value  = papi_to_property_array_slugs( $value, $slug );
 		$result = true;
