@@ -187,6 +187,10 @@ class Papi_Query_Test extends WP_UnitTestCase {
 			$this->markTestSkipped( 'Term metadata is not supported' );
 		}
 
+		if ( ! class_exists( 'WP_Term_Query' ) ) {
+			$this->markTestSkipped( 'Term query is not supported' );
+		}
+
 		$query = new Papi_Query( [
 			'fields'        => 'ids',
 			'taxonomy_type' => 'simple-taxonomy-type'
@@ -208,6 +212,10 @@ class Papi_Query_Test extends WP_UnitTestCase {
 			$this->markTestSkipped( 'Term metadata is not supported' );
 		}
 
+		if ( ! class_exists( 'WP_Term_Query' ) ) {
+			$this->markTestSkipped( 'Term query is not supported' );
+		}
+
 		$query = new Papi_Query( [
 			'fields'        => 'ids',
 			'hide_empty'    => false,
@@ -227,6 +235,10 @@ class Papi_Query_Test extends WP_UnitTestCase {
 	public function test_real_taxonomy_type_meta_query() {
 		if ( ! papi_supports_term_meta() ) {
 			$this->markTestSkipped( 'Term metadata is not supported' );
+		}
+
+		if ( ! class_exists( 'WP_Term_Query' ) ) {
+			$this->markTestSkipped( 'Term query is not supported' );
 		}
 
 		$query = new Papi_Query( [
@@ -258,6 +270,10 @@ class Papi_Query_Test extends WP_UnitTestCase {
 	public function test_real_taxonomy_type_meta_key_value() {
 		if ( ! papi_supports_term_meta() ) {
 			$this->markTestSkipped( 'Term metadata is not supported' );
+		}
+
+		if ( ! class_exists( 'WP_Term_Query' ) ) {
+			$this->markTestSkipped( 'Term query is not supported' );
 		}
 
 		$query = new Papi_Query( [
