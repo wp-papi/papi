@@ -17,7 +17,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		unset( $this->post_id );
 	}
 
-	public function test_papi_from_property_array_slugs() {
+	public function test_papi_property_from_array_slugs() {
 		$actual = papi_from_property_array_slugs( [
 			'repeater' => 1,
 			'repeater_0_image' => 1,
