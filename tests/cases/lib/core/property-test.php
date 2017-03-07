@@ -48,15 +48,6 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_property( '' ) );
 	}
 
-	public function test_papi_get_property_meta_value() {
-		$this->assertNull( papi_get_property_meta_value( $this->post_id, 'random322-page-type' ) );
-		$this->assertNull( papi_get_property_meta_value( $this->post_id, 'random322-page-type', 'option' ) );
-		update_post_meta( $this->post_id, 'random322-page-type', 'post' );
-		update_option( 'random322-page-type', 'option' );
-		$this->assertSame( 'post', papi_get_property_meta_value( $this->post_id, 'random322-page-type' ) );
-		$this->assertSame( 'option', papi_get_property_meta_value( $this->post_id, 'random322-page-type', 'option' ) );
-	}
-
 	public function test_papi_get_options_and_properties() {
 		$simple_box = PAPI_FIXTURE_DIR . '/page-types/boxes/simple.php';
 
@@ -376,8 +367,8 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'papi_my_name_is', $properties[0]->get_slug() );
 	}
 
-	public function test_papi_to_property_array_slugs() {
-		$actual = papi_to_property_array_slugs( [
+	public function test_papi_property_to_array_slugs() {
+		$actual = papi_property_to_array_slugs( [
 			[
 				'image' => 1,
 				'image_property' => 'image',
@@ -393,7 +384,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( $expected, $actual );
 
-		$actual = papi_to_property_array_slugs( [ 1, '', true, false ], 'repeater' );
+		$actual = papi_property_to_array_slugs( [ 1, '', true, false ], 'repeater' );
 
 		$expected = [
 			'repeater' => 0

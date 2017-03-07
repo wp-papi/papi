@@ -383,7 +383,7 @@ function papi_property_from_array_slugs( array $values, $slug ) {
  *
  * @return array
  */
-function papi_to_property_array_slugs( array $value, $slug ) {
+function papi_property_to_array_slugs( array $value, $slug ) {
 	$results = [];
 	$counter = [];
 
