@@ -230,7 +230,7 @@ final class Papi_Loader extends Papi_Container {
 	}
 
 	/**
-	 * Deactivate Papi if the WordPress version is lower then 4.0.
+	 * Deactivate Papi if the WordPress version is lower then 4.4.
 	 */
 	public static function deactivate() {
 		// Remove Papi from plugins_loaded action.
@@ -243,7 +243,7 @@ final class Papi_Loader extends Papi_Container {
 
 		deactivate_plugins( PAPI_PLUGIN_BASENAME );
 
-		wp_die( esc_html__( 'WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
+		wp_die( esc_html__( 'WordPress 4.4 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
 
 		// Remove instance.
 		self::$instance = null;
@@ -263,7 +263,7 @@ final class Papi_Loader extends Papi_Container {
  * @return Papi_Loader
  */
 function papi() {
-	if ( version_compare( get_bloginfo( 'version' ), '4.3', '<' ) ) {
+	if ( version_compare( get_bloginfo( 'version' ), '4.4', '<' ) ) {
 		Papi_Loader::deactivate();
 	}
 
