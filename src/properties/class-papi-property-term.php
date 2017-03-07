@@ -22,11 +22,39 @@ class Papi_Property_Term extends Papi_Property {
 	 * @return array
 	 */
 	public function format_value( $value, $slug, $post_id ) {
-		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
-			return $this->get_term( $value );
+		$meta_key = $this->get_setting( 'meta_key' );
+
+		if ( empty( $meta_key ) ) {
+			if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
+				$term = get_term( $value );
+			}
+		} else {
+			$args = [
+				'fields'     => 'ids',
+				'meta_key'   => $meta_key,
+				'meta_value' => $value,
+				'hide_empty' => false,
+				'taxonomy'   => $this->get_setting( 'taxonomy' ),
+				'number'     => 1
+			];
+
+			$terms = get_terms( $args );
+
+			if ( ! empty( $terms ) ) {
+				$term = get_term( $terms[0] );
+			}
 		}
 
-		return $this->default_value;
+		if ( empty( $term ) ) {
+			return $this->default_value;
+		}
+
+		// Allow only id to be returned.
+		if ( ! papi_is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
+			return $this->get_term_value( $term );
+		}
+
+		return $term;
 	}
 
 	/**
@@ -36,11 +64,13 @@ class Papi_Property_Term extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
+			'fields'      => '',
 			'labels'      => [
 				'select_taxonomy' => __( 'Select Taxonomy', 'papi' ),
 				'select_item'     => __( 'Select %s term', 'papi' )
 			],
 			'layout'      => 'single', // Single or advanced
+			'meta_key'    => '',
 			'placeholder' => '',
 			'taxonomy'    => '',
 			'select2'     => true,
@@ -98,21 +128,29 @@ class Papi_Property_Term extends Papi_Property {
 	}
 
 	/**
-	 * Get single term.
+	 * Get matching value based on key from a term.
 	 *
-	 * @param  int $term_id
+	 * @param  mixed $value
 	 *
-	 * @return object
+	 * @return mixed
 	 */
-	protected function get_term( $term_id ) {
-		if ( version_compare( get_bloginfo( 'version' ), '4.4', '<' ) ) {
-			$taxonomies = $this->get_taxonomies();
-			$taxonomy   = reset( $taxonomies );
+	protected function get_term_value( $value ) {
+		$meta_key = $this->get_setting( 'meta_key' );
+		$value    = get_term( $value );
 
-			return get_term( $term_id, $taxonomy );
+		if ( $value instanceof WP_Term === false ) {
+			return 0;
 		}
 
-		return get_term( $term_id );
+		if ( $value = get_term_meta( $value->term_id, $meta_key, true ) ) {
+			return $value;
+		}
+
+		if ( empty( $meta_key ) ) {
+			return $value->term_id;
+		}
+
+		return 0;
 	}
 
 	/**
@@ -128,11 +166,11 @@ class Papi_Property_Term extends Papi_Property {
 		$single            = $render_label && $layout !== 'advanced';
 		$classes           = count( $taxonomies ) > 1 ? '' : 'papi-fullwidth';
 		$value             = $this->get_value();
-		$value             = is_object( $value ) ? $value->term_id : 0;
-		$selected_label    = reset( $labels );
-		$selected_term     = $this->get_term( $value ) ? : '';
+		$selected_term     = get_term( $value );
 		$selected_term     = is_wp_error( $selected_term ) || empty( $selected_term ) ? '' : $selected_term;
 		$selected_taxonomy = empty( $selected_term ) ? reset( $taxonomies ) : $selected_term->taxonomy;
+		$value             = $this->get_term_value( $value );
+		$selected_label    = reset( $labels );
 
 		if ( $settings->select2 ) {
 			$classes = ' papi-component-select2';
@@ -218,8 +256,8 @@ class Papi_Property_Term extends Papi_Property {
 						}
 
 						papi_render_html_tag( 'option', [
-							'value'    => $term_id,
-							'selected' => $value === $term_id,
+							'value'    => $this->get_term_value( $term_id ),
+							'selected' => $value === $this->get_term_value( $term_id ),
 							esc_html( $term_name )
 						] );
 					}
