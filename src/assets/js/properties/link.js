@@ -132,6 +132,7 @@ class Link {
     data.link = '<a href="' + data.href + '" target="_blank">' + data.href + '</a>';
     data.title = $('#wp-link-text').val();
     data.slug = this.$el.data('slug');
+    data.target = data.target || '';
 
     this.$el.find('input[type="hidden"]:first').val(1);
 

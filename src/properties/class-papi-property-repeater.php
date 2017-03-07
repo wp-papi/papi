@@ -117,14 +117,14 @@ class Papi_Property_Repeater extends Papi_Property {
 			// Format the value from the property class.
 			$values[$slug] = $property_type->format_value( $values[$slug], $child_slug, $post_id );
 
-			if ( ! is_admin() ) {
+			if ( ! papi_is_admin() ) {
 				$values[$slug] = papi_filter_format_value( $property_type->type, $values[$slug], $child_slug, $post_id, papi_get_meta_type() );
 			}
 
 			$values[$property_type_slug] = $property_type_value;
 		}
 
-		if ( ! is_admin() ) {
+		if ( ! papi_is_admin() ) {
 			foreach ( $values as $slug => $value ) {
 				if ( papi_is_property_type_key( $slug ) ) {
 					unset( $values[$slug] );
@@ -866,6 +866,10 @@ class Papi_Property_Repeater extends Papi_Property {
 			// Get property type
 			$property_type_value = $values[$property_type_slug]->type;
 			$property_type       = papi_get_property_type( $property_type_value );
+
+			if ( ! is_object( $property_type ) ) {
+				continue;
+			}
 
 			// Unserialize if needed.
 			$value = papi_maybe_json_decode( maybe_unserialize( $value ) );

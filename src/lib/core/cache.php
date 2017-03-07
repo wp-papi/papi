@@ -13,7 +13,7 @@ function papi_cache_delete( $key, $suffix, $type = 'post' ) {
 	$key = papi_cache_key( $key, $suffix, $type );
 	$out = true;
 
-	if ( is_admin() ) {
+	if ( papi_is_admin() ) {
 		$out = wp_cache_delete( 'admin_' . $key );
 	}
 
@@ -32,7 +32,7 @@ function papi_cache_delete( $key, $suffix, $type = 'post' ) {
 function papi_cache_get( $key, $suffix, $type = 'post' ) {
 	$key = papi_cache_key( $key, $suffix, $type );
 
-	if ( is_admin() ) {
+	if ( papi_is_admin() ) {
 		$key = 'admin_' . $key;
 	}
 
@@ -77,7 +77,7 @@ function papi_cache_key( $key, $suffix, $type = 'post' ) {
 function papi_cache_set( $key, $suffix, $value, $type = 'post' ) {
 	$key = papi_cache_key( $key, $suffix, $type );
 
-	if ( is_admin() ) {
+	if ( papi_is_admin() ) {
 		$key = 'admin_' . $key;
 	}
 

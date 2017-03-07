@@ -74,18 +74,18 @@ function papi_get_meta_type( $type = null ) {
 
 	if ( ! empty( $parsed_url['query'] ) ) {
 		// Taxonomy page in admin.
-		if ( is_admin() && preg_match( '/taxonomy=/', $parsed_url['query'] ) ) {
+		if ( papi_is_admin() && preg_match( '/taxonomy=/', $parsed_url['query'] ) ) {
 			return 'term';
 		}
 
 		// Option page in admin.
-		if ( is_admin() && preg_match( '/page\=papi(\%2F|\/)option/', $parsed_url['query'] ) ) {
+		if ( papi_is_admin() && preg_match( '/page\=papi(\%2F|\/)option/', $parsed_url['query'] ) ) {
 			return 'option';
 		}
 	}
 
 	// When doing ajax we need to check if it's a taxonomy ajax or a post type ajax.
-	if ( is_admin() && defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+	if ( papi_is_admin() && defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 		if ( isset( $_POST['taxonomy'] ) ) {
 			return 'term';
 		}
@@ -96,7 +96,7 @@ function papi_get_meta_type( $type = null ) {
 	}
 
 	// On the frontend term should be returned if on a category or tag page.
-	if ( ! is_admin() && ( is_category() || is_tag() ) ) {
+	if ( ! papi_is_admin() && ( is_category() || is_tag() ) ) {
 		return 'term';
 	}
 

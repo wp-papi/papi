@@ -24,11 +24,38 @@ class Papi_Property_Post extends Papi_Property {
 	 * @return array
 	 */
 	public function format_value( $value, $slug, $post_id ) {
-		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
-			return get_post( $value );
+		$meta_key = $this->get_setting( 'meta_key' );
+
+		if ( empty( $meta_key ) ) {
+			if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
+				$post = get_post( $value );
+			}
+		} else {
+			$args = [
+				'fields'         => 'ids',
+				'meta_key'       => $meta_key,
+				'meta_value'     => $value,
+				'posts_per_page' => 1,
+				'post_type'      => $this->get_setting( 'post_type' ),
+			];
+
+			$query = new WP_Query( $args );
+
+			if ( ! empty( $query->posts ) ) {
+				$post = get_post( $query->posts[0] );
+			}
 		}
 
-		return $this->default_value;
+		if ( empty( $post ) ) {
+			return $this->default_value;
+		}
+
+		// Allow only id to be returned.
+		if ( ! papi_is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
+			return $this->get_post_value( $post );
+		}
+
+		return $post;
 	}
 
 	/**
@@ -38,11 +65,13 @@ class Papi_Property_Post extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
+			'fields'        => '',
 			'labels'        => [
 				'select_post_type' => __( 'Select Post Type', 'papi' ),
 				'select_item'      => __( 'Select %s', 'papi' )
 			],
 			'layout'        => 'single', // single or advanced
+			'meta_key'      => '',
 			'placeholder'   => '',
 			'post_type'     => 'post',
 			'select2'       => true,
@@ -134,6 +163,31 @@ class Papi_Property_Post extends Papi_Property {
 	}
 
 	/**
+	 * Get matching value based on key from a post.
+	 *
+	 * @param  mixed $value
+	 *
+	 * @return mixed
+	 */
+	protected function get_post_value( $value ) {
+		$meta_key = $this->get_setting( 'meta_key' );
+
+		if ( $value instanceof WP_Post === false ) {
+			return 0;
+		}
+
+		if ( empty( $meta_key ) ) {
+			return $value->ID;
+		}
+
+		if ( $value = get_post_meta( $value->ID, $meta_key, true ) ) {
+			return $value;
+		}
+
+		return 0;
+	}
+
+	/**
 	 * Render property html.
 	 */
 	public function html() {
@@ -146,7 +200,7 @@ class Papi_Property_Post extends Papi_Property {
 		$classes            = count( $post_types ) > 1 ? '' : 'papi-fullwidth';
 		$settings           = $this->get_settings();
 		$value              = $this->get_value();
-		$value              = is_object( $value ) ? $value->ID : 0;
+		$value              = $this->get_post_value( $value );
 		$selected_label     = array_shift( $labels );
 		$selected_post_type = get_post_type( $value ) ? : '';
 		$posts              = $this->get_posts( $selected_post_type );
@@ -225,8 +279,8 @@ class Papi_Property_Post extends Papi_Property {
 
 						papi_render_html_tag( 'option', [
 							'data-edit-url' => get_edit_post_link( $value ),
-							'selected'      => $value === $post->ID,
-							'value'         => $post->ID,
+							'selected'      => $value === $this->get_post_value( $post ),
+							'value'         => $this->get_post_value( $post ),
 							$post->post_title
 						] );
 					}

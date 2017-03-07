@@ -29,7 +29,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 	protected function convert_post_to_item( WP_Post $post ) {
 		return (object) [
-			'id'    => $post->ID,
+			'id'    => $this->get_post_value( $post ),
 			'title' => $post->post_title
 		];
 	}
@@ -46,7 +46,7 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 	public function format_value( $values, $slug, $post_id ) {
 		if ( is_array( $values ) || is_object( $values ) ) {
-			$items  = $this->get_settings()->items;
+			$items  = $this->get_setting( 'items' );
 			$result = [];
 
 			foreach ( $values as $id ) {
@@ -59,7 +59,23 @@ class Papi_Property_Relationship extends Papi_Property {
 				}
 
 				if ( papi_is_empty( $items ) ) {
-					$post = get_post( $id );
+					if ( empty( $this->get_setting( 'meta_key' ) ) ) {
+						$post = get_post( $id );
+					} else {
+						$args = [
+							'fields'         => 'ids',
+							'meta_key'       => $this->meta_key,
+							'meta_value'     => $id,
+							'posts_per_page' => 1,
+							'post_type'      => $this->get_setting( 'post_type' ),
+						];
+
+						$query = new WP_Query( $args );
+
+						if ( ! empty( $query->posts ) ) {
+							$post = get_post( $query->posts[0] );
+						}
+					}
 
 					if ( empty( $post ) ) {
 						continue;
@@ -86,7 +102,26 @@ class Papi_Property_Relationship extends Papi_Property {
 				}
 			}
 
-			return $this->sort_value( $result, $slug, $post_id );
+			$values = $this->sort_value( $result, $slug, $post_id );
+
+			// Allow only id to be returned.
+			if ( ! papi_is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
+				return array_map( function ( $item ) {
+					if ( $id = $this->get_post_value( $item ) ) {
+						return $id;
+					}
+
+					$id = $item->ID;
+
+					if ( is_numeric( $id ) ) {
+						return $id == (int) $id ? (int) $id : (float) $id; // loose comparison
+					}
+
+					return $id;
+				}, $values );
+			}
+
+			return $values;
 		}
 
 		return $this->default_value;
@@ -99,13 +134,15 @@ class Papi_Property_Relationship extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
+			'fields'       => '',
 			'items'        => [],
 			'limit'        => -1,
+			'meta_key'     => '',
 			'only_once'    => false,
 			'post_type'    => 'page',
-			'title'        => __( 'Post', 'papi' ),
 			'query'        => [],
-			'show_sort_by' => true
+			'show_sort_by' => true,
+			'title'        => __( 'Post', 'papi' )
 		];
 	}
 
@@ -212,6 +249,31 @@ class Papi_Property_Relationship extends Papi_Property {
 	}
 
 	/**
+	 * Get matching value based on key from a post.
+	 *
+	 * @param  mixed $value
+	 *
+	 * @return mixed
+	 */
+	protected function get_post_value( $value ) {
+		$meta_key = $this->get_setting( 'meta_key' );
+
+		if ( $value instanceof WP_Post === false ) {
+			return 0;
+		}
+
+		if ( empty( $meta_key ) ) {
+			return $value->ID;
+		}
+
+		if ( $value = get_post_meta( $value->ID, $meta_key, true ) ) {
+			return $value;
+		}
+
+		return 0;
+	}
+
+	/**
 	 * Render property html.
 	 */
 	public function html() {
@@ -223,6 +285,7 @@ class Papi_Property_Relationship extends Papi_Property {
 		$sort_options  = static::get_sort_options();
 		$values        = papi_get_only_objects( $this->get_value() );
 		$items         = $this->get_items( $settings );
+
 
 		if ( papi_is_empty( $settings->items ) ) {
 			$values = array_map( [$this, 'convert_post_to_item'], $values );

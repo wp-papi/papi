@@ -147,7 +147,7 @@ abstract class Papi_Core_Meta_Store {
 		$value = $property->format_value( $value, $slug, $this->id );
 
 		// Only fired when not in admin.
-		if ( ! is_admin() ) {
+		if ( ! papi_is_admin() ) {
 			$value = papi_filter_format_value(
 				$property->type,
 				$value,

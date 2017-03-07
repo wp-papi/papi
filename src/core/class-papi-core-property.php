@@ -64,6 +64,15 @@ class Papi_Core_Property {
 	];
 
 	/**
+	 * Option aliases.
+	 *
+	 * @var array
+	 */
+	protected $option_aliases = [
+		'desc' => 'description'
+	];
+
+	/**
 	 * Default value.
 	 *
 	 * @var null
@@ -386,8 +395,6 @@ class Papi_Core_Property {
 
 		if ( $key === 'settings' && is_array( $value ) ) {
 			$value = (object) $value;
-		} else if ( $key === 'sidebar' && $value ) {
-			$value = $this->layout === 'horizontal';
 		}
 
 		return $value;
@@ -854,6 +861,18 @@ class Papi_Core_Property {
 		// Merge default options with the given options array.
 		$options = array_merge( $this->default_options, $options );
 		$options = (object) $options;
+
+		// Setup aliases.
+		$option_aliases = apply_filters( 'papi/option_aliases', $this->option_aliases );
+		$option_aliases = is_array( $option_aliases ) ? $option_aliases : [];
+		$option_aliases = array_merge( $this->option_aliases, $option_aliases );
+
+		foreach ( $option_aliases as $alias => $option ) {
+			if ( isset( $options->$alias ) && ! papi_is_empty( $options->$alias ) ) {
+				$options->$option = $options->$alias;
+				unset( $options->$alias );
+			}
+		}
 
 		// Capabilities should be a array.
 		$options->capabilities = papi_to_array( $options->capabilities );

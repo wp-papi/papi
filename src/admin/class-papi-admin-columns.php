@@ -229,6 +229,6 @@ final class Papi_Admin_Columns {
 	}
 }
 
-if ( is_admin() ) {
+if ( papi_is_admin() ) {
 	new Papi_Admin_Columns;
 }

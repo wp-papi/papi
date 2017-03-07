@@ -411,6 +411,19 @@ function papi_html_tag( $tag, $attr = [] ) {
 }
 
 /**
+ * Check if Papi is in admin mode or not and provide
+ * a way to modify the return value. Be sure
+ *
+ * Be sure of what you are doing before modifying the
+ * value since it can break stuff.
+ *
+ * @return bool
+ */
+function papi_is_admin() {
+	return apply_filters( 'papi/is_admin', is_admin() );
+}
+
+/**
  * Check if the given object is empty or not.
  * Values like "0", 0 and false should not return true.
  *

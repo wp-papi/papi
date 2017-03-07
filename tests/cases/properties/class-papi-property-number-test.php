@@ -19,7 +19,7 @@ class Papi_Property_Number_Test extends Papi_Property_Test_Case {
 		$settings = (object) $this->property->get_default_settings();
 		$this->assertSame( '', $settings->max );
 		$this->assertSame( '', $settings->min );
-		$this->assertSame( '', $settings->step );
+		$this->assertSame( 'any', $settings->step );
 		$this->assertSame( 'number', $settings->type );
 	}
 

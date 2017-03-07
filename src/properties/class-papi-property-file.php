@@ -37,6 +37,11 @@ class Papi_Property_File extends Papi_Property {
 	 * @return mixed
 	 */
 	public function format_value( $value, $slug, $post_id ) {
+		if ( ! is_array( $value ) ) {
+			$value = $this->get_file( $value );
+		}
+
+		// Single file.
 		if ( is_numeric( $value ) ) {
 			$meta = wp_get_attachment_metadata( $value );
 
@@ -62,12 +67,19 @@ class Papi_Property_File extends Papi_Property {
 					}
 				}
 
-				return (object) array_merge( $meta, $mine );
+				$value = (object) array_merge( $meta, $mine );
+
+				if ( ! papi_is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
+					return $this->get_file_value( $value );
+				}
+
+				return $value;
 			}
 
 			return (int) $value;
 		}
 
+		// Multiple files.
 		if ( is_array( $value ) ) {
 			foreach ( $value as $k => $v ) {
 				$value[$k] = $this->format_value( $v, $slug, $post_id );
@@ -90,7 +102,8 @@ class Papi_Property_File extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'multiple' => false
+			'multiple' => false,
+			'meta_key' => ''
 		];
 	}
 
@@ -104,6 +117,69 @@ class Papi_Property_File extends Papi_Property {
 			'add'     => __( 'Add file', 'papi' ),
 			'no_file' => __( 'No file selected', 'papi' )
 		];
+	}
+
+	/**
+	 * Get file by id or meta value.
+	 *
+	 * @param  mixed $value
+	 *
+	 * @return int
+	 */
+	public function get_file( $value ) {
+		$meta_key = $this->get_setting( 'meta_key' );
+
+		if ( empty( $meta_key ) ) {
+			if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
+				$post = get_post( $value );
+			}
+		} else {
+			$args = [
+				'fields'         => 'ids',
+				'meta_key'       => $meta_key,
+				'meta_value'     => $value,
+				'posts_per_page' => 1,
+				'post_type'      => 'attachment',
+				'post_status'    => 'any'
+			];
+
+			$query = new WP_Query( $args );
+
+			if ( ! empty( $query->posts ) ) {
+				$post = get_post( $query->posts[0] );
+			}
+		}
+
+		if ( empty( $post ) ) {
+			return $value;
+		}
+
+		return $post->ID;
+	}
+
+	/**
+	 * Get matching value based on key from a file.
+	 *
+	 * @param  mixed $value
+	 *
+	 * @return mixed
+	 */
+	protected function get_file_value( $value ) {
+		$meta_key = $this->get_setting( 'meta_key' );
+
+		if ( ! is_object( $value ) ) {
+			return 0;
+		}
+
+		if ( empty( $meta_key ) ) {
+			return $value->id;
+		}
+
+		if ( $value = get_post_meta( $value->id, $meta_key, true ) ) {
+			return $value;
+		}
+
+		return 0;
 	}
 
 	/**
@@ -156,6 +232,10 @@ class Papi_Property_File extends Papi_Property {
 				<?php
 				if ( is_array( $value ) ):
 					foreach ( $value as $file ):
+						if ( ! is_object( $file ) ) {
+							continue;
+						}
+
 						$url = wp_get_attachment_thumb_url( $file->id );
 
 						if ( empty( $url ) ) {
@@ -176,8 +256,12 @@ class Papi_Property_File extends Papi_Property {
 										papi_render_html_tag( 'input', [
 											'name'  => esc_attr( $slug ),
 											'type'  => 'hidden',
-											'value' => esc_attr( $file->id )
+											'value' => $file->id
 										] );
+
+										if ( ! isset( $file->file ) && isset( $file->url ) ) {
+											$file->file = $file->url;
+										}
 										?>
 									</div>
 									<?php if ( $this->file_type === 'file' ): ?>
@@ -282,6 +366,41 @@ class Papi_Property_File extends Papi_Property {
 	 */
 	protected function setup_filters() {
 		add_action( 'wp_get_attachment_metadata', [$this, 'wp_get_attachment_metadata'], 10, 2 );
+	}
+
+	/**
+	 * Save file with a meta value or id.
+	 *
+	 * @param  mixed  $values
+	 * @param  string $slug
+	 * @param  int    $post_id
+	 *
+	 * @return string
+	 */
+	public function update_value( $values, $slug, $post_id ) {
+		if ( ! is_array( $values ) ) {
+			$values = $this->get_file_value( (object)[
+				'id' => $values
+			] );
+
+			if ( empty( $values ) ) {
+				return;
+			}
+
+			return $values;
+		}
+
+		foreach ( $values as $index => $value ) {
+			if ( ! is_numeric( $value ) ) {
+				continue;
+			}
+
+			$values[$index] = $this->get_file_value( (object)[
+				'id' => $value
+			] );
+		}
+
+		return array_filter( $values );
 	}
 
 	/**

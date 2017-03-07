@@ -36,6 +36,8 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		foreach ( array_keys( $this->overwrite ) as $key ) {
 			papi_cache_delete( $key, $post_id );
 		}
+
+		clean_post_cache( $post_id );
 	}
 
 	/**
@@ -91,7 +93,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 
 		if ( $meta_type === 'post' && $post_type = get_post_type_object( $post->post_type ) ) {
 			// Check so the id is a post id and not a autosave post.
-			if ( $this->valid_post_id( $id ) ) {
+			if ( ! $this->valid_post_id( $id ) ) {
 				return;
 			}
 
@@ -106,6 +108,15 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 
 				foreach ( $slugs as $slug ) {
 					papi_update_field( $id, $slug, papi_get_field( $parent_id, $slug ) );
+				}
+			}
+
+			// Delete all oEmbed caches.
+			if ( class_exists( 'WP_Embed' ) ) {
+				global $wp_embed;
+
+				if ( $wp_embed instanceof WP_Embed ) {
+					$wp_embed->delete_oembed_caches( $id );
 				}
 			}
 		}
@@ -198,15 +209,20 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		$key = papi_get_sanitized_post( 'action' ) === 'save-attachment-compat' ? 'id' : 'post_ID';
 		$val = papi_get_sanitized_post( $key );
 
-		// When autosave is in place the post id is located deeper in the post data array.
+		// When autosave is in place the post id is located deeper in the post data array, the ids should not match.
 		if ( isset( $_POST['data'], $_POST['data']['wp_autosave'], $_POST['data']['wp_autosave']['post_id'] ) ) {
-			$val = sanitize_text_field( $_POST['data']['wp_autosave']['post_id'] );
+			return sanitize_text_field( $_POST['data']['wp_autosave']['post_id'] ) !== strval( $post_id );
 		}
 
-		return $val !== strval( $post_id );
+		// Should not be the same id when `wp-preview` equals `dopreview`.
+		if ( isset( $_POST['wp-preview'] ) && strtolower( $_POST['wp-preview'] ) === 'dopreview' ) {
+			return $val !== strval( $post_id );
+		}
+
+		return $val === strval( $post_id );
 	}
 }
 
-if ( is_admin() ) {
+if ( papi_is_admin() ) {
 	new Papi_Admin_Meta_Handler;
 }

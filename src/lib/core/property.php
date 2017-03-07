@@ -1,6 +1,40 @@
 <?php
 
 /**
+<<<<<<< HEAD
+=======
+ * Convert array of slugs to array with arrays in.
+ *
+ * @param  array  $values
+ * @param  string $slug
+ *
+ * @return array
+ */
+function papi_from_property_array_slugs( array $values, $slug ) {
+	$results = [];
+
+	if ( empty( $values ) ) {
+		return $results;
+	}
+
+	for ( $i = 0; $i < $values[$slug]; $i++ ) {
+		$item      = [];
+		$item_slug = $slug . '_' . $i . '_';
+		$keys      = preg_grep( '/' . preg_quote( $item_slug ) . '/', array_keys( $values ) );
+
+		foreach ( $keys as $key ) {
+			$arr_key        = str_replace( $item_slug, '', $key );
+			$item[$arr_key] = $values[$key];
+		}
+
+		$results[] = $item;
+	}
+
+	return $results;
+}
+
+/**
+>>>>>>> master
  * Check if the given value is a instance of a property or not.
  *
  * @param  mixed $value

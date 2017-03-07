@@ -1,358 +1,350 @@
+# Copyright (C) 2016 papi
+# This file is distributed under the same license as the papi package.
 msgid ""
 msgstr ""
 "Project-Id-Version: papi\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-18 16:03+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Basepath:..\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/admin/class-papi-admin-assets.php:62
-#: src/properties/class-papi-property-flexible.php:751
-#: src/properties/class-papi-property-flexible.php:774
-#: src/properties/class-papi-property-repeater.php:772
-#: src/properties/class-papi-property-repeater.php:794
-msgid "Remove"
+#: ../src/admin/class-papi-admin-assets.php:51
+msgid "Close"
 msgstr ""
 
-#: src/admin/class-papi-admin-assets.php:63
-msgid "This fields are required:"
-msgstr ""
-
-#: src/admin/class-papi-admin-columns.php:68
-msgid "Type"
-msgstr ""
-
-#: src/admin/class-papi-admin-columns.php:175
-msgid "All types"
-msgstr ""
-
-#: src/admin/class-papi-admin-menu.php:131
-#: src/admin/class-papi-admin-menu.php:180
-#: src/admin/class-papi-admin-menu.php:181
-#: src/types/class-papi-page-type.php:193
-#: src/types/class-papi-taxonomy-type.php:66
-msgid "Add New"
-msgstr ""
-
-#: src/admin/class-papi-admin-taxonomy.php:50
-#, php-format
-msgid "%s type"
-msgstr ""
-
-#: src/admin/class-papi-admin.php:39 src/admin/class-papi-admin.php:48
-#: src/papi-loader.php:75 src/papi-loader.php:84
-msgid "Cheatin&#8217; huh?"
-msgstr ""
-
-#: src/admin/class-papi-admin.php:238
-msgid "View Papi Documentation"
-msgstr ""
-
-#: src/admin/class-papi-admin.php:238
-msgid "Docs"
-msgstr ""
-
-#: src/admin/views/add-new-page.php:8
-#, php-format
-msgid "Add New %s"
-msgstr ""
-
-#: src/admin/views/partials/add-new-item.php:9
-msgid "Thumbnail missing"
-msgstr ""
-
-#: src/admin/views/partials/add-new-item.php:22
-#: src/properties/class-papi-property-relationship.php:134
-msgid "Select"
-msgstr ""
-
-#: src/lib/hooks/filters-page-type.php:58
-#, php-format
-msgid "%s with WordPress standard fields"
-msgstr ""
-
-#: src/lib/hooks/filters-page-type.php:80
-#: src/lib/hooks/filters-taxonomy-type.php:14
-#, php-format
-msgid "Standard %s"
-msgstr ""
-
-#: src/papi-loader.php:240
-msgid ""
-"WordPress 4.0 and higher required to run Papi! The plugin has now disabled "
-"itself."
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:32
-msgid "Previous Month"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:33
-msgid "Next Month"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:34
-msgid "Midnight"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:36
-msgid "January"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:37
-msgid "February"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:38
-msgid "March"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:39
-msgid "April"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:40
-msgid "May"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:41
-msgid "June"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:42
-msgid "July"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:43
-msgid "August"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:44
-msgid "September"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:45
-msgid "October"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:46
-msgid "November"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:47
-msgid "December"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:49
-msgid "Noon"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:51
-msgid "Sunday"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:52
-msgid "Monday"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:53
-msgid "Tuesday"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:54
-msgid "Wednesday"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:55
-msgid "Thursday"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:56
-msgid "Friday"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:57
-msgid "Saturday"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:60
-msgid "Sun"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:61
-msgid "Mon"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:62
-msgid "Tue"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:63
-msgid "Wed"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:64
-msgid "Thu"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:65
-msgid "Fri"
-msgstr ""
-
-#: src/properties/class-papi-property-datetime.php:66
-msgid "Sat"
-msgstr ""
-
-#: src/properties/class-papi-property-file.php:104
-msgid "Add file"
-msgstr ""
-
-#: src/properties/class-papi-property-file.php:105
-msgid "No file selected"
-msgstr ""
-
-#: src/properties/class-papi-property-image.php:22
-msgid "Add image"
-msgstr ""
-
-#: src/properties/class-papi-property-image.php:23
-msgid "No image selected"
-msgstr ""
-
-#: src/properties/class-papi-property-link.php:139
-#: src/properties/class-papi-property-link.php:238
-msgid "URL"
-msgstr ""
-
-#: src/properties/class-papi-property-link.php:147
-#: src/properties/class-papi-property-link.php:248
-msgid "Title"
-msgstr ""
-
-#: src/properties/class-papi-property-link.php:154
-#: src/properties/class-papi-property-link.php:257
-msgid "Target"
-msgstr ""
-
-#: src/properties/class-papi-property-link.php:156
-msgid "New window"
-msgstr ""
-
-#: src/properties/class-papi-property-link.php:156
-msgid "Same window"
-msgstr ""
-
-#: src/properties/class-papi-property-link.php:166
-msgid "No link selected"
-msgstr ""
-
-#: src/properties/class-papi-property-link.php:167
-msgid "Add link"
-msgstr ""
-
-#: src/properties/class-papi-property-link.php:170
-msgid "Edit link"
-msgstr ""
-
-#: src/properties/class-papi-property-link.php:171
-msgid "Remove link"
-msgstr ""
-
-#: src/properties/class-papi-property-post.php:42
-msgid "Select Post Type"
-msgstr ""
-
-#: src/properties/class-papi-property-post.php:43
-#, php-format
-msgid "Select %s"
-msgstr ""
-
-#: src/properties/class-papi-property-reference.php:92
-msgid "No references exists"
-msgstr ""
-
-#: src/properties/class-papi-property-relationship.php:104
-msgid "Post"
-msgstr ""
-
-#: src/properties/class-papi-property-relationship.php:136
-msgid "Name (alphabetically)"
-msgstr ""
-
-#: src/properties/class-papi-property-relationship.php:144
-msgid "Post created date (ascending)"
-msgstr ""
-
-#: src/properties/class-papi-property-relationship.php:148
-msgid "Post created date (descending)"
-msgstr ""
-
-#: src/properties/class-papi-property-relationship.php:152
-msgid "Post id (ascending)"
-msgstr ""
-
-#: src/properties/class-papi-property-relationship.php:157
-msgid "Post id (descending)"
-msgstr ""
-
-#: src/properties/class-papi-property-relationship.php:162
-msgid "Post order value (ascending)"
-msgstr ""
-
-#: src/properties/class-papi-property-relationship.php:166
-msgid "Post order value (descending)"
-msgstr ""
-
-#: src/properties/class-papi-property-relationship.php:170
-msgid "Post modified date (ascending)"
-msgstr ""
-
-#: src/properties/class-papi-property-relationship.php:174
-msgid "Post modified date (descending)"
-msgstr ""
-
-#: src/properties/class-papi-property-relationship.php:263
-msgid "Search"
-msgstr ""
-
-#: src/properties/class-papi-property-relationship.php:268
-msgid "Sort by"
-msgstr ""
-
-#: src/properties/class-papi-property-repeater.php:142
-msgid "Add new row"
-msgstr ""
-
-#: src/properties/class-papi-property-term.php:40
-msgid "Select Taxonomy"
-msgstr ""
-
-#: src/properties/class-papi-property-term.php:41
-#, php-format
-msgid "Select %s term"
-msgstr ""
-
-#: src/properties/class-papi-property-url.php:42
-msgid "Select file"
-msgstr ""
-
-#: src/types/class-papi-page-type.php:194
-#: src/types/class-papi-taxonomy-type.php:67
+#: ../src/admin/class-papi-admin-assets.php:52, ../src/admin/class-papi-admin-page-type-switcher.php:39, ../src/types/class-papi-page-type.php:201, ../src/types/class-papi-taxonomy-type.php:67
 msgid "Edit"
 msgstr ""
 
-#: src/types/class-papi-page-type.php:195
-#: src/types/class-papi-taxonomy-type.php:68
+#: ../src/admin/class-papi-admin-assets.php:53, ../src/properties/class-papi-property-flexible.php:757, ../src/properties/class-papi-property-flexible.php:780, ../src/properties/class-papi-property-repeater.php:793, ../src/properties/class-papi-property-repeater.php:815
+msgid "Remove"
+msgstr ""
+
+#: ../src/admin/class-papi-admin-assets.php:54
+msgid "This fields are required:"
+msgstr ""
+
+#: ../src/admin/class-papi-admin-columns.php:68
+msgid "Type"
+msgstr ""
+
+#: ../src/admin/class-papi-admin-columns.php:175
+msgid "All types"
+msgstr ""
+
+#: ../src/admin/class-papi-admin-entry-taxonomy.php:50
+msgid "%s type"
+msgstr ""
+
+#: ../src/admin/class-papi-admin-menu.php:125, ../src/admin/class-papi-admin-menu.php:172, ../src/admin/class-papi-admin-menu.php:173, ../src/types/class-papi-page-type.php:200, ../src/types/class-papi-taxonomy-type.php:66
+msgid "Add New"
+msgstr ""
+
+#: ../src/admin/class-papi-admin-page-type-switcher.php:35
+msgid "Page Type:"
+msgstr ""
+
+#: ../src/admin/class-papi-admin-page-type-switcher.php:57
+msgid "OK"
+msgstr ""
+
+#: ../src/admin/class-papi-admin-page-type-switcher.php:58
+msgid "Cancel"
+msgstr ""
+
+#: ../src/admin/class-papi-admin.php:38, ../src/admin/class-papi-admin.php:47, ../src/papi-loader.php:75, ../src/papi-loader.php:84
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: ../src/admin/class-papi-admin.php:184
+msgid "View Papi Documentation"
+msgstr ""
+
+#: ../src/admin/class-papi-admin.php:184
+msgid "Docs"
+msgstr ""
+
+#: ../src/admin/views/add-new-page.php:8
+msgid "Add New %s"
+msgstr ""
+
+#: ../src/admin/views/partials/add-new-item.php:9
+msgid "Thumbnail missing"
+msgstr ""
+
+#: ../src/admin/views/partials/add-new-item.php:22, ../src/properties/class-papi-property-relationship.php:136
+msgid "Select"
+msgstr ""
+
+#: ../src/lib/core/property.php:375
+msgid "(required field)"
+msgstr ""
+
+#: ../src/lib/hooks/filters-page-type.php:58
+msgid "%s with WordPress standard fields"
+msgstr ""
+
+#: ../src/lib/hooks/filters-page-type.php:80, ../src/lib/hooks/filters-taxonomy-type.php:31
+msgid "Standard %s"
+msgstr ""
+
+#: ../src/papi-loader.php:244
+msgid "WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself."
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:32
+msgid "Previous Month"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:33
+msgid "Next Month"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:34
+msgid "Midnight"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:36
+msgid "January"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:37
+msgid "February"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:38
+msgid "March"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:39
+msgid "April"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:40
+msgid "May"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:41
+msgid "June"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:42
+msgid "July"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:43
+msgid "August"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:44
+msgid "September"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:45
+msgid "October"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:46
+msgid "November"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:47
+msgid "December"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:49
+msgid "Noon"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:51
+msgid "Sunday"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:52
+msgid "Monday"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:53
+msgid "Tuesday"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:54
+msgid "Wednesday"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:55
+msgid "Thursday"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:56
+msgid "Friday"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:57
+msgid "Saturday"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:60
+msgid "Sun"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:61
+msgid "Mon"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:62
+msgid "Tue"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:63
+msgid "Wed"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:64
+msgid "Thu"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:65
+msgid "Fri"
+msgstr ""
+
+#: ../src/properties/class-papi-property-datetime.php:66
+msgid "Sat"
+msgstr ""
+
+#: ../src/properties/class-papi-property-file.php:104
+msgid "Add file"
+msgstr ""
+
+#: ../src/properties/class-papi-property-file.php:105
+msgid "No file selected"
+msgstr ""
+
+#: ../src/properties/class-papi-property-image.php:22
+msgid "Add image"
+msgstr ""
+
+#: ../src/properties/class-papi-property-image.php:23
+msgid "No image selected"
+msgstr ""
+
+#: ../src/properties/class-papi-property-link.php:127, ../src/properties/class-papi-property-link.php:240
+msgid "URL"
+msgstr ""
+
+#: ../src/properties/class-papi-property-link.php:135, ../src/properties/class-papi-property-link.php:250
+msgid "Title"
+msgstr ""
+
+#: ../src/properties/class-papi-property-link.php:142, ../src/properties/class-papi-property-link.php:259
+msgid "Target"
+msgstr ""
+
+#: ../src/properties/class-papi-property-link.php:144, ../src/properties/class-papi-property-link.php:263
+msgid "New window"
+msgstr ""
+
+#: ../src/properties/class-papi-property-link.php:144, ../src/properties/class-papi-property-link.php:263
+msgid "Same window"
+msgstr ""
+
+#: ../src/properties/class-papi-property-link.php:154
+msgid "No link selected"
+msgstr ""
+
+#: ../src/properties/class-papi-property-link.php:155
+msgid "Add link"
+msgstr ""
+
+#: ../src/properties/class-papi-property-link.php:158
+msgid "Edit link"
+msgstr ""
+
+#: ../src/properties/class-papi-property-link.php:159
+msgid "Remove link"
+msgstr ""
+
+#: ../src/properties/class-papi-property-post.php:42
+msgid "Select Post Type"
+msgstr ""
+
+#: ../src/properties/class-papi-property-post.php:43
+msgid "Select %s"
+msgstr ""
+
+#: ../src/properties/class-papi-property-reference.php:91
+msgid "No references exists"
+msgstr ""
+
+#: ../src/properties/class-papi-property-relationship.php:106
+msgid "Post"
+msgstr ""
+
+#: ../src/properties/class-papi-property-relationship.php:138
+msgid "Name (alphabetically)"
+msgstr ""
+
+#: ../src/properties/class-papi-property-relationship.php:146
+msgid "Post created date (ascending)"
+msgstr ""
+
+#: ../src/properties/class-papi-property-relationship.php:150
+msgid "Post created date (descending)"
+msgstr ""
+
+#: ../src/properties/class-papi-property-relationship.php:154
+msgid "Post id (ascending)"
+msgstr ""
+
+#: ../src/properties/class-papi-property-relationship.php:159
+msgid "Post id (descending)"
+msgstr ""
+
+#: ../src/properties/class-papi-property-relationship.php:164
+msgid "Post order value (ascending)"
+msgstr ""
+
+#: ../src/properties/class-papi-property-relationship.php:168
+msgid "Post order value (descending)"
+msgstr ""
+
+#: ../src/properties/class-papi-property-relationship.php:172
+msgid "Post modified date (ascending)"
+msgstr ""
+
+#: ../src/properties/class-papi-property-relationship.php:176
+msgid "Post modified date (descending)"
+msgstr ""
+
+#: ../src/properties/class-papi-property-relationship.php:277
+msgid "Search"
+msgstr ""
+
+#: ../src/properties/class-papi-property-relationship.php:282
+msgid "Sort by"
+msgstr ""
+
+#: ../src/properties/class-papi-property-repeater.php:157
+msgid "Add new row"
+msgstr ""
+
+#: ../src/properties/class-papi-property-term.php:40
+msgid "Select Taxonomy"
+msgstr ""
+
+#: ../src/properties/class-papi-property-term.php:41
+msgid "Select %s term"
+msgstr ""
+
+#: ../src/properties/class-papi-property-url.php:42
+msgid "Select file"
+msgstr ""
+
+#: ../src/types/class-papi-page-type.php:202, ../src/types/class-papi-taxonomy-type.php:68
 msgid "View"
 msgstr ""
