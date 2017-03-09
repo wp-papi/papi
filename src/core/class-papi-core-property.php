@@ -628,6 +628,64 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Load child properties.
+	 *
+	 * @param  array              $results
+	 * @param  Papi_Core_Property $property
+	 *
+	 * @return array
+	 */
+	protected function load_child_properties( array $results, $property = null ) {
+		$layout_key = substr( $this->layout_key, 1 );
+
+		foreach ( $results as $index => $row ) {
+			foreach ( $row as $slug => $value ) {
+				$children = [];
+
+				if ( $layout_key === $slug ) {
+					continue;
+				}
+
+				if ( isset( $results[$index][$layout_key] ) ) {
+					$layout = $results[$index][$layout_key];
+					$layout = $this->get_layout( $layout );
+
+					if ( ! empty( $layout ) && isset( $layout['items'] ) ) {
+						$children = $layout['items'];
+					}
+				}
+
+				$child_property = null;
+
+				foreach ( $children as $child ) {
+					if ( $child->match_slug( $slug ) ) {
+						$child_property = $child;
+					}
+				}
+
+				if ( empty( $child_property ) ) {
+					$child_property = $this->get_store()->get_property( $this->get_slug( true ), $slug );
+				}
+
+				if ( papi_is_property( $child_property ) && ! empty( $child_property->get_child_properties() ) ) {
+					$value                  = papi_from_property_array_slugs( $value, unpapify( $slug ) );
+					$results[$index][$slug] = $this->load_child_properties( $value, $child_property );
+				}
+
+				$type_key = papi_get_property_type_key_f( $slug );
+
+				if ( $property->match_slug( $slug ) ) {
+					$results[$index][$type_key] = $property;
+				} else {
+					$results[$index][$type_key] = $property->get_child_property( $slug, $children );
+				}
+			}
+		}
+
+		return $results;
+	}
+
+	/**
 	 * Match property slug with given slug value.
 	 *
 	 * @param  string $slug
