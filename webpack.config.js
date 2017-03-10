@@ -13,18 +13,18 @@ module.exports = {
     path: 'dist/js/'
   },
   resolve: {
-    extensions: ['', '.js'],
-    root: [
+    extensions: ['.js'],
+    modules: [
       path.join(__dirname, 'node_modules'),
       path.join(__dirname, 'src/assets/js')
     ]
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
           presets: ['es2015']
         }
@@ -33,6 +33,6 @@ module.exports = {
   },
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new webpack.optimize.UglifyJsPlugin({minimize: true})
+    new webpack.optimize.UglifyJsPlugin({minimize: true, sourceMap: true})
   ]
 };
