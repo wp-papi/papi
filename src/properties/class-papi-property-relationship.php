@@ -64,7 +64,7 @@ class Papi_Property_Relationship extends Papi_Property {
 					} else {
 						$args = [
 							'fields'         => 'ids',
-							'meta_key'       => $this->meta_key,
+							'meta_key'       => $this->get_setting( 'meta_key' ),
 							'meta_value'     => $id,
 							'posts_per_page' => 1,
 							'post_type'      => $this->get_setting( 'post_type' ),
