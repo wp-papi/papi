@@ -79,22 +79,23 @@ final class Papi_Admin {
 	 * @return string
 	 */
 	public function admin_body_class( $classes ) {
-		$classes .= sprintf( ' papi-meta-type-%s', papi_get_meta_type() );
-
-		// Add custom css classes from entry type.
 		if ( $entry_type = $this->get_entry_type() ) {
+			$classes .= sprintf( ' papi-body papi-meta-type-%s', papi_get_meta_type() );
+
+			// Add custom css classes from entry type.
 			$arr = $entry_type->get_body_classes();
-			$arr = is_string( $arr ) ? [$arr] : $arr;
+			$arr = is_string( $arr ) ? [ $arr ] : $arr;
 			$arr = is_array( $arr ) ? $arr : [];
 
 			$classes .= ' ' . implode( ' ', $arr );
-		}
 
-		// Add custom css classes from query string.
-		if ( $css = papi_get_qs( 'papi_css' ) ) {
-			$css = is_array( $css ) ? $css : [];
-			$css = array_map( 'sanitize_text_field', $css );
-			$classes .= ' ' . implode( ' ', $css );
+
+			// Add custom css classes from query string.
+			if ( $css = papi_get_qs( 'papi_css' ) ) {
+				$css = is_array( $css ) ? $css : [];
+				$css = array_map( 'sanitize_text_field', $css );
+				$classes .= ' ' . implode( ' ', $css );
+			}
 		}
 
 		return $classes;
