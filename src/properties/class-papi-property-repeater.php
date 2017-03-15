@@ -867,6 +867,11 @@ class Papi_Property_Repeater extends Papi_Property {
 			$property_type_value = $values[$property_type_slug]->type;
 			$property_type       = papi_get_property_type( $property_type_value );
 
+			// Move all object properties to property type class.
+			foreach (get_object_vars($values[$property_type_slug]) as $key => $val) {
+				$property_type->$key = $val;
+			}
+
 			if ( ! is_object( $property_type ) ) {
 				continue;
 			}
