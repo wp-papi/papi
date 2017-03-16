@@ -133,7 +133,7 @@ class Papi_Property_File extends Papi_Property {
 			if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
 				$post = get_post( $value );
 			}
-		} else {
+		} else if ( ! empty( $value ) ) {
 			$args = [
 				'fields'         => 'ids',
 				'meta_key'       => $meta_key,
