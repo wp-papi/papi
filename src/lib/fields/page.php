@@ -279,5 +279,5 @@ function the_papi_field( $id = null, $slug = null, $default = null ) {
 		$value = papi_convert_to_string( $value );
 	}
 
-	echo esc_html( $value );
+	echo $value; // phpcodesniffer xss whitelist
 }
