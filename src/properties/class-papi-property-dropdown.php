@@ -125,7 +125,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 			if ( $settings->multiple ) {
 				$selected = in_array( $value, $settings->selected, true );
 			} else {
-				$selected = $value === $settings->selected;
+				$selected = papi_convert_to_string( $value ) === $settings->selected;
 			}
 
 			$options_html[] = papi_html_tag( 'option', [
