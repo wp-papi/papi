@@ -279,6 +279,10 @@ class Papi_Property_Link extends Papi_Property {
 	 * @return array
 	 */
 	public function update_value( $values, $slug, $post_id ) {
+		if ( is_object( $values ) ) {
+			$values = (array) $values;
+		}
+		
 		if ( ! isset( $values['url'] ) ) {
 			$values = $this->link_fields;
 
