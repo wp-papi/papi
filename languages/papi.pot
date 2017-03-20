@@ -1,4 +1,4 @@
-# Copyright (C) 2016 papi
+# Copyright (C) 2017 papi
 # This file is distributed under the same license as the papi package.
 msgid ""
 msgstr ""
@@ -7,21 +7,29 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Basepath: ..\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../src/papi-loader.php:75, ../src/papi-loader.php:84, ../src/admin/class-papi-admin.php:38, ../src/admin/class-papi-admin.php:47
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: ../src/papi-loader.php:244
+msgid "WordPress 4.4 and higher required to run Papi! The plugin has now disabled itself."
+msgstr ""
 
 #: ../src/admin/class-papi-admin-assets.php:51
 msgid "Close"
 msgstr ""
 
-#: ../src/admin/class-papi-admin-assets.php:52, ../src/admin/class-papi-admin-page-type-switcher.php:39, ../src/types/class-papi-page-type.php:201, ../src/types/class-papi-taxonomy-type.php:67
+#: ../src/admin/class-papi-admin-assets.php:52, ../src/admin/class-papi-admin-page-type-switcher.php:39, ../src/types/class-papi-page-type.php:204, ../src/types/class-papi-taxonomy-type.php:67
 msgid "Edit"
 msgstr ""
 
-#: ../src/admin/class-papi-admin-assets.php:53, ../src/properties/class-papi-property-flexible.php:757, ../src/properties/class-papi-property-flexible.php:780, ../src/properties/class-papi-property-repeater.php:793, ../src/properties/class-papi-property-repeater.php:815
+#: ../src/admin/class-papi-admin-assets.php:53, ../src/properties/class-papi-property-flexible.php:824, ../src/properties/class-papi-property-flexible.php:847, ../src/properties/class-papi-property-repeater.php:790, ../src/properties/class-papi-property-repeater.php:812
 msgid "Remove"
 msgstr ""
 
@@ -41,7 +49,7 @@ msgstr ""
 msgid "%s type"
 msgstr ""
 
-#: ../src/admin/class-papi-admin-menu.php:125, ../src/admin/class-papi-admin-menu.php:172, ../src/admin/class-papi-admin-menu.php:173, ../src/types/class-papi-page-type.php:200, ../src/types/class-papi-taxonomy-type.php:66
+#: ../src/admin/class-papi-admin-menu.php:125, ../src/admin/class-papi-admin-menu.php:172, ../src/admin/class-papi-admin-menu.php:173, ../src/types/class-papi-page-type.php:203, ../src/types/class-papi-taxonomy-type.php:66
 msgid "Add New"
 msgstr ""
 
@@ -57,44 +65,12 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: ../src/admin/class-papi-admin.php:38, ../src/admin/class-papi-admin.php:47, ../src/papi-loader.php:75, ../src/papi-loader.php:84
-msgid "Cheatin&#8217; huh?"
-msgstr ""
-
-#: ../src/admin/class-papi-admin.php:184
+#: ../src/admin/class-papi-admin.php:185
 msgid "View Papi Documentation"
 msgstr ""
 
-#: ../src/admin/class-papi-admin.php:184
+#: ../src/admin/class-papi-admin.php:185
 msgid "Docs"
-msgstr ""
-
-#: ../src/admin/views/add-new-page.php:8
-msgid "Add New %s"
-msgstr ""
-
-#: ../src/admin/views/partials/add-new-item.php:9
-msgid "Thumbnail missing"
-msgstr ""
-
-#: ../src/admin/views/partials/add-new-item.php:22, ../src/properties/class-papi-property-relationship.php:136
-msgid "Select"
-msgstr ""
-
-#: ../src/lib/core/property.php:375
-msgid "(required field)"
-msgstr ""
-
-#: ../src/lib/hooks/filters-page-type.php:58
-msgid "%s with WordPress standard fields"
-msgstr ""
-
-#: ../src/lib/hooks/filters-page-type.php:80, ../src/lib/hooks/filters-taxonomy-type.php:31
-msgid "Standard %s"
-msgstr ""
-
-#: ../src/papi-loader.php:244
-msgid "WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself."
 msgstr ""
 
 #: ../src/properties/class-papi-property-datetime.php:32
@@ -217,11 +193,11 @@ msgstr ""
 msgid "Sat"
 msgstr ""
 
-#: ../src/properties/class-papi-property-file.php:104
+#: ../src/properties/class-papi-property-file.php:117
 msgid "Add file"
 msgstr ""
 
-#: ../src/properties/class-papi-property-file.php:105
+#: ../src/properties/class-papi-property-file.php:118
 msgid "No file selected"
 msgstr ""
 
@@ -269,11 +245,11 @@ msgstr ""
 msgid "Remove link"
 msgstr ""
 
-#: ../src/properties/class-papi-property-post.php:42
+#: ../src/properties/class-papi-property-post.php:70
 msgid "Select Post Type"
 msgstr ""
 
-#: ../src/properties/class-papi-property-post.php:43
+#: ../src/properties/class-papi-property-post.php:71
 msgid "Select %s"
 msgstr ""
 
@@ -281,51 +257,15 @@ msgstr ""
 msgid "No references exists"
 msgstr ""
 
-#: ../src/properties/class-papi-property-relationship.php:106
+#: ../src/properties/class-papi-property-relationship.php:145
 msgid "Post"
 msgstr ""
 
-#: ../src/properties/class-papi-property-relationship.php:138
-msgid "Name (alphabetically)"
-msgstr ""
-
-#: ../src/properties/class-papi-property-relationship.php:146
-msgid "Post created date (ascending)"
-msgstr ""
-
-#: ../src/properties/class-papi-property-relationship.php:150
-msgid "Post created date (descending)"
-msgstr ""
-
-#: ../src/properties/class-papi-property-relationship.php:154
-msgid "Post id (ascending)"
-msgstr ""
-
-#: ../src/properties/class-papi-property-relationship.php:159
-msgid "Post id (descending)"
-msgstr ""
-
-#: ../src/properties/class-papi-property-relationship.php:164
-msgid "Post order value (ascending)"
-msgstr ""
-
-#: ../src/properties/class-papi-property-relationship.php:168
-msgid "Post order value (descending)"
-msgstr ""
-
-#: ../src/properties/class-papi-property-relationship.php:172
-msgid "Post modified date (ascending)"
-msgstr ""
-
-#: ../src/properties/class-papi-property-relationship.php:176
-msgid "Post modified date (descending)"
-msgstr ""
-
-#: ../src/properties/class-papi-property-relationship.php:277
+#: ../src/properties/class-papi-property-relationship.php:334
 msgid "Search"
 msgstr ""
 
-#: ../src/properties/class-papi-property-relationship.php:282
+#: ../src/properties/class-papi-property-relationship.php:339
 msgid "Sort by"
 msgstr ""
 
@@ -333,11 +273,11 @@ msgstr ""
 msgid "Add new row"
 msgstr ""
 
-#: ../src/properties/class-papi-property-term.php:40
+#: ../src/properties/class-papi-property-term.php:69
 msgid "Select Taxonomy"
 msgstr ""
 
-#: ../src/properties/class-papi-property-term.php:41
+#: ../src/properties/class-papi-property-term.php:70
 msgid "Select %s term"
 msgstr ""
 
@@ -345,6 +285,30 @@ msgstr ""
 msgid "Select file"
 msgstr ""
 
-#: ../src/types/class-papi-page-type.php:202, ../src/types/class-papi-taxonomy-type.php:68
+#: ../src/types/class-papi-page-type.php:205, ../src/types/class-papi-taxonomy-type.php:68
 msgid "View"
+msgstr ""
+
+#: ../src/admin/views/add-new-page.php:8
+msgid "Add New %s"
+msgstr ""
+
+#: ../src/lib/core/property.php:327
+msgid "(required field)"
+msgstr ""
+
+#: ../src/lib/hooks/filters-page-type.php:58
+msgid "%s with WordPress standard fields"
+msgstr ""
+
+#: ../src/lib/hooks/filters-page-type.php:80, ../src/lib/hooks/filters-taxonomy-type.php:31
+msgid "Standard %s"
+msgstr ""
+
+#: ../src/admin/views/partials/add-new-item.php:9
+msgid "Thumbnail missing"
+msgstr ""
+
+#: ../src/admin/views/partials/add-new-item.php:22
+msgid "Select"
 msgstr ""
