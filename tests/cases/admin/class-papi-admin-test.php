@@ -5,6 +5,16 @@
  */
 class Papi_Admin_Test extends WP_UnitTestCase {
 
+	/**
+	 * @var Papi_Admin
+	 */
+	protected $admin;
+
+	/**
+	 * @var int
+	 */
+	protected $post_id;
+
 	public function setUp() {
 		parent::setUp();
 		$this->admin = new Papi_Admin;
@@ -76,7 +86,8 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$output = $this->admin->plugin_row_meta( [], 'fake/fake.php' );
 		$this->assertEmpty( $output );
 
-		$output = $this->admin->plugin_row_meta( [], 'papi/papi-loader.php' );
+		$testroot = basename( dirname( PAPI_PLUGIN_DIR ) );
+		$output = $this->admin->plugin_row_meta( [], $testroot . '/papi-loader.php' );
 		$this->assertArrayHasKey( 'docs', $output );
 	}
 
