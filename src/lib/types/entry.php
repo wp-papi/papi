@@ -306,7 +306,7 @@ function papi_get_entry_type_by_id( $id ) {
 		$result = papi_get_entry_type( $path );
 	}
 
-	// Support 'class' prefixed file names.
+	// Check for class prefixed id when a old id that don't have the class prefix.
 	if ( is_null( $result ) && strpos( $id, 'class-' ) === false ) {
 		$parts = explode( '/', $id );
 		$parts[count( $parts ) - 1] = 'class-' . $parts[count( $parts ) - 1];
