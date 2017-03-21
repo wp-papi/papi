@@ -170,6 +170,9 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 
 		$simple_page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 		$this->assertTrue( is_object( $simple_page_type ) );
+
+		$settings_option_type = papi_get_entry_type_by_id( 'options/settings-option-type' );
+		$this->assertTrue( is_object( $settings_option_type ) );
 	}
 
 	public function test_papi_get_entry_type_by_meta_id() {

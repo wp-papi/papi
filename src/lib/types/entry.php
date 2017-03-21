@@ -284,7 +284,11 @@ function papi_get_entry_type_by_id( $id ) {
 	}
 
 	if ( papi()->exists( $id ) ) {
-		return papi()->make( $id );
+		$value = papi()->make( $id );
+
+		if ( $value instanceof Papi_Entry_Type ) {
+			return $value;
+		}
 	}
 
 	$result      = null;
@@ -300,6 +304,13 @@ function papi_get_entry_type_by_id( $id ) {
 	if ( is_null( $result ) ) {
 		$path   = papi_get_file_path( $id );
 		$result = papi_get_entry_type( $path );
+	}
+
+	// Support 'class' prefixed file names.
+	if ( is_null( $result ) && strpos( $id, 'class-' ) === false ) {
+		$parts = explode( '/', $id );
+		$parts[count( $parts ) - 1] = 'class-' . $parts[count( $parts ) - 1];
+		$result = papi_get_entry_type_by_id( implode( '/', $parts ) );
 	}
 
 	return $result;
