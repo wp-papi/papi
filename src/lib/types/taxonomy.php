@@ -75,7 +75,7 @@ function papi_load_taxonomy_type_id( $entry_type_id = '', $type = 'term' ) {
 	if ( empty( $entry_type_id ) ) {
 		$key = sprintf( 'entry_type_id.taxonomy.%s', $taxonomy );
 
-		if ( papi()->exists( $key )  ) {
+		if ( papi()->exists( $key ) ) {
 			return papi()->make( $key );
 		}
 

@@ -379,7 +379,7 @@ class Papi_Property_File extends Papi_Property {
 	 */
 	public function update_value( $values, $slug, $post_id ) {
 		if ( ! is_array( $values ) ) {
-			$values = $this->get_file_value( (object)[
+			$values = $this->get_file_value( (object) [
 				'id' => $values
 			] );
 
@@ -395,7 +395,7 @@ class Papi_Property_File extends Papi_Property {
 				continue;
 			}
 
-			$values[$index] = $this->get_file_value( (object)[
+			$values[$index] = $this->get_file_value( (object) [
 				'id' => $value
 			] );
 		}

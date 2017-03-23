@@ -167,7 +167,7 @@ class Papi_Property extends Papi_Core_Property {
 			echo '</div>';
 		} else {
 			?>
-			<tr class="<?php echo $css_class; ?>">
+			<tr class="<?php echo esc_attr( $css_class ); ?>">
 				<?php if ( $this->get_option( 'sidebar' ) && $this->get_option( 'layout' ) === 'horizontal' ): ?>
 					<td class="papi-table-sidebar">
 						<?php

@@ -90,7 +90,7 @@ class Papi_Property_Relationship extends Papi_Property {
 						$ids = wp_list_pluck( [$value], 'id' );
 						$ids = count( $ids ) > 0 ? strval( $ids[0] ) : '';
 
-						if ( $ids === (string) $id  ) {
+						if ( $ids === (string) $id ) {
 							$item = $value;
 							break;
 						}

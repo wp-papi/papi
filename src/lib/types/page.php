@@ -197,7 +197,7 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 	if ( empty( $entry_type_id ) ) {
 		$key = sprintf( 'entry_type_id.post_type.%s', $post_type );
 
-		if ( papi()->exists( $key )  ) {
+		if ( papi()->exists( $key ) ) {
 			return papi()->make( $key );
 		}
 

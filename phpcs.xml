@@ -19,7 +19,15 @@
     <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores" />
     <exclude name="Generic.PHP.DisallowAlternativePHPTags.MaybeASPShortOpenTagFound" />
     <exclude name="Generic.PHP.DisallowAlternativePHPTags.MaybeASPOpenTagFound" />
-    <exclude name="PSR2"></exclude>
+    <exclude name="PSR2" />
+    <!-- allow papi-loader.php -->
+    <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+    <!-- allow if ( $value = func() ) -->
+    <exclude name="Squiz.PHP.DisallowMultipleAssignments.Found" />
+    <!-- allow __, esc_html__ and so without translators comment -->
+    <exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
+    <!-- allow ['key' => $value] -->
+    <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeKeyFound" />
   </rule>
 
 
