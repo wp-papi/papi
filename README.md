@@ -39,19 +39,19 @@ Or manually add it to your `composer.json`:
 Install dependencies:
 
 ```
-$ make deps
+make deps
 ```
 
 Build CSS:
 
 ```
-$ make css
+make css
 ```
 
 Build JavaScript:
 
 ```
-$ make js
+make js
 ```
 
 ## Testing
@@ -63,7 +63,7 @@ Visit the [readme](tests/README.md) file for testing.
 You can check if your contribution passes the styleguide by installing [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and running the following in your Papi directory:
 
 ```
-$ vendor/bin/phpcs -s --extensions=php --standard=phpcs.xml src/
+make lint:php
 ```
 
 ## Contributing
