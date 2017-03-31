@@ -161,6 +161,9 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$_GET['taxonomy'] = 'category';
 
 		$this->assertEmpty( papi_get_page_type_id() );
+
+		unset( $_GET['post_type'] );
+		unset( $_GET['taxonomy'] );
 	}
 
 	public function test_papi_get_page_type_key() {
