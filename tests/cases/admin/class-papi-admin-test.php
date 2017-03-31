@@ -27,7 +27,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 	public function tearDown() {
 		parent::tearDown();
-		unset( $this->admin, $this->post_id );
+		unset( $this->admin, $this->post_id, $_GET );
 	}
 
 	public function register_template_paths( $new_templates ) {

@@ -10,6 +10,12 @@ class Papi_Admin_Entry_Taxonomy_Test extends WP_UnitTestCase {
 		papi()->reset();
 	}
 
+	public function tearDown() {
+		parent::tearDown();
+
+		unset( $_GET );
+	}
+
 	public function test_add_form_fields_empty() {
 		$admin = new Papi_Admin_Entry_Taxonomy;
 		$admin->add_form_fields();
@@ -17,8 +23,6 @@ class Papi_Admin_Entry_Taxonomy_Test extends WP_UnitTestCase {
 	}
 
 	public function test_add_form_fields_single() {
-		papi()->reset();
-
 		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
@@ -29,13 +33,9 @@ class Papi_Admin_Entry_Taxonomy_Test extends WP_UnitTestCase {
 		$admin->setup_taxonomies_hooks();
 		$admin->add_form_fields();
 		$this->expectOutputRegex( '/input.*name\=\"\_papi\_page\_type\"/' );
-
-		unset( $_GET['taxonomy'] );
 	}
 
 	public function test_add_form_fields_single_plus_standard() {
-		papi()->reset();
-
 		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
@@ -48,13 +48,9 @@ class Papi_Admin_Entry_Taxonomy_Test extends WP_UnitTestCase {
 		$admin->setup_taxonomies_hooks();
 		$admin->add_form_fields();
 		$this->expectOutputRegex( '/select.*name\=\"\_papi\_page\_type\"/' );
-
-		unset( $_GET['taxonomy'] );
 	}
 
 	public function test_add_form_fields_several() {
-		papi()->reset();
-
 		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];
 		} );
@@ -65,13 +61,9 @@ class Papi_Admin_Entry_Taxonomy_Test extends WP_UnitTestCase {
 		$admin->setup_taxonomies_hooks();
 		$admin->add_form_fields();
 		$this->expectOutputRegex( '/select.*name\=\"\_papi\_page\_type\"/' );
-
-		unset( $_GET['taxonomy'] );
 	}
 
 	public function test_setup_actions() {
-		papi()->reset();
-
 		$admin = new Papi_Admin_Entry_Taxonomy;
 		$this->assertSame( 10, has_action( 'admin_init', [$admin, 'setup_taxonomies_hooks'] ) );
 		$this->assertFalse( has_action( 'category_add_form_fields', [$admin, 'add_form_fields'] ) );

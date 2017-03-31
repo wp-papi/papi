@@ -30,6 +30,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin_Columns;
 		$arr = $admin->manage_page_type_posts_columns( [] );
 		$this->assertEmpty( $arr );
+		unset( $_GET['post_type'] );
 	}
 
 	public function test_manage_page_type_posts_columns_hide_filter() {
@@ -53,6 +54,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 
 		$arr = $admin->manage_page_type_posts_columns( [] );
 		$this->assertSame( ['entry_type' => 'Typer'], $arr );
+		unset( $_GET['post_type'] );
 	}
 
 	public function test_manage_page_type_posts_custom_column_standard() {
@@ -60,6 +62,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin_Columns;
 		$admin->manage_page_type_posts_custom_column( 'entry_type', $this->post_id );
 		$this->expectOutputRegex( '/Standard\sPage/' );
+		unset( $_GET['post_type'] );
 	}
 
 	public function test_manage_page_type_posts_custom_column_empty() {
@@ -67,6 +70,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin_Columns;
 		$admin->manage_page_type_posts_custom_column( '', $this->post_id );
 		$this->expectOutputRegex( '//' );
+		unset( $_GET['post_type'] );
 	}
 
 	public function test_manage_page_type_posts_custom_column_auto() {
@@ -75,6 +79,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin_Columns;
 		$admin->manage_page_type_posts_custom_column( 'entry_type', $this->post_id );
 		$this->expectOutputRegex( '/Simple page/' );
+		unset( $_GET['post_type'] );
 	}
 
 	public function test_manage_page_type_posts_custom_column_fake() {
@@ -83,6 +88,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin_Columns;
 		$admin->manage_page_type_posts_custom_column( 'entry_type', $post_id );
 		$this->expectOutputRegex( '//' );
+		unset( $_GET['post_type'] );
 	}
 
 	public function test_manage_taxonomy_posts_custom_column_empty() {
@@ -90,6 +96,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin_Columns;
 		$admin->manage_page_type_posts_custom_column( '', '', $this->term_id );
 		$this->expectOutputRegex( '//' );
+		unset( $_GET['taxonomy'] );
 	}
 
 	public function test_manage_page_type_posts_custom_column_hide_filter() {
@@ -100,6 +107,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 
 		$admin->manage_page_type_posts_custom_column( 'entry_type', $this->post_id );
 		$this->expectOutputRegex( '//' );
+		unset( $_GET['post_type'] );
 	}
 
 	public function test_pre_get_posts() {
@@ -122,6 +130,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 				'compare' => 'NOT EXISTS'
 			]
 		], $query->query_vars['meta_query'] );
+		unset( $_GET['page_type'] );
 	}
 
 	public function test_restrict_page_types() {
@@ -129,6 +138,7 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin_Columns;
 		$admin->restrict_page_types();
 		$this->expectOutputRegex( '//' );
+		unset( $_GET['post_type'] );
 	}
 
 	public function test_restrict_page_types_2() {
@@ -137,12 +147,14 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$admin = new Papi_Admin_Columns;
 		$admin->restrict_page_types();
 		$this->expectOutputRegex( '/.*\S.*/' );
+		unset( $_GET['post_type'] );
 	}
 
 	public function test_setup_actions() {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin_Columns;
 		$this->assertSame( 10, has_action( 'restrict_manage_posts', [$admin, 'restrict_page_types'] ) );
+		unset( $_GET['post_type'] );
 	}
 
 	public function test_setup_filters() {
@@ -151,5 +163,6 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		$this->assertSame( 10, has_filter( 'pre_get_posts', [$admin, 'pre_get_posts'] ) );
 		$this->assertSame( 10, has_filter( 'manage_page_posts_columns', [$admin, 'manage_page_type_posts_columns'] ) );
 		$this->assertSame( 10, has_filter( 'manage_page_posts_custom_column', [$admin, 'manage_page_type_posts_custom_column'] ) );
+		unset( $_GET['post_type'] );
 	}
 }

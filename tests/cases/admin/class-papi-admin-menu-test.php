@@ -8,6 +8,8 @@ class Papi_Admin_Menu_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
+		papi()->reset();
+
 		$_GET  = [];
 		$_POST = [];
 		$this->menu = new Papi_Admin_Menu();

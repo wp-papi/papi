@@ -28,6 +28,13 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	public $description = '';
 
 	/**
+	 * Disable metabox ordering.
+	 *
+	 * @var bool
+	 */
+	public $disable_metabox_ordering = false;
+
+	/**
 	 * Fill labels.
 	 *
 	 * @var bool
@@ -343,6 +350,9 @@ class Papi_Page_Type extends Papi_Entry_Type {
 			add_filter( 'enter_title_here', function () {
 				return $this->labels['title_placeholder'];
 			} );
+		}
+
+		if ( $this->disable_metabox_ordering ) {
 		}
 	}
 

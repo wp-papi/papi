@@ -13,6 +13,14 @@ class Papi_Admin_Page_Type_Switcher_Test extends WP_UnitTestCase {
 		} );
 	}
 
+	public function tearDown() {
+		parent::tearDown();
+
+		unset(
+			$_GET
+		);
+	}
+
 	public function test_admin_init() {
 		$switcher = new Papi_Admin_Page_Type_Switcher;
 		$switcher->admin_init();

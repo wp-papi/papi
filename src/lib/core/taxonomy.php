@@ -43,7 +43,7 @@ function papi_get_taxonomy( $term_id = null ) {
 
 	$term_id = papi_get_term_id( $term_id );
 
-	if ( $term_id !== 0 ) {
+	if ( ! empty( $term_id ) ) {
 		$term = get_term( $term_id, '' );
 
 		if ( is_object( $term ) && ! is_wp_error( $term ) ) {

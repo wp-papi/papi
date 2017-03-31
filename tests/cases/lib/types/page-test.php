@@ -148,8 +148,6 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_get_page_type_id_taxonomy() {
-		$post_id = $this->factory->post->create();
-
 		$_GET['post_type'] = 'module';
 
 		add_filter( 'papi/settings/only_page_type_module', function () {
