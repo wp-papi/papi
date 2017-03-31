@@ -154,7 +154,7 @@ class Papi_Core_Data_Handler {
 			$property_type_key = papify( papi_get_property_type_key( $key ) );
 
 			// Check if value exists.
-			if ( ! isset( $data[$key] ) && ! isset( $data[$property_type_key] ) ) {
+			if ( ! isset( $data[$key] ) || ! isset( $data[$property_type_key] ) ) {
 				continue;
 			}
 
