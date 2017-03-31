@@ -167,6 +167,12 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 	$key       = papi_get_page_type_key();
 	$post_id   = papi_get_post_id();
 	$post_type = papi_get_post_type( $post_id );
+	$taxonomy  = papi_get_taxonomy();
+
+	// Bail if a taxonomy value exists.
+	if ( ! empty( $taxonomy ) ) {
+		return $entry_type_id;
+	}
 
 	// Try to load the entry type id from only page type filter.
 	if ( empty( $entry_type_id ) ) {

@@ -58,13 +58,6 @@ function papi_get_parent_post_id() {
  * @return string
  */
 function papi_get_post_type( $post_id = null ) {
-	global $taxnow;
-
-	// Taxonomies should not have post types
-	if ( ! empty( $taxnow ) ) {
-		return '';
-	}
-
 	if ( $post_type = papi_get_or_post( 'post_type' ) ) {
 		return $post_type;
 	}
