@@ -26,7 +26,7 @@ class Papi_Property_Term extends Papi_Property {
 
 		if ( empty( $meta_key ) ) {
 			if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
-				$term = get_term( $value );
+				$term_id = $value;
 			}
 		} else {
 			$args = [
@@ -41,17 +41,19 @@ class Papi_Property_Term extends Papi_Property {
 			$terms = get_terms( $args );
 
 			if ( ! empty( $terms ) ) {
-				$term = get_term( $terms[0] );
+				$term_id = $terms[0];
 			}
-		}
-
-		if ( empty( $term ) ) {
-			return $this->default_value;
 		}
 
 		// Allow only id to be returned.
 		if ( ! papi_is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
-			return $this->get_term_value( $term );
+			$term = $term_id;
+		} elseif ( ! empty( $term_id ) ) {
+			$term = get_term( $term_id );
+		}
+
+		if ( empty( $term ) || is_wp_error( $term ) ) {
+			$term = $this->default_value;
 		}
 
 		return $term;
@@ -136,18 +138,18 @@ class Papi_Property_Term extends Papi_Property {
 	 */
 	protected function get_term_value( $value ) {
 		$meta_key = $this->get_setting( 'meta_key' );
-		$value    = get_term( $value );
+		$term    = get_term( $value );
 
-		if ( $value instanceof WP_Term === false ) {
+		if ( $term instanceof WP_Term === false ) {
 			return 0;
 		}
 
-		if ( $value = get_term_meta( $value->term_id, $meta_key, true ) ) {
+		if ( $value = get_term_meta( $term->term_id, $meta_key, true ) ) {
 			return $value;
 		}
 
 		if ( empty( $meta_key ) ) {
-			return $value->term_id;
+			return $term->term_id;
 		}
 
 		return 0;
