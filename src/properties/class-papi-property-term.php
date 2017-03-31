@@ -47,7 +47,7 @@ class Papi_Property_Term extends Papi_Property {
 
 		// Allow only id to be returned.
 		if ( ! papi_is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
-			$term = $term_id;
+			$term = $this->get_term_value( $term_id );
 		} elseif ( ! empty( $term_id ) ) {
 			$term = get_term( $term_id );
 		}
@@ -132,27 +132,32 @@ class Papi_Property_Term extends Papi_Property {
 	/**
 	 * Get matching value based on key from a term.
 	 *
-	 * @param  mixed $value
+	 * @param  mixed $term
 	 *
 	 * @return mixed
 	 */
-	protected function get_term_value( $value ) {
+	protected function get_term_value( $term ) {
 		$meta_key = $this->get_setting( 'meta_key' );
-		$term    = get_term( $value );
 
-		if ( $term instanceof WP_Term === false ) {
-			return 0;
+		if ( is_numeric( $term ) ) {
+			$term_id = $term;
+		} else {
+			$term = get_term( $term );
+
+			if ( $term instanceof WP_Term === false ) {
+				return 0;
+			}
+
+			$term_id = $term->term_id;
 		}
 
-		if ( $value = get_term_meta( $term->term_id, $meta_key, true ) ) {
-			return $value;
+		if ( ! empty( $meta_key ) ) {
+			$value = get_term_meta( $term_id, $meta_key, true );
+		} else {
+			$value = $term_id;
 		}
 
-		if ( empty( $meta_key ) ) {
-			return $term->term_id;
-		}
-
-		return 0;
+		return $value;
 	}
 
 	/**
