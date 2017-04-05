@@ -63,7 +63,7 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 			echo '<br />';
 		}
 
-		echo '<div class="papi-property-group">';
+		echo '<div class="papi-property-group" data-papi-rule="' . $this->html_name() . '">';
 			papi_render_properties( $properties );
 		echo '</div>';
 	}
