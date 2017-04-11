@@ -42,6 +42,13 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		unset( $_GET['post_type'] );
 	}
 
+	public function test_manage_page_type_sortable_columns() {
+		$_GET['post_type'] = 'page';
+		$admin = new Papi_Admin_Columns;
+		$arr = $admin->manage_page_type_sortable_columns( [] );
+		$this->assertSame( ['entry_type' => 'entry_type'], $arr );
+	}
+
 	public function test_manage_page_type_posts_columns_title_filter() {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin_Columns;
@@ -130,6 +137,15 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 				'compare' => 'NOT EXISTS'
 			]
 		], $query->query_vars['meta_query'] );
+		unset( $_GET['page_type'] );
+
+		$_GET['page_type'] = 'papi-standard-page';
+		$_GET['orderby'] = 'entry_type';
+		$query = new WP_Query();
+		$query->set( 'orderby', 'entry_type' );
+		$query = $admin->pre_get_posts( $query );
+		$this->assertSame( papi_get_page_type_key(), $query->query_vars['meta_key'] );
+		$this->assertSame( 'meta_value', $query->query_vars['orderby'] );
 		unset( $_GET['page_type'] );
 	}
 

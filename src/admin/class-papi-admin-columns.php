@@ -115,6 +115,23 @@ final class Papi_Admin_Columns {
 	}
 
 	/**
+	 * Add entry type as a sortable column.
+	 *
+	 * @param  array $columns
+	 *
+	 * @return array
+	 */
+	public function manage_page_type_sortable_columns( $columns ) {
+		if ( ! in_array( $this->post_type, papi_get_post_types(), true ) && ! in_array( $this->taxonomy, papi_get_taxonomies(), true ) ) {
+			return;
+		}
+
+		$columns['entry_type'] = 'entry_type';
+
+		return $columns;
+	}
+
+	/**
 	 * Filter posts on load if `page_type` query string is set.
 	 *
 	 * @param  WP_Query $query
@@ -136,6 +153,12 @@ final class Papi_Admin_Columns {
 				$query->set( 'meta_key', papi_get_page_type_key() );
 				$query->set( 'meta_value', papi_get_qs( 'page_type' ) );
 			}
+		}
+
+		// Order query result by entry type.
+		if ( $query->get( 'orderby' ) === 'entry_type' ) {
+			$query->set( 'meta_key', papi_get_page_type_key() );
+			$query->set( 'orderby', 'meta_value' );
 		}
 
 		return $query;
@@ -212,11 +235,13 @@ final class Papi_Admin_Columns {
 		// Setup post type actions.
 		if ( ! empty( $this->post_type ) && empty( $this->taxonomy ) ) {
 			add_filter( sprintf( 'manage_%s_posts_columns', $this->post_type ), [$this, 'manage_page_type_posts_columns'] );
+			add_filter( sprintf( 'manage_edit-%s_sortable_columns', $this->post_type ), [$this, 'manage_page_type_sortable_columns'] );
 		}
 
 		// Setup taxonomy actions.
 		if ( ! empty( $this->taxonomy ) ) {
 			add_filter( sprintf( 'manage_edit-%s_columns', $this->taxonomy ), [$this, 'manage_page_type_posts_columns'] );
+			add_filter( sprintf( 'manage_edit-%s_sortable_columns', $this->taxonomy ), [$this, 'manage_page_type_sortable_columns'] );
 		}
 	}
 
