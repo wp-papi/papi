@@ -186,12 +186,12 @@ class Simple_Page_Type extends Papi_Page_Type {
 			] )
 		] );
 
-		$this->box( 'Callback property', [
+		$this->box( 'Format callback property', [
 			papi_property( [
-				'type'     => 'string',
-				'title'    => 'callback',
-				'slug'     => 'callback',
-				'callback' => function ( $value ) {
+				'type'      => 'string',
+				'title'     => 'format_cb',
+				'slug'      => 'format_cb',
+				'format_cb' => function ( $value ) {
 					return 'Hello ' . $value;
 				}
 			] )

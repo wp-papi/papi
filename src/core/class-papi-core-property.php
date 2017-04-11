@@ -40,12 +40,12 @@ class Papi_Core_Property {
 		'before_class'  => '',
 		'before_html'   => '',
 		'cache'         => true,
-		'callback'      => '',
 		'capabilities'  => [],
 		'default'       => null,
 		'description'   => '',
 		'disabled'      => false,
 		'display'       => true,
+		'format_cb'     => '',
 		'lang'          => false,
 		'layout'        => 'horizontal', // or 'vertical'
 		'overwrite'     => false,
