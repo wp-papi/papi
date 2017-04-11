@@ -140,7 +140,6 @@ class Papi_Admin_Columns_Test extends WP_UnitTestCase {
 		unset( $_GET['page_type'] );
 
 		$_GET['page_type'] = 'papi-standard-page';
-		$_GET['orderby'] = 'entry_type';
 		$query = new WP_Query();
 		$query->set( 'orderby', 'entry_type' );
 		$query = $admin->pre_get_posts( $query );
