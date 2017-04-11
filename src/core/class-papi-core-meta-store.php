@@ -157,6 +157,11 @@ abstract class Papi_Core_Meta_Store {
 			);
 		}
 
+		// Modify value before it's return to the theme via a defined callback on the property.
+		if ( ! papi_is_admin() && is_callable( $property->callback ) ) {
+			$value = call_user_func( $property->callback, $value );
+		}
+
 		// Remove empty values from arrays.
 		if ( is_array( $value ) ) {
 			foreach ( $value as $index => $val ) {

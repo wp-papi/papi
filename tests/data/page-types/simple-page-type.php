@@ -185,6 +185,17 @@ class Simple_Page_Type extends Papi_Page_Type {
 				'slug'  => 'UPPERCASE'
 			] )
 		] );
+
+		$this->box( 'Callback property', [
+			papi_property( [
+				'type'     => 'string',
+				'title'    => 'callback',
+				'slug'     => 'callback',
+				'callback' => function ( $value ) {
+					return 'Hello ' . $value;
+				}
+			] )
+		] );
 	}
 
 	public function content_box() {

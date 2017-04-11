@@ -199,4 +199,15 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$property->render();
 		$this->expectOutputRegex( '/\>En siffra\<\/div\>/' );
 	}
+
+	public function test_callback_property() {
+		$post_id = $this->factory->post->create();
+
+		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
+		update_post_meta( $post_id, 'callback', 'Fredrik' );
+
+		$value = papi_get_field( $post_id, 'callback' );
+		$this->assertNotSame( $value, 'Fredrik' );
+		$this->assertSame( $value, 'Hello Fredrik' );
+	}
 }

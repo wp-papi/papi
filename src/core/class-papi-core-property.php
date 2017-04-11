@@ -40,6 +40,7 @@ class Papi_Core_Property {
 		'before_class'  => '',
 		'before_html'   => '',
 		'cache'         => true,
+		'callback'      => '',
 		'capabilities'  => [],
 		'default'       => null,
 		'description'   => '',
