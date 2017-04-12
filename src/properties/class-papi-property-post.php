@@ -286,7 +286,7 @@ class Papi_Property_Post extends Papi_Property {
 									}
 
 									papi_render_html_tag( 'option', [
-										'data-edit-url' => get_edit_post_link( $value ),
+										'data-edit-url' => get_edit_post_link( $post ),
 										'selected'      => $value === $this->get_post_value( $post ),
 										'value'         => $this->get_post_value( $post ),
 										$post->post_title
