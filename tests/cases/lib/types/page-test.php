@@ -147,23 +147,6 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		unset( $_GET['post_type'] );
 	}
 
-	public function test_papi_get_page_type_id_taxonomy() {
-		$_GET['post_type'] = 'module';
-
-		add_filter( 'papi/settings/only_page_type_module', function () {
-			return 'modules/feature-module-type';
-		} );
-
-		$this->assertSame( 'modules/feature-module-type', papi_get_page_type_id() );
-
-		$_GET['taxonomy'] = 'category';
-
-		$this->assertEmpty( papi_get_page_type_id() );
-
-		unset( $_GET['post_type'] );
-		unset( $_GET['taxonomy'] );
-	}
-
 	public function test_papi_get_page_type_key() {
 		$this->assertSame( '_papi_page_type', papi_get_page_type_key() );
 		$this->assertSame( '_papi_page_type_switch', papi_get_page_type_key( '_switch' ) );

@@ -10,6 +10,9 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 	public function tearDown() {
 		parent::tearDown();
 		unset( $this->post_id );
+
+		remove_all_filters( 'papi/settings/directories' );
+		papi()->reset();
 	}
 
 	public function test_papi_get_entry_type_body_classes() {

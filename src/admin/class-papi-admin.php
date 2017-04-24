@@ -220,10 +220,9 @@ final class Papi_Admin {
 	 * @return array
 	 */
 	public function wp_link_query( array $results ) {
-		$post_type = papi_get_post_type();
-
 		foreach ( $results as $index => $value ) {
-			$name = papi_get_page_type_name( $value['ID'] );
+			$post_type = papi_get_post_type( $value['ID'] );
+			$name      = papi_get_page_type_name( $value['ID'] );
 
 			if ( empty( $name ) ) {
 				$name = papi_filter_settings_standard_page_type_name( $post_type );

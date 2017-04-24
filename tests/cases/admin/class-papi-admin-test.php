@@ -18,7 +18,9 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 		$this->admin = new Papi_Admin;
-		$this->post_id = $this->factory->post->create();
+		$this->post_id = $this->factory->post->create( [
+			'post_type' => 'page'
+		] );
 
 		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
