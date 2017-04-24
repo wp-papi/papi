@@ -81,7 +81,7 @@ function papi_get_all_page_types( $post_type = '' ) {
  * @return string
  */
 function papi_get_page_type_id( $post_id = 0 ) {
-	return papi_get_entry_type_id( $post_id );
+	return papi_get_entry_type_id( $post_id, 'post' );
 }
 
 /**
@@ -160,19 +160,21 @@ function papi_is_page_type( $str = '' ) {
  * Load the entry type id on a post types.
  *
  * @param  string $entry_type_id
+ * @param  string $type
+ * @param  int $post_id
  *
  * @return string
  */
-function papi_load_page_type_id( $entry_type_id = '' ) {
-	$key       = papi_get_page_type_key();
-	$post_id   = papi_get_post_id();
-	$post_type = papi_get_post_type( $post_id );
-	$taxonomy  = papi_get_taxonomy();
+function papi_load_page_type_id( $entry_type_id = '', $type = 'post', $post_id = null ) {
+	$type = papi_get_meta_type( $type );
 
-	// Bail if a taxonomy value exists.
-	if ( ! empty( $taxonomy ) ) {
+	if ( $type !== 'post' ) {
 		return $entry_type_id;
 	}
+
+	$post_id   = papi_get_post_id( $post_id );
+	$key       = papi_get_page_type_key();
+	$post_type = papi_get_post_type( $post_id );
 
 	// Try to load the entry type id from only page type filter.
 	if ( empty( $entry_type_id ) ) {
@@ -219,7 +221,7 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 	return $entry_type_id;
 }
 
-add_filter( 'papi/entry_type_id', 'papi_load_page_type_id' );
+add_filter( 'papi/entry_type_id', 'papi_load_page_type_id', 10, 3 );
 
 /**
  * Set page type to a post.

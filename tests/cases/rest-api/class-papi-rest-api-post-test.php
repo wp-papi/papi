@@ -5,6 +5,11 @@
  */
 class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 
+	/**
+	 * @var Papi_REST_API_Post
+	 */
+	protected $class;
+
 	public function setUp() {
 		parent::setUp();
 
@@ -27,10 +32,13 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_page_type() {
-		$post_id = $this->factory->post->create();
+		$post_id = $this->factory->post->create( [
+			'post_type' => 'page'
+		] );
+
 		$page_type = $this->class->get_page_type( ['ID' => $post_id], 'page_type', null );
 
-		$this->assertSame( $page_type, '' );
+		$this->assertSame( '', $page_type );
 		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-content-page-type' );
 
 		$page_type = $this->class->get_page_type( ['ID' => $post_id], 'page_type', null );

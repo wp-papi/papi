@@ -366,10 +366,11 @@ function papi_get_entry_type_id( $id = 0, $type = null ) {
 	 *
 	 * @param  string $entry_type_id
 	 * @param  string $type
+	 * @param  int    $id
 	 *
 	 * @return string
 	 */
-	return apply_filters( 'papi/entry_type_id', $entry_type_id, $type );
+	return apply_filters( 'papi/entry_type_id', $entry_type_id, $type, $id );
 }
 
 /**
