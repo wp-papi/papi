@@ -30,7 +30,7 @@ function papi_get_template_file_name( $template ) {
 		return;
 	}
 
-	$extension = '.php';
+	$extension = apply_filters( 'papi/template_extension', '.php' );
 	$ext_reg   = '/(' . $extension . ')+$/';
 
 	if ( preg_match( '/\.\w+$/', $template, $matches ) && preg_match( $ext_reg, $matches[0] ) ) {
