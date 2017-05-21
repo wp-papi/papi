@@ -68,10 +68,10 @@ class Papi_Property_String extends Papi_Property {
 	 */
 	public function html() {
 		papi_render_html_tag( 'input', [
-			'id'		  => esc_attr( $this->html_id() ),
-			'name'		  => esc_attr( $this->html_name() ),
-			'type'		  => esc_attr( $this->input_type ),
-			'value'		  => $this->get_value(),
+			'id'          => esc_attr( $this->html_id() ),
+			'name'        => esc_attr( $this->html_name() ),
+			'type'        => esc_attr( $this->input_type ),
+			'value'       => $this->get_value(),
 			'placeholder' => esc_attr( $this->get_setting( 'placeholder' ) )
 		] );
 	}

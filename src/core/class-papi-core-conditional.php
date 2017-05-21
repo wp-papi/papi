@@ -139,7 +139,7 @@ class Papi_Core_Conditional {
 				$rules[$index] = new Papi_Core_Conditional_Rule( $value );
 
 				if ( strpos( $rules[$index]->slug, '.' ) === false && papi_is_property( $property ) ) {
-				 	$rules[$index]->slug = $this->get_rule_slug(
+					$rules[$index]->slug = $this->get_rule_slug(
 						$rules[$index],
 						$property
 					);

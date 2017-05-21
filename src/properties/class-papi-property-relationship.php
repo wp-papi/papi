@@ -368,8 +368,7 @@ class Papi_Property_Relationship extends Papi_Property {
 					<ul>
 						<?php foreach ( $values as $item ): ?>
 							<li>
-								<input type="hidden" name="<?php echo esc_attr( $slug ); ?>[]"
-								       value="<?php echo esc_attr( $item->id ); ?>"/>
+								<input type="hidden" name="<?php echo esc_attr( $slug ); ?>[]" value="<?php echo esc_attr( $item->id ); ?>"/>
 								<a href="#"><?php echo esc_attr( $item->title ); ?></a>
 								<span class="icon minus"></span>
 							</li>
