@@ -388,7 +388,6 @@ function papi_property_to_array_slugs( array $value, $slug ) {
 	$counter = [];
 
 	foreach ( $value as $index => $arr ) {
-
 		if ( ! is_array( $arr ) ) {
 			continue;
 		}
