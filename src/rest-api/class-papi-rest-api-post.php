@@ -94,7 +94,7 @@ class Papi_REST_API_Post {
 		$this->store->set_property_meta_value( $slug, $default );
 
 		// Get value from store.
-		$value = $this->store->get_value( $id, $slug, 'post', $default );
+		$value = $this->store->get_value( $this->store->id, $slug, $default, 'post' );
 
 		// Prepare the value for REST API if property is found.
 		if ( $property = $this->store->get_property( $slug ) ) {
