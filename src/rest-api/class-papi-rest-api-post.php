@@ -27,6 +27,10 @@ class Papi_REST_API_Post {
 	 * @return array
 	 */
 	public function get_page_type( array $data, $field_name, $request ) {
+		if ( ! isset( $data['ID'] ) ) {
+			return '';
+		}
+
 		return papi_get_page_type_id( $data['ID'] ) ?: '';
 	}
 
