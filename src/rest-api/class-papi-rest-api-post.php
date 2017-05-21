@@ -3,11 +3,11 @@
 class Papi_REST_API_Post {
 
 	/**
-	 * The post store class.
+	 * The post id.
 	 *
-	 * @var Papi_Post_Store
+	 * @var int
 	 */
-	protected $store;
+	protected $post_id;
 
 	/**
 	 * REST API Post construct.
@@ -53,8 +53,7 @@ class Papi_REST_API_Post {
 			$property->register();
 		}
 
-		// Get the post store for a page type.
-		$this->store = papi_get_meta_store( $post->ID );
+		$this->post_id = $post->ID;
 
 		// Add filter to prepare the response for a post type.
 		add_filter( 'rest_prepare_' . $post->post_type, [$this, 'prepare_response'] );
@@ -75,33 +74,10 @@ class Papi_REST_API_Post {
 		}
 
 		foreach ( $response->data['meta'] as $key => $value ) {
-			$response->data['meta'][$key] = $this->prepare_property_value( $key, $value );
+			$response->data['meta'][$key] = papi_get_field( $this->post_id, $key, $value, 'post' );
 		}
 
 		return $response;
-	}
-
-	/**
-	 * Prepare property value.
-	 *
-	 * @param  string $slug
-	 * @param  mixed  $default
-	 *
-	 * @return mixed
-	 */
-	protected function prepare_property_value( $slug, $default = null ) {
-		// Set property meta value instead of loading it since it's loaded.
-		$this->store->set_property_meta_value( $slug, $default );
-
-		// Get value from store.
-		$value = $this->store->get_value( $this->store->id, $slug, $default, 'post' );
-
-		// Prepare the value for REST API if property is found.
-		if ( $property = $this->store->get_property( $slug ) ) {
-			return $property->rest_prepare_value( $value );
-		}
-
-		return $default;
 	}
 
 	/**
