@@ -3,13 +3,6 @@
 class Papi_REST_API_Post {
 
 	/**
-	 * The post id.
-	 *
-	 * @var int
-	 */
-	protected $post_id;
-
-	/**
 	 * REST API Post construct.
 	 */
 	public function __construct() {
@@ -53,8 +46,6 @@ class Papi_REST_API_Post {
 			$property->register();
 		}
 
-		$this->post_id = $post->ID;
-
 		// Add filter to prepare the response for a post type.
 		add_filter( 'rest_prepare_' . $post->post_type, [$this, 'prepare_response'] );
 
@@ -74,7 +65,7 @@ class Papi_REST_API_Post {
 		}
 
 		foreach ( $response->data['meta'] as $key => $value ) {
-			$response->data['meta'][$key] = papi_get_field( $this->post_id, $key, $value, 'post' );
+			$response->data['meta'][$key] = papi_get_field( $key, $value, 'post' );
 		}
 
 		return $response;
