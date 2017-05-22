@@ -72,19 +72,21 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $this->class->prepare_response( [] ) );
 
 		$post_id = $this->factory->post->create();
+		global $post;
 		$post = get_post( $post_id );
 
-		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
+		update_post_meta( $post_id, papi_get_page_type_key(), 'properties-page-type' );
 		$this->assertSame( $post, $this->class->get_post( $post ) );
 
-		update_post_meta( $post_id, 'name', 'Fredrik' );
-		$response = [
+		update_post_meta( $post_id, 'post_test', $post_id );
+		$response = new \stdClass;
+		$response->data = [
 			'meta' => [
-				'name' => get_post_meta( $post_id, 'name', true )
+				'post_test' => $post_id
 			]
 		];
 
 		$response = $this->class->prepare_response( $response );
-		$this->assertSame( 'Fredrik', $response['meta']['name'] );
+		$this->assertSame( $post->ID, $response->data['meta']['post_test']->ID );
 	}
 }
