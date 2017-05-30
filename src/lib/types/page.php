@@ -157,11 +157,12 @@ function papi_get_standard_page_type( $post_type ) {
 
 	$id                         = sprintf( 'papi-standard-%s-type', $post_type );
 	$standard_type              = new Papi_Page_Type( $id );
-	$standard_type->id          = $id;
 	$standard_type->name        = papi_filter_settings_standard_page_type_name( $post_type );
 	$standard_type->description = papi_filter_settings_standard_page_type_description( $post_type );
 	$standard_type->thumbnail   = papi_filter_settings_standard_page_type_thumbnail( $post_type );
 	$standard_type->post_type   = [$post_type];
+
+	$standard_type->set_id( $id );
 
 	return $standard_type;
 }
