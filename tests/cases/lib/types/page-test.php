@@ -197,6 +197,11 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Standard Page', $page_type->name );
 	}
 
+	public function test_papi_get_standard_type_id() {
+		$this->assertSame( 'papi-standard--type', papi_get_standard_type_id( '' ) );
+		$this->assertSame( 'papi-standard-page-type', papi_get_standard_type_id( 'page' ) );
+	}
+
 	public function test_papi_is_page_type() {
 		$this->assertFalse( papi_is_page_type( 'fake-page-type' ) );
 

@@ -155,7 +155,7 @@ function papi_get_standard_page_type( $post_type ) {
 		return;
 	}
 
-	$id                         = sprintf( 'papi-standard-%s-type', $post_type );
+	$id                         = papi_get_standard_type_id( $post_type );
 	$standard_type              = new Papi_Page_Type( $id );
 	$standard_type->name        = papi_filter_settings_standard_page_type_name( $post_type );
 	$standard_type->description = papi_filter_settings_standard_page_type_description( $post_type );
@@ -165,6 +165,18 @@ function papi_get_standard_page_type( $post_type ) {
 	$standard_type->set_id( $id );
 
 	return $standard_type;
+}
+
+/**
+ * Get standard page type id.
+ *
+ * @param  string $post_type
+ *
+ * @return string
+ */
+function papi_get_standard_type_id( $post_type ) {
+	$post_type = is_string( $post_type ) ? $post_type : '';
+	return sprintf( 'papi-standard-%s-type', $post_type );
 }
 
 /**
