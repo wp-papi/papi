@@ -30,14 +30,7 @@ $post_type      = empty( $post_type ) ? get_post_type_object( 'page' ) : $post_t
 		}
 
 		if ( $show_standard ) {
-			$id                     = sprintf( 'papi-standard-%s-type', $post_type_name );
-			$page_type              = new Papi_Page_Type( $id );
-			$page_type->id          = $id;
-			$page_type->name        = papi_filter_settings_standard_page_type_name( $post_type_name );
-			$page_type->description = papi_filter_settings_standard_page_type_description( $post_type_name );
-			$page_type->thumbnail   = papi_filter_settings_standard_page_type_thumbnail( $post_type_name );
-			$page_type->post_type   = [$post_type_name];
-			$page_types[]           = $page_type;
+			$page_types[] = papi_get_standard_page_type( $post_type_name );
 		}
 
 		usort( $page_types, function ( $a, $b ) {

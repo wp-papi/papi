@@ -146,6 +146,27 @@ function papi_get_post_types() {
 }
 
 /**
+ * Get standard page type since it's not a real page type class.
+ *
+ * @return null|Papi_Page_Type
+ */
+function papi_get_standard_page_type( $post_type ) {
+	if ( ! is_string( $post_type ) ) {
+		return;
+	}
+
+	$id                         = sprintf( 'papi-standard-%s-type', $post_type );
+	$standard_type              = new Papi_Page_Type( $id );
+	$standard_type->id          = $id;
+	$standard_type->name        = papi_filter_settings_standard_page_type_name( $post_type );
+	$standard_type->description = papi_filter_settings_standard_page_type_description( $post_type );
+	$standard_type->thumbnail   = papi_filter_settings_standard_page_type_thumbnail( $post_type );
+	$standard_type->post_type   = [$post_type];
+
+	return $standard_type;
+}
+
+/**
  * Check if given string is a page type.
  *
  * @param  string $str
