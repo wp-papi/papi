@@ -181,7 +181,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_disabled() {
-		$_GET['post_type'] = 'post';
+		$_GET['post_type'] = 'page';
 
 		$property = Papi_Core_Property::factory( [
 			'type'  => 'string',
@@ -189,8 +189,6 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		] );
 
 		$this->assertFalse( $property->disabled() );
-
-		$_GET['post_type'] = 'page';
 
 		$property = Papi_Core_Property::factory( [
 			'type'    => 'string',

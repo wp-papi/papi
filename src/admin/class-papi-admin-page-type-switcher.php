@@ -25,6 +25,22 @@ class Papi_Admin_Page_Type_Switcher {
 		$page_type     = papi_get_entry_type_by_id( papi_get_page_type_id() );
 		$page_type_key = papi_get_page_type_key( 'switch' );
 		$page_types    = papi_get_all_page_types( $post_type );
+		$show_standard = papi_filter_settings_show_standard_page_type( $post_type );
+
+		if ( $show_standard ) {
+			$standard_page_type = papi_get_standard_page_type( $post_type );
+			$page_types[]       = $standard_page_type;
+
+			if ( empty( $page_type ) ) {
+				$page_type = $standard_page_type;
+			}
+		}
+
+		usort( $page_types, function ( $a, $b ) {
+			return strcmp( $a->name, $b->name );
+		} );
+
+		$page_types = papi_sort_order( array_reverse( $page_types ) );
 
 		// Don't do anything without any page types.
 		if ( empty( $page_type ) || empty( $page_types ) ) {
@@ -95,9 +111,22 @@ class Papi_Admin_Page_Type_Switcher {
 			return false;
 		}
 
-		$page_type        = papi_get_entry_type_by_id( $page_type_id );
-		$page_type_switch = papi_get_entry_type_by_id( $page_type_switch_id );
-		$post_type_object = get_post_type_object( papi_get_post_type() );
+		// Fetch right page type if standard page type id.
+		if ( papi_get_standard_page_type_id( $post->post_type ) === $page_type_id ) {
+			$page_type = papi_get_standard_page_type( $post->post_type );
+		} else {
+			$page_type = papi_get_entry_type_by_id( $page_type_id );
+		}
+
+		// Fetch right page type switch if standard page type id.
+		if ( papi_get_standard_page_type_id( $post->post_type ) === $page_type_switch_id ) {
+			$page_type_switch    = papi_get_standard_page_type( $post->post_type );
+			$page_type_switch_id = '';
+		} else {
+			$page_type_switch = papi_get_entry_type_by_id( $page_type_switch_id );
+		}
+
+		$post_type_object = get_post_type_object( $post->post_type );
 
 		// Check if page type and post type is not empty.
 		if ( empty( $page_type_switch ) || empty( $post_type_object ) ) {
@@ -156,6 +185,11 @@ class Papi_Admin_Page_Type_Switcher {
 
 			// Delete property values.
 			$property->delete_value( $property->get_slug( true ), $post_id, papi_get_meta_type() );
+		}
+
+		// Delete page type switch id.
+		if ( empty( $page_type_switch_id ) ) {
+			return delete_post_meta( $post_id, papi_get_page_type_key() );
 		}
 
 		// Update page type id.

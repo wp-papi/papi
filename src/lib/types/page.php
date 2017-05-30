@@ -155,14 +155,15 @@ function papi_get_standard_page_type( $post_type ) {
 		return;
 	}
 
-	$id                         = papi_get_standard_type_id( $post_type );
-	$standard_type              = new Papi_Page_Type( $id );
+	// Create a new page type and set required fields.
+	$standard_type              = new Papi_Page_Type();
 	$standard_type->name        = papi_filter_settings_standard_page_type_name( $post_type );
 	$standard_type->description = papi_filter_settings_standard_page_type_description( $post_type );
 	$standard_type->thumbnail   = papi_filter_settings_standard_page_type_thumbnail( $post_type );
 	$standard_type->post_type   = [$post_type];
 
-	$standard_type->set_id( $id );
+	// Set standard page type id.
+	$standard_type->set_id( papi_get_standard_page_type_id( $post_type ) );
 
 	return $standard_type;
 }
@@ -174,7 +175,7 @@ function papi_get_standard_page_type( $post_type ) {
  *
  * @return string
  */
-function papi_get_standard_type_id( $post_type ) {
+function papi_get_standard_page_type_id( $post_type ) {
 	$post_type = is_string( $post_type ) ? $post_type : '';
 	return sprintf( 'papi-standard-%s-type', $post_type );
 }
@@ -250,6 +251,11 @@ function papi_load_page_type_id( $entry_type_id = '', $type = 'post', $post_id =
 
 			papi()->bind( $key, $entry_type_id );
 		}
+	}
+
+	// If standard page is enabled and entry type id is empty it's a standard type.
+	if ( empty( $entry_type_id ) && papi_filter_settings_show_standard_page_type( $post_type ) ) {
+		return papi_get_standard_page_type_id( $post_type );
 	}
 
 	return $entry_type_id;
