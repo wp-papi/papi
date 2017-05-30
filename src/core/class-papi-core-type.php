@@ -24,7 +24,7 @@ class Papi_Core_Type {
 	 *
 	 * @var string
 	 */
-	protected $id = '';
+	protected $_id = '';
 
 	/**
 	 * The name of the core type.
@@ -104,8 +104,8 @@ class Papi_Core_Type {
 	 * @return string
 	 */
 	public function get_id() {
-		if ( ! empty( $this->id ) ) {
-			return $this->id;
+		if ( ! empty( $this->_id ) ) {
+			return $this->_id;
 		}
 
 		return papi_get_core_type_base_path( $this->_file_path );
@@ -203,7 +203,7 @@ class Papi_Core_Type {
 	 * @param  string $id
 	 */
 	public function set_id( $id ) {
-		$this->id = $id;
+		$this->_id = $id;
 	}
 
 	/**
