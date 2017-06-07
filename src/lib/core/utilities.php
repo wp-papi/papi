@@ -215,6 +215,24 @@ function papi_get_class_name( $file ) {
 }
 
 /**
+ * Get language slug from query string.
+ *
+ * @return string
+ */
+function papi_get_lang() {
+	$lang = strtolower( papi_get_qs( 'lang' ) );
+
+	/**
+	 * Modify language slug.
+	 *
+	 * @param  string $lang
+	 *
+	 * @return string
+	 */
+	return apply_filters( 'papi/lang', $lang );
+}
+
+/**
  * Get only objects from the value.
  *
  * @param  array $arr
