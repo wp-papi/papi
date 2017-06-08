@@ -82,6 +82,8 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Fredrik', $property->get_value() );
 
 		$current_screen = null;
+
+		unset( $_GET['page'] );
 	}
 
 	public function test_html() {
@@ -107,6 +109,8 @@ class Papi_Property_Test extends WP_UnitTestCase {
 			'type' => 'string'
 		] );
 
+		$this->assertTrue( $property->can_render() );
+
 		$property->render();
 
 		$this->expectOutputRegex( '/papi\_sections\[0\]\[render\_with\_description\_test\_property\]/' );
@@ -121,6 +125,8 @@ class Papi_Property_Test extends WP_UnitTestCase {
 			'type'  => 'hidden'
 		] );
 
+		$this->assertFalse( $property->can_render() );
+
 		$property->render();
 
 		$this->expectOutputRegex( '//' );
@@ -134,6 +140,8 @@ class Papi_Property_Test extends WP_UnitTestCase {
 		] );
 
 		$_GET['lang'] = 'dk';
+
+		$this->assertTrue( $property->can_render() );
 
 		$property->render();
 
