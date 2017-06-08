@@ -55,7 +55,15 @@ class Papi_Core_Conditional {
 				}
 
 				if ( papi_is_rule( $rule ) ) {
-					$display = papi_filter_conditional_rule_allowed( $rule );
+					/**
+					 * Modify rule allowed.
+					 *
+					 * @param  bool $result
+					 * @param  Papi_Core_Conditional_Rule $rule
+					 *
+					 * @return bool
+					 */
+					$display = apply_filters( 'papi/conditional/rule_allowed', papi_filter_conditional_rule_allowed( $rule ), $rule );
 				}
 			}
 
@@ -74,19 +82,20 @@ class Papi_Core_Conditional {
 
 		foreach ( $rules as $rule ) {
 			if ( papi_is_rule( $rule ) ) {
-				$result[] = papi_filter_conditional_rule_allowed( $rule );
+				/**
+				 * Modify rule allowed.
+				 *
+				 * @param  bool $result
+				 * @param  Papi_Core_Conditional_Rule $rule
+				 *
+				 * @return bool
+				 */
+				$result[] = apply_filters( 'papi/conditional/rule_allowed', papi_filter_conditional_rule_allowed( $rule ), $rule );
 			}
 		}
 
 		$result = array_filter( $result, function ( $res ) {
-			/**
-			 * Modify rule allowed bool.
-			 *
-			 * @param  bool $result
-			 *
-			 * @return bool
-			 */
-			return apply_filters( 'papi/conditional/rule_allowed', $res ) === true ? true : null;
+			return $res === true ? true : null;
 		} );
 
 		return ! empty( $result );
