@@ -61,7 +61,7 @@ class Papi_Property extends Papi_Core_Property {
 		$lang = is_array( $lang ) ? $lang : [$lang];
 
 		// Only render if it's the right language if the definition exist.
-		if ( in_array( papi_get_lang(), $lang, true )  ) {
+		if ( in_array( papi_get_lang(), $lang, true ) ) {
 			$this->display = true;
 		} else {
 			$this->display = $this->get_option( 'lang' ) === false && papi_is_empty( papi_get_lang() );
