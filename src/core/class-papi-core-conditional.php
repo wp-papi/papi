@@ -79,7 +79,14 @@ class Papi_Core_Conditional {
 		}
 
 		$result = array_filter( $result, function ( $res ) {
-			return $res === true ? true : null;
+			/**
+			 * Modify rule allowed bool.
+			 *
+			 * @param  bool $result
+			 *
+			 * @return bool
+			 */
+			return apply_filters( 'papi/conditional/rule_allowed', $res ) === true ? true : null;
 		} );
 
 		return ! empty( $result );
