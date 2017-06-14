@@ -127,16 +127,18 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	}
 
 	/**
-	 * Determine if the page type is allowed
-	 * by capabilities and post type.
+	 * Determine if the page type is allowed by capabilities and post type.
 	 *
 	 * @return bool
 	 */
 	public function allowed() {
 		$args = func_get_args();
-		return empty( $args )
-			? parent::allowed()
-			: papi_current_user_is_allowed( $this->capabilities ) && isset( $args[0] ) && in_array( $args[0], $this->post_type, true );
+
+		if ( empty( $args ) ) {
+			return parent::allowed();
+		}
+
+		return papi_current_user_is_allowed( $this->capabilities ) && isset( $args[0] ) && in_array( $args[0], $this->post_type, true );
 	}
 
 	/**
