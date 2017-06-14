@@ -31,7 +31,7 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	 *
 	 * @var array
 	 */
-	public $taxonomy = '';
+	public $taxonomy = [];
 
 	/**
 	 * The type name.
