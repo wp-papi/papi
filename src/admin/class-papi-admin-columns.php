@@ -105,11 +105,12 @@ final class Papi_Admin_Columns {
 
 		$post = ! empty( $this->post_type ) && empty( $this->taxonomy );
 		$type = $post ? 'page' : 'taxonomy';
+		$arg  = $post ? papi_get_post_type() : papi_get_taxonomy();
+		$show = call_user_func_array( "papi_filter_settings_show_standard_{$type}_type", [$arg] );
 
-		if ( ! is_null( $entry_type ) && get_metadata( papi_get_meta_type( $type ), $post_id, papi_get_page_type_key(), true ) === $entry_type->get_id() ) {
+		if ( ! is_null( $entry_type ) && ( $show === false || get_metadata( papi_get_meta_type( $type ), ( is_numeric( $post_id ) ? $post_id : $term_id ), papi_get_page_type_key(), true ) === $entry_type->get_id() ) ) {
 			echo esc_html( $entry_type->name );
 		} else {
-			$arg = $post ? papi_get_post_type() : papi_get_taxonomy();
 			echo esc_html( call_user_func_array( "papi_filter_settings_standard_{$type}_type_name", [$arg] ) );
 		}
 	}
