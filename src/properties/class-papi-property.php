@@ -68,7 +68,7 @@ class Papi_Property extends Papi_Core_Property {
 		}
 
 		// If no valid lang query string exists we have to override the display property.
-		return $this->get_option( 'lang' ) === false && papi_is_empty( papi_get_lang() );
+		return $this->get_option( 'lang' ) === false;
 	}
 
 	/**
