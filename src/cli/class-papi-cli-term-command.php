@@ -107,28 +107,28 @@ class Papi_CLI_Term_Command extends Papi_CLI_Command {
 		$old_key = $args[1];
 		$new_key = $args[2];
 
-		$posts = ( new Papi_Query( [
+		$terms = ( new Papi_Query( [
 			'entry_type' => $type,
 			'fields'     => 'ids'
 		] ) )->get_result();
 
-		if ( empty( $posts ) ) {
+		if ( empty( $terms ) ) {
 			WP_CLI::error( 'No terms found' );
 		}
 
-		foreach ( $posts as $post ) {
-			$meta = get_post_meta( $post, $old_key, true );
+		foreach ( $terms as $term ) {
+			$meta = get_term_meta( $term, $old_key, true );
 
 			if ( papi_is_empty( $meta ) ) {
 				continue;
 			}
 
-			if ( delete_post_meta( $post, $old_key ) === false ) {
+			if ( delete_term_meta( $term, $old_key ) === false ) {
 				WP_CLI::error( 'Could not delete term meta with key: ' . $old_key );
 
 			}
 
-			if ( update_post_meta( $post, $new_key, $meta ) === false ) {
+			if ( update_term_meta( $term, $new_key, $meta ) === false ) {
 				WP_CLI::error( 'Could not update term meta with key: ' . $new_key );
 			}
 		}
