@@ -91,6 +91,19 @@ return [
 		]
 	] ),
 
+	// Dropdown 4
+	papi_property( [
+		'type'     => 'dropdown',
+		'title'    => 'Dropdown test_4',
+		'slug'     => 'dropdown_test_4',
+		'settings' => [
+			'items' => [
+				'White' => 1,
+				'Black' => 2
+			]
+		]
+	] ),
+
 	// Editor
 	papi_property( [
 		'type'  => 'editor',
