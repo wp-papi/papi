@@ -11,7 +11,7 @@
 function papi_from_property_array_slugs( array $values, $slug ) {
 	$results = [];
 
-	if ( empty( $values ) ) {
+	if ( empty( $values ) || ! isset( $values[$slug] ) ) {
 		return $results;
 	}
 

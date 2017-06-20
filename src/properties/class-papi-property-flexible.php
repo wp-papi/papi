@@ -466,8 +466,13 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				}
 
 				if ( is_array( $value ) && papi_is_property( $child_property ) && ! empty( $child_property->get_child_properties() ) ) {
-					$value                  = papi_from_property_array_slugs( $value, unpapify( $slug ) );
-					$results[$index][$slug] = $this->load_child_properties( $value, $child_property );
+					$new_value = papi_from_property_array_slugs( $value, unpapify( $slug ) );
+
+					if ( empty( $new_value ) ) {
+						$results[$index][$slug] = $value;
+					} else {
+						$results[$index][$slug] = $this->load_child_properties( $new_value, $child_property );
+					}
 				}
 
 				$type_key = papi_get_property_type_key_f( $slug );
