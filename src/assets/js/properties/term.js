@@ -53,10 +53,7 @@ class Term {
       $select.empty();
 
       $.each(terms, function(termId, termName) {
-        $select
-          .append($('<option></option>')
-          .attr('value', termId)
-          .text(termName));
+        $select.append($('<option></option>').attr('value', termId).text(termName));
       });
 
       if ($select.hasClass('papi-component-select2') && 'select2' in $.fn) {

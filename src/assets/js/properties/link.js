@@ -119,7 +119,7 @@ class Link {
    * @param {object} e
    */
   render(e) {
-    if (typeof this.$el === undefined) {
+    if (typeof this.$el === 'undefined') {
       return;
     }
 

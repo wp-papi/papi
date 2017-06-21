@@ -59,7 +59,7 @@ class Editor {
    * @param {object} $iframe
    */
   closeAllQTags($iframe) {
-    if (typeof QTags === undefined || $iframe.canvas === undefined) {
+    if (typeof QTags === 'undefined' || typeof $iframe.canvas === 'undefined') {
       return;
     }
 
