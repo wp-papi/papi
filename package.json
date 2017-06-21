@@ -26,6 +26,6 @@
     "parallelshell": "^2.0",
     "uglifyjs": "^2.4",
     "watch": "^1.0",
-    "webpack": "^2.0"
+    "webpack": "^3.0"
   }
 }

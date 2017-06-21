@@ -1,5 +1,5 @@
-var path        = require('path');
-var webpack     = require('webpack');
+var path    = require('path');
+var webpack = require('webpack');
 
 module.exports = {
   context: path.join(__dirname, 'src/assets/js'),
@@ -10,7 +10,7 @@ module.exports = {
   },
   output: {
     filename: './main.min.js',
-    path: 'dist/js/'
+    path: path.resolve(__dirname, 'dist/js/')
   },
   resolve: {
     extensions: ['.js'],
