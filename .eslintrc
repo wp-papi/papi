@@ -5,6 +5,7 @@
   },
   "rules": {
     "space-before-function-paren": 0,
-    "no-multi-spaces": 0
+    "no-multi-spaces": 0,
+    "padded-blocks": 0
   }
 }
