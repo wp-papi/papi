@@ -199,9 +199,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @return string
 	 */
 	protected function get_json_id( $key, $extra = '' ) {
-		return $this->get_slug() . '_' . papi_slugify( $key ) . (
-		empty( $extra ) ? '' : '_' . $extra
-		);
+		return $this->get_slug() . '_' . papi_slugify( $key ) . ( empty( $extra ) ? '' : '_' . $extra );
 	}
 
 	/**
