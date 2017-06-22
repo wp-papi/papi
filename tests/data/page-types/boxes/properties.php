@@ -275,6 +275,17 @@ return [
 		'slug'  => 'post_test'
 	] ),
 
+	// Post 2
+	papi_property( [
+		'type'     => 'post',
+		'title'    => 'Post test 2',
+		'slug'     => 'post_test_2',
+		'settings' => [
+			'fields'   => 'ids',
+			'meta_key' => 'custom_id'
+		]
+	] ),
+
 	// Radio
 	papi_property( [
 		'type'     => 'radio',

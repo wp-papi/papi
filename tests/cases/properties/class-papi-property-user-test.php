@@ -7,7 +7,7 @@ class Papi_Property_User_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'user_test';
 
-	public function assert_values( $expected, $actual ) {
+	public function assert_values( $expected, $actual, $slug ) {
 		$this->assertSame( $expected->ID, $actual->ID );
 	}
 

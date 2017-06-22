@@ -75,7 +75,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	/**
 	 * Assert values will assert values so it's the same by default.
 	 */
-	public function assert_values( $expected, $actual ) {
+	public function assert_values( $expected, $actual, $slug ) {
 		$this->assertSame( $expected, $actual );
 	}
 
@@ -209,7 +209,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$expected = $this->get_expected( $property->get_slug( true ) );
 
-		$this->assert_values( $expected, $actual );
+		$this->assert_values( $expected, $actual, $property->get_slug( true ) );
 	}
 
 	/**
@@ -314,7 +314,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 			$this->assertNull( papi_get_field( $this->post_id, $property->slug, null, $type ) );
 		} else if ( papi_update_field( $this->post_id, $slug, $value, $type ) ) {
 			$actual = papi_get_field( $this->post_id, $property->slug, null, $type );
-			$this->assert_values( $value, $actual );
+			$this->assert_values( $value, $actual, $property->slug );
 		}
 	}
 

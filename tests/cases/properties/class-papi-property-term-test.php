@@ -21,7 +21,7 @@ class Papi_Property_Term_Test extends Papi_Property_Test_Case {
 		unset( $this->term_id );
 	}
 
-	public function assert_values( $expected, $actual ) {
+	public function assert_values( $expected, $actual, $slug ) {
 		$this->assertSame( $expected->term_id, $actual->term_id );
 	}
 

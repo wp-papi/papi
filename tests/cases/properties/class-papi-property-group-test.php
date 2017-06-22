@@ -7,7 +7,7 @@ class Papi_Property_Group_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'group_test';
 
-	public function assert_values( $expected, $actual ) {
+	public function assert_values( $expected, $actual, $slug ) {
 		foreach ( $expected as $key => $value ) {
 			if ( $value instanceof WP_Post ) {
 				$this->assertSame( $expected[$key]->ID, $actual[$key]->ID );
