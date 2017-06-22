@@ -91,4 +91,14 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 		$response = $this->class->prepare_response( $response );
 		$this->assertSame( $post->ID, $response->data['meta']['post_test']->ID );
 	}
+
+	public function test_setup_fields() {
+		global $wp_rest_additional_fields;
+
+		$this->class->setup_fields();
+
+		if ( is_array( $wp_rest_additional_fields ) ) {
+			$this->assertTrue( isset( $wp_rest_additional_fields['page']['page_type'] ) );
+		}
+	}
 }
