@@ -32,6 +32,8 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_page_type() {
+		$this->assertEmpty( $this->class->get_page_type( [], 'page_type', null ) );
+
 		$post_id = $this->factory->post->create( [
 			'post_type' => 'page'
 		] );
