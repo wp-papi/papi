@@ -48,10 +48,12 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_post() {
-		$post_id = $this->factory->post->create();
+		$post_id = $this->factory->post->create(['post_type' => 'page']);
 		$post = get_post( $post_id );
 		$this->assertSame( $post, $this->class->get_post( $post ) );
 
+		$post_id = $this->factory->post->create();
+		$post = get_post( $post_id );
 		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		$this->assertSame( $post, $this->class->get_post( $post ) );
@@ -98,7 +100,7 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 		$this->class->setup_fields();
 
 		if ( is_array( $wp_rest_additional_fields ) ) {
-			$this->assertTrue( isset( $wp_rest_additional_fields['page']['page_type'] ) );
+			$this->assertArrayHasKey('page_type', $wp_rest_additional_fields['page']);
 		}
 	}
 }
