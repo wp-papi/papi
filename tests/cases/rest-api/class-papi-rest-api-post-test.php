@@ -48,7 +48,7 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_post() {
-		$post_id = $this->factory->post->create(['post_type' => 'page']);
+		$post_id = $this->factory->post->create( ['post_type' => 'page'] );
 		$post = get_post( $post_id );
 		$this->assertSame( $post, $this->class->get_post( $post ) );
 
@@ -99,8 +99,10 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 
 		$this->class->setup_fields();
 
-		if ( is_array( $wp_rest_additional_fields ) ) {
-			$this->assertArrayHasKey('page_type', $wp_rest_additional_fields['page']);
+		if ( ! is_array( $wp_rest_additional_fields ) ) {
+			$this->markTestSkipped( '`register_rest_field` is not supported' );
 		}
+
+		$this->assertArrayHasKey( 'page_type', $wp_rest_additional_fields['page'] );
 	}
 }
