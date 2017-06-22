@@ -410,6 +410,18 @@ return [
 		]
 	] ),
 
+	// Term 2
+	papi_property( [
+		'type'     => 'term',
+		'title'    => 'Term test 2',
+		'slug'     => 'term_test_2',
+		'settings' => [
+			'fields'   => 'ids',
+			'meta_key' => 'custom_id',
+			'taxonomy' => 'test_taxonomy'
+		]
+	] ),
+
 	// Text
 	papi_property( [
 		'type'  => 'text',
