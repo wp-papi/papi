@@ -132,13 +132,24 @@ return [
 		'slug'  => 'file_test'
 	] ),
 
-	// File 2
+	// File test 2
 	papi_property( [
 		'type'     => 'file',
 		'title'    => 'File test 2',
 		'slug'     => 'file_test_2',
 		'settings' => [
 			'multiple' => true
+		]
+	] ),
+
+	// File test 3
+	papi_property( [
+		'type'     => 'file',
+		'title'    => 'File test 3',
+		'slug'     => 'file_test_3',
+		'settings' => [
+			'fields'   => 'ids',
+			'meta_key' => 'custom_id'
 		]
 	] ),
 
