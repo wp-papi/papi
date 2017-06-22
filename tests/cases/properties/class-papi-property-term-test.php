@@ -65,10 +65,6 @@ class Papi_Property_Term_Test extends Papi_Property_Test_Case {
 	}
 
 	public function test_property_format_value_meta_key() {
-		if ( ! papi_supports_term_meta() ) {
-			$this->markTestSkipped( 'Term metadata is not supported' );
-		}
-
 		$this->assertSame( 0, intval( $this->properties[1]->format_value( 1, '', 0 ) ) );
 		update_term_meta( $this->term_id, 'custom_id', 1 );
 		$this->assertSame( 1, intval( $this->properties[1]->format_value( 1, '', 0 ) ) );

@@ -46,10 +46,6 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 	}
 
 	public function test_test_papi_get_entry_type_css_class_taxonomy() {
-		if ( ! papi_supports_term_meta() ) {
-			$this->markTestSkipped( 'Term metadata is not supported' );
-		}
-
 		$cat_id = $this->factory->category->create();
 		$this->go_to( get_term_link( $cat_id, 'category' ) );
 		$this->assertEmpty( papi_get_entry_type_css_class() );
@@ -210,11 +206,9 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 		$this->assertSame( 'pages/simple-page.php', papi_get_entry_type_template( $this->post_id ) );
 
-		if ( papi_supports_term_meta() ) {
-			$term_id = $this->factory->term->create();
-			update_term_meta( $term_id, papi_get_page_type_key(), 'simple-taxonomy-type' );
-			$this->assertSame( 'pages/simple-taxonomy.php', papi_get_entry_type_template( $term_id, 'term' ) );
-		}
+		$term_id = $this->factory->term->create();
+		update_term_meta( $term_id, papi_get_page_type_key(), 'simple-taxonomy-type' );
+		$this->assertSame( 'pages/simple-taxonomy.php', papi_get_entry_type_template( $term_id, 'term' ) );
 	}
 
 	public function test_papi_get_entry_type_id() {

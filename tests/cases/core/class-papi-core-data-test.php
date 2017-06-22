@@ -10,10 +10,6 @@ class Papi_Core_Data_Test extends WP_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create();
 		$this->term_id = $this->factory->term->create();
-
-		if ( ! papi_supports_term_meta() ) {
-			$this->markTestSkipped( 'Term metadata is not supported' );
-		}
 	}
 
 	public function tearDown() {

@@ -2,14 +2,6 @@
 
 class Papi_Lib_Core_Taxonomy_Test extends WP_UnitTestCase {
 
-	public function setUp() {
-		parent::setUp();
-
-		if ( ! papi_supports_term_meta() ) {
-			$this->markTestSkipped( 'Term metadata is not supported' );
-		}
-	}
-
 	public function test_papi_get_term_id() {
 		$this->assertSame( 1, papi_get_term_id( 1 ) );
 		$this->assertSame( 1, papi_get_term_id( '1' ) );
@@ -53,13 +45,5 @@ class Papi_Lib_Core_Taxonomy_Test extends WP_UnitTestCase {
 	public function test_papi_get_taxonomy_label() {
 		$this->assertSame( 'Categories', papi_get_taxonomy_label( 'category', 'name' ) );
 		$this->assertSame( 'Fake', papi_get_taxonomy_label( 'Fake', 'name', 'Fake' ) );
-	}
-
-	public function test_papi_supports_term_meta() {
-		if ( function_exists( 'get_term_meta' ) ) {
-			$this->assertTrue( papi_supports_term_meta() );
-		} else {
-			$this->assertFalse( papi_supports_term_meta() );
-		}
 	}
 }

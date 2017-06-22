@@ -40,7 +40,7 @@ class Papi_Property_Term extends Papi_Property {
 
 			$terms = get_terms( $args );
 
-			if ( ! empty( $terms ) ) {
+			if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 				$term_id = $terms[0];
 			}
 		}

@@ -70,12 +70,3 @@ function papi_get_taxonomy_label( $taxonomy, $label, $default = '' ) {
 
 	return get_taxonomy( $taxonomy )->labels->$label;
 }
-
-/**
- * Determine if Papi can support term meta.
- *
- * @return bool
- */
-function papi_supports_term_meta() {
-	return function_exists( 'get_term_meta' );
-}

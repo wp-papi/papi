@@ -178,10 +178,6 @@ class Papi_Porter_Test extends WP_UnitTestCase {
 	}
 
 	public function test_import_taxonomy() {
-		if ( ! papi_supports_term_meta() ) {
-			$this->markTestSkipped( 'Term metadata is not supported' );
-		}
-
 		$term_id = $this->factory->term->create();
 		update_term_meta( $term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
 

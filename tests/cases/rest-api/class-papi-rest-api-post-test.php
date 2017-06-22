@@ -100,7 +100,7 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 		$this->class->setup_fields();
 
 		if ( ! is_array( $wp_rest_additional_fields ) ) {
-			$this->markTestSkipped( '`register_rest_field` is not supported' );
+			$this->markTestSkipped( '`register_rest_field` is only supported in WordPress 4.7 and later' );
 		}
 
 		$this->assertArrayHasKey( 'page_type', $wp_rest_additional_fields['page'] );

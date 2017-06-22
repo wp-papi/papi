@@ -21,10 +21,7 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 		$_GET['post'] = $this->post_id;
 
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'properties-page-type' );
-
-		if ( papi_supports_term_meta() ) {
-			update_term_meta( $this->term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
-		}
+		update_term_meta( $this->term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
 
 		$this->page_type       = papi_get_entry_type_by_id( 'properties-page-type' );
 		$this->extra_page_type = papi_get_entry_type_by_id( 'extra-page-type' );
@@ -326,10 +323,6 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 	}
 
 	public function test_save_meta_boxes_taxonomy() {
-		if ( ! papi_supports_term_meta() ) {
-			$this->markTestSkipped( 'Term metadata is not supported' );
-		}
-
 		$property = $this->taxonomy_type->get_property( 'string_test' );
 
 		$_POST = papi_test_create_property_post_data( [
