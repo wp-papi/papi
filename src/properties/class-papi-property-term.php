@@ -17,11 +17,11 @@ class Papi_Property_Term extends Papi_Property {
 	 *
 	 * @param  mixed  $value
 	 * @param  string $slug
-	 * @param  int    $post_id
+	 * @param  int    $term_id
 	 *
 	 * @return array
 	 */
-	public function format_value( $value, $slug, $post_id ) {
+	public function format_value( $value, $slug, $term_id ) {
 		$meta_key = $this->get_setting( 'meta_key' );
 
 		if ( empty( $meta_key ) ) {
