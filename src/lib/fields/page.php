@@ -27,6 +27,9 @@ function papi_delete_field( $id = null, $slug = null, $type = 'post' ) {
 		return false;
 	}
 
+	// Replace "-" with "_".
+	$slug = papi_underscorify( $slug );
+
 	$property = $store->get_property( $slug );
 
 	if ( ! papi_is_property( $property ) ) {
@@ -131,6 +134,9 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 	if ( ! is_string( $slug ) || empty( $slug ) ) {
 		return $default;
 	}
+
+	// Replace "-" with "_".
+	$slug = papi_underscorify( $slug );
 
 	// Check for "dot" notation.
 	$slugs = explode( '.', $slug );
@@ -246,6 +252,9 @@ function papi_update_field( $id = null, $slug = null, $value = null, $type = 'po
 	if ( is_null( $store ) ) {
 		return false;
 	}
+
+	// Replace "-" with "_".
+	$slug = papi_underscorify( $slug );
 
 	$property = $store->get_property( $slug );
 
