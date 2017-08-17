@@ -105,7 +105,6 @@
   .flexible-layouts {
     background: #23282d;
     border-radius: 4px;
-    bottom: 140%;
     color: #fff;
     float: right;
     left: 50%;
@@ -118,21 +117,6 @@
     transform: translateX(-50%);
     width: 100%;
     z-index: 1;
-
-    &:after {
-      border: solid transparent;
-      border-color: rgba(213, 0, 0, 0);
-      border-top-color: #23282d;
-      border-width: 5px;
-      content: ' ';
-      height: 0;
-      left: 50%;
-      margin-left: -5px;
-      pointer-events: none;
-      position: absolute;
-      top: 100%;
-      width: 0;
-    }
 
     ul {
       color: #fff;
@@ -158,6 +142,49 @@
             color: #00b9eb;
           }
         }
+      }
+    }
+
+    &-hidden {
+      position: absolute;
+      visibility: hidden;
+    }
+
+    &-top {
+      bottom: 140%;
+
+      &:after {
+        top: 100%;
+        border: solid transparent;
+        border-color: rgba(213, 0, 0, 0);
+        border-top-color: #23282d;
+        border-width: 5px;
+        content: ' ';
+        height: 0;
+        left: 50%;
+        margin-left: -5px;
+        pointer-events: none;
+        position: absolute;
+        width: 0;
+      }
+    }
+
+    &-bottom {
+      top: 140%;
+
+      &:after {
+        top: -3%;
+        border: solid transparent;
+        border-color: rgba(213, 0, 0, 0);
+        border-bottom-color: #23282d;
+        border-width: 5px;
+        content: ' ';
+        height: 0;
+        left: 50%;
+        margin-left: -5px;
+        pointer-events: none;
+        position: absolute;
+        width: 0;
       }
     }
   }

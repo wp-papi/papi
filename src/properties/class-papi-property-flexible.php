@@ -733,7 +733,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 			<div class="bottom">
 				<div class="flexible-layouts-btn-wrap">
-					<div class="flexible-layouts papi-hide">
+					<div class="flexible-layouts flexible-layouts-hidden">
 						<div class="flexible-layouts-arrow"></div>
 						<ul>
 							<?php
