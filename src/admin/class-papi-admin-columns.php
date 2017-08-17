@@ -123,11 +123,9 @@ final class Papi_Admin_Columns {
 	 * @return array
 	 */
 	public function manage_page_type_sortable_columns( $columns ) {
-		if ( ! in_array( $this->post_type, papi_get_post_types(), true ) && ! in_array( $this->taxonomy, papi_get_taxonomies(), true ) ) {
-			return;
+		if ( in_array( $this->post_type, papi_get_post_types(), true ) || in_array( $this->taxonomy, papi_get_taxonomies(), true ) ) {
+			$columns['entry_type'] = 'entry_type';
 		}
-
-		$columns['entry_type'] = 'entry_type';
 
 		return $columns;
 	}
