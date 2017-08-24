@@ -67,6 +67,7 @@ class Papi_Property_Post extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
+			'edit_url'      => true,
 			'fields'        => '',
 			'labels'        => [
 				'select_post_type' => __( 'Select Post Type', 'papi' ),
@@ -286,7 +287,7 @@ class Papi_Property_Post extends Papi_Property {
 									}
 
 									papi_render_html_tag( 'option', [
-										'data-edit-url' => get_edit_post_link( $post ),
+										'data-edit-url' => $settings->edit_url ? get_edit_post_link( $post ) : '',
 										'selected'      => $value === $this->get_post_value( $post ),
 										'value'         => $this->get_post_value( $post ),
 										$post->post_title
