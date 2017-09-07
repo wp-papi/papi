@@ -67,6 +67,7 @@ class Papi_Property_Post extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
+			'allow_clear'   => false,
 			'edit_url'      => true,
 			'fields'        => '',
 			'labels'        => [
@@ -271,7 +272,9 @@ class Papi_Property_Post extends Papi_Property {
 						>
 
 							<?php if ( ! is_null( $settings->placeholder ) ): ?>
-								<option value=""><?php esc_html( $settings->placeholder ); ?></option>
+								<option value="<?php echo esc_attr( $this->get_option( 'default' ) ); ?>"><?php esc_html( $settings->placeholder ); ?></option>
+							<?php elseif ( $settings->allow_clear ): ?>
+								<option value="<?php echo esc_attr( $this->get_option( 'default' ) ); ?>"></option>
 							<?php endif; ?>
 
 							<?php foreach ( $posts as $label => $items ) : ?>
@@ -287,9 +290,10 @@ class Papi_Property_Post extends Papi_Property {
 									}
 
 									papi_render_html_tag( 'option', [
-										'data-edit-url' => $settings->edit_url ? get_edit_post_link( $post ) : '',
-										'selected'      => $value === $this->get_post_value( $post ),
-										'value'         => $this->get_post_value( $post ),
+										'data-allow-clear' => $settings->allow_clear,
+										'data-edit-url'    => $settings->edit_url ? get_edit_post_link( $post ) : '',
+										'selected'         => $value === $this->get_post_value( $post ),
+										'value'            => $this->get_post_value( $post ),
 										$post->post_title
 									] );
 								}

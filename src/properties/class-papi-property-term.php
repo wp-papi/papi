@@ -66,6 +66,7 @@ class Papi_Property_Term extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
+			'allow_clear' => false,
 			'fields'      => '',
 			'labels'      => [
 				'select_taxonomy' => __( 'Select Taxonomy', 'papi' ),
@@ -237,7 +238,9 @@ class Papi_Property_Term extends Papi_Property {
 				data-width="100%">
 
 				<?php if ( ! is_null( $settings->placeholder ) ): ?>
-					<option value=""><?php echo esc_html( $settings->placeholder ); ?></option>
+					<option value="<?php echo esc_attr( $this->get_option( 'default' ) ); ?>"><?php echo esc_html( $settings->placeholder ); ?></option>
+				<?php elseif ( $settings->allow_clear ): ?>
+					<option value="<?php echo esc_attr( $this->get_option( 'default' ) ); ?>"></option>
 				<?php endif; ?>
 
 				<?php foreach ( $taxonomies as $taxonomy ) : ?>
@@ -263,8 +266,9 @@ class Papi_Property_Term extends Papi_Property {
 						}
 
 						papi_render_html_tag( 'option', [
-							'value'    => $this->get_term_value( $term_id ),
-							'selected' => $value === $this->get_term_value( $term_id ),
+							'data-allow-clear' => $settings->allow_clear,
+							'value'            => $this->get_term_value( $term_id ),
+							'selected'         => $value === $this->get_term_value( $term_id ),
 							esc_html( $term_name )
 						] );
 					}
