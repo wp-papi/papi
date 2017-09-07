@@ -239,7 +239,7 @@ class Papi_Property_Term extends Papi_Property {
 				name="<?php echo esc_attr( $this->html_name() ); ?>"
 				class="<?php echo esc_attr( $classes ); ?>"
 				data-allow-clear="<?php echo is_null( $settings->placeholder ) ? 'false' : 'true'; ?>"
-				data-placeholder="<?php echo_attr( $placeholder ); ?>"
+				data-placeholder="<?php echo esc_attr( $placeholder ); ?>"
 				data-width="100%">
 
 				<?php if ( ! is_null( $settings->placeholder ) ): ?>
