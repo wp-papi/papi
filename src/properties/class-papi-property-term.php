@@ -66,7 +66,7 @@ class Papi_Property_Term extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'allow_clear' => false,
+			'allow_clear' => true,
 			'fields'      => '',
 			'labels'      => [
 				'select_taxonomy' => __( 'Select Taxonomy', 'papi' ),

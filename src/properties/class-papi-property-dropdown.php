@@ -60,7 +60,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'allow_clear' => false,
+			'allow_clear' => true,
 			'placeholder' => null,
 			'items'       => [],
 			'multiple'    => false,

@@ -67,7 +67,7 @@ class Papi_Property_Post extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'allow_clear'   => false,
+			'allow_clear'   => true,
 			'edit_url'      => true,
 			'fields'        => '',
 			'labels'        => [
