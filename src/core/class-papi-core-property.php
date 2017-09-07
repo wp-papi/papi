@@ -380,11 +380,12 @@ class Papi_Core_Property {
 	 * Get option value.
 	 *
 	 * @param  string $key
+	 * @param  mixed  $default
 	 *
 	 * @return mixed
 	 */
-	public function get_option( $key ) {
-		$value = null;
+	public function get_option( $key, $default = null ) {
+		$value = $default;
 
 		if ( isset( $this->options->$key ) ) {
 			$value = $this->options->$key;

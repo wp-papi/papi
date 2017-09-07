@@ -105,12 +105,12 @@ class Papi_Property_Dropdown extends Papi_Property {
 		// Add placeholder if any.
 		if ( ! is_null( $settings->placeholder ) ) {
 			$options_html[] = papi_html_tag( 'option', [
-				'value' => $this->get_option( 'default' ),
+				'value' => $this->get_option( 'default', '' ),
 				$placeholder
 			] );
 		} else if ( $settings->allow_clear ) {
 			$options_html[] = papi_html_tag( 'option', [
-				'value' => $this->get_option( 'default' ),
+				'value' => $this->get_option( 'default', '' ),
 				'&nbsp;'
 			] );
 		}

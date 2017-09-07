@@ -243,9 +243,9 @@ class Papi_Property_Term extends Papi_Property {
 				data-width="100%">
 
 				<?php if ( ! is_null( $settings->placeholder ) ): ?>
-					<option value="<?php echo esc_attr( $this->get_option( 'default' ) ); ?>"><?php echo esc_html( $placeholder ); ?></option>
+					<option value="<?php echo esc_attr( $this->get_option( 'default', '' ) ); ?>"><?php echo esc_html( $placeholder ); ?></option>
 				<?php elseif ( $settings->allow_clear ): ?>
-					<option value="<?php echo esc_attr( $this->get_option( 'default' ) ); ?>">&nbsp;</option>
+					<option value="<?php echo esc_attr( $this->get_option( 'default', '' ) ); ?>">&nbsp;</option>
 				<?php endif; ?>
 
 				<?php foreach ( $taxonomies as $taxonomy ) : ?>
