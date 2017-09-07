@@ -271,7 +271,7 @@ class Papi_Property_Post extends Papi_Property {
 						>
 
 							<?php if ( ! empty( $settings->placeholder ) ): ?>
-								<option value=""></option>
+								<option value=""><?php esc_html( $settings->placeholder ); ?></option>
 							<?php endif; ?>
 
 							<?php foreach ( $posts as $label => $items ) : ?>
