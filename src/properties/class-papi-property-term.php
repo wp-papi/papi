@@ -230,7 +230,7 @@ class Papi_Property_Term extends Papi_Property {
 
 			<?php
 				$placeholder = ! is_null( $settings->placeholder ) ? $settings->placeholder : '';
-				$placeholder = papi_is_empty( $placeholder ) ? '&nbsp;' : '';
+				$placeholder = papi_is_empty( $placeholder ) ? '&nbsp;' : $placeholder;
 			?>
 
 			<select
@@ -243,9 +243,7 @@ class Papi_Property_Term extends Papi_Property {
 				data-width="100%">
 
 				<?php if ( ! is_null( $settings->placeholder ) ): ?>
-					<option value="<?php echo esc_attr( $this->get_option( 'default', '' ) ); ?>"><?php echo esc_html( $placeholder ); ?></option>
-				<?php elseif ( $settings->allow_clear ): ?>
-					<option value="<?php echo esc_attr( $this->get_option( 'default', '' ) ); ?>">&nbsp;</option>
+					<option value="<?php echo esc_attr( $this->get_option( 'default', ' ' ) ); ?>"><?php echo esc_html( $placeholder ); ?></option>
 				<?php endif; ?>
 
 				<?php foreach ( $taxonomies as $taxonomy ) : ?>
