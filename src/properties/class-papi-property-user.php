@@ -41,6 +41,7 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	 */
 	public function get_default_settings() {
 		return [
+			'allow_clear'  => true,
 			'capabilities' => [],
 			'placeholder'  => '',
 			'select2'      => true
