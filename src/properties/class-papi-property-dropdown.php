@@ -104,14 +104,6 @@ class Papi_Property_Dropdown extends Papi_Property {
 			$classes .= ' papi-component-select2';
 		}
 
-		// Add placeholder if any.
-		if ( ! empty( $settings->placeholder ) ) {
-			$options_html[] = papi_html_tag( 'option', [
-				'value' => '',
-				$settings->placeholder
-			] );
-		}
-
 		// Create option html tags for all items.
 		foreach ( $this->get_items() as $key => $value ) {
 			$key = is_numeric( $key ) ? $value : $key;
