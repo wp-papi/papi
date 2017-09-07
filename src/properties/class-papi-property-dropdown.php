@@ -60,6 +60,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
+			'edit_url'    => true,
 			'placeholder' => '',
 			'items'       => [],
 			'multiple'    => false,
@@ -129,7 +130,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 			}
 
 			$options_html[] = papi_html_tag( 'option', [
-				'data-edit-url' => get_edit_post_link( $value ),
+				'data-edit-url' => $settings->edit_url ? get_edit_post_link( $post ) : '',
 				'selected'      => $selected ? 'selected' : null,
 				'value'         => $value,
 				esc_html( papi_convert_to_string( $key ) )
