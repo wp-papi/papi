@@ -73,7 +73,7 @@ class Papi_Property_Term extends Papi_Property {
 			],
 			'layout'      => 'single', // Single or advanced
 			'meta_key'    => '',
-			'placeholder' => '',
+			'placeholder' => null,
 			'taxonomy'    => '',
 			'select2'     => true,
 			'query'       => []
@@ -232,12 +232,12 @@ class Papi_Property_Term extends Papi_Property {
 				id="<?php echo esc_attr( $this->html_id() ); ?>_terms"
 				name="<?php echo esc_attr( $this->html_name() ); ?>"
 				class="<?php echo esc_attr( $classes ); ?>"
-				data-allow-clear="<?php echo empty( $settings->placeholder ) ? 'false' : 'true'; ?>"
-				data-placeholder="<?php echo esc_attr( isset( $settings->placeholder ) ? $settings->placeholder : '' ); ?>"
+				data-allow-clear="<?php echo is_null( $settings->placeholder ) ? 'false' : 'true'; ?>"
+				data-placeholder="<?php echo is_null( $settings->placeholder ) ? esc_attr( $settings->placeholder ) : ''; ?>"
 				data-width="100%">
 
-				<?php if ( ! empty( $settings->placeholder ) ): ?>
-					<option value=""></option>
+				<?php if ( ! is_null( $settings->placeholder ) ): ?>
+					<option value=""><?php echo esc_html( $settings->placeholder ); ?></option>
 				<?php endif; ?>
 
 				<?php foreach ( $taxonomies as $taxonomy ) : ?>

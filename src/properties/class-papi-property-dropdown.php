@@ -60,7 +60,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'placeholder' => '',
+			'placeholder' => null,
 			'items'       => [],
 			'multiple'    => false,
 			'selected'    => [],
@@ -96,6 +96,14 @@ class Papi_Property_Dropdown extends Papi_Property {
 		// database value if not empty.
 		if ( ! papi_is_empty( $value ) ) {
 			$settings->selected = $value;
+		}
+
+		// Add placeholder if any.
+		if ( ! is_null( $settings->placeholder ) ) {
+			$options_html[] = papi_html_tag( 'option', [
+				'value' => '',
+				$settings->placeholder
+			] );
 		}
 
 		$classes = 'papi-fullwidth';
@@ -136,8 +144,8 @@ class Papi_Property_Dropdown extends Papi_Property {
 
 		papi_render_html_tag( 'select', [
 			'class'            => $classes,
-			'data-allow-clear' => ! empty( $settings->placeholder ),
-			'data-placeholder' => $settings->placeholder,
+			'data-allow-clear' => ! is_null( $settings->placeholder ),
+			'data-placeholder' => ! is_null( $settings->placeholder ) ? $settings->placeholder : '',
 			'data-width'       => '100%',
 			'id'               => $this->html_id() . ( $settings->multiple ? '[]' : '' ),
 			'multiple'         => $settings->multiple ? 'multiple' : null,

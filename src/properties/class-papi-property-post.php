@@ -75,7 +75,7 @@ class Papi_Property_Post extends Papi_Property {
 			],
 			'layout'        => 'single', // single or advanced
 			'meta_key'      => '',
-			'placeholder'   => '',
+			'placeholder'   => null,
 			'post_type'     => 'post',
 			'select2'       => true,
 			'query'         => []
@@ -265,12 +265,12 @@ class Papi_Property_Post extends Papi_Property {
 							class="<?php echo esc_attr( $classes ); ?>  papi-property-post-right"
 							id="<?php echo esc_attr( $this->html_id() ); ?>_posts"
 							name="<?php echo esc_attr( $this->html_name() ); ?>"
-							data-allow-clear="<?php echo empty( $settings->placeholder ) ? 'false' : 'true'; ?>"
-							data-placeholder="<?php echo esc_attr( $settings->placeholder ); ?>"
+							data-allow-clear="<?php echo is_null( $settings->placeholder ) ? 'false' : 'true'; ?>"
+							data-placeholder="<?php echo is_null( $settings->placeholder ) ? esc_attr( $settings->placeholder ) : ''; ?>"
 							data-width="100%"
 						>
 
-							<?php if ( ! empty( $settings->placeholder ) ): ?>
+							<?php if ( ! is_null( $settings->placeholder ) ): ?>
 								<option value=""><?php esc_html( $settings->placeholder ); ?></option>
 							<?php endif; ?>
 
