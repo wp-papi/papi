@@ -262,19 +262,24 @@ class Papi_Property_Post extends Papi_Property {
 					<td>
 						<?php endif; ?>
 
+						<?php
+							$placeholder = ! is_null( $settings->placeholder ) ? $settings->placeholder : '';
+							$placeholder = papi_is_empty( $placeholder ) ? '&nbsp;' : '';
+						?>
+
 						<select
 							class="<?php echo esc_attr( $classes ); ?>  papi-property-post-right"
 							id="<?php echo esc_attr( $this->html_id() ); ?>_posts"
 							name="<?php echo esc_attr( $this->html_name() ); ?>"
 							data-allow-clear="<?php echo is_null( $settings->placeholder ) ? 'false' : 'true'; ?>"
-							data-placeholder="<?php echo is_null( $settings->placeholder ) ? esc_attr( $settings->placeholder ) : ''; ?>"
+							data-placeholder="<?php echo esc_attr( $placeholder ); ?>"
 							data-width="100%"
 						>
 
 							<?php if ( ! is_null( $settings->placeholder ) ): ?>
-								<option value="<?php echo esc_attr( $this->get_option( 'default' ) ); ?>"><?php esc_html( $settings->placeholder ); ?></option>
+								<option value="<?php echo esc_attr( $this->get_option( 'default' ) ); ?>"><?php esc_html( $placeholder ); ?></option>
 							<?php elseif ( $settings->allow_clear ): ?>
-								<option value="<?php echo esc_attr( $this->get_option( 'default' ) ); ?>"></option>
+								<option value="<?php echo esc_attr( $this->get_option( 'default' ) ); ?>">&nbsp;</option>
 							<?php endif; ?>
 
 							<?php foreach ( $posts as $label => $items ) : ?>

@@ -99,16 +99,19 @@ class Papi_Property_Dropdown extends Papi_Property {
 			$settings->selected = $value;
 		}
 
+		$placeholder = ! is_null( $settings->placeholder ) ? $settings->placeholder : '';
+		$placeholder = papi_is_empty( $placeholder ) ? '&nbsp;' : '';
+
 		// Add placeholder if any.
 		if ( ! is_null( $settings->placeholder ) ) {
 			$options_html[] = papi_html_tag( 'option', [
 				'value' => $this->get_option( 'default' ),
-				$settings->placeholder
+				$placeholder
 			] );
 		} else if ( $settings->allow_clear ) {
 			$options_html[] = papi_html_tag( 'option', [
 				'value' => $this->get_option( 'default' ),
-				''
+				'&nbsp;'
 			] );
 		}
 
@@ -151,7 +154,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 		papi_render_html_tag( 'select', [
 			'class'            => $classes,
 			'data-allow-clear' => $settings->allow_clear,
-			'data-placeholder' => ! is_null( $settings->placeholder ) ? $settings->placeholder : '',
+			'data-placeholder' => $placeholder,
 			'data-width'       => '100%',
 			'id'               => $this->html_id() . ( $settings->multiple ? '[]' : '' ),
 			'multiple'         => $settings->multiple ? 'multiple' : null,
