@@ -277,9 +277,9 @@ class Papi_Property_Post extends Papi_Property {
 						>
 
 							<?php if ( ! is_null( $settings->placeholder ) ): ?>
-								<option value="<?php echo esc_attr( $this->get_option( 'default' ) ); ?>"><?php esc_html( $placeholder ); ?></option>
+								<option value="<?php echo esc_attr( $this->get_option( 'default', '' ) ); ?>"><?php esc_html( $placeholder ); ?></option>
 							<?php elseif ( $settings->allow_clear ): ?>
-								<option value="<?php echo esc_attr( $this->get_option( 'default' ) ); ?>">&nbsp;</option>
+								<option value="<?php echo esc_attr( $this->get_option( 'default', '' ) ); ?>">&nbsp;</option>
 							<?php endif; ?>
 
 							<?php foreach ( $posts as $label => $items ) : ?>
