@@ -122,6 +122,10 @@ class Papi_Property_Repeater extends Papi_Property {
 			}
 
 			$values[$property_type_slug] = $property_type_value;
+
+			if ( papi_is_empty( $values[$index][$slug] ) ) {
+				$values[$index][$slug] = $property_type_value->get_option( 'default', $property_type_value->default_value );
+			}
 		}
 
 		if ( ! papi_is_admin() ) {

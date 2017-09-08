@@ -154,6 +154,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				}
 
 				$values[$index][$property_type_slug] = $property_type_value;
+
+				if ( papi_is_empty( $values[$index][$slug] ) ) {
+					$values[$index][$slug] = $property_type_value->get_option( 'default', $property_type_value->default_value );
+				}
 			}
 		}
 
@@ -166,10 +170,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					}
 
 					if ( papi_is_property_type_key( $slug ) ) {
-						unset( $values[$index][$slug] );
-					}
-
-					if ( papi_is_empty( $value ) ) {
 						unset( $values[$index][$slug] );
 					}
 				}
