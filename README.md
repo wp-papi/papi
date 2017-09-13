@@ -19,7 +19,7 @@ So we though why don’t use the same approach in WordPress? Papi is today runni
 
 ## A message from the author
 
-v3.2.0 will likely be the last release I plan to work on as the core maintainer of Papi since my focus has shifted from WordPress to doing more JavaScript and Go projects. I hope you understand my decision to step back from the project, if you have any questions or would be interested in take over some of the maintenance of the project please let me know. I will still be around answering questions and helping any new maintainers. Some bug fixes and/or pull request may be added since me and my colleagues use Papi internally and will be continuing doing it.
+v3.2.0 will likely be the last release I plan to work on as the core maintainer of Papi since my focus has shifted from WordPress to doing more JavaScript and Go projects. I hope you understand my decision to step back from the project, if you have any questions or would be interested in take over some of the maintenance of the project please let me know. I will still be around answering questions and helping any new maintainers. Some bug fixes and/or pull request may be added (but now new versions) since me and my colleagues use Papi internally and will be continuing doing it.
 
 ## Installation
 
