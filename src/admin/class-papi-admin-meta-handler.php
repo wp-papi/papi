@@ -134,12 +134,14 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 			return;
 		}
 
-		$slugs = papi_get_slugs( $parent_id, true );
+		$meta = get_post_meta( $parent_id );
 
-		foreach ( $slugs as $slug ) {
-			if ( $value = papi_data_get( $parent_id, $slug ) ) {
-				papi_data_update( $revision_id, $slug, $value );
+		foreach ( $meta as $key => $value ) {
+			if ( $key[0] === '_' && $key !== papi_get_page_type_key() ) {
+				continue;
 			}
+
+			papi_data_update( $revision_id, $key, array_shift( $value ) );
 		}
 	}
 
