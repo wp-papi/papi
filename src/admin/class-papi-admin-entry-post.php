@@ -20,6 +20,42 @@ class Papi_Admin_Entry_Post extends Papi_Admin_Entry {
 	}
 
 	/**
+	 * Filters the fields displayed in the post revision diff UI.
+	 *
+	 * @param  array   $return
+	 * @param  WP_Post $compare_from
+	 * @param  WP_Post $compare_to
+	 *
+	 * @return array
+	 */
+	public function get_revision_ui_diff( $return, $compare_from, $compare_to ) {
+		$meta = get_post_meta( $compare_from->ID );
+
+		foreach ( $meta as $key => $value ) {
+			if ( $key[0] === '_' && $key !== papi_get_page_type_key() ) {
+				continue;
+			}
+
+			$content_from = papi_data_get( $compare_from->ID, $key );
+			$content_to = papi_data_get( $compare_to->ID, $key );
+
+			$diff = wp_text_diff( $content_from, $content_to, [
+				'show_split_view' => true
+			] );
+
+			if ( $diff ) {
+				$return[] = [
+					'id'   => $key,
+					'name' => $key,
+					'diff' => $diff,
+				];
+			}
+		}
+
+		return $return;
+	}
+
+	/**
 	 * Output hidden meta boxes.
 	 */
 	public function hidden_meta_boxes() {
@@ -122,6 +158,13 @@ class Papi_Admin_Entry_Post extends Papi_Admin_Entry {
 		add_action( 'load-post-new.php', [$this, 'load_post_new'] );
 		add_action( 'add_meta_boxes', [$this, 'hidden_meta_boxes'], 10 );
 		add_action( 'redirect_post_location', [$this, 'redirect_post_location'] );
+	}
+
+	/**
+	 * Setup filters.
+	 */
+	protected function setup_filters() {
+		add_filter( 'wp_get_revision_ui_diff', [$this, 'get_revision_ui_diff'], 10, 3 );
 	}
 }
 
