@@ -140,6 +140,11 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 			return;
 		}
 
+		// Bail if a entry type don't exists on parent post.
+		if ( papi_is_empty( papi_get_entry_type_by_meta_id( $parent_id, 'post' ) ) ) {
+			return;
+		}
+
 		$meta = get_post_meta( $parent_id );
 
 		foreach ( $meta as $key => $value ) {
