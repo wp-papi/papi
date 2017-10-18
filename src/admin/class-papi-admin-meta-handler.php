@@ -104,15 +104,6 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 				return;
 			}
 
-			// Save post revision data.
-			if ( $parent_id = wp_is_post_revision( $id ) ) {
-				$slugs = papi_get_slugs( $id, true );
-
-				foreach ( $slugs as $slug ) {
-					papi_update_field( $id, $slug, papi_get_field( $parent_id, $slug ) );
-				}
-			}
-
 			// Delete all oEmbed caches.
 			if ( class_exists( 'WP_Embed' ) ) {
 				global $wp_embed;
@@ -131,6 +122,38 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		}
 
 		$this->save_properties( $id );
+	}
+
+	/**
+	 * Save custom fields for revision post.
+	 *
+	 * @param int $post_id
+	 */
+	public function save_revision( $revision_id ) {
+		// Check if our nonce is vailed.
+		if ( ! wp_verify_nonce( papi_get_sanitized_post( 'papi_meta_nonce' ), 'papi_save_data' ) ) {
+			return;
+		}
+
+		// Fetch parent id from revision.
+		if ( ! $parent_id = wp_is_post_revision( $revision_id ) ) {
+			return;
+		}
+
+		// Bail if a entry type don't exists on parent post.
+		if ( papi_is_empty( papi_get_entry_type_by_meta_id( $parent_id, 'post' ) ) ) {
+			return;
+		}
+
+		$meta = get_post_meta( $parent_id );
+
+		foreach ( $meta as $key => $value ) {
+			if ( $key[0] === '_' && $key !== papi_get_page_type_key() ) {
+				continue;
+			}
+
+			papi_data_update( $revision_id, $key, array_shift( $value ) );
+		}
 	}
 
 	/**
@@ -194,6 +217,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 * Setup actions.
 	 */
 	protected function setup_actions() {
+		add_action( '_wp_put_post_revision', [$this, 'save_revision'] );
 		add_action( 'save_post', [$this, 'save_meta_boxes'], 1, 2 );
 		add_action( 'created_term', [$this, 'save_meta_boxes'], 1 );
 		add_action( 'edit_term', [$this, 'save_meta_boxes'], 1 );

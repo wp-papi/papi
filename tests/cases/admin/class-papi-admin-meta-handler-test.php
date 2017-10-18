@@ -447,4 +447,20 @@ class Papi_Admin_Meta_Handler_Test extends WP_UnitTestCase {
 
 		$this->assertSame( 'Hello, world!', get_post_meta( $post_id, unpapify( $property->slug ), true ) );
 	}
+
+	public function test_save_revision() {
+		$post_id = $this->factory->post->create();
+		update_post_meta( $post_id, papi_get_page_type_key(), 'properties-page-type' );
+
+		$revs_id  = wp_save_post_revision( $post_id );
+		$property = $this->page_type->get_property( 'string_test' );
+
+		update_post_meta( $post_id, 'string_test', 'Hello, world!' );
+
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+
+		$this->handler->save_revision( $revs_id );
+
+		$this->assertSame( 'Hello, world!', get_post_meta( $revs_id, 'string_test', true ) );
+	}
 }
