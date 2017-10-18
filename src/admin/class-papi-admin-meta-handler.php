@@ -130,6 +130,12 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 * @param int $post_id
 	 */
 	public function save_revision( $revision_id ) {
+		// Check if our nonce is vailed.
+		if ( ! wp_verify_nonce( papi_get_sanitized_post( 'papi_meta_nonce' ), 'papi_save_data' ) ) {
+			return;
+		}
+
+		// Fetch parent id from revision.
 		if ( ! $parent_id = wp_is_post_revision( $revision_id ) ) {
 			return;
 		}
