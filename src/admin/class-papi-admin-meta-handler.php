@@ -200,16 +200,18 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 * @param int $revision_id
 	 */
 	public function restore_post_revision( $post_id, $revision_id ) {
-		$slugs = papi_get_slugs( $revision_id, true );
+		if ( papi_is_empty( papi_get_entry_type_by_meta_id( $post_id, 'post' ) ) ) {
+			return;
+		}
 
-		foreach ( $slugs as $slug ) {
-			$value = papi_get_field( $revision_id, $slug );
+		$meta = get_post_meta( $revision_id );
 
-			if ( papi_is_empty( $value ) ) {
-				papi_delete_field( $post_id, $slug );
-			} else {
-				papi_update_field( $post_id, $slug, $value );
+		foreach ( $meta as $key => $value ) {
+			if ( $key[0] === '_' && $key !== papi_get_page_type_key() ) {
+				continue;
 			}
+
+			papi_data_update( $post_id, $key, array_shift( $value ) );
 		}
 	}
 
