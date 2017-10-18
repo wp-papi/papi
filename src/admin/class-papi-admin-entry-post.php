@@ -158,6 +158,12 @@ class Papi_Admin_Entry_Post extends Papi_Admin_Entry {
 		add_action( 'load-post-new.php', [$this, 'load_post_new'] );
 		add_action( 'add_meta_boxes', [$this, 'hidden_meta_boxes'], 10 );
 		add_action( 'redirect_post_location', [$this, 'redirect_post_location'] );
+	}
+
+	/**
+	 * Setup filters.
+	 */
+	protected function setup_filters() {
 		add_filter( 'wp_get_revision_ui_diff', [$this, 'get_revision_ui_diff'], 10, 3 );
 	}
 }
