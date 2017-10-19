@@ -238,7 +238,12 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		$val = papi_get_sanitized_post( $key );
 
 		// When autosave is in place the post id is located deeper in the post data array, the ids should not match.
-		if ( isset( $_POST['data'], $_POST['data']['wp_autosave'], $_POST['data']['wp_autosave']['post_id'] ) ) {
+		if ( isset( $_POST['data']['wp_autosave'], $_POST['data']['wp_autosave']['post_id'] ) ) {
+			// But if it's a auto draft the ids should match.
+			if ( isset( $_POST['data']['wp_autosave']['auto_draft'] ) && ! empty( $_POST['data']['wp_autosave']['auto_draft'] ) ) {
+				return sanitize_text_field( $_POST['data']['wp_autosave']['post_id'] ) === strval( $post_id );
+			}
+
 			return sanitize_text_field( $_POST['data']['wp_autosave']['post_id'] ) !== strval( $post_id );
 		}
 
