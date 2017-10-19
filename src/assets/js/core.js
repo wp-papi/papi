@@ -31,7 +31,7 @@ class Core {
       const formdata = $('form#post').serializeArray();
 
       $.each(formdata, function (index, field) {
-        if (field.name.substring(0, 5) === 'papi_') {
+        if (field.name.substring(0, 5) === 'papi_' || field.name.substring(0, 5) === '_papi') {
           options.data += '&' + field.name + '=' + field.value;
         }
       });

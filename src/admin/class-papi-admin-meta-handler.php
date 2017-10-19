@@ -237,9 +237,9 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		$key = papi_get_sanitized_post( 'action' ) === 'save-attachment-compat' ? 'id' : 'post_ID';
 		$val = papi_get_sanitized_post( $key );
 
-		// When autosave is in place the post id is located deeper in the post data array, the ids should not match.
-		if ( isset( $_POST['data'], $_POST['data']['wp_autosave'], $_POST['data']['wp_autosave']['post_id'] ) ) {
-			return sanitize_text_field( $_POST['data']['wp_autosave']['post_id'] ) !== strval( $post_id );
+		// When autosave is in place the post id is located deeper in the post data array.
+		if ( isset( $_POST['data']['wp_autosave'], $_POST['data']['wp_autosave']['post_id'] ) ) {
+			return sanitize_text_field( $_POST['data']['wp_autosave']['post_id'] ) === strval( $post_id );
 		}
 
 		// Should not be the same id when `wp-preview` equals `dopreview`.
