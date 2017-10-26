@@ -260,7 +260,7 @@ class Papi_Property_Link extends Papi_Property {
 						</td>
 						<td>
 							<input class="wp-link-target" type="hidden" value="<%= target %>" name="<%= slug %>[target]">
-							<%= target === '_blank' ? '<?php esc_html_e( 'New window', 'papi' ) ?>' : '<?php esc_html_e( 'Same window', 'papi' ); ?>' %>
+							<%= target === '_blank' ? '<?php esc_html_e( 'New window', 'papi' ); ?>' : '<?php esc_html_e( 'Same window', 'papi' ); ?>' %>
 						</td>
 					</tr>
 				</tbody>
@@ -282,7 +282,7 @@ class Papi_Property_Link extends Papi_Property {
 		if ( is_object( $values ) ) {
 			$values = (array) $values;
 		}
-		
+
 		if ( ! isset( $values['url'] ) ) {
 			$values = $this->link_fields;
 
