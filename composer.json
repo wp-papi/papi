@@ -22,7 +22,7 @@
   },
   "require-dev": {
     "frozzare/wp-test-suite": "^1.0",
-    "wp-coding-standards/wpcs": "^0.11",
+    "wp-coding-standards/wpcs": "^0.13",
     "behat/behat": "^2.5"
   },
   "scripts": {
