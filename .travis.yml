@@ -13,10 +13,9 @@ before_script:
 script:
   - make lint:php
   - vendor/bin/phpunit --coverage-clover clover.xml
-  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then vendor/bin/behat; fi
+  - then vendor/bin/behat
 
 after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
   - bash <(curl -s https://codecov.io/bash)
 
 env:
