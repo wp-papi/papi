@@ -30,6 +30,7 @@ class Papi_Admin_Entry_Post extends Papi_Admin_Entry {
 	 */
 	public function get_revision_ui_diff( $return, $compare_from, $compare_to ) {
 		$meta = get_post_meta( $compare_from->ID );
+		$meta = is_array( $meta ) ? $meta : [];
 
 		foreach ( $meta as $key => $value ) {
 			if ( $key[0] === '_' && $key !== papi_get_page_type_key() ) {
