@@ -1,15 +1,18 @@
+# Ignore issues and pull requests with labels or from users
 ignore:
-    users:
-    - frozzare
-    - rasmusbe
+  users:
+  - frozzare
+  - rasmusbe
 
 issue:
-    message: |
+  labels:
+  - bug
+  message: |
     Hello @@{author} :wave:
 
     I'm your friendly neighborhood bot and would like to say thank you for filling this issue,
     unfortunately this project is not actively maintained anymore.
-    
+
     We all hope for a new maintainer will step in and take over. You can read more about the decision in the [readme](https://github.com/wp-papi/papi#a-message-from-the-author).
 
     Best regards,
@@ -17,7 +20,7 @@ issue:
     ~ Hellobot
 
 pull_request:
-    message: |
+  message: |
     Hello @@{author} :wave:
 
     I'm your friendly neighborhood bot and would like to say thank your contribution,
