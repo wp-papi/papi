@@ -23,7 +23,7 @@ pull_request:
   message: |
     Hello @@{author} :wave:
 
-    I'm your friendly neighborhood bot and would like to say thank your contribution,
+    I'm your friendly neighborhood bot and would like to say thank your for your contribution,
     unfortunately this project is not actively maintained anymore.
 
     We all hope for a new maintainer will step in and take over. You can read more about the decision in the [readme](https://github.com/wp-papi/papi#a-message-from-the-author).
