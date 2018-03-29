@@ -209,11 +209,6 @@ class Papi_Property_Link extends Papi_Property {
 			$link->post_id = url_to_postid( $link->url );
 		}
 
-		// Only replace url when post id is not zero.
-		if ( $link->post_id > 0 ) {
-			$link->url = get_permalink( $link->post_id );
-		}
-
 		// If empty target set `_self` as default target.
 		if ( empty( $link->target ) ) {
 			$link->target = '_self';
