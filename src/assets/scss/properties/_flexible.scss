@@ -10,15 +10,19 @@
     border-bottom: 1px #eaeaea solid;
     margin-bottom: -2px !important;
     padding: 10px 10px !important;
+    display: flex;
   }
 
   .flexible-layout-row .flexible-row-label {
-    margin-bottom: -1px !important;
-    padding: 10px 15px !important;
+    padding: 10px 15px!important;
+    display: flex;
+    margin-top: -10px;
   }
 
   .papi-table .flexible-column {
-    padding: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
 
     &.flexible-layout-row {
       border-top: 0;
