@@ -363,7 +363,7 @@ class Papi_Core_Property {
 	 * @return string
 	 */
 	public function get_cache_key( $slug = '' ) {
-		return md5( $this->get_cache_slug( $slug ) );
+		return hash( 'sha256', $this->get_cache_slug( $slug ) );
 	}
 
 	/**
