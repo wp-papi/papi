@@ -339,6 +339,34 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Get cache slug.
+	 *
+	 * @param  string $slug
+	 *
+	 * @return string
+	 */
+	public function get_cache_slug( $slug = '' ) {
+		if ( empty( $slug ) ) {
+			$slug = $this->get_slug();
+			$slug = str_replace( '[', '_', $slug );
+			$slug = str_replace( ']', '', $slug );
+		}
+
+		return sprintf( '_%s_cache', papify( $slug ) );
+	}
+
+	/**
+	 * Get cache key.
+	 *
+	 * @param  string $slug
+	 *
+	 * @return string
+	 */
+	public function get_cache_key( $slug = '' ) {
+		return md5( $this->get_cache_slug( $slug ) );
+	}
+
+	/**
 	 * Get convert type.
 	 *
 	 * @return string

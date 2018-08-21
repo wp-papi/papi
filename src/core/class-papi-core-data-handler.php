@@ -176,6 +176,10 @@ class Papi_Core_Data_Handler {
 				continue;
 			}
 
+			if ( empty( $item['type'] ) ) {
+				continue;
+			}
+
 			$property = papi_get_property_type( $item['type'] );
 
 			unset( $data[ $key ] );

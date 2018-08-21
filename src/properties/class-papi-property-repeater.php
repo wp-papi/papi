@@ -71,62 +71,67 @@ class Papi_Property_Repeater extends Papi_Property {
 			return [];
 		}
 
-		$values = papi_property_to_array_slugs( $values, $repeater_slug );
-
-		foreach ( $values as $slug => $value ) {
-			if ( papi_is_property_type_key( $slug ) ) {
-				continue;
-			}
-
-			$property_type_slug = papi_get_property_type_key_f( $slug );
-
-			if ( ! isset( $values[$property_type_slug] ) ) {
-				continue;
-			}
-
-			// Get property type.
-			$property_type_value = $values[$property_type_slug];
-			$property_type       = papi_get_property_type( $property_type_value );
-
-			if ( ! is_object( $property_type ) ) {
-				continue;
-			}
-
-			// Get property child slug.
-			$child_slug = $this->get_child_slug( $repeater_slug, $slug );
-
-			// Get raw value from cache if enabled.
-			if ( $this->cache ) {
-				$raw_value = papi_cache_get( $slug, $post_id, $this->get_meta_type() );
-			} else {
-				$raw_value = false;
-			}
-
-			// Load the value.
-			if ( $raw_value === null || $raw_value === false ) {
-				$values[$slug] = $property_type->load_value( $value, $child_slug, $post_id );
-				$values[$slug] = papi_filter_load_value( $property_type->type, $values[$slug], $child_slug, $post_id, papi_get_meta_type() );
-
-				if ( ! papi_is_empty( $values[$slug] ) && $this->cache ) {
-					papi_cache_set( $slug, $post_id, $values[$slug], $this->get_meta_type() );
+		foreach ( $values as $index => $row ) {
+			foreach ( $row as $slug => $value ) {
+				if ( papi_is_property_type_key( $slug ) ) {
+					continue;
 				}
-			} else {
-				$values[$slug] = $raw_value;
-			}
 
-			// Format the value from the property class.
-			$values[$slug] = $property_type->format_value( $values[$slug], $child_slug, $post_id );
+				$property_type_slug = papi_get_property_type_key_f( $slug );
 
-			if ( ! papi_is_admin() ) {
-				$values[$slug] = papi_filter_format_value( $property_type->type, $values[$slug], $child_slug, $post_id, papi_get_meta_type() );
-			}
+				if ( ! isset( $row[$property_type_slug] ) ) {
+					continue;
+				}
 
-			$values[$property_type_slug] = $property_type_value;
+				// Get property type.
+				$property_type_value = $row[$property_type_slug];
+				$property_type       = papi_get_property_type( $property_type_value );
 
-			if ( papi_is_empty( $values[$slug] ) ) {
-				$values[$slug] = $property_type_value->get_option( 'default', $property_type_value->default_value );
+				if ( ! is_object( $property_type ) ) {
+					continue;
+				}
+
+				// Get property child slug.
+				$child_slug = $this->get_child_slug( $repeater_slug, $slug );
+
+				// Get cache key.
+				$cache_key = $this->get_cache_key( sprintf( '%s_%d', $slug, $index ) );
+
+				// Get raw value from cache if enabled.
+				if ( $this->cache ) {
+					$raw_value = papi_cache_get( $cache_key, $post_id, $this->get_meta_type() );
+				} else {
+					$raw_value = false;
+				}
+
+				// Load the value.
+				if ( $raw_value === null || $raw_value === false ) {
+					$row[$slug] = $property_type->load_value( $value, $child_slug, $post_id );
+					$row[$slug] = papi_filter_load_value( $property_type->type, $row[$slug], $child_slug, $post_id, papi_get_meta_type() );
+
+					if ( ! papi_is_empty( $row[$slug] ) && $this->cache ) {
+						papi_cache_set( $cache_key, $post_id, $row[$slug], $this->get_meta_type() );
+					}
+				} else {
+					$row[$slug] = $raw_value;
+				}
+
+				// Format the value from the property class.
+				$row[$slug] = $property_type->format_value( $row[$slug], $child_slug, $post_id );
+
+				if ( ! papi_is_admin() ) {
+					$row[$slug] = papi_filter_format_value( $property_type->type, $row[$slug], $child_slug, $post_id, papi_get_meta_type() );
+				}
+
+				$row[$property_type_slug] = $property_type_value;
+
+				if ( papi_is_empty( $row[$slug] ) ) {
+					$row[$slug] = $property_type_value->get_option( 'default', $property_type_value->default_value );
+				}
 			}
 		}
+
+		$values = papi_property_to_array_slugs( $values, $repeater_slug );
 
 		if ( ! papi_is_admin() ) {
 			foreach ( $values as $slug => $value ) {
