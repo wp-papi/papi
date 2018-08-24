@@ -116,6 +116,13 @@ class Papi_Core_Property {
 	protected $store;
 
 	/**
+	 * Parent property.
+	 *
+	 * @var Papi_Core_Property
+	 */
+	protected $parent_property = null;
+
+	/**
 	 * The constructor.
 	 */
 	public function __construct() {
@@ -339,34 +346,6 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Get cache slug.
-	 *
-	 * @param  string $slug
-	 *
-	 * @return string
-	 */
-	public function get_cache_slug( $slug = '' ) {
-		if ( empty( $slug ) ) {
-			$slug = $this->get_slug();
-			$slug = str_replace( '[', '_', $slug );
-			$slug = str_replace( ']', '', $slug );
-		}
-
-		return sprintf( '_%s_cache', papify( $slug ) );
-	}
-
-	/**
-	 * Get cache key.
-	 *
-	 * @param  string $slug
-	 *
-	 * @return string
-	 */
-	public function get_cache_key( $slug = '' ) {
-		return hash( 'sha256', $this->get_cache_slug( $slug ) );
-	}
-
-	/**
 	 * Get convert type.
 	 *
 	 * @return string
@@ -441,6 +420,15 @@ class Papi_Core_Property {
 		}
 
 		return $this->options;
+	}
+
+	/**
+	 * Get parent property.
+	 *
+	 * @return Papi_Core_Property
+	 */
+	public function get_parent_property() {
+		return $this->parent_property;
 	}
 
 	/**
@@ -841,6 +829,15 @@ class Papi_Core_Property {
 		if ( isset( $this->options->settings, $this->options->settings->$key ) ) {
 			$this->options->settings->$key = $value;
 		}
+	}
+
+	/**
+	 * Set parent property.
+	 *
+	 * @param Papi_Core_Property $parent_property
+	 */
+	public function set_parent_property( Papi_Core_Property $parent_property ) {
+		$this->parent_property = $parent_property;
 	}
 
 	/**

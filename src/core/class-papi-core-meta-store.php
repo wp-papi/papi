@@ -95,14 +95,11 @@ abstract class Papi_Core_Meta_Store {
 
 		$slug = strtolower( $slug );
 
-		// Get cache key.
-		$cahce_key = $this->get_property_cache_key( $slug );
-
 		// Determine if we should use the cache or not.
 		$cache = $this->get_property_option( $slug, 'cache', true );
 
 		// Get the raw value from the cache.
-		$raw_value = $cache ? papi_cache_get( $cahce_key, $id, $type ) : false;
+		$raw_value = $cache ? papi_cache_get( $slug, $id, $type ) : false;
 
 		// Load raw value if not cached.
 		if ( $raw_value === null || $raw_value === false ) {
@@ -113,9 +110,9 @@ abstract class Papi_Core_Meta_Store {
 			}
 
 			if ( $cache ) {
-				papi_cache_set( $cahce_key, $id, $raw_value, $type );
+				papi_cache_set( $slug, $id, $raw_value, $type );
 			} else {
-				papi_cache_delete( $cahce_key, $id, $type );
+				papi_cache_delete( $slug, $id, $type );
 			}
 		}
 
@@ -304,6 +301,7 @@ abstract class Papi_Core_Meta_Store {
 	 * @return bool
 	 */
 	public function get_property_option( $slug, $option, $default = null ) {
+		$slug     = unpapify( $slug );
 		$property = $this->property( $slug );
 
 		// If no property type is found, return default
@@ -319,26 +317,6 @@ abstract class Papi_Core_Meta_Store {
 		}
 
 		return $value;
-	}
-
-	/**
-	 * Get property cache key or slug value
-	 * if no property is found.
-	 *
-	 * @param  string $slug
-	 *
-	 * @return string
-	 */
-	public function get_property_cache_key( $slug ) {
-		$property = $this->property( $slug );
-
-		// If no property type is found, return slug
-		// value since we don't have a property.
-		if ( ! papi_is_property( $property ) ) {
-			return $slug;
-		}
-
-		return $property->get_cache_key( $slug );
 	}
 
 	/**
