@@ -120,8 +120,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				// Get property child slug.
 				$child_slug = $this->get_child_slug( $repeater_slug, $slug );
 
-				// Create cache key.
-				$cache_key = sprintf( '%s_%d_%s', $repeater_slug, $index, $slug );
+				// Get cache key.
+				$cache_key = $this->get_cache_key( sprintf( '%s_%d_%s', $repeater_slug, $index, $slug ) );
 
 				// Get raw value from cache if enabled.
 				if ( $this->cache ) {
