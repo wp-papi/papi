@@ -45,9 +45,3 @@ matrix:
 cache:
   directories:
   - $HOME/.composer/cache
-
-branches:
-  only:
-    - master
-    - 2.x
-    - 3.x

@@ -116,6 +116,13 @@ class Papi_Core_Property {
 	protected $store;
 
 	/**
+	 * Parent property.
+	 *
+	 * @var Papi_Core_Property
+	 */
+	protected $parent_property = null;
+
+	/**
 	 * The constructor.
 	 */
 	public function __construct() {
@@ -413,6 +420,15 @@ class Papi_Core_Property {
 		}
 
 		return $this->options;
+	}
+
+	/**
+	 * Get parent property.
+	 *
+	 * @return Papi_Core_Property
+	 */
+	public function get_parent_property() {
+		return $this->parent_property;
 	}
 
 	/**
@@ -813,6 +829,15 @@ class Papi_Core_Property {
 		if ( isset( $this->options->settings, $this->options->settings->$key ) ) {
 			$this->options->settings->$key = $value;
 		}
+	}
+
+	/**
+	 * Set parent property.
+	 *
+	 * @param Papi_Core_Property $parent_property
+	 */
+	public function set_parent_property( Papi_Core_Property $parent_property ) {
+		$this->parent_property = $parent_property;
 	}
 
 	/**

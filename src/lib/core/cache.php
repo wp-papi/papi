@@ -29,7 +29,7 @@ function papi_cache_delete( $key, $suffix, $type = 'post' ) {
  *
  * @return bool
  */
-function papi_cache_get( $key, $suffix, $type = 'post' ) {
+function papi_cache_get( $key, $suffix = '', $type = 'post' ) {
 	$key = papi_cache_key( $key, $suffix, $type );
 
 	if ( papi_is_admin() ) {
