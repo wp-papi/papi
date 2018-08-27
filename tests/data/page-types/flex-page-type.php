@@ -61,6 +61,30 @@ class Flex_Page_Type extends Papi_Page_Type {
 									'type'  => 'editor'
 								] )
 							]
+						],
+						[
+							'title' => 'List',
+							'items' => [
+								papi_property( [
+									'type'     => 'repeater',
+									'title'    => 'Repeater test',
+									'slug'     => 'repeater_test_other',
+									'settings' => [
+										'items' => [
+											papi_property( [
+												'type'  => 'string',
+												'title' => 'Book name',
+												'slug'  => 'book_name'
+											] ),
+											papi_property( [
+												'type'  => 'bool',
+												'title' => 'Is open?',
+												'slug'  => 'is_open'
+											] )
+										]
+									]
+								] )
+							]
 						]
 					]
 				]
