@@ -790,6 +790,10 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		// Remove values that don't exists in the slugs array.
 		foreach ( $values as $index => $value ) {
+			if ( ! is_array( $value ) ) {
+				continue;
+			}
+
 			$keys = array_keys( $value );
 
 			foreach ( $slugs as $slug ) {
