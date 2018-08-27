@@ -56,6 +56,10 @@
       table-layout: fixed;
       width: 100%;
 
+      .papi-property-repeater {
+        margin-top: -21px;
+      }
+
       .wp-editor-tools {
         margin-bottom: -4px !important;
       }
@@ -86,7 +90,6 @@
           background: none;
           border-left: 0;
           font-weight: normal;
-          padding: 10px 15px 20px 18px;
           width: auto;
         }
 
@@ -189,6 +192,14 @@
         pointer-events: none;
         position: absolute;
         width: 0;
+      }
+    }
+  }
+
+  &.papi-property-repeater-top {
+    > .papi-table {
+      > .flexible-tbody > tr > .flexible-column {
+        padding-top: 0;
       }
     }
   }
