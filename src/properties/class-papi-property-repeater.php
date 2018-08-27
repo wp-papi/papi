@@ -71,14 +71,14 @@ class Papi_Property_Repeater extends Papi_Property {
 			return [];
 		}
 
-		$counter = 0;
-
-		echo '<pre>';
+		$top_property = new Papi_Core_Property;
 
 		foreach ( $values as $index => $row ) {
 			if ( ! is_array( $row ) ) {
 				continue;
 			}
+
+			$top_property->slug = $repeater_slug . '_' . $index;
 
 			foreach ( $row as $slug => $value ) {
 				if ( papi_is_property_type_key( $slug ) ) {
@@ -105,28 +105,22 @@ class Papi_Property_Repeater extends Papi_Property {
 					continue;
 				}
 
+
 				// Get property child slug.
 				$child_slug = $this->get_child_slug( $repeater_slug, $slug );
 
-				// Create cache key.
-				/// $cache_key = $this->html_name( $property_type, $counter );
-
-				// $parent_property = $this;
-				$property_type->set_parent_property( $this );
+				// Set top property.
+				$property_type->set_parent_property( $top_property );
 
 				// Create cache key.
-				$cache_key = ''; // sprintf( '%s_%d_%s', $repeater_slug, $index, $slug );
-				var_dump($this->get_parent_property());
-				if ($parent_property = $this->get_parent_property()) {
-					$cache_key = sprintf('%s_%s', $parent_property->get_slug(true), $cache_key);
+				$cache_key = sprintf( '%s_%s', $top_property->slug, $slug );
+				if ( $parent_property = $this->get_parent_property() ) {
+					$cache_key = sprintf( '%s_%s', $parent_property->get_slug( true ), $cache_key );
 				}
-
-				var_dump($cache_key);
 
 				// Get raw value from cache if enabled.
 				if ( $this->cache ) {
 					$raw_value = papi_cache_get( $cache_key, $post_id, $this->get_meta_type() );
-					if (!empty($raw_value)) var_dump('cached');
 				} else {
 					$raw_value = false;
 				}
@@ -143,13 +137,8 @@ class Papi_Property_Repeater extends Papi_Property {
 					$row[$slug] = $raw_value;
 				}
 
-				$old_slug = $property_type->slug;
-				$property_type->slug = $property_type->slug . '_' . $counter;
-
 				// Format the value from the property class.
 				$row[$slug] = $property_type->format_value( $row[$slug], $child_slug, $post_id );
-
-				$property_type->slug = $old_slug;
 
 				if ( ! papi_is_admin() ) {
 					$row[$slug] = papi_filter_format_value( $property_type->type, $row[$slug], $child_slug, $post_id, papi_get_meta_type() );
@@ -162,8 +151,6 @@ class Papi_Property_Repeater extends Papi_Property {
 				}
 			}
 
-			$counter++;
-
 			if ( ! papi_is_admin() ) {
 				foreach ( $row as $slug => $value ) {
 					if ( papi_is_property_type_key( $slug ) ) {
@@ -174,8 +161,6 @@ class Papi_Property_Repeater extends Papi_Property {
 
 			$values[$index] = $row;
 		}
-
-		exit;
 
 		return $values;
 	}
@@ -892,12 +877,14 @@ class Papi_Property_Repeater extends Papi_Property {
 			papi_data_delete( $post_id, $meta->meta_key, $this->get_meta_type() );
 		}
 
-		$counter = 0;
+		$top_property = new Papi_Core_Property;
 
 		foreach ( $values as $index => $row ) {
 			if ( ! is_array( $row ) ) {
 				continue;
 			}
+
+			$top_property->slug = $repeater_slug . '_' . $index;
 
 			foreach ( $row as $slug => $value ) {
 				if ( papi_is_property_type_key( $slug ) ) {
@@ -931,14 +918,13 @@ class Papi_Property_Repeater extends Papi_Property {
 					continue;
 				}
 
-				$parent_property = $this;
-				$parent_property->slug = $this->html_name(null, $counter);
-				$property_type->set_parent_property( $parent_property );
+				// Set top property.
+				$property_type->set_parent_property( $top_property );
 
 				// Create cache key.
-				$cache_key = sprintf( '%s_%d_%s', $repeater_slug, $index, $slug );
-				if ($parent_property = $this->get_parent_property()) {
-					$cache_key = sprintf('%s_%s', $parent_property->get_slug(true), $cache_key);
+				$cache_key = sprintf( '%s_%s', $top_property->slug, $slug );
+				if ( $parent_property = $this->get_parent_property() ) {
+					$cache_key = sprintf( '%s_%s', $parent_property->get_slug( true ), $cache_key );
 				}
 
 				// Delete cache if any.
@@ -967,8 +953,6 @@ class Papi_Property_Repeater extends Papi_Property {
 					}
 				}
 			}
-
-			$counter++;
 
 			// Remove unnecessary property type keys if any is left.
 			foreach ( $row as $slug => $value ) {
