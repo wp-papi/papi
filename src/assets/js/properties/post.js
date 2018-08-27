@@ -55,10 +55,7 @@ class Post {
       $select.empty();
 
       $.each(posts, function(index, post) {
-        $select
-          .append($('<option></option>')
-          .attr('value', post.ID)
-          .text(post.post_title));
+        $select.append($('<option></option>').attr('value', post.ID).text(post.post_title));
       });
 
       if ($select.hasClass('papi-component-select2') && 'select2' in $.fn) {

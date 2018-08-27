@@ -1,11 +1,11 @@
-@charset "UTF-8";
+.papi-body {
 
-/*!
- * Pikaday
- * Copyright © 2014 David Bushell | BSD & MIT license | http://dbushell.com/
- */
+  /*!
+   * Pikaday
+   * Copyright © 2014 David Bushell | BSD & MIT license | http://dbushell.com/
+   */
 
-.pika-single {
+  .pika-single {
     z-index: 9999;
     display: block;
     position: relative;
@@ -14,41 +14,47 @@
     border: 1px solid #ccc;
     border-bottom-color: #bbb;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+  }
 
-/*
-clear child float (pika-lendar), using the famous micro clearfix hack
-http://nicolasgallagher.com/micro-clearfix-hack/
-*/
-.pika-single:before,
-.pika-single:after {
+  /*
+  clear child float (pika-lendar), using the famous micro clearfix hack
+  http://nicolasgallagher.com/micro-clearfix-hack/
+  */
+  .pika-single:before,
+  .pika-single:after {
     content: " ";
     display: table;
-}
-.pika-single:after { clear: both }
-.pika-single { *zoom: 1 }
+  }
 
-.pika-single.is-hidden {
+  .pika-single:after {
+    clear: both
+  }
+
+  .pika-single {
+    *zoom: 1
+  }
+
+  .pika-single.is-hidden {
     display: none;
-}
+  }
 
-.pika-single.is-bound {
+  .pika-single.is-bound {
     position: absolute;
-    box-shadow: 0 5px 15px -5px rgba(0,0,0,.5);
-}
+    box-shadow: 0 5px 15px -5px rgba(0, 0, 0, .5);
+  }
 
-.pika-lendar {
+  .pika-lendar {
     float: left;
     width: 240px;
     margin: 8px;
-}
+  }
 
-.pika-title {
+  .pika-title {
     position: relative;
     text-align: center;
-}
+  }
 
-.pika-label {
+  .pika-label {
     display: inline-block;
     *display: inline;
     position: relative;
@@ -60,8 +66,9 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     line-height: 20px;
     font-weight: bold;
     background-color: #fff;
-}
-.pika-title select {
+  }
+
+  .pika-title select {
     cursor: pointer;
     position: absolute;
     z-index: 9998;
@@ -70,10 +77,10 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     top: 5px;
     filter: alpha(opacity=0);
     opacity: 0;
-}
+  }
 
-.pika-prev,
-.pika-next {
+  .pika-prev,
+  .pika-next {
     display: block;
     cursor: pointer;
     position: relative;
@@ -92,60 +99,60 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     opacity: .5;
     *position: absolute;
     *top: 0;
-}
+  }
 
-.pika-prev:hover,
-.pika-next:hover {
+  .pika-prev:hover,
+  .pika-next:hover {
     opacity: 1;
-}
+  }
 
-.pika-prev,
-.is-rtl .pika-next {
+  .pika-prev,
+  .is-rtl .pika-next {
     float: left;
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAUklEQVR42u3VMQoAIBADQf8Pgj+OD9hG2CtONJB2ymQkKe0HbwAP0xucDiQWARITIDEBEnMgMQ8S8+AqBIl6kKgHiXqQqAeJepBo/z38J/U0uAHlaBkBl9I4GwAAAABJRU5ErkJggg==');
     *left: 0;
-}
+  }
 
-.pika-next,
-.is-rtl .pika-prev {
+  .pika-next,
+  .is-rtl .pika-prev {
     float: right;
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAYAAAAsEj5rAAAAU0lEQVR42u3VOwoAMAgE0dwfAnNjU26bYkBCFGwfiL9VVWoO+BJ4Gf3gtsEKKoFBNTCoCAYVwaAiGNQGMUHMkjGbgjk2mIONuXo0nC8XnCf1JXgArVIZAQh5TKYAAAAASUVORK5CYII=');
     *right: 0;
-}
+  }
 
-.pika-prev.is-disabled,
-.pika-next.is-disabled {
+  .pika-prev.is-disabled,
+  .pika-next.is-disabled {
     cursor: default;
     opacity: .2;
-}
+  }
 
-.pika-select {
+  .pika-select {
     display: inline-block;
     *display: inline;
-}
+  }
 
-.pika-table {
+  .pika-table {
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
     border: 0;
-}
+  }
 
-.pika-table th,
-.pika-table td {
+  .pika-table th,
+  .pika-table td {
     width: 14.285714285714286%;
     padding: 0;
-}
+  }
 
-.pika-table th {
+  .pika-table th {
     color: #0073aa;
     font-size: 12px;
     line-height: 25px;
     font-weight: normal;
     text-align: center;
-}
+  }
 
-.pika-button {
+  .pika-button {
     cursor: pointer;
     display: block;
     box-sizing: border-box;
@@ -160,46 +167,48 @@ http://nicolasgallagher.com/micro-clearfix-hack/
     line-height: 15px;
     text-align: right;
     background: #f1f1f1;
-}
+  }
 
-.pika-week {
+  .pika-week {
     font-size: 11px;
     color: #999;
-}
+  }
 
-.is-today .pika-button {
+  .is-today .pika-button {
     color: #0073aa;
     font-weight: bold;
-}
+  }
 
-.is-selected .pika-button {
+  .is-selected .pika-button {
     color: #fff;
     font-weight: bold;
     background: #0073aa;
-}
+  }
 
-.is-disabled .pika-button {
+  .is-disabled .pika-button {
     pointer-events: none;
     cursor: default;
     color: #999;
     opacity: .3;
-}
+  }
 
-.pika-button:hover {
+  .pika-button:hover {
     color: #fff !important;
     background: #0073aa !important;
-}
+  }
 
-/* styling for abbr */
-.pika-table abbr {
+  /* styling for abbr */
+  .pika-table abbr {
     border-bottom: none;
     cursor: help;
-}
+  }
 
-.pika-time-container {
+  .pika-time-container {
     clear: both;
-}
+  }
 
-.pika-time {
+  .pika-time {
     margin: 7px auto 7px;
+  }
+
 }

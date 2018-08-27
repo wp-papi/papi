@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @group stores
+ */
 class Papi_Option_Store_Test extends WP_UnitTestCase {
 
 	public function setUp() {
@@ -45,6 +48,10 @@ class Papi_Option_Store_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_value() {
+		$this->assertNull( $this->store->get_value( 1 ) );
+		$this->assertNull( $this->store->get_value( '' ) );
+		$this->assertNull( $this->store->get_value( 99999, 'fake' ) );
+
 		$property = $this->store->get_property( 'name' );
 		$this->assertEmpty( $property->get_value() );
 
@@ -53,6 +60,22 @@ class Papi_Option_Store_Test extends WP_UnitTestCase {
 
 		update_option( 'hello', 'Fredrik' );
 		$this->assertNull( $this->store->get_value( 'hello' ) );
+	}
+
+	public function test_get_value_cache() {
+		papi_data_update( 0, 'name', 'fredrik', 'option' );
+
+		$this->assertSame( 'fredrik', $this->store->get_value( 0, 'name' ) );
+		$this->assertSame( 'fredrik', papi_cache_get( 'name', 0 ) );
+
+		// Turn off property cache.
+		add_filter( 'papi/get_property', function ( $property ) {
+			$property->set_option( 'cache', false );
+			return $property;
+		} );
+
+		$this->assertSame( 'fredrik', $this->store->get_value( 0, 'name' ) );
+		$this->assertEmpty( papi_cache_get( 'name', 0 ) );
 	}
 
 	public function test_valid() {

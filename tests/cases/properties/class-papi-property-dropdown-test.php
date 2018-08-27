@@ -5,12 +5,14 @@
  */
 class Papi_Property_Dropdown_Test extends Papi_Property_Test_Case {
 
-	public $slugs = ['dropdown_test', 'dropdown_test_2', 'dropdown_test_3'];
+	public $slugs = ['dropdown_test', 'dropdown_test_2', 'dropdown_test_3', 'dropdown_test_4'];
 
 	public function get_value() {
 		$args = func_get_args();
 		$args[0] = isset( $args[0] ) ? $args[0] : $this->slugs[0];
 		switch ( $args[0] ) {
+			case 'dropdown_test_4':
+				return 2;
 			case 'dropdown_test_3':
 				return [1, 2, 3];
 			default:
@@ -22,6 +24,8 @@ class Papi_Property_Dropdown_Test extends Papi_Property_Test_Case {
 		$args = func_get_args();
 		$args[0] = isset( $args[0] ) ? $args[0] : $this->slugs[0];
 		switch ( $args[0] ) {
+			case 'dropdown_test_4':
+				return 2;
 			case 'dropdown_test_3':
 				return [1, 2, 3];
 			default:

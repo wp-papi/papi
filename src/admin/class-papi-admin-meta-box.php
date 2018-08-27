@@ -10,7 +10,7 @@ final class Papi_Admin_Meta_Box {
 	 *
 	 * @var Papi_Core_Box
 	 */
-	private $box;
+	protected $box;
 
 	/**
 	 * The constructor.
@@ -79,7 +79,7 @@ final class Papi_Admin_Meta_Box {
 		$title = $this->box->title;
 
 		if ( $this->box->get_option( 'required' ) ) {
-			$title .= papi_required_html(
+			$title .= papi_property_required_html(
 				$this->box->properties[0],
 				true
 			);
@@ -110,7 +110,7 @@ final class Papi_Admin_Meta_Box {
 		}
 
 		// Render the properties.
-		papi_render_properties( $args['args'] );
+		papi_render_properties( papi_sort_order( array_reverse( $args['args'] ) ) );
 	}
 
 	/**
@@ -143,6 +143,21 @@ final class Papi_Admin_Meta_Box {
 	 * Setup meta box.
 	 */
 	public function setup_meta_box() {
+		$properties = $this->box->properties;
+
+		// Check all properties and remove them that can't be rendered.
+		foreach ( $properties as $index => $property ) {
+			if ( $property instanceof Papi_Property && ! $property->can_render() ) {
+				unset( $properties[$index] );
+			}
+		}
+
+		// Bail if properties array is empty,
+		// no need to render a empty meta box.
+		if ( empty( $properties ) ) {
+			return;
+		}
+
 		add_meta_box(
 			$this->box->id,
 			$this->get_title(),
@@ -150,7 +165,7 @@ final class Papi_Admin_Meta_Box {
 			$this->get_post_type(),
 			$this->box->context,
 			$this->box->priority,
-			$this->box->properties
+			$properties
 		);
 	}
 }

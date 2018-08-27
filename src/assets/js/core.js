@@ -24,19 +24,33 @@ class Core {
    * @param {object} options
    */
   autosave(e, xhr, options) {
-    const fields = $('[name*="papi_"]');
-    const data = {};
     const reg = /action=(.+?)&/;
     const val = reg.exec(options.data);
 
     if (val !== null && val.length && val[1] === 'heartbeat') {
-      fields.each(function () {
-        const $this = $(this);
+      const formdata = $('form#post').serializeArray();
 
-        data[$this.attr('name')] = $this.val();
+      $.each(formdata, function (index, field) {
+        if (field.name.substring(0, 5) === 'papi_' || field.name.substring(0, 5) === '_papi') {
+          // Fetch editor id if any.
+          const editorID = $('[name="' + field.name + '"]').attr('id');
+
+          // Test if the editor id is a editor.
+          if (window.tinymce.get(editorID)) {
+            const editor = window.tinymce.get(editorID);
+
+            // Save the editor content.
+            if (editor && editor.isDirty() && !editor.isHidden()) {
+              editor.save();
+            }
+
+            // Modify field content with real editor content.
+            field.value = $('#' + editorID).val();
+          }
+
+          options.data += '&' + field.name + '=' + field.value;
+        }
       });
-
-      options.data += '&' + $.param(data);
     }
   }
 

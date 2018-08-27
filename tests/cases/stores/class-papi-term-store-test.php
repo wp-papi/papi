@@ -1,13 +1,12 @@
 <?php
 
+/**
+ * @group stores
+ */
 class Papi_Term_Store_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
-
-		if ( ! papi_supports_term_meta() ) {
-			$this->markTestSkipped( 'Term metadata is not supported' );
-		}
 
 		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/taxonomy-types'];

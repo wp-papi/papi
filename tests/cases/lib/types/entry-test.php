@@ -10,6 +10,9 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 	public function tearDown() {
 		parent::tearDown();
 		unset( $this->post_id );
+
+		remove_all_filters( 'papi/settings/directories' );
+		papi()->reset();
 	}
 
 	public function test_papi_get_entry_type_body_classes() {
@@ -43,10 +46,6 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 	}
 
 	public function test_test_papi_get_entry_type_css_class_taxonomy() {
-		if ( ! papi_supports_term_meta() ) {
-			$this->markTestSkipped( 'Term metadata is not supported' );
-		}
-
 		$cat_id = $this->factory->category->create();
 		$this->go_to( get_term_link( $cat_id, 'category' ) );
 		$this->assertEmpty( papi_get_entry_type_css_class() );
@@ -170,6 +169,9 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 
 		$simple_page_type = papi_get_entry_type_by_id( 'simple-page-type' );
 		$this->assertTrue( is_object( $simple_page_type ) );
+
+		$settings_option_type = papi_get_entry_type_by_id( 'options/settings-option-type' );
+		$this->assertTrue( is_object( $settings_option_type ) );
 	}
 
 	public function test_papi_get_entry_type_by_meta_id() {
@@ -204,11 +206,9 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
 		$this->assertSame( 'pages/simple-page.php', papi_get_entry_type_template( $this->post_id ) );
 
-		if ( papi_supports_term_meta() ) {
-			$term_id = $this->factory->term->create();
-			update_term_meta( $term_id, papi_get_page_type_key(), 'simple-taxonomy-type' );
-			$this->assertSame( 'pages/simple-taxonomy.php', papi_get_entry_type_template( $term_id, 'term' ) );
-		}
+		$term_id = $this->factory->term->create();
+		update_term_meta( $term_id, papi_get_page_type_key(), 'simple-taxonomy-type' );
+		$this->assertSame( 'pages/simple-taxonomy.php', papi_get_entry_type_template( $term_id, 'term' ) );
 	}
 
 	public function test_papi_get_entry_type_id() {

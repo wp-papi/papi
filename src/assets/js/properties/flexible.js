@@ -27,13 +27,13 @@ class Flexible extends Repeater {
    * @param {object} $this
    */
   add($this) {
-    const $repeater      = $this.closest('.papi-property-repeater-top');
-    const $tbody         = $repeater.find('.repeater-tbody').first();
-    const counter        = $tbody.children().length;
-    const jsonText       = this.getJSON($this);
-    const layout         = $this.data().layout;
-    const limit          = $repeater.data().limit;
-    const append         = limit === undefined || limit === -1 || $tbody.find('> tr').length < limit;
+    const $repeater = $this.closest('.papi-property-repeater-top');
+    const $tbody = $repeater.find('.repeater-tbody').first();
+    const counter = $tbody.children().length;
+    const jsonText = this.getJSON($this);
+    const layout = $this.data().layout;
+    const limit = $repeater.data().limit;
+    const append = limit === undefined || limit === -1 || $tbody.find('> tr').length < limit;
 
     if (!jsonText.length || !append) {
       return;
@@ -74,21 +74,32 @@ class Flexible extends Repeater {
       }
     });
 
-    $(document).on('click', '.papi-property-flexible .bottom button[type="button"]', function (e) {
+    $(document).on('click', '.papi-property-flexible > .bottom button[type="button"]', function (e) {
       e.preventDefault();
-      $(this).prev().removeClass('papi-hide');
+
+      const $this = $(this);
+      const $prev = $this.prev();
+      const offset = $this.closest('.flexible-layouts-btn-wrap').offset().top - $('#wpadminbar').offset().top;
+
+      if ($prev.height() > offset) {
+        $prev.removeClass('flexible-layouts-top').addClass('flexible-layouts-bottom');
+      } else {
+        $prev.removeClass('flexible-layouts-bottom').addClass('flexible-layouts-top');
+      }
+
+      $prev.removeClass('flexible-layouts-hidden');
     });
 
     $(document).on('click', '.papi-property-flexible .flexible-layouts li a', function (e) {
       e.preventDefault();
-      $(this).closest('.flexible-layouts').addClass('papi-hide');
+      $(this).closest('.flexible-layouts').addClass('flexible-layouts-hidden');
       self.add($(this));
     });
 
     $(document).on('mouseup', 'body', function (e) {
-      const $layouts = $('.flexible-layouts:not(.papi-hide)');
+      const $layouts = $('.flexible-layouts:not(.flexible-layouts-hidden)');
       if (!$layouts.is(e.target) && $layouts.has(e.target).length === 0) {
-        $layouts.addClass('papi-hide');
+        $layouts.addClass('flexible-layouts-hidden');
       }
     });
 

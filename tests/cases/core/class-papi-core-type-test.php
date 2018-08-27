@@ -78,4 +78,12 @@ class Papi_Core_Type_Test extends WP_UnitTestCase {
 		$class = $this->info_core_type->new_class();
 		$this->assertInstanceOf( 'Papi_Core_Type', $class );
 	}
+
+	public function test_set_id() {
+		$class = new Papi_Core_Type;
+		$this->assertEmpty( $class->get_id() );
+
+		$class->set_id( 'hello' );
+		$this->assertSame( 'hello', $class->get_id() );
+	}
 }

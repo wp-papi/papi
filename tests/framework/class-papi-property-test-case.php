@@ -21,16 +21,10 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		$_GET['term_id'] = $this->term_id;
 
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'properties-page-type' );
-
-		if ( papi_supports_term_meta() ) {
-			update_term_meta( $this->term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
-		}
+		update_term_meta( $this->term_id, papi_get_page_type_key(), 'properties-taxonomy-type' );
 
 		$this->entry_type = papi_get_entry_type_by_id( 'properties-page-type' );
-
-		if ( papi_supports_term_meta() ) {
-			$this->entry_type = papi_get_entry_type_by_id( 'properties-taxonomy-type' );
-		}
+		$this->entry_type = papi_get_entry_type_by_id( 'properties-taxonomy-type' );
 
 		if ( isset( $this->slug ) && is_string( $this->slug ) ) {
 			$this->slugs      = [$this->slug];
@@ -75,7 +69,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	/**
 	 * Assert values will assert values so it's the same by default.
 	 */
-	public function assert_values( $expected, $actual ) {
+	public function assert_values( $expected, $actual, $slug ) {
 		$this->assertSame( $expected, $actual );
 	}
 
@@ -209,7 +203,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 
 		$expected = $this->get_expected( $property->get_slug( true ) );
 
-		$this->assert_values( $expected, $actual );
+		$this->assert_values( $expected, $actual, $property->get_slug( true ) );
 	}
 
 	/**
@@ -279,10 +273,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 		foreach ( $this->properties as $prop ) {
 			$this->save_properties_value( $prop, 'option' );
 			$this->save_properties_value( $prop, 'post' );
-
-			if ( papi_supports_term_meta() ) {
-				$this->save_properties_value( $prop, 'term' );
-			}
+			$this->save_properties_value( $prop, 'term' );
 		}
 
 		$_SERVER['REQUEST_URI'] = '';
@@ -314,7 +305,7 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 			$this->assertNull( papi_get_field( $this->post_id, $property->slug, null, $type ) );
 		} else if ( papi_update_field( $this->post_id, $slug, $value, $type ) ) {
 			$actual = papi_get_field( $this->post_id, $property->slug, null, $type );
-			$this->assert_values( $value, $actual );
+			$this->assert_values( $value, $actual, $property->slug );
 		}
 	}
 

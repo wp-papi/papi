@@ -5,7 +5,7 @@
  */
 class Papi_Property_Term_Test extends Papi_Property_Test_Case {
 
-	public $slug = 'term_test';
+	public $slugs = ['term_test', 'term_test_2'];
 
 	public function setUp() {
 		parent::setUp();
@@ -21,16 +21,32 @@ class Papi_Property_Term_Test extends Papi_Property_Test_Case {
 		unset( $this->term_id );
 	}
 
-	public function assert_values( $expected, $actual ) {
-		$this->assertSame( $expected->term_id, $actual->term_id );
-	}
-
 	public function get_value() {
-		return $this->term_id;
+		$args = func_get_args();
+		$args[0] = isset( $args[0] ) ? $args[0] : $this->slugs[0];
+		switch ( $args[0] ) {
+			default:
+				return $this->term_id;
+		}
 	}
 
 	public function get_expected() {
-		return get_term( $this->term_id, 'test_taxonomy' );
+		$args = func_get_args();
+		$args[0] = isset( $args[0] ) ? $args[0] : $this->slugs[0];
+		switch ( $args[0] ) {
+			default:
+				return get_term( $this->term_id, 'test_taxonomy' );
+		}
+	}
+
+	public function assert_values( $expected, $actual, $slug ) {
+		switch ( $slug ) {
+			case 'term_test_2';
+				break; // fail ok since we don't save a custom id.
+			default:
+				$this->assertSame( $expected->term_id, $actual->term_id );
+				break;
+		}
 	}
 
 	public function test_property_convert_type() {
@@ -46,6 +62,12 @@ class Papi_Property_Term_Test extends Papi_Property_Test_Case {
 		$this->assertNull( $this->property->format_value( false, '', 0 ) );
 		$this->assertNull( $this->property->format_value( [], '', 0 ) );
 		$this->assertNull( $this->property->format_value( (object) [], '', 0 ) );
+	}
+
+	public function test_property_format_value_meta_key() {
+		$this->assertSame( 0, intval( $this->properties[1]->format_value( 1, '', 0 ) ) );
+		update_term_meta( $this->term_id, 'custom_id', 1 );
+		$this->assertSame( 1, intval( $this->properties[1]->format_value( 1, '', 0 ) ) );
 	}
 
 	public function test_property_import_value() {

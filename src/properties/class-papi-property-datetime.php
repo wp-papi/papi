@@ -75,9 +75,7 @@ class Papi_Property_Datetime extends Papi_Property {
 
 		// Remove default time format if show time is false.
 		if ( isset( $settings->show_time ) && ! $settings->show_time && isset( $settings->format ) ) {
-			$settings->format = trim(
-				str_replace( 'hh:mm:ss', '', $settings->format )
-			);
+			$settings->format = trim( str_replace( 'hh:mm:ss', '', $settings->format ) );
 		}
 
 		// Convert all sneak case key to camel case.

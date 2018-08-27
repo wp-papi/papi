@@ -3,7 +3,7 @@
 /**
  * Get entry type body classes.
  *
- * @param  int $id
+ * @param  int    $id
  * @param  string $type
  *
  * @return string
@@ -31,7 +31,7 @@ function papi_get_entry_type_body_classes( $id = 0, $type = null ) {
  * Get entry type css class, it will split the entry type id
  * on slash and take the last part of the id.
  *
- * @param  int $id
+ * @param  int    $id
  * @param  string $type
  *
  * @return string
@@ -76,10 +76,16 @@ function papi_get_entry_type_count( $entry_type ) {
 	}
 
 	$table = sprintf( '%s%smeta', $wpdb->prefix, papi_get_meta_type( $entry_type->type ) );
-	$sql   = "SELECT COUNT(*) FROM $table WHERE `meta_key` = '%s' AND `meta_value` = '%s'";
-	$sql   = $wpdb->prepare( $sql, papi_get_page_type_key(), $entry_type->get_id() );
+
+	// @codingStandardsIgnoreStart
+	$sql = $wpdb->prepare(
+		"SELECT COUNT(*) FROM `$table` WHERE `meta_key` = '%s' AND `meta_value` = '%s'",
+		papi_get_page_type_key(),
+		$entry_type->get_id()
+	);
 
 	return intval( $wpdb->get_var( $sql ) );
+	// @codingStandardsIgnoreEnd
 }
 
 /**
@@ -109,12 +115,12 @@ function papi_entry_type_exists( $id ) {
  * Get all entry types that exists.
  *
  * @param  array $args {
- *   @type bool         $all
- *   @type mixed        $args
- *   @type bool         $cache
- *   @type array|string $id
- *   @type string       $mode
- *   @type array|string $types
+ *     @type bool         $all
+ *     @type mixed        $args
+ *     @type bool         $cache
+ *     @type array|string $id
+ *     @type string       $mode
+ *     @type array|string $types
  * }
  *
  * @return array
@@ -152,7 +158,12 @@ function papi_get_all_entry_types( array $args = [] ) {
 	}
 
 	if ( papi()->exists( $cache_key ) ) {
-		return papi()->make( $cache_key );
+		if ( $entry_types = papi()->make( $cache_key ) ) {
+			return $entry_types;
+		}
+
+		papi()->remove( $cache_key );
+		papi()->remove( 'papi_get_all_core_type_files' );
 	}
 
 	$singletons  = [];
@@ -273,7 +284,11 @@ function papi_get_entry_type_by_id( $id ) {
 	}
 
 	if ( papi()->exists( $id ) ) {
-		return papi()->make( $id );
+		$value = papi()->make( $id );
+
+		if ( $value instanceof Papi_Entry_Type ) {
+			return $value;
+		}
 	}
 
 	$result      = null;
@@ -289,6 +304,13 @@ function papi_get_entry_type_by_id( $id ) {
 	if ( is_null( $result ) ) {
 		$path   = papi_get_file_path( $id );
 		$result = papi_get_entry_type( $path );
+	}
+
+	// Check for class prefixed id when a old id that don't have the class prefix.
+	if ( is_null( $result ) && strpos( $id, 'class-' ) === false ) {
+		$parts = explode( '/', $id );
+		$parts[count( $parts ) - 1] = 'class-' . $parts[count( $parts ) - 1];
+		$result = papi_get_entry_type_by_id( implode( '/', $parts ) );
 	}
 
 	return $result;
@@ -322,7 +344,7 @@ function papi_get_entry_type_by_meta_id( $id = 0, $type = null ) {
 /**
  * Get entry type id.
  *
- * @param  int $id
+ * @param  int    $id
  * @param  string $type
  *
  * @return string
@@ -344,10 +366,11 @@ function papi_get_entry_type_id( $id = 0, $type = null ) {
 	 *
 	 * @param  string $entry_type_id
 	 * @param  string $type
+	 * @param  int    $id
 	 *
 	 * @return string
 	 */
-	return apply_filters( 'papi/entry_type_id', $entry_type_id, $type );
+	return apply_filters( 'papi/entry_type_id', $entry_type_id, $type, $id );
 }
 
 /**

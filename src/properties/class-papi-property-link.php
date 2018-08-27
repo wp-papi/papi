@@ -46,12 +46,12 @@ class Papi_Property_Link extends Papi_Property {
 		$result = true;
 
 		foreach ( array_keys( $values ) as $key ) {
-			$out    = papi_delete_property_meta_value( $post_id, $slug . '_' . $key );
+			$out    = papi_data_delete( $post_id, $slug . '_' . $key );
 			$result = $out ? $result : $out;
 		}
 
 		if ( $result ) {
-			$result = papi_delete_property_meta_value( $post_id, $slug );
+			$result = papi_data_delete( $post_id, $slug );
 		}
 
 		return $result;
@@ -96,7 +96,7 @@ class Papi_Property_Link extends Papi_Property {
 			$values = $this->link_fields;
 
 			foreach ( $values as $index => $key ) {
-				$values[$key] = papi_get_property_meta_value(
+				$values[$key] = papi_data_get(
 					$post_id,
 					sprintf( '%s_%s', $slug, $key ),
 					$this->get_meta_type()
@@ -209,11 +209,6 @@ class Papi_Property_Link extends Papi_Property {
 			$link->post_id = url_to_postid( $link->url );
 		}
 
-		// Only replace url when post id is not zero.
-		if ( $link->post_id > 0 ) {
-			$link->url = get_permalink( $link->post_id );
-		}
-
 		// If empty target set `_self` as default target.
 		if ( empty( $link->target ) ) {
 			$link->target = '_self';
@@ -260,7 +255,7 @@ class Papi_Property_Link extends Papi_Property {
 						</td>
 						<td>
 							<input class="wp-link-target" type="hidden" value="<%= target %>" name="<%= slug %>[target]">
-							<%= target === '_blank' ? '<?php esc_html_e( 'New window', 'papi' ) ?>' : '<?php esc_html_e( 'Same window', 'papi' ); ?>' %>
+							<%= target === '_blank' ? '<?php esc_html_e( 'New window', 'papi' ); ?>' : '<?php esc_html_e( 'Same window', 'papi' ); ?>' %>
 						</td>
 					</tr>
 				</tbody>
@@ -279,6 +274,10 @@ class Papi_Property_Link extends Papi_Property {
 	 * @return array
 	 */
 	public function update_value( $values, $slug, $post_id ) {
+		if ( is_object( $values ) ) {
+			$values = (array) $values;
+		}
+
 		if ( ! isset( $values['url'] ) ) {
 			$values = $this->link_fields;
 

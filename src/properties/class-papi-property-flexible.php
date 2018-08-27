@@ -46,7 +46,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @var string
 	 */
-	private $layout_value_regex = '/^\_flexible\_layout\_/';
+	protected $layout_value_regex = '/^\_flexible\_layout\_/';
 
 	/**
 	 * Delete value from the database.
@@ -58,13 +58,13 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @return bool
 	 */
 	public function delete_value( $slug, $post_id, $type ) {
-		$rows   = intval( papi_get_property_meta_value( $post_id, $slug ) );
+		$rows   = intval( papi_data_get( $post_id, $slug, $type ) );
 		$value  = $this->load_value( $rows, $slug, $post_id );
-		$value  = papi_to_property_array_slugs( $value, $slug );
+		$value  = papi_property_to_array_slugs( $value, $slug );
 		$result = true;
 
 		foreach ( array_keys( $value ) as $key ) {
-			$out    = papi_delete_property_meta_value( $post_id, $key, $type );
+			$out    = papi_data_delete( $post_id, $key, $type );
 			$result = $out ? $result : $out;
 		}
 
@@ -111,7 +111,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				}
 
 				$property_type_value = $values[$index][$property_type_slug];
-				$property_type = papi_get_property_type( $property_type_value );
+				$property_type       = papi_get_property_type( $property_type_value );
 
 				if ( ! is_object( $property_type ) ) {
 					continue;
@@ -125,7 +125,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 				// Get raw value from cache if enabled.
 				if ( $this->cache ) {
-					$raw_value = papi_cache_get( $cache_key , $post_id, $this->get_meta_type() );
+					$raw_value = papi_cache_get( $cache_key, $post_id, $this->get_meta_type() );
 				} else {
 					$raw_value = false;
 				}
@@ -149,15 +149,19 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				// Format the value from the property class.
 				$values[$index][$slug] = $property_type->format_value( $values[$index][$slug], $child_slug, $post_id );
 
-				if ( ! is_admin() ) {
+				if ( ! papi_is_admin() ) {
 					$values[$index][$slug] = papi_filter_format_value( $property_type->type, $values[$index][$slug], $child_slug, $post_id, papi_get_meta_type() );
 				}
 
 				$values[$index][$property_type_slug] = $property_type_value;
+
+				if ( papi_is_empty( $values[$index][$slug] ) ) {
+					$values[$index][$slug] = $property_type_value->get_option( 'default', $property_type_value->default_value );
+				}
 			}
 		}
 
-		if ( ! is_admin() ) {
+		if ( ! papi_is_admin() ) {
 			foreach ( $values as $index => $row ) {
 				foreach ( $row as $slug => $value ) {
 					if ( is_string( $value ) && preg_match( $this->layout_value_regex, $value ) ) {
@@ -166,10 +170,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					}
 
 					if ( papi_is_property_type_key( $slug ) ) {
-						unset( $values[$index][$slug] );
-					}
-
-					if ( papi_is_empty( $value ) ) {
 						unset( $values[$index][$slug] );
 					}
 				}
@@ -199,9 +199,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @return string
 	 */
 	protected function get_json_id( $key, $extra = '' ) {
-		return $this->get_slug() . '_' . papi_slugify( $key ) . (
-			empty( $extra ) ? '' : '_' . $extra
-		);
+		return $this->get_slug() . '_' . papi_slugify( $key ) . ( empty( $extra ) ? '' : '_' . $extra );
 	}
 
 	/**
@@ -209,7 +207,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @param  string $slug
 	 *
-	 * @return string
+	 * @return array
 	 */
 	protected function get_layout( $slug ) {
 		$layouts = $this->get_settings_layouts();
@@ -219,6 +217,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				return $layout;
 			}
 		}
+
+		return [];
 	}
 
 	/**
@@ -248,22 +248,26 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected function get_results( $value, $repeater_slug, $post_id ) {
 		global $wpdb;
 
-		if ( $this->is_option_page() ) {
+		if ( $this->get_meta_type() === 'option' ) {
 			$table = $wpdb->prefix . 'options';
+			// @codingStandardsIgnoreStart
 			$query = $wpdb->prepare(
 				"SELECT * FROM `$table` WHERE `option_name` LIKE '%s' ORDER BY `option_id` ASC",
 				$repeater_slug . '_%'
 			);
+			// @codingStandardsIgnoreEnd
 		} else {
 			$table  = sprintf( '%s%smeta', $wpdb->prefix, $this->get_meta_type() );
 			$column = papi_get_meta_id_column( $this->get_meta_type() );
-			$query  = $wpdb->prepare(
+			// @codingStandardsIgnoreStart
+			$query = $wpdb->prepare(
 				"SELECT * FROM `$table` WHERE `meta_key` LIKE '%s' AND `$column` = %s ORDER BY `meta_id` ASC", $repeater_slug . '_%',
 				$post_id
 			);
+			// @codingStandardsIgnoreEnd
 		}
 
-		$dbresults = $wpdb->get_results( $query );
+		$dbresults = $wpdb->get_results( $query ); // WPCS: unprepared sql
 		$value     = intval( $value );
 
 		// Do not proceed with empty value or columns.
@@ -288,8 +292,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		// Add repeater slug with number of rows to the values array.
 		$values[$repeater_slug] = $value;
 
-		for ( $i = 0; $i < $value; $i++ ) {
-
+		for ( $i = 0; $i < $value; $i ++ ) {
 			$no_trash = [];
 
 			if ( ! isset( $columns[$i] ) || ! isset( $rows[$i] ) ) {
@@ -315,9 +318,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$no_trash[$slug] = $meta;
 
 				// Serialize value if needed.
-				$meta->meta_value = papi_maybe_json_decode(
-					maybe_unserialize( $meta->meta_value )
-				);
+				$meta->meta_value = papi_maybe_json_decode( maybe_unserialize( $meta->meta_value ) );
 
 				// Add property value and property type value.
 				$values[$meta->meta_key] = $meta->meta_value;
@@ -329,10 +330,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 
 			// Get the meta keys to delete.
-			$trash_diff = array_diff(
-				array_keys( $rows[$i] ),
-				array_keys( $no_trash )
-			);
+			$trash_diff = array_diff( array_keys( $rows[$i] ), array_keys( $no_trash ) );
 
 			if ( ! empty( $trash_diff ) ) {
 				// Find all trash meta objects from results array.
@@ -364,12 +362,12 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$layouts = $this->get_settings_layouts();
 
 		// Add empty rows that isn't saved to database.
-		for ( $i = 0; $i < $value; $i++ ) {
+		for ( $i = 0; $i < $value; $i ++ ) {
 			foreach ( $layouts as $layout ) {
 				$layout_slug = sprintf( '%s_%d%s', $this->get_slug( true ), $i, $this->layout_key );
 
 				// Since 3.0.0 the `$dblayouts` check is only for backward compatibility.
-				if ( isset( $layout['slug'] ) && ( isset( $values[$layout_slug] ) || in_array( $i . $layout['slug'], $dblayouts, true ) ) ) {
+				if ( isset( $layout['slug'] ) && ( ( isset( $values[$layout_slug] ) && $layout['slug'] === $values[$layout_slug] ) || in_array( $i . $layout['slug'], $dblayouts, true ) ) ) {
 					foreach ( $layout['items'] as $prop ) {
 						$slug = sprintf( '%s_%d_%s', $repeater_slug, $i, unpapify( $prop->slug ) );
 
@@ -391,6 +389,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 */
 	protected function get_settings_layouts() {
 		$settings = $this->get_settings();
+
 		return $this->prepare_properties( papi_to_array( $settings->items ) );
 	}
 
@@ -414,17 +413,77 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		// Will not need this array.
 		unset( $trash );
 
-		$store    = $this->get_store();
-		$results = papi_from_property_array_slugs(
-			$results,
-			unpapify( $repeater_slug )
-		);
+		$store   = $this->get_store();
+		$results = papi_property_from_array_slugs( $results, unpapify( $repeater_slug ) );
 
 		if ( is_null( $store ) ) {
 			return $this->default_value;
 		}
 
 		return $this->load_child_properties( $results, $this );
+	}
+
+	/**
+	 * Load child properties.
+	 *
+	 * @param  array              $results
+	 * @param  Papi_Core_Property $property
+	 *
+	 * @return array
+	 */
+	protected function load_child_properties( array $results, $property = null ) {
+		$layout_key = substr( $this->layout_key, 1 );
+
+		foreach ( $results as $index => $row ) {
+			foreach ( $row as $slug => $value ) {
+				$children = [];
+
+				if ( $layout_key === $slug ) {
+					continue;
+				}
+
+				if ( isset( $results[$index][$layout_key] ) ) {
+					$layout = $results[$index][$layout_key];
+					$layout = $this->get_layout( $layout );
+
+					if ( ! empty( $layout ) && isset( $layout['items'] ) ) {
+						$children = $layout['items'];
+					}
+				}
+
+				$child_property = null;
+
+				foreach ( $children as $child ) {
+					if ( $child->match_slug( $slug ) ) {
+						$child_property = $child;
+					}
+				}
+
+				if ( empty( $child_property ) ) {
+					$child_property = $this->get_store()->get_property( $this->get_slug( true ), $slug );
+				}
+
+				if ( is_array( $value ) && papi_is_property( $child_property ) && ! empty( $child_property->get_child_properties() ) ) {
+					$new_value = papi_from_property_array_slugs( $value, unpapify( $slug ) );
+
+					if ( empty( $new_value ) ) {
+						$results[$index][$slug] = $value;
+					} else {
+						$results[$index][$slug] = $this->load_child_properties( $new_value, $child_property );
+					}
+				}
+
+				$type_key = papi_get_property_type_key_f( $slug );
+
+				if ( $property->match_slug( $slug ) ) {
+					$results[$index][$type_key] = $property;
+				} else {
+					$results[$index][$type_key] = $property->get_child_property( $slug, $children );
+				}
+			}
+		}
+
+		return $results;
 	}
 
 	/**
@@ -457,13 +516,19 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				$layout['slug'] = $layout['title'];
 			}
 
+			if ( ! isset( $layout['row_label'] ) ) {
+				$layout['row_label'] = $layout['title'];
+			}
+
+			if ( ! isset( $layout['show_label'] ) ) {
+				$layout['show_label'] = true;
+			}
+
+			$layouts[$index] = array_merge( $layouts[$index], $layout );
+
 			$layouts[$index]['slug']  = papi_slugify( $layout['slug'] );
-			$layouts[$index]['slug']  = $this->get_layout_value(
-				$layouts[$index]['slug']
-			);
-			$layouts[$index]['items'] = parent::prepare_properties(
-				$layout['items']
-			);
+			$layouts[$index]['slug']  = $this->get_layout_value( $layouts[$index]['slug'] );
+			$layouts[$index]['items'] = parent::prepare_properties( $layout['items'] );
 		}
 
 		return array_filter( $layouts );
@@ -541,7 +606,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	/**
 	 * Render properties.
 	 *
-	 * @param array $row
+	 * @param array      $row
 	 * @param array|bool $value
 	 */
 	protected function render_properties( $row, $value ) {
@@ -551,22 +616,28 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		$layout_slug   = empty( $layout_slug ) && isset( $value['_layout'] ) ? $value['_layout'] : $layout_slug;
 		$layout_slug   = empty( $layout_slug ) && isset( $value[$this->layout_key] ) ? $value[$this->layout_key] : $layout_slug;
 		$row           = isset( $row['items'] ) ? $row['items'] : $row;
+		$layout        = $this->get_layout( $layout_slug );
 
 		// Render one hidden input for layout slug.
 		$this->render_layout_input( $layout_slug );
 		?>
-			<td class="repeater-column flexible-column <?php echo $render_layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
-				<div class="repeater-content-open">
-					<table class="<?php echo $render_layout === 'table' ? 'flexible-table' : 'papi-table'; ?>">
-						<?php
-						if ( $render_layout === 'table' ):
-							echo '<thead>';
-							for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
-								// Don't show the property if it's disabled.
-								if ( $row[$i]->disabled() ) {
-									continue;
-								}
+		<td class="repeater-column flexible-column <?php echo $render_layout === 'table' ? 'flexible-layout-table' : 'flexible-layout-row'; ?>">
+			<div class="repeater-content-open">
+				<?php // flexible label table layout ?>
+				<?php if ( $render_layout === 'table' && ! empty( $layout['row_label'] ) && isset( $layout['show_label'] ) && $layout['show_label'] ): ?>
+					<label class="flexible-row-label"><?php echo esc_html( $layout['row_label'] ); ?></label>
+				<?php endif; ?>
+				<table class="<?php echo $render_layout === 'table' ? 'flexible-table' : 'papi-table'; ?>">
+					<?php
+					if ( $render_layout === 'table' ):
+						echo '<thead>';
+						for ( $i = 0, $l = count( $row ); $i < $l; $i ++ ) {
+							// Don't show the property if it's disabled.
+							if ( $row[$i]->disabled() ) {
+								continue;
+							}
 
+							if ( $row[$i]->sidebar ) {
 								echo '<th class="' . ( $row[$i]->display() ? '' : 'papi-hide' ) . '">';
 								echo sprintf(
 									'<label for="%s">%s</label>',
@@ -575,69 +646,73 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 								);
 								echo '</th>';
 							}
-							echo '</thead>';
-						endif;
+						}
+						echo '</thead>';
+					endif;
 
-						echo '<tbody>';
+					echo '<tbody>';
 
-						if ( $render_layout === 'table' ):
-							echo '<tr>';
-						endif;
+					if ( $render_layout === 'table' ):
+						echo '<tr>';
+					endif;
 
-						for ( $i = 0, $l = count( $row ); $i < $l; $i++ ) {
-							// Don't show the property if it's disabled.
-							if ( $row[$i]->disabled() ) {
-								continue;
-							}
+					for ( $i = 0, $l = count( $row ); $i < $l; $i ++ ) {
+						// Don't show the property if it's disabled.
+						if ( $row[$i]->disabled() ) {
+							continue;
+						}
 
-							$render_property = clone $row[$i]->get_options();
-							$value_slug      = $row[$i]->get_slug( true );
+						$render_property = clone $row[$i]->get_options();
+						$value_slug      = $row[$i]->get_slug( true );
 
-							if ( $has_value ) {
-								if ( array_key_exists( $value_slug, $value ) ) {
-									$render_property->value = $value[$value_slug];
+						if ( $has_value ) {
+							if ( array_key_exists( $value_slug, $value ) ) {
+								$render_property->value = $value[$value_slug];
+							} else {
+								if ( array_key_exists( $row[$i]->get_slug(), $value ) ) {
+									$render_property->value = $row[$i]->default_value;
 								} else {
-									if ( array_key_exists( $row[$i]->get_slug(), $value ) ) {
-										$render_property->value = $row[$i]->default_value;
-									} else {
-										continue;
-									}
+									continue;
 								}
-							}
-
-							$render_property->slug  = $this->html_name(
-								$render_property,
-								$this->counter
-							);
-							$render_property->raw   = $render_layout === 'table';
-
-							if ( $render_layout === 'table' ) {
-								echo '<td class="' . ( $row[$i]->display() ? '' : 'papi-hide' ) . '">';
-							}
-
-							papi_render_property( $render_property );
-
-							if ( $render_layout === 'table' ) {
-								echo '</td>';
 							}
 						}
 
-						if ( $render_layout === 'table' ):
-							echo '</tr>';
-						endif;
+						$render_property->slug = $this->html_name(
+							$render_property,
+							$this->counter
+						);
+						$render_property->raw  = $render_layout === 'table';
 
-						echo '</tbody>';
-						?>
-					</table>
-				</div>
-				<div class="repeater-content-closed">
-					<?php
-					if ( $layout = $this->get_layout( $layout_slug ) ) {
-						echo esc_html( $layout['title'] );
+						if ( $render_layout === 'table' ) {
+							echo '<td class="' . ( $row[$i]->display() ? '' : 'papi-hide' ) . '">';
+						} else if ( $i === 0 && ! empty( $layout['row_label'] ) && isset( $layout['show_label'] ) && $layout['show_label'] ) {
+							// flexible label row layout
+							echo sprintf( '<label class="flexible-row-label">%s</label>', esc_html( $layout['row_label'] ) );
+						}
+
+						papi_render_property( $render_property );
+
+						if ( $render_layout === 'table' ) {
+							echo '</td>';
+						}
 					}
+
+					if ( $render_layout === 'table' ):
+						echo '</tr>';
+					endif;
+
+					echo '</tbody>';
 					?>
-				</div>
-			</td>
+				</table>
+			</div>
+			<div class="repeater-content-closed">
+				<?php
+				if ( ! empty( $layout['title'] ) ) {
+					echo esc_html( $layout['title'] );
+				}
+				?>
+			</div>
+		</td>
 		<?php
 	}
 
@@ -652,13 +727,13 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		<div class="papi-property-flexible papi-property-repeater-top" data-limit="<?php echo esc_attr( $this->get_setting( 'limit' ) ); ?>">
 			<table class="papi-table">
 				<tbody class="repeater-tbody flexible-tbody">
-					<?php $this->render_repeater_row(); ?>
+				<?php $this->render_repeater_row(); ?>
 				</tbody>
 			</table>
 
 			<div class="bottom">
 				<div class="flexible-layouts-btn-wrap">
-					<div class="flexible-layouts papi-hide">
+					<div class="flexible-layouts flexible-layouts-hidden">
 						<div class="flexible-layouts-arrow"></div>
 						<ul>
 							<?php
@@ -723,7 +798,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 		}
 
-		$values = array_filter( $values );
+		$values      = array_filter( $values );
 		$closed_rows = $this->get_setting( 'closed_rows', true );
 
 		foreach ( $values as $index => $row ):
@@ -745,7 +820,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					$this->render_properties( $layout['items'], $row );
 				}
 
-				$this->counter++;
+				$this->counter ++;
 				?>
 				<td class="last">
 					<span>
@@ -794,7 +869,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 *
 	 * @return bool
 	 */
-	private function valid_layout( array $layout ) {
+	protected function valid_layout( array $layout ) {
 		return isset( $layout['title'], $layout['items'] );
 	}
 }

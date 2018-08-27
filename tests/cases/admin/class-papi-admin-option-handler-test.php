@@ -12,12 +12,17 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
+		add_filter( 'papi/is_admin', '__return_true' );
+
 		$this->page_type = papi_get_entry_type_by_id( 'options/header-option-type' );
 		$this->property  = $this->page_type->get_property( 'name' );
 	}
 
 	public function tearDown() {
 		parent::tearDown();
+
+		remove_filter( 'papi/is_admin', '__return_true' );
+
 		unset(
 			$_POST,
 			$_SERVER['REQUEST_METHOD'],
@@ -33,10 +38,6 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 	}
 
 	public function test_save_options_without_nonce() {
-		global $current_screen;
-
-		$current_screen = WP_Screen::get( 'admin_init' );
-
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $this->property->slug,
 			'type'  => $this->property,
@@ -46,21 +47,12 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/options-general.php?page=papi/options/header-option-type';
 
-		new Papi_Admin_Option_Handler;
-		do_action( 'admin_init' );
+		( new Papi_Admin_Option_Handler )->save_properties();
 
-		$value = papi_get_option( $this->property->slug );
-
-		$this->assertNull( $value );
-
-		$current_screen = null;
+		$this->assertNull( papi_get_option( $this->property->slug ) );
 	}
 
 	public function test_save_options_with_nonce() {
-		global $current_screen;
-
-		$current_screen = WP_Screen::get( 'admin_init' );
-
 		$_POST = papi_test_create_property_post_data( [
 			'slug'  => $this->property->slug,
 			'type'  => $this->property,
@@ -72,14 +64,9 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/options-general.php?page=papi/options/header-option-type';
 
-		new Papi_Admin_Option_Handler;
-		do_action( 'admin_init' );
+		( new Papi_Admin_Option_Handler )->save_properties();
 
-		$value = papi_get_option( $this->property->slug );
-
-		$this->assertSame( 'Hello, world!', $value );
-
-		$current_screen = null;
+		$this->assertSame( 'Hello, world!', papi_get_option( $this->property->slug ) );
 	}
 
 	public function test_save_properties_fail() {
@@ -94,13 +81,10 @@ class Papi_Admin_Option_Handler_Test extends WP_UnitTestCase {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/options-general.php?page=papi/options/header-option-type';
 
-		new Papi_Admin_Option_Handler;
-		do_action( 'admin_init' );
-
-		$value = papi_get_option( $this->property->slug );
+		( new Papi_Admin_Option_Handler )->save_properties();
 
 		$_SERVER['REQUEST_URI'] = $old_request_uri;
 
-		$this->assertNull( $value );
+		$this->assertNull( papi_get_option( $this->property->slug ) );
 	}
 }

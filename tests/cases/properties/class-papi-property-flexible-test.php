@@ -7,7 +7,7 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 
 	public $slug = 'flexible_test';
 
-	public function assert_values( $expected, $actual ) {
+	public function assert_values( $expected, $actual, $slug ) {
 		for ( $i = 0, $l = count( $expected ); $i < $l; $i++ ) {
 			foreach ( $expected[$i] as $key => $value ) {
 				if ( $value instanceof WP_Post ) {

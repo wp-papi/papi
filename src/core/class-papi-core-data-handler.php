@@ -154,7 +154,7 @@ class Papi_Core_Data_Handler {
 			$property_type_key = papify( papi_get_property_type_key( $key ) );
 
 			// Check if value exists.
-			if ( ! isset( $data[$key] ) && ! isset( $data[$property_type_key] ) ) {
+			if ( ! isset( $data[$key] ) || ! isset( $data[$property_type_key] ) ) {
 				continue;
 			}
 
@@ -170,6 +170,13 @@ class Papi_Core_Data_Handler {
 
 		foreach ( $data as $key => $item ) {
 			if ( papi_is_property_type_key( $key ) ) {
+				if ( isset( $data[$key] ) ) {
+						unset( $data[$key] );
+				}
+				continue;
+			}
+
+			if ( empty( $item['type'] ) ) {
 				continue;
 			}
 
@@ -213,7 +220,7 @@ class Papi_Core_Data_Handler {
 	 *
 	 * @return mixed
 	 */
-	private function santize_data( $value ) {
+	protected function santize_data( $value ) {
 		if ( is_array( $value ) ) {
 			foreach ( $value as $k => $v ) {
 				if ( is_string( $v ) ) {

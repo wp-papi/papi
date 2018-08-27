@@ -8,7 +8,7 @@ class Papi_Lib_Core_Deprecated_Test extends WP_UnitTestCase {
 
 		add_action( 'deprecated_function_run', [$this, 'deprecated_function_run'] );
 		add_filter( 'papi/settings/directories', function () {
-			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+			return [1, PAPI_FIXTURE_DIR . '/page-types'];
 		} );
 
 		$this->post_id = $this->factory->post->create();
@@ -25,7 +25,13 @@ class Papi_Lib_Core_Deprecated_Test extends WP_UnitTestCase {
 		unset( $_GET, $this->post_id );
 	}
 
-	public function test_deprecated() {
-		$this->assertTrue( true );
+	/**
+	 * `papi_get_page` is deprecated since 3.2.0
+	 */
+	public function test_papi_get_page() {
+		$page = papi_get_page( $this->post_id );
+		$this->assertTrue( is_object( $page ) );
+		$page = papi_get_page( $this->post_id, 'fake' );
+		$this->assertNull( $page );
 	}
 }

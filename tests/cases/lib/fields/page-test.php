@@ -66,14 +66,14 @@ class Papi_Lib_Fields_Page_Test extends WP_UnitTestCase {
 		$_GET['post_id'] = $this->post_id;
 		$this->assertNull( papi_get_field( 'name' ) );
 		$this->assertSame( 'fredrik', papi_get_field( '', 'fredrik' ) );
+
+		update_post_meta( $this->post_id, 'uppercase', 'fredrik' );
+		$this->assertSame( 'fredrik', papi_get_field( $this->post_id, 'UPPERCASE' ) );
 	}
 
 	public function test_papi_get_field_cache() {
-		papi_update_property_meta_value( [
-			'id'    => $this->post_id,
-			'slug'  => 'name',
-			'value' => 'fredrik'
-		] );
+		papi_data_update( $this->post_id, 'name', 'fredrik' );
+
 		$this->assertSame( 'fredrik', papi_get_field( $this->post_id, 'name' ) );
 		$this->assertSame( 'fredrik', papi_cache_get( 'name', $this->post_id ) );
 

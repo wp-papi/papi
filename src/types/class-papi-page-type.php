@@ -37,6 +37,9 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	/**
 	 * Labels, the same labels that post type object uses.
 	 *
+	 * Plus some special:
+	 * - `title_placeholder` that can change main title input placeholder.
+	 *
 	 * @var array
 	 */
 	public $labels = [];
@@ -53,7 +56,7 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	 *
 	 * @var array
 	 */
-	private $remove_meta_boxes = [];
+	protected $remove_meta_boxes = [];
 
 	/**
 	 * Show standard page type or not.
@@ -124,16 +127,18 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	}
 
 	/**
-	 * Determine if the page type is allowed
-	 * by capabilities and post type.
+	 * Determine if the page type is allowed by capabilities and post type.
 	 *
 	 * @return bool
 	 */
 	public function allowed() {
 		$args = func_get_args();
-		return empty( $args )
-			? parent::allowed()
-			: papi_current_user_is_allowed( $this->capabilities ) && isset( $args[0] ) && in_array( $args[0], $this->post_type, true );
+
+		if ( empty( $args ) ) {
+			return parent::allowed();
+		}
+
+		return papi_current_user_is_allowed( $this->capabilities ) && isset( $args[0] ) && in_array( $args[0], $this->post_type, true );
 	}
 
 	/**
@@ -217,7 +222,7 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	 *
 	 * @return array
 	 */
-	private function get_post_type_supports() {
+	protected function get_post_type_supports() {
 		$supports = ['custom-fields'];
 
 		if ( method_exists( $this, 'remove' ) ) {
@@ -334,12 +339,19 @@ class Papi_Page_Type extends Papi_Entry_Type {
 		if ( ! $this->show_page_template ) {
 			add_filter( 'theme_page_templates', '__return_empty_array' );
 		}
+
+		// Main title input placeholder.
+		if ( ! empty( $this->labels['title_placeholder'] ) ) {
+			add_filter( 'enter_title_here', function () {
+				return $this->labels['title_placeholder'];
+			} );
+		}
 	}
 
 	/**
 	 * Setup post types array.
 	 */
-	private function setup_post_types() {
+	protected function setup_post_types() {
 		$this->post_type = papi_to_array( $this->post_type );
 
 		// Set a default value to post types array

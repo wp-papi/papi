@@ -177,6 +177,25 @@ class Simple_Page_Type extends Papi_Page_Type {
 				'slug'  => 'string_test'
 			] )
 		] );
+
+		$this->box( 'UPPERCASE TEST', [
+			papi_property( [
+				'type'  => 'string',
+				'title' => 'UPPERCASE',
+				'slug'  => 'UPPERCASE'
+			] )
+		] );
+
+		$this->box( 'Format callback property', [
+			papi_property( [
+				'type'      => 'string',
+				'title'     => 'format_cb',
+				'slug'      => 'format_cb',
+				'format_cb' => function ( $value ) {
+					return 'Hello ' . $value;
+				}
+			] )
+		] );
 	}
 
 	public function content_box() {

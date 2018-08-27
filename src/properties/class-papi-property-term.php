@@ -17,16 +17,46 @@ class Papi_Property_Term extends Papi_Property {
 	 *
 	 * @param  mixed  $value
 	 * @param  string $slug
-	 * @param  int    $post_id
+	 * @param  int    $term_id
 	 *
 	 * @return array
 	 */
-	public function format_value( $value, $slug, $post_id ) {
-		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
-			return $this->get_term( $value );
+	public function format_value( $value, $slug, $term_id ) {
+		$meta_key = $this->get_setting( 'meta_key' );
+
+		if ( empty( $meta_key ) ) {
+			if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
+				$term_id = $value;
+			}
+		} else {
+			$args = [
+				'fields'     => 'ids',
+				'meta_key'   => $meta_key,
+				'meta_value' => $value,
+				'hide_empty' => false,
+				'taxonomy'   => $this->get_setting( 'taxonomy' ),
+				'number'     => 1
+			];
+
+			$terms = get_terms( $args );
+
+			if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+				$term_id = $terms[0];
+			}
 		}
 
-		return $this->default_value;
+		// Allow only id to be returned.
+		if ( ! papi_is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
+			$term = $this->get_term_value( $term_id );
+		} elseif ( ! empty( $term_id ) ) {
+			$term = get_term( $term_id );
+		}
+
+		if ( empty( $term ) || is_wp_error( $term ) ) {
+			$term = $this->default_value;
+		}
+
+		return $term;
 	}
 
 	/**
@@ -36,12 +66,15 @@ class Papi_Property_Term extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
+			'allow_clear' => true,
+			'fields'      => '',
 			'labels'      => [
 				'select_taxonomy' => __( 'Select Taxonomy', 'papi' ),
 				'select_item'     => __( 'Select %s term', 'papi' )
 			],
 			'layout'      => 'single', // Single or advanced
-			'placeholder' => '',
+			'meta_key'    => '',
+			'placeholder' => null,
 			'taxonomy'    => '',
 			'select2'     => true,
 			'query'       => []
@@ -98,21 +131,34 @@ class Papi_Property_Term extends Papi_Property {
 	}
 
 	/**
-	 * Get single term.
+	 * Get matching value based on key from a term.
 	 *
-	 * @param  int $term_id
+	 * @param  mixed $term
 	 *
-	 * @return object
+	 * @return mixed
 	 */
-	protected function get_term( $term_id ) {
-		if ( version_compare( get_bloginfo( 'version' ), '4.4', '<' ) ) {
-			$taxonomies = $this->get_taxonomies();
-			$taxonomy   = reset( $taxonomies );
+	protected function get_term_value( $term ) {
+		$meta_key = $this->get_setting( 'meta_key' );
 
-			return get_term( $term_id, $taxonomy );
+		if ( is_numeric( $term ) ) {
+			$term_id = $term;
+		} else {
+			$term = get_term( $term );
+
+			if ( $term instanceof WP_Term === false ) {
+				return 0;
+			}
+
+			$term_id = $term->term_id;
 		}
 
-		return get_term( $term_id );
+		if ( ! empty( $meta_key ) ) {
+			$value = get_term_meta( $term_id, $meta_key, true );
+		} else {
+			$value = $term_id;
+		}
+
+		return $value;
 	}
 
 	/**
@@ -128,11 +174,11 @@ class Papi_Property_Term extends Papi_Property {
 		$single            = $render_label && $layout !== 'advanced';
 		$classes           = count( $taxonomies ) > 1 ? '' : 'papi-fullwidth';
 		$value             = $this->get_value();
-		$value             = is_object( $value ) ? $value->term_id : 0;
-		$selected_label    = reset( $labels );
-		$selected_term     = $this->get_term( $value ) ? : '';
+		$selected_term     = get_term( $value );
 		$selected_term     = is_wp_error( $selected_term ) || empty( $selected_term ) ? '' : $selected_term;
 		$selected_taxonomy = empty( $selected_term ) ? reset( $taxonomies ) : $selected_term->taxonomy;
+		$value             = $this->get_term_value( $value );
+		$selected_label    = reset( $labels );
 
 		if ( $settings->select2 ) {
 			$classes = ' papi-component-select2';
@@ -182,17 +228,22 @@ class Papi_Property_Term extends Papi_Property {
 					<td>
 			<?php endif; ?>
 
+			<?php
+				$placeholder = ! is_null( $settings->placeholder ) ? $settings->placeholder : '';
+				$placeholder = papi_is_empty( $placeholder ) ? '&nbsp;' : $placeholder;
+			?>
+
 			<select
 				class="<?php echo esc_attr( $classes ); ?>  papi-property-term-right"
 				id="<?php echo esc_attr( $this->html_id() ); ?>_terms"
 				name="<?php echo esc_attr( $this->html_name() ); ?>"
 				class="<?php echo esc_attr( $classes ); ?>"
-				data-allow-clear="<?php echo empty( $settings->placeholder ) ? 'false' : 'true'; ?>"
-				data-placeholder="<?php echo esc_attr( isset( $settings->placeholder ) ? $settings->placeholder : '' ); ?>"
+				data-allow-clear="<?php echo is_null( $settings->placeholder ) ? 'false' : 'true'; ?>"
+				data-placeholder="<?php echo esc_attr( $placeholder ); ?>"
 				data-width="100%">
 
-				<?php if ( ! empty( $settings->placeholder ) ): ?>
-					<option value=""></option>
+				<?php if ( ! is_null( $settings->placeholder ) ): ?>
+					<option value="<?php echo esc_attr( $this->get_option( 'default', ' ' ) ); ?>"><?php echo esc_html( $placeholder ); ?></option>
 				<?php endif; ?>
 
 				<?php foreach ( $taxonomies as $taxonomy ) : ?>
@@ -218,8 +269,9 @@ class Papi_Property_Term extends Papi_Property {
 						}
 
 						papi_render_html_tag( 'option', [
-							'value'    => $term_id,
-							'selected' => $value === $term_id,
+							'data-allow-clear' => $settings->allow_clear,
+							'value'            => $this->get_term_value( $term_id ),
+							'selected'         => $value === $this->get_term_value( $term_id ),
 							esc_html( $term_name )
 						] );
 					}

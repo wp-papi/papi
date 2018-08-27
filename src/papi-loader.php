@@ -1,20 +1,20 @@
 <?php
 
 // Load Papi Container.
-require_once __DIR__ . '/container/class-papi-container.php';
+require_once __DIR__ . '/core/class-papi-core-container.php';
 
 /**
  * Papi loader class that handle the loading
  * of the plugin.
  */
-final class Papi_Loader extends Papi_Container {
+final class Papi_Loader extends Papi_Core_Container {
 
 	/**
 	 * The instance of Papi loader class.
 	 *
 	 * @var Papi_Loader
 	 */
-	private static $instance;
+	protected static $instance;
 
 	/**
 	 * The plugin name.
@@ -51,7 +51,7 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * The constructor.
 	 */
-	private function __construct() {
+	protected function __construct() {
 		$this->constants();
 		$this->init();
 
@@ -87,13 +87,10 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Bootstrap constants
 	 */
-	private function constants() {
+	protected function constants() {
 		// Path to Papi plugin directory
 		if ( ! defined( 'PAPI_PLUGIN_DIR' ) ) {
-			$mu_dir = trailingslashit( sprintf( '%s/%s/src',
-				WPMU_PLUGIN_DIR,
-				basename( dirname( __DIR__ ) )
-			) );
+			$mu_dir = trailingslashit( sprintf( '%s/%s/src', WPMU_PLUGIN_DIR, basename( dirname( __DIR__ ) ) ) );
 
 			if ( is_dir( $mu_dir ) ) {
 				define( 'PAPI_PLUGIN_DIR', $mu_dir );
@@ -123,10 +120,10 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Define constant if not already set.
 	 *
-	 * @param  string $name
+	 * @param  string      $name
 	 * @param  string|bool $value
 	 */
-	private function define( $name, $value ) {
+	protected function define( $name, $value ) {
 		if ( ! defined( $name ) ) {
 			define( $name, $value );
 		}
@@ -135,7 +132,7 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Initialise Papi.
 	 */
-	private function init() {
+	protected function init() {
 		// Fires the before init action.
 		did_action( 'papi/before_init' ) || do_action( 'papi/before_init' );
 
@@ -159,8 +156,10 @@ final class Papi_Loader extends Papi_Container {
 	 * - WP_LANG_DIR/papi/papi-LOCALE.mo
 	 * - WP_CONTENT_DIR/[mu-]plugins/papi/languages/papi-LOCALE.mo
 	 */
-	private function load_textdomain() {
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'papi' );
+	protected function load_textdomain() {
+		$locale = function_exists( 'get_user_local' ) ? get_user_local() : get_locale();
+		$locale = apply_filters( 'plugin_locale', $locale, 'papi' );
+
 		load_textdomain( 'papi', WP_LANG_DIR . '/papi/papi-' . $locale . '.mo' );
 		load_textdomain( 'papi', PAPI_PLUGIN_DIR . '../languages/papi-' . $locale . '.mo' );
 	}
@@ -168,7 +167,7 @@ final class Papi_Loader extends Papi_Container {
 	/**
 	 * Require files.
 	 */
-	private function require_files() {
+	protected function require_files() {
 		// Require the autoload class.
 		require_once __DIR__ . '/core/class-papi-core-autoload.php';
 
@@ -176,6 +175,7 @@ final class Papi_Loader extends Papi_Container {
 		$lib_includes = [
 			'core/cache.php',
 			'core/conditional.php',
+			'core/data.php',
 			'core/deprecated.php',
 			'core/meta.php',
 			'core/store.php',
@@ -216,7 +216,10 @@ final class Papi_Loader extends Papi_Container {
 		require_once __DIR__ . '/admin/class-papi-admin-menu.php';
 
 		// Require conditional rules that should not be loaded by the autoload.
-		require_once __DIR__ . '/conditional/class-papi-conditional-rules.php';
+		require_once __DIR__ . '/core/class-papi-core-conditional-rules.php';
+
+		// Require REST API classes.
+		require_once __DIR__ . '/rest-api/class-papi-rest-api.php';
 
 		// Load Papi CLI class if WP CLI is used.
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
@@ -225,7 +228,7 @@ final class Papi_Loader extends Papi_Container {
 	}
 
 	/**
-	 * Deactivate Papi if the WordPress version is lower then 4.0.
+	 * Deactivate Papi if the WordPress version is lower then 4.6.
 	 */
 	public static function deactivate() {
 		// Remove Papi from plugins_loaded action.
@@ -238,17 +241,29 @@ final class Papi_Loader extends Papi_Container {
 
 		deactivate_plugins( PAPI_PLUGIN_BASENAME );
 
-		wp_die( esc_html__( 'WordPress 4.0 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
+		wp_die( esc_html__( 'WordPress 4.6 and higher required to run Papi! The plugin has now disabled itself.', 'papi' ) );
 
 		// Remove instance.
 		self::$instance = null;
 	}
 
 	/**
+	 * Reset container.
+	 */
+	public function reset() {
+		parent::reset();
+
+		$this->setup_container();
+	}
+
+	/**
 	 * Setup container.
 	 */
-	private function setup_container() {
+	protected function setup_container() {
 		$this->singleton( 'porter', new Papi_Porter );
+		$this->singleton( 'data', function ( $type = 'post' ) {
+			return new Papi_Core_Data( $type );
+		} );
 	}
 }
 
@@ -258,7 +273,7 @@ final class Papi_Loader extends Papi_Container {
  * @return Papi_Loader
  */
 function papi() {
-	if ( version_compare( get_bloginfo( 'version' ), '4.3', '<' ) ) {
+	if ( version_compare( get_bloginfo( 'version' ), '4.6', '<' ) ) {
 		Papi_Loader::deactivate();
 	}
 

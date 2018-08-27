@@ -74,18 +74,6 @@ function papi_get_all_page_types( $post_type = '' ) {
 }
 
 /**
- * Get the data page.
- *
- * @param  int    $id
- * @param  string $type
- *
- * @return Papi_Core_Meta_Store
- */
-function papi_get_page( $id = 0, $type = 'post' ) {
-	return papi_get_meta_store( $id, $type );
-}
-
-/**
  * Get page type id by post id.
  *
  * @param  int $post_id
@@ -93,7 +81,7 @@ function papi_get_page( $id = 0, $type = 'post' ) {
  * @return string
  */
 function papi_get_page_type_id( $post_id = 0 ) {
-	return papi_get_entry_type_id( $post_id );
+	return papi_get_entry_type_id( $post_id, 'post' );
 }
 
 /**
@@ -158,6 +146,41 @@ function papi_get_post_types() {
 }
 
 /**
+ * Get standard page type since it's not a real page type class.
+ *
+ * @return null|Papi_Page_Type
+ */
+function papi_get_standard_page_type( $post_type ) {
+	if ( ! is_string( $post_type ) ) {
+		return;
+	}
+
+	// Create a new page type and set required fields.
+	$standard_type              = new Papi_Page_Type();
+	$standard_type->name        = papi_filter_settings_standard_page_type_name( $post_type );
+	$standard_type->description = papi_filter_settings_standard_page_type_description( $post_type );
+	$standard_type->thumbnail   = papi_filter_settings_standard_page_type_thumbnail( $post_type );
+	$standard_type->post_type   = [$post_type];
+
+	// Set standard page type id.
+	$standard_type->set_id( papi_get_standard_page_type_id( $post_type ) );
+
+	return $standard_type;
+}
+
+/**
+ * Get standard page type id.
+ *
+ * @param  string $post_type
+ *
+ * @return string
+ */
+function papi_get_standard_page_type_id( $post_type ) {
+	$post_type = is_string( $post_type ) ? $post_type : '';
+	return sprintf( 'papi-standard-%s-type', $post_type );
+}
+
+/**
  * Check if given string is a page type.
  *
  * @param  string $str
@@ -172,12 +195,20 @@ function papi_is_page_type( $str = '' ) {
  * Load the entry type id on a post types.
  *
  * @param  string $entry_type_id
+ * @param  string $type
+ * @param  int $post_id
  *
  * @return string
  */
-function papi_load_page_type_id( $entry_type_id = '' ) {
+function papi_load_page_type_id( $entry_type_id = '', $type = 'post', $post_id = null ) {
+	$type = papi_get_meta_type( $type );
+
+	if ( $type !== 'post' ) {
+		return $entry_type_id;
+	}
+
+	$post_id   = papi_get_post_id( $post_id );
 	$key       = papi_get_page_type_key();
-	$post_id   = papi_get_post_id();
 	$post_type = papi_get_post_type( $post_id );
 
 	// Try to load the entry type id from only page type filter.
@@ -202,19 +233,35 @@ function papi_load_page_type_id( $entry_type_id = '' ) {
 		$entry_type_id = empty( $meta_value ) ? '' : $meta_value;
 	}
 
-	// Load entry type id from the container if it exists.
+	// Try to load the entry type from all page types and check
+	// if only one exists of that post type.
+	//
+	// The same as only page type filter but without the filter.
 	if ( empty( $entry_type_id ) ) {
 		$key = sprintf( 'entry_type_id.post_type.%s', $post_type );
 
-		if ( papi()->exists( $key )  ) {
+		if ( papi()->exists( $key ) ) {
 			return papi()->make( $key );
 		}
+
+		$entries = papi_get_all_page_types( $post_type );
+
+		if ( count( $entries ) === 1 ) {
+			$entry_type_id = $entries[0]->get_id();
+
+			papi()->bind( $key, $entry_type_id );
+		}
+	}
+
+	// If standard page is enabled and entry type id is empty it's a standard type.
+	if ( empty( $entry_type_id ) && papi_filter_settings_show_standard_page_type( $post_type ) ) {
+		return papi_get_standard_page_type_id( $post_type );
 	}
 
 	return $entry_type_id;
 }
 
-add_filter( 'papi/entry_type_id', 'papi_load_page_type_id' );
+add_filter( 'papi/entry_type_id', 'papi_load_page_type_id', 10, 3 );
 
 /**
  * Set page type to a post.

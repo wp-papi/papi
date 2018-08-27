@@ -27,6 +27,9 @@ function papi_delete_field( $id = null, $slug = null, $type = 'post' ) {
 		return false;
 	}
 
+	// Replace "-" with "_".
+	$slug = papi_underscorify( $slug );
+
 	$property = $store->get_property( $slug );
 
 	if ( ! papi_is_property( $property ) ) {
@@ -35,7 +38,14 @@ function papi_delete_field( $id = null, $slug = null, $type = 'post' ) {
 
 	papi_cache_delete( $slug, $id, $type );
 
-	papi_action_delete_value( $type, $slug, $id );
+	/**
+	 * Fire action before value is deleted.
+	 *
+	 * @param string $type
+	 * @param string $slug
+	 * @param int    $post_id
+	 */
+	do_action( 'papi/delete_value/' . $type, $slug, $id );
 
 	return $property->delete_value( $slug, $id, $type );
 }
@@ -125,6 +135,9 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 		return $default;
 	}
 
+	// Replace "-" with "_".
+	$slug = papi_underscorify( $slug );
+
 	// Check for "dot" notation.
 	$slugs = explode( '.', $slug );
 	$slug  = $slugs[0];
@@ -141,38 +154,11 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 		return $default;
 	}
 
-	// Determine if we should use the cache or not.
-	$cache = $store->get_property_option( $slug, 'cache', true );
-
-	// Get the raw value from the cache.
-	$raw_value = $cache ? papi_cache_get( $slug, $id, $type ) : false;
-
-	// Load raw value if not cached.
-	if ( $raw_value === null || $raw_value === false ) {
-		$raw_value = $store->load_value( $slug );
-
-		if ( papi_is_empty( $raw_value ) ) {
-			return $default;
-		}
-
-		if ( $cache ) {
-			papi_cache_set( $slug, $id, $raw_value, $type );
-		} else {
-			papi_cache_delete( $slug, $id, $type );
-		}
-	}
-
-	if ( papi_is_empty( $raw_value ) ) {
-		return $default;
-	}
-
-	// Format raw value.
-	$value = $store->format_value( $slug, $raw_value );
+	// Get value from store.
+	$value = $store->get_value( $id, $slug, $default, $type );
 
 	// Get value by dot keys if any.
-	$value = papi_field_value( $slugs, $value, $default );
-
-	return papi_is_empty( $value ) ? $default : $value;
+	return papi_field_value( $slugs, $value, $default );
 }
 
 /**
@@ -267,6 +253,9 @@ function papi_update_field( $id = null, $slug = null, $value = null, $type = 'po
 		return false;
 	}
 
+	// Replace "-" with "_".
+	$slug = papi_underscorify( $slug );
+
 	$property = $store->get_property( $slug );
 
 	if ( ! papi_is_property( $property ) ) {
@@ -278,12 +267,7 @@ function papi_update_field( $id = null, $slug = null, $value = null, $type = 'po
 	$value = $property->update_value( $value, $slug, $id );
 	$value = papi_filter_update_value( $property->get_option( 'type' ), $value, $slug, $id, $type );
 
-	return papi_update_property_meta_value( [
-		'type'  => $type,
-		'id'    => $id,
-		'slug'  => $slug,
-		'value' => $value
-	] );
+	return papi_data_update( $id, $slug, $value, $type );
 }
 
 /**
@@ -304,5 +288,5 @@ function the_papi_field( $id = null, $slug = null, $default = null ) {
 		$value = papi_convert_to_string( $value );
 	}
 
-	echo esc_html( $value );
+	echo $value; // phpcodesniffer xss whitelist
 }

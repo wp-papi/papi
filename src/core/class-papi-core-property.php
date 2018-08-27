@@ -36,6 +36,7 @@ class Papi_Core_Property {
 	protected $default_options = [
 		'after_class'   => '',
 		'after_html'    => '',
+		'auth_callback' => '__return_true',
 		'before_class'  => '',
 		'before_html'   => '',
 		'cache'         => true,
@@ -44,6 +45,7 @@ class Papi_Core_Property {
 		'description'   => '',
 		'disabled'      => false,
 		'display'       => true,
+		'format_cb'     => '',
 		'lang'          => false,
 		'layout'        => 'horizontal', // or 'vertical'
 		'overwrite'     => false,
@@ -60,6 +62,15 @@ class Papi_Core_Property {
 		'title'         => '',
 		'type'          => '',
 		'value'         => null
+	];
+
+	/**
+	 * Option aliases.
+	 *
+	 * @var array
+	 */
+	protected $option_aliases = [
+		'desc' => 'description'
 	];
 
 	/**
@@ -105,11 +116,11 @@ class Papi_Core_Property {
 	protected $store;
 
 	/**
-	 * Determine if is in a tab.
+	 * Parent property.
 	 *
-	 * @var bool
+	 * @var Papi_Core_Property
 	 */
-	public $tab = false;
+	protected $parent_property = null;
 
 	/**
 	 * The constructor.
@@ -171,7 +182,7 @@ class Papi_Core_Property {
 	 * @return bool
 	 */
 	public function delete_value( $slug, $post_id, $type ) {
-		return papi_delete_property_meta_value( $post_id, $slug, $type );
+		return papi_data_delete( $post_id, $slug, $type );
 	}
 
 	/**
@@ -245,7 +256,7 @@ class Papi_Core_Property {
 			}
 
 			$options = $type;
-			$type = $type->type;
+			$type    = $type->type;
 		}
 
 		// Old types, 'PropertyString' => 'String'.
@@ -330,7 +341,17 @@ class Papi_Core_Property {
 	 */
 	public function get_child_properties() {
 		$items = $this->get_setting( 'items', [] );
+
 		return is_array( $items ) ? $items : [$items];
+	}
+
+	/**
+	 * Get convert type.
+	 *
+	 * @return string
+	 */
+	public function get_convert_type() {
+		return $this->convert_type;
 	}
 
 	/**
@@ -366,11 +387,12 @@ class Papi_Core_Property {
 	 * Get option value.
 	 *
 	 * @param  string $key
+	 * @param  mixed  $default
 	 *
 	 * @return mixed
 	 */
-	public function get_option( $key ) {
-		$value = null;
+	public function get_option( $key, $default = null ) {
+		$value = $default;
 
 		if ( isset( $this->options->$key ) ) {
 			$value = $this->options->$key;
@@ -382,8 +404,6 @@ class Papi_Core_Property {
 
 		if ( $key === 'settings' && is_array( $value ) ) {
 			$value = (object) $value;
-		} else if ( $key === 'sidebar' && $value ) {
-			$value = $this->layout === 'horizontal';
 		}
 
 		return $value;
@@ -400,6 +420,15 @@ class Papi_Core_Property {
 		}
 
 		return $this->options;
+	}
+
+	/**
+	 * Get parent property.
+	 *
+	 * @return Papi_Core_Property
+	 */
+	public function get_parent_property() {
+		return $this->parent_property;
 	}
 
 	/**
@@ -456,10 +485,7 @@ class Papi_Core_Property {
 	 * @return stdClass
 	 */
 	public function get_settings() {
-		return (object) array_merge(
-			$this->get_default_settings(),
-			(array) $this->settings
-		);
+		return (object) array_merge( $this->get_default_settings(), (array) $this->settings );
 	}
 
 	/**
@@ -503,7 +529,7 @@ class Papi_Core_Property {
 	 * Get the html id attribute value.
 	 *
 	 * @param  object|string $suffix
-	 * @param  int $row
+	 * @param  int           $row
 	 *
 	 * @return string
 	 */
@@ -529,7 +555,7 @@ class Papi_Core_Property {
 	 * Get html name for property with or without sub property and row number.
 	 *
 	 * @param  array|object $sub_property
-	 * @param  int $row
+	 * @param  int          $row
 	 *
 	 * @return string
 	 */
@@ -552,11 +578,7 @@ class Papi_Core_Property {
 			}
 		}
 
-		return sprintf(
-			'%s[%s]',
-			$base_slug,
-			unpapify( $sub_property->get_slug() )
-		);
+		return sprintf( '%s[%s]', $base_slug, unpapify( $sub_property->get_slug() ) );
 	}
 
 	/**
@@ -666,6 +688,77 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Register property with:
+	 *
+	 * - `register_meta` (WP 4.6+)
+	 *
+	 * @param  string $type
+	 *
+	 * @return bool
+	 */
+	public function register( $type = 'post' ) {
+		if ( version_compare( get_bloginfo( 'version' ), '4.6', '<' ) ) {
+			return false;
+		}
+
+		$type = papi_get_meta_type( $type );
+
+		// Register option fields with the new `register_setting` function and only for WordPress 4.7.
+		if ( $type === 'option' && version_compare( get_bloginfo( 'version' ), '4.7', '>=' ) ) {
+			// The `type` will be the same for each fields, this is just to get it out
+			// to the REST API, the output will be different for different fields and are
+			// handled later on.
+			return register_setting( 'papi', $this->get_slug( true ), [
+				'sanitize_callback' => [$this, 'register_meta_sanitize_callback'],
+				'show_in_rest'      => $this->get_option( 'show_in_rest' ),
+				'type'              => 'string'
+			] );
+		}
+
+		// Register meta fields with the new `register_meta` function.
+		// The `type` will be the same for each fields, this is just to get it out
+		// to the REST API, the output will be different for different fields and are
+		// handled later on.
+		return register_meta( $type, $this->get_slug( true ), [
+			'auth_callback'     => $this->get_option( 'auth_callback' ),
+			'description'       => $this->get_option( 'description' ),
+			'sanitize_callback' => [$this, 'register_meta_sanitize_callback'],
+			'show_in_rest'      => $this->get_option( 'show_in_rest' ),
+			'single'            => $this->get_convert_type() !== 'array',
+			'type'              => 'string'
+		] );
+	}
+
+	/**
+	 * No need for this in Papi, since this is handle different.
+	 *
+	 * @param  mixed $value
+	 *
+	 * @return mixed
+	 */
+	public function register_meta_sanitize_callback( $value ) {
+		return $value;
+	}
+
+	/**
+	 * Prepare property value for REST API response.
+	 *
+	 * @param  mixed $value
+	 *
+	 * @return mixed
+	 */
+	public function rest_prepare_value( $value ) {
+		return $value;
+	}
+
+	/**
+	 * Render AJAX request.
+	 */
+	public function render_ajax_request() {
+		papi_render_property( $this );
+	}
+
+	/**
 	 * Check if the property is allowed
 	 * to render by the conditional rules.
 	 *
@@ -739,6 +832,15 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Set parent property.
+	 *
+	 * @param Papi_Core_Property $parent_property
+	 */
+	public function set_parent_property( Papi_Core_Property $parent_property ) {
+		$this->parent_property = $parent_property;
+	}
+
+	/**
 	 * Setup actions.
 	 */
 	protected function setup_actions() {
@@ -772,7 +874,7 @@ class Papi_Core_Property {
 	 *
 	 * @return mixed
 	 */
-	private function setup_options( $options = [] ) {
+	protected function setup_options( $options = [] ) {
 		// When a object is sent in, just return it.
 		if ( is_object( $options ) ) {
 			return $options;
@@ -787,11 +889,23 @@ class Papi_Core_Property {
 		$options = array_merge( $this->default_options, $options );
 		$options = (object) $options;
 
+		// Setup aliases.
+		$option_aliases = apply_filters( 'papi/option_aliases', $this->option_aliases );
+		$option_aliases = is_array( $option_aliases ) ? $option_aliases : [];
+		$option_aliases = array_merge( $this->option_aliases, $option_aliases );
+
+		foreach ( $option_aliases as $alias => $option ) {
+			if ( isset( $options->$alias ) && ! papi_is_empty( $options->$alias ) ) {
+				$options->$option = $options->$alias;
+				unset( $options->$alias );
+			}
+		}
+
 		// Capabilities should be a array.
 		$options->capabilities = papi_to_array( $options->capabilities );
 
 		// Setup property slug.
-		$options->slug = $this->setup_options_slug( $options );
+		$options->slug = strtolower( $this->setup_options_slug( $options ) );
 
 		// Setup property settings.
 		$options->settings = $this->setup_options_settings( $options );
@@ -810,7 +924,7 @@ class Papi_Core_Property {
 	 *
 	 * @return string
 	 */
-	private function setup_options_slug( $options ) {
+	protected function setup_options_slug( $options ) {
 		$slug = $options->slug;
 
 		// When `slug` is false or not required a unique slug should be generated.
@@ -840,14 +954,11 @@ class Papi_Core_Property {
 	 *
 	 * @return stdClass
 	 */
-	private function setup_options_settings( $options ) {
+	protected function setup_options_settings( $options ) {
 		$property_class = self::factory( $options->type );
 
 		if ( papi_is_property( $property_class ) ) {
-			$options->settings = array_merge(
-				(array) $property_class->get_default_settings(),
-				(array) $options->settings
-			);
+			$options->settings = array_merge( (array) $property_class->get_default_settings(), (array) $options->settings );
 		}
 
 		return (object) $options->settings;

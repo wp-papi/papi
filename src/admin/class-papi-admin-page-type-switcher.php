@@ -25,6 +25,22 @@ class Papi_Admin_Page_Type_Switcher {
 		$page_type     = papi_get_entry_type_by_id( papi_get_page_type_id() );
 		$page_type_key = papi_get_page_type_key( 'switch' );
 		$page_types    = papi_get_all_page_types( $post_type );
+		$show_standard = papi_filter_settings_show_standard_page_type( $post_type );
+
+		if ( $show_standard ) {
+			$standard_page_type = papi_get_standard_page_type( $post_type );
+			$page_types[]       = $standard_page_type;
+
+			if ( empty( $page_type ) ) {
+				$page_type = $standard_page_type;
+			}
+		}
+
+		usort( $page_types, function ( $a, $b ) {
+			return strcmp( $a->name, $b->name );
+		} );
+
+		$page_types = papi_sort_order( array_reverse( $page_types ) );
 
 		// Don't do anything without any page types.
 		if ( empty( $page_type ) || empty( $page_types ) ) {
@@ -39,20 +55,20 @@ class Papi_Admin_Page_Type_Switcher {
 				<a href="#" id="papi-page-type-switcher-edit" class="hide-if-no-js"><?php esc_html_e( 'Edit', 'papi' ); ?></a>
 				<div>
 					<select name="<?php echo esc_attr( $page_type_key ); ?>" id="<?php echo esc_attr( $page_type_key ); ?>">
-					<?php
-					foreach ( $page_types as $pt ) {
-						if ( ! papi_current_user_is_allowed( $pt->capabilities ) ) {
-							continue;
+						<?php
+						foreach ( $page_types as $pt ) {
+							if ( ! papi_current_user_is_allowed( $pt->capabilities ) ) {
+								continue;
+							}
+
+							papi_render_html_tag( 'option', [
+								'selected' => $page_type->match_id( $pt->get_id() ),
+								'value'    => esc_attr( $pt->get_id() ),
+
+								esc_html( $pt->name )
+							] );
 						}
-
-						papi_render_html_tag( 'option', [
-							'selected' => $page_type->match_id( $pt->get_id() ),
-							'value'    => esc_attr( $pt->get_id() ),
-
-							esc_html( $pt->name )
-						] );
-					}
-					?>
+						?>
 					</select>
 					<a href="#" id="papi-page-type-switcher-save" class="hide-if-no-js button"><?php esc_html_e( 'OK', 'papi' ); ?></a>
 					<a href="#" id="papi-page-type-switcher-cancel" class="hide-if-no-js"><?php esc_html_e( 'Cancel', 'papi' ); ?></a>
@@ -67,6 +83,8 @@ class Papi_Admin_Page_Type_Switcher {
 	 *
 	 * @param  int     $post_id
 	 * @param  WP_post $post
+	 *
+	 * @return bool
 	 */
 	public function save_post( $post_id, $post ) {
 		// Check if post id and post object is empty or not.
@@ -93,9 +111,22 @@ class Papi_Admin_Page_Type_Switcher {
 			return false;
 		}
 
-		$page_type        = papi_get_entry_type_by_id( $page_type_id );
-		$page_type_switch = papi_get_entry_type_by_id( $page_type_switch_id );
-		$post_type_object = get_post_type_object( papi_get_post_type() );
+		// Fetch right page type if standard page type id.
+		if ( papi_get_standard_page_type_id( $post->post_type ) === $page_type_id ) {
+			$page_type = papi_get_standard_page_type( $post->post_type );
+		} else {
+			$page_type = papi_get_entry_type_by_id( $page_type_id );
+		}
+
+		// Fetch right page type switch if standard page type id.
+		if ( papi_get_standard_page_type_id( $post->post_type ) === $page_type_switch_id ) {
+			$page_type_switch    = papi_get_standard_page_type( $post->post_type );
+			$page_type_switch_id = '';
+		} else {
+			$page_type_switch = papi_get_entry_type_by_id( $page_type_switch_id );
+		}
+
+		$post_type_object = get_post_type_object( $post->post_type );
 
 		// Check if page type and post type is not empty.
 		if ( empty( $page_type_switch ) || empty( $post_type_object ) ) {
@@ -133,7 +164,7 @@ class Papi_Admin_Page_Type_Switcher {
 		}
 
 		// Get properties.
-		$properties = $page_type->get_properties();
+		$properties        = $page_type->get_properties();
 		$properties_switch = $page_type_switch->get_properties();
 
 		// Delete only properties that don't have the same type and slug.
@@ -156,11 +187,16 @@ class Papi_Admin_Page_Type_Switcher {
 			$property->delete_value( $property->get_slug( true ), $post_id, papi_get_meta_type() );
 		}
 
+		// Delete page type switch id.
+		if ( empty( $page_type_switch_id ) ) {
+			return delete_post_meta( $post_id, papi_get_page_type_key() );
+		}
+
 		// Update page type id.
 		return papi_set_page_type_id( $post_id, $page_type_switch_id );
 	}
 }
 
-if ( is_admin() ) {
+if ( papi_is_admin() ) {
 	new Papi_Admin_Page_Type_Switcher;
 }

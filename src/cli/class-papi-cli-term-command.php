@@ -80,4 +80,59 @@ class Papi_CLI_Term_Command extends Papi_CLI_Command {
 			WP_CLI::error( $e->getMessage() );
 		}
 	}
+
+	/**
+	 * Rename meta key for taxonomy type.
+	 *
+	 * ## OPTIONS
+	 *
+	 * <taxonomy_type>
+	 * : Taxonomy type id
+	 *
+	 * <old_key>
+	 * : Old meta key
+	 *
+	 * <new_key>
+	 * : New meta key
+	 *
+	 * ## EXAMPLES
+	 *
+	 *     wp papi term rename about-page-type name title
+	 *
+	 * @param  array $args
+	 * @param  array $assoc_args
+	 */
+	public function rename( $args, $assoc_args ) {
+		$type    = $args[0];
+		$old_key = $args[1];
+		$new_key = $args[2];
+
+		$terms = ( new Papi_Query( [
+			'entry_type' => $type,
+			'fields'     => 'ids'
+		] ) )->get_result();
+
+		if ( empty( $terms ) ) {
+			WP_CLI::error( 'No terms found' );
+		}
+
+		foreach ( $terms as $term ) {
+			$meta = get_term_meta( $term, $old_key, true );
+
+			if ( papi_is_empty( $meta ) ) {
+				continue;
+			}
+
+			if ( delete_term_meta( $term, $old_key ) === false ) {
+				WP_CLI::error( 'Could not delete term meta with key: ' . $old_key );
+
+			}
+
+			if ( update_term_meta( $term, $new_key, $meta ) === false ) {
+				WP_CLI::error( 'Could not update term meta with key: ' . $new_key );
+			}
+		}
+
+		WP_CLI::success( 'Done' );
+	}
 }

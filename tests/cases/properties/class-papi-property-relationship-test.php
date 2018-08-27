@@ -7,7 +7,7 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 
 	public $slugs = ['relationship_test', 'relationship_test_2'];
 
-	public function assert_values( $expected, $actual ) {
+	public function assert_values( $expected, $actual, $slug ) {
 		if ( isset( $expected[0]->ID ) ) {
 			$this->assertSame( $expected[0]->ID, $actual[0]->ID );
 		} else {

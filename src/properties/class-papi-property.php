@@ -43,40 +43,49 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
-	 * Check if it's a option page or not.
+	 * Determine if the property can be rendered or not.
 	 *
 	 * @return bool
 	 */
-	public function is_option_page() {
-		return $this->get_store() instanceof Papi_Option_Store || papi_get_meta_type() === 'option';
+	public function can_render() {
+		// Check if current user can view the property.
+		if ( ! $this->current_user_can() ) {
+			return false;
+		}
+
+		// A disabled property should not be rendered.
+		if ( $this->disabled() ) {
+			return false;
+		}
+
+		// Check language option, so we don't render properties on a different language.
+		if ( $lang = $this->get_option( 'lang' ) ) {
+			// Support array of langs.
+			$lang = is_array( $lang ) ? $lang : [$lang];
+
+			// Only render if it's the right language if it exist.
+			return in_array( papi_get_lang(), $lang, true );
+		}
+
+		// If no valid lang query string exists we have to override the display property.
+		return $this->get_option( 'lang' ) === false;
 	}
 
 	/**
 	 * Render the property.
 	 */
 	public function render() {
-		// Check if current user can view the property.
-		if ( ! $this->current_user_can() ) {
+		// Bail if we can't render the property.
+		if ( ! $this->can_render() ) {
 			return;
 		}
 
-		// A disabled property should not be rendered.
-		if ( $this->disabled() ) {
-			return;
-		}
-
-		// Only render if it's the right language if the definition exist.
-		if ( $this->get_option( 'lang' ) === strtolower( papi_get_qs( 'lang' ) ) ) {
-			$this->display = true;
-		} else {
-			$this->display = $this->get_option( 'lang' ) === false && papi_is_empty( papi_get_qs( 'lang' ) );
-		}
-
-		// Check rules.
+		// Override display with rules check.
 		if ( $this->display() ) {
 			$this->display = $this->render_is_allowed_by_rules();
 		}
 
+		// Render property.
 		$this->render_row_html();
 		$this->render_hidden_html();
 		$this->render_rules_json();
@@ -136,9 +145,9 @@ class Papi_Property extends Papi_Core_Property {
 
 		papi_render_html_tag( 'label', [
 			'for'   => $this->html_id(),
-			'title' => trim( $title . ' ' . papi_require_text( $this->get_options() ) ),
+			'title' => trim( $title . ' ' . papi_property_require_text( $this->get_options() ) ),
 			$title,
-			papi_required_html( $this )
+			papi_property_required_html( $this )
 		] );
 	}
 
@@ -177,7 +186,7 @@ class Papi_Property extends Papi_Core_Property {
 		} else {
 			?>
 			<tr class="<?php echo esc_attr( $css_class ); ?>">
-				<?php if ( $this->get_option( 'sidebar' ) ): ?>
+				<?php if ( $this->get_option( 'sidebar' ) && $this->get_option( 'layout' ) === 'horizontal' ): ?>
 					<td class="papi-table-sidebar">
 						<?php
 							$this->render_label_html();
@@ -185,11 +194,10 @@ class Papi_Property extends Papi_Core_Property {
 						?>
 					</td>
 				<?php endif; ?>
-				<td <?php echo $this->get_option( 'sidebar' ) ? '' : 'colspan="2"'; ?>>
+				<td <?php echo $this->get_option( 'sidebar' ) && $this->get_option( 'layout' ) === 'horizontal' ? '' : 'colspan="2"'; ?>>
 					<?php
-					// Render vertical layout where title and description is
-					// above the property.
-					if ( $this->get_option( 'layout' ) === 'vertical' ) {
+					// Render vertical layout where title and description is above the property.
+					if ( $this->get_option( 'layout' ) === 'vertical' && $this->get_option( 'sidebar' ) ) {
 						$this->render_label_html();
 						$this->render_description_html();
 					}

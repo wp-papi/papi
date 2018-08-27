@@ -29,9 +29,9 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	/**
 	 * The taxonomy.
 	 *
-	 * @var string
+	 * @var array
 	 */
-	public $taxonomy = '';
+	public $taxonomy = [];
 
 	/**
 	 * The type name.
@@ -39,6 +39,21 @@ class Papi_Taxonomy_Type extends Papi_Entry_Type {
 	 * @var string
 	 */
 	public $type = 'taxonomy';
+
+	/**
+	 * Determine if the taxonomy type is allowed by taxonomy type.
+	 *
+	 * @return bool
+	 */
+	public function allowed() {
+		$args = func_get_args();
+
+		if ( empty( $args ) ) {
+			return parent::allowed();
+		}
+
+		return isset( $args[0] ) && in_array( $args[0], $this->taxonomy, true );
+	}
 
 	/**
 	 * Should the Taxonomy Type be displayed in WordPress admin or not?

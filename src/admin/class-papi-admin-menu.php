@@ -26,7 +26,7 @@ final class Papi_Admin_Menu {
 	 *
 	 * @return Papi_Entry_Type
 	 */
-	private function get_entry_type() {
+	protected function get_entry_type() {
 		if ( $entry_type = papi_get_entry_type_by_id( papi_get_entry_type_id() ) ) {
 			return $entry_type;
 		}
@@ -37,7 +37,7 @@ final class Papi_Admin_Menu {
 	 *
 	 * @param Papi_Entry_Type $entry_type
 	 */
-	private function override_labels( Papi_Entry_Type $entry_type ) {
+	protected function override_labels( Papi_Entry_Type $entry_type ) {
 		global $wp_post_types, $wp_taxonomies;
 
 		if ( $entry_type->type === 'taxonomy' ) {
@@ -51,11 +51,9 @@ final class Papi_Admin_Menu {
 		}
 
 		foreach ( $entry_type->get_labels() as $key => $value ) {
-			// @codeCoverageIgnoreStart
 			if ( empty( $value ) ) {
 				continue;
 			}
-			// @codeCoverageIgnoreEnd
 
 			if ( $entry_type->type === 'taxonomy' && isset( $wp_taxonomies[$meta_type_value]->labels->$key ) ) {
 				$wp_taxonomies[$meta_type_value]->labels->$key = $value;
@@ -74,15 +72,13 @@ final class Papi_Admin_Menu {
 	public function page_items_menu() {
 		$entry_types = papi_get_all_entry_types( [
 			'mode'  => 'exclude',
-			'types'	=> 'page'
+			'types' => 'page'
 		] );
 
 		foreach ( $entry_types as $entry_type ) {
-			// @codeCoverageIgnoreStart
 			if ( empty( $entry_type->menu ) || empty( $entry_type->name ) ) {
 				continue;
 			}
-			// @codeCoverageIgnoreEnd
 
 			$slug = sprintf(
 				'papi/%s/%s',
@@ -110,11 +106,9 @@ final class Papi_Admin_Menu {
 		$post_types = papi_get_post_types();
 
 		foreach ( $post_types as $post_type ) {
-			// @codeCoverageIgnoreStart
 			if ( ! post_type_exists( $post_type ) ) {
 				continue;
 			}
-			// @codeCoverageIgnoreEnd
 
 			if ( $post_type === 'post' ) {
 				$edit_url = 'edit.php';
@@ -143,11 +137,9 @@ final class Papi_Admin_Menu {
 			$show_standard  = false;
 
 			// Don't change menu item when no page types is found.
-			// @codeCoverageIgnoreStart
 			if ( empty( $page_types ) ) {
 				continue;
 			}
-			// @codeCoverageIgnoreEnd
 
 			if ( count( $page_types ) === 1 && empty( $only_page_type ) ) {
 				$show_standard  = papi_filter_settings_show_standard_page_type( $post_type );
@@ -196,7 +188,7 @@ final class Papi_Admin_Menu {
 	public function render_view() {
 		if ( strpos( papi_get_qs( 'page' ), 'papi' ) !== false ) {
 			$page = str_replace( 'papi-', '', papi_get_qs( 'page' ) );
-			$res = preg_replace( '/\,.*/', '', $page );
+			$res  = preg_replace( '/\,.*/', '', $page );
 
 			if ( is_string( $res ) ) {
 				$page_view = $res;
@@ -218,8 +210,8 @@ final class Papi_Admin_Menu {
 	/**
 	 * Setup actions.
 	 */
-	private function setup_actions() {
-		if ( is_admin() ) {
+	protected function setup_actions() {
+		if ( papi_is_admin() ) {
 			add_action( 'admin_init', [$this, 'admin_bar_menu'] );
 			add_action( 'admin_menu', [$this, 'page_items_menu'] );
 			add_action( 'admin_menu', [$this, 'post_types_menu'] );

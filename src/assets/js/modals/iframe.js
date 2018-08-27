@@ -64,8 +64,8 @@ class Iframe {
   constructor(url) {
     this.url = url + '&papi_css[]=papi-iframe-mode';
     this.$iframe = $(this.template({
-      closeText: 'Close',
-      title: 'Edit'
+      closeText: papiL10n.close,
+      title: papiL10n.edit
     }));
   }
 

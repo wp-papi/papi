@@ -21,7 +21,7 @@ class Properties_Page_Type extends Papi_Page_Type {
 	 * @return array
 	 */
 	public function remove() {
-		return ['editor', 'commentsdiv', 'commentstatusdiv', 'authordiv', 'slugdiv'];
+		return ['commentsdiv', 'commentstatusdiv', 'authordiv', 'slugdiv'];
 	}
 
 	/**

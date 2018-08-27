@@ -24,11 +24,40 @@ class Papi_Property_Post extends Papi_Property {
 	 * @return array
 	 */
 	public function format_value( $value, $slug, $post_id ) {
-		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
-			return get_post( $value );
+		$meta_key = $this->get_setting( 'meta_key' );
+
+		if ( empty( $meta_key ) ) {
+			if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
+				$post_id = $value;
+			}
+		} else {
+			$args = [
+				'fields'         => 'ids',
+				'meta_key'       => $meta_key,
+				'meta_value'     => $value,
+				'posts_per_page' => 1,
+				'post_type'      => $this->get_setting( 'post_type' ),
+			];
+
+			$query = new WP_Query( $args );
+
+			if ( ! empty( $query->posts ) ) {
+				$post_id = $query->posts[0];
+			}
 		}
 
-		return $this->default_value;
+		// Allow only id to be returned.
+		if ( ! papi_is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
+			$post = $this->get_post_value( $post_id );
+		} elseif ( ! empty( $post_id ) ) {
+			$post = get_post( $post_id );
+		}
+
+		if ( empty( $post ) ) {
+			return $this->default_value;
+		}
+
+		return $post;
 	}
 
 	/**
@@ -38,12 +67,16 @@ class Papi_Property_Post extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
+			'allow_clear'   => true,
+			'edit_url'      => true,
+			'fields'        => '',
 			'labels'        => [
 				'select_post_type' => __( 'Select Post Type', 'papi' ),
 				'select_item'      => __( 'Select %s', 'papi' )
 			],
 			'layout'        => 'single', // single or advanced
-			'placeholder'   => '',
+			'meta_key'      => '',
+			'placeholder'   => null,
 			'post_type'     => 'post',
 			'select2'       => true,
 			'query'         => []
@@ -134,6 +167,37 @@ class Papi_Property_Post extends Papi_Property {
 	}
 
 	/**
+	 * Get matching value based on key from a post.
+	 *
+	 * @param  mixed $post
+	 *
+	 * @return mixed
+	 */
+	protected function get_post_value( $post ) {
+		$meta_key = $this->get_setting( 'meta_key' );
+
+		if ( is_numeric( $post ) ) {
+			$post_id = $post;
+		} else {
+			$post = get_post( $post );
+
+			if ( $post instanceof WP_Post === false ) {
+				return 0;
+			}
+
+			$post_id = $post->ID;
+		}
+
+		if ( ! empty( $meta_key ) ) {
+			$value = get_post_meta( $post_id, $meta_key, true );
+		} else {
+			$value = $post_id;
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Render property html.
 	 */
 	public function html() {
@@ -146,7 +210,7 @@ class Papi_Property_Post extends Papi_Property {
 		$classes            = count( $post_types ) > 1 ? '' : 'papi-fullwidth';
 		$settings           = $this->get_settings();
 		$value              = $this->get_value();
-		$value              = is_object( $value ) ? $value->ID : 0;
+		$value              = $this->get_post_value( $value );
 		$selected_label     = array_shift( $labels );
 		$selected_post_type = get_post_type( $value ) ? : '';
 		$posts              = $this->get_posts( $selected_post_type );
@@ -158,92 +222,98 @@ class Papi_Property_Post extends Papi_Property {
 
 		<div class="papi-property-post <?php echo $advanced ? 'advanced' : ''; ?>">
 			<?php if ( $advanced ): ?>
-				<table class="papi-table">
-					<tr>
-						<td>
-							<label for="<?php echo esc_attr( $this->html_id() ); ?>_post_type">
-								<?php echo esc_html( $settings->labels['select_post_type'] ); ?>
-							</label>
-						</td>
-						<td>
-							<select
-								id="<?php echo esc_attr( $this->html_id() ); ?>_post_type"
-								class="<?php echo esc_attr( $classes ); ?> papi-property-post-left"
-								data-select-item="<?php echo esc_attr( $settings->labels['select_item'] ); ?>"
-								data-post-query='<?php echo esc_attr( papi_maybe_json_encode( $settings->query ) ); ?>'
-								data-width="100%"
-								>
-								<?php
-								foreach ( $labels as $post_type => $label ) {
-									papi_render_html_tag( 'option', [
-										'value'    => $post_type,
-										'selected' => $post_type === $selected_post_type,
-										$label
-									] );
+			<table class="papi-table">
+				<tr>
+					<td>
+						<label for="<?php echo esc_attr( $this->html_id() ); ?>_post_type">
+							<?php echo esc_html( $settings->labels['select_post_type'] ); ?>
+						</label>
+					</td>
+					<td>
+						<select
+							id="<?php echo esc_attr( $this->html_id() ); ?>_post_type"
+							class="<?php echo esc_attr( $classes ); ?> papi-property-post-left"
+							data-select-item="<?php echo esc_attr( $settings->labels['select_item'] ); ?>"
+							data-post-query='<?php echo esc_attr( papi_maybe_json_encode( $settings->query ) ); ?>'
+							data-width="100%"
+						>
+							<?php
+							foreach ( $labels as $post_type => $label ) {
+								papi_render_html_tag( 'option', [
+									'value'    => $post_type,
+									'selected' => $post_type === $selected_post_type,
+									$label
+								] );
 
-									if ( $selected ) {
-										$selected_label = $label;
-									}
+								if ( $selected ) {
+									$selected_label = $label;
 								}
-								?>
-							</select>
-						</td>
-					</tr>
-					<tr>
+							}
+							?>
+						</select>
+					</td>
+				</tr>
+				<tr>
 					<td>
 						<label for="<?php echo esc_attr( $this->html_id() ); ?>_posts">
 							<?php echo esc_html( sprintf( $settings->labels['select_item'], $selected_label ) ); ?>
 						</label>
 					</td>
 					<td>
-			<?php endif; ?>
+						<?php endif; ?>
 
-			<select
-				class="<?php echo esc_attr( $classes ); ?>  papi-property-post-right"
-				id="<?php echo esc_attr( $this->html_id() ); ?>_posts"
-				name="<?php echo esc_attr( $this->html_name() ); ?>"
-				data-allow-clear="<?php echo empty( $settings->placeholder ) ? 'false' : 'true'; ?>"
-				data-placeholder="<?php echo esc_attr( $settings->placeholder ); ?>"
-				data-width="100%"
-				>
+						<?php
+							$placeholder = ! is_null( $settings->placeholder ) ? $settings->placeholder : '';
+							$placeholder = papi_is_empty( $placeholder ) ? '&nbsp;' : $placeholder;
+						?>
 
-				<?php if ( ! empty( $settings->placeholder ) ): ?>
-					<option value=""></option>
-				<?php endif; ?>
+						<select
+							class="<?php echo esc_attr( $classes ); ?>  papi-property-post-right"
+							id="<?php echo esc_attr( $this->html_id() ); ?>_posts"
+							name="<?php echo esc_attr( $this->html_name() ); ?>"
+							data-allow-clear="<?php echo is_null( $settings->placeholder ) ? 'false' : 'true'; ?>"
+							data-placeholder="<?php echo esc_attr( $placeholder ); ?>"
+							data-width="100%"
+						>
 
-				<?php foreach ( $posts as $label => $items ) : ?>
+							<?php if ( ! is_null( $settings->placeholder ) ): ?>
+								<option value="<?php echo esc_attr( $this->get_option( 'default', ' ' ) ); ?>"><?php esc_html( $placeholder ); ?></option>
+							<?php endif; ?>
 
-					<?php if ( $single ): ?>
-						<optgroup label="<?php echo esc_attr( $label ); ?>">
-					<?php endif; ?>
+							<?php foreach ( $posts as $label => $items ) : ?>
 
-					<?php
-					foreach ( $items as $post ) {
-						if ( papi_is_empty( $post->post_title ) ) {
-							continue;
-						}
+								<?php if ( $single ): ?>
+									<optgroup label="<?php echo esc_attr( $label ); ?>">
+								<?php endif; ?>
 
-						papi_render_html_tag( 'option', [
-							'data-edit-url' => get_edit_post_link( $value ),
-							'selected'      => $value === $post->ID,
-							'value'         => $post->ID,
-							$post->post_title
-						] );
-					}
-					?>
+								<?php
+								foreach ( $items as $post ) {
+									if ( papi_is_empty( $post->post_title ) ) {
+										continue;
+									}
 
-					<?php if ( $single ): ?>
-						</optgroup>
-					<?php endif; ?>
+									papi_render_html_tag( 'option', [
+										'data-allow-clear' => $settings->allow_clear,
+										'data-edit-url'    => $settings->edit_url ? get_edit_post_link( $post ) : '',
+										'selected'         => $value === $this->get_post_value( $post ),
+										'value'            => $this->get_post_value( $post ),
+										$post->post_title
+									] );
+								}
+								?>
 
-				<?php endforeach; ?>
-			</select>
+								<?php if ( $single ): ?>
+									</optgroup>
+								<?php endif; ?>
 
-			<?php if ( $advanced ): ?>
+							<?php endforeach; ?>
+						</select>
+
+						<?php if ( $advanced ): ?>
 					</td>
 				</tr>
 			</table>
-			<?php endif; ?>
+		<?php endif; ?>
 
 		</div>
 		<?php

@@ -3,7 +3,7 @@
 /**
  * Admin class that handles taxonomy modifications.
  */
-final class Papi_Admin_Taxonomy {
+class Papi_Admin_Entry_Taxonomy extends Papi_Admin_Entry {
 
 	/**
 	 * All taxonomy types.
@@ -28,7 +28,7 @@ final class Papi_Admin_Taxonomy {
 		$taxonomy_object = get_taxonomy( $taxonomy );
 
 		// Get only the taxonomy types that has the taxonomy.
-		$taxonomy_types  = array_filter( $this->taxonomy_types, function ( $taxonomy_type ) use ( $taxonomy ) {
+		$taxonomy_types = array_filter( $this->taxonomy_types, function ( $taxonomy_type ) use ( $taxonomy ) {
 			return in_array( $taxonomy, $taxonomy_type->taxonomy, true ) && $taxonomy_type->display( $taxonomy );
 		} );
 		$taxonomy_types = array_values( $taxonomy_types );
@@ -44,24 +44,24 @@ final class Papi_Admin_Taxonomy {
 		// Render a dropdown if more than one taxonomy types
 		// exists on the taxonomy.
 		if ( count( $taxonomy_types ) > 1 ):
-		?>
-		<div class="form-field">
-			<label for="<?php echo esc_attr( $html_name ); ?>">
-				<?php echo esc_html( sprintf( __( '%s type', 'papi' ), $taxonomy_object->labels->singular_name ) ); ?>
-			</label>
-			<select name="<?php echo esc_attr( $html_name ); ?>" id="<?php echo esc_attr( $html_name ); ?>" data-papi-page-type-key="true">
-				<?php
-				foreach ( $taxonomy_types as $taxonomy_type ) {
-					papi_render_html_tag( 'option', [
-						'data-redirect' => $taxonomy_type->redirect_after_create,
-						'value'         => esc_attr( $taxonomy_type->get_id() ),
-						esc_html( $taxonomy_type->name )
-					] );
-				}
-				?>
-			</select>
-		</div>
-		<?php
+			?>
+			<div class="form-field">
+				<label for="<?php echo esc_attr( $html_name ); ?>">
+					<?php echo esc_html( sprintf( __( '%s type', 'papi' ), $taxonomy_object->labels->singular_name ) ); ?>
+				</label>
+				<select name="<?php echo esc_attr( $html_name ); ?>" id="<?php echo esc_attr( $html_name ); ?>" data-papi-page-type-key="true">
+					<?php
+					foreach ( $taxonomy_types as $taxonomy_type ) {
+						papi_render_html_tag( 'option', [
+							'data-redirect' => $taxonomy_type->redirect_after_create,
+							'value'         => esc_attr( $taxonomy_type->get_id() ),
+							esc_html( $taxonomy_type->name )
+						] );
+					}
+					?>
+				</select>
+			</div>
+			<?php
 		else:
 			papi_render_html_tag( 'input', [
 				'data-redirect'           => $taxonomy_types[0]->redirect_after_create,
@@ -80,7 +80,7 @@ final class Papi_Admin_Taxonomy {
 	 *
 	 * @return array
 	 */
-	private function prepare_taxonomy_types( array $taxonomy_types ) {
+	protected function prepare_taxonomy_types( array $taxonomy_types ) {
 		$taxonomy = papi_get_qs( 'taxonomy' );
 
 		if ( papi_filter_settings_show_standard_taxonomy_type( $taxonomy ) ) {
@@ -102,7 +102,7 @@ final class Papi_Admin_Taxonomy {
 	/**
 	 * Setup actions.
 	 */
-	private function setup_actions() {
+	protected function setup_actions() {
 		add_action( 'admin_init', [$this, 'setup_taxonomies_hooks'] );
 	}
 
@@ -111,7 +111,7 @@ final class Papi_Admin_Taxonomy {
 	 */
 	public function setup_taxonomies_hooks() {
 		$this->taxonomy_types = papi_get_all_entry_types( [
-			'types'	=> 'taxonomy'
+			'types' => 'taxonomy'
 		] );
 
 		$taxonomies = array_reduce( $this->taxonomy_types, function ( $taxonomies, $taxonomy_type ) {
@@ -127,6 +127,6 @@ final class Papi_Admin_Taxonomy {
 	}
 }
 
-if ( is_admin() ) {
-	new Papi_Admin_Taxonomy;
+if ( papi_is_admin() ) {
+	Papi_Admin_Entry_Taxonomy::instance();
 }

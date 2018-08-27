@@ -215,6 +215,24 @@ function papi_get_class_name( $file ) {
 }
 
 /**
+ * Get language slug from query string.
+ *
+ * @return string
+ */
+function papi_get_lang() {
+	$lang = strtolower( papi_get_qs( 'lang' ) );
+
+	/**
+	 * Modify language slug.
+	 *
+	 * @param  string $lang
+	 *
+	 * @return string
+	 */
+	return apply_filters( 'papi/lang', $lang );
+}
+
+/**
  * Get only objects from the value.
  *
  * @param  array $arr
@@ -408,6 +426,19 @@ function papi_html_tag( $tag, $attr = [] ) {
 	}
 
 	return sprintf( '<%s%s%s', $tag, $attributes, $end );
+}
+
+/**
+ * Check if Papi is in admin mode or not and provide
+ * a way to modify the return value. Be sure
+ *
+ * Be sure of what you are doing before modifying the
+ * value since it can break stuff.
+ *
+ * @return bool
+ */
+function papi_is_admin() {
+	return apply_filters( 'papi/is_admin', is_admin() );
 }
 
 /**
@@ -642,22 +673,20 @@ function papi_slugify( $str, $replace = [], $delimiter = '-' ) {
 		return '';
 	}
 
-	$old_locale = setlocale( LC_ALL, '0' );
-
-	setlocale( LC_ALL, 'en_US.UTF8' );
-
 	if ( ! empty( $replace ) ) {
 		$str = str_replace( (array) $replace, ' ', $str );
 	}
 
-	$clean = iconv( 'UTF-8', 'ASCII//TRANSLIT', $str );
-	$clean = preg_replace( '/[^a-zA-Z0-9\/_|+ -]/', '', $clean );
-	$clean = strtolower( trim( $clean, '-' ) );
-	$clean = preg_replace( '/[\/_|+ -]+/', $delimiter, $clean );
+	$search   = ['/[^a-zA-Z0-9 \.\&\/_-]+/', '/[ \.\&\/-]+/'];
+	$replace  = ['', $delimiter];
 
-	setlocale( LC_ALL, $old_locale );
+	$str = html_entity_decode( $str, ENT_QUOTES, 'UTF-8' );
+	$str = remove_accents( $str );
+	$str = preg_replace( $search, $replace, $str );
+	$str = trim( $str, $delimiter );
+	$str = strtolower( $str );
 
-	return trim( $clean );
+	return $str;
 }
 
 /**

@@ -10,14 +10,21 @@ class Papi_Core_Type {
 	 *
 	 * @var string
 	 */
-	private $_class_name = '';
+	protected $_class_name = '';
 
 	/**
 	 * The file path of the core type file.
 	 *
 	 * @var string
 	 */
-	private $_file_path = '';
+	protected $_file_path = '';
+
+	/**
+	 * The type id.
+	 *
+	 * @var string
+	 */
+	protected $_id = '';
 
 	/**
 	 * The name of the core type.
@@ -97,6 +104,10 @@ class Papi_Core_Type {
 	 * @return string
 	 */
 	public function get_id() {
+		if ( ! empty( $this->_id ) ) {
+			return $this->_id;
+		}
+
 		return papi_get_core_type_base_path( $this->_file_path );
 	}
 
@@ -106,7 +117,7 @@ class Papi_Core_Type {
 	 *
 	 * @return array
 	 */
-	private function get_meta() {
+	protected function get_meta() {
 		$method = 'meta';
 
 		if ( ! method_exists( $this, $method ) ) {
@@ -187,6 +198,15 @@ class Papi_Core_Type {
 	}
 
 	/**
+	 * Set custom id.
+	 *
+	 * @param  string $id
+	 */
+	public function set_id( $id ) {
+		$this->_id = $id;
+	}
+
+	/**
 	 * Setup actions.
 	 *
 	 * @codeCoverageIgnore
@@ -199,7 +219,7 @@ class Papi_Core_Type {
 	 *
 	 * @param string $file_path
 	 */
-	private function setup_file( $file_path ) {
+	protected function setup_file( $file_path ) {
 		$this->_file_path  = $file_path;
 		$this->_class_name = papi_get_class_name( $this->_file_path );
 	}

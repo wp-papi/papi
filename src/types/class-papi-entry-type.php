@@ -42,23 +42,6 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	public $type = 'entry';
 
 	/**
-	 * The constructor.
-	 *
-	 * Load a entry type by the file.
-	 *
-	 * @param string $file_path
-	 */
-	public function __construct( $file_path = '' ) {
-		// Try to load the file if the file path is empty.
-		if ( empty( $file_path ) ) {
-			$page_type = papi_get_entry_type_id();
-			$file_path = papi_get_file_path( $page_type );
-		}
-
-		parent::__construct( $file_path );
-	}
-
-	/**
 	 * Add help tabs.
 	 */
 	public function add_help_tabs() {
@@ -152,7 +135,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	 * Call parent register if it exists
 	 * to collect boxes on the parent entry type.
 	 */
-	private function call_parent_register() {
+	protected function call_parent_register() {
 		$parent_class = get_parent_class( $this );
 
 		if ( ! method_exists( $parent_class, 'register' ) ) {
@@ -178,7 +161,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	 *
 	 * @return array
 	 */
-	private function convert_properties( $properties ) {
+	protected function convert_properties( $properties ) {
 		if ( is_array( $properties ) ) {
 			if ( isset( $properties['type'] ) ) {
 				$properties = [$properties];

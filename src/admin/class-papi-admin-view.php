@@ -10,7 +10,7 @@ final class Papi_Admin_View {
 	 *
 	 * @var string
 	 */
-	private $path = '';
+	protected $path = '';
 
 	/**
 	 * The constructor.
@@ -52,7 +52,7 @@ final class Papi_Admin_View {
 	 *
 	 * @return string
 	 */
-	private function file( $file ) {
+	protected function file( $file ) {
 		return $this->path . $file . '.php';
 	}
 }

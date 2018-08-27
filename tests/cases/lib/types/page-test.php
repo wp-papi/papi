@@ -91,13 +91,6 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$this->assertSame( 1, count( papi_get_all_page_types( 'book' ) ) );
 	}
 
-	public function test_papi_get_page() {
-		$page = papi_get_page( $this->post_id );
-		$this->assertTrue( is_object( $page ) );
-		$page = papi_get_page( $this->post_id, 'fake' );
-		$this->assertNull( $page );
-	}
-
 	public function test_papi_get_page_type_id_meta_value() {
 		$this->assertEmpty( papi_get_page_type_id() );
 
@@ -192,6 +185,21 @@ class Papi_Lib_Types_Page_Test extends WP_UnitTestCase {
 		$post_types = papi_get_post_types();
 
 		$this->assertTrue( in_array( 'page', $post_types ) );
+	}
+
+	public function test_papi_get_standard_page_type() {
+		$page_type = papi_get_standard_page_type( null );
+		$this->assertNull( $page_type );
+
+		$page_type = papi_get_standard_page_type( 'page' );
+
+		$this->assertSame( ['page'], $page_type->post_type );
+		$this->assertSame( 'Standard Page', $page_type->name );
+	}
+
+	public function test_papi_get_standard_page_type_id() {
+		$this->assertSame( 'papi-standard--type', papi_get_standard_page_type_id( '' ) );
+		$this->assertSame( 'papi-standard-page-type', papi_get_standard_page_type_id( 'page' ) );
 	}
 
 	public function test_papi_is_page_type() {

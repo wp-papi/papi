@@ -315,6 +315,12 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Name', $child_property->title );
 	}
 
+	public function test_get_convert_type() {
+		$property = Papi_Core_Property::factory();
+
+		$this->assertSame( 'string', $property->get_convert_type() );
+	}
+
 	public function test_get_default_settings() {
 		$property = Papi_Core_Property::factory();
 
@@ -615,7 +621,7 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		] );
 
 		$this->assertSame( 'vertical', $property->get_option( 'layout' ) );
-		$this->assertFalse( $property->get_option( 'sidebar' ) );
+		$this->assertTrue( $property->get_option( 'sidebar' ) );
 	}
 
 	public function test_match_slug() {
@@ -688,6 +694,13 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$property = Papi_Core_Property::factory( [
 			'type'        => 'string',
 			'description' => 'test'
+		] );
+
+		$this->assertSame( 'test', $property->get_option( 'description' ) );
+
+		$property = Papi_Core_Property::factory( [
+			'type' => 'string',
+			'desc' => 'test'
 		] );
 
 		$this->assertSame( 'test', $property->get_option( 'description' ) );

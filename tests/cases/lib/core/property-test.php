@@ -17,22 +17,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		unset( $this->post_id );
 	}
 
-	public function test_papi_delete_property_meta_value() {
-		$this->assertFalse( papi_delete_property_meta_value( $this->post_id, 'random223-page-type' ) );
-		$this->assertFalse( papi_delete_property_meta_value( $this->post_id, 'random223-page-type', 'option' ) );
-
-		update_post_meta( $this->post_id, 'random223-page-type', 'post' );
-		update_option( 'random223-page-type', 'option' );
-		$this->assertTrue( papi_delete_property_meta_value( $this->post_id, 'random223-page-type' ) );
-		$this->assertTrue( papi_delete_property_meta_value( $this->post_id, 'random223-page-type', 'option' ) );
-
-		update_post_meta( $this->post_id, 'random223-page-type', 'post' );
-		update_option( 'random223-page-type', 'option' );
-		$this->assertTrue( papi_delete_property_meta_value( $this->post_id, 'papi_random223-page-type' ) );
-		$this->assertTrue( papi_delete_property_meta_value( $this->post_id, 'papi-random223-page-type', 'option' ) );
-	}
-
-	public function test_papi_from_property_array_slugs() {
+	public function test_papi_property_from_array_slugs() {
 		$actual = papi_from_property_array_slugs( [
 			'repeater' => 1,
 			'repeater_0_image' => 1,
@@ -61,15 +46,6 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertFalse( papi_is_property( true ) );
 		$this->assertFalse( papi_is_property( false ) );
 		$this->assertFalse( papi_is_property( '' ) );
-	}
-
-	public function test_papi_get_property_meta_value() {
-		$this->assertNull( papi_get_property_meta_value( $this->post_id, 'random322-page-type' ) );
-		$this->assertNull( papi_get_property_meta_value( $this->post_id, 'random322-page-type', 'option' ) );
-		update_post_meta( $this->post_id, 'random322-page-type', 'post' );
-		update_option( 'random322-page-type', 'option' );
-		$this->assertSame( 'post', papi_get_property_meta_value( $this->post_id, 'random322-page-type' ) );
-		$this->assertSame( 'option', papi_get_property_meta_value( $this->post_id, 'random322-page-type', 'option' ) );
 	}
 
 	public function test_papi_get_options_and_properties() {
@@ -268,23 +244,23 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_require_text() {
-		$this->assertEmpty( papi_require_text( null ) );
+		$this->assertEmpty( papi_property_require_text( null ) );
 		$property = papi_property( [
 			'type'     => 'string',
 			'title'    => 'Name',
 			'required' => true
 		] );
-		$this->assertSame( '(required field)', papi_require_text( $property ) );
+		$this->assertSame( '(required field)', papi_property_require_text( $property ) );
 	}
 
 	public function test_papi_required_html() {
-		$this->assertEmpty( papi_required_html( null ) );
+		$this->assertEmpty( papi_property_required_html( null ) );
 		$property = papi_property( [
 			'type'     => 'string',
 			'title'    => 'Name',
 			'required' => true
 		] );
-		$this->assertRegExp( '/class\=\"papi\-rq\"/', papi_required_html( $property ) );
+		$this->assertRegExp( '/class\=\"papi\-rq\"/', papi_property_required_html( $property ) );
 	}
 
 	public function test_papi_populate_properties() {
@@ -391,128 +367,8 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertSame( 'papi_my_name_is', $properties[0]->get_slug() );
 	}
 
-	public function test_papi_update_property_meta_value() {
-		$this->assertTrue( papi_update_property_meta_value( [
-			'id'    => $this->post_id,
-			'slug'  => 'name',
-			'value' => 'Fredrik'
-		] ) );
-
-		$this->assertFalse( papi_update_property_meta_value( [
-			'id'    => $this->post_id,
-			'slug'  => 'name',
-			'value' => 'Fredrik'
-		] ) );
-
-		$this->assertSame( 'Fredrik', get_post_meta( $this->post_id, 'name', true ) );
-
-		$this->assertTrue( papi_update_property_meta_value( [
-			'id'    => $this->post_id,
-			'slug'  => 'name',
-			'value' => ''
-		] ) );
-
-		$this->assertEmpty( get_post_meta( $this->post_id, 'name', true ) );
-
-		$this->assertTrue( papi_update_property_meta_value( [
-			'id'    => $this->post_id,
-			'slug'  => 'what',
-			'value' => [
-				'firstname' => 'Fredrik'
-			]
-		] ) );
-
-		$this->assertSame( 'Fredrik', get_post_meta( $this->post_id, 'firstname', true ) );
-
-		$this->assertTrue( papi_update_property_meta_value( [
-			'id'    => $this->post_id,
-			'slug'  => 'what',
-			'value' => [
-				'Fredrik'
-			]
-		] ) );
-
-		$this->assertSame( ['Fredrik'], get_post_meta( $this->post_id, 'what', true ) );
-
-		papi_update_property_meta_value( [
-			'id'    => $this->post_id,
-			'slug'  => 'what',
-			'value' => '{}'
-		] );
-
-		$this->assertEmpty( get_post_meta( $this->post_id, 'what', true ) );
-	}
-
-	public function test_papi_update_property_meta_value_option() {
-		global $current_screen;
-
-		$current_screen = WP_Screen::get( 'admin_init' );
-
-		$old_request_uri = $_SERVER['REQUEST_URI'];
-
-		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/options-general.php?page=papi%2Foptions%2Fheader-option-type';
-
-		papi_update_property_meta_value( [
-			'slug'  => 'name',
-			'type'  => 'option',
-			'value' => 'Fredrik'
-		] );
-
-		$this->assertSame( 'Fredrik', get_option( 'name' ) );
-
-		papi_update_property_meta_value( [
-			'slug'  => 'name',
-			'type'  => 'option',
-			'value' => ''
-		] );
-
-		$this->assertNull( get_option( 'name', null ) );
-
-		papi_update_property_meta_value( [
-			'slug'  => 'name',
-			'type'  => 'option',
-			'value' => [
-				'firstname' => 'Fredrik'
-			]
-		] );
-
-		$this->assertSame( 'Fredrik', get_option( 'firstname' ) );
-
-		papi_update_property_meta_value( [
-			'slug'  => 'name',
-			'type'  => 'option',
-			'value' => [
-				'Fredrik'
-			]
-		] );
-
-		$this->assertSame( ['Fredrik'], get_option( 'name' ) );
-
-		$_SERVER['REQUEST_URI'] = $old_request_uri;
-
-		$current_screen = null;
-	}
-
-	public function test_papi_update_property_meta_value_cache_delete() {
-		wp_cache_set( 'papi_option_name_0', 'Fredrik' );
-
-		$this->assertSame( 'Fredrik', wp_cache_get( 'papi_option_name_0' ) );
-
-		papi_update_property_meta_value_cache_delete( (object) [
-			'id'    => 0,
-			'slug'  => 'name',
-			'type'  => 'option'
-		], [
-			[
-				'name' => 'Fredrik'
-			]
-		] );
-
-		$this->assertEmpty( wp_cache_get( 'papi_option_name_0' ) );
-	}
-
-	public function test_papi_to_property_array_slugs() {
-		$actual = papi_to_property_array_slugs( [
+	public function test_papi_property_to_array_slugs() {
+		$actual = papi_property_to_array_slugs( [
 			[
 				'image' => 1,
 				'image_property' => 'image',
@@ -528,7 +384,7 @@ class Papi_Lib_Core_Property_Test extends WP_UnitTestCase {
 
 		$this->assertEquals( $expected, $actual );
 
-		$actual = papi_to_property_array_slugs( [ 1, '', true, false ], 'repeater' );
+		$actual = papi_property_to_array_slugs( [1, '', true, false], 'repeater' );
 
 		$expected = [
 			'repeater' => 0

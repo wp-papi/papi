@@ -115,6 +115,24 @@ class Papi_Lib_Core_Utilities_Test extends WP_UnitTestCase {
 		$this->assertSame( '\Foo\Bar\Namespace_Page_Type', $actual );
 	}
 
+	public function test_papi_get_lang() {
+		$lang = papi_get_lang();
+		$this->assertEmpty( $lang );
+
+		$_GET['lang'] = 'sv';
+		$lang = papi_get_lang();
+		$this->assertSame( 'sv', $lang );
+
+		add_filter( 'papi/lang', function () {
+			return 'en';
+		} );
+
+		$lang = papi_get_lang();
+		$this->assertSame( 'en', $lang );
+
+		unset( $_GET['lang'] );
+	}
+
 	public function test_papi_get_only_objects() {
 		$actual = true;
 

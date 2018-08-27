@@ -3,7 +3,7 @@
 /**
  * Container class that implements a container.
  */
-class Papi_Container implements ArrayAccess {
+class Papi_Core_Container implements ArrayAccess {
 
 	/**
 	 * The classes holder.
@@ -39,15 +39,12 @@ class Papi_Container implements ArrayAccess {
 	 */
 	public function bind( $id, $value = null, $singleton = false ) {
 		if ( is_string( $id ) && $this->is_singleton( $id ) ) {
-			throw new Exception( sprintf(
-				'Identifier `%s` is a singleton and cannot be rebind',
-				$id
-			) );
+			throw new Exception( sprintf( 'Identifier `%s` is a singleton and cannot be rebind', $id ) );
 		}
 
 		if ( is_object( $id ) && get_class( $id ) !== false ) {
-			$value = $id;
-			$id    = $this->get_class_prefix( get_class( $id ), false );
+			$value              = $id;
+			$id                 = $this->get_class_prefix( get_class( $id ), false );
 			$this->classes[$id] = true;
 		}
 
@@ -58,7 +55,7 @@ class Papi_Container implements ArrayAccess {
 		}
 
 		$this->values[$id] = compact( 'closure', 'singleton' );
-		$this->keys[$id] = true;
+		$this->keys[$id]   = true;
 
 		return $value;
 	}
@@ -102,10 +99,7 @@ class Papi_Container implements ArrayAccess {
 				$parameters = array_merge( $parameters, $params );
 			}
 
-			return $this->call_closure(
-				call_user_func_array( $closure, $parameters ),
-				$parameters
-			);
+			return $this->call_closure( call_user_func_array( $closure, $parameters ), $parameters );
 		}
 
 		return $closure;
@@ -126,7 +120,7 @@ class Papi_Container implements ArrayAccess {
 	 * Get closure function.
 	 *
 	 * @param mixed $value
-	 * @param bool $singleton
+	 * @param bool  $singleton
 	 *
 	 * @return Closure
 	 */
@@ -185,7 +179,7 @@ class Papi_Container implements ArrayAccess {
 	 * Resolve the given type from the container.
 	 *
 	 * @param string $id
-	 * @param array $parameters
+	 * @param array  $parameters
 	 *
 	 * @throws Exception if identifier is not defined.
 	 *
@@ -193,10 +187,7 @@ class Papi_Container implements ArrayAccess {
 	 */
 	public function make( $id, array $parameters = [] ) {
 		if ( ! $this->exists( $id ) ) {
-			throw new Exception( sprintf(
-				'Identifier `%s` is not defined',
-				$id
-			) );
+			throw new Exception( sprintf( 'Identifier `%s` is not defined', $id ) );
 		}
 
 		$id      = $this->get_class_prefix( $id );
@@ -248,7 +239,7 @@ class Papi_Container implements ArrayAccess {
 	 * Set a parameter or an object.
 	 *
 	 * @param string $id
-	 * @param mixed $value
+	 * @param mixed  $value
 	 *
 	 * @return mixed
 	 */
@@ -288,7 +279,7 @@ class Papi_Container implements ArrayAccess {
 	 * @codeCoverageIgnore
 	 *
 	 * @param string $id
-	 * @param mixed $value
+	 * @param mixed  $value
 	 */
 	public function offsetSet( $id, $value ) {
 		$this->bind( $id, $value );

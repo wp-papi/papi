@@ -10,7 +10,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 *
 	 * @return string
 	 */
-	private function get_meta_type() {
+	protected function get_meta_type() {
 		if ( $current_filter = current_filter() ) {
 			return papi_get_meta_type( explode( '_', $current_filter )[1] );
 		}
@@ -23,19 +23,23 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 *
 	 * @param int $post_id
 	 */
-	private function overwrite_post_data( $post_id ) {
+	protected function overwrite_post_data( $post_id ) {
 		global $wpdb;
 
 		if ( empty( $post_id ) || empty( $this->overwrite ) ) {
 			return;
 		}
 
-		$wpdb->update( $wpdb->posts, $this->overwrite, ['ID' => $post_id] );
+		$wpdb->update( $wpdb->posts, $this->overwrite, [
+			'ID' => $post_id
+		] );
 
 		// Delete cache since it can be cached even if not saved in the database.
 		foreach ( array_keys( $this->overwrite ) as $key ) {
 			papi_cache_delete( $key, $post_id );
 		}
+
+		clean_post_cache( $post_id );
 	}
 
 	/**
@@ -43,7 +47,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 *
 	 * @param int $id
 	 */
-	private function pre_save( $id ) {
+	protected function pre_save( $id ) {
 		if ( empty( $id ) ) {
 			return;
 		}
@@ -67,8 +71,8 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	/**
 	 * Save meta boxes.
 	 *
-	 * @param int    $id
-	 * @param object $post
+	 * @param int     $id
+	 * @param object  $post
 	 */
 	public function save_meta_boxes( $id, $post = null ) {
 		// Check if there was a multisite switch before.
@@ -91,7 +95,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 
 		if ( $meta_type === 'post' && $post_type = get_post_type_object( $post->post_type ) ) {
 			// Check so the id is a post id and not a autosave post.
-			if ( $this->valid_post_id( $id ) ) {
+			if ( ! $this->valid_post_id( $id ) ) {
 				return;
 			}
 
@@ -100,12 +104,12 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 				return;
 			}
 
-			// Save post revision data.
-			if ( $parent_id = wp_is_post_revision( $id ) ) {
-				$slugs = papi_get_slugs( $id, true );
+			// Delete all oEmbed caches.
+			if ( class_exists( 'WP_Embed' ) ) {
+				global $wp_embed;
 
-				foreach ( $slugs as $slug ) {
-					papi_update_field( $id, $slug, papi_get_field( $parent_id, $slug ) );
+				if ( $wp_embed instanceof WP_Embed ) {
+					$wp_embed->delete_oembed_caches( $id );
 				}
 			}
 		}
@@ -118,6 +122,38 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 		}
 
 		$this->save_properties( $id );
+	}
+
+	/**
+	 * Save custom fields for revision post.
+	 *
+	 * @param int $post_id
+	 */
+	public function save_revision( $revision_id ) {
+		// Check if our nonce is vailed.
+		if ( ! wp_verify_nonce( papi_get_sanitized_post( 'papi_meta_nonce' ), 'papi_save_data' ) ) {
+			return;
+		}
+
+		// Fetch parent id from revision.
+		if ( ! $parent_id = wp_is_post_revision( $revision_id ) ) {
+			return;
+		}
+
+		// Bail if a entry type don't exists on parent post.
+		if ( papi_is_empty( papi_get_entry_type_by_meta_id( $parent_id, 'post' ) ) ) {
+			return;
+		}
+
+		$meta = get_post_meta( $parent_id );
+
+		foreach ( $meta as $key => $value ) {
+			if ( $key[0] === '_' && $key !== papi_get_page_type_key() ) {
+				continue;
+			}
+
+			papi_data_update( $revision_id, $key, array_shift( $value ) );
+		}
 	}
 
 	/**
@@ -145,12 +181,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 
 		// Save all properties value
 		foreach ( $data as $key => $value ) {
-			papi_update_property_meta_value( [
-				'id'    => $id,
-				'slug'  => $key,
-				'type'  => $this->get_meta_type(),
-				'value' => $value
-			] );
+			papi_data_update( $id, $key, $value, $this->get_meta_type() );
 		}
 
 		/**
@@ -169,16 +200,18 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 * @param int $revision_id
 	 */
 	public function restore_post_revision( $post_id, $revision_id ) {
-		$slugs = papi_get_slugs( $revision_id, true );
+		if ( papi_is_empty( papi_get_entry_type_by_meta_id( $post_id, 'post' ) ) ) {
+			return;
+		}
 
-		foreach ( $slugs as $slug ) {
-			$value = papi_get_field( $revision_id, $slug );
+		$meta = get_post_meta( $revision_id );
 
-			if ( papi_is_empty( $value ) ) {
-				papi_delete_field( $post_id, $slug );
-			} else {
-				papi_update_field( $post_id, $slug, $value );
+		foreach ( $meta as $key => $value ) {
+			if ( $key[0] === '_' && $key !== papi_get_page_type_key() ) {
+				continue;
 			}
+
+			papi_data_update( $post_id, $key, array_shift( $value ) );
 		}
 	}
 
@@ -186,6 +219,7 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 * Setup actions.
 	 */
 	protected function setup_actions() {
+		add_action( '_wp_put_post_revision', [$this, 'save_revision'] );
 		add_action( 'save_post', [$this, 'save_meta_boxes'], 1, 2 );
 		add_action( 'created_term', [$this, 'save_meta_boxes'], 1 );
 		add_action( 'edit_term', [$this, 'save_meta_boxes'], 1 );
@@ -199,21 +233,29 @@ final class Papi_Admin_Meta_Handler extends Papi_Core_Data_Handler {
 	 *
 	 * @return bool
 	 */
-	private function valid_post_id( $post_id ) {
-		$key = papi_get_sanitized_post( 'action' ) === 'save-attachment-compat'
-			? 'id'
-			: 'post_ID';
+	protected function valid_post_id( $post_id ) {
+		$key = papi_get_sanitized_post( 'action' ) === 'save-attachment-compat' ? 'id' : 'post_ID';
 		$val = papi_get_sanitized_post( $key );
 
-		// When autosave is in place the post id is located deeper in the post data array.
-		if ( isset( $_POST['data'], $_POST['data']['wp_autosave'], $_POST['data']['wp_autosave']['post_id'] ) ) {
-			$val = sanitize_text_field( $_POST['data']['wp_autosave']['post_id'] );
+		// When autosave is in place the post id is located deeper in the post data array, the ids should not match.
+		if ( isset( $_POST['data']['wp_autosave'], $_POST['data']['wp_autosave']['post_id'] ) ) {
+			// But if it's a auto draft the ids should match.
+			if ( isset( $_POST['data']['wp_autosave']['auto_draft'] ) && ! empty( $_POST['data']['wp_autosave']['auto_draft'] ) ) {
+				return sanitize_text_field( $_POST['data']['wp_autosave']['post_id'] ) === strval( $post_id );
+			}
+
+			return sanitize_text_field( $_POST['data']['wp_autosave']['post_id'] ) !== strval( $post_id );
 		}
 
-		return $val !== strval( $post_id );
+		// Should not be the same id when `wp-preview` equals `dopreview`.
+		if ( isset( $_POST['wp-preview'] ) && strtolower( $_POST['wp-preview'] ) === 'dopreview' ) {
+			return $val !== strval( $post_id );
+		}
+
+		return $val === strval( $post_id );
 	}
 }
 
-if ( is_admin() ) {
+if ( papi_is_admin() ) {
 	new Papi_Admin_Meta_Handler;
 }

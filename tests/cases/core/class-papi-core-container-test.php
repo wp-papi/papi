@@ -1,10 +1,10 @@
 <?php
 
-class Container_Test extends WP_UnitTestCase {
+class Papi_Core_Container_Test extends WP_UnitTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->container = new Papi_Container;
+		$this->container = new Papi_Core_Container;
 	}
 
 	public function tearDown() {
@@ -36,10 +36,10 @@ class Container_Test extends WP_UnitTestCase {
 
 	public function test_closure_injection() {
 		$this->container->bind( 'num', 123 );
-		$this->container->bind( 'num2', function ( Papi_Container $c ) {
+		$this->container->bind( 'num2', function ( Papi_Core_Container $c ) {
 			return $c->make( 'num' );
 		} );
-		$this->container->bind( 'num3', function ( Papi_Container $c, $num ) {
+		$this->container->bind( 'num3', function ( Papi_Core_Container $c, $num ) {
 			return $c->make( 'num2' ) + $num;
 		} );
 		$this->assertSame( 123, $this->container->make( 'num2' ) );

@@ -42,7 +42,7 @@ class Papi_Option_Type extends Papi_Entry_Type {
 		?>
 		<div class="wrap">
 			<h2><?php echo esc_html( $this->name ); ?></h2>
-			<?php echo esc_html( wpautop( papi_nl2br( $this->description ) ) ); ?>
+			<?php echo wpautop( papi_nl2br( $this->description ) ); // wpcs: xss ok ?>
 			<form id="post" method="post" name="post">
 				<div id="papi-hidden-editor" class="hide-if-js">
 					<?php wp_nonce_field( 'papi_save_data', 'papi_meta_nonce' ); ?>
@@ -52,11 +52,7 @@ class Papi_Option_Type extends Papi_Entry_Type {
 					<div id="post-body">
 						<?php
 						foreach ( $this->boxes as $box ) {
-							do_meta_boxes(
-								$box->id,
-								'normal',
-								null
-							);
+							do_meta_boxes( $box->id, 'normal', null );
 						}
 						?>
 						<?php submit_button(); ?>

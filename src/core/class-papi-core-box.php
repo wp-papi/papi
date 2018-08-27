@@ -46,7 +46,7 @@ class Papi_Core_Box {
 	 *
 	 * @var array
 	 */
-	private $options = [];
+	protected $options = [];
 
 	/**
 	 * Priority.
@@ -120,7 +120,7 @@ class Papi_Core_Box {
 	 *
 	 * @param  array $args
 	 */
-	private function setup_args( array $args ) {
+	protected function setup_args( array $args ) {
 		$excluded_keys = ['options', 'properties'];
 
 		foreach ( $args as $key => $value ) {
@@ -131,6 +131,7 @@ class Papi_Core_Box {
 
 		if ( empty( $this->id ) ) {
 			$this->id = strtolower( papi_f( papi_underscorify( papify( $this->title ) ) ) );
+			$this->id = sanitize_text_field( $this->id );
 		}
 	}
 
@@ -139,7 +140,7 @@ class Papi_Core_Box {
 	 *
 	 * @param  array $properties
 	 */
-	private function setup_properties( array $properties ) {
+	protected function setup_properties( array $properties ) {
 		$this->properties = papi_populate_properties( $properties );
 	}
 

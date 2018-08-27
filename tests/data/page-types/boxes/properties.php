@@ -91,6 +91,19 @@ return [
 		]
 	] ),
 
+	// Dropdown 4
+	papi_property( [
+		'type'     => 'dropdown',
+		'title'    => 'Dropdown test_4',
+		'slug'     => 'dropdown_test_4',
+		'settings' => [
+			'items' => [
+				'White' => 1,
+				'Black' => 2
+			]
+		]
+	] ),
+
 	// Editor
 	papi_property( [
 		'type'  => 'editor',
@@ -119,13 +132,24 @@ return [
 		'slug'  => 'file_test'
 	] ),
 
-	// File 2
+	// File test 2
 	papi_property( [
 		'type'     => 'file',
 		'title'    => 'File test 2',
 		'slug'     => 'file_test_2',
 		'settings' => [
 			'multiple' => true
+		]
+	] ),
+
+	// File test 3
+	papi_property( [
+		'type'     => 'file',
+		'title'    => 'File test 3',
+		'slug'     => 'file_test_3',
+		'settings' => [
+			'fields'   => 'ids',
+			'meta_key' => 'custom_id'
 		]
 	] ),
 
@@ -262,6 +286,17 @@ return [
 		'slug'  => 'post_test'
 	] ),
 
+	// Post 2
+	papi_property( [
+		'type'     => 'post',
+		'title'    => 'Post test 2',
+		'slug'     => 'post_test_2',
+		'settings' => [
+			'fields'   => 'ids',
+			'meta_key' => 'custom_id'
+		]
+	] ),
+
 	// Radio
 	papi_property( [
 		'type'     => 'radio',
@@ -383,6 +418,18 @@ return [
 		'slug'     => 'term_test',
 		'settings' => [
 			'taxonomy' => 'test_taxonomy',
+		]
+	] ),
+
+	// Term 2
+	papi_property( [
+		'type'     => 'term',
+		'title'    => 'Term test 2',
+		'slug'     => 'term_test_2',
+		'settings' => [
+			'fields'   => 'ids',
+			'meta_key' => 'custom_id',
+			'taxonomy' => 'test_taxonomy'
 		]
 	] ),
 
