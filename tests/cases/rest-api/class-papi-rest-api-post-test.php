@@ -67,6 +67,8 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 			$this->markTestSkipped( '`$wp_meta_keys` is not a array' );
 		}
 
+		var_dump($wp_meta_keys[$post->post_type]);
+
 		foreach ( $page_type->get_properties() as $property ) {
 			$this->assertArrayHasKey( $property->get_slug( true ), $wp_meta_keys[$post->post_type] );
 		}
