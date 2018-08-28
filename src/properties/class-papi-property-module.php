@@ -14,6 +14,16 @@ class Papi_Property_Module extends Papi_Property {
 	public $convert_type = 'object';
 
 	/**
+	 * Default value.
+	 *
+	 * @var array
+	 */
+	public $default_value = [
+		'module'   => null,
+		'template' => ''
+	];
+
+	/**
 	 * Format the value of the property before it's returned
 	 * to WordPress admin or the site.
 	 *
@@ -25,7 +35,10 @@ class Papi_Property_Module extends Papi_Property {
 	 */
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
-			return get_post( $value );
+			return [
+				'module'   => get_post( $value ),
+				'template' => ''
+			];
 		}
 
 		return $this->default_value;
@@ -42,7 +55,6 @@ class Papi_Property_Module extends Papi_Property {
 				'select_template' => __( 'Select Template', 'papi' ),
 				'select_item'     => __( 'Select Module', 'papi' )
 			],
-			'layout'        => 'single', // single or advanced
 			'placeholder'   => '',
 			'post_type'     => 'module',
 			'select2'       => true,
@@ -62,13 +74,12 @@ class Papi_Property_Module extends Papi_Property {
 	/**
 	 * Get posts.
 	 *
-	 * @param  string $post_type
+	 * @param  mixed $post_type
 	 *
 	 * @return array
 	 */
-	protected function get_posts( $post_type = '' ) {
+	protected function get_posts( $post_type = null ) {
 		$query  = $this->get_setting( 'query' );
-		$layout = $this->get_setting( 'layout' );
 
 		// By default we add posts per page key with the value -1 (all).
 		if ( ! isset( $query['posts_per_page'] ) ) {
@@ -119,7 +130,7 @@ class Papi_Property_Module extends Papi_Property {
 	 *
 	 * @return array
 	 */
-	public function get_module_templates( $id ) {
+	protected function get_module_templates( $id ) {
 		if ( empty( $id ) && ! is_numeric( $id ) ) {
 			return [];
 		}
@@ -132,6 +143,32 @@ class Papi_Property_Module extends Papi_Property {
 	}
 
 	/**
+	 * Get template id from existing value or first post.
+	 *
+	 * @param  array $posts
+	 * @param  int   $value
+	 *
+	 * @return int
+	 */
+	protected function get_template_id( $posts, $value ) {
+		if ( ! empty( $value ) ) {
+			return $value;
+		}
+
+		if ( empty( $posts ) ) {
+			return 0;
+		}
+
+		$posts = array_shift( $posts );
+
+		if ( empty( $posts ) ) {
+			return 0;
+		}
+
+		return $posts[0]->ID;
+	}
+
+	/**
 	 * Render property html.
 	 */
 	public function html() {
@@ -139,14 +176,13 @@ class Papi_Property_Module extends Papi_Property {
 		$post_types         = $this->get_post_types();
 		$classes            = count( $post_types ) > 1 ? '' : 'papi-fullwidth';
 		$render_label       = count( $post_types ) > 1;
-		$advanced           = $render_label && $layout === 'advanced';
-		$single             = $render_label && $layout !== 'advanced';
 		$settings           = $this->get_settings();
 		$value              = $this->get_value();
+		$value              = is_array( $value ) ? $value['module'] : 0;
 		$value              = is_object( $value ) ? $value->ID : 0;
-		$selected_post_type = $value !== 0 && get_post_type( $value ) ? : '';
-		$posts              = $this->get_posts( $selected_post_type );
-		$templates          = $this->get_module_templates( $posts['Modules'][0]->ID );
+		$posts              = $this->get_posts( $post_types );
+		$template_id        = $this->get_template_id( $posts, $value );
+		$templates          = $this->get_module_templates( $template_id );
 
 		if ( $settings->select2 ) {
 			$classes .= ' papi-component-select2';
@@ -204,7 +240,7 @@ class Papi_Property_Module extends Papi_Property {
 						</select>
 					</td>
 				</tr>
-				<tr style="display: none">
+				<tr>
 					<td>
 						<label for="<?php echo esc_attr( $this->html_id() ); ?>_template">
 							<?php echo esc_html( $settings->labels['select_template'] ); ?>
