@@ -26,11 +26,7 @@ class Papi_Property_Post extends Papi_Property {
 	public function format_value( $value, $slug, $post_id ) {
 		$meta_key = $this->get_setting( 'meta_key' );
 
-		if ( empty( $meta_key ) ) {
-			if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
-				$post_id = $value;
-			}
-		} else {
+		if ( ! empty( $meta_key ) ) {
 			$args = [
 				'fields'         => 'ids',
 				'meta_key'       => $meta_key,
@@ -42,18 +38,24 @@ class Papi_Property_Post extends Papi_Property {
 			$query = new WP_Query( $args );
 
 			if ( ! empty( $query->posts ) ) {
-				$post_id = $query->posts[0];
+				$value = $query->posts[0];
 			}
 		}
 
+		$post = $this->default_value;
+
 		// Allow only id to be returned.
 		if ( ! papi_is_admin() && $this->get_setting( 'fields' ) === 'ids' ) {
-			$post = $this->get_post_value( $post_id );
-		} elseif ( ! empty( $post_id ) ) {
-			$post = get_post( $post_id );
+			$post = $this->get_post_value( $value );
+		} else if ( ! empty( $value ) ) {
+			$post = get_post( $value );
 		}
 
 		if ( empty( $post ) ) {
+			return $this->default_value;
+		}
+
+		if ( is_object( $post ) && empty( $post->ID ) ) {
 			return $this->default_value;
 		}
 
@@ -76,6 +78,7 @@ class Papi_Property_Post extends Papi_Property {
 			],
 			'layout'        => 'single', // single or advanced
 			'meta_key'      => '',
+			'new_url'       => true,
 			'placeholder'   => null,
 			'post_type'     => 'post',
 			'select2'       => true,
@@ -178,14 +181,17 @@ class Papi_Property_Post extends Papi_Property {
 
 		if ( is_numeric( $post ) ) {
 			$post_id = $post;
-		} else {
+		} else if ( ! empty( $post ) ) {
 			$post = get_post( $post );
-
 			if ( $post instanceof WP_Post === false ) {
 				return 0;
 			}
 
 			$post_id = $post->ID;
+		}
+
+		if ( empty( $post_id ) ) {
+			return 0;
 		}
 
 		if ( ! empty( $meta_key ) ) {
@@ -201,14 +207,14 @@ class Papi_Property_Post extends Papi_Property {
 	 * Render property html.
 	 */
 	public function html() {
-		$layout             = $this->get_setting( 'layout' );
+		$settings           = $this->get_settings();
+		$layout             = $settings->layout;
 		$labels             = $this->get_labels();
 		$post_types         = $this->get_post_types();
 		$render_label       = count( $post_types ) > 1;
 		$advanced           = $render_label && $layout === 'advanced';
 		$single             = $render_label && $layout !== 'advanced';
 		$classes            = count( $post_types ) > 1 ? '' : 'papi-fullwidth';
-		$settings           = $this->get_settings();
 		$value              = $this->get_value();
 		$value              = $this->get_post_value( $value );
 		$selected_label     = array_shift( $labels );
@@ -277,7 +283,11 @@ class Papi_Property_Post extends Papi_Property {
 						>
 
 							<?php if ( ! is_null( $settings->placeholder ) ): ?>
-								<option value="<?php echo esc_attr( $this->get_option( 'default', ' ' ) ); ?>"><?php esc_html( $placeholder ); ?></option>
+								<?php if ( $settings->new_url ): ?>
+									<option data-placeholder data-new-url="<?php echo esc_attr( admin_url( 'post-new.php?post_type=' . $post_types[0] ) ); ?>"></option>
+								<?php else: ?>
+									<option></option>
+								<?php endif; ?>
 							<?php endif; ?>
 
 							<?php foreach ( $posts as $label => $items ) : ?>
@@ -295,6 +305,7 @@ class Papi_Property_Post extends Papi_Property {
 									papi_render_html_tag( 'option', [
 										'data-allow-clear' => $settings->allow_clear,
 										'data-edit-url'    => $settings->edit_url ? get_edit_post_link( $post ) : '',
+										'data-new-url'     => $settings->new_url ? admin_url( 'post-new.php?post_type=' . $post->post_type ) : '',
 										'selected'         => $value === $this->get_post_value( $post ),
 										'value'            => $this->get_post_value( $post ),
 										$post->post_title
@@ -338,5 +349,32 @@ class Papi_Property_Post extends Papi_Property {
 		}
 
 		return $this->default_value;
+	}
+
+	/**
+	 * Render option template.
+	 */
+	public function render_option_template() {
+		$settings   = $this->get_settings();
+		$post_types = $this->get_post_types();
+
+		?>
+		<script type="text/template" id="tmpl-papi-property-post-option">
+			<option data-allow-clear="<?php echo esc_attr( $settings->allow_clear ); ?>"
+				data-edit-url="<?php echo esc_attr( $settings->edit_url ? admin_url( 'post.php' ) : '' ); ?>?post=<%= id %>&edit=true"
+				data-new-url="<?php echo esc_attr( $settings->new_url ? admin_url( 'post-new.php?post_type=' . $posts[0] ) : '' ); ?>"
+				value="<%= id %>"
+				selected>
+				<%= title %>
+			</option>
+		</script>
+		<?php
+	}
+
+	/**
+	 * Setup actions.
+	 */
+	protected function setup_actions() {
+		add_action( 'admin_head', [$this, 'render_option_template'] );
 	}
 }
