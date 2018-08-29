@@ -75,7 +75,7 @@ class Post {
     $.get(papi.ajaxUrl + '?' + $.param(params), function(posts) {
       $select.empty();
 
-      if ($select.data('placeholder').length) {
+      if ($select.data('placeholder').length && posts.length) {
         const optionPlaceholderTemplate = self.optionPlaceholderTemplate;
         const template1 = window._.template($.trim(optionPlaceholderTemplate()));
 
