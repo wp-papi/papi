@@ -20,5 +20,14 @@ class Post_Page_Type extends Papi_Page_Type {
 	 * Define our properties.
 	 */
 	public function register() {
+		$this->box( 'Content', [
+			papi_property( [
+				'type'     => 'post',
+				'title'    => 'Post',
+				'settings' => [
+					'placeholder' => 'Select post'
+				]
+			] )
+		] );
 	}
 }

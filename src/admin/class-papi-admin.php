@@ -88,14 +88,13 @@ final class Papi_Admin {
 			$arr = is_array( $arr ) ? $arr : [];
 
 			$classes .= ' ' . implode( ' ', $arr );
+		}
 
-
-			// Add custom css classes from query string.
-			if ( $css = papi_get_qs( 'papi_css' ) ) {
-				$css = is_array( $css ) ? $css : [];
-				$css = array_map( 'sanitize_text_field', $css );
-				$classes .= ' ' . implode( ' ', $css );
-			}
+		// Add custom css classes from query string.
+		if ( $css = papi_get_qs( 'papi_css' ) ) {
+			$css = is_array( $css ) ? $css : [];
+			$css = array_map( 'sanitize_text_field', $css );
+			$classes .= ' ' . implode( ' ', $css );
 		}
 
 		return $classes;

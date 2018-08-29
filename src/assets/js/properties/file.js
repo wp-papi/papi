@@ -9,7 +9,7 @@ import Utils from 'utils';
 class File {
 
   /**
-   * The image template to compile.
+   * The file template to compile.
    *
    * @return {function}
    */
