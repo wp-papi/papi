@@ -224,6 +224,11 @@ class Papi_Property_Post extends Papi_Property {
 		if ( $settings->select2 ) {
 			$classes .= ' papi-component-select2';
 		}
+
+		if ( $settings->new_url && $render_label ) {
+			$advanced = true;
+			$single = false;
+		}
 		?>
 
 		<div class="papi-property-post <?php echo $advanced ? 'advanced' : ''; ?>">
@@ -245,9 +250,11 @@ class Papi_Property_Post extends Papi_Property {
 						>
 							<?php
 							foreach ( $labels as $post_type => $label ) {
+								$selected = $post_type === $selected_post_type;
+
 								papi_render_html_tag( 'option', [
 									'value'    => $post_type,
-									'selected' => $post_type === $selected_post_type,
+									'selected' => $selected,
 									$label
 								] );
 
