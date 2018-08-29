@@ -225,6 +225,9 @@ class Papi_Property_Post extends Papi_Property {
 			$classes .= ' papi-component-select2';
 		}
 
+		// When new url is true and we have more than one post type
+		// we need to use the advanced layout so the placeholder option
+		// will get the right post type in the new url.
 		if ( $settings->new_url && $render_label ) {
 			$advanced = true;
 			$single = false;
