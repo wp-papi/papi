@@ -362,12 +362,12 @@ class Papi_Property_Post extends Papi_Property {
 			<option
 				data-allow-clear="<?php echo esc_attr( $settings->allow_clear ); ?>"
 
-				<?php if ($settings->edit_url): ?>
+				<?php if ( $settings->edit_url ): ?>
 				data-edit-url="<?php echo esc_attr( admin_url( 'post.php' ) ); ?>?post=<%= id %>&action=edit"
 				<?php endif; ?>
 
-				<?php if ($settings->new_url): ?>
-				data-new-url="<?php echo esc_attr( admin_url( 'post-new.php?post_type=' ) ); ?><%= typeof type !== 'undefined' ? type : '<?php echo $post_types[0]; ?>' %>"
+				<?php if ( $settings->new_url ): ?>
+				data-new-url="<?php echo esc_attr( admin_url( 'post-new.php?post_type=' ) ); ?><%= typeof type !== 'undefined' ? type : '<?php echo esc_attr( $post_types[0] ); ?>' %>"
 				<?php endif; ?>
 
 				value="<%= id %>"
@@ -379,8 +379,8 @@ class Papi_Property_Post extends Papi_Property {
 			<option
 				data-placeholder
 
-				<?php if ($settings->new_url): ?>
-				data-new-url="<?php echo esc_attr( admin_url( 'post-new.php?post_type=' ) ); ?><%= typeof type !== 'undefined' ? type : '<?php echo $post_types[0]; ?>' %>"
+				<?php if ( $settings->new_url ): ?>
+				data-new-url="<?php echo esc_attr( admin_url( 'post-new.php?post_type=' ) ); ?><%= typeof type !== 'undefined' ? type : '<?php echo esc_attr( $post_types[0] ); ?>' %>"
 				<?php endif; ?>
 				>
 			</option>
