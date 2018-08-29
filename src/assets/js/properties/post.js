@@ -18,6 +18,15 @@ class Post {
   }
 
   /**
+   * The option placeholder template to compile.
+   *
+   * @return {function}
+   */
+  get optionPlaceholderTemplate() {
+    return window.wp.template('papi-property-post-option-placeholder');
+  }
+
+  /**
    * Initialize Property Post.
    */
   static init() {
@@ -42,6 +51,7 @@ class Post {
   change(e) {
     e.preventDefault();
 
+    const self = this;
     const $this = $(e.currentTarget);
     const query = $this.data('post-query').length
       ? $this.data('post-query')
@@ -51,7 +61,7 @@ class Post {
 
     const params  = {
       'action': 'get_posts',
-      'fields': ['ID', 'post_title'],
+      'fields': ['ID', 'post_title', 'post_type'],
       'query': query
     };
     const $prop   = $this.closest('.papi-property-post');
@@ -65,12 +75,28 @@ class Post {
     $.get(papi.ajaxUrl + '?' + $.param(params), function(posts) {
       $select.empty();
 
+      if ($select.data('placeholder').length) {
+        const optionPlaceholderTemplate = self.optionPlaceholderTemplate;
+        const template1 = window._.template($.trim(optionPlaceholderTemplate()));
+
+        $select.append(template1({
+          type: posts[0].post_type
+        }));
+      }
+
+      const optionTemplate = self.optionTemplate;
+      const template2 = window._.template($.trim(optionTemplate()));
+
       $.each(posts, function(index, post) {
-        $select.append($('<option></option>').attr('value', post.ID).text(post.post_title));
+        $select.append(template2({
+          id: post.ID,
+          title: post.post_title,
+          type: post.post_type
+        }));
       });
 
       if ($select.hasClass('papi-component-select2') && 'select2' in $.fn) {
-        $select.select2();
+        $select.trigger('change');
       }
     });
   }
@@ -93,8 +119,8 @@ class Post {
 
     if (data.url.indexOf('post-new') !== -1) {
       // new
-      let optionTemplate = this.optionTemplate;
-      let template = window._.template($.trim(optionTemplate()));
+      const optionTemplate = this.optionTemplate;
+      const template = window._.template($.trim(optionTemplate()));
 
       if ($select.find('option[value=' + id + ']').length) {
         return;
@@ -116,7 +142,7 @@ class Post {
   }
 
   /**
-   * Initialize pikaday field when added to repeater.
+   * Initialize select2 field when added to repeater.
    *
    * @param {object} e
    */
@@ -126,7 +152,7 @@ class Post {
     const $select = $(e.currentTarget).parent().find('select');
 
     if ($select.hasClass('papi-component-select2') && 'select2' in $.fn) {
-      $select.select2();
+      $select.select2(select2Options($select[0]));
     }
   }
 }

@@ -217,7 +217,7 @@ class Papi_Property_Post extends Papi_Property {
 		$classes            = count( $post_types ) > 1 ? '' : 'papi-fullwidth';
 		$value              = $this->get_value();
 		$value              = $this->get_post_value( $value );
-		$selected_label     = array_shift( $labels );
+		$selected_label     = empty( $labels ) ? '' : $labels[0];
 		$selected_post_type = get_post_type( $value ) ? : '';
 		$posts              = $this->get_posts( $selected_post_type );
 
@@ -270,7 +270,6 @@ class Papi_Property_Post extends Papi_Property {
 
 						<?php
 							$placeholder = ! is_null( $settings->placeholder ) ? $settings->placeholder : '';
-							$placeholder = papi_is_empty( $placeholder ) ? '&nbsp;' : $placeholder;
 						?>
 
 						<select
@@ -360,12 +359,30 @@ class Papi_Property_Post extends Papi_Property {
 
 		?>
 		<script type="text/template" id="tmpl-papi-property-post-option">
-			<option data-allow-clear="<?php echo esc_attr( $settings->allow_clear ); ?>"
-				data-edit-url="<?php echo esc_attr( $settings->edit_url ? admin_url( 'post.php' ) : '' ); ?>?post=<%= id %>&edit=true"
-				data-new-url="<?php echo esc_attr( $settings->new_url ? admin_url( 'post-new.php?post_type=' . $posts[0] ) : '' ); ?>"
+			<option
+				data-allow-clear="<?php echo esc_attr( $settings->allow_clear ); ?>"
+
+				<?php if ($settings->edit_url): ?>
+				data-edit-url="<?php echo esc_attr( admin_url( 'post.php' ) ); ?>?post=<%= id %>&action=edit"
+				<?php endif; ?>
+
+				<?php if ($settings->new_url): ?>
+				data-new-url="<?php echo esc_attr( admin_url( 'post-new.php?post_type=' ) ); ?><%= typeof type !== 'undefined' ? type : '<?php echo $post_types[0]; ?>' %>"
+				<?php endif; ?>
+
 				value="<%= id %>"
-				selected>
+				>
 				<%= title %>
+			</option>
+		</script>
+		<script type="text/template" id="tmpl-papi-property-post-option-placeholder">
+			<option
+				data-placeholder
+
+				<?php if ($settings->new_url): ?>
+				data-new-url="<?php echo esc_attr( admin_url( 'post-new.php?post_type=' ) ); ?><%= typeof type !== 'undefined' ? type : '<?php echo $post_types[0]; ?>' %>"
+				<?php endif; ?>
+				>
 			</option>
 		</script>
 		<?php
