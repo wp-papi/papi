@@ -217,7 +217,7 @@ class Papi_Property_Post extends Papi_Property {
 		$classes            = count( $post_types ) > 1 ? '' : 'papi-fullwidth';
 		$value              = $this->get_value();
 		$value              = $this->get_post_value( $value );
-		$selected_label     = is_array( $labels ) && ! empty( $labels ) ? $labels[0] : '';
+		$selected_label     = is_array( $labels ) && ! empty( $labels ) ? array_values($labels)[0] : '';
 		$selected_post_type = get_post_type( $value ) ? : '';
 		$posts              = $this->get_posts( $selected_post_type );
 
