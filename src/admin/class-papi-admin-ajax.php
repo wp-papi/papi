@@ -92,7 +92,7 @@ class Papi_Admin_Ajax {
 	 */
 	public function get_entry_type() {
 		$entry_type_id = papi_get_qs( 'entry_type' );
-		$entry_type = papi_get_entry_type_by_id( $entry_type_id );
+		$entry_type    = papi_get_entry_type_by_id( $entry_type_id );
 
 		if ( empty( $entry_type ) ) {
 			$this->render_error( 'No entry type found' );
