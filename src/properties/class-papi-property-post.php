@@ -291,7 +291,7 @@ class Papi_Property_Post extends Papi_Property {
 							data-width="100%"
 						>
 
-							<?php if ( ! is_null( $settings->placeholder ) ): ?>
+							<?php if ( ! empty( $settings->placeholder ) ): ?>
 								<?php if ( $settings->new_url ): ?>
 									<option data-placeholder data-new-url="<?php echo esc_attr( admin_url( 'post-new.php?post_type=' . $post_types[0] ) ); ?>"></option>
 								<?php else: ?>

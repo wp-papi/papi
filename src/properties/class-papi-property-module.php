@@ -11,7 +11,7 @@ class Papi_Property_Module extends Papi_Property {
 	 *
 	 * @var string
 	 */
-	public $convert_type = 'object';
+	public $convert_type = 'array';
 
 	/**
 	 * Default value.
@@ -37,7 +37,7 @@ class Papi_Property_Module extends Papi_Property {
 		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
 			return [
 				'module'   => get_post( $value ),
-				'template' => ''
+				'template' => get_post_meta( $post_id, sprintf( '%s_template', unpapify( $this->html_name() ) ), true )
 			];
 		}
 
@@ -51,14 +51,16 @@ class Papi_Property_Module extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
+			'edit_url'      => true,
 			'labels'        => [
 				'select_template' => __( 'Select Template', 'papi' ),
-				'select_item'     => __( 'Select Module', 'papi' )
+				'select_module'   => __( 'Select Module', 'papi' )
 			],
+			'new_url'       => true,
 			'placeholder'   => '',
 			'post_type'     => 'module',
 			'select2'       => true,
-			'query'         => []
+			'query'         => [],
 		];
 	}
 
@@ -67,8 +69,8 @@ class Papi_Property_Module extends Papi_Property {
 	 *
 	 * @return array
 	 */
-	protected function get_post_types() {
-		return papi_to_array( $this->get_setting( 'post_type' ) );
+	protected function get_post_type() {
+		return array_shift( papi_to_array( $this->get_setting( 'post_type' ) ) );
 	}
 
 	/**
@@ -79,15 +81,11 @@ class Papi_Property_Module extends Papi_Property {
 	 * @return array
 	 */
 	protected function get_posts( $post_type = null ) {
-		$query  = $this->get_setting( 'query' );
+		$query = $this->get_setting( 'query' );
 
 		// By default we add posts per page key with the value -1 (all).
 		if ( ! isset( $query['posts_per_page'] ) ) {
 			$query['posts_per_page'] = -1;
-		}
-
-		if ( empty( $post_type ) ) {
-			$post_type = $this->get_post_types();
 		}
 
 		// Prepare arguments for WP_Query.
@@ -98,29 +96,7 @@ class Papi_Property_Module extends Papi_Property {
 			'update_post_term_cache' => false
 		] );
 
-		$posts = ( new WP_Query( $args ) )->posts;
-
-		// Keep only objects.
-		$posts   = papi_get_only_objects( $posts );
-		$results = [];
-
-		foreach ( $posts as $post ) {
-			$obj = get_post_type_object( $post->post_type );
-
-			if ( empty( $obj ) ) {
-				continue;
-			}
-
-			if ( ! isset( $results[$obj->labels->menu_name] ) ) {
-				$results[$obj->labels->menu_name] = [];
-			}
-
-			$results[$obj->labels->menu_name][] = $post;
-		}
-
-		ksort( $results );
-
-		return $results;
+		return ( new WP_Query( $args ) )->posts;
 	}
 
 	/**
@@ -130,42 +106,20 @@ class Papi_Property_Module extends Papi_Property {
 	 *
 	 * @return array
 	 */
-	protected function get_module_templates( $id ) {
+	protected function get_templates( $id ) {
 		if ( empty( $id ) && ! is_numeric( $id ) ) {
 			return [];
 		}
 
 		if ( $data = papi_get_entry_type_by_meta_id( $id ) ) {
-			return $data->template;
+			$templates = papi_to_array( $data->template );
+
+			ksort( $templates );
+
+			return $templates;
 		}
 
 		return [];
-	}
-
-	/**
-	 * Get template id from existing value or first post.
-	 *
-	 * @param  array $posts
-	 * @param  int   $value
-	 *
-	 * @return int
-	 */
-	protected function get_template_id( $posts, $value ) {
-		if ( ! empty( $value ) ) {
-			return $value;
-		}
-
-		if ( empty( $posts ) ) {
-			return 0;
-		}
-
-		$posts = array_shift( $posts );
-
-		if ( empty( $posts ) ) {
-			return 0;
-		}
-
-		return $posts[0]->ID;
 	}
 
 	/**
@@ -173,31 +127,34 @@ class Papi_Property_Module extends Papi_Property {
 	 */
 	public function html() {
 		$layout             = $this->get_setting( 'layout' );
-		$post_types         = $this->get_post_types();
-		$classes            = count( $post_types ) > 1 ? '' : 'papi-fullwidth';
-		$render_label       = count( $post_types ) > 1;
+		$post_type          = $this->get_post_type();
 		$settings           = $this->get_settings();
 		$value              = $this->get_value();
-		$value              = is_array( $value ) ? $value['module'] : 0;
-		$value              = is_object( $value ) ? $value->ID : 0;
-		$posts              = $this->get_posts( $post_types );
-		$template_id        = $this->get_template_id( $posts, $value );
-		$templates          = $this->get_module_templates( $template_id );
+		$posts              = $this->get_posts( $post_type );
+		$selected_post_id   = is_array( $value ) ? $value['module'] : 0;
+		$selected_post_id   = is_object( $selected_post_id ) ? $selected_post_id->ID : 0;
+		$templates          = $this->get_templates( $selected_post_id );
+		$selected_template  = is_array( $value ) ? $value['template'] : '';
 
 		if ( $settings->select2 ) {
 			$classes .= ' papi-component-select2';
 		}
 		?>
 
-		<div class="papi-property-post advanced">
+		<div class="papi-property-module papi-property-post advanced">
 			<table class="papi-table">
 				<tr>
 					<td>
 						<label for="<?php echo esc_attr( $this->html_id() ); ?>_modules">
-							<?php echo esc_html( $settings->labels['select_item'] ); ?>
+							<?php echo esc_html( $settings->labels['select_module'] ); ?>
 						</label>
 					</td>
 					<td>
+
+						<?php
+							$placeholder = ! is_null( $settings->placeholder ) ? $settings->placeholder : '';
+						?>
+
 						<select
 							class="<?php echo esc_attr( $classes ); ?>  papi-property-module-right"
 							id="<?php echo esc_attr( $this->html_id() ); ?>_modules"
@@ -208,35 +165,29 @@ class Papi_Property_Module extends Papi_Property {
 							>
 
 							<?php if ( ! empty( $settings->placeholder ) ): ?>
-								<option value=""></option>
+								<?php if ( $settings->new_url ): ?>
+									<option data-placeholder data-new-url="<?php echo esc_attr( admin_url( 'post-new.php?post_type=' . $post_type ) ); ?>"></option>
+								<?php else: ?>
+									<option></option>
+								<?php endif; ?>
 							<?php endif; ?>
 
-							<?php foreach ( $posts as $label => $items ) : ?>
-
-								<?php if ( $render_label ): ?>
-									<optgroup label="<?php echo esc_attr( $label ); ?>">
-								<?php endif; ?>
-
-								<?php
-								foreach ( $items as $post ) {
-									if ( papi_is_empty( $post->post_title ) ) {
-										continue;
-									}
-
-									papi_render_html_tag( 'option', [
-										'data-edit-url' => get_edit_post_link( $value ),
-										'selected'      => $value === $post->ID,
-										'value'         => $post->ID,
-										$post->post_title
-									] );
+							<?php
+							foreach ( $posts as $post ) {
+								if ( papi_is_empty( $post->post_title ) ) {
+									continue;
 								}
-								?>
 
-								<?php if ( $render_label ): ?>
-									</optgroup>
-								<?php endif; ?>
-
-							<?php endforeach; ?>
+								papi_render_html_tag( 'option', [
+									'data-entry-type' => get_post_meta( $post->ID, papi_get_page_type_key(), true ),
+									'data-edit-url'   => get_edit_post_link( $value ),
+									'data-new-url'    => $settings->new_url ? admin_url( 'post-new.php?post_type=' . $post->post_type ) : '',
+									'selected'        => $value === $post->ID,
+									'value'           => $post->ID,
+									$post->post_title
+								] );
+							}
+							?>
 						</select>
 					</td>
 				</tr>
@@ -249,6 +200,7 @@ class Papi_Property_Module extends Papi_Property {
 					<td>
 						<select
 							id="<?php echo esc_attr( $this->html_id() ); ?>_template"
+							name="<?php echo esc_attr( $this->html_name() ); ?>_template"
 							class="<?php echo esc_attr( $classes ); ?> papi-property-module-left"
 							data-select-item="<?php echo esc_attr( $settings->labels['select_item'] ); ?>"
 							data-post-query='<?php echo esc_attr( papi_maybe_json_encode( $settings->query ) ); ?>'
@@ -257,8 +209,8 @@ class Papi_Property_Module extends Papi_Property {
 							<?php
 							foreach ( $templates as $key => $template ) {
 								papi_render_html_tag( 'option', [
-									'value'    => $key,
-									'selected' => $key === $selected_post_type,
+									'value'    => $template,
+									'selected' => $template === $selected_template,
 									$key
 								] );
 
@@ -285,21 +237,50 @@ class Papi_Property_Module extends Papi_Property {
 	 * @return mixed
 	 */
 	public function import_value( $value, $slug, $post_id ) {
-		if ( $value instanceof WP_Post ) {
-			return $value->ID;
+		if ( ! is_array( $value ) ) {
+			return $this->default_value;
 		}
 
-		if ( is_numeric( $value ) ) {
-			return (int) $value;
+		if ( isset( $value['module'] ) && $value['module'] instanceof WP_Post ) {
+			$value['module'] = $value['module']->ID;
 		}
 
-		return $this->default_value;
+		return $value;
+	}
+
+	/**
+	 * Render option template.
+	 */
+	public function render_option_template() {
+		$settings  = $this->get_settings();
+		$post_type = $this->get_post_type();
+
+		?>
+		<script type="text/template" id="tmpl-papi-property-module-option">
+			<option
+				data-allow-clear="<?php echo esc_attr( $settings->allow_clear ); ?>"
+				value="<%= value %>"
+				>
+				<%= title %>
+			</option>
+		</script>
+		<script type="text/template" id="tmpl-papi-property-module-option-placeholder">
+			<option
+				data-placeholder
+
+				<?php if ( $settings->new_url ): ?>
+				data-new-url="<?php echo esc_attr( admin_url( 'post-new.php?post_type=' ) ); ?><%= typeof type !== 'undefined' ? type : '<?php echo esc_attr( $post_type ); ?>' %>"
+				<?php endif; ?>
+				>
+			</option>
+		</script>
+		<?php
 	}
 
 	/**
 	 * Setup actions.
 	 */
 	protected function setup_actions() {
-		add_action( 'papi/ajax/get_module_templates', [$this, 'ajax_get_module_templates'] );
+		add_action( 'admin_head', [$this, 'render_option_template'] );
 	}
 }
