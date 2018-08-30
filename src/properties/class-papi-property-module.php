@@ -208,6 +208,10 @@ class Papi_Property_Module extends Papi_Property {
 							>
 							<?php
 							foreach ( $templates as $key => $template ) {
+								if ( ! is_string( $key ) ) {
+									$key = $template;
+								}
+
 								papi_render_html_tag( 'option', [
 									'value'    => $template,
 									'selected' => $template === $selected_template,
