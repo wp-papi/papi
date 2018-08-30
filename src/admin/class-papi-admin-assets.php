@@ -50,6 +50,7 @@ final class Papi_Admin_Assets {
 		wp_localize_script( 'papi-main', 'papiL10n', [
 			'close'         => __( 'Close' ),
 			'edit'          => __( 'Edit' ),
+			'new'           => __( 'New' ),
 			'remove'        => __( 'Remove' ),
 			'requiredError' => __( 'This fields are required:', 'papi' ),
 		] );

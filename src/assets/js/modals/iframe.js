@@ -49,9 +49,12 @@ class Iframe {
       }
 
       const $this = $(this);
-      const url   = $this.data('url');
 
-      window.papi.iframe = new Iframe(url);
+      window.papi.iframe = new Iframe({
+        selector: $this.data('selector'),
+        title: $this.data('title'),
+        url: $this.data('url')
+      });
       window.papi.iframe.open();
     });
   }
@@ -59,13 +62,20 @@ class Iframe {
   /**
    * Constructor.
    *
-   * @param {string} url
+   * @param {object} options
    */
-  constructor(url) {
-    this.url = url + '&papi_css[]=papi-iframe-mode';
+  constructor(options) {
+    this.options = options || {
+      selector: '',
+      title: '',
+      url: ''
+    };
+
+    this.url = options.url + '&papi_css[]=papi-iframe-mode';
+
     this.$iframe = $(this.template({
       closeText: papiL10n.close,
-      title: papiL10n.edit
+      title: options.title
     }));
   }
 
@@ -103,10 +113,11 @@ class Iframe {
    * @param {object} e
    */
   submit(e) {
-    let $this = $(e.currentTarget);
-    let title = $this.find('[name="post_title"]').val();
-
-    $('a.papi-iframe-link-open[data-url="' + this.url + '"]').prev().text(title);
+    $(document).trigger('papi/iframe/submit', [{
+      selector: this.options.selector,
+      iframe: e.currentTarget,
+      url: this.options.url
+    }]);
   }
 
   /**

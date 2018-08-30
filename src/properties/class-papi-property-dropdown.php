@@ -131,6 +131,7 @@ class Papi_Property_Dropdown extends Papi_Property {
 
 			$options_html[] = papi_html_tag( 'option', [
 				'data-edit-url' => false,
+				'data-new-url'  => false,
 				'selected'      => $selected ? 'selected' : null,
 				'value'         => $value,
 				esc_html( papi_convert_to_string( $key ) )
