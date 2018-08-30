@@ -23,7 +23,7 @@ class Module {
    * @return {function}
    */
   get optionPlaceholderTemplate() {
-    return window.wp.template('papi-property-post-option-placeholder');
+    return window.wp.template('papi-property-module-option-placeholder');
   }
 
   /**
@@ -61,27 +61,17 @@ class Module {
     };
     const $prop   = $this.closest('.papi-property-module');
     const $select = $prop.find('.papi-property-module-left');
-console.log(params);
-    /*$('[for="' + $select.attr('id') + '"]')
-      .parent()
-      .find('label')
-      .text($this.data('select-item').replace('%s', $this.find('option:selected').text()));
-*/
-console.log($select)
+
     $.get(papi.ajaxUrl + '?' + $.param(params), function(entryType) {
       $select.empty();
 
-      console.log(entryType);
-/*
       if ($select.data('placeholder').length && posts.length) {
         const optionPlaceholderTemplate = self.optionPlaceholderTemplate;
         const template1 = window._.template($.trim(optionPlaceholderTemplate()));
 
-        $select.append(template1({
-          type: posts[0].post_type
-        }));
+        $select.append(template1());
       }
-*/
+
       const optionTemplate = self.optionTemplate;
       const template2 = window._.template($.trim(optionTemplate()));
 

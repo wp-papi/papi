@@ -269,7 +269,7 @@ class Papi_Property_Module extends Papi_Property {
 				data-placeholder
 
 				<?php if ( $settings->new_url ): ?>
-				data-new-url="<?php echo esc_attr( admin_url( 'post-new.php?post_type=' ) ); ?><%= typeof type !== 'undefined' ? type : '<?php echo esc_attr( $post_type ); ?>' %>"
+				data-new-url="<?php echo esc_attr( admin_url( 'post-new.php?post_type=' . $post_type ) ); ?>"
 				<?php endif; ?>
 				>
 			</option>
