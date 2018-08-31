@@ -37,7 +37,7 @@ class Papi_Property_Module extends Papi_Property {
 		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
 			$value = [
 				'module'   => get_post( $value ),
-				'template' => papi_data_get( $post_id, sprintf( '%s_template', unpapify( $this->html_name() ) ), papi_get_meta_type() )
+				'template' => papi_data_get( $post_id, sprintf( '%s_template', unpapify( $this->html_name() ) ) )
 			];
 
 			if ( papi_is_admin() ) {
