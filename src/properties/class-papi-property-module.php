@@ -11,7 +11,7 @@ class Papi_Property_Module extends Papi_Property {
 	 *
 	 * @var string
 	 */
-	public $convert_type = 'array';
+	public $convert_type = 'object';
 
 	/**
 	 * Default value.
@@ -20,7 +20,7 @@ class Papi_Property_Module extends Papi_Property {
 	 */
 	public $default_value = [
 		'module'   => null,
-		'template' => ''
+		'template' => null
 	];
 
 	/**
@@ -37,11 +37,11 @@ class Papi_Property_Module extends Papi_Property {
 		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
 			$value = [
 				'module'   => get_post( $value ),
-				'template' => get_post_meta( $post_id, sprintf( '%s_template', unpapify( $this->html_name() ) ), true )
+				'template' => papi_data_get( $post_id, sprintf( '%s_template', unpapify( $this->html_name() ) ), papi_get_meta_type() )
 			];
 
 			if ( papi_is_admin() ) {
-				return $value;
+				return (object) $value;
 			}
 
 			// Return the template value instead of index when not in admin.
@@ -49,7 +49,7 @@ class Papi_Property_Module extends Papi_Property {
 				$templates = $this->get_templates( $value['module']->ID );
 
 				// Check if index exists.
-				if ( array_key_exists( $value['template'], $templates ) ) {
+				if ( isset( $templates[$value['template']] ) ) {
 					$value['template'] = $templates[$value['template']];
 				}
 
@@ -59,10 +59,10 @@ class Papi_Property_Module extends Papi_Property {
 				}
 			}
 
-			return $value;
+			return (object) $value;
 		}
 
-		return $this->default_value;
+		return (object) $this->default_value;
 	}
 
 	/**
@@ -91,7 +91,8 @@ class Papi_Property_Module extends Papi_Property {
 	 * @return array
 	 */
 	protected function get_post_type() {
-		return array_shift( papi_to_array( $this->get_setting( 'post_type' ) ) );
+		$arr = papi_to_array( $this->get_setting( 'post_type' ) );
+		return array_shift( $arr );
 	}
 
 	/**
@@ -152,10 +153,11 @@ class Papi_Property_Module extends Papi_Property {
 		$settings           = $this->get_settings();
 		$value              = $this->get_value();
 		$posts              = $this->get_posts( $post_type );
-		$selected_post_id   = is_array( $value ) ? $value['module'] : 0;
+		$selected_post_id   = is_object( $value ) ? $value->module : 0;
 		$selected_post_id   = is_object( $selected_post_id ) ? $selected_post_id->ID : 0;
 		$templates          = $this->get_templates( $selected_post_id );
-		$selected_template  = is_array( $value ) ? intval( $value['template'] ) : null;
+		$selected_template  = is_object( $value ) ? intval( $value->template ) : null;
+		$classes            = '';
 
 		if ( $settings->select2 ) {
 			$classes .= ' papi-component-select2';
@@ -181,6 +183,7 @@ class Papi_Property_Module extends Papi_Property {
 							id="<?php echo esc_attr( $this->html_id() ); ?>_modules"
 							name="<?php echo esc_attr( $this->html_name() ); ?>"
 							data-allow-clear="<?php echo empty( $settings->placeholder ) ? 'false' : 'true'; ?>"
+							data-select-item="<?php echo esc_attr( $settings->labels['select_module'] ); ?>"
 							data-placeholder="<?php echo esc_attr( $settings->placeholder ); ?>"
 							data-width="100%"
 							>
@@ -223,7 +226,6 @@ class Papi_Property_Module extends Papi_Property {
 							id="<?php echo esc_attr( $this->html_id() ); ?>_template"
 							name="<?php echo esc_attr( $this->html_name() ); ?>_template"
 							class="<?php echo esc_attr( $classes ); ?> papi-property-module-left"
-							data-select-item="<?php echo esc_attr( $settings->labels['select_item'] ); ?>"
 							data-post-query='<?php echo esc_attr( papi_maybe_json_encode( $settings->query ) ); ?>'
 							data-width="100%"
 							>
@@ -278,12 +280,27 @@ class Papi_Property_Module extends Papi_Property {
 	 * @return mixed
 	 */
 	public function import_value( $value, $slug, $post_id ) {
+		if ( is_object( $value ) ) {
+			$value = (array) $value;
+		}
+
 		if ( ! is_array( $value ) ) {
 			return $this->default_value;
 		}
 
 		if ( isset( $value['module'] ) && $value['module'] instanceof WP_Post ) {
 			$value['module'] = $value['module']->ID;
+		}
+
+		foreach ( $value as $key => $val ) {
+			unset( $value[$key] );
+
+			if ( strpos( $key, $slug ) === false ) {
+				$key = sprintf( '%s_%s', $slug, $key );
+			}
+
+			$key = papify( $key );
+			$value[$key] = $val;
 		}
 
 		return $value;
