@@ -35,10 +35,31 @@ class Papi_Property_Module extends Papi_Property {
 	 */
 	public function format_value( $value, $slug, $post_id ) {
 		if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
-			return [
+			$value = [
 				'module'   => get_post( $value ),
 				'template' => get_post_meta( $post_id, sprintf( '%s_template', unpapify( $this->html_name() ) ), true )
 			];
+
+			if ( papi_is_admin() ) {
+				return $value;
+			}
+
+			// Return the template value instead of index when not in admin.
+			if ( $value['module'] instanceof WP_Post ) {
+				$templates = $this->get_templates( $value['module']->ID );
+
+				// Check if index exists.
+				if ( array_key_exists( $value['template'], $templates ) ) {
+					$value['template'] = $templates[$value['template']];
+				}
+
+				// Supports label and template array.
+				if ( is_array( $value['template'] ) && isset( $value['template']['template'] ) ) {
+					$value['template'] = $value['template']['template'];
+				}
+			}
+
+			return $value;
 		}
 
 		return $this->default_value;
@@ -134,7 +155,7 @@ class Papi_Property_Module extends Papi_Property {
 		$selected_post_id   = is_array( $value ) ? $value['module'] : 0;
 		$selected_post_id   = is_object( $selected_post_id ) ? $selected_post_id->ID : 0;
 		$templates          = $this->get_templates( $selected_post_id );
-		$selected_template  = is_array( $value ) ? $value['template'] : '';
+		$selected_template  = is_array( $value ) ? intval( $value['template'] ) : null;
 
 		if ( $settings->select2 ) {
 			$classes .= ' papi-component-select2';
@@ -182,7 +203,7 @@ class Papi_Property_Module extends Papi_Property {
 									'data-entry-type' => get_post_meta( $post->ID, papi_get_page_type_key(), true ),
 									'data-edit-url'   => get_edit_post_link( $value ),
 									'data-new-url'    => $settings->new_url ? admin_url( 'post-new.php?post_type=' . $post->post_type ) : '',
-									'selected'        => $value === $post->ID,
+									'selected'        => $selected_post_id === $post->ID,
 									'value'           => $post->ID,
 									$post->post_title
 								] );
@@ -207,20 +228,36 @@ class Papi_Property_Module extends Papi_Property {
 							data-width="100%"
 							>
 							<?php
-							foreach ( $templates as $key => $template ) {
-								if ( ! is_string( $key ) ) {
-									$key = $template;
+							foreach ( $templates as $index => $item ) {
+								// Make string to a array.
+								if ( is_string( $item ) ) {
+									$item = [
+										'label'    => $item,
+										'template' => $item,
+										'default'  => false
+									];
+								}
+
+								// Bail if no array.
+								if ( ! is_array( $item ) ) {
+									continue;
+								}
+
+								// Bail if no label or template exists.
+								if ( ! isset( $item['label'], $item['template'] ) ) {
+									continue;
+								}
+
+								// Set missing default value.
+								if ( ! isset( $item['default'] ) ) {
+									$item['default'] = false;
 								}
 
 								papi_render_html_tag( 'option', [
-									'value'    => $template,
-									'selected' => $template === $selected_template,
-									$key
+									'value'    => $index,
+									'selected' => ! papi_is_empty( $selected_template ) ? $index === $selected_template : $item['default'],
+									$item['label']
 								] );
-
-								if ( $selected ) {
-									$selected_label = $label;
-								}
 							}
 							?>
 						</select>

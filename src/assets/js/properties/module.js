@@ -65,7 +65,7 @@ class Module {
     $.get(papi.ajaxUrl + '?' + $.param(params), function(entryType) {
       $select.empty();
 
-      if ($select.data('placeholder').length && posts.length) {
+      if ($select.data('placeholder') && posts.length) {
         const optionPlaceholderTemplate = self.optionPlaceholderTemplate;
         const template1 = window._.template($.trim(optionPlaceholderTemplate()));
 
@@ -76,10 +76,34 @@ class Module {
       const template2 = window._.template($.trim(optionTemplate()));
 
       for (var key in entryType.template) {
+        const template = entryType.template[key];
+        let item = {};
+
+        // Convert string value to item object.
+        if (typeof template === 'string') {
+          item = {
+            'label': template,
+            'template': template,
+            'default': false
+          };
+        }
+
+        // Check if template is a object
+        // or bail.
+        if ($.isPlainObject(template)) {
+          item = template;
+        } else {
+          continue;
+        }
+
         $select.append(template2({
-          title: key,
-          value: entryType.template[key]
+          title: item.label,
+          value: key
         }));
+
+        if (item.default) {
+          $select.val(key);
+        }
       }
 
       if ($select.hasClass('papi-component-select2') && 'select2' in $.fn) {
