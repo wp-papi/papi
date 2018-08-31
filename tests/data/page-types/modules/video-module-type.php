@@ -10,10 +10,17 @@ class Video_Module_Type extends Papi_Module_Type {
 	public function meta() {
 		return [
 			'name'        => 'Video module',
-			'description' => 'This is a top module',
+			'description' => 'This is a video module',
 			'template'    => [
-				'Video A' => 'video-a.php',
-				'Video B' => 'video-b.php'
+				[
+					'template' => 'video-b.php',
+					'label'    => 'Video B',
+				],
+				[
+					'template' => 'video-a.php',
+					'label'    => 'Video A',
+					'default'  => true
+				]
 			]
 		];
 	}

@@ -10,10 +10,16 @@ class Image_Module_Type extends Papi_Module_Type {
 	public function meta() {
 		return [
 			'name'        => 'Image module',
-			'description' => 'This is a top module',
+			'description' => 'This is a image module',
 			'template'    => [
-				'Layout A' => 'layout-a.php',
-				'Layout B' => 'layout-b.php'
+				[
+					'template' => 'layout-a.php',
+					'label'    => 'Layout A'
+				],
+				[
+					'template' => 'layout-b.php',
+					'label'    => 'Layout B'
+				]
 			]
 		];
 	}

@@ -397,6 +397,13 @@ function papi_get_entry_type_template( $id = 0, $type = null ) {
 	// Check if template is array.
 	if ( is_array( $template ) ) {
 		foreach ( $template as $key => $value ) {
+			// Convert string template to array.
+			if ( is_string( $value ) ) {
+				$template[$key] = [
+					'template' => $value
+				];
+			}
+
 			if ( ! is_array( $value ) ) {
 				continue;
 			}
