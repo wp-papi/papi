@@ -388,9 +388,49 @@ function papi_get_entry_type_template( $id = 0, $type = null ) {
 
 	$data = papi_get_entry_type_by_meta_id( $id, $type );
 
-	if ( isset( $data, $data->template ) ) {
-		return papi_get_template_file_name( $data->template );
+	if ( ! isset( $data, $data->template ) ) {
+		return;
 	}
+
+	$template = $data->template;
+
+	// Check if template is array.
+	if ( is_array( $template ) ) {
+		foreach ( $template as $key => $value ) {
+			// Convert string template to array.
+			if ( is_string( $value ) ) {
+				$template[$key] = [
+					'template' => $value
+				];
+			}
+
+			if ( ! is_array( $value ) ) {
+				continue;
+			}
+
+			// Bail if no default and template key exists.
+			if ( ! isset( $value['default'], $value['template'] ) ) {
+				continue;
+			}
+
+			// If a template found with default value
+			// we should use that and break.
+			if ( $value['default'] ) {
+				$template = $value['template'];
+				break;
+			}
+		}
+
+		// If no defeault value is found we should use the
+		// first template in the array.
+		if ( is_array( $template ) && count( $template ) > 0 ) {
+			if ( isset( $template[0]['template'] ) ) {
+				$template = $template[0]['template'];
+			}
+		}
+	}
+
+	return papi_get_template_file_name( $template );
 }
 
 /**

@@ -74,6 +74,38 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		$this->expectOutputRegex( '//' );
 	}
 
+	public function test_get_entry_type_fail() {
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
+
+		$_GET = [
+			'entry_type' => 'properties-page-type'
+		];
+
+		do_action( 'papi/ajax/get_entry_type' );
+
+		$this->expectOutputRegex( '/\{\"error\"\:\"No entry type found\"\}/' );
+	}
+
+	public function test_get_entry_type_success() {
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
+
+		$_GET = [
+			'entry_type' => 'properties-page-type'
+		];
+
+		add_filter( 'papi/settings/directories', function () {
+			return PAPI_FIXTURE_DIR . '/page-types';
+		} );
+
+		do_action( 'papi/ajax/get_entry_type' );
+
+		$this->expectOutputRegex( '/properties\-page/' );
+	}
+
 	public function test_get_posts() {
 		if ( ! defined( 'DOING_AJAX' ) ) {
 			define( 'DOING_AJAX', true );

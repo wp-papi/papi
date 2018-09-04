@@ -272,6 +272,13 @@ return [
 		'slug'  => 'link_test'
 	] ),
 
+	// Module
+	papi_property( [
+		'type'  => 'module',
+		'title' => 'Module test',
+		'slug'  => 'module_test'
+	] ),
+
 	// Number
 	papi_property( [
 		'type'  => 'number',

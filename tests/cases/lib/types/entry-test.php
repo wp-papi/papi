@@ -211,6 +211,24 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		$this->assertSame( 'pages/simple-taxonomy.php', papi_get_entry_type_template( $term_id, 'term' ) );
 	}
 
+	public function test_papi_get_entry_type_template_array() {
+		add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types',  PAPI_FIXTURE_DIR . '/taxonomy-types'];
+		} );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'modules/video-module-type' );
+		$this->assertSame( 'video-a.php', papi_get_entry_type_template( $this->post_id ) );
+	}
+
+	public function test_papi_get_entry_type_template_array2() {
+		add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types',  PAPI_FIXTURE_DIR . '/taxonomy-types'];
+		} );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'modules/string-module-type' );
+		$this->assertSame( 'string-a.php', papi_get_entry_type_template( $this->post_id ) );
+	}
+
 	public function test_papi_get_entry_type_id() {
 		$_GET['entry_type'] = 'simple-page-type';
 		$this->assertSame( 'simple-page-type', papi_get_entry_type_id() );

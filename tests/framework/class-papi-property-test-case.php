@@ -97,11 +97,17 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 			$value = $this->get_value( $property->get_slug( true ) );
 		}
 
-		$_POST = papi_test_create_property_post_data( [
+		$values = papi_test_create_property_post_data( [
 			'slug'  => $property->slug,
 			'type'  => $property,
 			'value' => $value
-		], $_POST );
+		] );
+
+		foreach ( $values as $key => $value ) {
+			if ( ! isset( $_POST[$key] ) ) {
+				$_POST[$key] = $value;
+			}
+		}
 
 		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
 
@@ -139,6 +145,8 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	 * @param  string $type
 	 */
 	public function save_properties_value( $property = null, $type = 'post' ) {
+		$_GET['meta_type'] = $type;
+
 		$this->meta_type = $type;
 
 		// Set right entry type for meta type.
