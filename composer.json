@@ -30,5 +30,10 @@
     "post-update-cmd": "if [ -f vendor/bin/phpcs ]; then \"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs; fi"
   },
   "minimum-stability": "dev",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "extra": {
+    "branch-alias": {
+      "dev-master": "3.3.0-dev"
+    }
+  }
 }
