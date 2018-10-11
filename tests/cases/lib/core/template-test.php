@@ -45,7 +45,7 @@ class Papi_Lib_Core_Template_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_template_file_name( [] ) );
 		$this->assertNull( papi_get_template_file_name( (object) [] ) );
 
-		$this->assertSame( 'hello/world.php', papi_get_template_file_name( 'hello.world' ) );
+		$this->assertSame( 'hello.world.php', papi_get_template_file_name( 'hello.world' ) );
 		$this->assertSame( 'hello/world.php', papi_get_template_file_name( 'hello/world' ) );
 		$this->assertSame( 'hello/world.php', papi_get_template_file_name( 'hello/world.php' ) );
 	}

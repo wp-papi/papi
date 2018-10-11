@@ -30,15 +30,15 @@ function papi_get_template_file_name( $template ) {
 		return;
 	}
 
+	/**
+	 * Filter default extension.
+	 *
+	 * @param  string $extension
+	 *
+	 * @return string
+	 */
 	$extension = apply_filters( 'papi/template_extension', '.php' );
-	$ext_reg   = '/(' . $extension . ')+$/';
-
-	if ( preg_match( '/\.\w+$/', $template, $matches ) && preg_match( $ext_reg, $matches[0] ) ) {
-		return str_replace( '.', '/', preg_replace( '/' . $matches[0] . '$/', '', $template ) ) . $matches[0];
-	}
-
-	$template = str_replace( '.', '/', $template );
-	$template = substr( $template, -strlen( $extension ) ) === $extension ? $template : $template . $extension;
+	$template  = substr( $template, -strlen( $extension ) ) === $extension ? $template : $template . $extension;
 
 	return $template === $extension ? null : $template;
 }
