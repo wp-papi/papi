@@ -271,42 +271,6 @@ class Papi_Property_Module extends Papi_Property {
 	}
 
 	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return mixed
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( is_object( $value ) ) {
-			$value = (array) $value;
-		}
-
-		if ( ! is_array( $value ) ) {
-			return $this->default_value;
-		}
-
-		if ( isset( $value['module'] ) && $value['module'] instanceof WP_Post ) {
-			$value['module'] = $value['module']->ID;
-		}
-
-		foreach ( $value as $key => $val ) {
-			unset( $value[$key] );
-
-			if ( strpos( $key, $slug ) === false ) {
-				$key = sprintf( '%s_%s', $slug, $key );
-			}
-
-			$key = papify( $key );
-			$value[$key] = $val;
-		}
-
-		return $value;
-	}
-
-	/**
 	 * Render option template.
 	 */
 	public function render_option_template() {

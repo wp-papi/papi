@@ -42,11 +42,6 @@ class Papi_Property_Html_Test extends Papi_Property_Test_Case {
 		$this->assertSame( $this->get_expected( 'html_test_2' ), $this->properties[1]->format_value( $this->get_value( 'html_test_2' ), '', 0 ) );
 	}
 
-	public function test_property_import_value() {
-		$this->assertSame( $this->get_expected( 'html_test' ), $this->properties[0]->import_value( $this->get_value( 'html_test' ), '', 0 ) );
-		$this->assertSame( $this->get_expected( 'html_test_2' ), $this->properties[1]->import_value( $this->get_value( 'html_test_2' ), '', 0 ) );
-	}
-
 	public function test_property_options() {
 		$this->assertSame( 'html', $this->properties[0]->get_option( 'type' ) );
 		$this->assertSame( 'Html test', $this->properties[0]->get_option( 'title' ) );

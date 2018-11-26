@@ -56,18 +56,6 @@ class Papi_Property_Post_Test extends Papi_Property_Test_Case {
 		$this->assertSame( 1, intval( $this->properties[1]->format_value( 1, '', 0 ) ) );
 	}
 
-	public function test_property_import_value() {
-		$this->assertSame( $this->post_id, $this->properties[0]->import_value( $this->post_id, '', 0 ) );
-		$this->assertSame( $this->post_id, $this->properties[0]->import_value( strval( $this->post_id ), '', 0 ) );
-		$this->assertSame( $this->post_id, $this->properties[0]->import_value( get_post( $this->post_id ), '', 0 ) );
-		$this->assertNull( $this->properties[0]->import_value( 'hello', '', 0 ) );
-		$this->assertNull( $this->properties[0]->import_value( null, '', 0 ) );
-		$this->assertNull( $this->properties[0]->import_value( true, '', 0 ) );
-		$this->assertNull( $this->properties[0]->import_value( false, '', 0 ) );
-		$this->assertNull( $this->properties[0]->import_value( [], '', 0 ) );
-		$this->assertNull( $this->properties[0]->import_value( (object) [], '', 0 ) );
-	}
-
 	public function test_property_options() {
 		$this->assertSame( 'post', $this->properties[0]->get_option( 'type' ) );
 		$this->assertSame( 'Post test', $this->properties[0]->get_option( 'title' ) );

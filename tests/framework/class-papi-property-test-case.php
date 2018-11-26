@@ -250,14 +250,6 @@ abstract class Papi_Property_Test_Case extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test property `import_value`, it will check so the
-	 * expected value is return by default.
-	 */
-	public function test_property_import_value() {
-		$this->assertSame( $this->get_expected(), $this->property->import_value( $this->get_value(), '', 0 ) );
-	}
-
-	/**
 	 * Abstract method that should test property options, if any.
 	 */
 	abstract public function test_property_options();

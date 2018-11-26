@@ -53,14 +53,6 @@ class Papi_Property_Dropdown_Test extends Papi_Property_Test_Case {
 		$this->assertEmpty( $this->properties[2]->format_value( null, '', 0 ) );
 	}
 
-	public function test_property_import_value() {
-		$this->assertSame( '#ffffff', $this->properties[0]->import_value( '#ffffff', '', 0 ) );
-		$this->assertSame( '#000000', $this->properties[1]->import_value( '#000000', '', 0 ) );
-		$this->assertSame( [1, 2, 3], $this->properties[2]->import_value( [1, 2, 3], '', 0 ) );
-		$this->assertEmpty( $this->properties[0]->import_value( null, '', 0 ) );
-		$this->assertEmpty( $this->properties[1]->import_value( null, '', 0 ) );
-	}
-
 	public function test_property_options() {
 		$this->assertSame( 'dropdown', $this->properties[0]->get_option( 'type' ) );
 		$this->assertSame( 'Dropdown test', $this->properties[0]->get_option( 'title' ) );

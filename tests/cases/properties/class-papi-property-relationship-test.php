@@ -117,31 +117,6 @@ class Papi_Property_Relationship_Test extends Papi_Property_Test_Case {
 		$this->assertEmpty( $out );
 	}
 
-	public function test_property_import_value() {
-		$output = $this->properties[0]->import_value( [], '', 0 );
-		$this->assertEmpty( $output );
-
-		$output = $this->properties[0]->import_value( (object) [], '', 0 );
-		$this->assertEmpty( $output );
-
-		$output = $this->properties[0]->import_value( $this->post_id, '', 0 );
-		$this->assertSame( $this->get_value( 'relationship_test' ), $output );
-
-		$output = $this->properties[0]->import_value( (object) ['id' => $this->post_id], '', 0 );
-		$this->assertSame( $this->get_value( 'relationship_test' ), $output );
-
-		$output = $this->properties[0]->import_value( $this->get_value( 'relationship_test' ), '', 0 );
-		$this->assertSame( $this->get_value( 'relationship_test' ), $output );
-
-		$output = $this->properties[0]->import_value( $this->get_expected( 'relationship_test' ), '', 0 );
-		$this->assertSame( $this->get_value( 'relationship_test' ), $output );
-
-		$this->assertNull( $this->properties[0]->import_value( 'hello', '', 0 ) );
-		$this->assertNull( $this->properties[0]->import_value( null, '', 0 ) );
-		$this->assertNull( $this->properties[0]->import_value( true, '', 0 ) );
-		$this->assertNull( $this->properties[0]->import_value( false, '', 0 ) );
-	}
-
 	public function test_get_sort_options_name_alphabetically() {
 		$sort_options = Papi_Property_Relationship::get_sort_options();
 

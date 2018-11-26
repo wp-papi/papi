@@ -70,18 +70,6 @@ class Papi_Property_Term_Test extends Papi_Property_Test_Case {
 		$this->assertSame( 1, intval( $this->properties[1]->format_value( 1, '', 0 ) ) );
 	}
 
-	public function test_property_import_value() {
-		$this->assertSame( $this->term_id, $this->property->import_value( $this->term_id, '', 0 ) );
-		$this->assertSame( $this->term_id, $this->property->import_value( strval( $this->term_id ), '', 0 ) );
-		$this->assertSame( $this->term_id, $this->property->import_value( get_term( $this->term_id, 'test_taxonomy' ), '', 0 ) );
-		$this->assertNull( $this->property->import_value( 'hello', '', 0 ) );
-		$this->assertNull( $this->property->import_value( null, '', 0 ) );
-		$this->assertNull( $this->property->import_value( true, '', 0 ) );
-		$this->assertNull( $this->property->import_value( false, '', 0 ) );
-		$this->assertNull( $this->property->import_value( [], '', 0 ) );
-		$this->assertNull( $this->property->import_value( (object) [], '', 0 ) );
-	}
-
 	public function test_property_options() {
 		$this->assertSame( 'term', $this->property->get_option( 'type' ) );
 		$this->assertSame( 'Term test', $this->property->get_option( 'title' ) );

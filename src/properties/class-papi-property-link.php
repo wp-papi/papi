@@ -164,21 +164,6 @@ class Papi_Property_Link extends Papi_Property {
 	}
 
 	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return mixed
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( is_array( $value ) || is_object( $value ) ) {
-			return $this->update_value( (array) $value, $slug, $post_id );
-		}
-	}
-
-	/**
 	 * Prepare link array with post id. If it gets a post id
 	 * bigger then zero it will use the permalink as url.
 	 *

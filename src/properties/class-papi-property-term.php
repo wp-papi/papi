@@ -293,25 +293,4 @@ class Papi_Property_Term extends Papi_Property {
 		</div>
 		<?php
 	}
-
-	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return mixed
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( is_object( $value ) && isset( $value->term_id ) ) {
-			return $value->term_id;
-		}
-
-		if ( is_numeric( $value ) ) {
-			return (int) $value;
-		}
-
-		return $this->default_value;
-	}
 }

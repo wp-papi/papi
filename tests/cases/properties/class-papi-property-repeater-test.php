@@ -78,48 +78,6 @@ class Papi_Property_Repeater_Test extends Papi_Property_Test_Case {
 		$this->assertEmpty( $this->property->format_value( false, $this->slug, $this->post_id ) );
 	}
 
-	public function test_property_import_value() {
-		$this->assertEmpty( $this->property->import_value( '', $this->slug, $this->post_id ) );
-		$this->assertEmpty( $this->property->import_value( (object) [], $this->slug, $this->post_id ) );
-		$this->assertEmpty( $this->property->import_value( 1, $this->slug, $this->post_id ) );
-		$this->assertEmpty( $this->property->import_value( null, $this->slug, $this->post_id ) );
-		$this->assertEmpty( $this->property->import_value( true, $this->slug, $this->post_id ) );
-		$this->assertEmpty( $this->property->import_value( false, $this->slug, $this->post_id ) );
-
-		$expected = [
-			'repeater_test' => 0
-		];
-		$output = $this->property->import_value( [], $this->slug, $this->post_id );
-		$this->assertSame( $expected, $output );
-
-		$value = [
-			'book_name' => 'Kod',
-			'is_open'   => true
-		];
-		$expected = [
-			'repeater_test_0_book_name' => 'Kod',
-			'repeater_test_0_is_open'   => true,
-			'repeater_test' => 1
-		];
-		$output = $this->property->import_value( $value, $this->slug, $this->post_id );
-		$this->assertSame( $expected, $output );
-
-		$value = [
-			[
-				'book_name' => 'Kod',
-				'is_open'   => true
-			]
-		];
-		$expected = [
-			'repeater_test_0_book_name' => 'Kod',
-			'repeater_test_0_is_open'   => true,
-			'repeater_test' => 1
-		];
-
-		$output = $this->property->import_value( $value, $this->slug, $this->post_id );
-		$this->assertSame( $expected, $output );
-	}
-
 	public function test_property_load_value() {
 		$this->assertSame( [], $this->property->load_value( [], '', 0 ) );
 	}

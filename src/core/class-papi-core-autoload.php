@@ -34,8 +34,6 @@ final class Papi_Core_Autoload {
 			$path .= 'cli/';
 		} else if ( preg_match( '/^papi\_\w+\_store$/', $class ) ) {
 			$path .= 'stores/';
-		} else if ( strpos( $class, 'papi_porter' ) === 0 ) {
-			$path .= 'porter/';
 		} else if ( strpos( $class, 'papi_property' ) === 0 ) {
 			$path .= 'properties/';
 		} else if ( strpos( $class, 'papi_query' ) === 0 ) {
