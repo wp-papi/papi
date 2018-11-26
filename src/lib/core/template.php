@@ -129,7 +129,7 @@ function papi_template_include( $original_template ) {
 	 */
 	$template = apply_filters( 'papi/pre_template_include', $original_template );
 
-	if ( ! empty( $original_template ) && strcmp( $original_template, $template ) === 0 ) {
+	if ( ! empty( $template ) && $original_template !== $template ) {
 		return $template;
 	}
 
