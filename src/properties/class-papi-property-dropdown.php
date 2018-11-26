@@ -157,25 +157,6 @@ class Papi_Property_Dropdown extends Papi_Property {
 	}
 
 	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return mixed
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( ! ( $value = $this->prepare_value( $value ) ) ) {
-			return;
-		}
-
-		$value = maybe_unserialize( $value );
-
-		return papi_maybe_json_decode( $value, $this->get_setting( 'multiple' ) );
-	}
-
-	/**
 	 * Change value after it's loaded from the database.
 	 *
 	 * @param  mixed  $value

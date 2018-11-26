@@ -20,15 +20,6 @@ class Papi_Core_Property {
 	public $convert_type = 'string';
 
 	/**
-	 * Default import settings.
-	 *
-	 * @var array
-	 */
-	protected $default_import_settings = [
-		'property_array_slugs' => false
-	];
-
-	/**
 	 * Default options.
 	 *
 	 * @var array
@@ -364,15 +355,6 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Get import settings.
-	 *
-	 * @return array
-	 */
-	public function get_import_settings() {
-		return [];
-	}
-
-	/**
 	 * Get meta type from the store or the default one.
 	 *
 	 * @return string
@@ -579,55 +561,6 @@ class Papi_Core_Property {
 		}
 
 		return sprintf( '%s[%s]', $base_slug, unpapify( $sub_property->get_slug() ) );
-	}
-
-	/**
-	 * Get the import settings.
-	 *
-	 * @param  string $key
-	 * @param  mixed  $default
-	 *
-	 * @return mixed
-	 */
-	public function import_setting( $key, $default = null ) {
-		if ( ! is_string( $key ) ) {
-			return $default;
-		}
-
-		$settings = $this->import_settings();
-
-		return isset( $settings->$key ) ? $settings->$key : $default;
-	}
-
-	/**
-	 * Get the import settings.
-	 *
-	 * @return object
-	 */
-	public function import_settings() {
-		$settings = $this->get_import_settings();
-		$settings = is_array( $settings ) || is_object( $settings ) ? $settings : [];
-
-		return (object) array_merge( $this->default_import_settings, (array) $settings );
-	}
-
-	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return mixed
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( ! ( $value = $this->prepare_value( $value ) ) ) {
-			return;
-		}
-
-		$value = maybe_unserialize( $value );
-
-		return papi_maybe_json_decode( $value, $this->convert_type === 'array' );
 	}
 
 	/**

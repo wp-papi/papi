@@ -61,38 +61,6 @@ class Papi_Property_File_Test extends Papi_Property_Test_Case {
 		$this->assertNotSame( 1, intval( $this->properties[1]->format_value( 1, '', 0 ) ) );
 	}
 
-	public function test_property_import_value() {
-		$post_id  = $this->factory->post->create( ['post_type' => 'attachment'] );
-		$post_id2 = $this->factory->post->create( ['post_type' => 'attachment'] );
-
-		$this->assertNull( $this->property->import_value( $this->get_value(), '', 0 ) );
-		$this->assertSame( $post_id, $this->property->import_value( (object) ['id' => $post_id], '', 0 ) );
-		$this->assertSame( $post_id, $this->property->import_value( $post_id, '', 0 ) );
-
-		$property = $this->entry_type->get_property( 'file_test_2' );
-
-		$value = [
-			(object) ['id' => $post_id],
-			(object) ['id' => $post_id2]
-		];
-		$this->assertSame( [$post_id, $post_id2], $property->import_value( $value, '', 0 ) );
-
-		$value = [$post_id, $post_id2];
-		$this->assertSame( [$post_id, $post_id2], $property->import_value( $value, '', 0 ) );
-	}
-
-	public function test_property_import_value_wrong_values() {
-		$this->assertEmpty( $this->property->import_value( true, '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( false, '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( null, '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( true, '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( new stdClass, '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( [true], '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( [false], '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( [null], '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( [new stdClass], '', 0 ) );
-	}
-
 	public function test_property_options() {
 		$this->assertSame( 'file', $this->property->get_option( 'type' ) );
 		$this->assertSame( 'File test', $this->property->get_option( 'title' ) );

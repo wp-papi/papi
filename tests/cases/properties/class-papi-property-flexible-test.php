@@ -70,48 +70,6 @@ class Papi_Property_Flexible_Test extends Papi_Property_Test_Case {
 		$this->assertEmpty( $this->property->format_value( false, $this->slug, $this->post_id ) );
 	}
 
-	public function test_property_import_value() {
-		$this->assertEmpty( $this->property->import_value( '', $this->slug, $this->post_id ) );
-		$this->assertEmpty( $this->property->import_value( (object) [], $this->slug, $this->post_id ) );
-		$this->assertEmpty( $this->property->import_value( 1, $this->slug, $this->post_id ) );
-		$this->assertEmpty( $this->property->import_value( null, $this->slug, $this->post_id ) );
-		$this->assertEmpty( $this->property->import_value( true, $this->slug, $this->post_id ) );
-		$this->assertEmpty( $this->property->import_value( false, $this->slug, $this->post_id ) );
-
-		$expected = [
-			'flexible_test' => 0
-		];
-		$output = $this->property->import_value( [], $this->slug, $this->post_id );
-		$this->assertSame( $expected, $output );
-
-		$value = [
-			'twitter_name' => 'Kod',
-			'_layout'      => 'twitter'
-		];
-		$expected = [
-			'flexible_test_0_twitter_name' => 'Kod',
-			'flexible_test_0_layout'       => 'twitter',
-			'flexible_test' => 1
-		];
-		$output = $this->property->import_value( $value, $this->slug, $this->post_id );
-		$this->assertSame( $expected, $output );
-
-		$value = [
-			[
-				'twitter_name' => 'Kod',
-				'_layout'      => 'twitter'
-			]
-		];
-		$expected = [
-			'flexible_test_0_twitter_name' => 'Kod',
-			'flexible_test_0_layout'       => 'twitter',
-			'flexible_test' => 1
-		];
-
-		$output = $this->property->import_value( $value, $this->slug, $this->post_id );
-		$this->assertSame( $expected, $output );
-	}
-
 	public function test_property_load_value() {
 		$this->assertSame( [], $this->property->load_value( [], '', 0 ) );
 	}

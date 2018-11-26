@@ -193,17 +193,6 @@ class Papi_Property_Repeater extends Papi_Property {
 	}
 
 	/**
-	 * Get import settings.
-	 *
-	 * @return array
-	 */
-	public function get_import_settings() {
-		return [
-			'property_array_slugs' => true
-		];
-	}
-
-	/**
 	 * Get results from the database.
 	 *
 	 * @param  int    $value
@@ -386,42 +375,6 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		// Render JSON template that is used for Papi ajax.
 		$this->render_json_template( $options->slug );
-	}
-
-	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return array
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( ! is_array( $value ) ) {
-			return [];
-		}
-
-		// If the import value isn't array in array then fix it.
-		$extras = array_filter( $value, function ( $value ) {
-			return ! is_array( $value );
-		} );
-
-		if ( ! empty( $extras ) ) {
-			$extra = [];
-
-			foreach ( $extras as $key => $val ) {
-				if ( isset( $value[$key] ) ) {
-					unset( $value[$key] );
-				}
-
-				$extra[$key] = $val;
-			}
-
-			$value[] = $extra;
-		}
-
-		return $this->update_value( $value, $slug, $post_id );
 	}
 
 	/**

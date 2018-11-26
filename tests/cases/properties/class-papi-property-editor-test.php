@@ -59,10 +59,6 @@ class Papi_Property_Editor_Test extends Papi_Property_Test_Case {
 		$this->assertSame( $this->get_expected(), $this->property->format_value( $this->get_value(), '', 0 ) );
 	}
 
-	public function test_property_import_value() {
-		$this->assertSame( $this->get_value(), $this->property->import_value( $this->get_value(), '', 0 ) );
-	}
-
 	public function test_property_options() {
 		$this->assertSame( 'editor', $this->property->get_option( 'type' ) );
 		$this->assertSame( 'Editor test', $this->property->get_option( 'title' ) );

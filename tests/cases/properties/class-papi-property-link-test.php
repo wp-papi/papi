@@ -95,42 +95,6 @@ class Papi_Property_Link_Test extends Papi_Property_Test_Case {
 		$this->assertEquals( $expected, $this->property->format_value( $input, $this->property->slug, 0 ) );
 	}
 
-	public function test_property_import_value() {
-		$expected = [
-			'papi_link_test_url'     => 'http://example.org',
-			'papi_link_test_title'   => 'Example site',
-			'papi_link_test_target'  => '_blank',
-			'papi_link_test_post_id' => 0,
-			'papi_link_test'         => 1
-		];
-		$this->assertEquals( $expected, $this->property->import_value( $this->get_value(), $this->property->slug, 0 ) );
-		$this->assertEquals( $expected, $this->property->import_value( (object) $this->get_value(), $this->property->slug, 0 ) );
-
-		$this->assertNull( $this->property->import_value( null, '', 0 ) );
-		$this->assertNull( $this->property->import_value( true, '', 0 ) );
-		$this->assertNull( $this->property->import_value( false, '', 0 ) );
-		$this->assertNull( $this->property->import_value( 1, '', 0 ) );
-		$this->assertNull( $this->property->import_value( 'test', '', 0 ) );
-	}
-
-	public function test_property_import_value_real_post() {
-		$post_id   = $this->factory->post->create();
-		$permalink = get_permalink( $post_id );
-		$input     = [
-			'url'    => get_permalink( $post_id ),
-			'title'  => get_the_title( $post_id ),
-			'target' => '_blank'
-		];
-		$expected  = [
-			'papi_link_test_url'     => get_permalink( $post_id ),
-			'papi_link_test_title'   => get_the_title( $post_id ),
-			'papi_link_test_target'  => '_blank',
-			'papi_link_test_post_id' => $post_id,
-			'papi_link_test'         => 1,
-		];
-		$this->assertEquals( $expected, $this->property->import_value( $input, $this->property->slug, 0 ) );
-	}
-
 	public function test_property_load_value() {
 		$post_id = $this->factory->post->create();
 		$value   = [

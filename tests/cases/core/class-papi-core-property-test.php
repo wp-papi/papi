@@ -468,19 +468,6 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 		$this->assertNull( ( new Papi_Core_Property )->get_value() );
 	}
 
-	public function test_import_setting() {
-		$property = new Papi_Core_Property();
-		$this->assertNull( $property->import_setting( null ) );
-	}
-
-	public function test_import_settings() {
-		$property = new Papi_Core_Property();
-		$output   = $property->import_settings();
-		$this->assertEquals( (object) [
-			'property_array_slugs' => false
-		], $output );
-	}
-
 	public function test_html_id() {
 		$property = Papi_Core_Property::factory( [
 			'type'  => 'string',
@@ -563,35 +550,6 @@ class Papi_Core_Property_Test extends WP_UnitTestCase {
 
 		$this->assertSame( 'papi_name', $property->html_name( $sub_property ) );
 		$this->assertSame( 'papi_name[0]', $property->html_name( $sub_property, 0 ) );
-	}
-
-	public function test_import_value() {
-		$property = Papi_Core_Property::factory( [
-			'type' => 'string',
-			'slug' => 'name'
-		] );
-
-		$this->assertSame( 'test', $property->import_value( 'test', '', 0 ) );
-	}
-
-	public function test_import_value_empty() {
-		$property = Papi_Core_Property::factory( [
-			'type'  => 'string',
-			'title' => 'Name'
-		] );
-
-		$value = $property->import_value( [null], '', 0 );
-		$this->assertNull( $value );
-	}
-
-	public function test_import_value_with_empty_values() {
-		$property = Papi_Core_Property::factory( [
-			'type'  => 'string',
-			'title' => 'Name'
-		] );
-
-		$value = $property->import_value( ['', 75, 87], '', 0 );
-		$this->assertSame( [75, 87], $value );
 	}
 
 	public function test_load_value() {

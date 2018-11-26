@@ -49,17 +49,6 @@ class Papi_Property_Module_Test extends Papi_Property_Test_Case {
 		], $this->property->format_value( 0, '', 0 ) );
 	}
 
-	public function test_property_import_value() {
-		$expected = [
-			'papi_module_test_module'   => $this->post_id,
-			'papi_module_test_template' => 'video-a.php',
-		];
-
-		$actual = $this->property->import_value( $this->get_value(), $this->property->slug, $this->post_id );
-
-		$this->assertSame( $expected, $actual );
-	}
-
 	public function test_property_options() {
 		$this->assertSame( 'module', $this->property->get_option( 'type' ) );
 		$this->assertSame( 'Module test', $this->property->get_option( 'title' ) );

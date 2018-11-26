@@ -100,25 +100,4 @@ class Papi_Property_Checkbox extends Papi_Property {
 
 		echo '</div>';
 	}
-
-	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return mixed
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( is_string( $value ) && ! papi_is_empty( $value ) ) {
-			return [$value];
-		}
-
-		if ( ! is_array( $value ) ) {
-			return;
-		}
-
-		return $value;
-	}
 }

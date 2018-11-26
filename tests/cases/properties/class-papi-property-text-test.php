@@ -35,11 +35,6 @@ class Papi_Property_Text_Test extends Papi_Property_Test_Case {
 		$this->assertSame( "Hello<br />\nWorld", $this->properties[0]->format_value( "Hello\nWorld", '', 0 ) );
 	}
 
-	public function test_property_import_value() {
-		$this->assertSame( $this->get_expected( 'text_test' ), $this->properties[0]->import_value( $this->get_value( 'text_test' ), '', 0 ) );
-		$this->assertSame( $this->get_expected( 'text_html_test' ), $this->properties[1]->import_value( $this->get_value( 'text_html_test' ), '', 0 ) );
-	}
-
 	public function test_property_options() {
 		$this->assertSame( 'text', $this->properties[0]->get_option( 'type' ) );
 		$this->assertSame( 'Text test', $this->properties[0]->get_option( 'title' ) );
