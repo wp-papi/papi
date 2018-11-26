@@ -120,6 +120,19 @@ function papi_template_include( $original_template ) {
 		return $original_template;
 	}
 
+	/**
+	 * Modify which template is included before Papi looks for the right template.
+	 *
+	 * @param  string $original_template
+	 *
+	 * @return string
+	 */
+	$template = apply_filters( 'papi/pre_template_include', $original_template );
+
+	if ( ! empty( $original_template ) && strcmp( $original_template, $template ) === 0 ) {
+		return $template;
+	}
+
 	// Determine which id to use.
 	$id = is_tag() ? get_queried_object()->term_id : $post->ID;
 

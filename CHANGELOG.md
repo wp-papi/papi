@@ -1,5 +1,11 @@
 # Papi Changelog
 
+## [3.3.0]
+
+## Added
+
+* Added `papi/pre_template_include` filter to modify which template is loaded before Papi looks for a template.
+
 ## [3.2.0](https://github.com/wp-papi/papi/releases/tag/v3.2.0) - 2017-09-07
 
 The stable release of Papi 3.2.0, a lot has been added, changed, fixed and some functions has been removed (mostly core stuff). Papi 3.2.0 introduce a new core data api that is used everywhere in the plugin and by advanced properties. Upgrading from Papi 3.1.x will work and the new core data api will not create any problems.
