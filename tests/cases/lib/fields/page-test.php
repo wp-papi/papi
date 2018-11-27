@@ -71,6 +71,24 @@ class Papi_Lib_Fields_Page_Test extends WP_UnitTestCase {
 		$this->assertSame( 'fredrik', papi_get_field( $this->post_id, 'UPPERCASE' ) );
 	}
 
+	public function test_papi_get_fields() {
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'fields-page-type' );
+		update_post_meta( $this->post_id, 'name', 'fredrik' );
+
+		$output = get_post_meta( $this->post_id, 'name', true );
+		$this->assertSame( 'fredrik', $output );
+
+		$output = papi_get_fields( $this->post_id );
+		$this->assertSame( 'fields', $output['name'] );
+
+		add_filter( 'papi/get_fields', function( $fields ) {
+			return ['name' => 'filter'];
+		} );
+
+		$output = papi_get_fields( $this->post_id );
+		$this->assertSame( 'filter', $output['name'] );
+	}
+
 	public function test_papi_get_field_cache() {
 		papi_data_update( $this->post_id, 'name', 'fredrik' );
 

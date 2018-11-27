@@ -67,6 +67,13 @@ class Papi_Lib_Fields_Taxonomy_Test extends WP_UnitTestCase {
 		$this->assertSame( 'fredrik', papi_get_term_field( '', 'fredrik' ) );
 	}
 
+	public function test_papi_get_term_fields() {
+		update_term_meta( $this->term_id, 'string_test', 'fredrik' );
+
+		$output = papi_get_term_fields( $this->term_id );
+		$this->assertSame( 'fredrik', $output['string_test'] );
+	}
+
 	public function test_papi_get_term_slugs() {
 		$this->assertEmpty( papi_get_term_slugs() );
 

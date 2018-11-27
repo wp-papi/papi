@@ -45,6 +45,17 @@ function papi_get_term_field( $term_id = null, $slug = null, $default = null ) {
 }
 
 /**
+ * Get all fields for a taxonomy type.
+ *
+ * @param  int    $id
+ *
+ * @return array
+ */
+function papi_get_term_fields( $id = 0 ) {
+	return papi_get_fields( papi_get_term_id( $id ), 'term' );
+}
+
+/**
  * Get boxes with properties slug for a taxonomy.
  *
  * @param  int $id

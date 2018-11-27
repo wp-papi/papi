@@ -162,6 +162,55 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 }
 
 /**
+ * Get all fields for a page type.
+ *
+ * @param  int    $id
+ * @param  string $type
+ *
+ * @return array
+ */
+function papi_get_fields( $id = 0, $type = 'post' ) {
+	$store = papi_get_meta_store( $id, $type );
+
+	if ( $store instanceof Papi_Core_Meta_Store === false ) {
+		return [];
+	}
+
+	$entry_type = $store->get_type_class();
+	if ( empty( $entry_type ) ) {
+		return [];
+	}
+
+	$value = [];
+	$boxes = $entry_type->get_boxes();
+
+	foreach ( $boxes as $box ) {
+		foreach ( $box->properties as $property ) {
+			$slug = $property->get_slug( true );
+			$value[$slug] = papi_get_field( $id, $slug, null, $type );
+		}
+	}
+
+	$fields = $entry_type->fields( $value );
+	$type   = $type === 'post' ? '' : '_' . $type;
+
+	/**
+	 * Modify fields returned.
+	 *
+	 * Different filters for different types:
+	 *
+	 * - Post: papi/papi_get_fields
+	 * - Term: papi/papi_get_term_fields
+	 *
+	 * @param  array  $fields
+	 * @param  string $entry_type
+	 *
+	 * @return array
+	 */
+	return apply_filters( sprintf( 'papi/get_%sfields', $type ), $fields, $entry_type->get_id() );
+}
+
+/**
  * Get boxes with properties slug for a page.
  *
  * @param  int    $id

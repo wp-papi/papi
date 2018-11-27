@@ -5,6 +5,7 @@
 ## Added
 
 * Added `papi/pre_template_include` filter to modify which template is loaded before Papi looks for a template.
+* Added `papi_get_fields` and `papi_get_term_fields` to receive all slugs and values from a Page/Taxonomy type.
 
 ## [3.2.0](https://github.com/wp-papi/papi/releases/tag/v3.2.0) - 2017-09-07
 
