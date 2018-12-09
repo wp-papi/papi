@@ -177,6 +177,7 @@ final class Papi_Loader extends Papi_Core_Container {
 			'core/conditional.php',
 			'core/data.php',
 			'core/deprecated.php',
+			'core/gutenberg.php',
 			'core/meta.php',
 			'core/store.php',
 			'core/post.php',

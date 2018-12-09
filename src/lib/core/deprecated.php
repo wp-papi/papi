@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is empty for now.
+ * This file will maybe be empty.
  * It will contain deprecated functions.
  */
 

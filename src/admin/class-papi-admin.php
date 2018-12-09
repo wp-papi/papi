@@ -193,7 +193,13 @@ final class Papi_Admin {
 	 */
 	protected function setup_actions() {
 		add_action( 'admin_init', [$this, 'admin_init'] );
-		add_action( 'edit_form_after_title', [$this, 'edit_form_after_title'] );
+
+		// WP 5.0 with Gutenberg.
+		if ( papi_is_gutenberg_page() ) {
+			add_action( 'block_editor_meta_box_hidden_fields', [$this, 'edit_form_after_title'] );
+		} else {
+			add_action( 'edit_form_after_title', [$this, 'edit_form_after_title'] );
+		}
 
 		if ( $taxonomy = papi_get_taxonomy() ) {
 			add_action( $taxonomy . '_add_form', [$this, 'edit_form_after_title'] );
