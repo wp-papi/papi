@@ -124,6 +124,7 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	public function __construct( $file_path = '' ) {
 		parent::__construct( $file_path );
 		$this->setup_post_types();
+		$this->setup_page_templates();
 	}
 
 	/**
@@ -363,6 +364,31 @@ class Papi_Page_Type extends Papi_Entry_Type {
 		if ( count( $this->post_type ) === 1 && $this->post_type[0] === 'any' ) {
 			$this->post_type = get_post_types( '', 'names' );
 			$this->post_type = array_values( $this->post_type );
+		}
+	}
+
+	/**
+	 * Setup page templates if templates is a array.
+	 */
+	protected function setup_page_templates() {
+		if ( ! is_array( $this->template ) || ! $this->has_post_type( papi_get_post_type() ) ) {
+			return;
+		}
+
+		$this->show_page_template = true;
+		foreach ( $this->post_type as $post_type ) {
+			// Can't use `theme_templates` filter since it's added in 4.9.6.
+			add_filter( "theme_{$post_type}_templates", function( $templates ) {
+				foreach ( $this->template as $template ) {
+					if ( ! is_array( $template ) || ! isset( $template['template'], $template['label'] ) ) {
+						continue;
+					}
+
+					$templates[$template['template']] = $template['label'];
+				}
+
+				return $templates;
+			} );
 		}
 	}
 }

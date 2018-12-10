@@ -11,7 +11,16 @@ class Name_Page_Type extends Papi_Page_Type {
 		return [
 			'name'         => 'Name page',
 			'description'  => 'This is a name page',
-			'template'     => 'pages/name.php'
+			'template'     => [
+				[
+					'template' => 'layout-a.php',
+					'label'    => 'Layout A'
+				],
+				[
+					'template' => 'layout-b.php',
+					'label'    => 'Layout B'
+				]
+			]
 		];
 	}
 

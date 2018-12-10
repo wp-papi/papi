@@ -340,6 +340,22 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$this->assertFalse( $wp_meta_boxes['faq']['normal']['default']['test_meta_box'] );
 	}
 
+	public function test_setup_page_templates() {
+		$_GET['post_type'] = 'page';
+
+		$page_templates = get_page_templates();
+		$this->assertEmpty( $page_templates );
+
+		$path = __DIR__ . '/../../data/page-types/name-page-type.php';
+		require_once $path;
+
+		new Name_Page_Type( $path );
+		$page_templates = wp_get_theme()->get_page_templates();
+
+		$this->assertNotEmpty( $page_templates );
+		$this->assertTrue( isset( $page_templates['layout-a.php'] ) );
+	}
+
 	public function test_tabs_meta_boxes() {
 		$boxes = $this->tab_page_type->get_boxes();
 
