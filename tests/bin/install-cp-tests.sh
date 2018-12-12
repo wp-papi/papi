@@ -27,10 +27,6 @@ download() {
 set -ex
 
 install_wp() {
-  if ${WP_VERSION} == "latest"; then
-    WP_VERSION = "master"
-  fi
-
   echo "download and install ClassicPress ${WP_VERSION}"
   if [ ! -d $WP_CORE_DIR  ]
   then
