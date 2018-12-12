@@ -14,8 +14,10 @@ SKIP_DB_CREATE=${6-false}
 
 TMPDIR=${TMPDIR-/tmp}
 TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")
-WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/classicpress-tests-lib}
-WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/classicpress/}
+
+# To support testsuite.
+WP_TESTS_DIR=${WP_TESTS_DIR-/tmp/wordpress-tests-lib}
+WP_CORE_DIR=${WP_CORE_DIR-/tmp/wordpress/}
 
 download() {
     if [ `which curl` ]; then
@@ -65,9 +67,6 @@ install_test_suite() {
 		sed $ioption "s/yourpasswordhere/$DB_PASS/" "$WP_TESTS_DIR"/wp-tests-config.php
 		sed $ioption "s|localhost|${DB_HOST}|" "$WP_TESTS_DIR"/wp-tests-config.php
 	fi
-
-  ls WP_TESTS_DIR
-  ls WP_CORE_DIR
 }
 
 install_db() {
