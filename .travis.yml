@@ -8,10 +8,10 @@ install:
 
 before_script:
   - |
-    if [ $CLASSICPRESS == "true" ]; then
-      bash tests/bin/install-cp-tests.sh wordpress_test root '' 127.0.0.1 $WP_VERSION;
-    else
+    if [ -z $CLASSICPRESS ]; then
       bash vendor/frozzare/wp-test-suite/bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 $WP_VERSION;
+    else
+      bash tests/bin/install-cp-tests.sh wordpress_test root '' 127.0.0.1 $WP_VERSION;
     fi
   - bash tests/bin/install-wp-cli.sh
 
