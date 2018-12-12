@@ -66,6 +66,8 @@ install_test_suite() {
 		sed $ioption "s|localhost|${DB_HOST}|" "$WP_TESTS_DIR"/wp-tests-config.php
 	fi
 
+  ls WP_TESTS_DIR
+  ls WP_CORE_DIR
 }
 
 install_db() {
