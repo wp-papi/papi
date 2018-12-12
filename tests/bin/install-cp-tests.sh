@@ -13,9 +13,8 @@ WP_VERSION=${5-master}
 SKIP_DB_CREATE=${6-false}
 
 TMPDIR=${TMPDIR-/tmp}
-#TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")
 
-# To support testsuite.
+# need wp directories to support our test suite.
 WP_TESTS_DIR=${WP_TESTS_DIR-/tmp/wordpress-tests-lib}
 WP_CORE_DIR=${WP_CORE_DIR-/tmp/wordpress/}
 
