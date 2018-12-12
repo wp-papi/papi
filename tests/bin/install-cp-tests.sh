@@ -27,7 +27,7 @@ download() {
 set -ex
 
 install_wp() {
-  if WP_VERSION == "latest"; then
+  if ${WP_VERSION} == "latest"; then
     WP_VERSION = "master"
   fi
 
