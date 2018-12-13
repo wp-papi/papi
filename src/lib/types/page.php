@@ -61,7 +61,7 @@ function papi_get_all_page_types( $post_type = '' ) {
 	$page_types = papi_get_all_entry_types( [
 		'args'  => $post_type,
 		'mode'  => 'include',
-		'types' => ['attachment', 'page']
+		'types' => ['attachment', 'module', 'page']
 	] );
 
 	if ( is_array( $page_types ) ) {
