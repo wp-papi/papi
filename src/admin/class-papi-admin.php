@@ -250,7 +250,7 @@ final class Papi_Admin {
 			}
 		}
 
-		papi_set_page_type_id( $value, $front_pages[0]->get_id() );
+		papi_set_page_type_id( $value, $new_page_type_id );
 
 		return $value;
 	}
