@@ -12,11 +12,4 @@ class Papi_Module_Type extends Papi_Page_Type {
 	 * @var array
 	 */
 	public $post_type = ['module'];
-
-	/**
-	 * The type name.
-	 *
-	 * @var string
-	 */
-	public $type = 'module';
 }
