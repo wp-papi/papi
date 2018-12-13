@@ -40,8 +40,6 @@ matrix:
       env: WP_VERSION=latest WP_MULTISITE=1
     - php: 7.3
       env: WP_VERSION=latest WP_MULTISITE=0
-    - php: 7.3
-      env: WP_VERSION=4.9.9 WP_MULTISITE=0
     - php: 7.2
       env: WP_VERSION=master CLASSICPRESS=true
   allow_failures:
