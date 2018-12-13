@@ -209,7 +209,7 @@ final class Papi_Admin {
 		add_filter( 'plugin_row_meta', [$this, 'plugin_row_meta'], 10, 2 );
 		add_filter( 'wp_link_query', [$this, 'wp_link_query'] );
 		add_filter( 'wp_refresh_nonces', [$this, 'wp_refresh_nonces'], 11 );
-		add_filter('pre_update_option', [$this, 'update_front_page'], 10, 2);
+		add_filter( 'pre_update_option', [$this, 'update_front_page'], 10, 2 );
 	}
 
 	/**
