@@ -48,6 +48,15 @@
   }
 }
 
+// Boxes tags.
+.papi-box-tags {
+  a {
+    &.is-active {
+      color: red;
+    }
+  }
+}
+
 // Boxes that exists on the add new page
 .papi-box-list {
   clear: both;

@@ -1,4 +1,4 @@
-<a href="<?php echo esc_attr( $vars['url'] ); ?>" class="papi-box-item">
+<a href="<?php echo esc_attr( $vars['url'] ); ?>" class="papi-box-item" data-tags="<?php echo esc_attr( json_encode( $vars['tags'] ) ); ?>">
 	<?php if ( $vars['use_thumbnail'] ): ?>
 	<div class="papi-page-type hide">
 		<?php if ( ! empty( $vars['thumbnail'] ) ): ?>

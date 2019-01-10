@@ -11,7 +11,8 @@ class Editor_Page_Type extends Papi_Page_Type {
 		return [
 			'name'        => 'Editor page',
 			'description' => 'This is a editor page',
-			'template'    => 'pages/editor-page.php'
+			'template'    => 'pages/editor-page.php',
+			'tags'        => ['Editor'],
 		];
 	}
 

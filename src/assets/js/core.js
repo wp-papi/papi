@@ -12,6 +12,7 @@ class Core {
     core.addCurrentClassToMenuItem();
     core.binds();
     core.pageTypeSwitcher();
+    core.pageTypeTags();
     core.prepareBoxes();
     core.setSelectedMenuItem();
   }
@@ -128,6 +129,36 @@ class Core {
       e.preventDefault();
       $('.papi-page-type-switcher > div').slideUp();
       $('#papi-page-type-switcher-edit').show();
+    });
+  }
+
+  pageTypeTags() {
+    $('.papi-box-tags a').on('click', function(e) {
+      e.preventDefault();
+
+      let $this = $(this);
+      let tag = $this.attr('data-tag');
+
+      $('.papi-box-tags a').removeClass('is-active');
+
+      $this.addClass('is-active');
+
+      $('.papi-box-list a').each(function() {
+        let $item = $(this);
+        let tags = JSON.parse($item.attr('data-tags'));
+
+        if ($.inArray(tag, tags) === -1) {
+          $item.addClass('papi-hide');
+        } else {
+          $item.removeClass('papi-hide');
+        }
+      });
+
+      // Enable masonry after searching the list.
+      $('.papi-box-list').masonry({
+        itemSelector: '.papi-box-item:not(.papi-hide)',
+        isResizable: true
+      });
     });
   }
 

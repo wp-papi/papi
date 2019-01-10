@@ -11,7 +11,8 @@ class Properties_Page_Type extends Papi_Page_Type {
 		return [
 			'name'        => 'Properties page type',
 			'description' => 'This is a properties page',
-			'template'    => 'pages/properties-page.php'
+			'template'    => 'pages/properties-page.php',
+			'tags'        => ['Flexible'],
 		];
 	}
 

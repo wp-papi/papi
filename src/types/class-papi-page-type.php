@@ -94,6 +94,13 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	public $switcher = true;
 
 	/**
+	 * The type tags.
+	 *
+	 * @var array
+	 */
+	public $tags = [];
+
+	/**
 	 * The template of the page type.
 	 *
 	 * @var string
@@ -347,6 +354,8 @@ class Papi_Page_Type extends Papi_Entry_Type {
 				return $this->labels['title_placeholder'];
 			} );
 		}
+
+		$this->tags = papi_to_array( $this->tags );
 	}
 
 	/**

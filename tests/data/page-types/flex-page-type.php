@@ -7,7 +7,8 @@ class Flex_Page_Type extends Papi_Page_Type {
 			'description' => 'Vel adipisicing dapibus nostra. Lectus malesuada volutpat aliquet',
 			'fill_labels' => true,
 			'name'        => 'Flex page',
-			'template'    => 'pages/flex-page.php'
+			'template'    => 'pages/flex-page.php',
+			'tags'        => ['Flexible'],
 		];
 	}
 

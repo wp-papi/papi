@@ -1,6 +1,6 @@
 <?php
 
-class Book_Page_Type extends Papi_Page_Type {
+class Book2_Page_Type extends Papi_Page_Type {
 
 	/**
 	 * Define our Page Type meta data.
@@ -9,11 +9,11 @@ class Book_Page_Type extends Papi_Page_Type {
 	 */
 	public function meta() {
 		return [
-			'name'               => 'Book page',
-			'description'        => 'This is a book page',
-			'template'           => 'pages/book-page.php',
+			'name'               => 'Book2 page',
+			'description'        => 'This is a book2 page',
+			'template'           => 'pages/book2-page.php',
 			'standard_type'      => false,
-			'post_type'          => 'book',
+			'post_type'          => 'book2',
 			'tags'               => ['Book'],
 		];
 	}
