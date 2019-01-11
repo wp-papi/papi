@@ -55,7 +55,7 @@ $page_types = papi_sort_order( array_reverse( $page_types ) );
 			$tags = array_unique( $tags );
 
 			foreach ( $tags as $tag ) {
-				echo sprintf( '<li><a href="#" data-tag="%s">%s</a></li>', $tag, $tag );
+				echo sprintf( '<li><a href="#" data-tag="%s">%s</a></li>', esc_attr( $tag ), esc_html( $tag ) );
 			}
 		?>
 	</ul>
