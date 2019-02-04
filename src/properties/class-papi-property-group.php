@@ -48,7 +48,7 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 			return [];
 		}
 
-		return array_filter( papi_to_array( $settings->items ), 'papi_is_property' );
+		return array_filter( array_map( 'papi_property', papi_to_array( $settings->items ) ), 'papi_is_property' );
 	}
 
 	/**
