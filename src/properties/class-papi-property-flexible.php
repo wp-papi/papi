@@ -117,6 +117,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					continue;
 				}
 
+				// Set parent property.
+				$property_type->set_parent_property( $this );
+
 				// Get property child slug.
 				$child_slug = $this->get_child_slug( $repeater_slug, $slug );
 
