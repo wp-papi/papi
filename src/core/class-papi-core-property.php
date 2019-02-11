@@ -3,7 +3,7 @@
 /**
  * Core class that implements a Papi property.
  */
-class Papi_Core_Property {
+class Papi_Core_Property implements JsonSerializable {
 
 	/**
 	 * The conditional class.
@@ -921,5 +921,14 @@ class Papi_Core_Property {
 	 */
 	public function __toString() {
 		return $this->get_slug( true );
+	}
+
+	/**
+	 * Serialize property to json.
+	 *
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return $this->get_options();
 	}
 }
