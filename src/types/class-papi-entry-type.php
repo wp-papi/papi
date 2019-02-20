@@ -101,8 +101,9 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	 *
 	 * @param mixed $file_or_options
 	 * @param array $properties
+	 * @param array $args
 	 */
-	protected function box( $file_or_options = [], $properties = [] ) {
+	protected function box( $file_or_options = [], $properties = [], array $args = [] ) {
 		if ( ! is_string( $file_or_options ) && ! is_array( $file_or_options ) && ! is_object( $file_or_options ) ) {
 			return;
 		}
@@ -126,6 +127,9 @@ class Papi_Entry_Type extends Papi_Core_Type {
 
 		// Check and convert all non properties objects to properties objects.
 		$properties = $this->convert_properties( $properties );
+
+		// Merge internal arguments.
+		$options = array_merge( $options, $args );
 
 		// Create a core box instance and add it to the boxes array.
 		array_push( $this->boxes, new Papi_Core_Box( $options, $properties ) );
@@ -217,9 +221,11 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	/**
 	 * Get boxes from the page type.
 	 *
+	 * @param  array $args
+	 *
 	 * @return array
 	 */
-	public function get_boxes() {
+	public function get_boxes( array $args = [] ) {
 		if ( empty( $this->boxes ) && $this->load_boxes === false ) {
 			if ( ! method_exists( $this, 'register' ) ) {
 				return [];
@@ -242,6 +248,11 @@ class Papi_Entry_Type extends Papi_Core_Type {
 		 */
 		$this->boxes = apply_filters( 'papi/get_boxes', $this->boxes, $this->get_id() );
 		$this->boxes = is_array( $this->boxes ) ? $this->boxes : [];
+
+		// Default arguments.
+		$args = array_merge( [
+			'block' => false
+		], $args );
 
 		// Go through all boxes and only add boxes
 		// that is a array and remove boxes that isn't
@@ -271,7 +282,17 @@ class Papi_Entry_Type extends Papi_Core_Type {
 			}
 		}
 
-		return papi_sort_order( array_reverse( $this->boxes ) );
+		$boxes = papi_sort_order( array_reverse( $this->boxes ) );
+
+		foreach ( $boxes as $index => $box ) {
+			// Remove all boxes that shouldn't act as a block.
+			if ( boolval( $args['block'] ) !== $box->block ) {
+				unset( $boxes[$index] );
+				continue;
+			}
+		}
+
+		return $boxes;
 	}
 
 	/**

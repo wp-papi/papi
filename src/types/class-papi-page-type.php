@@ -143,6 +143,18 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	}
 
 	/**
+	 * Create Gutenberg block out of a meta box.
+	 *
+	 * @param mixed $file_or_options
+	 * @param array $properties
+	 */
+	public function block( $file_or_options = [], $properties = [] ) {
+		$this->box( $file_or_options, $properties, [
+			'block' => true,
+		] );
+	}
+
+	/**
 	 * Should the Page Type be displayed in WordPress admin or not?
 	 *
 	 * @param  string $post_type

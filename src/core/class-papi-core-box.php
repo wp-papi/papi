@@ -17,6 +17,13 @@ class Papi_Core_Box {
 	public $context = 'normal';
 
 	/**
+	 * Box as block?
+	 *
+	 * @var bool
+	 */
+	public $block = false;
+
+	/**
 	 * Display box.
 	 *
 	 * @var boolean
