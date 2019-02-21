@@ -86,6 +86,38 @@ class Papi_Admin_Ajax {
 	}
 
 	/**
+	 * Get blocks via GET.
+	 *
+	 * GET /papi-ajax/?action=get_blocks
+	 */
+	public function get_blocks() {
+		$entry_type_id = papi_get_qs( 'entry_type' );
+		$entry_type    = papi_get_entry_type_by_id( $entry_type_id );
+
+		if ( empty( $entry_type ) ) {
+			$this->render_error( 'No entry type found' );
+			return;
+		}
+
+		$boxes = $entry_type->get_boxes( [
+			'block' => true,
+		] );
+
+		if ( empty( $boxes ) ) {
+			$this->render_error( 'No blocks found' );
+			return;
+		}
+
+		foreach ( $boxes as $i => $box ) {
+			ob_start();
+			papi_render_properties( $box->properties );
+			$boxes[$i]->html = ob_get_clean();
+		}
+
+		wp_send_json( $boxes );
+	}
+
+	/**
 	 * Get entry type via GET.
 	 *
 	 * GET /papi-ajax/?action=get_entry_type
@@ -118,7 +150,7 @@ class Papi_Admin_Ajax {
 			'post_type'              => ['post'],
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
-			'update_post_term_cache' => false
+			'update_post_term_cache' => false,
 		], $args ) ) )->posts;
 
 		$posts = array_filter( $posts, function ( $post ) {
@@ -319,6 +351,7 @@ class Papi_Admin_Ajax {
 		add_action( 'admin_enqueue_scripts', [$this, 'ajax_url'], 10 );
 
 		// Ajax actions.
+		add_action( $this->action_prefix . 'get_blocks', [$this, 'get_blocks'] );
 		add_action( $this->action_prefix . 'get_entry_type', [$this, 'get_entry_type'] );
 		add_action( $this->action_prefix . 'get_property', [$this, 'get_property'] );
 		add_action( $this->action_prefix . 'get_properties', [$this, 'get_properties'] );
