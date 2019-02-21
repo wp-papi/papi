@@ -80,7 +80,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		}
 
 		$_GET = [
-			'entry_type' => 'properties-page-type'
+			'entry_type' => 'missing-page-type'
 		];
 
 		do_action( 'papi/ajax/get_blocks' );
@@ -130,7 +130,7 @@ class Papi_Admin_Ajax_Test extends WP_UnitTestCase {
 		}
 
 		$_GET = [
-			'entry_type' => 'properties-page-type'
+			'entry_type' => 'missing-page-type'
 		];
 
 		do_action( 'papi/ajax/get_entry_type' );
