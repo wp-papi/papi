@@ -288,7 +288,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 
 		foreach ( $boxes as $index => $box ) {
 			// Remove all boxes that shouldn't act as a block.
-			if ( boolval( $args['block'] ) && $box instanceof Papi_Core_Block === false ) {
+			if ( $box instanceof Papi_Core_Block !== boolval( $args['block'] ) ) {
 				unset( $boxes[$index] );
 				continue;
 			}
