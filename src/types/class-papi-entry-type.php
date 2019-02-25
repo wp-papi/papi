@@ -131,8 +131,10 @@ class Papi_Entry_Type extends Papi_Core_Type {
 		// Merge internal arguments.
 		$options = array_merge( $options, $args );
 
+		$class = isset( $args['block'] ) && boolval( $args['block'] ) ? 'Papi_Core_Block' : 'Papi_Core_Box';
+
 		// Create a core box instance and add it to the boxes array.
-		array_push( $this->boxes, new Papi_Core_Box( $options, $properties ) );
+		array_push( $this->boxes, new $class( $options, $properties ) );
 	}
 
 	/**
