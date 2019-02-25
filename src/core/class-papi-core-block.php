@@ -7,7 +7,7 @@ class Papi_Core_Block extends Papi_Core_Box {
 	 *
 	 * @var string
 	 */
-	public $category = '';
+	public $category = 'common';
 
 	/**
 	 * Block icon.
