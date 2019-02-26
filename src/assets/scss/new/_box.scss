@@ -1,0 +1,16 @@
+#poststuff .papi-box {
+	.inside {
+		margin: -1px;
+		padding: 0;
+	}
+}
+
+.papi-box {
+	*{
+		box-sizing: border-box;
+	}
+
+	.count {
+		font-weight: bold;
+	}
+}
