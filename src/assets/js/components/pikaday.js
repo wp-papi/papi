@@ -242,6 +242,7 @@
 
         // time
         showTime: true,
+        showTimeFirst: false,
         showSeconds: false,
         use24hour: false,
 
@@ -976,18 +977,28 @@
                 }
             }
 
-            for (var c = 0; c < opts.numberOfMonths; c++) {
-                html += '<div class="pika-lendar">' + renderTitle(this, c, this.calendars[c].year, this.calendars[c].month, this.calendars[0].year) + this.render(this.calendars[c].year, this.calendars[c].month) + '</div>';
-            }
+            var timeHtml = '';
 
             if (opts.showTime) {
-                html += '<div class="pika-time-container">' +
-                        renderTime(
-                            this._d ? this._d.getHours() : 0,
-                            this._d ? this._d.getMinutes() : 0,
-                            this._d ? this._d.getSeconds() : 0,
-                            opts)
-                    + '</div>';
+              timeHtml = '<div class="pika-time-container">' +
+                      renderTime(
+                          this._d ? this._d.getHours() : 0,
+                          this._d ? this._d.getMinutes() : 0,
+                          this._d ? this._d.getSeconds() : 0,
+                          opts)
+                  + '</div>';
+            }
+
+            for (var c = 0; c < opts.numberOfMonths; c++) {
+                html += '<div class="pika-lendar">'
+                  + renderTitle(this, c, this.calendars[c].year, this.calendars[c].month, this.calendars[0].year)
+                  + (opts.showTime && opts.showTimeFirst ? timeHtml : '')
+                  + this.render(this.calendars[c].year, this.calendars[c].month)
+                  + '</div>';
+            }
+
+            if (opts.showTime && !opts.showTimeFirst) {
+                html += timeHtml;
             }
 
             this.el.innerHTML = html;
