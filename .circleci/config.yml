@@ -65,14 +65,6 @@ jobs:
           WP_MULTISITE: "1"
     steps:
       - phptest
-  php-73:
-    docker:
-      - image: frozzare/wptest:7.3
-        environment:
-          WP_VERSION: latest
-          WP_MULTISITE: "0"
-    steps:
-      - phptest
 
 workflows:
   test:
@@ -81,4 +73,3 @@ workflows:
       - php-70
       - php-71
       - php-72
-      - php-73
