@@ -21,7 +21,7 @@
     "php": "^5.6 || ^7.0"
   },
   "require-dev": {
-    "frozzare/wp-test-suite": "^1.0",
+    "frozzare/wp-test-suite": "dev-master",
     "wp-coding-standards/wpcs": "^0.13",
     "behat/behat": "^2.5"
   },

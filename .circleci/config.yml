@@ -45,6 +45,7 @@ jobs:
         environment:
           WP_VERSION: latest
           WP_MULTISITE: "1"
+          WP_TESTS_DIR: /tmp/wordpress-tests-lib-latest
     steps:
       - phptest
   php-70:
@@ -53,6 +54,7 @@ jobs:
         environment:
           WP_VERSION: "4.6"
           WP_MULTISITE: "0"
+          WP_TESTS_DIR: /tmp/wordpress-tests-lib-4.6
     steps:
       - phptest
   php-71:
@@ -61,6 +63,7 @@ jobs:
         environment:
           WP_VERSION: latest
           WP_MULTISITE: "0"
+          WP_TESTS_DIR: /tmp/wordpress-tests-lib-latest
     steps:
       - phptest
   php-72:
@@ -69,6 +72,7 @@ jobs:
         environment:
           WP_VERSION: latest
           WP_MULTISITE: "1"
+          WP_TESTS_DIR: /tmp/wordpress-tests-lib-latest
     steps:
       - phptest
 
