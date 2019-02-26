@@ -23,9 +23,6 @@ commands:
           name: Install project dependencies
           command: php composer.phar install --no-interaction --prefer-source
       - run:
-          name: Install wp cli
-          command: bash tests/bin/install-wp-cli.sh
-      - run:
           name: Lint php
           command: make lint:php
       - run:
@@ -38,7 +35,7 @@ commands:
 jobs:
   php-56:
     docker:
-      - image: php:5.6
+      - image: frozzare/wptest:5.6
         environment:
           WP_VERSION: latest
           WP_MULTISITE: "1"
@@ -46,7 +43,7 @@ jobs:
       - phptest
   php-70:
     docker:
-      - image: php:7.0
+      - image: frozzare/wptest:7.0
         environment:
           WP_VERSION: "4.6"
           WP_MULTISITE: "0"
@@ -54,7 +51,7 @@ jobs:
       - phptest
   php-71:
     docker:
-      - image: php:7.1
+      - image: frozzare/wptest:7.1
         environment:
           WP_VERSION: latest
           WP_MULTISITE: "0"
@@ -62,7 +59,7 @@ jobs:
       - phptest
   php-72:
     docker:
-      - image: php:7.2
+      - image: frozzare/wptest:7.2
         environment:
           WP_VERSION: latest
           WP_MULTISITE: "1"
@@ -70,7 +67,7 @@ jobs:
       - phptest
   php-73:
     docker:
-      - image: php:7.3
+      - image: frozzare/wptest:7.3
         environment:
           WP_VERSION: latest
           WP_MULTISITE: "0"
