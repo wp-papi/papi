@@ -8,7 +8,7 @@
   "dependencies": {
     "lodash": "^4.17.11",
     "moment": "^2.11",
-    "select-woo": "^1.0.1"
+    "select2": "^4.0.5"
   },
   "devDependencies": {
     "autoprefixer-cli": "^1.0",
