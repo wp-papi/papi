@@ -6,6 +6,7 @@
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "lodash": "^4.17.11",
     "moment": "^2.11",
     "select2": "^4.0.5"
   },
