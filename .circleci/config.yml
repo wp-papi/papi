@@ -1,0 +1,85 @@
+version: 2
+
+commands:
+  phptest:
+    steps:
+      - checkout
+      - run:
+          name: Install Composer
+          command: |
+            php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+            php -r "if (hash_file('SHA384', 'composer-setup.php') === trim(file_get_contents('https://composer.github.io/installer.sig'))) { echo 'Installer verified'; } else { echo 'Installer invalid'; unlink('composer-setup.php'); } echo PHP_EOL;"
+            php composer-setup.php
+            php -r "unlink('composer-setup.php');"
+      - run:
+          name: Display PHP information
+          command: |
+            php -v
+            php composer.phar --version
+      - run:
+          name: Install project dependencies
+          command: php composer.phar install --no-interaction --prefer-source
+      - run:
+          name: Install wp cli
+          command: bash tests/bin/install-wp-cli.sh
+      - run:
+          name: Lint php
+          command: make lint:php
+      - run:
+          name: Run PHPUnit
+          command: vendor/bin/phpunit --coverage-clover clover.xml
+      - run:
+          name: Run Behat
+          command: vendor/bin/behat
+
+jobs:
+  php-56:
+    docker:
+      - image: php:5.6
+    steps:
+      - run:
+          name: env
+          command: |
+            echo 'export WP_VERSION=latest' >> $BASH_ENV
+            echo 'export WP_MULTISITE=1' >> $BASH_ENV
+      - phptest
+  php-70:
+    docker:
+      - image: php:7.0
+    steps:
+      - run:
+          name: env
+          command: |
+            echo 'export WP_VERSION=4.6' >> $BASH_ENV
+            echo 'export WP_MULTISITE=0' >> $BASH_ENV
+      - phptest
+  php-71:
+    docker:
+      - image: php:7.1
+    steps:
+      - run:
+          name: env
+          command: |
+            echo 'export WP_VERSION=latest' >> $BASH_ENV
+            echo 'export WP_MULTISITE=0' >> $BASH_ENV
+      - phptest
+  php-72:
+    docker:
+      - image: php:7.2
+    steps:
+      - run:
+          name: env
+          command: |
+            echo 'export WP_VERSION=latest' >> $BASH_ENV
+            echo 'export WP_MULTISITE=1' >> $BASH_ENV
+      - phptest
+  php-73:
+    docker:
+      - image: php:7.3
+    steps:
+      - run:
+          name: env
+          command: |
+            echo 'export WP_VERSION=latest' >> $BASH_ENV
+            echo 'export WP_MULTISITE=0' >> $BASH_ENV
+      - phptest
