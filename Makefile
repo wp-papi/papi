@@ -30,7 +30,7 @@ pot:
 	wp-pot --src 'src/**/*.php' --dest-file languages/papi.pot --package papi
 
 watch:
-	node_modules/.bin/parallelshell "make watch:css" "make watch:js"
+	node_modules/.bin/concurrently "make watch:css" "make watch:js"
 
 watch\:css:
 	node_modules/.bin/watch 'make css' src/assets/scss
