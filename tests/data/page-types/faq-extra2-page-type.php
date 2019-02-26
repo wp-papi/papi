@@ -32,10 +32,7 @@ class FAQ_Extra2_Page_Type extends FAQ_Extra_Page_Type {
 				'description' => 'FAQ 3',
 				'post_type'   => 'faq',
 				'type'        => 'datetime',
-				'title'       => 'image',
-				'settings' => [
-					'show_time_first' => true
-				]
+				'title'       => 'image'
 			] )
 		] );
 	}
