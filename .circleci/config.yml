@@ -25,8 +25,11 @@ commands:
       - run:
           name: Lint php
           command: make lint:php
-      - run
-          name: System info
+      - run:
+          name: System info 1
+          command: printenv
+      - run:
+          name: System info 1
           command: ls /tmp
       - run:
           name: Run PHPUnit
