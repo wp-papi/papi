@@ -7,13 +7,12 @@ import select2Options from 'components/select2';
  * Using Select2.
  */
 class Post {
-
   /**
    * The option template to compile.
    *
    * @return {function}
    */
-  get optionTemplate() {
+  get optionTemplate () {
     return window.wp.template('papi-property-post-option');
   }
 
@@ -22,21 +21,21 @@ class Post {
    *
    * @return {function}
    */
-  get optionPlaceholderTemplate() {
+  get optionPlaceholderTemplate () {
     return window.wp.template('papi-property-post-option-placeholder');
   }
 
   /**
    * Initialize Property Post.
    */
-  static init() {
+  static init () {
     new Post().binds();
   }
 
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     $(document).on('papi/property/repeater/added', '[data-property="post"]', this.update.bind(this));
     $(document).on('change', '.papi-property-post-left', this.change.bind(this));
     $(document).on('papi/iframe/submit', this.iframeSubmit.bind(this));
@@ -48,7 +47,7 @@ class Post {
    *
    * @param {object} e
    */
-  change(e) {
+  change (e) {
     e.preventDefault();
 
     const self = this;
@@ -59,12 +58,12 @@ class Post {
 
     query.post_type = $this.val();
 
-    const params  = {
+    const params = {
       'action': 'get_posts',
       'fields': ['ID', 'post_title', 'post_type'],
       'query': query
     };
-    const $prop   = $this.closest('.papi-property-post');
+    const $prop = $this.closest('.papi-property-post');
     const $select = $prop.find('.papi-property-post-right');
 
     $('[for="' + $select.attr('id') + '"]')
@@ -72,7 +71,7 @@ class Post {
       .find('label')
       .text($this.data('select-item').replace('%s', $this.find('option:selected').text()));
 
-    $.get(papi.ajaxUrl + '?' + $.param(params), function(posts) {
+    $.get(papi.ajaxUrl + '?' + $.param(params), function (posts) {
       $select.empty();
 
       if ($select.data('placeholder').length && posts.length) {
@@ -87,7 +86,7 @@ class Post {
       const optionTemplate = self.optionTemplate;
       const template2 = window._.template($.trim(optionTemplate()));
 
-      $.each(posts, function(index, post) {
+      $.each(posts, function (index, post) {
         $select.append(template2({
           id: post.ID,
           title: post.post_title,
@@ -107,7 +106,7 @@ class Post {
    * @param {object} e
    * @param {object} data
    */
-  iframeSubmit(e, data) {
+  iframeSubmit (e, data) {
     if (!data.iframe) {
       return;
     }
@@ -128,7 +127,7 @@ class Post {
 
       $select.append(template({
         id: id,
-        title: title,
+        title: title
       }));
     } else {
       // edit
@@ -146,7 +145,7 @@ class Post {
    *
    * @param {object} e
    */
-  update(e) {
+  update (e) {
     e.preventDefault();
 
     const $select = $(e.currentTarget).parent().find('select');

@@ -6,18 +6,17 @@ import $ from 'jquery';
  * Using Select2.
  */
 class Term {
-
   /**
    * Initialize Property Term.
    */
-  static init() {
+  static init () {
     new Term().binds();
   }
 
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     $(document).on('papi/property/repeater/added', '[data-property="term"]', this.update.bind(this));
     $(document).on('change', '.papi-property-term-left', this.change.bind(this));
   }
@@ -28,7 +27,7 @@ class Term {
    *
    * @param {object} e
    */
-  change(e) {
+  change (e) {
     e.preventDefault();
 
     const $this = $(e.currentTarget);
@@ -49,10 +48,10 @@ class Term {
       .find('label')
       .text($this.data('select-item').replace('%s', $this.find('option:selected').text()));
 
-    $.get(papi.ajaxUrl + '?' + $.param(params), function(terms) {
+    $.get(papi.ajaxUrl + '?' + $.param(params), function (terms) {
       $select.empty();
 
-      $.each(terms, function(termId, termName) {
+      $.each(terms, function (termId, termName) {
         $select.append($('<option></option>').attr('value', termId).text(termName));
       });
 
@@ -67,7 +66,7 @@ class Term {
    *
    * @param {object} e
    */
-  update(e) {
+  update (e) {
     e.preventDefault();
 
     const $select = $(e.currentTarget).parent().find('select');

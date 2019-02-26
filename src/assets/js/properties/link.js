@@ -6,27 +6,26 @@ import $ from 'jquery';
  * Using the build in link manager in WordPress.
  */
 class Link {
-
   /**
    * The link template to compile.
    *
    * @return {function}
    */
-  get template() {
+  get template () {
     return window.wp.template('papi-property-link');
   }
 
   /**
    * Initialize Property Link.
    */
-  static init() {
+  static init () {
     new Link().binds();
   }
 
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     $(document).on('click', '.papi-property-link button[data-link-action="add"]', this.add.bind(this));
     $(document).on('click', '.papi-property-link button[data-link-action="edit"]', this.edit.bind(this));
     $(document).on('click', '.papi-property-link button[data-link-action="remove"]', this.remove.bind(this));
@@ -38,13 +37,13 @@ class Link {
    *
    * @param {object} e
    */
-  add(e) {
+  add (e) {
     e.preventDefault();
 
     const $this = $(e.currentTarget);
 
     this.$el = $this.closest('.papi-property-link');
-    this.$p  = this.$el.find('p');
+    this.$p = this.$el.find('p');
 
     // Create a new window.wpLink.update that only
     // close the wpLink window. Save the old to later.
@@ -61,13 +60,13 @@ class Link {
    *
    * @param {object} e
    */
-  edit(e) {
+  edit (e) {
     e.preventDefault();
 
     const $this = $(e.currentTarget);
 
     this.$el = $this.closest('.papi-property-link');
-    this.$p  = this.$el.find('p');
+    this.$p = this.$el.find('p');
 
     // Create a new window.wpLink.update that only
     // close the wpLink window. Save the old to later.
@@ -78,7 +77,7 @@ class Link {
 
     window.wpLink.open();
 
-    const url  = this.$el.find('.wp-link-url').val();
+    const url = this.$el.find('.wp-link-url').val();
     const text = this.$el.find('.wp-link-text').val();
 
     $('#wp-link-url').val($.trim(url));
@@ -94,7 +93,7 @@ class Link {
    *
    * @param {object} e
    */
-  remove(e) {
+  remove (e) {
     e.preventDefault();
 
     const $this = $(e.currentTarget);
@@ -118,16 +117,16 @@ class Link {
    *
    * @param {object} e
    */
-  render(e) {
+  render (e) {
     if (typeof this.$el === 'undefined') {
       return;
     }
 
     e.preventDefault();
 
-    const data   = window.wpLink.getAttrs();
+    const data = window.wpLink.getAttrs();
     let template = this.template;
-    template     = window._.template($.trim(template()));
+    template = window._.template($.trim(template()));
 
     data.link = '<a href="' + data.href + '" target="_blank">' + data.href + '</a>';
     data.title = $('#wp-link-text').val();

@@ -2,11 +2,10 @@ import $ from 'jquery';
 import Utils from 'utils';
 
 class Rules {
-
   /**
    * Initialize Papi rules class.
    */
-  static init() {
+  static init () {
     new Rules().binds();
   }
 
@@ -16,15 +15,15 @@ class Rules {
    * @param {string} slug
    * @param {object} rule
    */
-  bindRule(slug, rule) {
-    const ruleSlug  = this.getRuleSlug(slug, rule);
-    const $target   = this.getTarget(slug);
-    const selector  = this.getSelector(ruleSlug);
-    const self      = this;
+  bindRule (slug, rule) {
+    const ruleSlug = this.getRuleSlug(slug, rule);
+    const $target = this.getTarget(slug);
+    const selector = this.getSelector(ruleSlug);
+    const self = this;
 
-    $('body').on('keyup change', selector, function(e) {
+    $('body').on('keyup change', selector, function (e) {
       const source = $('[data-papi-rule-source-slug="' + slug + '"]').text();
-      let values   = {};
+      let values = {};
 
       if (!source.length) {
         return;
@@ -56,7 +55,7 @@ class Rules {
       if (e.type === 'change') {
         self.display(attr);
       } else {
-        self.debounce(function() {
+        self.debounce(function () {
           self.display(attr);
         }, 200);
       }
@@ -66,10 +65,10 @@ class Rules {
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     const self = this;
-    $('body').on('init', '[data-papi-rules="true"]', function() {
-      $('[data-papi-rules="true"]').each(function() {
+    $('body').on('init', '[data-papi-rules="true"]', function () {
+      $('[data-papi-rules="true"]').each(function () {
         self.setupRules($(this));
       });
     });
@@ -84,12 +83,12 @@ class Rules {
    * @param {int} wait
    * @param {bool} immediate
    */
-  debounce(fn, wait, immediate) {
+  debounce (fn, wait, immediate) {
     let timeout;
-    (function() {
+    (function () {
       const context = this;
-      const args    = arguments;
-      const later   = function() {
+      const args = arguments;
+      const later = function () {
         timeout = null;
         if (!immediate) {
           fn.apply(context, args);
@@ -111,8 +110,8 @@ class Rules {
    *
    * @param {object} options
    */
-  display(options) {
-    this.fetch(options, function(res) {
+  display (options) {
+    this.fetch(options, function (res) {
       options.$target.closest('.papi-rules-exists')[res.render ? 'removeClass' : 'addClass']('papi-hide');
     });
   }
@@ -123,7 +122,7 @@ class Rules {
    * @param {object} options
    * @param {function} callback
    */
-  fetch(options, callback) {
+  fetch (options, callback) {
     const params = {
       'action': 'get_rules_result',
       'page_type': this.getPageTypeId(),
@@ -149,7 +148,7 @@ class Rules {
    *
    * @return {string}
    */
-  getPageTypeId() {
+  getPageTypeId () {
     let pageType = Utils.getParameterByName('page_type');
 
     if (!pageType.length) {
@@ -167,8 +166,8 @@ class Rules {
    *
    * @return string
    */
-  getRuleSlug(slug, rule) {
-    const arrReg  = /\[\d+\](\[\w+\])$/;
+  getRuleSlug (slug, rule) {
+    const arrReg = /\[\d+\](\[\w+\])$/;
     const papiReg = /^papi_/;
 
     if (rule.slug.indexOf('.') !== -1) {
@@ -193,7 +192,7 @@ class Rules {
    *
    * @return {string}
    */
-  getSelector(ruleSlug) {
+  getSelector (ruleSlug) {
     return '[name="' + ruleSlug + '[]"], [name="' + ruleSlug + '"], [data-papi-rule="' + ruleSlug + '"]';
   }
 
@@ -204,7 +203,7 @@ class Rules {
    *
    * @return {object}
    */
-  getTarget(slug) {
+  getTarget (slug) {
     let $target = $('[name="' + slug + '"]');
 
     if (!$target.length && slug.substr(-1) !== ']') {
@@ -224,7 +223,7 @@ class Rules {
    *
    * @param {string} slug
    */
-  getValue(slug) {
+  getValue (slug) {
     const selector = this.getSelector(slug);
     let $prop = $('[name="' + slug + '[]"]');
     let val;
@@ -297,9 +296,9 @@ class Rules {
    *
    * @param {object} $this
    */
-  setupRules($this) {
+  setupRules ($this) {
     const rules = $.parseJSON($this.text());
-    let slug    = $this.data('papi-rule-source-slug');
+    let slug = $this.data('papi-rule-source-slug');
 
     for (let key in rules) {
       let rule = rules[key];

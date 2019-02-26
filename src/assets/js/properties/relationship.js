@@ -4,11 +4,10 @@ import $ from 'jquery';
  * Property Relationship.
  */
 class Relationship {
-
   /**
    * Initialize Property Relationship.
    */
-  static init() {
+  static init () {
     new Relationship().binds();
   }
   /**
@@ -16,17 +15,17 @@ class Relationship {
    *
    * @param {object} e
    */
-  add(e) {
+  add (e) {
     e.preventDefault();
 
-    const $this    = $(e.currentTarget);
-    const $li      = $this.clone();
-    const $prop    = $this.closest('.papi-property-relationship');
-    const $right   = $prop.find('.relationship-right');
-    const $list    = $right.find('ul');
+    const $this = $(e.currentTarget);
+    const $li = $this.clone();
+    const $prop = $this.closest('.papi-property-relationship');
+    const $right = $prop.find('.relationship-right');
+    const $list = $right.find('ul');
     const settings = $prop.data().settings;
-    const limit    = settings.limit;
-    const append   = limit === undefined || limit === -1 || $list.find('li').length < limit;
+    const limit = settings.limit;
+    const append = limit === undefined || limit === -1 || $list.find('li').length < limit;
 
     if (append) {
       $li.find('span.icon').removeClass('plus').addClass('minus');
@@ -44,7 +43,7 @@ class Relationship {
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     $('.relationship-right > ul').sortable({
       placeholder: 'ui-state-highlight',
       start: function (e, ui) {
@@ -66,9 +65,9 @@ class Relationship {
    *
    * @param {object} e
    */
-  remove(e) {
-    const $this    = $(e.currentTarget);
-    const $prop    = $this.closest('.papi-property-relationship');
+  remove (e) {
+    const $this = $(e.currentTarget);
+    const $prop = $this.closest('.papi-property-relationship');
     const settings = $prop.data().settings;
 
     if (settings.onlyOnce) {
@@ -87,12 +86,12 @@ class Relationship {
    *
    * @param {object} e
    */
-  search(e) {
+  search (e) {
     e.preventDefault();
 
     const $this = $(e.currentTarget);
     const $list = $this.closest('.papi-property-relationship').find('.relationship-left ul');
-    const val   = $this.val().toLowerCase();
+    const val = $this.val().toLowerCase();
 
     $list.find('li').each(function () {
       let $li = $(this);
@@ -109,7 +108,7 @@ class Relationship {
    *
    * @param {object} $prop
    */
-  triggerRule($prop) {
+  triggerRule ($prop) {
     $prop
       .find('[data-papi-rule]')
       .trigger('change');
@@ -120,10 +119,10 @@ class Relationship {
    *
    * @param {object} e
    */
-  update(e) {
+  update (e) {
     e.preventDefault();
 
-    let $this   = $(e.currentTarget);
+    let $this = $(e.currentTarget);
     const $prop = $this.prev();
 
     $prop.find('.relationship-left [name]').each(function () {
