@@ -31,8 +31,11 @@ class FAQ_Extra2_Page_Type extends FAQ_Extra_Page_Type {
 			papi_property( [
 				'description' => 'FAQ 3',
 				'post_type'   => 'faq',
-				'type'        => 'image',
-				'title'       => 'image'
+				'type'        => 'datetime',
+				'title'       => 'image',
+				'settings' => [
+					'show_time_first' => true
+				]
 			] )
 		] );
 	}
