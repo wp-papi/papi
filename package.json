@@ -27,7 +27,6 @@
     "eslint-plugin-promise": "^3.3",
     "eslint-plugin-standard": "^3.0.1",
     "sass": "^1.17.2",
-    "uglifyjs": "^2.4",
     "watch": "^1.0",
     "webpack": "^3.0"
   },
