@@ -25,6 +25,9 @@ commands:
       - run:
           name: Lint php
           command: make lint:php
+      - run
+          name: System info
+          command: ls /tmp
       - run:
           name: Run PHPUnit
           command: vendor/bin/phpunit --coverage-clover clover.xml
