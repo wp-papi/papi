@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 commands:
   phptest:
@@ -36,50 +36,49 @@ jobs:
   php-56:
     docker:
       - image: php:5.6
+        environment:
+          WP_VERSION: latest
+          WP_MULTISITE: "1"
     steps:
-      - run:
-          name: env
-          command: |
-            echo 'export WP_VERSION=latest' >> $BASH_ENV
-            echo 'export WP_MULTISITE=1' >> $BASH_ENV
       - phptest
   php-70:
     docker:
       - image: php:7.0
+        environment:
+          WP_VERSION: "4.6"
+          WP_MULTISITE: "0"
     steps:
-      - run:
-          name: env
-          command: |
-            echo 'export WP_VERSION=4.6' >> $BASH_ENV
-            echo 'export WP_MULTISITE=0' >> $BASH_ENV
       - phptest
   php-71:
     docker:
       - image: php:7.1
+        environment:
+          WP_VERSION: latest
+          WP_MULTISITE: "0"
     steps:
-      - run:
-          name: env
-          command: |
-            echo 'export WP_VERSION=latest' >> $BASH_ENV
-            echo 'export WP_MULTISITE=0' >> $BASH_ENV
       - phptest
   php-72:
     docker:
       - image: php:7.2
+        environment:
+          WP_VERSION: latest
+          WP_MULTISITE: "1"
     steps:
-      - run:
-          name: env
-          command: |
-            echo 'export WP_VERSION=latest' >> $BASH_ENV
-            echo 'export WP_MULTISITE=1' >> $BASH_ENV
       - phptest
   php-73:
     docker:
       - image: php:7.3
+        environment:
+          WP_VERSION: latest
+          WP_MULTISITE: "0"
     steps:
-      - run:
-          name: env
-          command: |
-            echo 'export WP_VERSION=latest' >> $BASH_ENV
-            echo 'export WP_MULTISITE=0' >> $BASH_ENV
       - phptest
+
+workflows:
+  test:
+    jobs:
+      - php-56
+      - php-70
+      - php-71
+      - php-72
+      - php-73
