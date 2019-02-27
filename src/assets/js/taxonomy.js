@@ -1,18 +1,17 @@
 import $ from 'jquery';
 
 class Taxonomy {
-
   /**
    * Initialize Papi taxonomy class.
    */
-  static init() {
+  static init () {
     new Taxonomy().binds();
   }
 
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     $('#submit').on('click', this.addNewTerm.bind(this));
   }
 
@@ -21,9 +20,9 @@ class Taxonomy {
    *
    * @param {object} e
    */
-  addNewTerm(e) {
-    const $title    = $('#tag-name');
-    const title     = $title.val();
+  addNewTerm (e) {
+    const $title = $('#tag-name');
+    const title = $title.val();
     const $pageType = $('[data-papi-page-type-key="true"]');
 
     if (!$pageType.data('redirect') && !$pageType.find(':selected').data('redirect')) {
@@ -44,9 +43,9 @@ class Taxonomy {
         return;
       }
 
-      const $thelist   = $('#the-list');
+      const $thelist = $('#the-list');
       const $rowTitles = $thelist.find('td.column-name a.row-title');
-      const $rows      = $rowTitles.contents().filter(function () {
+      const $rows = $rowTitles.contents().filter(function () {
         return $(this).text().trim() === title.trim();
       });
 

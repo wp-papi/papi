@@ -6,25 +6,24 @@ import $ from 'jquery';
  * Using Select2.
  */
 class Dropdown {
-
   /**
    * Initialize Property Color.
    */
-  static init() {
+  static init () {
     new Dropdown().binds();
   }
 
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     $(document).on('papi/property/repeater/added', '[data-property="dropdown"]', this.update.bind(this));
   }
 
   /**
    * Update select if isn't a select2.
    */
-  update(e) {
+  update (e) {
     e.preventDefault();
 
     const $select = $(e.currentTarget).parent().find('select');

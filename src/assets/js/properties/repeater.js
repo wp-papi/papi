@@ -7,20 +7,19 @@ import Utils from 'utils';
  * Property Repeater.
  */
 class Repeater {
-
   /**
    * The template to use.
    *
    * @var {function}
    */
-  get template() {
+  get template () {
     return window.wp.template('papi-property-repeater-row');
   }
 
   /**
    * Initialize Property Repeater.
    */
-  static init() {
+  static init () {
     new Repeater().binds();
   }
 
@@ -30,13 +29,13 @@ class Repeater {
    *
    * @param {object} $this
    */
-  add($this) {
+  add ($this) {
     const $repeater = $this.closest('.papi-property-repeater-top');
-    const $tbody    = $repeater.find('.repeater-tbody').first();
-    const counter   = $tbody.children().length;
-    const jsonText  = this.getJSON($this);
-    const limit     = $repeater.data().limit;
-    const append    = limit === undefined || limit === -1 || $tbody.find('> tr').length < limit;
+    const $tbody = $repeater.find('.repeater-tbody').first();
+    const counter = $tbody.children().length;
+    const jsonText = this.getJSON($this);
+    const limit = $repeater.data().limit;
+    const append = limit === undefined || limit === -1 || $tbody.find('> tr').length < limit;
 
     if (!jsonText.length || !append) {
       return;
@@ -57,7 +56,7 @@ class Repeater {
    * @param {int} counter
    * @param {array} items
    */
-  addRow($tbody, counter, res) {
+  addRow ($tbody, counter, res) {
     let columns = [];
 
     for (var i = 0, l = res.html.length; i < l; i++) {
@@ -84,20 +83,20 @@ class Repeater {
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     const self = this;
 
     $('.repeater-tbody').sortable({
       revert: true,
       handle: '.handle',
       helper: function (e, ui) {
-        ui.children().each(function() {
+        ui.children().each(function () {
           $(this).width($(this).width());
         });
         return ui;
       },
       start: function (e, ui) {
-        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) {
+        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function (elem) {
           return elem.id;
         });
         self.deactivateEditors(editorIds);
@@ -106,7 +105,7 @@ class Repeater {
         const $tbody = $(this).closest('.repeater-tbody');
         self.updateRowNumber($tbody);
 
-        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) {
+        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function (elem) {
           return elem.id;
         });
         self.activateEditors(editorIds);
@@ -134,8 +133,8 @@ class Repeater {
    *
    * @param  {array} ids tinyMCE editor ids
    */
-  deactivateEditors(ids) {
-    $.each(ids, function() {
+  deactivateEditors (ids) {
+    $.each(ids, function () {
       const editor = tinymce.get(this);
 
       if (typeof this !== 'string' || !this.length || this[0] !== 'p') {
@@ -165,8 +164,8 @@ class Repeater {
    *
    * @param  {array} ids tinyMCE editor ids
    */
-  activateEditors(ids) {
-    $.each(ids, function() {
+  activateEditors (ids) {
+    $.each(ids, function () {
       if (typeof this !== 'string' || !this.length || this[0] !== 'p') {
         return;
       }
@@ -192,7 +191,7 @@ class Repeater {
    * @param {int} counter
    * @param {function} callback
    */
-  fetch(properties, counter, callback) {
+  fetch (properties, counter, callback) {
     const params = {
       'action': 'get_properties',
       'counter': counter,
@@ -218,7 +217,7 @@ class Repeater {
    *
    * @return {string}
    */
-  getJSON($this) {
+  getJSON ($this) {
     return $('script[data-papi-json="' + $this.data().papiJson + '"]').first().text();
   }
 
@@ -229,7 +228,7 @@ class Repeater {
    *
    * @return {object}
    */
-  getHtml(data) {
+  getHtml (data) {
     let template = this.template;
     template = window._.template($.trim(template()));
     return $(template(data));
@@ -244,7 +243,7 @@ class Repeater {
    *
    * @return {string}
    */
-  replaceArrayNumber(name, j, p) {
+  replaceArrayNumber (name, j, p) {
     name = name.split('[');
 
     if (typeof p === 'undefined') {
@@ -268,7 +267,7 @@ class Repeater {
    *
    * @param {object} e
    */
-  remove($this) {
+  remove ($this) {
     let $tbody = $this.closest('.papi-property-repeater-top');
 
     if (!$tbody.hasClass('papi-property-flexible')) {
@@ -283,7 +282,7 @@ class Repeater {
    *
    * @param {object} $tbody
    */
-  scrollDownTable($tbody) {
+  scrollDownTable ($tbody) {
     const $tr = $('> tr:last', $tbody);
     $('html, body').animate({
       scrollTop: $tr.offset().top - $tr.height()
@@ -295,7 +294,7 @@ class Repeater {
    *
    * @param {object} $this
    */
-  toggle($this) {
+  toggle ($this) {
     $this.closest('tr').toggleClass('closed');
   }
 
@@ -304,7 +303,7 @@ class Repeater {
    *
    * @param {object} $prop
    */
-  triggerRule($tbody, counter) {
+  triggerRule ($tbody, counter) {
     const $top = $tbody.closest('.papi-property-repeater-top');
     const name = $top.find('.bottom').next().attr('name').replace('[]', '');
     $('[data-papi-rule="' + name + '"]').data('papi-rule-value', counter).trigger('change');
@@ -315,7 +314,7 @@ class Repeater {
    *
    * @param {object} $tbody
    */
-  updateRowNumber($tbody) {
+  updateRowNumber ($tbody) {
     let self = this;
 
     $tbody.first().find('> tr').each((i, el) => {
@@ -383,7 +382,7 @@ class Repeater {
    *
    * @param {object} $el
    */
-  updateDatabaseRowNumber($tbody) {
+  updateDatabaseRowNumber ($tbody) {
     let counter = $tbody.find('tr').length;
 
     $tbody

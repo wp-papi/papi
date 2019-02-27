@@ -7,13 +7,12 @@ import select2Options from 'components/select2';
  * Using Select2.
  */
 class Module {
-
   /**
    * The option template to compile.
    *
    * @return {function}
    */
-  get optionTemplate() {
+  get optionTemplate () {
     return window.wp.template('papi-property-module-option');
   }
 
@@ -22,21 +21,21 @@ class Module {
    *
    * @return {function}
    */
-  get optionPlaceholderTemplate() {
+  get optionPlaceholderTemplate () {
     return window.wp.template('papi-property-module-option-placeholder');
   }
 
   /**
    * Initialize Property Module.
    */
-  static init() {
+  static init () {
     new Module().binds();
   }
 
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     $(document).on('papi/property/repeater/added', '[data-property="post"]', this.update.bind(this));
     $(document).on('change', '.papi-property-module-right', this.change.bind(this));
     $(document).on('papi/iframe/submit', this.iframeSubmit.bind(this));
@@ -48,24 +47,24 @@ class Module {
    *
    * @param {object} e
    */
-  change(e) {
+  change (e) {
     e.preventDefault();
 
     const self = this;
     const $this = $(e.currentTarget);
 
     const entryTypeId = $this.find('option:selected').data('entry-type');
-    const params  = {
+    const params = {
       'action': 'get_entry_type',
       'entry_type': entryTypeId
     };
-    const $prop   = $this.closest('.papi-property-module');
+    const $prop = $this.closest('.papi-property-module');
     const $select = $prop.find('.papi-property-module-left');
 
-    $.get(papi.ajaxUrl + '?' + $.param(params), function(entryType) {
+    $.get(papi.ajaxUrl + '?' + $.param(params), function (entryType) {
       $select.empty();
 
-      if ($select.data('placeholder') && posts.length) {
+      if ($select.data('placeholder') && entryType.length) {
         const optionPlaceholderTemplate = self.optionPlaceholderTemplate;
         const template1 = window._.template($.trim(optionPlaceholderTemplate()));
 
@@ -118,7 +117,7 @@ class Module {
    * @param {object} e
    * @param {object} data
    */
-  iframeSubmit(e, data) {
+  iframeSubmit (e, data) {
     if (!data.iframe) {
       return;
     }
@@ -139,7 +138,7 @@ class Module {
 
       $select.append(template({
         id: id,
-        title: title,
+        title: title
       }));
     } else {
       // edit
@@ -157,7 +156,7 @@ class Module {
    *
    * @param {object} e
    */
-  update(e) {
+  update (e) {
     e.preventDefault();
 
     const $select = $(e.currentTarget).parent().find('select');
