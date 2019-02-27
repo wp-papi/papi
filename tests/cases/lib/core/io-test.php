@@ -3,14 +3,15 @@
 class Papi_Lib_Core_IO_Test extends WP_UnitTestCase {
 
 	public function test_register_papi_directory() {
+		$defaults = [get_template_directory() . '/page-types'];
 		$this->assertEmpty( register_papi_directory( null ) );
 		$this->assertEmpty( register_papi_directory( null ) );
 
 		register_papi_directory( 'fake-path' );
-		$this->assertEmpty( papi_filter_settings_directories() );
+		$this->assertEquals( $defaults, papi_filter_settings_directories() );
 
 		register_papi_directory( ['fake-path'] );
-		$this->assertEmpty( papi_filter_settings_directories() );
+		$this->assertEquals( $defaults, papi_filter_settings_directories() );
 
 		register_papi_directory( PAPI_FIXTURE_DIR . '/entry-types' );
 		$this->assertSame( [PAPI_FIXTURE_DIR . '/entry-types'], papi_filter_settings_directories() );
