@@ -28,17 +28,20 @@ class Big_Page_Type extends Papi_Page_Type {
 	 * Define our properties.
 	 */
 	public function register() {
-		$this->box( 'Content', [
-			papi_property( [
-				'type'  => 'string',
-				'title' => 'Book Name',
-				'slug'  => 'book_name',
-			] ),
-			papi_property( [
-				'type'  => 'image',
-				'title' => 'Book Image',
-				'slug'  => 'book_image'
-			] ),
+		$this->box( [
+			'title' =>'Content',
+			'properties' => [
+				papi_property( [
+					'type'  => 'string',
+					'title' => 'Book Name',
+					'slug'  => 'book_name',
+				] ),
+				papi_property( [
+					'type'  => 'image',
+					'title' => 'Book Image',
+					'slug'  => 'book_image'
+				] ),
+			]
 		] );
 	}
 }

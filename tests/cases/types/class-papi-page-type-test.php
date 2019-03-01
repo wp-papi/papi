@@ -348,13 +348,13 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		$_GET['post_type'] = 'page';
 		$current_screen = WP_Screen::get( 'admin_init' );
 		$wp_meta_boxes['page']['normal']['default']['test_meta_box'] = true;
-
 		$this->assertTrue( $wp_meta_boxes['page']['normal']['default']['test_meta_box'] );
 
-		$this->big_page_type->remove_post_type_support();
+		$this->big_page_type->setup();
 		do_action( 'add_meta_boxes' );
 
 		$this->assertFalse( $wp_meta_boxes['page']['normal']['default']['test_meta_box'] );
+		$this->assertArrayHasKey( '_papi_content', $wp_meta_boxes['page']['normal']['default'] );
 	}
 
 	public function test_setup_page_templates() {
