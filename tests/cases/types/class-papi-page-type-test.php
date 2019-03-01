@@ -19,6 +19,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		update_post_meta( $this->post_id, papi_get_page_type_key(), 'empty-page-type' );
 
 		$this->empty_page_type       = new Papi_Page_Type();
+		$this->big_page_type         = papi_get_entry_type_by_id( 'big-page-type' );
 		$this->display_not_page_type = papi_get_entry_type_by_id( 'display-not-page-type' );
 		$this->faq_page_type         = papi_get_entry_type_by_id( 'faq-page-type' );
 		$this->faq_extra_page_type   = papi_get_entry_type_by_id( 'faq-extra-page-type' );
@@ -34,6 +35,7 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		unset(
 			$_GET,
 			$this->post_id,
+			$this->big_page_type,
 			$this->empty_page_type,
 			$this->display_not_page_type,
 			$this->faq_page_type,
@@ -338,6 +340,21 @@ class Papi_Page_Type_Test extends WP_UnitTestCase {
 		do_action( 'add_meta_boxes' );
 
 		$this->assertFalse( $wp_meta_boxes['faq']['normal']['default']['test_meta_box'] );
+	}
+
+	public function test_remove_all_meta_boxes() {
+		global $wp_meta_boxes, $current_screen;
+
+		$_GET['post_type'] = 'page';
+		$current_screen = WP_Screen::get( 'admin_init' );
+		$wp_meta_boxes['page']['normal']['default']['test_meta_box'] = true;
+		$this->assertTrue( $wp_meta_boxes['page']['normal']['default']['test_meta_box'] );
+
+		$this->big_page_type->setup();
+		do_action( 'add_meta_boxes' );
+
+		$this->assertFalse( $wp_meta_boxes['page']['normal']['default']['test_meta_box'] );
+		$this->assertArrayHasKey( '_papi_content', $wp_meta_boxes['page']['normal']['default'] );
 	}
 
 	public function test_setup_page_templates() {

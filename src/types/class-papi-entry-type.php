@@ -125,6 +125,10 @@ class Papi_Entry_Type extends Papi_Core_Type {
 			$properties = call_user_func( $properties );
 		}
 
+		if ( isset( $options['properties'] ) ) {
+			$properties = array_merge( $properties, papi_to_array( $options['properties'] ) );
+		}
+
 		// Check and convert all non properties objects to properties objects.
 		$properties = $this->convert_properties( $properties );
 
