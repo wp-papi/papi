@@ -109,6 +109,12 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 		}
 	}
 
+	// Support `properties` in options array.
+	if ( is_array( $options ) && isset( $options['properties'] ) ) {
+		$properties = papi_to_array( $options['properties'] );
+		unset( $options['properties'] );
+	}
+
 	return [$options, $properties];
 }
 
@@ -223,8 +229,10 @@ function papi_populate_properties( $properties ) {
 		return $property;
 	}, $properties );
 
-	if ( ! isset( $properties[0] ) ) {
+	if ( count( array_filter( array_keys( $properties ), 'is_string' ) ) > 0 ) {
 		$properties = [papi_property( $properties )];
+	} else {
+		$properties = array_values( $properties );
 	}
 
 	// If the first property is a core tab, just return
