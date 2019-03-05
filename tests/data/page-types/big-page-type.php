@@ -29,7 +29,7 @@ class Big_Page_Type extends Papi_Page_Type {
 	 */
 	public function register() {
 		$this->box( [
-			'title' =>'Content',
+			'title'      => 'Content',
 			'properties' => [
 				papi_property( [
 					'type'  => 'string',

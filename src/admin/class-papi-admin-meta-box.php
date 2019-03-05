@@ -30,6 +30,22 @@ final class Papi_Admin_Meta_Box {
 	}
 
 	/**
+	 * Add custom css for hiding boxes with no frame in screen options.
+	 *
+	 * @return string
+	 */
+	public function admin_head() {
+		if ( ! $this->box->frame ) {
+			echo sprintf(
+				'<style type="text/css">label[for="%s-hide"],#%s>h2,#%s>button{display:none !important}</style>',
+				esc_attr( $this->box->id ),
+				esc_attr( $this->box->id ),
+				esc_attr( $this->box->id )
+			);
+		}
+	}
+
+	/**
 	 * Add css classes to meta box.
 	 *
 	 * @param  array $classes
@@ -137,6 +153,8 @@ final class Papi_Admin_Meta_Box {
 			),
 			[$this, 'meta_box_css_classes']
 		);
+
+		add_action( 'admin_head', [$this, 'admin_head'] );
 	}
 
 	/**

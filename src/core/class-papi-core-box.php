@@ -24,6 +24,13 @@ class Papi_Core_Box {
 	public $display = true;
 
 	/**
+	 * Display box with frame.
+	 *
+	 * @var bool
+	 */
+	public $frame = true;
+
+	/**
 	 * The core type identifier.
 	 *
 	 * @var string
