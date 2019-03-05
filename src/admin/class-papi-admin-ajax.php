@@ -115,7 +115,7 @@ class Papi_Admin_Ajax {
 		$fields = papi_get_qs( 'fields' ) ?: [];
 		$fields = is_array( $fields ) ? $fields : [];
 		$posts  = ( new WP_Query( array_merge( [
-			'posts_per_page'         => 1,
+			'posts_per_page'         => -1,
 			'post_type'              => ['post'],
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
