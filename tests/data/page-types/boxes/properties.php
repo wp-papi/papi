@@ -401,6 +401,17 @@ return [
 		]
 	] ),
 
+	// Sidebar
+	papi_property( [
+		'type'     => 'sidebar',
+		'title'    => 'Sidebar test',
+		'slug'     => 'sidebar_test',
+		'settings' => [
+			'placeholder' => 'Select sidebar',
+			'render'      => false
+		]
+	] ),
+
 	// String
 	papi_property( [
 		'type'  => 'string',
