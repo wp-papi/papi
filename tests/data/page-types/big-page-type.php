@@ -12,6 +12,7 @@ class Big_Page_Type extends Papi_Page_Type {
 			'name'        => 'Big page',
 			'description' => 'This is a big page',
 			'template'    => 'pages/big-page.php',
+			'thumbnail'   => PAPI_PLUGIN_URL . '../tests/data/img/logo.png',
 		];
 	}
 
