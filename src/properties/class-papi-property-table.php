@@ -24,7 +24,7 @@ class Papi_Property_Table extends Papi_Property {
 			$html .= '<thead>';
 
 			foreach ( $arr[0] as $key => $value ) {
-				$html .= sprintf( '<th>%s</th>', $key );
+				$html .= sprintf( '<th>%s</th>', esc_html( $key ) );
 			}
 
 			$html .= '</thead>';
@@ -38,7 +38,7 @@ class Papi_Property_Table extends Papi_Property {
 					$value2 = $this->build_table( $value2, true );
 				}
 
-				$html .= sprintf( '<td>%s</td>', papi_convert_to_string( $value2 ) );
+				$html .= sprintf( '<td>%s</td>', esc_html( papi_convert_to_string( $value2 ) ) );
 			}
 
 			$html .= '</tr>';
@@ -67,6 +67,6 @@ class Papi_Property_Table extends Papi_Property {
 			$data[$key] = [$key, $value];
 		}
 
-		echo $this->build_table( $data );
+		echo $this->build_table( $data ); // wpcs: xss ok
 	}
 }
