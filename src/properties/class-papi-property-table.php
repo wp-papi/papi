@@ -38,13 +38,30 @@ class Papi_Property_Table extends Papi_Property {
 					$value2 = $this->build_table( $value2, true );
 				}
 
-				$html .= sprintf( '<td>%s</td>', esc_html( papi_convert_to_string( $value2 ) ) );
+				$value2 = papi_convert_to_string( $value2 );
+
+				if ( ! $this->get_setting( 'allow_html' ) ) {
+					$value2 = esc_html( $value2 );
+				}
+
+				$html .= sprintf( '<td>%s</td>', $value2 );
 			}
 
 			$html .= '</tr>';
 		}
 
 		return $html . '</table></div>';
+	}
+
+	/**
+	 * Get default settings.
+	 *
+	 * @return array
+	 */
+	public function get_default_settings() {
+		return [
+			'allow_html'  => false,
+		];
 	}
 
 	/**
