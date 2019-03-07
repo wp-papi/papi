@@ -19,12 +19,17 @@ class Papi_Property_Table extends Papi_Property {
 	 */
 	protected function build_table( array $arr, $child = false ) {
 		$html = '<div class="papi-property-table"><table class="papi-table">';
+		$allow_html = $this->get_setting( 'allow_html' );
 
 		if ( $child ) {
 			$html .= '<thead>';
 
 			foreach ( $arr[0] as $key => $value ) {
-				$html .= sprintf( '<th>%s</th>', esc_html( $key ) );
+				if ( $allow_html ) {
+					$key = html_entity_decode( $key );
+				}
+
+				$html .= sprintf( '<th>%s</th>', $key );
 			}
 
 			$html .= '</thead>';
@@ -40,8 +45,8 @@ class Papi_Property_Table extends Papi_Property {
 
 				$value2 = papi_convert_to_string( $value2 );
 
-				if ( ! $this->get_setting( 'allow_html' ) ) {
-					$value2 = esc_html( $value2 );
+				if ( $allow_html ) {
+					$value2 = html_entity_decode( $value2 );
 				}
 
 				$html .= sprintf( '<td>%s</td>', $value2 );
@@ -61,6 +66,7 @@ class Papi_Property_Table extends Papi_Property {
 	public function get_default_settings() {
 		return [
 			'allow_html'  => false,
+			'items'       => [],
 		];
 	}
 
