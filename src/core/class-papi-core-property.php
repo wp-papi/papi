@@ -42,6 +42,7 @@ class Papi_Core_Property implements JsonSerializable {
 		'overwrite'     => false,
 		'post_type'     => '',
 		'raw'           => false,
+		'render'        => null,
 		'required'      => false,
 		'rules'         => [],
 		'settings'      => [],
@@ -214,6 +215,8 @@ class Papi_Core_Property implements JsonSerializable {
 	 * @return null|object
 	 */
 	public static function factory() {
+		global $wp_filter;
+
 		if ( count( func_get_args() ) === 0 ) {
 			return new static;
 		} else {
@@ -258,6 +261,10 @@ class Papi_Core_Property implements JsonSerializable {
 		}
 
 		$class_name = papi_get_property_class_name( $type );
+
+		if ( isset( $wp_filter['papi/property/' . $type] ) ) {
+			$class_name = 'Papi_Property_Pure';
+		}
 
 		if ( ! class_exists( $class_name ) || ! is_subclass_of( $class_name, __CLASS__ ) ) {
 			return;
