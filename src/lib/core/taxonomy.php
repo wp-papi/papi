@@ -43,7 +43,7 @@ function papi_get_taxonomy( $term_id = null ) {
 
 	$term_id = papi_get_term_id( $term_id );
 
-	if ( $term_id !== 0 ) {
+	if ( ! empty( $term_id ) ) {
 		$term = get_term( $term_id, '' );
 
 		if ( is_object( $term ) && ! is_wp_error( $term ) ) {
@@ -69,13 +69,4 @@ function papi_get_taxonomy_label( $taxonomy, $label, $default = '' ) {
 	}
 
 	return get_taxonomy( $taxonomy )->labels->$label;
-}
-
-/**
- * Determine if Papi can support term meta.
- *
- * @return bool
- */
-function papi_supports_term_meta() {
-	return function_exists( 'get_term_meta' );
 }

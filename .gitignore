@@ -2,14 +2,10 @@
 node_modules
 test.php
 tmp/
-*.bak
-.vagrant
 build/
 coverage/
-coverage2/
 vendor
 composer.lock
 components.js
-webpack.js*
 style.css
 main.js

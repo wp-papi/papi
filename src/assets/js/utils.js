@@ -3,11 +3,10 @@ import $ from 'jquery';
 const wp = window.wp;
 
 class Utils {
-
   /**
    * Initialize Papi core class.
    */
-  static init() {
+  static init () {
     new Utils().binds();
   }
 
@@ -16,7 +15,7 @@ class Utils {
    *
    * @return {string}
    */
-  static getMetaType() {
+  static getMetaType () {
     const $body = $('body');
 
     if ($body.hasClass('papi-meta-type-term')) {
@@ -37,7 +36,7 @@ class Utils {
    *
    * @return {string}
    */
-  static getMetaTypeKey() {
+  static getMetaTypeKey () {
     switch (Utils.getMetaType()) {
       case 'post':
         return 'post_type';
@@ -53,7 +52,7 @@ class Utils {
    *
    * @return {string}
    */
-  static getMetaTypeValue() {
+  static getMetaTypeValue () {
     switch (Utils.getMetaType()) {
       case 'post':
         const value = Utils.getParameterByName('post_type');
@@ -77,8 +76,8 @@ class Utils {
    *
    * @return {mixed}
    */
-  static getParameterByName(name) {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+  static getParameterByName (name) {
+    name = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
     const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
     const results = regex.exec(window.location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
@@ -89,7 +88,7 @@ class Utils {
    *
    * @param {object} options
    */
-  static wpMediaEditor(options) {
+  static wpMediaEditor (options) {
     if (Utils.wpMediaFrame !== undefined) {
       Utils.wpMediaFrame.dispose();
     }
@@ -114,7 +113,7 @@ class Utils {
    *
    * @return {object}
    */
-  static get wpMediaFrame() {
+  static get wpMediaFrame () {
     return this._wpMediaFrame;
   }
 
@@ -123,7 +122,7 @@ class Utils {
    *
    * @param {object} obj
    */
-  static set wpMediaFrame(obj) {
+  static set wpMediaFrame (obj) {
     this._wpMediaFrame = obj;
   }
 }

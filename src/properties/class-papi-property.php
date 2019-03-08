@@ -43,31 +43,49 @@ class Papi_Property extends Papi_Core_Property {
 	}
 
 	/**
-	 * Render the property.
+	 * Determine if the property can be rendered or not.
+	 *
+	 * @return bool
 	 */
-	public function render() {
+	public function can_render() {
 		// Check if current user can view the property.
 		if ( ! $this->current_user_can() ) {
-			return;
+			return false;
 		}
 
 		// A disabled property should not be rendered.
 		if ( $this->disabled() ) {
+			return false;
+		}
+
+		// Check language option, so we don't render properties on a different language.
+		if ( $lang = $this->get_option( 'lang' ) ) {
+			// Support array of langs.
+			$lang = is_array( $lang ) ? $lang : [$lang];
+
+			// Only render if it's the right language if it exist.
+			return in_array( papi_get_lang(), $lang, true );
+		}
+
+		// If no valid lang query string exists we have to override the display property.
+		return $this->get_option( 'lang' ) === false;
+	}
+
+	/**
+	 * Render the property.
+	 */
+	public function render() {
+		// Bail if we can't render the property.
+		if ( ! $this->can_render() ) {
 			return;
 		}
 
-		// Only render if it's the right language if the definition exist.
-		if ( $this->get_option( 'lang' ) === strtolower( papi_get_qs( 'lang' ) ) ) {
-			$this->display = true;
-		} else {
-			$this->display = $this->get_option( 'lang' ) === false && papi_is_empty( papi_get_qs( 'lang' ) );
-		}
-
-		// Check rules.
+		// Override display with rules check.
 		if ( $this->display() ) {
 			$this->display = $this->render_is_allowed_by_rules();
 		}
 
+		// Render property.
 		$this->render_row_html();
 		$this->render_hidden_html();
 		$this->render_rules_json();
@@ -167,7 +185,7 @@ class Papi_Property extends Papi_Core_Property {
 			echo '</div>';
 		} else {
 			?>
-			<tr class="<?php echo $css_class; ?>">
+			<tr class="<?php echo esc_attr( $css_class ); ?>">
 				<?php if ( $this->get_option( 'sidebar' ) && $this->get_option( 'layout' ) === 'horizontal' ): ?>
 					<td class="papi-table-sidebar">
 						<?php

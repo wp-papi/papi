@@ -117,6 +117,9 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					continue;
 				}
 
+				// Set parent property.
+				$property_type->set_parent_property( $this );
+
 				// Get property child slug.
 				$child_slug = $this->get_child_slug( $repeater_slug, $slug );
 
@@ -154,6 +157,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 				}
 
 				$values[$index][$property_type_slug] = $property_type_value;
+
+				if ( papi_is_empty( $values[$index][$slug] ) ) {
+					$values[$index][$slug] = $property_type_value->get_option( 'default', $property_type_value->default_value );
+				}
 			}
 		}
 
@@ -166,10 +173,6 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 					}
 
 					if ( papi_is_property_type_key( $slug ) ) {
-						unset( $values[$index][$slug] );
-					}
-
-					if ( papi_is_empty( $value ) ) {
 						unset( $values[$index][$slug] );
 					}
 				}
@@ -199,9 +202,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	 * @return string
 	 */
 	protected function get_json_id( $key, $extra = '' ) {
-		return $this->get_slug() . '_' . papi_slugify( $key ) . (
-		empty( $extra ) ? '' : '_' . $extra
-		);
+		return $this->get_slug() . '_' . papi_slugify( $key ) . ( empty( $extra ) ? '' : '_' . $extra );
 	}
 
 	/**
@@ -423,6 +424,69 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 		}
 
 		return $this->load_child_properties( $results, $this );
+	}
+
+	/**
+	 * Load child properties.
+	 *
+	 * @param  array              $results
+	 * @param  Papi_Core_Property $property
+	 *
+	 * @return array
+	 */
+	protected function load_child_properties( array $results, $property = null ) {
+		$layout_key = substr( $this->layout_key, 1 );
+
+		foreach ( $results as $index => $row ) {
+			foreach ( $row as $slug => $value ) {
+				$children = [];
+
+				if ( $layout_key === $slug ) {
+					continue;
+				}
+
+				if ( isset( $results[$index][$layout_key] ) ) {
+					$layout = $results[$index][$layout_key];
+					$layout = $this->get_layout( $layout );
+
+					if ( ! empty( $layout ) && isset( $layout['items'] ) ) {
+						$children = $layout['items'];
+					}
+				}
+
+				$child_property = null;
+
+				foreach ( $children as $child ) {
+					if ( $child->match_slug( $slug ) ) {
+						$child_property = $child;
+					}
+				}
+
+				if ( empty( $child_property ) ) {
+					$child_property = $this->get_store()->get_property( $this->get_slug( true ), $slug );
+				}
+
+				if ( is_array( $value ) && papi_is_property( $child_property ) && ! empty( $child_property->get_child_properties() ) ) {
+					$new_value = papi_from_property_array_slugs( $value, unpapify( $slug ) );
+
+					if ( empty( $new_value ) ) {
+						$results[$index][$slug] = $value;
+					} else {
+						$results[$index][$slug] = $this->load_child_properties( $new_value, $child_property );
+					}
+				}
+
+				$type_key = papi_get_property_type_key_f( $slug );
+
+				if ( $property->match_slug( $slug ) ) {
+					$results[$index][$type_key] = $property;
+				} else {
+					$results[$index][$type_key] = $property->get_child_property( $slug, $children );
+				}
+			}
+		}
+
+		return $results;
 	}
 
 	/**
@@ -672,7 +736,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 
 			<div class="bottom">
 				<div class="flexible-layouts-btn-wrap">
-					<div class="flexible-layouts papi-hide">
+					<div class="flexible-layouts flexible-layouts-hidden">
 						<div class="flexible-layouts-arrow"></div>
 						<ul>
 							<?php

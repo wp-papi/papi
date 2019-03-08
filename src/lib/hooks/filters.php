@@ -65,6 +65,10 @@ function papi_filter_load_value( $type, $value, $slug, $id, $meta_type = 'post' 
 function papi_filter_settings_directories() {
 	$directories = apply_filters( 'papi/settings/directories', [] );
 
+	if ( empty( $directories ) ) {
+		$directories = get_template_directory() . '/page-types';
+	}
+
 	if ( is_string( $directories ) ) {
 		return [$directories];
 	}

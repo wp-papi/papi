@@ -63,7 +63,7 @@ function papi_load_taxonomy_type_id( $entry_type_id = '', $type = 'term' ) {
 	}
 
 	// If we have a term id we can load the entry type id from the term.
-	if ( empty( $entry_type_id ) && $term_id > 0 && papi_supports_term_meta() ) {
+	if ( empty( $entry_type_id ) && $term_id > 0 ) {
 		$meta_value    = get_term_meta( $term_id, $key, true );
 		$entry_type_id = empty( $meta_value ) ? '' : $meta_value;
 	}
@@ -75,7 +75,7 @@ function papi_load_taxonomy_type_id( $entry_type_id = '', $type = 'term' ) {
 	if ( empty( $entry_type_id ) ) {
 		$key = sprintf( 'entry_type_id.taxonomy.%s', $taxonomy );
 
-		if ( papi()->exists( $key )  ) {
+		if ( papi()->exists( $key ) ) {
 			return papi()->make( $key );
 		}
 

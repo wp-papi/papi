@@ -5,14 +5,34 @@
  */
 class Papi_Property_File_Test extends Papi_Property_Test_Case {
 
-	public $slug = 'file_test';
+	public $slugs = ['file_test', 'file_test_3'];
 
 	public function get_value() {
-		return 23;
+		$args = func_get_args();
+		$args[0] = isset( $args[0] ) ? $args[0] : $this->slugs[0];
+		switch ( $args[0] ) {
+			default:
+				return 23;
+		}
 	}
 
 	public function get_expected() {
-		return 23;
+		$args = func_get_args();
+		$args[0] = isset( $args[0] ) ? $args[0] : $this->slugs[0];
+		switch ( $args[0] ) {
+			default:
+				return 23;
+		}
+	}
+
+	public function assert_values( $expected, $actual, $slug ) {
+		switch ( $slug ) {
+			case 'file_test_3';
+				break; // fail ok since we don't save a custom id.
+			default:
+				$this->assertSame( $expected, $actual );
+				break;
+		}
 	}
 
 	public function test_property_convert_type() {
@@ -34,36 +54,11 @@ class Papi_Property_File_Test extends Papi_Property_Test_Case {
 		$this->assertNull( $this->property->format_value( null, '', 0 ) );
 	}
 
-	public function test_property_import_value() {
-		$post_id  = $this->factory->post->create( ['post_type' => 'attachment'] );
-		$post_id2 = $this->factory->post->create( ['post_type' => 'attachment'] );
-
-		$this->assertNull( $this->property->import_value( $this->get_value(), '', 0 ) );
-		$this->assertSame( $post_id, $this->property->import_value( (object) ['id' => $post_id], '', 0 ) );
-		$this->assertSame( $post_id, $this->property->import_value( $post_id, '', 0 ) );
-
-		$property = $this->entry_type->get_property( 'file_test_2' );
-
-		$value = [
-			(object) ['id' => $post_id],
-			(object) ['id' => $post_id2]
-		];
-		$this->assertSame( [$post_id, $post_id2], $property->import_value( $value, '', 0 ) );
-
-		$value = [$post_id, $post_id2];
-		$this->assertSame( [$post_id, $post_id2], $property->import_value( $value, '', 0 ) );
-	}
-
-	public function test_property_import_value_wrong_values() {
-		$this->assertEmpty( $this->property->import_value( true, '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( false, '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( null, '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( true, '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( new stdClass, '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( [true], '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( [false], '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( [null], '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( [new stdClass], '', 0 ) );
+	public function test_property_format_value_meta_key() {
+		$post_id = $this->factory->post->create( ['post_type' => 'attachment'] );
+		$this->assertSame( 0, intval( $this->properties[1]->format_value( 0, '', 0 ) ) );
+		update_post_meta( $post_id, 'custom_id', 1 );
+		$this->assertNotSame( 1, intval( $this->properties[1]->format_value( 1, '', 0 ) ) );
 	}
 
 	public function test_property_options() {

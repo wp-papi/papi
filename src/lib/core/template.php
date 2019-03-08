@@ -30,15 +30,15 @@ function papi_get_template_file_name( $template ) {
 		return;
 	}
 
-	$extension = '.php';
-	$ext_reg   = '/(' . $extension . ')+$/';
-
-	if ( preg_match( '/\.\w+$/', $template, $matches ) && preg_match( $ext_reg, $matches[0] ) ) {
-		return str_replace( '.', '/', preg_replace( '/' . $matches[0] . '$/', '', $template ) ) . $matches[0];
-	}
-
-	$template = str_replace( '.', '/', $template );
-	$template = substr( $template, -strlen( $extension ) ) === $extension ? $template : $template . $extension;
+	/**
+	 * Filter default extension.
+	 *
+	 * @param  string $extension
+	 *
+	 * @return string
+	 */
+	$extension = apply_filters( 'papi/template_extension', '.php' );
+	$template  = substr( $template, -strlen( $extension ) ) === $extension ? $template : $template . $extension;
 
 	return $template === $extension ? null : $template;
 }
@@ -118,6 +118,19 @@ function papi_template_include( $original_template ) {
 	// Check so we only change template on single and page posts.
 	if ( ! is_single() && ! is_page() && ! is_tag() ) {
 		return $original_template;
+	}
+
+	/**
+	 * Modify which template is included before Papi looks for the right template.
+	 *
+	 * @param  string $original_template
+	 *
+	 * @return string
+	 */
+	$template = apply_filters( 'papi/pre_template_include', $original_template );
+
+	if ( ! empty( $template ) && $original_template !== $template ) {
+		return $template;
 	}
 
 	// Determine which id to use.

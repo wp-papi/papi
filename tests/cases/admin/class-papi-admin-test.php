@@ -5,10 +5,22 @@
  */
 class Papi_Admin_Test extends WP_UnitTestCase {
 
+	/**
+	 * @var Papi_Admin
+	 */
+	protected $admin;
+
+	/**
+	 * @var int
+	 */
+	protected $post_id;
+
 	public function setUp() {
 		parent::setUp();
 		$this->admin = new Papi_Admin;
-		$this->post_id = $this->factory->post->create();
+		$this->post_id = $this->factory->post->create( [
+			'post_type' => 'page'
+		] );
 
 		add_filter( 'papi/settings/directories', function () {
 			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
@@ -17,7 +29,7 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 
 	public function tearDown() {
 		parent::tearDown();
-		unset( $this->admin, $this->post_id );
+		unset( $this->admin, $this->post_id, $_GET );
 	}
 
 	public function register_template_paths( $new_templates ) {
@@ -36,8 +48,13 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 	}
 
 	public function test_admin_body_class() {
+		papi()->reset();
+		$_GET['post'] = $this->factory->post->create();
+		$_GET['post_type'] = 'page';
+		$_GET['page'] = 'papi/page/simple-page-type';
+
 		$classes = $this->admin->admin_body_class( '' );
-		$this->assertSame( ' papi-meta-type-post', $classes );
+		$this->assertTrue( (bool) preg_match( '/\spapi\-body papi\-meta\-type\-post/', $classes ) );
 	}
 
 	public function test_admin_body_class_with_entry_type_body_classes() {
@@ -76,7 +93,8 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$output = $this->admin->plugin_row_meta( [], 'fake/fake.php' );
 		$this->assertEmpty( $output );
 
-		$output = $this->admin->plugin_row_meta( [], 'papi/papi-loader.php' );
+		$testroot = basename( dirname( PAPI_PLUGIN_DIR ) );
+		$output = $this->admin->plugin_row_meta( [], $testroot . '/papi-loader.php' );
 		$this->assertArrayHasKey( 'docs', $output );
 	}
 
@@ -109,30 +127,16 @@ class Papi_Admin_Test extends WP_UnitTestCase {
 		$current_screen = null;
 	}
 
-/*
-	public function test_setup_papi() {
+	public function test_update_front_page() {
 		$admin = new Papi_Admin;
-		$this->assertFalse( $admin->setup_papi() );
-		$_GET['post_type'] = 'revision';
-		$admin = new Papi_Admin;
-		$this->assertFalse( $admin->setup_papi() );
-		$_GET['post_type'] = 'nav_menu_item';
-		$admin = new Papi_Admin;
-		$this->assertFalse( $admin->setup_papi() );
 
-		$_GET['post'] = $this->factory->post->create();
-		$_GET['post_type'] = 'page';
-		$_GET['page'] = 'papi/page/simple-page-type';
-		$admin = new Papi_Admin;
-		$this->assertTrue( $admin->setup_papi() );
+		papi_set_page_type_id( $this->post_id, 'book-page-type' );
 
-		unset( $_GET['page'] );
+		$admin->update_front_page( $this->post_id, 'page_on_front' );
 
-		$_GET['post_type'] = 'attachment';
-		$admin = new Papi_Admin;
-		$this->assertTrue( $admin->setup_papi() );
+		$this->assertSame( 'front-page-type', papi_get_page_type_id( $this->post_id ) );
 	}
-*/
+
 	public function test_wp_link_query() {
 		$admin = new Papi_Admin;
 		$post  = [

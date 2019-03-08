@@ -1,3 +1,6 @@
+@import "components/pikaday";
+@import "components/select2";
+
 @import "modules/utils";
 @import "modules/admin";
 @import "modules/attachment";
@@ -22,6 +25,8 @@
 @import "properties/repeater";
 @import "properties/relationship";
 @import "properties/reference";
+@import "properties/table";
 @import "properties/term";
 @import "properties/text";
 @import "properties/url";
+

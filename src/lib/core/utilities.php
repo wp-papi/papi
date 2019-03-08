@@ -172,7 +172,15 @@ function papi_f( $str = '', $len = 1 ) {
  * @return string
  */
 function papi_get_class_name( $file ) {
-	if ( ! is_string( $file ) || ! file_exists( $file ) ) {
+	if ( ! is_string( $file ) ) {
+		return '';
+	}
+
+	if ( papi()->exists( $file ) ) {
+		return papi()->make( $file );
+	}
+
+	if ( ! file_exists( $file ) ) {
 		return '';
 	}
 
@@ -203,15 +211,37 @@ function papi_get_class_name( $file ) {
 		}
 	}
 
+	$val = $namespace_name . '\\' . $class_name;
+
 	if ( empty( $class_name ) ) {
-		return '';
+		$val = '';
 	}
 
 	if ( empty( $namespace_name ) ) {
-		return $class_name;
+		$val = $class_name;
 	}
 
-	return $namespace_name . '\\' . $class_name;
+	papi()->bind( $file, $val );
+
+	return $val;
+}
+
+/**
+ * Get language slug from query string.
+ *
+ * @return string
+ */
+function papi_get_lang() {
+	$lang = strtolower( papi_get_qs( 'lang' ) );
+
+	/**
+	 * Modify language slug.
+	 *
+	 * @param  string $lang
+	 *
+	 * @return string
+	 */
+	return apply_filters( 'papi/lang', $lang );
 }
 
 /**
@@ -655,22 +685,20 @@ function papi_slugify( $str, $replace = [], $delimiter = '-' ) {
 		return '';
 	}
 
-	$old_locale = setlocale( LC_ALL, '0' );
-
-	setlocale( LC_ALL, 'en_US.UTF8' );
-
 	if ( ! empty( $replace ) ) {
 		$str = str_replace( (array) $replace, ' ', $str );
 	}
 
-	$clean = iconv( 'UTF-8', 'ASCII//TRANSLIT', $str );
-	$clean = preg_replace( '/[^a-zA-Z0-9\/_|+ -]/', '', $clean );
-	$clean = strtolower( trim( $clean, '-' ) );
-	$clean = preg_replace( '/[\/_|+ -]+/', $delimiter, $clean );
+	$search   = ['/[^a-zA-Z0-9 \.\&\/_-]+/', '/[ \.\&\/-]+/'];
+	$replace  = ['', $delimiter];
 
-	setlocale( LC_ALL, $old_locale );
+	$str = html_entity_decode( $str, ENT_QUOTES, 'UTF-8' );
+	$str = remove_accents( $str );
+	$str = preg_replace( $search, $replace, $str );
+	$str = trim( $str, $delimiter );
+	$str = strtolower( $str );
 
-	return trim( $clean );
+	return $str;
 }
 
 /**

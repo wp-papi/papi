@@ -5,11 +5,10 @@ import Utils from 'utils';
  * Property Url.
  */
 class Url {
-
   /**
    * Initialize Property Url.
    */
-  static init() {
+  static init () {
     new Url().binds();
   }
 
@@ -18,7 +17,7 @@ class Url {
    *
    * @param {object} e
    */
-  add(e) {
+  add (e) {
     e.preventDefault();
 
     const $this = $(e.currentTarget);
@@ -31,7 +30,7 @@ class Url {
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     $(document).on('click', '.papi-url-media-button', this.add.bind(this));
   }
 }

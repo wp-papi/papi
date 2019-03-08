@@ -20,6 +20,13 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 			return [];
 		}
 
+		// Fixes issue when flexible and repeater are used with group property
+		// cache since we use repeaters format value function that cache values.
+		// At this point the value array don't know about the parent structure.
+		if ( $this->get_parent_property() instanceof Papi_Property_Repeater ) {
+			$this->cache = false;
+		}
+
 		$value = parent::format_value( $value, $slug, $post_id );
 
 		return array_shift( $value );
@@ -48,7 +55,7 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 			return [];
 		}
 
-		return array_filter( papi_to_array( $settings->items ), 'papi_is_property' );
+		return array_filter( array_map( 'papi_property', papi_to_array( $settings->items ) ), 'papi_is_property' );
 	}
 
 	/**
@@ -63,7 +70,7 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 			echo '<br />';
 		}
 
-		echo '<div class="papi-property-group">';
+		echo '<div class="papi-property-group" data-papi-rule="' . esc_html( $this->html_name() ) . '">';
 			papi_render_properties( $properties );
 		echo '</div>';
 	}
@@ -90,11 +97,28 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 				$render_property->value = null;
 			}
 
-			$render_property->slug = $this->html_name( $property, $this->counter );
+			$render_property->slug = $this->html_name( $property );
 
 			$result[] = $render_property;
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Update value before it's saved to the database.
+	 *
+	 * @param mixed  $values
+	 * @param string $slug
+	 * @param int    $post_id
+	 *
+	 * @return array
+	 */
+	public function update_value( $values, $slug, $post_id ) {
+		if ( ! isset( $values[0] ) && ! empty( $values ) ) {
+			$values = [$values];
+		}
+
+		return parent::update_value( $values, $slug, $post_id );
 	}
 }

@@ -1,13 +1,7 @@
 all: css js
 
 css:
-	node_modules/.bin/node-sass -o dist/css/ --source-map dist/css/style.css.map src/assets/scss/style.scss > dist/css/style.css
-	node_modules/.bin/autoprefixer-cli -b "last 2 version" dist/css/style.css dist/css/style.css
-	cat src/assets/css/components/*.css dist/css/style.css > dist/css/style.min.css
-	node_modules/.bin/csso dist/css/style.min.css dist/css/style.min.css
-	echo "\n/*# sourceMappingURL=style.min.css.map */" >> dist/css/style.min.css
-	mv dist/css/style.css.map dist/css/style.min.css.map
-	rm dist/css/style.css
+	npm run css
 
 deps:
 	composer install
@@ -15,14 +9,14 @@ deps:
 	yarn
 
 js:
-	node_modules/.bin/webpack
+	npm run js
 
 lint:
 	make lint:js
 	make lint:php
 
 lint\:js:
-	node_modules/.bin/eslint src/assets/js/*.js src/assets/js/properties/*.js
+	npm run lint
 
 lint\:php:
 	vendor/bin/phpcs -s --extensions=php --standard=phpcs.xml src/
@@ -31,10 +25,10 @@ pot:
 	wp-pot --src 'src/**/*.php' --dest-file languages/papi.pot --package papi
 
 watch:
-	node_modules/.bin/parallelshell "make watch:css" "make watch:js"
+	npm run watch
 
 watch\:css:
-	node_modules/.bin/watch 'make css' src/assets/scss
+	npm run css
 
 watch\:js:
-	node_modules/.bin/watch 'make js' src/assets/js
+	npm run js

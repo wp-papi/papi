@@ -41,6 +41,7 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 	 */
 	public function get_default_settings() {
 		return [
+			'allow_clear'  => true,
 			'capabilities' => [],
 			'placeholder'  => '',
 			'select2'      => true
@@ -83,25 +84,6 @@ class Papi_Property_User extends Papi_Property_Dropdown {
 		ksort( $items );
 
 		return $items;
-	}
-
-	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return int|null
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( $value instanceof WP_User ) {
-			$value = $value->ID;
-		}
-
-		if ( is_numeric( $value ) ) {
-			return (int) $value;
-		}
 	}
 
 	/**

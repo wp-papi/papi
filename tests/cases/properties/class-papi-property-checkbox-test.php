@@ -37,16 +37,6 @@ class Papi_Property_Checkbox_Test extends Papi_Property_Test_Case {
 		$this->assertEmpty( $this->property->format_value( null, '', 0 ) );
 	}
 
-	public function test_property_import_value() {
-		$this->assertSame( ['hello'], $this->property->import_value( 'hello', '', 0 ) );
-		$this->assertSame( ['hello'], $this->property->import_value( ['hello'], '', 0 ) );
-		$this->assertNull( $this->property->import_value( null, '', 0 ) );
-		$this->assertNull( $this->property->import_value( true, '', 0 ) );
-		$this->assertNull( $this->property->import_value( false, '', 0 ) );
-		$this->assertNull( $this->property->import_value( (object) [], '', 0 ) );
-		$this->assertNull( $this->property->import_value( 1, '', 0 ) );
-	}
-
 	public function test_property_options() {
 		$this->assertSame( 'checkbox', $this->property->get_option( 'type' ) );
 		$this->assertSame( 'Checkbox test', $this->property->get_option( 'title' ) );

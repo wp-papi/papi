@@ -21,12 +21,6 @@ class Papi_Property_Color_Test extends Papi_Property_Test_Case {
 		$this->assertEmpty( $this->property->format_value( null, '', 0 ) );
 	}
 
-	public function test_property_import_value() {
-		$this->assertSame( '#000000', $this->property->import_value( '#000000', '', 0 ) );
-		$this->assertSame( '#ffffff', $this->property->import_value( '#ffffff', '', 0 ) );
-		$this->assertEmpty( $this->property->import_value( null, '', 0 ) );
-	}
-
 	public function test_property_options() {
 		$this->assertSame( 'color', $this->property->get_option( 'type' ) );
 		$this->assertSame( 'Color test', $this->property->get_option( 'title' ) );

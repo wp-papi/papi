@@ -16,6 +16,12 @@ class Papi_Admin_Entry_Post_Test extends WP_UnitTestCase {
 		} );
 	}
 
+	public function tearDown() {
+		parent::tearDown();
+
+		unset( $_GET );
+	}
+
 	public function test_hidden_meta_boxes() {
 		$_GET['post_type'] = 'page';
 		$admin = new Papi_Admin_Entry_Post;

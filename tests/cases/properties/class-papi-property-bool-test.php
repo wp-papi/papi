@@ -33,16 +33,6 @@ class Papi_Property_Bool_Test extends Papi_Property_Test_Case {
 		$this->assertTrue( $this->property->format_value( true, '', 0 ) );
 	}
 
-	public function test_property_import_value() {
-		$this->assertFalse( $this->property->import_value( 'false', '', 0 ) );
-		$this->assertFalse( $this->property->import_value( '', '', 0 ) );
-		$this->assertFalse( $this->property->import_value( null, '', 0 ) );
-		$this->assertFalse( $this->property->import_value( (object) [], '', 0 ) );
-		$this->assertFalse( $this->property->import_value( [], '', 0 ) );
-		$this->assertTrue( $this->property->import_value( 'true', '', 0 ) );
-		$this->assertTrue( $this->property->import_value( true, '', 0 ) );
-	}
-
 	public function test_property_options() {
 		$this->assertSame( 'bool', $this->property->get_option( 'type' ) );
 		$this->assertSame( 'Bool test', $this->property->get_option( 'title' ) );

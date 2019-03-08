@@ -5,6 +5,11 @@
  */
 class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 
+	/**
+	 * @var Papi_REST_API_Post
+	 */
+	protected $class;
+
 	public function setUp() {
 		parent::setUp();
 
@@ -27,10 +32,15 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_page_type() {
-		$post_id = $this->factory->post->create();
+		$this->assertEmpty( $this->class->get_page_type( [], 'page_type', null ) );
+
+		$post_id = $this->factory->post->create( [
+			'post_type' => 'page'
+		] );
+
 		$page_type = $this->class->get_page_type( ['ID' => $post_id], 'page_type', null );
 
-		$this->assertSame( $page_type, '' );
+		$this->assertSame( '', $page_type );
 		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-content-page-type' );
 
 		$page_type = $this->class->get_page_type( ['ID' => $post_id], 'page_type', null );
@@ -38,10 +48,12 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 	}
 
 	public function test_get_post() {
-		$post_id = $this->factory->post->create();
+		$post_id = $this->factory->post->create( ['post_type' => 'page'] );
 		$post = get_post( $post_id );
 		$this->assertSame( $post, $this->class->get_post( $post ) );
 
+		$post_id = $this->factory->post->create();
+		$post = get_post( $post_id );
 		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
 
 		$this->assertSame( $post, $this->class->get_post( $post ) );
@@ -55,8 +67,11 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 			$this->markTestSkipped( '`$wp_meta_keys` is not a array' );
 		}
 
+		$meta_keys = $wp_meta_keys[$post->post_type];
+		$meta_keys = count( $meta_keys ) === 1 ? array_shift( $meta_keys ) : $meta_keys;
+
 		foreach ( $page_type->get_properties() as $property ) {
-			$this->assertArrayHasKey( $property->get_slug( true ), $wp_meta_keys[$post->post_type] );
+			$this->assertArrayHasKey( $property->get_slug( true ), $meta_keys );
 		}
 	}
 
@@ -64,19 +79,33 @@ class Papi_REST_API_Post_Test extends WP_UnitTestCase {
 		$this->assertEmpty( $this->class->prepare_response( [] ) );
 
 		$post_id = $this->factory->post->create();
+		global $post;
 		$post = get_post( $post_id );
 
-		update_post_meta( $post_id, papi_get_page_type_key(), 'simple-page-type' );
+		update_post_meta( $post_id, papi_get_page_type_key(), 'properties-page-type' );
 		$this->assertSame( $post, $this->class->get_post( $post ) );
 
-		update_post_meta( $post_id, 'name', 'Fredrik' );
-		$response = [
+		update_post_meta( $post_id, 'post_test', $post_id );
+		$response = new \stdClass;
+		$response->data = [
 			'meta' => [
-				'name' => get_post_meta( $post_id, 'name', true )
+				'post_test' => $post_id
 			]
 		];
 
 		$response = $this->class->prepare_response( $response );
-		$this->assertSame( 'Fredrik', $response['meta']['name'] );
+		$this->assertSame( $post->ID, $response->data['meta']['post_test']->ID );
+	}
+
+	public function test_setup_fields() {
+		global $wp_rest_additional_fields;
+
+		$this->class->setup_fields();
+
+		if ( ! is_array( $wp_rest_additional_fields ) ) {
+			$this->markTestSkipped( '`register_rest_field` is only supported in WordPress 4.7 and later' );
+		}
+
+		$this->assertArrayHasKey( 'page_type', $wp_rest_additional_fields['page'] );
 	}
 }

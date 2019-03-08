@@ -86,6 +86,23 @@ class Papi_Admin_Ajax {
 	}
 
 	/**
+	 * Get entry type via GET.
+	 *
+	 * GET /papi-ajax/?action=get_entry_type
+	 */
+	public function get_entry_type() {
+		$entry_type_id = papi_get_qs( 'entry_type' );
+		$entry_type    = papi_get_entry_type_by_id( $entry_type_id );
+
+		if ( empty( $entry_type ) ) {
+			$this->render_error( 'No entry type found' );
+			return;
+		}
+
+		wp_send_json( $entry_type );
+	}
+
+	/**
 	 * Get posts via GET.
 	 *
 	 * Posts with empty title will be ignored.
@@ -98,6 +115,8 @@ class Papi_Admin_Ajax {
 		$fields = papi_get_qs( 'fields' ) ?: [];
 		$fields = is_array( $fields ) ? $fields : [];
 		$posts  = ( new WP_Query( array_merge( [
+			'posts_per_page'         => -1,
+			'post_status'            => 'any',
 			'post_type'              => ['post'],
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
@@ -302,6 +321,7 @@ class Papi_Admin_Ajax {
 		add_action( 'admin_enqueue_scripts', [$this, 'ajax_url'], 10 );
 
 		// Ajax actions.
+		add_action( $this->action_prefix . 'get_entry_type', [$this, 'get_entry_type'] );
 		add_action( $this->action_prefix . 'get_property', [$this, 'get_property'] );
 		add_action( $this->action_prefix . 'get_properties', [$this, 'get_properties'] );
 		add_action( $this->action_prefix . 'get_rules_result', [$this, 'get_rules_result'] );

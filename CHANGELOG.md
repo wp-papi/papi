@@ -1,5 +1,71 @@
 # Papi Changelog
 
+## [3.3.0]
+
+## Added
+
+* Added `papi/pre_template_include` filter to modify which template is loaded before Papi looks for a template.
+* Added `papi_get_fields` and `papi_get_term_fields` to receive all slugs and values from a Page/Taxonomy type.
+
+## [3.2.0](https://github.com/wp-papi/papi/releases/tag/v3.2.0) - 2017-09-07
+
+The stable release of Papi 3.2.0, a lot has been added, changed, fixed and some functions has been removed (mostly core stuff). Papi 3.2.0 introduce a new core data api that is used everywhere in the plugin and by advanced properties. Upgrading from Papi 3.1.x will work and the new core data api will not create any problems.
+
+Unfortunately this will likely be the last release I plan to work on as the core maintainer of Papi since my focus has shifted from WordPress to doing more JavaScript and Go projects. I hope you understand my decision to step back from the project, if you have any questions or would be interested in take over some of the maintenance of the project please let me know. I will still be around answering questions and helping any new maintainers. Some bug fixes and/or pull request may be added (but now new versions) since me and my colleagues use Papi internally and will be continuing doing it.
+
+## Added
+
+* Added: `body_classes` will be added to the frontend aswell and not just the admin.
+* Added: `register_meta` support for REST API.
+* Added: Edit post reference in a iframe instead of leaving the current page.
+* Added: `edit_url` setting to post property to display iframe mode.
+* Added: Page type switcher.
+* Added: `papi/get_boxes` filter so you can add boxes to a entry type that don't exists in the class.
+* Added: New ajax action for shortcodes `/papi-ajax/?action=get_shortcode&shortcode=[test]`
+* Added:  New method on `Papi_Entry_Type` to fetch all properties `get_properties`, it's useful if you would like to build something custom.
+* Added: `Papi_Query`
+* Added: Multiple select support for dropdown property.
+* Added: `site_id` option added to both box and property.
+* Added: `papi/get_property` filter added so you can modify properties when they are fetched inside Papi.
+* Added: Labels to flexible property so you can see which row is using which layout.
+* Added: `fields => ids` setting on file, image, gallery, post, term and relationship property.
+* Added: `meta_key => custom_meta_key` setting on file, image, gallery, post, term and relationship property, so you can match meta value instead of post id.
+* Added: Support for `any` post type value for a page type.
+* Added: CLI to rename meta keys for posts and terms, see [#208](https://github.com/wp-papi/papi/issues/208).
+* Added: `lang` option now supports arrays and not just strings.
+* Added: Filter to override conditional rule allowed value `papi/conditional/rule_allowed`
+* Added: Filter to modify lang query string value `papi/lang`
+* Added: Filter to modify template extension `papi/template_extension`
+
+## Changed
+
+* Changed: PHP 5.6 will be required instead of 5.5.9.
+* Changed: WordPress 4.4 will be required instead of 4.0.
+* Changed: String numeric and bool values are strings and numeric and bool values are not string values in dropdown anymore.
+* Changed: You can now use `papi_is_page_type` to check if current post is a page type with (was only used internal before).
+* Changed: `papi()->make( 'Sample_Page_Type' )` is replaced by id `papi()->make( 'simple-page-type' )` to make it more consistent.
+
+## Deprecated
+
+* Deprecated: `papi_get_page`, is deprecated and you should use `papi_get_meta_store( $id )` instead since it support both post, term and option stores and `papi_get_page` returns the value of `papi_get_meta_store` so no need for two functions that does the same thing.
+
+## Fixed
+
+* Fixed: `papi_get_entry_type_css_class` will work with taxonomies.
+* Fixed: Better peformance when core loads entry types.
+* Fixed: Group properties works with conditional rules now.
+* Fixed: Dropdown property can now handle numeric values, see [#225](https://github.com/wp-papi/papi/issues/225).
+* Fixed: Respect show standard type filter in list columns, see [#235](https://github.com/wp-papi/papi/issues/235).
+* Fixed: Complex properties should now be rendered in REST API, see [#232](https://github.com/wp-papi/papi/issues/232).
+* Fixed: Post ID will be respected all the way and it will not guess, see [#227](https://github.com/wp-papi/papi/pull/227).
+
+## Removed
+
+* Removed: HHVM testing is removed, PHP7 is more awesome.
+* Removed: `papi_delete_property_meta_value` is replaced with `papi_data_delete`, mostly use by core and advanced properties.
+* Removed: `papi_get_property_meta_value` is replaced with `papi_data_get`, mostly use by core and advanced properties.
+* Removed: `papi_update_property_meta_value` is replaced with `papi_data_update`, mostly use by core and advanced properties.
+
 ## [3.1.19](https://github.com/wp-papi/papi/releases/tag/v3.1.19) - 2017-02-14
 
 * Fixed: Sanitize box id key [#215](https://github.com/wp-papi/papi/issues/215).

@@ -164,21 +164,6 @@ class Papi_Property_Link extends Papi_Property {
 	}
 
 	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return mixed
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( is_array( $value ) || is_object( $value ) ) {
-			return $this->update_value( (array) $value, $slug, $post_id );
-		}
-	}
-
-	/**
 	 * Prepare link array with post id. If it gets a post id
 	 * bigger then zero it will use the permalink as url.
 	 *
@@ -207,11 +192,6 @@ class Papi_Property_Link extends Papi_Property {
 		// Don't overwrite existing post id.
 		if ( ! isset( $link->post_id ) || empty( $link->post_id ) ) {
 			$link->post_id = url_to_postid( $link->url );
-		}
-
-		// Only replace url when post id is not zero.
-		if ( $link->post_id > 0 ) {
-			$link->url = get_permalink( $link->post_id );
 		}
 
 		// If empty target set `_self` as default target.
@@ -260,7 +240,7 @@ class Papi_Property_Link extends Papi_Property {
 						</td>
 						<td>
 							<input class="wp-link-target" type="hidden" value="<%= target %>" name="<%= slug %>[target]">
-							<%= target === '_blank' ? '<?php esc_html_e( 'New window', 'papi' ) ?>' : '<?php esc_html_e( 'Same window', 'papi' ); ?>' %>
+							<%= target === '_blank' ? '<?php esc_html_e( 'New window', 'papi' ); ?>' : '<?php esc_html_e( 'Same window', 'papi' ); ?>' %>
 						</td>
 					</tr>
 				</tbody>
@@ -279,6 +259,10 @@ class Papi_Property_Link extends Papi_Property {
 	 * @return array
 	 */
 	public function update_value( $values, $slug, $post_id ) {
+		if ( is_object( $values ) ) {
+			$values = (array) $values;
+		}
+
 		if ( ! isset( $values['url'] ) ) {
 			$values = $this->link_fields;
 

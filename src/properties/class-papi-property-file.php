@@ -133,7 +133,7 @@ class Papi_Property_File extends Papi_Property {
 			if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
 				$post = get_post( $value );
 			}
-		} else {
+		} else if ( ! empty( $value ) ) {
 			$args = [
 				'fields'         => 'ids',
 				'meta_key'       => $meta_key,
@@ -283,43 +283,6 @@ class Papi_Property_File extends Papi_Property {
 	}
 
 	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return mixed
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( $this->get_setting( 'multiple' ) ) {
-			$values = [];
-
-			foreach ( papi_to_array( $value ) as $item ) {
-				if ( is_object( $item ) && isset( $item->id ) && $this->is_attachment( $item->id ) ) {
-					$values[] = $item->id;
-				} else if ( is_numeric( $item ) ) {
-					if ( $this->is_attachment( $item ) ) {
-						$values[] = $item;
-					}
-				}
-			}
-
-			return array_filter( $values, function ( $val ) {
-				return ! empty( $val );
-			} );
-		}
-
-		if ( is_object( $value ) && isset( $value->id ) && $this->is_attachment( $value->id ) ) {
-			return (int) $value->id;
-		}
-
-		if ( is_numeric( $value ) && $this->is_attachment( (int) $value ) ) {
-			return (int) $value;
-		}
-	}
-
-	/**
 	 * Check if the given id is a attachment post type or not.
 	 *
 	 * @param  int $id
@@ -379,7 +342,7 @@ class Papi_Property_File extends Papi_Property {
 	 */
 	public function update_value( $values, $slug, $post_id ) {
 		if ( ! is_array( $values ) ) {
-			$values = $this->get_file_value( (object)[
+			$values = $this->get_file_value( (object) [
 				'id' => $values
 			] );
 
@@ -395,7 +358,7 @@ class Papi_Property_File extends Papi_Property {
 				continue;
 			}
 
-			$values[$index] = $this->get_file_value( (object)[
+			$values[$index] = $this->get_file_value( (object) [
 				'id' => $value
 			] );
 		}

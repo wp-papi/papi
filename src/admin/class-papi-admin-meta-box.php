@@ -30,6 +30,22 @@ final class Papi_Admin_Meta_Box {
 	}
 
 	/**
+	 * Add custom css for hiding boxes with no frame in screen options.
+	 *
+	 * @return string
+	 */
+	public function admin_head() {
+		if ( ! $this->box->frame ) {
+			echo sprintf(
+				'<style type="text/css">label[for="%s-hide"],#%s>h2,#%s>button{display:none !important}</style>',
+				esc_attr( $this->box->id ),
+				esc_attr( $this->box->id ),
+				esc_attr( $this->box->id )
+			);
+		}
+	}
+
+	/**
 	 * Add css classes to meta box.
 	 *
 	 * @param  array $classes
@@ -137,12 +153,29 @@ final class Papi_Admin_Meta_Box {
 			),
 			[$this, 'meta_box_css_classes']
 		);
+
+		add_action( 'admin_head', [$this, 'admin_head'] );
 	}
 
 	/**
 	 * Setup meta box.
 	 */
 	public function setup_meta_box() {
+		$properties = $this->box->properties;
+
+		// Check all properties and remove them that can't be rendered.
+		foreach ( $properties as $index => $property ) {
+			if ( $property instanceof Papi_Property && ! $property->can_render() ) {
+				unset( $properties[$index] );
+			}
+		}
+
+		// Bail if properties array is empty,
+		// no need to render a empty meta box.
+		if ( empty( $properties ) ) {
+			return;
+		}
+
 		add_meta_box(
 			$this->box->id,
 			$this->get_title(),
@@ -150,7 +183,7 @@ final class Papi_Admin_Meta_Box {
 			$this->get_post_type(),
 			$this->box->context,
 			$this->box->priority,
-			$this->box->properties
+			$properties
 		);
 	}
 }

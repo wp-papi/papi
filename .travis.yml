@@ -7,15 +7,20 @@ install:
   - travis_retry composer install --no-interaction --prefer-source
 
 before_script:
-  - bash vendor/frozzare/wp-test-suite/bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 $WP_VERSION
+  - |
+    if [ -z $CLASSICPRESS ]; then
+      bash vendor/frozzare/wp-test-suite/bin/install-wp-tests.sh wordpress_test root '' 127.0.0.1 $WP_VERSION;
+    else
+      bash tests/bin/install-cp-tests.sh wordpress_test root '' 127.0.0.1 $WP_VERSION;
+    fi
   - bash tests/bin/install-wp-cli.sh
 
 script:
+  - make lint:php
   - vendor/bin/phpunit --coverage-clover clover.xml
-  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then vendor/bin/behat; fi
+  - vendor/bin/behat
 
 after_script:
-  - wget https://scrutinizer-ci.com/ocular.phar
   - bash <(curl -s https://codecov.io/bash)
 
 env:
@@ -25,27 +30,23 @@ env:
 
 matrix:
   include:
-    - php: 5.5.9
-      env: WP_VERSION=4.4 WP_MULTISITE=0
     - php: 5.6
       env: WP_VERSION=latest WP_MULTISITE=1
     - php: 7.0
-      env: WP_VERSION=4.4 WP_MULTISITE=0
-    - php: 7.0
+      env: WP_VERSION=4.6 WP_MULTISITE=0
+    - php: 7.1
       env: WP_VERSION=latest WP_MULTISITE=0
-    - php: 7.1
-      env: WP_VERSION=nightly WP_MULTISITE=0
+    - php: 7.2
+      env: WP_VERSION=latest WP_MULTISITE=1
+    - php: 7.3
+      env: WP_VERSION=latest WP_MULTISITE=0
+    - php: 7.2
+      env: WP_VERSION=master CLASSICPRESS=true
   allow_failures:
-    - php: 7.1
-      env: WP_VERSION=nightly WP_MULTISITE=0
+    - php: 7.2
+      env: WP_VERSION=master CLASSICPRESS=true
   fast_finish: true
 
 cache:
   directories:
   - $HOME/.composer/cache
-
-branches:
-  only:
-    - master
-    - 2.x
-    - 3.x

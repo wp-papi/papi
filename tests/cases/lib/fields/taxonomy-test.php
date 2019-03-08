@@ -5,10 +5,6 @@ class Papi_Lib_Fields_Taxonomy_Test extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		if ( ! papi_supports_term_meta() ) {
-			$this->markTestSkipped( 'Term metadata is not supported' );
-		}
-
 		$_GET = [];
 
 		add_filter( 'papi/settings/directories', function () {
@@ -69,6 +65,13 @@ class Papi_Lib_Fields_Taxonomy_Test extends WP_UnitTestCase {
 		$_GET['term_id'] = 0;
 		$this->assertNull( papi_get_term_field( 'string_test' ) );
 		$this->assertSame( 'fredrik', papi_get_term_field( '', 'fredrik' ) );
+	}
+
+	public function test_papi_get_term_fields() {
+		update_term_meta( $this->term_id, 'string_test', 'fredrik' );
+
+		$output = papi_get_term_fields( $this->term_id );
+		$this->assertSame( 'fredrik', $output['string_test'] );
 	}
 
 	public function test_papi_get_term_slugs() {

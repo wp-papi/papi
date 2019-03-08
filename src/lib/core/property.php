@@ -13,7 +13,7 @@
 function papi_from_property_array_slugs( array $values, $slug ) {
 	$results = [];
 
-	if ( empty( $values ) ) {
+	if ( empty( $values ) || ! isset( $values[$slug] ) ) {
 		return $results;
 	}
 
@@ -109,6 +109,14 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 		} else {
 			// The first parameter is used as the title.
 			$options['title'] = $file_or_options;
+		}
+	}
+
+	// Support `properties` or `props` in options array.
+	foreach ( ['properties', 'props'] as $key ) {
+		if ( is_array( $options ) && isset( $options[$key] ) ) {
+			$properties = papi_to_array( $options[$key] );
+			unset( $options[$key] );
 		}
 	}
 
@@ -226,8 +234,10 @@ function papi_populate_properties( $properties ) {
 		return $property;
 	}, $properties );
 
-	if ( ! isset( $properties[0] ) ) {
+	if ( count( array_filter( array_keys( $properties ), 'is_string' ) ) > 0 ) {
 		$properties = [papi_property( $properties )];
+	} else {
+		$properties = array_values( $properties );
 	}
 
 	// If the first property is a core tab, just return
@@ -391,7 +401,6 @@ function papi_property_to_array_slugs( array $value, $slug ) {
 	$counter = [];
 
 	foreach ( $value as $index => $arr ) {
-
 		if ( ! is_array( $arr ) ) {
 			continue;
 		}

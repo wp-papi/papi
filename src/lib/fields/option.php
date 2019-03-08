@@ -79,5 +79,5 @@ function the_papi_option( $slug = null, $default = null ) {
 		$value = papi_convert_to_string( $value );
 	}
 
-	echo esc_html( $value );
+	echo $value; // phpcodesniffer xss whitelist
 }

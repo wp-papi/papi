@@ -71,68 +71,98 @@ class Papi_Property_Repeater extends Papi_Property {
 			return [];
 		}
 
-		$values = papi_property_to_array_slugs( $values, $repeater_slug );
+		$top_property = new Papi_Core_Property;
 
-		foreach ( $values as $slug => $value ) {
-			if ( papi_is_property_type_key( $slug ) ) {
+		foreach ( $values as $index => $row ) {
+			if ( ! is_array( $row ) ) {
 				continue;
 			}
 
-			$property_type_slug = papi_get_property_type_key_f( $slug );
+			$top_property->slug = $repeater_slug . '_' . $index;
 
-			if ( ! isset( $values[$property_type_slug] ) ) {
-				continue;
-			}
-
-			// Get property type
-			$property_type_value = $values[$property_type_slug];
-			$property_type       = papi_get_property_type( $property_type_value );
-
-			if ( ! is_object( $property_type ) ) {
-				continue;
-			}
-
-			// Get property child slug.
-			$child_slug = $this->get_child_slug( $repeater_slug, $slug );
-
-			// Get raw value from cache if enabled.
-			if ( $this->cache ) {
-				$raw_value = papi_cache_get( $slug, $post_id, $this->get_meta_type() );
-			} else {
-				$raw_value = false;
-			}
-
-			// Load the value.
-			if ( $raw_value === null || $raw_value === false ) {
-				$values[$slug] = $property_type->load_value( $value, $child_slug, $post_id );
-				$values[$slug] = papi_filter_load_value( $property_type->type, $values[$slug], $child_slug, $post_id, papi_get_meta_type() );
-
-				if ( ! papi_is_empty( $values[$slug] ) && $this->cache ) {
-					papi_cache_set( $slug, $post_id, $values[$slug], $this->get_meta_type() );
+			foreach ( $row as $slug => $value ) {
+				if ( papi_is_property_type_key( $slug ) ) {
+					continue;
 				}
-			} else {
-				$values[$slug] = $raw_value;
-			}
 
-			// Format the value from the property class.
-			$values[$slug] = $property_type->format_value( $values[$slug], $child_slug, $post_id );
+				// Property type slug may have a prefixed underscore.
+				$property_type_slug = papi_get_property_type_key_f( $slug );
+
+				if ( ! isset( $row[$property_type_slug] ) ) {
+					// If property type slug isn't prefixed we should try without.
+					$property_type_slug = papi_get_property_type_key( $slug );
+
+					if ( ! isset( $row[$property_type_slug] ) ) {
+						continue;
+					}
+				}
+
+				// Get property type.
+				$property_type_value = $row[$property_type_slug];
+				$property_type       = papi_get_property_type( $property_type_value );
+
+				if ( ! is_object( $property_type ) ) {
+					continue;
+				}
+
+
+				// Get property child slug.
+				$child_slug = $this->get_child_slug( $repeater_slug, $slug );
+
+				// Set top property.
+				$property_type->set_parent_property( $top_property );
+
+				// Create cache key.
+				$cache_key = sprintf( '%s_%s', $top_property->slug, $slug );
+				if ( $parent_property = $this->get_parent_property() ) {
+					$cache_key = sprintf( '%s_%s', $parent_property->get_slug( true ), $cache_key );
+				}
+
+				// Get raw value from cache if enabled.
+				if ( $this->cache ) {
+					$raw_value = papi_cache_get( $cache_key, $post_id, $this->get_meta_type() );
+				} else {
+					$raw_value = false;
+				}
+
+				// Load the value.
+				if ( $raw_value === null || $raw_value === false ) {
+					$row[$slug] = $property_type->load_value( $value, $child_slug, $post_id );
+					$row[$slug] = papi_filter_load_value( $property_type->type, $row[$slug], $child_slug, $post_id, papi_get_meta_type() );
+
+					if ( ! papi_is_empty( $row[$slug] ) && $this->cache ) {
+						papi_cache_set( $cache_key, $post_id, $row[$slug], $this->get_meta_type() );
+					}
+				} else {
+					$row[$slug] = $raw_value;
+				}
+
+				// Format the value from the property class.
+				$row[$slug] = $property_type->format_value( $row[$slug], $child_slug, $post_id );
+
+				if ( ! papi_is_admin() ) {
+					$row[$slug] = papi_filter_format_value( $property_type->type, $row[$slug], $child_slug, $post_id, papi_get_meta_type() );
+				}
+
+				$row[$property_type_slug] = $property_type_value;
+
+				if ( papi_is_empty( $row[$slug] ) ) {
+					$row[$slug] = $property_type_value->get_option( 'default', $property_type_value->default_value );
+				}
+			}
 
 			if ( ! papi_is_admin() ) {
-				$values[$slug] = papi_filter_format_value( $property_type->type, $values[$slug], $child_slug, $post_id, papi_get_meta_type() );
-			}
-
-			$values[$property_type_slug] = $property_type_value;
-		}
-
-		if ( ! papi_is_admin() ) {
-			foreach ( $values as $slug => $value ) {
-				if ( papi_is_property_type_key( $slug ) ) {
-					unset( $values[$slug] );
+				foreach ( $row as $slug => $value ) {
+					if ( papi_is_property_type_key( $slug ) ) {
+						unset( $row[$slug] );
+					}
 				}
 			}
+
+			$values[$index] = $row;
 		}
 
-		return papi_property_from_array_slugs( $values, $repeater_slug );
+		return $values;
 	}
 
 	/**
@@ -144,7 +174,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @return string
 	 */
 	protected function get_child_slug( $repeater_slug, $child_slug ) {
-		return preg_replace( '/^\_/', '', preg_replace( '/\_\d+\_/', '', str_replace( $repeater_slug, '', $child_slug ) ) );
+		return preg_replace( '/^\_/', '', preg_replace( '/\_\d+\_/', '', preg_replace( sprintf( '/^%s/', $repeater_slug ), '', $child_slug ) ) );
 	}
 
 	/**
@@ -159,17 +189,6 @@ class Papi_Property_Repeater extends Papi_Property {
 			'items'         => [],
 			'layout'        => 'table',
 			'limit'         => - 1
-		];
-	}
-
-	/**
-	 * Get import settings.
-	 *
-	 * @return array
-	 */
-	public function get_import_settings() {
-		return [
-			'property_array_slugs' => true
 		];
 	}
 
@@ -356,42 +375,6 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		// Render JSON template that is used for Papi ajax.
 		$this->render_json_template( $options->slug );
-	}
-
-	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return array
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( ! is_array( $value ) ) {
-			return [];
-		}
-
-		// If the import value isn't array in array then fix it.
-		$extras = array_filter( $value, function ( $value ) {
-			return ! is_array( $value );
-		} );
-
-		if ( ! empty( $extras ) ) {
-			$extra = [];
-
-			foreach ( $extras as $key => $val ) {
-				if ( isset( $value[$key] ) ) {
-					unset( $value[$key] );
-				}
-
-				$extra[$key] = $val;
-			}
-
-			$value[] = $extra;
-		}
-
-		return $this->update_value( $value, $slug, $post_id );
 	}
 
 	/**
@@ -760,6 +743,10 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		// Remove values that don't exists in the slugs array.
 		foreach ( $values as $index => $value ) {
+			if ( ! is_array( $value ) ) {
+				continue;
+			}
+
 			$keys = array_keys( $value );
 
 			foreach ( $slugs as $slug ) {
@@ -847,53 +834,94 @@ class Papi_Property_Repeater extends Papi_Property {
 			papi_data_delete( $post_id, $meta->meta_key, $this->get_meta_type() );
 		}
 
-		$values = papi_property_to_array_slugs( $values, $repeater_slug );
+		$top_property = new Papi_Core_Property;
 
-		foreach ( $values as $slug => $value ) {
-			if ( papi_is_property_type_key( $slug ) ) {
+		foreach ( $values as $index => $row ) {
+			if ( ! is_array( $row ) ) {
 				continue;
 			}
 
-			$property_type_slug = papi_get_property_type_key_f( $slug );
+			$top_property->slug = $repeater_slug . '_' . $index;
 
-			if ( ! isset( $values[$property_type_slug] ) ) {
-				continue;
-			}
+			foreach ( $row as $slug => $value ) {
+				if ( papi_is_property_type_key( $slug ) ) {
+					continue;
+				}
 
-			// Get real property slug
-			$property_slug = $this->get_child_slug( $repeater_slug, $slug );
+				// Property type slug may have a prefixed underscore.
+				$property_type_slug = papi_get_property_type_key_f( $slug );
 
-			// Get property type
-			$property_type_value = $values[$property_type_slug]->type;
-			$property_type       = papi_get_property_type( $property_type_value );
+				if ( ! isset( $row[$property_type_slug] ) ) {
+					// If property type slug isn't prefixed we should try without.
+					$property_type_slug = papi_get_property_type_key( $slug );
 
-			if ( ! is_object( $property_type ) ) {
-				continue;
-			}
-
-			// Unserialize if needed.
-			$value = papi_maybe_json_decode( maybe_unserialize( $value ) );
-
-			// Run update value on each property type class.
-			$value = $property_type->update_value( $value, $property_slug, $post_id );
-
-			// Run update value on each property type filter.
-			$values[$slug] = papi_filter_update_value( $property_type_value, $value, $property_slug, $post_id, papi_get_meta_type() );
-
-			if ( is_array( $values[$slug] ) ) {
-				foreach ( $values[$slug] as $key => $val ) {
-					if ( ! is_string( $key ) ) {
+					if ( ! isset( $row[$property_type_slug] ) ) {
 						continue;
 					}
+				}
 
-					unset( $values[$slug][$key] );
+				if ( ! isset( $row[$property_type_slug] ) ) {
+					continue;
+				}
 
-					$key = preg_replace( '/^\_/', '', $key );
+				// Get real property slug
+				$property_slug = $this->get_child_slug( $repeater_slug, $slug );
 
-					$values[$slug][$key] = $val;
+				// Get property type
+				$property_type_value = $row[$property_type_slug]->type;
+				$property_type       = papi_get_property_type( $row[$property_type_slug] );
+
+				if ( ! is_object( $property_type ) ) {
+					continue;
+				}
+
+				// Set top property.
+				$property_type->set_parent_property( $top_property );
+
+				// Create cache key.
+				$cache_key = sprintf( '%s_%s', $top_property->slug, $slug );
+				if ( $parent_property = $this->get_parent_property() ) {
+					$cache_key = sprintf( '%s_%s', $parent_property->get_slug( true ), $cache_key );
+				}
+
+				// Delete cache if any.
+				papi_cache_delete( $cache_key, $post_id, papi_get_meta_type() );
+
+				// Unserialize if needed.
+				$value = papi_maybe_json_decode( maybe_unserialize( $value ) );
+
+				// Run update value on each property type class.
+				$value = $property_type->update_value( $value, $property_slug, $post_id );
+
+				// Run update value on each property type filter.
+				$row[$slug] = papi_filter_update_value( $property_type_value, $value, $property_slug, $post_id, papi_get_meta_type() );
+
+				if ( is_array( $row[$slug] ) ) {
+					foreach ( $row[$slug] as $key => $val ) {
+						if ( ! is_string( $key ) ) {
+							continue;
+						}
+
+						unset( $row[$slug][$key] );
+
+						$key = preg_replace( '/^\_/', '', $key );
+
+						$row[$slug][$key] = $val;
+					}
 				}
 			}
+
+			// Remove unnecessary property type keys if any is left.
+			foreach ( $row as $slug => $value ) {
+				if ( papi_is_property_type_key( $slug ) ) {
+					unset( $row[$slug] );
+				}
+			}
+
+			$values[$index] = $row;
 		}
+
+		$values = papi_property_to_array_slugs( $values, $repeater_slug );
 
 		// Find out which keys that should be deleted.
 		$trash = array_diff( array_keys( papi_to_array( $results ) ), array_keys( papi_to_array( $values ) ) );
@@ -905,13 +933,6 @@ class Papi_Property_Repeater extends Papi_Property {
 
 		// It's safe to remove all rows in the database here.
 		$this->remove_repeater_rows( $post_id, $repeater_slug );
-
-		// Remove unnecessary property type keys if any is left.
-		foreach ( array_keys( $values ) as $slug ) {
-			if ( papi_is_property_type_key( $slug ) ) {
-				unset( $values[$slug] );
-			}
-		}
 
 		return $values;
 	}

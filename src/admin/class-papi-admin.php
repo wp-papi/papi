@@ -79,12 +79,12 @@ final class Papi_Admin {
 	 * @return string
 	 */
 	public function admin_body_class( $classes ) {
-		$classes .= sprintf( ' papi-meta-type-%s', papi_get_meta_type() );
-
-		// Add custom css classes from entry type.
 		if ( $entry_type = $this->get_entry_type() ) {
+			$classes .= sprintf( ' papi-body papi-meta-type-%s', papi_get_meta_type() );
+
+			// Add custom css classes from entry type.
 			$arr = $entry_type->get_body_classes();
-			$arr = is_string( $arr ) ? [$arr] : $arr;
+			$arr = is_string( $arr ) ? [ $arr ] : $arr;
 			$arr = is_array( $arr ) ? $arr : [];
 
 			$classes .= ' ' . implode( ' ', $arr );
@@ -209,6 +209,50 @@ final class Papi_Admin {
 		add_filter( 'plugin_row_meta', [$this, 'plugin_row_meta'], 10, 2 );
 		add_filter( 'wp_link_query', [$this, 'wp_link_query'] );
 		add_filter( 'wp_refresh_nonces', [$this, 'wp_refresh_nonces'], 11 );
+		add_filter( 'pre_update_option', [$this, 'update_front_page'], 10, 2 );
+	}
+
+	/**
+	 * Update page type to front page type when updating
+	 * which page that should be used as front page.
+	 *
+	 * @param  mixed  $value
+	 * @param  string $option
+	 *
+	 * @return mixed
+	 */
+	public function update_front_page( $value, $option ) {
+		if ( $option !== 'page_on_front' ) {
+			return $value;
+		}
+
+		$front_pages = papi_get_all_entry_types( [
+			'types' => ['front-page'],
+		] );
+
+		if ( count( $front_pages ) === 0 ) {
+			return $value;
+		}
+
+		$old_page_type_id = papi_get_page_type_id( $value );
+		$new_page_type_id = $front_pages[0]->get_id();
+
+		// Delete all old fields from old page type if any.
+		if ( strtolower( $old_page_type_id ) !== strtolower( $new_page_type_id ) ) {
+			if ( $page_type = papi_get_entry_type_by_id( $old_page_type_id ) ) {
+				$slugs = array_map( function( $property ) {
+					return $property->get_slug( true );
+				}, $page_type->get_properties() );
+
+				foreach ( $slugs as $slug ) {
+					papi_delete_field( $value, $slug );
+				}
+			}
+		}
+
+		papi_set_page_type_id( $value, $new_page_type_id );
+
+		return $value;
 	}
 
 	/**
@@ -219,10 +263,9 @@ final class Papi_Admin {
 	 * @return array
 	 */
 	public function wp_link_query( array $results ) {
-		$post_type = papi_get_post_type();
-
 		foreach ( $results as $index => $value ) {
-			$name = papi_get_page_type_name( $value['ID'] );
+			$post_type = papi_get_post_type( $value['ID'] );
+			$name      = papi_get_page_type_name( $value['ID'] );
 
 			if ( empty( $name ) ) {
 				$name = papi_filter_settings_standard_page_type_name( $post_type );

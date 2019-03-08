@@ -3,7 +3,7 @@
 /**
  * Core class that implements a Papi property.
  */
-class Papi_Core_Property {
+class Papi_Core_Property implements JsonSerializable {
 
 	/**
 	 * The conditional class.
@@ -18,15 +18,6 @@ class Papi_Core_Property {
 	 * @var string
 	 */
 	public $convert_type = 'string';
-
-	/**
-	 * Default import settings.
-	 *
-	 * @var array
-	 */
-	protected $default_import_settings = [
-		'property_array_slugs' => false
-	];
 
 	/**
 	 * Default options.
@@ -45,6 +36,7 @@ class Papi_Core_Property {
 		'description'   => '',
 		'disabled'      => false,
 		'display'       => true,
+		'format_cb'     => '',
 		'lang'          => false,
 		'layout'        => 'horizontal', // or 'vertical'
 		'overwrite'     => false,
@@ -113,6 +105,13 @@ class Papi_Core_Property {
 	 * @var Papi_Core_Meta_Store
 	 */
 	protected $store;
+
+	/**
+	 * Parent property.
+	 *
+	 * @var Papi_Core_Property
+	 */
+	protected $parent_property = null;
 
 	/**
 	 * The constructor.
@@ -356,15 +355,6 @@ class Papi_Core_Property {
 	}
 
 	/**
-	 * Get import settings.
-	 *
-	 * @return array
-	 */
-	public function get_import_settings() {
-		return [];
-	}
-
-	/**
 	 * Get meta type from the store or the default one.
 	 *
 	 * @return string
@@ -379,11 +369,12 @@ class Papi_Core_Property {
 	 * Get option value.
 	 *
 	 * @param  string $key
+	 * @param  mixed  $default
 	 *
 	 * @return mixed
 	 */
-	public function get_option( $key ) {
-		$value = null;
+	public function get_option( $key, $default = null ) {
+		$value = $default;
 
 		if ( isset( $this->options->$key ) ) {
 			$value = $this->options->$key;
@@ -411,6 +402,15 @@ class Papi_Core_Property {
 		}
 
 		return $this->options;
+	}
+
+	/**
+	 * Get parent property.
+	 *
+	 * @return Papi_Core_Property
+	 */
+	public function get_parent_property() {
+		return $this->parent_property;
 	}
 
 	/**
@@ -561,55 +561,6 @@ class Papi_Core_Property {
 		}
 
 		return sprintf( '%s[%s]', $base_slug, unpapify( $sub_property->get_slug() ) );
-	}
-
-	/**
-	 * Get the import settings.
-	 *
-	 * @param  string $key
-	 * @param  mixed  $default
-	 *
-	 * @return mixed
-	 */
-	public function import_setting( $key, $default = null ) {
-		if ( ! is_string( $key ) ) {
-			return $default;
-		}
-
-		$settings = $this->import_settings();
-
-		return isset( $settings->$key ) ? $settings->$key : $default;
-	}
-
-	/**
-	 * Get the import settings.
-	 *
-	 * @return object
-	 */
-	public function import_settings() {
-		$settings = $this->get_import_settings();
-		$settings = is_array( $settings ) || is_object( $settings ) ? $settings : [];
-
-		return (object) array_merge( $this->default_import_settings, (array) $settings );
-	}
-
-	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return mixed
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( ! ( $value = $this->prepare_value( $value ) ) ) {
-			return;
-		}
-
-		$value = maybe_unserialize( $value );
-
-		return papi_maybe_json_decode( $value, $this->convert_type === 'array' );
 	}
 
 	/**
@@ -814,6 +765,15 @@ class Papi_Core_Property {
 	}
 
 	/**
+	 * Set parent property.
+	 *
+	 * @param Papi_Core_Property $parent_property
+	 */
+	public function set_parent_property( Papi_Core_Property $parent_property ) {
+		$this->parent_property = $parent_property;
+	}
+
+	/**
 	 * Setup actions.
 	 */
 	protected function setup_actions() {
@@ -961,5 +921,14 @@ class Papi_Core_Property {
 	 */
 	public function __toString() {
 		return $this->get_slug( true );
+	}
+
+	/**
+	 * Serialize property to json.
+	 *
+	 * @return mixed
+	 */
+	public function jsonSerialize() {
+		return $this->get_options();
 	}
 }

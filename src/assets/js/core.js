@@ -2,11 +2,10 @@ import $ from 'jquery';
 import select2Options from 'components/select2';
 
 class Core {
-
   /**
    * Initialize Papi core class.
    */
-  static init() {
+  static init () {
     const core = new Core();
 
     core.addCurrentClassToMenuItem();
@@ -23,7 +22,7 @@ class Core {
    * @param {object} xhr
    * @param {object} options
    */
-  autosave(e, xhr, options) {
+  autosave (e, xhr, options) {
     const reg = /action=(.+?)&/;
     const val = reg.exec(options.data);
 
@@ -31,7 +30,23 @@ class Core {
       const formdata = $('form#post').serializeArray();
 
       $.each(formdata, function (index, field) {
-        if (field.name.substring(0, 5) === 'papi_') {
+        if (field.name.substring(0, 5) === 'papi_' || field.name.substring(0, 5) === '_papi') {
+          // Fetch editor id if any.
+          const editorID = $('[name="' + field.name + '"]').attr('id');
+
+          // Test if the editor id is a editor.
+          if (typeof window.tinymce !== 'undefined' && window.tinymce.get(editorID)) {
+            const editor = window.tinymce.get(editorID);
+
+            // Save the editor content.
+            if (editor && editor.isDirty() && !editor.isHidden()) {
+              editor.save();
+            }
+
+            // Modify field content with real editor content.
+            field.value = $('#' + editorID).val();
+          }
+
           options.data += '&' + field.name + '=' + field.value;
         }
       });
@@ -41,13 +56,15 @@ class Core {
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     $('.papi-box-list > li > p').on('click', this.redirect);
     $('input[name="add-new-page-search"]').on('keyup', this.search);
     $('[data-papi-href]').on('click touchstart', this.redirect);
 
     if ('select2' in $.fn) {
-      $('.inside .papi-table tr .papi-component-select2').select2(select2Options);
+      $('.inside .papi-table tr .papi-component-select2').each(function (i, elm) {
+        $(elm).select2(select2Options(elm));
+      });
 
       // Fix issue with browsers where selected attribute is not removed correct.
       $(document.body).on('change', 'select.papi-component-select2:not([multiple])', function () {
@@ -64,7 +81,7 @@ class Core {
   /**
    * Add current class to menu item.
    */
-  addCurrentClassToMenuItem() {
+  addCurrentClassToMenuItem () {
     let $submenu = $('.wp-has-current-submenu .wp-submenu');
     let $menuitem = $submenu.find('a[href*="papi-add-new-page"]').parent();
 
@@ -78,10 +95,10 @@ class Core {
    *
    * @param  {object} e
    */
-  handlediv(e) {
+  handlediv (e) {
     e.preventDefault();
 
-    const $this   = $(this);
+    const $this = $(this);
     const $parent = $this.parent();
     const $inside = $parent.find('.inside');
 
@@ -93,20 +110,20 @@ class Core {
   /**
    * Page type switcher.
    */
-  pageTypeSwitcher() {
+  pageTypeSwitcher () {
     $('.misc-pub-section.curtime.misc-pub-section-last').removeClass('misc-pub-section-last');
-    $('#papi-page-type-switcher-edit').on('click', function(e) {
+    $('#papi-page-type-switcher-edit').on('click', function (e) {
       e.preventDefault();
       $(this).hide();
       $('.papi-page-type-switcher > div').slideDown();
     });
-    $('#papi-page-type-switcher-save').on('click', function(e) {
+    $('#papi-page-type-switcher-save').on('click', function (e) {
       e.preventDefault();
       $('.papi-page-type-switcher > div').slideUp();
       $('#papi-page-type-switcher-edit').show();
       $('.papi-page-type-switcher > span').text($('.papi-page-type-switcher select :selected').text());
     });
-    $('#papi-page-type-switcher-cancel').on('click', function(e) {
+    $('#papi-page-type-switcher-cancel').on('click', function (e) {
       e.preventDefault();
       $('.papi-page-type-switcher > div').slideUp();
       $('#papi-page-type-switcher-edit').show();
@@ -119,9 +136,9 @@ class Core {
    *
    * @param {object} e
    */
-  redirect(e) {
+  redirect (e) {
     e.preventDefault();
-    let $this    = $(this);
+    let $this = $(this);
     let papiHref = $this.data().papiHref;
 
     if (papiHref !== undefined) {
@@ -136,17 +153,17 @@ class Core {
    *
    * @param {object} e
    */
-  search(e) {
+  search (e) {
     e.preventDefault();
 
     let $this = $(this);
     let $list = $('.papi-box-list');
-    let val   = $this.val();
+    let val = $this.val();
 
     // Destroy masonry before searching the list.
     $('.papi-box-list').masonry('destroy');
 
-    $list.find('.papi-box-item').each(function() {
+    $list.find('.papi-box-item').each(function () {
       let $item = $(this);
 
       if ($item.text().toLowerCase().indexOf(val) === -1) {
@@ -166,7 +183,7 @@ class Core {
   /**
    * Prepare boxes with equal height.
    */
-  prepareBoxes() {
+  prepareBoxes () {
     let $boxItems = $('.papi-box-item');
     let thumbnails = $boxItems.find('.papi-page-type-screenshot').length;
     let boxMaxHeight = 0;
@@ -176,7 +193,7 @@ class Core {
     }
 
     $boxItems.each(function () {
-      let $this  = $(this);
+      let $this = $(this);
 
       if (thumbnails) {
         $this.find('.papi-post-type-info').removeAttr('style');
@@ -189,7 +206,7 @@ class Core {
     });
 
     $boxItems.each(function () {
-      let $this  = $(this);
+      let $this = $(this);
       let height = boxMaxHeight;
 
       if (thumbnails) {
@@ -217,7 +234,7 @@ class Core {
   /**
    * Set selected menu item if it isn't selected.
    */
-  setSelectedMenuItem() {
+  setSelectedMenuItem () {
     let href = typeof window.location === 'string' ? window.location : window.location.href;
     let $adminmenu = $('#adminmenu');
 

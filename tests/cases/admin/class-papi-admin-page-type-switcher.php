@@ -13,6 +13,14 @@ class Papi_Admin_Page_Type_Switcher_Test extends WP_UnitTestCase {
 		} );
 	}
 
+	public function tearDown() {
+		parent::tearDown();
+
+		unset(
+			$_GET
+		);
+	}
+
 	public function test_admin_init() {
 		$switcher = new Papi_Admin_Page_Type_Switcher;
 		$switcher->admin_init();
@@ -103,6 +111,73 @@ class Papi_Admin_Page_Type_Switcher_Test extends WP_UnitTestCase {
 
 		$this->assertSame( 'Fredrik', papi_get_field( $post_id, 'string_test' ) );
 		$this->assertNull( papi_get_field( $post_id, 'hidden_test' ) );
+
+		wp_set_current_user( 0 );
+	}
+
+	public function test_save_post_standard_type() {
+		$switcher = new Papi_Admin_Page_Type_Switcher;
+		$post_id  = $this->factory->post->create( ['post_type' => 'page'] );
+		$post     = get_post( $post_id );
+		$_POST    = [];
+
+		// Bad values.
+		$this->assertFalse( $switcher->save_post( 0, null ) );
+		$this->assertFalse( $switcher->save_post( 0, null ) );
+
+		// Nonce check.
+		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
+
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+
+		// Empty post values.
+		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
+
+		$_POST[papi_get_page_type_key()] = 'properties-page-type';
+		$_POST[papi_get_page_type_key( 'switch' )] = papi_get_standard_page_type_id( $post->post_type );
+
+		// Same post type ids.
+		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
+
+		$_POST[papi_get_page_type_key()] = 'properties-page-type';
+		$_POST[papi_get_page_type_key( 'switch' )] = papi_get_standard_page_type_id( $post->post_type );
+
+		// Bad page type and post type objects.
+		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
+
+		$_POST[papi_get_page_type_key( 'switch' )] = 'post-page-type';
+		$_POST['post_type'] = 'page';
+
+		// Bad post type.
+		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
+
+		$_POST[papi_get_page_type_key( 'switch' )] = papi_get_standard_page_type_id( $post->post_type );
+
+		// Bad capabilities.
+		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
+
+		$_POST[papi_get_page_type_key( 'switch' )] = papi_get_standard_page_type_id( $post->post_type );
+
+		// Bad capabilities.
+		$this->assertFalse( $switcher->save_post( $post_id, $post ) );
+
+		update_post_meta( $post_id, papi_get_page_type_key(), 'properties-page-type' );
+		update_post_meta( $post_id, 'string_test', 'Fredrik' );
+		update_post_meta( $post_id, 'hidden_test', 'Fredrik' );
+
+		$this->assertSame( 'Fredrik', papi_get_field( $post_id, 'string_test' ) );
+
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		// Create new nonce because of new user.
+		$_POST['papi_meta_nonce'] = wp_create_nonce( 'papi_save_data' );
+		$_POST[papi_get_page_type_key( 'switch' )] = papi_get_standard_page_type_id( $post->post_type );
+
+		// Success!
+		$this->assertTrue( $switcher->save_post( $post_id, $post ) );
+
+		$this->assertEmpty( papi_get_field( $post_id, 'string_test' ) );
 
 		wp_set_current_user( 0 );
 	}

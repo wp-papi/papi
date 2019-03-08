@@ -55,7 +55,15 @@ class Papi_Core_Conditional {
 				}
 
 				if ( papi_is_rule( $rule ) ) {
-					$display = papi_filter_conditional_rule_allowed( $rule );
+					/**
+					 * Modify rule allowed.
+					 *
+					 * @param  bool $result
+					 * @param  Papi_Core_Conditional_Rule $rule
+					 *
+					 * @return bool
+					 */
+					$display = apply_filters( 'papi/conditional/rule_allowed', papi_filter_conditional_rule_allowed( $rule ), $rule );
 				}
 			}
 
@@ -74,7 +82,15 @@ class Papi_Core_Conditional {
 
 		foreach ( $rules as $rule ) {
 			if ( papi_is_rule( $rule ) ) {
-				$result[] = papi_filter_conditional_rule_allowed( $rule );
+				/**
+				 * Modify rule allowed.
+				 *
+				 * @param  bool $result
+				 * @param  Papi_Core_Conditional_Rule $rule
+				 *
+				 * @return bool
+				 */
+				$result[] = apply_filters( 'papi/conditional/rule_allowed', papi_filter_conditional_rule_allowed( $rule ), $rule );
 			}
 		}
 
@@ -139,7 +155,7 @@ class Papi_Core_Conditional {
 				$rules[$index] = new Papi_Core_Conditional_Rule( $value );
 
 				if ( strpos( $rules[$index]->slug, '.' ) === false && papi_is_property( $property ) ) {
-				 	$rules[$index]->slug = $this->get_rule_slug(
+					$rules[$index]->slug = $this->get_rule_slug(
 						$rules[$index],
 						$property
 					);

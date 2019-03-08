@@ -81,5 +81,55 @@ class Rule_Page_Type extends Papi_Page_Type {
 				]
 			] )
 		] );
+
+		// Support rules with group:
+		// slug => group.0.media
+		$this->box( [
+			'title'      => 'Content',
+			'properties' => [
+				papi_property( [
+					'type'     => 'repeater',
+					'title'    => 'List',
+					'slug'     => 'list',
+					'settings' => [
+						'layout'  => 'row',
+						'items'  => [
+							papi_property( [
+								'slug'     => 'group',
+								'title'    => 'Group',
+								'type'     => 'group',
+								'settings' => [
+									'items' => [
+										papi_property( [
+											'type'     => 'radio',
+											'title'    => 'Media',
+											'slug'     => 'media',
+											'settings' => [
+												'items' => [
+													'Image' => 'image',
+													'Video' => 'video',
+												],
+											],
+										] ),
+									],
+								],
+							] ),
+							papi_property( [
+								'type'  => 'string',
+								'title' => 'Video link',
+								'slug'  => 'video_link',
+								'rules' => [
+									[
+										'compare' => '=',
+										'value'   => 'video',
+										'slug'    => 'group.media',
+									]
+								],
+							] ),
+						],
+					],
+				] ),
+			],
+		] );
 	}
 }

@@ -27,6 +27,9 @@ function papi_delete_field( $id = null, $slug = null, $type = 'post' ) {
 		return false;
 	}
 
+	// Replace "-" with "_".
+	$slug = papi_underscorify( $slug );
+
 	$property = $store->get_property( $slug );
 
 	if ( ! papi_is_property( $property ) ) {
@@ -132,6 +135,9 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 		return $default;
 	}
 
+	// Replace "-" with "_".
+	$slug = papi_underscorify( $slug );
+
 	// Check for "dot" notation.
 	$slugs = explode( '.', $slug );
 	$slug  = $slugs[0];
@@ -153,6 +159,55 @@ function papi_get_field( $id = null, $slug = null, $default = null, $type = 'pos
 
 	// Get value by dot keys if any.
 	return papi_field_value( $slugs, $value, $default );
+}
+
+/**
+ * Get all fields for a page type.
+ *
+ * @param  int    $id
+ * @param  string $type
+ *
+ * @return array
+ */
+function papi_get_fields( $id = 0, $type = 'post' ) {
+	$store = papi_get_meta_store( $id, $type );
+
+	if ( $store instanceof Papi_Core_Meta_Store === false ) {
+		return [];
+	}
+
+	$entry_type = $store->get_type_class();
+	if ( empty( $entry_type ) ) {
+		return [];
+	}
+
+	$value = [];
+	$boxes = $entry_type->get_boxes();
+
+	foreach ( $boxes as $box ) {
+		foreach ( $box->properties as $property ) {
+			$slug = $property->get_slug( true );
+			$value[$slug] = papi_get_field( $id, $slug, null, $type );
+		}
+	}
+
+	$fields = $entry_type->fields( $value );
+	$type   = $type === 'post' ? '' : '_' . $type;
+
+	/**
+	 * Modify fields returned.
+	 *
+	 * Different filters for different types:
+	 *
+	 * - Post: papi/get_fields
+	 * - Term: papi/get_term_fields
+	 *
+	 * @param  array  $fields
+	 * @param  string $entry_type
+	 *
+	 * @return array
+	 */
+	return apply_filters( sprintf( 'papi/get_%sfields', $type ), $fields, $entry_type->get_id() );
 }
 
 /**
@@ -247,6 +302,9 @@ function papi_update_field( $id = null, $slug = null, $value = null, $type = 'po
 		return false;
 	}
 
+	// Replace "-" with "_".
+	$slug = papi_underscorify( $slug );
+
 	$property = $store->get_property( $slug );
 
 	if ( ! papi_is_property( $property ) ) {
@@ -279,5 +337,5 @@ function the_papi_field( $id = null, $slug = null, $default = null ) {
 		$value = papi_convert_to_string( $value );
 	}
 
-	echo esc_html( $value );
+	echo $value; // phpcodesniffer xss whitelist
 }

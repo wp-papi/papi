@@ -60,7 +60,8 @@ class Papi_Property_Dropdown extends Papi_Property {
 	 */
 	public function get_default_settings() {
 		return [
-			'placeholder' => '',
+			'allow_clear' => true,
+			'placeholder' => null,
 			'items'       => [],
 			'multiple'    => false,
 			'selected'    => [],
@@ -88,6 +89,12 @@ class Papi_Property_Dropdown extends Papi_Property {
 
 		// Properties that extends dropdown property
 		// maybe don't have this setting.
+		if ( ! isset( $settings->selected ) ) {
+			$settings->selected = [];
+		}
+
+		// Properties that extends dropdown property
+		// maybe don't have this setting.
 		if ( ! isset( $settings->multiple ) ) {
 			$settings->multiple = false;
 		}
@@ -98,18 +105,18 @@ class Papi_Property_Dropdown extends Papi_Property {
 			$settings->selected = $value;
 		}
 
+		$placeholder = ! is_null( $settings->placeholder ) ? $settings->placeholder : '';
+		$placeholder = papi_is_empty( $placeholder ) ? '&nbsp;' : $placeholder;
+
+		// Add placeholder if any.
+		if ( ! is_null( $settings->placeholder ) ) {
+			$options_html[] = sprintf( '<option value="%s">%s</option>', esc_attr( $this->get_option( 'default', '' ) ), esc_html( $placeholder ) );
+		}
+
 		$classes = 'papi-fullwidth';
 
 		if ( $settings->select2 ) {
 			$classes .= ' papi-component-select2';
-		}
-
-		// Add placeholder if any.
-		if ( ! empty( $settings->placeholder ) ) {
-			$options_html[] = papi_html_tag( 'option', [
-				'value' => '',
-				$settings->placeholder
-			] );
 		}
 
 		// Create option html tags for all items.
@@ -125,11 +132,12 @@ class Papi_Property_Dropdown extends Papi_Property {
 			if ( $settings->multiple ) {
 				$selected = in_array( $value, $settings->selected, true );
 			} else {
-				$selected = $value === $settings->selected;
+				$selected = papi_convert_to_string( $value ) === papi_convert_to_string( $settings->selected );
 			}
 
 			$options_html[] = papi_html_tag( 'option', [
-				'data-edit-url' => get_edit_post_link( $value ),
+				'data-edit-url' => false,
+				'data-new-url'  => false,
 				'selected'      => $selected ? 'selected' : null,
 				'value'         => $value,
 				esc_html( papi_convert_to_string( $key ) )
@@ -144,33 +152,14 @@ class Papi_Property_Dropdown extends Papi_Property {
 
 		papi_render_html_tag( 'select', [
 			'class'            => $classes,
-			'data-allow-clear' => ! empty( $settings->placeholder ),
-			'data-placeholder' => $settings->placeholder,
+			'data-allow-clear' => $settings->allow_clear,
+			'data-placeholder' => $placeholder,
 			'data-width'       => '100%',
 			'id'               => $this->html_id() . ( $settings->multiple ? '[]' : '' ),
 			'multiple'         => $settings->multiple ? 'multiple' : null,
 			'name'             => $this->html_name() . ( $settings->multiple ? '[]' : '' ),
 			$options_html
 		] );
-	}
-
-	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return mixed
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( ! ( $value = $this->prepare_value( $value ) ) ) {
-			return;
-		}
-
-		$value = maybe_unserialize( $value );
-
-		return papi_maybe_json_decode( $value, $this->get_setting( 'multiple' ) );
 	}
 
 	/**

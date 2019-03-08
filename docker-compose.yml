@@ -1,0 +1,15 @@
+phpunit:
+  image: frozzare/wptest:7.0
+  command: vendor/bin/phpunit
+  volumes:
+    - .:/opt
+  links:
+    - mysql
+  environment:
+    - WP_VERSION=latest
+
+mysql:
+  container_name: mysql
+  image: mariadb
+  environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=true

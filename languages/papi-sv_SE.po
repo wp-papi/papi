@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Papi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-18 16:04+0200\n"
-"PO-Revision-Date: 2016-07-18 16:05+0200\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2017-03-20 11:51+0100\n"
 "Last-Translator: Rasmus Bengtsson <rasmus@isotop.se>\n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -19,347 +19,362 @@ msgstr ""
 "_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: ../src\n"
 
-#: src/admin/class-papi-admin-assets.php:62
-#: src/properties/class-papi-property-flexible.php:751
-#: src/properties/class-papi-property-flexible.php:774
-#: src/properties/class-papi-property-repeater.php:772
-#: src/properties/class-papi-property-repeater.php:794
-msgid "Remove"
-msgstr "Ta bort"
-
-#: src/admin/class-papi-admin-assets.php:63
-msgid "This fields are required:"
-msgstr "Dessa fält är obligatoriska:"
-
-#: src/admin/class-papi-admin-columns.php:68
-msgid "Type"
-msgstr "Typ"
-
-#: src/admin/class-papi-admin-columns.php:175
-msgid "All types"
-msgstr "Alla typer"
-
-#: src/admin/class-papi-admin-menu.php:131
-#: src/admin/class-papi-admin-menu.php:180
-#: src/admin/class-papi-admin-menu.php:181
-#: src/types/class-papi-page-type.php:193
-#: src/types/class-papi-taxonomy-type.php:66
-msgid "Add New"
-msgstr "Skapa ny"
-
-#: src/admin/class-papi-admin-taxonomy.php:50
-#, php-format
-msgid "%s type"
-msgstr "%styp"
-
-#: src/admin/class-papi-admin.php:39 src/admin/class-papi-admin.php:48
-#: src/papi-loader.php:75 src/papi-loader.php:84
+#: ../src/papi-loader.php:75, ../src/papi-loader.php:84,
+#: ../src/admin/class-papi-admin.php:38, ../src/admin/class-papi-admin.php:47
 msgid "Cheatin&#8217; huh?"
 msgstr "Fuskar du?"
 
-#: src/admin/class-papi-admin.php:238
-msgid "View Papi Documentation"
-msgstr "Läs Papi dokumentationen"
-
-#: src/admin/class-papi-admin.php:238
-msgid "Docs"
-msgstr "Dokumentation"
-
-#: src/admin/views/add-new-page.php:8
-#, php-format
-msgid "Add New %s"
-msgstr "Lägg till ny %s"
-
-#: src/admin/views/partials/add-new-item.php:9
-msgid "Thumbnail missing"
-msgstr "Bild saknas"
-
-#: src/admin/views/partials/add-new-item.php:22
-#: src/properties/class-papi-property-relationship.php:134
-msgid "Select"
-msgstr "Välj"
-
-#: src/lib/hooks/filters-page-type.php:58
-#, php-format
-msgid "%s with WordPress standard fields"
-msgstr "%s med Wordpress standardfält"
-
-#: src/lib/hooks/filters-page-type.php:80
-#: src/lib/hooks/filters-taxonomy-type.php:14
-#, php-format
-msgid "Standard %s"
-msgstr "Standard %s"
-
-#: src/papi-loader.php:240
+#: ../src/papi-loader.php:244
 msgid ""
-"WordPress 4.0 and higher required to run Papi! The plugin has now disabled "
+"WordPress 4.4 and higher required to run Papi! The plugin has now disabled "
 "itself."
 msgstr ""
-"Wordpress 4.0 och högre krävs för att köra Papi! Tillägget har nu "
-"inaktiverat sig själv."
+"WordPress 4.4 eller högre krävs för att köra Papi! Tillägget har nu "
+"inaktiverat sig."
 
-#: src/properties/class-papi-property-datetime.php:32
-msgid "Previous Month"
-msgstr "Föregående månad"
+#: ../src/admin/class-papi-admin-assets.php:51
+msgid "Close"
+msgstr "Stäng"
 
-#: src/properties/class-papi-property-datetime.php:33
-msgid "Next Month"
-msgstr "Nästa månad"
-
-#: src/properties/class-papi-property-datetime.php:34
-msgid "Midnight"
-msgstr "Midnatt"
-
-#: src/properties/class-papi-property-datetime.php:36
-msgid "January"
-msgstr "Januari"
-
-#: src/properties/class-papi-property-datetime.php:37
-msgid "February"
-msgstr "Februari"
-
-#: src/properties/class-papi-property-datetime.php:38
-msgid "March"
-msgstr "Mars"
-
-#: src/properties/class-papi-property-datetime.php:39
-msgid "April"
-msgstr "April"
-
-#: src/properties/class-papi-property-datetime.php:40
-msgid "May"
-msgstr "Maj"
-
-#: src/properties/class-papi-property-datetime.php:41
-msgid "June"
-msgstr "Juni"
-
-#: src/properties/class-papi-property-datetime.php:42
-msgid "July"
-msgstr "Juli"
-
-#: src/properties/class-papi-property-datetime.php:43
-msgid "August"
-msgstr "Augusti"
-
-#: src/properties/class-papi-property-datetime.php:44
-msgid "September"
-msgstr "September"
-
-#: src/properties/class-papi-property-datetime.php:45
-msgid "October"
-msgstr "Oktober"
-
-#: src/properties/class-papi-property-datetime.php:46
-msgid "November"
-msgstr "November"
-
-#: src/properties/class-papi-property-datetime.php:47
-msgid "December"
-msgstr "December"
-
-#: src/properties/class-papi-property-datetime.php:49
-msgid "Noon"
-msgstr "Eftermiddag"
-
-#: src/properties/class-papi-property-datetime.php:51
-msgid "Sunday"
-msgstr "Söndag"
-
-#: src/properties/class-papi-property-datetime.php:52
-msgid "Monday"
-msgstr "Måndag"
-
-#: src/properties/class-papi-property-datetime.php:53
-msgid "Tuesday"
-msgstr "Tisdag"
-
-#: src/properties/class-papi-property-datetime.php:54
-msgid "Wednesday"
-msgstr "Onsdag"
-
-#: src/properties/class-papi-property-datetime.php:55
-msgid "Thursday"
-msgstr "Torsdag"
-
-#: src/properties/class-papi-property-datetime.php:56
-msgid "Friday"
-msgstr "Fredag"
-
-#: src/properties/class-papi-property-datetime.php:57
-msgid "Saturday"
-msgstr "Lördag"
-
-#: src/properties/class-papi-property-datetime.php:60
-msgid "Sun"
-msgstr "Sön"
-
-#: src/properties/class-papi-property-datetime.php:61
-msgid "Mon"
-msgstr "Mån"
-
-#: src/properties/class-papi-property-datetime.php:62
-msgid "Tue"
-msgstr "Tis"
-
-#: src/properties/class-papi-property-datetime.php:63
-msgid "Wed"
-msgstr "Ons"
-
-#: src/properties/class-papi-property-datetime.php:64
-msgid "Thu"
-msgstr "Tor"
-
-#: src/properties/class-papi-property-datetime.php:65
-msgid "Fri"
-msgstr "Fre"
-
-#: src/properties/class-papi-property-datetime.php:66
-msgid "Sat"
-msgstr "Lör"
-
-#: src/properties/class-papi-property-file.php:104
-msgid "Add file"
-msgstr "Lägg till fil"
-
-#: src/properties/class-papi-property-file.php:105
-msgid "No file selected"
-msgstr "Ingen fil vald"
-
-#: src/properties/class-papi-property-image.php:22
-msgid "Add image"
-msgstr "Lägg till bild"
-
-#: src/properties/class-papi-property-image.php:23
-msgid "No image selected"
-msgstr "Ingen bild vald"
-
-#: src/properties/class-papi-property-link.php:139
-#: src/properties/class-papi-property-link.php:238
-msgid "URL"
-msgstr "URL"
-
-#: src/properties/class-papi-property-link.php:147
-#: src/properties/class-papi-property-link.php:248
-msgid "Title"
-msgstr "Rubrik"
-
-#: src/properties/class-papi-property-link.php:154
-#: src/properties/class-papi-property-link.php:257
-msgid "Target"
-msgstr "Mål"
-
-#: src/properties/class-papi-property-link.php:156
-msgid "New window"
-msgstr "Nytt fönster"
-
-#: src/properties/class-papi-property-link.php:156
-msgid "Same window"
-msgstr "Samma fönster"
-
-#: src/properties/class-papi-property-link.php:166
-msgid "No link selected"
-msgstr "Ingen länk vald"
-
-#: src/properties/class-papi-property-link.php:167
-msgid "Add link"
-msgstr "Lägg till länk"
-
-#: src/properties/class-papi-property-link.php:170
-msgid "Edit link"
-msgstr "Ändra länk"
-
-#: src/properties/class-papi-property-link.php:171
-msgid "Remove link"
-msgstr "Ta bort länk"
-
-#: src/properties/class-papi-property-post.php:42
-msgid "Select Post Type"
-msgstr "Välj post typ"
-
-#: src/properties/class-papi-property-post.php:43
-#, php-format
-msgid "Select %s"
-msgstr "Välj %s"
-
-#: src/properties/class-papi-property-reference.php:92
-msgid "No references exists"
-msgstr "Inga referenser finns"
-
-#: src/properties/class-papi-property-relationship.php:104
-msgid "Post"
-msgstr "Inlägg"
-
-#: src/properties/class-papi-property-relationship.php:136
-msgid "Name (alphabetically)"
-msgstr "Enligt namn (alfabetiskt)"
-
-#: src/properties/class-papi-property-relationship.php:144
-msgid "Post created date (ascending)"
-msgstr "Enligt publiceringsdatum (stigande)"
-
-#: src/properties/class-papi-property-relationship.php:148
-msgid "Post created date (descending)"
-msgstr "Enligt publiceringsdatum (fallande)"
-
-#: src/properties/class-papi-property-relationship.php:152
-msgid "Post id (ascending)"
-msgstr "Enligt sidans id (stigande)"
-
-#: src/properties/class-papi-property-relationship.php:157
-msgid "Post id (descending)"
-msgstr "Enligt sidans id (fallande)"
-
-#: src/properties/class-papi-property-relationship.php:162
-msgid "Post order value (ascending)"
-msgstr "Post ordervärde (stigande)"
-
-#: src/properties/class-papi-property-relationship.php:166
-msgid "Post order value (descending)"
-msgstr "Post ordervärde (fallande)"
-
-#: src/properties/class-papi-property-relationship.php:170
-msgid "Post modified date (ascending)"
-msgstr "Enligt ändringsdatum (stigande)"
-
-#: src/properties/class-papi-property-relationship.php:174
-msgid "Post modified date (descending)"
-msgstr "Enligt ändringsdatum (fallande)"
-
-#: src/properties/class-papi-property-relationship.php:263
-msgid "Search"
-msgstr "Sök"
-
-#: src/properties/class-papi-property-relationship.php:268
-msgid "Sort by"
-msgstr "Sortera efter"
-
-#: src/properties/class-papi-property-repeater.php:142
-msgid "Add new row"
-msgstr "Lägg till ny rad"
-
-#: src/properties/class-papi-property-term.php:40
-msgid "Select Taxonomy"
-msgstr "Välj taxonomi"
-
-#: src/properties/class-papi-property-term.php:41
-#, php-format
-msgid "Select %s term"
-msgstr "Välj %s term"
-
-#: src/properties/class-papi-property-url.php:42
-msgid "Select file"
-msgstr "Välj fil"
-
-#: src/types/class-papi-page-type.php:194
-#: src/types/class-papi-taxonomy-type.php:67
+#: ../src/admin/class-papi-admin-assets.php:52,
+#: ../src/admin/class-papi-admin-page-type-switcher.php:39,
+#: ../src/types/class-papi-page-type.php:204,
+#: ../src/types/class-papi-taxonomy-type.php:67
 msgid "Edit"
 msgstr "Redigera"
 
-#: src/types/class-papi-page-type.php:195
-#: src/types/class-papi-taxonomy-type.php:68
+#: ../src/admin/class-papi-admin-assets.php:53,
+#: ../src/properties/class-papi-property-flexible.php:824,
+#: ../src/properties/class-papi-property-flexible.php:847,
+#: ../src/properties/class-papi-property-repeater.php:790,
+#: ../src/properties/class-papi-property-repeater.php:812
+msgid "Remove"
+msgstr "Ta bort"
+
+#: ../src/admin/class-papi-admin-assets.php:54
+msgid "This fields are required:"
+msgstr "Dessa fält är obligatoriska:"
+
+#: ../src/admin/class-papi-admin-columns.php:68
+msgid "Type"
+msgstr "Typ"
+
+#: ../src/admin/class-papi-admin-columns.php:175
+msgid "All types"
+msgstr "Alla typer"
+
+#: ../src/admin/class-papi-admin-entry-taxonomy.php:50
+msgid "%s type"
+msgstr "%styp"
+
+#: ../src/admin/class-papi-admin-menu.php:125,
+#: ../src/admin/class-papi-admin-menu.php:172,
+#: ../src/admin/class-papi-admin-menu.php:173,
+#: ../src/types/class-papi-page-type.php:203,
+#: ../src/types/class-papi-taxonomy-type.php:66
+msgid "Add New"
+msgstr "Skapa ny"
+
+#: ../src/admin/class-papi-admin-page-type-switcher.php:35
+msgid "Page Type:"
+msgstr "Sidtyp:"
+
+#: ../src/admin/class-papi-admin-page-type-switcher.php:57
+msgid "OK"
+msgstr "OK"
+
+#: ../src/admin/class-papi-admin-page-type-switcher.php:58
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: ../src/admin/class-papi-admin.php:185
+msgid "View Papi Documentation"
+msgstr "Läs Papi dokumentationen"
+
+#: ../src/admin/class-papi-admin.php:185
+msgid "Docs"
+msgstr "Dokumentation"
+
+#: ../src/properties/class-papi-property-datetime.php:32
+msgid "Previous Month"
+msgstr "Föregående månad"
+
+#: ../src/properties/class-papi-property-datetime.php:33
+msgid "Next Month"
+msgstr "Nästa månad"
+
+#: ../src/properties/class-papi-property-datetime.php:34
+msgid "Midnight"
+msgstr "Midnatt"
+
+#: ../src/properties/class-papi-property-datetime.php:36
+msgid "January"
+msgstr "Januari"
+
+#: ../src/properties/class-papi-property-datetime.php:37
+msgid "February"
+msgstr "Februari"
+
+#: ../src/properties/class-papi-property-datetime.php:38
+msgid "March"
+msgstr "Mars"
+
+#: ../src/properties/class-papi-property-datetime.php:39
+msgid "April"
+msgstr "April"
+
+#: ../src/properties/class-papi-property-datetime.php:40
+msgid "May"
+msgstr "Maj"
+
+#: ../src/properties/class-papi-property-datetime.php:41
+msgid "June"
+msgstr "Juni"
+
+#: ../src/properties/class-papi-property-datetime.php:42
+msgid "July"
+msgstr "Juli"
+
+#: ../src/properties/class-papi-property-datetime.php:43
+msgid "August"
+msgstr "Augusti"
+
+#: ../src/properties/class-papi-property-datetime.php:44
+msgid "September"
+msgstr "September"
+
+#: ../src/properties/class-papi-property-datetime.php:45
+msgid "October"
+msgstr "Oktober"
+
+#: ../src/properties/class-papi-property-datetime.php:46
+msgid "November"
+msgstr "November"
+
+#: ../src/properties/class-papi-property-datetime.php:47
+msgid "December"
+msgstr "December"
+
+#: ../src/properties/class-papi-property-datetime.php:49
+msgid "Noon"
+msgstr "Eftermiddag"
+
+#: ../src/properties/class-papi-property-datetime.php:51
+msgid "Sunday"
+msgstr "Söndag"
+
+#: ../src/properties/class-papi-property-datetime.php:52
+msgid "Monday"
+msgstr "Måndag"
+
+#: ../src/properties/class-papi-property-datetime.php:53
+msgid "Tuesday"
+msgstr "Tisdag"
+
+#: ../src/properties/class-papi-property-datetime.php:54
+msgid "Wednesday"
+msgstr "Onsdag"
+
+#: ../src/properties/class-papi-property-datetime.php:55
+msgid "Thursday"
+msgstr "Torsdag"
+
+#: ../src/properties/class-papi-property-datetime.php:56
+msgid "Friday"
+msgstr "Fredag"
+
+#: ../src/properties/class-papi-property-datetime.php:57
+msgid "Saturday"
+msgstr "Lördag"
+
+#: ../src/properties/class-papi-property-datetime.php:60
+msgid "Sun"
+msgstr "Sön"
+
+#: ../src/properties/class-papi-property-datetime.php:61
+msgid "Mon"
+msgstr "Mån"
+
+#: ../src/properties/class-papi-property-datetime.php:62
+msgid "Tue"
+msgstr "Tis"
+
+#: ../src/properties/class-papi-property-datetime.php:63
+msgid "Wed"
+msgstr "Ons"
+
+#: ../src/properties/class-papi-property-datetime.php:64
+msgid "Thu"
+msgstr "Tor"
+
+#: ../src/properties/class-papi-property-datetime.php:65
+msgid "Fri"
+msgstr "Fre"
+
+#: ../src/properties/class-papi-property-datetime.php:66
+msgid "Sat"
+msgstr "Lör"
+
+#: ../src/properties/class-papi-property-file.php:117
+msgid "Add file"
+msgstr "Lägg till fil"
+
+#: ../src/properties/class-papi-property-file.php:118
+msgid "No file selected"
+msgstr "Ingen fil vald"
+
+#: ../src/properties/class-papi-property-image.php:22
+msgid "Add image"
+msgstr "Lägg till bild"
+
+#: ../src/properties/class-papi-property-image.php:23
+msgid "No image selected"
+msgstr "Ingen bild vald"
+
+#: ../src/properties/class-papi-property-link.php:127,
+#: ../src/properties/class-papi-property-link.php:240
+msgid "URL"
+msgstr "URL"
+
+#: ../src/properties/class-papi-property-link.php:135,
+#: ../src/properties/class-papi-property-link.php:250
+msgid "Title"
+msgstr "Rubrik"
+
+#: ../src/properties/class-papi-property-link.php:142,
+#: ../src/properties/class-papi-property-link.php:259
+msgid "Target"
+msgstr "Mål"
+
+#: ../src/properties/class-papi-property-link.php:144,
+#: ../src/properties/class-papi-property-link.php:263
+msgid "New window"
+msgstr "Nytt fönster"
+
+#: ../src/properties/class-papi-property-link.php:144,
+#: ../src/properties/class-papi-property-link.php:263
+msgid "Same window"
+msgstr "Samma fönster"
+
+#: ../src/properties/class-papi-property-link.php:154
+msgid "No link selected"
+msgstr "Ingen länk vald"
+
+#: ../src/properties/class-papi-property-link.php:155
+msgid "Add link"
+msgstr "Lägg till länk"
+
+#: ../src/properties/class-papi-property-link.php:158
+msgid "Edit link"
+msgstr "Ändra länk"
+
+#: ../src/properties/class-papi-property-link.php:159
+msgid "Remove link"
+msgstr "Ta bort länk"
+
+#: ../src/properties/class-papi-property-post.php:70
+msgid "Select Post Type"
+msgstr "Välj post typ"
+
+#: ../src/properties/class-papi-property-post.php:71
+msgid "Select %s"
+msgstr "Välj %s"
+
+#: ../src/properties/class-papi-property-reference.php:91
+msgid "No references exists"
+msgstr "Inga referenser finns"
+
+#: ../src/properties/class-papi-property-relationship.php:145
+msgid "Post"
+msgstr "Inlägg"
+
+#: ../src/properties/class-papi-property-relationship.php:334
+msgid "Search"
+msgstr "Sök"
+
+#: ../src/properties/class-papi-property-relationship.php:339
+msgid "Sort by"
+msgstr "Sortera efter"
+
+#: ../src/properties/class-papi-property-repeater.php:157
+msgid "Add new row"
+msgstr "Lägg till ny rad"
+
+#: ../src/properties/class-papi-property-term.php:69
+msgid "Select Taxonomy"
+msgstr "Välj taxonomi"
+
+#: ../src/properties/class-papi-property-term.php:70
+msgid "Select %s term"
+msgstr "Välj %s term"
+
+#: ../src/properties/class-papi-property-url.php:42
+msgid "Select file"
+msgstr "Välj fil"
+
+#: ../src/types/class-papi-page-type.php:205,
+#: ../src/types/class-papi-taxonomy-type.php:68
 msgid "View"
 msgstr "Vy"
+
+#: ../src/admin/views/add-new-page.php:8
+msgid "Add New %s"
+msgstr "Lägg till ny %s"
+
+#: ../src/lib/core/property.php:327
+msgid "(required field)"
+msgstr "(obligatoriskt fält)"
+
+#: ../src/lib/hooks/filters-page-type.php:58
+msgid "%s with WordPress standard fields"
+msgstr "%s med Wordpress standardfält"
+
+#: ../src/lib/hooks/filters-page-type.php:80,
+#: ../src/lib/hooks/filters-taxonomy-type.php:31
+msgid "Standard %s"
+msgstr "Standard %s"
+
+#: ../src/admin/views/partials/add-new-item.php:9
+msgid "Thumbnail missing"
+msgstr "Bild saknas"
+
+#: ../src/admin/views/partials/add-new-item.php:22
+msgid "Select"
+msgstr "Välj"
+
+#~ msgid ""
+#~ "WordPress 4.0 and higher required to run Papi! The plugin has now "
+#~ "disabled itself."
+#~ msgstr ""
+#~ "Wordpress 4.0 och högre krävs för att köra Papi! Tillägget har nu "
+#~ "inaktiverat sig själv."
+
+#~ msgid "Name (alphabetically)"
+#~ msgstr "Enligt namn (alfabetiskt)"
+
+#~ msgid "Post created date (ascending)"
+#~ msgstr "Enligt publiceringsdatum (stigande)"
+
+#~ msgid "Post created date (descending)"
+#~ msgstr "Enligt publiceringsdatum (fallande)"
+
+#~ msgid "Post id (ascending)"
+#~ msgstr "Enligt sidans id (stigande)"
+
+#~ msgid "Post id (descending)"
+#~ msgstr "Enligt sidans id (fallande)"
+
+#~ msgid "Post order value (ascending)"
+#~ msgstr "Post ordervärde (stigande)"
+
+#~ msgid "Post order value (descending)"
+#~ msgstr "Post ordervärde (fallande)"
+
+#~ msgid "Post modified date (ascending)"
+#~ msgstr "Enligt ändringsdatum (stigande)"
+
+#~ msgid "Post modified date (descending)"
+#~ msgstr "Enligt ändringsdatum (fallande)"
 
 #~ msgid "Tab Title"
 #~ msgstr "Flikens rubrik"
@@ -408,6 +423,3 @@ msgstr "Vy"
 
 #~ msgid "Template file does not exist"
 #~ msgstr "Mallfilen finns inte"
-
-#~ msgid "(required field)"
-#~ msgstr "(obligatoriskt fält)"

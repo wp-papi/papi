@@ -64,7 +64,7 @@ class Papi_Property_Relationship extends Papi_Property {
 					} else {
 						$args = [
 							'fields'         => 'ids',
-							'meta_key'       => $this->meta_key,
+							'meta_key'       => $this->get_setting( 'meta_key' ),
 							'meta_value'     => $id,
 							'posts_per_page' => 1,
 							'post_type'      => $this->get_setting( 'post_type' ),
@@ -90,7 +90,7 @@ class Papi_Property_Relationship extends Papi_Property {
 						$ids = wp_list_pluck( [$value], 'id' );
 						$ids = count( $ids ) > 0 ? strval( $ids[0] ) : '';
 
-						if ( $ids === (string) $id  ) {
+						if ( $ids === (string) $id ) {
 							$item = $value;
 							break;
 						}
@@ -237,6 +237,7 @@ class Papi_Property_Relationship extends Papi_Property {
 
 		// Prepare arguments for WP_Query.
 		$args = array_merge( $settings->query, [
+			'post_status'            => 'any',
 			'post_type'              => papi_to_array( $settings->post_type ),
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
@@ -357,8 +358,7 @@ class Papi_Property_Relationship extends Papi_Property {
 					<ul>
 						<?php foreach ( $values as $item ): ?>
 							<li>
-								<input type="hidden" name="<?php echo esc_attr( $slug ); ?>[]"
-								       value="<?php echo esc_attr( $item->id ); ?>" />
+								<input type="hidden" name="<?php echo esc_attr( $slug ); ?>[]" value="<?php echo esc_attr( $item->id ); ?>"/>
 								<a href="#"><?php echo esc_attr( $item->title ); ?></a>
 								<span class="icon minus"></span>
 							</li>
@@ -369,39 +369,6 @@ class Papi_Property_Relationship extends Papi_Property {
 			</div>
 		</div>
 		<?php
-	}
-
-	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return mixed
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		if ( ! is_array( $value ) && ! is_object( $value ) && ! is_numeric( $value ) ) {
-			return;
-		}
-
-		$values = [];
-
-		foreach ( papi_to_array( $value ) as $val ) {
-			if ( $val instanceof WP_Post ) {
-				$values[] = $val->ID;
-			}
-
-			if ( is_object( $val ) && isset( $val->id ) ) {
-				$values[] = (int) $val->id;
-			}
-
-			if ( is_numeric( $val ) ) {
-				$values[] = (int) $val;
-			}
-		}
-
-		return $values;
 	}
 
 	/**

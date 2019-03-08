@@ -45,7 +45,7 @@ class Papi_Lib_Core_Template_Test extends WP_UnitTestCase {
 		$this->assertNull( papi_get_template_file_name( [] ) );
 		$this->assertNull( papi_get_template_file_name( (object) [] ) );
 
-		$this->assertSame( 'hello/world.php', papi_get_template_file_name( 'hello.world' ) );
+		$this->assertSame( 'hello.world.php', papi_get_template_file_name( 'hello.world' ) );
 		$this->assertSame( 'hello/world.php', papi_get_template_file_name( 'hello/world' ) );
 		$this->assertSame( 'hello/world.php', papi_get_template_file_name( 'hello/world.php' ) );
 	}
@@ -141,6 +141,25 @@ class Papi_Lib_Core_Template_Test extends WP_UnitTestCase {
 		$this->flush_cache();
 
 		$this->assertSame( 'purus-risus-adipiscing-pharetramollis.php', apply_filters( 'template_include', '' ) );
+	}
 
+	public function test_filter_papi_pre_template_include() {
+		global $post;
+
+		$this->assertEmpty( apply_filters( 'papi/pre_template_include', '' ) );
+
+		$post = get_post( $this->post_id );
+		$this->go_to( get_permalink( $this->post_id ) );
+
+		add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		add_filter( 'papi/pre_template_include', function () {
+			return 'pre-template.php';
+		} );
+
+		update_post_meta( $this->post_id, papi_get_page_type_key(), 'simple-page-type' );
+		$this->assertSame( 'pre-template.php', apply_filters( 'template_include', '' ) );
 	}
 }

@@ -3,13 +3,12 @@ import $ from 'jquery';
 /* global tinymce, tinyMCE, tinyMCEPreInit, QTags */
 
 class Editor {
-
   /**
    * Custom TinyMCE settings.
    *
    * @var {object}
    */
-  get customTinyMCESettings() {
+  get customTinyMCESettings () {
     return {
       elements: [],
       mode: 'exact',
@@ -22,7 +21,7 @@ class Editor {
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     $(document).on('papi/property/repeater/added', '[data-property="editor"]', this.update.bind(this));
     $(this.loaded);
   }
@@ -34,7 +33,7 @@ class Editor {
    *
    * @return {object}
    */
-  createTinyMceEditor(id) {
+  createTinyMceEditor (id) {
     let mceInit;
 
     if (!tinyMCEPreInit.mceInit[id]) {
@@ -58,8 +57,8 @@ class Editor {
    *
    * @param {object} $iframe
    */
-  closeAllQTags($iframe) {
-    if (typeof QTags === undefined || $iframe.canvas === undefined) {
+  closeAllQTags ($iframe) {
+    if (typeof QTags === 'undefined' || typeof $iframe.canvas === 'undefined') {
       return;
     }
 
@@ -73,7 +72,7 @@ class Editor {
    *
    * @return {object}
    */
-  getElements(selectors) {
+  getElements (selectors) {
     return {
       $dom: tinyMCE.DOM,
       $iframe: $('#' + selectors.iframe)
@@ -87,7 +86,7 @@ class Editor {
    *
    * @return {string}
    */
-  getId(id) {
+  getId (id) {
     return id.replace('wp-', '').replace('-wrap', '');
   }
 
@@ -98,7 +97,7 @@ class Editor {
    *
    * @return {object}
    */
-  getSelectors(id) {
+  getSelectors (id) {
     return {
       id: id,
       iframe: id + '_ifr',
@@ -111,14 +110,14 @@ class Editor {
   /**
    * Fix so visual tab is visible at page load.
    */
-  static init() {
+  static init () {
     new Editor().binds();
   }
 
   /**
    * Change post id if zero when dom is loaded.
    */
-  loaded() {
+  loaded () {
     if (window.wp.media.view.settings.post.id === 0) {
       window.wp.media.view.settings.post.id = parseInt($('#post_ID').val(), 10);
     }
@@ -129,7 +128,7 @@ class Editor {
    *
    * @param {string} id
    */
-  qtInit(id) {
+  qtInit (id) {
     const qtContent = tinyMCEPreInit.qtInit.content === undefined
       ? tinyMCEPreInit.qtInit.papiHiddenEditor : tinyMCEPreInit.qtInit.content;
 
@@ -155,12 +154,12 @@ class Editor {
    *
    * @param {object} e
    */
-  update(e) {
+  update (e) {
     e.preventDefault();
 
-    const $this   = $(e.currentTarget);
-    const $prev   = $this.prev();
-    let   id      = '';
+    const $this = $(e.currentTarget);
+    const $prev = $this.prev();
+    let id = '';
 
     // Support `vertical` layout in flexible and repeater.
     if ($prev.length && $prev[0].tagName.toLowerCase() === 'tr') {
@@ -180,7 +179,7 @@ class Editor {
     this.qtInit(selectors.id);
     this.createTinyMceEditor(id);
 
-    $(selectors.visualTab).removeAttr('onclick').on('click', function(e) {
+    $(selectors.visualTab).removeAttr('onclick').on('click', function (e) {
       e.preventDefault();
 
       if (typeof window.switchEditors.switchto === 'function') {
@@ -190,7 +189,7 @@ class Editor {
       }
     });
 
-    $(selectors.htmlTab).removeAttr('onclick').on('click', function(e) {
+    $(selectors.htmlTab).removeAttr('onclick').on('click', function (e) {
       e.preventDefault();
 
       if (typeof window.switchEditors.switchto === 'function') {

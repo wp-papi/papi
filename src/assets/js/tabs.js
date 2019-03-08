@@ -1,18 +1,17 @@
 import $ from 'jquery';
 
 class Tabs {
-
   /**
    * Initialize Papi tabs class.
    */
-  static init() {
+  static init () {
     new Tabs().binds();
   }
 
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     $('a[data-papi-tab]').on('click', this.changeTab.bind(this));
     this.updateTabsTableBack($('ul.papi-tabs li.active'));
   }
@@ -22,7 +21,7 @@ class Tabs {
    *
    * @param {object} e
    */
-  changeTab(e) {
+  changeTab (e) {
     e.preventDefault();
 
     const $this = $(e.currentTarget);
@@ -47,7 +46,7 @@ class Tabs {
    * @param {object} $activeTab
    * @param {bool} addClass
    */
-  updateTabsTableBack($activeTab, addClass = false) {
+  updateTabsTableBack ($activeTab, addClass = false) {
     const $tabsTableBack = $activeTab.closest('.papi-tabs-wrapper').find('.papi-tabs-table-back');
     $tabsTableBack[$activeTab.hasClass('white-tab') || addClass ? 'addClass' : 'removeClass']('white-tab');
   }

@@ -189,6 +189,17 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
+	 * Modify fields that are returned from the entry type.
+	 *
+	 * @param  array $fields
+	 *
+	 * @return array
+	 */
+	public function fields( $fields ) {
+		return $fields;
+	}
+
+	/**
 	 * Get admin body css classes.
 	 *
 	 * Use `body_classes` method to add custom admin body classes.

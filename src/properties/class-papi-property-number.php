@@ -101,17 +101,4 @@ class Papi_Property_Number extends Papi_Property {
 			'value' => $value
 		] );
 	}
-
-	/**
-	 * Import value to the property.
-	 *
-	 * @param  mixed  $value
-	 * @param  string $slug
-	 * @param  int    $post_id
-	 *
-	 * @return mixed
-	 */
-	public function import_value( $value, $slug, $post_id ) {
-		return $this->format_value( $value, $slug, $post_id );
-	}
 }
