@@ -122,7 +122,7 @@ class Rule_Page_Type extends Papi_Page_Type {
 									[
 										'compare' => '=',
 										'value'   => 'video',
-										'slug'    => 'group.0.media',
+										'slug'    => 'group.media',
 									]
 								],
 							] ),
