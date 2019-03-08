@@ -97,11 +97,28 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 				$render_property->value = null;
 			}
 
-			$render_property->slug = $this->html_name( $property, $this->counter );
+			$render_property->slug = $this->html_name( $property );
 
 			$result[] = $render_property;
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Update value before it's saved to the database.
+	 *
+	 * @param mixed  $values
+	 * @param string $slug
+	 * @param int    $post_id
+	 *
+	 * @return array
+	 */
+	public function update_value( $values, $slug, $post_id ) {
+		if ( ! isset( $values[0] ) ) {
+			$values = [$values];
+		}
+
+		return parent::update_value( $values, $slug, $post_id );
 	}
 }

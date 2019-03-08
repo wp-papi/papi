@@ -1,0 +1,24 @@
+.papi-property-table {
+  margin-left: -15px;
+  margin-top: -11px;
+  margin-bottom: -10px;
+  > table {
+    th {
+      border-right: 1px solid #eaeaea;
+      padding: 10px 16px 10px 15px;
+      text-align: left;
+      vertical-align: top;
+      &:last-child {
+        border-right: 0;
+      }
+    }
+    td:first-child {
+      font-weight: bold;
+    }
+    table td:first-child {
+      background: #fff;
+      font-weight: normal;
+      width: auto;
+    }
+  }
+}

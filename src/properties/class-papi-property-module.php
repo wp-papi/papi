@@ -112,6 +112,7 @@ class Papi_Property_Module extends Papi_Property {
 
 		// Prepare arguments for WP_Query.
 		$args = array_merge( $query, [
+			'post_status'            => 'any',
 			'post_type'              => $post_type,
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,

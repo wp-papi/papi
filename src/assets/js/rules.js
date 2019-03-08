@@ -171,7 +171,13 @@ class Rules {
     const papiReg = /^papi_/;
 
     if (rule.slug.indexOf('.') !== -1) {
-      rule.slug = rule.slug.split('.')[0];
+      const parts = rule.slug.split('.');
+
+      if (parts.length > 1) {
+        rule.slug = parts[0] + '][' + parts.slice(1).join('][');
+      } else {
+        rule.slug = parts[0];
+      }
     }
 
     if (arrReg.test(slug)) {

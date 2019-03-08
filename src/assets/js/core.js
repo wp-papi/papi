@@ -35,7 +35,7 @@ class Core {
           const editorID = $('[name="' + field.name + '"]').attr('id');
 
           // Test if the editor id is a editor.
-          if (window.tinymce.get(editorID)) {
+          if (typeof window.tinymce !== 'undefined' && window.tinymce.get(editorID)) {
             const editor = window.tinymce.get(editorID);
 
             // Save the editor content.
