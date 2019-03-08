@@ -156,12 +156,7 @@ class Papi_Core_Type {
 	 * @return string
 	 */
 	public function get_type() {
-		$class = get_class( $this );
-
-		preg_match( '/\w+\_(\w+)\_Type$/', $class, $matches );
-		$type = isset( $matches[1] ) ? $matches[1] : $this->type;
-
-		return strtolower( $type );
+		return strtolower( $this->type );
 	}
 
 	/**
