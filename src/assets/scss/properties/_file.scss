@@ -18,12 +18,16 @@
     .check {
       background: #32373c;
       border-radius: 50%;
+      box-shadow: none;
       color: #fff;
       font-size: 15px;
-      height: 21px;
-      padding-top: 2px;
+      padding-top: 1px;
       text-decoration: none;
       text-transform: uppercase;
+
+      &:hover {
+        background-color: #c00;
+      }
     }
 
     .thumbnail {

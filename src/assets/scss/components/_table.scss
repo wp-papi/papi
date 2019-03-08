@@ -1,40 +1,30 @@
-// Table
-.papi-table,
+.papi-box table,
 .papi-meta-type-term .form-table {
-  border-spacing: 0;
-  cursor: default !important;
+	cursor: default !important;
+	border-collapse: collapse;
+	border-style: hidden;
+	width: 100%;
 
   * {
     word-wrap: break-word;
   }
 
+  th,
+	td {
+		border: 1px solid #e5e5e5;
+		padding: 12px;
+		text-align: left;
+		vertical-align: top;
+	}
+
   tr {
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
-    margin: 0;
+    td, 
+    th[scope="row"] {
+    	vertical-align: top;
 
-    td, th[scope="row"] {
-      border-bottom: 0;
-      border-top: 1px solid #eaeaea;
-      padding: 10px 16px 10px 15px;
-      vertical-align: top;
+    	&:first-child {
 
-      &:first-child {
-        background: #f9f9f9;
-        border-right: 1px solid #eaeaea;
-        border-top: 1px solid #eaeaea;
-        width: 15%;
-
-        label {
-          color: #333;
-          display: block;
-          font-size: 13px;
-          font-weight: bold;
-          line-height: 1.4em;
-          margin: 0 0 3px;
-          padding: 0;
-        }
-
+        // TODO: test below, dunno what id does atm
         > p {
           color: #899194;
           font-size: 12px;
@@ -45,50 +35,13 @@
           padding: 0 !important;
         }
       }
-
-      &[colspan="2"] {
-        background: #fff;
-      }
-
-      label {
-        font-size: 13px;
-        font-weight: 600;
-        line-height: 1.5;
-        padding-top: 4px;
-        word-break: break-word;
-
-        &.light {
-            font-weight: normal;
-            padding: 0;
-        }
-      }
-
-      input,
-      select,
-      textarea {
-        width: 99.5%;
-      }
-
-      input[type="radio"] {
-        margin-top: 0px;
-      }
-
-      input[type="radio"],
-      input[type="checkbox"] {
-        width: 16px;
-        min-width: 16px;
-
-        @media screen and (max-width: 782px) {
-          width: 25px;
-          min-width: 25px;
-        }
-      }
     }
   }
+}
 
-  .wp-editor-wrap input {
-    width: auto !important;
-  }
+.papi-table-sidebar {
+	background: #f9f9f9;
+  width: 15%;
 }
 
 //
@@ -103,7 +56,7 @@
 //
 // Mobile css for first papi table.
 //
-
+/*
 @media screen and (max-width: 782px) {
   .papi-box > .inside {
     margin-top: -5px !important;
@@ -143,11 +96,12 @@
     }
   }
 }
+*/
 
 //
-// Term table.
+// Term table. 
 //
-
+/*
 .papi-meta-type-term .wrap h1 {
   margin-bottom: 10px;
 }
@@ -167,3 +121,4 @@
   border-right: 1px #ddd solid;
   border-bottom: 1px #ddd solid;
 }
+*/

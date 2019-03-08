@@ -1,6 +1,128 @@
 .papi-property-flexible {
 
   .flexible-row-label {
+    display: block;
+    padding: 12px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .flexible-layout-row,
+  .flexible-layout-table {
+    padding: 0;
+  }
+
+  .flexible-layout-table {
+    .flexibl-table {
+      margin-left: -1px;
+    }
+  }
+
+  .flexible-table {
+    > thead {
+
+    }
+  }
+
+
+  // Add Layout
+  .flexible-layouts-btn-wrap {
+    display: inline-block;
+    position: relative;
+  }
+
+  .flexible-layouts {
+    background: #23282d;
+    border-radius: 4px;
+    color: #fff;
+    float: right;
+    left: 50%;
+    min-width: 150px;
+    opacity: 1;
+    position: absolute;
+    text-align: left;
+    -moz-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 1;
+
+    ul {
+      color: #fff;
+      padding: 0 8px;
+      text-decoration: none;
+
+      li {
+        border-top: 1px #32373c solid;
+        padding: 5px 8px 0;
+
+        &:first-child {
+          border-top: 0;
+          margin-top: -5px;
+        }
+
+        a {
+          color: white;
+          display: block;
+          float: none;
+          text-decoration: none;
+
+          &:hover {
+            color: #00b9eb;
+          }
+        }
+      }
+    }
+
+    &-hidden {
+      position: absolute;
+      visibility: hidden;
+    }
+
+    &-top {
+      bottom: 140%;
+
+      &:after {
+        top: 100%;
+        border: solid transparent;
+        border-color: rgba(213, 0, 0, 0);
+        border-top-color: #23282d;
+        border-width: 5px;
+        content: ' ';
+        height: 0;
+        left: 50%;
+        margin-left: -5px;
+        pointer-events: none;
+        position: absolute;
+        width: 0;
+      }
+    }
+
+    &-bottom {
+      top: 140%;
+
+      &:after {
+        top: -3%;
+        border: solid transparent;
+        border-color: rgba(213, 0, 0, 0);
+        border-bottom-color: #23282d;
+        border-width: 5px;
+        content: ' ';
+        height: 0;
+        left: 50%;
+        margin-left: -5px;
+        pointer-events: none;
+        position: absolute;
+        width: 0;
+      }
+    }
+  }
+
+}
+
+/*
+.papi-property-flexible {
+
+  .flexible-row-label {
     background: #f9f9f9;
     border-top: 1px #eaeaea solid;
   }
@@ -104,97 +226,7 @@
     text-align: right;
   }
 
-  .flexible-layouts-btn-wrap {
-    display: inline-block;
-    position: relative;
-  }
-
-  .flexible-layouts {
-    background: #23282d;
-    border-radius: 4px;
-    color: #fff;
-    float: right;
-    left: 50%;
-    min-width: 150px;
-    opacity: 1;
-    position: absolute;
-    text-align: left;
-    -moz-transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
-    width: 100%;
-    z-index: 1;
-
-    ul {
-      color: #fff;
-      padding: 0 8px;
-      text-decoration: none;
-
-      li {
-        border-top: 1px #32373c solid;
-        padding: 5px 8px 0;
-
-        &:first-child {
-          border-top: 0;
-          margin-top: -5px;
-        }
-
-        a {
-          color: white;
-          display: block;
-          float: none;
-          text-decoration: none;
-
-          &:hover {
-            color: #00b9eb;
-          }
-        }
-      }
-    }
-
-    &-hidden {
-      position: absolute;
-      visibility: hidden;
-    }
-
-    &-top {
-      bottom: 140%;
-
-      &:after {
-        top: 100%;
-        border: solid transparent;
-        border-color: rgba(213, 0, 0, 0);
-        border-top-color: #23282d;
-        border-width: 5px;
-        content: ' ';
-        height: 0;
-        left: 50%;
-        margin-left: -5px;
-        pointer-events: none;
-        position: absolute;
-        width: 0;
-      }
-    }
-
-    &-bottom {
-      top: 140%;
-
-      &:after {
-        top: -3%;
-        border: solid transparent;
-        border-color: rgba(213, 0, 0, 0);
-        border-bottom-color: #23282d;
-        border-width: 5px;
-        content: ' ';
-        height: 0;
-        left: 50%;
-        margin-left: -5px;
-        pointer-events: none;
-        position: absolute;
-        width: 0;
-      }
-    }
-  }
+  
 
   &.papi-property-repeater-top {
     > .papi-table {
@@ -204,3 +236,4 @@
     }
   }
 }
+*/

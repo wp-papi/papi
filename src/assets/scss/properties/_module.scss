@@ -1,0 +1,30 @@
+.papi-property-module {
+  background: #fff;
+  //margin: -13px;
+
+  .papi-table {
+  	border-style: unset;
+  	tr {
+	    td, 
+	    th[scope="row"] {
+	    	&:first-child {
+        	background: #f9f9f9;
+	    		width: 15%;
+	    	}
+	    }
+	  }
+  }
+}
+
+.papi-layout-horizontal {
+  .papi-property-module {
+    //margin: -13px;
+  }
+}
+
+.papi-layout-vertical {
+  .papi-property-module {
+    //margin: 0;
+    //border: 1px solid #e5e5e5;
+  }
+}

@@ -1,0 +1,37 @@
+// Page type switcher.
+#post-body .papi-page-type-switcher {
+  > span {
+    font-weight: bold;
+  }
+
+  &:before {
+    content: "\f105";
+    font: 400 20px/1 dashicons;
+    speak: none;
+    display: inline-block;
+    padding: 0 2px 0 0;
+    top: 0;
+    left: -1px;
+    position: relative;
+    vertical-align: top;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-decoration: none !important;
+    color: #888;
+  }
+
+  > div {
+    line-height: 2.5em;
+    margin-top: 3px;
+    display: none;
+
+    > select {
+      margin-right: 2px;
+    }
+
+    > a {
+      vertical-align: middle;
+      margin-right: 2px;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+#poststuff .papi-box {
+	.inside {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+.papi-box {
+	*{
+		box-sizing: border-box;
+	}
+
+
+	.papi-layout-vertical {
+    > td {
+    	> label {
+	      margin: 0 0 10px 0;
+	      display: block;
+	    }
+	    > br {
+	    	display: none;
+	    }
+    }
+  }
+
+}
+
+// TODO: test this 
+#side-sortables {
+  .papi-box > .papi-table {
+    tr td {
+      float: left;
+      padding: 10px 0;
+      width: 99.5%;
+
+      > label {
+        padding-left: 12px;
+      }
+
+      > input,
+      select,
+      textarea {
+        margin-left: 12px;
+        width: 90.5%;
+      }
+    }
+  }
+}

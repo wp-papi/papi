@@ -1,17 +1,25 @@
 .papi-property-group {
-  margin-right: -31px;
+  background: #fff;
+  //margin: -13px;
 
-  > .papi-table {
-    margin: -11px 0 -10px -15px;
+  .papi-table-sidebar {
+    background: #f9f9f9;
   }
 }
 
-.papi-property-flexible .papi-property-group,
-.papi-property-repeater .papi-property-group {
-  > .papi-table {
-    margin: -21px 0 -19px -18px;
+.papi-layout-horizontal {
+  .papi-property-group {
+    //margin: -13px;
   }
 }
+
+.papi-layout-vertical {
+  .papi-property-group {
+    margin: 0;
+    border: 1px solid #e5e5e5;
+  }
+}
+/*
 
 //
 // Mobile css.
@@ -52,3 +60,4 @@
   }
 }
 
+*/

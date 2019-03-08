@@ -1,0 +1,24 @@
+.papi-box {
+	h3 {
+	  font-size: 14px;
+	  line-height: 1.4;
+	  margin: 0;
+	  padding: 8px 12px;
+	}
+
+	.count {
+		font-weight: bold;
+	}
+}
+
+.papi-rq {
+  color: #f00;
+}
+
+.papi-box .hndle .papi-rq {
+  color: #000 !important;
+}
+
+.papi-media-title {
+  margin-bottom: 5px; // TODO: where is this used?!
+}

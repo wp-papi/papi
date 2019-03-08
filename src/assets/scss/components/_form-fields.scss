@@ -1,0 +1,84 @@
+.papi-table,
+.papi-meta-type-term .form-table {
+
+	label {
+		font-weight: 600;
+		text-align: left;
+		line-height: 1.4;
+		padding-top: 4px;
+		word-break: break-word;
+
+		// TODO: text, where can it be found?
+		&.light {
+      font-weight: normal;
+      padding: 0;
+    }
+	}
+
+	// Override when table:
+	tr {
+    td, th[scope="row"] {
+      &:first-child {
+        label {
+          display: block;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+	input[type="date"], 
+	input[type="datetime-local"], 
+	input[type="datetime"], 
+	input[type="email"], 
+	input[type="month"], 
+	input[type="number"],
+	input[type="password"], 
+	input[type="search"], 
+	input[type="tel"], 
+	input[type="text"], 
+	input[type="time"], 
+	input[type="url"], 
+	input[type="week"] {
+		height: 28px;
+		line-height: 28px;
+		margin: 0;
+		width: 100%;
+	}
+
+	select, 
+	textarea {
+		width: 100%;
+	}
+
+	select {
+		-webkit-appearance: none;
+		padding: 0 8px;
+		// TODO: arrow
+	}
+
+	textarea {
+		min-height: 56px;
+	}
+}
+
+// Add new page
+.papi-search {
+  font-size: 16px;
+  font-weight: 300;
+  left: 20px;
+  line-height: 1.5;
+  position: relative;
+  top: -2px;
+  width: 280px;
+
+  @media only screen and (max-width: 650px) {
+    clear: both;
+    float: none;
+    left: 0;
+    margin: 10px 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+  }
+}

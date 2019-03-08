@@ -1,11 +1,94 @@
+.papi-property-repeater-top {
+  // Components
+  > table {
+    border: 1px solid #e5e5e5;
+  }
+
+  // Modules
+  .bottom {
+    margin-top: 12px;
+    text-align: right;
+    width: 100%;
+  }
+}
+
 .papi-property-repeater,
 .papi-property-flexible {
-  margin-right: -31px;
+  .papi-table-sidebar {
+    background: transparent;
+  }
+  // Components
+  .repeater-remove-item {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background: #32373c;
+    color: #fff;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      background: #c00;
+    }
+  }
 
   > .papi-table {
-    margin: -11px 0 -13px -15px;
-    table-layout: fixed;
+    background: #fff;
+    //table-layout: fixed;
     border-bottom: 1px solid #eaeaea;
+  }
+
+  .repeater-tbody {
+    > tr:nth-of-type(odd) {
+      background: #FFF;
+    }
+    > tr:nth-of-type(even) {
+      background: #F9F9F9;
+    }
+  }
+
+  // Modules
+  .repeater-layout-row {
+    padding: 0;
+  }
+
+  .papi-table > thead,
+  .ui-sortable {
+
+    .handle {
+      width: 80px;
+    }
+
+    .last {
+      text-align: center;
+      width: 45px;
+    }
+  }
+
+  .papi-table > thead tr th {
+    &:first-child {
+      width: 80px;
+    }
+  }
+
+  // Layout 
+
+
+
+  // Logic
+  .repeater-content-closed {
+    display: none;
+  }
+
+}
+
+
+/*
+.papi-property-repeater,
+.papi-property-flexible {
+
+  > .papi-table {
 
     > thead > tr,
     > tbody > tr {
@@ -170,14 +253,7 @@
     }
   }
 
-  .bottom {
-    margin-top: 25px;
-    width: 95%;
 
-    button {
-      float: right;
-    }
-  }
 }
 
 //
@@ -269,3 +345,4 @@
     }
   }
 }
+*/

@@ -1,53 +1,3 @@
-// Add new page
-.papi-search {
-  font-size: 16px;
-  font-weight: 300;
-  left: 20px;
-  line-height: 1.5;
-  position: relative;
-  top: -2px;
-  width: 280px;
-
-  @media only screen and (max-width: 650px) {
-    clear: both;
-    float: none;
-    left: 0;
-    margin: 10px 0;
-    right: 0;
-    top: 0;
-    width: 100%;
-  }
-}
-
-// Sizes
-.papi-table,
-.papi-fullwidth {
-  width: 100%;
-}
-
-.papi-halfwidth {
-  width: 50%;
-}
-
-.papi-pull-left {
-  float: left;
-}
-
-.papi-pull-right {
-  float: right;
-}
-
-.papi-panel {
-  background: #fff;
-  border: 1px #eaeaea solid;
-  margin: 10px 0 -5px -2px;
-  padding: 10px;
-
-  p {
-    margin: 0;
-  }
-}
-
 // Boxes that exists on the add new page
 .papi-box-list {
   clear: both;
@@ -117,7 +67,7 @@
 
     .papi-page-type-info {
       margin-top: -4px;
-      max-width: 240px;
+      max-width: 240px; // TODO: why?
       padding: 15px;
       position: relative;
       word-break: break-word;

@@ -1,3 +1,51 @@
+// Util
+
+// Sizes
+.papi-table,
+.papi-fullwidth {
+  width: 100%;
+}
+
+.papi-halfwidth {
+  width: 50%;
+}
+
+// Position
+.papi-pull-left {
+  float: left;
+}
+
+.papi-pull-right {
+  float: right;
+}
+
+.papi-clear {
+  clear: both;
+}
+
+// Visibility
+.papi-hide {
+  display: none !important;
+}
+
+.papi-visually-hidden {
+  clip: rect(0 0 0 0);
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+// Hide, by force or class, not sure where this belongs (TODO)
+.metabox-prefs {
+  .papi-rq {
+    display: none !important;
+  }
+}
+
 #papi-hidden-editor,
 #wp-papiHiddenEditor-wrap,
 label[for="papi-hidden-editor-hide"],
@@ -16,47 +64,7 @@ $hide-list: #edit-slug-box #pageparentdiv;
   }
 }
 
-// Page type switcher.
-#post-body .papi-page-type-switcher {
-  > span {
-    font-weight: bold;
-  }
-
-  &:before {
-    content: "\f105";
-    font: 400 20px/1 dashicons;
-    speak: none;
-    display: inline-block;
-    padding: 0 2px 0 0;
-    top: 0;
-    left: -1px;
-    position: relative;
-    vertical-align: top;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-decoration: none !important;
-    color: #888;
-  }
-
-  > div {
-    line-height: 2.5em;
-    margin-top: 3px;
-    display: none;
-
-    > select {
-      margin-right: 2px;
-    }
-
-    > a {
-      vertical-align: middle;
-      margin-right: 2px;
-    }
-  }
-}
-
-//
 // Iframe mode, hide menus, admin tab and other things.
-//
 .papi-iframe-mode {
   #adminmenumain, // admin menu
   #wpadminbar, // admin bar

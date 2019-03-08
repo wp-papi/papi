@@ -1,36 +1,47 @@
-@import "new/form-fields";
-@import "new/table";
-@import "new/box";
+// Vendors : plugins
+@import "vendors/pikaday";
+@import "vendors/select2";
 
-/*
-@import "components/pikaday";
-@import "components/select2";
+@import "base/panel"; 						// not sure where this belongs / what it does, modules?
+@import "base/switcher"; 					// not sure where this belongs / what it does, modules? 
 
-@import "modules/utils";
-@import "modules/admin";
-@import "modules/attachment";
-@import "modules/base";
-@import "modules/box";
-@import "modules/iframe";
-@import "modules/table";
-@import "modules/tabs";
-@import "modules/options";
+// Base Page-Type
+@import "base/typography";
+@import "base/utils";
+@import "base/box";
 
-@import "properties/shared";
-@import "properties/color";
+// Compoponents, elements
+@import "components/form-fields";
+@import "components/table";				// TODO: more code to go through
+
+// Modules, collection of components
+@import "modules/box-list";				// Admin "Add new page" layout			
+@import "modules/iframe"; 
+@import "modules/options";				// not sure where this belongs / what it does 
+@import "modules/tabs"; 					// TODO: test
+
+// Properties 
 @import "properties/checkbox";
 @import "properties/divider";
-@import "properties/dropdown";
 @import "properties/file";
-@import "properties/flexible";
-@import "properties/group";
+@import "properties/flexible";		// TODO: more code to go through
+@import "properties/group";				// TODO: more code to go through
 @import "properties/link";
-@import "properties/post";
-@import "properties/radio";
-@import "properties/repeater";
+@import "properties/module"; 			// same content as group, merge?
+@import "properties/post";				// I don't get this one? term is not a table?
+@import "properties/radio"; 			// same content as checkbox, merge?
+@import "properties/reference";		// TODO: test
 @import "properties/relationship";
-@import "properties/reference";
-@import "properties/term";
-@import "properties/text";
+@import "properties/repeater";		// TODO: more code to go through
+@import "properties/term"; 				// I don't get this one? term is not a table? same as post
 @import "properties/url";
+
+
+
+// Needs some love
+
+
+/*
+
+
 */

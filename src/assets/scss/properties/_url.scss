@@ -1,19 +1,30 @@
-@media screen and (max-width: 782px) {
-  .papi-url-media-input {
-    width: 95%;
-  }
-
+@media screen and (max-width: 781px) {
   .papi-url-media-button {
-    float: left;
     margin-top: 10px;
-    width: 100%;
   }
 }
 
 @media screen and (min-width: 782px) {
+  .papi-url-media-input {
+    max-width: 85%;
+  }
   .papi-url-media-button {
+    width: calc(15% - 12px);
     float: right;
-    margin-top: 10px !important;
-    max-width: 15%;
+    margin-top: -1px !important;
+  }
+}
+
+
+.repeater-tbody {
+  @media screen and (min-width: 782px) {
+    .papi-url-media-input {
+      max-width: none;
+    }
+    .papi-url-media-button {
+      width: auto;
+      float: right;
+      margin-top: 10px;
+    }
   }
 }
