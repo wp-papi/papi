@@ -109,10 +109,12 @@ function papi_get_options_and_properties( $file_or_options = [], $properties = [
 		}
 	}
 
-	// Support `properties` in options array.
-	if ( is_array( $options ) && isset( $options['properties'] ) ) {
-		$properties = papi_to_array( $options['properties'] );
-		unset( $options['properties'] );
+	// Support `properties` or `props` in options array.
+	foreach ( ['properties', 'props'] as $key ) {
+		if ( is_array( $options ) && isset( $options[$key] ) ) {
+			$properties = papi_to_array( $options[$key] );
+			unset( $options[$key] );
+		}
 	}
 
 	return [$options, $properties];
