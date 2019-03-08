@@ -84,6 +84,11 @@ function papi_get_meta_type( $type = null ) {
 		}
 	}
 
+	// Network page in admin.
+	if ( papi_is_admin() && ! empty( $parsed_url['path'] ) && preg_match( '/\/network\//', $parsed_url['path'] ) ) {
+		return 'network';
+	}
+
 	// When doing ajax we need to check if it's a taxonomy ajax or a post type ajax.
 	if ( papi_is_admin() && defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 		if ( isset( $_POST['taxonomy'] ) ) {

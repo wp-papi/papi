@@ -164,6 +164,7 @@ final class Papi_Admin {
 	protected function load_files() {
 		require_once __DIR__ . '/class-papi-admin-meta-handler.php';
 		require_once __DIR__ . '/class-papi-admin-option-handler.php';
+		require_once __DIR__ . '/class-papi-admin-network-handler.php';
 		require_once __DIR__ . '/class-papi-admin-entry-post.php';
 		require_once __DIR__ . '/class-papi-admin-entry-taxonomy.php';
 		require_once __DIR__ . '/class-papi-admin-columns.php';
