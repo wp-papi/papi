@@ -115,7 +115,7 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 	 * @return array
 	 */
 	public function update_value( $values, $slug, $post_id ) {
-		if ( ! isset( $values[0] ) ) {
+		if ( ! isset( $values[0] ) && ! empty( $values ) ) {
 			$values = [$values];
 		}
 
