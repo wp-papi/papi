@@ -182,6 +182,7 @@ final class Papi_Loader extends Papi_Core_Container {
 			'core/post.php',
 			'core/io.php',
 			'core/property.php',
+			'core/slug.php',
 			'core/tabs.php',
 			'core/taxonomy.php',
 			'core/template.php',
