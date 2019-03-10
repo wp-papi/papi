@@ -51,6 +51,12 @@ class Papi_Option_Type extends Papi_Entry_Type {
 				<div id="poststuff">
 					<div id="post-body">
 						<?php
+						papi_render_html_tag( 'input', [
+							'type'  => 'hidden',
+							'name'  => '_papi_type_prefix',
+							'value' => $this->get_prefix(),
+						] );
+
 						foreach ( $this->boxes as $box ) {
 							do_meta_boxes( $box->id, 'normal', null );
 						}

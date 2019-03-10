@@ -72,6 +72,12 @@ class Papi_Core_Data_Handler {
 			unset( $data['papi_meta_nonce'] );
 		}
 
+		// Prefix post data keys if not empty.
+		if ( ! empty( $_POST['_papi_type_prefix'] ) ) {
+			$prefix = sanitize_text_field( $_POST['_papi_type_prefix'] );
+			$data = $this->prefix_post_data( $prefix, $data );
+		}
+
 		return $data;
 	}
 
@@ -108,6 +114,29 @@ class Papi_Core_Data_Handler {
 		}
 
 		return [$keys, $value];
+	}
+
+	/**
+	 * Prefix post data keys.
+	 *
+	 * @param  string $prefix
+	 * @param  array  $data
+	 *
+	 * @return array
+	 */
+	protected function prefix_post_data( $prefix, $data ) {
+		foreach ( $data as $key => $value ) {
+			if ( ! preg_match( '/papi\_/', $key ) ) {
+				continue;
+			}
+
+			$new_key = str_replace( 'papi_', papify( $prefix ) . '_', $key );
+
+			$data[$new_key] = $value;
+			unset( $data[$key] );
+		}
+
+		return $data;
 	}
 
 	/**

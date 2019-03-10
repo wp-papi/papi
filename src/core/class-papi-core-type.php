@@ -34,6 +34,13 @@ class Papi_Core_Type {
 	public $name = '';
 
 	/**
+	 * The prefix.
+	 *
+	 * @var string
+	 */
+	public $prefix = '';
+
+	/**
 	 * The sort order of the core type.
 	 *
 	 * @var int
@@ -148,6 +155,15 @@ class Papi_Core_Type {
 		}
 
 		return array_merge( $parent_meta, $child_meta );
+	}
+
+	/**
+	 * Get prefix.
+	 *
+	 * @return string
+	 */
+	public function get_prefix() {
+		return strtolower( $this->prefix );
 	}
 
 	/**
