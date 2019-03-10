@@ -42,6 +42,8 @@ class Papi_Core_Data {
 			return false;
 		}
 
+		$slug = papi_filter_slug( $slug );
+
 		// Delete cached value.
 		papi_cache_delete( $slug, $id, $this->type );
 
@@ -89,6 +91,8 @@ class Papi_Core_Data {
 			return;
 		}
 
+		$slug = papi_filter_slug( $slug );
+
 		if ( $this->id ) {
 			$value = call_user_func_array( $fn, [$this->type, $id, unpapify( $slug ), true] );
 		} else {
@@ -133,6 +137,8 @@ class Papi_Core_Data {
 		if ( ! $save_value && is_array( $value ) ) {
 			$value = [$value];
 		}
+
+		$slug = papi_filter_slug( $slug );
 
 		// Delete saved value if empty.
 		if ( papi_is_empty( $value ) ) {

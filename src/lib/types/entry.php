@@ -75,7 +75,7 @@ function papi_get_entry_type_count( $entry_type ) {
 		return 0;
 	}
 
-	$table = sprintf( '%s%smeta', $wpdb->prefix, papi_get_meta_type( $entry_type->type ) );
+	$table = sprintf( '%s%smeta', $wpdb->prefix, papi_get_meta_type( $entry_type->get_type() ) );
 
 	// @codingStandardsIgnoreStart
 	$sql = $wpdb->prepare(
@@ -185,15 +185,15 @@ function papi_get_all_entry_types( array $args = [] ) {
 		// @codeCoverageIgnoreEnd
 
 		if ( $entry_type->singleton() ) {
-			if ( isset( $singletons[$entry_type->type] ) ) {
+			if ( isset( $singletons[$entry_type->get_type()] ) ) {
 				continue;
 			} else {
-				$singletons[$entry_type->type] = true;
+				$singletons[$entry_type->get_type()] = true;
 			}
 		}
 
 		$id         = $entry_type->get_id();
-		$valid_type = in_array( $entry_type->type, $args['types'], true );
+		$valid_type = in_array( $entry_type->get_type(), $args['types'], true );
 		$valid_type = $args['mode'] === 'include' ? $valid_type : ! $valid_type;
 
 		if ( $args['all'] || ( $valid_type && call_user_func_array( [$entry_type, 'allowed'], $args['args'] ) ) ) {

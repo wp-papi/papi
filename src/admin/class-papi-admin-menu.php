@@ -40,7 +40,7 @@ final class Papi_Admin_Menu {
 	protected function override_labels( Papi_Entry_Type $entry_type ) {
 		global $wp_post_types, $wp_taxonomies;
 
-		if ( $entry_type->type === 'taxonomy' ) {
+		if ( $entry_type->get_type() === 'taxonomy' ) {
 			$meta_type_value = papi_get_taxonomy();
 		} else {
 			$meta_type_value = papi_get_post_type();
@@ -55,7 +55,7 @@ final class Papi_Admin_Menu {
 				continue;
 			}
 
-			if ( $entry_type->type === 'taxonomy' && isset( $wp_taxonomies[$meta_type_value]->labels->$key ) ) {
+			if ( $entry_type->get_type() === 'taxonomy' && isset( $wp_taxonomies[$meta_type_value]->labels->$key ) ) {
 				$wp_taxonomies[$meta_type_value]->labels->$key = $value;
 			} else if ( isset( $wp_post_types[$meta_type_value]->labels->$key ) ) {
 				$wp_post_types[$meta_type_value]->labels->$key = $value;
@@ -76,7 +76,7 @@ final class Papi_Admin_Menu {
 		] );
 
 		foreach ( $entry_types as $entry_type ) {
-			if ( empty( $entry_type->menu ) || empty( $entry_type->name ) ) {
+			if ( empty( $entry_type->get_menu() ) || empty( $entry_type->name ) ) {
 				continue;
 			}
 
@@ -87,7 +87,7 @@ final class Papi_Admin_Menu {
 			);
 
 			add_submenu_page(
-				$entry_type->menu,
+				$entry_type->get_menu(),
 				$entry_type->name,
 				$entry_type->name,
 				$entry_type->capability,
