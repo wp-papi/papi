@@ -72,6 +72,7 @@ class Papi_Property_Repeater extends Papi_Property {
 		}
 
 		$top_property = new Papi_Core_Property;
+		$repeater_slug = papi_filter_slug( $repeater_slug );
 
 		foreach ( $values as $index => $row ) {
 			if ( ! is_array( $row ) ) {
@@ -399,6 +400,8 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @return array
 	 */
 	public function load_value( $value, $repeater_slug, $post_id ) {
+		$repeater_slug = papi_filter_slug( $repeater_slug );
+
 		if ( is_array( $value ) ) {
 			return $value;
 		}
@@ -595,8 +598,10 @@ class Papi_Property_Repeater extends Papi_Property {
 			$options->settings->items[$key] = $property;
 		}
 
+		$options->slug = papi_filter_slug( $options->slug );
+
 		papi_render_html_tag( 'script', [
-			'data-papi-json' => esc_attr( sprintf( '%s_repeater_json', $slug ) ),
+			'data-papi-json' => esc_attr( sprintf( '%s_repeater_json', papi_filter_slug( $slug ) ) ),
 			'type'           => 'application/json',
 			papi_maybe_json_encode( [$options] )
 		] );
@@ -690,7 +695,7 @@ class Papi_Property_Repeater extends Papi_Property {
 				<?php
 				papi_render_html_tag( 'button', [
 					'class'          => 'button button-primary',
-					'data-papi-json' => sprintf( '%s_repeater_json', $options->slug ),
+					'data-papi-json' => sprintf( '%s_repeater_json', papi_filter_slug( $options->slug ) ),
 					'type'           => 'button',
 					esc_html( $this->get_setting( 'add_new_label' ) )
 				] );

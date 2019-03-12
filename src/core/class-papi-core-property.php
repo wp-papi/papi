@@ -545,7 +545,7 @@ class Papi_Core_Property implements JsonSerializable {
 		$base_slug = $this->slug;
 
 		if ( is_null( $sub_property ) ) {
-			return $base_slug;
+			return papi_filter_slug( $base_slug );
 		}
 
 		if ( is_numeric( $row ) ) {
@@ -556,7 +556,7 @@ class Papi_Core_Property implements JsonSerializable {
 			if ( is_array( $sub_property ) || is_object( $sub_property ) ) {
 				$sub_property = self::factory( $sub_property );
 			} else {
-				return $base_slug;
+				return papi_filter_slug( $base_slug );
 			}
 		}
 

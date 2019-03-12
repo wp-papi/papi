@@ -315,6 +315,9 @@ class Papi_Entry_Type extends Papi_Core_Type {
 			return preg_replace( '/(\[|\])/', '', $part );
 		}, $parts );
 
+		// Add filter to modify slug for entry types.
+		# add_filter( 'papi/slug', [$this, 'modify_slug'] );
+
 		if ( count( $parts ) > 1 ) {
 			$property = null;
 
@@ -433,6 +436,17 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
+	 * Modify slug.
+	 *
+	 * @param  string $slug
+	 *
+	 * @return string
+	 */
+	public function modify_slug( $slug ) {
+		return $slug;
+	}
+
+	/**
 	 * Add new property to the page using array or rendering property template file.
 	 *
 	 * @param  array|string $file_or_options
@@ -457,6 +471,10 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	 * Setup entry type.
 	 */
 	public function setup() {
+		// Add filter to modify slug for entry types.
+		add_filter( 'papi/slug', [$this, 'modify_slug'] );
+
+		// Add help tabs.
 		add_action( 'in_admin_header', [$this, 'add_help_tabs'] );
 		add_filter( 'screen_options_show_screen', function () {
 			return $this->show_screen_options;

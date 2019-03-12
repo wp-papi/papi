@@ -86,6 +86,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			return [];
 		}
 
+		$repeater_slug = papi_filter_slug( $repeater_slug );
+
 		foreach ( $values as $index => $layout ) {
 			foreach ( $layout as $slug => $value ) {
 				if ( is_string( $value ) && preg_match( $this->layout_value_regex, $value ) ) {
@@ -411,6 +413,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			return $value;
 		}
 
+		$repeater_slug = papi_filter_slug( $repeater_slug );
+
 		list( $results, $trash ) = $this->get_results( $value, $repeater_slug, $post_id );
 
 		// Will not need this array.
@@ -587,8 +591,10 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 			}
 		}
 
+		$options->slug = papi_filter_slug( $options->slug );
+
 		papi_render_html_tag( 'script', [
-			'data-papi-json' => esc_attr( sprintf( '%s_repeater_json', $slug ) ),
+			'data-papi-json' => esc_attr( sprintf( '%s_repeater_json', papi_filter_slug( $slug ) ) ),
 			'type'           => 'application/json',
 			papi_maybe_json_encode( [$options] )
 		] );
@@ -744,7 +750,7 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 								papi_render_html_tag( 'li', [
 									papi_html_tag( 'a', [
 										'data-layout'    => esc_html( $layout['slug'] ),
-										'data-papi-json' => sprintf( '%s_repeater_json', $options->slug ),
+										'data-papi-json' => sprintf( '%s_repeater_json', papi_filter_slug( $options->slug ) ),
 										'href'           => '#',
 										'role'           => 'button',
 										'tabindex'       => 0,

@@ -8,7 +8,7 @@
  * @return string
  */
 function papi_filter_slug( $slug ) {
-	return apply_filters( 'papi/core/slug', $slug );
+	return apply_filters( 'papi/slug', $slug );
 }
 
 /**
@@ -23,7 +23,9 @@ function papi_prefix_slug( $prefix, $slug ) {
 	$papify = preg_match( '/papi\_/', $slug );
 	$slug = unpapify( $slug );
 
-	$slug = implode( '_', [$prefix, $slug] );
+	if ( strpos( $slug, $prefix ) !== 0 ) {
+		$slug = implode( '_', [$prefix, $slug] );
+	}
 
 	if ( $papify ) {
 		$slug = papify( $slug );
