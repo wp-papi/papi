@@ -1,17 +1,6 @@
 <?php
 
 /**
- * Modify slug via core filter.
- *
- * @param  string $slug
- *
- * @return string
- */
-function papi_filter_slug( $slug ) {
-	return apply_filters( 'papi/core/slug', $slug );
-}
-
-/**
  * Prefix slug. Handles slugs with papi prefix.
  *
  * @param  string $prefix
