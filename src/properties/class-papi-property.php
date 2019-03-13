@@ -60,11 +60,7 @@ class Papi_Property extends Papi_Core_Property {
 
 		// Check language option, so we don't render properties on a different language.
 		if ( $lang = $this->get_option( 'lang' ) ) {
-			// Support array of langs.
-			$lang = is_array( $lang ) ? $lang : [$lang];
-
-			// Only render if it's the right language if it exist.
-			return in_array( papi_get_lang(), $lang, true );
+			return in_array( papi_get_lang(), papi_to_array( $lang ), true );
 		}
 
 		// If no valid lang query string exists we have to override the display property.
@@ -87,8 +83,6 @@ class Papi_Property extends Papi_Core_Property {
 
 		// Render property.
 		$this->render_row_html();
-		$this->render_hidden_html();
-		$this->render_rules_json();
 	}
 
 	/**
@@ -182,6 +176,8 @@ class Papi_Property extends Papi_Core_Property {
 		if ( $this->get_option( 'raw' ) ) {
 			echo sprintf( '<div class="%s">', esc_attr( $css_class ) );
 			$this->render_property_html();
+			$this->render_hidden_html();
+			$this->render_rules_json();
 			echo '</div>';
 		} else {
 			?>
@@ -203,6 +199,8 @@ class Papi_Property extends Papi_Core_Property {
 					}
 
 					$this->render_property_html();
+					$this->render_hidden_html();
+					$this->render_rules_json();
 					?>
 				</td>
 			</tr>

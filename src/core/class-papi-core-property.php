@@ -333,7 +333,7 @@ class Papi_Core_Property implements JsonSerializable {
 	public function get_child_properties() {
 		$items = $this->get_setting( 'items', [] );
 
-		return is_array( $items ) ? $items : [$items];
+		return papi_to_array( $items );
 	}
 
 	/**
