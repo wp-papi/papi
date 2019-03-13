@@ -137,7 +137,7 @@ class Papi_Core_Box {
 		}
 
 		if ( empty( $this->id ) ) {
-			$this->id = strtolower( papi_f( papi_underscorify( papify( $this->title ) ) ) );
+			$this->id = papi_slugify( strtolower( papi_f( papi_underscorify( papify( $this->title ) ) ) ) );
 			$this->id = sanitize_text_field( $this->id );
 		}
 	}
