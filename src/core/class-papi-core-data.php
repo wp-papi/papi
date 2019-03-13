@@ -17,13 +17,14 @@ class Papi_Core_Data {
 	protected $type;
 
 	/**
-	 * Property data constructor.
+	 * Core data constructor.
 	 *
 	 * @param $type
 	 */
 	public function __construct( $type = 'post' ) {
-		$this->type = is_string( $type ) ? papi_get_meta_type( $type ) : 'post';
-		$this->id   = in_array( $this->type, ['post', 'term'], true );
+		$this->type  = $type === 'papi' ? $type : papi_get_meta_type( $type );
+		$this->id    = in_array( $this->type, ['post', 'term'], true );
+		$this->table = new Papi_Core_Data_Table;
 	}
 
 	/**
@@ -61,6 +62,8 @@ class Papi_Core_Data {
 	 */
 	public function get_function( $context = 'get' ) {
 		switch ( $this->type ) {
+			case 'papi':
+				return [$this->table, $context];
 			case 'option':
 				return sprintf( '%s_option', $context );
 			case 'site':
