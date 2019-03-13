@@ -138,6 +138,7 @@ class Papi_Property_Post extends Papi_Property {
 
 		// Prepare arguments for WP_Query.
 		$args = array_merge( $query, [
+			'post_status'            => 'any',
 			'post_type'              => $post_type,
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
@@ -218,7 +219,8 @@ class Papi_Property_Post extends Papi_Property {
 		$value              = $this->get_value();
 		$value              = $this->get_post_value( $value );
 		$selected_label     = is_array( $labels ) && ! empty( $labels ) ? array_values( $labels )[0] : '';
-		$selected_post_type = get_post_type( $value ) ? : '';
+		$selected_post_type = empty( $value ) ? '' : get_post_type( $value );
+		$selected_post_type = empty( $selected_post_type ) ? '' : $selected_post_type;
 		$posts              = $this->get_posts( $selected_post_type );
 
 		if ( $settings->select2 ) {

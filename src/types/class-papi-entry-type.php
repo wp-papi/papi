@@ -14,6 +14,13 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	protected $boxes = [];
 
 	/**
+	 * Menu to render entry type on.
+	 *
+	 * @var string
+	 */
+	public $menu = '';
+
+	/**
 	 * Load all boxes.
 	 *
 	 * @var bool
@@ -282,6 +289,15 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	 */
 	public function get_labels() {
 		return [];
+	}
+
+	/**
+	 * Get menu to render entry type on.
+	 *
+	 * @return string
+	 */
+	public function get_menu() {
+		return $this->menu;
 	}
 
 	/**

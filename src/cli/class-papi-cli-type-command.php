@@ -90,7 +90,7 @@ class Papi_CLI_Type_Command extends Papi_CLI_Command {
 				'meta type value' => $this->get_meta_type_value( $entry_type ),
 				'template'        => empty( $entry_type->template ) ? 'n/a' : $entry_type->template,
 				'type'            => $entry_type->get_type(),
-				'db count'        => $entry_type->type === 'option' ? 'n/a' : papi_get_entry_type_count( $entry_type )
+				'db count'        => $entry_type->get_type() === 'option' ? 'n/a' : papi_get_entry_type_count( $entry_type )
 			];
 		}, $entry_types );
 

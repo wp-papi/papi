@@ -6,18 +6,17 @@ import $ from 'jquery';
  * Uses the build in color picker in WordPress.
  */
 class Color {
-
   /**
    * Initialize Property Color.
    */
-  static init() {
+  static init () {
     new Color().binds();
   }
 
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     let self = this;
 
     $('.papi-property-color-picker input').each(self.showColorPicker);
@@ -31,8 +30,8 @@ class Color {
   /**
    * Show color picker.
    */
-  showColorPicker() {
-    const $el      = $(this);
+  showColorPicker () {
+    const $el = $(this);
     const settings = $el.data().settings || {};
 
     if (!$el.parent().hasClass('papi-property-color-picker')) {

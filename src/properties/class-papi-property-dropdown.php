@@ -89,6 +89,12 @@ class Papi_Property_Dropdown extends Papi_Property {
 
 		// Properties that extends dropdown property
 		// maybe don't have this setting.
+		if ( ! isset( $settings->selected ) ) {
+			$settings->selected = [];
+		}
+
+		// Properties that extends dropdown property
+		// maybe don't have this setting.
 		if ( ! isset( $settings->multiple ) ) {
 			$settings->multiple = false;
 		}

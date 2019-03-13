@@ -16,7 +16,7 @@ lint:
 	make lint:php
 
 lint\:js:
-	node_modules/.bin/eslint src/assets/js/*.js src/assets/js/properties/*.js
+	npm run lint
 
 lint\:php:
 	vendor/bin/phpcs -s --extensions=php --standard=phpcs.xml src/

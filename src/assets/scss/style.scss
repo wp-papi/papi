@@ -3,7 +3,7 @@
 @import "vendors/select2";
 
 @import "base/panel"; 						// not sure where this belongs / what it does, modules?
-@import "base/switcher"; 					// not sure where this belongs / what it does, modules? 
+@import "base/switcher"; 					// not sure where this belongs / what it does, modules?
 
 // Base Page-Type
 @import "base/typography";
@@ -15,12 +15,12 @@
 @import "components/table";				// TODO: more code to go through
 
 // Modules, collection of components
-@import "modules/box-list";				// Admin "Add new page" layout			
-@import "modules/iframe"; 
-@import "modules/options";				// not sure where this belongs / what it does 
+@import "modules/box-list";				// Admin "Add new page" layout
+@import "modules/iframe";
+@import "modules/options";				// not sure where this belongs / what it does
 @import "modules/tabs"; 					// TODO: test
 
-// Properties 
+// Properties
 @import "properties/checkbox";
 @import "properties/divider";
 @import "properties/file";
@@ -32,10 +32,12 @@
 @import "properties/radio"; 			// same content as checkbox, merge?
 @import "properties/reference";		// TODO: test
 @import "properties/relationship";
+@import "properties/reference";
 @import "properties/repeater";		// TODO: more code to go through
+@import "properties/table";
 @import "properties/term"; 				// I don't get this one? term is not a table? same as post
+@import "properties/text";
 @import "properties/url";
-
 
 
 // Needs some love
