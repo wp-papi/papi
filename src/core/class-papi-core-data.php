@@ -23,7 +23,7 @@ class Papi_Core_Data {
 	 */
 	public function __construct( $type = 'post' ) {
 		$this->type = is_string( $type ) ? papi_get_meta_type( $type ) : 'post';
-		$this->id   = $this->type !== 'option' && $this->type !== 'site' && $this->type !== 'network';
+		$this->id   = in_array( $this->type, ['post', 'term'], true );
 	}
 
 	/**
