@@ -34,7 +34,7 @@
     "webpack": "^3.0"
   },
   "scripts": {
-    "css": "node-sass -o dist/css/ --source-map dist/css/style.css.map src/assets/scss/style.scss > dist/css/style.css && autoprefixer-cli -b \"last 2 version\" dist/css/style.css dist/css/style.css && csso dist/css/style.css dist/css/style.min.css && echo \"\n/*# sourceMappingURL=style.min.css.map */\" >> dist/css/style.min.css && mv dist/css/style.css.map dist/css/style.min.css.map && rm dist/css/style.css",
+    "css": "node-sass -o dist/css/ --source-map dist/css/style.css.map src/assets/scss/style.scss && autoprefixer-cli -b \"last 2 version\" dist/css/style.css dist/css/style.css && csso dist/css/style.css dist/css/style.min.css && echo \"\n/*# sourceMappingURL=style.min.css.map */\" >> dist/css/style.min.css && mv dist/css/style.css.map dist/css/style.min.css.map && rm dist/css/style.css",
     "js": "webpack",
     "lint": "eslint src/assets/js/*.js src/assets/js/properties/*.js",
     "watch": "concurrently \"watch:css\" \"watch:js\"",
