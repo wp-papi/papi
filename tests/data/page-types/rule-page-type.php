@@ -131,5 +131,56 @@ class Rule_Page_Type extends Papi_Page_Type {
 				] ),
 			],
 		] );
+
+		$this->box( 'Group', [
+			papi_property( [
+				'title'    => 'CTA Button',
+				'slug'     => 'cta_link',
+				'type'     => 'group',
+				'settings' => [
+					'items' => [
+						papi_property( [
+							'title'    => 'Select link type',
+							'slug'     => 'selected_link_type',
+							'type'     => 'radio',
+							'sidebar'  => false,
+							'layout'   => 'row',
+							'settings' => [
+								'selected' => 'none',
+								'items'    => [
+									'None'              => 'none',
+									'Link to page'      => 'link_to_page',
+									'Scroll to content' => 'scroll_to_content',
+								],
+							],
+						] ),
+						papi_property( [
+							'slug'    => 'page_link',
+							'type'    => 'link',
+							'sidebar' => false,
+							'rules'   => [
+								[
+									'operator' => '=',
+									'value'    => 'link_to_page',
+									'slug'     => 'selected_link_type',
+								],
+							],
+						] ),
+						papi_property( [
+							'slug'        => 'scroll_link',
+							'description' => 'Button text',
+							'type'        => 'string',
+							'rules'       => [
+								[
+									'operator' => '=',
+									'value'    => 'scroll_to_content',
+									'slug'     => 'selected_link_type',
+								],
+							],
+						] ),
+					],
+				],
+			] ),
+		] );
 	}
 }
