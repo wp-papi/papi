@@ -310,7 +310,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	 */
 	public function get_property( $slug, $child_slug = '' ) {
 		$boxes = $this->get_boxes();
-		$parts = preg_split( '/\[\d+\]/', $slug );
+		$parts = preg_match( '/\[\d+\]/', $slug ) ? preg_split( '/\[\d+\]/', $slug ) : explode( '[', $slug );
 		$parts = array_map( function ( $part ) {
 			return preg_replace( '/(\[|\])/', '', $part );
 		}, $parts );

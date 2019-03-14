@@ -168,6 +168,7 @@ class Rules {
    */
   getRuleSlug (slug, rule) {
     const arrReg = /\[\d+\](\[\w+\])$/;
+    const arrReg2 = /^\w+\[(\w+)\]$/;
     const papiReg = /^papi_/;
 
     if (rule.slug.indexOf('.') !== -1) {
@@ -182,6 +183,12 @@ class Rules {
 
     if (arrReg.test(slug)) {
       slug = slug.replace(arrReg.exec(slug)[1], '[' + rule.slug.replace(papiReg, '') + ']');
+
+      if ($('[name="' + slug + '"]').length) {
+        rule.slug = slug;
+      }
+    } else if (arrReg2.test(slug)) {
+      slug = slug.replace(arrReg2.exec(slug)[1], rule.slug.replace('papi_', ''));
 
       if ($('[name="' + slug + '"]').length) {
         rule.slug = slug;
