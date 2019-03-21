@@ -125,7 +125,7 @@ class Rules {
   fetch (options, callback) {
     const params = {
       'action': 'get_rules_result',
-      'page_type': this.getPageTypeId(),
+      'entry_type': this.getPageTypeId(),
       'post': $('#post_ID').val()
     };
     const data = {
@@ -151,8 +151,12 @@ class Rules {
   getPageTypeId () {
     let pageType = Utils.getParameterByName('page_type');
 
-    if (!pageType.length) {
+    if (!pageType || !pageType.length) {
       pageType = $('[data-papi-page-type-key="true"]').val();
+    }
+
+    if (!pageType || !pageType.length) {
+      pageType = Utils.getParameterByName('page');
     }
 
     return pageType;

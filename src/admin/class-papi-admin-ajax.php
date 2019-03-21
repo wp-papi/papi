@@ -243,6 +243,11 @@ class Papi_Admin_Ajax {
 
 		$entry_type = papi_get_entry_type_by_meta_id();
 
+		if ( empty( $entry_type ) ) {
+			$entry_type_id = papi_get_qs( 'entry_type' );
+			$entry_type    = papi_get_entry_type_by_id( $entry_type_id );
+		}
+
 		if ( $entry_type instanceof Papi_Entry_Type === false ) {
 			$this->render_error( 'No rule found' );
 
