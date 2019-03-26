@@ -61,7 +61,8 @@ class Papi_Core_Property implements JsonSerializable {
 	 * @var array
 	 */
 	protected $option_aliases = [
-		'desc' => 'description'
+		'desc' => 'description',
+		'sets' => 'settings',
 	];
 
 	/**
