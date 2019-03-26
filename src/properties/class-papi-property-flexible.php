@@ -570,6 +570,8 @@ class Papi_Property_Flexible extends Papi_Property_Repeater {
 	protected function render_json_template( $slug ) {
 		$options = $this->get_options();
 
+		$options->settings->items = papi_to_array( $options->settings->items );
+
 		foreach ( $options->settings->items as $key => $value ) {
 			if ( ! isset( $value['items'] ) ) {
 				continue;
