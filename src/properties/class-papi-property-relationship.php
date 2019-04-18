@@ -244,13 +244,13 @@ class Papi_Property_Relationship extends Papi_Property {
 		}
 
 		// Prepare arguments for WP_Query.
-		$args = array_merge( $settings->query, [
+		$args = array_merge( [
 			'post_status'            => 'any',
 			'post_type'              => papi_to_array( $settings->post_type ),
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false
-		] );
+		], $settings->query );
 
 		$items = ( new WP_Query( $args ) )->posts;
 
