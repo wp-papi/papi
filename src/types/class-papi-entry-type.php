@@ -484,6 +484,10 @@ class Papi_Entry_Type extends Papi_Core_Type {
 		foreach ( $this->get_boxes() as $box ) {
 			new Papi_Admin_Meta_Box( $box );
 		}
+
+		foreach ( $this->get_boxes( ['block' => true] ) as $block ) {
+			new Papi_Admin_Block( $block );
+		}
 	}
 
 	/**

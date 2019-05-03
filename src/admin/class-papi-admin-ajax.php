@@ -99,22 +99,22 @@ class Papi_Admin_Ajax {
 			return;
 		}
 
-		$boxes = $entry_type->get_boxes( [
+		$blocks = $entry_type->get_boxes( [
 			'block' => true,
 		] );
 
-		if ( empty( $boxes ) ) {
+		if ( empty( $blocks ) ) {
 			$this->render_error( 'No blocks found' );
 			return;
 		}
 
-		foreach ( $boxes as $i => $box ) {
+		foreach ( $blocks as $i => $block ) {
 			ob_start();
-			papi_render_properties( $box->properties );
-			$boxes[$i]->html = ob_get_clean();
+			papi_render_properties( $block->properties );
+			$blocks[$i]->html = ob_get_clean();
 		}
 
-		wp_send_json( $boxes );
+		wp_send_json( $blocks );
 	}
 
 	/**
