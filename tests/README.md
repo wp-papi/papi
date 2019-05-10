@@ -43,7 +43,6 @@ $ vendor/bin/phpunit --coverage-text
 * Each test file should roughly correspond to an associated source file, e.g `src/admin/class-papi-admin-ajax.php` should have a test file named `tests/cases/admin/class-papi-admin-ajax-test.php`
 * Each test method should cover a single method or function with one or more assertions
 * A single method or function can have multiple associated test methods if it's a large or complex method
-* For code that cannot be tested or should not be tested use `// @codeCoverageIgnoreStart` and `// @codeCoverageIgnoreEnd` before and after the code.
 * In addition to covering each line of a method/function, make sure to test common input and edge cases. When resolving a issue you should create a test for it.
 * Prefer `assertsSame()` where possible as it tests equality. When testing objects you should use `assertEquals()` since object's can be different but with same data.
 * Remember that only methods prefixed with `test` will be run.

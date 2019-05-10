@@ -269,12 +269,10 @@ class Papi_Core_Property implements JsonSerializable {
 
 		$class = papi()->make( $class_name );
 
-		// @codeCoverageIgnoreStart
 		if ( ! is_object( $class ) || $class instanceof Papi_Core_Property === false ) {
 			$class = new $class_name();
 			papi()->bind( $class_name, $class );
 		}
-		// @codeCoverageIgnoreEnd
 
 		$property = clone $class;
 

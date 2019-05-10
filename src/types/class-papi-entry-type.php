@@ -115,11 +115,9 @@ class Papi_Entry_Type extends Papi_Core_Type {
 		);
 
 		// Check so we have a post the to add the box to.
-		// @codeCoverageIgnoreStart
 		if ( ! $this->load_boxes ) {
 			return;
 		}
-		// @codeCoverageIgnoreEnd
 
 		if ( is_callable( $properties ) ) {
 			$properties = call_user_func( $properties );
@@ -473,18 +471,28 @@ class Papi_Entry_Type extends Papi_Core_Type {
 			return $this->show_screen_options;
 		} );
 
-		// @codeCoverageIgnoreStart
 		if ( ! method_exists( $this, 'register' ) ) {
 			return;
 		}
-		// @codeCoverageIgnoreEnd
 
 		$this->register();
+		$this->setup_boxes();
+		$this->setup_blocks();
+	}
 
+	/**
+	 * Setup boxes.
+	 */
+	public function setup_boxes() {
 		foreach ( $this->get_boxes() as $box ) {
 			new Papi_Admin_Meta_Box( $box );
 		}
+	}
 
+	/**
+	 * Setup blocks.
+	 */
+	public function setup_blocks() {
 		foreach ( $this->get_boxes( ['block' => true] ) as $block ) {
 			new Papi_Admin_Block( $block );
 		}
