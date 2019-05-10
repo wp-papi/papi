@@ -25,6 +25,7 @@ final class Papi_Admin_Block {
 
 		if ( $block->display ) {
 			$this->block = $block;
+			$this->setup_actions();
 			$this->setup_block();
 		}
 	}
@@ -49,16 +50,37 @@ final class Papi_Admin_Block {
 	}
 
 	/**
+	 * Setup actions.
+	 */
+	protected function setup_actions() {
+
+	}
+
+	/**
 	 * Setup block.
 	 */
 	public function setup_block() {
-		$properties = $this->block->properties;
-
 		register_block_type( $this->block->name, [
 			'attributes' => $this->block->attributes,
-			'render_callback' => function( $block ) {
-
-			}
+			'render_callback' => [$this, 'render_block'],
 		] );
+	}
+
+	/**
+	 * Render block.
+	 *
+	 * @param  array  $attributes
+	 * @param  string $content
+	 * @param  bool   $is_preview
+	 * @param  int    $post_id
+	 */
+	public function render_block( $attributes, $content = '', $is_preview = false, $post_id = 0 ) {
+		if ( ! $post_id ) {
+			$post_id = get_the_ID();
+		}
+
+		ob_start();
+		papi_render_properties( $this->block->properties );
+		return ob_get_clean();
 	}
 }

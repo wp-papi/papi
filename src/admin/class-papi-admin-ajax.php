@@ -332,6 +332,28 @@ class Papi_Admin_Ajax {
 	}
 
 	/**
+	 * Set entry type on meta type.
+	 *
+	 * POST /papi-ajax/?action=set_entry_type
+	 */
+	public function set_entry_type() {
+		$data = json_decode( stripslashes( file_get_contents( 'php://input' ) ), true );
+
+		if ( empty( $data ) || ! isset( $data['object_id'] ) || ! isset( $data['entry_type'] ) ) {
+			$this->render_error( 'No data found2' );
+
+			return;
+		}
+
+		$object_id = $data['object_id'];
+		$meta_type = papi_get_meta_type( isset( $data['meta_type'] ) ? $data['meta_type'] : 'post' );
+
+		wp_send_json( [
+			'success' => papi_data_update( $object_id, papi_get_page_type_key(), $data['entry_type'], $meta_type )
+		] );
+	}
+
+	/**
 	 * Render error message.
 	 *
 	 * @param string $message
@@ -359,6 +381,7 @@ class Papi_Admin_Ajax {
 		add_action( $this->action_prefix . 'get_posts', [$this, 'get_posts'] );
 		add_action( $this->action_prefix . 'get_terms', [$this, 'get_terms'] );
 		add_action( $this->action_prefix . 'get_shortcode', [$this, 'get_shortcode'] );
+		add_action( $this->action_prefix . 'set_entry_type', [$this, 'set_entry_type'] );
 	}
 }
 
