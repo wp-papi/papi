@@ -300,6 +300,17 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	}
 
 	/**
+	 * Get blocks.
+	 *
+	 * @return array
+	 */
+	public function get_blocks() {
+		return $this->get_boxes( [
+			'block' => true,
+		] );
+	}
+
+	/**
 	 * Get labels that should be changed
 	 * when using `fill_labels` option.
 	 *
@@ -477,7 +488,6 @@ class Papi_Entry_Type extends Papi_Core_Type {
 
 		$this->register();
 		$this->setup_boxes();
-		$this->setup_blocks();
 	}
 
 	/**
@@ -493,7 +503,7 @@ class Papi_Entry_Type extends Papi_Core_Type {
 	 * Setup blocks.
 	 */
 	public function setup_blocks() {
-		foreach ( $this->get_boxes( ['block' => true] ) as $block ) {
+		foreach ( $this->get_blocks() as $block ) {
 			new Papi_Admin_Block( $block );
 		}
 	}

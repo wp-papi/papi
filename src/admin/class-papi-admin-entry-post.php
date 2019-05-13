@@ -153,12 +153,35 @@ class Papi_Admin_Entry_Post extends Papi_Admin_Entry {
 	}
 
 	/**
+	 * Setup blocks.
+	 *
+	 * @return void
+	 */
+	public function setup_blocks() {
+		$entry_type = papi_get_current_entry_type();
+
+		if ( empty( $entry_type ) ) {
+			return;
+		}
+
+		?>
+		<script type="text/javascript">
+			window.papi = window.papi || {};
+			window.papi.blocks = <?php echo json_encode( $entry_type->get_blocks() ); ?>;
+		</script>
+		<?php
+
+		$entry_type->setup_blocks();
+	}
+
+	/**
 	 * Setup actions.
 	 */
 	protected function setup_actions() {
 		add_action( 'load-post-new.php', [$this, 'load_post_new'] );
 		add_action( 'add_meta_boxes', [$this, 'hidden_meta_boxes'], 10 );
 		add_action( 'redirect_post_location', [$this, 'redirect_post_location'] );
+		add_action( 'admin_head', [$this, 'setup_blocks'] );
 	}
 
 	/**
@@ -167,8 +190,4 @@ class Papi_Admin_Entry_Post extends Papi_Admin_Entry {
 	protected function setup_filters() {
 		add_filter( 'wp_get_revision_ui_diff', [$this, 'get_revision_ui_diff'], 10, 3 );
 	}
-}
-
-if ( papi_is_admin() ) {
-	Papi_Admin_Entry_Post::instance();
 }

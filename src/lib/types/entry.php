@@ -1,6 +1,15 @@
 <?php
 
 /**
+ * Get current entry type if found.
+ *
+ * @return Papi_Entry_Type|null
+ */
+function papi_get_current_entry_type() {
+	return papi_get_entry_type_by_id( papi_get_entry_type_id() );
+}
+
+/**
  * Get entry type body classes.
  *
  * @param  int    $id

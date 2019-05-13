@@ -14,6 +14,7 @@ final class Papi_REST_API {
 	 * Load admin files that are not loaded by the autoload.
 	 */
 	protected function load_files() {
+		require_once __DIR__ . '/class-papi-rest-api-admin.php';
 		require_once __DIR__ . '/class-papi-rest-api-post.php';
 		require_once __DIR__ . '/class-papi-rest-api-settings.php';
 	}

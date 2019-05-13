@@ -15,6 +15,18 @@ class Papi_Lib_Types_Entry_Test extends WP_UnitTestCase {
 		papi()->reset();
 	}
 
+	public function test_papi_get_current_entry_type() {
+		$this->assertNull( papi_get_current_entry_type() );
+
+		add_filter( 'papi/settings/directories', function () {
+			return [1,  PAPI_FIXTURE_DIR . '/page-types'];
+		} );
+
+		$_GET['entry_type'] = 'simple-page-type';
+		$simple_page_type = papi_get_current_entry_type();
+		$this->assertTrue( is_object( $simple_page_type ) );
+	}
+
 	public function test_papi_get_entry_type_body_classes() {
 		global $post;
 

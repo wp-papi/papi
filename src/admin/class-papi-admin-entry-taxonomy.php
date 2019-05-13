@@ -126,7 +126,3 @@ class Papi_Admin_Entry_Taxonomy extends Papi_Admin_Entry {
 		}
 	}
 }
-
-if ( papi_is_admin() ) {
-	Papi_Admin_Entry_Taxonomy::instance();
-}

@@ -108,17 +108,24 @@ class Papi_Core_Block extends Papi_Core_Box {
 	 * @return array
 	 */
 	protected function get_attributes() {
-		$value = [];
-
-		foreach ( $this->properties as $property ) {
-			$slug = $property->get_slug( true );
-
-			$values[$slug] = [
-				'type' => $property->convert_type,
-			];
-		}
-
-		return $values;
+		return [
+			'id'   => [
+				'type'    => 'string',
+				'default' => '',
+			],
+			'name' => [
+				'type'    => 'string',
+				'default' => '',
+			],
+			'align' => [
+				'type'    => 'string',
+				'default' => '',
+			],
+			'mode' => [
+				'type'    => 'string',
+				'default' => '',
+			],
+		];
 	}
 
 	/**
