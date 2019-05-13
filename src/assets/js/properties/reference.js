@@ -4,18 +4,17 @@ import $ from 'jquery';
  * Property Reference.
  */
 class Reference {
-
   /**
    * Initialize Property Reference.
    */
-  static init() {
+  static init () {
     new Reference().binds();
   }
 
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     $(document).on('click', '.papi-property-reference .handlediv', this.toggle.bind(this));
   }
 
@@ -24,7 +23,7 @@ class Reference {
    *
    * @parma {object} e
    */
-  toggle(e) {
+  toggle (e) {
     e.preventDefault();
 
     $(e.currentTarget)

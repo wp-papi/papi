@@ -172,7 +172,15 @@ function papi_f( $str = '', $len = 1 ) {
  * @return string
  */
 function papi_get_class_name( $file ) {
-	if ( ! is_string( $file ) || ! file_exists( $file ) ) {
+	if ( ! is_string( $file ) ) {
+		return '';
+	}
+
+	if ( papi()->exists( $file ) ) {
+		return papi()->make( $file );
+	}
+
+	if ( ! file_exists( $file ) ) {
 		return '';
 	}
 
@@ -203,15 +211,19 @@ function papi_get_class_name( $file ) {
 		}
 	}
 
+	$val = $namespace_name . '\\' . $class_name;
+
 	if ( empty( $class_name ) ) {
-		return '';
+		$val = '';
 	}
 
 	if ( empty( $namespace_name ) ) {
-		return $class_name;
+		$val = $class_name;
 	}
 
-	return $namespace_name . '\\' . $class_name;
+	papi()->bind( $file, $val );
+
+	return $val;
 }
 
 /**

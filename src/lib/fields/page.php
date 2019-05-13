@@ -199,8 +199,8 @@ function papi_get_fields( $id = 0, $type = 'post' ) {
 	 *
 	 * Different filters for different types:
 	 *
-	 * - Post: papi/papi_get_fields
-	 * - Term: papi/papi_get_term_fields
+	 * - Post: papi/get_fields
+	 * - Term: papi/get_term_fields
 	 *
 	 * @param  array  $fields
 	 * @param  string $entry_type

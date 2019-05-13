@@ -6,6 +6,7 @@
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "lodash": "^4.17.11",
     "moment": "^2.11",
     "select2": "^4.0.5"
   },
@@ -16,18 +17,22 @@
     "babel-eslint": "^7.1",
     "babel-loader": "^7.1.0",
     "babel-preset-es2015": "^6.18",
+    "concurrently": "^4.1.0",
     "csso-cli": "^1.1.0",
-    "eslint": "^4.0.0",
-    "eslint-config-semistandard": "^11.0.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^6.0.0",
-    "eslint-plugin-promise": "^3.3",
-    "eslint-plugin-standard": "^3.0.1",
-    "node-sass": "^4.5",
-    "parallelshell": "^3.0.1",
-    "uglifyjs": "^2.4",
+    "sass": "^1.17.2",
+    "semistandard": "^13.0.1",
     "watch": "^1.0",
     "webpack": "^3.0"
+  },
+  "scripts": {
+    "css": "sass src/assets/scss/style.scss dist/css/style.css && autoprefixer-cli -b \"last 2 version\" dist/css/style.css dist/css/style.css && csso dist/css/style.css dist/css/style.min.css && echo \"\n/*# sourceMappingURL=style.min.css.map */\" >> dist/css/style.min.css && mv dist/css/style.css.map dist/css/style.min.css.map && rm dist/css/style.css",
+    "js": "webpack",
+    "lint": "semistandard --global papi --fix src/assets/js/*.js src/assets/js/properties/*.js",
+    "watch": "concurrently \"watch:css\" \"watch:js\"",
+    "watch:css": "watch \"npm run css\"",
+    "watch:js": "watch \"npm run js\""
+  },
+  "semistandard": {
+    "parser": "babel-eslint"
   }
 }

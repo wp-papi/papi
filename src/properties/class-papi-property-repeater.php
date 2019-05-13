@@ -174,7 +174,7 @@ class Papi_Property_Repeater extends Papi_Property {
 	 * @return string
 	 */
 	protected function get_child_slug( $repeater_slug, $child_slug ) {
-		return preg_replace( '/^\_/', '', preg_replace( '/\_\d+\_/', '', str_replace( $repeater_slug, '', $child_slug ) ) );
+		return preg_replace( '/^\_/', '', preg_replace( '/\_\d+\_/', '', preg_replace( sprintf( '/^%s/', $repeater_slug ), '', $child_slug ) ) );
 	}
 
 	/**

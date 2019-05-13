@@ -178,11 +178,9 @@ function papi_get_all_entry_types( array $args = [] ) {
 		}
 
 		// Only entry types can be loaded.
-		// @codeCoverageIgnoreStart
 		if ( $entry_type instanceof Papi_Entry_Type === false ) {
 			continue;
 		}
-		// @codeCoverageIgnoreEnd
 
 		if ( $entry_type->singleton() ) {
 			if ( isset( $singletons[$entry_type->type] ) ) {
@@ -241,7 +239,6 @@ function papi_get_entry_type( $file_path ) {
 	if ( ! papi()->exists( $id ) ) {
 		$class_name = papi_get_class_name( $file_path );
 
-		// @codeCoverageIgnoreStart
 		if ( ! class_exists( $class_name ) ) {
 			require_once $file_path;
 		}
@@ -249,7 +246,6 @@ function papi_get_entry_type( $file_path ) {
 		if ( ! class_exists( $class_name ) ) {
 			return;
 		}
-		// @codeCoverageIgnoreEnd
 
 		$rc = new ReflectionClass( $class_name );
 
@@ -350,6 +346,7 @@ function papi_get_entry_type_by_meta_id( $id = 0, $type = null ) {
  * @return string
  */
 function papi_get_entry_type_id( $id = 0, $type = null ) {
+	return 'gutenberg-page-type';
 	$type = papi_get_meta_type( $type );
 	$id   = papi_get_meta_id( $type, $id );
 

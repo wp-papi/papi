@@ -20,6 +20,13 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 			return [];
 		}
 
+		// Fixes issue when flexible and repeater are used with group property
+		// cache since we use repeaters format value function that cache values.
+		// At this point the value array don't know about the parent structure.
+		if ( $this->get_parent_property() instanceof Papi_Property_Repeater ) {
+			$this->cache = false;
+		}
+
 		$value = parent::format_value( $value, $slug, $post_id );
 
 		return array_shift( $value );
@@ -48,7 +55,7 @@ class Papi_Property_Group extends Papi_Property_Repeater {
 			return [];
 		}
 
-		return array_filter( papi_to_array( $settings->items ), 'papi_is_property' );
+		return array_filter( array_map( 'papi_property', papi_to_array( $settings->items ) ), 'papi_is_property' );
 	}
 
 	/**

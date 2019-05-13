@@ -7,18 +7,17 @@ import Pikaday from 'components/pikaday';
  * Using Pikaday with time fields and some custom fixes.
  */
 class Datetime {
-
   /**
    * Initialize Property Datetime.
    */
-  static init() {
+  static init () {
     new Datetime().binds();
   }
 
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     this.pikaday($('.inside > .papi-table > tbody > tr > td > input.papi-property-datetime'));
     this.pikaday($('.papi-table .papi-table input.papi-property-datetime'));
 
@@ -30,7 +29,7 @@ class Datetime {
    *
    * @param {object} $prop
    */
-  pikaday($props) {
+  pikaday ($props) {
     if (!$props.length) {
       return;
     }
@@ -62,7 +61,7 @@ class Datetime {
    *
    * @param {object} e
    */
-  updateSelect(e) {
+  updateSelect (e) {
     e.preventDefault();
     this.pikaday($(e.currentTarget).prev().find('.papi-property-datetime'));
   }

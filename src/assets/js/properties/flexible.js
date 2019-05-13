@@ -3,20 +3,19 @@ import Repeater from 'properties/repeater';
 import Utils from 'utils';
 
 class Flexible extends Repeater {
-
   /**
    * The template to use.
    *
    * @var {function}
    */
-  get template() {
+  get template () {
     return window.wp.template('papi-property-flexible-row');
   }
 
   /**
    * Initialize Property Flexible.
    */
-  static init() {
+  static init () {
     new Flexible().binds();
   }
 
@@ -26,7 +25,7 @@ class Flexible extends Repeater {
    *
    * @param {object} $this
    */
-  add($this) {
+  add ($this) {
     const $repeater = $this.closest('.papi-property-repeater-top');
     const $tbody = $repeater.find('.repeater-tbody').first();
     const counter = $tbody.children().length;
@@ -50,26 +49,26 @@ class Flexible extends Repeater {
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     const self = this;
 
     $('.repeater-tbody').sortable({
       revert: true,
       handle: '.handle',
       helper: function (e, ui) {
-        ui.children().each(function() {
+        ui.children().each(function () {
           $(this).width($(this).width());
         });
         return ui;
       },
       start: function (e, ui) {
-        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) { return elem.id; });
+        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function (elem) { return elem.id; });
         self.deactivateEditors(editorIds);
       },
       stop: function (e, ui) {
         self.updateRowNumber($(this).closest('.repeater-tbody'));
 
-        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function(elem) { return elem.id; });
+        let editorIds = $.map($(ui.item).find('.wp-editor-area').get(), function (elem) { return elem.id; });
         self.activateEditors(editorIds);
       }
     });
@@ -117,7 +116,7 @@ class Flexible extends Repeater {
    * @param {string} flexibleLayout
    * @param {function} callback
    */
-  fetch(properties, counter, flexibleLayout, callback) {
+  fetch (properties, counter, flexibleLayout, callback) {
     const params = {
       'action': 'get_properties',
       'counter': counter,
@@ -142,7 +141,7 @@ class Flexible extends Repeater {
    *
    * @param {object} $this
    */
-  remove($this) {
+  remove ($this) {
     let $tbody = $this.closest('.papi-property-repeater-top');
 
     if ($tbody.hasClass('papi-property-flexible')) {
@@ -157,7 +156,7 @@ class Flexible extends Repeater {
    *
    * @param {object} $tbody
    */
-  updateDatabaseRowNumber($tbody) {
+  updateDatabaseRowNumber ($tbody) {
     let counter = $tbody.find('tr tbody tr').length;
 
     $tbody

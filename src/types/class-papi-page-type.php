@@ -124,6 +124,7 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	public function __construct( $file_path = '' ) {
 		parent::__construct( $file_path );
 		$this->setup_post_types();
+		$this->setup_page_templates();
 	}
 
 	/**
@@ -139,6 +140,18 @@ class Papi_Page_Type extends Papi_Entry_Type {
 		}
 
 		return papi_current_user_is_allowed( $this->capabilities ) && isset( $args[0] ) && in_array( $args[0], $this->post_type, true );
+	}
+
+	/**
+	 * Create Gutenberg block out of a meta box.
+	 *
+	 * @param mixed $file_or_options
+	 * @param array $properties
+	 */
+	public function block( $file_or_options = [], $properties = [] ) {
+		$this->box( $file_or_options, $properties, [
+			'block' => true,
+		] );
 	}
 
 	/**
@@ -299,8 +312,9 @@ class Papi_Page_Type extends Papi_Entry_Type {
 				continue;
 			}
 
-			// Add non post type support to remove meta boxes array.
-			if ( empty( $value ) ) {
+			if ( in_array( strtolower( $key ), ['all', 'normal', 'side', 'advanced'], true ) ) {
+				$value = strtolower( $key );
+			} else if ( empty( $value ) ) {
 				$value = 'normal';
 			}
 
@@ -314,10 +328,58 @@ class Papi_Page_Type extends Papi_Entry_Type {
 	 * Remove meta boxes.
 	 */
 	public function remove_meta_boxes() {
+		global $wp_meta_boxes;
+
 		$post_type = $this->get_post_type();
+		$context = [];
 
 		foreach ( $this->remove_meta_boxes as $item ) {
-			remove_meta_box( $item[0], $post_type, $item[1] );
+			if ( $item[0] !== $item[1] ) {
+				remove_meta_box( $item[0], $post_type, $item[1] );
+				continue;
+			}
+
+			$context = $item[0];
+
+			// Our special context.
+			if ( $context === 'all' ) {
+				$context = ['normal', 'side', 'advanced'];
+			} else {
+				$context = [strtolower( $context )];
+			}
+
+			foreach ( $context as $ctx ) {
+				if ( ! isset( $wp_meta_boxes[$post_type], $wp_meta_boxes[$post_type][$ctx] ) ) {
+					continue;
+				}
+
+				$meta_boxes = $wp_meta_boxes[$post_type][$ctx];
+
+				if ( ! is_array( $meta_boxes ) ) {
+					continue;
+				}
+
+				foreach ( $meta_boxes as $level ) {
+					foreach ( $level as $id => $box ) {
+						// Don't allow removing of papi boxes.
+						if ( strpos( $id, '_papi' ) !== false ) {
+							continue;
+						}
+
+						// Don't allow removing of submitdiv.
+						if ( $id === 'submitdiv' ) {
+							continue;
+						}
+
+						remove_meta_box( $id, $post_type, $ctx );
+					}
+				}
+		}
+		}
+
+		// Special for editor in normal context.
+		if ( in_array( 'normal', $context, true ) ) {
+			remove_post_type_support( 'page', 'editor' );
 		}
 	}
 
@@ -363,6 +425,31 @@ class Papi_Page_Type extends Papi_Entry_Type {
 		if ( count( $this->post_type ) === 1 && $this->post_type[0] === 'any' ) {
 			$this->post_type = get_post_types( '', 'names' );
 			$this->post_type = array_values( $this->post_type );
+		}
+	}
+
+	/**
+	 * Setup page templates if templates is a array.
+	 */
+	protected function setup_page_templates() {
+		if ( ! is_array( $this->template ) || ! $this->has_post_type( papi_get_post_type() ) ) {
+			return;
+		}
+
+		$this->show_page_template = true;
+		foreach ( $this->post_type as $post_type ) {
+			// Can't use `theme_templates` filter since it's added in 4.9.6.
+			add_filter( "theme_{$post_type}_templates", function( $templates ) {
+				foreach ( $this->template as $template ) {
+					if ( ! is_array( $template ) || ! isset( $template['template'], $template['label'] ) ) {
+						continue;
+					}
+
+					$templates[$template['template']] = $template['label'];
+				}
+
+				return $templates;
+			} );
 		}
 	}
 }

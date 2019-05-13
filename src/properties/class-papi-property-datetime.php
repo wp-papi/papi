@@ -13,8 +13,10 @@ class Papi_Property_Datetime extends Papi_Property {
 	public function get_default_settings() {
 		return [
 			'format'           => 'YYYY-MM-DD hh:mm:ss',
+			'first_day'        => 0,
 			'show_seconds'     => false,
 			'show_time'        => true,
+			'show_time_first'  => false,
 			'show_week_number' => false,
 			'use_24_hours'     => get_locale() === 'sv_SE'
 		];

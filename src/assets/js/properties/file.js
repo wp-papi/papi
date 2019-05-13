@@ -7,27 +7,26 @@ import Utils from 'utils';
  * Using the build in media management in WordPress.
  */
 class File {
-
   /**
    * The file template to compile.
    *
    * @return {function}
    */
-  get template() {
+  get template () {
     return window.wp.template('papi-property-file');
   }
 
   /**
    * Initialize Property Image.
    */
-  static init() {
+  static init () {
     new File().binds();
   }
 
   /**
    * Bind elements with functions.
    */
-  binds() {
+  binds () {
     $('.inside .papi-table > tbody .papi-property-file.multiple .attachments').sortable({
       revert: true
     });
@@ -44,18 +43,18 @@ class File {
    *
    * @param {object} e
    */
-  add(e) {
+  add (e) {
     e.preventDefault();
 
-    const $this    = $(e.currentTarget);
-    const $prop    = $this.closest('.papi-property-file');
-    const $select  = $this.closest('p');
-    const $target  = $prop.find('.attachments');
+    const $this = $(e.currentTarget);
+    const $prop = $this.closest('.papi-property-file');
+    const $select = $this.closest('p');
+    const $target = $prop.find('.attachments');
     const fileType = $prop.data('file-type');
     const multiple = $prop.hasClass('multiple');
-    const slug     = $this.data().slug;
-    const self     = this;
-    let library    = {};
+    const slug = $this.data().slug;
+    const self = this;
+    let library = {};
 
     if (fileType === 'image') {
       library.type = 'image';
@@ -97,7 +96,7 @@ class File {
    *
    * @param {object} e
    */
-  hover(e) {
+  hover (e) {
     e.preventDefault();
     $(e.currentTarget).find('a').toggle();
   }
@@ -107,7 +106,7 @@ class File {
    *
    * @param {object} e
    */
-  remove(e) {
+  remove (e) {
     e.stopPropagation();
     e.preventDefault();
 
@@ -133,7 +132,7 @@ class File {
    * @param {object} $el
    * @param {object} data
    */
-  render($el, data) {
+  render ($el, data) {
     let template = this.template;
     template = window._.template($.trim(template()));
     $el.append('<div class="attachment">' + template(data) + '</div>');
@@ -147,15 +146,15 @@ class File {
    *
    * @param {object} e
    */
-  replace(e) {
+  replace (e) {
     e.preventDefault();
 
-    const $this   = $(e.currentTarget);
-    const $prop   = $this.closest('.papi-property-file');
-    const $img    = $this.find('img[src]');
-    const $input  = $this.find('input[type=hidden]');
-    const postId  = $input.val();
-    let library   = {};
+    const $this = $(e.currentTarget);
+    const $prop = $this.closest('.papi-property-file');
+    const $img = $this.find('img[src]');
+    const $input = $this.find('input[type=hidden]');
+    const postId = $input.val();
+    let library = {};
 
     if ($prop.data('file-type') === 'image') {
       library.type = 'image';
@@ -165,7 +164,7 @@ class File {
       library: library,
       multiple: false
     }).on('open', () => {
-      let selection    = Utils.wpMediaFrame.state().get('selection');
+      let selection = Utils.wpMediaFrame.state().get('selection');
       const attachment = window.wp.media.attachment(postId);
 
       attachment.fetch();
@@ -198,7 +197,7 @@ class File {
    *
    * @param {object} e
    */
-  update(e) {
+  update (e) {
     e.preventDefault();
 
     $(e.currentTarget)

@@ -56,6 +56,10 @@ class Papi_Entry_Type_Test extends WP_UnitTestCase {
 		$this->assertSame( 'Info', $boxes[0]->title );
 
 		$this->assertEmpty( $this->empty_entry_type->get_boxes() );
+
+		$this->assertEmpty( $this->info_entry_type->get_boxes( [
+			'block' => true
+		] ) );
 	}
 
 	public function test_get_boxes_abstract() {

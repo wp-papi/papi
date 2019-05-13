@@ -67,11 +67,8 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 	}
 
 	public function test_papi_filter_page_type_directories() {
-		add_filter( 'papi/settings/directories', function () {
-			return [];
-		} );
-
-		$this->assertEmpty( papi_filter_settings_directories() );
+		$defaults = [get_template_directory() . '/page-types'];
+		$this->assertEquals( $defaults, papi_filter_settings_directories() );
 
 		add_filter( 'papi/settings/directories', function () {
 			return 'path';
@@ -79,12 +76,13 @@ class Papi_Lib_Filters_Test extends WP_UnitTestCase {
 
 		$directories = papi_filter_settings_directories();
 		$this->assertSame( 'path', $directories[0] );
+		$this->assertSame( 1, count( $directories ) );
 
 		add_filter( 'papi/settings/directories', function () {
 			return null;
 		} );
 
-		$this->assertEmpty( papi_filter_settings_directories() );
+		$this->assertEquals( $defaults, papi_filter_settings_directories() );
 	}
 
 	public function test_papi_filter_update_value() {
