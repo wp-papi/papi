@@ -8,7 +8,8 @@
   "dependencies": {
     "lodash": "^4.17.11",
     "moment": "^2.11",
-    "select2": "^4.0.5"
+    "select2": "^4.0.5",
+    "snyk": "^1.192.0"
   },
   "devDependencies": {
     "autoprefixer-cli": "^1.0",
@@ -30,9 +31,12 @@
     "lint": "semistandard --global papi --fix src/assets/js/*.js src/assets/js/properties/*.js",
     "watch": "concurrently \"watch:css\" \"watch:js\"",
     "watch:css": "watch \"npm run css\"",
-    "watch:js": "watch \"npm run js\""
+    "watch:js": "watch \"npm run js\"",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "semistandard": {
     "parser": "babel-eslint"
-  }
+  },
+  "snyk": true
 }
