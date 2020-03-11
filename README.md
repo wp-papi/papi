@@ -1,12 +1,10 @@
 # Papi
 
-![Papi](https://cloud.githubusercontent.com/assets/14610/9073902/16a6d906-3b05-11e5-9287-5644a96e9a82.png)
-
 > This is our fork of [wp-papi](https://github.com/wp-papi/papi) and may not work for you're needs.
 
 [![Build Status](https://travis-ci.org/stfturist/papi.svg?branch=master)](https://travis-ci.org/stfturist/papi)
 
-## Orginal readme
+![Papi](https://cloud.githubusercontent.com/assets/14610/9073902/16a6d906-3b05-11e5-9287-5644a96e9a82.png)
 
 [![Build Status](https://travis-ci.org/wp-papi/papi.svg?branch=master)](https://travis-ci.org/wp-papi/papi)
 [![Coverage Status](https://img.shields.io/codecov/c/github/wp-papi/papi.svg?style=flat)](https://codecov.io/github/wp-papi/papi)
