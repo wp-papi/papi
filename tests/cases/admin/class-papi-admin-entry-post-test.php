@@ -54,7 +54,7 @@ class Papi_Admin_Entry_Post_Test extends WP_UnitTestCase {
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=page';
 
 		add_filter( 'wp_redirect', function( $location ) {
-			$this->assertSame( 'edit.php?post_type=page&page=papi-add-new-page,page', $location );
+			$this->assertTrue( strpos( $location, 'edit.php?post_type=page&page=papi-add-new-page,page') !== false );
 			return false;
 		} );
 
@@ -67,7 +67,7 @@ class Papi_Admin_Entry_Post_Test extends WP_UnitTestCase {
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=page';
 
 		add_filter( 'wp_redirect', function( $location ) {
-			$this->assertSame( 'post-new.php?page_type=simple-page-type&post_type=page', $location );
+			$this->assertTrue( strpos( $location, 'post-new.php?page_type=simple-page-type&post_type=page') !== false );
 			return false;
 		} );
 
@@ -87,7 +87,7 @@ class Papi_Admin_Entry_Post_Test extends WP_UnitTestCase {
 
 		$_SERVER['REQUEST_URI'] = 'http://site.com/wp-admin/post-new.php?post_type=book';
 		add_filter( 'wp_redirect', function( $location ) {
-			$this->assertSame( 'post-new.php?page_type=book-page-type&post_type=book', $location );
+			$this->assertTrue( strpos( $location, 'post-new.php?page_type=book-page-type&post_type=book') !== false );
 			return false;
 		} );
 		$_GET['post_type'] = 'book';
