@@ -1,8 +1,8 @@
 # Papi
 
-> This is our fork of [wp-papi](https://github.com/wp-papi/papi) and may not work for you're needs.
-
 [![Build Status](https://travis-ci.org/stfturist/papi.svg?branch=master)](https://travis-ci.org/stfturist/papi)
+
+> This is our fork of [wp-papi](https://github.com/wp-papi/papi) and may not work for you're needs.
 
 ## Original readme
 
