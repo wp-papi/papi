@@ -21,7 +21,6 @@ before_script:
 script:
   - make lint:php
   - vendor/bin/phpunit --coverage-clover clover.xml
-  - vendor/bin/behat
 
 env:
   global:

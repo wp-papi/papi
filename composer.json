@@ -22,8 +22,7 @@
   },
   "require-dev": {
     "frozzare/wp-test-suite": "^1.0",
-    "wp-coding-standards/wpcs": "^0.13",
-    "behat/behat": "^2.5"
+    "wp-coding-standards/wpcs": "^0.13"
   },
   "scripts": {
     "post-install-cmd": "if [ -f vendor/bin/phpcs ]; then \"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs; fi",
