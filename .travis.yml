@@ -23,9 +23,6 @@ script:
   - vendor/bin/phpunit --coverage-clover clover.xml
   - vendor/bin/behat
 
-after_script:
-  - bash <(curl -s https://codecov.io/bash)
-
 env:
   global:
     - WP_CLI_BIN_DIR=/tmp/wp-cli-phar
