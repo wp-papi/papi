@@ -19,6 +19,7 @@
     <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores" />
     <exclude name="Generic.PHP.DisallowAlternativePHPTags.MaybeASPShortOpenTagFound" />
     <exclude name="Generic.PHP.DisallowAlternativePHPTags.MaybeASPOpenTagFound" />
+    <exclude name="Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure" />
     <exclude name="PSR2" />
     <!-- allow papi-loader.php -->
     <exclude name="WordPress.Files.FileName.InvalidClassFileName" />
