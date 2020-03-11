@@ -1,6 +1,5 @@
 import $ from 'jquery';
-
-const Pikaday = require('components/pikaday').default;
+import Pikaday from 'components/Pikaday';
 
 /**
  * Property Datetime.
