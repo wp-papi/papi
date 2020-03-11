@@ -1,12 +1,13 @@
-var path    = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
+  mode: process.env.NODE === 'production' ? 'production' : 'development',
   context: path.join(__dirname, 'src/assets/js'),
   devtool: 'source-map',
   entry: './main.js',
   externals: {
-    'jquery': 'jQuery'
+    jquery: 'jQuery'
   },
   output: {
     filename: './main.min.js',
@@ -23,16 +24,10 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015']
-        }
+        exclude: /node_modules/,
+        loader: 'babel-loader'
       }
     ]
   },
-  plugins: [
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new webpack.optimize.UglifyJsPlugin({minimize: true, sourceMap: true})
-  ]
+  plugins: [new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)]
 };

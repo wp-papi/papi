@@ -6,25 +6,29 @@
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^4.17.11",
     "moment": "^2.11",
     "select2": "^4.0.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@jitesoft/babel-preset-main": "^2.1.5",
     "autoprefixer-cli": "^1.0",
     "babel": "^6.5",
     "babel-core": "^6.17",
-    "babel-eslint": "^7.1",
-    "babel-loader": "^7.1.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.0.6",
     "babel-preset-es2015": "^6.18",
-    "concurrently": "^4.1.0",
-    "csso-cli": "^1.1.0",
+    "concurrently": "^5.1.0",
+    "core-js": "^3.6.4",
+    "csso-cli": "^3.0.0",
     "sass": "^1.17.2",
-    "semistandard": "^13.0.1",
+    "semistandard": "^14.2.0",
     "watch": "^1.0",
-    "webpack": "^3.0"
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
   },
   "scripts": {
+    "build": "NODE_ENV=production npm run js",
     "css": "sass src/assets/scss/style.scss dist/css/style.css && autoprefixer-cli -b \"last 2 version\" dist/css/style.css dist/css/style.css && csso dist/css/style.css dist/css/style.min.css && echo \"\n/*# sourceMappingURL=style.min.css.map */\" >> dist/css/style.min.css && mv dist/css/style.css.map dist/css/style.min.css.map && rm dist/css/style.css",
     "js": "webpack",
     "lint": "semistandard --global papi --fix src/assets/js/*.js src/assets/js/properties/*.js",
