@@ -118,9 +118,9 @@ class Papi_Property_Term extends Papi_Property {
 	protected function get_terms( $taxonomy ) {
 		// Prepare arguments for get_terms.
 		$query = $this->get_setting( 'query' );
-		$args  = array_merge( $query, [
+		$args  = array_merge( [
 			'fields' => 'id=>name'
-		] );
+		], $query );
 
 		$terms = [];
 		if ( taxonomy_exists( $taxonomy ) ) {

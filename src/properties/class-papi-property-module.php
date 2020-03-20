@@ -111,13 +111,13 @@ class Papi_Property_Module extends Papi_Property {
 		}
 
 		// Prepare arguments for WP_Query.
-		$args = array_merge( $query, [
+		$args = array_merge( [
 			'post_status'            => 'any',
 			'post_type'              => $post_type,
 			'no_found_rows'          => true,
 			'update_post_meta_cache' => false,
 			'update_post_term_cache' => false
-		] );
+		], $query );
 
 		return ( new WP_Query( $args ) )->posts;
 	}

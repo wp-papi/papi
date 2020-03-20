@@ -294,9 +294,9 @@ class Papi_Admin_Ajax {
 		$query    = is_array( $query ) ? $query : [];
 		$taxonomy = papi_get_qs( 'taxonomy' ) ?: '';
 
-		$args = array_merge( $query, [
+		$args = array_merge( [
 			'fields' => 'id=>name'
-		] );
+		], $query );
 
 		$terms = [];
 		if ( taxonomy_exists( $taxonomy ) ) {
