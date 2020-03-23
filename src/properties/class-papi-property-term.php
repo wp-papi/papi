@@ -24,7 +24,7 @@ class Papi_Property_Term extends Papi_Property {
 	public function format_value( $value, $slug, $term_id ) {
 		$meta_key = $this->get_setting( 'meta_key' );
 
-		if ( empty( trim( $value ) ) ) {
+		if ( is_string( $value ) && empty( trim( $value ) ) ) {
 			return;
 		}
 
