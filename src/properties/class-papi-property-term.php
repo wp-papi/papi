@@ -24,6 +24,10 @@ class Papi_Property_Term extends Papi_Property {
 	public function format_value( $value, $slug, $term_id ) {
 		$meta_key = $this->get_setting( 'meta_key' );
 
+		if ( empty( trim( $value ) ) ) {
+			return;
+		}
+
 		if ( empty( $meta_key ) ) {
 			if ( is_numeric( $value ) && intval( $value ) !== 0 ) {
 				$term_id = $value;
@@ -243,7 +247,7 @@ class Papi_Property_Term extends Papi_Property {
 				data-width="100%">
 
 				<?php if ( ! is_null( $settings->placeholder ) ): ?>
-					<option value="<?php echo esc_attr( $this->get_option( 'default', ' ' ) ); ?>"><?php echo esc_html( $placeholder ); ?></option>
+					<option value="<?php echo esc_attr( $this->get_option( 'default', '' ) ); ?>"><?php echo esc_html( $placeholder ); ?></option>
 				<?php endif; ?>
 
 				<?php foreach ( $taxonomies as $taxonomy ) : ?>
