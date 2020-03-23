@@ -25,7 +25,7 @@ class Papi_Property_Term extends Papi_Property {
 		$meta_key = $this->get_setting( 'meta_key' );
 
 		if ( is_string( $value ) && empty( trim( $value ) ) ) {
-			return;
+			return $this->default_value;
 		}
 
 		if ( empty( $meta_key ) ) {
