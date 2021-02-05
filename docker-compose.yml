@@ -1,15 +1,15 @@
-phpunit:
-  image: frozzare/wptest:7.0
-  command: vendor/bin/phpunit
-  volumes:
-    - .:/opt
-  links:
-    - mysql
-  environment:
-    - WP_VERSION=latest
+version: '3'
 
-mysql:
-  container_name: mysql
-  image: mariadb
-  environment:
-    - MYSQL_ALLOW_EMPTY_PASSWORD=true
+services:
+  mysql:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+  phpunit:
+    build:
+      context: ./tests
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - mysql
+    entrypoint: bash -c "composer install && vendor/frozzare/wp-test-suite/bin/install-wp-tests.sh wordpress_test root root mysql latest && vendor/bin/phpunit"
