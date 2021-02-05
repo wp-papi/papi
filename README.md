@@ -8,8 +8,6 @@
 
 ![Papi](https://cloud.githubusercontent.com/assets/14610/9073902/16a6d906-3b05-11e5-9287-5644a96e9a82.png)
 
-[![Build Status](https://travis-ci.org/wp-papi/papi.svg?branch=master)](https://travis-ci.org/wp-papi/papi)
-[![Coverage Status](https://img.shields.io/codecov/c/github/wp-papi/papi.svg?style=flat)](https://codecov.io/github/wp-papi/papi)
 [![Latest Version](https://img.shields.io/github/release/wp-papi/papi.svg?style=flat)](https://github.com/wp-papi/papi/releases)
 [![License](https://img.shields.io/packagist/l/wp-papi/papi.svg)](https://packagist.org/packages/wp-papi/papi)
 [![Gitter](https://badges.gitter.im/wp-papi/papi.svg)](https://gitter.im/wp-papi/papi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
@@ -39,7 +37,7 @@ Or manually add it to your `composer.json`:
 
 ```json
 "require": {
-  "php": "^5.6 || ^7.0",
+  "php": "^^7.4",
   "wordpress": "^4.6",
   "wp-papi/papi": "^3.2"
 }
