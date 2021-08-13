@@ -1,11 +1,5 @@
 # Papi
 
-[![Build Status](https://travis-ci.org/stfturist/wp-papi.svg?branch=master)](https://travis-ci.org/stfturist/wp-papi)
-
-> This is our fork of [wp-papi](https://github.com/wp-papi/papi) and may not work for you're needs.
-
-## Original readme
-
 ![Papi](https://cloud.githubusercontent.com/assets/14610/9073902/16a6d906-3b05-11e5-9287-5644a96e9a82.png)
 
 [![Latest Version](https://img.shields.io/github/release/wp-papi/papi.svg?style=flat)](https://github.com/wp-papi/papi/releases)
