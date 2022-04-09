@@ -6,7 +6,7 @@
   "author": "Fredrik Forsmo <fredrik.forsmo@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "moment": "^2.11",
+    "moment": "^2.29",
     "select2": "^4.0.5"
   },
   "devDependencies": {
