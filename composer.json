@@ -4,11 +4,13 @@
   "license": "MIT",
   "description": "WordPress Page Type API with custom fields",
   "homepage": "https://wp-papi.github.io",
-  "authors": [{
-    "name": "Fredrik Forsmo",
-    "email": "fredrik.forsmo@gmail.com",
-    "homepage": "https://github.com/frozzare"
-  }],
+  "authors": [
+    {
+      "name": "Fredrik Forsmo",
+      "email": "fredrik.forsmo@gmail.com",
+      "homepage": "https://github.com/frozzare"
+    }
+  ],
   "keywords": [
     "wordpress",
     "custom fields",
@@ -18,7 +20,7 @@
     "options"
   ],
   "require": {
-    "php": "^5.6 || ^7.0"
+    "php": "^5.6 || ^7.0 || ^8.0"
   },
   "require-dev": {
     "frozzare/wp-test-suite": "^1.0",
